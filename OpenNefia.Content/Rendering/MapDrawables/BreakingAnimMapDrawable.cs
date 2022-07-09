@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Rendering
             IoCManager.InjectDependencies(this);
 
             if (waitSecs == null)
-                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) * 10;
+                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) / 10;
 
             AssetParticle = Assets.Get(asset);
             Particles = Enumerable.Range(0, maxParticles)
@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Rendering
 
         protected override void DrawParticle(Vector2i pixelPos, float frame, Vector2 particlePixelPos, int particleIndex)
         {
-            var x = pixelPos.X + particlePixelPos.X;
+            var x = pixelPos.X + particlePixelPos.X + _coords.TileSize.X / 2;
             var add = 0f;
             if ((particleIndex % 2) == 0)
             {

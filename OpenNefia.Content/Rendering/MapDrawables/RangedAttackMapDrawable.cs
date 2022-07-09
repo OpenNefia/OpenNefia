@@ -5,6 +5,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.Rendering
             if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
                 maxFrames = (int)dist / 2 + 1;
             }
-            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 1, (uint)maxFrames);
+            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 5, (uint)maxFrames);
         }
 
         public override void OnThemeSwitched()
@@ -109,7 +110,7 @@ namespace OpenNefia.Content.Rendering
                     _coords.TileSize.Y,
                     color: _color, 
                     centered: true, 
-                    rotationRads: (float)Angle.BetweenPoints(_startPos.Position, _endPos.Position).Theta);
+                    rotationRads: -(float)Angle.BetweenPoints(_endPos.Position, _startPos.Position).Theta);
                 _chipBatch.Flush();
                 _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);
             }
