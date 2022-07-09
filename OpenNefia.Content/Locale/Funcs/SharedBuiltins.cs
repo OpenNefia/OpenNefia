@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Locale.Funcs
         /// </summary>
         /// <hsp>#defcfunc name int tc</hsp>
         [LocaleFunction("name")]
-        public static string BuiltIn_name(object? obj, bool ignoreSight = false, int quantity = -1)
+        public static string BuiltIn_name(object? obj, bool? ignoreSight = null, int quantity = -1)
         {
             if (obj is string s)
                 return s;
@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Locale.Funcs
 
             var visibilitySys = EntitySystem.Get<VisibilitySystem>();
 
-            if (!visibilitySys.CanSeeEntity(GameSession.Player, entity) && !ignoreSight)
+            if (!visibilitySys.CanSeeEntity(GameSession.Player, entity) && !(ignoreSight ?? false))
             {
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }

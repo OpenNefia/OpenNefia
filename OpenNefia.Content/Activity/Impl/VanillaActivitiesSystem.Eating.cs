@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
-        [Dependency] private readonly IHungerSystem _hunger = default!;
-
         private void Initialize_Eating()
         {
             SubscribeComponent<ActivityEatingComponent, OnActivityStartEvent>(Eating_OnStart);
