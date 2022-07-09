@@ -34,6 +34,7 @@ namespace OpenNefia.Content.EntityGen
         void FireGeneratingEvents(EntityUid entity, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityUid entity, int? amount = null, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int? amount = null, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map, int? amount = null, EntityGenArgSet? args = null);
     }
@@ -149,6 +150,16 @@ namespace OpenNefia.Content.EntityGen
             }
 
             return SpawnEntity(protoId, entityCoords, count, args);
+        }
+
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityUid entity, int? count = null, EntityGenArgSet? args = null)
+        {
+            if (!TryComp<SpatialComponent>(entity, out var spatial))
+            {
+                return null;
+            }
+
+            return SpawnEntity(protoId, spatial.Coordinates, count, args);
         }
 
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map, int? count = null, EntityGenArgSet? args = null)

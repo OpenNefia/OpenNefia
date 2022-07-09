@@ -13,6 +13,7 @@ namespace OpenNefia.Content.Buffs
     public interface IBuffsSystem : IEntitySystem
     {
         void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
+        void AddBuff(EntityUid target, EntityUid source, string id, int power, int turns, BuffsComponent? buffs = null);
     }
 
     public sealed class BuffsSystem : EntitySystem, IBuffsSystem
@@ -41,6 +42,14 @@ namespace OpenNefia.Content.Buffs
             if (!Resolve(entity, ref buffs))
                 return;
 
+            // TODO
+        }
+
+        public void AddBuff(EntityUid target, EntityUid source, string id, int power, int turns, BuffsComponent? buffs = null)
+        {
+            if (!Resolve(target, ref buffs))
+                return;
+            
             // TODO
         }
     }

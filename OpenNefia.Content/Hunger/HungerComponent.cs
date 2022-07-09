@@ -15,11 +15,17 @@ namespace OpenNefia.Content.Hunger
 
         [DataField]
         public int Nutrition { get; set; } = 0;
+
+        [DataField]
+        public bool IsAnorexic { get; set; }
+
+        [DataField]
+        public int AnorexiaCounter { get; set; }
     }
 
     public static class HungerLevels
     {
-        public const int Starving = 1000;
+        public const int VeryHungry = 1000;
         public const int Hungry = 2000;
         public const int Normal = 5000;
         public const int Ally = 6000;
