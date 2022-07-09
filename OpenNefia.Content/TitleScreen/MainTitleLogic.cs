@@ -120,6 +120,7 @@ namespace OpenNefia.Content.TitleScreen
             var layer = _uiManager.CreateLayer<CharaMakeCharaSheetLayer>();
             var player = layer.CreatePlayerEntity(new List<ICharaMakeResult>()
             {
+                new CharaMakeClassSelectLayer.ResultData(Protos.Class.Predator),
                 new CharaMakeRaceSelectLayer.ResultData(Protos.Race.God),
             });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Skills;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 
-namespace OpenNefia.Core.Prototypes
+namespace OpenNefia.Content.Prototypes
 {
     [Prototype("Elona.Class")]
     public class ClassPrototype : IPrototype
