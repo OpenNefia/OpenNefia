@@ -1,12 +1,15 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Rendering;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UserInterface;
 
@@ -20,6 +23,8 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
 
@@ -42,8 +47,11 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Thrower, out SpatialComponent sourceSpatial))
                 return;
 
-            var drawable = new RangedAttackMapDrawable(sourceSpatial.MapPosition, args.Coords, targetChip.ChipID, targetChip.Color);
-            _mapDrawables.Enqueue(drawable, sourceSpatial.MapPosition);
+            var animAttack = new RangedAttackMapDrawable(sourceSpatial.MapPosition, args.Coords, targetChip.ChipID, targetChip.Color);
+            _mapDrawables.Enqueue(animAttack, sourceSpatial.MapPosition);
+
+            var animBreaking = new BreakingFragmentsMapDrawable();
+            _mapDrawables.Enqueue(animBreaking, args.Coords);
         }
 
         private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
@@ -81,7 +89,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (!posResult.Value.CanSee)
             {
-                _mes.Display("You can't see the location.");
+                _mes.Display(Loc.GetString("Elona.TargetText.CannotSeeLocation"));
                 args.Handle(TurnResult.Failed);
                 return;
             }
@@ -97,12 +105,22 @@ namespace OpenNefia.Content.GameObjects
 
         public bool ThrowEntity(EntityUid source, EntityUid throwing, MapCoordinates coords)
         {
-            if (!_mapManager.MapIsLoaded(coords.MapId) 
-                || !EntityManager.IsAlive(source) 
-                || !EntityManager.IsAlive(throwing))
+            if (!_mapManager.TryGetMap(coords.MapId, out var map)
+                || !EntityManager.IsAlive(source)
+                || !EntityManager.IsAlive(throwing)
+                || !Spatial(source).MapPosition.TryDistanceTiled(coords, out var dist))
                 return false;
 
-            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)));
+            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)), entity: source);
+
+            // Offset final position randomly based on Throwing skill
+            if (dist * 4 > _rand.Next(_skills.Level(source, Protos.Skill.Throwing) + 10) + _skills.Level(source, Protos.Skill.Throwing) / 4
+                || _rand.OneIn(10))
+            {
+                var newPos = coords.Position + _rand.NextVec2iInRadius(2);
+                if (map.CanAccess(newPos))
+                    coords = new(coords.MapId, newPos);
+            }
 
             var ev = new EntityThrownEventArgs(source, coords);
             RaiseEvent(throwing, ev);
@@ -117,7 +135,7 @@ namespace OpenNefia.Content.GameObjects
             DoEntityThrown(target, args);
         }
 
-        private void DoEntityThrown(EntityUid thrown, 
+        private void DoEntityThrown(EntityUid thrown,
             EntityThrownEventArgs args,
             SpatialComponent? sourceSpatial = null,
             SpatialComponent? targetSpatial = null)
@@ -153,7 +171,7 @@ namespace OpenNefia.Content.GameObjects
                 if (!EntityManager.IsAlive(thrown))
                 {
                     return;
-                }    
+                }
             }
 
             var ev3 = new ThrownEntityImpactedGroundEvent(args.Thrower, args.Coords);
