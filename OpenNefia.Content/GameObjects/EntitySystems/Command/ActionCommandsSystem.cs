@@ -21,14 +21,11 @@ namespace OpenNefia.Content.GameObjects
 {
     public class ActionCommandsSystem : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly ITargetingSystem _targeting = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly ICombatSystem _combat = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IActionBashSystem _actionBash = default!;
         [Dependency] private readonly IActionDigSystem _actionDig = default!;
 
