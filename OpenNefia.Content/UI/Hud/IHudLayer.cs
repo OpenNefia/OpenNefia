@@ -1,5 +1,7 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Content.Hud;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Layer;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.UI.Hud
 {
@@ -15,5 +17,11 @@ namespace OpenNefia.Content.UI.Hud
 
         void Initialize();
         void ClearWidgets();
+        bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
+            where T : class, IHudWidget;
+        bool TryGetWidget<T>([NotNullWhen(true)] out T? widget)
+            where T : class, IHudWidget;
+        bool TryGetWidgetInstance<T>([NotNullWhen(true)] out WidgetInstance? instance)
+            where T : class, IHudWidget;
     }
 }

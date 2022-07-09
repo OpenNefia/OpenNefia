@@ -75,11 +75,21 @@ namespace OpenNefia.Core.Rendering
             }
 
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
-        }
+        }   
 
-        public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
+        public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width = null, float? height = null, float rotation = 0)
         {
+            var oldScissor = Love.Graphics.GetScissor();
+            if (width != null && height != null)
+            {
+                Love.Graphics.SetScissor(new Love.RectangleF(x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale));
+            }
             Love.Graphics.Draw(batch, x * uiScale, y * uiScale, rotation);
+
+            if (oldScissor != null)
+                Love.Graphics.SetScissor(oldScissor.Value);
+            else
+                Love.Graphics.SetScissor();
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)

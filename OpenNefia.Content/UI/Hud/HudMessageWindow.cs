@@ -2,6 +2,7 @@
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;

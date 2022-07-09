@@ -139,6 +139,10 @@ binds:
 - function: Elona.Bash
   type: State
   key: B
+- function: Elona.Rest
+  type: State
+  key: R
+  mod1: Shift
 - function: Elona.Examine
   type: State
   key: X

@@ -1,5 +1,6 @@
 ﻿using Moq;
 using OpenNefia.Content.DebugView;
+using OpenNefia.Content.Hud;
 using OpenNefia.Content.Repl;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
@@ -9,6 +10,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Tests;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +57,28 @@ namespace OpenNefia.Content.Tests
         public void UpdateTime()
         {
         }
+
+        public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
+            where T : class, IHudWidget
+        {
+            widget = null;
+            instance = null;
+            return false;
+        }
+
+        public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget)
+            where T : class, IHudWidget
+        {
+            widget = null;
+            return false;
+        }
+
+        public bool TryGetWidgetInstance<T>([NotNullWhen(true)] out WidgetInstance? instance)
+            where T : class, IHudWidget
+        {
+            instance = null;
+            return false;
+        }
     }
 
     public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
@@ -69,7 +93,7 @@ namespace OpenNefia.Content.Tests
         public void Print(string queryText, Color? color = null)
         {
         }
-        
+
         public void Newline()
         {
         }

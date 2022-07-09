@@ -8,6 +8,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color TextBlack = new(0, 0, 0, 255);
         public static readonly Color TextDisabled = new(0, 0, 0, 128);
         public static readonly Color TextKeyHintBar = new(250, 250, 250, 255);
+        public static readonly Color TextAutoTurn = new(235, 235, 235, 255);
 
         public static readonly Color ListSelectedAdd = new(50, 50, 50, 255);
         public static readonly Color ListSelectedSub = new(30, 10, 0, 255);
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color TopicWindowStyle2 = new(45, 40, 50, 255);
         public static readonly Color TopicWindowStyle3 = new(245, 242, 239, 255);
         public static readonly Color TopicWindowStyle4 = new(60, 50, 60, 255);
-        public static readonly Color TopicWindowStyle5 = new(255, 255, 255, 255);
+        public static readonly Color TopicWindowStyle5 = new(195, 205, 195, 255);
         public static readonly Color TopicWindowStyle6 = new(255, 255, 255, 180);
 
         public static readonly Color PromptBackground = new(0, 0, 0, 127);

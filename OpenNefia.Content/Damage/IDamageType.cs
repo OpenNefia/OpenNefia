@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Damage
         /// Displayed in the high-score (bones) menu when prompted to revive.
         /// </summary>
         /// <remarks>
-        /// "was squashed by a putitoro."
+        /// "Lomias was squashed by a putitoro."
         /// </remarks>
         string LocalizeDeathCauseMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager);
     }
@@ -54,7 +54,6 @@ namespace OpenNefia.Content.Damage
         public string LocalizeDeathMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager)
         {
             return Loc.GetString("Elona.DamageType.Default.Death.Passive", ("entity", target));
-
         }
     }
 
