@@ -27,7 +27,6 @@ namespace OpenNefia.Content.Activity
         bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, ActivityComponent activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
-        void GetActingEntity(EntityUid activity, ActivityComponent? activityComp = null);
     }
 
     public sealed class ActivitySystem : EntitySystem, IActivitySystem
@@ -306,10 +305,6 @@ namespace OpenNefia.Content.Activity
                 if (soundId != null)
                     _audio.Play(soundId.Value, actor);
             }
-        }
-
-        public void GetActingEntity(EntityUid activity, ActivityComponent? activityComp = null)
-        {
         }
     }
 

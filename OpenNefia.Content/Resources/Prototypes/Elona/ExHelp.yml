@@ -1,0 +1,70 @@
+---
+- type: Elona.ExHelp
+  id: Elona.First
+  hspIds:
+    elona122: 1
+- type: Elona.ExHelp
+  id: Elona.WorldMap
+  hspIds:
+    elona122: 2
+- type: Elona.ExHelp
+  id: Elona.Town
+  hspIds:
+    elona122: 3
+- type: Elona.ExHelp
+  id: Elona.Quest
+  hspIds:
+    elona122: 4
+- type: Elona.ExHelp
+  id: Elona.MaterialSpot
+  hspIds:
+    elona122: 5
+- type: Elona.ExHelp
+  id: Elona.Nefia
+  hspIds:
+    elona122: 6
+- type: Elona.ExHelp
+  id: Elona.Innkeeper
+  hspIds:
+    elona122: 7
+- type: Elona.ExHelp
+  id: Elona.Trainer
+  hspIds:
+    elona122: 8
+- type: Elona.ExHelp
+  id: Elona.Sleep
+  hspIds:
+    elona122: 9
+- type: Elona.ExHelp
+  id: Elona.Hunger
+  hspIds:
+    elona122: 10
+- type: Elona.ExHelp
+  id: Elona.BadWeather
+  hspIds:
+    elona122: 11
+- type: Elona.ExHelp
+  id: Elona.Snow
+  hspIds:
+    elona122: 12
+- type: Elona.ExHelp
+  id: Elona.Etherwind
+  hspIds:
+    elona122: 13
+- type: Elona.ExHelp
+  id: Elona.Shelter
+  hspIds:
+    elona122: 14
+- type: Elona.ExHelp
+  id: Elona.EtherDisease
+  hspIds:
+    elona122: 15
+- type: Elona.ExHelp
+  id: Elona.Salary
+  hspIds:
+    elona122: 16
+- type: Elona.ExHelp
+  id: Elona.Moongate
+  hspIds:
+    elona122: 17
+...

@@ -903,6 +903,8 @@ end
 
 handlers["elona.shop_inventory"] = function(from, to) end
 
+handlers["elona.ex_help"] = function(from, to) end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1162,6 +1164,7 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
 -- write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
+write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)
