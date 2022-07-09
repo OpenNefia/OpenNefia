@@ -25,7 +25,7 @@ namespace OpenNefia.Content.Activity
         void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
         bool TryGetActivity(EntityUid entity, [NotNullWhen(true)] out ActivityComponent? activityEnt, ActivityHolderComponent? activityHolder = null);
         bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
-        bool StartActivity(EntityUid entity, ActivityComponent activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
+        bool StartActivity(EntityUid entity, EntityUid activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
     }
 
@@ -94,15 +94,15 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        private void PassActivityTurn(EntityUid uid, ActivityComponent? activityComp = null)
+        private void PassActivityTurn(EntityUid actor, ActivityComponent? activityComp = null)
         {
             if (activityComp == null)
             {
-                if (!TryGetActivity(uid, out activityComp))
+                if (!TryGetActivity(actor, out activityComp))
                     return;
             }
 
-            if (_gameSession.IsPlayer(uid))
+            if (_gameSession.IsPlayer(actor))
             {
                 if (activityComp.AnimationWait > 0)
                 {
@@ -122,13 +122,13 @@ namespace OpenNefia.Content.Activity
 
             if (activityComp.TurnsRemaining <= 0)
             {
-                var evFinish = new OnActivityFinishEvent();
+                var evFinish = new OnActivityFinishEvent(actor);
                 RaiseEvent(activityComp.Owner, evFinish);
-                RemoveActivity(uid);
+                RemoveActivity(actor);
                 return;
             }
-
-            var ev = new OnActivityPassTurnEvent();
+            
+            var ev = new OnActivityPassTurnEvent(actor);
             RaiseEvent(activityComp.Owner, ev);
 
             activityComp.TurnsRemaining--;
@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Activity
             if (!TryGetActivity(entity, out var activityEnt, activityHolder))
                 return;
 
-            var ev = new OnActivityCleanupEvent();
+            var ev = new OnActivityCleanupEvent(entity);
             RaiseEvent(activityEnt.Owner, ev);
 
             activityHolder.Container.ForceRemove(activityEnt.Owner);
@@ -208,7 +208,7 @@ namespace OpenNefia.Content.Activity
             return TryGetActivity(entity, out _, activityHolder);
         }
 
-        public bool StartActivity(EntityUid entity, ActivityComponent activityComp, int? turns = null, ActivityHolderComponent? activityHolder = null)
+        public bool StartActivity(EntityUid entity, EntityUid activity, int? turns = null, ActivityHolderComponent? activityHolder = null)
         {
             if (!Resolve(entity, ref activityHolder))
                 return false;
@@ -216,7 +216,7 @@ namespace OpenNefia.Content.Activity
             if (HasActivity(entity, activityHolder))
                 RemoveActivity(entity, activityHolder);
 
-            var activity = activityComp.Owner;
+            var activityComp = EnsureComp<ActivityComponent>(activity);
 
             activityComp.Actor = entity;
             activityHolder.Container.Insert(activity);
@@ -232,7 +232,7 @@ namespace OpenNefia.Content.Activity
                 activityComp.TurnsRemaining = evTurns.OutTurns;
             }
 
-            var evStart = new OnActivityStartEvent();
+            var evStart = new OnActivityStartEvent(entity);
             RaiseEvent(activity, evStart);
             if (evStart.Cancelled)
             {
@@ -262,7 +262,7 @@ namespace OpenNefia.Content.Activity
                 return false;
             }
 
-            return StartActivity(entity, Comp<ActivityComponent>(activity), turns, activityHolder);
+            return StartActivity(entity, activity, turns, activityHolder);
         }
         
 
@@ -325,17 +325,41 @@ namespace OpenNefia.Content.Activity
 
     public sealed class OnActivityStartEvent : CancellableEntityEventArgs
     {
+        public EntityUid Actor { get; }
+
+        public OnActivityStartEvent(EntityUid actor)
+        {
+            Actor = actor;
+        }
     }
 
     public sealed class OnActivityPassTurnEvent : HandledEntityEventArgs
     {
+        public EntityUid Actor { get; }
+
+        public OnActivityPassTurnEvent(EntityUid actor)
+        {
+            Actor = actor;
+        }
     }
 
     public sealed class OnActivityFinishEvent : EntityEventArgs
     {
+        public EntityUid Actor { get; }
+
+        public OnActivityFinishEvent(EntityUid actor)
+        {
+            Actor = actor;
+        }
     }
 
     public sealed class OnActivityCleanupEvent : EntityEventArgs
     {
+        public EntityUid Actor { get; }
+
+        public OnActivityCleanupEvent(EntityUid actor)
+        {
+            Actor = actor;
+        }
     }
 }

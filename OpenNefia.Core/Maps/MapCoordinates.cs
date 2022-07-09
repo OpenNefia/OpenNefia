@@ -15,6 +15,7 @@ namespace OpenNefia.Core.Maps
     public readonly struct MapCoordinates : IEquatable<MapCoordinates>
     {
         public static readonly MapCoordinates Nullspace = new(MapId.Nullspace, Vector2i.Zero);
+        public static readonly MapCoordinates Global = new(MapId.Global, Vector2i.Zero);
 
         /// <summary>
         ///     World Position coordinates.

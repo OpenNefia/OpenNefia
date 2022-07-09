@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Ranks
 {
     public interface IRankSystem : IEntitySystem
     {
-        IEnumerable<Rank> EnumerateRanks();
+        IEnumerable<(PrototypeId<RankPrototype>, Rank)> EnumerateRanks();
         string? GetRankTitle(PrototypeId<RankPrototype> rankId, int? place);
         Rank GetRank(PrototypeId<RankPrototype> id);
         void SetRank(PrototypeId<RankPrototype> rankId, int newExp, bool showMessage = true);
@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Ranks
         public int Place => Experience / ExpPerRankPlace;
 
         [DataField]
-        public GameTimeSpan? TimeUntilDecay { get; }
+        public GameTimeSpan? TimeUntilDecay { get; set; }
     }
 
     [DataDefinition]
@@ -79,12 +79,38 @@ namespace OpenNefia.Content.Ranks
         [RegisterSaveData("Elona.RankSystem.RankData")]
         private RankData RankData { get; } = new();
 
-        public IEnumerable<Rank> EnumerateRanks()
+        public override void Initialize()
+        {
+            SubscribeEntity<MapOnTimePassedEvent>(ProcRankDecay, priority: EventPriorities.VeryLow);
+        }
+
+        private void ProcRankDecay(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            if (args.DaysPassed <= 0)
+                return;
+
+            foreach (var (id, rank) in EnumerateRanks())
+            {
+                var proto = _protos.Index(id);
+                if (proto.DecayPeriodDays != null && rank.TimeUntilDecay != null)
+                {
+                    rank.TimeUntilDecay -= GameTimeSpan.FromHours(args.DaysPassed);
+                    if (rank.TimeUntilDecay.TotalSeconds < 0)
+                    {
+                        ModifyRank(id, -(rank.Experience / 12 + 100));
+                        rank.TimeUntilDecay = GameTimeSpan.FromDays(proto.DecayPeriodDays.Value);
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<(PrototypeId<RankPrototype>, Rank)> EnumerateRanks()
         {
             // Enumerate in prototype order.
             foreach (var rank in _protos.EnumeratePrototypes<RankPrototype>())
             {
-                yield return GetRank(rank.GetStrongID());
+                var id = rank.GetStrongID();
+                yield return (id, GetRank(id));
             }
         }
 

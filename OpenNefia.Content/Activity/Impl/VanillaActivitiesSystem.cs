@@ -1,12 +1,18 @@
 ﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.InUse;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Parties;
+using OpenNefia.Content.Visibility;
 using OpenNefia.Content.World;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
 
-namespace OpenNefia.Content.Activity.Impl
+namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem : EntitySystem
     {
@@ -15,10 +21,17 @@ namespace OpenNefia.Content.Activity.Impl
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IInUseSystem _inUse = default!;
+        [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
 
         public override void Initialize()
         {
             Initialize_Resting();
+            Initialize_Eating();
         }
     }
 }

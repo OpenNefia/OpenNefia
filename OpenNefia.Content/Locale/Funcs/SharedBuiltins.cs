@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Locale.Funcs
         /// </summary>
         /// <hsp>#defcfunc name int tc</hsp>
         [LocaleFunction("name")]
-        public static string BuiltIn_name(object? obj, bool ignoreSight = false)
+        public static string BuiltIn_name(object? obj, bool ignoreSight = false, int quantity = -1)
         {
             if (obj is string s)
                 return s;
