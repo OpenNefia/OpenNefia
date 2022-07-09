@@ -47,7 +47,7 @@ namespace OpenNefia.Core.UserInterface
         bool IsQuerying(UiLayer layer);
         void PopLayer(UiLayer layer);
         void PushLayer(UiLayer layer);
-        void UpdateLayers(FrameEventArgs frame);
+        void FrameUpdate(FrameEventArgs frame);
         bool IsInActiveLayerList(UiLayer layer);
 
         TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
@@ -89,5 +89,8 @@ namespace OpenNefia.Core.UserInterface
         UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class;
+
+        // TODO remove after merging with WispManager
+        event Action? OnHoveredElementChanged;
     }
 }

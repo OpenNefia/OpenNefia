@@ -43,6 +43,7 @@ namespace OpenNefia.Core.Graphics
         IEnumerable<FullscreenMode> GetFullscreenModes(int displayIndex);
         int GetDisplayCount();
         string GetDisplayName(int displayIndex);
+        void SetCursor(CursorShape cursorShape);
 
         /// <summary>
         /// Captures the current state of the rendering canvas as

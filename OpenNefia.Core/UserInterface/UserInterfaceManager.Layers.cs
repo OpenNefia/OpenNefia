@@ -38,13 +38,13 @@ namespace OpenNefia.Core.UserInterface
 
         public IList<UiLayer> ActiveLayers => Layers;
 
-        public bool IsInActiveLayerList(UiLayer layer) => this.Layers.Contains(layer);
+        public bool IsInActiveLayerList(UiLayer layer) => Layers.Contains(layer);
 
-        public void UpdateLayers(FrameEventArgs frame)
+        public void FrameUpdate(FrameEventArgs frame)
         {
-            for (int i = 0; i < this.Layers.Count; i++)
+            for (int i = 0; i < Layers.Count; i++)
             {
-                this.Layers[i].Update(frame.DeltaSeconds);
+                Layers[i].Update(frame.DeltaSeconds);
             }
         }
 

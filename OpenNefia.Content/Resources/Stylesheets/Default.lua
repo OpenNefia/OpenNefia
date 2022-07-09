@@ -288,6 +288,12 @@ ItemList {
     },
 }
 
+TextEdit = {
+    styleBox = styleBoxFlat {
+        backgroundColor = "#223333",
+    },
+}
+
 MeasurementPointer {
     rulerColor = "#A0A0A040",
 }

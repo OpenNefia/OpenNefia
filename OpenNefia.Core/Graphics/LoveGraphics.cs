@@ -8,6 +8,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 using System.Text.Unicode;
 using static OpenNefia.Core.Input.Mouse;
@@ -15,7 +16,7 @@ using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Core.Graphics
 {
-    public class LoveGraphics : Love.Scene, IGraphics
+    public class LoveGraphics : Love.Scene, IGraphics, IClipboardManager
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
@@ -279,6 +280,23 @@ namespace OpenNefia.Core.Graphics
             var mappings = _resourceCache.ContentFileReadAllText(mappingsPath);
             var mappingsBytes = EncodingHelpers.UTF8.GetBytes(mappings);
             Love.Joystick.LoadGamepadMappings(mappingsBytes);
+        }
+
+        public void SetCursor(CursorShape cursorShape)
+        {
+            var loveCursorType = (Love.SystemCursor)cursorShape;
+            var cursor = Love.Mouse.GetSystemCursor(loveCursorType);
+            Love.Mouse.SetCursor(cursor);
+        }
+
+        string IClipboardManager.GetText()
+        {
+            return Love.Special.GetClipboardText();
+        }
+
+        void IClipboardManager.SetText(string text)
+        {
+            Love.Special.SetClipboardText(text);
         }
 
         public void BeginDraw()
@@ -561,7 +579,6 @@ namespace OpenNefia.Core.Graphics
             }
             _axisValues.Clear();
         }
-
 
         public override bool Quit()
         {

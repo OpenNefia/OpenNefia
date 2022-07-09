@@ -111,6 +111,7 @@ namespace OpenNefia.Core.GameController
 
             _serialization.Initialize();
             _uiManager.Initialize();
+            _wispManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
@@ -343,7 +344,7 @@ namespace OpenNefia.Core.GameController
             if (frame.StepInput)
                 _inputManager.UpdateKeyRepeats(frame);
             _wispManager.FrameUpdate(frame);
-            _uiManager.UpdateLayers(frame);
+            _uiManager.FrameUpdate(frame);
             _taskManager.ProcessPendingTasks();
             _debugServer.CheckForRequests();
         }

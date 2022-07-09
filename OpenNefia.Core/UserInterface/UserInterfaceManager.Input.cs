@@ -138,6 +138,8 @@ namespace OpenNefia.Core.UserInterface
                 CurrentlyHovered?.MouseExited();
                 CurrentlyHovered = newHovered;
                 CurrentlyHovered?.MouseEntered();
+
+                OnHoveredElementChanged?.Invoke();
             }
 
             var target = ControlFocused ?? newHovered;
