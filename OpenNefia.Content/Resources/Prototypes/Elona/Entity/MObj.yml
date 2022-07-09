@@ -208,7 +208,7 @@
     id: Elona.MObjMaterialCrafting
   - type: MaterialSpot
     # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
-    autoTurnAnim: !type:SearchingAutoTurnAnim {}
+    autoTurnAnim: Activity.SearchingAutoTurnAnim
     # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
 
     # >>>>>>>> shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ...
@@ -230,7 +230,7 @@
     id: Elona.MObjMaterialCrafting
   - type: MaterialSpot
     # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
-    autoTurnAnim: !type:SearchingAutoTurnAnim {}
+    autoTurnAnim: Activity.SearchingAutoTurnAnim
     # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
 
     # >>>>>>>> shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ...
@@ -260,7 +260,7 @@
 
   - type: MaterialSpot
     # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
-    autoTurnAnim: !type:FishingAutoTurnAnim {}
+    autoTurnAnim: Activity.FishingAutoTurnAnim
     # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
 
     # >>>>>>>> shade2/proc.hsp:33 	if feat(1)=objREspring	:atxSpot=atxWater1 ...
@@ -294,7 +294,7 @@
 
   - type: MaterialSpot
     # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
-    autoTurnAnim: !type:MiningAutoTurnAnim {}
+    autoTurnAnim: Activity.MiningAutoTurnAnim
     # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
 
     # >>>>>>>> shade2/proc.hsp:34 	if feat(1)=objREmine	:atxSpot=atxMine1 ...
@@ -331,7 +331,7 @@
 
   - type: MaterialSpot
     # >>>>>>>> shade2/action.hsp:1549 		if feat(1)=objREbush	:call plant ...
-    autoTurnAnim: !type:HarvestingAutoTurnAnim {}
+    autoTurnAnim: Activity.HarvestingAutoTurnAnim
     # <<<<<<<< shade2/action.hsp:1549 		if feat(1)=objREbush	:call plant ..
 
     # >>>>>>>> shade2/proc.hsp:35 	if feat(1)=objREbush	:atxSpot=atxBush1 ...

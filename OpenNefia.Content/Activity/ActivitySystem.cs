@@ -1,82 +1,346 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Logic;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.UI.Hud;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.GameController;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
-using System;
-using System.Collections.Generic;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.UI;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Activity
 {
     public interface IActivitySystem : IEntitySystem
     {
-        void InterruptUsing(EntityUid offeringItem);
-        void RemoveActivity(EntityUid entity);
-        void InterruptActivity(EntityUid entity, ActivityComponent? activity = null);
-        bool TryGetActivity(EntityUid target, [NotNullWhen(true)] out ActivityComponent? activityComp);
-        bool HasActivity(EntityUid entity);
+        void InterruptUsing(EntityUid itemBeingUsed);
+        void RemoveActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        bool TryGetActivity(EntityUid entity, [NotNullWhen(true)] out ActivityComponent? activityEnt, ActivityHolderComponent? activityHolder = null);
+        bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        bool StartActivity(EntityUid entity, ActivityComponent activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
+        bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
+        void GetActingEntity(EntityUid activity, ActivityComponent? activityComp = null);
     }
 
     public sealed class ActivitySystem : EntitySystem, IActivitySystem
     {
-        [Dependency] protected readonly ISlotSystem _slots = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
+        [Dependency] private readonly IDynamicTypeFactory _dynTypeFactory = default!;
+        [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        public void InterruptUsing(EntityUid offeringItem)
+        public override void Initialize()
         {
+            SubscribeComponent<ActivityComponent, OnActivityStartEvent>(UpdateAutoTurnWidget, priority: EventPriorities.Lowest);
+            SubscribeComponent<ActivityComponent, OnActivityInterruptedEvent>(HandleActivityInterruptAction, priority: EventPriorities.Low);
+            SubscribeComponent<ActivityHolderComponent, EntityPassTurnEventArgs>(UpdateActivity, priority: EventPriorities.High);
         }
 
-        public void RemoveActivity(EntityUid entity)
+        private void UpdateActivity(EntityUid uid, ActivityHolderComponent component, EntityPassTurnEventArgs args)
         {
-            if (!TryComp<ActivityComponent>(entity, out var activityComp))
+            if (args.Handled)
                 return;
 
-            if (activityComp.SlotID == null)
-                return;
-            
-            if (_slots.HasSlot(entity, activityComp.SlotID.Value))
+            if (_gameSession.IsPlayer(uid) && TryGetActivity(uid, out var activity, component))
             {
-                _slots.RemoveSlot(entity, activityComp.SlotID.Value);
+                ProcActivityInterrupted(uid, activity);
+            }
+
+            if (TryGetActivity(uid, out activity, component))
+            {
+                PassActivityTurn(uid, activity);
+                if (_config.GetCVar(CCVars.AnimeAutoTurnSpeed) != AutoTurnSpeed.Highest
+                    && activity.AnimationWait > 0)
+                {
+                    _field.RefreshScreen();
+                }
+
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+        }
+
+        private void HandleActivityInterruptAction(EntityUid uid, ActivityComponent component, OnActivityInterruptedEvent args)
+        {
+            if (!_gameSession.IsPlayer(component.Actor) || component.OnInterrupt == null)
+                return;
+
+            switch (component.OnInterrupt.Value)
+            {
+                case ActivityInterruptAction.Stop:
+                default:
+                    args.OutCancelActivity = true;
+                    break;
+                case ActivityInterruptAction.Prompt:
+                    _field.RefreshScreen();
+                    args.OutCancelActivity = _playerQuery.YesOrNo(Loc.GetString("Elona.Activity.Cancel.Prompt", ("activity", uid), ("actor", component.Actor)));
+                    break;
+                case ActivityInterruptAction.Ignore:
+                    args.OutCancelActivity = false;
+                    break;
+            }
+        }
+
+        private void PassActivityTurn(EntityUid uid, ActivityComponent? activityComp = null)
+        {
+            if (activityComp == null)
+            {
+                if (!TryGetActivity(uid, out activityComp))
+                    return;
+            }
+
+            if (_gameSession.IsPlayer(uid))
+            {
+                if (activityComp.AnimationWait > 0)
+                {
+                    if (_config.GetCVar(CCVars.AnimeAutoTurnSpeed) == AutoTurnSpeed.Normal
+                        && _hud.TryGetWidget<HudAutoTurnWidget>(out var widget))
+                    {
+                        _gameController.Wait(activityComp.AnimationWait * Constants.FRAME_MS);
+                        widget.PassTurn();
+                    }
+
+                    if (!activityComp.CanScroll)
+                    {
+                        // TODO scrolling
+                    }
+                }
+            }
+
+            if (activityComp.TurnsRemaining <= 0)
+            {
+                var evFinish = new OnActivityFinishEvent();
+                RaiseEvent(activityComp.Owner, evFinish);
+                RemoveActivity(uid);
+                return;
+            }
+
+            var ev = new OnActivityPassTurnEvent();
+            RaiseEvent(activityComp.Owner, ev);
+
+            activityComp.TurnsRemaining--;
+        }
+
+        private void ProcActivityInterrupted(EntityUid uid, ActivityComponent activity)
+        {
+            if (!activity.WasInterrupted)
+                return;
+
+            activity.WasInterrupted = false;
+
+            var ev = new OnActivityInterruptedEvent();
+            RaiseEvent(activity.Owner, ev);
+
+            if (ev.OutCancelActivity)
+            {
+                _mes.Display(Loc.GetString("Elona.Activity.Cancel.Normal", ("actor", uid), ("activity", activity.Owner)));
+                RemoveActivity(uid);
+            }
+        }
+
+        public void InterruptUsing(EntityUid item)
+        {
+            // TODO
+        }
+
+        public void RemoveActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
+        {
+            if (!Resolve(entity, ref activityHolder))
+                return;
+
+            if (!TryGetActivity(entity, out var activityEnt, activityHolder))
+                return;
+
+            var ev = new OnActivityCleanupEvent();
+            RaiseEvent(activityEnt.Owner, ev);
+
+            activityHolder.Container.ForceRemove(activityEnt.Owner);
+            EntityManager.DeleteEntity(activityEnt.Owner);
+
+            if (_gameSession.IsPlayer(entity) && _hud.TryGetWidget<HudAutoTurnWidget>(out var widget, out var instance))
+            {
+                instance.DrawFlags = WidgetDrawFlags.Never;
+            }
+        }
+
+        public bool TryGetActivity(EntityUid entity, [NotNullWhen(true)] out ActivityComponent? activityComp, ActivityHolderComponent? activityHolder = null)
+        {
+            if (!Resolve(entity, ref activityHolder))
+            {
+                activityComp = null;
+                return false;
+            }
+
+            var activityEnt = activityHolder.Container.ContainedEntity;
+
+            if (activityEnt != null && !IsAlive(activityEnt))
+            {
+                activityHolder.Container.ForceRemove(activityEnt.Value);
+                activityEnt = null;
+            }
+
+            return TryComp(activityEnt, out activityComp);
+        }
+
+        public void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
+        {
+            if (!TryGetActivity(entity, out var activity))
+                return;
+
+            activity.WasInterrupted = true;
+        }
+
+        public bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
+        {
+            return TryGetActivity(entity, out _, activityHolder);
+        }
+
+        public bool StartActivity(EntityUid entity, ActivityComponent activityComp, int? turns = null, ActivityHolderComponent? activityHolder = null)
+        {
+            if (!Resolve(entity, ref activityHolder))
+                return false;
+
+            if (HasActivity(entity, activityHolder))
+                RemoveActivity(entity, activityHolder);
+
+            var activity = activityComp.Owner;
+
+            activityComp.Actor = entity;
+            activityHolder.Container.Insert(activity);
+
+            if (turns != null)
+            {
+                activityComp.TurnsRemaining = turns.Value;
             }
             else
             {
-                Logger.WarningS("activity", $"Missing slot {activityComp.SlotID} on entity {entity}'s activity!");
+                var evTurns = new CalcActivityTurnsEvent(activityComp.DefaultTurns);
+                RaiseEvent(activity, evTurns);
+                activityComp.TurnsRemaining = evTurns.OutTurns;
             }
 
-            activityComp.SlotID = null;
-        }
-
-        public bool TryGetActivity(EntityUid target, [NotNullWhen(true)] out ActivityComponent? activityComp)
-        {
-            if (!TryComp<ActivityComponent>(target, out activityComp))
-                return false;
-
-            if (activityComp.SlotID == null || !_slots.HasSlot(target, activityComp.SlotID.Value))
+            var evStart = new OnActivityStartEvent();
+            RaiseEvent(activity, evStart);
+            if (evStart.Cancelled)
             {
-                if (activityComp.SlotID != null)
-                {
-                    Logger.WarningS("activity", $"Pruning dead activity with slot {activityComp.SlotID} on entity {target}");
-                    RemoveActivity(target);
-                }
-                activityComp = null;
+                RemoveActivity(entity, activityHolder);
                 return false;
             }
 
             return true;
         }
 
-        public void InterruptActivity(EntityUid entity, ActivityComponent? activity = null)
+        public bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activityId, int? turns = null, ActivityHolderComponent? activityHolder = null)
         {
-            if (!Resolve(entity, ref activity))
+            if (!Resolve(entity, ref activityHolder))
+                return false;
+            
+            var activityProto = _protos.Index(activityId);
+            if (!activityProto.Components.HasComponent<ActivityComponent>())
+            {
+                Logger.ErrorS("activity", $"Entity prototype {activityId} does not have a {nameof(ActivityComponent)}!");
+                return false;
+            }
+
+            var activity = EntityManager.SpawnEntity(activityId, new MapCoordinates(MapId.Global, Vector2i.Zero));
+            if (!activity.IsValid())
+            {
+                Logger.ErrorS("activity", $"Failed to create entity {activityId}!");
+                return false;
+            }
+
+            return StartActivity(entity, Comp<ActivityComponent>(activity), turns, activityHolder);
+        }
+        
+
+        private void UpdateAutoTurnWidget(EntityUid activity, ActivityComponent component, OnActivityStartEvent args)
+        {
+            if (args.Cancelled)
                 return;
 
-            // TODO
+            var autoTurnAnimType = component.AutoTurnAnimationType;
+            BaseAutoTurnAnim? anim = null;
+
+            if (autoTurnAnimType != null)
+            {
+                if (!typeof(BaseAutoTurnAnim).IsAssignableFrom(autoTurnAnimType))
+                {
+                    Logger.ErrorS("activity", $"{autoTurnAnimType} does not inherit from ${nameof(BaseAutoTurnAnim)})");
+                    return;
+                }
+
+                anim = (BaseAutoTurnAnim)_dynTypeFactory.CreateInstance(autoTurnAnimType);
+            }
+
+            var actor = component.Actor;
+
+            if (_gameSession.IsPlayer(actor) && _config.GetCVar(CCVars.AnimeAutoTurnSpeed) != AutoTurnSpeed.Highest)
+            {
+                var animWait = component.AnimationWait;
+                if (animWait > 0)
+                {
+                    if (_hud.TryGetWidget<HudAutoTurnWidget>(out var autoTurnWidget, out var instance))
+                    {
+                        autoTurnWidget.AutoTurnAnimation = anim;
+                        instance.DrawFlags = WidgetDrawFlags.Always;
+                    }
+                }
+            }
+            else if (anim != null)
+            {
+                var soundId = anim.Sound.GetSound();
+                if (soundId != null)
+                    _audio.Play(soundId.Value, actor);
+            }
         }
 
-        public bool HasActivity(EntityUid entity)
+        public void GetActingEntity(EntityUid activity, ActivityComponent? activityComp = null)
         {
-            return TryGetActivity(entity, out _);
         }
+    }
+
+    public sealed class OnActivityInterruptedEvent
+    {
+        public bool OutCancelActivity { get; set; } = false;
+    }
+
+    public sealed class CalcActivityTurnsEvent : EntityEventArgs
+    {
+        public int OutTurns { get; set; }
+
+        public CalcActivityTurnsEvent(int turns)
+        {
+            OutTurns = turns;
+        }
+    }
+
+    public sealed class OnActivityStartEvent : CancellableEntityEventArgs
+    {
+    }
+
+    public sealed class OnActivityPassTurnEvent : HandledEntityEventArgs
+    {
+    }
+
+    public sealed class OnActivityFinishEvent : EntityEventArgs
+    {
+    }
+
+    public sealed class OnActivityCleanupEvent : EntityEventArgs
+    {
     }
 }

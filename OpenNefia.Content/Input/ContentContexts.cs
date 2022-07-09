@@ -41,6 +41,7 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Throw);
             field.AddFunction(ContentKeyFunctions.Fire);
             field.AddFunction(ContentKeyFunctions.Bash);
+            field.AddFunction(ContentKeyFunctions.Rest);
             field.AddFunction(ContentKeyFunctions.Examine);
             field.AddFunction(ContentKeyFunctions.Dig);
 

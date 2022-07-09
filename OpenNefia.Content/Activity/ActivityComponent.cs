@@ -1,12 +1,7 @@
-﻿using OpenNefia.Content.World;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Activity
 {
@@ -15,22 +10,48 @@ namespace OpenNefia.Content.Activity
     {
         public override string Name => "Activity";
 
-        /// <summary>
-        /// Slot holding the component(s) of the current activity.
-        /// </summary>
         [DataField]
-        public SlotId? SlotID { get; set; }
+        public int DefaultTurns { get; set; } = 10;
+
+        [DataField]
+        public int AnimationWait { get; set; } = 20;
+
+        [DataField]
+        public ActivityInterruptAction? OnInterrupt { get; set; } = null;
 
         /// <summary>
-        /// Prototype used to create the activity.
+        /// Must be derived from <see cref="BaseAutoTurnAnim"/>.
         /// </summary>
+        [DataField("autoTurnAnimType")]
+        public Type? AutoTurnAnimationType { get; set; }
+
         [DataField]
-        public PrototypeId<ActivityPrototype> PrototypeID { get; set; }
+        public bool CanScroll { get; set; } = false;
+
+        [DataField]
+        public bool InterruptOnDisplace { get; set; } = false;
+
+        #region Instance properties
+
+        [DataField]
+        public EntityUid Actor { get; internal set; } = EntityUid.Invalid;
 
         /// <summary>
         /// Turns remaining for the activity.
         /// </summary>
         [DataField]
         public int TurnsRemaining { get; set; } = 0;
+
+        [DataField]
+        public bool WasInterrupted { get; set; } = false;
+
+        #endregion
+    }
+
+    public enum ActivityInterruptAction
+    {
+        Ignore,
+        Prompt,
+        Stop
     }
 }

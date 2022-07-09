@@ -1,0 +1,166 @@
+---
+- type: Entity
+  id: Elona.ActivityEating
+  parent: BaseActivity
+  hspIds:
+    elona122: 1
+  components:
+  - type: Activity
+    defaultTurns: 8
+    animationWait: 100
+    onInterrupt: Prompt
+    interruptOnDisplace: true
+  - type: ActivityEating
+- type: Entity
+  id: Elona.ActivityReadingSpellbook
+  parent: BaseActivity
+  hspIds:
+    elona122: 2
+  components:
+  - type: Activity
+    defaultTurns: 10
+    animationWait: 25
+    onInterrupt: Prompt
+  - type: ActivityReadingSpellbook
+- type: Entity
+  id: Elona.ActivityReadingAncientBook
+  parent: BaseActivity
+  hspIds:
+    elona122: 2
+  components:
+  - type: Activity
+    defaultTurns: 10
+    animationWait: 25
+    onInterrupt: Prompt
+  - type: ActivityReadingAncientBook
+- type: Entity
+  id: Elona.ActivityTraveling
+  parent: BaseActivity
+  hspIds:
+    elona122: 3
+  components:
+  - type: Activity
+    animationWait: 0
+    canScroll: true
+    onInterrupt: Ignore
+  - type: ActivityTraveling
+- type: Entity
+  id: Elona.ActivityResting
+  parent: BaseActivity
+  hspIds:
+    elona122: 4
+  components:
+  - type: Activity
+    defaultTurns: 50
+    animationWait: 5
+    onInterrupt: Stop
+  - type: ActivityResting
+- type: Entity
+  id: Elona.ActivityMining
+  parent: BaseActivity
+  hspIds:
+    elona122: 5
+  components:
+  - type: Activity
+    defaultTurns: 40
+    animationWait: 15
+    autoTurnAnimType: Activity.MiningAutoTurnAnim
+    onInterrupt: Stop
+  - type: ActivityMining
+- type: Entity
+  id: Elona.ActivityPerforming
+  parent: BaseActivity
+  hspIds:
+    elona122: 6
+  components:
+  - type: Activity
+    defaultTurns: 61
+    animationWait: 40
+    onInterrupt: Stop
+  - type: ActivityPerforming
+- type: Entity
+  id: Elona.ActivityFishing
+  parent: BaseActivity
+  hspIds:
+    elona122: 7
+  components:
+  - type: Activity
+    defaultTurns: 100
+    animationWait: 40
+    autoTurnAnimType: Activity.FishingAutoTurnAnim
+    onInterrupt: Prompt
+  - type: ActivityFishing
+- type: Entity
+  id: Elona.ActivityDiggingSpot
+  parent: BaseActivity
+  hspIds:
+    elona122: 8
+  components:
+  - type: Activity
+    defaultTurns: 0
+    animationWait: 15
+    autoTurnAnimType: Activity.SearchingAutoTurnAnim
+    onInterrupt: Stop
+  - type: ActivityDiggingSpot
+- type: Entity
+  id: Elona.ActivitySex
+  parent: BaseActivity
+  hspIds:
+    elona122: 11
+  components:
+  - type: Activity
+    animationWait: 50
+    onInterrupt: Stop
+  - type: ActivitySex
+- type: Entity
+  id: Elona.ActivityPreparingToSleep
+  parent: BaseActivity
+  hspIds:
+    elona122: 100
+  components:
+  - type: Activity
+    defaultTurns: 20
+    animationWait: 5
+    onInterrupt: Stop
+  - type: ActivityPreparingToSleep
+- type: Entity
+  id: Elona.ActivityHarvesting
+  parent: BaseActivity
+  hspIds:
+    elona122: 103
+  components:
+  - type: Activity
+    animationWait: 40
+    onInterrupt: Stop
+  - type: ActivityHarvesting
+- type: Entity
+  id: Elona.ActivityTraining
+  parent: BaseActivity
+  hspIds:
+    elona122: 104
+  components:
+  - type: Activity
+    defaultTurns: 50
+    animationWait: 40
+    onInterrupt: Stop
+  - type: ActivityTraining
+- type: Entity
+  id: Elona.ActivityPickpocket
+  parent: BaseActivity
+  hspIds:
+    elona122: 105
+  components:
+  - type: Activity
+    animationWait: 15
+    onInterrupt: Stop
+  - type: ActivityPickpocket
+- type: Entity
+  id: Elona.ActivitySearching
+  parent: BaseActivity
+  hspIds:
+    elona122: 105
+  components:
+  - type: Activity
+    onInterrupt: Stop
+  - type: ActivitySearching
+...

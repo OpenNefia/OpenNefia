@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Hud;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using System;
@@ -28,6 +30,11 @@ namespace OpenNefia.Content.Hud
         public override void Initialize()
         {
             base.Initialize();
+        }
+
+        public override void GetPreferredSize(out Vector2 size)
+        {
+            size = (IoCManager.Resolve<IGraphics>().WindowSize.X - 124, Constants.INF_MSGH);
         }
 
         public override void SetSize(float width, float height)

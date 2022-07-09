@@ -30,6 +30,12 @@ namespace OpenNefia.Content.World
         public int PlayTurns { get; set; }
 
         /// <summary>
+        /// Amount of time the player has been awake since the last time they've slept.
+        /// </summary>
+        [DataField]
+        public GameTimeSpan AwakeTime { get; set; } = GameTimeSpan.Zero;
+
+        /// <summary>
         /// Total number of creatures the player has killed.
         /// </summary>
         [DataField]

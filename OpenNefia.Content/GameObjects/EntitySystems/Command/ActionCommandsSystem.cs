@@ -16,6 +16,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Combat;
+using OpenNefia.Content.Activity;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -28,6 +29,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly ICombatSystem _combat = default!;
         [Dependency] private readonly IActionBashSystem _actionBash = default!;
         [Dependency] private readonly IActionDigSystem _actionDig = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
         {
@@ -35,6 +37,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(ContentKeyFunctions.Dig, InputCmdHandler.FromDelegate(CommandDig))
                 .Bind(ContentKeyFunctions.Bash, InputCmdHandler.FromDelegate(CommandBash))
                 .Bind(ContentKeyFunctions.Fire, InputCmdHandler.FromDelegate(CommandFire))
+                .Bind(ContentKeyFunctions.Rest, InputCmdHandler.FromDelegate(CommandRest))
                 .Register<ActionCommandsSystem>();
         }
 
@@ -101,6 +104,12 @@ namespace OpenNefia.Content.GameObjects
             }
 
             return _combat.RangedAttack(session.Player, target.Value, pair.Value.Item1);
+        }
+
+        private TurnResult? CommandRest(IGameSessionManager? session)
+        {
+            _activities.StartActivity(session!.Player, Protos.Activity.Resting);
+            return TurnResult.Succeeded;
         }
     }
 }

@@ -17,8 +17,11 @@ namespace OpenNefia.Content.MaterialSpot
     {
         public override string Name => "MaterialSpot";
 
+        /// <summary>
+        /// Must inherit from <see cref="BaseAutoTurnAnim"/>.
+        /// </summary>
         [DataField]
-        public IAutoTurnAnim AutoTurnAnim { get; set; } = new SearchingAutoTurnAnim();
+        public Type AutoTurnAnim { get; set; } = typeof(SearchingAutoTurnAnim);
 
         [DataField]
         public PrototypeId<MaterialSpotPrototype>? MaterialSpotType { get; set; } = null;

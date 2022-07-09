@@ -127,13 +127,14 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsEx.SetColor(ColorStyle6);
                 GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y, Width - 4, Height - 4);
             }
-            else
+            else if (WindowStyle != WindowStyleKind.Five)
             {
                 var rect = true;
 
                 switch (WindowStyle)
                 {
                     case WindowStyleKind.Zero:
+                    default:
                         rect = false;
                         GraphicsEx.SetColor(ColorStyle0);
                         break;
@@ -149,10 +150,6 @@ namespace OpenNefia.Content.UI.Element
                     case WindowStyleKind.Four:
                         GraphicsEx.SetColor(ColorStyle4);
                         break;
-                    case WindowStyleKind.Five:
-                    default:
-                        GraphicsEx.SetColor(ColorStyle5);
-                        break;
                 }
 
                 if (rect)
@@ -161,20 +158,21 @@ namespace OpenNefia.Content.UI.Element
                     GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 4, Y + 4, Width - 4, Height - 4);
                     Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 }
+
+                AssetWindow.DrawRegion(UIScale, "fill", X, Y, Width - 2, Height - 2);
             }
 
-            AssetWindow.DrawRegion(UIScale, "fill", X, Y, Width - 2, Height - 2);
-
             GraphicsEx.SetColor(Love.Color.White);
-            GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y, null, null);
+            GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y);
 
             if (WindowStyle == WindowStyleKind.Five)
             {
-                GraphicsEx.SetColor(ColorStyle5);
-                GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X + 2, Y + 2, Width - 4, Height - 5);
+                GraphicsEx.SetColor(255 - ColorStyle5.RByte, 255 - ColorStyle5.GByte, 255 - ColorStyle5.BByte, 255);
+                AssetWindow.DrawRegion(UIScale, "fill", X + 2, Y + 2, Width - 4, Height - 4);
 
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 4, Y + 4, Width - 4, Height - 4);
+                GraphicsEx.SetColor(20, 20, 20, 255);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 2, Y + 2, Width - 4, Height - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }

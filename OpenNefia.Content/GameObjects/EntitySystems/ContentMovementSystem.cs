@@ -120,8 +120,7 @@ namespace OpenNefia.Content.GameObjects
             // >>>>>>>> shade2 / action.hsp:551            if cRowAct(tc) = rowActEat:if cActionPeriod(tc) > 0...
             if (_activities.TryGetActivity(target, out var activityComp))
             {
-                var proto = _protos.Index(activityComp.PrototypeID);
-                if (proto.InterruptOnDisplace)
+                if (activityComp.InterruptOnDisplace)
                 {
                     _mes.Display(Loc.GetString("Elona.Movement.Displace.InterruptActivity", ("source", source), ("target", target)));
                     _activities.RemoveActivity(target);

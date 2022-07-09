@@ -42,7 +42,7 @@
   - type: Party
   - type: Hunger
   - type: EmotionIcon
-  - type: Activity
+  - type: ActivityHolder
   - type: StatusEffects
   - type: Visibility
   - type: EtherDisease
@@ -101,3 +101,10 @@
   abstract: true
   components:
   - type: Area
+
+- type: Entity
+  id: BaseActivity
+  hspEntityType: activity
+  abstract: true
+  components:
+  - type: Activity

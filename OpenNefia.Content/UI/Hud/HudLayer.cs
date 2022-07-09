@@ -25,49 +25,48 @@ using OpenNefia.Core.Stats;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Currency;
 using OpenNefia.Content.Hud;
+using System.Diagnostics.CodeAnalysis;
 using static OpenNefia.Content.Hud.HudAttributeWidget;
 
 namespace OpenNefia.Content.UI.Hud
 {
+    [Flags]
+    public enum WidgetDrawFlags
+    {
+        Never = 0,
+        Normal = 1 << 0,
+        Backlog = 1 << 1,
+        Always = Normal + Backlog,
+    }
+
+    public enum WidgetAnchor
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+    }
+
+    public sealed class WidgetInstance
+    {
+        public BaseHudWidget Widget { get; }
+        public Vector2 Position { get; set; }
+        public WidgetDrawFlags DrawFlags { get; set; }
+        public WidgetAnchor Anchor { get; set; }
+
+        public WidgetInstance(BaseHudWidget widget, WidgetAnchor anchor = default, Vector2 position = default, Func<Vector2> size = default!,
+            WidgetDrawFlags flags = WidgetDrawFlags.Always)
+        {
+            Widget = widget;
+            Widget.Initialize();
+            Position = position;
+            DrawFlags = flags;
+            Anchor = anchor;
+        }
+    }
+
     public class HudLayer : UiLayer, IHudLayer, IBacklog
     {
-        [Flags]
-        public enum WidgetDrawFlags
-        {
-            Never   = 0,
-            Normal  = 1 << 0,
-            Backlog = 1 << 1,
-            Always  = Normal + Backlog,
-        }
-
-        public enum WidgetAnchor
-        {
-            TopLeft,
-            TopRight,
-            BottomLeft,
-            BottomRight,
-        }
-
-        private sealed class WidgetInstance
-        {
-            public BaseHudWidget Widget { get; set; }
-            public Vector2 Position { get; set; }
-            public Func<Vector2> SizeFunc { get; set; }
-            public WidgetDrawFlags DrawFlags { get; set; }
-            public WidgetAnchor Anchor { get; set; }
-
-            public WidgetInstance(BaseHudWidget widget, WidgetAnchor anchor = default, Vector2 position = default, Func<Vector2> size = default!,
-                WidgetDrawFlags flags = WidgetDrawFlags.Always)
-            {
-                Widget = widget;
-                Widget.Initialize();
-                Position = position;
-                SizeFunc = size ?? (() => new());
-                DrawFlags = flags;
-                Anchor = anchor;
-            }
-        }
-
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
 
@@ -107,6 +106,7 @@ namespace OpenNefia.Content.UI.Hud
             foreach (var widget in Widgets)
             {
                 UiHelpers.AddChildrenRecursive(this, widget.Widget);
+                EntitySystem.InjectDependencies(widget.Widget);
             }
 
             _field.OnScreenRefresh += OnScreenRefresh;
@@ -141,6 +141,8 @@ namespace OpenNefia.Content.UI.Hud
 
             Widgets.Add(new(new HudGoldWidget(), WidgetAnchor.BottomRight, new(-220, -104), flags: WidgetDrawFlags.Normal));
             Widgets.Add(new(new HudPlatinumWidget(), WidgetAnchor.BottomRight, new(-90, -104), flags: WidgetDrawFlags.Normal));
+
+            Widgets.Add(new(new HudAutoTurnWidget(), WidgetAnchor.BottomRight, new(-156, -30), flags: WidgetDrawFlags.Never));
         }
 
         private void UpdateWidgets()
@@ -150,6 +152,32 @@ namespace OpenNefia.Content.UI.Hud
                 widget.Widget.UpdateWidget();
             }
         }
+
+        public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
+            where T: class, IHudWidget
+        {
+            foreach (var other in Widgets)
+            {
+                if (other.Widget is T widgetT)
+                {
+                    widget = widgetT;
+                    instance = other;
+                    return true;
+                }
+            }
+
+            widget = null;
+            instance = null;
+            return false;
+        }
+
+        public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget)
+            where T : class, IHudWidget
+            => TryGetWidget(out widget, out _);
+
+        public bool TryGetWidgetInstance<T>([NotNullWhen(true)] out WidgetInstance? instance)
+            where T : class, IHudWidget
+            => TryGetWidget<T>(out _, out instance);
 
         private void OnScreenRefresh()
         {
@@ -170,8 +198,7 @@ namespace OpenNefia.Content.UI.Hud
 
             foreach (var widget in Widgets)
             {
-                var size = widget.SizeFunc();
-                widget.Widget.SetSize(size.X, size.Y);
+                widget.Widget.SetPreferredSize();
             }
         }
 
@@ -219,6 +246,9 @@ namespace OpenNefia.Content.UI.Hud
 
             foreach (var widget in Widgets)
             {
+                if (!widget.DrawFlags.HasFlag(WidgetDrawFlags.Normal))
+                    continue;
+
                 if (IsShowingBacklog && !widget.DrawFlags.HasFlag(WidgetDrawFlags.Backlog))
                     continue;
 

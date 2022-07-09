@@ -104,6 +104,11 @@ namespace OpenNefia.Content.Hud
             Minimap.Initialize();
         }
 
+        public override void GetPreferredSize(out Vector2 size)
+        {
+            size = (MinimapWidth, MinimapHeight);
+        }
+
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
