@@ -117,12 +117,16 @@ entities:
   - type: Spatial
     parent: 0
     pos: 2,4
+  - type: Stack
+    count: 99
 - uid: 14
-  protoId: LecchoTorte.PotionOfTest
+  protoId: Elona.ItemRation
   components:
   - type: Spatial
     parent: 0
     pos: 3,4
+  - type: Stack
+    count: 99
 - uid: 15
   protoId: LecchoTorte.PotionOfTest
   components:

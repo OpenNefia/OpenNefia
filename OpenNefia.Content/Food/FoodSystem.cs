@@ -38,13 +38,13 @@ namespace OpenNefia.Content.Food
 
         public override void Initialize()
         {
-            SubscribeComponent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeComponent<FoodComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
             SubscribeComponent<FoodComponent, AfterItemEatenEvent>(HandleEatFood, priority: EventPriorities.VeryLow);
             SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
         }
         
-        private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
+        private void HandleGetVerbs(EntityUid uid, FoodComponent food, GetVerbsEventArgs args)
         {
             args.Verbs.Add(new Verb(EdibleSystem.VerbIDEat));
         }

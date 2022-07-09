@@ -421,7 +421,7 @@ namespace OpenNefia.Content.Inventory
 
             Window.SetSize(Width, Height);
             List.SetSize(Width - 58, Height - 60);
-            _itemSpriteBatch.SetSize(0, 0);
+            _itemSpriteBatch.SetSize(Width, Height);
 
             AssetDecoInvA.SetPreferredSize();
             AssetDecoInvB.SetPreferredSize();

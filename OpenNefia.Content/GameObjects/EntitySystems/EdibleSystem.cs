@@ -24,7 +24,6 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeComponent<EdibleComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
         }
 
         private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
@@ -46,14 +45,6 @@ namespace OpenNefia.Content.GameObjects
             _activities.StartActivity(eater, activity);
 
             return TurnResult.Succeeded;
-        }
-
-        private void HandleImpactOther(EntityUid thrown, EdibleComponent edibleComp, ThrownEntityImpactedOtherEvent args)
-        {
-            _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
-            _sounds.Play(Protos.Sound.Eat1, args.Coords);
-
-            EntityManager.DeleteEntity(thrown);
         }
     }
 }
