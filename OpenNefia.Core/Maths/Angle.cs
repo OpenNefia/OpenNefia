@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Maths
 
         public static Angle BetweenPoints(Vector2 a, Vector2 b)
         {
-            return new Angle(MathF.Atan2(b.X - a.X, b.Y - b.Y));
+            return new Angle(MathF.Atan2(b.X - a.X, b.Y - a.Y));
         }
 
         /// <summary>

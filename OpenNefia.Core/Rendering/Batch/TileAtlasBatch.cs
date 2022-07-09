@@ -72,7 +72,7 @@ namespace OpenNefia.Core.Rendering
 
             var ox = 0f;
             var oy = 0f;
-            if (centered && false)
+            if (centered)
             {
                 ox = ((float)ttw) / 2;
                 oy = ((float)tth) / 2;

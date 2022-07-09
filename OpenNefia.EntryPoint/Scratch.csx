@@ -39,7 +39,6 @@ foreach (var dir in DirectionUtility.RandomDirections())
 {
     var drawable = new RangedAttackMapDrawable(spatial.MapPosition, new(spatial.MapPosition.MapId, spatial.MapPosition.Position + dir.ToIntVec() * 8), Protos.Chip.ItemProjectileArrow);
     _mapDrawables.Enqueue(drawable, spatial.MapPosition);
-    Console.WriteLine(dir.ToString());
 }
 
 return _rand.NextVec2iInRadius(2);
