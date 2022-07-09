@@ -99,7 +99,6 @@ namespace OpenNefia.Content.Combat
 
                 if (TryComp<EquipmentComponent>(container.ContainedEntity.Value, out var equip))
                 {
-                    // TODO generalize
                     if (equip.EquipSlots.Contains(Protos.EquipSlot.Hand))
                         attackCount++;
 

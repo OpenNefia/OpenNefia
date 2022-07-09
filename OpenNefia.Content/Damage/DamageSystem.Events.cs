@@ -28,6 +28,7 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Dialog;
 
 namespace OpenNefia.Content.Damage
 {
@@ -39,6 +40,7 @@ namespace OpenNefia.Content.Damage
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
+        [Dependency] private readonly IDialogSystem _dialog = default!;
 
         #region Damage events
 
@@ -229,11 +231,11 @@ namespace OpenNefia.Content.Damage
                 return;
             }
 
-            if (!_roles.HasAnyRoles(target))
+            if (_parties.IsUnderlingOfPlayer(target))
             {
-                chara.Liveness = CharaLivenessState.Dead;
+                chara.Liveness = CharaLivenessState.PetDead;
             }
-            else
+            else if (_roles.HasAnyRoles(target))
             {
                 if (HasComp<RoleAdventurerComponent>(target))
                 {
@@ -245,6 +247,10 @@ namespace OpenNefia.Content.Damage
                     chara.Liveness = CharaLivenessState.VillagerDead;
                     chara.RespawnDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
                 }
+            }
+            else
+            {
+                chara.Liveness = CharaLivenessState.Dead;
             }
 
             // -- <<<<<<<< elona122/shade2/chara_func.hsp:1672 			} ...
@@ -307,7 +313,11 @@ namespace OpenNefia.Content.Damage
             SpillBloodOrDebrisOnDeath(target, ref ev);
             SetLivenessOnDeath(target);
 
-            // TODO ally impression, quest bodyguard
+            // TODO quest bodyguard
+            if (_parties.IsUnderlingOfPlayer(target))
+            {
+                _dialog.ModifyImpression(target, -10);
+            }
 
             if (_gameSession.IsPlayer(target))
             {
