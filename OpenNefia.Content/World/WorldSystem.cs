@@ -1,9 +1,14 @@
 ﻿using OpenNefia.Analyzers;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.SaveGames;
 using System;
 using System.Collections.Generic;
@@ -24,6 +29,8 @@ namespace OpenNefia.Content.World
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         [RegisterSaveData("Elona.WorldSystem.State")]
         public WorldState State { get; } = new();
@@ -31,12 +38,46 @@ namespace OpenNefia.Content.World
         public override void Initialize()
         {
             SubscribeEntity<CheckKillEvent>(IncrementTotalKills);
+            SubscribeEntity<MapOnTimePassedEvent>(UpdateAwakeHours, priority: EventPriorities.Low);
         }
 
         private void IncrementTotalKills(EntityUid victim, ref CheckKillEvent args)
         {
             if (_parties.IsInPlayerParty(args.Attacker) && !_parties.IsInPlayerParty(victim))
                 State.TotalKills++;
+        }
+
+        private void UpdateAwakeHours(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            if (args.HoursPassed <= 0)
+                return;
+
+            if (HasComp<MapTypeWorldMapComponent>(uid))
+            {
+                if (_rand.OneIn(3))
+                {
+                    State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                }
+                if (_rand.OneIn(15))
+                {
+                    _mes.Display(Loc.GetString("Elona.World.Nap"));
+                    State.AwakeTime -= GameTimeSpan.FromHours(3);
+                    if (State.AwakeTime.TotalSeconds < 0)
+                        State.AwakeTime = GameTimeSpan.Zero;
+                }
+            }
+            else
+            {
+                if (!HasComp<MapNoSleepAdvancementComponent>(args.Map.MapEntityUid))
+                {
+                    State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                }
+            }
+            
+            if (State.GameDate.Hour == 8)
+            {
+                _mes.Display(Loc.GetString("Elona.World.NewDay"), UiColors.MesYellow);
+            }
         }
 
         public void PassTime(GameTimeSpan time, bool noEvents = false)

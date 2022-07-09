@@ -25,6 +25,9 @@ using OpenNefia.Content.Memory;
 using OpenNefia.Content.Activity;
 using OpenNefia.Core;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Sleep;
 
 namespace OpenNefia.Content.Religion
 {
@@ -74,13 +77,16 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IEntityGenMemorySystem _memory = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ISleepSystem _sleep = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith);
-            SubscribeComponent<ReligionComponent, OnLeaveFaithEvent>(OnLeaveFaith);
-            SubscribeComponent<ReligionComponent, EntityBeingGeneratedEvent>(SetRandomGod);
-            SubscribeComponent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings);
+            SubscribeComponent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith, priority: EventPriorities.High);
+            SubscribeComponent<ReligionComponent, OnLeaveFaithEvent>(OnLeaveFaith, priority: EventPriorities.High);
+            SubscribeComponent<ReligionComponent, EntityBeingGeneratedEvent>(SetRandomGod, priority: EventPriorities.Highest);
+            SubscribeComponent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings, priority: EventPriorities.Low);
+            SubscribeEntity<MapOnTimePassedEvent>(UpdatePrayerChargeAndPiety, priority: EventPriorities.Low);
         }
 
         private void SetRandomGod(EntityUid uid, ReligionComponent component, ref EntityBeingGeneratedEvent args)
@@ -122,6 +128,35 @@ namespace OpenNefia.Content.Religion
             {
                 EntitySystem.InjectDependencies(godProto.Callbacks);
                 godProto.Callbacks?.OnLeaveFaith(uid);
+            }
+        }
+
+        private void UpdatePrayerChargeAndPiety(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            if (args.HoursPassed <= 0 || _sleep.IsPlayerSleeping)
+                return;
+
+            if (HasComp<MapTypeWorldMapComponent>(args.Map.MapEntityUid))
+            {
+                foreach (var religion in _lookup.EntityQueryInMap<ReligionComponent>(args.Map))
+                {
+                    if (_rand.OneIn(40))
+                    {
+                        religion.Piety = Math.Max(religion.Piety - 1, 0);
+                        religion.PrayerCharge += 4;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var religion in _lookup.EntityQueryInMap<ReligionComponent>(args.Map))
+                {
+                    if (_rand.OneIn(5))
+                    {
+                        religion.Piety = Math.Max(religion.Piety - 1, 0);
+                        religion.PrayerCharge += 32;
+                    }
+                }
             }
         }
 

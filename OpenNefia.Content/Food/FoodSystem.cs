@@ -29,9 +29,6 @@ namespace OpenNefia.Content.Food
 
     public sealed class FoodSystem : EntitySystem, IFoodSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
@@ -40,6 +37,13 @@ namespace OpenNefia.Content.Food
         public override void Initialize()
         {
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
+            SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
+        }
+
+        private void ProcSpoilFoodInMap(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            for (var i = 0; i < args.HoursPassed; i++)
+                SpoilFoodInMap(args.Map);
         }
 
         private void HandleSpoilFood(EntityUid uid, FoodComponent food, SpoilFoodEvent args)
