@@ -39,12 +39,12 @@ namespace OpenNefia.Content.Tests.Charas
   - {TestSlot2ID}
   - {TestSlot1ID}
   components:
-  - TestRace
+  - type: TestRace
 
 - type: Elona.Class
   id: TestClass
   components:
-  - TestClass
+  - type: TestClass
 
 - type: Entity
   id: TestChara

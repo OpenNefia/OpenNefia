@@ -51,7 +51,7 @@ Test.Content.Builtins = {
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", 1.11111)), Is.EqualTo("something"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", 2.22222)), Is.EqualTo("something"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", true)), Is.EqualTo("something"));
-            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", "foo")), Is.EqualTo("something"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", "foo")), Is.EqualTo("foo"));
         }
 
         [Test]
