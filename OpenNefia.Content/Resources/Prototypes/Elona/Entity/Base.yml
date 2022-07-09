@@ -46,6 +46,7 @@
   - type: StatusEffects
   - type: Visibility
   - type: EtherDisease
+  - type: ItemUser
 
 - type: Entity
   id: BaseItem

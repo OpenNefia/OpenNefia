@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Activity.Impl
+namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {

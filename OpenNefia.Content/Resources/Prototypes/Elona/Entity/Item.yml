@@ -3851,6 +3851,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 160
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemAloe
   parent: BaseItem
@@ -3870,6 +3873,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 170
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemEdibleWildPlant
   parent: BaseItem
@@ -3890,6 +3896,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 100
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 48
 - type: Entity
   id: Elona.ItemApple
   parent: BaseItem
@@ -3909,6 +3918,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 720
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 16
 - type: Entity
   id: Elona.ItemGrape
   parent: BaseItem
@@ -3928,6 +3940,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 510
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 16
 - type: Entity
   id: Elona.ItemKiwi
   parent: BaseItem
@@ -3947,6 +3962,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 440
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 12
 - type: Entity
   id: Elona.ItemCherry
   parent: BaseItem
@@ -3966,6 +3984,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 220
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 16
 - type: Entity
   id: Elona.ItemGuava
   parent: BaseItem
@@ -3985,6 +4006,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 620
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 8
 - type: Entity
   id: Elona.ItemCarrot
   parent: BaseItem
@@ -4005,6 +4029,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 420
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemRadish
   parent: BaseItem
@@ -4025,6 +4052,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 950
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemSweetPotato
   parent: BaseItem
@@ -4045,6 +4075,8 @@
     value: 40
   - type: Weight
     weight: 790
+  - type: Food
+    foodType: Elona.Vegetable
 - type: Entity
   id: Elona.ItemLettuce
   parent: BaseItem
@@ -4065,6 +4097,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 650
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemStackOfDishes
   parent: BaseItem
@@ -4101,6 +4136,8 @@
     value: 70
   - type: Weight
     weight: 650
+  - type: Food
+    foodType: Elona.Vegetable
 - type: Entity
   id: Elona.ItemApiNut
   parent: BaseItem
@@ -4119,6 +4156,8 @@
     value: 80
   - type: Weight
     weight: 40
+  - type: Food
+    foodType: Elona.Sweet
 - type: Entity
   id: Elona.ItemStrawberry
   parent: BaseItem
@@ -4138,6 +4177,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 720
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 16
 - type: Entity
   id: Elona.ItemHealthyLeaf
   parent: BaseItem
@@ -4157,6 +4199,8 @@
     value: 240
   - type: Weight
     weight: 90
+  - type: Food
+    foodType: Elona.Vegetable
 - type: Entity
   id: Elona.ItemRainbowFruit
   parent: BaseItem
@@ -4176,6 +4220,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 1070
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 8
 - type: Entity
   id: Elona.ItemQucche
   parent: BaseItem
@@ -4195,6 +4242,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 560
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 12
 - type: Entity
   id: Elona.ItemOrange
   parent: BaseItem
@@ -4214,6 +4264,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 880
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 8
 - type: Entity
   id: Elona.ItemLemon
   parent: BaseItem
@@ -4233,6 +4286,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 440
+  - type: Food
+    foodType: Elona.Fruit
+    spoilTimeHours: 12
 - type: Entity
   id: Elona.ItemGreenPea
   parent: BaseItem
@@ -4253,6 +4309,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 360
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemCbocchi
   parent: BaseItem
@@ -4273,6 +4332,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 970
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemMelon
   parent: BaseItem
@@ -4293,6 +4355,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 840
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 72
 - type: Entity
   id: Elona.ItemLeccho
   parent: BaseItem
@@ -4313,6 +4378,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 550
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 2
 - type: Entity
   id: Elona.ItemRodOfMagicMapping
   parent: BaseItem
@@ -4372,6 +4440,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 2000
+  - type: Food
+    foodType: Elona.Meat
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemBottleOfWhisky
   parent: BaseItem
@@ -5148,6 +5219,8 @@
     value: 280
   - type: Weight
     weight: 400
+  - type: Food
+    foodQuality: 3
 - type: Entity
   id: Elona.ItemBardiche
   parent: BaseItem
@@ -5689,6 +5762,8 @@
     value: 280
   - type: Weight
     weight: 350
+  - type: Food
+    foodQuality: 3
 - type: Entity
   id: Elona.ItemRawNoodle
   parent: BaseItem
@@ -5713,6 +5788,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 400
+  - type: Food
+    foodType: Elona.Pasta
+    spoilTimeHours: 24
 - type: Entity
   id: Elona.ItemSackOfFlour
   parent: BaseItem
@@ -5737,6 +5815,9 @@
     originalnameref2: sack
   - type: Weight
     weight: 800
+  - type: Food
+    foodType: Elona.Bread
+    spoilTimeHours: 240
 - type: Entity
   id: Elona.ItemBombFish
   parent: BaseItem
@@ -5761,6 +5842,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 350
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 6
 - type: Entity
   id: Elona.ItemPoison
   parent: BaseItem
@@ -7288,6 +7372,8 @@
     - Elona.ItemCatCargoFood
   - type: Item
     value: 40
+  - type: Food
+    foodQuality: 3
 - type: Entity
   id: Elona.ItemThrone
   parent: BaseItem
@@ -7539,6 +7625,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 800
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemSardine
   parent: BaseItem
@@ -7564,6 +7653,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 1250
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemFlatfish
   parent: BaseItem
@@ -7589,6 +7681,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 900
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemManboo
   parent: BaseItem
@@ -7614,6 +7709,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 2400
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemSeabream
   parent: BaseItem
@@ -7634,6 +7732,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 800
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemSalmon
   parent: BaseItem
@@ -7654,6 +7755,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 600
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemGlobefish
   parent: BaseItem
@@ -7679,6 +7783,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 550
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemTuna
   parent: BaseItem
@@ -7704,6 +7811,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 700
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemCutlassfish
   parent: BaseItem
@@ -7729,6 +7839,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 600
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemSandborer
   parent: BaseItem
@@ -7754,6 +7867,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 450
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemGlovesOfVesda
   parent: BaseItem
@@ -9184,6 +9300,8 @@
     value: 240
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemFruitSeed
   parent: BaseItem
@@ -9208,6 +9326,8 @@
     value: 280
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemHerbSeed
   parent: BaseItem
@@ -9232,6 +9352,8 @@
     value: 1800
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemUnknownSeed
   parent: BaseItem
@@ -9255,6 +9377,8 @@
     value: 2500
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemArtifactSeed
   parent: BaseItem
@@ -9281,6 +9405,8 @@
     value: 120000
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemMorgia
   parent: BaseItem
@@ -9304,6 +9430,26 @@
     value: 1050
   - type: Weight
     weight: 250
+  - type: Food
+    foodQuality: 1
+    nutrition: 500
+    experienceGains:
+    - experience: 900
+      skillID: Elona.AttrStrength
+    - experience: 700
+      skillID: Elona.AttrConstitution
+    - experience: 10
+      skillID: Elona.AttrCharisma
+    - experience: 10
+      skillID: Elona.AttrMagic
+    - experience: 10
+      skillID: Elona.AttrDexterity
+    - experience: 10
+      skillID: Elona.AttrPerception
+    - experience: 10
+      skillID: Elona.AttrLearning
+    - experience: 10
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemMareilon
   parent: BaseItem
@@ -9327,6 +9473,26 @@
     value: 800
   - type: Weight
     weight: 210
+  - type: Food
+    foodQuality: 4
+    nutrition: 500
+    experienceGains:
+    - experience: 10
+      skillID: Elona.AttrStrength
+    - experience: 10
+      skillID: Elona.AttrConstitution
+    - experience: 10
+      skillID: Elona.AttrCharisma
+    - experience: 800
+      skillID: Elona.AttrMagic
+    - experience: 10
+      skillID: Elona.AttrDexterity
+    - experience: 10
+      skillID: Elona.AttrPerception
+    - experience: 10
+      skillID: Elona.AttrLearning
+    - experience: 800
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemSpenseweed
   parent: BaseItem
@@ -9350,6 +9516,26 @@
     value: 900
   - type: Weight
     weight: 220
+  - type: Food
+    foodQuality: 3
+    nutrition: 500
+    experienceGains:
+    - experience: 10
+      skillID: Elona.AttrStrength
+    - experience: 10
+      skillID: Elona.AttrConstitution
+    - experience: 10
+      skillID: Elona.AttrCharisma
+    - experience: 10
+      skillID: Elona.AttrMagic
+    - experience: 750
+      skillID: Elona.AttrDexterity
+    - experience: 800
+      skillID: Elona.AttrPerception
+    - experience: 10
+      skillID: Elona.AttrLearning
+    - experience: 10
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemCuraria
   parent: BaseItem
@@ -9368,6 +9554,26 @@
     value: 680
   - type: Weight
     weight: 260
+  - type: Food
+    foodQuality: 6
+    nutrition: 2500
+    experienceGains:
+    - experience: 100
+      skillID: Elona.AttrStrength
+    - experience: 100
+      skillID: Elona.AttrConstitution
+    - experience: 100
+      skillID: Elona.AttrCharisma
+    - experience: 100
+      skillID: Elona.AttrMagic
+    - experience: 100
+      skillID: Elona.AttrDexterity
+    - experience: 100
+      skillID: Elona.AttrPerception
+    - experience: 100
+      skillID: Elona.AttrLearning
+    - experience: 100
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemAlraunia
   parent: BaseItem
@@ -9391,6 +9597,26 @@
     value: 1200
   - type: Weight
     weight: 120
+  - type: Food
+    foodQuality: 3
+    nutrition: 500
+    experienceGains:
+    - experience: 10
+      skillID: Elona.AttrStrength
+    - experience: 10
+      skillID: Elona.AttrConstitution
+    - experience: 850
+      skillID: Elona.AttrCharisma
+    - experience: 10
+      skillID: Elona.AttrMagic
+    - experience: 10
+      skillID: Elona.AttrDexterity
+    - experience: 10
+      skillID: Elona.AttrPerception
+    - experience: 700
+      skillID: Elona.AttrLearning
+    - experience: 10
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemStomafillia
   parent: BaseItem
@@ -9409,6 +9635,26 @@
     value: 800
   - type: Weight
     weight: 480
+  - type: Food
+    foodQuality: 7
+    nutrition: 20000
+    experienceGains:
+    - experience: 50
+      skillID: Elona.AttrStrength
+    - experience: 50
+      skillID: Elona.AttrConstitution
+    - experience: 50
+      skillID: Elona.AttrCharisma
+    - experience: 50
+      skillID: Elona.AttrMagic
+    - experience: 50
+      skillID: Elona.AttrDexterity
+    - experience: 50
+      skillID: Elona.AttrPerception
+    - experience: 50
+      skillID: Elona.AttrLearning
+    - experience: 50
+      skillID: Elona.AttrWill
 - type: Entity
   id: Elona.ItemSleepingBag
   parent: BaseItem
@@ -11155,6 +11401,8 @@
     value: 440
   - type: Weight
     weight: 200
+  - type: Food
+    foodQuality: 5
 - type: Entity
   id: Elona.ItemFriedPotato
   parent: BaseItem
@@ -11179,6 +11427,8 @@
     value: 350
   - type: Weight
     weight: 180
+  - type: Food
+    foodQuality: 6
 - type: Entity
   id: Elona.ItemCyberSnack
   parent: BaseItem
@@ -11203,6 +11453,8 @@
     value: 750
   - type: Weight
     weight: 500
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemScrollOfInferiorMaterial
   parent: BaseItem
@@ -12539,6 +12791,8 @@
     value: 4500
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemMagicalSeed
   parent: BaseItem
@@ -12563,6 +12817,8 @@
     value: 3500
   - type: Weight
     weight: 40
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemShelter
   parent: BaseItem
@@ -12977,6 +13233,8 @@
     value: 640
   - type: Weight
     weight: 450
+  - type: Food
+    foodQuality: 5
 - type: Entity
   id: Elona.ItemDeedOfRanch
   parent: BaseItem
@@ -13026,6 +13284,9 @@
     value: 500
   - type: Weight
     weight: 300
+  - type: Food
+    foodType: Elona.Egg
+    spoilTimeHours: 240
 - type: Entity
   id: Elona.ItemBottleOfMilk
   parent: BaseItem
@@ -14035,6 +14296,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 1250
+  - type: Food
+    foodType: Elona.Fish
+    spoilTimeHours: 4
 - type: Entity
   id: Elona.ItemFishJunk
   parent: BaseItem
@@ -14578,6 +14842,8 @@
     isPrecious: true
   - type: Weight
     weight: 720
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemUnicornHorn
   parent: BaseItem
@@ -14942,6 +15208,8 @@
     isPrecious: true
   - type: Weight
     weight: 500
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemEasternLamp
   parent: BaseItem
@@ -15116,6 +15384,8 @@
     isPrecious: true
   - type: Weight
     weight: 440
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemMonsterHeart
   parent: BaseItem
@@ -15254,6 +15524,8 @@
     value: 900
   - type: Weight
     weight: 500
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemBookOfRachel
   parent: BaseItem
@@ -16284,6 +16556,8 @@
     isPrecious: true
   - type: Weight
     weight: 150
+  - type: Food
+    foodQuality: 4
 - type: Entity
   id: Elona.ItemWhistle
   parent: BaseItem
@@ -17393,6 +17667,9 @@
     value: 250
   - type: Weight
     weight: 50
+  - type: Food
+    foodQuality: 6
+    nutrition: 750
 - type: Entity
   id: Elona.ItemFrisiasTail
   parent: BaseItem
@@ -17873,6 +18150,8 @@
     value: 2500
   - type: Weight
     weight: 800
+  - type: Food
+    foodQuality: 6
 - type: Entity
   id: Elona.ItemMochi
   parent: BaseItem
@@ -17896,6 +18175,8 @@
     value: 800
   - type: Weight
     weight: 350
+  - type: Food
+    foodQuality: 7
 - type: Entity
   id: Elona.ItemFiveHornedHelm
   parent: BaseItem
@@ -18342,6 +18623,9 @@
     material: Elona.Fresh
   - type: Weight
     weight: 330
+  - type: Food
+    foodType: Elona.Vegetable
+    spoilTimeHours: 32
 - type: Entity
   id: Elona.ItemLargeBookshelf
   parent: BaseItem
@@ -18410,6 +18694,8 @@
     isPrecious: true
   - type: Weight
     weight: 250
+  - type: Food
+    foodQuality: 8
 - type: Entity
   id: Elona.ItemStatueOfKumiromi
   parent: BaseItem
@@ -18658,6 +18944,8 @@
     originalnameref2: bottle
   - type: Weight
     weight: 80
+  - type: Food
+    foodQuality: 1
 - type: Entity
   id: Elona.ItemSackOfSugar
   parent: BaseItem
@@ -18681,6 +18969,8 @@
     originalnameref2: sack
   - type: Weight
     weight: 120
+  - type: Food
+    foodQuality: 4
 - type: Entity
   id: Elona.ItemPuffPuffBread
   parent: BaseItem
@@ -18703,6 +18993,9 @@
     value: 350
   - type: Weight
     weight: 350
+  - type: Food
+    foodQuality: 5
+    spoilTimeHours: 720
 - type: Entity
   id: Elona.ItemSkullBow
   parent: BaseItem
@@ -18854,4 +19147,6 @@
     value: 2000
   - type: Weight
     weight: 200
+  - type: Food
+    foodQuality: 8
 ...

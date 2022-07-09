@@ -7,7 +7,8 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.Locale;
-using OpenNefia.Content.Effects;
+using OpenNefia.Content.Activity;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -18,6 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
         {
@@ -36,31 +38,20 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(target, ref edible))
                 return TurnResult.Failed;
 
-            if (!EntityManager.TryGetComponent(eater, out SpatialComponent sourceSpatial))
-                return TurnResult.Failed;
-
             if (!_stackSystem.TrySplit(target, 1, out var split))
                 return TurnResult.Failed;
 
-            _mes.Display(Loc.GetString("Elona.Edible.Starts", ("entity", eater), ("edible", split)));
-            _mes.Display(Loc.GetString("Elona.Edible.Finishes", ("entity", eater), ("edible", split)));
+            var activity = EntityManager.SpawnEntity(Protos.Activity.Eating, MapCoordinates.Global);
+            Comp<ActivityEatingComponent>(activity).Food = split;
+            _activities.StartActivity(eater, activity);
 
-            _sounds.Play(Protos.Sound.Eat1, sourceSpatial.MapPosition);
-
-            var result = edible.Effect?.Apply(eater, sourceSpatial.MapPosition, eater, edible.Args)
-                ?? EffectResult.Succeeded;
-
-            EntityManager.DeleteEntity(split);
-
-            return result.ToTurnResult();
+            return TurnResult.Succeeded;
         }
 
         private void HandleImpactOther(EntityUid thrown, EdibleComponent edibleComp, ThrownEntityImpactedOtherEvent args)
         {
             _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Eat1, args.Coords);
-
-            edibleComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, edibleComp.Args);
 
             EntityManager.DeleteEntity(thrown);
         }

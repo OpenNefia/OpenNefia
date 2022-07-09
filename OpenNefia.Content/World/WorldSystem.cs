@@ -146,7 +146,7 @@ namespace OpenNefia.Content.World
 
             if (!noEvents)
             {
-                var ev = new MapOnTimePassedEvent(map, yearsPassed, monthsPassed, daysPassed, hoursPassed, minutesPassed, secondsPassed);
+                var ev = new MapOnTimePassedEvent(map, yearsPassed, monthsPassed, daysPassed, hoursPassed, minutesPassed, secondsPassed, time);
                 RaiseEvent(map.MapEntityUid, ref ev);
 
             }
@@ -163,8 +163,9 @@ namespace OpenNefia.Content.World
         public int HoursPassed { get; }
         public int MinutesPassed { get; }
         public int SecondsPassed { get; }
+        public GameTimeSpan TotalTimePassed { get; }
 
-        public MapOnTimePassedEvent(IMap map, int yearsPassed, int monthsPassed, int daysPassed, int hoursPassed, int minutesPassed, int secondsPassed)
+        public MapOnTimePassedEvent(IMap map, int yearsPassed, int monthsPassed, int daysPassed, int hoursPassed, int minutesPassed, int secondsPassed, GameTimeSpan totalTimePassed)
         {
             Map = map;
             YearsPassed = yearsPassed;
@@ -173,6 +174,7 @@ namespace OpenNefia.Content.World
             HoursPassed = hoursPassed;
             MinutesPassed = minutesPassed;
             SecondsPassed = secondsPassed;
+            TotalTimePassed = totalTimePassed;
         }
     }
 }

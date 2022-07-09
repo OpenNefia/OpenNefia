@@ -17,6 +17,7 @@ local IItemEquipment = require "mod.elona.api.aspect.IItemEquipment"
 local IItemMeleeWeapon = require "mod.elona.api.aspect.IItemMeleeWeapon"
 local IItemRangedWeapon = require "mod.elona.api.aspect.IItemRangedWeapon"
 local IItemAmmo = require "mod.elona.api.aspect.IItemAmmo"
+local IItemFood = require "mod.elona.api.aspect.IItemFood"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -121,7 +122,11 @@ local function field(from, to, field_name, transform, new_field_name)
     transform = transform or id
 
     if from[field_name] then
-        to[camelize(new_field_name or field_name)] = transform(from[field_name])
+        local n = camelize(new_field_name or field_name)
+        if n == "type" then
+            error "field name must not be 'type'"
+        end
+        to[n] = transform(from[field_name])
     end
 end
 
@@ -480,6 +485,24 @@ handlers["base.item"] = function(from, to)
         field(ammo, c, "skill", dotted, "ammoSkill")
         field(ammo, c, "dice_x")
         field(ammo, c, "dice_y")
+    end
+
+    local food = from._ext and from._ext[IItemFood]
+    if food then
+        c = comp(to, "Food")
+        field(food, c, "food_type", dotted)
+        field(food, c, "food_quality")
+        field(food, c, "nutrition")
+        if food.exp_gains then
+            c.experienceGains = {}
+            for _, gain in ipairs(food.exp_gains) do
+                table.insert(c.experienceGains, {
+                    skillID = dotted(gain._id),
+                    experience = gain.amount,
+                })
+            end
+        end
+        field(food, c, "spoilage_hours", nil, "spoilTimeHours")
     end
 end
 

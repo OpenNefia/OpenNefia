@@ -16,25 +16,29 @@ namespace OpenNefia.Content.Food
         public override string Name => "Food";
 
         [DataField]
-        public PrototypeId<FoodTypePrototype>? Type { get; set; }
+        public PrototypeId<FoodTypePrototype>? FoodType { get; set; }
 
         [DataField]
-        public int Quality { get; set; } = 0;
+        public int FoodQuality { get; set; } = 0;
 
         [DataField]
         public int Nutrition { get; set; } = 0;
 
         [DataField]
-        public List<ExperienceGain> ExpGains { get; } = new();
+        public List<ExperienceGain> ExperienceGains { get; } = new();
 
         [DataField]
-        public GameTimeSpan? SpoilageDuration { get; set; }
+        public int? SpoilTimeHours { get; set; }
+
+        #region Instance fields
 
         [DataField]
         public GameDateTime? SpoilageDate { get; set; }
 
         [DataField]
         public bool IsRotten { get; set; } = false;
+
+        #endregion
     }
 
     [DataDefinition]

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Pickable;
@@ -8,6 +9,7 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using System;
@@ -36,14 +38,15 @@ namespace OpenNefia.Content.Food
 
         public override void Initialize()
         {
+            SubscribeComponent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
+            SubscribeComponent<FoodComponent, AfterItemEatenEvent>(HandleEatFood, priority: EventPriorities.VeryLow);
             SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
         }
-
-        private void ProcSpoilFoodInMap(EntityUid uid, ref MapOnTimePassedEvent args)
+        
+        private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
         {
-            for (var i = 0; i < args.HoursPassed; i++)
-                SpoilFoodInMap(args.Map);
+            args.Verbs.Add(new Verb(EdibleSystem.VerbIDEat));
         }
 
         private void HandleSpoilFood(EntityUid uid, FoodComponent food, SpoilFoodEvent args)
@@ -61,6 +64,17 @@ namespace OpenNefia.Content.Food
 
             SetRottedState(uid, setImage: true, food);
             args.Handled = true;
+        }
+
+        private void HandleEatFood(EntityUid uid, FoodComponent component, AfterItemEatenEvent args)
+        {
+            // TODO
+        }
+
+        private void ProcSpoilFoodInMap(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            for (var i = 0; i < args.HoursPassed; i++)
+                SpoilFoodInMap(args.Map);
         }
 
         public bool IsAboutToRot(EntityUid ent, FoodComponent? food = null)
@@ -85,7 +99,7 @@ namespace OpenNefia.Content.Food
             if (!Resolve(ent, ref food))
                 return false;
 
-            return food.Quality > 0;
+            return food.FoodQuality > 0;
         }
 
         public void SetRottedState(EntityUid ent, bool setImage = true, FoodComponent? food = null)
