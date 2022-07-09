@@ -1,8 +1,8 @@
 OpenNefia.Prototypes.Elona.FoodType.Elona = {
     Meat = {
+        DefaultOrigin = "beast",
+        UncookedMessage = "Ugh...Raw meat...",
         Names = {
-            DefaultOrigin = "beast",
-            UncookedMessage = "Ugh...Raw meat...",
             ["1"] = function(_1)
                 return ("grotesque %s meat"):format(_1)
             end,

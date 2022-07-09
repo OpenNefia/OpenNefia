@@ -199,7 +199,7 @@ namespace OpenNefia.Core.Prototypes
         /// <param name="protoClass">A prototype class type that implements IPrototype. This type also
         /// requires a <see cref="PrototypeAttribute"/> with a non-empty class string.</param>
         void RegisterType(Type protoClass);
-        
+
         IPrototypeEventBus EventBus { get; }
 
         event Action<YamlStream, string>? LoadedData;
@@ -312,8 +312,8 @@ namespace OpenNefia.Core.Prototypes
         }
 
         // For avoiding reparsing in unit tests
-        public PrototypeManagerCache Cache => new(Deepcopy(_prototypeResults), 
-            Deepcopy(_prototypeOrdering), 
+        public PrototypeManagerCache Cache => new(Deepcopy(_prototypeResults),
+            Deepcopy(_prototypeOrdering),
             Deepcopy(_prototypeExtendedData),
             Deepcopy(_prototypeEventDefs));
 
@@ -547,11 +547,11 @@ namespace OpenNefia.Core.Prototypes
                         }
 
                         var target = EntitySystem.Get(eventDef.EntitySystemType);
-                        
+
                         Type handlerType;
                         MethodInfo subMethod;
                         var isByRef = eventDef.EventType.HasCustomAttribute<ByRefEventAttribute>();
-                        
+
                         if (isByRef)
                         {
                             handlerType = typeof(PrototypeEventRefHandler<,>);
@@ -565,7 +565,7 @@ namespace OpenNefia.Core.Prototypes
 
                         var handler = methodDef.CreateDelegate(handlerType
                             .MakeGenericType(prototypeType, eventDef.EventType), target);
-                        
+
                         var genericSubMethod = subMethod.MakeGenericMethod(prototypeType, eventDef.EventType);
                         genericSubMethod.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
 

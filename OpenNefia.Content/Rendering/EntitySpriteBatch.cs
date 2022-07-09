@@ -78,7 +78,7 @@ namespace OpenNefia.Content.Inventory
             }
 
             _atlasBatch.Flush();
-            _atlasBatch.Draw(UIScale, X, Y, Width, Height);
+            _atlasBatch.Draw(UIScale, X, Y /*, TODO Width, Height */);
         }
     }
 }

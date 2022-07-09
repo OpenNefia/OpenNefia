@@ -13,6 +13,9 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Hunger;
+using OpenNefia.Core.Locale;
+using OpenNefia.Content.Logic;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -21,13 +24,13 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {
-            base.Initialize();
-
             SubscribeComponent<CharaComponent, ImpregnateEvent>(HandleImpregnate);
             SubscribeComponent<PregnantComponent, TurnStartEvent>(DoAlienBirth);
+            SubscribeComponent<PregnantComponent, BeforeVomitEvent>(VomitOutAlienChildren);
         }
 
         public void HandleImpregnate(EntityUid uid, CharaComponent component, ImpregnateEvent args)
@@ -52,6 +55,12 @@ namespace OpenNefia.Content.GameObjects
                 Console.WriteLine("Suddenly an alien bursts from " + _displayNames.GetDisplayName(uid) + "'s stomach!");
                 _charaGen.GenerateChara(spatial.MapPosition.Offset(1, 1), id: Protos.Chara.Alien);
             }
+        }
+
+        private void VomitOutAlienChildren(EntityUid uid, PregnantComponent component, BeforeVomitEvent args)
+        {
+            EntityManager.RemoveComponent(uid, component);
+            _mes.Display(Loc.GetString("Elona.Pregnant.SpitsAlienChildren", ("entity", uid)), entity: uid);
         }
     }
 

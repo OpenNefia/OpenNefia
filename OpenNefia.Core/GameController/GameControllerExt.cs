@@ -20,9 +20,9 @@ namespace OpenNefia.Core.GameController
             return dt;
         }
 
-        public static void Wait(this IGameController gameController, float time)
+        public static void Wait(this IGameController gameController, float timeSecs)
         {
-            var remaining = time;
+            var remaining = timeSecs;
 
             while (remaining > 0f)
             {

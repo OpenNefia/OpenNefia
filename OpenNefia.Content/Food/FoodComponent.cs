@@ -22,13 +22,19 @@ namespace OpenNefia.Content.Food
         public int FoodQuality { get; set; } = 0;
 
         [DataField]
-        public int Nutrition { get; set; } = 0;
+        public int BaseNutrition { get; set; } = 2500;
+
+        [DataField]
+        public int? Nutrition { get; set; }
 
         [DataField]
         public List<ExperienceGain> ExperienceGains { get; } = new();
 
         [DataField]
         public int? SpoilTimeHours { get; set; }
+
+        [DataField]
+        public PrototypeId<EntityPrototype>? EntityMadeOf { get; set; }
 
         #region Instance fields
 

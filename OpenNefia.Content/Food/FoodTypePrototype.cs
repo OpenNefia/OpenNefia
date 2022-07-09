@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Food
         public IReadOnlyList<ExperienceGain> ExpGains => _expGains;
 
         [DataField]
-        public int BaseNutrition { get; }
+        public int? BaseNutrition { get; }
 
         [DataField("itemChips")]
         private readonly Dictionary<int, PrototypeId<ChipPrototype>> _itemChips = new();

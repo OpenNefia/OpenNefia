@@ -328,7 +328,7 @@
 - [x] 19748	./src/mod/elona/api/Calc.lua
 - [ ] 19837	./src/mod/elona/api/ElonaAction.lua
 - [ ] 20352	./src/mod/elona/api/ElonaMagic.lua
-- [ ] 21011	./src/mod/elona/api/Combat.lua
+- [x] 21011	./src/mod/elona/api/Combat.lua
 - [ ] 23338	./src/mod/elona/api/ElonaCommand.lua
 - [ ] 23512	./src/mod/elona/api/Itemname.lua
 - [ ] 28415	./src/mod/elona/api/DeferredEvents.lua

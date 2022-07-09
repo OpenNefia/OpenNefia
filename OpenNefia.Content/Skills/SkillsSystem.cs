@@ -73,6 +73,8 @@ namespace OpenNefia.Content.Skills
         /// Applies the skill point bonus. Does not consume any skill points.
         /// </summary>
         void ApplyBonusPoint(EntityUid uid, PrototypeId<SkillPrototype> skillId, SkillsComponent? skills = null);
+        
+        void RefreshSpeed(EntityUid chara, SkillsComponent? skills = null);
 
         #endregion
     }

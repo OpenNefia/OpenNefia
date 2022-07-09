@@ -92,7 +92,7 @@ namespace OpenNefia.Content.Activity
         private void Eating_OnCleanup(EntityUid uid, ActivityEatingComponent component, OnActivityCleanupEvent args)
         {
             if (component.Food != null)
-                _inUse.RemoveItemInUse(uid, component.Food.Value);
+                _inUse.RemoveItemInUse(args.Actor, component.Food.Value);
         }
     }
 

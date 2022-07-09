@@ -13,6 +13,8 @@ using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Resists;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Food;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -25,6 +27,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IMapManager _mapMan = default!;
 
         public override void Initialize()
         {
@@ -60,6 +64,14 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             var testEv = new P_ElementKillCharaEvent(null, player);
             _protoMan.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
+
+            var map = _mapMan.ActiveMap!;
+
+            foreach (var proto in _protoMan.EnumeratePrototypes<EntityPrototype>())
+            {
+                if (proto.Components.HasComponent<FoodComponent>())
+                    _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
+            }
         }
     }
 }

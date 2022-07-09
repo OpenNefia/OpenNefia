@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Activity
                     if (_config.GetCVar(CCVars.AnimeAutoTurnSpeed) == AutoTurnSpeed.Normal
                         && _hud.TryGetWidget<HudAutoTurnWidget>(out var widget))
                     {
-                        _gameController.Wait(activityComp.AnimationWait * Constants.FRAME_MS);
+                        _gameController.Wait((float)activityComp.AnimationWait / 1000);
                         widget.PassTurn();
                     }
 
