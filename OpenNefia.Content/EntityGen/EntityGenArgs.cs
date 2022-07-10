@@ -71,6 +71,11 @@ namespace OpenNefia.Content.EntityGen
         public bool IsShop { get; set; } = false;
 
         /// <summary>
+        /// If true, do not log this item in the oracle artifacts log if it is unique.
+        /// </summary>
+        public bool NoOracle { get; set; } = false;
+
+        /// <summary>
         /// Own state to generate this item/pickable with.
         /// </summary>
         public OwnState OwnState { get; set; } = OwnState.None;

@@ -71,7 +71,14 @@ namespace OpenNefia.Core.GameObjects
 
         IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
 
-        bool TryGetMapPlacedIn(EntityUid ent, [NotNullWhen(true)] out IMap? map);
+        /// <summary>
+        /// Tries to find an entity with the given component up the chain of this entity's parents.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        bool TryGetOwningEntity<T>(EntityUid item, [NotNullWhen(true)] out EntityUid? owner)
+            where T : IComponent;
 
         /// <summary>
         ///     Returns ALL component instances of a specified type in the given map.
@@ -283,21 +290,20 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc/>
-        public bool TryGetMapPlacedIn(EntityUid ent, [NotNullWhen(true)] out IMap? map)
+        public bool TryGetOwningEntity<T>(EntityUid item, [NotNullWhen(true)] out EntityUid? owner) 
+            where T : IComponent
         {
-            if (!TryComp<SpatialComponent>(ent, out var spatial) || spatial.Parent == null)
+            foreach (var parent in Spatial(item).Parents)
             {
-                map = null;
-                return false;
+                if (HasComp<T>(parent.Owner))
+                {
+                    owner = parent.Owner;
+                    return true;
+                }
             }
 
-            if (!TryComp<MapComponent>(spatial.Parent.Owner, out var mapComp))
-            {
-                map = null;
-                return false;
-            }
-
-            return _mapManager.TryGetMap(mapComp.MapId, out map);
+            owner = null;
+            return false;
         }
 
         /// <inheritdoc />
