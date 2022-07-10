@@ -211,7 +211,7 @@ namespace OpenNefia.Content.Food
             var ev = new SpoilFoodEvent();
             Raise(ent, ev);
 
-            if (_lookup.TryGetMapPlacedIn(ent, out var map))
+            if (TryMap(ent, out var map))
             {
                 var spatial = Comp<SpatialComponent>(ent);
                 map.RefreshTile(spatial.WorldPosition);

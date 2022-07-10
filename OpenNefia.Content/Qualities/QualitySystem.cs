@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using System;
@@ -13,7 +15,20 @@ namespace OpenNefia.Content.Qualities
     {
         public override void Initialize()
         {
+            SubscribeComponent<QualityComponent, EntityRefreshEvent>(HandleRefresh, EventPriorities.Highest);
+            SubscribeComponent<QualityComponent, EntityBeingGeneratedEvent>(SetQualityFromGenArgs, EventPriorities.Highest);
             SubscribeComponent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
+        }
+
+        private void HandleRefresh(EntityUid uid, QualityComponent component, ref EntityRefreshEvent args)
+        {
+            component.Quality.Reset();
+        }
+
+        private void SetQualityFromGenArgs(EntityUid uid, QualityComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (args.CommonArgs.Quality != null)
+                component.Quality.Base = args.CommonArgs.Quality.Value;
         }
 
         private void AddQualityBrackets(EntityUid uid, QualityComponent quality, ref GetBaseNameEventArgs args)

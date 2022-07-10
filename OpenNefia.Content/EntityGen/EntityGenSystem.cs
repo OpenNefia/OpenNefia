@@ -195,6 +195,7 @@ namespace OpenNefia.Content.EntityGen
     public struct EntityBeingGeneratedEvent
     {
         public EntityGenArgSet GenArgs { get; }
+        public EntityGenCommonArgs CommonArgs => GenArgs.Get<EntityGenCommonArgs>();
 
         public EntityBeingGeneratedEvent(EntityGenArgSet args)
         {
