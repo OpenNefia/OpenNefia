@@ -170,6 +170,7 @@ namespace OpenNefia.Core.GameObjects
             }
 
             _systemDependencyCollection.BuildGraph();
+            _systemTypes.Sort((a, b) => a.FullName.CompareTo(b.FullName));
 
             foreach (var systemType in _systemTypes)
             {
