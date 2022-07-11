@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Tests.Oracle
             var entGen = sim.GetEntitySystem<IEntityGen>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var oracle = sim.Resolve<IOracleSystem>();
+            var oracle = sim.GetEntitySystem<IOracleSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
 
@@ -49,7 +49,6 @@ namespace OpenNefia.Content.Tests.Oracle
             entGen.SpawnEntity(TestEntity, map);
             
             Assert.That(oracle.ArtifactLocations.Count, Is.EqualTo(1));
-            Assert.That(oracle.ArtifactLocations.First(), Contains.Substring("was created at"));
         }
     }
 }
