@@ -210,6 +210,19 @@ namespace OpenNefia.Core.Serialization.Manager
             return DataDefinitions.TryGetValue(type, out _);
         }
 
+        private bool HasGenericWriter(Type type)
+        {
+            var typeDef = type.GetGenericTypeDefinition();
+
+            foreach (var (key, val) in _genericWriterTypes)
+            {
+                if (typeDef.HasSameMetadataDefinitionAs(key))
+                    return true;
+            }
+
+            return false;
+        }
+
         public bool CanSerializeType(Type type)
         {
             var hasTypeSerializer =
@@ -218,6 +231,11 @@ namespace OpenNefia.Core.Serialization.Manager
                     && _typeComparers.ContainsKey(type)
                     && _typeValidators.Keys.Select(v => v.Type).Contains(type)
                     && _typeCopiers.ContainsKey(type);
+
+            if (type.IsGenericType)
+            {
+                hasTypeSerializer |= HasGenericWriter(type);
+            }
 
             return HasDataDefinition(type) || hasTypeSerializer || type.IsArray;
         }
