@@ -11,9 +11,15 @@ namespace OpenNefia.Tests.Core.Serialization
         [Test]
         public void TestCanSerializeType()
         {
-            Assert.That(Serialization.CanSerializeType(typeof(string)), Is.True);
-            Assert.That(Serialization.CanSerializeType(typeof(EntityCoordinates)), Is.True);
-            Assert.That(Serialization.CanSerializeType(typeof(List<string>)), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(Serialization.CanSerializeType(typeof(string)), Is.True, "Builtin");
+                Assert.That(Serialization.CanSerializeType(typeof(string[])), Is.True, "Array");
+                Assert.That(Serialization.CanSerializeType(typeof(EntityCoordinates)), Is.True, "Custom");
+                Assert.That(Serialization.CanSerializeType(typeof(List<string>)), Is.True, "Custom (generic)");
+
+                Assert.That(Serialization.CanSerializeType(typeof(CancellationToken[])), Is.False, "Array (no serializer)");
+            });
         }
     }
 }
