@@ -24,9 +24,12 @@ namespace OpenNefia.Content.Activity
         void RemoveActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
         void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
         bool TryGetActivity(EntityUid entity, [NotNullWhen(true)] out ActivityComponent? activityEnt, ActivityHolderComponent? activityHolder = null);
-        bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        bool HasAnyActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        bool HasActivity(EntityUid entity, PrototypeId<EntityPrototype> id, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, EntityUid activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
+        bool StartActivity(EntityUid entity, EntityUid activity, [NotNullWhen(true)] out ActivityComponent? result, int? turns = null, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
+        bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, [NotNullWhen(true)] out ActivityComponent? result, int? turns = null, ActivityHolderComponent? activityHolder = null);
     }
 
     public sealed class ActivitySystem : EntitySystem, IActivitySystem
@@ -122,13 +125,13 @@ namespace OpenNefia.Content.Activity
 
             if (activityComp.TurnsRemaining <= 0)
             {
-                var evFinish = new OnActivityFinishEvent(actor);
+                var evFinish = new OnActivityFinishEvent(activityComp);
                 RaiseEvent(activityComp.Owner, evFinish);
                 RemoveActivity(actor);
                 return;
             }
             
-            var ev = new OnActivityPassTurnEvent(actor);
+            var ev = new OnActivityPassTurnEvent(activityComp);
             RaiseEvent(activityComp.Owner, ev);
 
             activityComp.TurnsRemaining--;
@@ -161,14 +164,14 @@ namespace OpenNefia.Content.Activity
             if (!Resolve(entity, ref activityHolder))
                 return;
 
-            if (!TryGetActivity(entity, out var activityEnt, activityHolder))
+            if (!TryGetActivity(entity, out var activityComp, activityHolder))
                 return;
 
-            var ev = new OnActivityCleanupEvent(entity);
-            RaiseEvent(activityEnt.Owner, ev);
+            var ev = new OnActivityCleanupEvent(activityComp);
+            RaiseEvent(activityComp.Owner, ev);
 
-            activityHolder.Container.ForceRemove(activityEnt.Owner);
-            EntityManager.DeleteEntity(activityEnt.Owner);
+            activityHolder.Container.ForceRemove(activityComp.Owner);
+            EntityManager.DeleteEntity(activityComp.Owner);
 
             if (_gameSession.IsPlayer(entity) && _hud.TryGetWidget<HudAutoTurnWidget>(out var widget, out var instance))
             {
@@ -203,17 +206,28 @@ namespace OpenNefia.Content.Activity
             activity.WasInterrupted = true;
         }
 
-        public bool HasActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
+        public bool HasAnyActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
         {
             return TryGetActivity(entity, out _, activityHolder);
         }
 
-        public bool StartActivity(EntityUid entity, EntityUid activity, int? turns = null, ActivityHolderComponent? activityHolder = null)
+        public bool HasActivity(EntityUid entity, PrototypeId<EntityPrototype> id, ActivityHolderComponent? activityHolder = null)
         {
-            if (!Resolve(entity, ref activityHolder))
+            if (!TryGetActivity(entity, out var activityComp, activityHolder))
                 return false;
 
-            if (HasActivity(entity, activityHolder))
+            return MetaData(activityComp.Owner)?.EntityPrototype?.GetStrongID() == id;
+        }
+
+        public bool StartActivity(EntityUid entity, EntityUid activity, [NotNullWhen(true)] out ActivityComponent? result, int? turns = null, ActivityHolderComponent? activityHolder = null)
+        {
+            if (!Resolve(entity, ref activityHolder))
+            {
+                result = null;
+                return false;
+            }
+
+            if (HasAnyActivity(entity, activityHolder))
                 RemoveActivity(entity, activityHolder);
 
             var activityComp = EnsureComp<ActivityComponent>(activity);
@@ -232,26 +246,35 @@ namespace OpenNefia.Content.Activity
                 activityComp.TurnsRemaining = evTurns.OutTurns;
             }
 
-            var evStart = new OnActivityStartEvent(entity);
+            var evStart = new OnActivityStartEvent(activityComp);
             RaiseEvent(activity, evStart);
             if (evStart.Cancelled)
             {
                 RemoveActivity(entity, activityHolder);
+                result = null;
                 return false;
             }
 
+            result = activityComp;
             return true;
         }
 
-        public bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activityId, int? turns = null, ActivityHolderComponent? activityHolder = null)
+        public bool StartActivity(EntityUid entity, EntityUid activity, int? turns = null, ActivityHolderComponent? activityHolder = null)
+            => StartActivity(entity, activity, out _, turns, activityHolder);
+
+        public bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activityId, [NotNullWhen(true)] out ActivityComponent? result, int? turns = null, ActivityHolderComponent? activityHolder = null)
         {
             if (!Resolve(entity, ref activityHolder))
+            {
+                result = null;
                 return false;
+            }
             
             var activityProto = _protos.Index(activityId);
             if (!activityProto.Components.HasComponent<ActivityComponent>())
             {
                 Logger.ErrorS("activity", $"Entity prototype {activityId} does not have a {nameof(ActivityComponent)}!");
+                result = null;
                 return false;
             }
 
@@ -259,12 +282,15 @@ namespace OpenNefia.Content.Activity
             if (!activity.IsValid())
             {
                 Logger.ErrorS("activity", $"Failed to create entity {activityId}!");
+                result = null;
                 return false;
             }
 
-            return StartActivity(entity, activity, turns, activityHolder);
+            return StartActivity(entity, activity, out result, turns, activityHolder);
         }
-        
+
+        public bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activityId, int? turns = null, ActivityHolderComponent? activityHolder = null)
+            => StartActivity(entity, activityId, out _, turns, activityHolder);
 
         private void UpdateAutoTurnWidget(EntityUid activity, ActivityComponent component, OnActivityStartEvent args)
         {
@@ -325,41 +351,41 @@ namespace OpenNefia.Content.Activity
 
     public sealed class OnActivityStartEvent : CancellableEntityEventArgs
     {
-        public EntityUid Actor { get; }
+        public ActivityComponent Activity { get; }
 
-        public OnActivityStartEvent(EntityUid actor)
+        public OnActivityStartEvent(ActivityComponent activity)
         {
-            Actor = actor;
+            Activity = activity;
         }
     }
 
     public sealed class OnActivityPassTurnEvent : HandledEntityEventArgs
     {
-        public EntityUid Actor { get; }
+        public ActivityComponent Activity { get; }
 
-        public OnActivityPassTurnEvent(EntityUid actor)
+        public OnActivityPassTurnEvent(ActivityComponent activity)
         {
-            Actor = actor;
+            Activity = activity;
         }
     }
 
     public sealed class OnActivityFinishEvent : EntityEventArgs
     {
-        public EntityUid Actor { get; }
+        public ActivityComponent Activity { get; }
 
-        public OnActivityFinishEvent(EntityUid actor)
+        public OnActivityFinishEvent(ActivityComponent activity)
         {
-            Actor = actor;
+            Activity = activity;
         }
     }
 
     public sealed class OnActivityCleanupEvent : EntityEventArgs
     {
-        public EntityUid Actor { get; }
+        public ActivityComponent Activity { get; }
 
-        public OnActivityCleanupEvent(EntityUid actor)
+        public OnActivityCleanupEvent(ActivityComponent activity)
         {
-            Actor = actor;
+            Activity = activity;
         }
     }
 }

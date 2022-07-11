@@ -26,9 +26,7 @@ namespace OpenNefia.Content.Activity
 
         private void Resting_OnPassTurn(EntityUid uid, ActivityRestingComponent component, OnActivityPassTurnEvent args)
         {
-            if (!TryComp<ActivityComponent>(uid, out var activity))
-                return;
-
+            var activity = args.Activity;
             var actor = activity.Actor;
 
             if (activity.TurnsRemaining % 2 == 0)
