@@ -7,6 +7,7 @@ using OpenNefia.Content.Parties;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -27,11 +28,13 @@ namespace OpenNefia.Content.Activity
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IInUseSystem _inUse = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
             Initialize_Resting();
             Initialize_Eating();
+            Initialize_Traveling();
         }
     }
 }

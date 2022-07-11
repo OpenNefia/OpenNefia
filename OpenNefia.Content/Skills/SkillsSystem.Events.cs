@@ -174,7 +174,7 @@ namespace OpenNefia.Content.Skills
             }
             else if (turn == 4)
             {
-                if (!_activities.HasActivity(uid))
+                if (!_activities.HasAnyActivity(uid))
                 {
                     _damage.HealStamina(uid, 2, showMessage: false, skills);
                 }

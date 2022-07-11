@@ -179,7 +179,7 @@ namespace OpenNefia.Content.Food
             if (!Resolve(ent, ref food))
                 return false;
 
-            return food.FoodQuality > 0;
+            return food.FoodType != null && food.FoodQuality > 0;
         }
 
         public void SetRottedState(EntityUid ent, bool setImage = true, FoodComponent? food = null)

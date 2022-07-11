@@ -79,9 +79,8 @@ namespace OpenNefia.Content.EffectMap
 
         private void StepAll(float frames)
         {
-            var size = _entries.Count;
             var i = 0;
-            while (i < size - 1)
+            while (i < _entries.Count - 1)
             {
                 var entry = _entries[i];
                 var removed = false;
@@ -102,11 +101,10 @@ namespace OpenNefia.Content.EffectMap
                             entry.Alpha = (byte)((entry.MaxFrames - entry.Frame) * 12 + 30);
                             break;
                     }
-                    if (entry.Frame >= entry.MaxFrames)
+                    if (entry.Frame >= entry.MaxFrames && _entries.Count > 0)
                     {
-                        _entries[i] = _entries[size - 1];
-                        _entries.RemoveAt(size - 1);
-                        size--;
+                        _entries[i] = _entries[_entries.Count - 1];
+                        _entries.RemoveAt(_entries.Count - 1);
                         removed = true;
                     }
                 }

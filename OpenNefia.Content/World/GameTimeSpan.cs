@@ -40,12 +40,7 @@ namespace OpenNefia.Content.World
 
         public GameTimeSpan(long totalSeconds)
         {
-            if (totalSeconds < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(totalSeconds));
-            }
-
-            TotalSeconds = totalSeconds;
+            TotalSeconds = Math.Max(totalSeconds, 0);
         }
 
         public GameTimeSpan(GameTimeSpan other)

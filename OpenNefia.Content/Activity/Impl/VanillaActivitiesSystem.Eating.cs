@@ -22,7 +22,8 @@ namespace OpenNefia.Content.Activity
 
         private void Eating_OnStart(EntityUid uid, ActivityEatingComponent component, OnActivityStartEvent args)
         {
-            var actor = args.Actor;
+            var activity = args.Activity;
+            var actor = activity.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -51,7 +52,8 @@ namespace OpenNefia.Content.Activity
 
         private void Eating_OnPassTurn(EntityUid uid, ActivityEatingComponent component, OnActivityPassTurnEvent args)
         {
-            var actor = args.Actor;
+            var activity = args.Activity;
+            var actor = activity.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -67,7 +69,8 @@ namespace OpenNefia.Content.Activity
 
         private void Eating_OnFinish(EntityUid uid, ActivityEatingComponent component, OnActivityFinishEvent args)
         {
-            var actor = args.Actor;
+            var activity = args.Activity;
+            var actor = activity.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -92,7 +95,7 @@ namespace OpenNefia.Content.Activity
         private void Eating_OnCleanup(EntityUid uid, ActivityEatingComponent component, OnActivityCleanupEvent args)
         {
             if (component.Food != null)
-                _inUse.RemoveItemInUse(args.Actor, component.Food.Value);
+                _inUse.RemoveItemInUse(args.Activity.Actor, component.Food.Value);
         }
     }
 
