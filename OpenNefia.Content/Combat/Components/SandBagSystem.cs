@@ -7,6 +7,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Areas;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -33,12 +34,13 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<SandBaggedComponent, AfterDamageAppliedEvent>(ProcSandBag, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SandBaggedComponent, RunAIActionEvent>(BlockAIOnSandBag, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<SandBaggedComponent, AfterDamageHPEvent>(ProcSandBagDialog, priority: EventPriorities.Low);
+            SubscribeComponent<SandBaggedComponent, AfterDamageHPEvent>(ShowDialogAndDamageNumbers, priority: EventPriorities.Low);
             SubscribeComponent<SandBaggedComponent, AfterRecruitedAsAllyEvent>(HandleRecruited, priority: EventPriorities.VeryHigh);
         }
 
@@ -67,13 +69,18 @@ namespace OpenNefia.Content.Combat
             // <<<<<<<< shade2/ai.hsp:32 		} ..
         }
 
-        private void ProcSandBagDialog(EntityUid uid, SandBaggedComponent _, ref AfterDamageHPEvent args)
+        private void ShowDialogAndDamageNumbers(EntityUid uid, SandBaggedComponent _, ref AfterDamageHPEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1769 	if cBit(cSandBag,tc):if sync(tc):txt "("+dmg+")"+ ..
             _mes.Display($"({args.FinalDamage}{Loc.Space()})", entity: uid);
 
             if (_rand.OneIn(20))
                 _mes.Display(Loc.GetString("Elona.SandBag.Dialog.Damage"), UiColors.MesTalk);
+
+            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == DisplayDamageType.SandbagOnly)
+            {
+                _mes.Display($"({args.FinalDamage})", UiColors.MesYellow, noCapitalize: true, entity: uid);
+            }
             // <<<<<<<< shade2/chara_func.hsp:1769 	if cBit(cSandBag,tc):if sync(tc):txt "("+dmg+")"+ ..
         }
 

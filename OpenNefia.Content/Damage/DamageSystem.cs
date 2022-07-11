@@ -52,22 +52,6 @@ namespace OpenNefia.Content.Damage
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
 
-        public override void Initialize()
-        {
-            SubscribeEntity<AfterDamageAppliedEvent>(DisplayAttackMessage, priority: EventPriorities.VeryHigh);
-            
-            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessagesWounded, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<EntityWoundedEvent>(ProcRetreatInFear, priority: EventPriorities.VeryHigh + 10000);
-            SubscribeEntity<EntityWoundedEvent>(DisturbSleep, priority: EventPriorities.VeryHigh + 20000);
-            SubscribeEntity<EntityWoundedEvent>(ApplyHostileActionAfterDamage, priority: EventPriorities.VeryHigh + 60000);
-            SubscribeEntity<EntityWoundedEvent>(PlayHeartbeatSound, priority: EventPriorities.Lowest);
-            
-            SubscribeEntity<EntityKilledEvent>(DisplayDamageMessagesKilled, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh + 10000);
-
-            SubscribeEntity<AfterDamageMPEvent>(ProcMagicReaction, priority: EventPriorities.VeryHigh);
-        }
-
         public DamageHPResult DamageHP(EntityUid target, int baseDamage, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null)
         {
             if (!Resolve(target, ref skills))

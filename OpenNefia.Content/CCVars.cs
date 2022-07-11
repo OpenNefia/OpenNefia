@@ -169,6 +169,9 @@ namespace OpenNefia.Content
         public static readonly CVarDef<int> MessageFade =
             CVarDef.Create("message.fade", 50, CVar.Archive);
 
+        public static readonly CVarDef<DisplayDamageType> MessageShowDamageNumbers =
+            CVarDef.Create("message.showDamageNumbers", DisplayDamageType.Always, CVar.Archive);
+
         /*
          * Debug
          */
@@ -261,5 +264,12 @@ namespace OpenNefia.Content
         Disabled,
         Minor,
         Major
+    }
+
+    public enum DisplayDamageType
+    {
+        Never,
+        SandbagOnly,
+        Always
     }
 }

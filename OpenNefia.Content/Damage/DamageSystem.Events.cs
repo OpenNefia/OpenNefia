@@ -42,7 +42,33 @@ namespace OpenNefia.Content.Damage
         [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
         [Dependency] private readonly IDialogSystem _dialog = default!;
 
+        public override void Initialize()
+        {
+            SubscribeEntity<AfterDamageAppliedEvent>(DisplayAttackMessage, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<AfterDamageHPEvent>(ShowDamageNumbers, priority: EventPriorities.VeryLow);
+
+            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessagesWounded, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<EntityWoundedEvent>(ProcRetreatInFear, priority: EventPriorities.VeryHigh + 10000);
+            SubscribeEntity<EntityWoundedEvent>(DisturbSleep, priority: EventPriorities.VeryHigh + 20000);
+            SubscribeEntity<EntityWoundedEvent>(ApplyHostileActionAfterDamage, priority: EventPriorities.VeryHigh + 60000);
+            SubscribeEntity<EntityWoundedEvent>(PlayHeartbeatSound, priority: EventPriorities.Lowest);
+
+            SubscribeEntity<EntityKilledEvent>(DisplayDamageMessagesKilled, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh + 10000);
+
+            SubscribeEntity<AfterDamageMPEvent>(ProcMagicReaction, priority: EventPriorities.VeryHigh);
+        }
+
         #region Damage events
+
+        private void ShowDamageNumbers(EntityUid entity, ref AfterDamageHPEvent args)
+        {
+            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == DisplayDamageType.Always
+                && _factions.GetRelationToPlayer(entity) <= Relation.Enemy)
+            {
+                _mes.Display($"({args.FinalDamage})", UiColors.MesYellow, noCapitalize: true);
+            }
+        }
 
         private void ProcRetreatInFear(EntityUid entity, ref EntityWoundedEvent args)
         {
