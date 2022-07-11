@@ -53,11 +53,11 @@ namespace OpenNefia.Content.Oracle
                 noOracle = itemGenArgs.NoOracle || itemGenArgs.IsShop;
             }
 
-            if (!noOracle && CompOrNull<QualityComponent>(item)?.Quality == Quality.Unique)
+            if (!noOracle && CompOrNull<QualityComponent>(item)?.Quality.Base == Quality.Unique)
             {
                 var text = GetOracleText(item);
                 if (text != null)
-                ArtifactLocations.Add(text);
+                    ArtifactLocations.Add(text);
             }
             // <<<<<<<< shade2/item.hsp:636  	} ...
         }

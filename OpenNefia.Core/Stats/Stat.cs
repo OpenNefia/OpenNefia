@@ -143,7 +143,7 @@ namespace OpenNefia.Core.Stats
 
         public static bool operator ==(Stat<T>? left, T? right)
         {
-            return left?.Equals(right) ?? false;
+            return left?.Buffed?.Equals(right) ?? false;
         }
 
         public static bool operator !=(Stat<T>? left, T? right)
