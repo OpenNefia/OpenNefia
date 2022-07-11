@@ -237,7 +237,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 hasTypeSerializer |= HasGenericWriter(type);
             }
 
-            return HasDataDefinition(type) || hasTypeSerializer || type.IsArray;
+            return HasDataDefinition(type) || hasTypeSerializer;
         }
 
         public ValidationNode ValidateNode(Type type, DataNode node, ISerializationContext? context = null)
