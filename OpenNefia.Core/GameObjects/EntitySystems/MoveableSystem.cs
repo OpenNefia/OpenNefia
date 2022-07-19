@@ -12,7 +12,23 @@ namespace OpenNefia.Core.GameObjects
 {
     public interface IMoveableSystem : IEntitySystem
     {
+        /// <summary>
+        /// Moves this entity, raising additional entity events.
+        /// 
+        /// Most entities' positions can be changed by assigning the <see
+        /// cref="SpatialComponent.Coordinates"/> property, but this method will also run the three
+        /// movement events for Moveable entities:
+        /// 
+        /// <list type="bullet">
+        /// <item><see cref="MoveEventArgs"/></item>
+        /// <item><see cref="BeforeMoveEventArgs"/></item>
+        /// <item><see cref="AfterMoveEventArgs"/></item>
+        /// </list>
+        /// 
+        /// Use this method when trying to move an NPC during their AI routine.
+        /// </summary>
         TurnResult? MoveEntity(EntityUid entity, MapCoordinates newPosition, MoveableComponent? moveable = null, SpatialComponent? spatial = null);
+
         bool SwapPlaces(EntityUid entity, EntityUid with, SpatialComponent? spatial = null, SpatialComponent? withSpatial = null);
     }
 
@@ -30,7 +46,8 @@ namespace OpenNefia.Core.GameObjects
 
         #region Methods
 
-        public TurnResult? MoveEntity(EntityUid entity, MapCoordinates newPosition, 
+        /// <inheritdoc/>
+        public TurnResult? MoveEntity(EntityUid entity, MapCoordinates newPosition,
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {
@@ -41,6 +58,20 @@ namespace OpenNefia.Core.GameObjects
             var ev = new MoveEventArgs(oldPosition, newPosition);
             RaiseEvent(entity, ev);
             return ev.TurnResult;
+        }
+
+        public bool SwapPlaces(EntityUid entity, EntityUid with,
+            SpatialComponent? spatial = null,
+            SpatialComponent? withSpatial = null)
+        {
+            if (!Resolve(entity, ref spatial) || !Resolve(with, ref withSpatial))
+                return false;
+
+            var temp = spatial.WorldPosition;
+            spatial.WorldPosition = withSpatial.WorldPosition;
+            withSpatial.WorldPosition = temp;
+
+            return true;
         }
 
         #endregion
@@ -58,7 +89,7 @@ namespace OpenNefia.Core.GameObjects
                 args.Handle(result.Value);
         }
 
-        private TurnResult? HandleMove(EntityUid uid, 
+        private TurnResult? HandleMove(EntityUid uid,
             MapCoordinates newCoords,
             MapCoordinates oldCoords,
             MoveableComponent? moveable = null,
@@ -92,20 +123,6 @@ namespace OpenNefia.Core.GameObjects
             RaiseEvent(uid, evAfter);
 
             return TurnResult.Succeeded;
-        }
-
-        public bool SwapPlaces(EntityUid entity, EntityUid with,
-            SpatialComponent? spatial = null,
-            SpatialComponent? withSpatial = null)
-        {
-            if (!Resolve(entity, ref spatial) || !Resolve(with, ref withSpatial))
-                return false;
-
-            var temp = spatial.WorldPosition;
-            spatial.WorldPosition = withSpatial.WorldPosition;
-            withSpatial.WorldPosition = temp;
-
-            return true;
         }
 
         #endregion

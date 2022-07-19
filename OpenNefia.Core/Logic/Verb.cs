@@ -13,15 +13,12 @@ namespace OpenNefia.Core.Logic
     /// A Verb is an action that can be applied to an entity. Examples
     /// include throwing, praying, opening, eating, and drinking.
     /// 
-    /// This allows querying an entity for a list of verbs that can be
-    /// applied to it with events. Making an entity drinkable or throwable
-    /// by the player then becomes as simple as creating a component/system that adds
-    /// the verb to the <see cref="VerbSystem.GetVerbsEventArgs">'s valid 
-    /// verb list.
+    /// The purpose of verbs are to ask an entity "can I eat/drink/open/throw you"
+    /// for things like filtering items in the inventory that are edible/drinkable,
+    /// or to check if an open/close/other action is valid for an entity.
     /// 
-    /// Note that this system is mainly relevant to the player, and is meant to be
-    /// used for UI interactivity for the time being. How to allow the AI to dynamically
-    /// increase its repertoire of actions hasn't been decided yet.
+    /// Querying an entity for its useable verbs is handled by raising the
+    /// <see cref="GetVerbsEventArgs"/> event on it.
     /// </summary>
     public sealed class Verb : IComparable
     {

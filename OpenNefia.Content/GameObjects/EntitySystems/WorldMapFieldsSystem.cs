@@ -13,7 +13,6 @@ namespace OpenNefia.Content.GameObjects
 {
     public class WorldMapFieldsSystem : EntitySystem
     {
-        [Dependency] private readonly IDynamicTypeFactory _dynTypes = default!;
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
@@ -39,7 +38,7 @@ namespace OpenNefia.Content.GameObjects
 
             return Protos.FieldMap.Plains;
         }
-        
+
         private TurnResult EnterField(EntityUid user, EntityUid mapEntity,
             WorldMapFieldsComponent? worldMapFields = null,
             SpatialComponent? userSpatial = null)
