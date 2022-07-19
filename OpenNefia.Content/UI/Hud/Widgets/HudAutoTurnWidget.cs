@@ -14,7 +14,7 @@ namespace OpenNefia.Content.UI.Hud
     {
         [Dependency] private readonly IWorldSystem _world = default!;
 
-        private const int TurnsBetweenRestarts = 15;
+        private const int TurnsBetweenAnimationLoops = 15;
 
         private IAssetInstance _autoTurnIcon = default!;
         
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.UI.Hud
             base.SetPosition(x, y);
             UiText.SetPosition(X + 43, Y + 6);
             Window.SetPosition(X, Y);
-            AnimWindow.SetSize(X, Y - 104);
+            AnimWindow.SetPosition(X, Y - 104);
             if (_autoTurnAnimation != null)
                 _autoTurnAnimation.SetPosition(X + 2, Y - 102);
         }
@@ -73,6 +73,8 @@ namespace OpenNefia.Content.UI.Hud
             UiText.SetPreferredSize();
             Window.SetSize(Width, Height);
             AnimWindow.SetSize(148, 101);
+            if (_autoTurnAnimation != null)
+                _autoTurnAnimation.SetSize(148, 101);
         }
 
         public override void GetPreferredSize(out Vector2 size)
@@ -93,7 +95,7 @@ namespace OpenNefia.Content.UI.Hud
 
             if (_turnsUntilRestart <= 0)
             {
-                _turnsUntilRestart = TurnsBetweenRestarts;
+                _turnsUntilRestart = TurnsBetweenAnimationLoops;
                 // TODO draw callback
             }
         }
@@ -111,6 +113,7 @@ namespace OpenNefia.Content.UI.Hud
             if (_autoTurnAnimation != null)
             {
                 AnimWindow.Draw();
+                Love.Graphics.SetColor(Color.White);
                 _autoTurnAnimation.Draw();
             }
             // <<<<<<<< shade2/screen.hsp:423 		} ..
