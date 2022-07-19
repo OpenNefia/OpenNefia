@@ -460,40 +460,6 @@ namespace OpenNefia.Content.Damage
     }
 
     [ByRefEvent]
-    public struct AfterDamageHPEvent
-    {
-        public int BaseDamage { get; }
-        public int FinalDamage { get; }
-        public EntityUid? Attacker { get; }
-        public IDamageType? DamageType { get; }
-        public DamageHPExtraArgs ExtraArgs { get; }
-
-        public AfterDamageHPEvent(int baseDamage, int finalDamage, EntityUid? attacker, IDamageType? damageType, DamageHPExtraArgs extraArgs)
-        {
-            BaseDamage = baseDamage;
-            FinalDamage = finalDamage;
-            Attacker = attacker;
-            DamageType = damageType;
-            ExtraArgs = extraArgs;
-        }
-    }
-
-    [ByRefEvent]
-    public struct AfterDamageMPEvent
-    {
-        public int Amount { get; }
-        public bool NoMagicReaction { get; }
-        public bool ShowMessage { get; }
-
-        public AfterDamageMPEvent(int amount, bool noMagicReaction, bool showMessage)
-        {
-            Amount = amount;
-            NoMagicReaction = noMagicReaction;
-            ShowMessage = showMessage;
-        }
-    }
-
-    [ByRefEvent]
     public struct CalcKillExperienceEvent
     {
         public EntityUid Target { get; }

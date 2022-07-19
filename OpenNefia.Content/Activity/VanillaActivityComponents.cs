@@ -69,6 +69,9 @@ namespace OpenNefia.Content.Activity
 
         [DataField]
         public MapCoordinates TargetTile { get; set; }
+
+        [DataField]
+        public int TurnsSpentMining { get; set; } = 0;
     }
 
     [RegisterComponent]

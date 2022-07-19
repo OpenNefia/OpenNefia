@@ -21,6 +21,8 @@ namespace OpenNefia.Content.Damage
     public interface IDamageSystem : IEntitySystem
     {
         DamageHPResult DamageHP(EntityUid target, int baseDamage, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null);
+        void DamageMP(EntityUid target, int amount, bool noMagicReaction = false, bool showMessage = true, SkillsComponent? skills = null);
+        void DamageStamina(EntityUid target, int amount, bool showMessage = true, SkillsComponent? skills = null);
 
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
         void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
@@ -99,7 +101,20 @@ namespace OpenNefia.Content.Damage
             if (!Resolve(target, ref skills))
                 return;
 
+            skills.MP = Math.Max(skills.MP - amount, -999999);
+
             var ev = new AfterDamageMPEvent(amount, noMagicReaction, showMessage);
+            RaiseEvent(target, ref ev);
+        }
+
+        public void DamageStamina(EntityUid target, int amount, bool showMessage = true, SkillsComponent? skills = null)
+        {
+            if (!Resolve(target, ref skills))
+                return;
+            
+            skills.Stamina = Math.Max(skills.Stamina - amount, -100);
+
+            var ev = new AfterDamageStaminaEvent(amount, showMessage);
             RaiseEvent(target, ref ev);
         }
 
@@ -182,5 +197,52 @@ namespace OpenNefia.Content.Damage
         public PrototypeId<SkillPrototype>? AttackSkill { get; set; }
         public bool IsThirdPerson { get; set; }
         public bool NoAttackText { get; set; }
+    }
+
+    [ByRefEvent]
+    public struct AfterDamageHPEvent
+    {
+        public int BaseDamage { get; }
+        public int FinalDamage { get; }
+        public EntityUid? Attacker { get; }
+        public IDamageType? DamageType { get; }
+        public DamageHPExtraArgs ExtraArgs { get; }
+
+        public AfterDamageHPEvent(int baseDamage, int finalDamage, EntityUid? attacker, IDamageType? damageType, DamageHPExtraArgs extraArgs)
+        {
+            BaseDamage = baseDamage;
+            FinalDamage = finalDamage;
+            Attacker = attacker;
+            DamageType = damageType;
+            ExtraArgs = extraArgs;
+        }
+    }
+
+    [ByRefEvent]
+    public struct AfterDamageMPEvent
+    {
+        public int Amount { get; }
+        public bool NoMagicReaction { get; }
+        public bool ShowMessage { get; }
+
+        public AfterDamageMPEvent(int amount, bool noMagicReaction, bool showMessage)
+        {
+            Amount = amount;
+            NoMagicReaction = noMagicReaction;
+            ShowMessage = showMessage;
+        }
+    }
+
+    [ByRefEvent]
+    public struct AfterDamageStaminaEvent
+    {
+        public int Amount { get; }
+        public bool ShowMessage { get; }
+
+        public AfterDamageStaminaEvent(int amount, bool showMessage)
+        {
+            Amount = amount;
+            ShowMessage = showMessage;
+        }
     }
 }

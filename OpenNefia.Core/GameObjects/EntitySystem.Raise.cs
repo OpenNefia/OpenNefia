@@ -161,6 +161,12 @@ namespace OpenNefia.Core.GameObjects
             return mapMan.TryGetMap(spatial.MapID, out map);
         }
 
+        protected bool TryMap(MapCoordinates coords, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            return mapMan.TryGetMap(coords.MapId, out map);
+        }
+
         protected bool TryArea(EntityUid uid, [NotNullWhen(true)] out IArea? area, IMapManager? mapMan = null, IAreaManager? areaMan = null, SpatialComponent? spatial = null)
         {
             IoCManager.Resolve(ref areaMan);

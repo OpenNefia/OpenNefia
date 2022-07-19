@@ -35,6 +35,7 @@ namespace OpenNefia.Content.Activity
             Initialize_Resting();
             Initialize_Eating();
             Initialize_Traveling();
+            Initialize_Mining();
         }
     }
 }

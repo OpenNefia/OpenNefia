@@ -17,6 +17,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Activity;
+using OpenNefia.Content.Mining;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -65,7 +66,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            return _actionDig.DoDig(session!.Player, dir.Value.Coords);
+            return _actionDig.StartMining(session!.Player, dir.Value.Coords);
         }
 
         private TurnResult? CommandBash(IGameSessionManager? session)

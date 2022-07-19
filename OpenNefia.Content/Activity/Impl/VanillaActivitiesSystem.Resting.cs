@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Sleep;
+using OpenNefia.Content.Sleep;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;

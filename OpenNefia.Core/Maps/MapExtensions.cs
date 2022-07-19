@@ -3,6 +3,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,18 @@ namespace OpenNefia.Core.Maps
         public static TilePrototype? GetTilePrototype(this IMap map, Vector2i pos)
         {
             return map.GetTile(pos)?.Tile.ResolvePrototype();
+        }
+
+        public static bool TryGetTileID(this IMap map, Vector2i pos, [NotNullWhen(true)] out PrototypeId<TilePrototype>? id)
+        {
+            id = GetTileID(map, pos);
+            return id != null;
+        }
+
+        public static bool TryGetTilePrototype(this IMap map, Vector2i pos, [NotNullWhen(true)] out TilePrototype? proto)
+        {
+            proto = GetTilePrototype(map, pos);
+            return proto != null;
         }
     }
 }

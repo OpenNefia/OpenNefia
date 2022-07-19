@@ -309,6 +309,7 @@ namespace OpenNefia.Content.Activity
                 }
 
                 anim = (BaseAutoTurnAnim)_dynTypeFactory.CreateInstance(autoTurnAnimType);
+                anim.Initialize();
             }
 
             var actor = component.Actor;
