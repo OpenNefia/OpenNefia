@@ -59,8 +59,11 @@ namespace OpenNefia.Content.Activity
                 {
                     if (_activities.StartActivity(uid, Protos.Activity.Traveling, out var activityComp))
                     {
+                        // Prevent the player from moving immediately and defer to when the
+                        // traveling activity finishes.
                         var traveling = EnsureComp<ActivityTravelingComponent>(activityComp.Owner);
                         traveling.Destination = args.OutNewPosition;
+                        
                         args.Handle(TurnResult.Succeeded);
                     }
                 }

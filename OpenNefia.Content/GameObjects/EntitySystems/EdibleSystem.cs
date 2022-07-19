@@ -26,7 +26,7 @@ namespace OpenNefia.Content.GameObjects
             SubscribeComponent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
         }
 
-        private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
+        private void HandleGetVerbs(EntityUid uid, EdibleComponent edibleComp, GetVerbsEventArgs args)
         {
             args.Verbs.Add(new Verb(VerbTypeEat, "Eat Item", () => Eat(args.Source, args.Target)));
         }
