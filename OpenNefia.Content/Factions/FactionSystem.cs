@@ -61,7 +61,6 @@ namespace OpenNefia.Content.Factions
         {
             var ev = new CalculateRelationEventArgs(them, ignorePersonal: false);
             RaiseEvent(us, ref ev);
-            Logger.DebugS("factions", $"relation: {CompOrNull<FactionComponent>(us)?.RelationToPlayer} -> {CompOrNull<FactionComponent>(them)?.RelationToPlayer} = {ev.Relation}");
             return ev.Relation;
         }
 

@@ -70,14 +70,24 @@ namespace OpenNefia.Content.Food
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IWeightSystem _weight = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
         {
+            SubscribeComponent<FoodComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, EntityBeingGeneratedEvent>(HandleGenerated, priority: EventPriorities.High);
             SubscribeComponent<FoodComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
             SubscribeComponent<FoodComponent, AfterItemEatenEvent>(HandleEatFood, priority: EventPriorities.VeryLow);
             SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
+        }
+
+        public const string VerbTypeEat = "Elona.Eat";
+
+        private void HandleGetVerbs(EntityUid uid, FoodComponent food, GetVerbsEventArgs args)
+        {
+            args.Verbs.Add(new Verb(VerbTypeEat, "Eat Food", () => DoEat(args.Source, args.Target)));
         }
 
         private void HandleGenerated(EntityUid uid, FoodComponent foodComp, ref EntityBeingGeneratedEvent args)
@@ -104,9 +114,16 @@ namespace OpenNefia.Content.Food
                 chip.ChipID = GetFoodChip(foodComp.FoodType!.Value, foodComp.FoodQuality);
         }
 
-        private void HandleGetVerbs(EntityUid uid, FoodComponent food, GetVerbsEventArgs args)
+        private TurnResult DoEat(EntityUid eater, EntityUid target)
         {
-            args.Verbs.Add(new Verb(EdibleSystem.VerbIDEat));
+            if (!_stacks.TrySplit(target, 1, out var split))
+                return TurnResult.Failed;
+
+            var activity = EntityManager.SpawnEntity(Protos.Activity.Eating, MapCoordinates.Global);
+            Comp<ActivityEatingComponent>(activity).Food = split;
+            _activities.StartActivity(eater, activity);
+
+            return TurnResult.Succeeded;
         }
 
         private void HandleSpoilFood(EntityUid uid, FoodComponent food, SpoilFoodEvent args)

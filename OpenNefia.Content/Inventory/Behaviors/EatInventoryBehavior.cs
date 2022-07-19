@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Food;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -37,7 +38,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            return _verbSystem.CanUseVerbOn(context.User, item, EdibleSystem.VerbTypeEat);
+            return _verbSystem.CanUseVerbOn(context.User, item, FoodSystem.VerbTypeEat);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
@@ -45,7 +46,7 @@ namespace OpenNefia.Content.Inventory
             context.ShowInventoryWindow = false;
 
             var result = TurnResult.NoResult;
-            if (_verbSystem.TryGetVerb(context.User, item, EdibleSystem.VerbTypeEat, out var verb))
+            if (_verbSystem.TryGetVerb(context.User, item, FoodSystem.VerbTypeEat, out var verb))
                 result = verb.Act();
 
             if (result != TurnResult.NoResult)
