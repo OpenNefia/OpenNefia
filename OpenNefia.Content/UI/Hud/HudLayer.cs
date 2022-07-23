@@ -112,6 +112,14 @@ namespace OpenNefia.Content.UI.Hud
             _field.OnScreenRefresh += OnScreenRefresh;
         }
 
+        private void OnScreenRefresh()
+        {
+            foreach (var widget in Widgets)
+            {
+                widget.Widget.RefreshWidget();
+            }
+        }
+
         private void AddDefaultWidgets()
         {
             HudMessageWindow = new HudMessageBoxWidget();
@@ -145,14 +153,6 @@ namespace OpenNefia.Content.UI.Hud
             Widgets.Add(new(new HudAutoTurnWidget(), WidgetAnchor.BottomRight, new(-156, -30), flags: WidgetDrawFlags.Never));
         }
 
-        private void UpdateWidgets()
-        {
-            foreach (var widget in Widgets)
-            {
-                widget.Widget.UpdateWidget();
-            }
-        }
-
         public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
             where T: class, IHudWidget
         {
@@ -178,11 +178,6 @@ namespace OpenNefia.Content.UI.Hud
         public bool TryGetWidgetInstance<T>([NotNullWhen(true)] out WidgetInstance? instance)
             where T : class, IHudWidget
             => TryGetWidget<T>(out _, out instance);
-
-        private void OnScreenRefresh()
-        {
-            UpdateWidgets();
-        }
 
         public override void SetSize(float width, float height)
         {
@@ -227,8 +222,16 @@ namespace OpenNefia.Content.UI.Hud
 
         public override void Update(float dt)
         {
-            HudMessageWindow.Update(dt);
+            // TODO make these into widgets
             FpsCounter.Update(dt);
+            MessageBoxBacking.Update(dt);
+            BacklogBacking.Update(dt);
+            HudBar.Update(dt);
+
+            foreach (var widget in Widgets)
+            {
+                widget.Widget.Update(dt);
+            }
         }
 
         public override void Draw()

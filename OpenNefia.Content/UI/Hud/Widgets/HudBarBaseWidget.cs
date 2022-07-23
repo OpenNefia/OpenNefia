@@ -70,9 +70,9 @@ namespace OpenNefia.Content.Hud
             BarAsset = Assets.Get(Protos.Asset.HudHpBar);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
                 BarText = $"{skills.HP}({skills.MaxHP})";
@@ -95,9 +95,9 @@ namespace OpenNefia.Content.Hud
             BarAsset = Assets.Get(Protos.Asset.HudMpBar);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
                 BarText = $"{skills.MP}({skills.MaxMP})";

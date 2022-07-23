@@ -13,6 +13,7 @@ namespace OpenNefia.Content.UI.Hud
     public sealed class HudAutoTurnWidget : BaseHudWidget
     {
         [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly IGlobalDrawablesManager _globalDrawables = default!;
 
         private const int TurnsBetweenAnimationLoops = 15;
 
@@ -27,7 +28,7 @@ namespace OpenNefia.Content.UI.Hud
                 if (_autoTurnAnimation != null)
                     RemoveChild(_autoTurnAnimation);
 
-                _turnsUntilRestart = 0;
+                _turnsUntilAnimLoop = 0;
                 _isFirstAnimFrame = true;
                 _autoTurnAnimation = value;
                 
@@ -39,7 +40,7 @@ namespace OpenNefia.Content.UI.Hud
             }
         }
 
-        private float _turnsUntilRestart = 0;
+        private float _turnsUntilAnimLoop = 0;
         private bool _isFirstAnimFrame = true;
 
         [Child] private UiText UiText = new UiTextShadowed(UiFonts.HUDAutoTurnText, "AUTO TURN");
@@ -54,7 +55,7 @@ namespace OpenNefia.Content.UI.Hud
 
         public void PassTurn()
         {
-            _turnsUntilRestart--;
+            _turnsUntilAnimLoop--;
         }
 
         public override void SetPosition(float x, float y)
@@ -93,10 +94,13 @@ namespace OpenNefia.Content.UI.Hud
                 _autoTurnAnimation.OnFirstFrame();
             }
 
-            if (_turnsUntilRestart <= 0)
+            _autoTurnAnimation.Update(dt);
+
+            if (_turnsUntilAnimLoop <= 0)
             {
-                _turnsUntilRestart = TurnsBetweenAnimationLoops;
-                // TODO draw callback
+                _turnsUntilAnimLoop = TurnsBetweenAnimationLoops;
+                var anim = _autoTurnAnimation.MakeGlobalDrawable();
+                _globalDrawables.Enqueue(anim, _autoTurnAnimation.Position);
             }
         }
 

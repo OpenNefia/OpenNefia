@@ -32,9 +32,9 @@ namespace OpenNefia.Content.Hud
             DateText.SetPosition(X + 40, Y + 9);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             var date = _world.State.GameDate;
             DateText.Text = $"{date.Year}/{date.Month}/{date.Day}";
         }

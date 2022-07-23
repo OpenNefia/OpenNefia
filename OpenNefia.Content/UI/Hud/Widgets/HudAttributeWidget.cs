@@ -48,9 +48,9 @@ namespace OpenNefia.Content.Hud
             SkillIcons = Assets.Get(Protos.Asset.HudSkillIcons);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<EquipStatsComponent>(GameSession.Player, out var equipStats)
                 && _entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
