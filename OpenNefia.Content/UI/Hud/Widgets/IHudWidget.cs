@@ -10,7 +10,7 @@ namespace OpenNefia.Content.Hud
         public float PosX { get; set; }
         public float PosY { get; set; }
         public bool Movable { get; }
-        void UpdateWidget();
+        void RefreshWidget();
         void Initialize();
     }
 }

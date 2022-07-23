@@ -36,9 +36,9 @@ namespace OpenNefia.Content.Hud
             PlayerIcon = Assets.Get(Protos.Asset.MinimapMarkerPlayer);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<SpatialComponent>(GameSession.Player, out var spatial))
                 Refresh(_mapManager.ActiveMap!.TileMemory, spatial.MapPosition);
         }
@@ -121,10 +121,10 @@ namespace OpenNefia.Content.Hud
             Minimap.SetSize(MinimapWidth - 4, MinimapHeight - 4);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
-            Minimap.UpdateWidget();
+            base.RefreshWidget();
+            Minimap.RefreshWidget();
         }
 
         public override void Draw()

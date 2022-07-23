@@ -23,9 +23,9 @@ namespace OpenNefia.Content.Hud
             UiText = new UiText(UiFonts.HUDSkillText);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_mapManager.ActiveMap?.MapEntityUid != null)
                 UiText.Text = _nameSystem.GetDisplayName(_mapManager.ActiveMap.MapEntityUid);
             else

@@ -24,9 +24,9 @@ namespace OpenNefia.Content.Hud
             base.Initialize();
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             UiText.Text = Text ?? string.Empty;
         }
 
@@ -57,9 +57,9 @@ namespace OpenNefia.Content.Hud
             Icon = Assets.Get(Protos.Asset.GoldCoin);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<WalletComponent>(GameSession.Player, out var wallet))
             {
                 Text = $"{wallet.Gold} {Loc.GetString("Elona.Hud.Info.Gold")}";
@@ -80,9 +80,9 @@ namespace OpenNefia.Content.Hud
             Icon = Assets.Get(Protos.Asset.PlatinumCoin);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<WalletComponent>(GameSession.Player, out var wallet))
             {
                 Text = $"{wallet.Platinum} {Loc.GetString("Elona.Hud.Info.Platinum")}";
@@ -103,9 +103,9 @@ namespace OpenNefia.Content.Hud
             Icon = Assets.Get(Protos.Asset.CharacterLevelIcon);
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             if (_entMan.TryGetComponent<LevelComponent>(GameSession.Player, out var level))
             {
                 Text = $"{Loc.GetString("Elona.Hud.Info.Level")}{level.Level}/{level.ExperienceToNext}";

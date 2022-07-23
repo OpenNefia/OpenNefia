@@ -69,9 +69,9 @@ namespace OpenNefia.Content.Hud
             ClockHand.Draw();
         }
 
-        public override void UpdateWidget()
+        public override void RefreshWidget()
         {
-            base.UpdateWidget();
+            base.RefreshWidget();
             ClockHand.SetHour(_world.State.GameDate.Hour);
         }
     }

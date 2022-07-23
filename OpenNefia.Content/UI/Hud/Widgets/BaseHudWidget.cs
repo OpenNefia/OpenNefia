@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Hud
             EntitySystem.InjectDependencies(this);
         }
 
-        public virtual void UpdateWidget()
+        public virtual void RefreshWidget()
         {
         }
     }
