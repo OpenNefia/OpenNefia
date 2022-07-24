@@ -62,6 +62,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IFameSystem _fame = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -70,8 +71,12 @@ namespace OpenNefia.Content.Nefia
             SubscribeComponent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss);
+            SubscribeEntity<MapCalcDefaultMusicEvent>(SetNefiaMusic, priority: EventPriorities.High);
 
             SubscribeBroadcast<GenerateRandomAreaEvent>(GenerateRandomNefia, priority: EventPriorities.VeryLow);
+
+            SubscribeComponent<MapComponent, GetDisplayNameEventArgs>(GetNefiaMapName, priority: EventPriorities.High);
+            SubscribeComponent<NefiaBossComponent, GetDisplayNameEventArgs>(AppendBossLevelToName, priority: EventPriorities.High);
 
             SubscribeEntity<EntityKilledEvent>(CheckNefiaBossKilled);
         }
@@ -124,6 +129,51 @@ namespace OpenNefia.Content.Nefia
             _mes.Display(Loc.GetString("Nefia.Event.GuardedByLord", ("mapEntity", map.MapEntityUid), ("bossEntity", areaNefia.BossEntityUid)), UiColors.MesRed);
         }
 
+        private void SetNefiaMusic(EntityUid uid, MapCalcDefaultMusicEvent args)
+        {
+            if (!TryMap(uid, out var map) || !TryArea(map, out var area)
+                || !TryComp<AreaDungeonComponent>(uid, out var areaDungeon)
+                || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(map)
+                && areaNefia.State == NefiaState.Visited
+                && IsAlive(areaNefia.BossEntityUid))
+            {
+                args.OutMusicID = Protos.Music.Boss;
+            }
+        }
+
+        private readonly LocaleKey[] NefiaNameTypes =
+        {
+            "Elona.Nefia.NameModifiers.TypeA",
+            "Elona.Nefia.NameModifiers.TypeB"
+        };
+
+        /// <remarks>
+        /// TODO: Rewrite this in terms of <see cref="DisplayName.DisplayNameSystem"/>!
+        /// To support language switching, <see cref="MetaDataComponent.DisplayName"/> should never 
+        /// be set manually!
+        /// </remarks>
+        private (string Type, int Rank) PickRandomNefiaNameArgs(int baseLevel)
+        {
+            var rankFactor = 5;
+            var type = _random.Pick(NefiaNameTypes);
+            var rank = Math.Clamp(baseLevel / rankFactor, 0, 4);
+            return (type, rank);
+        }
+
+        private void GetNefiaMapName(EntityUid uid, MapComponent component, ref GetDisplayNameEventArgs args)
+        {
+            if (!TryMap(uid, out var map) || !TryArea(map, out var area)
+                || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            // !!! Recursion alert !!!
+            var areaBaseName = _displayNames.GetBaseName(area.AreaEntityUid);
+            args.OutName = _loc.GetString($"{areaNefia.NameType}.Rank{areaNefia.NameRank}", ("baseName", areaBaseName));
+        }
+
         private EntityUid SpawnBoss(IMap map)
         {
             EntityUid? boss = null;
@@ -137,11 +187,15 @@ namespace OpenNefia.Content.Nefia
                 boss = _charaGen.GenerateChara(map, filter);
             }
 
-            var customName = EnsureComp<CustomNameComponent>(boss.Value);
-            customName.CustomName = $"{customName.CustomName} Lv{_levels.GetLevel(boss.Value)}";
             EnsureComp<FactionComponent>(boss.Value).RelationToPlayer = Relation.Enemy;
+            EnsureComp<NefiaBossComponent>(boss.Value);
 
             return boss.Value;
+        }
+
+        private void AppendBossLevelToName(EntityUid uid, NefiaBossComponent component, ref GetDisplayNameEventArgs args)
+        {
+            args.OutName = $"{args.OutName} Lv{_levels.GetLevel(uid)}";
         }
 
         private int CalcBossPlatinumAmount(EntityUid player)
@@ -275,11 +329,9 @@ namespace OpenNefia.Content.Nefia
             var baseLevel = Math.Max(PickRandomNefiaLevel(), 1);
             var floorCount = Math.Max(PickRandomNefiaFloorCount(), 1);
 
-            var areaMetaData = EntityManager.EnsureComponent<MetaDataComponent>(areaEntity);
-
-            // TODO make display names into events instead of mutating
-            var baseName = EntityManager.GetComponent<MetaDataComponent>(areaEntity).DisplayName ?? "<???>";
-            areaMetaData.DisplayName = PickRandomNefiaName(baseName, baseLevel);
+            var (nefiaNameType, nefiaNameRank) = PickRandomNefiaNameArgs(baseLevel);
+            areaNefia.NameType = nefiaNameType;
+            areaNefia.NameRank = nefiaNameRank;
 
             areaNefia.BaseLevel = baseLevel;
 
@@ -312,25 +364,6 @@ namespace OpenNefia.Content.Nefia
                 .ToList();
 
             return _random.Pick(protos).GetStrongID();
-        }
-
-        private readonly LocaleKey[] NefiaNameTypes =
-        {
-            "TypeA",
-            "TypeB"
-        };
-
-        /// <remarks>
-        /// TODO: Rewrite this in terms of <see cref="DisplayName.DisplayNameSystem"/>!
-        /// To support language switching, <see cref="MetaDataComponent.DisplayName"/> should never 
-        /// be set manually!
-        /// </remarks>
-        private string PickRandomNefiaName(string baseName, int baseLevel)
-        {
-            var rankFactor = 5;
-            var type = _random.Pick(NefiaNameTypes);
-            var rank = Math.Clamp(baseLevel / rankFactor, 0, 4);
-            return _loc.GetString($"Elona.Nefia.Prefixes.{type}.Rank{rank}", ("baseName", baseName));
         }
 
         private int PickRandomNefiaLevel()

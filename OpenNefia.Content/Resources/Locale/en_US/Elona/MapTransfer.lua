@@ -2,13 +2,13 @@ Elona.MapTransfer = {
     Leave = {
         DeliveredToYourHome = "You were delivered to your home.",
         Entered = function(mapEntity)
-            return ("You entered %s."):format(mapEntity)
+            return ("You entered %s."):format(_.name(mapEntity, true))
         end,
         ReturnedTo = function(mapEntity)
-            return ("You returned to %s."):format(mapEntity)
+            return ("You returned to %s."):format(_.name(mapEntity, true))
         end,
         Left = function(mapEntity)
-            return ("You left %s."):format(mapEntity)
+            return ("You left %s."):format(_.name(mapEntity, true))
         end,
         BurdenedByCargo = "The weight of your cargo burdens your traveling speed.",
     },

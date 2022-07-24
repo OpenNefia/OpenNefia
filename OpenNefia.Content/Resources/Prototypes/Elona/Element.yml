@@ -6,8 +6,8 @@
   color: '#FF9B9B'
   uiColor: '#960000'
   canResist: true
-  sound: Base.AtkFire
-  deathAnim: Base.AnimElemFire
+  sound: Elona.AtkFire
+  deathAnim: Elona.AnimElemFire
   deathAnimDY: -20
   rarity: 1
   events:
@@ -30,8 +30,8 @@
   color: '#FFFFFF'
   uiColor: '#000096'
   canResist: true
-  sound: Base.AtkIce
-  deathAnim: Base.AnimElemCold
+  sound: Elona.AtkIce
+  deathAnim: Elona.AnimElemCold
   rarity: 1
 - type: Elona.Element
   id: Elona.Lightning
@@ -40,8 +40,8 @@
   color: '#FFFFAF'
   uiColor: '#969600'
   canResist: true
-  sound: Base.AtkElec
-  deathAnim: Base.AnimElemLightning
+  sound: Elona.AtkElec
+  deathAnim: Elona.AnimElemLightning
   rarity: 1
 - type: Elona.Element
   id: Elona.Darkness
@@ -50,8 +50,8 @@
   color: '#AFAFFF'
   uiColor: '#645050'
   canResist: true
-  sound: Base.AtkDark
-  deathAnim: Base.AnimElemDarkness
+  sound: Elona.AtkDark
+  deathAnim: Elona.AnimElemDarkness
   rarity: 2
 - type: Elona.Element
   id: Elona.Mind
@@ -61,8 +61,8 @@
   uiColor: '#966432'
   canResist: true
   preservesSleep: true
-  sound: Base.AtkMind
-  deathAnim: Base.AnimElemMind
+  sound: Elona.AtkMind
+  deathAnim: Elona.AnimElemMind
   rarity: 2
 - type: Elona.Element
   id: Elona.Poison
@@ -71,8 +71,8 @@
   color: '#AFFFAF'
   uiColor: '#009600'
   canResist: true
-  sound: Base.AtkPoison
-  deathAnim: Base.AnimElemPoison
+  sound: Elona.AtkPoison
+  deathAnim: Elona.AnimElemPoison
   rarity: 3
 - type: Elona.Element
   id: Elona.Nether
@@ -81,8 +81,8 @@
   color: '#9B9A99'
   uiColor: '#963200'
   canResist: true
-  sound: Base.AtkHell
-  deathAnim: Base.AnimElemMind
+  sound: Elona.AtkHell
+  deathAnim: Elona.AnimElemMind
   deathAnimDY: -24
   rarity: 4
 - type: Elona.Element
@@ -92,8 +92,8 @@
   color: '#EBD79B'
   uiColor: '#326496'
   canResist: true
-  sound: Base.AtkSound
-  deathAnim: Base.AnimElemSound
+  sound: Elona.AtkSound
+  deathAnim: Elona.AnimElemSound
   rarity: 3
 - type: Elona.Element
   id: Elona.Nerve
@@ -103,8 +103,8 @@
   uiColor: '#649632'
   canResist: true
   preservesSleep: true
-  sound: Base.AtkNerve
-  deathAnim: Base.AnimElemNerve
+  sound: Elona.AtkNerve
+  deathAnim: Elona.AnimElemNerve
   rarity: 3
 - type: Elona.Element
   id: Elona.Chaos
@@ -114,8 +114,8 @@
   uiColor: '#960096'
   canResist: true
   preservesSleep: true
-  sound: Base.AtkChaos
-  deathAnim: Base.AnimElemChaos
+  sound: Elona.AtkChaos
+  deathAnim: Elona.AnimElemChaos
   rarity: 4
 - type: Elona.Element
   id: Elona.Magic
@@ -137,8 +137,8 @@
   hspIds:
     elona122: 63
   color: '#AFFFAF'
-  sound: Base.AtkPoison
-  deathAnim: Base.AnimElemPoison
+  sound: Elona.AtkPoison
+  deathAnim: Elona.AnimElemPoison
 - type: Elona.Element
   id: Elona.Rotten
   hspIds:

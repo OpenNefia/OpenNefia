@@ -2,20 +2,20 @@ Elona.MapTransfer = {
     Leave = {
         DeliveredToYourHome = "あなたは家まで運ばれた。",
         Entered = function(mapEntity)
-            return ("%sに入った。"):format(mapEntity)
+            return ("%sに入った。"):format(_.name(mapEntity, true))
         end,
         ReturnedTo = function(mapEntity)
-            return ("%sに戻った。"):format(mapEntity)
+            return ("%sに戻った。"):format(_.name(mapEntity, true))
         end,
         Left = function(mapEntity)
-            return ("%sを後にした。"):format(mapEntity)
+            return ("%sを後にした。"):format(_.name(mapEntity, true))
         end,
         BurdenedByCargo = "荷車の重量超過でかなり鈍足になっている！ ",
     },
     Travel = {
         TimePassed = function(days, hours, lastTownName, date)
             return ("%sに%sを発ってから、%s日と%s時間の旅を終えた。"):format(
-                date,
+                _.format_date(date),
                 lastTownName,
                 days,
                 hours

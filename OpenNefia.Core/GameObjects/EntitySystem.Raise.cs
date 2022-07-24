@@ -172,5 +172,11 @@ namespace OpenNefia.Core.GameObjects
 
             return areaMan.TryGetAreaOfMap(map, out area);
         }
+
+        protected bool TryArea(IMap map, [NotNullWhen(true)] out IArea? area, IAreaManager? areaMan = null)
+        {
+            IoCManager.Resolve(ref areaMan);
+            return areaMan.TryGetAreaOfMap(map, out area);
+        }
     }
 }

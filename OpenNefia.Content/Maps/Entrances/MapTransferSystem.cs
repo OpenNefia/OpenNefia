@@ -28,13 +28,6 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
-        
-        public override void Initialize()
-        {
-            SubscribeComponent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, priority: EventPriorities.Low);
-            SubscribeComponent<MapComponent, ActiveMapChangedEvent>(HandleActiveMapChanged, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, priority: EventPriorities.VeryHigh);
-        }
 
         public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)
         {

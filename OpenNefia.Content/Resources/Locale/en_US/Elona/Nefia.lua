@@ -12,7 +12,7 @@ Elona.Nefia = {
         end,
     },
 
-    Names = {
+    NameModifiers = {
         TypeA = {
             Rank0 = function(baseName)
                 return ("Beginner's %s"):format(baseName)

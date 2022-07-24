@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -372,6 +373,21 @@ namespace OpenNefia.Content.Locale.Funcs
             }
 
             return "itself";
+        }
+
+        /// <hsp>#defcfunc cnvDate int d,int mode</hsp>
+        [LocaleFunction("format_date")]
+        public static string BuiltIn_format_date(object? obj, string? mode = null)
+        {
+            if (obj is not GameDateTime dateTime)
+                return "";
+
+            var s = $"﻿{dateTime.Year} {dateTime.Month}﻿/{dateTime.Day}";
+
+            if (mode == "hour")
+                s += $"﻿ {dateTime.Hour}h";
+
+            return s;
         }
     }
 }
