@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.GameController;
+﻿using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.GameController;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Timing;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.GameController
+namespace OpenNefia.Content.GameController
 {
     public static class GameControllerExt
     {
@@ -20,14 +22,17 @@ namespace OpenNefia.Core.GameController
             return dt;
         }
 
-        public static void Wait(this IGameController gameController, float timeSecs)
+        public static void Wait(this IGameController gameController, float timeSecs, bool noRefreshScreen = false)
         {
+            var field = IoCManager.Resolve<IFieldLayer>();
             var remaining = timeSecs;
 
             while (remaining > 0f)
             {
-                var dt = StepFrame(gameController);
+                var dt = gameController.StepFrame();
                 remaining -= dt;
+                if (!noRefreshScreen)
+                    field.RefreshScreen();
             }
         }
     }

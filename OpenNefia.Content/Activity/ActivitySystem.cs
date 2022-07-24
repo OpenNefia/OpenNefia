@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.GameController;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;

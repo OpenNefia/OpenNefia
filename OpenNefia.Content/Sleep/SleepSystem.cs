@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Damage;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.Feats;
+using OpenNefia.Content.GameController;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Hunger;
@@ -19,6 +20,7 @@ using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -64,6 +66,7 @@ namespace OpenNefia.Content.Sleep
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
         [Dependency] private readonly MapCommonSystem _mapCommon = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
 
         public static readonly GameTimeSpan SleepThresholdLight = GameTimeSpan.FromHours(15);
         public static readonly GameTimeSpan SleepThresholdModerate = GameTimeSpan.FromHours(30);
@@ -160,6 +163,10 @@ namespace OpenNefia.Content.Sleep
                 _world.PassTime(GameTimeSpan.FromHours(1));
                 var date = _world.State.GameDate;
                 _world.State.GameDate = new GameDateTime(date.Year, date.Month, date.Day, date.Hour, 0, 0);
+                if (!noAnimation)
+                {
+                    _gameController.Wait(0.5f);
+                }
             }
 
             if (TryMap(sleeper, out var map))
@@ -177,8 +184,8 @@ namespace OpenNefia.Content.Sleep
 
             if (addPotential)
             {
-                var amount = IncrementSleepPotential(sleeper, bed);
-                _mes.Display(Loc.GetString("Elona.Sleep.WakeUp.Good", ("amount", amount)), UiColors.MesGreen);
+                var grownCount = IncrementSleepPotential(sleeper, bed);
+                _mes.Display(Loc.GetString("Elona.Sleep.WakeUp.Good", ("grownCount", grownCount)), UiColors.MesGreen);
             }
             else
             {
