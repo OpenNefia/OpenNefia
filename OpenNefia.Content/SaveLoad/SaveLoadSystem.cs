@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.GameController;
+using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;

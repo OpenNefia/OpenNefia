@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.CharaInfo;
 using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Content.GameController;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
