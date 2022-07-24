@@ -86,45 +86,7 @@ tilemap:
   P: Elona.SignGeneralVendor
 entities:
 - uid: 0
-  components:
-  - type: Map
-  - type: Level
-    level: 1
-  - type: MapCommon
-    hspIds:
-      elona122: 15
-    music: Elona.Town4
-    isIndoors: false
-  - type: MapVanillaAI
-    anchorCitizens: true
-  - type: MapCharaGen
-    maxCharaCount: 45
-    charaFilter: !type:CharaFilterPalmia {}
-  - type: MapAutogenCharas
-    amount: 25
-  - type: MapAutogenEntities
-    specs:
-    - protoId: Elona.CharaCitizen
-      amount: 5
-      components:
-      - type: RoleCitizen
-    - protoId: Elona.CharaCitizen2
-      amount: 5
-      components:
-      - type: RoleCitizen
-  - type: MapTypeTown
-    townId: 3
-  - type: MapTrainers
-    trainedSkills:
-      - Elona.GeneEngineer
-      - Elona.Literacy
-      - Elona.Anatomy
-      - Elona.Jeweler
-      - Elona.Riding
-      - Elona.Negotiation
-      - Elona.Investing
-      - Elona.Casting
-      - Elona.Alchemy
+  protoId: Elona.MapPalmia
 - uid: 1
   protoId: Elona.ItemFountain
   components:

@@ -1,5 +1,7 @@
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -18,17 +20,38 @@ namespace OpenNefia.Content.Nefia
         /// <summary>
         /// Current state of this Nefia.
         /// </summary>
+        [DataField]
         public NefiaState State { get; set; }
 
         /// <summary>
         /// UID of the generated Nefia boss.
         /// </summary>
+        [DataField]
         public EntityUid? BossEntityUid { get; set; }
 
         /// <summary>
         /// Base level of this Nefia.
         /// </summary>
+        [DataField]
         public int BaseLevel { get; internal set; }
+
+        /// <summary>
+        /// Used for getting the display name of each Nefia floor.
+        /// </summary>
+        /// <remarks>
+        /// Typically "Elona.Nefia.NameModifiers.TypeA" or "Elona.Nefia.NameModifiers.TypeB".
+        /// </remarks>
+        [DataField]
+        public LocaleKey NameType { get; set; }
+
+        /// <summary>
+        /// Used for getting the display name of each Nefia floor.
+        /// </summary>
+        /// <remarks>
+        /// Typically between 0-4.
+        /// </remarks>
+        [DataField]
+        public int NameRank { get; set; }
     }
 
     /// <summary>

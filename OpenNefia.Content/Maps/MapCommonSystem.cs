@@ -14,6 +14,7 @@ using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Core.Audio;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.Maps
 {
@@ -30,12 +31,14 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly IFoodSystem _food = default!;
         [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
 
         public override void Initialize()
         {
             SubscribeEntity<MapCreatedEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
             SubscribeEntity<MapRenewMajorEvent>(SpawnRandomSites, priority: EventPriorities.Low);
             SubscribeComponent<MapCommonComponent, MapEnterEvent>(SpoilFood, priority: EventPriorities.Low);
+            SubscribeEntity<MapCalcDefaultMusicEvent>(CalcDefaultMapMusic, priority: EventPriorities.Highest);
         }
 
         private void AddRequiredComponents(EntityUid mapEntity, MapCreatedEvent args)
@@ -59,6 +62,50 @@ namespace OpenNefia.Content.Maps
         {
             if (!common.IsTemporary)
                 _food.SpoilFoodInMap(args.Map);
+        }
+
+        private static readonly PrototypeId<MusicPrototype>[] DungeonMusicIDs = new[]
+        {
+            Protos.Music.Dungeon1,
+            Protos.Music.Dungeon2,
+            Protos.Music.Dungeon3,
+            Protos.Music.Dungeon4,
+            Protos.Music.Dungeon5,
+            Protos.Music.Dungeon6,
+        };
+
+        private static readonly PrototypeId<MusicPrototype>[] FieldMusicIDs = new[]
+        {
+            Protos.Music.Field1,
+            Protos.Music.Field2,
+            Protos.Music.Field3,
+        };
+
+        private void CalcDefaultMapMusic(EntityUid uid, MapCalcDefaultMusicEvent args)
+        {
+            if (HasComp<MapTypeFieldComponent>(uid))
+            {
+                args.OutMusicID = null;
+                return;
+            }
+
+            if (TryComp<MapCommonComponent>(uid, out var mapCommon) && mapCommon.Music != null)
+            {
+                args.OutMusicID = mapCommon.Music.Value;
+                return;
+            }
+
+            if (HasComp<MapTypeTownComponent>(uid))
+                args.OutMusicID = Protos.Music.Town1;
+
+            if (HasComp<MapTypePlayerOwnedComponent>(uid))
+                args.OutMusicID = Protos.Music.Home;
+
+            if (HasComp<MapTypeDungeonComponent>(uid))
+                args.OutMusicID = DungeonMusicIDs[_world.State.GameDate.Hour % DungeonMusicIDs.Length];
+
+            if (HasComp<MapTypeWorldMapComponent>(uid))
+                args.OutMusicID = FieldMusicIDs[_world.State.GameDate.Hour % FieldMusicIDs.Length];
         }
 
         public int CalcRandomSiteGenerateCount(IMap map)
@@ -191,7 +238,7 @@ namespace OpenNefia.Content.Maps
 
         public PrototypeId<MusicPrototype>? GetMapDefaultMusic(IMap map)
         {
-            var ev = new MapGetDefaultMusicEvent();
+            var ev = new MapCalcDefaultMusicEvent();
             RaiseEvent(map.MapEntityUid, ev);
             return ev.OutMusicID;
         }
@@ -204,11 +251,11 @@ namespace OpenNefia.Content.Maps
         }
     }
 
-    public sealed class MapGetDefaultMusicEvent : EntityEventArgs
+    public sealed class MapCalcDefaultMusicEvent : EntityEventArgs
     {
         public PrototypeId<MusicPrototype>? OutMusicID { get; set; } = null;
 
-        public MapGetDefaultMusicEvent()
+        public MapCalcDefaultMusicEvent()
         {
         }
     }

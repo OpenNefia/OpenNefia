@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -38,6 +39,21 @@ namespace OpenNefia.Content.Locale.Funcs
             }
 
             return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity) + "は";
+        }
+
+        /// <hsp>#defcfunc cnvDate int d,int mode</hsp>
+        [LocaleFunction("format_date")]
+        public static string BuiltIn_format_date(object? obj, string? mode = null)
+        {
+            if (obj is not GameDateTime dateTime)
+                return "";
+
+            var s = $"﻿{dateTime.Year}﻿年{dateTime.Month}﻿月{dateTime.Day}日";
+
+            if (mode == "hour")
+                s += $"﻿{dateTime.Hour}時";
+
+            return s;
         }
     }
 }

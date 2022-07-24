@@ -53,9 +53,17 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ICargoSystem _cargo = default!;
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly MapCommonSystem _mapCommon = default!;
 
         public const int MapRenewMajorIntervalHours = 120;
         public const int MapRenewMinorIntervalHours = 24;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, priority: EventPriorities.Low);
+            SubscribeEntity<ActiveMapChangedEvent>(HandleActiveMapChanged, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, priority: EventPriorities.VeryHigh);
+        }
 
         private void HandleExitMapFromEdges(EntityUid playerUid, PlayerComponent component, ExitingMapFromEdgesEventArgs args)
         {
@@ -106,11 +114,11 @@ namespace OpenNefia.Content.Maps
             }
             else if (HasComp<MapTypeWorldMapComponent>(args.OldMap.MapEntityUid))
             {
-                _mes.Display(Loc.GetString("Elona.MapTransfer.Leave.Entered", ("mapEntity", args.OldMap.MapEntityUid)));
+                _mes.Display(Loc.GetString("Elona.MapTransfer.Leave.Entered", ("mapEntity", args.NewMap.MapEntityUid)));
             }
             else if (HasComp<MapTypeQuestComponent>(args.OldMap.MapEntityUid))
             {
-                _mes.Display(Loc.GetString("Elona.MapTransfer.Leave.ReturnedTo", ("mapEntity", args.OldMap.MapEntityUid)));
+                _mes.Display(Loc.GetString("Elona.MapTransfer.Leave.ReturnedTo", ("mapEntity", args.NewMap.MapEntityUid)));
             }
             else
             {
@@ -131,9 +139,10 @@ namespace OpenNefia.Content.Maps
                     || Comp<MapCommonComponent>(map.MapEntityUid).IsTravelDestination;
         }
 
-        private void HandleActiveMapChanged(EntityUid uid, MapComponent component, ActiveMapChangedEvent args)
+        private void HandleActiveMapChanged(EntityUid uid, ActiveMapChangedEvent args)
         {
             Logger.WarningS("map.transfer", $"Map load: {args.OldMap} -> {args.NewMap} {args.LoadType}");
+            _mapCommon.PlayMapDefaultMusic(args.NewMap);
             RunMapInitializeEvents(args.NewMap, args.LoadType);
         }
 
