@@ -8,11 +8,24 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class MapDrawables : BaseDrawable, IMapDrawables
+    /// <summary>
+    /// Displays and updates animatable graphics in worldspace.
+    /// </summary>
+    public interface IMapDrawablesManager : IDrawable
+    {
+        void Clear();
+        void Enqueue(IMapDrawable drawable, MapCoordinates pos, int zOrder = 0);
+        void Enqueue(IMapDrawable drawable, EntityUid ent, int zOrder = 0);
+        bool HasActiveDrawables();
+        void WaitForDrawables();
+    }
+    
+    public class MapDrawablesManager : BaseDrawable, IMapDrawablesManager
     {
         [Dependency] private readonly IEntityManager _entityMan = default!;
         [Dependency] private readonly IMapManager _mapMan = default!;
         [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
 
         private class Entry : IComparable<Entry>
         {
@@ -35,9 +48,7 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        [Dependency] private readonly IGameController _gameController = default!;
-
-        private SortedSet<Entry> Active = new();
+        private SortedSet<Entry> _active = new();
 
         public void Enqueue(IMapDrawable drawable, MapCoordinates pos, int zOrder = 0)
         {
@@ -47,7 +58,7 @@ namespace OpenNefia.Core.Rendering
             var screenPos = _coords.TileToScreen(pos.Position);
             drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
-            Active.Add(new Entry(drawable, zOrder));
+            _active.Add(new Entry(drawable, zOrder));
         }
 
         public void Enqueue(IMapDrawable drawable, EntityUid ent, int zOrder = 0)
@@ -60,10 +71,10 @@ namespace OpenNefia.Core.Rendering
 
         public void Clear()
         {
-            Active.Clear();
+            _active.Clear();
         }
 
-        public bool HasActiveDrawables() => Active.Count > 0;
+        public bool HasActiveDrawables() => _active.Count > 0;
 
         /// <summary>
         /// Called from update code.
@@ -75,7 +86,7 @@ namespace OpenNefia.Core.Rendering
                 var dt = Love.Timer.GetDelta();
                 var frameArgs = new FrameEventArgs(dt, stepInput: false);
                 _gameController.Update(frameArgs);
-                this.Update(dt);
+                Update(dt);
 
                 _gameController.Draw();
                 _gameController.SystemStep();
@@ -84,19 +95,19 @@ namespace OpenNefia.Core.Rendering
 
         public override void Update(float dt)
         {
-            foreach (var entry in Active)
+            foreach (var entry in _active)
             {
                 var drawable = entry.Drawable;
                 drawable.Update(dt);
                 drawable.SetPosition(this.X + drawable.ScreenLocalPos.X, this.Y + drawable.ScreenLocalPos.Y);
             }
 
-            Active.RemoveWhere(entry => entry.Drawable.IsFinished);
+            _active.RemoveWhere(entry => entry.Drawable.IsFinished);
         }
 
         public override void Draw()
         {
-            foreach (var entry in Active)
+            foreach (var entry in _active)
             {
                 if (!entry.Drawable.IsFinished)
                 {

@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Damage
 {
     public sealed partial class DamageSystem
     {
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IRoleSystem _roles = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;

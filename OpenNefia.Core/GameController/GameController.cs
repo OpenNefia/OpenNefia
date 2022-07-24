@@ -53,6 +53,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IGlobalDrawablesManager _globalDrawables = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
@@ -345,6 +346,7 @@ namespace OpenNefia.Core.GameController
                 _inputManager.UpdateKeyRepeats(frame);
             _wispManager.FrameUpdate(frame);
             _uiManager.FrameUpdate(frame);
+            _globalDrawables.Update(frame.DeltaSeconds);
             _taskManager.ProcessPendingTasks();
             _debugServer.CheckForRequests();
         }
@@ -376,6 +378,7 @@ namespace OpenNefia.Core.GameController
             _graphics.BeginDraw();
 
             _uiManager.DrawLayers();
+            _globalDrawables.Draw();
 
             _graphics.EndDraw();
         }

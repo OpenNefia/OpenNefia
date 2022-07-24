@@ -56,7 +56,7 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;

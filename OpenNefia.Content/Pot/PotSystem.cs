@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Pot
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
         public override void Initialize()
         {

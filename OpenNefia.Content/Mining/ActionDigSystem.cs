@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Mining
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IRandomGenSystem _randomGenSystem = default!;
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
