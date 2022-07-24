@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Sleep;
+using OpenNefia.Core.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,16 @@ namespace OpenNefia.Content.Sanity
 
     public sealed class SanitySystem : EntitySystem, ISanitySystem
     {
+        public override void Initialize()
+        {
+            SubscribeComponent<SanityComponent, OnCharaSleepEvent>(HandleCharaSleep);
+        }
+
+        private void HandleCharaSleep(EntityUid uid, SanityComponent component, OnCharaSleepEvent args)
+        {
+            HealInsanity(uid, 10, component);
+        }
+
         /// <inheritdoc/>
         public void HealInsanity(EntityUid uid, int healAmount, SanityComponent? sanity = null)
         {

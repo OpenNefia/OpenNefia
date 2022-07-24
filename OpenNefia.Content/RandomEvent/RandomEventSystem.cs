@@ -9,6 +9,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
@@ -244,6 +245,14 @@ namespace OpenNefia.Content.RandomEvent
         {
             EntitySystem.InjectDependencies(_defaultChooser);
             _chooser = _defaultChooser;
+
+            SubscribeEntity<MapOnTimePassedEvent>(HandleTimePassed);
+        }
+
+        private void HandleTimePassed(EntityUid uid, ref MapOnTimePassedEvent args)
+        {
+            if (args.HoursPassed > 0)
+                TriggerRandomly();
         }
 
         public PrototypeId<RandomEventPrototype>? PickRandomEventID()

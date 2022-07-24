@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Resists;
+using OpenNefia.Content.Sleep;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
@@ -22,6 +23,7 @@ namespace OpenNefia.Content.StatusEffects
         /// <param name="statusEffects"></param>
         /// <returns></returns>
         bool HasEffect(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
+        IEnumerable<KeyValuePair<PrototypeId<StatusEffectPrototype>, StatusEffect>> EnumerateStatusEffects(EntityUid entity, StatusEffectsComponent? statusEffects = null);
         bool CanApplyTo(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
 
         void Remove(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
@@ -44,6 +46,23 @@ namespace OpenNefia.Content.StatusEffects
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
 
+        public override void Initialize()
+        {
+            SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(HandleCharaSleep);
+        }
+
+        private void HandleCharaSleep(EntityUid uid, StatusEffectsComponent component, OnCharaSleepEvent args)
+        {
+            foreach (var (id, effect) in EnumerateStatusEffects(uid).ToList())
+            {
+                var proto = _protos.Index(id);
+                if (proto.RemoveOnSleep)
+                {
+                    Remove(uid, id);
+                }
+            }
+        }
+
         public int GetTurns(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
         {
             if (!Resolve(entity, ref statusEffects))
@@ -58,6 +77,14 @@ namespace OpenNefia.Content.StatusEffects
         public bool HasEffect(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
         {
             return GetTurns(entity, id, statusEffects) > 0;
+        }
+        
+        public IEnumerable<KeyValuePair<PrototypeId<StatusEffectPrototype>, StatusEffect>> EnumerateStatusEffects(EntityUid entity, StatusEffectsComponent? statusEffects = null)
+        {
+            if (!Resolve(entity, ref statusEffects))
+                return Enumerable.Empty<KeyValuePair<PrototypeId<StatusEffectPrototype>, StatusEffect>>();
+
+            return statusEffects.StatusEffects;
         }
 
         public bool CanApplyTo(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)

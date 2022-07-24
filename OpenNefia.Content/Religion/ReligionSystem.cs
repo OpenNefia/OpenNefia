@@ -34,6 +34,7 @@ namespace OpenNefia.Content.Religion
     public interface IReligionSystem : IEntitySystem
     {
         PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true);
+        void GodSays(EntityUid believer, string text, ReligionComponent? religion = null);
         void GodSays(PrototypeId<GodPrototype>? godId, string text);
         bool ModifyPiety(EntityUid target, int amount, ReligionComponent? religion = null);
         bool CanOfferItemToGod(PrototypeId<GodPrototype>? godId, EntityUid item);
@@ -205,6 +206,14 @@ namespace OpenNefia.Content.Religion
                 return null;
 
             return result;
+        }
+
+        public void GodSays(EntityUid believer, string text, ReligionComponent? religion = null)
+        {
+            if (!Resolve(believer, ref religion))
+                return;
+
+            GodSays(religion.GodID, text);
         }
 
         public void GodSays(PrototypeId<GodPrototype>? godId, string text)

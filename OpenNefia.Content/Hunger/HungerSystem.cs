@@ -8,6 +8,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Sleep;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Weight;
@@ -54,6 +55,7 @@ namespace OpenNefia.Content.Hunger
         public override void Initialize()
         {
             SubscribeComponent<HungerComponent, EntityBeingGeneratedEvent>(InitializeNutrition, priority: EventPriorities.High);
+            SubscribeComponent<HungerComponent, OnCharaSleepEvent>(HandleCharaSleep);
         }
 
         private void InitializeNutrition(EntityUid uid, HungerComponent component, ref EntityBeingGeneratedEvent args)
@@ -64,6 +66,24 @@ namespace OpenNefia.Content.Hunger
             else
                 component.Nutrition = HungerLevels.Ally - 1000 + _rand.Next(4000);
             // <<<<<<<< shade2/chara.hsp:516 	if rc=pc:cHunger(rc)=9000:else:cHunger(rc)=defAll ..
+        }
+
+        private void HandleCharaSleep(EntityUid uid, HungerComponent hunger, OnCharaSleepEvent args)
+        {
+            if (hunger.IsAnorexic)
+            {
+                hunger.AnorexiaCounter -= _rand.Next(6);
+            }
+            else
+            {
+                hunger.AnorexiaCounter -= _rand.Next(3);
+            }
+
+            if (hunger.AnorexiaCounter < 0)
+            {
+                CureAnorexia(uid, hunger);
+                hunger.AnorexiaCounter = 0;
+            }
         }
 
         public bool VomitIfAnorexic(EntityUid entity, HungerComponent? hunger = null)

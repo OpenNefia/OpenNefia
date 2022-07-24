@@ -42,6 +42,9 @@ namespace OpenNefia.Content.Skills
             skill.Potential = PotentialRange.Clamp(skill.Potential + delta);
         }
 
+        public void ModifyPotential(EntityUid uid, SkillPrototype skillProto, int delta, SkillsComponent? skills = null)
+            => ModifyPotential(uid, skillProto.GetStrongID(), delta, skills);
+
         private int CalcRelatedSkillExp(int baseAmount, int expDivisor)
         {
             return baseAmount / (2 + expDivisor);

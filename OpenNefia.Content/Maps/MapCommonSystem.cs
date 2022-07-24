@@ -13,12 +13,12 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Pickable;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.Maps
 {
     public class MapCommonSystem : EntitySystem
     {
-
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
@@ -29,6 +29,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly IFoodSystem _food = default!;
+        [Dependency] private readonly IMusicManager _music = default!;
 
         public override void Initialize()
         {
@@ -186,6 +187,29 @@ namespace OpenNefia.Content.Maps
             }
 
             return false;
+        }
+
+        public PrototypeId<MusicPrototype>? GetMapDefaultMusic(IMap map)
+        {
+            var ev = new MapGetDefaultMusicEvent();
+            RaiseEvent(map.MapEntityUid, ev);
+            return ev.OutMusicID;
+        }
+
+        public void PlayMapDefaultMusic(IMap map)
+        {
+            var musicId = GetMapDefaultMusic(map);
+            if (musicId != null)
+                _music.Play(musicId.Value);
+        }
+    }
+
+    public sealed class MapGetDefaultMusicEvent : EntityEventArgs
+    {
+        public PrototypeId<MusicPrototype>? OutMusicID { get; set; } = null;
+
+        public MapGetDefaultMusicEvent()
+        {
         }
     }
 }

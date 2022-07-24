@@ -21,5 +21,9 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public bool IsProtectedFromTheft { get; set; }
+
+        // TODO move
+        [DataField]
+        public bool CanCatchGodSignals { get; set; }
     }
 }

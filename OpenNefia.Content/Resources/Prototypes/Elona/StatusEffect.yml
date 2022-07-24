@@ -15,8 +15,9 @@
   color: '#006464'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Sound
-  emotionIconId: elona.dim
+  relatedElement: Elona.Sound
+  emotionIconId: Elona.Dim
+  removeOnSleep: true
   components:
   - type: StatusDimming
 - type: Elona.StatusEffect
@@ -24,14 +25,16 @@
   color: '#960000'
   stopsActivity: true
   autoHeal: true
-  emotionIconId: elona.bleed
+  emotionIconId: Elona.Bleed
+  removeOnSleep: true
   components:
   - type: StatusBleeding
 - type: Elona.StatusEffect
   id: Elona.Drunk
   color: '#640064'
   autoHeal: true
-  emotionIconId: elona.happy
+  emotionIconId: Elona.Happy
+  removeOnSleep: true
   components:
   - type: StatusDrunk
 - type: Elona.StatusEffect
@@ -39,21 +42,22 @@
   color: '#966400'
   stopsActivity: true
   autoHeal: true
-  emotionIconId: elona.insane
+  emotionIconId: Elona.Insane
   components:
   - type: StatusInsanity
 - type: Elona.StatusEffect
   id: Elona.Wet
   color: '#0000A0'
   autoHeal: true
+  removeOnSleep: true
   components:
   - type: StatusWet
 - type: Elona.StatusEffect
   id: Elona.Fear
   color: '#640064'
   autoHeal: true
-  related_element: Elona.Mind
-  emotionIconId: elona.fear
+  relatedElement: Elona.Mind
+  emotionIconId: Elona.Fear
   components:
   - type: StatusFear
 - type: Elona.StatusEffect
@@ -66,8 +70,9 @@
   color: '#009600'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Poison
-  emotionIconId: elona.skull
+  relatedElement: Elona.Poison
+  emotionIconId: Elona.Skull
+  removeOnSleep: true
   components:
   - type: StatusPoison
 - type: Elona.StatusEffect
@@ -75,8 +80,9 @@
   color: '#640064'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Mind
-  emotionIconId: elona.confuse
+  relatedElement: Elona.Mind
+  emotionIconId: Elona.Confuse
+  removeOnSleep: true
   components:
   - type: StatusConfusion
 - type: Elona.StatusEffect
@@ -84,8 +90,9 @@
   color: '#003232'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Nerve
-  emotionIconId: elona.sleep
+  relatedElement: Elona.Nerve
+  emotionIconId: Elona.Sleep
+  removeOnSleep: true
   components:
   - type: StatusSleep
 - type: Elona.StatusEffect
@@ -93,8 +100,9 @@
   color: '#006464'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Nerve
-  emotionIconId: elona.paralyze
+  relatedElement: Elona.Nerve
+  emotionIconId: Elona.Paralyze
+  removeOnSleep: true
   components:
   - type: StatusParalysis
 - type: Elona.StatusEffect
@@ -102,8 +110,9 @@
   color: '#646400'
   stopsActivity: true
   autoHeal: true
-  related_element: Elona.Darkness
-  emotionIconId: elona.blind
+  relatedElement: Elona.Darkness
+  emotionIconId: Elona.Blind
+  removeOnSleep: true
   components:
   - type: StatusBlindness
 - type: Elona.StatusEffect
