@@ -87,15 +87,15 @@ namespace OpenNefia.Content.GameObjects
         public bool ThrowEntity(EntityUid thrower, EntityUid item, MapCoordinates coords)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map)
-                || !EntityManager.IsAlive(source)
-                || !EntityManager.IsAlive(throwing)
-                || !Spatial(source).MapPosition.TryDistanceTiled(coords, out var dist))
+                || !EntityManager.IsAlive(thrower)
+                || !EntityManager.IsAlive(item)
+                || !Spatial(thrower).MapPosition.TryDistanceTiled(coords, out var dist))
                 return false;
 
-            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)), entity: source);
+            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", thrower), ("item", item)), entity: thrower);
 
             // Offset final position randomly based on Throwing skill
-            if (dist * 4 > _rand.Next(_skills.Level(source, Protos.Skill.Throwing) + 10) + _skills.Level(source, Protos.Skill.Throwing) / 4
+            if (dist * 4 > _rand.Next(_skills.Level(thrower, Protos.Skill.Throwing) + 10) + _skills.Level(thrower, Protos.Skill.Throwing) / 4
                 || _rand.OneIn(10))
             {
                 var newPos = coords.Position + _rand.NextVec2iInRadius(2);
