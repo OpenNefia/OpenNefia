@@ -24,21 +24,20 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Directions;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.RandomEvent;
 
 var entMan = IoCManager.Resolve<IEntityManager>();
 var item = EntitySystem.Get<IItemGen>();
 var chara = EntitySystem.Get<ICharaGen>();
 var map = IoCManager.Resolve<IMapManager>();
-var _mapDrawables = IoCManager.Resolve<IMapDrawables>();
 var _gameSession = IoCManager.Resolve<IGameSessionManager>();
 var _rand = IoCManager.Resolve<IRandom>();
+var _randEvents = EntitySystem.Get<IRandomEventSystem>();
+var _protos = IoCManager.Resolve<IPrototypeManager>();
 
 var spatial = entMan.GetComponent<SpatialComponent>(_gameSession.Player);
 
-foreach (var dir in DirectionUtility.RandomDirections())
+foreach (var id in _protos.EnumeratePrototypes<RandomEventPrototype>())
 {
-    var drawable = new RangedAttackMapDrawable(spatial.MapPosition, new(spatial.MapPosition.MapId, spatial.MapPosition.Position + dir.ToIntVec() * 8), Protos.Chip.ItemProjectileArrow);
-    _mapDrawables.Enqueue(drawable, spatial.MapPosition);
+    _randEvents.Trigger(id.GetStrongID());
 }
-
-return _rand.NextVec2iInRadius(2);

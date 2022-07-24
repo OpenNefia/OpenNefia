@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.HotReload;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -95,6 +96,14 @@ namespace OpenNefia.Core.UserInterface
         }
 
         private void HandleWindowResized(WindowResizedEventArgs args)
+        {
+            foreach (var layer in this.Layers)
+            {
+                ResizeAndLayoutLayer(layer);
+            }
+        } 
+
+        private void HandleUpdateApplication(HotReloadEventArgs args)
         {
             foreach (var layer in this.Layers)
             {

@@ -9,7 +9,8 @@ namespace OpenNefia.Content.DeferredEvents
 {
     public interface IDeferredEventsSystem : IEntitySystem
     {
-        public void Add(Action fn);
+        void Add(Action fn);
+        bool IsEventQueued();
     }
 
     public sealed class DeferredEventsSystem : EntitySystem, IDeferredEventsSystem
@@ -17,6 +18,12 @@ namespace OpenNefia.Content.DeferredEvents
         public void Add(Action fn)
         {
             // TODO
+        }
+
+        public bool IsEventQueued()
+        {
+            // TODO
+            return false;
         }
     }
 }

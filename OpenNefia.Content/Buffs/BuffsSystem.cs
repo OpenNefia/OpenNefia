@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -13,12 +15,13 @@ namespace OpenNefia.Content.Buffs
     public interface IBuffsSystem : IEntitySystem
     {
         void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
-        void AddBuff(EntityUid target, EntityUid source, string id, int power, int turns, BuffsComponent? buffs = null);
+        void AddBuff(string id, EntityUid target, int power, int turns, EntityUid source, BuffsComponent? buffs = null);
     }
 
     public sealed class BuffsSystem : EntitySystem, IBuffsSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         
         public override void Initialize()
         {
@@ -45,12 +48,13 @@ namespace OpenNefia.Content.Buffs
             // TODO
         }
 
-        public void AddBuff(EntityUid target, EntityUid source, string id, int power, int turns, BuffsComponent? buffs = null)
+        public void AddBuff(string id, EntityUid target, int power, int turns, EntityUid source, BuffsComponent? buffs = null)
         {
             if (!Resolve(target, ref buffs))
                 return;
-            
+
             // TODO
+            _mes.Display($"TODO: Add buff {id}", UiColors.MesYellow);
         }
     }
 

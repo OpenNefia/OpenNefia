@@ -31,6 +31,7 @@ namespace OpenNefia.Content.Hunger
         public const int Ally = 6000;
         public const int Satisfied = 10000;
         public const int Bloated = 12000;
+        public const int InnkeeperMeal = 15000;
         public const int Vomit = 35000;
     }
 }

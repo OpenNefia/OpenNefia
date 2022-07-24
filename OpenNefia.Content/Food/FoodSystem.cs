@@ -47,6 +47,7 @@ namespace OpenNefia.Content.Food
         void SpoilFood(EntityUid ent, FoodComponent? food = null);
 
         string GetFoodName(EntityUid ent, FoodComponent? food = null);
+        string GetNutritionMessage(int newNutrition);
         PrototypeId<ChipPrototype> GetFoodChip(PrototypeId<FoodTypePrototype> foodType, int foodQuality);
         void MakeDish(EntityUid item, int foodQuality, FoodComponent? food = null);
         bool IsHumanFlesh(EntityUid entity, FoodComponent? food = null);
@@ -316,7 +317,7 @@ namespace OpenNefia.Content.Food
                 _mes.Display(Loc.GetString("Elona.Food.EatStatus.Good", ("eater", eater)), entity: eater);
 
                 if (_rand.OneIn(5))
-                    _buffs.AddBuff(eater, eater, "Elona.Lucky", 100, 500 + _rand.Next(500));
+                    _buffs.AddBuff("Elona.Lucky", eater, 100, 500 + _rand.Next(500), eater);
 
                 _sanity.HealInsanity(eater, 2);
             }
@@ -324,7 +325,7 @@ namespace OpenNefia.Content.Food
 
         private void ApplyRottenFoodEffects(EntityUid entity, List<ExperienceGain> expGains, ref int nutrition)
         {
-            if (CompOrNull<RottenFoodProtectionComponent>(entity)?.IsProtectedFromRottenFood ?? false)
+            if (CompOrNull<CommonProtectionsComponent>(entity)?.IsProtectedFromRottenFood ?? false)
             {
                 _mes.Display(Loc.GetString("Elona.Hunger.NotAffectedByRotten"));
                 return;
@@ -365,7 +366,7 @@ namespace OpenNefia.Content.Food
             return proto.Components.TryGetComponent<TagComponent>(out var tags) && tags.Tags.Contains(Protos.Tag.CharaMan);
         }
 
-        private void ShowPlayerEatingMessage(EntityUid player, FoodComponent food)
+        public void ShowPlayerEatingMessage(EntityUid player, FoodComponent food)
         {
             if (_feats.HasFeat(player, Protos.Feat.EatHuman) && IsHumanFlesh(food.Owner, food))
             {

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Sleep;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
 using System;
@@ -13,6 +14,8 @@ namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
+        [Dependency] private readonly ISleepSystem _sleep = default!;
+
         private void Initialize_Resting()
         {
             SubscribeComponent<ActivityRestingComponent, OnActivityStartEvent>(Resting_OnStart);
@@ -50,8 +53,9 @@ namespace OpenNefia.Content.Activity
 
                 if (doSleep)
                 {
-                    // TODO sleep
                     _mes.Display(Loc.GetString("Elona.Activity.Resting.DropOffToSleep"));
+                    _inUse.ClearItemsInUse(actor);
+                    _sleep.Sleep(actor, bed: null);
                     _activities.RemoveActivity(actor);
                 }
             }

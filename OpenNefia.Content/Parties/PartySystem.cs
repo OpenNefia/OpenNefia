@@ -202,7 +202,7 @@ namespace OpenNefia.Content.Parties
         /// Returns true if this entity is in the player's party.
         /// Includes the player themselves.
         /// </summary>
-        bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null);
+        bool IsInPlayerParty(EntityUid entity);
 
         /// <summary>
         /// Returns true if this entity is in the player's party, excluding the player themselves.
@@ -300,12 +300,12 @@ namespace OpenNefia.Content.Parties
             return IsPartyLeaderOf(target, target, partyComp);
         }
 
-        public bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null)
+        public bool IsInPlayerParty(EntityUid entity)
         {
             if (_gameSession.IsPlayer(entity))
                 return true;
 
-            return IsPartyLeaderOf(_gameSession.Player!, entity, party);
+            return IsPartyLeaderOf(_gameSession.Player!, entity);
         }
 
         public bool IsDirectAllyOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null)

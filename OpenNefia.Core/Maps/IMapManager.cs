@@ -44,6 +44,7 @@ namespace OpenNefia.Core.Maps
         IMap GetMap(MapId mapId);
 
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
+        bool TryGetMapOfEntity(EntityUid entity, [NotNullWhen(true)] out IMap? map);
 
         void UnloadMap(MapId mapId);
 

@@ -136,7 +136,7 @@ local function event(from, to, field_name, namespace, system, event_name)
     end
     to.events = to.events or automagic()
     local e = automagic()
-    e.type = ("P_%s%sEvent"):format(dataPart(from._type), event_name)
+    e.type = ("%s.P_%s%sEvent"):format(namespace, dataPart(from._type), event_name)
     e.system = ("%s.%s"):format(namespace, system)
     e.method = ("%s_%s"):format(dataPart(from._id), event_name)
     table.insert(to.events, e)
@@ -926,6 +926,16 @@ end
 
 handlers["elona.shop_inventory"] = function(from, to) end
 
+handlers["elona.random_event"] = function(from, to)
+    field(from, to, "image", dotted)
+    field(from, to, "luck_threshold")
+    if from.choice_count then
+        field(from, to, "choice_count")
+        event(from, to, "choices", "RandomEvent", "VanillaRandomEventsSystem", "OnChoiceSelected")
+    end
+    event(from, to, "on_event_triggered", "RandomEvent", "VanillaRandomEventsSystem", "OnTriggered")
+end
+
 handlers["elona.ex_help"] = function(from, to) end
 
 local function sort(a, b)
@@ -1069,6 +1079,7 @@ local function write_entity_system(ty, eventful, system_type)
 
     local function print_event_class(event_name)
         return ([[
+    [ByRefEvent]
     [PrototypeEvent(typeof(%s))]
     public sealed class %s : PrototypeEventArgs
     {
@@ -1096,10 +1107,14 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Game;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Logic;
 
 namespace %s
 {
@@ -1112,6 +1127,9 @@ namespace %s
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
 %s
     }
@@ -1188,6 +1206,7 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
 -- write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
 write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
+-- write("elona.random_event", "RandomEvent.yml", "OpenNefia.Content.RandomEvent.RandomEventPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

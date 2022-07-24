@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Qualities;
+using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -25,10 +26,6 @@ namespace OpenNefia.Content.Equipment
     public class LootEntry
     {
         public ItemFilter ItemFilter = new();
-    }
-
-    public class ItemFilter
-    {
     }
 
     [ImplicitDataDefinitionForInheritors]

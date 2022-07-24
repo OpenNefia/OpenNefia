@@ -43,6 +43,8 @@ namespace OpenNefia.Content.UI
 
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec TargetText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec RandomEventPromptTitle = new(14, 14, color: UiColors.TextWhite, bgColor: UiColors.RandomEventPromptTitle);
+        public static readonly FontSpec RandomEventPromptBody = new(14, 14, color: UiColors.RandomEventPromptBody);
 
         public static readonly FontSpec ReplText = new(13, 13, color: UiColors.ReplText);
         public static readonly FontSpec ReplCompletion = new(13, 13, color: UiColors.ReplText);

@@ -268,6 +268,18 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
+        public bool TryGetMapOfEntity(EntityUid entity, [NotNullWhen(true)] out IMap? map)
+        {
+            if (!_entityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
+            {
+                map = null;
+                return false;
+            }
+            
+            return TryGetMap(spatial.MapID, out map);
+        }
+
+        /// <inheritdoc/>
         public void SetActiveMap(MapId mapId, MapLoadType loadType = MapLoadType.Full)
         {
             if (mapId == MapId.Global)

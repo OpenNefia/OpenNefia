@@ -31,6 +31,11 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
+        public void WrapAt(int pixelWidth)
+        {
+            UiText.Text = WordWrap(OriginalText, pixelWidth);
+        }
+
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
