@@ -37,7 +37,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            return _verbSystem.CanUseVerbOn(context.User, item, EdibleSystem.VerbIDEat);
+            return _verbSystem.CanUseVerbOn(context.User, item, EdibleSystem.VerbTypeEat);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Inventory
             context.ShowInventoryWindow = false;
 
             var result = TurnResult.NoResult;
-            if (_verbSystem.TryGetVerb(context.User, item, EdibleSystem.VerbIDEat, out var verb))
+            if (_verbSystem.TryGetVerb(context.User, item, EdibleSystem.VerbTypeEat, out var verb))
                 result = verb.Act();
 
             if (result != TurnResult.NoResult)

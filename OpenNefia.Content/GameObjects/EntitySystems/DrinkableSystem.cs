@@ -14,7 +14,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class DrinkableSystem : EntitySystem
     {
-        public const string VerbIDDrink = "Elona.Drink";
+        public const string VerbTypeDrink = "Elona.Drink";
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
@@ -31,7 +31,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid potion, DrinkableComponent drinkableComp, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbIDDrink, "Drink Item", () => Drink(args.Source, args.Target)));
+            args.Verbs.Add(new Verb(VerbTypeDrink, "Drink Item", () => Drink(args.Source, args.Target)));
         }
 
         private TurnResult Drink(EntityUid drinker, EntityUid target,
