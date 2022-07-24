@@ -47,6 +47,9 @@ namespace OpenNefia.Content.Inventory
 
             // TODO harvest quest
 
+            if (result != TurnResult.NoResult)
+                return new InventoryResult.Finished(result);
+
             return new InventoryResult.Continuing();
         }
 

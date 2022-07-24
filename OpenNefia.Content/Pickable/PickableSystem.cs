@@ -96,7 +96,8 @@ namespace OpenNefia.Content.Pickable
                 var showMessage = _gameSession.IsPlayer(picker);
                 _stackSystem.TryStackAtSamePos(item, showMessage: showMessage);
 
-                return TurnResult.Succeeded;
+                // Don't exit the inventory screen (like if TurnResult.Success were used here)
+                return TurnResult.NoResult;
             }
             else
             {
