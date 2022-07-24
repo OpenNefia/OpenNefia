@@ -4,7 +4,6 @@ using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.UI.Element;
 using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 

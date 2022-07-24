@@ -48,8 +48,11 @@ namespace OpenNefia.Content.Inventory
             var result = TurnResult.NoResult;
             if (_verbSystem.TryGetVerb(context.User, item, DrinkableSystem.VerbIDDrink, out var verb))
                 result = verb.Act();
-            
-            return new InventoryResult.Finished(result);
+
+            if (result != TurnResult.NoResult)
+                return new InventoryResult.Finished(result);
+
+            return new InventoryResult.Continuing();
         }
     }
 }

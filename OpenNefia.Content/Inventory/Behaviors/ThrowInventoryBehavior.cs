@@ -48,7 +48,10 @@ namespace OpenNefia.Content.Inventory
             if (_verbSystem.TryGetVerb(context.User, item, ThrowableSystem.VerbTypeThrow, out var verb))
                 result = verb.Act();
 
-            return new InventoryResult.Finished(result);
+            if (result != TurnResult.NoResult)
+                return new InventoryResult.Finished(result);
+
+            return new InventoryResult.Continuing();
         }
     }
 }
