@@ -1,11 +1,13 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Weight;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,8 @@ namespace OpenNefia.Content.Inventory
 
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
+        bool TryGetInventoryContainer(EntityUid ent, [NotNullWhen(true)] out IContainer? inv, InventoryComponent? invComp = null);
+        bool IsInventoryFull(EntityUid ent, InventoryComponent? inv = null);
     }
 
     /// <summary>
@@ -83,6 +87,29 @@ namespace OpenNefia.Content.Inventory
                 return null;
 
             return inv.MaxWeight;
+        }
+
+        public bool TryGetInventoryContainer(EntityUid ent, [NotNullWhen(true)] out IContainer? inv, InventoryComponent? invComp = null)
+        {
+            if (!Resolve(ent, ref invComp))
+            {
+                inv = null;
+                return false;
+            }
+
+            inv = invComp.Container;
+            return true;
+        }
+
+        public bool IsInventoryFull(EntityUid ent, InventoryComponent? invComp = null)
+        {
+            if (!Resolve(ent, ref invComp))
+                return true;
+            
+            if (invComp.MaxItemCount == null)
+                return false;
+
+            return invComp.Container.ContainedEntities.Count >= invComp.MaxItemCount;
         }
     }
 }

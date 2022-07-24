@@ -109,10 +109,10 @@ namespace OpenNefia.Content.UI.Hud
                 EntitySystem.InjectDependencies(widget.Widget);
             }
 
-            _field.OnScreenRefresh += OnScreenRefresh;
+            _field.OnScreenRefresh += RefreshWidgets;
         }
 
-        private void OnScreenRefresh()
+        public void RefreshWidgets()
         {
             foreach (var widget in Widgets)
             {
@@ -266,7 +266,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             HudMessageWindow.Dispose();
             FpsCounter.Dispose();
-            _field.OnScreenRefresh -= OnScreenRefresh;
+            _field.OnScreenRefresh -= RefreshWidgets;
         }
 
         public void ToggleBacklog(bool visible)

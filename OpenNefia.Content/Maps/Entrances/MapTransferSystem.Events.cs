@@ -234,7 +234,7 @@ namespace OpenNefia.Content.Maps
                 }
             }
 
-            foreach (var chara in _lookup.EntityQueryInMap<CharaComponent>(map.Id).ToList())
+            foreach (var chara in _chara.EnumerateNonAllies(map).ToList())
             {
                 _chara.RenewStatus(chara.Owner, chara);
                 if (EntityManager.IsAlive(chara.Owner))

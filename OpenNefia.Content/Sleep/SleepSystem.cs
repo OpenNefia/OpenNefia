@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -17,6 +18,8 @@ namespace OpenNefia.Content.Sleep
     public interface ISleepSystem : IEntitySystem
     {
         bool IsPlayerSleeping { get; }
+
+        void Sleep(EntityUid sleeper, EntityUid? bed = null);
     }
 
     public sealed class SleepSystem : EntitySystem, ISleepSystem
@@ -35,6 +38,27 @@ namespace OpenNefia.Content.Sleep
 
         public override void Initialize()
         {
+        }
+
+        private bool CanSleepRightNow(EntityUid sleeper)
+        {
+            return TryMap(sleeper, out var map) && !HasComp<MapTypeQuestComponent>(map.MapEntityUid);
+        }
+
+        private void DoSleep(EntityUid sleepr, EntityUid? bed, bool noAnimation, int sleepHours)
+        {
+
+        }
+
+        public void Sleep(EntityUid sleeper, EntityUid? bed = null)
+        {
+            if (!CanSleepRightNow(sleeper))
+            {
+                _mes.Display(Loc.GetString("Elona.Sleep.ButYouCannot"));
+                return;
+            }
+
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace OpenNefia.Content.UI.Hud
 
         void Initialize();
         void ClearWidgets();
+        void RefreshWidgets();
         bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
             where T : class, IHudWidget;
         bool TryGetWidget<T>([NotNullWhen(true)] out T? widget)

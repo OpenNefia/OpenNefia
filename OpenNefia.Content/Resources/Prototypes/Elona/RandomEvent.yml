@@ -1,0 +1,244 @@
+---
+- type: Elona.RandomEvent
+  id: Elona.AvoidingMisfortune
+  hspIds:
+    elona122: 1
+  image: Elona.BgRe8
+  choiceCount: 1
+- type: Elona.RandomEvent
+  id: Elona.WizardsDream
+  hspIds:
+    elona122: 2
+  image: Elona.BgRe6
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: WizardsDream_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.Development
+  hspIds:
+    elona122: 3
+  image: Elona.BgRe4
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: Development_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.CreepyDream
+  hspIds:
+    elona122: 4
+  image: Elona.BgRe5
+  luckThreshold: 120
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: CreepyDream_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.CursedWhispering
+  hspIds:
+    elona122: 5
+  image: Elona.BgRe5
+  luckThreshold: 65
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: CursedWhispering_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.Regeneration
+  hspIds:
+    elona122: 6
+  image: Elona.BgRe4
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: Regeneration_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.Meditation
+  hspIds:
+    elona122: 7
+  image: Elona.BgRe4
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: Meditation_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.MaliciousHand
+  hspIds:
+    elona122: 8
+  image: Elona.BgRe9
+  luckThreshold: 40
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: MaliciousHand_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.GreatLuck
+  hspIds:
+    elona122: 9
+  image: Elona.BgRe1
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: GreatLuck_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.CampingSite
+  hspIds:
+    elona122: 10
+  image: Elona.BgRe3
+  choiceCount: 2
+  events:
+  - type: RandomEvent.P_RandomEventOnChoiceSelectedEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: CampingSite_OnChoiceSelected
+- type: Elona.RandomEvent
+  id: Elona.Corpse
+  hspIds:
+    elona122: 11
+  image: Elona.BgRe7
+  choiceCount: 2
+  events:
+  - type: RandomEvent.P_RandomEventOnChoiceSelectedEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: Corpse_OnChoiceSelected
+- type: Elona.RandomEvent
+  id: Elona.SmallLuck
+  hspIds:
+    elona122: 12
+  image: Elona.BgRe3
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: SmallLuck_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.SmellOfFood
+  hspIds:
+    elona122: 13
+  image: Elona.BgRe10
+  luckThreshold: 45
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: SmellOfFood_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.StrangeFeast
+  hspIds:
+    elona122: 14
+  image: Elona.BgRe10
+  choiceCount: 2
+  events:
+  - type: RandomEvent.P_RandomEventOnChoiceSelectedEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: StrangeFeast_OnChoiceSelected
+- type: Elona.RandomEvent
+  id: Elona.Murderer
+  hspIds:
+    elona122: 15
+  image: Elona.BgRe9
+  luckThreshold: 80
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: Murderer_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.MadMillionaire
+  hspIds:
+    elona122: 16
+  image: Elona.BgRe1
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: MadMillionaire_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.WanderingPriest
+  hspIds:
+    elona122: 17
+  image: Elona.BgRe11
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: WanderingPriest_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.GainingFaith
+  hspIds:
+    elona122: 18
+  image: Elona.BgRe12
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: GainingFaith_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.TreasureOfDream
+  hspIds:
+    elona122: 19
+  image: Elona.BgRe15
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: TreasureOfDream_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.LuckyDay
+  hspIds:
+    elona122: 20
+  image: Elona.BgRe12
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: LuckyDay_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.QuirkOfFate
+  hspIds:
+    elona122: 21
+  image: Elona.BgRe15
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: QuirkOfFate_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.MonsterDream
+  hspIds:
+    elona122: 22
+  image: Elona.BgRe2
+  luckThreshold: 70
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: MonsterDream_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.DreamHarvest
+  hspIds:
+    elona122: 23
+  image: Elona.BgRe3
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: DreamHarvest_OnTriggered
+- type: Elona.RandomEvent
+  id: Elona.YourPotential
+  hspIds:
+    elona122: 24
+  image: Elona.BgRe4
+  choiceCount: 1
+  events:
+  - type: RandomEvent.P_RandomEventOnTriggeredEvent
+    system: RandomEvent.VanillaRandomEventsSystem
+    method: YourPotential_OnTriggered
+...

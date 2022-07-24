@@ -42,6 +42,10 @@ namespace OpenNefia.Content.Tests
         {
         }
 
+        public void RefreshWidgets()
+        {
+        }
+
         public void Initialize()
         {
         }

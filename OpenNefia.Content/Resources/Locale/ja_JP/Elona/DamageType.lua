@@ -96,7 +96,7 @@ Elona.DamageType = {
             return ("%sは焼け死んだ。"):format(_.name(entity))
         end,
     },
-    UnseedHand = {
+    UnseenHand = {
         DeathCause = "見えざる手に葬られた。",
         Message = function(entity)
             return ("%sは見えざる手に葬られた。"):format(_.name(entity))

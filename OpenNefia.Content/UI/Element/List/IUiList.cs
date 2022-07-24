@@ -5,9 +5,9 @@ namespace OpenNefia.Content.UI.Element.List
 {
     public interface IUiList : IUiInput, ILocalizable
     {
-        public bool HighlightSelected { get; set; }
-        public bool SelectOnActivate { get; set; }
-        public int SelectedIndex { get; }
+        bool HighlightSelected { get; set; }
+        bool SelectOnActivate { get; set; }
+        int SelectedIndex { get; }
 
         bool CanSelect(int index);
         void IncrementIndex(int delta);

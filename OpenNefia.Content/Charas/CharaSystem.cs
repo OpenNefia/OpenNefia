@@ -23,6 +23,8 @@ using OpenNefia.Content.Weight;
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maps;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Charas
 {
@@ -33,12 +35,15 @@ namespace OpenNefia.Content.Charas
         PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender);
         bool RenewStatus(EntityUid entity, CharaComponent? chara);
         bool Revive(EntityUid uid, bool force = false, CharaComponent? chara = null);
+        IEnumerable<CharaComponent> EnumerateNonAllies(IMap map);
     }
 
     public sealed partial class CharaSystem : EntitySystem, ICharaSystem
     {
         [Dependency] private readonly IMapPlacement _mapPlacement = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         public bool Revive(EntityUid entity, bool force = false, CharaComponent? chara = null)
         {
@@ -97,6 +102,12 @@ namespace OpenNefia.Content.Charas
             _refresh.Refresh(entity);
 
             return true;
+        }
+
+        public IEnumerable<CharaComponent> EnumerateNonAllies(IMap map)
+        {
+            return _lookup.EntityQueryInMap<CharaComponent>(map.Id)
+                .Where(c => !_parties.IsInPlayerParty(c.Owner));
         }
     }
 }
