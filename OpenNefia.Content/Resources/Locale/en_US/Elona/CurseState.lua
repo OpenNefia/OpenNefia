@@ -1,4 +1,7 @@
 Elona.CurseState = {
+    CannotBeTakenOff = function(entity)
+        return ("%s can't be taken off."):format(_.name(entity))
+    end,
     Equipped = {
         Blessed = function(actor, target, item)
             return ("%s feel%s as if someone is watching %s intently."):format(
