@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class DoorSystem : EntitySystem
     {
-        public const string VerbIDClose = "Elona.Close";
+        public const string VerbTypeClose = "Elona.Close";
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -25,8 +25,6 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<DoorComponent, DoCloseEventArgs>(HandleClose);
             SubscribeComponent<DoorComponent, EntityMapInitEvent>(HandleInitialize);
             SubscribeComponent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
             SubscribeComponent<DoorComponent, EntityBashedEventArgs>(HandleBashed);
@@ -36,44 +34,23 @@ namespace OpenNefia.Content.GameObjects
         {
             if (component.IsOpen)
             {
-                args.Verbs.Add(new Verb(VerbIDClose));
+                args.Verbs.Add(new Verb(VerbTypeClose, "Close Door", () => DoClose(args.Source, args.Target)));
             }
         }
 
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
+        private TurnResult DoClose(EntityUid closer, EntityUid doorEntity, DoorComponent? doorComp = null)
         {
-            if (args.Handled)
-                return;
+            if (!Resolve(doorEntity, ref doorComp))
+                return TurnResult.Failed;
+            
+            if (!doorComp.IsOpen)
+                return TurnResult.Failed;
 
-            switch (args.Verb.ID)
-            {
-                case VerbIDClose:
-                    Raise(args.Target, new DoCloseEventArgs(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleClose(EntityUid uid, DoorComponent door, DoCloseEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            var result = DoClose(uid, door, args.Closer);
-
-            if (result != null)
-                args.Handle(result.Value);
-        }
-
-        private TurnResult? DoClose(EntityUid uid, DoorComponent door, EntityUid closer)
-        {
-            if (!door.IsOpen)
-                return null;
-
-            if (!EntityManager.TryGetComponent(uid, out SpatialComponent spatial))
-                return null;
+            if (!EntityManager.TryGetComponent(doorEntity, out SpatialComponent spatial))
+                return TurnResult.Failed;
 
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
-                return null;
+                return TurnResult.Failed;
 
             if (!map.CanAccess(spatial.MapPosition))
             {
@@ -82,7 +59,7 @@ namespace OpenNefia.Content.GameObjects
             }
 
             _mes.Display(Loc.GetString("Elona.Door.Close.Succeeds", ("entity", closer)));
-            SetOpen(uid, false, door);
+            SetOpen(doorEntity, false, doorComp);
 
             return TurnResult.Succeeded;
         }
@@ -133,16 +110,6 @@ namespace OpenNefia.Content.GameObjects
 
             _mes.Display("TODO");
             args.Handle(TurnResult.Succeeded);
-        }
-    }
-
-    public class DoCloseEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Closer;
-
-        public DoCloseEventArgs(EntityUid closer)
-        {
-            Closer = closer;
         }
     }
 }

@@ -7,6 +7,8 @@ using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Core.Logic
 {
+    public delegate TurnResult VerbAction();
+
     /// <summary>
     /// A Verb is an action that can be applied to an entity. Examples
     /// include throwing, praying, opening, eating, and drinking.
@@ -23,11 +25,37 @@ namespace OpenNefia.Core.Logic
     /// </summary>
     public sealed class Verb : IComparable
     {
-        public readonly string ID;
+        /// <summary>
+        /// What type of verb this is.
+        /// </summary>
+        public readonly string VerbType;
 
-        public Verb(string id)
+        /// <summary>
+        /// Human-readable name of the verb.
+        /// </summary>
+        public string DisplayName = string.Empty;
+
+        /// <summary>
+        ///     This is an action that will be run when the verb is "acted" out.
+        /// </summary>
+        /// <remarks>
+        ///     This delegate probably just points to some function in the system assembling this verb.
+        /// </remarks>
+        public readonly VerbAction Act;
+
+        /// <summary>
+        ///     Determines the priority of the verb.
+        /// </summary>
+        /// <remarks>
+        ///     Smaller is higher priority (gets executed preferentially).
+        /// </remarks>
+        public int Priority;
+
+        public Verb(string verbType, string name, VerbAction act)
         {
-            ID = id;
+            VerbType = verbType;
+            DisplayName = name;
+            Act = act;
         }
 
         public int CompareTo(object? obj)
@@ -35,7 +63,28 @@ namespace OpenNefia.Core.Logic
             if (obj is not Verb otherVerb)
                 return -1;
 
-            return string.Compare(ID, otherVerb.ID);
+            var comp = string.Compare(VerbType, otherVerb.VerbType);
+            if (comp != 0)
+                return comp;
+
+            return string.Compare(DisplayName, otherVerb.DisplayName);
+        }
+    }
+
+    /// <summary>
+    /// Sent to an entity via <see cref="VerbSystem.GetVerbsEventArgs"> to gather
+    /// its list of verbs.
+    /// </summary>
+    public sealed class VerbRequest
+    {
+        /// <summary>
+        /// What type of verb is being requested.
+        /// </summary>
+        public readonly string VerbType;
+
+        public VerbRequest(string verbType)
+        {
+            VerbType = verbType;
         }
     }
 }

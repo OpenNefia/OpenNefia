@@ -24,8 +24,6 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<DrinkableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<DrinkableComponent, DoDrinkEventArgs>(HandleDoDrink);
             SubscribeComponent<DrinkableComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
             SubscribeComponent<DrinkableComponent, ThrownEntityImpactedGroundEvent>(HandleImpactGround);
             SubscribeComponent<PotionPuddleComponent, EntitySteppedOnEvent>(HandlePotionPuddleSteppedOn);
@@ -33,28 +31,10 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid potion, DrinkableComponent drinkableComp, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbIDDrink));
+            args.Verbs.Add(new Verb(VerbIDDrink, "Drink Item", () => Drink(args.Source, args.Target)));
         }
 
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case VerbIDDrink:
-                    Raise(args.Target, new DoDrinkEventArgs(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleDoDrink(EntityUid target, DrinkableComponent drinkable, DoDrinkEventArgs args)
-        {
-            args.Handle(Drink(target, args.Drinker, drinkable));
-        }
-
-        private TurnResult Drink(EntityUid target, EntityUid drinker,
+        private TurnResult Drink(EntityUid drinker, EntityUid target,
             DrinkableComponent? drinkable = null)
         {
             if (!Resolve(target, ref drinkable))
@@ -119,16 +99,6 @@ namespace OpenNefia.Content.GameObjects
             potionComp.Effect?.Apply(source, args.Coords, args.Stepper, potionComp.Args);
 
             EntityManager.DeleteEntity(source);
-        }
-    }
-
-    public class DoDrinkEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Drinker;
-
-        public DoDrinkEventArgs(EntityUid drinker)
-        {
-            Drinker = drinker;
         }
     }
 }

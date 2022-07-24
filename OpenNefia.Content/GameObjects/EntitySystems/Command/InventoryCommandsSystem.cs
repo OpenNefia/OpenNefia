@@ -59,9 +59,10 @@ namespace OpenNefia.Content.GameObjects
 
             var player = session.Player;
 
-            var verb = new Verb(PickableSystem.VerbIDPickUp);
+            var verbReq = new VerbRequest(PickableSystem.VerbTypePickUp);
             var spatials = _lookup.EntitiesUnderneath(session.Player)
-                .Where(spatial => _verbSystem.GetLocalVerbs(session.Player, spatial.Owner).Contains(verb))
+                .Select(spatial => (spatial, _verbSystem.GetVerbOrNull(session.Player, spatial.Owner, verbReq)))
+                .Where(pair => pair.Item2 != null)
                 .ToList();
 
             if (spatials.Count == 0)
@@ -71,14 +72,15 @@ namespace OpenNefia.Content.GameObjects
             }
             else if (spatials.Count == 1)
             {
-                var spatial = spatials.First();
-                var result = _verbSystem.ExecuteVerb(player, spatial.Owner, verb);
+                var (spatial, verb) = spatials.First();
+                var result = verb!.Act();
 
                 if (result == TurnResult.NoResult)
                 {
                     // Try map-specific actions, like gathering snow.
-                    var mapEntity = _mapManager.GetMap(spatial.MapID);
-                    result = _verbSystem.ExecuteVerb(player, mapEntity.MapEntityUid, verb);
+                    var map = _mapManager.GetMap(spatial.MapID);
+                    if (_verbSystem.TryGetVerb(player, map.MapEntityUid, verbReq, out verb))
+                        result = verb.Act();
                 }
 
                 if (result == TurnResult.NoResult)

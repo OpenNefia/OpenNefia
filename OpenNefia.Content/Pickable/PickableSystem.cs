@@ -17,8 +17,8 @@ namespace OpenNefia.Content.Pickable
 {
     public class PickableSystem : EntitySystem
     {
-        public const string VerbIDPickUp = "Elona.PickUp";
-        public const string VerbIDDrop = "Elona.Drop";
+        public const string VerbTypePickUp = "Elona.PickUp";
+        public const string VerbTypeDrop = "Elona.Drop";
 
         [Dependency] private readonly ContainerSystem _containerSystem = default!;
         [Dependency] private readonly IAudioManager _sounds = default!;
@@ -36,9 +36,6 @@ namespace OpenNefia.Content.Pickable
         public override void Initialize()
         {
             SubscribeComponent<PickableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<PickableComponent, DoPickUpEventArgs>(HandleDoPickUp);
-            SubscribeComponent<PickableComponent, DoDropEventArgs>(HandleDoDrop);
             SubscribeComponent<PickableComponent, EntityBeingGeneratedEvent>(HandleBeingGenerated);
         }
 
@@ -53,36 +50,10 @@ namespace OpenNefia.Content.Pickable
             if (EntityManager.HasComponent<InventoryComponent>(args.Source))
             {
                 if (_containerSystem.ContainsEntity(args.Source, uid))
-                    args.Verbs.Add(new Verb(VerbIDDrop));
+                    args.Verbs.Add(new Verb(VerbTypeDrop, "Drop Item", () => Drop(args.Source, args.Target)));
                 else
-                    args.Verbs.Add(new Verb(VerbIDPickUp));
+                    args.Verbs.Add(new Verb(VerbTypePickUp, "Pick Up Item", () => PickUp(args.Source, args.Target)));
             }
-        }
-
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case VerbIDPickUp:
-                    Raise(args.Target, new DoPickUpEventArgs(args.Source), args);
-                    break;
-                case VerbIDDrop:
-                    Raise(args.Target, new DoDropEventArgs(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleDoPickUp(EntityUid target, PickableComponent pickable, DoPickUpEventArgs args)
-        {
-            args.Handle(PickUp(target, args.Picker, pickable));
-        }
-
-        private void HandleDoDrop(EntityUid target, PickableComponent pickable, DoDropEventArgs args)
-        {
-            args.Handle(Drop(target, args.Dropper, pickable));
         }
 
         private bool CheckPickableOwnState(PickableComponent pickable)
@@ -102,9 +73,9 @@ namespace OpenNefia.Content.Pickable
             }
         }
 
-        public TurnResult PickUp(EntityUid target, EntityUid picker, PickableComponent? pickable = null)
+        public TurnResult PickUp(EntityUid picker, EntityUid item, PickableComponent? pickable = null)
         {
-            if (!Resolve(target, ref pickable))
+            if (!Resolve(item, ref pickable))
                 return TurnResult.Failed;
 
             if (!EntityManager.TryGetComponent<InventoryComponent>(picker, out var pickerInv))
@@ -113,17 +84,17 @@ namespace OpenNefia.Content.Pickable
             if (!CheckPickableOwnState(pickable))
                 return TurnResult.Failed;
 
-            var success = pickerInv.Container.Insert(target);
+            var success = pickerInv.Container.Insert(item);
 
             if (success)
             {
-                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", target)));
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", item)));
 
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
 
                 var showMessage = _gameSession.IsPlayer(picker);
-                _stackSystem.TryStackAtSamePos(target, showMessage: showMessage);
+                _stackSystem.TryStackAtSamePos(item, showMessage: showMessage);
 
                 return TurnResult.Succeeded;
             }
@@ -134,19 +105,19 @@ namespace OpenNefia.Content.Pickable
             }
         }
 
-        public TurnResult Drop(EntityUid target, EntityUid picker, PickableComponent? pickable = null)
+        public TurnResult Drop(EntityUid picker, EntityUid item, PickableComponent? pickable = null)
         {
-            if (!Resolve(target, ref pickable))
+            if (!Resolve(item, ref pickable))
                 return TurnResult.Failed;
 
             if (!EntityManager.TryGetComponent<InventoryComponent>(picker, out var pickerInv))
                 return TurnResult.Failed;
 
-            var success = pickerInv.Container.Remove(target, EntityManager);
+            var success = pickerInv.Container.Remove(item, EntityManager);
 
             if (success)
             {
-                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", target)));
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", item)));
 
                 _sounds.Play(Protos.Sound.Drop1, picker);
 
@@ -157,26 +128,6 @@ namespace OpenNefia.Content.Pickable
                 Logger.WarningS("sys.pickable", "Failed to drop item");
                 return TurnResult.Failed;
             }
-        }
-    }
-
-    public class DoPickUpEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Picker;
-
-        public DoPickUpEventArgs(EntityUid picker)
-        {
-            Picker = picker;
-        }
-    }
-
-    public class DoDropEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Dropper;
-
-        public DoDropEventArgs(EntityUid dropper)
-        {
-            Dropper = dropper;
         }
     }
 }

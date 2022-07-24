@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Pickable;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -35,14 +36,14 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verb = new Verb(PickableSystem.VerbIDPickUp);
-            return _verbSystem.GetLocalVerbs(context.User, item).Contains(verb);
+            return _verbSystem.CanUseVerbOn(context.User, item, PickableSystem.VerbTypePickUp);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
-            var verb = new Verb(PickableSystem.VerbIDPickUp);
-            var result = _verbSystem.ExecuteVerb(context.User, item, verb);
+            var result = TurnResult.NoResult;
+            if (_verbSystem.TryGetVerb(context.User, item, PickableSystem.VerbTypePickUp, out var verb))
+                result = verb.Act();
 
             // TODO harvest quest
 
