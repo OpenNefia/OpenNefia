@@ -25,6 +25,7 @@ using OpenNefia.Core.Directions;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.RandomEvent;
+using OpenNefia.Content.World;
 
 var entMan = IoCManager.Resolve<IEntityManager>();
 var item = EntitySystem.Get<IItemGen>();
@@ -34,10 +35,8 @@ var _gameSession = IoCManager.Resolve<IGameSessionManager>();
 var _rand = IoCManager.Resolve<IRandom>();
 var _randEvents = EntitySystem.Get<IRandomEventSystem>();
 var _protos = IoCManager.Resolve<IPrototypeManager>();
+var _world = EntitySystem.Get<IWorldSystem>();
 
 var spatial = entMan.GetComponent<SpatialComponent>(_gameSession.Player);
 
-foreach (var id in _protos.EnumeratePrototypes<RandomEventPrototype>())
-{
-    _randEvents.Trigger(id.GetStrongID());
-}
+_world.State.AwakeTime = GameTimeSpan.FromHours(999);

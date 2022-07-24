@@ -143,6 +143,9 @@ binds:
   type: State
   key: R
   mod1: Shift
+- function: Elona.Use
+  type: State
+  key: T
 - function: Elona.Examine
   type: State
   key: X

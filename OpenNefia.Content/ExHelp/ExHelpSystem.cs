@@ -41,7 +41,7 @@ namespace OpenNefia.Content.ExHelp
 
         private void ExHelpOnTimePassed(ref MapOnTimePassedEvent ev)
         {
-            if (_world.State.AwakeTime.TotalHours >= SleepSystem.SleepThresholdHoursLight)
+            if (_world.State.AwakeTime >= SleepSystem.SleepThresholdLight)
             {
                 Show(Protos.ExHelp.Sleep);
             }

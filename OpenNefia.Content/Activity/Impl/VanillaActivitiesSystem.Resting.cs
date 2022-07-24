@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
-        [Dependency] private readonly ISleepSystem _sleep = default!;
-
         private void Initialize_Resting()
         {
             SubscribeComponent<ActivityRestingComponent, OnActivityStartEvent>(Resting_OnStart);
@@ -43,10 +41,10 @@ namespace OpenNefia.Content.Activity
                 _damage.HealMP(actor, 1, showMessage: false);
             }
 
-            if (_world.State.AwakeTime.TotalHours >= SleepSystem.SleepThresholdHoursModerate)
+            if (_world.State.AwakeTime >= SleepSystem.SleepThresholdModerate)
             {
                 var doSleep = false;
-                if (_world.State.AwakeTime.TotalHours >= SleepSystem.SleepThresholdHoursHeavy || _rand.OneIn(2))
+                if (_world.State.AwakeTime >= SleepSystem.SleepThresholdHeavy || _rand.OneIn(2))
                 {
                     doSleep = true;
                 }
