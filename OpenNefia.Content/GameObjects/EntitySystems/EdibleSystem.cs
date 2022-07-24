@@ -13,7 +13,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class EdibleSystem : EntitySystem
     {
-        public const string VerbIDEat = "Elona.Eat";
+        public const string VerbTypeEat = "Elona.Eat";
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
@@ -27,7 +27,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbIDEat, "Eat Item", () => Eat(args.Source, args.Target)));
+            args.Verbs.Add(new Verb(VerbTypeEat, "Eat Item", () => Eat(args.Source, args.Target)));
         }
 
         private TurnResult Eat(EntityUid eater, EntityUid target,
