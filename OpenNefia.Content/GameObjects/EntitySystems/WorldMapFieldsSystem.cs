@@ -22,25 +22,11 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<WorldMapFieldsComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
         }
 
         private void HandleGetVerbs(EntityUid uid, WorldMapFieldsComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(StairsSystem.VerbIDActivate));
-        }
-
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case StairsSystem.VerbIDActivate:
-                    args.Handle(EnterField(args.Target, args.Source));
-                    break;
-            }
+            args.Verbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Field", () => EnterField(args.Source, args.Target)));
         }
 
         public PrototypeId<FieldTypePrototype> GetFieldMapFromStoodTile(PrototypeId<TilePrototype> stoodTile)
@@ -52,9 +38,9 @@ namespace OpenNefia.Content.GameObjects
             }
 
             return Protos.FieldMap.Plains;
-        
         }
-        private TurnResult EnterField(EntityUid mapEntity, EntityUid user,
+        
+        private TurnResult EnterField(EntityUid user, EntityUid mapEntity,
             WorldMapFieldsComponent? worldMapFields = null,
             SpatialComponent? userSpatial = null)
         {

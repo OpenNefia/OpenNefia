@@ -11,6 +11,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,11 @@ namespace OpenNefia.Content.GameObjects
         {
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.Ascend,
-                    new VerbInputCmdHandler(new Verb(StairsSystem.VerbIDAscend)))
+                    new VerbInputCmdHandler(new VerbRequest(StairsSystem.VerbTypeAscend)))
                 .Bind(ContentKeyFunctions.Descend,
-                    new VerbInputCmdHandler(new Verb(StairsSystem.VerbIDDescend)))
+                    new VerbInputCmdHandler(new VerbRequest(StairsSystem.VerbTypeDescend)))
                 .Bind(ContentKeyFunctions.Activate,
-                    new VerbInputCmdHandler(new Verb(StairsSystem.VerbIDActivate)))
+                    new VerbInputCmdHandler(new VerbRequest(StairsSystem.VerbTypeActivate)))
                 .Bind(ContentKeyFunctions.Close, InputCmdHandler.FromDelegate(CommandClose))
                 .Register<VerbCommandsSystem>();
         }
@@ -54,10 +55,11 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            var verb = new Verb(DoorSystem.VerbIDClose);
+            var verbReq = new VerbRequest(DoorSystem.VerbTypeClose);
 
             var targets = _lookup.GetLiveEntitiesAtCoords(dir.Value.Coords)
-                .Where(spatial => _verbSystem.GetLocalVerbs(session.Player, spatial.Owner).Contains(verb));
+                .Select(spatial => _verbSystem.GetVerbOrNull(session.Player, spatial.Owner, verbReq))
+                .WhereNotNull();
 
             if (!targets.Any())
             {
@@ -65,11 +67,10 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            var targetSpatial = targets.First()!;
-            return _verbSystem.ExecuteVerb(session.Player, targetSpatial.Owner, verb);
+            return targets.First()!.Act();
         }
 
-        private TurnResult? HandleVerb(IGameSessionManager? session, Verb verb)
+        private TurnResult? HandleVerb(IGameSessionManager? session, VerbRequest verbReq)
         {
             if (session == null)
                 return null;
@@ -80,10 +81,11 @@ namespace OpenNefia.Content.GameObjects
             {
                 if (targetSpatial.Owner != player)
                 {
-                    var verbs = _verbSystem.GetLocalVerbs(player, targetSpatial.Owner);
-                    if (verbs.Contains(verb))
+                    if (_verbSystem.TryGetVerb(player, targetSpatial.Owner, verbReq, out var verb))
                     {
-                       return _verbSystem.ExecuteVerb(player, targetSpatial.Owner, verb);
+                        var result = verb.Act();
+                        if (result != TurnResult.NoResult)
+                            return result;
                     }
                 }
             }
@@ -93,11 +95,11 @@ namespace OpenNefia.Content.GameObjects
 
         private sealed class VerbInputCmdHandler : InputCmdHandler
         {
-            private readonly Verb _verb;
+            private readonly VerbRequest _verbReq;
 
-            public VerbInputCmdHandler(Verb verb)
+            public VerbInputCmdHandler(VerbRequest verb)
             {
-                _verb = verb;
+                _verbReq = verb;
             }
 
             public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
@@ -109,8 +111,9 @@ namespace OpenNefia.Content.GameObjects
 
                 if (full.State == BoundKeyState.Down)
                 {
-                    return Get<VerbCommandsSystem>().HandleVerb(session, _verb);
+                    return Get<VerbCommandsSystem>().HandleVerb(session, _verbReq);
                 }
+                
                 return null;
             }
         }

@@ -1,7 +1,9 @@
-﻿using OpenNefia.Core.Logic;
+﻿using NetVips;
+using OpenNefia.Core.Logic;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,17 +16,23 @@ namespace OpenNefia.Core.GameObjects
     /// </summary>
     public interface IVerbSystem : IEntitySystem
     {
-        TurnResult ExecuteVerb(EntityUid source, EntityUid target, Verb verb);
-
-        SortedSet<Verb> GetLocalVerbs(EntityUid source, EntityUid target);
-    }
-
-    public class VerbSystem : EntitySystem, IVerbSystem
-    {
         /// <summary>
         /// Gets the set of verbs applicable to this entity from sending
         /// a "get verbs" event to it.
         /// </summary>
+        SortedSet<Verb> GetLocalVerbs(EntityUid source, EntityUid target);
+
+        bool CanUseVerbOn(EntityUid source, EntityUid target, VerbRequest verbReq);
+        bool CanUseVerbOn(EntityUid source, EntityUid target, string verbType);
+        bool CanUseAnyVerbOn(EntityUid source, EntityUid target, ISet<string> verbTypes);
+        bool TryGetVerb(EntityUid source, EntityUid target, VerbRequest verbReq, [NotNullWhen(true)] out Verb? verb);
+        bool TryGetVerb(EntityUid source, EntityUid target, string verbType, [NotNullWhen(true)] out Verb? verb);
+        Verb? GetVerbOrNull(EntityUid source, EntityUid target, VerbRequest verbReq);
+        Verb? GetVerbOrNull(EntityUid source, EntityUid target, string verbType);
+    }
+
+    public class VerbSystem : EntitySystem, IVerbSystem
+    {
         public SortedSet<Verb> GetLocalVerbs(EntityUid source, EntityUid target)
         {
             var verbs = new SortedSet<Verb>();
@@ -36,22 +44,42 @@ namespace OpenNefia.Core.GameObjects
             return verbs;
         }
 
-        /// <summary>
-        /// Makes an entity execute a verb on a target.
-        /// </summary>
-        public TurnResult ExecuteVerb(EntityUid source, EntityUid target, Verb verb)
+        public bool CanUseVerbOn(EntityUid source, EntityUid target, VerbRequest verbReq)
+            => TryGetVerb(source, target, verbReq, out _);
+
+        public bool CanUseVerbOn(EntityUid source, EntityUid target, string verbType)
+            => CanUseVerbOn(source, target, new VerbRequest(verbType));
+
+        public bool CanUseAnyVerbOn(EntityUid source, EntityUid target, ISet<string> verbTypes)
         {
-            var ev = new ExecuteVerbEventArgs(source, target, verb);
-            RaiseEvent(source, ev);
-            return ev.TurnResult;
+            var verbs = GetLocalVerbs(source, target);
+            return verbs.Any(verb => verbTypes.Contains(verb.VerbType));
         }
+
+        public bool TryGetVerb(EntityUid source, EntityUid target, VerbRequest verbReq, [NotNullWhen(true)] out Verb? verb)
+        {
+            verb = GetVerbOrNull(source, target, verbReq);
+            return verb != null;
+        }
+
+        public bool TryGetVerb(EntityUid source, EntityUid target, string verbType, [NotNullWhen(true)] out Verb? verb)
+            => TryGetVerb(source, target, new VerbRequest(verbType), out verb);
+
+        public Verb? GetVerbOrNull(EntityUid source, EntityUid target, VerbRequest verbReq)
+        {
+            var verbs = GetLocalVerbs(source, target);
+            return verbs.FirstOrDefault(v => v.VerbType == verbReq.VerbType);
+        }
+
+        public Verb? GetVerbOrNull(EntityUid source, EntityUid target, string verbType)
+            => GetVerbOrNull(source, target, new VerbRequest(verbType));
     }
 
     /// <summary>
     /// Event for getting the list of verbs that can be applied
     /// to an entity.
     /// </summary>
-    public class GetVerbsEventArgs : EntityEventArgs 
+    public class GetVerbsEventArgs : EntityEventArgs
     {
         /// <summary>
         /// Valid verbs for this entity.
@@ -68,26 +96,6 @@ namespace OpenNefia.Core.GameObjects
         {
             Source = source;
             Target = target;
-        }
-    }
-
-    /// <summary>
-    /// Event to execute an verb *interactively*.
-    /// 
-    /// This means opening the UI and asking the player for input.
-    /// </summary>
-    public class ExecuteVerbEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Source;
-        public readonly EntityUid Target;
-
-        public readonly Verb Verb;
-
-        public ExecuteVerbEventArgs(EntityUid source, EntityUid target, Verb verb)
-        {
-            this.Source = source;
-            this.Target = target;
-            this.Verb = verb;
         }
     }
 }

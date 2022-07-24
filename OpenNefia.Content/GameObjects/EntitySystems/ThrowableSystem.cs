@@ -26,12 +26,11 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
 
-        public const string VerbIDThrow = "Elona.Throw";
+        public const string VerbTypeThrow = "Elona.Throw";
 
         public override void Initialize()
         {
             SubscribeComponent<ThrowableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
             SubscribeComponent<ChipComponent, EntityThrownEventArgs>(ShowThrownChipRenderable, priority: EventPriorities.VeryHigh);
             SubscribeComponent<ThrowableComponent, EntityThrownEventArgs>(HandleEntityThrown);
             SubscribeComponent<CharaComponent, HitByThrownEntityEventArgs>(HandleCharaHitByThrown);
@@ -56,54 +55,36 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbIDThrow));
+            args.Verbs.Add(new Verb(VerbTypeThrow, "Throw Entity", () => Throw(args.Source, args.Target)));
         }
 
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
+        private TurnResult Throw(EntityUid thrower, EntityUid item)
         {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case VerbIDThrow:
-                    ExecuteVerbThrow(args);
-                    break;
-            }
-        }
-
-        private void ExecuteVerbThrow(ExecuteVerbEventArgs args)
-        {
-            var thrower = args.Source;
-            var throwing = args.Target;
-
             if (!EntityManager.TryGetComponent(thrower, out SpatialComponent sourceSpatial))
-                return;
+                return TurnResult.Failed;
 
             var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(new(sourceSpatial.MapPosition));
             if (!posResult.HasValue)
             {
-                args.Handle(TurnResult.Aborted);
-                return;
+                return TurnResult.Aborted;
             }
 
             if (!posResult.Value.CanSee)
             {
-                _mes.Display(Loc.GetString("Elona.TargetText.CannotSeeLocation"));
-                args.Handle(TurnResult.Failed);
-                return;
+                _mes.Display("You can't see the location.");
+                return TurnResult.Aborted;
             }
 
-            if (!_stackSystem.TrySplit(throwing, 1, posResult.Value.Coords, out var split))
-                args.Handle(TurnResult.Failed);
+            if (!_stackSystem.TrySplit(item, 1, posResult.Value.Coords, out var split))
+                return TurnResult.Failed;
 
             if (!ThrowEntity(thrower, split, posResult.Value.Coords))
-                args.Handle(TurnResult.Failed);
+                return TurnResult.Failed;
 
-            args.Handle(TurnResult.Succeeded);
+            return TurnResult.Succeeded;
         }
 
-        public bool ThrowEntity(EntityUid source, EntityUid throwing, MapCoordinates coords)
+        public bool ThrowEntity(EntityUid thrower, EntityUid item, MapCoordinates coords)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map)
                 || !EntityManager.IsAlive(source)
@@ -122,17 +103,17 @@ namespace OpenNefia.Content.GameObjects
                     coords = new(coords.MapId, newPos);
             }
 
-            var ev = new EntityThrownEventArgs(source, coords);
-            RaiseEvent(throwing, ev);
+            var ev = new EntityThrownEventArgs(thrower, coords);
+            RaiseEvent(item, ev);
             return true;
         }
 
-        private void HandleEntityThrown(EntityUid target, ThrowableComponent throwable, EntityThrownEventArgs args)
+        private void HandleEntityThrown(EntityUid itemThrown, ThrowableComponent throwable, EntityThrownEventArgs args)
         {
             if (args.Handled)
                 return;
 
-            DoEntityThrown(target, args);
+            DoEntityThrown(itemThrown, args);
         }
 
         private void DoEntityThrown(EntityUid thrown,

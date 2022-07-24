@@ -12,37 +12,16 @@ namespace OpenNefia.Content.Maps
     public class WorldMapEntranceSystem : EntitySystem
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<WorldMapEntranceComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<WorldMapEntranceComponent, UseWorldMapEntranceEvent>(HandleUseWorldMapEntrance);
         }
 
         private void HandleGetVerbs(EntityUid uid, WorldMapEntranceComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(StairsSystem.VerbIDActivate));
-        }
-
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case StairsSystem.VerbIDActivate:
-                    Raise(args.Target, new UseWorldMapEntranceEvent(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleUseWorldMapEntrance(EntityUid entrance, WorldMapEntranceComponent worldMapEntrance, UseWorldMapEntranceEvent args)
-        {
-            args.Handle(UseWorldMapEntrance(entrance, args.User, worldMapEntrance));
+            args.Verbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Area", () => UseWorldMapEntrance(args.Target, args.Source)));
         }
 
         private TurnResult UseWorldMapEntrance(EntityUid entrance, EntityUid user,
@@ -63,16 +42,6 @@ namespace OpenNefia.Content.Maps
             }
 
             return TurnResult.Failed;
-        }
-    }
-
-    public class UseWorldMapEntranceEvent : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid User;
-
-        public UseWorldMapEntranceEvent(EntityUid user)
-        {
-            User = user;
         }
     }
 }

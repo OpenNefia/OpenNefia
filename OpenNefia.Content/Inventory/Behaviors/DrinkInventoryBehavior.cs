@@ -38,16 +38,16 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verb = new Verb(DrinkableSystem.VerbIDDrink);
-            return _verbSystem.GetLocalVerbs(context.User, item).Contains(verb);
+            return _verbSystem.CanUseVerbOn(context.User, item, DrinkableSystem.VerbIDDrink);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
             context.ShowInventoryWindow = false;
 
-            var verb = new Verb(DrinkableSystem.VerbIDDrink);
-            var result = _verbSystem.ExecuteVerb(context.User, item, verb);
+            var result = TurnResult.NoResult;
+            if (_verbSystem.TryGetVerb(context.User, item, DrinkableSystem.VerbIDDrink, out var verb))
+                result = verb.Act();
             
             return new InventoryResult.Finished(result);
         }

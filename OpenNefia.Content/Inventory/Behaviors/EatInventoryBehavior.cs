@@ -37,17 +37,17 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verb = new Verb(EdibleSystem.VerbIDEat);
-            return _verbSystem.GetLocalVerbs(context.User, item).Contains(verb);
+            return _verbSystem.CanUseVerbOn(context.User, item, EdibleSystem.VerbIDEat);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
             context.ShowInventoryWindow = false;
 
-            var verb = new Verb(EdibleSystem.VerbIDEat);
-            var result = _verbSystem.ExecuteVerb(context.User, item, verb);
-            
+            var result = TurnResult.NoResult;
+            if (_verbSystem.TryGetVerb(context.User, item, EdibleSystem.VerbIDEat, out var verb))
+                result = verb.Act();
+
             return new InventoryResult.Finished(result);
         }
     }

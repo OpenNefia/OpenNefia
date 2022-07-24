@@ -22,35 +22,15 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<EdibleComponent, DoEatEventArgs>(HandleDoEat);
             SubscribeComponent<EdibleComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
         }
 
         private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbIDEat));
+            args.Verbs.Add(new Verb(VerbIDEat, "Eat Item", () => Eat(args.Source, args.Target)));
         }
 
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case VerbIDEat:
-                    Raise(args.Target, new DoEatEventArgs(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleDoEat(EntityUid target, EdibleComponent edible, DoEatEventArgs args)
-        {
-            args.Handle(Eat(target, args.Eater, edible));
-        }
-
-        private TurnResult Eat(EntityUid target, EntityUid eater,
+        private TurnResult Eat(EntityUid eater, EntityUid target,
             EdibleComponent? edible = null)
         {
             if (!Resolve(target, ref edible))
@@ -83,16 +63,6 @@ namespace OpenNefia.Content.GameObjects
             edibleComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, edibleComp.Args);
 
             EntityManager.DeleteEntity(thrown);
-        }
-    }
-
-    public class DoEatEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid Eater;
-
-        public DoEatEventArgs(EntityUid eater)
-        {
-            Eater = eater;
         }
     }
 }

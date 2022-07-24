@@ -37,13 +37,15 @@ namespace OpenNefia.Content.Inventory
             return Loc.GetString("Elona.Inventory.Behavior.Examine.QueryText");
         }
 
+        private readonly HashSet<string> _verbs = new()
+        {
+            PickableSystem.VerbTypePickUp,
+            PickableSystem.VerbTypeDrop
+        };
+
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verbPickUp = new Verb(PickableSystem.VerbIDPickUp);
-            var verbDrop = new Verb(PickableSystem.VerbIDDrop);
-
-            var verbs = _verbSystem.GetLocalVerbs(context.User, item);
-            return verbs.Contains(verbPickUp) || verbs.Contains(verbDrop);
+            return _verbSystem.CanUseAnyVerbOn(context.User, item, _verbs);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)

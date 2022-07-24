@@ -14,9 +14,9 @@ namespace OpenNefia.Content.GameObjects
 {
     public class StairsSystem : EntitySystem
     {
-        public const string VerbIDAscend = "Elona.Ascend";
-        public const string VerbIDDescend = "Elona.Descend";
-        public const string VerbIDActivate = "Elona.Activate";
+        public const string VerbTypeAscend = "Elona.Ascend";
+        public const string VerbTypeDescend = "Elona.Descend";
+        public const string VerbTypeActivate = "Elona.Activate";
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
@@ -24,8 +24,6 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeComponent<StairsComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeComponent<StairsComponent, UseStairsEventArgs>(HandleUseStairs);
         }
 
         private void HandleGetVerbs(EntityUid uid, StairsComponent component, GetVerbsEventArgs args)
@@ -33,37 +31,17 @@ namespace OpenNefia.Content.GameObjects
             switch (component.Direction)
             {
                 case StairsDirection.Up:
-                    args.Verbs.Add(new Verb(VerbIDAscend));
+                    args.Verbs.Add(new Verb(VerbTypeAscend, "Ascend Stairs", () => UseStairs(args.Source, args.Target)));
                     break;
                 case StairsDirection.Down:
-                    args.Verbs.Add(new Verb(VerbIDDescend));
+                    args.Verbs.Add(new Verb(VerbTypeDescend, "Descend Stairs", () => UseStairs(args.Source, args.Target)));
                     break;
             }
 
-            args.Verbs.Add(new Verb(VerbIDActivate));
+            args.Verbs.Add(new Verb(VerbTypeActivate, "Use Stairs", () => UseStairs(args.Source, args.Target)));
         }
 
-        private void HandleExecuteVerb(ExecuteVerbEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            switch (args.Verb.ID)
-            {
-                case VerbIDAscend:
-                case VerbIDDescend:
-                case VerbIDActivate:
-                    Raise(args.Target, new UseStairsEventArgs(args.Source), args);
-                    break;
-            }
-        }
-
-        private void HandleUseStairs(EntityUid stairsEntity, StairsComponent stairs, UseStairsEventArgs args)
-        {
-            args.Handle(UseStairs(stairsEntity, args.User, stairs));
-        }
-
-        private TurnResult UseStairs(EntityUid entrance, EntityUid user,
+        private TurnResult UseStairs(EntityUid user, EntityUid entrance,
             StairsComponent? stairs = null)
         {
             if (!Resolve(entrance, ref stairs))
@@ -73,16 +51,6 @@ namespace OpenNefia.Content.GameObjects
 
             return _mapEntrances.UseMapEntrance(user, stairs.Entrance) 
                 ? TurnResult.Succeeded : TurnResult.Failed;
-        }
-    }
-
-    public class UseStairsEventArgs : TurnResultEntityEventArgs
-    {
-        public readonly EntityUid User;
-
-        public UseStairsEventArgs(EntityUid user)
-        {
-            User = user;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Pickable;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -33,8 +34,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verb = new Verb(PickableSystem.VerbIDDrop);
-            return _verbSystem.GetLocalVerbs(context.User, item).Contains(verb);
+            return _verbSystem.CanUseVerbOn(context.User, item, PickableSystem.VerbTypeDrop);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
@@ -42,8 +42,9 @@ namespace OpenNefia.Content.Inventory
             if (CheckNoDropAndMessage(item))
                 return new InventoryResult.Continuing();
 
-            var verb = new Verb(PickableSystem.VerbIDDrop);
-            var result = _verbSystem.ExecuteVerb(context.User, item, verb);
+            var result = TurnResult.NoResult;
+            if (_verbSystem.TryGetVerb(context.User, item, PickableSystem.VerbTypeDrop, out var verb))
+                result = verb.Act();
             
             if (result != TurnResult.NoResult)
                 return new InventoryResult.Finished(result);
