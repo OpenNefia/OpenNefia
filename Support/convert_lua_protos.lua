@@ -504,6 +504,11 @@ handlers["base.item"] = function(from, to)
         end
         field(food, c, "spoilage_hours", nil, "spoilTimeHours")
     end
+
+    if from.params and from.params.bed_quality then
+        c = comp(to, "Bed")
+        c.bedQuality = from.params.bed_quality / 100.0
+    end
 end
 
 handlers["base.feat"] = function(from, to)
@@ -838,10 +843,13 @@ handlers["base.effect"] = function(from, to)
         to.autoHeal = from.auto_heal
     end
     if from.related_element then
-        to.related_element = dotted(from.related_element)
+        to.relatedElement = dotted(from.related_element)
     end
     if from.emotion_icon then
-        to.emotionIconId = from.emotion_icon
+        to.emotionIconId = dotted(from.emotion_icon)
+    end
+    if from.on_sleep == "remove" then
+        to.removeOnSleep = true
     end
     to.components = {
         {
@@ -1199,7 +1207,7 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.material", "BlendMaterial.yml")
 -- write("elona.god", "God.yml")
 -- write("elona_sys.magic", "Magic.yml")
--- write("base.effect", "StatusEffect.yml")
+write("base.effect", "StatusEffect.yml")
 -- write("elona.item_material", "Material.yml")
 write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototype")
 -- write("elona.rank", "Rank.yml")

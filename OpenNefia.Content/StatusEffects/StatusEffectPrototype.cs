@@ -38,6 +38,9 @@ namespace OpenNefia.Content.StatusEffects
         public PrototypeId<ElementPrototype>? RelatedElement { get; }
 
         [DataField]
+        public bool RemoveOnSleep { get; set; } = false;
+
+        [DataField]
         public ComponentRegistry Components { get; } = new();
     }
 }

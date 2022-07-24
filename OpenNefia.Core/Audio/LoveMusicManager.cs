@@ -1,8 +1,10 @@
 ﻿using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;

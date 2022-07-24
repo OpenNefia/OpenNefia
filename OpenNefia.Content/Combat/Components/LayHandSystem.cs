@@ -4,6 +4,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Sleep;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Game;
@@ -26,14 +27,19 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
 
-
         public override void Initialize()
         {
             SubscribeComponent<LayHandComponent, EntityBeingGeneratedEvent>(InitLayHand);
+            SubscribeComponent<LayHandComponent, OnCharaSleepEvent>(HandleCharaSleep);
             SubscribeComponent<SkillsComponent, AfterDamageAppliedEvent>(ProcLayHand);
         }
 
         private void InitLayHand(EntityUid uid, LayHandComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            component.HasLayHand = true;
+        }
+
+        private void HandleCharaSleep(EntityUid uid, LayHandComponent component, OnCharaSleepEvent args)
         {
             component.HasLayHand = true;
         }
