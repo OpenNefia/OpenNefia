@@ -31,7 +31,6 @@ using OpenNefia.Content.Input;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Core.Audio;
-using System.Xml.Linq;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.Buffs;
 
@@ -255,7 +254,7 @@ namespace OpenNefia.Content.CharaInfo
             if (chara != null)
             {
                 dict[string.Empty] = string.Empty;
-                dict[_locScope.GetString("Group.Personal.Name")] = _displayNames.GetBaseName(_charaEntity);
+                dict[_locScope.GetString("Group.Personal.Name")] = _displayNames.GetDisplayName(_charaEntity);
                 if (!string.IsNullOrEmpty(chara.Alias))
                     dict[_locScope.GetString("Group.Personal.Alias")] = chara.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");

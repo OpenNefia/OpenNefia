@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
-        [Dependency] private readonly IMapDrawables _drawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _drawables = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;

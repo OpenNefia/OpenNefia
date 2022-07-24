@@ -14,12 +14,11 @@ namespace OpenNefia.Core.Rendering
     {
         private const string Sawmill = "maprenderer.sys";
 
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
         [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
 
-        private ISawmill _sawmill = default!;
         private DependencyCollection _layerDependencyCollection = default!;
 
         private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
@@ -159,7 +158,7 @@ namespace OpenNefia.Core.Rendering
 
         private void OnThemeSwitched()
         {
-            if (this._map == null)
+            if (_map == null)
                 return;
 
             foreach (var layer in _allTileLayers)
@@ -175,33 +174,33 @@ namespace OpenNefia.Core.Rendering
 
         public void RefreshAllLayers()
         {
-            if (this._map == null)
+            if (_map == null)
                 return;
 
-            if (this._map.RedrawAllThisTurn)
+            if (_map.RedrawAllThisTurn)
             {
                 foreach (var layer in _allTileLayers)
                 {
                     layer.RedrawAll();
                 }
             }
-            else if(this._map.DirtyTilesThisTurn.Count > 0)
+            else if(_map.DirtyTilesThisTurn.Count > 0)
             {
                 foreach (var layer in _allTileLayers)
                 {
-                    layer.RedrawDirtyTiles(this._map.DirtyTilesThisTurn);
+                    layer.RedrawDirtyTiles(_map.DirtyTilesThisTurn);
                 }
             }
 
-            this._map.RedrawAllThisTurn = false;
-            this._map.DirtyTilesThisTurn.Clear();
-            this._map.MapObjectMemory.Flush();
+            _map.RedrawAllThisTurn = false;
+            _map.DirtyTilesThisTurn.Clear();
+            _map.MapObjectMemory.Flush();
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            foreach (var layer in this._allTileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.SetSize(width, height);
             }
@@ -210,7 +209,7 @@ namespace OpenNefia.Core.Rendering
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            foreach (var layer in this._allTileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.SetPosition(x, y);
             }

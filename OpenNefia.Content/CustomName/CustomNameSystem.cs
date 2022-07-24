@@ -45,10 +45,12 @@ namespace OpenNefia.Content.CustomName
         {
             if (component.ShowBaseName)
             {
+                // "Arnord the putit"
                 args.OutName = Loc.GetString("Elona.DisplayName.WithBaseName", ("baseName", args.BaseName), ("customName", component.CustomName));
             }
             else
             {
+                // "Arnord"
                 args.OutName = component.CustomName;
             }
         }

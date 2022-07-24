@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Effects
     public class HealingEffect : Effect, ISerializationHooks
     {
         // TODO flyweight this
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
