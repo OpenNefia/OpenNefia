@@ -1,17 +1,8 @@
 ﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 
 namespace OpenNefia.Content.Inventory

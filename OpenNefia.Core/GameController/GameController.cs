@@ -383,14 +383,22 @@ namespace OpenNefia.Core.GameController
             _graphics.EndDraw();
         }
 
-        public void SystemStep()
+        public void SystemStep(bool stepInput = true)
         {
             if (Love.Boot.QuitFlag)
             {
                 DoShutdown();
             }
 
-            Love.Boot.SystemStep((Love.Scene)_graphics);
+            if (stepInput)
+            {
+                Love.Boot.SystemStep((Love.Scene)_graphics);
+            }
+            else
+            {
+                // Don't poll keyboard/mouse.
+                Love.Timer.Step();
+            }
         }
     }
 }

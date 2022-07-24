@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Tests
         {
         }
 
-        public void UpdateWidget()
+        public void RefreshWidget()
         {
         }
 

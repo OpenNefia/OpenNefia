@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Rendering
                 Update(dt);
 
                 _gameController.Draw();
-                _gameController.SystemStep();
+                _gameController.SystemStep(stepInput: false);
             }
         }
 
