@@ -65,14 +65,15 @@ namespace OpenNefia.Content.Sleep
         [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
         [Dependency] private readonly MapCommonSystem _mapCommon = default!;
 
-        public const int SleepThresholdHoursLight = 15;
-        public const int SleepThresholdHoursModerate = 30;
-        public const int SleepThresholdHoursHeavy = 50;
+        public static readonly GameTimeSpan SleepThresholdLight = GameTimeSpan.FromHours(15);
+        public static readonly GameTimeSpan SleepThresholdModerate = GameTimeSpan.FromHours(30);
+        public static readonly GameTimeSpan SleepThresholdHeavy = GameTimeSpan.FromHours(50);
 
         public bool IsPlayerSleeping { get; private set; } = false;
 
         private bool CanSleepRightNow(EntityUid sleeper)
         {
+            // TODO immediate quests
             return TryMap(sleeper, out var map) && !HasComp<MapTypeQuestComponent>(map.MapEntityUid);
         }
 
@@ -202,6 +203,9 @@ namespace OpenNefia.Content.Sleep
 
         public void Sleep(EntityUid sleeper, EntityUid? bed = null, GameTimeSpan? timeSlept = null)
         {
+            if (IsPlayerSleeping)
+                return;
+            
             if (!CanSleepRightNow(sleeper))
             {
                 _mes.Display(Loc.GetString("Elona.Sleep.ButYouCannot"));
@@ -212,7 +216,21 @@ namespace OpenNefia.Content.Sleep
             if (timeSlept == null)
                 timeSlept = CalcTimeSlept(sleeper);
 
-            _randomEvents.WithRandomEventChooser(new SleepRandomEventChooser(), () => DoSleep(sleeper, bed, noAnimation, timeSlept));
+            try
+            {
+                IsPlayerSleeping = true;
+                _randomEvents.WithRandomEventChooser(new SleepRandomEventChooser(), () => DoSleep(sleeper, bed, noAnimation, timeSlept));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                IsPlayerSleeping = false;
+                var ev = new AfterSleepFinish(bed, timeSlept);
+                RaiseEvent(sleeper, ev);
+            }
         }
     }
 
@@ -220,6 +238,18 @@ namespace OpenNefia.Content.Sleep
     {
         public OnCharaSleepEvent()
         {
+        }
+    }
+
+    public sealed class AfterSleepFinish : EntityEventArgs
+    {
+        public EntityUid? Bed { get; }
+        public GameTimeSpan TimeSlept { get; }
+
+        public AfterSleepFinish(EntityUid? bed, GameTimeSpan timeSlept)
+        {
+            Bed = bed;
+            TimeSlept = timeSlept;
         }
     }
 }

@@ -4,6 +4,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.InUse;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Sleep;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Audio;
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.Activity
         [Dependency] private readonly IInUseSystem _inUse = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly ISleepSystem _sleep = default!;
 
         public override void Initialize()
         {
@@ -36,6 +38,7 @@ namespace OpenNefia.Content.Activity
             Initialize_Eating();
             Initialize_Traveling();
             Initialize_Mining();
+            Initialize_PreparingToSleep();
         }
     }
 }

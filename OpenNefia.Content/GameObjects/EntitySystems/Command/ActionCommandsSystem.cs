@@ -31,6 +31,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IActionBashSystem _actionBash = default!;
         [Dependency] private readonly IActionDigSystem _actionDig = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IVerbSystem _verbs = default!;
 
         public override void Initialize()
         {

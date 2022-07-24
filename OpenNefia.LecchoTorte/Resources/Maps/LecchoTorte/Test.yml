@@ -197,3 +197,11 @@ entities:
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaNorthTyris
+- uid: 26
+  protoId: Elona.ItemLuxuryBed
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,2
+  - type: Identify
+    identifyState: Full

@@ -29,6 +29,7 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Fire = "Elona.Fire";
         public static readonly BoundKeyFunction Bash = "Elona.Bash";
         public static readonly BoundKeyFunction Rest = "Elona.Rest";
+        public static readonly BoundKeyFunction Use = "Elona.Use";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
         public static readonly BoundKeyFunction CharaInfo = "Elona.CharaInfo";
         public static readonly BoundKeyFunction Equipment = "Elona.Equipment";
