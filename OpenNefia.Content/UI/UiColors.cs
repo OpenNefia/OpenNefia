@@ -34,12 +34,13 @@ namespace OpenNefia.Content.UI
         public static readonly Color RandomEventPromptTitle = new(30, 20, 10);
         public static readonly Color RandomEventPromptBody = new(30, 30, 30);
 
-        public static readonly Color ReplBackground = new(17, 17, 65, 192);
+        public static readonly Color ReplBackground = new(17, 65, 17, 192);
         public static readonly Color ReplText = new(255, 255, 255, 255);
         public static readonly Color ReplTextResult = new(150, 200, 200, 255);
         public static readonly Color ReplTextError = new(255, 0, 0, 255);
         public static readonly Color ReplCompletionBorder = new(240, 240, 240, 255);
         public static readonly Color ReplCompletionBackground = new(40, 40, 40, 255);
+        public static readonly Color ReplCompletionExactMatchBackground = new(120, 120, 40, 255);
 
         public static readonly Color MesWhite = new(255, 255, 255, 255);
         public static readonly Color MesGreen = new(175, 255, 175, 255);

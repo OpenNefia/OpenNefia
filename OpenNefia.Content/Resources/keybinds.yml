@@ -541,9 +541,11 @@ binds:
 - function: TextHistoryPrev
   type: State
   key: Up
+  canRepeat: true
 - function: TextHistoryNext
   type: State
   key: Down
+  canRepeat: true
 - function: TextReleaseFocus
   type: State
   key: Escape
@@ -622,6 +624,10 @@ binds:
 - function: Elona.ReplComplete
   type: State
   key: Tab
+- function: Elona.ReplClear
+  type: State
+  key: L
+  mod1: Control
 
 - function: Elona.QuickStart
   type: State

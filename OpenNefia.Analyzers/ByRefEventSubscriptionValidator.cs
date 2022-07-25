@@ -100,6 +100,11 @@ namespace OpenNefia.Analyzers
                                 eventType = method.TypeArguments[0];
                             }
 
+                            // Ignore generic type parameters; only care about calls that specify a
+                            // concrete class/struct for the event type.
+                            if (eventType.TypeKind != TypeKind.Class && eventType.TypeKind != TypeKind.Struct)
+                                return;
+
                             var handler = method.Parameters[0];
 
                             var isEventByRef = eventType.GetAttributes()

@@ -36,8 +36,8 @@ namespace OpenNefia.Content.Repl
             this.windowBuffer = windowBuffer;
         }
 
-        public T SelectedItem =>
-            array.Length == 0 ? default! : array[selectedIndex];
+        public T? SelectedItem =>
+            array.Length == 0 ? default : array[selectedIndex];
 
         public void IncrementSelectedIndex()
         {

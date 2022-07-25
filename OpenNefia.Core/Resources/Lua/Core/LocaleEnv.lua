@@ -41,7 +41,7 @@ function finalize(t, trail)
                 local vmt = getmetatable(v)
                 if vmt and vmt.__type == "ref" then
                     local key = table.concat(trail, ".")
-                    _PendingRefs[#_PendingRefs + 1] = { sourceKey = v.key, targetKey = key }
+                    _PendingRefs[#_PendingRefs + 1] = { sourceKey = v.key, targetKey = key, parent = t, parentKey = k }
                 elseif type(v[1]) == "string" then
                     local key = table.concat(trail, ".")
                     _FinalizedKeys[key] = setmetatable(v, nil)
@@ -90,6 +90,12 @@ local function resolveRefs()
             print("warn: missing reference to locale key " .. ref.sourceKey .. " -> " .. ref.targetKey)
             _FinalizedKeys[ref.targetKey] = "<missing reference: " .. ref.sourceKey .. " -> " .. ref.targetKey .. ">"
         end
+    end
+
+    -- Place the resolved refs back into _Collected in case something like TryGetLocalizationData
+    -- wants the actual Lua table.
+    for _, ref in ipairs(_PendingRefs) do
+        ref.parent[ref.parentKey] = _FinalizedKeys[ref.targetKey]
     end
 
     _PendingRefs = {}

@@ -90,6 +90,8 @@ namespace OpenNefia
             IoCManager.Register<IEntityManagerInternal, EntityManagerInternal>();
             IoCManager.Register<IEntityFactory, EntityFactory>();
             IoCManager.Register<IEntityFactoryInternal, EntityFactory>();
+            IoCManager.Register<IComponentLocalizer, ComponentLocalizer>();
+            IoCManager.Register<IComponentLocalizerInternal, ComponentLocalizer>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<ITileAtlasManager, TileAtlasManager>();
@@ -107,10 +109,11 @@ namespace OpenNefia
             IoCManager.Register<IGlobalDrawablesManager, GlobalDrawablesManager>();
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IDebugServer, DebugServer>();
+            IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IConsoleHost, ConsoleHost>();
             IoCManager.Register<IConsoleOutput, DummyConsoleOutput>();
+            IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
-            IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IMapLoader, MapLoader>();
             IoCManager.Register<IThemeManager, ThemeManager>();
             IoCManager.Register<IProfileManager, ProfileManager>();

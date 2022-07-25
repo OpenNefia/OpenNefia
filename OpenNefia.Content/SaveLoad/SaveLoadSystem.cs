@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameController;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
@@ -55,6 +56,9 @@ namespace OpenNefia.Content.SaveLoad
             var save = _saveGameManager.CurrentSave!;
 
             _saveGameSerializer.LoadGame(save);
+
+            var ev = new GameQuickLoadedEventArgs();
+            RaiseEvent(ev);
         }
 
         private void SaveScreenshot(ISaveGameHandle save)

@@ -22,6 +22,7 @@ using YamlDotNet.Core.Tokens;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.UI.Hud;
 
 namespace OpenNefia.Content.Repl
 {
@@ -44,7 +45,7 @@ namespace OpenNefia.Content.Repl
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IProfileManager _profiles = default!;
 
-        public const string HistoryFile = "/repl_history.txt";
+        public const string HistoryFile = "/ReplHistory.txt";
         private const int MaxSavedHistoryLines = 500;
 
         protected class ReplTextLine
@@ -99,7 +100,7 @@ namespace OpenNefia.Content.Repl
         public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
-        public float CursorDisplayX { get => X + TextCaret.Width + TextEditingLine.TextWidth + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " ") - 7; }
+        public float CursorDisplayX { get => X + TextCaret.Width + TextEditingLine.TextWidth + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " "); }
         public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;
@@ -148,6 +149,8 @@ namespace OpenNefia.Content.Repl
         protected int HistoryPos = -1;
         private bool IsExecuting = false;
         private bool _wasInitialized;
+
+        public override int? DefaultZOrder => HudLayer.HudZOrder + 1000000;
 
         public ReplLayer()
         {
@@ -293,12 +296,16 @@ namespace OpenNefia.Content.Repl
             }
             else if (args.Function == ContentKeyFunctions.ReplComplete)
             {
-                InsertCompletion();
+                InsertCompletion(submitPressed: false);
+            }
+            else if (args.Function == ContentKeyFunctions.ReplClear)
+            {
+                Clear();
             }
             else if (args.Function == EngineKeyFunctions.TextSubmit)
             {
                 if (_completionsPane.IsVisible)
-                    InsertCompletion();
+                    InsertCompletion(submitPressed: true);
                 else
                     SubmitText();
             }
@@ -417,7 +424,7 @@ namespace OpenNefia.Content.Repl
             InsertText(text);
         }
 
-        private void InsertCompletion()
+        private void InsertCompletion(bool submitPressed)
         {
             if (!_completionsPane.IsOpen)
                 return;
@@ -426,7 +433,8 @@ namespace OpenNefia.Content.Repl
             if (completion == null)
                 return;
 
-            var text = EditingLine;
+            var originalText = EditingLine;
+            var text = originalText;
 
             var completeAgain = false;
             var insertText = completion.Item.DisplayText;
@@ -439,7 +447,7 @@ namespace OpenNefia.Content.Repl
             }
             else if (completion.Item.Properties.GetValueOrDefault("ShouldProvideParenthesisCompletion") == "True")
             {
-                // insertText += "(";
+                insertText += "(";
             }
 
             text = text.Remove(completion.Item.Span.Start, CaretPos - completion.Item.Span.Start);
@@ -450,6 +458,21 @@ namespace OpenNefia.Content.Repl
 
             if (completeAgain)
                 UpdateCompletions();
+
+            // If the completion matches the current input exactly, submit the completed text if
+            // Enter was pressed (and not if Tab was pressed)
+
+            if (submitPressed)
+            {
+                var exactMatch = string.Equals(originalText.Substring(completion.Item.Span.Start), completion.Item.DisplayText, StringComparison.InvariantCultureIgnoreCase);
+
+                var shouldSubmitCompletion = tags.Contains(WellKnownTags.Field)
+                    || tags.Contains(WellKnownTags.Property)
+                    || tags.Contains(WellKnownTags.Constant);
+
+                if (exactMatch && shouldSubmitCompletion)
+                    SubmitText();
+            }
         }
 
         private void UpdateCompletions()
@@ -736,10 +759,13 @@ namespace OpenNefia.Content.Repl
         private SlidingArrayWindow<CompletionPaneEntry> FilteredView;
         private int CaretPosWhenOpened = int.MinValue;
         private CompletionCallback Callback;
+        private string _lastInput = string.Empty;
+        private bool _isExactMatch = false;
 
         public FontSpec FontCompletion { get; } = UiFonts.ReplCompletion;
         public Color ColorCompletionBorder { get; } = UiColors.ReplCompletionBorder;
         public Color ColorCompletionBackground { get; } = UiColors.ReplCompletionBackground;
+        public Color ColorCompletionExactMatchBackground { get; } = UiColors.ReplCompletionExactMatchBackground;
         internal ReplCompletionIcons AssetIcons { get; }
 
         public CompletionsPane(CompletionCallback callback)
@@ -767,6 +793,8 @@ namespace OpenNefia.Content.Repl
                 item.Text.Dispose();
             Entries.Clear();
             FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+            _lastInput = string.Empty;
+            _isExactMatch = false;
         }
 
         public void Close()
@@ -774,6 +802,8 @@ namespace OpenNefia.Content.Repl
             IsOpen = false;
             CaretPosWhenOpened = int.MinValue;
             FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
+            _lastInput = string.Empty;
+            _isExactMatch = false;
         }
 
         public void SetFromCompletions(IReadOnlyCollection<CompletionItemWithDescription> completions, string input, int caret)
@@ -805,9 +835,24 @@ namespace OpenNefia.Content.Repl
             size.Y += Padding * 2 + BorderPadding * 2;
         }
 
+        private void UpdateExactMatch()
+        {
+            var selected = FilteredView.SelectedItem;
+
+            if (selected == null)
+            {
+                _isExactMatch = false;
+                return;
+            }
+
+            var item = selected.Completion.Item;
+            _isExactMatch = string.Equals(_lastInput.Substring(item.Span.Start), item.DisplayText, StringComparison.InvariantCultureIgnoreCase);
+        }
+
         public void Increment()
         {
             FilteredView.IncrementSelectedIndex();
+            UpdateExactMatch();
             SetPreferredSize();
             SetPosition(X, Y);
         }
@@ -815,6 +860,7 @@ namespace OpenNefia.Content.Repl
         public void Decrement()
         {
             FilteredView.DecrementSelectedIndex();
+            UpdateExactMatch();
             SetPreferredSize();
             SetPosition(X, Y);
         }
@@ -847,6 +893,9 @@ namespace OpenNefia.Content.Repl
                 MaxDisplayedEntries,
                 selectedIndex
             );
+
+            _lastInput = input;
+            UpdateExactMatch();
 
             SetPreferredSize();
             SetPosition(X, Y);
@@ -940,11 +989,20 @@ namespace OpenNefia.Content.Repl
             {
                 if (entry == FilteredView.SelectedItem)
                 {
-                    GraphicsEx.SetColor(255, 255, 255, 128);
+                    if (_isExactMatch)
+                        GraphicsEx.SetColor(Color.RoyalBlue.WithAlphaB(128));
+                    else
+                        GraphicsEx.SetColor(Color.White.WithAlphaB(128));
                     GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
+
                 GraphicsEx.SetColor(Color.White);
                 entry.Icon.Draw(UIScale, entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
+
+                if (entry == FilteredView.SelectedItem && _isExactMatch)
+                    entry.Text.Color = Color.NavajoWhite;
+                else
+                    entry.Text.Color = Color.White;
                 entry.Text.Draw();
             }
         }
