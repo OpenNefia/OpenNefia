@@ -1,16 +1,43 @@
 OpenNefia.Prototypes.Entity.Elona = {
-    AreaPalmia = {
+    MapVernis = {
         MetaData = {
-            Name = "Palmia",
+            Name = _.refp "Entity.Elona.AreaVernis.MetaData.Name",
         },
-        AreaEntrance = {
-            EntranceMessage = "You see the great city of Palmia. Entire city is surrounded by tall wall.",
+    },
+
+    MapYowyn = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaYowyn.MetaData.Name",
         },
     },
 
     MapPalmia = {
         MetaData = {
             Name = _.refp "Entity.Elona.AreaPalmia.MetaData.Name",
+        },
+    },
+
+    MapDerphy = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaDerphy.MetaData.Name",
+        },
+    },
+
+    MapPortKapul = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaPortKapul.MetaData.Name",
+        },
+    },
+
+    MapNoyel = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaNoyel.MetaData.Name",
+        },
+    },
+
+    MapLumiest = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaLumiest.MetaData.Name",
         },
     },
 }

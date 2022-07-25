@@ -1,16 +1,43 @@
 OpenNefia.Prototypes.Entity.Elona = {
-    AreaPalmia = {
+    MapVernis = {
         MetaData = {
-            Name = "パルミア",
+            Name = _.refp "Entity.Elona.AreaVernis.MetaData.Name",
         },
-        AreaEntrance = {
-            EntranceMessage = "パルミアの都がある。都は高い壁に囲われている。",
+    },
+
+    MapYowyn = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaYowyn.MetaData.Name",
         },
     },
 
     MapPalmia = {
         MetaData = {
             Name = _.refp "Entity.Elona.AreaPalmia.MetaData.Name",
+        },
+    },
+
+    MapDerphy = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaDerphy.MetaData.Name",
+        },
+    },
+
+    MapPortKapul = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaPortKapul.MetaData.Name",
+        },
+    },
+
+    MapNoyel = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaNoyel.MetaData.Name",
+        },
+    },
+
+    MapLumiest = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.AreaLumiest.MetaData.Name",
         },
     },
 }

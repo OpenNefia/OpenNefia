@@ -1,7 +1,7 @@
 std = "lua51c+luajit"
 
 globals = {
-    "Core",
+    "OpenNefia",
     "Elona",
     "_",
     "_LANGUAGE_CODE",
