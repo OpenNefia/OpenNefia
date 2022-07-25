@@ -106,6 +106,7 @@ namespace OpenNefia.Content.UI.Layer
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
             OnKeyBindDown += HandleKeyBindDown;
+            CanControlFocus = true;
         }
 
         public override void Initialize(Args args)
@@ -119,6 +120,11 @@ namespace OpenNefia.Content.UI.Layer
             IsCancellable = args.IsCancellable;
 
             UpdateText();
+        }
+
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
