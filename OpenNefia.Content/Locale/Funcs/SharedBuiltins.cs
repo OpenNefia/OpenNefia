@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.DisplayName;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -85,6 +86,23 @@ namespace OpenNefia.Content.Locale.Funcs
         public static string BuiltIn_quote(object? obj)
         {
             return Loc.GetString("Elona.Common.Quotes", ("s", obj?.ToString() ?? "null"));
+        }
+
+        [LocaleFunction("loc")]
+        public static string BuiltIn_Loc(object? obj)
+        {
+            return Loc.GetString(obj?.ToString() ?? "");
+        }
+
+        [LocaleFunction("gender")]
+        public static string BuiltIn_Gender(object? obj)
+        {
+            var gender = Gender.Male;
+
+            if (obj is EntityUid entity)
+                gender = IoCManager.Resolve<IEntityManager>().GetComponentOrNull<CharaComponent>(entity)?.Gender ?? gender;
+
+            return gender.ToString();
         }
     }
 }

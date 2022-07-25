@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.DisplayName;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.Dialog;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.World;
@@ -6,6 +8,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +18,8 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Locale.Funcs
 {
     [RegisterLocaleFunctions("ja_JP")]
-    public static class JapaneseBuiltins
-    {        
+    public static partial class JapaneseBuiltins
+    {
         [LocaleFunction("sore_wa")]
         public static string BuiltIn_sore_wa(object? obj, bool ignoreSight = false)
         {
