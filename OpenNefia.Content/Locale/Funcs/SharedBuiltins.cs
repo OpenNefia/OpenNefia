@@ -85,7 +85,11 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("quote")]
         public static string BuiltIn_quote(object? obj)
         {
-            return Loc.GetString("Elona.Common.Quotes", ("s", obj?.ToString() ?? "null"));
+            // TODO probably needs to be useable before all locale files have been fully loaded
+            if (Loc.Language == LanguagePrototypeOf.Japanese)
+                return $"﻿「{obj}」";
+            else
+                return $"\"{obj}\"";
         }
 
         [LocaleFunction("loc")]

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -26,6 +27,9 @@ namespace OpenNefia.Content.Dialog
 
         [DataField]
         public int Impression { get; set; } = Impressions.Normal;
+
+        [DataField]
+        public GameDateTime InterestRenewDate { get; set; } = GameDateTime.Zero;
 
         /// <summary>
         /// Personality type, typically from 0-3.

@@ -1,5 +1,6 @@
 #nullable enable
 #r "System.Runtime"
+#r "System.Collections"
 #r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
@@ -35,6 +36,8 @@ using OpenNefia.Content.Activity;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Inventory;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -51,6 +54,7 @@ var _activities = EntitySystem.Get<IActivitySystem>();
 var _playerQuery = IoCManager.Resolve<IPlayerQuery>();
 var _uiMan = IoCManager.Resolve<IUserInterfaceManager>();
 var _loc = IoCManager.Resolve<ILocalizationManager>();
+var _inv = EntitySystem.Get<IInventorySystem>();
 var _mapEntrance = EntitySystem.Get<IMapEntranceSystem>();
 
 public EntityUid player() => _gameSession.Player;
@@ -88,11 +92,15 @@ public void gotoArea(string id)
     _mapEntrance.UseMapEntrance(player(), entrance);
 }
 
-public void sexWith()
+public LevelAndPotential skill(PrototypeId<SkillPrototype> id)
 {
-    var entity = entityAt();
-    var activity = _entityMan.SpawnEntity(Protos.Activity.Sex, MapCoordinates.Global);
-    comp<ActivitySexComponent>(activity).Partner = entity.Owner;
-    comp<ActivitySexComponent>(activity).IsTopping = true;
-    _activities.StartActivity(player(), activity);
+    return _entityMan.GetComponent<SkillsComponent>(player()).Ensure(id);
+}
+
+public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
+{
+    if (!_inv.TryGetInventoryContainer(player(), out var inv))
+        return null;
+
+    return _itemGen.GenerateItem(inv, id, amount: amount);
 }

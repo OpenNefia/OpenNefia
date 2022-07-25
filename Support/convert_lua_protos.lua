@@ -513,6 +513,11 @@ handlers["base.item"] = function(from, to)
     if from._id == "elona.tree_of_fruits" then
         c = comp(to, "FruitTree")
     end
+
+    if from.params.instrument_quality then
+        c = comp(to, "Instrument")
+        c.performanceQuality = from.params.instrument_quality
+    end
 end
 
 handlers["base.feat"] = function(from, to)

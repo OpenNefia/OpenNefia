@@ -262,6 +262,13 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
+        public IMap GetMapOfEntity(EntityUid entity)
+        {
+            var spatial = _entityManager.GetComponent<SpatialComponent>(entity);
+            return GetMap(spatial.MapID);
+        }
+
+        /// <inheritdoc/>
         public bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
             return _maps.TryGetValue(mapId, out map);

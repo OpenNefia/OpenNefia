@@ -81,16 +81,16 @@ namespace OpenNefia.Content.Activity
         public override string Name => "ActivityPerforming";
 
         [DataField]
-        public EntityUid? Instrument { get; set; }
+        public EntityUid Instrument { get; set; }
 
         [DataField]
-        public int PerformanceQuality { get; set; }
+        public int PerformanceQuality { get; set; } = 40;
 
         [DataField]
-        public int TotalTipsGold { get; set; }
+        public int TotalTipGold { get; set; } = 0;
 
         [DataField]
-        public int TotalNumberOfTips { get; set; }
+        public int TotalNumberOfTips { get; set; } = 0;
     }
 
     [RegisterComponent]

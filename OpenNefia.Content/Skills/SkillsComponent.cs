@@ -119,10 +119,12 @@ namespace OpenNefia.Content.Skills
             if (Skills.TryGetValue(protoId, out var level))
                 return level;
 
-            return new LevelAndPotential()
+            level = new LevelAndPotential()
             {
                 Level = new(0)
             };
+            Skills[protoId] = level;
+            return level;
         }
 
         public LevelAndPotential Ensure(SkillPrototype proto) => Ensure(proto.GetStrongID());

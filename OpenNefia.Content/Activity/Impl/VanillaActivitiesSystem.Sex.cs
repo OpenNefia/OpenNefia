@@ -46,6 +46,13 @@ namespace OpenNefia.Content.Activity
                 return true;
             }
 
+            if (!IsAlive(top))
+            {
+                _activities.RemoveActivity(top);
+                _activities.RemoveActivity(bottom);
+                return true;
+            }
+
             if (_gameSession.IsPlayer(top))
             {
                 if (!_damage.DoStaminaCheck(top, 1 + _rand.Next(2)))

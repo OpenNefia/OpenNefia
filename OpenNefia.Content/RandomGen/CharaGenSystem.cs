@@ -218,7 +218,7 @@ namespace OpenNefia.Content.RandomGen
         public CharaFilter CharaFilter { get; set; } = new();
     }
 
-    public struct CharaFilter
+    public class CharaFilter
     {
         public CharaFilter()
         {
