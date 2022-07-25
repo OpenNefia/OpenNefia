@@ -17,6 +17,14 @@ namespace OpenNefia.Core.Maps
             return !map.GetTile(pos)?.Tile.ResolvePrototype().IsSolid ?? false;
         }
 
+        public static bool IsFloor(this IMap map, MapCoordinates coords)
+        {
+            if (map.Id != coords.MapId)
+                return false;
+
+            return IsFloor(map, coords.Position);
+        }
+
         public static PrototypeId<TilePrototype>? GetTileID(this IMap map, Vector2i pos)
         {
             return map.GetTile(pos)?.Tile.GetStrongID();
