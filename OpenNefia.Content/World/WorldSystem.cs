@@ -142,7 +142,7 @@ namespace OpenNefia.Content.World
                 newYears += yearsPassed;
             }
 
-            State.GameDate.Set(newYears, newMonths, newDays, newHours, newMinutes, newSeconds);
+            State.GameDate = new GameDateTime(newYears, newMonths, newDays, newHours, newMinutes, newSeconds);
 
             if (!noEvents)
             {

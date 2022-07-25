@@ -237,6 +237,9 @@ namespace OpenNefia.Content.Maps
                 {
                     foreach (var item in _lookup.EntityQueryInMap<PickableComponent>(map.Id).ToList())
                     {
+                        var evRenew = new OnItemRenewMajorEvent();
+                        RaiseEvent(item.Owner, evRenew);
+
                         if (item.OwnState == OwnState.None || _stacks.GetCount(item.Owner) <= 0)
                             EntityManager.DeleteEntity(item.Owner);
                     }
@@ -492,6 +495,13 @@ namespace OpenNefia.Content.Maps
 
             _skills.GainSkillExp(player, Protos.Skill.Traveling, 25 + _world.State.TravelDistance * 2 / 3, 0, 1000);
             _world.State.TravelDistance = 0;
+        }
+    }
+
+    public sealed class OnItemRenewMajorEvent : EntityEventArgs
+    {
+        public OnItemRenewMajorEvent()
+        {
         }
     }
 
