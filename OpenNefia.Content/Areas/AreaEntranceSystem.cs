@@ -8,6 +8,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Logic;
 
 namespace OpenNefia.Content.Areas
 {
@@ -22,6 +24,36 @@ namespace OpenNefia.Content.Areas
 
     public sealed class AreaEntranceSystem : EntitySystem, IAreaEntranceSystem
     {
+        [Dependency] private readonly IMessagesManager _mes = default!;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<WorldMapEntranceComponent, EntitySteppedOnEvent>(DisplayAreaEntranceMessage);
+            SubscribeEntity<GetAreaEntranceMessageEvent>(GetDefaultEntranceMessage, priority: EventPriorities.Highest);
+        }
+
+        private void DisplayAreaEntranceMessage(EntityUid uid, WorldMapEntranceComponent component, EntitySteppedOnEvent args)
+        {
+            var ev = new GetAreaEntranceMessageEvent();
+            RaiseEvent(uid, ev);
+            if (!string.IsNullOrEmpty(ev.OutMessage))
+                _mes.Display(ev.OutMessage);
+        }
+
+        private void GetDefaultEntranceMessage(EntityUid uid, GetAreaEntranceMessageEvent args)
+        {
+            if (!TryComp<WorldMapEntranceComponent>(uid, out var worldMapEntrance))
+                return;
+
+            var areaId = worldMapEntrance.Entrance.MapIdSpecifier.GetAreaId();
+            if (areaId == null || !TryArea(areaId.Value, out var area) 
+                || !TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance)
+                || areaEntrance.EntranceMessage == null)
+                return;
+
+            args.OutMessage = areaEntrance.EntranceMessage;
+        }
+
         public AreaFloorId? GetStartingFloor(IArea area, AreaFloorId? floorId,
             AreaEntranceComponent? areaEntranceComp = null)
         {
@@ -50,6 +82,15 @@ namespace OpenNefia.Content.Areas
                 worldMapEntrance.Entrance.StartLocation = startLocation;
 
             return worldMapEntrance;
+        }
+    }
+
+    public sealed class GetAreaEntranceMessageEvent : EntityEventArgs
+    {
+        public string OutMessage { get; set; } = string.Empty;
+
+        public GetAreaEntranceMessageEvent()
+        {
         }
     }
 }

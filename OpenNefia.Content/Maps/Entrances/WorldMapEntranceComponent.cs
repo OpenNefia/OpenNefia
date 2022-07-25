@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Map)]
+    [ComponentUsage(ComponentTarget.Normal)]
     public class WorldMapEntranceComponent : Component
     {
         /// <inheritdoc />

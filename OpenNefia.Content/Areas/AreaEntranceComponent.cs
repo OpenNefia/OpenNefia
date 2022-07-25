@@ -7,12 +7,14 @@ using System;
 using System.Collections.Generic;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.Areas
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Area)]
-    public class AreaEntranceComponent : Component
+    public class AreaEntranceComponent : Component, IComponentLocalizable
     {
         /// <inheritdoc />
         public override string Name => "AreaEntrance";
@@ -43,5 +45,16 @@ namespace OpenNefia.Content.Areas
         /// </summary>
         [DataField]
         public PrototypeId<EntityPrototype>? EntranceEntity { get; set; }
+
+        /// <summary>
+        /// Message to display when the entrance to this area is stepped on.
+        /// </summary>
+        [Localize]
+        public string? EntranceMessage { get; set; }
+
+        void IComponentLocalizable.LocalizeFromLua(NLua.LuaTable table)
+        {
+            EntranceMessage = table.GetStringOrNull(nameof(EntranceMessage));
+        }
     }
 }
