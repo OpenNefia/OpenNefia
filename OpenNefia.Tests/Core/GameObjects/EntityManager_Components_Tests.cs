@@ -6,7 +6,7 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Tests.Core.GameObjects
 {
-    [TestFixture, Parallelizable ,TestOf(typeof(EntityManager))]
+    [TestFixture, Parallelizable, TestOf(typeof(EntityManager))]
     public class EntityManager_Components_Tests
     {
         private static readonly Vector2i DefaultCoords = Vector2i.Zero;
@@ -58,7 +58,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var firstComp = new DummyComponent {Owner = entity};
+            var firstComp = new DummyComponent { Owner = entity };
             entMan.AddComponent(entity, firstComp);
             entMan.RemoveComponent<DummyComponent>(entity);
             var secondComp = new DummyComponent { Owner = entity };
@@ -170,7 +170,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var result = entMan.GetComponents(entity);
 
             // Assert
-            var list = result.Where(c=>c.Name == "Dummy").ToList();
+            var list = result.Where(c => c.Name == "Dummy").ToList();
             Assert.That(list.Count, Is.EqualTo(1));
             Assert.That(list[0], Is.EqualTo(component));
         }

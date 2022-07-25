@@ -145,24 +145,29 @@ namespace OpenNefia.Core.GameObjects
             {
                 if (comp is IComponentLocalizable compLocalizable)
                 {
-                    var obj = table[comp.Name];
-                    if (obj is LuaTable compLocaleData)
-                    {
-                        try
-                        {
-                            compLocalizable.LocalizeFromLua(compLocaleData);
-                        }
-                        catch (Exception ex)
-                        {
-                            EntityPrototype? protoId = null;
-                            if (_entityManager.TryGetComponent(entity, out MetaDataComponent metaData))
-                            {
-                                protoId = metaData.EntityPrototype;
-                            }
-                            Logger.ErrorS("entity.localize", ex, $"Failed to localize component {comp.Name} ({protoId}): {ex}");
-                        }
-                    }
+                    LocalizeComponent(entity, table, compLocalizable);
                 }
+            }
+        }
+
+        public void LocalizeComponent(EntityUid entity, LuaTable table, IComponentLocalizable compLocalizable)
+        {
+            var obj = table[compLocalizable.Name];
+            if (obj is not LuaTable compLocaleData)
+                return;
+
+            try
+            {
+                compLocalizable.LocalizeFromLua(compLocaleData);
+            }
+            catch (Exception ex)
+            {
+                EntityPrototype? protoId = null;
+                if (_entityManager.TryGetComponent(entity, out MetaDataComponent metaData))
+                {
+                    protoId = metaData.EntityPrototype;
+                }
+                Logger.ErrorS("entity.localize", ex, $"Failed to localize component {compLocalizable.Name} ({protoId}): {ex}");
             }
         }
 
