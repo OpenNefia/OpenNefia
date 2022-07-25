@@ -64,6 +64,11 @@ namespace OpenNefia.Content.Inventory
         bool AllowSpecialOwned { get; }
 
         /// <summary>
+        /// Whether to show "(Ground)" next to the names of items on the ground with this behavior.
+        /// </summary>
+        bool ApplyNameModifiers { get; }
+
+        /// <summary>
         /// Allocates the icon that this behavior will display in the icon bar.
         /// </summary>
         UiElement? MakeIcon();

@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
 
-        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 8));
+        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 26));
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Throw.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Throw);

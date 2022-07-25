@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -22,6 +23,11 @@ namespace OpenNefia.Content.Inventory
 
             return _lookup.GetLiveEntitiesAtCoords(spatial.MapPosition)
                 .Select(spatial => spatial.Owner);
+        }
+
+        public void ModifyEntityName(ref string name)
+        {
+            name += Loc.GetString("Elona.Inventory.Common.NameModifiers.Ground");
         }
 
         public void OnDraw()

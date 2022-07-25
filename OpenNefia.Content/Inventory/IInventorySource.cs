@@ -6,5 +6,6 @@ namespace OpenNefia.Content.Inventory
     {
         void OnDraw();
         IEnumerable<EntityUid> GetEntities();
+        void ModifyEntityName(ref string name) {}
     }
 }
