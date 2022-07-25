@@ -3,6 +3,7 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
@@ -42,6 +43,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IComponentLocalizerInternal _componentLocalizer = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ILogManager _log = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
@@ -65,6 +67,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
         [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
         [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
+        [Dependency] private readonly IReplExecutor _replExecutor = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -120,11 +123,10 @@ namespace OpenNefia.Core.GameController
             _inputManager.Initialize();
 
             _entityManager.Initialize();
+            _componentLocalizer.Initialize();
 
             if (!TryDownloadVanillaAssets())
-            {
                 return false;
-            }
 
             _components.DoDefaultRegistrations();
             _components.DoAutoRegistrations();
@@ -167,6 +169,9 @@ namespace OpenNefia.Core.GameController
 
             _xamlHotReload.Initialize();
             _debugServer.Startup();
+
+            if (_config.GetCVar(CVars.ReplAutoloadOnStartup))
+                _replExecutor.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
@@ -296,6 +301,9 @@ namespace OpenNefia.Core.GameController
         {
             _running = true;
 
+            var ev = new EngineInitializedEvent();
+            _entityManager.EventBus.RaiseEvent(ev);
+
             MainCallback?.Invoke();
 
             DoShutdown();
@@ -399,6 +407,17 @@ namespace OpenNefia.Core.GameController
                 // Don't poll keyboard/mouse.
                 Love.Timer.Step();
             }
+        }
+    }
+
+    /// <summary>
+    /// Raised just before the title screen is reached after initial startup
+    /// has completed.
+    /// </summary>
+    public sealed class EngineInitializedEvent : EntityEventArgs
+    {
+        public EngineInitializedEvent()
+        {
         }
     }
 }

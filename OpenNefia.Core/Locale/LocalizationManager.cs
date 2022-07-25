@@ -30,6 +30,7 @@ namespace OpenNefia.Core.Locale
         bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
             where T : class, IPrototype;
         bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args);
+        bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
     }
 
     public delegate void LanguageSwitchedDelegate(PrototypeId<LanguagePrototype> newLanguage);
@@ -93,9 +94,8 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntityFactory _entityFactory = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
 
         public event LanguageSwitchedDelegate? OnLanguageSwitched;
 
@@ -150,7 +150,7 @@ namespace OpenNefia.Core.Locale
 
             foreach (var uid in _entityManager.GetEntityUids())
             {
-                _entityFactory.LocalizeComponents(uid);
+                _componentLocalizer.LocalizeComponents(uid);
             }
             _entityCache.Clear();
 

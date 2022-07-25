@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using NLua;
+using OpenNefia.Core.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Locale
@@ -73,6 +74,11 @@ namespace OpenNefia.Core.Locale
         public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
         {
             return _localizationManager.TryGetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, out str, args);
+        }
+
+        public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
+        {
+            return _localizationManager.TryGetTable(KeyPrefix.With(key), out table);
         }
 
         public void Localize(LocaleKey key)

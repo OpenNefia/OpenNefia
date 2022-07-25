@@ -152,7 +152,7 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
-        [Dependency] private readonly IEntityFactory _entityFactory = default!;
+        [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
 
         public override void Initialize()
         {
@@ -398,7 +398,7 @@ namespace OpenNefia.Core.GameObjects
 
             CopyComponents(newEntity, target, args);
 
-            _entityFactory.LocalizeComponents(newEntity);
+            _componentLocalizer.LocalizeComponents(newEntity);
 
             var ev = new EntityCloneFinishedEventArgs(target);
             RaiseEvent(newEntity, ev);
