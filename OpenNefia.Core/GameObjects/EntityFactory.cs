@@ -15,7 +15,6 @@ namespace OpenNefia.Core.GameObjects
     public interface IEntityFactory
     {
         void UpdateEntity(MetaDataComponent metaData, EntityPrototype prototype);
-        void LocalizeComponents(EntityUid entityUid);
     }
 
     internal interface IEntityFactoryInternal : IEntityFactory
@@ -30,6 +29,7 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
 
         public void UpdateEntity(MetaDataComponent metaData, EntityPrototype prototype)
         {
@@ -83,7 +83,7 @@ namespace OpenNefia.Core.GameObjects
             // Update entity metadata
             metaData.EntityPrototype = prototype;
 
-            LocalizeComponents(entity);
+            _componentLocalizer.LocalizeComponents(entity);
         }
 
         public void LoadEntity(EntityPrototype? prototype, EntityUid entity, IComponentFactory factory,
@@ -133,42 +133,7 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
 
-            LocalizeComponents(entity);
-        }
-
-        public void LocalizeComponents(EntityUid entity)
-        {
-            if (!_localizationManager.TryGetLocalizationData(entity, out var table))
-                return;
-
-            foreach (var comp in _entityManager.GetComponents(entity))
-            {
-                if (comp is IComponentLocalizable compLocalizable)
-                {
-                    LocalizeComponent(entity, table, compLocalizable);
-                }
-            }
-        }
-
-        public void LocalizeComponent(EntityUid entity, LuaTable table, IComponentLocalizable compLocalizable)
-        {
-            var obj = table[compLocalizable.Name];
-            if (obj is not LuaTable compLocaleData)
-                return;
-
-            try
-            {
-                compLocalizable.LocalizeFromLua(compLocaleData);
-            }
-            catch (Exception ex)
-            {
-                EntityPrototype? protoId = null;
-                if (_entityManager.TryGetComponent(entity, out MetaDataComponent metaData))
-                {
-                    protoId = metaData.EntityPrototype;
-                }
-                Logger.ErrorS("entity.localize", ex, $"Failed to localize component {compLocalizable.Name} ({protoId}): {ex}");
-            }
+            _componentLocalizer.LocalizeComponents(entity);
         }
 
         private void EnsureCompExistsAndDeserialize(EntityUid entity, IComponentFactory factory, string compName,

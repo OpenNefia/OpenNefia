@@ -286,5 +286,27 @@ Test = {
             Assert.That(locMan.GetString("Test.Bar.String"), Is.EqualTo("foo"));
             Assert.That(locMan.GetString("Test.Baz.String"), Is.EqualTo("foo"));
         }
+
+        [Test]
+        public void TestReferences_LocalizationData()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Foo = {
+        String = 'foo',
+    },
+    Bar = {
+        String = _.ref 'Test.Foo.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.TryGetTable("Test.Bar", out var table), Is.True);
+            Assert.That(table!.GetStringOrNull("String"), Is.EqualTo("foo"));
+        }
     }
 }

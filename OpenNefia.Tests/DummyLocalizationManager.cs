@@ -54,6 +54,12 @@ namespace OpenNefia.Tests
         {
         }
 
+        public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
+        {
+            table = null;
+            return false;
+        }
+
         public bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table)
         {
             table = null;

@@ -261,6 +261,8 @@ namespace OpenNefia.Tests
             container.Register<IPrototypeManagerInternal, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();
             container.Register<IComponentDependencyManager, ComponentDependencyManager>();
+            container.Register<IComponentLocalizer, ComponentLocalizer>();
+            container.Register<IComponentLocalizerInternal, ComponentLocalizer>();
             container.Register<IEntitySystemManager, EntitySystemManager>();
             container.Register<IGameSessionManager, GameSessionManager>();
             container.Register<ICoords, OrthographicCoords>();
@@ -305,6 +307,9 @@ namespace OpenNefia.Tests
 
             var entityMan = container.Resolve<IEntityManager>();
             entityMan.Initialize();
+
+            var compLocalizer = container.Resolve<IComponentLocalizerInternal>();
+            compLocalizer.Initialize();
 
             var entitySystemMan = container.Resolve<IEntitySystemManager>();
 
