@@ -1,4 +1,5 @@
 _FinalizedKeys = {}
+_PendingRefs = {}
 
 local auto, assign
 
@@ -31,12 +32,17 @@ end
 
 local finalize
 function finalize(t, trail)
+    local refs = {}
     t = setmetatable(t, nil)
     for k, v in pairs(t) do
         if type(k) ~= "string" or k:sub(1, 1) ~= "_" then
             trail[#trail + 1] = k
             if type(v) == "table" then
-                if type(v[1]) == "string" then
+                local vmt = getmetatable(v)
+                if vmt and vmt.__type == "ref" then
+                    local key = table.concat(trail, ".")
+                    _PendingRefs[#_PendingRefs + 1] = { sourceKey = v.key, targetKey = key }
+                elseif type(v[1]) == "string" then
                     local key = table.concat(trail, ".")
                     _FinalizedKeys[key] = setmetatable(v, nil)
                 else
@@ -51,11 +57,50 @@ function finalize(t, trail)
     end
 end
 
+-- Duplicates an existing key.
+local function ref(key)
+    return setmetatable({
+        key = key,
+    }, { __type = "ref" })
+end
+
+-- Duplicates an existing key in the prototype namespace (OpenNefia.Prototypes).
+local function refp(key)
+    return ref("OpenNefia.Prototypes." .. key)
+end
+
+local function resolveRefs()
+    local resolvedAny
+    repeat
+        resolvedAny = false
+        for _, ref in ipairs(_PendingRefs) do
+            if not ref.resolved then
+                local source = _FinalizedKeys[ref.sourceKey]
+                if source then
+                    _FinalizedKeys[ref.targetKey] = source
+                    ref.resolved = true
+                    resolvedAny = true
+                end
+            end
+        end
+    until not resolvedAny
+
+    for _, ref in ipairs(_PendingRefs) do
+        if not ref.resolved then
+            print("warn: missing reference to locale key " .. ref.sourceKey .. " -> " .. ref.targetKey)
+            _FinalizedKeys[ref.targetKey] = "<missing reference: " .. ref.sourceKey .. " -> " .. ref.targetKey .. ">"
+        end
+    end
+
+    _PendingRefs = {}
+end
+
 _Root = {}
 _Collected = {}
 
 _Finalize = function()
     finalize(_Collected, {})
+    resolveRefs()
 end
 
 -- https://stackoverflow.com/a/1283608
@@ -83,6 +128,9 @@ function _AfterLoad()
 end
 
 _ = {}
+
+_.ref = ref
+_.refp = refp
 
 local _G_mt = {}
 

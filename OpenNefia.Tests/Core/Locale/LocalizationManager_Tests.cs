@@ -198,5 +198,93 @@ Test = {
 
             Assert.That(locMan.GetString("Test.Core.String"), Is.EqualTo("foo"));
         }
+
+        [Test]
+        public void TestReferences_Missing()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Bar = {
+        String = _.ref 'Test.Foo.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Bar.String"), Is.EqualTo("<missing reference: Test.Foo.String -> Test.Bar.String>"));
+        }
+        
+        [Test]
+        public void TestReferences_Found()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Foo = {
+        String = 'foo',
+    },
+    Bar = {
+        String = _.ref 'Test.Foo.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Foo.String"), Is.EqualTo("foo"));
+            Assert.That(locMan.GetString("Test.Bar.String"), Is.EqualTo("foo"));
+        }
+
+        [Test]
+        public void TestReferences_FoundPrototype()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+OpenNefia.Prototypes.Test = {
+    Foo = {
+        String = 'foo',
+    },
+    Bar = {
+        String = _.refp 'Test.Foo.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("OpenNefia.Prototypes.Test.Foo.String"), Is.EqualTo("foo"));
+            Assert.That(locMan.GetString("OpenNefia.Prototypes.Test.Bar.String"), Is.EqualTo("foo"));
+        }
+
+        [Test]
+        public void TestReferences_Recursive()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Foo = {
+        String = 'foo',
+    },
+    Bar = {
+        String = _.ref 'Test.Foo.String'
+    },
+    Baz = {
+        String = _.ref 'Test.Bar.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Foo.String"), Is.EqualTo("foo"));
+            Assert.That(locMan.GetString("Test.Bar.String"), Is.EqualTo("foo"));
+            Assert.That(locMan.GetString("Test.Baz.String"), Is.EqualTo("foo"));
+        }
     }
 }
