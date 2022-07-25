@@ -509,6 +509,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Bed")
         c.bedQuality = from.params.bed_quality / 100.0
     end
+
+    if from._id == "elona.tree_of_fruits" then
+        c = comp(to, "FruitTree")
+    end
 end
 
 handlers["base.feat"] = function(from, to)

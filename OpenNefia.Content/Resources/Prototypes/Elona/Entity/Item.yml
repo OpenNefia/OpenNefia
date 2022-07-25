@@ -12182,6 +12182,7 @@
     originalnameref2: tree
   - type: Weight
     weight: 42000
+  - type: FruitTree
 - type: Entity
   id: Elona.ItemDeadTree
   parent: BaseItem
