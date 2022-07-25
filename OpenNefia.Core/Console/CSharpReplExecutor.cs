@@ -27,7 +27,7 @@ namespace OpenNefia.Core.Console
 
     internal class CSharpReplExecutor : ICSharpReplExecutor
     {
-        public const string SawmillName = "exec.repl";
+        public const string SawmillName = "repl.exec";
 
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IConsole _console = default!;

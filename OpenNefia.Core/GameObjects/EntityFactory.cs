@@ -132,8 +132,6 @@ namespace OpenNefia.Core.GameObjects
                     EnsureCompExistsAndDeserialize(entity, factory, name, ser, context as ISerializationContext);
                 }
             }
-
-            _componentLocalizer.LocalizeComponents(entity);
         }
 
         private void EnsureCompExistsAndDeserialize(EntityUid entity, IComponentFactory factory, string compName,

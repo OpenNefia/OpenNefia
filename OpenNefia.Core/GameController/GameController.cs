@@ -295,6 +295,7 @@ namespace OpenNefia.Core.GameController
             _log.GetSawmill("ai.vanilla").Level = LogLevel.Info;
             _log.GetSawmill("ui.input").Level = LogLevel.Info;
             _log.GetSawmill("area").Level = LogLevel.Info;
+            _log.GetSawmill("wisp.stylesheet").Level = LogLevel.Info;
         }
 
         public void Run()

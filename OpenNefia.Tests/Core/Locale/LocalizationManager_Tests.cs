@@ -308,5 +308,24 @@ Test = {
             Assert.That(locMan.TryGetTable("Test.Bar", out var table), Is.True);
             Assert.That(table!.GetStringOrNull("String"), Is.EqualTo("foo"));
         }
+
+        [Test]
+        public void TestReferences_LocalizationData_NotFound()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Bar = {
+        String = _.ref 'Test.Foo.String'
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.TryGetTable("Test.Bar", out var table), Is.True);
+            Assert.That(table!.GetStringOrNull("String"), Is.EqualTo("<missing reference: Test.Foo.String -> Test.Bar.String>"));
+        }
     }
 }

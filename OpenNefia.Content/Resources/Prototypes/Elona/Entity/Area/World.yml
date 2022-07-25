@@ -1,5 +1,5 @@
 - type: Entity
-  id: Elona.NorthTyris
+  id: Elona.AreaNorthTyris
   parent: BaseArea
   hspIds:
     elona122: 4
