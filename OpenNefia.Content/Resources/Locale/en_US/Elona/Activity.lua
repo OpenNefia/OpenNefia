@@ -54,4 +54,63 @@ Elona.Activity = {
         Take = "Here, take this.",
         TakeAllIHave = "Take this money, it's all I have!",
     },
+
+    Performing = {
+        Dialog = {
+            Angry = {
+                _.quote "Boo boo!",
+                _.quote "Shut it!",
+                _.quote "What are you doing!",
+                _.quote "You can't play shit.",
+            },
+            Disinterest = { _.quote "Boring.", _.quote "I've heard this before.", _.quote "This song again?" },
+            Interest = {
+                function(audience)
+                    return ("%s clap%s."):format(_.name(audience), _.s(audience))
+                end,
+                function(audience, actor)
+                    return ("%s listen%s to %s%s music joyfully."):format(
+                        _.name(audience),
+                        _.s(audience),
+                        _.name(actor),
+                        _.his_owned(actor)
+                    )
+                end,
+                _.quote "Bravo!",
+                _.quote "Nice song.",
+                _.quote "Scut!",
+                function(audience)
+                    return ("%s %s excited!"):format(_.name(audience), _.is(audience))
+                end,
+            },
+        },
+        GetsAngry = function(audience)
+            return ("%s get%s angry."):format(_.name(audience), _.s(audience))
+        end,
+        Quality = {
+            ["0"] = "It is a waste of time.",
+            ["1"] = "Almost everyone ignores you.",
+            ["2"] = "You need to practice lot more.",
+            ["3"] = "You finish your performance.",
+            ["4"] = "Not good.",
+            ["5"] = "People seem to like your performance.",
+            ["6"] = "Your performance is successful.",
+            ["7"] = "Wonderful!",
+            ["8"] = "Great performance. Everyone cheers you.",
+            ["9"] = "A Legendary stage!",
+        },
+        Sound = {
+            Cha = "*Cha*",
+            Random = { "*Tiki*", "*Dan*", "*Lala*" },
+        },
+        Start = function(actor, instrument)
+            return ("%s start%s to play %s."):format(_.name(actor), _.s(actor), _.name(instrument))
+        end,
+        ThrowsRock = function(audience)
+            return ("%s throw%s a rock."):format(_.name(audience), _.s(audience))
+        end,
+        Tip = function(actor, tips)
+            return ("The audience gives %s total of %s gold pieces."):format(_.name(actor), tips)
+        end,
+    },
 }

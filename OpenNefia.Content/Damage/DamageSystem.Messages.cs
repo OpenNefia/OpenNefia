@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Damage
     {
         private void DisplayAttackMessage(EntityUid target, ref AfterDamageAppliedEvent args)
         {
-            if (args.ExtraArgs.NoAttackText)
+            if (args.ExtraArgs.NoAttackText || !IsAlive(args.Attacker))
                 return;
 
             var capitalize = true;

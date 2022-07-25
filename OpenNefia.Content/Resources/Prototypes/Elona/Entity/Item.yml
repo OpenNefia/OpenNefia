@@ -2064,6 +2064,8 @@
     value: 15000
   - type: Weight
     weight: 45000
+  - type: Instrument
+    performanceQuality: 200
 - type: Entity
   id: Elona.ItemBarTableAlpha
   parent: BaseItem
@@ -5697,6 +5699,8 @@
     value: 2500
   - type: Weight
     weight: 6500
+  - type: Instrument
+    performanceQuality: 110
 - type: Entity
   id: Elona.ItemCampfire
   parent: BaseItem
@@ -7298,6 +7302,8 @@
     value: 4600
   - type: Weight
     weight: 29000
+  - type: Instrument
+    performanceQuality: 150
 - type: Entity
   id: Elona.ItemStatueOfCross
   parent: BaseItem
@@ -16284,6 +16290,8 @@
     value: 4500
   - type: Weight
     weight: 18000
+  - type: Instrument
+    performanceQuality: 150
 - type: Entity
   id: Elona.ItemLute
   parent: BaseItem
@@ -16308,6 +16316,8 @@
     value: 3800
   - type: Weight
     weight: 8500
+  - type: Instrument
+    performanceQuality: 130
 - type: Entity
   id: Elona.ItemHarmonica
   parent: BaseItem
@@ -16332,6 +16342,8 @@
     value: 1500
   - type: Weight
     weight: 850
+  - type: Instrument
+    performanceQuality: 70
 - type: Entity
   id: Elona.ItemHarp
   parent: BaseItem
@@ -16355,6 +16367,8 @@
     value: 7500
   - type: Weight
     weight: 30000
+  - type: Instrument
+    performanceQuality: 175
 - type: Entity
   id: Elona.ItemEasternPartition
   parent: BaseItem
@@ -16719,6 +16733,8 @@
     isPrecious: true
   - type: Weight
     weight: 4500
+  - type: Instrument
+    performanceQuality: 180
 - type: Entity
   id: Elona.ItemBookOfResurrection
   parent: BaseItem
@@ -18395,6 +18411,8 @@
     isPrecious: true
   - type: Weight
     weight: 45000
+  - type: Instrument
+    performanceQuality: 200
 - type: Entity
   id: Elona.ItemFestivalWreath
   parent: BaseItem

@@ -82,4 +82,60 @@ Elona.Activity = {
             return ("これが%sの財布の中身の全て%s"):format(_.ore(partner, 3), _.da(partner))
         end,
     },
+
+    Performing = {
+        Dialog = {
+            Angry = {
+                _.quote "引っ込め！",
+                _.quote "うるさい！",
+                _.quote "下手っぴ！",
+                _.quote "何のつもりだ！",
+            },
+            Disinterest = { _.quote "飽きた", _.quote "前にも聴いたよ", _.quote "またこの曲か…" },
+            Interest = {
+                function(audience)
+                    return ("%sは歓声を上げた。"):format(_.name(audience))
+                end,
+                function(audience)
+                    return ("%sは目を輝かせた。"):format(_.name(audience))
+                end,
+                _.quote "ブラボー",
+                _.quote "いいぞ！",
+                function(audience)
+                    return ("%sはうっとりした。"):format(_.name(audience))
+                end,
+                function(audience, actor)
+                    return ("%sは%sの演奏を褒め称えた。"):format(_.name(audience), _.name(actor))
+                end,
+            },
+        },
+        GetsAngry = function(audience)
+            return ("%sは激怒した。"):format(_.name(audience))
+        end,
+        Quality = {
+            ["0"] = "まるで駄目だ…",
+            ["1"] = "不評だった…",
+            ["2"] = "もっと練習しなくては…",
+            ["3"] = "演奏を終えた。",
+            ["4"] = "いまいちだ。",
+            ["5"] = "手ごたえがあった。",
+            ["6"] = "納得できる演奏ができた。",
+            ["7"] = "大盛況だ！",
+            ["8"] = "素晴らしい！",
+            ["9"] = "歴史に残る名演だ！",
+        },
+        Sound = {
+            Cha = "ｼﾞｬﾝ♪ ",
+            Random = { "ﾁｬﾗﾝ♪ ", "ﾎﾟﾛﾝ♪ ", "ﾀﾞｰﾝ♪ " },
+        },
+        Start = function(actor, instrument)
+            return ("%sは%sの演奏をはじめた。"):format(_.name(actor), _.name(instrument))
+        end,
+        ThrowsRock = function(audience)
+            return ("%sは石を投げた。"):format(_.name(audience))
+        end,
+        Tip = function(actor, tips)
+            return ("%sは合計 %sのおひねりを貰った。"):format(_.name(actor), tips)
+        end,
+    },
 }

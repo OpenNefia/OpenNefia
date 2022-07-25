@@ -190,7 +190,7 @@ namespace OpenNefia.Content.RandomGen
         }
     }
 
-    public struct ItemFilter
+    public class ItemFilter
     {
         public ItemFilter()
         {
