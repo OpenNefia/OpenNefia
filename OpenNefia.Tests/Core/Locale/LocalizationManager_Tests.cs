@@ -68,6 +68,31 @@ Test.Core = {
         }
 
         [Test]
+        public void TestRandomLists_Function()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test.Core = {
+    List = { 
+        function() return 'foo' end, 
+        function() return 'bar' end, 
+        function() return 'baz' end 
+    },
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("baz"));
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("baz"));
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("baz"));
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("bar"));
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("foo"));
+            Assert.That(locMan.GetString("Test.Core.List"), Is.EqualTo("bar"));
+        }
+
+        [Test]
         public void TestFunctions()
         {
             var locMan = IoCManager.Resolve<ILocalizationManager>();

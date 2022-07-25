@@ -164,13 +164,9 @@ namespace OpenNefia.Core.Locale
 
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            if (_stringStore.TryGetValue(key, out str))
+            static string CallFunction(LocaleKey key, LocaleArg[] args, LuaFunction func)
             {
-                return true;
-            }
-
-            if (_functionStore.TryGetValue(key, out var func))
-            {
+                string? str;
                 var shared = ArrayPool<object?>.Shared;
                 var rented = shared.Rent(args.Length);
 
@@ -189,6 +185,17 @@ namespace OpenNefia.Core.Locale
                 }
 
                 shared.Return(rented);
+                return str;
+            }
+
+            if (_stringStore.TryGetValue(key, out str))
+            {
+                return true;
+            }
+
+            if (_functionStore.TryGetValue(key, out var func))
+            {
+                str = CallFunction(key, args, func);
 
                 return true;
             }
@@ -196,7 +203,17 @@ namespace OpenNefia.Core.Locale
             if (_listStore.TryGetValue(key, out var list))
             {
                 // This is meant to emulate the `txt` function in the HSP source.
-                str = _random.Pick(list);
+                var obj = _random.Pick(list);
+
+                if (obj is LuaFunction func2)
+                {
+                    str = CallFunction(key, args, func2);
+                }
+                else
+                {
+                    str = obj.ToString()!;
+                }
+
                 return true;
             }
 
