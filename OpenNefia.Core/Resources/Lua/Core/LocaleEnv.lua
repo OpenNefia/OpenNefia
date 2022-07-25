@@ -43,7 +43,7 @@ function finalize(t, trail)
                     local ref = { sourceKey = v.key, targetKey = key, parent = t, parentKey = k }
                     _PendingRefs[#_PendingRefs + 1] = ref
                     log("debug", "GETREF " .. ref.sourceKey .. " -> " .. ref.targetKey)
-                elseif type(v[1]) == "string" then
+                elseif type(v[1]) == "string" or type(v[1]) == "function" then
                     local key = table.concat(trail, ".")
                     _FinalizedKeys[key] = setmetatable(v, nil)
                 else
