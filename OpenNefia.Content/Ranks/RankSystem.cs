@@ -94,8 +94,8 @@ namespace OpenNefia.Content.Ranks
                 var proto = _protos.Index(id);
                 if (proto.DecayPeriodDays != null && rank.TimeUntilDecay != null)
                 {
-                    rank.TimeUntilDecay -= GameTimeSpan.FromHours(args.DaysPassed);
-                    if (rank.TimeUntilDecay.TotalSeconds < 0)
+                    rank.TimeUntilDecay = rank.TimeUntilDecay.Value - GameTimeSpan.FromHours(args.DaysPassed);
+                    if (rank.TimeUntilDecay.Value.TotalSeconds < 0)
                     {
                         ModifyRank(id, -(rank.Experience / 12 + 100));
                         rank.TimeUntilDecay = GameTimeSpan.FromDays(proto.DecayPeriodDays.Value);

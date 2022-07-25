@@ -6,7 +6,7 @@ namespace OpenNefia.Content.World
     /// Time span struct for Elona's in-game world.
     /// </summary>
     [DataDefinition]
-    public class GameTimeSpan
+    public struct GameTimeSpan
     {
         public const long SecondsPerMinute = 60;
         public const long SecondsPerHour   = 60 * 60;
@@ -35,7 +35,12 @@ namespace OpenNefia.Content.World
 
         public GameTimeSpan(int years, int months, int days, int hours, int minutes, int seconds)
         {
-            Set(years, months, days, hours, minutes, seconds);
+            TotalSeconds = seconds
+                + minutes * SecondsPerMinute
+                + hours * SecondsPerHour
+                + days * SecondsPerDay
+                + months * SecondsPerMonth
+                + years * SecondsPerYear;
         }
 
         public GameTimeSpan(long totalSeconds)
@@ -46,16 +51,6 @@ namespace OpenNefia.Content.World
         public GameTimeSpan(GameTimeSpan other)
         {
             TotalSeconds = other.TotalSeconds;
-        }
-
-        public void Set(int years, int months, int days, int hours, int minutes, int seconds)
-        {
-            TotalSeconds = seconds
-                + minutes * SecondsPerMinute
-                + hours * SecondsPerHour
-                + days * SecondsPerDay
-                + months * SecondsPerMonth
-                + years * SecondsPerYear;
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.World
     /// inappropriate for tracking time according to Elona's world, where all months are 31 days long.
     /// </remarks>
     [DataDefinition]
-    public class GameDateTime
+    public struct GameDateTime
     {
         public const long SecondsPerMinute = 60;
         public const long SecondsPerHour   = 60 * 60;
@@ -34,26 +34,6 @@ namespace OpenNefia.Content.World
         }
 
         public GameDateTime(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
-        {
-            Set(year, month, day, hour, minute, second);
-        }
-
-        public GameDateTime(long totalSeconds)
-        {
-            if (totalSeconds < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(totalSeconds));
-            }
-
-            TotalSeconds = totalSeconds;
-        }
-
-        public GameDateTime(GameDateTime other)
-        {
-            TotalSeconds = other.TotalSeconds;
-        }
-
-        public void Set(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
             if (year < 1)
             {
@@ -86,6 +66,21 @@ namespace OpenNefia.Content.World
                 + (day - 1) * SecondsPerDay
                 + (month - 1) * SecondsPerMonth
                 + (year - 1) * SecondsPerYear;
+        }
+
+        public GameDateTime(long totalSeconds)
+        {
+            if (totalSeconds < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(totalSeconds));
+            }
+
+            TotalSeconds = totalSeconds;
+        }
+
+        public GameDateTime(GameDateTime other)
+        {
+            TotalSeconds = other.TotalSeconds;
         }
 
         /// <summary>

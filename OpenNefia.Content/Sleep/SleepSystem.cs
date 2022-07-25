@@ -226,7 +226,7 @@ namespace OpenNefia.Content.Sleep
             try
             {
                 IsPlayerSleeping = true;
-                _randomEvents.WithRandomEventChooser(new SleepRandomEventChooser(), () => DoSleep(sleeper, bed, noAnimation, timeSlept));
+                _randomEvents.WithRandomEventChooser(new SleepRandomEventChooser(), () => DoSleep(sleeper, bed, noAnimation, timeSlept.Value));
             }
             catch (Exception ex)
             {
@@ -235,7 +235,7 @@ namespace OpenNefia.Content.Sleep
             finally
             {
                 IsPlayerSleeping = false;
-                var ev = new AfterSleepFinish(bed, timeSlept);
+                var ev = new AfterSleepFinish(bed, timeSlept.Value);
                 RaiseEvent(sleeper, ev);
             }
         }
