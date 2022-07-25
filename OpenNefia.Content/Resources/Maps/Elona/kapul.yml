@@ -74,8 +74,7 @@ tilemap:
   L: Elona.SignLamp
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapPortKapul
 - uid: 1
   protoId: Elona.ItemModernTable
   components:

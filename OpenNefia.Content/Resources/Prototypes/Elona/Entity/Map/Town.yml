@@ -1,31 +1,106 @@
 - type: Entity
-  id: Elona.MapPalmia
+  id: BaseTown
+  abstract: true
   parent: BaseMap
   components:
   - type: Level
     level: 1
   - type: MapCommon
-    hspIds:
-      elona122: 15
-    music: Elona.Town4
     isIndoors: false
   - type: MapVanillaAI
     anchorCitizens: true
+  - type: MapTypeTown
+
+- type: Entity
+  id: Elona.MapVernis
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 5
+    music: Elona.Town1
   - type: MapCharaGen
-    maxCharaCount: 45
-    charaFilter: !type:CharaFilterPalmia {}
-  - type: MapAutogenCharas
-    amount: 25
+    maxCharaCount: 40
+    charaFilter: !type:CharaFilterVernis {}
+  - type: MapTypeTown
+    townId: 1
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.Alchemy
+      - Elona.Healing
+      - Elona.Cooking
+      - Elona.Mining
+      - Elona.Traveling
+      - Elona.Fishing
+      - Elona.LockPicking
   - type: MapAutogenEntities
     specs:
     - protoId: Elona.CharaCitizen
-      amount: 5
+      amount: 4
       components:
       - type: RoleCitizen
     - protoId: Elona.CharaCitizen2
-      amount: 5
+      amount: 4
       components:
       - type: RoleCitizen
+    - protoId: Elona.Guard
+      amount: 4
+      components:
+      - type: RoleGuard
+  - type: MapAutogenCharas
+    amount: 25
+
+- type: Entity
+  id: Elona.MapYowyn
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 12
+    music: Elona.Village1
+  - type: MapCharaGen
+    charaFilter: !type:CharaFilterYowyn {}
+  - type: MapTypeTown
+    townId: 2
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.Healing
+      - Elona.SenseQuality
+      - Elona.Cooking
+      - Elona.Carpentry
+      - Elona.Tailoring
+      - Elona.Gardening
+      - Elona.Riding
+      - Elona.TwoHand
+      - Elona.WeightLifting
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 2
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 2
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.Guard
+      amount: 3
+      components:
+      - type: RoleGuard
+  - type: MapAutogenCharas
+    amount: 15
+
+- type: Entity
+  id: Elona.MapPalmia
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 15
+    music: Elona.Town4
+  - type: MapCharaGen
+    maxCharaCount: 45
+    charaFilter: !type:CharaFilterPalmia {}
   - type: MapTypeTown
     townId: 3
   - type: MapTrainers
@@ -39,3 +114,148 @@
       - Elona.Investing
       - Elona.Casting
       - Elona.Alchemy
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 5
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 5
+      components:
+      - type: RoleCitizen
+  - type: MapAutogenCharas
+    amount: 25
+
+- type: Entity
+  id: Elona.MapDerphy
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 14
+    music: Elona.Town3
+  - type: MapCharaGen
+    charaFilter: !type:CharaFilterDerphy {}
+  - type: MapTypeTown
+    townId: 4
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.LockPicking
+      - Elona.Stealth
+      - Elona.MediumArmor
+      - Elona.LightArmor
+      - Elona.Carpentry
+      - Elona.MagicDevice
+      - Elona.Performer
+      - Elona.Mining
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 4
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 4
+      components:
+      - type: RoleCitizen
+  - type: MapAutogenCharas
+    amount: 20
+
+- type: Entity
+  id: Elona.MapPortKapul
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 11
+    music: Elona.Town2
+  - type: MapCharaGen
+    charaFilter: !type:CharaFilterPortKapul {}
+  - type: MapTypeTown
+    townId: 5
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.Negotiation
+      - Elona.Investing
+      - Elona.Performer
+      - Elona.Fishing
+      - Elona.MagicDevice
+      - Elona.GeneEngineer
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 2
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 2
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaGuardPortKapul
+      amount: 5
+      components:
+      - type: RoleGuard
+  - type: MapAutogenCharas
+    amount: 20
+
+- type: Entity
+  id: Elona.MapNoyel
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 33
+    music: Elona.Town6
+  - type: MapCharaGen
+    charaFilter: !type:CharaFilterNoyel {}
+  - type: MapTypeTown
+    townId: 6
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.Faith
+      - Elona.Literacy
+      - Elona.SenseQuality
+      - Elona.Cooking
+      - Elona.Traveling
+      - Elona.Meditation
+      - Elona.WeightLifting
+
+- type: Entity
+  id: Elona.MapLumiest
+  parent: BaseTown
+  components:
+  - type: MapCommon
+    hspIds:
+      elona122: 36
+    music: Elona.Town2
+  - type: MapCharaGen
+    charaFilter: !type:CharaFilterLumiest {}
+  - type: MapTypeTown
+    townId: 7
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.Casting
+      - Elona.Healing
+      - Elona.Literacy
+      - Elona.MagicDevice
+      - Elona.Fishing
+      - Elona.LightArmor
+      - Elona.Investing
+      - Elona.TwoHand
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 6
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 6
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaGuard
+      amount: 7
+      components:
+      - type: RoleGuard
+  - type: MapAutogenCharas
+    amount: 25

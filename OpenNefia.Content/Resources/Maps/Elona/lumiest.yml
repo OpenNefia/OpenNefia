@@ -99,8 +99,7 @@ tilemap:
   L: Elona.CobbleRaised3
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapLumiest
 - uid: 1
   protoId: Elona.MObjDoorWooden
   components:
@@ -2021,6 +2020,35 @@ entities:
   - type: MapEdgesLocation
     targetDirection: North
 - uid: 249
+  components:
+  - type: Spatial
+    pos: 25,1
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: South
+
+- uid: 250
+  components:
+  - type: Spatial
+    pos: 58,21
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: West
+- uid: 251
+  components:
+  - type: Spatial
+    pos: 25,1
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: East
+- uid: 252
+  components:
+  - type: Spatial
+    pos: 58,21
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: North
+- uid: 253
   components:
   - type: Spatial
     pos: 25,1
