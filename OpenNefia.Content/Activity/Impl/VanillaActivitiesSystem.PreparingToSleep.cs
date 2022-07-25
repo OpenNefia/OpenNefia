@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityPreparingToSleepComponent, OnActivityFinishEvent>(PreparingToSleep_OnFinish);
         }
 
-        private void PreparingToSleep_OnStart(EntityUid uid, ActivityPreparingToSleepComponent component, OnActivityStartEvent args)
+        private void PreparingToSleep_OnStart(EntityUid activity, ActivityPreparingToSleepComponent component, OnActivityStartEvent args)
         {
             var actor = args.Activity.Actor;
 
@@ -47,13 +47,13 @@ namespace OpenNefia.Content.Activity
                 _inUse.SetItemInUse(actor, component.Bed.Value);
         }
 
-        private void PreparingToSleep_OnPassTurn(EntityUid uid, ActivityPreparingToSleepComponent component, OnActivityPassTurnEvent args)
+        private void PreparingToSleep_OnPassTurn(EntityUid activity, ActivityPreparingToSleepComponent component, OnActivityPassTurnEvent args)
         {
             if (IsAlive(component.Bed))
                 _inUse.SetItemInUse(args.Activity.Actor, component.Bed.Value);
         }
 
-        private void PreparingToSleep_OnFinish(EntityUid uid, ActivityPreparingToSleepComponent component, OnActivityFinishEvent args)
+        private void PreparingToSleep_OnFinish(EntityUid activity, ActivityPreparingToSleepComponent component, OnActivityFinishEvent args)
         {
             _mes.Display(Loc.GetString("Elona.Sleep.Activity.Finish"));
             _sleep.Sleep(args.Activity.Actor, component.Bed);

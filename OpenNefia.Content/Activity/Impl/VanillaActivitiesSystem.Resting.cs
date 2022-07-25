@@ -21,21 +21,22 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityRestingComponent, OnActivityFinishEvent>(Resting_OnFinish);
         }
 
-        private void Resting_OnStart(EntityUid uid, ActivityRestingComponent component, OnActivityStartEvent args)
+        private void Resting_OnStart(EntityUid activity, ActivityRestingComponent component, OnActivityStartEvent args)
         {
             _mes.Display(Loc.GetString("Elona.Activity.Resting.Start"));
         }
 
-        private void Resting_OnPassTurn(EntityUid uid, ActivityRestingComponent component, OnActivityPassTurnEvent args)
+        private void Resting_OnPassTurn(EntityUid activity
+            , ActivityRestingComponent component, OnActivityPassTurnEvent args)
         {
-            var activity = args.Activity;
-            var actor = activity.Actor;
+            var activityComp = args.Activity;
+            var actor = activityComp.Actor;
 
-            if (activity.TurnsRemaining % 2 == 0)
+            if (activityComp.TurnsRemaining % 2 == 0)
             {
                 _damage.HealStamina(actor, 1, showMessage: false);
             }
-            if (activity.TurnsRemaining % 3 == 0)
+            if (activityComp.TurnsRemaining % 3 == 0)
             {
                 _damage.HealHP(actor, 1, showMessage: false);
                 _damage.HealMP(actor, 1, showMessage: false);
@@ -59,7 +60,7 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        private void Resting_OnFinish(EntityUid uid, ActivityRestingComponent component, OnActivityFinishEvent args)
+        private void Resting_OnFinish(EntityUid activity, ActivityRestingComponent component, OnActivityFinishEvent args)
         {
             _mes.Display(Loc.GetString("Elona.Activity.Resting.Finish"));
         }

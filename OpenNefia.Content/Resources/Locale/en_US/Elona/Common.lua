@@ -5,6 +5,7 @@ Elona.Common = {
     ItIsImpossible = "It's impossible.",
     NothingHappens = "Nothing happens...",
     SomethingIsPut = "Something is put on the ground.",
+    TooExhausted = "You are too exhausted!",
     PutInBackpack = function(entity)
         return ("You put %s in your backpack."):format(_.name(entity))
     end,

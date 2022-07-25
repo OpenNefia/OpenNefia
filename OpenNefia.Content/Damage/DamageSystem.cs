@@ -29,6 +29,8 @@ namespace OpenNefia.Content.Damage
         void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
         void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
 
+        bool DoStaminaCheck(EntityUid uid, int baseCost, PrototypeId<SkillPrototype>? relatedSkillId = null, SkillsComponent? skills = null);
+
         /// <summary>
         /// Runs some extra events as if <see cref="attacker"/> killed <see cref="target"/>,
         /// including karma loss, quest quotas, etc.
@@ -162,6 +164,26 @@ namespace OpenNefia.Content.Damage
 
             var ev = new AfterHealEvent(uid, HealType.Stamina, amount, showMessage);
             RaiseEvent(uid, ref ev);
+        }
+
+        public bool DoStaminaCheck(EntityUid uid, int baseCost, PrototypeId<SkillPrototype>? relatedSkillId = null, SkillsComponent? skills = null)
+        {
+            if (!_gameSession.IsPlayer(uid) || !Resolve(uid, ref skills))
+                return true;
+
+            var staminaCost = baseCost / 2 + 1;
+            if (skills.Stamina < 50 && skills.Stamina < _rand.Next(75))
+            {
+                DamageStamina(uid, staminaCost, skills: skills);
+                return false;
+            }
+
+            DamageStamina(uid, _rand.Next(staminaCost) + staminaCost, skills: skills);
+
+            if (relatedSkillId != null)
+                _skills.GainSkillExp(uid, relatedSkillId.Value, 25);
+
+            return true;
         }
     }
 
