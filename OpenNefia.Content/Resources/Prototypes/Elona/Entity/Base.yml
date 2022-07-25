@@ -96,6 +96,8 @@
   abstract: true
   components:
   - type: Map
+  - type: MapEntrance
+    startLocation: !type:MapEdgesLocation {}
 
 - type: Entity
   id: BaseArea

@@ -72,8 +72,7 @@ tilemap:
   H: Elona.WharfCrates1
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapDerphy
 - uid: 1
   protoId: Elona.ItemComfortableTable
   components:
