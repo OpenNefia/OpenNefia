@@ -20,10 +20,10 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityEatingComponent, OnActivityCleanupEvent>(Eating_OnCleanup);
         }
 
-        private void Eating_OnStart(EntityUid uid, ActivityEatingComponent component, OnActivityStartEvent args)
+        private void Eating_OnStart(EntityUid activity, ActivityEatingComponent component, OnActivityStartEvent args)
         {
-            var activity = args.Activity;
-            var actor = activity.Actor;
+            var activityComp = args.Activity;
+            var actor = activityComp.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -50,10 +50,10 @@ namespace OpenNefia.Content.Activity
             RaiseEvent(component.Food.Value, ev);
         }
 
-        private void Eating_OnPassTurn(EntityUid uid, ActivityEatingComponent component, OnActivityPassTurnEvent args)
+        private void Eating_OnPassTurn(EntityUid activity, ActivityEatingComponent component, OnActivityPassTurnEvent args)
         {
-            var activity = args.Activity;
-            var actor = activity.Actor;
+            var activityComp = args.Activity;
+            var actor = activityComp.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -67,10 +67,10 @@ namespace OpenNefia.Content.Activity
             _inUse.SetItemInUse(actor, component.Food.Value);
         }
 
-        private void Eating_OnFinish(EntityUid uid, ActivityEatingComponent component, OnActivityFinishEvent args)
+        private void Eating_OnFinish(EntityUid activity, ActivityEatingComponent component, OnActivityFinishEvent args)
         {
-            var activity = args.Activity;
-            var actor = activity.Actor;
+            var activityComp = args.Activity;
+            var actor = activityComp.Actor;
 
             if (!IsAlive(component.Food))
             {
@@ -92,7 +92,7 @@ namespace OpenNefia.Content.Activity
             EntityManager.DeleteEntity(component.Food.Value);
         }
 
-        private void Eating_OnCleanup(EntityUid uid, ActivityEatingComponent component, OnActivityCleanupEvent args)
+        private void Eating_OnCleanup(EntityUid activity, ActivityEatingComponent component, OnActivityCleanupEvent args)
         {
             if (component.Food != null)
                 _inUse.RemoveItemInUse(args.Activity.Actor, component.Food.Value);

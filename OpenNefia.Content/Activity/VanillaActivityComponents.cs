@@ -123,7 +123,7 @@ namespace OpenNefia.Content.Activity
         public override string Name => "ActivitySex";
 
         [DataField]
-        public EntityUid? Partner { get; set; }
+        public EntityUid Partner { get; set; }
 
         [DataField]
         public bool IsTopping { get; set; }

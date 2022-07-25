@@ -1,10 +1,17 @@
 ﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.Dialog;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Fame;
 using OpenNefia.Content.InUse;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.Skills;
 using OpenNefia.Content.Sleep;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Audio;
@@ -31,6 +38,13 @@ namespace OpenNefia.Content.Activity
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ISleepSystem _sleep = default!;
+        [Dependency] private readonly IStatusEffectSystem _effects = default!;
+        [Dependency] private readonly ISanitySystem _sanity = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
+        [Dependency] private readonly IDialogSystem _dialog = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IKarmaSystem _karma = default!;
 
         public override void Initialize()
         {
@@ -39,6 +53,7 @@ namespace OpenNefia.Content.Activity
             Initialize_Traveling();
             Initialize_Mining();
             Initialize_PreparingToSleep();
+            Initialize_Sex();
         }
     }
 }

@@ -26,11 +26,11 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityMiningComponent, OnActivityFinishEvent>(Mining_OnFinish);
         }
 
-        private void Mining_OnStart(EntityUid uid, ActivityMiningComponent component, OnActivityStartEvent args)
+        private void Mining_OnStart(EntityUid activity, ActivityMiningComponent component, OnActivityStartEvent args)
         {
             if (!TryMap(component.TargetTile, out var map) || !map.TryGetTilePrototype(component.TargetTile.Position, out var tile))
             {
-                _activities.RemoveActivity(uid);
+                _activities.RemoveActivity(activity);
                 return;
             }
                 
@@ -41,10 +41,10 @@ namespace OpenNefia.Content.Activity
             component.TurnsSpentMining = 0;
         }
 
-        private void Mining_OnPassTurn(EntityUid uid, ActivityMiningComponent component, OnActivityPassTurnEvent args)
+        private void Mining_OnPassTurn(EntityUid activity, ActivityMiningComponent component, OnActivityPassTurnEvent args)
         {
-            var activity = args.Activity;
-            var actor = activity.Actor;
+            var activityComp = args.Activity;
+            var actor = activityComp.Actor;
 
             if (_rand.OneIn(5))
                 _damage.DamageStamina(actor, 1);
@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        private void Mining_OnFinish(EntityUid uid, ActivityMiningComponent component, OnActivityFinishEvent args)
+        private void Mining_OnFinish(EntityUid activity, ActivityMiningComponent component, OnActivityFinishEvent args)
         {
             _mes.Display(Loc.GetString("Elona.Dig.Mining.Fail"));
         }

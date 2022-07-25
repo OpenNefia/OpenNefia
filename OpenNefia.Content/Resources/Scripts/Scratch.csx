@@ -87,3 +87,12 @@ public void gotoArea(string id)
     };
     _mapEntrance.UseMapEntrance(player(), entrance);
 }
+
+public void sexWith()
+{
+    var entity = entityAt();
+    var activity = _entityMan.SpawnEntity(Protos.Activity.Sex, MapCoordinates.Global);
+    comp<ActivitySexComponent>(activity).Partner = entity.Owner;
+    comp<ActivitySexComponent>(activity).IsTopping = true;
+    _activities.StartActivity(player(), activity);
+}

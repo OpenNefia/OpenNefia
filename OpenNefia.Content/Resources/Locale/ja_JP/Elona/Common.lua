@@ -5,6 +5,7 @@ Elona.Common = {
     ItIsImpossible = "それは無理だ。",
     NothingHappens = "何もおきない… ",
     SomethingIsPut = "何かが足元に転がってきた。",
+    TooExhausted = "疲労し過ぎて失敗した！",
     PutInBackpack = function(entity)
         return ("%sをバックパックに入れた。"):format(_.name(entity))
     end,

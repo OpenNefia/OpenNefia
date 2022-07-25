@@ -491,49 +491,49 @@ namespace OpenNefia.Content.Locale.Funcs
         };
         
         [LocaleFunction("yoro")]
-        public static string BuiltIn_yoro(object? obj, int? mark) => PrintCopula("yoro", obj, mark);
+        public static string BuiltIn_yoro(object? obj, int? mark = null) => PrintCopula("yoro", obj, mark);
         [LocaleFunction("dozo")]
-        public static string BuiltIn_dozo(object? obj, int? mark) => PrintCopula("dozo", obj, mark);
+        public static string BuiltIn_dozo(object? obj, int? mark = null) => PrintCopula("dozo", obj, mark);
         [LocaleFunction("thanks")]
-        public static string BuiltIn_thanks(object? obj, int? mark) => PrintCopula("thanks", obj, mark);
+        public static string BuiltIn_thanks(object? obj, int? mark = null) => PrintCopula("thanks", obj, mark);
         [LocaleFunction("rob")]
-        public static string BuiltIn_rob(object? obj, int? mark) => PrintCopula("rob", obj, mark);
+        public static string BuiltIn_rob(object? obj, int? mark = null) => PrintCopula("rob", obj, mark);
         [LocaleFunction("ka")]
-        public static string BuiltIn_ka(object? obj, int? mark) => PrintCopula("ka", obj, mark);
+        public static string BuiltIn_ka(object? obj, int? mark = null) => PrintCopula("ka", obj, mark);
         [LocaleFunction("da")]
-        public static string BuiltIn_da(object? obj, int? mark) => PrintCopula("da", obj, mark);
+        public static string BuiltIn_da(object? obj, int? mark = null) => PrintCopula("da", obj, mark);
         [LocaleFunction("noda")]
-        public static string BuiltIn_noda(object? obj, int? mark) => PrintCopula("noda", obj, mark);
+        public static string BuiltIn_noda(object? obj, int? mark = null) => PrintCopula("noda", obj, mark);
         [LocaleFunction("noka")]
-        public static string BuiltIn_noka(object? obj, int? mark) => PrintCopula("noka", obj, mark);
+        public static string BuiltIn_noka(object? obj, int? mark = null) => PrintCopula("noka", obj, mark);
         [LocaleFunction("kana")]
-        public static string BuiltIn_kana(object? obj, int? mark) => PrintCopula("kana", obj, mark);
+        public static string BuiltIn_kana(object? obj, int? mark = null) => PrintCopula("kana", obj, mark);
         [LocaleFunction("kimi")]
-        public static string BuiltIn_kimi(object? obj, int? mark) => PrintCopula("kimi", obj, mark);
+        public static string BuiltIn_kimi(object? obj, int? mark = null) => PrintCopula("kimi", obj, mark);
         [LocaleFunction("ru")]
-        public static string BuiltIn_ru(object? obj, int? mark) => PrintCopula("ru", obj, mark);
+        public static string BuiltIn_ru(object? obj, int? mark = null) => PrintCopula("ru", obj, mark);
         [LocaleFunction("tanomu")]
-        public static string BuiltIn_tanomu(object? obj, int? mark) => PrintCopula("tanomu", obj, mark);
+        public static string BuiltIn_tanomu(object? obj, int? mark = null) => PrintCopula("tanomu", obj, mark);
         [LocaleFunction("ore")]
-        public static string BuiltIn_ore(object? obj, int? mark) => PrintCopula("ore", obj, mark);
+        public static string BuiltIn_ore(object? obj, int? mark = null) => PrintCopula("ore", obj, mark);
         [LocaleFunction("ga")]
-        public static string BuiltIn_ga(object? obj, int? mark) => PrintCopula("ga", obj, mark);
+        public static string BuiltIn_ga(object? obj, int? mark = null) => PrintCopula("ga", obj, mark);
         [LocaleFunction("dana")]
-        public static string BuiltIn_dana(object? obj, int? mark) => PrintCopula("dana", obj, mark);
+        public static string BuiltIn_dana(object? obj, int? mark = null) => PrintCopula("dana", obj, mark);
         [LocaleFunction("kure")]
-        public static string BuiltIn_kure(object? obj, int? mark) => PrintCopula("kure", obj, mark);
+        public static string BuiltIn_kure(object? obj, int? mark = null) => PrintCopula("kure", obj, mark);
         [LocaleFunction("daro")]
-        public static string BuiltIn_daro(object? obj, int? mark) => PrintCopula("daro", obj, mark);
+        public static string BuiltIn_daro(object? obj, int? mark = null) => PrintCopula("daro", obj, mark);
         [LocaleFunction("yo")]
-        public static string BuiltIn_yo(object? obj, int? mark) => PrintCopula("yo", obj, mark);
+        public static string BuiltIn_yo(object? obj, int? mark = null) => PrintCopula("yo", obj, mark);
         [LocaleFunction("aru")]
-        public static string BuiltIn_aru(object? obj, int? mark) => PrintCopula("aru", obj, mark);
+        public static string BuiltIn_aru(object? obj, int? mark = null) => PrintCopula("aru", obj, mark);
         [LocaleFunction("u")]
-        public static string BuiltIn_u(object? obj, int? mark) => PrintCopula("u", obj, mark);
+        public static string BuiltIn_u(object? obj, int? mark = null) => PrintCopula("u", obj, mark);
         [LocaleFunction("na")]
-        public static string BuiltIn_na(object? obj, int? mark) => PrintCopula("na", obj, mark);
+        public static string BuiltIn_na(object? obj, int? mark = null) => PrintCopula("na", obj, mark);
         [LocaleFunction("ta")]
-        public static string BuiltIn_ta(object? obj, int? mark) => PrintCopula("ta", obj, mark);
+        public static string BuiltIn_ta(object? obj, int? mark = null) => PrintCopula("ta", obj, mark);
 
     }
 }
