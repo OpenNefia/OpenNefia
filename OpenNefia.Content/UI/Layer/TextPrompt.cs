@@ -104,7 +104,6 @@ namespace OpenNefia.Content.UI.Layer
             IsCancellable = args.IsCancellable;
             HasShadow = args.HasShadow;
             _queryText = args.QueryText;
-
         }
 
         public override void GrabFocus()
