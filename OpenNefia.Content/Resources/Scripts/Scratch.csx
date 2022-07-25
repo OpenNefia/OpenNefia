@@ -51,6 +51,7 @@ var _activities = EntitySystem.Get<IActivitySystem>();
 var _playerQuery = IoCManager.Resolve<IPlayerQuery>();
 var _uiMan = IoCManager.Resolve<IUserInterfaceManager>();
 var _loc = IoCManager.Resolve<ILocalizationManager>();
+var _mapEntrance = EntitySystem.Get<IMapEntranceSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -75,4 +76,14 @@ public SpatialComponent entityAt()
 {
     var coords = promptPos();
     return _lookup.GetLiveEntitiesAtCoords(coords).First();
+}
+
+public void gotoArea(string id)
+{
+    var entrance = new MapEntrance()
+    {
+        MapIdSpecifier = new GlobalAreaMapIdSpecifier(new GlobalAreaId(id)),
+        StartLocation = new MapEdgesLocation()
+    };
+    _mapEntrance.UseMapEntrance(player(), entrance);
 }
