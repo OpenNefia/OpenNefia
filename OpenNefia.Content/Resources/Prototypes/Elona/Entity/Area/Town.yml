@@ -1,5 +1,5 @@
 - type: Entity
-  id: Elona.Vernis
+  id: Elona.AreaVernis
   parent: BaseArea
   hspIds:
     elona122: 5
@@ -12,7 +12,7 @@
     globalId: Elona.AreaVernis
 
 - type: Entity
-  id: Elona.PortKapul
+  id: Elona.AreaPortKapul
   parent: BaseArea
   hspIds:
     elona122: 11
@@ -25,7 +25,7 @@
     globalId: Elona.AreaPortKapul
 
 - type: Entity
-  id: Elona.Yowyn
+  id: Elona.AreaYowyn
   parent: BaseArea
   hspIds:
     elona122: 12
@@ -38,7 +38,7 @@
     globalId: Elona.AreaYowyn
 
 - type: Entity
-  id: Elona.Derphy
+  id: Elona.AreaDerphy
   parent: BaseArea
   hspIds:
     elona122: 14
@@ -51,7 +51,7 @@
     globalId: Elona.AreaDerphy
 
 - type: Entity
-  id: Elona.Palmia
+  id: Elona.AreaPalmia
   parent: BaseArea
   hspIds:
     elona122: 15
@@ -64,7 +64,7 @@
     globalId: Elona.AreaPalmia
 
 - type: Entity
-  id: Elona.Noyel
+  id: Elona.AreaNoyel
   parent: BaseArea
   hspIds:
     elona122: 33
@@ -77,7 +77,7 @@
     globalId: Elona.AreaNoyel
 
 - type: Entity
-  id: Elona.Lumiest
+  id: Elona.AreaLumiest
   parent: BaseArea
   hspIds:
     elona122: 36

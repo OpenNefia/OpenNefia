@@ -22,14 +22,20 @@ namespace OpenNefia.Core.GameObjects
         void Initialize();
     }
 
-    public sealed class ComponentLocalizer : IComponentLocalizerInternal
+    public sealed class ComponentLocalizer : IComponentLocalizerInternal, IEntityEventSubscriber
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         
         public void Initialize()
         {
+            _entityManager.EventBus.SubscribeBroadcastEvent<EntityInitializedEvent>(this, HandleEntityInitialized);
             _entityManager.ComponentAdded += HandleComponentAdded;
+        }
+
+        private void HandleEntityInitialized(EntityInitializedEvent ev)
+        {
+            LocalizeComponents(ev.EntityUid);
         }
 
         private void HandleComponentAdded(object? sender, ComponentEventArgs e)

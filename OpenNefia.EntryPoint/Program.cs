@@ -3,6 +3,7 @@ using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia
 {
@@ -31,10 +32,13 @@ namespace OpenNefia
 
             var gc = IoCManager.Resolve<IGameController>();
 
-            if (!gc.Startup(options))
+            using (var logger = new ProfilerLogger(LogLevel.Info, "engine", "Engine init"))
             {
-                Logger.Fatal("Failed to start game controller!");
-                return;
+                if (!gc.Startup(options))
+                {
+                    Logger.Fatal("Failed to start game controller!");
+                    return;
+                }
             }
 
             gc.Run();

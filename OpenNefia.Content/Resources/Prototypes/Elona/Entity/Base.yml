@@ -67,6 +67,7 @@
   - type: CurseState
   - type: Pickable
   - type: Bonus
+  - type: InUse
 
 - type: Entity
   id: BaseMObj

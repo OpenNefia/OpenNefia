@@ -1,8 +1,10 @@
 #nullable enable
 #r "System.Runtime"
+#r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
 
+using NLua;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.IoC;
@@ -44,9 +46,11 @@ var _rand = IoCManager.Resolve<IRandom>();
 var _randEvents = EntitySystem.Get<IRandomEventSystem>();
 var _protos = IoCManager.Resolve<IPrototypeManager>();
 var _world = EntitySystem.Get<IWorldSystem>();
+var _lookup = EntitySystem.Get<IEntityLookup>();
 var _activities = EntitySystem.Get<IActivitySystem>();
 var _playerQuery = IoCManager.Resolve<IPlayerQuery>();
 var _uiMan = IoCManager.Resolve<IUserInterfaceManager>();
+var _loc = IoCManager.Resolve<ILocalizationManager>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -57,4 +61,18 @@ public MapCoordinates promptPos()
     var args = new PositionPrompt.Args(playerS().MapPosition);
     var result = _uiMan.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(args);
     return result.Value.Coords;
+}
+
+public T res<T>() => IoCManager.Resolve<T>();
+public T sys<T>() where T : IEntitySystem => EntitySystem.Get<T>();
+
+public T comp<T>(EntityUid uid) where T : class, IComponent
+{
+    return _entityMan.GetComponent<T>(uid);
+}
+
+public SpatialComponent entityAt()
+{
+    var coords = promptPos();
+    return _lookup.GetLiveEntitiesAtCoords(coords).First();
 }

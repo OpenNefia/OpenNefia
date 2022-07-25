@@ -5,6 +5,7 @@ using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Reflection;
 using System.Reflection;
 using System.Linq.Expressions;
+using System.Linq;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.IoC;
 
@@ -36,6 +37,7 @@ namespace OpenNefia.Core.Locale
             var lua = new Lua();
             lua.State.Encoding = EncodingHelpers.UTF8;
             AddContentRootsToSearchPath(lua);
+            AddHelperFunctionsToEnv(lua);
             return lua;
         }
 
@@ -47,6 +49,18 @@ namespace OpenNefia.Core.Locale
                 path += $";{root / "?.lua"}";
             }
             lua["package.path"] = path;
+        }
+
+        private readonly Dictionary<string, LogLevel> LogLevelMap =
+            EnumHelpers.EnumerateValues<LogLevel>().ToDictionary(l => l.ToString().ToLower(), l => l);
+
+        private void AddHelperFunctionsToEnv(Lua lua)
+        {
+            lua["log"] = (string level, string message) =>
+            {
+                var logLevel = LogLevelMap.GetValueOr(level, LogLevel.Info);
+                Logger.LogS(logLevel, "loc.env", message);
+            };
         }
 
         /// <summary>

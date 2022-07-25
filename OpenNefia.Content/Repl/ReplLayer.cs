@@ -86,7 +86,7 @@ namespace OpenNefia.Content.Repl
         }
 
         public bool UsePullDownAnimation { get; set; } = true;
-        public float PullDownSpeed { get; set; } = 2.5f;
+        public float PullDownSpeed { get; set; } = .15f;
         public bool HideDuringExecute { get; set; } = true;
         public string EditingLine
         {
@@ -100,7 +100,7 @@ namespace OpenNefia.Content.Repl
         public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
-        public float CursorDisplayX { get => X + TextCaret.Width + TextEditingLine.TextWidth + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " "); }
+        public float CursorDisplayX { get => X + TextCaret.Width + CursorX + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " "); }
         public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;
@@ -492,6 +492,10 @@ namespace OpenNefia.Content.Repl
         public void Clear()
         {
             _scrollbackBuffer.Clear();
+            foreach (var text in TextScrollback)
+            {
+                text.Text = string.Empty;
+            }
             ScrollbackPos = 0;
             UpdateCompletions();
             NeedsScrollbackRedraw = true;
@@ -626,11 +630,11 @@ namespace OpenNefia.Content.Repl
             {
                 if (WasFinished || WasCancelled)
                 {
-                    PullDownY = MathF.Min(PullDownY + PullDownSpeed * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeightV(UIScale));
+                    PullDownY = MathF.Min(PullDownY + (PullDownSpeed * Math.Max(MaxLines, 1)) * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeightV(UIScale));
                 }
                 else if (PullDownY > 0)
                 {
-                    PullDownY = MathF.Max(PullDownY - PullDownSpeed * dt * 1000f, 0);
+                    PullDownY = MathF.Max(PullDownY - (PullDownSpeed * Math.Max(MaxLines, 1)) * dt * 1000f, 0);
                 }
             }
         }

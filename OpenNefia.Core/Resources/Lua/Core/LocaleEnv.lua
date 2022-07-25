@@ -38,10 +38,11 @@ function finalize(t, trail)
         if type(k) ~= "string" or k:sub(1, 1) ~= "_" then
             trail[#trail + 1] = k
             if type(v) == "table" then
-                local vmt = getmetatable(v)
-                if vmt and vmt.__type == "ref" then
+                if v.__type == "ref" then
                     local key = table.concat(trail, ".")
-                    _PendingRefs[#_PendingRefs + 1] = { sourceKey = v.key, targetKey = key, parent = t, parentKey = k }
+                    local ref = { sourceKey = v.key, targetKey = key, parent = t, parentKey = k }
+                    _PendingRefs[#_PendingRefs + 1] = ref
+                    log("debug", "GETREF " .. ref.sourceKey .. " -> " .. ref.targetKey)
                 elseif type(v[1]) == "string" then
                     local key = table.concat(trail, ".")
                     _FinalizedKeys[key] = setmetatable(v, nil)
@@ -59,9 +60,10 @@ end
 
 -- Duplicates an existing key.
 local function ref(key)
-    return setmetatable({
+    return {
+        __type = "ref",
         key = key,
-    }, { __type = "ref" })
+    }
 end
 
 -- Duplicates an existing key in the prototype namespace (OpenNefia.Prototypes).
@@ -87,7 +89,7 @@ local function resolveRefs()
 
     for _, ref in ipairs(_PendingRefs) do
         if not ref.resolved then
-            print("warn: missing reference to locale key " .. ref.sourceKey .. " -> " .. ref.targetKey)
+            log("warning", "missing reference to locale key " .. ref.sourceKey .. " -> " .. ref.targetKey)
             _FinalizedKeys[ref.targetKey] = "<missing reference: " .. ref.sourceKey .. " -> " .. ref.targetKey .. ">"
         end
     end
@@ -95,6 +97,7 @@ local function resolveRefs()
     -- Place the resolved refs back into _Collected in case something like TryGetLocalizationData
     -- wants the actual Lua table.
     for _, ref in ipairs(_PendingRefs) do
+        log("debug", "SETREF " .. ref.parentKey .. " " .. _FinalizedKeys[ref.targetKey])
         ref.parent[ref.parentKey] = _FinalizedKeys[ref.targetKey]
     end
 
@@ -105,6 +108,7 @@ _Root = {}
 _Collected = {}
 
 _Finalize = function()
+    log("debug", "Finalizing locale keys")
     finalize(_Collected, {})
     resolveRefs()
 end
