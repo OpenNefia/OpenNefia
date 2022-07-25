@@ -140,6 +140,8 @@ namespace OpenNefia.Content.TitleScreen
 
         private void RebuildList()
         {
+            _saveGameManager.RescanSaves();
+
             var cells = _saveGameManager.AllSaves
                 .OrderByDescending(save => save.LastWriteTime)
                 .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save)));

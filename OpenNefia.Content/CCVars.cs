@@ -177,7 +177,7 @@ namespace OpenNefia.Content
          */
 
         public static readonly CVarDef<bool> DebugQuickstartOnStartup =
-            CVarDef.Create("debug.quickstartOnStartup", false, CVar.Archive);
+            CVarDef.Create("debug.quickstartOnStartup", true, CVar.Archive);
 
         public static readonly CVarDef<bool> DebugShowDetailedSkillPower =
             CVarDef.Create("debug.showDetailedSkillPower", false, CVar.Archive);

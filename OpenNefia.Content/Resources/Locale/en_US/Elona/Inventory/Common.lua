@@ -10,4 +10,8 @@ Elona.Inventory.Common = {
     Invalid = function(entity, id)
         return ("Invalid Item Id found. Item No:%s, Id:%s has been removed from your inventory."):format(entity, id)
     end,
+
+    NameModifiers = {
+        Ground = "(Ground)",
+    },
 }

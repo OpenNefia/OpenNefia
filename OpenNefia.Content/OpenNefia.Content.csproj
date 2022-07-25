@@ -18,6 +18,12 @@
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="Resources\Scripts\Scratch.csx">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
   <Import Project="..\MSBuild\XamlIL.targets" />

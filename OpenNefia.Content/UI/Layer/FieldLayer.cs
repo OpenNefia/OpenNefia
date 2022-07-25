@@ -51,9 +51,6 @@ namespace OpenNefia.Content.UI.Layer
             _graphics.OnWindowResized += (_) => RefreshScreen();
 
             Camera.Initialize();
-
-            var ev = new EngineInitializedEvent();
-            _entityManager.EventBus.RaiseEvent(ev);
         }
 
         public override void GrabFocus()
@@ -161,17 +158,6 @@ namespace OpenNefia.Content.UI.Layer
         }
 
         public override void Dispose()
-        {
-        }
-    }
-
-    /// <summary>
-    /// Raised just before the title screen is reached after initial startup
-    /// has completed.
-    /// </summary>
-    public sealed class EngineInitializedEvent : EntityEventArgs
-    {
-        public EngineInitializedEvent()
         {
         }
     }

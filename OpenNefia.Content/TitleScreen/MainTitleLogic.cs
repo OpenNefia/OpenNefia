@@ -60,6 +60,18 @@ namespace OpenNefia.Content.TitleScreen
 
             var action = TitleScreenAction.ReturnToTitle;
 
+            if (_config.GetCVar(CCVars.DebugQuickstartOnStartup))
+            {
+                try
+                {
+                    RunQuickStart();
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorS("maintitle", ex, $"Quickstart failed");
+                }
+            }
+
             while (action != TitleScreenAction.Quit)
             {
                 _saveGameSerializer.ResetGameState();
@@ -125,6 +137,16 @@ namespace OpenNefia.Content.TitleScreen
             });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
             customName.CustomName = "*QuickStart*";
+
+            // Wipe the previous quickstart save(s)
+            foreach (var save in _saveGameManager.AllSaves.ToList())
+            {
+                if (save.Header.Name == "*QuickStart*")
+                {
+                    _saveGameManager.DeleteSave(save);
+                }
+            }
+
             StartNewGame(player);
         }
 
@@ -185,7 +207,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private void StartNewGame(EntityUid player)
         {
-            var saveName = EntitySystem.Get<IDisplayNameSystem>().GetBaseName(player);
+            var saveName = EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(player);
 
             var save = _saveGameSerializer.InitializeSaveGame(saveName);
             _saveGameManager.CurrentSave = save;
@@ -240,8 +262,11 @@ namespace OpenNefia.Content.TitleScreen
             hudLayer.ZOrder = HudLayer.HudZOrder;
             _uiManager.PushLayer(hudLayer);
 
-            var ev = new GameInitiallyLoadedEventArgs();
-            _entityManager.EventBus.RaiseEvent(ev);
+            var ev1 = new GameInitiallyLoadedEventArgs();
+            _entityManager.EventBus.RaiseEvent(ev1);
+
+            var ev2 = new GameQuickLoadedEventArgs();
+            _entityManager.EventBus.RaiseEvent(ev2);
 
             _uiManager.Query(_fieldLayer);
             _hud.ClearWidgets();
@@ -259,6 +284,16 @@ namespace OpenNefia.Content.TitleScreen
     public sealed class GameInitiallyLoadedEventArgs : EntityEventArgs
     {
         public GameInitiallyLoadedEventArgs()
+        {
+        }
+    }
+
+    /// <summary>
+    /// Raised when the game is first loaded from the title screen or quickloaded.
+    /// </summary>
+    public sealed class GameQuickLoadedEventArgs : EntityEventArgs
+    {
+        public GameQuickLoadedEventArgs()
         {
         }
     }

@@ -186,5 +186,10 @@ namespace OpenNefia.Content.World
         {
             return TotalSeconds.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"{Month}/{Day}/{Year} {Hour}:{Minute}:{Second}";
+        }
     }
 }

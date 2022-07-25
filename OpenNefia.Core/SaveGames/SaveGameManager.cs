@@ -26,12 +26,12 @@ namespace OpenNefia.Core.SaveGames
         ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header);
         bool ContainsSave(ISaveGameHandle save);
         void DeleteSave(ISaveGameHandle save);
+        void RescanSaves();
     }
 
     internal interface ISaveGameManagerInternal : ISaveGameManager
     {
         void Initialize();
-        void RescanSaves();
     }
 
     public interface ISaveGameHandle

@@ -1,6 +1,7 @@
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -98,5 +99,22 @@ namespace OpenNefia.Core
         /// </summary>
         public static readonly CVarDef<int> DebugTargetFps =
             CVarDef.Create("debug.target_fps", 60, CVar.Archive);
+
+        /*
+         * REPL
+         */
+
+        /// <summary>
+        /// Load the REPL environment during initial engine startup instead of lazily loading it
+        /// when code is executed.
+        /// </summary>
+        public static readonly CVarDef<bool> ReplAutoloadOnStartup =
+            CVarDef.Create("repl.autoloadOnStartup", true, CVar.Archive);
+
+        /// <summary>
+        /// Resource path of a .csx script to load when the REPL environment is first started.
+        /// </summary>
+        public static readonly CVarDef<string> ReplAutoloadScript =
+            CVarDef.Create("repl.autoloadScript", "/Scripts/Scratch.csx", CVar.Archive);
     }
 }

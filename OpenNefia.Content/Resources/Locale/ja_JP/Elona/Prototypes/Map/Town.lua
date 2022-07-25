@@ -10,7 +10,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     MapPalmia = {
         MetaData = {
-            Name = _p(Elona.AreaPalmia.Metadata.Name),
+            Name = _.refp "Entity.Elona.AreaPalmia.Metadata.Name",
         },
     },
 }

@@ -42,6 +42,7 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";
         public static readonly BoundKeyFunction ReplNextCompletion = "Elona.ReplNextCompletion";
         public static readonly BoundKeyFunction ReplComplete = "Elona.ReplComplete";
+        public static readonly BoundKeyFunction ReplClear = "Elona.ReplClear";
 
         public static readonly BoundKeyFunction QuickStart = "Elona.QuickStart";
     }
