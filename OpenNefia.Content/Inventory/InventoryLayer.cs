@@ -331,6 +331,10 @@ namespace OpenNefia.Content.Inventory
             InventoryEntry ToEntry(EntityUid ent, IInventorySource source)
             {
                 var itemName = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", ent));
+                
+                if (Context.Behavior.ApplyNameModifiers)
+                    source.ModifyEntityName(ref itemName);
+
                 var itemDetail = DefaultDetailText(ent);
                 var chipColor = Color.White;
                 if (_entityManager.TryGetComponent(ent, out ChipComponent? chip))
