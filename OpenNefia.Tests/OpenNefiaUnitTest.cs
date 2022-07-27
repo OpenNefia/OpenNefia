@@ -83,7 +83,7 @@ namespace OpenNefia.Tests
             {
                 entMan.Startup();
             }
-
+            
             // Make randomness deterministic.
             var random = IoCManager.Resolve<IRandom>();
             random.PushSeed(0);

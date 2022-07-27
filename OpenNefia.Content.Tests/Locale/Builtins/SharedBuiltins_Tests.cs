@@ -77,7 +77,6 @@ Test.Content.Builtins = {
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaFemale)), Is.EqualTo("the CharaFemale"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaMale)), Is.EqualTo("the CharaMale"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaPlayer)), Is.EqualTo("you"));
-
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaOutOfSight)), Is.EqualTo("something"));
         }
 
@@ -103,7 +102,6 @@ Test.Content.Builtins = {
 
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemSingle)), Is.EqualTo("a ItemSingle"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemStacked)), Is.EqualTo("2 ItemStackeds"));
-
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemOutOfSight)), Is.EqualTo("something"));
         }
 
