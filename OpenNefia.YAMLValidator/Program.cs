@@ -80,7 +80,7 @@ namespace OpenNefia.YAMLValidator
             {
                 foreach (var errorNode in errorHashset)
                 {
-                    // This error syntax is for interfacing with GitHub Actions.
+                    // This syntax is for interfacing with GitHub Actions.
                     // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
                     Console.WriteLine($"::error file={file},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{file}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}");
                 }

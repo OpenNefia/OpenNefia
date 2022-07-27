@@ -222,6 +222,9 @@ namespace OpenNefia.Tests
             var locMan = container.Resolve<ILocalizationManager>();
             locMan.Initialize();
 
+            var compLoc = container.Resolve<IComponentLocalizerInternal>();
+            compLoc.Initialize();
+
             return this;
         }
 

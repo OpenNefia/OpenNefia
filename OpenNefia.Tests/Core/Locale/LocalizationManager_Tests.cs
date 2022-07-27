@@ -14,6 +14,12 @@ namespace OpenNefia.Tests.Core.Locale
     [TestOf(typeof(LocalizationManager))]
     public class LocalizationManager_Tests : LocalizationUnitTest
     {
+        [SetUp]
+        public void Setup()
+        {
+            IoCManager.Resolve<IRandom>().PushSeed(0);
+        }
+
         [Test]
         public void TestMissing()
         {
