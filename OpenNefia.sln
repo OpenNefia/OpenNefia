@@ -52,6 +52,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.IL.Cecil", "Thirdpart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.Runtime", "Thirdparty\XamlX\src\XamlX.Runtime\XamlX.Runtime.csproj", "{52F5601C-712E-4DF4-AB92-171C39783EE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.YAMLValidator", "OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj", "{AE161F08-1876-4462-9743-347DCB4986DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -196,6 +198,14 @@ Global
 		{52F5601C-712E-4DF4-AB92-171C39783EE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52F5601C-712E-4DF4-AB92-171C39783EE2}.Release|x86.ActiveCfg = Release|Any CPU
 		{52F5601C-712E-4DF4-AB92-171C39783EE2}.Release|x86.Build.0 = Release|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,7 +38,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             if (!VectorSerializerUtility.TryParseArgs(node.Value, 2, out var args))
             {
-                throw new InvalidMappingException($"Could not parse {nameof(Vector2)}: '{node.Value}'");
+                return new ErrorNode(node, $"Could not parse {nameof(Vector2)}: '{node.Value}'");
             }
 
             return float.TryParse(args[0], NumberStyles.Any, CultureInfo.InvariantCulture, out _) &&
