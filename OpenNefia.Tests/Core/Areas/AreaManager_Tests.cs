@@ -64,7 +64,7 @@ namespace OpenNefia.Tests.Core.Areas
             var areaEnt = entMan.CreateEntityUninitialized(null);
 
             // Simulate a registered area floor being loaded directly from disk
-            // (no RegisterAreaFloor() was called)
+            // (no RegisterAreaFloor() was called
             var map = mapMan.CreateMap(10, 10);
             area._containedMaps[TestMapFloor] = new AreaFloor(map.Id);
             
