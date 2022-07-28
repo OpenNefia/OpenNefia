@@ -1,13 +1,16 @@
-﻿using OpenNefia.Core.GameController;
+﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -48,13 +51,10 @@ namespace OpenNefia.YAMLValidator
 
             var gc = IoCManager.Resolve<IGameController>();
 
-            using (var logger = new ProfilerLogger(LogLevel.Info, "engine", "Engine init"))
+            if (!gc.Startup(options))
             {
-                if (!gc.Startup(options))
-                {
-                    Logger.Fatal("Failed to start game controller!");
-                    return false;
-                }
+                Logger.Fatal("Failed to start game controller!");
+                return false;
             }
 
             return true;
@@ -76,13 +76,19 @@ namespace OpenNefia.YAMLValidator
                 return 0;
             }
 
-            foreach (var (file, errorHashset) in errors)
+            var res = IoCManager.Resolve<IResourceManagerInternal>(); 
+            
+            foreach (var (resPath, errorHashset) in errors)
             {
                 foreach (var errorNode in errorHashset)
                 {
+                    var realPath = resPath;
+                    if (res.TryGetDiskFilePath(new ResourcePath(resPath), out var diskPath))
+                        realPath = diskPath;
+
                     // This syntax is for interfacing with GitHub Actions.
                     // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
-                    Console.WriteLine($"::error file={file},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{file}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}");
+                    Console.WriteLine($"::error file={realPath},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{resPath}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}");
                 }
             }
 
