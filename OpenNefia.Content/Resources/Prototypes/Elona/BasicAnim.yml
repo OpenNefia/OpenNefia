@@ -2,14 +2,14 @@
   id: Elona.AnimSmoke
   hspIds:
     elona122: 8
-  asset: AnimSmoke
+  asset: Elona.AnimSmoke
   sound: Elona.Offer1
 
 - type: Elona.BasicAnim
   id: Elona.AnimSparkle
   hspIds:
     elona122: 10
-  asset: AnimSparkle
+  asset: Elona.AnimSparkle
   sound: Elona.Enc2
   frameCount: 8
   frameDelayMillis: 8
@@ -19,7 +19,7 @@
   id: Elona.AnimBuff
   hspIds:
     elona122: 11
-  asset: AnimBuff
+  asset: Elona.AnimBuff
   sound: Elona.Enc
   frameCount: 5
   frameDelayMillis: 50
@@ -28,7 +28,7 @@
   id: Elona.AnimCurse
   hspIds:
     elona122: 14
-  asset: AnimCurse
+  asset: Elona.AnimCurse
   frameCount: 5
   frameDelayMillis: 50
 
@@ -36,4 +36,4 @@
   id: Elona.AnimElec
   hspIds:
     elona122: 15
-  asset: AnimElec
+  asset: Elona.AnimElec

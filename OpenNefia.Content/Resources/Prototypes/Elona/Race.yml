@@ -451,8 +451,8 @@
     elona122: 12
   isExtra: true
   breedPower: 800
-  chipMale: Elona.CharaWolf
-  chipFemale: Elona.CharaWolf
+  chipMale: Elona.CharaDog
+  chipFemale: Elona.CharaDog
   maleRatio: 0.55
   baseHeight: 100
   minAge: 2
@@ -2062,8 +2062,8 @@
     elona122: 57
   isExtra: true
   breedPower: 220
-  chipMale: Elona.CharaRoran
-  chipFemale: Elona.CharaRoran
+  chipMale: Elona.CharaEleaMale
+  chipFemale: Elona.CharaEleaFemale
   maleRatio: 0
   baseHeight: 150
   minAge: 10
@@ -2576,8 +2576,8 @@
     elona122: 71
   isExtra: true
   breedPower: 5
-  chipMale: Elona.CharaServant
-  chipFemale: Elona.CharaServant
+  chipMale: Elona.CharaHumanMale
+  chipFemale: Elona.CharaHumanFemale
   maleRatio: 0.52
   baseHeight: 165
   minAge: 100

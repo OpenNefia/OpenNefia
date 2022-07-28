@@ -80,7 +80,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
                         origin = valNode.Value;
                     }
-                    valueResult = serializationManager.ValidateNode(typeof(T), key, context);
+                    valueResult = serializationManager.ValidateNode(typeof(T), val, context);
                 }
                 else
                 {
