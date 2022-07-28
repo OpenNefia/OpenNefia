@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
         {
             return dependencies.Resolve<IPrototypeManager>().HasIndex(new PrototypeId<TPrototype>(node.Value))
                 ? new ValidatedValueNode(node)
-                : new ErrorNode(node, $"PrototypeID {node.Value} for type {typeof(TPrototype)} not found");
+                : new ErrorNode(node, $"PrototypeId<{typeof(TPrototype)}> for {node.Value} not found");
         }
 
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,

@@ -28,7 +28,17 @@ namespace OpenNefia.Content.Skills
         /// <summary>
         /// Weapon proficiencies.
         /// </summary>
-        WeaponProficiency
+        WeaponProficiency,
+
+        /// <summary>
+        /// Magic.
+        /// </summary>
+        Magic,
+
+        /// <summary>
+        /// Actions.
+        /// </summary>
+        Action
     }
 
     [Prototype("Elona.Skill")]
