@@ -518,6 +518,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Instrument")
         c.performanceQuality = from.params.instrument_quality
     end
+
+    if from._id == "elona.treasure_map" then
+        c = comp(to, "TreasureMap")
+    end
 end
 
 handlers["base.feat"] = function(from, to)
