@@ -91,7 +91,7 @@ namespace OpenNefia.Core.Directions
         {
             if (from.MapId != to.MapId)
             {
-                dir = Direction.North;
+                dir = Direction.Invalid;
                 return false;
             } 
             dir = (to.Position - from.Position).GetDir();
