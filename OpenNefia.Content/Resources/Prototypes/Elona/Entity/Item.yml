@@ -14401,6 +14401,7 @@
     value: 10000
   - type: Weight
     weight: 20
+  - type: TreasureMap
 - type: Entity
   id: Elona.ItemSmallMedal
   parent: BaseItem
