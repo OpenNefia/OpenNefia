@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Activity
 
         public override void Draw()
         {
-            _assetAutoTurnMining.DrawRegion(UIScale, "1", X, Y);
+            _assetAutoTurnMining.DrawRegion(UIScale, "0", X, Y);
         }
 
         public class GlobalDrawable : BaseGlobalDrawable
@@ -51,7 +51,7 @@ namespace OpenNefia.Content.Activity
 
             public override void Draw()
             {
-                var region = ((_counter.FrameInt / 2) % 4) + 1;
+                var region = ((_counter.FrameInt / 2) % 5);
                 _assetAutoTurnMining.DrawRegion(UIScale, region.ToString(), X, Y);
             }
 
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Activity
 
         public override void Draw()
         {
-            _assetAutoTurnFishing.DrawRegion(UIScale, "1", X, Y);
+            _assetAutoTurnFishing.DrawRegion(UIScale, "0", X, Y);
         }
 
         public class GlobalDrawable : BaseGlobalDrawable
@@ -104,7 +104,7 @@ namespace OpenNefia.Content.Activity
 
             public override void Draw()
             {
-                var region = ((_counter.FrameInt / 3) % 3) + 1;
+                var region = ((_counter.FrameInt / 3) % 3);
                 _assetAutoTurnFishing.DrawRegion(UIScale, region.ToString(), X, Y);
             }
 
@@ -135,7 +135,7 @@ namespace OpenNefia.Content.Activity
 
         public override void Draw()
         {
-            _assetAutoTurnHarvesting.DrawRegion(UIScale, "1", X, Y);
+            _assetAutoTurnHarvesting.DrawRegion(UIScale, "0", X, Y);
         }
 
         public class GlobalDrawable : BaseGlobalDrawable
@@ -151,7 +151,7 @@ namespace OpenNefia.Content.Activity
 
             public override void Draw()
             {
-                var region = ((_counter.FrameInt / 2) % 3) + 1;
+                var region = ((_counter.FrameInt / 2) % 3);
                 _assetAutoTurnHarvesting.DrawRegion(UIScale, region.ToString(), X, Y);
             }
 
@@ -189,12 +189,11 @@ namespace OpenNefia.Content.Activity
 
         public override void OnFirstFrame()
         {
-            Audio.Play(Protos.Sound.Water);
         }
 
         public override void Draw()
         {
-            _assetAutoTurnSearching.DrawRegion(UIScale, "1", X, Y);
+            _assetAutoTurnSearching.DrawRegion(UIScale, "0", X, Y);
         }
 
         public class GlobalDrawable : BaseGlobalDrawable
@@ -210,7 +209,7 @@ namespace OpenNefia.Content.Activity
 
             public override void Draw()
             {
-                var region = ((_counter.FrameInt / 2) % 4) + 1;
+                var region = ((_counter.FrameInt / 2) % 4);
                 _assetAutoTurnSearching.DrawRegion(UIScale, region.ToString(), X, Y);
             }
 

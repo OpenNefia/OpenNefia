@@ -64,6 +64,7 @@ namespace OpenNefia.Content.Activity
             Initialize_PreparingToSleep();
             Initialize_Sex();
             Initialize_Performing();
+            Initialize_DiggingSpot();
         }
     }
 }

@@ -114,6 +114,9 @@ namespace OpenNefia.Content.Activity
     public sealed class ActivityDiggingSpotComponent : Component
     {
         public override string Name => "ActivityDiggingSpot";
+
+        [DataField]
+        public MapCoordinates TargetTile { get; set; }
     }
 
     [RegisterComponent]

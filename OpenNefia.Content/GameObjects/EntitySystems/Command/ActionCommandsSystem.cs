@@ -18,6 +18,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Mining;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -67,6 +68,15 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
+            if (dir.Value.Direction == Direction.Center)
+            {
+                var playerSpatial = Spatial(session.Player);
+                var activity = EntityManager.SpawnEntity(Protos.Activity.DiggingSpot, MapCoordinates.Global);
+                Comp<ActivityDiggingSpotComponent>(activity).TargetTile = playerSpatial.MapPosition;
+                _activities.StartActivity(session.Player, activity);
+                return TurnResult.Succeeded;
+            }
+            
             return _actionDig.StartMining(session!.Player, dir.Value.Coords);
         }
 

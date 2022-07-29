@@ -97,7 +97,7 @@
     elona122: 8
   components:
   - type: Activity
-    defaultTurns: 0
+    defaultTurns: 20
     animationWait: 15
     autoTurnAnimType: Activity.SearchingAutoTurnAnim
     onInterrupt: Stop
