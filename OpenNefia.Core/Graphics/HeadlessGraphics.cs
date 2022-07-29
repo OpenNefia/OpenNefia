@@ -28,20 +28,20 @@ namespace OpenNefia.Core.Graphics
         {
             // TODO: Much of Love.Graphics requires the window to be initialized
             // and visible.
-            var bootConfig = new Love.BootConfig()
-            {
-                WindowTitle = Engine.Title,
-                WindowDisplay = 0,
-                WindowMinWidth = 800,
-                WindowMinHeight = 600,
-                WindowVsync = true,
-                WindowResizable = true,
-                DefaultRandomSeed = 0
-            };
+            //var bootConfig = new Love.BootConfig()
+            //{
+            //    WindowTitle = Engine.Title,
+            //    WindowDisplay = 0,
+            //    WindowMinWidth = 800,
+            //    WindowMinHeight = 600,
+            //    WindowVsync = true,
+            //    WindowResizable = true,
+            //    DefaultRandomSeed = 0
+            //};
 
-            Love.Boot.Init(bootConfig);
-            Love.Timer.Step();
-            Love.Boot.SystemStep(this);
+            //Love.Boot.Init(bootConfig);
+            //Love.Timer.Step();
+            //Love.Boot.SystemStep(this);
         }
 
         public void Shutdown()
