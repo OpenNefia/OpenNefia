@@ -25,6 +25,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Charas
 {

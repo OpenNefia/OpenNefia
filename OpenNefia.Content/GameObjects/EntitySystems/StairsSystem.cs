@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Maps;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -45,12 +46,10 @@ namespace OpenNefia.Content.GameObjects
             StairsComponent? stairs = null)
         {
             if (!Resolve(entrance, ref stairs))
-                return TurnResult.Failed;
-
-            _sounds.Play(Protos.Sound.Exitmap1);
+                return TurnResult.Aborted;
 
             return _mapEntrances.UseMapEntrance(user, stairs.Entrance) 
-                ? TurnResult.Succeeded : TurnResult.Failed;
+                ? TurnResult.Succeeded : TurnResult.Aborted;
         }
     }
 }

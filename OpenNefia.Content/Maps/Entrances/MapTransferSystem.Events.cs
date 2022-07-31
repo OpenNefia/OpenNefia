@@ -75,8 +75,6 @@ namespace OpenNefia.Content.Maps
             if (!Resolve(playerUid, ref spatial))
                 return;
 
-            _sounds.Play(Protos.Sound.Exitmap1);
-
             var turnResult = _mapEntrances.UseMapEntrance(playerUid, args.Entrance)
                 ? TurnResult.Succeeded : TurnResult.Failed;
             args.Handle(turnResult);

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Activity;
+﻿using NuGet.DependencyResolver;
+using OpenNefia.Content.Activity;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Feats;
@@ -23,6 +24,8 @@ namespace OpenNefia.Content.Damage
         DamageHPResult DamageHP(EntityUid target, int baseDamage, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null);
         void DamageMP(EntityUid target, int amount, bool noMagicReaction = false, bool showMessage = true, SkillsComponent? skills = null);
         void DamageStamina(EntityUid target, int amount, bool showMessage = true, SkillsComponent? skills = null);
+
+        void Kill(EntityUid target, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null);
 
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
         void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
@@ -113,10 +116,21 @@ namespace OpenNefia.Content.Damage
         {
             if (!Resolve(target, ref skills))
                 return;
-            
+
             skills.Stamina = Math.Max(skills.Stamina - amount, -100);
 
             var ev = new AfterDamageStaminaEvent(amount, showMessage);
+            RaiseEvent(target, ref ev);
+        }
+
+        public void Kill(EntityUid target, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null)
+        {
+            if (!Resolve(target, ref skills))
+                return;
+
+            var finalDamage = skills.MaxHP;
+
+            var ev = new EntityKilledEvent(finalDamage, finalDamage, attacker, damageType, extraArgs ?? new());
             RaiseEvent(target, ref ev);
         }
 
