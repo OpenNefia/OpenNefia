@@ -544,7 +544,7 @@ handlers["base.item"] = function(from, to)
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")
-        field(spellbook, c, "skill_id", dotted, "skillID")
+        field(spellbook, c, "skill_id", dotted, "spellID")
 
         c = comp(to, "Charged")
         field(spellbook, c, "charges")

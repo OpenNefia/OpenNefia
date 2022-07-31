@@ -44,7 +44,7 @@ Elona.Food.Effect = {
         end,
         Guard = "Guards hate you.",
         HolyOne = function(_1)
-            return ("%s feel%s as %s %s been corrupted."):format(_.name(_1), _.s(_1), _.he(_1), _.have(_1))
+            return ("%s feel%s as %s %s been corrupted."):format(_.name(_1), _.s(_1), _.he(_1), _.has(_1))
         end,
         Horse = "A horsemeat! It's nourishing",
         Imp = "This food is good for your magic.",

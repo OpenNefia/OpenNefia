@@ -38,6 +38,8 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Spells;
+using OpenNefia.Content.StatusEffects;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -56,6 +58,7 @@ var _uiMan = IoCManager.Resolve<IUserInterfaceManager>();
 var _loc = IoCManager.Resolve<ILocalizationManager>();
 var _inv = EntitySystem.Get<IInventorySystem>();
 var _mapEntrance = EntitySystem.Get<IMapEntranceSystem>();
+var _effects = EntitySystem.Get<IStatusEffectSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -97,10 +100,32 @@ public LevelAndPotential skill(PrototypeId<SkillPrototype> id)
     return _entityMan.GetComponent<SkillsComponent>(player()).Ensure(id);
 }
 
+public LevelPotentialAndStock spell(PrototypeId<SpellPrototype> id)
+{
+    return _entityMan.GetComponent<SpellsComponent>(player()).Ensure(id);
+}
+
+public void skillLv(PrototypeId<SkillPrototype> id, int level)
+{
+    var sk = skill(id);
+    sk.Level.Base = level;
+}
+
+public void spellLv(PrototypeId<SpellPrototype> id, int level)
+{
+    var sp = spell(id);
+    sp.Level.Base = level;
+}
+
 public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
 {
     if (!_inv.TryGetInventoryContainer(player(), out var inv))
         return null;
 
     return _itemGen.GenerateItem(inv, id, amount: amount);
+}
+
+public void clearEffects()
+{
+    _effects.RemoveAll(player());
 }
