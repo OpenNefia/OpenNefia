@@ -66,6 +66,7 @@ namespace OpenNefia.Content.Activity
         {
             Initialize_Resting();
             Initialize_ReadingSpellbook();
+            Initialize_ReadingAncientBook();
             Initialize_Eating();
             Initialize_Traveling();
             Initialize_Mining();

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using Love;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
@@ -17,6 +18,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public interface IChargedSystem : IEntitySystem
     {
+        void SetCharges(EntityUid uid, int charges, ChargedComponent? charged = null);
         void ModifyCharges(EntityUid uid, int delta, ChargedComponent? charged = null);
         bool HasChargesRemaining(EntityUid uid, ChargedComponent? charged = null);
     }
@@ -35,12 +37,20 @@ namespace OpenNefia.Content.GameObjects
             component.Charges = component.Charges - _rand.Next(component.Charges) + _rand.Next(component.Charges);
         }
 
+        public void SetCharges(EntityUid uid, int charges, ChargedComponent? charged = null)
+        {
+            if (!Resolve(uid, ref charged))
+                return;
+            
+            charged.Charges = Math.Clamp(charges, 0, charged.MaxCharges);
+        }
+
         public void ModifyCharges(EntityUid uid, int delta, ChargedComponent? charged = null)
         {
             if (!Resolve(uid, ref charged))
                 return;
 
-            charged.Charges = Math.Clamp(charged.Charges + delta, 0, charged.MaxCharges);
+            SetCharges(uid, charged.Charges + delta, charged);
         }
 
         public bool HasChargesRemaining(EntityUid uid, ChargedComponent? charged = null)

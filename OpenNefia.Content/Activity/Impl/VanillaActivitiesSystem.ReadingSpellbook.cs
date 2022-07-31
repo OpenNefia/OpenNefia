@@ -44,13 +44,13 @@ namespace OpenNefia.Content.Activity
             _inUse.SetItemInUse(args.Activity.Actor, component.Spellbook);
         }
 
-        private void DecrementSpellbookCharge(EntityUid reader, EntityUid spellbook)
+        private void DecrementBookCharge(EntityUid reader, EntityUid book)
         {
-            _charges.ModifyCharges(spellbook, -1);
-            if (!_charges.HasChargesRemaining(spellbook))
+            _charges.ModifyCharges(book, -1);
+            if (!_charges.HasChargesRemaining(book))
             {
-                _mes.Display(Loc.GetString("Elona.Read.Activity.FallsApart", ("book", spellbook)), entity: reader);
-                _stacks.Use(spellbook, 1);
+                _mes.Display(Loc.GetString("Elona.Read.Activity.FallsApart", ("book", book)), entity: reader);
+                _stacks.Use(book, 1);
             }
         }
 
@@ -75,7 +75,7 @@ namespace OpenNefia.Content.Activity
                 if (!success)
                 {
                     _activities.RemoveActivity(actor);
-                    DecrementSpellbookCharge(actor, component.Spellbook);
+                    DecrementBookCharge(actor, component.Spellbook);
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace OpenNefia.Content.Activity
 
             _identify.Identify(component.Spellbook, IdentifyState.Name);
 
-            DecrementSpellbookCharge(actor, component.Spellbook);
+            DecrementBookCharge(actor, component.Spellbook);
         }
 
         private void ReadingSpellbook_OnCleanup(EntityUid uid, ActivityReadingSpellbookComponent component, OnActivityCleanupEvent args)

@@ -19,6 +19,7 @@ local IItemRangedWeapon = require "mod.elona.api.aspect.IItemRangedWeapon"
 local IItemAmmo = require "mod.elona.api.aspect.IItemAmmo"
 local IItemFood = require "mod.elona.api.aspect.IItemFood"
 local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
+local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -550,6 +551,16 @@ handlers["base.item"] = function(from, to)
         field(spellbook, c, "charges")
         field(spellbook, c, "max_charges")
         field(spellbook, c, "can_be_recharged")
+    end
+
+    local ancientBook = from._ext and from._ext[IItemAncientBook]
+    if ancientBook then
+        c = comp(to, "AncientBook")
+
+        c = comp(to, "Charged")
+        field(ancientBook, c, "charges")
+        field(ancientBook, c, "max_charges")
+        field(ancientBook, c, "display_charge_count")
     end
 end
 

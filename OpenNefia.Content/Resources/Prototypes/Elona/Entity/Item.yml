@@ -16482,6 +16482,10 @@
     value: 2000
   - type: Weight
     weight: 380
+  - type: AncientBook
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemIronMaiden
   parent: BaseItem
