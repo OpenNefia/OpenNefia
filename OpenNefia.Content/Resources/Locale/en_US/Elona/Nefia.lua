@@ -1,5 +1,6 @@
 Elona.Nefia = {
     NoDungeonMaster = "This place is pretty dull. The dungeon master is no longer sighted here.",
+    PromptGiveUpQuest = "Really give up the quest and move over?",
 
     Level = function(floorNumber)
         return ("%s"):format(_.ordinal(floorNumber))
@@ -8,7 +9,10 @@ Elona.Nefia = {
     Event = {
         ReachedDeepestLevel = "It seems you have reached the deepest level of this dungeon.",
         GuardedByLord = function(mapEntity, bossEntity)
-            return ("Be aware! This level is guarded by the lord of %s, %s."):format(mapEntity, _.basename(bossEntity))
+            return ("Be aware! This level is guarded by the lord of %s, %s."):format(
+                _.name(mapEntity),
+                _.basename(bossEntity)
+            )
         end,
     },
 

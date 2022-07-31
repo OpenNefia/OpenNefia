@@ -22,6 +22,7 @@ using OpenNefia.Content.Hunger;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Directions;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Hud;
 
 namespace OpenNefia.Content.StatusEffects
 {
@@ -147,7 +148,7 @@ namespace OpenNefia.Content.StatusEffects
 
             if (stumble)
             {
-                args.OutNewPosition = new(args.DesiredPosition.MapId, 
+                args.OutNewPosition = new(args.DesiredPosition.MapId,
                     Spatial(uid).WorldPosition + DirectionUtility.RandomDirections().First().ToIntVec());
             }
         }

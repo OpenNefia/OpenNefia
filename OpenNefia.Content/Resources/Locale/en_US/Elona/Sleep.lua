@@ -16,4 +16,10 @@ Elona.Sleep = {
             return ("You wake up feeling good. Your potential increases. (Total:%s%%)"):format(grownCount)
         end,
     },
+
+    Indicator = {
+        Light = "Sleepy",
+        Moderate = "Need Sleep",
+        Heavy = "Need Sleep!",
+    },
 }

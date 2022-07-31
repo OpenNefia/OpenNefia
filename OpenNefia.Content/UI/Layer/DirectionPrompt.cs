@@ -78,6 +78,10 @@ namespace OpenNefia.Content.UI.Layer
                 var mapCoords = _centerCoords.Offset(dir).ToMap(_entityManager);
                 Finish(new Result(dir, mapCoords));
             }
+            else if (args.Function == EngineKeyFunctions.UISelect)
+            {
+                Finish(new Result(Direction.Center, _centerCoords.ToMap(_entityManager)));
+            }
             else if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Cancel();

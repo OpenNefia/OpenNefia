@@ -146,6 +146,9 @@ binds:
 - function: Elona.Use
   type: State
   key: T
+- function: Elona.Read
+  type: State
+  key: R
 - function: Elona.Examine
   type: State
   key: X

@@ -169,7 +169,7 @@ namespace OpenNefia.Content.Ranks
                 Color color;
 
                 // 1st rank is better than 10th rank.
-                if (newRank.Experience > oldRank.Experience)
+                if (newRank.Experience < oldRank.Experience)
                     color = UiColors.MesGreen;
                 else
                     color = UiColors.MesPurple;

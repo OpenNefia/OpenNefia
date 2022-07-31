@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Activity
         public override string Name => "ActivityReadingSpellbook";
 
         [DataField]
-        public EntityUid? Spellbook { get; set; }
+        public EntityUid Spellbook { get; set; }
     }
 
     [RegisterComponent]
@@ -41,7 +41,7 @@ namespace OpenNefia.Content.Activity
         public override string Name => "ActivityReadingAncientBook";
 
         [DataField]
-        public EntityUid? AncientBook { get; set; }
+        public EntityUid AncientBook { get; set; }
     }
 
     [RegisterComponent]
@@ -114,6 +114,9 @@ namespace OpenNefia.Content.Activity
     public sealed class ActivityDiggingSpotComponent : Component
     {
         public override string Name => "ActivityDiggingSpot";
+
+        [DataField]
+        public MapCoordinates TargetTile { get; set; }
     }
 
     [RegisterComponent]

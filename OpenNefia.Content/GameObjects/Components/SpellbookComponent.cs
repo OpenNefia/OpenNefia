@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Spells;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -14,6 +15,6 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Spellbook";
 
         [DataField]
-        public int Difficulty { get; set; }
+        public PrototypeId<SpellPrototype> SpellID { get; set; }
     }
 }

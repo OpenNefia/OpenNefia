@@ -191,7 +191,7 @@ namespace OpenNefia.Content.Parties
         /// </summary>
         bool IsDirectAllyOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null);
 
-        EntityUid? GetLeader(EntityUid target, PartyComponent? party = null);
+        EntityUid? GetLeaderOrNull(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
         /// Returns true if this character is leading a party.
@@ -248,7 +248,7 @@ namespace OpenNefia.Content.Parties
             return Parties.TryGetLeader(party.PartyID.Value, out leader);
         }
 
-        public EntityUid? GetLeader(EntityUid target, PartyComponent? party = null)
+        public EntityUid? GetLeaderOrNull(EntityUid target, PartyComponent? party = null)
         {
             TryGetLeader(target, out var leader, party);
             return leader;

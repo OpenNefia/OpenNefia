@@ -1,7 +1,7 @@
 Elona.EngineMessage = {
     PlayTime = {
         Report = function(hoursPlayed)
-            return ("You have been playing Elona for %s hour%s."):format(hoursPlayed, _.s(hoursPlayed))
+            return ("You have been playing Elona for %s hour%s."):format(hoursPlayed, _.plural(hoursPlayed))
         end,
         WarnMessage = {
             ["1"] = "Larnneire cheers, \"Way to go!\"",

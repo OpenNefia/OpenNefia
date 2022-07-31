@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Home
 
         private void WelcomeHome(EntityUid uid, MapHomeComponent component, MapEnterEvent args)
         {
-            _deferredEvents.Add(() => DefEvWelcomeHome(args.Map));
+            _deferredEvents.Enqueue(() => DefEvWelcomeHome(args.Map));
         }
 
         private bool CanWelcome(EntityUid ent, IMap map)
@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Home
                     || _stayers.IsStayingInMapGlobal(ent, map));
         }
 
-        private void DefEvWelcomeHome(IMap map)
+        private TurnResult DefEvWelcomeHome(IMap map)
         {
             var extraTalks = 0;
 
@@ -86,6 +86,8 @@ namespace OpenNefia.Content.Home
                 _mes.Display(Loc.GetString("Elona.Home.Okaeri"), UiColors.MesSkyBlue);
 
             // TODO maid
+
+            return TurnResult.NoResult;
         }
 
         public int CalcItemValue(EntityUid entity, ItemComponent? itemComp = null)

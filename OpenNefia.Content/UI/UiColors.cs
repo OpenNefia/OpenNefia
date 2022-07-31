@@ -78,5 +78,16 @@ namespace OpenNefia.Content.UI
         public static readonly Color InventoryItemBlessed = new(10, 110, 30, 255);
 
         public static readonly Color EquipmentItemTextDefault = new Color(10, 10, 10, 255);
+
+        public static readonly Color HungerIndicatorHungry = new Color(200, 0, 0, 255);
+        public static readonly Color HungerIndicatorStarving = new Color(250, 0, 0, 255);
+
+        public static readonly Color FatigueIndicatorLight = new Color(60, 60, 0, 255);
+        public static readonly Color FatigueIndicatorModerate = new Color(80, 80, 0, 255);
+        public static readonly Color FatigueIndicatorHeavy = new Color(120, 120, 0, 255);
+
+        public static readonly Color SleepIndicatorLight = new Color(0, 0, 0, 255);
+        public static readonly Color SleepIndicatorModerate = new Color(100, 100, 0, 255);
+        public static readonly Color SleepIndicatorHeavy = new Color(255, 0, 0, 255);
     }
 }

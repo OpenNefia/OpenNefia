@@ -9,6 +9,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 {
     public interface ICurseStateSystem : IEntitySystem
     {
+        bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null);
         bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null);
     }
 
@@ -44,6 +45,14 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
                 args.Reason = Loc.GetString("Elona.CurseState.CannotBeTakenOff", ("entity", uid));
                 args.Cancel();
             }
+        }
+
+        public bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null)
+        {
+            if (!Resolve(ent, ref curseState))
+                return false;
+
+            return curseState.CurseState == CurseState.Blessed;
         }
 
         public bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null)

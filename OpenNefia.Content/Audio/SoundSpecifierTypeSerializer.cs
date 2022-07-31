@@ -1,5 +1,7 @@
 using System;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Manager.Result;
@@ -58,10 +60,10 @@ namespace OpenNefia.Content.Audio
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context = null)
         {
-            if (serializationManager.ValidateNode<ResourcePath>(node, context) is not ErrorNode)
+            if (serializationManager.ValidateNode<PrototypeId<SoundPrototype>>(node, context) is not ErrorNode)
                 return new ValidatedValueNode(node);
 
-            return new ErrorNode(node, "SoundSpecifier value is not a valid resource path!");
+            return new ErrorNode(node, $"SoundSpecifier value is not a valid {nameof(SoundPrototype)} ID!");
         }
     }
 }

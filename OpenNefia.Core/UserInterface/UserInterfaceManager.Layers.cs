@@ -101,13 +101,25 @@ namespace OpenNefia.Core.UserInterface
             {
                 ResizeAndLayoutLayer(layer);
             }
-        } 
+        }
 
         private void HandleUpdateApplication(HotReloadEventArgs args)
         {
             foreach (var layer in this.Layers)
             {
                 ResizeAndLayoutLayer(layer);
+            }
+
+            if (args.UpdatedTypes != null)
+            {
+                foreach (var type in args.UpdatedTypes)
+                {
+                    if (typeof(IUiLayer).IsAssignableFrom(type))
+                    {
+                        Logger.InfoS("ui", $"Reinjecting dependencies for hotloaded layer {type}.");
+                        EntitySystem.InjectDependencies(type);
+                    }
+                }
             }
         }
 
@@ -174,7 +186,7 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args) 
+        public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
         {

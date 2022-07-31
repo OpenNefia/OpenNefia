@@ -17,10 +17,10 @@ namespace OpenNefia.Core.GameObjects
         /// Raises an event.
         /// </summary>
         /// <returns>True if something handled the event, or the target entity is dead after the event was fired.</returns>
-        protected bool Raise<T>(EntityUid uid, T args)
+        protected bool Raise<T>(EntityUid uid, T args, bool broadcast = true)
             where T : HandledEntityEventArgs
         {
-            RaiseEvent(uid, args);
+            RaiseEvent(uid, args, broadcast);
             return args.Handled || !EntityManager.IsAlive(uid);
         }
 

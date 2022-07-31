@@ -132,6 +132,7 @@ namespace OpenNefia.Content.RandomGen
                 id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
 
             var commonArgs = args.Get<EntityGenCommonArgs>();
+            commonArgs.MinLevel = minLevel;
             if (quality != null)
                 commonArgs.Quality = quality.Value;
 

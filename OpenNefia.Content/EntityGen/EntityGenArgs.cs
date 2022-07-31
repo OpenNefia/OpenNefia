@@ -43,6 +43,11 @@ namespace OpenNefia.Content.EntityGen
         public int? LevelOverride { get; set; }
 
         /// <summary>
+        /// Level for random generation purposes.
+        /// </summary>
+        public int MinLevel { get; set; }
+
+        /// <summary>
         /// Quality of the entity to spawn.
         /// </summary>
         public Quality? Quality { get; set; }

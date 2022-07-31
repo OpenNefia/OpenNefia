@@ -17,10 +17,8 @@ Elona.Dig = {
     },
 
     Spot = {
+        Start = "地面を掘り始めた。",
         Finish = "地面を掘り終えた。",
         SomethingIsThere = " *ガチッ* …何かがある！",
-        Start = {
-            Global = "地面を掘り始めた。",
-        },
     },
 }

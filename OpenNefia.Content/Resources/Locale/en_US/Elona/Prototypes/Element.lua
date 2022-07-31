@@ -150,10 +150,10 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         Description = "Resistance to magic.",
         Resist = {
             Gain = function(entity)
-                return ("%s%s body is covered by a magical aura."):format(_.name(entity), _.his_owned(entity))
+                return ("%s%s body is covered by a magical aura."):format(_.name(entity), _.possessive(entity))
             end,
             Lose = function(entity)
-                return ("The magical aura disappears from %s%s body."):format(_.name(entity), _.his_owned(entity))
+                return ("The magical aura disappears from %s%s body."):format(_.name(entity), _.possessive(entity))
             end,
         },
     },
@@ -167,10 +167,10 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         end,
         Resist = {
             Gain = function(entity)
-                return ("Suddenly, %s%s mind becomes very clear."):format(_.name(entity), _.his_owned(entity))
+                return ("Suddenly, %s%s mind becomes very clear."):format(_.name(entity), _.possessive(entity))
             end,
             Lose = function(entity)
-                return ("%s%s mind becomes slippery."):format(_.name(entity), _.his_owned(entity))
+                return ("%s%s mind becomes slippery."):format(_.name(entity), _.possessive(entity))
             end,
         },
         Killed = {
@@ -193,11 +193,11 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         Description = "Resistance to nerve.",
         Ego = "numb",
         Wounded = function(entity)
-            return ("%s%s nerves are hurt."):format(_.name(entity), _.his_owned(entity))
+            return ("%s%s nerves are hurt."):format(_.name(entity), _.possessive(entity))
         end,
         Resist = {
             Gain = function(entity)
-                return ("%s%s nerve is sharpened."):format(_.name(entity), _.his_owned(entity))
+                return ("%s%s nerve is sharpened."):format(_.name(entity), _.possessive(entity))
             end,
             Lose = function(entity)
                 return ("%s become%s dull."):format(_.name(entity), _.s(entity))
@@ -247,7 +247,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         end,
         Resist = {
             Gain = function(entity)
-                return ("%s now %s antibodies to poisons."):format(_.name(entity), _.have(entity))
+                return ("%s now %s antibodies to poisons."):format(_.name(entity), _.has(entity))
             end,
             Lose = function(entity)
                 return ("%s lose%s antibodies to poisons."):format(_.name(entity), _.s(entity))
@@ -272,7 +272,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         end,
         Resist = {
             Gain = function(entity)
-                return ("%s%s eardrums get thick."):format(_.name(entity), _.his_owned(entity))
+                return ("%s%s eardrums get thick."):format(_.name(entity), _.possessive(entity))
             end,
             Lose = function(entity)
                 return ("%s become%s very sensitive to noises."):format(_.name(entity), _.s(entity))

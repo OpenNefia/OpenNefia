@@ -380,7 +380,7 @@ namespace OpenNefia.Content.VanillaAI
             if (!updateTarget)
                 return;
 
-            EntityUid? leader = _parties.GetLeader(ally);
+            EntityUid? leader = _parties.GetLeaderOrNull(ally);
 
             if (leader == null && currentTarget != null
                 && _factions.GetRelationTowards(ally, currentTarget.Value) >= Relation.Ally)

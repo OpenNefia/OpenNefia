@@ -17,4 +17,12 @@ Elona.Skill = {
             return ("%sの身体から新たな%sが生えてきた！"):format(_.name(entity), bodyPartName)
         end,
     },
+
+    Fatigue = {
+        Indicator = {
+            Light = "軽疲労",
+            Moderate = "疲労",
+            Heavy = "過労",
+        },
+    },
 }

@@ -1,11 +1,12 @@
 using OpenNefia.Content.Levels;
 using OpenNefia.Core.Areas;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
@@ -36,6 +37,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IGameSessionManager _session = default!;
         [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         public bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area)
         {
@@ -62,6 +64,11 @@ namespace OpenNefia.Content.Maps
             if (!Resolve(user, ref spatial))
                 return false;
 
+            var ev = new BeforeUseMapEntranceEvent(entrance);
+            RaiseEvent(user, ev);
+            if (ev.Cancelled || !IsAlive(user))
+                return false;
+
             mapId = entrance.MapIdSpecifier.GetMapId();
             if (mapId == null)
             {
@@ -74,6 +81,8 @@ namespace OpenNefia.Content.Maps
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
                 .BoundWithin(map.Bounds);
+
+            _audio.Play(Protos.Sound.Exitmap1);
 
             _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
             
@@ -130,6 +139,16 @@ namespace OpenNefia.Content.Maps
                 return level.Level;
 
             return 0;
+        }
+    }
+
+    public sealed class BeforeUseMapEntranceEvent : CancellableEntityEventArgs
+    {
+        public MapEntrance Entrance { get; }
+
+        public BeforeUseMapEntranceEvent(MapEntrance entrance)
+        {
+            Entrance = entrance;
         }
     }
 }

@@ -4,112 +4,112 @@
   hspIds:
     elona122: 1
   isPrimaryGod: true
-  servant: Elona.Android
+  servant: Elona.CharaAndroid
   items:
-  - itemId: Elona.GemstoneOfMani
+  - itemId: Elona.ItemGemStoneOfMani
     onlyOnce: true
-  artifact: Elona.WinchesterPremium
-  summon: Elona.Mani
+  artifact: Elona.ItemWinchesterPremium
+  summon: Elona.CharaMani
   blessings: !type:GodBlessingManiEffect {}
   offerings:
-  - category: Elona.ItemEquipRangedGun
-  - category: Elona.ItemEquipRangedLaserGun
-  - category: Elona.ItemOfferingSf
+  - category: Elona.ItemCatEquipRangedGun
+  - category: Elona.ItemCatEquipRangedLaserGun
+  - category: Elona.ItemCatOfferingSf
 - type: Elona.God
   id: Elona.Lulwy
   hspIds:
     elona122: 2
   isPrimaryGod: true
-  servant: Elona.BlackAngel
+  servant: Elona.CharaBlackAngel
   items:
-  - itemId: Elona.LulwysGemStoneOfGodSpeed
+  - itemId: Elona.ItemLulwysGemStoneOfGodSpeed
     onlyOnce: true
-  artifact: Elona.WindBow
-  summon: Elona.Lulwy
+  artifact: Elona.ItemWindBow
+  summon: Elona.CharaLulwy
   blessings: !type:GodBlessingLulwyEffect {}
   offerings:
-  - category: Elona.ItemEquipRangedBow
-  - category: Elona.ItemEquipRangedCrossbow
+  - category: Elona.ItemCatEquipRangedBow
+  - category: Elona.ItemCatEquipRangedCrossbow
   callbacks: !type:GodLulwyCallbacks {}
 - type: Elona.God
   id: Elona.Itzpalt
   hspIds:
     elona122: 3
   isPrimaryGod: true
-  servant: Elona.Exile
+  servant: Elona.CharaExile
   items:
   - filter:
       type: TODO
-    itemId: Elona.SecretTreasure
+    itemId: Elona.ItemSecretTreasure
     noStack: true
-  artifact: Elona.ElementalStaff
+  artifact: Elona.ItemElementalStaff
   blessings: !type:GodBlessingItzpaltEffect {}
   offerings:
-  - category: Elona.ItemEquipMeleeStaff
+  - category: Elona.ItemCatEquipMeleeStaff
   callbacks: !type:GodItzpaltCallbacks {}
 - type: Elona.God
   id: Elona.Ehekatl
   hspIds:
     elona122: 4
   isPrimaryGod: true
-  servant: Elona.BlackCat
+  servant: Elona.CharaBlackCat
   items:
   - filter:
       type: TODO
-    itemId: Elona.SecretTreasure
+    itemId: Elona.ItemSecretTreasure
     noStack: true
-  artifact: Elona.LuckyDagger
-  summon: Elona.Ehekatl
+  artifact: Elona.ItemLuckyDagger
+  summon: Elona.CharaEhekatl
   blessings: !type:GodBlessingEhekatlEffect {}
   offerings:
-  - category: Elona.ItemOfferingFish
+  - category: Elona.ItemCatOfferingFish
 - type: Elona.God
   id: Elona.Opatos
   hspIds:
     elona122: 5
   isPrimaryGod: true
-  servant: Elona.GoldenKnight
+  servant: Elona.CharaGoldenKnight
   items:
   - filter:
       type: TODO
-    itemId: Elona.SecretTreasure
+    itemId: Elona.ItemSecretTreasure
     noStack: true
-  artifact: Elona.GaiaHammer
-  summon: Elona.Opatos
+  artifact: Elona.ItemGaiaHammer
+  summon: Elona.CharaOpatos
   blessings: !type:GodBlessingOpatosEffect {}
   offerings:
-  - category: Elona.ItemOfferingOre
+  - category: Elona.ItemCatOfferingOre
 - type: Elona.God
   id: Elona.Jure
   hspIds:
     elona122: 6
   isPrimaryGod: true
-  servant: Elona.Defender
+  servant: Elona.CharaDefender
   items:
-  - itemId: Elona.JuresGemStoneOfHolyRain
+  - itemId: Elona.ItemJuresGemStoneOfHolyRain
     onlyOnce: true
   - filter:
       type: TODO
-    itemId: Elona.SecretTreasure
+    itemId: Elona.ItemSecretTreasure
     noStack: true
-  artifact: Elona.HolyLance
+  artifact: Elona.ItemHolyLance
   blessings: !type:GodBlessingJureEffect {}
   offerings:
-  - category: Elona.ItemOfferingOre
+  - category: Elona.ItemCatOfferingOre
   callbacks: !type:GodJureCallbacks {}
 - type: Elona.God
   id: Elona.Kumiromi
   hspIds:
     elona122: 7
   isPrimaryGod: true
-  servant: Elona.CuteFairy
+  servant: Elona.CharaCuteFairy
   items:
-  - itemId: Elona.KumiromisGemStoneOfRejuvenation
+  - itemId: Elona.ItemKumiromisGemStoneOfRejuvenation
     onlyOnce: true
-  artifact: Elona.KumiromiScythe
-  summon: Elona.Kumiromi
+  artifact: Elona.ItemKumiromiScythe
+  summon: Elona.CharaKumiromi
   blessings: !type:GodBlessingKumiromiEffect {}
   offerings:
-  - category: Elona.ItemOfferingVegetable
-  - category: Elona.ItemCropSeed
+  - category: Elona.ItemCatOfferingVegetable
+  - category: Elona.ItemCatCropSeed
 ...

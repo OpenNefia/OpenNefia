@@ -33,15 +33,13 @@ namespace OpenNefia.Content.Maps
 
             var prevCoords = spatial.MapPosition;
 
-            _sounds.Play(Protos.Sound.Exitmap1);
-
             if (_mapEntrances.UseMapEntrance(user, worldMapEntrance.Entrance, out var mapId))
             {
                 _mapEntrances.SetPreviousMap(mapId.Value, prevCoords);
                 return TurnResult.Succeeded;
             }
 
-            return TurnResult.Failed;
+            return TurnResult.Aborted;
         }
     }
 }

@@ -194,3 +194,38 @@
   id: Elona.Investing
   relatedSkill: Elona.AttrCharisma
   skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Performer
+  hspIds:
+    elona122: 183
+  relatedSkill: Elona.AttrCharisma
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Cooking
+  hspIds:
+    elona122: 184
+  relatedSkill: Elona.AttrLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Fishing
+  hspIds:
+    elona122: 185
+  relatedSkill: Elona.AttrPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Pickpocket
+  hspIds:
+    elona122: 300
+  relatedSkill: Elona.AttrDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Riding
+  hspIds:
+    elona122: 301
+  relatedSkill: Elona.AttrWill
+  skillType: Skill

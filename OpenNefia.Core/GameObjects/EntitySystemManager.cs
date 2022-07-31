@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using OpenNefia.Core.HotReload;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.IoC.Exceptions;
 using OpenNefia.Core.Log;
@@ -21,6 +22,7 @@ namespace OpenNefia.Core.GameObjects
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IHotReloadWatcher _hotReload = default!;
 
 #if EXCEPTION_TOLERANCE
         [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
@@ -179,7 +181,32 @@ namespace OpenNefia.Core.GameObjects
                 SystemLoaded?.Invoke(this, new SystemChangedArgs(system));
             }
 
+            _hotReload.OnUpdateApplication += OnUpdateApplication;
+
             _initialized = true;
+        }
+
+        private void OnUpdateApplication(HotReloadEventArgs args)
+        {
+            if (args.UpdatedTypes == null)
+                return;
+
+            foreach (var type in args.UpdatedTypes)
+            {
+                if (typeof(IEntitySystem).IsAssignableFrom(type))
+                {
+                    if (TryGetEntitySystem(type, out var system))
+                    {
+                        Logger.InfoS("esm", $"Reinjecting dependencies for hotloaded system {type}.");
+                        EntitySystem.InjectDependencies(system);
+                    }
+                }
+                else if (IoCManager.Instance?.TryResolveType(type, out var instance) ?? false)
+                {
+                    Logger.InfoS("esm", $"Reinjecting dependencies for hotloaded IoC type {type}.");
+                    IoCManager.InjectDependencies(instance);
+                }
+            }
         }
 
         private static IEnumerable<Type> GetBaseTypes(Type type) {

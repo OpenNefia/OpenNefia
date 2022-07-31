@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Activity
         {
             if (!TryMap(component.TargetTile, out var map) || !map.TryGetTilePrototype(component.TargetTile.Position, out var tile))
             {
-                _activities.RemoveActivity(activity);
+                args.Cancel();
                 return;
             }
                 

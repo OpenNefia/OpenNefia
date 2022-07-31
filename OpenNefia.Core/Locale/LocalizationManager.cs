@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Locale
         string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args);
         bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
             where T : class, IPrototype;
-        bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args);
+        bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
     }
 
@@ -256,7 +256,7 @@ namespace OpenNefia.Core.Locale
             where T : class, IPrototype
             => TryGetPrototypeStringRaw(typeof(T), (string)protoId, key, out str, args);
 
-        public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
+        public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
             return TryGetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), out str, args);

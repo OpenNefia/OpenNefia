@@ -34,12 +34,19 @@ namespace OpenNefia.Content.RandomAreas
         [Dependency] private readonly IMessagesManager _mes = default!;
 
         /// <summary>
+        /// Number of random areas generated when the world is refreshed.
+        /// </summary>
+        // TODO: Make into a CVar.
+        public const int RandomAreaGenerateCount = 40;
+
+        /// <summary>
         /// The number of active random areas that should exist in the world map at any given time.
         /// If the live number drops below this amount, then enough new random areas will be generated
         /// to fill the needed amount.
         /// </summary>
         // TODO: Make into a CVar.
-        public const int ActiveRandomAreaThreshold = 25;
+        public const int RandomAreaMinCount = 25;
+
 
         public override void Initialize()
         {
@@ -60,7 +67,7 @@ namespace OpenNefia.Content.RandomAreas
                 return true;
 
             var totalActiveAreas = GetTotalActiveRandomAreasInMap(mapId);
-            if (totalActiveAreas < ActiveRandomAreaThreshold)
+            if (totalActiveAreas < RandomAreaMinCount)
                 return true;
 
             if (_random.OneIn(150))
@@ -82,7 +89,7 @@ namespace OpenNefia.Content.RandomAreas
         {
             var map = _mapManager.GetMap(mapId);
             var activeAreaCount = GetTotalActiveRandomAreasInMap(mapId);
-            var numberToGenerate = Math.Max(0, ActiveRandomAreaThreshold - activeAreaCount);
+            var numberToGenerate = Math.Max(0, RandomAreaGenerateCount - activeAreaCount);
 
             for (int i = 0; i < numberToGenerate; i++)
             {

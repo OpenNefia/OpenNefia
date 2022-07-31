@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.Logic;
+﻿using Love;
+using OpenNefia.Content.Hud;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Weight;
 using OpenNefia.Core.Containers;
@@ -36,7 +38,21 @@ namespace OpenNefia.Content.Inventory
 
         public override void Initialize()
         {
+            SubscribeComponent<InventoryComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<InventoryComponent, BeforeMoveEventArgs>(ProcMovementPreventionOnBurden);
+        }
+
+        private void AddStatusIndicator(EntityUid uid, InventoryComponent inv, GetStatusIndicatorsEvent args)
+        {
+            if (inv.BurdenType > BurdenType.None)
+            {
+                var color = new Color(0, Math.Min((int)inv.BurdenType * 40, 255), Math.Min((int)inv.BurdenType * 40, 255), 255);
+                args.OutIndicators.Add(new()
+                {
+                    Text = Loc.GetString($"Elona.Inventory.Burden.Indicator.{inv.BurdenType}"),
+                    Color = color
+                });
+            }
         }
 
         private void ProcMovementPreventionOnBurden(EntityUid uid, InventoryComponent inv, BeforeMoveEventArgs args)
@@ -46,7 +62,7 @@ namespace OpenNefia.Content.Inventory
 
             if (inv.BurdenType >= BurdenType.Max)
             {
-                _mes.Display(Loc.GetString("Elona.Inventory.CarryTooMuch"), combineDuplicates: true);
+                _mes.Display(Loc.GetString("Elona.Inventory.Burden.CarryTooMuch"), combineDuplicates: true);
                 args.Handle(TurnResult.Failed);
                 return;
             }

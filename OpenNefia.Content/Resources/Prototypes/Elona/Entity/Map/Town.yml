@@ -43,7 +43,7 @@
       amount: 4
       components:
       - type: RoleCitizen
-    - protoId: Elona.Guard
+    - protoId: Elona.CharaGuard
       amount: 4
       components:
       - type: RoleGuard
@@ -83,7 +83,7 @@
       amount: 2
       components:
       - type: RoleCitizen
-    - protoId: Elona.Guard
+    - protoId: Elona.CharaGuard
       amount: 3
       components:
       - type: RoleGuard

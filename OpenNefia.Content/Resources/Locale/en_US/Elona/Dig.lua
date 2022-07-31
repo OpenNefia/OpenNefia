@@ -17,10 +17,8 @@ Elona.Dig = {
     },
 
     Spot = {
+        Start = "You start to dig the ground.",
         Finish = "You finish digging.",
         SomethingIsThere = "*click* ...something is there!",
-        Start = {
-            Global = "You start to dig the ground.",
-        },
     },
 }

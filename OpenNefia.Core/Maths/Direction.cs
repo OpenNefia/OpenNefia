@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Maths
         SouthWest = 5,
         West = 6,
         NorthWest = 7,
+        Center = 8,
     }
 
     [Flags]
@@ -24,6 +25,7 @@ namespace OpenNefia.Core.Maths
         East = 1 << 1,
         North = 1 << 2,
         West = 1 << 3,
+        Center = 1 << 4,
 
         SouthEast = South | East,
         NorthEast = North | East,
@@ -43,21 +45,23 @@ namespace OpenNefia.Core.Maths
             switch (directionFlag)
             {
                 case DirectionFlag.South:
-                    return Direction.North;
+                    return Direction.South;
                 case DirectionFlag.SouthEast:
-                    return Direction.NorthEast;
+                    return Direction.SouthEast;
                 case DirectionFlag.East:
                     return Direction.East;
                 case DirectionFlag.NorthEast:
-                    return Direction.SouthEast;
+                    return Direction.NorthEast;
                 case DirectionFlag.North:
-                    return Direction.South;
+                    return Direction.North;
                 case DirectionFlag.NorthWest:
-                    return Direction.SouthWest;
+                    return Direction.NorthWest;
                 case DirectionFlag.West:
                     return Direction.West;
                 case DirectionFlag.SouthWest:
-                    return Direction.NorthWest;
+                    return Direction.SouthWest;
+                case DirectionFlag.Center:
+                    return Direction.Center;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -68,21 +72,23 @@ namespace OpenNefia.Core.Maths
             switch (direction)
             {
                 case Direction.North:
-                    return DirectionFlag.South;
+                    return DirectionFlag.North;
                 case Direction.NorthEast:
-                    return DirectionFlag.SouthEast;
+                    return DirectionFlag.NorthEast;
                 case Direction.East:
                     return DirectionFlag.East;
                 case Direction.SouthEast:
-                    return DirectionFlag.NorthEast;
+                    return DirectionFlag.SouthEast;
                 case Direction.South:
-                    return DirectionFlag.North;
+                    return DirectionFlag.South;
                 case Direction.SouthWest:
-                    return DirectionFlag.NorthWest;
+                    return DirectionFlag.SouthWest;
                 case Direction.West:
                     return DirectionFlag.West;
                 case Direction.NorthWest:
-                    return DirectionFlag.SouthWest;
+                    return DirectionFlag.NorthWest;
+                case Direction.Center:
+                    return DirectionFlag.Center;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -135,6 +141,7 @@ namespace OpenNefia.Core.Maths
                 Direction.NorthWest => Direction.SouthEast,
                 Direction.SouthWest => Direction.NorthEast,
                 Direction.NorthEast => Direction.SouthWest,
+                Direction.Center => Direction.Center,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -151,6 +158,7 @@ namespace OpenNefia.Core.Maths
                 Direction.NorthWest => Direction.SouthWest,
                 Direction.SouthWest => Direction.SouthEast,
                 Direction.NorthEast => Direction.NorthWest,
+                Direction.Center => Direction.Center,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -162,6 +170,9 @@ namespace OpenNefia.Core.Maths
         /// <returns></returns>
         public static Angle ToAngle(this Direction dir)
         {
+            if (dir == Direction.Center)
+                return 0.0;
+
             var ang = Segment * (int)dir;
 
             if (ang > Math.PI) // convert 0 > 2PI to -PI > +PI
@@ -178,7 +189,8 @@ namespace OpenNefia.Core.Maths
             new (0, 1),
             new Vector2(-1, 1).Normalized,
             new (-1, 0),
-            new Vector2(-1, -1).Normalized
+            new Vector2(-1, -1).Normalized,
+            new (0, 0)
         };
 
         private static readonly Vector2i[] IntDirectionVectors = {
@@ -189,7 +201,8 @@ namespace OpenNefia.Core.Maths
             new (0, 1),
             new (-1, 1),
             new (-1, 0),
-            new (-1, -1)
+            new (-1, -1),
+            new (0, 0)
         };
 
         /// <summary>
