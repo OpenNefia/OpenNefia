@@ -109,24 +109,26 @@ namespace OpenNefia.Content.Nefia
                 }
                 else if (areaNefia.BossEntityUid == null)
                 {
-                    _deferredEvs.Add(() => EventNefiaBoss(args.Map));
+                    _deferredEvs.Enqueue(() => EventNefiaBoss(args.Map));
                 }
             }
             // -- <<<<<<<< shade2/map.hsp:398 		} ..
         }
 
-        private void EventNefiaBoss(IMap map)
+        private TurnResult EventNefiaBoss(IMap map)
         {
             if (!_areaManager.TryGetAreaOfMap(map, out var area))
-                return;
+                return TurnResult.NoResult;
 
             if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
-                return;
+                return TurnResult.NoResult;
 
             areaNefia.BossEntityUid = SpawnBoss(map);
 
             _mes.Display(Loc.GetString("Nefia.Event.ReachedDeepestLevel"));
             _mes.Display(Loc.GetString("Nefia.Event.GuardedByLord", ("mapEntity", map.MapEntityUid), ("bossEntity", areaNefia.BossEntityUid)), UiColors.MesRed);
+
+            return TurnResult.NoResult;
         }
 
         private void SetNefiaMusic(EntityUid uid, MapCalcDefaultMusicEvent args)
@@ -238,13 +240,13 @@ namespace OpenNefia.Content.Nefia
             // <<<<<<<< shade2/main.hsp:1765 	cFame(pc)+=gQuestFame ..
         }
 
-        private void EventNefiaBossDefeated(IMap map)
+        private TurnResult EventNefiaBossDefeated(IMap map)
         {
             if (!_areaManager.TryGetAreaOfMap(map, out var area))
-                return;
+                return TurnResult.NoResult;
 
             if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
-                return;
+                return TurnResult.NoResult;
 
             _music.Play(Protos.Music.Victory);
             _audio.Play(Protos.Sound.Complete1);
@@ -271,6 +273,8 @@ namespace OpenNefia.Content.Nefia
             areaNefia.BossEntityUid = null;
             areaNefia.State = NefiaState.Conquered;
             // <<<<<<<< shade2/main.hsp:1773 	} ..
+
+            return TurnResult.NoResult;
         }
 
         private void CheckNefiaBossKilled(EntityUid uid, ref EntityKilledEvent args)
@@ -287,7 +291,7 @@ namespace OpenNefia.Content.Nefia
 
             if (areaNefia.BossEntityUid == uid)
             {
-                _deferredEvs.Add(() => EventNefiaBossDefeated(map));
+                _deferredEvs.Enqueue(() => EventNefiaBossDefeated(map));
             }
             // <<<<<<<< shade2/chara_func.hsp:1719 				} ..
         }
