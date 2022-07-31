@@ -98,16 +98,16 @@ namespace OpenNefia.Content.RandomEvent
                 {
                     _spells.Cast(Protos.Spell.EffectCurse, 200, target, target);
                 }
-                else if (!_deferredEvents.IsEventQueued())
+                else if (!_deferredEvents.IsEventEnqueued())
                 {
-                    _deferredEvents.Add(EventSleepAmbush);
+                    _deferredEvents.Enqueue(EventSleepAmbush);
                 }
             }
 
-            void EventSleepAmbush()
+            TurnResult EventSleepAmbush()
             {
                 if (!_mapManager.TryGetMapOfEntity(target, out var map))
-                    return;
+                    return TurnResult.NoResult;
 
                 _mes.Display(Loc.GetPrototypeString(Protos.RandomEvent.CursedWhispering, "Beggars"));
 
@@ -118,6 +118,8 @@ namespace OpenNefia.Content.RandomEvent
                         LevelOverride = _levels.GetLevel(target)
                     }));
                 }
+
+                return TurnResult.NoResult;
             }
         }
 
