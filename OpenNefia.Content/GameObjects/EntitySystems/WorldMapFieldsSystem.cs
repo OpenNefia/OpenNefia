@@ -54,8 +54,6 @@ namespace OpenNefia.Content.GameObjects
 
             var prevCoords = userSpatial.MapPosition;
 
-            _sounds.Play(Protos.Sound.Exitmap1);
-
             var stoodTile = map.Tiles[prevCoords.X, prevCoords.Y].ResolvePrototype().GetStrongID();
 
             var gen = new FieldMapGenerator()
@@ -87,7 +85,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Succeeded;
             }
 
-            return TurnResult.Failed;
+            return TurnResult.Aborted;
         }
     }
 }

@@ -4,6 +4,8 @@ Elona.Nefia = {
             _.name(mapEntity)
         )
     end,
+    PromptGiveUpQuest = "クエストを放棄して階を移動する？",
+
     Level = function(floorNumber)
         return ("%s層"):format(_.ordinal(floorNumber))
     end,
@@ -12,7 +14,7 @@ Elona.Nefia = {
         ReachedDeepestLevel = "どうやら最深層まで辿り着いたらしい…",
         GuardedByLord = function(mapEntity, bossEntity)
             return ("気をつけろ！この階は%sの守護者、%sによって守られている。"):format(
-                mapEntity,
+                _.name(mapEntity),
                 _.basename(bossEntity)
             )
         end,

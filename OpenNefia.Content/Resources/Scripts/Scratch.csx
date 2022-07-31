@@ -40,6 +40,9 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Charas;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -59,6 +62,9 @@ var _loc = IoCManager.Resolve<ILocalizationManager>();
 var _inv = EntitySystem.Get<IInventorySystem>();
 var _mapEntrance = EntitySystem.Get<IMapEntranceSystem>();
 var _effects = EntitySystem.Get<IStatusEffectSystem>();
+var _tags = EntitySystem.Get<ITagSystem>();
+var _factions = EntitySystem.Get<IFactionSystem>();
+var _damage = EntitySystem.Get<IDamageSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -83,6 +89,11 @@ public SpatialComponent entityAt()
 {
     var coords = promptPos();
     return _lookup.GetLiveEntitiesAtCoords(coords).First();
+}
+
+public SpatialComponent spatial(EntityUid uid)
+{
+    return _entityMan.GetComponent<SpatialComponent>(uid);
 }
 
 public void gotoArea(string id)
@@ -128,4 +139,39 @@ public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
 public void clearEffects()
 {
     _effects.RemoveAll(player());
+}
+
+public void gotoDownStairs()
+{
+    var delving = _tags.EntityWithTagInMap(curMap().Id, Protos.Tag.DungeonStairsDelving);
+    if (delving != null)
+    {
+        playerS().Coordinates = spatial(delving.Owner).Coordinates;
+    }
+}
+
+public void gotoUpStairs()
+{
+    var surfacing = _tags.EntityWithTagInMap(curMap().Id, Protos.Tag.DungeonStairsSurfacing);
+    if (surfacing != null)
+    {
+        playerS().Coordinates = spatial(surfacing.Owner).Coordinates;
+    }
+}
+
+public void gotoWithComp<T>() where T: IComponent
+{
+    var comp = _lookup.EntityQueryInMap<T>(curMap().Id).FirstOrDefault();
+    if (comp != null)
+    {
+        playerS().Coordinates = spatial(comp.Owner).Coordinates;
+    }
+}
+
+public void killAllFoes()
+{
+    foreach (var foe in _lookup.EntityQueryInMap<CharaComponent>(curMap()).Where(c => _factions.GetRelationToPlayer(c.Owner) <= Relation.Enemy))
+    {
+        _damage.Kill(foe.Owner, player());
+    }
 }

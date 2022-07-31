@@ -70,12 +70,12 @@ namespace OpenNefia.Content.Effects
 
         public void DamageTileFire(MapCoordinates coords, EntityUid? source)
         {
-            throw new NotImplementedException();
+            // TODO
         }
 
         public void DamageItemsFire(EntityUid target)
         {
-            throw new NotImplementedException();
+            // TODO
         }
 
         public void MakeSound(EntityUid origin, MapCoordinates coords, int tileRadius, float wakeChance, bool isWhistle = false)

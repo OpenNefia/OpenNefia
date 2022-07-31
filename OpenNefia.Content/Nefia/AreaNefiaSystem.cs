@@ -38,6 +38,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Ranks;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Chest;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -63,6 +64,8 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IFameSystem _fame = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
+        [Dependency] private readonly IPlayerQuery _playerQuery = default!;
 
         public override void Initialize()
         {
@@ -77,6 +80,8 @@ namespace OpenNefia.Content.Nefia
 
             SubscribeComponent<MapComponent, GetDisplayNameEventArgs>(GetNefiaMapName, priority: EventPriorities.High);
             SubscribeComponent<NefiaBossComponent, GetDisplayNameEventArgs>(AppendBossLevelToName, priority: EventPriorities.High);
+            SubscribeEntity<MapLeaveEventArgs>(RemoveNefiaBossOnMapLeave);
+            SubscribeEntity<BeforeUseMapEntranceEvent>(CheckNefiaBossBeforeUseEntrance);
 
             SubscribeEntity<EntityKilledEvent>(CheckNefiaBossKilled);
         }
@@ -107,7 +112,7 @@ namespace OpenNefia.Content.Nefia
                 {
                     _mes.Display(Loc.GetString("Elona.Nefia.NoDungeonMaster", ("mapEntity", args.Map.MapEntityUid)));
                 }
-                else if (areaNefia.BossEntityUid == null)
+                else if (areaNefia.State == NefiaState.Visited && areaNefia.BossEntityUid == null)
                 {
                     _deferredEvs.Enqueue(() => EventNefiaBoss(args.Map));
                 }
@@ -125,22 +130,59 @@ namespace OpenNefia.Content.Nefia
 
             areaNefia.BossEntityUid = SpawnBoss(map);
 
-            _mes.Display(Loc.GetString("Nefia.Event.ReachedDeepestLevel"));
-            _mes.Display(Loc.GetString("Nefia.Event.GuardedByLord", ("mapEntity", map.MapEntityUid), ("bossEntity", areaNefia.BossEntityUid)), UiColors.MesRed);
+            _mes.Display(Loc.GetString("Elona.Nefia.Event.ReachedDeepestLevel"));
+            _mes.Display(Loc.GetString("Elona.Nefia.Event.GuardedByLord", ("mapEntity", map.MapEntityUid), ("bossEntity", areaNefia.BossEntityUid)), UiColors.MesRed);
 
             return TurnResult.NoResult;
+        }
+
+        private void RemoveNefiaBossOnMapLeave(EntityUid uid, MapLeaveEventArgs args)
+        {
+            if (!TryArea(args.OldMap, out var area)
+                || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)
+                || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(args.OldMap) && areaNefia.State == NefiaState.Visited)
+            {
+                if (IsAlive(areaNefia.BossEntityUid))
+                    EntityManager.DeleteEntity(areaNefia.BossEntityUid.Value);
+
+                areaNefia.BossEntityUid = null;
+                areaNefia.State = NefiaState.BossVanished;
+            }
+        }
+
+        private void CheckNefiaBossBeforeUseEntrance(EntityUid uid, BeforeUseMapEntranceEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            if (!TryMap(uid, out var map) || !TryArea(map, out var area)
+                || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)
+                || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(map) && areaNefia.State == NefiaState.Visited
+                && IsAlive(areaNefia.BossEntityUid))
+            {
+                if (_playerQuery.YesOrNoOrCancel(Loc.GetString("Elona.Nefia.PromptGiveUpQuest")) != true)
+                {
+                    args.Cancel();
+                    return;
+                }
+            }
         }
 
         private void SetNefiaMusic(EntityUid uid, MapCalcDefaultMusicEvent args)
         {
             if (!TryMap(uid, out var map) || !TryArea(map, out var area)
-                || !TryComp<AreaDungeonComponent>(uid, out var areaDungeon)
+                || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)
                 || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
                 return;
 
             if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(map)
-                && areaNefia.State == NefiaState.Visited
-                && IsAlive(areaNefia.BossEntityUid))
+                && areaNefia.State == NefiaState.Visited)
             {
                 args.OutMusicID = Protos.Music.Boss;
             }
@@ -258,7 +300,7 @@ namespace OpenNefia.Content.Nefia
 
             // >>>>>>>> shade2/main.hsp:1762 	txtEf coGreen:txtQuestComplete:txtMore:txtQuestIt ...
             _mes.Display(Loc.GetString("Elona.Quest.Completed"), UiColors.MesGreen);
-            _mes.Display("Elona.Common.SomethingIsPut");
+            _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
             _ranks.ModifyRank(Protos.Rank.Crawler, 300, 8);
 
             if (TryComp<FameComponent>(_gameSession.Player, out var fame))
