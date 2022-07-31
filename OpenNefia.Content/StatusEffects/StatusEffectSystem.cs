@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Sleep;
@@ -48,7 +49,15 @@ namespace OpenNefia.Content.StatusEffects
 
         public override void Initialize()
         {
+            SubscribeBroadcast<GetStatusIndicatorsEvent>(AddStatusIndicators);
             SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(HandleCharaSleep);
+        }
+
+        private void AddStatusIndicators(GetStatusIndicatorsEvent ev)
+        {
+            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesBlue });
+            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesYellow });
+            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesPurple });
         }
 
         private void HandleCharaSleep(EntityUid uid, StatusEffectsComponent component, OnCharaSleepEvent args)
