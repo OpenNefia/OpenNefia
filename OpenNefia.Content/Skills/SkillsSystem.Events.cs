@@ -17,6 +17,11 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Hud;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core;
+using OpenNefia.Content.UI;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.Skills
 {
@@ -29,12 +34,42 @@ namespace OpenNefia.Content.Skills
 
         public override void Initialize()
         {
+            SubscribeComponent<SkillsComponent, GetStatusIndicatorsEvent>(AddStaminaStatusIndicator, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, EntityBeingGeneratedEvent>(InitDefaultSkills, priority: EventPriorities.Low);
             SubscribeComponent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Low);
             SubscribeComponent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
 
             SubscribeComponent<SkillsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.Low);
+        }
+
+        public const int FatigueThresholdLight = 50;
+        public const int FatigueThresholdModerate = 25;
+        public const int FatigueThresholdHeavy = 0;
+
+        private void AddStaminaStatusIndicator(EntityUid uid, SkillsComponent component, GetStatusIndicatorsEvent args)
+        {
+            Color? color = null;
+            LocaleKey? key = null;
+
+            if (component.Stamina < FatigueThresholdHeavy)
+            {
+                color = UiColors.FatigueIndicatorHeavy;
+                key = "Elona.Skill.Fatigue.Indicator.Heavy";
+            }
+            else if (component.Stamina < FatigueThresholdModerate)
+            {
+                color = UiColors.FatigueIndicatorModerate;
+                key = "Elona.Skill.Fatigue.Indicator.Moderate";
+            }
+            else if (component.Stamina < FatigueThresholdLight)
+            {
+                color = UiColors.FatigueIndicatorLight;
+                key = "Elona.Skill.Fatigue.Indicator.Light";
+            }
+
+            if (color != null && key != null)
+                args.OutIndicators.Add(new() { Text = Loc.GetString(key.Value), Color = color.Value });
         }
 
         public const int MaxSkillLevel = 2000;

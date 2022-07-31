@@ -4,6 +4,7 @@ using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.Hud;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
@@ -17,6 +18,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.World;
+using OpenNefia.Core;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
@@ -25,6 +27,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using System;
@@ -68,10 +71,40 @@ namespace OpenNefia.Content.Sleep
         [Dependency] private readonly MapCommonSystem _mapCommon = default!;
         [Dependency] private readonly IGameController _gameController = default!;
 
+        public override void Initialize()
+        {
+            SubscribeEntity<GetStatusIndicatorsEvent>(AddStatusIndicator);
+        }
+
         public static readonly GameTimeSpan SleepThresholdLight = GameTimeSpan.FromHours(15);
         public static readonly GameTimeSpan SleepThresholdModerate = GameTimeSpan.FromHours(30);
         public static readonly GameTimeSpan SleepThresholdHeavy = GameTimeSpan.FromHours(50);
 
+        private void AddStatusIndicator(EntityUid uid, GetStatusIndicatorsEvent args)
+        {
+            Color? color = null;
+            LocaleKey? key = null;
+            var awakeTime = _world.State.AwakeTime;
+
+            if (awakeTime >= SleepThresholdHeavy)
+            {
+                color = UiColors.SleepIndicatorHeavy;
+                key = "Elona.Sleep.Indicator.Heavy";
+            }
+            else if (awakeTime >= SleepThresholdModerate)
+            {
+                color = UiColors.SleepIndicatorModerate;
+                key = "Elona.Sleep.Indicator.Moderate";
+            }
+            else if (awakeTime >= SleepThresholdLight)
+            {
+                color = UiColors.SleepIndicatorLight;
+                key = "Elona.Sleep.Indicator.Light";
+            }
+
+            if (color != null && key != null)
+                args.OutIndicators.Add(new() { Text = Loc.GetString(key.Value), Color = color.Value });
+        }
         public bool IsPlayerSleeping { get; private set; } = false;
 
         private bool CanSleepRightNow(EntityUid sleeper)

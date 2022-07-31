@@ -87,7 +87,7 @@ namespace OpenNefia.Core.Locale
             return _localization.TryGetPrototypeString(protoId, key, out str, args);
         }
 
-        public static bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
+        public static bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             return _localization.TryGetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, out str, args);
         }

@@ -5,6 +5,7 @@ using OpenNefia.Content.Resists;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.World;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -46,18 +47,37 @@ namespace OpenNefia.Content.StatusEffects
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
-            SubscribeBroadcast<GetStatusIndicatorsEvent>(AddStatusIndicators);
+            SubscribeComponent<StatusEffectsComponent, GetStatusIndicatorsEvent>(AddStatusIndicators, priority: EventPriorities.VeryHigh);
             SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(HandleCharaSleep);
         }
 
-        private void AddStatusIndicators(GetStatusIndicatorsEvent ev)
+        private void AddStatusIndicators(EntityUid uid, StatusEffectsComponent effects, GetStatusIndicatorsEvent ev)
         {
-            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesBlue });
-            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesYellow });
-            ev.OutIndicators.Add(new() { Text = "Dood", Color = UiColors.MesPurple });
+            foreach (var proto in _protos.EnumeratePrototypes<StatusEffectPrototype>())
+            {
+                var id = proto.GetStrongID();
+                if (HasEffect(_gameSession.Player, id, effects))
+                {
+                    var turns = GetTurns(_gameSession.Player, id, effects);
+                    for (var i = proto.Indicators.Count - 1; i > 0; i--)
+                    {
+                        var turnThreshold = proto.Indicators[i];
+                        if (turnThreshold >= turns)
+                        {
+                            ev.OutIndicators.Add(new StatusIndicator()
+                            {
+                                Text = Loc.GetPrototypeString(id, $"Indicator.{i}"),
+                                Color = proto.Color
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void HandleCharaSleep(EntityUid uid, StatusEffectsComponent component, OnCharaSleepEvent args)

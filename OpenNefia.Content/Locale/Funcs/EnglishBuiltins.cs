@@ -344,16 +344,28 @@ namespace OpenNefia.Content.Locale.Funcs
                 return BuiltIn_him(targetEnt);
 
             // Handle "yourself"/"herself".
+            return BuiltIn_himself(targetEnt);
+        }
+
+        [LocaleFunction("himself")]
+        public static string BuiltIn_himself(object? obj)
+        {
+            if (obj is not EntityUid objEntity)
+            {
+                return "itself";
+            }
+
+            // Handle "yourself"/"herself".
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
 
-            if (gameSession.IsPlayer(targetEnt))
+            if (gameSession.IsPlayer(objEntity))
             {
                 return "yourself";
             }
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            if (entMan.TryGetComponent(targetEnt, out CharaComponent chara))
+            if (entMan.TryGetComponent(objEntity, out CharaComponent chara))
             {
                 switch (chara.Gender)
                 {
@@ -366,7 +378,7 @@ namespace OpenNefia.Content.Locale.Funcs
                 }
             }
 
-            if (entMan.TryGetComponent(targetEnt, out StackComponent stack))
+            if (entMan.TryGetComponent(objEntity, out StackComponent stack))
             {
                 if (stack.Count != 1)
                     return "themselves";
@@ -388,6 +400,47 @@ namespace OpenNefia.Content.Locale.Funcs
                 s += $"﻿ {dateTime.Hour}h";
 
             return s;
+        }
+
+        [LocaleFunction("plural")]
+        public static string BuiltIn_plural(object? obj, bool needE = false)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "";
+                    else if (needE)
+                        return "es";
+                    else
+                        return "s";
+
+                case long objLong:
+                    if (objLong == 1)
+                        return "";
+                    else if (needE)
+                        return "es";
+                    else
+                        return "s";
+
+                case EntityUid objEntity:
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count == 1)
+                            return "";
+                        else if (needE)
+                            return "es";
+                        else
+                            return "s";
+                    }
+
+                    return "";
+
+                default:
+                    return "";
+            }
         }
     }
 }

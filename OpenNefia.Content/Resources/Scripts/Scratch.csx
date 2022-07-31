@@ -65,6 +65,7 @@ var _effects = EntitySystem.Get<IStatusEffectSystem>();
 var _tags = EntitySystem.Get<ITagSystem>();
 var _factions = EntitySystem.Get<IFactionSystem>();
 var _damage = EntitySystem.Get<IDamageSystem>();
+var _skills = EntitySystem.Get<ISkillsSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -80,9 +81,9 @@ public MapCoordinates promptPos()
 public T res<T>() => IoCManager.Resolve<T>();
 public T sys<T>() where T : IEntitySystem => EntitySystem.Get<T>();
 
-public T comp<T>(EntityUid uid) where T : class, IComponent
+public T comp<T>(EntityUid? uid = null) where T : class, IComponent
 {
-    return _entityMan.GetComponent<T>(uid);
+    return _entityMan.GetComponent<T>(uid ?? player());
 }
 
 public SpatialComponent entityAt()
