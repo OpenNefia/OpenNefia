@@ -9,7 +9,7 @@ Elona.Magic = {
         end,
         TooDifficult = "It's too difficult!",
         ManaIsAbsorbed = function(chara)
-            return ("%s%s mana is absorbed."):format(_.name(chara), _.his_owned(chara))
+            return ("%s%s mana is absorbed."):format(_.name(chara), _.possessive(chara))
         end,
     },
 }

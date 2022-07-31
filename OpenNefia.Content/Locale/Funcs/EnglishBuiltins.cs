@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Locale.Funcs
         /// Equivalent to (name(entity) + 's/'/r), which is ("you" + "r") for the player.
         /// </remarks>
         /// <hsp>#defcfunc your int tg,int mode</hsp>
-        [LocaleFunction("his_named")]
+        [LocaleFunction("possessive")]
         public static string BuiltIn_his_named(object? obj)
         {
             return SharedBuiltins.BuiltIn_name(obj) + GetPossessiveSuffix(obj);

@@ -8,7 +8,7 @@ Elona.Read = {
             return ("%s start%s to read %s."):format(_.name(reader), _.s(reader), _.name(book, nil, 1))
         end,
         Finish = function(reader, book)
-            return ("%s %s finished reading %s."):format(_.name(reader), _.have(reader), _.name(book, nil, 1))
+            return ("%s %s finished reading %s."):format(_.name(reader), _.has(reader), _.name(book, nil, 1))
         end,
         FallsApart = function(book)
             return ("%s falls apart."):format(_.name(book, nil, 1))
