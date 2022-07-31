@@ -17,9 +17,12 @@ namespace OpenNefia.Content.GameObjects
         public int Charges { get; set; }
 
         [DataField]
-        public int MaxCharges { get; set; }
+        public int MaxCharges { get; set; } = 1;
 
         [DataField]
-        public bool CanBeRecharged { get; set; }
+        public bool CanBeRecharged { get; set; } = true;
+
+        [DataField]
+        public bool DisplayChargeCount { get; set; } = true;
     }
 }

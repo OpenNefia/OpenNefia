@@ -14,6 +14,9 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "AncientBook";
 
         [DataField]
-        public int Difficulty { get; set; }
+        public int DecodeDifficulty { get; set; }
+
+        [DataField]
+        public bool IsDecoded { get; set; }
     }
 }

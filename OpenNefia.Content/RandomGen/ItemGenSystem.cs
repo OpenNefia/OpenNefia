@@ -161,6 +161,7 @@ namespace OpenNefia.Content.RandomGen
             if (id == null)
                 id = PickRandomItemId(args, minLevel, tags, fltselect);
 
+            commonArgs.MinLevel = minLevel;
             if (amount != null)
                 commonArgs.Amount = amount.Value;
             if (quality != null)
