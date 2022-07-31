@@ -1,0 +1,1240 @@
+---
+- type: Elona.Spell
+  id: Elona.EffectMaterialKit
+  hspIds:
+    elona122: 21
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGaroksHammer
+  hspIds:
+    elona122: 49
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.SpellHealLight
+  hspIds:
+    elona122: 400
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 80
+
+- type: Elona.Spell
+  id: Elona.SpellHealCritical
+  hspIds:
+    elona122: 401
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.SpellCureOfEris
+  hspIds:
+    elona122: 402
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 800
+
+- type: Elona.Spell
+  id: Elona.SpellCureOfJure
+  hspIds:
+    elona122: 403
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 1300
+
+- type: Elona.Spell
+  id: Elona.SpellHealingRain
+  hspIds:
+    elona122: 404
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.SpellHealingTouch
+  hspIds:
+    elona122: 405
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.SpellHolyLight
+  hspIds:
+    elona122: 406
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.SpellVanquishHex
+  hspIds:
+    elona122: 407
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 850
+
+- type: Elona.Spell
+  id: Elona.SpellTeleport
+  hspIds:
+    elona122: 408
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.SpellTeleportOther
+  hspIds:
+    elona122: 409
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.SpellShortTeleport
+  hspIds:
+    elona122: 410
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 120
+
+- type: Elona.Spell
+  id: Elona.SpellIdentify
+  hspIds:
+    elona122: 411
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 800
+
+- type: Elona.Spell
+  id: Elona.SpellUncurse
+  hspIds:
+    elona122: 412
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 700
+
+- type: Elona.Spell
+  id: Elona.SpellOracle
+  hspIds:
+    elona122: 413
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 1500
+
+- type: Elona.Spell
+  id: Elona.SpellMagicDart
+  hspIds:
+    elona122: 414
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 110
+
+- type: Elona.Spell
+  id: Elona.SpellNetherArrow
+  hspIds:
+    elona122: 415
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.SpellNerveArrow
+  hspIds:
+    elona122: 416
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 650
+
+- type: Elona.Spell
+  id: Elona.SpellChaosEye
+  hspIds:
+    elona122: 417
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.SpellDarkEye
+  hspIds:
+    elona122: 418
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.SpellIceBolt
+  hspIds:
+    elona122: 419
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 220
+
+- type: Elona.Spell
+  id: Elona.SpellFireBolt
+  hspIds:
+    elona122: 420
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 220
+
+- type: Elona.Spell
+  id: Elona.SpellLightningBolt
+  hspIds:
+    elona122: 421
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 220
+
+- type: Elona.Spell
+  id: Elona.SpellDarknessBolt
+  hspIds:
+    elona122: 422
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.SpellMindBolt
+  hspIds:
+    elona122: 423
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.SpellSummonMonsters
+  hspIds:
+    elona122: 424
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.SpellSummonWild
+  hspIds:
+    elona122: 425
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.SpellReturn
+  hspIds:
+    elona122: 428
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 550
+
+- type: Elona.Spell
+  id: Elona.SpellMagicMap
+  hspIds:
+    elona122: 429
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 450
+
+- type: Elona.Spell
+  id: Elona.SpellSenseObject
+  hspIds:
+    elona122: 430
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 250
+
+- type: Elona.Spell
+  id: Elona.SpellIceBall
+  hspIds:
+    elona122: 431
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 450
+
+- type: Elona.Spell
+  id: Elona.SpellFireBall
+  hspIds:
+    elona122: 432
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 450
+
+- type: Elona.Spell
+  id: Elona.SpellChaosBall
+  hspIds:
+    elona122: 433
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 1000
+
+- type: Elona.Spell
+  id: Elona.SpellRagingRoar
+  hspIds:
+    elona122: 434
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 700
+
+- type: Elona.Spell
+  id: Elona.SpellDominate
+  hspIds:
+    elona122: 435
+  relatedSkill: Elona.AttrCharisma
+  skillType: Spell
+  difficulty: 2000
+
+- type: Elona.Spell
+  id: Elona.SpellWeb
+  hspIds:
+    elona122: 436
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 150
+
+- type: Elona.Spell
+  id: Elona.SpellMistOfDarkness
+  hspIds:
+    elona122: 437
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 320
+
+- type: Elona.Spell
+  id: Elona.SpellWallCreation
+  hspIds:
+    elona122: 438
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 250
+
+- type: Elona.Spell
+  id: Elona.SpellRestoreBody
+  hspIds:
+    elona122: 439
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 250
+
+- type: Elona.Spell
+  id: Elona.SpellRestoreSpirit
+  hspIds:
+    elona122: 440
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 250
+
+- type: Elona.Spell
+  id: Elona.SpellWish
+  hspIds:
+    elona122: 441
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 5250
+
+- type: Elona.Spell
+  id: Elona.BuffHolyShield
+  hspIds:
+    elona122: 442
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 150
+
+- type: Elona.Spell
+  id: Elona.BuffMistOfSilence
+  hspIds:
+    elona122: 443
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 620
+
+- type: Elona.Spell
+  id: Elona.BuffRegeneration
+  hspIds:
+    elona122: 444
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 400
+
+- type: Elona.Spell
+  id: Elona.BuffElementalShield
+  hspIds:
+    elona122: 445
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.BuffSpeed
+  hspIds:
+    elona122: 446
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 1050
+
+- type: Elona.Spell
+  id: Elona.BuffSlow
+  hspIds:
+    elona122: 447
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 450
+
+- type: Elona.Spell
+  id: Elona.BuffHero
+  hspIds:
+    elona122: 448
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 80
+
+- type: Elona.Spell
+  id: Elona.BuffMistOfFrailness
+  hspIds:
+    elona122: 449
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 300
+
+- type: Elona.Spell
+  id: Elona.BuffElementScar
+  hspIds:
+    elona122: 450
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 600
+
+- type: Elona.Spell
+  id: Elona.BuffHolyVeil
+  hspIds:
+    elona122: 451
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 900
+
+- type: Elona.Spell
+  id: Elona.BuffNightmare
+  hspIds:
+    elona122: 452
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.BuffDivineWisdom
+  hspIds:
+    elona122: 453
+  relatedSkill: Elona.AttrLearning
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.SpellMutation
+  hspIds:
+    elona122: 454
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 2250
+
+- type: Elona.Spell
+  id: Elona.SpellAcidGround
+  hspIds:
+    elona122: 455
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 480
+
+- type: Elona.Spell
+  id: Elona.SpellFireWall
+  hspIds:
+    elona122: 456
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 640
+
+- type: Elona.Spell
+  id: Elona.SpellDoorCreation
+  hspIds:
+    elona122: 457
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.BuffIncognito
+  hspIds:
+    elona122: 458
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 250
+
+- type: Elona.Spell
+  id: Elona.SpellCrystalSpear
+  hspIds:
+    elona122: 459
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 950
+
+- type: Elona.Spell
+  id: Elona.SpellMagicStorm
+  hspIds:
+    elona122: 460
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 1400
+
+- type: Elona.Spell
+  id: Elona.SpellResurrection
+  hspIds:
+    elona122: 461
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 1650
+
+- type: Elona.Spell
+  id: Elona.BuffContingency
+  hspIds:
+    elona122: 462
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+  difficulty: 1250
+
+- type: Elona.Spell
+  id: Elona.FourDimensionalPocket
+  hspIds:
+    elona122: 463
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+  difficulty: 750
+
+- type: Elona.Spell
+  id: Elona.SpellWizardsHarvest
+  hspIds:
+    elona122: 464
+  relatedSkill: Elona.AttrCharisma
+  skillType: Spell
+  difficulty: 350
+
+- type: Elona.Spell
+  id: Elona.SpellMeteor
+  hspIds:
+    elona122: 465
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 1450
+
+- type: Elona.Spell
+  id: Elona.SpellGravity
+  hspIds:
+    elona122: 466
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 750
+
+- type: Elona.Spell
+  id: Elona.ActionDrainBlood
+  hspIds:
+    elona122: 601
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionFireBreath
+  hspIds:
+    elona122: 602
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionColdBreath
+  hspIds:
+    elona122: 603
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionLightningBreath
+  hspIds:
+    elona122: 604
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDarknessBreath
+  hspIds:
+    elona122: 605
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionChaosBreath
+  hspIds:
+    elona122: 606
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionSoundBreath
+  hspIds:
+    elona122: 607
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionNetherBreath
+  hspIds:
+    elona122: 608
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionNerveBreath
+  hspIds:
+    elona122: 609
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionPoisonBreath
+  hspIds:
+    elona122: 610
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionMindBreath
+  hspIds:
+    elona122: 611
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionPowerBreath
+  hspIds:
+    elona122: 612
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfWeakness
+  hspIds:
+    elona122: 613
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfHunger
+  hspIds:
+    elona122: 614
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfPoison
+  hspIds:
+    elona122: 615
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfNerve
+  hspIds:
+    elona122: 616
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfFear
+  hspIds:
+    elona122: 617
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionTouchOfSleep
+  hspIds:
+    elona122: 618
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionShadowStep
+  hspIds:
+    elona122: 619
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+
+- type: Elona.Spell
+  id: Elona.ActionDimensionalMove
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionHarvestMana
+  hspIds:
+    elona122: 621
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 700
+
+- type: Elona.Spell
+  id: Elona.BuffPunishment
+  hspIds:
+    elona122: 622
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionPrayerOfJure
+  hspIds:
+    elona122: 623
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionAbsorbMagic
+  hspIds:
+    elona122: 624
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.BuffLulwysTrick
+  hspIds:
+    elona122: 625
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionMirror
+  hspIds:
+    elona122: 626
+  relatedSkill: Elona.AttrPerception
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionChange
+  hspIds:
+    elona122: 628
+  relatedSkill: Elona.AttrPerception
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDrawCharge
+  hspIds:
+    elona122: 629
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionFillCharge
+  hspIds:
+    elona122: 630
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionSwarm
+  hspIds:
+    elona122: 631
+  relatedSkill: Elona.AttrStrength
+  skillType: Action
+  difficulty: 220
+
+- type: Elona.Spell
+  id: Elona.ActionEyeOfMutation
+  hspIds:
+    elona122: 632
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionEyeOfEther
+  hspIds:
+    elona122: 633
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+  difficulty: 480
+
+- type: Elona.Spell
+  id: Elona.ActionSuspiciousHand
+  hspIds:
+    elona122: 635
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionEyeOfInsanity
+  hspIds:
+    elona122: 636
+  relatedSkill: Elona.AttrCharisma
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionEyeOfDimness
+  hspIds:
+    elona122: 638
+  relatedSkill: Elona.AttrCharisma
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 200
+
+- type: Elona.Spell
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  relatedSkill: Elona.AttrConstitution
+  skillType: Action
+  difficulty: 450
+
+- type: Elona.Spell
+  id: Elona.ActionCurse
+  hspIds:
+    elona122: 645
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 100
+
+- type: Elona.Spell
+  id: Elona.BuffDeathWord
+  hspIds:
+    elona122: 646
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.BuffBoost
+  hspIds:
+    elona122: 647
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionInsult
+  hspIds:
+    elona122: 648
+  relatedSkill: Elona.AttrCharisma
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDistantAttack4
+  hspIds:
+    elona122: 649
+  relatedSkill: Elona.AttrStrength
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDistantAttack7
+  hspIds:
+    elona122: 650
+  relatedSkill: Elona.AttrStrength
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionScavenge
+  hspIds:
+    elona122: 651
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionEyeOfMana
+  hspIds:
+    elona122: 652
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionVanish
+  hspIds:
+    elona122: 653
+  relatedSkill: Elona.AttrPerception
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionPregnant
+  hspIds:
+    elona122: 654
+  relatedSkill: Elona.AttrPerception
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+  difficulty: 700
+
+- type: Elona.Spell
+  id: Elona.ActionCheer
+  hspIds:
+    elona122: 656
+  relatedSkill: Elona.AttrCharisma
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionMewmewmew
+  hspIds:
+    elona122: 657
+  relatedSkill: Elona.AttrLuck
+  skillType: Action
+  difficulty: 500
+
+- type: Elona.Spell
+  id: Elona.ActionDecapitation
+  hspIds:
+    elona122: 658
+  relatedSkill: Elona.AttrDexterity
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionDropMine
+  hspIds:
+    elona122: 659
+  relatedSkill: Elona.AttrMagic
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.ActionManisDisassembly
+  hspIds:
+    elona122: 660
+  relatedSkill: Elona.AttrWill
+  skillType: Action
+
+- type: Elona.Spell
+  id: Elona.EffectMilk
+  hspIds:
+    elona122: 1101
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectAle
+  hspIds:
+    elona122: 1102
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectWater
+  hspIds:
+    elona122: 1103
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainKnowledge
+  hspIds:
+    elona122: 1104
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainSkill
+  hspIds:
+    elona122: 1105
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectPunishDecrementStats
+  hspIds:
+    elona122: 1106
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainFaith
+  hspIds:
+    elona122: 1107
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectPoison
+  hspIds:
+    elona122: 1108
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectConfuse
+  hspIds:
+    elona122: 1109
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectParalyze
+  hspIds:
+    elona122: 1110
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectBlind
+  hspIds:
+    elona122: 1111
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectSleep
+  hspIds:
+    elona122: 1112
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainPotential
+  hspIds:
+    elona122: 1113
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectCurse
+  hspIds:
+    elona122: 1114
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectDeed
+  hspIds:
+    elona122: 1115
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectSulfuric
+  hspIds:
+    elona122: 1116
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectCreateMaterial
+  hspIds:
+    elona122: 1117
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectWeakenResistance
+  hspIds:
+    elona122: 1118
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainSkillPotential
+  hspIds:
+    elona122: 1119
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectElixir
+  hspIds:
+    elona122: 1120
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectCureMutation
+  hspIds:
+    elona122: 1121
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainAlly
+  hspIds:
+    elona122: 1122
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainYoungerSister
+  hspIds:
+    elona122: 1123
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectEnchantWeapon
+  hspIds:
+    elona122: 1124
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectEnchantArmor
+  hspIds:
+    elona122: 1125
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectChangeMaterial
+  hspIds:
+    elona122: 1127
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectDeedOfInheritance
+  hspIds:
+    elona122: 1128
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectRecharge
+  hspIds:
+    elona122: 1129
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectDirtyWater
+  hspIds:
+    elona122: 1130
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectCureCorruption
+  hspIds:
+    elona122: 1131
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectAlchemy
+  hspIds:
+    elona122: 1132
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectMolotov
+  hspIds:
+    elona122: 1133
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectLovePotion
+  hspIds:
+    elona122: 1135
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectTreasureMap
+  hspIds:
+    elona122: 1136
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainYoungLady
+  hspIds:
+    elona122: 1137
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectGainCatSister
+  hspIds:
+    elona122: 1138
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectTrollBlood
+  hspIds:
+    elona122: 1139
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectFlight
+  hspIds:
+    elona122: 1140
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectEscape
+  hspIds:
+    elona122: 1141
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectSalt
+  hspIds:
+    elona122: 1142
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectDescent
+  hspIds:
+    elona122: 1143
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectEvolution
+  hspIds:
+    elona122: 1144
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectName
+  hspIds:
+    elona122: 1145
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectSoda
+  hspIds:
+    elona122: 1146
+  skillType: Effect
+
+- type: Elona.Spell
+  id: Elona.EffectCupsule
+  hspIds:
+    elona122: 1147
+  skillType: Effect
+...

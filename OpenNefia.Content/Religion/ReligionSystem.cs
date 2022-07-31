@@ -8,9 +8,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.UI.Layer;
-using OpenNefia.Content.Magic;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameController;
@@ -29,6 +27,7 @@ using OpenNefia.Content.World;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.GameController;
+using OpenNefia.Content.Spells;
 
 namespace OpenNefia.Content.Religion
 {
@@ -66,7 +65,7 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IMagicSystem _magic = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IGameController _gameController = default!;
@@ -309,7 +308,7 @@ namespace OpenNefia.Content.Religion
                 _mes.Display(Loc.GetString("Elona.Religion.Enranged", ("godName", godName)), UiColors.MesPurple);
                 GodSays(religion.GodID.Value, "Elona.GodStopBelievingIn");
 
-                _magic.Cast(Protos.Magic.BuffPunishment, power: 10000, target: target);
+                _spells.Cast(Protos.Spell.BuffPunishment, power: 10000, target: target);
                 _audio.Play(Protos.Sound.Punish1, target);
                 _gameController.Wait(0.5f);
             }
@@ -384,8 +383,8 @@ namespace OpenNefia.Content.Religion
             _drawables.Enqueue(anim, spatial.MapPosition);
             _audio.Play(Protos.Sound.Pray2, target);
 
-            _magic.Cast(Protos.Magic.EffectElixir, power: 100, target: target);
-            _magic.Cast(Protos.Magic.BuffHolyVeil, power: 200, target: target);
+            _spells.Cast(Protos.Spell.EffectElixir, power: 100, target: target);
+            _spells.Cast(Protos.Spell.BuffHolyVeil, power: 200, target: target);
 
             religion.PrayerCharge = 0;
             religion.Piety = Math.Max(religion.Piety * 85 / 100, 0);
@@ -601,15 +600,15 @@ namespace OpenNefia.Content.Religion
 
         public void Punish(EntityUid chara)
         {
-            _magic.Cast(Protos.Magic.Curse, power: 500, target: chara);
+            _spells.Cast(Protos.Spell.ActionCurse, power: 500, target: chara);
             if (_rand.OneIn(2))
             {
-                _magic.Cast(Protos.Magic.BuffPunishment, power: 250, target: chara);
+                _spells.Cast(Protos.Spell.BuffPunishment, power: 250, target: chara);
                 _audio.Play(Protos.Sound.Punish1, chara);
             }
             if (_rand.OneIn(2))
             {
-                _magic.Cast(Protos.Magic.EffectPunishDecrementStats, power: 100, target: chara);
+                _spells.Cast(Protos.Spell.EffectPunishDecrementStats, power: 100, target: chara);
             }
         }
     }

@@ -4,6 +4,7 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Fame;
+using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.InUse;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
@@ -12,6 +13,7 @@ using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Sleep;
+using OpenNefia.Content.Spells;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Visibility;
@@ -21,6 +23,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 
@@ -54,10 +57,15 @@ namespace OpenNefia.Content.Activity
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         public override void Initialize()
         {
             Initialize_Resting();
+            Initialize_ReadingSpellbook();
             Initialize_Eating();
             Initialize_Traveling();
             Initialize_Mining();

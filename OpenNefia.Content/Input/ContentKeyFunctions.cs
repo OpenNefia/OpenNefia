@@ -3,7 +3,8 @@
 namespace OpenNefia.Content.Input
 {
     /// <summary>
-    /// NOTE: When adding a new key function here, be sure to register it in <see cref="ContentContexts"/> also.
+    /// NOTE: When adding a new key function here, be sure to register it in <see
+    /// cref="ContentContexts"/> and keybinds.yml also.
     /// </summary>
     [KeyFunctions]
     public static class ContentKeyFunctions
@@ -30,6 +31,7 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Bash = "Elona.Bash";
         public static readonly BoundKeyFunction Rest = "Elona.Rest";
         public static readonly BoundKeyFunction Use = "Elona.Use";
+        public static readonly BoundKeyFunction Read = "Elona.Read";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
         public static readonly BoundKeyFunction CharaInfo = "Elona.CharaInfo";
         public static readonly BoundKeyFunction Equipment = "Elona.Equipment";

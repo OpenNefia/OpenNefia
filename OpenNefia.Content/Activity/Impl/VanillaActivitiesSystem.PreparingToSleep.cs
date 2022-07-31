@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityPreparingToSleepComponent, OnActivityStartEvent>(PreparingToSleep_OnStart);
             SubscribeComponent<ActivityPreparingToSleepComponent, OnActivityPassTurnEvent>(PreparingToSleep_OnPassTurn);
             SubscribeComponent<ActivityPreparingToSleepComponent, OnActivityFinishEvent>(PreparingToSleep_OnFinish);
+            SubscribeComponent<ActivityPreparingToSleepComponent, OnActivityCleanupEvent>(PreparingToSleep_OnCleanup);
         }
 
         private void PreparingToSleep_OnStart(EntityUid activity, ActivityPreparingToSleepComponent component, OnActivityStartEvent args)
@@ -57,7 +58,11 @@ namespace OpenNefia.Content.Activity
         {
             _mes.Display(Loc.GetString("Elona.Sleep.Activity.Finish"));
             _sleep.Sleep(args.Activity.Actor, component.Bed);
-            if (IsAlive(component.Bed))
+        }
+
+        private void PreparingToSleep_OnCleanup(EntityUid uid, ActivityPreparingToSleepComponent component, OnActivityCleanupEvent args)
+        {
+            if (component.Bed != null)
                 _inUse.RemoveItemInUse(args.Activity.Actor, component.Bed.Value);
         }
     }
