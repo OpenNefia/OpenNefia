@@ -58,5 +58,7 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec ItemDescFlavorItalic = new(13, 11, style: FontStyle.Italic);
 
         public static readonly FontSpec EquipmentEquipSlotName = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
+
+        public static readonly FontSpec StatusIndicatorText = new(13, 11); // 13 - en * 2
     }
 }

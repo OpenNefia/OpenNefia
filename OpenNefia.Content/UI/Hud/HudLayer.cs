@@ -27,6 +27,7 @@ using OpenNefia.Content.Currency;
 using OpenNefia.Content.Hud;
 using System.Diagnostics.CodeAnalysis;
 using static OpenNefia.Content.Hud.HudAttributeWidget;
+using ICSharpCode.Decompiler.Semantics;
 
 namespace OpenNefia.Content.UI.Hud
 {
@@ -100,8 +101,14 @@ namespace OpenNefia.Content.UI.Hud
         {
             CanKeyboardFocus = true;
 
+            foreach (var widget in Widgets)
+            {
+                RemoveChild(widget.Widget);
+            }
+            Widgets.Clear();
+
             AddDefaultWidgets();
-            
+
             // This is so the widgets will have the correct UI scaling.
             foreach (var widget in Widgets)
             {
@@ -118,18 +125,19 @@ namespace OpenNefia.Content.UI.Hud
             {
                 widget.Widget.RefreshWidget();
             }
+            UpdateWidgetPositions();
         }
 
         private void AddDefaultWidgets()
         {
             HudMessageWindow = new HudMessageBoxWidget();
 
-            Widgets.Add(new(HudMessageWindow, WidgetAnchor.BottomLeft, 
-                new(HudMinimapWidget.MinimapWidth + 25, -84), 
-                () => new(Width - HudMinimapWidget.MinimapWidth - 75, 
+            Widgets.Add(new(HudMessageWindow, WidgetAnchor.BottomLeft,
+                new(HudMinimapWidget.MinimapWidth + 25, -84 + Constants.INF_MSGH),
+                () => new(Width - HudMinimapWidget.MinimapWidth - 75,
                 0)));
 
-            Widgets.Add(new(new HudMinimapWidget(), WidgetAnchor.BottomLeft, new(0, -HudMinimapWidget.MinimapHeight)));
+            Widgets.Add(new(new HudMinimapWidget(), WidgetAnchor.BottomLeft, new(0, 0)));
             Widgets.Add(new(new HudExpWidget(), WidgetAnchor.BottomLeft, new(5, -104)));
             Widgets.Add(new(new HudAreaNameWidget(), WidgetAnchor.BottomLeft, new(HudMinimapWidget.MinimapWidth + 18, -17)));
             Widgets.Add(new(new HudDateWidget(), WidgetAnchor.TopLeft, new(80, 8)));
@@ -144,17 +152,18 @@ namespace OpenNefia.Content.UI.Hud
                 iconX += 47;
             }
 
-            Widgets.Add(new(new HudHPBarWidget(), WidgetAnchor.BottomLeft, new(260, -100), flags: WidgetDrawFlags.Normal));
-            Widgets.Add(new(new HudMPBarWidget(), WidgetAnchor.BottomLeft, new(400, -100), flags: WidgetDrawFlags.Normal));
+            Widgets.Add(new(new HudHPBarWidget(), WidgetAnchor.BottomLeft, new(260, -93), flags: WidgetDrawFlags.Normal));
+            Widgets.Add(new(new HudMPBarWidget(), WidgetAnchor.BottomLeft, new(400, -93), flags: WidgetDrawFlags.Normal));
 
             Widgets.Add(new(new HudGoldWidget(), WidgetAnchor.BottomRight, new(-220, -104), flags: WidgetDrawFlags.Normal));
             Widgets.Add(new(new HudPlatinumWidget(), WidgetAnchor.BottomRight, new(-90, -104), flags: WidgetDrawFlags.Normal));
 
-            Widgets.Add(new(new HudAutoTurnWidget(), WidgetAnchor.BottomRight, new(-156, -30), flags: WidgetDrawFlags.Never));
+            Widgets.Add(new(new HudAutoTurnWidget(), WidgetAnchor.BottomRight, new(-156, -55), flags: WidgetDrawFlags.Never));
+            Widgets.Add(new(new HudStatusIndicators(), WidgetAnchor.BottomLeft, new(8, -118)));
         }
 
         public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
-            where T: class, IHudWidget
+            where T : class, IHudWidget
         {
             foreach (var other in Widgets)
             {
@@ -201,23 +210,28 @@ namespace OpenNefia.Content.UI.Hud
         {
             base.SetPosition(x, y);
 
-            foreach(var widget in Widgets)
-            {
-                Vector2 anchor = widget.Anchor switch
-                {
-                    WidgetAnchor.BottomLeft => new(0, Height),
-                    WidgetAnchor.BottomRight => new(Width, Height),
-                    WidgetAnchor.TopRight => new(Width, 0),
-                    _ => new(0, 0),
-                };
-                widget.Widget.SetPosition(anchor.X + widget.Position.X, anchor.Y + widget.Position.Y);
-            }
+            UpdateWidgetPositions();
 
             FpsCounter.Update(0); // so that TextWidth is available
             FpsCounter.SetPosition(Width - FpsCounter.Text.TextWidth - 5, 5);
             MessageBoxBacking.SetPosition(0, Height - HudMinimapWidget.MinimapHeight);
             HudBar.SetPosition(0, Height - 18);
             BacklogBacking.SetPosition(127, Height - 467);
+        }
+
+        private void UpdateWidgetPositions()
+        {
+            foreach (var widget in Widgets)
+            {
+                Vector2 anchor = widget.Anchor switch
+                {
+                    WidgetAnchor.BottomLeft => new(0, Height - widget.Widget.Height),
+                    WidgetAnchor.BottomRight => new(Width - widget.Widget.Width, Height - widget.Widget.Height),
+                    WidgetAnchor.TopRight => new(Width - widget.Widget.Width, 0),
+                    _ => new(0, 0),
+                };
+                widget.Widget.SetPosition(anchor.X + widget.Position.X, anchor.Y + widget.Position.Y);
+            }
         }
 
         public override void Update(float dt)
