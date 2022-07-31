@@ -18,6 +18,7 @@ local IItemMeleeWeapon = require "mod.elona.api.aspect.IItemMeleeWeapon"
 local IItemRangedWeapon = require "mod.elona.api.aspect.IItemRangedWeapon"
 local IItemAmmo = require "mod.elona.api.aspect.IItemAmmo"
 local IItemFood = require "mod.elona.api.aspect.IItemFood"
+local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -200,6 +201,23 @@ local function comp(t, name)
     local c = automagic()
     c.type = name
     t.components[#t.components + 1] = c
+    return c
+end
+
+local function extData(t, name)
+    if t.extendedData == nil then
+        t.extendedData = {}
+    end
+
+    for _, c in ipairs(t.extendedData) do
+        if c.type == name then
+            return c
+        end
+    end
+
+    local c = automagic()
+    c.type = name
+    t.extendedData[#t.extendedData + 1] = c
     return c
 end
 
@@ -521,6 +539,17 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.treasure_map" then
         c = comp(to, "TreasureMap")
+    end
+
+    local spellbook = from._ext and from._ext[IItemSpellbook]
+    if spellbook then
+        c = comp(to, "Spellbook")
+        field(spellbook, c, "skill_id", dotted, "skillID")
+
+        c = comp(to, "Charged")
+        field(spellbook, c, "charges")
+        field(spellbook, c, "max_charges")
+        field(spellbook, c, "can_be_recharged")
     end
 end
 
@@ -959,6 +988,19 @@ end
 
 handlers["elona.ex_help"] = function(from, to) end
 
+handlers["base.skill"] = function(from, to)
+    local difficulty = from.difficulty
+    local magic = data["base.magic"][from._id]
+    if magic then
+        difficulty = magic.difficulty or difficulty
+    end
+
+    if difficulty ~= 0 then
+        local e = extData(to, "ExtSkillDifficulty")
+        field(from, e, "difficulty")
+    end
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1163,8 +1205,7 @@ namespace %s
     file:close()
 end
 
-local function write(ty, filename, namespace)
-    tags = {}
+local function make_datas(ty)
     local sort_ = sorts[ty] or sort
     local datas = data[ty]
         :iter()
@@ -1175,9 +1216,26 @@ local function write(ty, filename, namespace)
         end)
         :to_list()
 
-    local file = io.open(("%s/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(rootDir, filename), "w")
-    file:write(lyaml.dump({ datas }, { tag_directives = tags }))
-    file:close()
+    return datas
+end
+
+local function make_yaml(datas, tags)
+    return lyaml.dump({ datas }, { tag_directives = tags })
+end
+
+local function write(ty, filename, namespace)
+    tags = {}
+    local datas = make_datas(ty)
+    local yml = make_yaml(datas)
+
+    if type(filename) == "function" then
+        filename(datas, yml)
+        return
+    else
+        local file = io.open(("%s/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(rootDir, filename), "w")
+        file:write(yml)
+        file:close()
+    end
 
     if namespace then
         write_protos_file(ty, datas, namespace)
@@ -1234,6 +1292,14 @@ write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
 -- end
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
+
+write("base.skill", function(datas)
+    print(make_yaml(fun.iter(datas)
+        :filter(function(i)
+            return rawget(i, "extendedData")
+        end)
+        :to_list()))
+end)
 
 -- Local Variables:
 -- open-nefia-always-send-to-repl: t

@@ -53,7 +53,17 @@ namespace OpenNefia.Content.Skills
 
         #endregion
 
-        #region Leveling
+        #region Leveling (Shared)
+        
+        void GainSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
+        
+        void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);
+        
+        void ModifyPotential(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int delta);
+        
+        #endregion
+
+        #region Leveling (Skills)
 
         void ModifyPotential(EntityUid uid, PrototypeId<SkillPrototype> skillId, int delta, SkillsComponent? skills = null);
         void ModifyPotential(EntityUid uid, SkillPrototype skillProto, int delta, SkillsComponent? skills = null);

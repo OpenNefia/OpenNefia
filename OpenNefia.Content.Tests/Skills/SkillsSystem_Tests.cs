@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Tests.Skills
     /// </summary>
     [TestFixture, Parallelizable]
     [TestOf(typeof(SkillsSystem))]
-    public class SkillsSystem_Tests : OpenNefiaUnitTest
+    public class SpellsSystem_Tests : OpenNefiaUnitTest
     {
         private static readonly PrototypeId<EntityPrototype> TestSkillsEntityID = new("TestSkillsEntity");
 
@@ -98,6 +98,7 @@ namespace OpenNefia.Content.Tests.Skills
                 Assert.That(skillStr.Experience, Is.EqualTo(265));
                 Assert.That(skillStr.Potential, Is.EqualTo(72));
 
+                // Random.
                 Assert.That(level.Experience, Is.EqualTo(4673));
             });
         }
@@ -154,6 +155,7 @@ namespace OpenNefia.Content.Tests.Skills
 
             Assert.Multiple(() =>
             {
+                // Random.
                 Assert.That(level.Experience, Is.EqualTo(1175));
             });
         }

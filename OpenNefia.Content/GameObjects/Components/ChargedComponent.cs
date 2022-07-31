@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Spells;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,11 +9,17 @@ namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class SpellbookComponent : Component
+    public sealed class ChargedComponent : Component
     {
-        public override string Name => "Spellbook";
+        public override string Name => "Charged";
 
         [DataField]
-        public PrototypeId<SpellPrototype> SpellID { get; set; }
+        public int Charges { get; set; }
+
+        [DataField]
+        public int MaxCharges { get; set; }
+
+        [DataField]
+        public bool CanBeRecharged { get; set; }
     }
 }

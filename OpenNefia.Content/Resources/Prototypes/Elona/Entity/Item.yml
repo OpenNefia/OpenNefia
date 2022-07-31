@@ -502,6 +502,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellTeleport
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemSpellbookOfIdentify
   parent: BaseItem
@@ -520,6 +525,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellIdentify
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfUncurse
   parent: BaseItem
@@ -538,6 +548,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellUncurse
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemBookUnreadable
   parent: BaseItem
@@ -739,6 +754,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellIceBolt
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfFireBolt
   parent: BaseItem
@@ -757,6 +777,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellFireBolt
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfLightningBolt
   parent: BaseItem
@@ -775,6 +800,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellLightningBolt
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemEarthCrystal
   parent: BaseItem
@@ -2624,6 +2654,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellTeleport
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemEmptyBasket
   parent: BaseItem
@@ -2660,6 +2695,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellSummonMonsters
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemRodOfCureMinorWound
   parent: BaseItem
@@ -5528,6 +5568,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellMagicMap
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfOracle
   parent: BaseItem
@@ -5551,6 +5596,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellOracle
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemSpellbookOfReturn
   parent: BaseItem
@@ -5574,6 +5624,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellReturn
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfCureMinorWound
   parent: BaseItem
@@ -5592,6 +5647,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellHealLight
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemSpellbookOfCureCriticalWound
   parent: BaseItem
@@ -5610,6 +5670,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellHealCritical
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfCureEris
   parent: BaseItem
@@ -5633,6 +5698,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellCureOfEris
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfCureJure
   parent: BaseItem
@@ -5656,6 +5726,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellCureOfJure
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemBottleOfBeer
   parent: BaseItem
@@ -5753,6 +5828,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellMagicDart
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemStickBread
   parent: BaseItem
@@ -5890,6 +5970,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellNetherArrow
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfChaosEye
   parent: BaseItem
@@ -5913,6 +5998,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellChaosEye
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfNerveEye
   parent: BaseItem
@@ -5931,6 +6021,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellNerveArrow
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemWakizashi
   parent: BaseItem
@@ -5980,6 +6075,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellDarknessBolt
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfIllusionBeam
   parent: BaseItem
@@ -5998,6 +6098,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellMindBolt
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfIceBall
   parent: BaseItem
@@ -6016,6 +6121,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellIceBall
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfFireBall
   parent: BaseItem
@@ -6034,6 +6144,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellFireBall
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfSoundBall
   parent: BaseItem
@@ -6057,6 +6172,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellRagingRoar
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfChaosBall
   parent: BaseItem
@@ -6080,6 +6200,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellChaosBall
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemFireWood
   parent: BaseItem
@@ -6425,6 +6550,10 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellWish
+  - type: Charged
+    charges: 1
 - type: Entity
   id: Elona.ItemRodOfWishing
   parent: BaseItem
@@ -8243,6 +8372,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffHolyShield
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemRodOfSilence
   parent: BaseItem
@@ -8284,6 +8418,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffMistOfSilence
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemPotionOfSilence
   parent: BaseItem
@@ -8326,6 +8465,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffRegeneration
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemPotionOfTrollBlood
   parent: BaseItem
@@ -8367,6 +8511,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffElementalShield
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemPotionOfResistance
   parent: BaseItem
@@ -8408,6 +8557,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffSpeed
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfSlow
   parent: BaseItem
@@ -8431,6 +8585,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffSlow
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemPotionOfSpeed
   parent: BaseItem
@@ -8509,6 +8668,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffHero
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemPotionOfHero
   parent: BaseItem
@@ -8550,6 +8714,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffMistOfFrailness
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfElementalScar
   parent: BaseItem
@@ -8573,6 +8742,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffElementScar
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemPotionOfWeakness
   parent: BaseItem
@@ -8615,6 +8789,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffHolyVeil
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemScrollOfHolyVeil
   parent: BaseItem
@@ -8684,6 +8863,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellHolyLight
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfHolyRain
   parent: BaseItem
@@ -8707,6 +8891,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellVanquishHex
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemScrollOfHolyLight
   parent: BaseItem
@@ -8899,6 +9088,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffNightmare
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSpellbookOfKnowledge
   parent: BaseItem
@@ -8922,6 +9116,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffDivineWisdom
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemScrollOfKnowledge
   parent: BaseItem
@@ -9173,6 +9372,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellSenseObject
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemScrollOfDetectObjects
   parent: BaseItem
@@ -9838,6 +10042,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellMutation
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemBandedMail
   parent: BaseItem
@@ -11003,6 +11212,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellDominate
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemCrossbow
   parent: BaseItem
@@ -11098,6 +11312,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellWeb
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemRodOfWeb
   parent: BaseItem
@@ -12649,6 +12868,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellWallCreation
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemSalaryChest
   parent: BaseItem
@@ -12696,6 +12920,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellHealingRain
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemScrollOfHealingRain
   parent: BaseItem
@@ -12743,6 +12972,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellHealingTouch
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemRodOfHealingHands
   parent: BaseItem
@@ -13102,6 +13336,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellAcidGround
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemRodOfAcidGround
   parent: BaseItem
@@ -13217,6 +13456,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellFireWall
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemRodOfFireWall
   parent: BaseItem
@@ -13517,6 +13761,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellDoorCreation
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemTorch
   parent: BaseItem
@@ -14588,6 +14837,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffIncognito
+  - type: Charged
+    charges: 4
+    maxCharges: 4
 - type: Entity
   id: Elona.ItemDisguiseSet
   parent: BaseItem
@@ -15352,6 +15606,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellDarkEye
+  - type: Charged
+    charges: 5
+    maxCharges: 5
 - type: Entity
   id: Elona.ItemDalIThalion
   parent: BaseItem
@@ -16456,6 +16715,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellMagicStorm
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemSpellbookOfMagicLaser
   parent: BaseItem
@@ -16479,6 +16743,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellCrystalSpear
+  - type: Charged
+    charges: 2
+    maxCharges: 2
 - type: Entity
   id: Elona.ItemPotionOfSaltSolution
   parent: BaseItem
@@ -16807,6 +17076,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.BuffContingency
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemPotionOfEvolution
   parent: BaseItem
@@ -17548,6 +17822,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellFourDimensionalPocket
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSpellbookOfHarvest
   parent: BaseItem
@@ -17571,6 +17850,11 @@
     originalnameref2: spellbook
   - type: Weight
     weight: 380
+  - type: Spellbook
+    skillID: Elona.SpellWizardsHarvest
+  - type: Charged
+    charges: 3
+    maxCharges: 3
 - type: Entity
   id: Elona.ItemSandBag
   parent: BaseItem

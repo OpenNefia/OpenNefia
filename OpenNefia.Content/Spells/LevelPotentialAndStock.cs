@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Spells
     public class LevelPotentialAndStock : IEquatable<LevelPotentialAndStock>
     {
         public LevelPotentialAndStock() { }
-        
+
         public LevelPotentialAndStock(int level = 1, int potential = LevelAndPotential.DefaultPotential, int experience = 0, int spellStock = 0)
         {
             Stats = new LevelAndPotential(level, potential, experience);
@@ -24,9 +24,9 @@ namespace OpenNefia.Content.Spells
         [DataField]
         public LevelAndPotential Stats { get; } = new();
 
-        public Stat<int> Level => Stats.Level;
-        public int Potential => Stats.Potential;
-        public int Experience => Stats.Experience;
+        public Stat<int> Level { get => Stats.Level; set => Stats.Level = value; }
+        public int Potential { get => Stats.Potential; set => Stats.Potential = value; }
+        public int Experience { get => Stats.Experience; set => Stats.Experience = value; }
 
         /// <summary>
         /// Current spell stock.

@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Inventory
             new ExamineInventoryBehavior(),
             new DropInventoryBehavior(),
             new EatInventoryBehavior(),
-            // TODO: read behaviour
+            new ReadInventoryBehavior(),
             new DrinkInventoryBehavior(),
             // TODO: zap behaviour
             new UseInventoryBehavior(),
