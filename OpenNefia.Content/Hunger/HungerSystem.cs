@@ -3,6 +3,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
@@ -10,6 +11,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Weight;
 using OpenNefia.Core.Areas;
@@ -19,6 +21,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using System;
@@ -51,11 +54,35 @@ namespace OpenNefia.Content.Hunger
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
-        
+
         public override void Initialize()
         {
             SubscribeComponent<HungerComponent, EntityBeingGeneratedEvent>(InitializeNutrition, priority: EventPriorities.High);
+            SubscribeComponent<HungerComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<HungerComponent, OnCharaSleepEvent>(HandleCharaSleep);
+        }
+
+        private void AddStatusIndicator(EntityUid uid, HungerComponent hunger, GetStatusIndicatorsEvent ev)
+        {
+            var nutrition = hunger.Nutrition;
+            var nutritionLevel = Math.Clamp(nutrition / 1000, 0, 12);
+            if (5 <= nutritionLevel && nutritionLevel <= 9)
+                return;
+
+            Color color;
+            if (nutrition >= HungerLevels.Bloated)
+                color = UiColors.TextBlack;
+            else if (nutrition >= HungerLevels.VeryHungry)
+            {
+                if (nutrition <= HungerLevels.Normal - 1000)
+                    color = UiColors.HungerIndicatorHungry;
+                else
+                    color = UiColors.TextBlack;
+            }
+            else
+                color = UiColors.HungerIndicatorStarving;
+
+            ev.OutIndicators.Add(new() { Text = Loc.GetString($"Elona.Hunger.Indicator.{nutritionLevel}"), Color = color });
         }
 
         private void InitializeNutrition(EntityUid uid, HungerComponent component, ref EntityBeingGeneratedEvent args)
@@ -117,7 +144,7 @@ namespace OpenNefia.Content.Hunger
                 return;
 
             hunger.AnorexiaCounter++;
-            
+
             if (_vis.IsInWindowFov(entity))
             {
                 _audio.Play(Protos.Sound.Vomit, entity);
@@ -150,7 +177,7 @@ namespace OpenNefia.Content.Hunger
                     }
                 }
             }
-            
+
             if (hunger.IsAnorexic)
             {
                 _skills.GainFixedSkillExp(entity, Protos.Skill.AttrStrength, -50);

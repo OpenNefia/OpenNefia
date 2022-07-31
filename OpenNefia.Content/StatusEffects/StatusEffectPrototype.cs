@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Content.Resists;
+using OpenNefia.Core;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
@@ -37,8 +39,16 @@ namespace OpenNefia.Content.StatusEffects
         [DataField]
         public PrototypeId<ElementPrototype>? RelatedElement { get; }
 
+        [DataField("indicators")]
+        private List<int> _indicators { get; } = new();
+
+        public IReadOnlyList<int> Indicators => _indicators;
+
         [DataField]
         public bool RemoveOnSleep { get; set; } = false;
+
+        [DataField]
+        public Color Color { get; set; } = Color.Black;
 
         [DataField]
         public ComponentRegistry Components { get; } = new();

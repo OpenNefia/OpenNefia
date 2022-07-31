@@ -3,6 +3,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.World;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
@@ -25,6 +26,7 @@ namespace OpenNefia.Content.Hud
     public class HudStatusIndicators : BaseHudWidget
     {
         [Dependency] private readonly IEntityManager _entityMan = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         private readonly List<StatusIndicator> _indicators = new();
         private IAssetInstance _assetStatusEffectBar = default!;
@@ -67,7 +69,7 @@ namespace OpenNefia.Content.Hud
             _indicators.Clear();
 
             _evInstance.OutIndicators.Clear();
-            _entityMan.EventBus.RaiseEvent(_evInstance);
+            _entityMan.EventBus.RaiseEvent(_gameSession.Player, _evInstance);
             _indicators.AddRange(_evInstance.OutIndicators);
 
             SetPreferredSize();

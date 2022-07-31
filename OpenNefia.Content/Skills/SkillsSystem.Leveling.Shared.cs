@@ -194,10 +194,12 @@ namespace OpenNefia.Content.Skills
                     break;
             }
 
-            if (Loc.TryGetPrototypeString(skillProto, keySuffix, out var text, ("entity", entity)))
+            // skillProto is going to be ISkillPrototype and not the concrete type, so GetStrongID()
+            // will not work.
+            if (Loc.TryGetPrototypeStringRaw(skillProto.GetType(), skillProto.ID, keySuffix, out var text, ("entity", entity)))
                 return text;
 
-            var skillName = Loc.GetPrototypeString(skillProto, "Name");
+            var skillName = Loc.GetPrototypeStringRaw(skillProto.GetType(), skillProto.ID, "Name");
             return Loc.GetString($"Elona.Skill.Default.{keySuffix}", ("entity", entity), ("skillName", skillName));
         }
 

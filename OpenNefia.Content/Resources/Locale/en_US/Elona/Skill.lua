@@ -5,10 +5,10 @@ Elona.Skill = {
 
     Default = {
         OnDecrease = function(entity, skillName)
-            return ("%s%s %s skill falls off."):format(_.name(entity), _.possessive(entity), skillName)
+            return ("%s %s skill falls off."):format(_.possessive(entity), skillName)
         end,
         OnIncrease = function(entity, skillName)
-            return ("%s%s %s skill increases."):format(_.name(entity), _.possessive(entity), skillName)
+            return ("%s %s skill increases."):format(_.possessive(entity), skillName)
         end,
     },
 
@@ -16,5 +16,13 @@ Elona.Skill = {
         GainNewBodyPart = function(entity, bodyPartName)
             return ("%s grow%s a new %s!"):format(_.name(entity), _.s(entity), bodyPartName)
         end,
+    },
+
+    Fatigue = {
+        Indicator = {
+            Light = "Tired",
+            Moderate = "Very tired",
+            Heavy = "VERY tired",
+        },
     },
 }
