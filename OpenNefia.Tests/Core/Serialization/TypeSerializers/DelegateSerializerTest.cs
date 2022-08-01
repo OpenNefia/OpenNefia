@@ -39,15 +39,6 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         protected override IEnumerable<Type> ExtraSystemTypes => new[] { typeof(TestSystem) };
 
         [Test]
-        public void SerializationTest()
-        {
-            //var del = EntitySystem.Get<TestSystem>().TestCallback;
-            //var node = Serialization.WriteValueAs<ValueDataNode>(del);
-
-            //Assert.That(node.Value, Is.EqualTo("OpenNefia.Tests.Core.Serialization.TypeSerializers.TestSystem:TestCallback"));
-        }
-
-        [Test]
         public void DeserializationTest()
         {
             var node = new ValueDataNode("OpenNefia.Tests.Core.Serialization.TypeSerializers.TestSystem:TestCallback");
