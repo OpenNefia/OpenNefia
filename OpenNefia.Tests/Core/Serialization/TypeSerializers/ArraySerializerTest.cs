@@ -11,7 +11,6 @@ using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic;
 namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 {
     [TestFixture]
-    [TestOf(typeof(ListSerializers<>))]
     public class ArraySerializerTest : SerializationTest
     {
         [Test]
