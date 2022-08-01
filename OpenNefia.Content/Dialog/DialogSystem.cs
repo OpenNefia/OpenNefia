@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Dialog
         void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null);
     }
 
-    public sealed class DialogSystem : EntitySystem, IDialogSystem
+    public sealed partial class DialogSystem : EntitySystem, IDialogSystem
     {
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
