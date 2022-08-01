@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
+using System.Reflection;
+using ICSharpCode.Decompiler.IL;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Definition;
 using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
@@ -9,6 +12,7 @@ using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 using OpenNefia.Core.Utility;
+using YamlDotNet.Core.Tokens;
 
 namespace OpenNefia.Core.Serialization.Manager
 {
@@ -107,7 +111,7 @@ namespace OpenNefia.Core.Serialization.Manager
                                         new[] { elementType },
                                         Expression.Convert(nodeParam, typeof(MappingDataNode)));
                                     break;
-                                    
+
                                 case SequenceDataNode seqNode:
                                     var isSealed2 = elementType.IsPrimitive || elementType.IsEnum ||
                                                    elementType == typeof(string) || elementType.IsSealed;
@@ -168,6 +172,28 @@ namespace OpenNefia.Core.Serialization.Manager
                             $"Cannot serialize node as {value}, unsupported node type {node.GetType()}")
                     };
                 }
+                else if (typeof(Delegate).IsAssignableFrom(value))
+                {
+                    if (node is not ValueDataNode)
+                    {
+                        throw new InvalidNodeTypeException(
+                            $"Cannot read {nameof(Delegate)} from node type {nodeType}. Expected {nameof(ValueDataNode)}");
+                    }
+
+                    call = value.IsValueType switch
+                    {
+                        true when nullable => call = Expression.Call(
+                            instanceConst,
+                            nameof(ReadDelegateNullableValue),
+                            new[] { value },
+                            Expression.Convert(nodeParam, typeof(ValueDataNode))),
+                        _ => call = Expression.Call(
+                            instanceConst,
+                            nameof(ReadDelegateValue),
+                            new[] { value },
+                            Expression.Convert(nodeParam, typeof(ValueDataNode)))
+                    };
+                }
                 else if (value.IsAssignableTo(typeof(ISelfSerialize)))
                 {
                     if (node is not ValueDataNode)
@@ -184,7 +210,7 @@ namespace OpenNefia.Core.Serialization.Manager
                         true when nullable => call = Expression.Call(
                             instanceConst,
                             nameof(ReadSelfSerializeNullableStruct),
-                            new[] {value},
+                            new[] { value },
                             Expression.Convert(nodeParam, typeof(ValueDataNode)),
                             instantiatorConst),
                         _ => call = Expression.Call(
@@ -408,7 +434,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 lengths[i] = long.Parse(((ValueDataNode)lengthsNode[i]).Value);
             }
-            
+
             var node = (SequenceDataNode)mapping["elements"];
             var type = typeof(T);
             var array = Array.CreateInstance(type, lengths);
@@ -457,6 +483,67 @@ namespace OpenNefia.Core.Serialization.Manager
             return new DeserializedValue<TEnum>(value);
         }
 
+        private DeserializationResult ReadDelegateNullableValue<TDelegate>(ValueDataNode node)
+            where TDelegate : Delegate
+        {
+            if (node.Value == "null")
+            {
+                return new DeserializedValue<TDelegate?>(default);
+            }
+
+            return ReadDelegateValue<TDelegate>(node);
+        }
+
+        private DeserializationResult ReadDelegateValue<TDelegate>(ValueDataNode node)
+            where TDelegate : Delegate
+        {
+            var split = node.Value.Split(':');
+            if (split.Length != 2)
+            {
+                throw new ArgumentException($"Could not parse delegate name from string '{split}', it should have the value 'Namespace.Of.Type:MethodName'");
+            }
+
+            var systemTypeName = split[0];
+            var methodName = split[1];
+
+            if (!_reflectionManager.TryLooseGetType(systemTypeName, out var systemType))
+            {
+                throw new ArgumentException($"No type with loose typename '{systemTypeName}' found.");
+            }
+
+            if (systemType.IsInterface || systemType.IsAbstract)
+            {
+                throw new ArgumentException($"Delegate target type {systemType} cannot be an interface or abstract.");
+            }
+
+            if (!typeof(IEntitySystem).IsAssignableFrom(systemType))
+            {
+                throw new ArgumentException($"Delegate target type {systemType} does not implement {nameof(IEntitySystem)}.");
+            }
+            
+            // End result should be equivalent to:
+            // (...) => EntitySystem.Get<TSystem>().MethodName(...);
+
+            var entitySystemGet = typeof(EntitySystem).GetMethod("Get", BindingFlags.Public | BindingFlags.Static, Type.EmptyTypes)!
+                .MakeGenericMethod(systemType);
+
+            var invoke = typeof(TDelegate).GetMethod("Invoke")!;
+            var parameters = invoke.GetParameters()
+                .Select(p => Expression.Parameter(p.ParameterType, p.Name))
+                .ToList();
+            var paramTypes = invoke.GetParameters()
+                .Select(p => p.ParameterType)
+                .ToArray();
+
+            var method = systemType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance, paramTypes)!;
+
+            var call = Expression.Call(Expression.Call(entitySystemGet), method, parameters);
+            
+            var value = Expression.Lambda<TDelegate>(call, parameters).Compile();
+
+            return new DeserializedValue<TDelegate?>(value);
+        }
+
         private DeserializationResult ReadSelfSerialize<TValue>(
             ValueDataNode node,
             InstantiationDelegate<object> instantiator)
@@ -467,7 +554,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return new DeserializedValue<TValue?>(default);
             }
 
-            var value = (TValue) instantiator();
+            var value = (TValue)instantiator();
             value.Deserialize(node.Value);
 
             return new DeserializedValue<TValue?>(value);
@@ -483,7 +570,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return new DeserializedValue<TValue?>(null);
             }
 
-            var value = (TValue) instantiator();
+            var value = (TValue)instantiator();
             value.Deserialize(node.Value);
 
             return new DeserializedValue<TValue?>(value);
@@ -528,7 +615,7 @@ namespace OpenNefia.Core.Serialization.Manager
             if (context != null &&
                 context.TypeReaders.TryGetValue((typeof(TValue), typeof(TNode)), out var readerUnCast))
             {
-                reader = (ITypeReader<TValue, TNode>) readerUnCast;
+                reader = (ITypeReader<TValue, TNode>)readerUnCast;
             }
 
             return reader.Read(this, node, DependencyCollection, skipHook, context);
@@ -565,7 +652,7 @@ namespace OpenNefia.Core.Serialization.Manager
             if (context != null &&
                 context.TypeReaders.TryGetValue((typeof(TValue), typeof(ValueDataNode)), out var readerUnCast))
             {
-                var reader = (ITypeReader<TValue, ValueDataNode>) readerUnCast;
+                var reader = (ITypeReader<TValue, ValueDataNode>)readerUnCast;
                 return reader.Read(this, node, DependencyCollection, skipHook, context);
             }
 
@@ -578,7 +665,7 @@ namespace OpenNefia.Core.Serialization.Manager
 
             if (populate)
             {
-                ((IPopulateDefaultValues) instance).PopulateDefaultValues();
+                ((IPopulateDefaultValues)instance).PopulateDefaultValues();
             }
 
             if (node.Value != string.Empty)
@@ -593,7 +680,7 @@ namespace OpenNefia.Core.Serialization.Manager
 
             if (!skipHook && hooks)
             {
-                ((ISerializationHooks) result.RawValue!).AfterDeserialization();
+                ((ISerializationHooks)result.RawValue!).AfterDeserialization();
             }
 
             return result;
@@ -614,7 +701,7 @@ namespace OpenNefia.Core.Serialization.Manager
             if (context != null &&
                 context.TypeReaders.TryGetValue((type, typeof(MappingDataNode)), out var readerUnCast))
             {
-                var reader = (ITypeReader<TValue, MappingDataNode>) readerUnCast;
+                var reader = (ITypeReader<TValue, MappingDataNode>)readerUnCast;
                 return reader.Read(this, node, DependencyCollection, skipHook, context);
             }
 
@@ -625,14 +712,14 @@ namespace OpenNefia.Core.Serialization.Manager
 
             if (populate)
             {
-                ((IPopulateDefaultValues) instance).PopulateDefaultValues();
+                ((IPopulateDefaultValues)instance).PopulateDefaultValues();
             }
 
             var result = definition.Populate(instance, node, this, context, skipHook);
 
             if (!skipHook && hooks)
             {
-                ((ISerializationHooks) result.RawValue!).AfterDeserialization();
+                ((ISerializationHooks)result.RawValue!).AfterDeserialization();
             }
 
             return result;
@@ -657,7 +744,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return default;
             }
 
-            return (T?) value.RawValue;
+            return (T?)value.RawValue;
         }
 
         public T? ReadValue<T>(DataNode node, ISerializationContext? context = null, bool skipHook = false)
