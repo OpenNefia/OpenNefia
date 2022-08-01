@@ -2,16 +2,20 @@
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Roles;
+using OpenNefia.Content.UI;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
@@ -24,6 +28,9 @@ namespace OpenNefia.Content.Dialog
     public interface IDialogSystem : IEntitySystem
     {
         void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null);
+        int GetImpressionLevel(int impression);
+        TurnResult StartDialog(EntityUid target, PrototypeId<DialogPrototype> dialogID);
+        string GetDefaultSpeakerName(EntityUid uid);
     }
 
     public sealed partial class DialogSystem : EntitySystem, IDialogSystem
@@ -32,25 +39,20 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<DialogComponent, EntityBeingGeneratedEvent>(InitializePersonality);
             SubscribeEntity<CheckKillEvent>(ProcImpressionChange);
+            SubscribeComponent<DialogComponent, WasCollidedWithEventArgs>(HandledCollidedWith, priority: EventPriorities.Low + 1000);
         }
 
         private void InitializePersonality(EntityUid uid, DialogComponent component, ref EntityBeingGeneratedEvent args)
         {
             // TODO: replace with custom talk
             component.Personality = _rand.Next(4);
-        }
-
-        public void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null)
-        {
-            if (!Resolve(uid, ref dialog))
-                return;
-
-            // TODO
         }
 
         private void ProcImpressionChange(EntityUid victim, ref CheckKillEvent args)
@@ -81,5 +83,80 @@ namespace OpenNefia.Content.Dialog
                 }
             }
         }
+        
+        private void HandledCollidedWith(EntityUid uid, DialogComponent component, WasCollidedWithEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            if (component.DialogID != null)
+            {
+                args.Handle(StartDialog(uid, component.DialogID.Value));
+                return;
+            }
+        }
+
+        public int GetImpressionLevel(int impression)
+        {
+            if (impression < ImpressionLevels.Foe)
+                return 0;
+            else if (impression < ImpressionLevels.Hate)
+                return 1;
+            else if (impression < ImpressionLevels.Normal - 10)
+                return 2;
+            else if (impression < ImpressionLevels.Amiable)
+                return 3;
+            else if (impression < ImpressionLevels.Friend)
+                return 4;
+            else if (impression < ImpressionLevels.Fellow)
+                return 5;
+            else if (impression < ImpressionLevels.Marry)
+                return 6;
+            else if (impression < ImpressionLevels.Soulmate)
+                return 7;
+            else
+                return 8;
+        }
+
+        public void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null)
+        {
+            if (!Resolve(uid, ref dialog))
+                return;
+
+            var level = GetImpressionLevel(dialog.Impression);
+            if (delta >= 0)
+            {
+                delta = delta * 100 / (50 + level * level * level);
+                if (delta == 0 && level < _rand.Next(10))
+                    delta = 1;
+            }
+
+            dialog.Impression += delta;
+
+            var newLevel = GetImpressionLevel(dialog.Impression);
+            var newLevelText = Loc.GetString($"Elona.Dialog.Impression.Levels.{newLevel}");
+            if (level > newLevel)
+            {
+                _mes.Display(Loc.GetString("Elona.Dialog.Impression.Modify.Lose", ("chara", uid), ("newLevel", newLevelText)), UiColors.MesPurple);
+            }
+            else if (newLevel > level && _factions.GetRelationTowards(uid, _gameSession.Player) > Relation.Enemy)
+            {
+                _mes.Display(Loc.GetString("Elona.Dialog.Impression.Modify.Gain", ("chara", uid), ("newLevel", newLevelText)), UiColors.MesGreen);
+            }
+        }
+    }
+
+    public static class ImpressionLevels
+    {
+        public const int Worst = 0;
+        public const int Foe = 10;
+        public const int Hate = 25;
+        public const int Normal = 50;
+        public const int Party = 53;
+        public const int Amiable = 75;
+        public const int Friend = 100;
+        public const int Fellow = 150;
+        public const int Marry = 200;
+        public const int Soulmate = 300;
     }
 }

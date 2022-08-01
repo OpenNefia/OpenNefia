@@ -33,6 +33,9 @@ namespace OpenNefia.Content.Religion
 {
     public interface IReligionSystem : IEntitySystem
     {
+        string GetGodName(EntityUid uid, ReligionComponent? religion = null);
+        string GetGodName(PrototypeId<GodPrototype>? godID);
+
         PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true);
         void GodSays(EntityUid believer, string text, ReligionComponent? religion = null);
         void GodSays(PrototypeId<GodPrototype>? godId, string text);
@@ -189,6 +192,22 @@ namespace OpenNefia.Content.Religion
 
             var amount = Math.Clamp((religion.Piety) / coefficient, 1, add + _skills.Level(target, Protos.Skill.Faith) / 10);
             resist.Level.Buffed += amount;
+        }
+
+        public string GetGodName(EntityUid uid, ReligionComponent? religion = null)
+        {
+            if (!Resolve(uid, ref religion))
+                return GetGodName(null);
+
+            return GetGodName(religion.GodID);
+        }
+
+        public string GetGodName(PrototypeId<GodPrototype>? godID)
+        {
+            if (godID == null)
+                return Loc.GetString("Elona.God.Eyth.Name");
+
+            return Loc.GetPrototypeString(godID.Value, "Name");
         }
 
         public PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true)

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -15,7 +16,7 @@ namespace OpenNefia.Content.Dialog
         public string ID { get; } = default!;
 
         [DataField(required: true)]
-        public string StartNode { get; } = string.Empty;
+        public string StartNode { get; } = "__start__";
 
         [DataField("nodes", required: true)]
         private Dictionary<string, IDialogNode> _nodes = new();
@@ -38,13 +39,13 @@ namespace OpenNefia.Content.Dialog
     public sealed class TextNodeChoice
     {
         [DataField]
-        public string NextNode { get; set; } = string.Empty;
+        public string? NextNode { get; set; }
 
         [DataField]
-        public LocaleKey Key { get; set; }
+        public LocaleKey Text { get; set; }
     }
 
-    public sealed class TextNode : IDialogNode
+    public sealed class DialogTextNode : IDialogNode
     {
         /// <inheritdoc/>
         [DataField(required: true)]
@@ -63,11 +64,12 @@ namespace OpenNefia.Content.Dialog
         public string? Invoke(IDialogEngine engine)
         {
             if (_texts.Count == 0)
-            {
                 return null;
-            }
 
             var uiMan = IoCManager.Resolve<IUserInterfaceManager>();
+            var entityMan = IoCManager.Resolve<IEntityManager>();
+            var dialog = EntitySystem.Get<IDialogSystem>();
+
             UiResult<DialogResult>? result = null;
             
             for (var i = 0; i < _texts.Count; i++)
@@ -77,18 +79,30 @@ namespace OpenNefia.Content.Dialog
                 List<DialogChoice> choices = new();
                 if (i == _texts.Count - 1)
                 {
-                    choices.Add(new() { Text = "OpenNefia.Dialog.Common.Choices.Bye" });
+                    choices.Add(new() { Text = Loc.GetString("Elona.Dialog.Common.Choices.Bye") });
                 }
                 else
                 {
-                    choices.Add(new() { Text = "OpenNefia.Dialog.Common.Choices.More" });
+                    choices.Add(new() { Text = Loc.GetString("Elona.Dialog.Common.Choices.More") });
                 }
 
-                engine.DialogLayer.SetDialogData(Loc.GetString(text), choices);
+                var speakerName = "";
+                if (entityMan.IsAlive(engine.Target))
+                    speakerName = dialog.GetDefaultSpeakerName(engine.Target.Value);
+
+                var step = new DialogStepData()
+                {
+                    Target = engine.Target,
+                    SpeakerName = speakerName,
+                    Text = Loc.GetString(text),
+                    Choices = choices
+                };
+
+                engine.DialogLayer.UpdateFromStepData(step);
                 result = uiMan.Query(engine.DialogLayer);
             }
 
-            if (result == null || !result.HasValue)
+            if (result == null)
                 return null;
 
             int defaultChoiceIndex = 0; // TODO
@@ -97,10 +111,16 @@ namespace OpenNefia.Content.Dialog
             {
                 choiceIndex = defaultChoiceIndex;
             }
+            else if (result is UiResult<DialogResult>.Finished resultFinished)
+            {
+                choiceIndex = resultFinished.Value.SelectedChoiceIndex;
+            }
 
             var nextNodeID = _choices.ElementAtOrDefault(choiceIndex)?.NextNode;
             if (nextNodeID == null)
+            {
                 return null;
+            }
 
             return nextNodeID;
         }
@@ -111,13 +131,15 @@ namespace OpenNefia.Content.Dialog
 
             var nextNodeID = _choices.ElementAtOrDefault(defaultChoiceIndex)?.NextNode;
             if (nextNodeID == null)
+            {
                 return null;
+            }
 
             return nextNodeID;
         }
     }
 
-    public sealed class CallbackNode : IDialogNode
+    public sealed class DialogCallbackNode : IDialogNode
     {
         /// <inheritdoc/>
         [DataField(required: true)]
@@ -129,13 +151,12 @@ namespace OpenNefia.Content.Dialog
         [DataField(required: true)]
         public string NextNode { get; } = default!;
 
-        public IDialogNode? Invoke(IDialogEngine engine)
+        public string? Invoke(IDialogEngine engine)
         {
             Callback(engine, this);
-            return engine.GetNodeByID(NextNode);
+            return NextNode;
         }
 
-        public IDialogNode? GetDefaultNode(IDialogEngine engine)
-            => engine.GetNodeByID(NextNode);
+        public string? GetDefaultNode(IDialogEngine engine) => NextNode;
     }
 }

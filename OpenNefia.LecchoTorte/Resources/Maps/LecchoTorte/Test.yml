@@ -205,3 +205,11 @@ entities:
     pos: 2,2
   - type: Identify
     identifyState: Full
+- uid: 27
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,2
+  - type: Dialog
+    dialogID: Elona.IgnoresYou
