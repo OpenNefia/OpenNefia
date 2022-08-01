@@ -105,6 +105,7 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IPlayTimeManager _playTime = default!;
         [Dependency] private readonly IEquipmentSystem _equip = default!;
+        [Dependency] private readonly IReligionSystem _religion = default!;
 
         private const int SheetWidth = 700;
         private const int SheetHeight = 400;
@@ -279,9 +280,7 @@ namespace OpenNefia.Content.CharaInfo
             //
 
             var levelGodId = god?.GodID;
-            var levelGodName = levelGodId != null
-                ? Loc.GetPrototypeString(levelGodId.Value, "Name")
-                : Loc.GetString("Elona.God.Eyth.Name");
+            var levelGodName = _religion.GetGodName(levelGodId);
 
             var levelGuildId = guild?.GuildID;
             var levelGuildName = levelGuildId != null

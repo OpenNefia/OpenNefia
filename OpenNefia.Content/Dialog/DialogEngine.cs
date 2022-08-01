@@ -41,6 +41,8 @@ namespace OpenNefia.Content.Dialog
 
         public DialogEngine(EntityUid? target, DialogPrototype proto, IDialogLayer dialogLayer)
         {
+            EntitySystem.InjectDependencies(this);
+
             Target = target;
             Dialog = proto;
             DialogLayer = dialogLayer;

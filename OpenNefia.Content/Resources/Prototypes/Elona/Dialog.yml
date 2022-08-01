@@ -1,6 +1,17 @@
 ---
 - type: Elona.Dialog
-  id: ElonaSys.IgnoresYou
+  id: Elona.IgnoresYou
+  nodes:
+    __start__: !type:DialogTextNode
+      texts:
+      - fee
+      - fie
+      - foe
+      - fum
+      choices:
+      - text: bye
+      - text: bye
+
 - type: Elona.Dialog
   id: Elona.PartTimeWorker
 - type: Elona.Dialog
