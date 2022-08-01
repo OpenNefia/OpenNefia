@@ -89,5 +89,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color SleepIndicatorLight = new Color(0, 0, 0, 255);
         public static readonly Color SleepIndicatorModerate = new Color(100, 100, 0, 255);
         public static readonly Color SleepIndicatorHeavy = new Color(255, 0, 0, 255);
+
+        public static readonly Color DialogText = new Color(20, 10, 5, 255);
     }
 }

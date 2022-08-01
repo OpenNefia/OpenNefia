@@ -60,5 +60,9 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec EquipmentEquipSlotName = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 
         public static readonly FontSpec StatusIndicatorText = new(13, 11); // 13 - en * 2
+
+        public static readonly FontSpec DialogSpeakerName = new(12, 12, style: FontStyle.Bold, color: UiColors.DialogText); // 12 + sizefix
+        public static readonly FontSpec DialogImpressionText = new(13, 13, color: UiColors.DialogText);
+        public static readonly FontSpec DialogBodyText = new(14, 14, color: UiColors.DialogText);
     }
 }
