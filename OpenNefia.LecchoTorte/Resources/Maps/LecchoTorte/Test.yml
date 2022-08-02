@@ -212,4 +212,4 @@ entities:
     parent: 0
     pos: 4,2
   - type: Dialog
-    dialogID: Elona.IgnoresYou
+    dialogID: Elona.Villager

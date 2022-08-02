@@ -173,7 +173,7 @@ namespace OpenNefia.Content.Hunger
                     {
                         var vomit = _entityGen.SpawnEntity(Protos.Item.Vomit, entity);
                         if (IsAlive(vomit))
-                            EnsureComp<EntityOriginComponent>(vomit.Value).Origin = ProtoID(entity);
+                            EnsureComp<EntityOriginComponent>(vomit.Value).Origin = ProtoIDOrNull(entity);
                     }
                 }
             }

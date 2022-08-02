@@ -129,7 +129,7 @@ namespace OpenNefia.Core.GameObjects
             return protoID != null;
         }
 
-        protected PrototypeId<EntityPrototype>? ProtoID(EntityUid uid)
+        protected PrototypeId<EntityPrototype>? ProtoIDOrNull(EntityUid uid)
         {
             TryProtoID(uid, out var protoID);
             return protoID;
@@ -160,6 +160,13 @@ namespace OpenNefia.Core.GameObjects
             return mapMan.GetMapOfEntity(uid);
         }
 
+        protected IMap? MapOrNull(EntityUid uid, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            TryMap(uid, out var map, mapMan);
+            return map;
+        }
+
         protected bool TryMap(MapCoordinates coords, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)
         {
             IoCManager.Resolve(ref mapMan);
@@ -170,6 +177,14 @@ namespace OpenNefia.Core.GameObjects
         {
             IoCManager.Resolve(ref mapMan);
             return mapMan.TryGetMapOfEntity(uid, out map);
+        }
+        
+        protected IArea? AreaOrNull(EntityUid uid, IMapManager? mapMan = null, IAreaManager? areaMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            IoCManager.Resolve(ref areaMan);
+            TryArea(uid, out var area, mapMan, areaMan);
+            return area;
         }
 
         protected bool TryArea(EntityUid uid, [NotNullWhen(true)] out IArea? area, IMapManager? mapMan = null, IAreaManager? areaMan = null)

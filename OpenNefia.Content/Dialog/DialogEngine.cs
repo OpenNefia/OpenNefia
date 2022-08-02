@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core;
+﻿using NativeFileDialogSharp;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -17,17 +18,18 @@ namespace OpenNefia.Content.Dialog
         DialogPrototype Dialog { get; }
         EntityUid? Target { get; }
         IDialogLayer DialogLayer { get; }
-        Blackboard<IDialogData> Data { get; }
+        Blackboard<IDialogExtraData> Data { get; }
 
         TurnResult StartDialog();
         QualifiedDialogNode GetNodeByID(string nodeID);
+        QualifiedDialogNode GetNodeByID(PrototypeId<DialogPrototype> protoID, string nodeID);
     }
 
-    public interface IDialogData
+    public interface IDialogExtraData
     {
     }
 
-    public sealed record QualifiedDialogNode(DialogPrototype Proto, IDialogNode Node);
+    public sealed record QualifiedDialogNode(PrototypeId<DialogPrototype> ProtoID, IDialogNode Node);
 
     public sealed class DialogEngine : IDialogEngine
     {
@@ -37,7 +39,7 @@ namespace OpenNefia.Content.Dialog
         public DialogPrototype Dialog { get; private set; }
         public EntityUid? Target { get; private set; }
         public IDialogLayer DialogLayer { get; }
-        public Blackboard<IDialogData> Data { get; }
+        public Blackboard<IDialogExtraData> Data { get; }
 
         public DialogEngine(EntityUid? target, DialogPrototype proto, IDialogLayer dialogLayer)
         {
@@ -52,7 +54,7 @@ namespace OpenNefia.Content.Dialog
         public QualifiedDialogNode GetNodeByID(string nodeID)
         {
             var dialog = Dialog;
-            
+
             if (nodeID.IndexOf(':') != -1)
             {
                 var split = nodeID.Split(':');
@@ -66,16 +68,26 @@ namespace OpenNefia.Content.Dialog
             if (!dialog.Nodes.TryGetValue(nodeID, out var node))
                 throw new InvalidDataException($"Dialog node {nodeID} not found in dialog {dialog.ID}.");
 
-            return new(dialog, node);
+            return new(dialog.GetStrongID(), node);
+        }
+
+        public QualifiedDialogNode GetNodeByID(PrototypeId<DialogPrototype> protoID, string nodeID)
+        {
+            var dialog = _protos.Index(protoID);
+
+            if (!dialog.Nodes.TryGetValue(nodeID, out var node))
+                throw new InvalidDataException($"Dialog node {nodeID} not found in dialog {dialog.ID}.");
+
+            return new(protoID, node);
         }
 
         public TurnResult StartDialog()
         {
             QualifiedDialogNode? next = GetNodeByID(Dialog.StartNode);
-            
+
             while (next != null)
             {
-                Dialog = next.Proto;
+                Dialog = _protos.Index(next.ProtoID);
                 next = StepDialog(next.Node);
             }
 
@@ -94,11 +106,7 @@ namespace OpenNefia.Content.Dialog
             if (node == null)
                 return null;
 
-            var nextNodeID = node.Invoke(this);
-            if (nextNodeID == null)
-                return null;
-
-            var next = GetNodeByID(nextNodeID);
+            var next = node.Invoke(this);
 
             return next;
         }
