@@ -4,6 +4,9 @@ Elona.Dialog = {
             More = "(More)",
             Bye = "Bye bye.",
         },
+        IgnoresYou = function(speaker)
+            return ("(%s ignores you...)"):format(_.he(speaker))
+        end,
     },
 
     Impression = {

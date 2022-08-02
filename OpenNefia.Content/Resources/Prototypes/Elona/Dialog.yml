@@ -4,13 +4,7 @@
   nodes:
     __start__: !type:DialogTextNode
       texts:
-      - fee
-      - fie
-      - foe
-      - fum
-      choices:
-      - text: bye
-      - text: bye
+      - Elona.Dialog.Common.IgnoresYou
 
 - type: Elona.Dialog
   id: Elona.PartTimeWorker
