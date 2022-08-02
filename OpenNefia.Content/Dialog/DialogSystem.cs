@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Dialog
 
             if (!_gameSession.IsPlayer(args.Attacker) && TryComp<DialogComponent>(args.Attacker, out var dialog))
             {
-                if (dialog.Impression < Impressions.Marry)
+                if (dialog.Impression < ImpressionLevels.Marry)
                 {
                     if (_rand.OneIn(2))
                     {
@@ -144,19 +144,5 @@ namespace OpenNefia.Content.Dialog
                 _mes.Display(Loc.GetString("Elona.Dialog.Impression.Modify.Gain", ("chara", uid), ("newLevel", newLevelText)), UiColors.MesGreen);
             }
         }
-    }
-
-    public static class ImpressionLevels
-    {
-        public const int Worst = 0;
-        public const int Foe = 10;
-        public const int Hate = 25;
-        public const int Normal = 50;
-        public const int Party = 53;
-        public const int Amiable = 75;
-        public const int Friend = 100;
-        public const int Fellow = 150;
-        public const int Marry = 200;
-        public const int Soulmate = 300;
     }
 }

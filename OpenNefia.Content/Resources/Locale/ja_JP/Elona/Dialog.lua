@@ -4,6 +4,7 @@ Elona.Dialog = {
             More = "(続く)",
             Bye = "さようなら",
         },
+        IgnoresYou = "…(あなたを無視している)",
     },
 
     Impression = {

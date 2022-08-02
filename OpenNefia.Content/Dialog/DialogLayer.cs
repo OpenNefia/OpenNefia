@@ -57,9 +57,6 @@ namespace OpenNefia.Content.Dialog
 
     public class DialogArgs
     {
-        public DialogArgs()
-        {
-        }
     }
 
     public class DialogResult
