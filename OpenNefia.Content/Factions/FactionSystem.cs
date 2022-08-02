@@ -229,7 +229,7 @@ namespace OpenNefia.Content.Factions
                     _karma.ModifyKarma(us, -2);
 
                 // TODO
-                if (ProtoID(them) == Protos.Chara.Ebon && !_world.State.IsFireGiantReleased)
+                if (ProtoIDOrNull(them) == Protos.Chara.Ebon && !_world.State.IsFireGiantReleased)
                 {
                     glares();
                     return;
