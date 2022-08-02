@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Dialog
         public int Interest { get; set; } = 100;
 
         [DataField]
-        public int Impression { get; set; } = Impressions.Normal;
+        public int Impression { get; set; } = ImpressionLevels.Normal;
 
         [DataField]
         public GameDateTime InterestRenewDate { get; set; } = GameDateTime.Zero;
@@ -50,10 +50,11 @@ namespace OpenNefia.Content.Dialog
         public CopulaType CopulaType { get; set; } = CopulaType.Desu;
     }
 
-    public static class Impressions
+    public static class ImpressionLevels
     {
         // >>>>>>>> elona122/shade2/init.hsp:19 	#define global defImpEnemy	0 ..
         public const int Enemy = 0;
+        public const int Foe = 10;
         public const int Hate = 25;
         public const int Normal = 50;
         public const int Party = 53;

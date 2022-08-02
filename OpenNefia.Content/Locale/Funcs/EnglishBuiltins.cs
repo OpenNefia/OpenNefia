@@ -160,6 +160,61 @@ namespace OpenNefia.Content.Locale.Funcs
         }
 
         /// <summary>
+        /// Function: he(entity)
+        /// </summary>
+        [LocaleFunction("he")]
+        public static string BuiltIn_he(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "it";
+                    else
+                        return "they";
+
+                case long objLong:
+                    if (objLong == 1L)
+                        return "it";
+                    else
+                        return "they";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "you";
+                    }
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out CharaComponent chara))
+                    {
+                        switch (chara.Gender)
+                        {
+                            case Gender.Female:
+                                return "she";
+                            case Gender.Male:
+                                return "he";
+                            default:
+                                return "they";
+                        }
+                    }
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count != 1)
+                            return "they";
+                    }
+
+                    return "it";
+
+                default:
+                    return "it";
+            }
+        }
+
+        /// <summary>
         /// Function: his(entity)
         /// </summary>
         /// <hsp>#defcfunc his int tg,int mode</hsp>
