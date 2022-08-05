@@ -1,4 +1,9 @@
 Elona.SandBag = {
+    Interact = {
+        Release = function(source, target)
+            return ("%s%sの縄を解いた。"):format(_.sore_wa(source), _.name(target))
+        end,
+    },
     Dialog = {
         TurnStart = {
             function(entity)

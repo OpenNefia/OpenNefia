@@ -4,8 +4,17 @@ Elona.Dialog = {
             More = "(More)",
             Bye = "Bye bye.",
         },
+        WillNotListen = function(entity)
+            return ("%s won't listen."):format(_.name(entity))
+        end,
         IgnoresYou = function(speaker)
             return ("(%s ignores you...)"):format(_.he(speaker))
+        end,
+        IsBusy = function(speaker)
+            return ("(%s is in the middle of something.)"):format(_.name(speaker))
+        end,
+        IsSleeping = function(speaker)
+            return ("(%s is sleeping.)"):format(_.name(speaker))
         end,
     },
 

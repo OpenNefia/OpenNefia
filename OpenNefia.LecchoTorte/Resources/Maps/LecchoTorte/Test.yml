@@ -214,5 +214,3 @@ entities:
   - type: RoleTrainer
   - type: RoleProstitute
   - type: RoleInnkeeper
-  - type: Dialog
-    dialogID: Elona.Villager

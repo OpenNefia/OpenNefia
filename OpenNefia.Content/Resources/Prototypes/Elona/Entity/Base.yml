@@ -41,12 +41,15 @@
   - type: Religion
   - type: Party
   - type: Hunger
+  - type: Dialog
   - type: EmotionIcon
   - type: ActivityHolder
   - type: StatusEffects
   - type: Visibility
   - type: EtherDisease
   - type: ItemUser
+  - type: Marriage
+  - type: Tone
 
 - type: Entity
   id: BaseItem

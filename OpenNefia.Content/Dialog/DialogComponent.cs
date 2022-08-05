@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Dialog
         public override string Name => "Dialog";
 
         [DataField]
-        public PrototypeId<DialogPrototype>? DialogID;
+        public PrototypeId<DialogPrototype>? DialogID { get; set; }
 
         [DataField]
         public bool CanTalk { get; set; } = false;

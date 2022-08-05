@@ -29,7 +29,8 @@ namespace OpenNefia.Content.Dialog
     {
         void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null);
         int GetImpressionLevel(int impression);
-        TurnResult StartDialog(EntityUid target, PrototypeId<DialogPrototype> dialogID);
+        TurnResult TryToChatWith(EntityUid source, EntityUid target, bool force = false, PrototypeId<DialogPrototype>? dialogID = null);
+        TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID);
         string GetDefaultSpeakerName(EntityUid uid);
     }
 
@@ -88,12 +89,8 @@ namespace OpenNefia.Content.Dialog
         {
             if (args.Handled)
                 return;
-
-            if (component.DialogID != null)
-            {
-                args.Handle(StartDialog(uid, component.DialogID.Value));
-                return;
-            }
+            
+            args.Handle(TryToChatWith(args.Source, uid));
         }
 
         public int GetImpressionLevel(int impression)

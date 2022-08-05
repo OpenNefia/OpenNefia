@@ -24,5 +24,8 @@ namespace OpenNefia.Content.Religion
 
         [DataField]
         public int PrayerCharge { get; set; }
+
+        [DataField]
+        public bool HasRandomGod { get; set; } = true;
     }
 }

@@ -143,12 +143,15 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public DialogActionDelegate? AfterEnter { get; }
 
+        [DataField]
+        public LocaleKey ByeChoice { get; set; } = "Elona.Dialog.Common.Choices.Bye";
+
         private string GetLocalizedText(DialogTextEntry text, IDialogEngine engine)
         {
             if (text.Text != null)
                 return text.Text;
 
-            return Loc.GetString($"{text.Key}", ("speaker", engine.Speaker));
+            return Loc.GetString($"{text.Key}", ("speaker", engine.Speaker), ("player", engine.Player));
         }
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
@@ -188,7 +191,7 @@ namespace OpenNefia.Content.Dialog
                     {
                         choices.Add(new DialogChoice()
                         {
-                            Text = Loc.GetString("Elona.Dialog.Common.Choices.Bye")
+                            Text = Loc.GetString(ByeChoice)
                         });
                     }
                     else
@@ -282,13 +285,5 @@ namespace OpenNefia.Content.Dialog
         }
 
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => Callback(engine, this);
-    }
-
-    public static class DialogPrototypeIdExt
-    {
-        public static QualifiedDialogNodeID WithDialogNode(this PrototypeId<DialogPrototype> protoID, string nodeID)
-        {
-            return new(protoID, nodeID);
-        }
     }
 }

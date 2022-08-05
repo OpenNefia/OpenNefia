@@ -19,6 +19,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.Talk;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -100,6 +103,23 @@ namespace OpenNefia.Content.VanillaAI
             return false;
         }
 
+        private void DoAiTalk(EntityUid entity)
+        {
+            if (TryComp<TaughtWordsComponent>(entity, out var taughtWords))
+            {
+                if (_rand.OneIn(30))
+                {
+                    _mes.Display(_rand.Pick(taughtWords.TaughtWords), UiColors.MesSkyBlue);
+                    return;
+                }
+            }
+
+            if (TryComp<ToneComponent>(entity, out var tone) && !tone.IsTalkSilenced)
+            {
+                // TODO ai talk
+            }
+        }
+
         public TurnResult RunVanillaAI(EntityUid entity, VanillaAIComponent? ai = null,
             SpatialComponent? spatial = null)
         {
@@ -110,14 +130,12 @@ namespace OpenNefia.Content.VanillaAI
                 return TurnResult.Failed;
 
             if (IsAlliedWithPlayer(entity))
-            {
                 DecideAllyTarget(entity, ai, spatial);
-            }
 
             if (!EntityManager.IsAlive(ai.CurrentTarget))
-            {
                 SetTarget(entity, GetDefaultTarget(entity), 0, ai);
-            }
+
+            DoAiTalk(entity);
 
             if (HelpWithChoking(entity, ai, spatial))
                 return TurnResult.Succeeded;

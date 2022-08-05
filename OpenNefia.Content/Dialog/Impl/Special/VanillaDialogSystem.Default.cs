@@ -23,16 +23,16 @@ namespace OpenNefia.Content.Dialog
 {
     public sealed partial class VanillaDialogSystem : EntitySystem
     {
-        private void Villager_Initialize()
+        private void Default_Initialize()
         {
-            SubscribeEntity<GetDefaultDialogChoicesEvent>(AddTalkChoice, priority: EventPriorities.Highest);
+            SubscribeEntity<GetDefaultDialogChoicesEvent>(Default_AddTalkChoice, priority: EventPriorities.Highest);
         }
 
-        private void AddTalkChoice(EntityUid uid, GetDefaultDialogChoicesEvent args)
+        private void Default_AddTalkChoice(EntityUid uid, GetDefaultDialogChoicesEvent args)
         {
             args.OutChoices.Add(new() { 
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Villager.Choices.Talk"),
-                NextNode = Protos.Dialog.Villager.WithDialogNode("Talk")
+                NextNode = new(Protos.Dialog.Default, "Talk")
             });
         }
 
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Dialog
             // <<<<<<<< elona122/shade2/chat.hsp:2208 		} ..
         }
 
-        private List<DialogTextEntry> GetVillagerTalkText(EntityUid target)
+        private List<DialogTextEntry> GetDefaultTalkText(EntityUid target)
         {
             var result = new List<DialogTextEntry>();
 
@@ -95,13 +95,13 @@ namespace OpenNefia.Content.Dialog
             return result;
         }
 
-        private List<DialogChoiceEntry> GetVillagerTalkChoices(EntityUid target)
+        private List<DialogChoiceEntry> GetDefaultTalkChoices(EntityUid source, EntityUid target)
         {
             var result = new List<DialogChoiceEntry>();
             if (!IsAlive(target))
                 return result;
 
-            var ev = new GetDefaultDialogChoicesEvent(target);
+            var ev = new GetDefaultDialogChoicesEvent(source, target);
             RaiseEvent(target, ev);
             result.AddRange(ev.OutChoices);
 
@@ -114,7 +114,7 @@ namespace OpenNefia.Content.Dialog
             return result;
         }
 
-        public QualifiedDialogNode? Villager_Talk(IDialogEngine engine, IDialogNode node)
+        public QualifiedDialogNode? Default_Talk(IDialogEngine engine, IDialogNode node)
         {
             var target = engine.Speaker;
             if (!IsAlive(target))
@@ -122,28 +122,30 @@ namespace OpenNefia.Content.Dialog
 
             ModifyImpressAndInterest(engine.Player, target.Value);
 
-            var texts = GetVillagerTalkText(target.Value);
-            var choices = GetVillagerTalkChoices(target.Value);
+            var texts = GetDefaultTalkText(target.Value);
+            var choices = GetDefaultTalkChoices(engine.Player, target.Value);
 
             var nextNode = new DialogTextNode(texts, choices);
-            return new(Protos.Dialog.Villager, nextNode);
+            return new(Protos.Dialog.Default, nextNode);
         }
 
-        public QualifiedDialogNode? Villager_Trade(IDialogEngine engine, IDialogNode node)
+        public QualifiedDialogNode? Default_Trade(IDialogEngine engine, IDialogNode node)
         {
             // TODO
-            return engine.GetNodeByID(Protos.Dialog.Villager, "YouKidding");
+            return engine.GetNodeByID(Protos.Dialog.Default, "YouKidding");
         }
     }
 
     public sealed class GetDefaultDialogChoicesEvent : EntityEventArgs
     {
+        public EntityUid Source { get; }
         public EntityUid Target { get; }
 
         public List<DialogChoiceEntry> OutChoices { get; } = new();
 
-        public GetDefaultDialogChoicesEvent(EntityUid target)
+        public GetDefaultDialogChoicesEvent(EntityUid source, EntityUid target)
         {
+            Source = source;
             Target = target;
         }
     }

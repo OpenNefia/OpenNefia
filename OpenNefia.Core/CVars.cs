@@ -100,6 +100,12 @@ namespace OpenNefia.Core
         public static readonly CVarDef<int> DebugTargetFps =
             CVarDef.Create("debug.target_fps", 60, CVar.Archive);
 
+        /// <summary>
+        ///     Turns on various debugging features.
+        /// </summary>
+        public static readonly CVarDef<bool> DebugDevelopmentMode =
+            CVarDef.Create("debug.developmentMode", true, CVar.Archive);
+
         /*
          * REPL
          */

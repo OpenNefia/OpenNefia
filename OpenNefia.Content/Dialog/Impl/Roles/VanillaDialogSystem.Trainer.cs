@@ -41,12 +41,12 @@ namespace OpenNefia.Content.Dialog
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.Train"),
-                NextNode = Protos.Dialog.Trainer.WithDialogNode("Train")
+                NextNode = new(Protos.Dialog.Trainer, "Train")
             });
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.Learn"),
-                NextNode = Protos.Dialog.Trainer.WithDialogNode("Learn"),
+                NextNode = new(Protos.Dialog.Trainer, "Learn"),
             });
         }
 
@@ -95,13 +95,13 @@ namespace OpenNefia.Content.Dialog
                 choices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Train.Choices.Confirm"),
-                    NextNode = Protos.Dialog.Trainer.WithDialogNode("TrainExecute")
+                    NextNode = new(Protos.Dialog.Trainer, "TrainExecute")
                 });
             }
             choices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.GoBack"),
-                NextNode = Protos.Dialog.Trainer.WithDialogNode("ComeAgain"),
+                NextNode = new(Protos.Dialog.Trainer, "ComeAgain"),
                 IsDefault = true
             });
 
@@ -176,13 +176,13 @@ namespace OpenNefia.Content.Dialog
                 choices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Learn.Choices.Confirm"),
-                    NextNode = Protos.Dialog.Trainer.WithDialogNode("LearnExecute")
+                    NextNode = new(Protos.Dialog.Trainer, "LearnExecute")
                 });
             }
             choices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.GoBack"),
-                NextNode = Protos.Dialog.Trainer.WithDialogNode("ComeAgain"),
+                NextNode = new(Protos.Dialog.Trainer, "ComeAgain"),
                 IsDefault = true
             });
 

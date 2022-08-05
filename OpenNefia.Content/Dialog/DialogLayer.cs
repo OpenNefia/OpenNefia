@@ -276,8 +276,8 @@ namespace OpenNefia.Content.Dialog
             {
                 var (chipWidth, chipHeight) = _chipBatch.GetTileSize(_chip.Image);
                 _chipBatch.Clear();
-                _chipBatch.Add(UIScale, _chip.Image.AtlasIndex, 0, 0);
-                _chipBatch.Draw(UIScale, X + 82 + chipWidth, Y + 125 + chipHeight, chipWidth * 2, chipHeight * 2, _chipColor);
+                _chipBatch.Add(UIScale, _chip.Image.AtlasIndex, 0, 0, chipWidth * 2, chipHeight * 2);
+                _chipBatch.Draw(UIScale, X + 35, Y + 60, color: _chipColor);
             }
 
             TopicImpress.Draw();

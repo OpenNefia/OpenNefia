@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Input;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Directions;
@@ -21,17 +22,20 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public class Args
         {
             public EntityCoordinates Origin { get; set; }
+            public string? QueryText { get; set; }
 
-            public Args(EntityCoordinates origin)
+            public Args(EntityCoordinates origin, string? prompt = null)
             {
                 Origin = origin;
+                QueryText = prompt;
             }
 
-            public Args(EntityUid uid) : this(new EntityCoordinates(uid, Vector2i.Zero))
+            public Args(EntityUid uid, string? prompt = null) : this(new EntityCoordinates(uid, Vector2i.Zero), prompt)
             {
             }
         }
@@ -48,6 +52,7 @@ namespace OpenNefia.Content.UI.Layer
         }
 
         private EntityCoordinates _centerCoords;
+        private string? _queryText = null;
         private bool _isPanning = false;
         private float _dt;
         private bool _diagonalOnly = false;
@@ -66,8 +71,9 @@ namespace OpenNefia.Content.UI.Layer
         public override void Initialize(Args args)
         {
             _centerCoords = args.Origin;
+            _queryText = args.QueryText;
         }
-
+        
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function.TryToDirection(out var dir))
@@ -132,6 +138,8 @@ namespace OpenNefia.Content.UI.Layer
         public override void OnQuery()
         {
             Sounds.Play(Sound.Pop2);
+            if (_queryText != null)
+                _mes.Display(_queryText);
 
             UpdateCamera();
         }

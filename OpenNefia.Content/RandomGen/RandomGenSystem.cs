@@ -29,6 +29,7 @@ namespace OpenNefia.Content.RandomGen
         PrototypeId<EntityPrototype>? PickRandomEntityId(string tableName, Func<EntityPrototype, int, int> weightFunc, Func<EntityPrototype, bool>? extraFilter = null, int minLevel = 0, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
 
         int CalcObjectLevel(IMap map);
+        int CalcObjectLevel(EntityUid uid);
         int CalcObjectLevel(int level);
         Quality CalcObjectQuality(Quality baseQuality = Quality.Bad);
     }
@@ -42,6 +43,7 @@ namespace OpenNefia.Content.RandomGen
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
 
         public PrototypeId<EntityPrototype>? PickRandomEntityId(string tableName, Func<EntityPrototype, int, int> weightFunc, Func<EntityPrototype, bool>? extraFilter = null, int minLevel = 0, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
         {
@@ -122,6 +124,11 @@ namespace OpenNefia.Content.RandomGen
             if (EntityManager.TryGetComponent<LevelComponent>(map.MapEntityUid, out var levelComp))
                 level = levelComp.Level;
             return CalcObjectLevel(level);
+        }
+
+        public int CalcObjectLevel(EntityUid uid)
+        {
+            return CalcObjectLevel(_levels.GetLevel(uid));
         }
 
         public int CalcObjectLevel(int level)
