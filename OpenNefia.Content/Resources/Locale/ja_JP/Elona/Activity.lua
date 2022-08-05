@@ -66,7 +66,7 @@ Elona.Activity = {
         end,
         SpareLife = function(actor, partner)
             return ("「そ、その%sとは体だけの関係%s%sは何も知らないから、命だけは…！」"):format(
-                _.loc("Elona.Gender." .. _.gender(actor) .. ".Informal"),
+                _.loc("Elona.Gender.Names." .. _.gender(actor) .. ".Informal"),
                 _.da(partner),
                 _.ore(partner, 3)
             )

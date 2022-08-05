@@ -33,20 +33,20 @@ namespace OpenNefia.Content.Dialog
 
         private void Trainer_Initialize()
         {
-            SubscribeComponent<RoleTrainerComponent, GetDefaultDialogChoicesEvent>(Trainer_AddTalkChoice);
+            SubscribeComponent<RoleTrainerComponent, GetDefaultDialogChoicesEvent>(Trainer_AddTalkChoices);
         }
 
-        private void Trainer_AddTalkChoice(EntityUid uid, RoleTrainerComponent component, GetDefaultDialogChoicesEvent args)
+        private void Trainer_AddTalkChoices(EntityUid uid, RoleTrainerComponent component, GetDefaultDialogChoicesEvent args)
         {
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.Train"),
-                NextNode = Protos.Dialog.Trainer.QualifyNodeID("Train")
+                NextNode = Protos.Dialog.Trainer.WithDialogNode("Train")
             });
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.Learn"),
-                NextNode = Protos.Dialog.Trainer.QualifyNodeID("Learn"),
+                NextNode = Protos.Dialog.Trainer.WithDialogNode("Learn"),
             });
         }
 
@@ -95,13 +95,13 @@ namespace OpenNefia.Content.Dialog
                 choices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Train.Choices.Confirm"),
-                    NextNode = Protos.Dialog.Trainer.QualifyNodeID("TrainExecute")
+                    NextNode = Protos.Dialog.Trainer.WithDialogNode("TrainExecute")
                 });
             }
             choices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.GoBack"),
-                NextNode = Protos.Dialog.Trainer.QualifyNodeID("ComeAgain"),
+                NextNode = Protos.Dialog.Trainer.WithDialogNode("ComeAgain"),
                 IsDefault = true
             });
 
@@ -176,13 +176,13 @@ namespace OpenNefia.Content.Dialog
                 choices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Learn.Choices.Confirm"),
-                    NextNode = Protos.Dialog.Trainer.QualifyNodeID("LearnExecute")
+                    NextNode = Protos.Dialog.Trainer.WithDialogNode("LearnExecute")
                 });
             }
             choices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Trainer.Choices.GoBack"),
-                NextNode = Protos.Dialog.Trainer.QualifyNodeID("ComeAgain"),
+                NextNode = Protos.Dialog.Trainer.WithDialogNode("ComeAgain"),
                 IsDefault = true
             });
 

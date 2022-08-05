@@ -13,11 +13,11 @@
       callback: Content.Dialog.VanillaDialogSystem:Villager_Talk
     YouKidding: !type:DialogJumpNode
       texts:
-      - Elona.Dialog.Villager.YouKidding
+      - Elona.Dialog.Common.YouKidding
       nextNode: Elona.Villager:Talk
     Thanks: !type:DialogJumpNode
       texts:
-      - Elona.Dialog.Villager.Thanks
+      - Elona.Dialog.Common.Thanks
       nextNode: Elona.Villager:Talk
     Trade: !type:DialogCallbackNode
       callback: Content.Dialog.VanillaDialogSystem:Villager_Trade
@@ -53,6 +53,18 @@
 
 - type: Elona.Dialog
   id: Elona.Prostitute
+  nodes:
+    BuyInit: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyInit
+      nextNode: Elona.Prostitute:BuyConfirm
+    BuyConfirm: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Prostitute_BuyConfirm
+    BuyExecute: !type:DialogTextNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyExecute_Before
+      afterEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyExecute_After
+      texts:
+      - Elona.Dialog.Common.Sex.Start
+
 - type: Elona.Dialog
   id: Elona.Innkeeper
 - type: Elona.Dialog

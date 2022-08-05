@@ -535,7 +535,12 @@ namespace OpenNefia.Core.Serialization.Manager
                 .Select(p => p.ParameterType)
                 .ToArray();
 
-            var method = systemType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance, paramTypes)!;
+            var method = systemType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance, paramTypes);
+
+            if (method == null)
+            {
+                throw new ArgumentException($"Could not find public instance method '{methodName}' on type {systemType}.");
+            }
 
             var call = Expression.Call(Expression.Call(entitySystemGet), method, parameters);
             

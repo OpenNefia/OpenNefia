@@ -44,7 +44,7 @@ Elona.Activity = {
         end,
         SpareLife = function(actor, partner)
             return ("\"I-I don't really know that %s. Please spare my life!\""):format(
-                _.loc("Elona.Gender." .. _.gender(actor) .. ".Informal")
+                _.loc("Elona.Gender.Names." .. _.gender(actor) .. ".Informal")
             )
         end,
         Take = "Here, take this.",

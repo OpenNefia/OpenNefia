@@ -214,4 +214,11 @@ namespace OpenNefia.Content.Roles
         /// <inheritdoc />
         public override string Name => "RoleSpellWriter";
     }
+
+    [RegisterComponent]
+    public class RoleProstituteComponent : Component, IRoleComponent
+    {
+        /// <inheritdoc />
+        public override string Name => "RoleProstitute";
+    }
 }
