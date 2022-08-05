@@ -46,9 +46,7 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? CommandClose(IGameSessionManager? session)
         {
-            _mes.Display(Loc.GetString("Elona.Door.QueryClose"));
-
-            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
+            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player, Loc.GetString("Elona.Door.QueryClose")));
             if (!dir.HasValue)
             {
                 _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));

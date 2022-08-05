@@ -95,11 +95,9 @@ namespace OpenNefia.Content.Religion
 
         private void SetRandomGod(EntityUid uid, ReligionComponent component, ref EntityBeingGeneratedEvent args)
         {
-            var hasDialog = false;
-            if (EntityManager.TryGetComponent<DialogComponent>(uid, out var dialog))
-                hasDialog = dialog.CanTalk || dialog.DialogID != null;
+            var canTalk = CompOrNull<DialogComponent>(uid)?.CanTalk ?? false;
 
-            if (!_gameSession.IsPlayer(uid) && hasDialog && component.GodID == null)
+            if (!_gameSession.IsPlayer(uid) && canTalk && component.HasRandomGod && component.GodID == null)
                 component.GodID = PickRandomGodID();
         }
 

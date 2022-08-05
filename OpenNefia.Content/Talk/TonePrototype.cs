@@ -1,6 +1,7 @@
-﻿using OpenNefia.Core.Serialization.Manager.Attributes;
+﻿using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Core.Prototypes
+namespace OpenNefia.Content.Talk
 {
     [Prototype("Elona.Tone")]
     public class TonePrototype : IPrototype

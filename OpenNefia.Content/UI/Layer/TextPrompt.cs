@@ -36,12 +36,13 @@ namespace OpenNefia.Content.UI.Layer
             public string? QueryText { get; set; } = null;
 
             public Args(int? maxLength = 16, string? initialValue = null, bool isCancellable = true, 
-                bool hasShadow = true, string? prompt = null)
+                bool hasShadow = true, string? queryText = null)
             {
                 MaxLength = maxLength;
                 InitialValue = initialValue;
                 IsCancellable = isCancellable;
                 HasShadow = hasShadow;
+                QueryText = queryText;
             }
         }
 

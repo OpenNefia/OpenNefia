@@ -1,4 +1,9 @@
 Elona.SandBag = {
+    Interact = {
+        Release = function(source, target)
+            return ("%s release%s %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+    },
     Dialog = {
         TurnStart = {
             _.quote "Release me now.",

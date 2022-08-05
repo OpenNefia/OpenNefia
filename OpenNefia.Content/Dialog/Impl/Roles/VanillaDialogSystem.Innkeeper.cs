@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Dialog
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromString(textBuyMeal),
-                NextNode = Protos.Dialog.Innkeeper.WithDialogNode("BuyMeal")
+                NextNode = new(Protos.Dialog.Innkeeper, "BuyMeal")
             });
 
             if (_weather.IsBadWeather())
@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Dialog
                 args.OutChoices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Innkeeper.Choices.GoToShelter"),
-                    NextNode = Protos.Dialog.Innkeeper.WithDialogNode("GoToShelter")
+                    NextNode = new(Protos.Dialog.Innkeeper, "GoToShelter")
                 });
             }
         }
@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Dialog
             if (!TryComp<WalletComponent>(engine.Player, out var wallet) || wallet.Gold < cost)
             {
                 _mes.Display(Loc.GetString("Elona.Inventory.Behavior.Buy.NotEnoughMoney"));
-                return engine.GetNodeByID(Protos.Dialog.Villager, "Talk");
+                return engine.GetNodeByID(Protos.Dialog.Default, "Talk");
             }
 
             if (!TryComp<HungerComponent>(engine.Player, out var hunger) || hunger.Nutrition >= HungerLevels.InnkeeperMeal)

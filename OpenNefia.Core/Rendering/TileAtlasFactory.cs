@@ -188,7 +188,7 @@ namespace OpenNefia.Core.Rendering
 
             var imageData = _workCanvas.NewImageData();
             var image = Love.Graphics.NewImage(imageData);
-            image.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Linear, 1);
+            image.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
 
             var tileAtlas = new TileAtlas(image, _atlasTiles);
 

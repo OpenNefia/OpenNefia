@@ -1,8 +1,11 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomText;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.UI;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -14,21 +17,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.CustomName
 {
     public interface ICustomNameSystem : IEntitySystem
     {
+        void PromptForNewName(EntityUid target);
     }
 
     public sealed class CustomNameSystem : EntitySystem, ICustomNameSystem
     {
         [Dependency] private readonly IRandomNameGenerator _randomNames = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<CharaNameGenComponent, EntityBeingGeneratedEvent>(GenerateRandomName, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CustomNameComponent, GetDisplayNameEventArgs>(GetCustomName, priority: EventPriorities.VeryHigh);
+        }
+
+        public void PromptForNewName(EntityUid target)
+        {
+            var args = new TextPrompt.Args(12, isCancellable: true, queryText: Loc.GetString("Elona.CustomName.Interact.ChangeName.Prompt", ("entity", target)));
+            var result = _uiManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(args);
+
+            if (!result.HasValue || string.IsNullOrWhiteSpace(result.Value!.Text))
+            {
+                _mes.Display(Loc.GetString("Elona.CustomName.Interact.ChangeName.Cancel"));
+                return;
+            }
+
+            var newName = result.Value.Text;
+
+            EnsureComp<CustomNameComponent>(target).CustomName = newName;
+            _mes.Display(Loc.GetString("Elona.CustomName.Interact.ChangeName.YouNamed",
+                ("entity", target),
+                ("newName", newName)));
         }
 
         private void GenerateRandomName(EntityUid uid, CharaNameGenComponent component, ref EntityBeingGeneratedEvent args)

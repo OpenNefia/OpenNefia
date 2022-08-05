@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Dialog
             args.OutChoices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Prostitute.Choices.Buy"),
-                NextNode = Protos.Dialog.Prostitute.WithDialogNode("BuyInit")
+                NextNode = new(Protos.Dialog.Prostitute, "BuyInit")
             });
         }
 
@@ -78,13 +78,13 @@ namespace OpenNefia.Content.Dialog
                 choices.Add(new()
                 {
                     Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Common.Sex.Choices.Confirm"),
-                    NextNode = Protos.Dialog.Prostitute.WithDialogNode("BuyExecute")
+                    NextNode = new(Protos.Dialog.Prostitute, "BuyExecute")
                 });
             }
             choices.Add(new()
             {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Common.Sex.Choices.GoBack"),
-                NextNode = Protos.Dialog.Villager.WithDialogNode("YouKidding"),
+                NextNode = new(Protos.Dialog.Default, "YouKidding"),
                 IsDefault = true
             });
 

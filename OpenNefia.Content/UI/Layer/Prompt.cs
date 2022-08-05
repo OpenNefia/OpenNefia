@@ -40,6 +40,9 @@ namespace OpenNefia.Content.UI.Layer
             if (ChoiceText != null)
                 return ChoiceText;
 
+            if (ChoiceData is IPromptFormattable formattable)
+                return formattable.FormatForPrompt();
+
             return $"{ChoiceData}";
         }
 

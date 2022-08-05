@@ -31,6 +31,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly ICombatSystem _combat = default!;
         [Dependency] private readonly IActionBashSystem _actionBash = default!;
         [Dependency] private readonly IActionDigSystem _actionDig = default!;
+        [Dependency] private readonly IActionInteractSystem _actionInteract = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IVerbSystem _verbs = default!;
 
@@ -41,6 +42,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(ContentKeyFunctions.Bash, InputCmdHandler.FromDelegate(CommandBash))
                 .Bind(ContentKeyFunctions.Fire, InputCmdHandler.FromDelegate(CommandFire))
                 .Bind(ContentKeyFunctions.Rest, InputCmdHandler.FromDelegate(CommandRest))
+                .Bind(ContentKeyFunctions.Interact, InputCmdHandler.FromDelegate(CommandInteract))
                 .Register<ActionCommandsSystem>();
         }
 
@@ -59,9 +61,7 @@ namespace OpenNefia.Content.GameObjects
             if (BlockIfWorldMap(session!.Player))
                 return TurnResult.Aborted;
 
-            _mes.Display(Loc.GetString("Elona.Dig.Prompt"));
-
-            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
+            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player, Loc.GetString("Elona.Dig.Prompt")));
             if (!dir.HasValue)
             {
                 _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
@@ -85,9 +85,7 @@ namespace OpenNefia.Content.GameObjects
             if (BlockIfWorldMap(session!.Player))
                 return TurnResult.Aborted;
 
-            _mes.Display(Loc.GetString("Elona.Bash.Prompt"));
-
-            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
+            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player, Loc.GetString("Elona.Bash.Prompt")));
             if (!dir.HasValue)
             {
                 _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
@@ -122,6 +120,11 @@ namespace OpenNefia.Content.GameObjects
         {
             _activities.StartActivity(session!.Player, Protos.Activity.Resting);
             return TurnResult.Succeeded;
+        }
+
+        private TurnResult? CommandInteract(IGameSessionManager? session)
+        {
+            return _actionInteract.PromptInteract(session!.Player);
         }
     }
 }

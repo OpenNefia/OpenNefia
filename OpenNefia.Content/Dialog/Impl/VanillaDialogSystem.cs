@@ -41,7 +41,9 @@ namespace OpenNefia.Content.Dialog
 
         public override void Initialize()
         {
-            Villager_Initialize();
+            Default_Initialize();
+            Ally_Initialize();
+            
             Trainer_Initialize();
             Prostitute_Initialize();
             Innkeeper_Initialize();

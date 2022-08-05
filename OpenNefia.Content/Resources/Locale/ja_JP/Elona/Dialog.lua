@@ -4,7 +4,16 @@ Elona.Dialog = {
             More = "(続く)",
             Bye = "さようなら",
         },
+        WillNotListen = function(entity)
+            return ("%sは耳を貸さない。"):format(_.name(entity))
+        end,
         IgnoresYou = "…(あなたを無視している)",
+        IsBusy = function(speaker)
+            return ("(%sはお取り込み中だ…)"):format(_.name(speaker))
+        end,
+        IsSleeping = function(speaker)
+            return ("(%sはぐっすり眠っている…)"):format(_.name(speaker))
+        end,
     },
 
     Impression = {

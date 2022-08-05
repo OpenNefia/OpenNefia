@@ -6,21 +6,75 @@
       - Elona.Dialog.Common.IgnoresYou
 
 - type: Elona.Dialog
-  id: Elona.Villager
+  id: Elona.IsBusy
+  nodes:
+    __start__: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsBusy
+
+- type: Elona.Dialog
+  id: Elona.IsSleeping
+  nodes:
+    __start__: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+
+- type: Elona.Dialog
+  id: Elona.Ally
+  nodes:
+    AskForMarriage: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Ally_AskForMarriage
+    MarriageRefuse: !type:DialogJumpNode
+      texts:
+      - Elona.Dialog.Ally.Marriage.Refuses
+      nextNode: Elona.Default:Talk
+    MarriageAccept: !type:DialogTextNode
+      afterEnter: Content.Dialog.VanillaDialogSystem:Ally_MarriageAccept
+      texts:
+      - Elona.Dialog.Ally.Marriage.Accepts
+    SilenceStart: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Ally_SilenceStart
+      texts:
+      - Elona.Dialog.Ally.Silence.Start
+      nextNode: Elona.Default:Talk
+    SilenceStop: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Ally_SilenceStop
+      texts:
+      - Elona.Dialog.Ally.Silence.Stop
+      nextNode: Elona.Default:Talk
+    AbandonConfirm: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Ally.Abandon.PromptConfirm
+      choices:
+      - text: Elona.Dialog.Ally.Abandon.Choices.Yes
+        nextNode: Elona.Ally:Abandon
+      - text: Elona.Dialog.Ally.Abandon.Choices.No
+        nextNode: Elona.Default:Talk
+    Abandon: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Ally_Abandon
+
+- type: Elona.Dialog
+  id: Elona.Sex
+
+- type: Elona.Dialog
+  id: Elona.QuestGiver
+
+- type: Elona.Dialog
+  id: Elona.Default
   startNode: Talk
   nodes:
     Talk: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Villager_Talk
+      callback: Content.Dialog.VanillaDialogSystem:Default_Talk
     YouKidding: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Common.YouKidding
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     Thanks: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Common.Thanks
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     Trade: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Villager_Trade
+      callback: Content.Dialog.VanillaDialogSystem:Default_Trade
 
 - type: Elona.Dialog
   id: Elona.Shopkeeper
@@ -36,7 +90,7 @@
       beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_TrainExecute
       texts:
       - Elona.Dialog.Trainer.Train.Finish
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     Learn: !type:DialogCallbackNode
       callback: Content.Dialog.VanillaDialogSystem:Trainer_Learn
     LearnConfirm: !type:DialogCallbackNode
@@ -45,11 +99,11 @@
       beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_LearnExecute
       texts:
       - Elona.Dialog.Trainer.Learn.Finish
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     ComeAgain: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Trainer.ComeAgain
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
 
 - type: Elona.Dialog
   id: Elona.Prostitute
@@ -73,11 +127,11 @@
     BuyMealNotHungry: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Innkeeper.BuyMeal.NotHungry
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     BuyMealFinish: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Innkeeper.BuyMeal.HereYouAre
-      nextNode: Elona.Villager:Talk
+      nextNode: Elona.Default:Talk
     GoToShelter: !type:DialogTextNode
       afterEnter: Content.Dialog.VanillaDialogSystem:Innkeeper_GoToShelter
       texts:
@@ -85,8 +139,10 @@
 
 - type: Elona.Dialog
   id: Elona.Informer
+
 - type: Elona.Dialog
   id: Elona.SpellWriter
+
 - type: Elona.Dialog
   id: Elona.Adventurer
 - type: Elona.Dialog
@@ -95,15 +151,3 @@
   id: Elona.Guard
 - type: Elona.Dialog
   id: Elona.Servant
-- type: Elona.Dialog
-  id: Elona.IsBusy
-- type: Elona.Dialog
-  id: Elona.IsSleeping
-- type: Elona.Dialog
-  id: Elona.Ally
-- type: Elona.Dialog
-  id: Elona.Default
-- type: Elona.Dialog
-  id: Elona.Sex
-- type: Elona.Dialog
-  id: Elona.QuestGiver
