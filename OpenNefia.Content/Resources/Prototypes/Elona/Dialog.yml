@@ -67,6 +67,22 @@
 
 - type: Elona.Dialog
   id: Elona.Innkeeper
+  nodes:
+    BuyMeal: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Innkeeper_BuyMeal
+    BuyMealNotHungry: !type:DialogJumpNode
+      texts:
+      - Elona.Dialog.Innkeeper.BuyMeal.NotHungry
+      nextNode: Elona.Villager:Talk
+    BuyMealFinish: !type:DialogJumpNode
+      texts:
+      - Elona.Dialog.Innkeeper.BuyMeal.HereYouAre
+      nextNode: Elona.Villager:Talk
+    GoToShelter: !type:DialogTextNode
+      afterEnter: Content.Dialog.VanillaDialogSystem:Innkeeper_GoToShelter
+      texts:
+      - Elona.Dialog.Innkeeper.GoToShelter
+
 - type: Elona.Dialog
   id: Elona.Informer
 - type: Elona.Dialog
