@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Dialog
         {
             args.OutChoices.Add(new() { 
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Villager.Choices.Talk"),
-                NextNode = Protos.Dialog.Villager.QualifyNodeID("Talk")
+                NextNode = Protos.Dialog.Villager.WithDialogNode("Talk")
             });
         }
 
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.Dialog
                 key = "Elona.Dialog.Villager.Talk.Bored";
             else if (_parties.IsInPlayerParty(target))
                 key = "Elona.Dialog.Villager.Talk.Ally";
-            else if (ProtoIDOrNull(target) == Protos.Chara.Prostitute)
+            else if (HasComp<RoleProstituteComponent>(target))
                 key = "Elona.Dialog.Villager.Talk.Prostitute";
             // TODO moyer
             else if (HasComp<RoleSlaverComponent>(target))

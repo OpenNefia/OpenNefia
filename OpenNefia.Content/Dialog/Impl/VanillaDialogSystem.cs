@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Factions;
+﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
@@ -36,11 +37,13 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
         {
             Villager_Initialize();
             Trainer_Initialize();
+            Prostitute_Initialize();
         }
     }
 }

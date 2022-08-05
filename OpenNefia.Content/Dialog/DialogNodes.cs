@@ -93,6 +93,15 @@ namespace OpenNefia.Content.Dialog
             return new() { Text = text };
         }
 
+        /// <summary>
+        /// Creates a new text entry from a locale key.
+        /// 
+        /// This will autoformat the text with parameters from the dialog engine, such as the
+        /// speaker entity, so you should use this instead of <see cref="FromString(string)"/>
+        /// unless you require special formatting/parameters.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static DialogTextEntry FromLocaleKey(LocaleKey key)
         {
             return new() { Key = key };
@@ -277,7 +286,7 @@ namespace OpenNefia.Content.Dialog
 
     public static class DialogPrototypeIdExt
     {
-        public static QualifiedDialogNodeID QualifyNodeID(this PrototypeId<DialogPrototype> protoID, string nodeID)
+        public static QualifiedDialogNodeID WithDialogNode(this PrototypeId<DialogPrototype> protoID, string nodeID)
         {
             return new(protoID, nodeID);
         }

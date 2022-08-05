@@ -37,7 +37,7 @@ Elona.Dialog.Villager = {
         Prostitute = {
             function(npc)
                 return ("あ〜ら、あなたいい%sね。一晩の夢を見させてあげてもいいのよ。"):format(
-                    _.loc("Elona.Gender." .. _.gender(_.player()) .. ".Informal")
+                    _.loc("Elona.Gender.Names." .. _.gender(_.player()) .. ".Informal")
                 )
             end,
         },

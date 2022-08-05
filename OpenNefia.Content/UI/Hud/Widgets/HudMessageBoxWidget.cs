@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Hud
 
         public override void GetPreferredSize(out Vector2 size)
         {
-            size = (IoCManager.Resolve<IGraphics>().WindowSize.X - 124, Constants.INF_MSGH);
+            size = (IoCManager.Resolve<IGraphics>().WindowSize.X - 174, Constants.INF_MSGH);
         }
 
         public override void SetSize(float width, float height)

@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Dialog
                 next = StepDialog(next.Node);
             }
 
-            return TurnResult.Aborted;
+            return TurnResult.Succeeded;
         }
 
         private QualifiedDialogNode? StepDialog(IDialogNode? node)
