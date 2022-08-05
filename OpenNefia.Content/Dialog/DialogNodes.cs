@@ -10,9 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Dialog
 {
+    public delegate void DialogActionDelegate(IDialogEngine engine, IDialogNode node);
     public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IDialogNode node);
 
     [ImplicitDataDefinitionForInheritors]
@@ -23,13 +26,16 @@ namespace OpenNefia.Content.Dialog
     }
 
     [DataDefinition]
-    public sealed class TextNodeChoice
+    public sealed class DialogChoiceEntry
     {
         [DataField]
-        public string? NextNode { get; set; }
+        public QualifiedDialogNodeID? NextNode { get; set; }
 
         [DataField]
-        public LocaleKey Text { get; set; }
+        public DialogTextEntry Text { get; set; } = DialogTextEntry.FromString("");
+
+        [DataField]
+        public bool IsDefault { get; set; } = false;
     }
 
     public sealed class DialogTextOverride : IDialogExtraData
@@ -42,9 +48,9 @@ namespace OpenNefia.Content.Dialog
         /// See chat2.hsp:*chat_default in the HSP source, which checks if the chat buffer wasn't
         /// previously set. (buff="")
         /// </remarks>
-        public IReadOnlyList<LocaleKey> Texts { get; }
+        public IReadOnlyList<DialogTextEntry> Texts { get; }
 
-        public DialogTextOverride(IReadOnlyList<LocaleKey> texts)
+        public DialogTextOverride(IReadOnlyList<DialogTextEntry> texts)
         {
             Texts = texts;
         }
@@ -53,15 +59,20 @@ namespace OpenNefia.Content.Dialog
     public sealed class DialogJumpNode : IDialogNode
     {
         [DataField("texts", required: true)]
-        private List<LocaleKey> _texts { get; } = new();
+        private List<DialogTextEntry> _texts { get; } = new();
 
-        public IReadOnlyList<LocaleKey> Texts => _texts;
+        public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
         [DataField(required: true)]
-        public string NextNode { get; } = string.Empty;
+        public QualifiedDialogNodeID NextNode { get; } = QualifiedDialogNodeID.Empty;
+
+        [DataField]
+        public DialogActionDelegate? BeforeEnter { get; }
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
+            BeforeEnter?.Invoke(engine, this);
+
             if (_texts.Count == 0)
                 return engine.GetNodeByID(NextNode);
 
@@ -72,12 +83,34 @@ namespace OpenNefia.Content.Dialog
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(NextNode);
     }
 
+    [DataDefinition]
+    public sealed class DialogTextEntry
+    {
+        private DialogTextEntry() { }
+
+        public static DialogTextEntry FromString(string text)
+        {
+            return new() { Text = text };
+        }
+
+        public static DialogTextEntry FromLocaleKey(LocaleKey key)
+        {
+            return new() { Key = key };
+        }
+
+        [DataField]
+        public string? Text { get; set; }
+
+        [DataField]
+        public LocaleKey? Key { get; set; }
+    }
+
     public sealed class DialogTextNode : IDialogNode
     {
-        public DialogTextNode() {}
+        public DialogTextNode() { }
 
-        public DialogTextNode(List<LocaleKey> texts, List<TextNodeChoice> choices,
-            DialogNodeDelegate? beforeEnter = null, DialogNodeDelegate? afterEnter = null)
+        public DialogTextNode(List<DialogTextEntry> texts, List<DialogChoiceEntry> choices,
+            DialogActionDelegate? beforeEnter = null, DialogActionDelegate? afterEnter = null)
         {
             _texts = texts;
             _choices = choices;
@@ -86,20 +119,28 @@ namespace OpenNefia.Content.Dialog
         }
 
         [DataField("texts", required: true)]
-        private List<LocaleKey> _texts { get; } = new();
+        private List<DialogTextEntry> _texts { get; } = new();
 
-        public IReadOnlyList<LocaleKey> Texts => _texts;
+        public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
         [DataField("choices", required: true)]
-        private List<TextNodeChoice> _choices { get; } = new();
+        private List<DialogChoiceEntry> _choices { get; } = new();
 
-        public IReadOnlyList<TextNodeChoice> Choices => _choices;
-
-        [DataField]
-        public DialogNodeDelegate? BeforeEnter { get; } = default!;
+        public IReadOnlyList<DialogChoiceEntry> Choices => _choices;
 
         [DataField]
-        public DialogNodeDelegate? AfterEnter { get; } = default!;
+        public DialogActionDelegate? BeforeEnter { get; }
+
+        [DataField]
+        public DialogActionDelegate? AfterEnter { get; }
+
+        private string GetLocalizedText(DialogTextEntry text, IDialogEngine engine)
+        {
+            if (text.Text != null)
+                return text.Text;
+
+            return Loc.GetString($"{text.Key}", ("speaker", engine.Speaker));
+        }
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
@@ -110,18 +151,26 @@ namespace OpenNefia.Content.Dialog
             var entityMan = IoCManager.Resolve<IEntityManager>();
             var dialog = EntitySystem.Get<IDialogSystem>();
 
-            IReadOnlyList<LocaleKey> texts = _texts;
+            IReadOnlyList<DialogTextEntry> entries = _texts;
             if (engine.Data.TryGet<DialogTextOverride>(out var textOverride))
             {
-                texts = textOverride.Texts;
+                entries = textOverride.Texts;
                 engine.Data.Remove<DialogTextOverride>();
             }
+
+            int defaultChoiceIndex;
+            if (_choices.Count == 1)
+                defaultChoiceIndex = 0;
+            else
+                defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
+
+            BeforeEnter?.Invoke(engine, this);
 
             UiResult<DialogResult>? result = null;
 
             for (var i = 0; i < _texts.Count; i++)
             {
-                var text = texts[i];
+                var entry = entries[i];
 
                 List<DialogChoice> choices = new();
                 if (i == _texts.Count - 1)
@@ -139,8 +188,7 @@ namespace OpenNefia.Content.Dialog
                         {
                             choices.Add(new DialogChoice()
                             {
-                                // TODO pass blackboard data
-                                Text = Loc.GetString(choice.Text, ("speaker", engine.Target))
+                                Text = GetLocalizedText(choice.Text, engine)
                             });
                         }
                     }
@@ -154,29 +202,36 @@ namespace OpenNefia.Content.Dialog
                 }
 
                 var speakerName = "";
-                if (entityMan.IsAlive(engine.Target))
-                    speakerName = dialog.GetDefaultSpeakerName(engine.Target.Value);
+                if (entityMan.IsAlive(engine.Speaker))
+                    speakerName = dialog.GetDefaultSpeakerName(engine.Speaker.Value);
 
                 var step = new DialogStepData()
                 {
-                    Target = engine.Target,
+                    Target = engine.Speaker,
                     SpeakerName = speakerName,
-                    // TODO pass blackboard data
-                    Text = Loc.GetString(text, ("speaker", engine.Target)),
-                    Choices = choices
+                    Text = GetLocalizedText(entry, engine),
+                    Choices = choices,
+                    CanCancel = defaultChoiceIndex != -1
                 };
 
                 engine.DialogLayer.UpdateFromStepData(step);
                 result = uiMan.Query(engine.DialogLayer);
             }
 
+            AfterEnter?.Invoke(engine, this);
+
             if (result == null)
                 return null;
 
-            int defaultChoiceIndex = 0; // TODO
             int choiceIndex = 0;
             if (result is UiResult<DialogResult>.Cancelled)
             {
+                if (defaultChoiceIndex == -1)
+                {
+                    Logger.ErrorS("dialog.node", "Dialog menu was cancelled, but no default choice was found.");
+                    return null;
+                }
+
                 choiceIndex = defaultChoiceIndex;
             }
             else if (result is UiResult<DialogResult>.Finished resultFinished)
@@ -190,7 +245,7 @@ namespace OpenNefia.Content.Dialog
                 return null;
             }
 
-            return engine.GetNodeByID(nextNodeID);
+            return engine.GetNodeByID(nextNodeID.Value);
         }
 
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine)
@@ -203,7 +258,7 @@ namespace OpenNefia.Content.Dialog
                 return null;
             }
 
-            return engine.GetNodeByID(nextNodeID);
+            return engine.GetNodeByID(nextNodeID.Value);
         }
     }
 
@@ -218,5 +273,13 @@ namespace OpenNefia.Content.Dialog
         }
 
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => Callback(engine, this);
+    }
+
+    public static class DialogPrototypeIdExt
+    {
+        public static QualifiedDialogNodeID QualifyNodeID(this PrototypeId<DialogPrototype> protoID, string nodeID)
+        {
+            return new(protoID, nodeID);
+        }
     }
 }

@@ -25,7 +25,7 @@
   - type: MapTypeTown
     townId: 1
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.Alchemy
       - Elona.Healing
       - Elona.Cooking
@@ -63,7 +63,7 @@
   - type: MapTypeTown
     townId: 2
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.Healing
       - Elona.SenseQuality
       - Elona.Cooking
@@ -104,7 +104,7 @@
   - type: MapTypeTown
     townId: 3
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.GeneEngineer
       - Elona.Literacy
       - Elona.Anatomy
@@ -140,7 +140,7 @@
   - type: MapTypeTown
     townId: 4
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.LockPicking
       - Elona.Stealth
       - Elona.MediumArmor
@@ -175,7 +175,7 @@
   - type: MapTypeTown
     townId: 5
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.Negotiation
       - Elona.Investing
       - Elona.Performer
@@ -212,7 +212,7 @@
   - type: MapTypeTown
     townId: 6
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.Faith
       - Elona.Literacy
       - Elona.SenseQuality
@@ -234,7 +234,7 @@
   - type: MapTypeTown
     townId: 7
   - type: MapTrainers
-    trainedSkills:
+    trainableSkills:
       - Elona.Casting
       - Elona.Healing
       - Elona.Literacy

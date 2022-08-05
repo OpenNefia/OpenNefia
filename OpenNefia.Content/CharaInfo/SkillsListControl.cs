@@ -12,6 +12,7 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -80,18 +81,20 @@ namespace OpenNefia.Content.CharaInfo
         private sealed class SkillsListUIListCell : UiListCell<SkillsListEntry>
         {
             public int IndexInCategory { get; }
+            public Alignment DetailAlignment { get; }
 
             [Child] private UiText TextDescription;
             [Child] private UiText TextPower;
             [Child] private UiText TextDetail;
             [Child] private AttributeIcon? Icon;
 
-            public SkillsListUIListCell(SkillsListEntry data, int indexInCategory) : base(data, new UiText(UiFonts.ListText), null)
+            public SkillsListUIListCell(SkillsListEntry data, int indexInCategory, Alignment detailAlignment) : base(data, new UiText(UiFonts.ListText), null)
             {
                 IndexInCategory = indexInCategory;
                 TextDescription = new UiText(UiFonts.ListText);
                 TextPower = new UiText(UiFonts.ListText);
                 TextDetail = new UiText(UiFonts.ListText);
+                DetailAlignment = detailAlignment;
 
                 switch (data)
                 {
@@ -148,7 +151,17 @@ namespace OpenNefia.Content.CharaInfo
                 base.SetPosition(x, y);
                 TextDescription.SetPosition(X + 272, Y + 2);
                 TextPower.SetPosition(X + 222 - TextPower.TextWidth, Y + 2);
-                TextDetail.SetPosition(X + 224, Y + 2);
+
+                switch (DetailAlignment)
+                {
+                    case Alignment.Left:
+                    default:
+                        TextDetail.SetPosition(X + 224, Y + 2);
+                        break;
+                    case Alignment.Right:
+                        TextDetail.SetPosition(X + 272 - TextDetail.Width - 10, Y + 2);
+                        break;
+                }
 
                 switch (Data)
                 {
@@ -194,13 +207,22 @@ namespace OpenNefia.Content.CharaInfo
             }
         }
 
+        public enum Alignment
+        {
+            Left,
+            Right
+        }
+
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResistsSystem _resists = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
         public int CurrentPage => List.CurrentPage;
         public int PageCount => List.PageCount;
+
+        public Alignment DetailAlignment { get; set; } = Alignment.Left;
 
         private EntityUid _charaEntity;
 
@@ -208,9 +230,9 @@ namespace OpenNefia.Content.CharaInfo
         private const int SheetWidth = 700;
         private const int SheetHeight = 400;
 
-        [Child] [Localize("Topic.Name")] private UiText TextTopicName = new UiTextTopic();
-        [Child] [Localize("Topic.Level")] private UiText TextTopicLevel = new UiTextTopic();
-        [Child] [Localize("Topic.Detail")] private UiText TextTopicDetail = new UiTextTopic();
+        [Child][Localize("Topic.Name")] private UiText TextTopicName = new UiTextTopic();
+        [Child][Localize("Topic.Level")] private UiText TextTopicLevel = new UiTextTopic();
+        [Child][Localize("Topic.Detail")] private UiText TextTopicDetail = new UiTextTopic();
         [Child] private UiText TextBonusPoints = new UiText(UiFonts.SkillsListBonusPoints);
         [Child] private UiPagedList<SkillsListEntry> List = new();
 
@@ -225,6 +247,11 @@ namespace OpenNefia.Content.CharaInfo
         public SkillsListControl()
         {
             AssetIeSheet = Assets.Get(Protos.Asset.IeSheet);
+            ShouldDisplaySkill = DefaultShouldDisplaySkill;
+            ShouldDisplayResist = DefaultShouldDisplayResist;
+            FormatSkillDetail = DefaultFormatSkillDetail;
+            FormatSkillPower = DefaultFormatSkillPower;
+            FormatResistPower = DefaultFormatResistPower;
         }
 
         public override void GrabFocus()
@@ -247,19 +274,25 @@ namespace OpenNefia.Content.CharaInfo
             _charaEntity = charaEntity;
         }
 
-        private bool ShouldDisplaySkill(SkillPrototype proto)
+        public Func<SkillPrototype, EntityUid, bool> ShouldDisplaySkill { get; set; } = (_, _) => true;
+        public Func<ElementPrototype, EntityUid, bool> ShouldDisplayResist { get; set; } = (_, _) => true;
+        public Func<SkillPrototype, EntityUid, string> FormatSkillDetail { get; set; } = (_, _) => string.Empty;
+        public Func<SkillPrototype, EntityUid, string> FormatSkillPower { get; set; } = (_, _) => string.Empty;
+        public Func<ElementPrototype, EntityUid, string> FormatResistPower { get; set; } = (_, _) => string.Empty;
+
+        public bool DefaultShouldDisplaySkill(SkillPrototype proto, EntityUid charaEntity)
         {
-            return _skills.HasSkill(_charaEntity, proto);
+            return proto.SkillType == SkillType.Skill && _skills.HasSkill(charaEntity, proto);
         }
 
-        private bool ShouldDisplayResist(ElementPrototype proto)
+        public bool DefaultShouldDisplayResist(ElementPrototype elementProto, EntityUid charaEntity)
         {
             return true;
         }
 
-        private string FormatSkillDetail(SkillPrototype skillProto)
+        public string DefaultFormatSkillDetail(SkillPrototype skillProto, EntityUid charaEntity)
         {
-            if (!_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills))
+            if (!_entityManager.TryGetComponent(charaEntity, out SkillsComponent skills))
                 return string.Empty;
 
             var baseLevel = skills.BaseLevel(skillProto);
@@ -274,9 +307,9 @@ namespace OpenNefia.Content.CharaInfo
             return string.Empty;
         }
 
-        private string FormatSkillPower(SkillPrototype skillProto)
+        public string DefaultFormatSkillPower(SkillPrototype skillProto, EntityUid charaEntity)
         {
-            if (!_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills)
+            if (!_entityManager.TryGetComponent(charaEntity, out SkillsComponent skills)
                 || !skills.TryGetKnown(skillProto, out var skill))
                 return string.Empty;
 
@@ -298,14 +331,14 @@ namespace OpenNefia.Content.CharaInfo
             return powerText;
         }
 
-        private string FormatResistPower(ElementPrototype elementProto)
+        public string DefaultFormatResistPower(ElementPrototype elementProto, EntityUid charaEntity)
         {
-            var grade = _resists.Grade(_charaEntity, elementProto);
+            var grade = _resists.Grade(charaEntity, elementProto);
             var powerText = ResistHelpers.GetGradeText(grade);
 
             if (_config.GetCVar(CCVars.DebugShowDetailedResistPower))
             {
-                var level = _resists.Level(_charaEntity, elementProto);
+                var level = _resists.Level(charaEntity, elementProto);
                 powerText += $" {level}";
             }
 
@@ -324,8 +357,8 @@ namespace OpenNefia.Content.CharaInfo
             {
                 var name = Loc.GetPrototypeString(skillProto, "Name");
                 var desc = Loc.GetPrototypeString(skillProto, "Description");
-                var power = FormatSkillPower(skillProto);
-                var detail = FormatSkillDetail(skillProto);
+                var power = FormatSkillPower(skillProto, _charaEntity);
+                var detail = FormatSkillDetail(skillProto, _charaEntity);
 
                 return new SkillsListEntry.Skill(name, desc, power, detail, skillProto);
             }
@@ -334,45 +367,51 @@ namespace OpenNefia.Content.CharaInfo
             {
                 var name = Loc.GetPrototypeString(elementProto, "Name");
                 var desc = Loc.GetPrototypeString(elementProto, "Description");
-                var power = FormatResistPower(elementProto);
+                var power = FormatResistPower(elementProto, _charaEntity);
                 var detail = string.Empty;
 
                 return new SkillsListEntry.Resist(name, desc, power, detail, elementProto);
             }
 
-            if (_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills))
+            foreach (var skillProto in _protos.EnumeratePrototypes<SkillPrototype>().Where(p => ShouldDisplaySkill(p, _charaEntity)))
             {
-                foreach (var skillProto in _skills.EnumerateRegularSkills().Where(ShouldDisplaySkill))
-                {
-                    var entry = MakeSkillEntry(skillProto);
-                    skillEntries.Add(entry);
-                }
+                var entry = MakeSkillEntry(skillProto);
+                skillEntries.Add(entry);
+            }
 
-                foreach (var skillProto in _skills.EnumerateWeaponProficiencies().Where(ShouldDisplaySkill))
-                {
-                    var entry = MakeSkillEntry(skillProto);
-                    weaponProficiencyEntries.Add(entry);
-                }
+            foreach (var skillProto in _skills.EnumerateWeaponProficiencies().Where(p => ShouldDisplaySkill(p, _charaEntity)))
+            {
+                var entry = MakeSkillEntry(skillProto);
+                weaponProficiencyEntries.Add(entry);
+            }
 
-                foreach (var elementProto in _resists.EnumerateResistableElements().Where(ShouldDisplayResist))
-                {
-                    var entry = MakeResistEntry(elementProto);
-                    resistEntries.Add(entry);
-                }
+            foreach (var elementProto in _resists.EnumerateResistableElements().Where(p => ShouldDisplayResist(p, _charaEntity)))
+            {
+                var entry = MakeResistEntry(elementProto);
+                resistEntries.Add(entry);
             }
 
             var skillsHeader = new SkillsListEntry.Header(_loc.GetString("Category.Skill"));
             var weaponProficienciesHeader = new SkillsListEntry.Header(_loc.GetString("Category.WeaponProficiency"));
             var resistsHeader = new SkillsListEntry.Header(_loc.GetString("Category.Resistance"));
 
-            cells.Add(new SkillsListUIListCell(skillsHeader, 0));
-            cells.AddRange(skillEntries.Select((e, i) => new SkillsListUIListCell(e, i)));
+            if (skillEntries.Count > 0)
+            {
+                cells.Add(new SkillsListUIListCell(skillsHeader, 0, DetailAlignment));
+                cells.AddRange(skillEntries.Select((e, i) => new SkillsListUIListCell(e, i, DetailAlignment)));
+            }
 
-            cells.Add(new SkillsListUIListCell(weaponProficienciesHeader, 0));
-            cells.AddRange(weaponProficiencyEntries.Select((e, i) => new SkillsListUIListCell(e, i)));
+            if (weaponProficiencyEntries.Count > 0)
+            {
+                cells.Add(new SkillsListUIListCell(weaponProficienciesHeader, 0, DetailAlignment));
+                cells.AddRange(weaponProficiencyEntries.Select((e, i) => new SkillsListUIListCell(e, i, DetailAlignment)));
+            }
 
-            cells.Add(new SkillsListUIListCell(resistsHeader, 0));
-            cells.AddRange(resistEntries.Select((e, i) => new SkillsListUIListCell(e, i)));
+            if (resistEntries.Count > 0)
+            {
+                cells.Add(new SkillsListUIListCell(resistsHeader, 0, DetailAlignment));
+                cells.AddRange(resistEntries.Select((e, i) => new SkillsListUIListCell(e, i, DetailAlignment)));
+            }
 
             List.SetCells(cells);
 
@@ -382,7 +421,7 @@ namespace OpenNefia.Content.CharaInfo
             if (isPlayerStatus)
             {
                 var bonusPoints = 0;
-                if (skills != null)
+                if (_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills))
                     bonusPoints = skills.BonusPoints;
 
                 TextBonusPoints.Text = _loc.GetString("BonusPointsRemaining", ("bonusPoints", bonusPoints));

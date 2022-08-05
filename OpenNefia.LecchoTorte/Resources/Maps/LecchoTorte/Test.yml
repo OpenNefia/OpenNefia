@@ -211,5 +211,6 @@ entities:
   - type: Spatial
     parent: 0
     pos: 4,2
+  - type: RoleTrainer
   - type: Dialog
     dialogID: Elona.Villager

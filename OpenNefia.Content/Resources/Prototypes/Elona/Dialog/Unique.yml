@@ -74,38 +74,6 @@
 - type: Elona.Dialog
   id: Elona.Karam
 - type: Elona.Dialog
-  id: Elona.Shopkeeper
-- type: Elona.Dialog
-  id: Elona.Trainer
-- type: Elona.Dialog
-  id: Elona.Prostitute
-- type: Elona.Dialog
-  id: Elona.Innkeeper
-- type: Elona.Dialog
-  id: Elona.Informer
-- type: Elona.Dialog
-  id: Elona.SpellWriter
-- type: Elona.Dialog
-  id: Elona.Adventurer
-- type: Elona.Dialog
-  id: Elona.Maid
-- type: Elona.Dialog
-  id: Elona.Guard
-- type: Elona.Dialog
-  id: Elona.Servant
-- type: Elona.Dialog
-  id: Elona.IsBusy
-- type: Elona.Dialog
-  id: Elona.IsSleeping
-- type: Elona.Dialog
-  id: Elona.Ally
-- type: Elona.Dialog
-  id: Elona.Default
-- type: Elona.Dialog
-  id: Elona.Sex
-- type: Elona.Dialog
-  id: Elona.QuestGiver
-- type: Elona.Dialog
   id: Elona.Larnneire
 - type: Elona.Dialog
   id: Elona.GuestCitizen

@@ -9,6 +9,10 @@ Elona.CharaSheet = {
 
     KeyHint = {
         BlessingAndHex = "祝福と呪いの情報",
+        SpendBonus = "ボーナスの分配",
+        TrackSkill = "スキルトラック",
+        TrainSkill = "スキルを訓練",
+        LearnSkill = "スキルを習得",
     },
 
     Potential = {

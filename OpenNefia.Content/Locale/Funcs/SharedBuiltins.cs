@@ -108,5 +108,21 @@ namespace OpenNefia.Content.Locale.Funcs
 
             return gender.ToString();
         }
+
+        [LocaleFunction("player")]
+        public static EntityUid BuiltIn_Player()
+        {
+            return IoCManager.Resolve<IGameSessionManager>().Player;
+        }
+
+        [LocaleFunction("alias")]
+        public static string BuiltIn_Alias(object? obj)
+        {
+            if (obj is not EntityUid entity)
+                return "";
+
+            return IoCManager.Resolve<IEntityManager>()
+                .GetComponentOrNull<CharaComponent>(entity)?.Alias ?? "";
+        }
     }
 }

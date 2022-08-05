@@ -1,4 +1,5 @@
 ﻿using NativeFileDialogSharp;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -16,12 +17,13 @@ namespace OpenNefia.Content.Dialog
     public interface IDialogEngine
     {
         DialogPrototype Dialog { get; }
-        EntityUid? Target { get; }
+        EntityUid Player { get; }
+        EntityUid? Speaker { get; }
         IDialogLayer DialogLayer { get; }
         Blackboard<IDialogExtraData> Data { get; }
 
         TurnResult StartDialog();
-        QualifiedDialogNode GetNodeByID(string nodeID);
+        QualifiedDialogNode GetNodeByID(QualifiedDialogNodeID nodeID);
         QualifiedDialogNode GetNodeByID(PrototypeId<DialogPrototype> protoID, string nodeID);
     }
 
@@ -29,7 +31,11 @@ namespace OpenNefia.Content.Dialog
     {
     }
 
-    public sealed record QualifiedDialogNode(PrototypeId<DialogPrototype> ProtoID, IDialogNode Node);
+    public record struct QualifiedDialogNodeID(PrototypeId<DialogPrototype> DialogID, string NodeID)
+    {
+        public static QualifiedDialogNodeID Empty => new(new(""), "");
+    }
+    public sealed record QualifiedDialogNode(PrototypeId<DialogPrototype> DialogID, IDialogNode Node);
 
     public sealed class DialogEngine : IDialogEngine
     {
@@ -37,35 +43,28 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public DialogPrototype Dialog { get; private set; }
-        public EntityUid? Target { get; private set; }
+        public EntityUid Player { get; private set; }
+        public EntityUid? Speaker { get; private set; }
         public IDialogLayer DialogLayer { get; }
         public Blackboard<IDialogExtraData> Data { get; }
 
-        public DialogEngine(EntityUid? target, DialogPrototype proto, IDialogLayer dialogLayer)
+        public DialogEngine(EntityUid player, EntityUid? target, DialogPrototype proto, IDialogLayer dialogLayer)
         {
             EntitySystem.InjectDependencies(this);
 
-            Target = target;
+            Player = player;
+            Speaker = target;
             Dialog = proto;
             DialogLayer = dialogLayer;
             Data = new();
         }
 
-        public QualifiedDialogNode GetNodeByID(string nodeID)
+        public QualifiedDialogNode GetNodeByID(QualifiedDialogNodeID nodeID)
         {
-            var dialog = Dialog;
+            if (!_protos.TryIndex(nodeID.DialogID, out var dialog))
+                throw new InvalidDataException($"Dialog with ID {nodeID.DialogID} not found.");
 
-            if (nodeID.IndexOf(':') != -1)
-            {
-                var split = nodeID.Split(':');
-                var dialogID = split[0];
-                nodeID = split[1];
-
-                if (!_protos.TryIndex(new PrototypeId<DialogPrototype>(dialogID), out dialog))
-                    throw new InvalidDataException($"Dialog with ID {dialogID} not found.");
-            }
-
-            if (!dialog.Nodes.TryGetValue(nodeID, out var node))
+            if (!dialog.Nodes.TryGetValue(nodeID.NodeID, out var node))
                 throw new InvalidDataException($"Dialog node {nodeID} not found in dialog {dialog.ID}.");
 
             return new(dialog.GetStrongID(), node);
@@ -83,11 +82,11 @@ namespace OpenNefia.Content.Dialog
 
         public TurnResult StartDialog()
         {
-            QualifiedDialogNode? next = GetNodeByID(Dialog.StartNode);
+            QualifiedDialogNode? next = GetNodeByID(Dialog.GetStrongID(), Dialog.StartNode);
 
             while (next != null)
             {
-                Dialog = _protos.Index(next.ProtoID);
+                Dialog = _protos.Index(next.DialogID);
                 next = StepDialog(next.Node);
             }
 
@@ -97,8 +96,8 @@ namespace OpenNefia.Content.Dialog
         private QualifiedDialogNode? StepDialog(IDialogNode? node)
         {
             var evStepDialog = new BeforeStepDialogEvent(this, node);
-            if (_entityManager.IsAlive(Target))
-                _entityManager.EventBus.RaiseEvent(Target.Value, evStepDialog, broadcast: true);
+            if (_entityManager.IsAlive(Speaker))
+                _entityManager.EventBus.RaiseEvent(Speaker.Value, evStepDialog, broadcast: true);
             else
                 _entityManager.EventBus.RaiseEvent(evStepDialog);
             node = evStepDialog.OutCurrentNode;

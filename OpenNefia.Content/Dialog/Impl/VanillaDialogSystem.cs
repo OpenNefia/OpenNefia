@@ -5,12 +5,14 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +34,13 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IDialogSystem _dialog = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         public override void Initialize()
         {
             Villager_Initialize();
+            Trainer_Initialize();
         }
     }
 }

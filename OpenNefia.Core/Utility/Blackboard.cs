@@ -41,12 +41,6 @@ namespace OpenNefia.Core.Utility
         public void Add<T>(T instance) where T: class, TType
         {
             var specificType = instance.GetType();
-       
-            if (_instances.ContainsKey(specificType))
-            {
-                throw new ArgumentException($"Key {specificType} already exists.");
-            }
-
             _instances[specificType] = instance;
         }
 

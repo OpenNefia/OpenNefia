@@ -363,11 +363,12 @@ connection endpoint."
       (switch-to-buffer (current-buffer)))))
 
 ;;;###autoload
-(defun open-nefia-cs-verify-prototypes ()
+(defun open-nefia-cs-validate-prototypes ()
   (interactive)
-  (let ((projectile-project-compilation-cmd "until dotnet run --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj; do; done;")
-        (compilation-read-command nil)
-        (compilation-auto-jump-to-first-error t))
+  (let* ((projectile-project-compilation-cmd "dotnet run --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj")
+         (compile-command projectile-project-compilation-cmd)
+         (compilation-read-command nil)
+         (compilation-auto-jump-to-first-error t))
     (projectile-compile-project nil)))
 
 (provide 'open-nefia-cs)
