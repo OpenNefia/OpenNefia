@@ -3,10 +3,12 @@ Elona.Gender = {
         Male = {
             Normal = "male",
             Polite = "male",
+            Informal = "boy",
         },
         Female = {
             Normal = "female",
             Polite = "female",
+            Informal = "girl",
         },
     },
 }

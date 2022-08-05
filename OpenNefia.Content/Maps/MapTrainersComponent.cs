@@ -15,6 +15,6 @@ namespace OpenNefia.Content.Maps
         public override string Name => "MapTrainers";
 
         [DataField]
-        public HashSet<PrototypeId<SkillPrototype>> TrainedSkills { get; } = new();
+        public HashSet<PrototypeId<SkillPrototype>> LearnableSkills { get; } = new();
     }
 }

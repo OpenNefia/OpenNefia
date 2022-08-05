@@ -9,6 +9,10 @@ Elona.CharaSheet = {
 
     KeyHint = {
         BlessingAndHex = "Blessing/Curse Info",
+        SpendBonus = "Spend Bonus",
+        TrackSkill = "Track Skill",
+        TrainSkill = "Train Skill",
+        LearnSkill = "Learn Skill",
     },
 
     Potential = {
@@ -28,10 +32,10 @@ Elona.CharaSheet = {
 
         Exp = {
             Exp = "EXP",
-            RequiredExp = "Next Lv",
             God = "God",
             Guild = "Guild",
             Level = "Level",
+            RequiredExp = "Next Lv",
         },
 
         Personal = {

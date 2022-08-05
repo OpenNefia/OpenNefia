@@ -34,10 +34,6 @@ Elona.Activity = {
     },
 
     Sex = {
-        Gender = {
-            Male = "男",
-            Female = "女",
-        },
         TakesClothesOff = function(actor)
             return ("%sは服を脱ぎ始めた。"):format(_.name(actor))
         end,
@@ -70,7 +66,7 @@ Elona.Activity = {
         end,
         SpareLife = function(actor, partner)
             return ("「そ、その%sとは体だけの関係%s%sは何も知らないから、命だけは…！」"):format(
-                _.loc("Elona.Activity.Sex.Gender." .. _.gender(actor)),
+                _.loc("Elona.Gender." .. _.gender(actor) .. ".Informal"),
                 _.da(partner),
                 _.ore(partner, 3)
             )

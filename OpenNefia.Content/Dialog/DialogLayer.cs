@@ -10,6 +10,7 @@ using OpenNefia.Content.Shopkeeper;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
@@ -94,10 +95,7 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IDialogSystem _dialog = default!;
-        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
-        [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly IReligionSystem _religion = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IFieldLayer _field = default!;
 
         private IAssetInstance _assetIeChat = default!;
         private IAssetInstance _assetImpressionIcon = default!;
@@ -158,6 +156,7 @@ namespace OpenNefia.Content.Dialog
         public void UpdateFromStepData(DialogStepData data)
         {
             List.SetCells(data.Choices.Select(c => new DialogChoiceCell(new(c))).ToList());
+            List.Select(0);
 
             _portrait = null;
             _chip = null;
@@ -213,6 +212,8 @@ namespace OpenNefia.Content.Dialog
                 TextImpression.Text = "-";
                 TextImpression2.Text = "-";
             }
+
+            _field.RefreshScreen();
         }
 
         public override void GetPreferredBounds(out UIBox2 bounds)

@@ -37,7 +37,7 @@ namespace OpenNefia.Content.Dialog
             IDialogLayer dialogLayer = _uiManager.CreateLayer<DialogLayer, DialogArgs, DialogResult>(args);
 
             var dialogProto = _protos.Index(dialogID);
-            var engine = new DialogEngine(target, dialogProto, dialogLayer);
+            var engine = new DialogEngine(_gameSession.Player, target, dialogProto, dialogLayer);
 
             return engine.StartDialog();
         }

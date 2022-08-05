@@ -14,10 +14,68 @@
     YouKidding: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Villager.YouKidding
-      nextNode: Talk
+      nextNode: Elona.Villager:Talk
     Thanks: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Villager.Thanks
-      nextNode: Talk
+      nextNode: Elona.Villager:Talk
     Trade: !type:DialogCallbackNode
       callback: Content.Dialog.VanillaDialogSystem:Villager_Trade
+
+- type: Elona.Dialog
+  id: Elona.Shopkeeper
+
+- type: Elona.Dialog
+  id: Elona.Trainer
+  nodes:
+    Train: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Trainer_Train
+    TrainConfirm: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Trainer_TrainConfirm
+    TrainExecute: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_TrainExecute
+      texts:
+      - Elona.Dialog.Trainer.Train.Finish
+      nextNode: Elona.Villager:Talk
+    Learn: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Trainer_Learn
+    LearnConfirm: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Trainer_LearnConfirm
+    LearnExecute: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_LearnExecute
+      texts:
+      - Elona.Dialog.Trainer.Learn.Finish
+      nextNode: Elona.Villager:Talk
+    ComeAgain: !type:DialogJumpNode
+      texts:
+      - Elona.Dialog.Trainer.ComeAgain
+      nextNode: Elona.Villager:Talk
+
+- type: Elona.Dialog
+  id: Elona.Prostitute
+- type: Elona.Dialog
+  id: Elona.Innkeeper
+- type: Elona.Dialog
+  id: Elona.Informer
+- type: Elona.Dialog
+  id: Elona.SpellWriter
+- type: Elona.Dialog
+  id: Elona.Adventurer
+- type: Elona.Dialog
+  id: Elona.Maid
+- type: Elona.Dialog
+  id: Elona.Guard
+- type: Elona.Dialog
+  id: Elona.Servant
+- type: Elona.Dialog
+  id: Elona.IsBusy
+- type: Elona.Dialog
+  id: Elona.IsSleeping
+- type: Elona.Dialog
+  id: Elona.Ally
+- type: Elona.Dialog
+  id: Elona.Default
+- type: Elona.Dialog
+  id: Elona.Sex
+- type: Elona.Dialog
+  id: Elona.QuestGiver

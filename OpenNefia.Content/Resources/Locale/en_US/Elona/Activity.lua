@@ -34,10 +34,6 @@ Elona.Activity = {
     },
 
     Sex = {
-        Gender = {
-            Male = "boy",
-            Female = "girl",
-        },
         TakesClothesOff = function(entity)
             return ("%s begin%s to take %s clothes off."):format(_.name(entity), _.s(entity), _.his(entity))
         end,
@@ -48,7 +44,7 @@ Elona.Activity = {
         end,
         SpareLife = function(actor, partner)
             return ("\"I-I don't really know that %s. Please spare my life!\""):format(
-                _.loc("Elona.Activity.Sex.Gender." .. _.gender(actor))
+                _.loc("Elona.Gender." .. _.gender(actor) .. ".Informal")
             )
         end,
         Take = "Here, take this.",

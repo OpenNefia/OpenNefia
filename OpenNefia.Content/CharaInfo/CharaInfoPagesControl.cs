@@ -16,13 +16,7 @@ namespace OpenNefia.Content.CharaInfo
     {
         public CharaSheetControl CharaSheet { get; } = new();
         public SkillsListControl SkillsList { get; } = new();
-        [Child] private UiPagedContainer Pages;
-
-        public event PageChangedDelegate? OnPageChanged
-        {
-            add => Pages.OnPageChanged += value;
-            remove => Pages.OnPageChanged -= value;
-        }
+        [Child] public UiPagedContainer Pages { get; }
 
         public CharaInfoPagesControl()
         {

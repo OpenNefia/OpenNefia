@@ -15,6 +15,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Food;
 using OpenNefia.Core.Maps;
+using OpenNefia.Content.Currency;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -59,6 +60,10 @@ namespace OpenNefia.LecchoTorte.QuickStart
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             _refresh.Refresh(ally.Value);
             _damage.HealToMax(ally.Value);
+
+            var wallet = EntityManager.GetComponent<WalletComponent>(player);
+            wallet.Gold = 1000000;
+            wallet.Platinum = 1000;
 
             _mapRenderer.SetTileLayerEnabled(typeof(VanillaAIDebugTileLayer), true);
 

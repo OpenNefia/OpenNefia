@@ -30,7 +30,7 @@ namespace OpenNefia.Content.CharaInfo
 
         public CharaInfoUiLayer()
         {
-            CharaInfoPages.OnPageChanged += HandlePagesPageChanged;
+            CharaInfoPages.Pages.OnPageChanged += HandlePagesPageChanged;
             CharaInfoPages.SkillsList.OnListItemActivated += HandleSkillsListItemActivated;
 
             OnKeyBindDown += HandleKeyBindDown;

@@ -25,9 +25,18 @@ namespace OpenNefia.Content.Dialog
     {
         private void Villager_Initialize()
         {
+            SubscribeEntity<GetDefaultDialogChoicesEvent>(AddTalkChoice, priority: EventPriorities.Highest);
         }
 
-        private void ModifyImpressAndInterest(EntityUid target)
+        private void AddTalkChoice(EntityUid uid, GetDefaultDialogChoicesEvent args)
+        {
+            args.OutChoices.Add(new() { 
+                Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Villager.Choices.Talk"),
+                NextNode = Protos.Dialog.Villager.QualifyNodeID("Talk")
+            });
+        }
+
+        private void ModifyImpressAndInterest(EntityUid player, EntityUid target)
         {
             if (!IsAlive(target) || !TryComp<DialogComponent>(target, out var dialog))
                 return;
@@ -37,7 +46,7 @@ namespace OpenNefia.Content.Dialog
             {
                 if (_rand.OneIn(3) && dialog.Impression < ImpressionLevels.Friend)
                 {
-                    var charisma = _skills.Level(_gameSession.Player, Protos.Skill.AttrCharisma);
+                    var charisma = _skills.Level(player, Protos.Skill.AttrCharisma);
                     if (_rand.Next(charisma + 1) > 10)
                     {
                         _dialog.ModifyImpression(target, _rand.Next(3));
@@ -54,9 +63,9 @@ namespace OpenNefia.Content.Dialog
             // <<<<<<<< elona122/shade2/chat.hsp:2208 		} ..
         }
 
-        private List<LocaleKey> GetVillagerTalkText(EntityUid target)
+        private List<DialogTextEntry> GetVillagerTalkText(EntityUid target)
         {
-            var result = new List<LocaleKey>();
+            var result = new List<DialogTextEntry>();
 
             // TODO random talk
 
@@ -73,54 +82,69 @@ namespace OpenNefia.Content.Dialog
                 key = "Elona.Dialog.Villager.Talk.Prostitute";
             // TODO moyer
             else if (HasComp<RoleSlaverComponent>(target))
-                key = "Elona.Dialog.Villager.Talk.Slaver";
+                key = "Elona.Dialog.Villager.Talk.Slavekeeper";
             else if (dialog != null && dialog.Impression >= ImpressionLevels.Friend && _rand.OneIn(3))
                 key = "Elona.Dialog.Villager.Talk.Rumor";
             // TODO noyel festival
             else if (_rand.OneIn(2) && dialog != null)
-                key = $"Elona.Dialog.Villager.Personality.{dialog.Personality}";
+                key = $"Elona.Dialog.Villager.Talk.Personality.{dialog.Personality}";
             else if (_rand.OneIn(3) && area != null && TryProtoID(area.AreaEntityUid, out var areaProtoID))
                 key = $"OpenNefia.Prototypes.Entity.{areaProtoID}.VillagerTalk"; // TODO namespace component localizations separately to avoid name clashes
 
-            result.Add(key);
+            result.Add(DialogTextEntry.FromLocaleKey(key));
             return result;
         }
 
-        private List<TextNodeChoice> GetVillagerTalkChoices(EntityUid target)
+        private List<DialogChoiceEntry> GetVillagerTalkChoices(EntityUid target)
         {
-            var result = new List<TextNodeChoice>();
+            var result = new List<DialogChoiceEntry>();
             if (!IsAlive(target))
                 return result;
 
-            result.Add(new() { Text = "talk", NextNode = "Talk" });
-            result.Add(new() { Text = "you kidding", NextNode = "YouKidding" });
-            result.Add(new() { Text = "thanks", NextNode = "Thanks" });
-            result.Add(new() { Text = "trade", NextNode = "Trade" });
-            result.Add(new() { Text = "bye", NextNode = null });
+            var ev = new GetDefaultDialogChoicesEvent(target);
+            RaiseEvent(target, ev);
+            result.AddRange(ev.OutChoices);
+
+            result.Add(new() { 
+                Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Common.Choices.Bye"),
+                NextNode = null,
+                IsDefault = true
+            });
 
             return result;
         }
 
         public QualifiedDialogNode? Villager_Talk(IDialogEngine engine, IDialogNode node)
         {
-            var target = engine.Target;
+            var target = engine.Speaker;
             if (!IsAlive(target))
                 return null;
 
-            ModifyImpressAndInterest(target.Value);
+            ModifyImpressAndInterest(engine.Player, target.Value);
 
             var texts = GetVillagerTalkText(target.Value);
             var choices = GetVillagerTalkChoices(target.Value);
 
             var nextNode = new DialogTextNode(texts, choices);
-
-            return new(new("Elona.Villager"), nextNode);
+            return new(Protos.Dialog.Villager, nextNode);
         }
 
         public QualifiedDialogNode? Villager_Trade(IDialogEngine engine, IDialogNode node)
         {
             // TODO
-            return engine.GetNodeByID(new("Elona.Villager"), "YouKidding");
+            return engine.GetNodeByID(Protos.Dialog.Villager, "YouKidding");
+        }
+    }
+
+    public sealed class GetDefaultDialogChoicesEvent : EntityEventArgs
+    {
+        public EntityUid Target { get; }
+
+        public List<DialogChoiceEntry> OutChoices { get; } = new();
+
+        public GetDefaultDialogChoicesEvent(EntityUid target)
+        {
+            Target = target;
         }
     }
 }
