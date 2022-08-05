@@ -44,6 +44,7 @@ namespace OpenNefia.Content.Dialog
             Villager_Initialize();
             Trainer_Initialize();
             Prostitute_Initialize();
+            Innkeeper_Initialize();
         }
     }
 }

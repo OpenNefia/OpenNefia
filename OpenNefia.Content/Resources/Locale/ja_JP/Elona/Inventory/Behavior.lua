@@ -67,6 +67,14 @@ Elona.Inventory.Behavior = {
         HowMany = function(min, max, entity)
             return ("%sをいくつ買う？ (%s〜%s)"):format(_.name(entity), min, max)
         end,
+
+        PromptConfirm = function(item, cost)
+            return ("%sを %s gp で買う？"):format(_.name(item), cost)
+        end,
+        NotEnoughMoney = {
+            "あなたは財布を開いてがっかりした…",
+            "もっと稼がないと買えない！",
+        },
     },
 
     Identify = {

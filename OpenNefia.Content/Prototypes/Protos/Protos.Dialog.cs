@@ -9,6 +9,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly DialogPrototypeId Villager = new($"Elona.{nameof(Villager)}");
             public static readonly DialogPrototypeId Trainer = new($"Elona.{nameof(Trainer)}");
             public static readonly DialogPrototypeId Prostitute = new($"Elona.{nameof(Prostitute)}");
+            public static readonly DialogPrototypeId Innkeeper = new($"Elona.{nameof(Innkeeper)}");
         }
     }
 }

@@ -61,6 +61,11 @@ Elona.Inventory.Behavior = {
     Buy = {
         WindowTitle = "Buy",
         QueryText = "What do you want to buy?",
+
+        PromptConfirm = function(item, cost)
+            return ("Do you really want to buy %s for %s gold pieces?"):format(_.name(item), cost)
+        end,
+        NotEnoughMoney = { "You check your wallet and shake your head.", "You need to earn more money!" },
     },
 
     Identify = {

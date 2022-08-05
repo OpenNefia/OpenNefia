@@ -17,6 +17,7 @@ namespace OpenNefia.Content.Weather
     public interface IWeatherSystem : IEntitySystem
     {
         void ChangeFromWorldMap(IMap newMap);
+        bool IsBadWeather();
     }
 
     public sealed class WeatherSystem : EntitySystem, IWeatherSystem
@@ -33,6 +34,12 @@ namespace OpenNefia.Content.Weather
         public void ChangeFromWorldMap(IMap newMap)
         {
             // TODO
+        }
+
+        public bool IsBadWeather()
+        {
+            // TODO
+            return false;
         }
     }
 }
