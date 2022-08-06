@@ -4,6 +4,7 @@ using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.HotReload;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -132,10 +133,7 @@ namespace OpenNefia.Tests
             IoCManager.InitThread(container, true);
             IoCSetup.Register(DisplayMode.Headless);
 
-            IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
-            IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);
-            IoCManager.Register<TestingModLoader, TestingModLoader>(overwrite: true);
-            IoCManager.Register<ILocalizationManager, DummyLocalizationManager>(overwrite: true);
+            UnitTestIoC.Setup();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
