@@ -95,7 +95,7 @@ namespace OpenNefia.Content.Tests.Areas
             mapMan.SetActiveMap(mapWithAreas.Id);
 
             Assert.That(mapRandomAreaMan.RegenerateRandomAreas, Is.False);
-            Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(AreaRandomGenSystem.RandomAreaMinCount));
+            Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(AreaRandomGenSystem.RandomAreaGenerateCount));
         }
 
         private class TestRandomAreaSystem : EntitySystem

@@ -11,6 +11,7 @@ using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.HotReload;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -203,6 +204,8 @@ namespace OpenNefia.Tests
             container.Register<IModLoader, TestingModLoader>();
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
+            container.Register<IHotReloadWatcher, DummyHotReloadWatcher>();
+            container.Register<IHotReloadWatcherInternal, DummyHotReloadWatcher>();
 
             var mockUIManager = new Mock<IUserInterfaceManager>();
             mockUIManager.Setup(m => m.ActiveLayers).Returns(new List<UiLayer>());
