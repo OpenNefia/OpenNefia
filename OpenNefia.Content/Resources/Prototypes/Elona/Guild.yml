@@ -1,0 +1,8 @@
+---
+- type: Elona.Guild
+  id: Elona.Mage
+- type: Elona.Guild
+  id: Elona.Fighter
+- type: Elona.Guild
+  id: Elona.Thief
+...

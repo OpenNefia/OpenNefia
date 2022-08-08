@@ -12,9 +12,6 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Item";
 
         [DataField]
-        public int Value { get; set; } = 0;
-
-        [DataField]
         public bool IsPrecious { get; set; } = false;
 
         [DataField]

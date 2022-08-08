@@ -10,6 +10,7 @@ namespace OpenNefia.Content.Shopkeeper
     /// <hspVariant>elona122</hspVariant>
     /// <hspId>1</hspId>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Normal)]
     public class RoleShopkeeperComponent : Component, IRoleComponent
     {
         public static readonly ContainerId ContainerIdShopInventory = new("Elona.ShopInventory");
@@ -23,13 +24,13 @@ namespace OpenNefia.Content.Shopkeeper
         [DataField]
         public int ShopRank { get; set; } = 1;
 
-        public Container Container { get; private set; } = default!;
+        public Container ShopContainer { get; private set; } = default!;
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdShopInventory);
+            ShopContainer = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdShopInventory);
         }
     }
 }

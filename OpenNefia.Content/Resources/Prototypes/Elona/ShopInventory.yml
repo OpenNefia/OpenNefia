@@ -3,92 +3,561 @@
   id: Elona.Blacksmith
   hspIds:
     elona122: 1001
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipBody
+      - tags:
+        - Elona.ItemCatEquipHead
+      - tags:
+        - Elona.ItemCatEquipWrist
+      - tags:
+        - Elona.ItemCatEquipLeg
+      - tags:
+        - Elona.ItemCatEquipShield
+      - tags:
+        - Elona.ItemCatEquipCloak
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipRanged
+    oneIn: 3
 - type: Elona.ShopInventory
   id: Elona.FoodVendor
   hspIds:
     elona122: 1002
+  rules:
+  - action: !type:AbortShopInventoryAction {}
+    allButOneIn: 3
+  - modifier:
+      tags:
+      - Elona.ItemCatFood
+  - modifier:
+      tags:
+      - Elona.ItemCatCargoFood
+    oneIn: 5
 - type: Elona.ShopInventory
   id: Elona.Bakery
   hspIds:
     elona122: 1003
+  rules:
+  - action: !type:AbortShopInventoryAction {}
+    allButOneIn: 3
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatFoodFlour
+      - tags:
+        - Elona.ItemCatFoodFlour
+      - tags:
+        - Elona.ItemCatFoodNoodle
 - type: Elona.ShopInventory
   id: Elona.MagicVendor
   hspIds:
     elona122: 1004
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatDrinkPotion
+      - tags:
+        - Elona.ItemCatScroll
+      - tags:
+        - Elona.ItemCatDrink
+  - modifier:
+      tags:
+      - Elona.ItemCatSpellbook
+    oneIn: 7
+  - modifier:
+      tags:
+      - Elona.ItemCatBook
+    oneIn: 15
+  - modifier:
+      id: Elona.ItemRecipe
+    oneIn: 20
 - type: Elona.ShopInventory
   id: Elona.Innkeeper
   hspIds:
     elona122: 1005
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatCargoFood
+  - modifier:
+      tags:
+      - Elona.ItemCatDrinkAlcohol
+    oneIn: 4
+  - modifier:
+      id: Elona.ItemSmallGambleChest
+    oneIn: 20
 - type: Elona.ShopInventory
   id: Elona.GeneralVendor
   hspIds:
     elona122: 1006
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipAmmo
+      - tags:
+        - Elona.ItemCatFurniture
+      - tags:
+        - Elona.ItemCatEquipBack
+      - tags:
+        - Elona.ItemCatOre
+      - tags:
+        - Elona.ItemCatMiscItem
+  - modifier:
+      id: Elona.ItemSmallGambleChest
+    oneIn: 20
+  - modifier:
+      tags:
+      - Elona.ItemCatCargoFood
+    oneIn: 8
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - id: Elona.ItemDeed
+      - id: Elona.ItemDeedOfMuseum
+      - id: Elona.ItemDeedOfShop
+      - id: Elona.ItemDeedOfFarm
+      - id: Elona.ItemDeedOfStorageHouse
+      - id: Elona.ItemShelter
+      - id: Elona.ItemDeedOfRanch
+    oneIn: 10
 - type: Elona.ShopInventory
   id: Elona.Blackmarket
   hspIds:
     elona122: 1007
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipAmmo
+      - tags:
+        - Elona.ItemCatEquipHead
+      - tags:
+        - Elona.ItemCatEquipBody
+      - tags:
+        - Elona.ItemCatEquipBack
+      - tags:
+        - Elona.ItemCatEquipCloak
+      - tags:
+        - Elona.ItemCatEquipLeg
+      - tags:
+        - Elona.ItemCatEquipWrist
+      - tags:
+        - Elona.ItemCatEquipShield
+      - tags:
+        - Elona.ItemCatEquipRing
+      - tags:
+        - Elona.ItemCatEquipNeck
+  - modifier:
+      quality: Good
+    oneIn: 3
+  - modifier:
+      quality: Great
+    oneIn: 10
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Blackmarket_CalcItemAmount
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Blackmarket_CalcItemBaseValue
 - type: Elona.ShopInventory
   id: Elona.GoodsVendor
   hspIds:
     elona122: 1008
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatRod
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipAmmo
+      - tags:
+        - Elona.ItemCatEquipHead
+      - tags:
+        - Elona.ItemCatEquipBody
+      - tags:
+        - Elona.ItemCatEquipBack
+      - tags:
+        - Elona.ItemCatEquipCloak
+      - tags:
+        - Elona.ItemCatEquipLeg
+      - tags:
+        - Elona.ItemCatEquipWrist
+      - tags:
+        - Elona.ItemCatEquipShield
+      - tags:
+        - Elona.ItemCatEquipRing
+      - tags:
+        - Elona.ItemCatEquipNeck
+    oneIn: 3
+  - modifier:
+      tags:
+      - Elona.ItemCatFurniture
+    oneIn: 3
+  - modifier:
+      tags:
+      - Elona.ItemCatFood
+    oneIn: 5
+  - modifier:
+      tags:
+      - Elona.ItemCatScroll
+    oneIn: 4
+  - modifier:
+      tags:
+      - Elona.ItemCatBook
+    oneIn: 15
+  - modifier:
+      tags:
+      - Elona.ItemCatCargoFood
+    oneIn: 10
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - id: Elona.ItemDeed
+      - id: Elona.ItemDeedOfMuseum
+      - id: Elona.ItemDeedOfShop
+      - id: Elona.ItemDeedOfFarm
+      - id: Elona.ItemDeedOfStorageHouse
+      - id: Elona.ItemShelter
+      - id: Elona.ItemDeedOfRanch
+    oneIn: 10
+  - modifier:
+      id: Elona.ItemDeedOfHeirship
+    oneIn: 15
 - type: Elona.ShopInventory
   id: Elona.Trader
   hspIds:
     elona122: 1009
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatCargo
 - type: Elona.ShopInventory
   id: Elona.WanderingMerchant
   hspIds:
     elona122: 1010
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipAmmo
+      - tags:
+        - Elona.ItemCatEquipHead
+      - tags:
+        - Elona.ItemCatEquipBody
+      - tags:
+        - Elona.ItemCatEquipBack
+      - tags:
+        - Elona.ItemCatEquipCloak
+      - tags:
+        - Elona.ItemCatEquipLeg
+      - tags:
+        - Elona.ItemCatEquipWrist
+      - tags:
+        - Elona.ItemCatEquipShield
+      - tags:
+        - Elona.ItemCatEquipRing
+      - tags:
+        - Elona.ItemCatEquipNeck
+  - modifier:
+      quality: Good
+  - modifier:
+      quality: Great
+    oneIn: 2
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: WanderingMerchant_CalcItemAmount
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: WanderingMerchant_CalcItemBaseValue
 - type: Elona.ShopInventory
   id: Elona.CyberDome
   hspIds:
     elona122: 1011
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatEquipRanged
+    oneIn: 4
+  - modifier:
+      tags:
+      - Elona.ItemCatEquipRanged
+    oneIn: 5
+  - modifier:
+      tags:
+      - Elona.ItemCatEquipFood
+    oneIn: 3
+  - modifier:
+      tags:
+      - Elona.ItemCatTagSf
 - type: Elona.ShopInventory
   id: Elona.Embassy
   hspIds:
     elona122: 1012
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatFurniture
+  - itemIndex: 0
+    modifier:
+      id: Elona.ItemMicrowaveOven
+  - itemIndex: 1
+    modifier:
+      id: Elona.ItemShopStrongbox
+  - itemIndex: 2
+    modifier:
+      id: Elona.ItemRegister
+  - itemIndex: 3
+    modifier:
+      id: Elona.ItemSalaryChest
+  - itemIndex: 4
+    modifier:
+      id: Elona.ItemFreezer
+  - itemIndex: 5
+    modifier:
+      id: Elona.ItemPlaybackDisc
+  - itemIndex: 6
+    modifier:
+      id: Elona.ItemHouseBoard
+  - allButOneIn: 3
+    predicate: !type:IndexShopInventoryPredicate
+      comparison: GreaterThan
+      itemIndex: 10
+    action: !type:AbortShopInventoryAction {}
+  - itemIndex: 19
+    modifier:
+      id: Elona.ItemRedTreasureMachine
+  - itemIndex: 20
+    modifier:
+      id: Elona.ItemBlueTreasureMachine
+  - itemIndex: 21
+    modifier:
+      id: Elona.ItemTaxMastersTaxBox
 - type: Elona.ShopInventory
   id: Elona.Deed
   hspIds:
     elona122: 1013
+  rules:
+  - action: !type:AbortShopInventoryAction {}
+    allButOneIn: 3
+  - modifier:
+      tags:
+      - Elona.ItemCatBook
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - id: Elona.ItemDeed
+      - id: Elona.ItemDeedOfMuseum
+      - id: Elona.ItemDeedOfShop
+      - id: Elona.ItemDeedOfFarm
+      - id: Elona.ItemDeedOfStorageHouse
+      - id: Elona.ItemShelter
+      - id: Elona.ItemDeedOfRanch
+    oneIn: 3
+  - modifier:
+      id: Elona.ItemDeedOfHeirship
+    oneIn: 5
 - type: Elona.ShopInventory
   id: Elona.Fisher
   hspIds:
     elona122: 1014
+  rules:
+  - modifier:
+      id: Elona.ItemBait
 - type: Elona.ShopInventory
   id: Elona.Moyer
   hspIds:
     elona122: 1015
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatMiscItem
+      - tags:
+        - Elona.ItemCatEquipRing
+      - tags:
+        - Elona.ItemCatEquipNeck
+  - modifier:
+      quality: Good
+    oneIn: 3
+  - modifier:
+      quality: Great
+    oneIn: 10
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Moyer_CalcItemBaseValue
 - type: Elona.ShopInventory
   id: Elona.Miral
   hspIds:
     elona122: 1016
+  events:
+  - type: Shopkeeper.P_ShopInventoryModifyRulesEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Miral_ModifyRules
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Miral_CalcItemAmount
+  - type: Shopkeeper.P_ShopInventoryBeforeGenerateItemEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Miral_BeforeGenerateItem
 - type: Elona.ShopInventory
   id: Elona.DyeVendor
   hspIds:
     elona122: 1017
+  rules:
+  - modifier:
+      id: Elona.ItemBottleOfDye
 - type: Elona.ShopInventory
   id: Elona.SouvenirVendor
   hspIds:
     elona122: 1018
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatTagSpshop
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: SouvenirVendor_CalcItemAmount
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: SouvenirVendor_CalcItemBaseValue
 - type: Elona.ShopInventory
   id: Elona.YoungerSisterOfMansion
   hspIds:
     elona122: 1019
+  rules:
+  - modifier:
+      id: Elona.ItemSistersLoveFueledLunch
 - type: Elona.ShopInventory
   id: Elona.SpellWriter
   hspIds:
     elona122: 1020
+  rules:
+  - action: !type:SpellWriterShopInventoryAction
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: SpellWriter_CalcItemBaseValue
 - type: Elona.ShopInventory
   id: Elona.TheFence
   hspIds:
     elona122: 1021
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatMiscItem
+  - modifier:
+      id: Elona.ItemLockpick
+    oneIn: 2
+  - modifier:
+      id: Elona.ItemDisguiseSet
+    oneIn: 2
 - type: Elona.ShopInventory
   id: Elona.StreetVendor
   hspIds:
     elona122: 1022
+  rules:
+  - modifier:
+      tags:
+      - Elona.ItemCatTagFest
+  - modifier:
+      id: Elona.ItemUpstairs
+    oneIn: 12
+  - modifier:
+      id: Elona.ItemDownstairs
+    oneIn: 12
+  - modifier:
+      id: Elona.ItemBottleOfSoda
+    oneIn: 5
+  - modifier:
+      id: Elona.ItemFestivalWreath
+    oneIn: 12
+  - modifier:
+      id: Elona.ItemNewYearsDecoration
+    oneIn: 12
+  - modifier:
+      id: Elona.ItemMiniatureTree
+    oneIn: 12
 - type: Elona.ShopInventory
   id: Elona.VisitingMerchant
   hspIds:
     elona122: 2003
+  rules:
+  - action: !type:ChoicesShopInventoryAction
+      choices:
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipMelee
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipRanged
+      - tags:
+        - Elona.ItemCatEquipAmmo
+      - tags:
+        - Elona.ItemCatEquipHead
+      - tags:
+        - Elona.ItemCatEquipBody
+      - tags:
+        - Elona.ItemCatEquipBack
+      - tags:
+        - Elona.ItemCatEquipCloak
+      - tags:
+        - Elona.ItemCatEquipLeg
+      - tags:
+        - Elona.ItemCatEquipWrist
+      - tags:
+        - Elona.ItemCatEquipShield
+      - tags:
+        - Elona.ItemCatEquipRing
+      - tags:
+        - Elona.ItemCatEquipNeck
+  - modifier:
+      quality: Good
+  - modifier:
+      quality: Great
+    oneIn: 2
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: VisitingMerchant_CalcItemAmount
+  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: VisitingMerchant_CalcItemBaseValue
 ...

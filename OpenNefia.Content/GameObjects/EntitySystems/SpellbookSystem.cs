@@ -28,7 +28,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 {
     public interface ISpellbookSystem : IEntitySystem
     {
-        public SpellbookReserveStates ReservedStates { get; }
+        public SpellbookReserveStates SpellbookReserveStates { get; }
         
         bool ProcSpellbookSuccess(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
         void FailToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
@@ -39,14 +39,14 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         bool TryToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
     }
 
-    public enum ReserveState
+    public enum SpellbookReserveState
     {
         NotReserved,
         Reserved
     }
 
     [DataDefinition]
-    public sealed class SpellbookReserveStates : Dictionary<PrototypeId<EntityPrototype>, ReserveState> {}
+    public sealed class SpellbookReserveStates : Dictionary<PrototypeId<EntityPrototype>, SpellbookReserveState> {}
 
     public sealed class SpellbookSystem : EntitySystem, ISpellbookSystem
     {
@@ -68,7 +68,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         [Dependency] private readonly IPrototypeManager _protos = default!;
         
         [RegisterSaveData("Elona.SpellbookSystem.ReservedStates")]
-        public SpellbookReserveStates ReservedStates { get; } = new();
+        public SpellbookReserveStates SpellbookReserveStates { get; } = new();
 
         public override void Initialize()
         {
