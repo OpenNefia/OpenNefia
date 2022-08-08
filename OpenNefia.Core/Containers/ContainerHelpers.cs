@@ -20,23 +20,23 @@ namespace OpenNefia.Core.Containers
         /// <returns>If a container manager was found.</returns>
         public static bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out ContainerManagerComponent? manager)
         {
-            return EntitySystem.Get<ContainerSystem>().TryGetContainerMan(entity, out manager);
+            return EntitySystem.Get<IContainerSystem>().TryGetContainerMan(entity, out manager);
         }
 
         public static void AttachParentToContainerOrGrid(SpatialComponent transform)
         {
-            EntitySystem.Get<ContainerSystem>().AttachParentToContainerOrMap(transform);
+            EntitySystem.Get<IContainerSystem>().AttachParentToContainerOrMap(transform);
         }
 
         public static bool RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null)
         {
-            return EntitySystem.Get<ContainerSystem>().RemoveEntity(uid, containedUid, force, containerManager);
+            return EntitySystem.Get<IContainerSystem>().RemoveEntity(uid, containedUid, force, containerManager);
         }
 
         public static T EnsureContainer<T>(EntityUid uid, ContainerId id, out bool alreadyExisted)
             where T : IContainer
         {
-            return EntitySystem.Get<ContainerSystem>().EnsureContainer<T>(uid, id, out alreadyExisted);
+            return EntitySystem.Get<IContainerSystem>().EnsureContainer<T>(uid, id, out alreadyExisted);
         }
 
         public static T EnsureContainer<T>(EntityUid uid, ContainerId id)

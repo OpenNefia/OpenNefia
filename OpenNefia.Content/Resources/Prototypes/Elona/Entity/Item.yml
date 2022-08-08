@@ -12692,6 +12692,9 @@
     weight: 50
   - type: MedalValue
     medalValue: 3
+  extendedData:
+  - type: Shopkeeper.ExtShopExclusion
+    isExcludedFromShops: true
 - type: Entity
   id: Elona.ItemRodOfChangeCreature
   parent: BaseItem
@@ -18672,6 +18675,10 @@
   - type: Item
   - type: Weight
     weight: 3400
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RandomShopAmountAdjustment
+      maxAmount: 8
 - type: Entity
   id: Elona.ItemScythe
   parent: BaseItem

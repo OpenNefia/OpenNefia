@@ -171,9 +171,9 @@
       quality: Great
     oneIn: 10
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Blackmarket_CalcItemAmount
+    method: Blackmarket_CalcTotalItemCount
   - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: Blackmarket_CalcItemBaseValue
@@ -257,6 +257,10 @@
   - modifier:
       tags:
       - Elona.ItemCatCargo
+  events:
+  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+    system: Shopkeeper.VanillaShopInventoriesSystem
+    method: Trader_CalcItemAmount
 - type: Elona.ShopInventory
   id: Elona.WanderingMerchant
   hspIds:
@@ -298,9 +302,9 @@
       quality: Great
     oneIn: 2
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: WanderingMerchant_CalcItemAmount
+    method: WanderingMerchant_CalcTotalItemCount
   - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: WanderingMerchant_CalcItemBaseValue
@@ -319,11 +323,11 @@
     oneIn: 5
   - modifier:
       tags:
-      - Elona.ItemCatEquipFood
+      - Elona.ItemCatFood
     oneIn: 3
   - modifier:
       tags:
-      - Elona.ItemCatTagSf
+      - Elona.TagItemSf
 - type: Elona.ShopInventory
   id: Elona.Embassy
   hspIds:
@@ -428,12 +432,12 @@
   - type: Shopkeeper.P_ShopInventoryModifyRulesEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: Miral_ModifyRules
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Miral_CalcItemAmount
-  - type: Shopkeeper.P_ShopInventoryBeforeGenerateItemEvent
+    method: Miral_CalcTotalItemCount
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Miral_BeforeGenerateItem
+    method: Miral_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.DyeVendor
   hspIds:
@@ -448,11 +452,12 @@
   rules:
   - modifier:
       tags:
-      - Elona.ItemCatTagSpshop
+      - Elona.TagItemSpshop
+  ignoresNoShop: true
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: SouvenirVendor_CalcItemAmount
+    method: SouvenirVendor_CalcTotalItemCount
   - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: SouvenirVendor_CalcItemBaseValue
@@ -494,7 +499,7 @@
   rules:
   - modifier:
       tags:
-      - Elona.ItemCatTagFest
+      - Elona.TagItemFest
   - modifier:
       id: Elona.ItemUpstairs
     oneIn: 12
@@ -554,9 +559,9 @@
       quality: Great
     oneIn: 2
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: VisitingMerchant_CalcItemAmount
+    method: VisitingMerchant_CalcTotalItemCount
   - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: VisitingMerchant_CalcItemBaseValue

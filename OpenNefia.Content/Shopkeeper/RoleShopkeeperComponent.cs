@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Roles;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
@@ -19,10 +20,13 @@ namespace OpenNefia.Content.Shopkeeper
         public override string Name => "RoleShopkeeper";
 
         [DataField(required: true)]
-        public PrototypeId<ShopInventoryPrototype> InventoryId { get; set; } = default!;
+        public PrototypeId<ShopInventoryPrototype> ShopInventoryId { get; set; } = default!;
 
         [DataField]
         public int ShopRank { get; set; } = 1;
+
+        [DataField]
+        public GameDateTime RestockDate { get; set; }
 
         public Container ShopContainer { get; private set; } = default!;
 

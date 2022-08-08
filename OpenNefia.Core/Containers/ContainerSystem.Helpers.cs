@@ -7,13 +7,8 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Core.Containers
 {
     public sealed partial class ContainerSystem : EntitySystem
-    {    
-        /// <summary>
-        /// Tries to find the container manager that this entity is inside (if any).
-        /// </summary>
-        /// <param name="entity">Entity that might be inside a container.</param>
-        /// <param name="manager">The container manager that this entity is inside of.</param>
-        /// <returns>If a container manager was found.</returns>
+    {
+        /// <inheritdoc />
         public bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out ContainerManagerComponent? manager)
         {
             DebugTools.Assert(EntityManager.EntityExists(entity));
@@ -27,13 +22,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        /// <summary>
-        /// Attempts to remove an entity from its container, if any.
-        /// </summary>
-        /// <param name="entity">Entity that might be inside a container.</param>
-        /// <param name="force">Whether to forcibly remove the entity from the container.</param>
-        /// <param name="wasInContainer">Whether the entity was actually inside a container or not.</param>
-        /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
+        /// <inheritdoc />
         public bool TryRemoveFromContainer(EntityUid entity, bool force, out bool wasInContainer)
         {
             DebugTools.Assert(EntityManager.EntityExists(entity));
@@ -53,20 +42,13 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        /// <summary>
-        /// Attempts to remove an entity from its container, if any.
-        /// </summary>
-        /// <param name="entity">Entity that might be inside a container.</param>
-        /// <param name="force">Whether to forcibly remove the entity from the container.</param>
-        /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
+        /// <inheritdoc />
         public bool TryRemoveFromContainer(EntityUid entity, bool force = false)
         {
             return TryRemoveFromContainer(entity, force, out _);
         }
 
-        /// <summary>
-        /// Attempts to remove all entities in a container.
-        /// </summary>
+        /// <inheritdoc />
         public void EmptyContainer(IContainer container, bool force = false, EntityCoordinates? moveTo = null, bool attachToMap = false)
         {
             foreach (var entity in container.ContainedEntities.ToArray())
@@ -87,9 +69,7 @@ namespace OpenNefia.Core.Containers
             }
         }
 
-        /// <summary>
-        /// Attempts to remove and delete all entities in a container.
-        /// </summary>
+        /// <inheritdoc />
         public void CleanContainer(IContainer container)
         {
             foreach (var ent in container.ContainedEntities.ToArray())
@@ -100,6 +80,7 @@ namespace OpenNefia.Core.Containers
             }
         }
 
+        /// <inheritdoc />
         public void AttachParentToContainerOrMap(SpatialComponent transform)
         {
             if (transform.Parent == null
@@ -133,6 +114,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
+        /// <inheritdoc />
         public bool IsInSameOrNoContainer(EntityUid user, EntityUid other)
         {
             var isUserContained = TryGetContainingContainer(user, out var userContainer);
@@ -148,6 +130,7 @@ namespace OpenNefia.Core.Containers
             return userContainer == otherContainer;
         }
 
+        /// <inheritdoc />
         public bool IsInSameOrParentContainer(EntityUid user, EntityUid other)
         {
             var isUserContained = TryGetContainingContainer(user, out var userContainer);
@@ -166,16 +149,7 @@ namespace OpenNefia.Core.Containers
             return userContainer == otherContainer;
         }
 
-        /// <summary>
-        ///     Check whether a given entity can see another entity despite whatever containers they may be in.
-        /// </summary>
-        /// <remarks>
-        ///     This is effectively a variant of <see cref="IsInSameOrParentContainer"/> that also checks whether the
-        ///     containers are transparent. Additionally, an entity can "see" the entity that contains it, but unless
-        ///     otherwise specified the containing entity cannot see into itself. For example, a human in a locker can
-        ///     see the locker and other items in that locker, but the human cannot see their own organs.  Note that
-        ///     this means that the two entity arguments are NOT interchangeable.
-        /// </remarks>
+        /// <inheritdoc />
         public bool IsInSameOrTransparentContainer(EntityUid user, EntityUid other, bool userSeeInsideSelf = false)
         {
             DebugTools.AssertNotNull(user);
@@ -207,12 +181,14 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
+        /// <inheritdoc />
         public T EnsureContainer<T>(EntityUid entity, ContainerId containerId)
             where T : IContainer
         {
             return EnsureContainer<T>(entity, containerId, out _);
         }
 
+        /// <inheritdoc />
         public T EnsureContainer<T>(EntityUid entity, ContainerId containerId, out bool alreadyExisted)
             where T : IContainer
         {

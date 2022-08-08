@@ -14,6 +14,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Guild;
+using OpenNefia.Content.Skills;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Shopkeeper
 {
@@ -31,15 +33,16 @@ namespace OpenNefia.Content.Shopkeeper
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         #region Elona.Blackmarket
 
-        public void Blackmarket_CalcItemAmount(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemAmountEvent ev)
+        public void Blackmarket_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcTotalItemCountEvent ev)
         {
-            ev.OutItemAmount = 6 + (CompOrNull<RoleShopkeeperComponent>(ev.Shopkeeper)?.ShopRank ?? 0) / 10;
+            ev.OutTotalItemCount = 6 + (CompOrNull<RoleShopkeeperComponent>(ev.Shopkeeper)?.ShopRank ?? 0) / 10;
         }
 
-        public void Blackmarket_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        public void Blackmarket_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             if (TryComp<GuildMemberComponent>(_gameSession.Player, out var guild) && guild.GuildID == Protos.Guild.Thief)
             {
@@ -53,14 +56,69 @@ namespace OpenNefia.Content.Shopkeeper
 
         #endregion
 
-        #region Elona.WanderingMerchant
+        #region Elona.Trader
 
-        public void WanderingMerchant_CalcItemAmount(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemAmountEvent ev)
+        private sealed record CargoAmountRate(int Threshold, ComparisonType Comparison, Func<int, int> Amount, int? DiscardChance = null);
+
+        /// <summary>
+        /// Parameters for adjusting the amount of available cargo based on the cargo's fluctuating
+        /// value. Cargo of higher value will be more difficult to find in shops. More than one
+        /// modifier can be applied if multiple value thresholds are reached.
+        /// </summary>
+        private static readonly CargoAmountRate[] CargoAmountRates = new CargoAmountRate[]
         {
-            ev.OutItemAmount = _rand.Next(4, 8);
+            new(70, ComparisonType.LessThanOrEqual, (n) => n * 200 / 100),
+            new(50, ComparisonType.LessThanOrEqual, (n) => n * 200 / 100),
+            new(80, ComparisonType.GreaterThanOrEqual, (n) => n / 2 + 1, DiscardChance: 2),
+            new(100, ComparisonType.GreaterThanOrEqual, (n) => n / 2 + 1, DiscardChance: 3),
+        };
+
+        private int GetCargoTradeRate(EntityUid item)
+        {
+            // TODO cargo
+            return 0;
         }
 
-        public void WanderingMerchant_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        private int CalcCargoItemAmountModifier(int amount)
+        {
+            return amount * (100 + _skills.Level(_gameSession.Player, Protos.Skill.Negotiation) * 10) / 100 + 1;
+        }
+
+        public void Trader_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcItemAmountEvent ev)
+        {
+            var rate = GetCargoTradeRate(ev.Item);
+            var amount = ev.OutItemAmount;
+
+            foreach (var amountRate in CargoAmountRates)
+            {
+                var apply = false;
+                if (ComparisonUtils.EvaluateComparison(rate, amountRate.Threshold, amountRate.Comparison))
+                    apply = true;
+
+                if (apply)
+                {
+                    amount = amountRate.Amount(amount);
+                    if (amountRate.DiscardChance.HasValue && _rand.OneIn(amountRate.DiscardChance.Value))
+                    {
+                        ev.OutItemAmount = 0;
+                        return;
+                    }
+                }
+            }
+
+            ev.OutItemAmount = CalcCargoItemAmountModifier(amount);
+        }
+
+        #endregion
+
+        #region Elona.WanderingMerchant
+
+        public void WanderingMerchant_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcTotalItemCountEvent ev)
+        {
+            ev.OutTotalItemCount = _rand.Next(4, 8);
+        }
+
+        public void WanderingMerchant_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             ev.OutBaseValue *= 2;
         }
@@ -69,7 +127,7 @@ namespace OpenNefia.Content.Shopkeeper
 
         #region Elona.Moyer
 
-        public void Moyer_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        public void Moyer_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             ev.OutBaseValue *= 2;
         }
@@ -83,27 +141,26 @@ namespace OpenNefia.Content.Shopkeeper
             return _protos.EnumeratePrototypes<EntityPrototype>()
                 .Where(p => p.Components.HasComponent<MedalValueComponent>());
         }
-        
-        public void Miral_CalcItemAmount(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemAmountEvent ev)
+
+        public void Miral_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcTotalItemCountEvent ev)
         {
-            ev.OutItemAmount = GetMedalValuedItems().Count();
+            ev.OutTotalItemCount = GetMedalValuedItems().Count();
         }
 
-        public void Miral_ModifyRules(ShopInventoryPrototype proto, ref P_ShopInventoryModifyRulesEvent ev)
+        public void Miral_ModifyRules(ShopInventoryPrototype proto, P_ShopInventoryModifyRulesEvent ev)
         {
-            var i = 0;
+            var index = 0;
             foreach (var entityProto in GetMedalValuedItems())
             {
-                var rule = new ShopInventoryRule()
-                {
-
-                };
+                var modifier = new ShopInventoryModifier(id: entityProto.GetStrongID());
+                var rule = new ShopInventoryRule(itemIndex: index, modifier: modifier);
 
                 ev.OutRules.Add(rule);
+                index++;
             }
         }
 
-        public void Miral_AfterGenerateItem(ShopInventoryPrototype proto, ref P_ShopInventoryAfterGenerateItemEvent ev)
+        public void Miral_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             _stacks.SetCount(ev.Item, 1);
             EnsureComp<CurseStateComponent>(ev.Item).CurseState = CurseState.Normal;
@@ -115,12 +172,12 @@ namespace OpenNefia.Content.Shopkeeper
 
         #region Elona.SouvenirVendor
 
-        public void SouvenirVendor_CalcItemAmount(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemAmountEvent ev)
+        public void SouvenirVendor_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcTotalItemCountEvent ev)
         {
-            ev.OutItemAmount /= 2;
+            ev.OutTotalItemCount /= 2;
         }
 
-        public void SouvenirVendor_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        public void SouvenirVendor_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             var price = Math.Clamp(ev.OutBaseValue, 1, 1000000) * 50;
             if (HasComp<GiftComponent>(ev.Item))
@@ -132,7 +189,7 @@ namespace OpenNefia.Content.Shopkeeper
 
         #region Elona.SpellWriter
 
-        public void SpellWriter_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        public void SpellWriter_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             ev.OutBaseValue = (int)(ev.OutBaseValue * 1.5);
         }
@@ -141,12 +198,12 @@ namespace OpenNefia.Content.Shopkeeper
 
         #region Elona.VisitingMerchant
 
-        public void VisitingMerchant_CalcItemAmount(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemAmountEvent ev)
+        public void VisitingMerchant_CalcItemAmount(ShopInventoryPrototype proto, P_ShopInventoryCalcTotalItemCountEvent ev)
         {
-            ev.OutItemAmount = _rand.Next(4, 8);
+            ev.OutTotalItemCount = _rand.Next(4, 8);
         }
 
-        public void VisitingMerchant_CalcItemBaseValue(ShopInventoryPrototype proto, ref P_ShopInventoryCalcItemBaseValueEvent ev)
+        public void VisitingMerchant_CalcItemBaseValue(ShopInventoryPrototype proto, P_ShopInventoryCalcItemBaseValueEvent ev)
         {
             ev.OutBaseValue = (int)(ev.OutBaseValue * 1.5);
         }
@@ -168,16 +225,44 @@ namespace OpenNefia.Content.Shopkeeper
         }
     }
 
+    /// <summary>
+    /// Event for calculating the total number of random items to generate
+    /// per shop inventory.
+    /// </summary>
+    [PrototypeEvent(typeof(ShopInventoryPrototype))]
+    public sealed class P_ShopInventoryCalcTotalItemCountEvent : PrototypeEventArgs
+    {
+        public EntityUid Shopkeeper { get; }
+
+        public int OutTotalItemCount { get; set; }
+
+        public P_ShopInventoryCalcTotalItemCountEvent(EntityUid shopkeeper, int totalItemCount)
+        {
+            Shopkeeper = shopkeeper;
+            OutTotalItemCount = totalItemCount;
+        }
+    }
+
+    /// <summary>
+    /// Event for calculating the amount of a single generated item.
+    /// </summary>
     [PrototypeEvent(typeof(ShopInventoryPrototype))]
     public sealed class P_ShopInventoryCalcItemAmountEvent : PrototypeEventArgs
     {
         public EntityUid Shopkeeper { get; }
-        
+        public int ItemIndex { get; }
+        public EntityUid Item { get; }
+
+        /// <summary>
+        /// If <= 0, then discard the item.
+        /// </summary>
         public int OutItemAmount { get; set; }
 
-        public P_ShopInventoryCalcItemAmountEvent(EntityUid shopkeeper, int itemAmount)
+        public P_ShopInventoryCalcItemAmountEvent(EntityUid shopkeeper, int itemIndex, EntityUid item, int itemAmount)
         {
             Shopkeeper = shopkeeper;
+            ItemIndex = itemIndex;
+            Item = item;
             OutItemAmount = itemAmount;
         }
     }
@@ -186,27 +271,31 @@ namespace OpenNefia.Content.Shopkeeper
     public sealed class P_ShopInventoryCalcItemBaseValueEvent : PrototypeEventArgs
     {
         public EntityUid Shopkeeper { get; }
+        public int ItemIndex { get; }
         public EntityUid Item { get; }
-        
+
         public int OutBaseValue { get; set; }
 
-        public P_ShopInventoryCalcItemBaseValueEvent(EntityUid shopkeeper, EntityUid item, int baseValue)
+        public P_ShopInventoryCalcItemBaseValueEvent(EntityUid shopkeeper, int itemIndex, EntityUid item, int baseValue)
         {
             Shopkeeper = shopkeeper;
+            ItemIndex = itemIndex;
             Item = item;
             OutBaseValue = baseValue;
         }
     }
 
     [PrototypeEvent(typeof(ShopInventoryPrototype))]
-    public sealed class P_ShopInventoryAfterGenerateItemEvent : PrototypeEventArgs
+    public sealed class P_ShopInventoryAfterGenerateItemEvent : HandledPrototypeEventArgs
     {
         public EntityUid Shopkeeper { get; }
+        public int ItemIndex { get; }
         public EntityUid Item { get; }
 
-        public P_ShopInventoryAfterGenerateItemEvent(EntityUid shopkeeper, EntityUid item)
+        public P_ShopInventoryAfterGenerateItemEvent(EntityUid shopkeeper, int itemIndex, EntityUid item)
         {
             Shopkeeper = shopkeeper;
+            ItemIndex = itemIndex;
             Item = item;
         }
     }

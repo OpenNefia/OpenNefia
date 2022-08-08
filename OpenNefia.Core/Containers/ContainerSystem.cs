@@ -8,10 +8,163 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Containers
 {
-    public sealed partial class ContainerSystem : EntitySystem
+    public interface IContainerSystem : IEntitySystem
+    {
+        /// <summary>
+        /// Makes a new container of the specified type.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID for the new container.</param>
+        /// <typeparam name="T">The type of the new container</typeparam>
+        /// <returns>The new container.</returns>
+        /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID</exception>
+        T MakeContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null) where T : IContainer;
+
+        /// <summary>
+        /// Ensures the container with the specified ID exists, creating it if necessary.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
+        T EnsureContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null) where T : IContainer;
+
+        T EnsureContainer<T>(EntityUid entity, ContainerId containerId) where T : IContainer;
+
+        T EnsureContainer<T>(EntityUid entity, ContainerId containerId, out bool alreadyExisted) where T : IContainer;
+
+        /// <summary>
+        /// Gets the container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
+        IContainer GetContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Checks whether we have a container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The entity ID to check.</param>
+        /// <returns>True if we already have a container, false otherwise.</returns>
+        bool HasContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Tries to get the container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
+        bool TryGetContainer(EntityUid uid, ContainerId id, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Attempt to retrieve a container that contains a specific entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="containedUid">The entity that is inside the container.</param>
+        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
+        /// <returns>True if the container was found, false otherwise.</returns>
+        bool TryGetContainingContainer(EntityUid uid, EntityUid containedUid, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Attempts to retrieve a container that contains a specific entity.
+        /// </summary>
+        /// <param name="uid">The entity that is inside the container.</param>
+        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
+        /// <returns>True if the container was found, false otherwise.</returns>
+        bool TryGetContainingContainer(EntityUid uid, [NotNullWhen(true)] out IContainer? container, SpatialComponent? transform = null);
+
+        /// <summary>
+        /// Checks if this entity is in a container.
+        /// </summary>
+        /// <param name="uid">The entity to check for containment.</param>
+        /// <returns>True if the entity is contained in a container.</returns>
+        bool IsEntityInContainer(EntityUid uid, SpatialComponent? transform = null);
+
+
+        /// <summary>
+        /// Checks if this entity contains the specified entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="containedUid">The entity to check for containment.</param>
+        /// <returns>True if the entity is contained in the container.</returns>
+        bool ContainsEntity(EntityUid uid, EntityUid containedUid, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Attempts to remove <paramref name="entity" /> contained inside the owning entity,
+        /// finding the container containing it automatically, if it is actually contained.
+        /// </summary>
+        /// <param name="uid">The owning container entity.</param>
+        /// <param name="containedUid">The entity to remove.</param>
+        /// <param name="force">Whether to forcefully remove the entity. Avoid using this if possible.</param>
+        /// <returns>True if the entity was successfuly removed.</returns>
+        bool RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Enumerates all containers on this entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <returns>A container enumerable.</returns>
+        ContainerManagerComponent.AllContainersEnumerable GetAllContainers(EntityUid uid, ContainerManagerComponent? containerManager = null);
+
+        /// <summary>
+        /// Tries to find the container manager that this entity is inside (if any).
+        /// </summary>
+        /// <param name="entity">Entity that might be inside a container.</param>
+        /// <param name="manager">The container manager that this entity is inside of.</param>
+        /// <returns>If a container manager was found.</returns>
+        bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out ContainerManagerComponent? manager);
+        
+        /// <summary>
+        /// Attempts to remove an entity from its container, if any.
+        /// </summary>
+        /// <param name="entity">Entity that might be inside a container.</param>
+        /// <param name="force">Whether to forcibly remove the entity from the container.</param>
+        /// <param name="wasInContainer">Whether the entity was actually inside a container or not.</param>
+        /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
+        bool TryRemoveFromContainer(EntityUid entity, bool force, out bool wasInContainer);
+
+        /// <summary>
+        /// Attempts to remove an entity from its container, if any.
+        /// </summary>
+        /// <param name="entity">Entity that might be inside a container.</param>
+        /// <param name="force">Whether to forcibly remove the entity from the container.</param>
+        /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
+        bool TryRemoveFromContainer(EntityUid entity, bool force = false);
+
+        /// <summary>
+        /// Attempts to remove all entities in a container.
+        /// </summary>
+        void EmptyContainer(IContainer container, bool force = false, EntityCoordinates? moveTo = null, bool attachToMap = false);
+        
+        /// <summary>
+        /// Attempts to remove and delete all entities in a container.
+        /// </summary>
+        void CleanContainer(IContainer container);
+
+        void AttachParentToContainerOrMap(SpatialComponent transform);
+        
+        bool IsInSameOrNoContainer(EntityUid user, EntityUid other);
+        
+        bool IsInSameOrParentContainer(EntityUid user, EntityUid other);
+        
+        /// <summary>
+        ///     Check whether a given entity can see another entity despite whatever containers they may be in.
+        /// </summary>
+        /// <remarks>
+        ///     This is effectively a variant of <see cref="IsInSameOrParentContainer"/> that also checks whether the
+        ///     containers are transparent. Additionally, an entity can "see" the entity that contains it, but unless
+        ///     otherwise specified the containing entity cannot see into itself. For example, a human in a locker can
+        ///     see the locker and other items in that locker, but the human cannot see their own organs.  Note that
+        ///     this means that the two entity arguments are NOT interchangeable.
+        /// </remarks>
+        bool IsInSameOrTransparentContainer(EntityUid user, EntityUid other, bool userSeeInsideSelf = false);
+    }
+
+    public sealed partial class ContainerSystem : EntitySystem, IContainerSystem
     {
         [Dependency] private readonly IDynamicTypeFactoryInternal _dynFactory = default!;
-        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         /// <inheritdoc />
         public override void Initialize()
@@ -23,14 +176,7 @@ namespace OpenNefia.Core.Containers
 
         #region Container Management
 
-        /// <summary>
-        /// Makes a new container of the specified type.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="id">The ID for the new container.</param>
-        /// <typeparam name="T">The type of the new container</typeparam>
-        /// <returns>The new container.</returns>
-        /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID</exception>
+        /// <inheritdoc />
         public T MakeContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
@@ -52,12 +198,7 @@ namespace OpenNefia.Core.Containers
             return container;
         }
 
-        /// <summary>
-        /// Ensures the container with the specified ID exists, creating it if necessary.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="id">The ID to look up.</param>
-        /// <returns>The container.</returns>
+        /// <inheritdoc />
         public T EnsureContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
@@ -70,13 +211,7 @@ namespace OpenNefia.Core.Containers
             return MakeContainer<T>(uid, id, containerManager);
         }
 
-        /// <summary>
-        /// Gets the container with the specified ID.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="id">The ID to look up.</param>
-        /// <returns>The container.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
+        /// <inheritdoc />
         public IContainer GetContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
@@ -85,12 +220,7 @@ namespace OpenNefia.Core.Containers
             return containerManager.Containers[id];
         }
 
-        /// <summary>
-        /// Checks whether we have a container with the specified ID.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="id">The entity ID to check.</param>
-        /// <returns>True if we already have a container, false otherwise.</returns>
+        /// <inheritdoc />
         public bool HasContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
@@ -99,13 +229,7 @@ namespace OpenNefia.Core.Containers
             return containerManager.Containers.ContainsKey(id);
         }
 
-        /// <summary>
-        /// Tries to get the container with the specified ID.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="id">The ID to look up.</param>
-        /// <returns>The container.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
+        /// <inheritdoc />
         public bool TryGetContainer(EntityUid uid, ContainerId id, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager, false))
@@ -119,13 +243,7 @@ namespace OpenNefia.Core.Containers
             return ret;
         }
 
-        /// <summary>
-        /// Attempt to retrieve a container that contains a specific entity.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="containedUid">The entity that is inside the container.</param>
-        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
-        /// <returns>True if the container was found, false otherwise.</returns>
+        /// <inheritdoc />
         public bool TryGetContainingContainer(EntityUid uid, EntityUid containedUid, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
         {
             if (!(Resolve(uid, ref containerManager, false) && EntityManager.EntityExists(containedUid)))
@@ -147,12 +265,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        /// <summary>
-        /// Attempts to retrieve a container that contains a specific entity.
-        /// </summary>
-        /// <param name="uid">The entity that is inside the container.</param>
-        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
-        /// <returns>True if the container was found, false otherwise.</returns>
+        /// <inheritdoc />
         public bool TryGetContainingContainer(EntityUid uid, [NotNullWhen(true)] out IContainer? container, SpatialComponent? transform = null)
         {
             container = null;
@@ -165,22 +278,13 @@ namespace OpenNefia.Core.Containers
             return TryGetContainingContainer(transform.ParentUid, uid, out container);
         }
 
-        /// <summary>
-        /// Checks if this entity is in a container.
-        /// </summary>
-        /// <param name="uid">The entity to check for containment.</param>
-        /// <returns>True if the entity is contained in a container.</returns>
+        /// <inheritdoc />
         public bool IsEntityInContainer(EntityUid uid, SpatialComponent? transform = null)
         {
             return TryGetContainingContainer(uid, out _, transform);
         }
 
-        /// <summary>
-        /// Checks if this entity contains the specified entity.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <param name="containedUid">The entity to check for containment.</param>
-        /// <returns>True if the entity is contained in the container.</returns>
+        /// <inheritdoc />
         public bool ContainsEntity(EntityUid uid, EntityUid containedUid, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager, false) || !EntityManager.EntityExists(containedUid))
@@ -194,14 +298,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        /// <summary>
-        /// Attempts to remove <paramref name="entity" /> contained inside the owning entity,
-        /// finding the container containing it automatically, if it is actually contained.
-        /// </summary>
-        /// <param name="uid">The owning container entity.</param>
-        /// <param name="containedUid">The entity to remove.</param>
-        /// <param name="force">Whether to forcefully remove the entity. Avoid using this if possible.</param>
-        /// <returns>True if the entity was successfuly removed.</returns>
+        /// <inheritdoc />
         public bool RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager) || !EntityManager.EntityExists(containedUid))
@@ -236,11 +333,7 @@ namespace OpenNefia.Core.Containers
             return true; // If we don't contain the entity, it will always be removed
         }
 
-        /// <summary>
-        /// Enumerates all containers on this entity.
-        /// </summary>
-        /// <param name="uid">The container entity.</param>
-        /// <returns>A container enumerable.</returns>
+        /// <inheritdoc />
         public ContainerManagerComponent.AllContainersEnumerable GetAllContainers(EntityUid uid, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))

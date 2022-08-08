@@ -103,7 +103,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
              var map = sim.CreateMapAndSetActive(10, 10);
@@ -141,7 +141,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -194,7 +194,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -232,7 +232,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -278,7 +278,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -325,7 +325,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -371,7 +371,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -412,7 +412,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -446,7 +446,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -488,7 +488,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
