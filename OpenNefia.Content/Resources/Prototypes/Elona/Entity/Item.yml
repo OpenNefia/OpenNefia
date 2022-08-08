@@ -20,8 +20,9 @@
     - Elona.ItemCatBug
     - Elona.NoGenerate
     - Elona.NoWish
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
   - type: Weight
     weight: 1
 - type: Entity
@@ -38,8 +39,9 @@
     tags:
     - Elona.ItemCatEquipMeleeLongSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1500
@@ -68,8 +70,9 @@
     tags:
     - Elona.ItemCatEquipMeleeShortSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 600
@@ -99,8 +102,9 @@
     tags:
     - Elona.ItemCatEquipMeleeHandAxe
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 900
@@ -128,8 +132,9 @@
     tags:
     - Elona.ItemCatEquipMeleeClub
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1000
@@ -157,8 +162,9 @@
     tags:
     - Elona.ItemCatEquipHeadHat
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 600
@@ -182,8 +188,9 @@
     tags:
     - Elona.ItemCatEquipHeadHat
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 400
@@ -207,8 +214,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 600
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 4500
@@ -232,8 +240,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 800
@@ -257,8 +266,9 @@
     tags:
     - Elona.ItemCatEquipWristGlove
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 700
@@ -284,8 +294,9 @@
     tags:
     - Elona.ItemCatEquipWristGauntlet
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1100
@@ -311,8 +322,9 @@
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 480
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 950
@@ -336,8 +348,9 @@
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 720
@@ -361,8 +374,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 50
@@ -383,8 +397,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 480
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -401,8 +416,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -420,8 +436,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 200
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -443,8 +460,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -461,8 +479,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1080
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -479,8 +498,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 840
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -497,8 +517,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3200
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -520,8 +541,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5600
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -543,8 +565,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 6400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -574,8 +597,9 @@
     - Elona.ItemCatBook
     - Elona.NoGenerate
     - Elona.NoWish
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -596,8 +620,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatBook
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -620,8 +645,9 @@
     tags:
     - Elona.ItemCatBook
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -637,8 +663,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 120
@@ -656,8 +683,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 20
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -675,8 +703,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 30
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -694,8 +723,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -713,8 +743,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -731,8 +762,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkAlcohol
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
@@ -749,8 +781,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -772,8 +805,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -795,8 +829,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -820,8 +855,9 @@
     tags:
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
   - type: Weight
     weight: 1600
 - type: Entity
@@ -839,8 +875,9 @@
     tags:
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 470
+  - type: Item
   - type: Weight
     weight: 900
 - type: Entity
@@ -858,8 +895,9 @@
     tags:
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -881,8 +919,9 @@
     tags:
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 1100
 - type: Entity
@@ -906,8 +945,9 @@
     - Elona.ItemCatOreValuable
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     originalnameref2: raw ore
   - type: Weight
     weight: 240
@@ -926,8 +966,9 @@
     - Elona.ItemCatOreValuable
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 720
+  - type: Item
     originalnameref2: raw ore
   - type: Weight
     weight: 70
@@ -952,8 +993,9 @@
     - Elona.ItemCatOreValuable
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 2450
+  - type: Item
     originalnameref2: raw ore
   - type: Weight
     weight: 380
@@ -978,8 +1020,9 @@
     - Elona.ItemCatOreValuable
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 4200
+  - type: Item
     originalnameref2: raw ore
   - type: Weight
     weight: 320
@@ -998,8 +1041,9 @@
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -1017,8 +1061,9 @@
     - Elona.ItemCatJunkInField
     - Elona.ItemCatOre
     - Elona.ItemCatOfferingOre
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 450
 - type: Entity
@@ -1036,8 +1081,9 @@
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 8
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -1054,8 +1100,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
-  - type: Item
+  - type: Value
     value: 6
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -1072,8 +1119,9 @@
     tags:
     - Elona.ItemCatJunkTown
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 140
+  - type: Item
   - type: Weight
     weight: 250
 - type: Entity
@@ -1089,8 +1137,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 170
+  - type: Item
   - type: Weight
     weight: 3200
 - type: Entity
@@ -1106,8 +1155,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 130
+  - type: Item
   - type: Weight
     weight: 1400
 - type: Entity
@@ -1124,8 +1174,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 1050
 - type: Entity
@@ -1142,8 +1193,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -1159,8 +1211,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -1176,8 +1229,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -1193,8 +1247,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatGold
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
 - type: Entity
   id: Elona.ItemPlatinumCoin
   parent: BaseItem
@@ -1209,8 +1264,9 @@
     tags:
     - Elona.ItemCatPlatinum
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
   - type: Weight
     weight: 1
 - type: Entity
@@ -1238,13 +1294,16 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     material: Elona.Steel
     identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2200
+  - type: MedalValue
+    medalValue: 65
   - type: Equipment
     equipSlots:
     - Elona.Hand
@@ -1283,8 +1342,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     material: Elona.Silver
     identifyDifficulty: 500
     isPrecious: true
@@ -1314,8 +1374,9 @@
     tags:
     - Elona.ItemCatEquipRangedBow
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1200
@@ -1357,8 +1418,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2200
@@ -1383,8 +1445,9 @@
     - Elona.ItemCatEquipRangedGun
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 800
@@ -1426,8 +1489,9 @@
     tags:
     - Elona.ItemCatEquipAmmo
     - Elona.ItemCatEquipAmmoArrow
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1200
@@ -1456,8 +1520,9 @@
     - Elona.ItemCatEquipAmmo
     - Elona.ItemCatEquipAmmoBullet
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2400
@@ -1496,8 +1561,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -1538,8 +1604,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 60000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -1572,8 +1639,9 @@
     tags:
     - Elona.ItemCatEquipBack
     - Elona.ItemCatEquipBackCloak
-  - type: Item
+  - type: Value
     value: 250
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 700
@@ -1597,8 +1665,9 @@
     tags:
     - Elona.ItemCatEquipBackGirdle
     - Elona.ItemCatEquipCloak
-  - type: Item
+  - type: Value
     value: 300
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 900
@@ -1622,8 +1691,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 200
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 50
@@ -1645,8 +1715,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1664,8 +1735,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 300
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1683,8 +1755,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 1280
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1707,8 +1780,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 3000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1731,8 +1805,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1761,8 +1836,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 20000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -1800,8 +1876,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1824,8 +1901,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1848,8 +1926,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -1866,8 +1945,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
   - type: Weight
     weight: 900
 - type: Entity
@@ -1888,8 +1968,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 10200
 - type: Entity
@@ -1910,8 +1991,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 6400
+  - type: Item
   - type: Weight
     weight: 8900
 - type: Entity
@@ -1928,8 +2010,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 15000
   - type: Bed
@@ -1948,8 +2031,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 350
 - type: Entity
@@ -1965,8 +2049,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 320
+  - type: Item
   - type: Weight
     weight: 320
 - type: Entity
@@ -1987,8 +2072,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 6800
 - type: Entity
@@ -2009,8 +2095,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 7000
 - type: Entity
@@ -2031,8 +2118,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1600
+  - type: Item
   - type: Weight
     weight: 8400
 - type: Entity
@@ -2048,8 +2136,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     originalnameref2: lot
   - type: Weight
     weight: 800
@@ -2066,8 +2155,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 720
+  - type: Item
     originalnameref2: lot
   - type: Weight
     weight: 750
@@ -2090,8 +2180,9 @@
     tags:
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
   - type: Weight
     weight: 45000
   - type: Instrument
@@ -2114,8 +2205,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 7900
 - type: Entity
@@ -2136,8 +2228,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 7900
 - type: Entity
@@ -2153,8 +2246,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
   - type: Weight
     weight: 3400
 - type: Entity
@@ -2176,8 +2270,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
   - type: Weight
     weight: 1100
 - type: Entity
@@ -2193,8 +2288,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 160
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -2210,8 +2306,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 400
 - type: Entity
@@ -2232,8 +2329,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4200
+  - type: Item
   - type: Weight
     weight: 3800
 - type: Entity
@@ -2254,8 +2352,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 9500
 - type: Entity
@@ -2271,8 +2370,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 140
+  - type: Item
   - type: Weight
     weight: 420
 - type: Entity
@@ -2288,8 +2388,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 540
 - type: Entity
@@ -2310,8 +2411,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1050
+  - type: Item
   - type: Weight
     weight: 4200
 - type: Entity
@@ -2332,8 +2434,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: rack
   - type: Weight
     weight: 80
@@ -2350,8 +2453,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 360
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -2367,8 +2471,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 6800
 - type: Entity
@@ -2389,8 +2494,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 7300
 - type: Entity
@@ -2406,8 +2512,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
   - type: Weight
     weight: 8200
 - type: Entity
@@ -2428,8 +2535,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 7600
 - type: Entity
@@ -2450,8 +2558,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 6800
 - type: Entity
@@ -2472,8 +2581,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1050
+  - type: Item
     originalnameref2: variety
   - type: Weight
     weight: 750
@@ -2495,8 +2605,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1300
+  - type: Item
     originalnameref2: variety
   - type: Weight
     weight: 820
@@ -2513,8 +2624,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureWell
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 350000
 - type: Entity
@@ -2535,8 +2647,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     originalnameref2: variety
   - type: Weight
     weight: 950
@@ -2558,8 +2671,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
   - type: Weight
     weight: 45800
 - type: Entity
@@ -2581,8 +2695,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
   - type: Weight
     weight: 14000
 - type: Entity
@@ -2598,8 +2713,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 3200
 - type: Entity
@@ -2615,8 +2731,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 3500
 - type: Entity
@@ -2632,8 +2749,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 9500
 - type: Entity
@@ -2649,8 +2767,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -2673,8 +2792,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 20
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -2690,8 +2810,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 6000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -2713,8 +2834,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 650
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2731,8 +2853,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2749,8 +2872,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2767,8 +2891,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1460
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2785,8 +2910,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1600
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2808,8 +2934,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     originalnameref2: show case
   - type: Weight
     weight: 7800
@@ -2831,8 +2958,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -2849,8 +2977,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
   - type: Weight
     weight: 210
 - type: Entity
@@ -2866,8 +2995,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1960
+  - type: Item
   - type: Weight
     weight: 900
 - type: Entity
@@ -2888,8 +3018,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 1840
 - type: Entity
@@ -2910,8 +3041,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 850
+  - type: Item
   - type: Weight
     weight: 420
 - type: Entity
@@ -2932,8 +3064,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1050
+  - type: Item
   - type: Weight
     weight: 400
 - type: Entity
@@ -2954,8 +3087,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 380
 - type: Entity
@@ -2971,8 +3105,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 650
+  - type: Item
   - type: Weight
     weight: 320
 - type: Entity
@@ -2988,8 +3123,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
   - type: Weight
     weight: 350
 - type: Entity
@@ -3005,8 +3141,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 880
+  - type: Item
   - type: Weight
     weight: 400
 - type: Entity
@@ -3027,8 +3164,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 920
+  - type: Item
   - type: Weight
     weight: 300
 - type: Entity
@@ -3049,8 +3187,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 240
 - type: Entity
@@ -3066,8 +3205,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 780
+  - type: Item
   - type: Weight
     weight: 250
 - type: Entity
@@ -3088,8 +3228,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3400
+  - type: Item
   - type: Weight
     weight: 32000
 - type: Entity
@@ -3110,8 +3251,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3900
+  - type: Item
   - type: Weight
     weight: 32000
 - type: Entity
@@ -3127,8 +3269,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 830
+  - type: Item
   - type: Weight
     weight: 1100
 - type: Entity
@@ -3144,8 +3287,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
   - type: Weight
     weight: 240
 - type: Entity
@@ -3166,8 +3310,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7800
+  - type: Item
   - type: Weight
     weight: 17400
 - type: Entity
@@ -3183,8 +3328,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
     originalnameref2: bundle
   - type: Weight
     weight: 1500
@@ -3201,8 +3347,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 940
+  - type: Item
     originalnameref2: bundle
   - type: Weight
     weight: 2400
@@ -3224,8 +3371,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 860
 - type: Entity
@@ -3246,8 +3394,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1900
+  - type: Item
   - type: Weight
     weight: 4400
 - type: Entity
@@ -3268,8 +3417,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3600
+  - type: Item
     originalnameref2: statue
   - type: Weight
     weight: 7500
@@ -3286,8 +3436,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 830
 - type: Entity
@@ -3303,8 +3454,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 320
+  - type: Item
     originalnameref2: lot
   - type: Weight
     weight: 940
@@ -3326,8 +3478,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 8700
 - type: Entity
@@ -3348,8 +3501,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
   - type: Weight
     weight: 8600
 - type: Entity
@@ -3365,8 +3519,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
     originalnameref2: lot
   - type: Weight
     weight: 320
@@ -3388,8 +3543,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 14000
 - type: Entity
@@ -3410,8 +3566,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1100
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -3432,8 +3589,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 14000
 - type: Entity
@@ -3449,8 +3607,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 9700
 - type: Entity
@@ -3471,8 +3630,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 8600
 - type: Entity
@@ -3488,8 +3648,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 860
 - type: Entity
@@ -3510,8 +3671,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 11000
 - type: Entity
@@ -3527,8 +3689,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 780
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -3544,8 +3707,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1250
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -3561,8 +3725,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 430
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -3583,8 +3748,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 340
 - type: Entity
@@ -3606,8 +3772,9 @@
     tags:
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 400000
 - type: Entity
@@ -3629,8 +3796,9 @@
     tags:
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1700
+  - type: Item
   - type: Weight
     weight: 400000
 - type: Entity
@@ -3652,8 +3820,9 @@
     tags:
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3250
+  - type: Item
     originalnameref2: grave
   - type: Weight
     weight: 650000
@@ -3675,8 +3844,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 650000
 - type: Entity
@@ -3697,8 +3867,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
   - type: Weight
     weight: 650000
 - type: Entity
@@ -3719,8 +3890,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 6500
+  - type: Item
   - type: Weight
     weight: 650000
 - type: Entity
@@ -3741,8 +3913,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 650000
 - type: Entity
@@ -3765,8 +3938,9 @@
     tags:
     - Elona.ItemCatFurnitureAltar
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 500000
 - type: Entity
@@ -3789,8 +3963,9 @@
     tags:
     - Elona.ItemCatFurnitureAltar
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 1600
+  - type: Item
   - type: Weight
     weight: 500000
 - type: Entity
@@ -3813,8 +3988,9 @@
     tags:
     - Elona.ItemCatFurnitureWell
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 600000
 - type: Entity
@@ -3836,8 +4012,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
   - type: Weight
     weight: 12400
   - type: Bed
@@ -3855,8 +4032,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1900
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -3873,8 +4051,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -3892,8 +4071,9 @@
     tags:
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 160
@@ -3914,8 +4094,9 @@
     tags:
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 70
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 170
@@ -3937,8 +4118,9 @@
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 60
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 100
@@ -3959,8 +4141,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 720
@@ -3981,8 +4164,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 220
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 510
@@ -4003,8 +4187,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 190
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 440
@@ -4025,8 +4210,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 170
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 220
@@ -4047,8 +4233,9 @@
     tags:
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 620
@@ -4070,8 +4257,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 420
@@ -4093,8 +4281,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 950
@@ -4117,8 +4306,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
   - type: Weight
     weight: 790
   - type: Food
@@ -4138,8 +4328,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 650
@@ -4159,8 +4350,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 450
 - type: Entity
@@ -4178,8 +4370,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 70
+  - type: Item
   - type: Weight
     weight: 650
   - type: Food
@@ -4198,8 +4391,9 @@
     tags:
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -4218,8 +4412,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 260
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 720
@@ -4241,8 +4436,9 @@
     - Elona.ItemCatJunkInField
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 90
   - type: Food
@@ -4261,8 +4457,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 220
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 1070
@@ -4283,8 +4480,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 560
@@ -4305,8 +4503,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 130
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 880
@@ -4327,8 +4526,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 440
@@ -4350,8 +4550,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 260
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 360
@@ -4373,8 +4574,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 970
@@ -4396,8 +4598,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 30
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 840
@@ -4419,8 +4622,9 @@
     - Elona.ItemCatFoodVegetable
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingVegetable
-  - type: Item
+  - type: Value
     value: 70
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 550
@@ -4440,8 +4644,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 3250
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -4463,8 +4668,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 2600
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -4481,8 +4687,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 2000
@@ -4503,8 +4710,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkAlcohol
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
@@ -4533,8 +4741,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 60000
+  - type: Item
     material: Elona.Ether
     identifyDifficulty: 500
     isPrecious: true
@@ -4578,8 +4787,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 60000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
@@ -4622,8 +4832,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatOre
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
   - type: Weight
     weight: 1
 - type: Entity
@@ -4639,8 +4850,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 1050
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -4658,8 +4870,9 @@
     tags:
     - Elona.ItemCatEquipRangedThrown
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
     material: Elona.Iron
   - type: Weight
     weight: 2000
@@ -4699,8 +4912,9 @@
     tags:
     - Elona.ItemCatEquipMeleeScythe
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1400
@@ -4729,8 +4943,9 @@
     tags:
     - Elona.ItemCatEquipMeleeStaff
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 900
@@ -4759,8 +4974,9 @@
     tags:
     - Elona.ItemCatEquipMeleeLance
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2500
@@ -4790,8 +5006,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -4808,8 +5025,9 @@
     tags:
     - Elona.ItemCatJunkTown
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
     originalnameref2: lot
   - type: Weight
     weight: 220
@@ -4827,8 +5045,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -4844,8 +5063,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 25
+  - type: Item
   - type: Weight
     weight: 90
 - type: Entity
@@ -4861,8 +5081,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 30
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -4879,8 +5100,9 @@
     tags:
     - Elona.ItemCatJunkInField
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
   - type: Weight
     weight: 340
 - type: Entity
@@ -4898,8 +5120,9 @@
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 4
+  - type: Item
   - type: Weight
     weight: 50
 - type: Entity
@@ -4915,8 +5138,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 7
+  - type: Item
   - type: Weight
     weight: 70
 - type: Entity
@@ -4933,8 +5157,9 @@
     tags:
     - Elona.ItemCatJunk
     - Elona.ItemCatJunkInField
-  - type: Item
+  - type: Value
     value: 8
+  - type: Item
   - type: Weight
     weight: 40
 - type: Entity
@@ -4950,8 +5175,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -4968,8 +5194,9 @@
     tags:
     - Elona.ItemCatEquipMeleeLongSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1200
@@ -4997,8 +5224,9 @@
     tags:
     - Elona.ItemCatEquipMeleeShortSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 900
@@ -5028,8 +5256,9 @@
     tags:
     - Elona.ItemCatEquipMeleeAxe
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 3700
@@ -5057,8 +5286,9 @@
     tags:
     - Elona.ItemCatEquipMeleeHammer
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 4200
@@ -5086,8 +5316,9 @@
     tags:
     - Elona.ItemCatEquipMeleeLance
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1800
@@ -5117,8 +5348,9 @@
     tags:
     - Elona.ItemCatEquipMeleeStaff
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 800
@@ -5147,8 +5379,9 @@
     tags:
     - Elona.ItemCatEquipRangedBow
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 800
@@ -5191,8 +5424,9 @@
     - Elona.ItemCatEquipRangedGun
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1800
@@ -5233,8 +5467,9 @@
     tags:
     - Elona.ItemCatEquipMeleeBroadsword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 4000
@@ -5261,8 +5496,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
   - type: Weight
     weight: 400
   - type: Food
@@ -5281,8 +5517,9 @@
     tags:
     - Elona.ItemCatEquipMeleeAxe
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 3500
@@ -5310,8 +5547,9 @@
     tags:
     - Elona.ItemCatEquipMeleeHalberd
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 3800
@@ -5344,8 +5582,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -5367,8 +5606,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: figurine
   - type: Weight
     weight: 240
@@ -5390,8 +5630,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: figurine
   - type: Weight
     weight: 240
@@ -5413,8 +5654,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 3000
+  - type: Item
   - type: Weight
     weight: 3000
 - type: Entity
@@ -5435,8 +5677,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 300000
 - type: Entity
@@ -5457,8 +5700,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 300000
 - type: Entity
@@ -5474,8 +5718,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 480
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -5498,8 +5743,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 240000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -5521,8 +5767,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -5540,8 +5787,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 200
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -5563,8 +5811,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5591,8 +5840,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5619,8 +5869,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8900
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5642,8 +5893,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5665,8 +5917,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 9000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5693,8 +5946,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5721,8 +5975,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5745,8 +6000,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkAlcohol
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
@@ -5770,8 +6026,9 @@
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 6500
   - type: Instrument
@@ -5789,8 +6046,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1860
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -5806,8 +6064,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1860
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -5823,8 +6082,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5846,8 +6106,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
   - type: Weight
     weight: 350
   - type: Food
@@ -5871,8 +6132,9 @@
     tags:
     - Elona.ItemCatFoodNoodle
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 400
@@ -5898,8 +6160,9 @@
     tags:
     - Elona.ItemCatFoodFlour
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: sack
   - type: Weight
     weight: 800
@@ -5925,8 +6188,9 @@
     tags:
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 350
@@ -5948,8 +6212,9 @@
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
-  - type: Item
+  - type: Value
     value: 120
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -5965,8 +6230,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -5993,8 +6259,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 9600
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6016,8 +6283,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 6400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6040,8 +6308,9 @@
     tags:
     - Elona.ItemCatEquipMeleeShortSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 700
@@ -6070,8 +6339,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6093,8 +6363,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6116,8 +6387,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6139,8 +6411,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6167,8 +6440,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6195,8 +6469,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6218,8 +6493,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -6235,8 +6511,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 4800
 - type: Entity
@@ -6252,8 +6529,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -6274,8 +6552,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2600
+  - type: Item
   - type: Weight
     weight: 350000
 - type: Entity
@@ -6296,8 +6575,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1300
+  - type: Item
   - type: Weight
     weight: 300000
 - type: Entity
@@ -6319,8 +6599,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 300000
 - type: Entity
@@ -6336,8 +6617,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 300000
 - type: Entity
@@ -6358,8 +6640,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 9800
 - type: Entity
@@ -6376,8 +6659,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -6393,8 +6677,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 180
 - type: Entity
@@ -6417,8 +6702,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -6441,8 +6727,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 250
 - type: Entity
@@ -6459,8 +6746,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -6478,8 +6766,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatDrinkPotion
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -6502,8 +6791,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -6521,8 +6811,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -6545,8 +6836,9 @@
     tags:
     - Elona.ItemCatSpellbook
     - Elona.NoWish
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -6573,8 +6865,9 @@
     tags:
     - Elona.ItemCatRod
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 300000
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -6596,8 +6889,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -6618,8 +6912,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     originalnameref2: rack
   - type: Weight
     weight: 6800
@@ -6641,8 +6936,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: rack
   - type: Weight
     weight: 7500
@@ -6660,8 +6956,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 320
+  - type: Item
   - type: Weight
     weight: 1080
 - type: Entity
@@ -6677,8 +6974,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 890
+  - type: Item
   - type: Weight
     weight: 4500
 - type: Entity
@@ -6699,8 +6997,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -6722,8 +7021,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 17500
   - type: Bed
@@ -6746,8 +7046,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 2400
 - type: Entity
@@ -6768,8 +7069,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 5500
+  - type: Item
   - type: Weight
     weight: 9000
 - type: Entity
@@ -6790,8 +7092,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1900
+  - type: Item
   - type: Weight
     weight: 8500
 - type: Entity
@@ -6807,8 +7110,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 1400
 - type: Entity
@@ -6829,8 +7133,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     originalnameref2: chest
   - type: Weight
     weight: 6800
@@ -6853,8 +7158,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 15000
   - type: Bed
@@ -6873,8 +7179,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 13000
   - type: Bed
@@ -6898,8 +7205,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 8900
   - type: Bed
@@ -6923,8 +7231,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 5200
+  - type: Item
   - type: Weight
     weight: 34000
 - type: Entity
@@ -6946,8 +7255,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
   - type: Weight
     weight: 12000
   - type: Bed
@@ -6970,8 +7280,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 9000
 - type: Entity
@@ -6992,8 +7303,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 8000
 - type: Entity
@@ -7015,8 +7327,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 9500
   - type: Bed
@@ -7039,8 +7352,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
   - type: Weight
     weight: 28000
 - type: Entity
@@ -7063,8 +7377,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
   - type: Weight
     weight: 14000
 - type: Entity
@@ -7087,8 +7402,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
   - type: Weight
     weight: 24000
 - type: Entity
@@ -7111,8 +7427,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -7135,8 +7452,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 8900
 - type: Entity
@@ -7157,8 +7475,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3200
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -7179,8 +7498,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 890
+  - type: Item
   - type: Weight
     weight: 7600
 - type: Entity
@@ -7201,8 +7521,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1020
+  - type: Item
   - type: Weight
     weight: 8900
 - type: Entity
@@ -7224,8 +7545,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 880
+  - type: Item
   - type: Weight
     weight: 2800
   - type: Bed
@@ -7248,8 +7570,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 900
+  - type: Item
   - type: Weight
     weight: 6800
 - type: Entity
@@ -7270,8 +7593,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1480
+  - type: Item
   - type: Weight
     weight: 8800
 - type: Entity
@@ -7292,8 +7616,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -7314,8 +7639,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
   - type: Weight
     weight: 8900
 - type: Entity
@@ -7336,8 +7662,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -7359,8 +7686,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
   - type: Weight
     weight: 10000
   - type: Bed
@@ -7383,8 +7711,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 8900
 - type: Entity
@@ -7405,8 +7734,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 600
+  - type: Item
   - type: Weight
     weight: 6400
 - type: Entity
@@ -7427,8 +7757,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4600
+  - type: Item
   - type: Weight
     weight: 29000
   - type: Instrument
@@ -7446,8 +7777,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     originalnameref2: statue
   - type: Weight
     weight: 15600
@@ -7464,8 +7796,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 250
+  - type: Item
   - type: Weight
     weight: 3500
 - type: Entity
@@ -7486,8 +7819,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1440
+  - type: Item
   - type: Weight
     weight: 1050
 - type: Entity
@@ -7508,8 +7842,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 4900
 - type: Entity
@@ -7525,8 +7860,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargoFood
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
   - type: Food
     foodQuality: 3
 - type: Entity
@@ -7547,8 +7883,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 6800
+  - type: Item
   - type: Weight
     weight: 35000
 - type: Entity
@@ -7569,8 +7906,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -7591,8 +7929,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3200
+  - type: Item
   - type: Weight
     weight: 21000
 - type: Entity
@@ -7608,8 +7947,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRemains
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -7630,8 +7970,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRemains
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -7652,8 +7993,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRemains
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -7674,8 +8016,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRemains
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -7691,8 +8034,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRemains
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -7708,8 +8052,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 2400
 - type: Entity
@@ -7725,8 +8070,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 780
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -7751,8 +8097,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -7775,8 +8122,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 900
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 800
@@ -7803,8 +8151,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 1250
@@ -7831,8 +8180,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 900
@@ -7859,8 +8209,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 2400
@@ -7882,8 +8233,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 800
@@ -7905,8 +8257,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 170
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 600
@@ -7933,8 +8286,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 320
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 550
@@ -7961,8 +8315,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 640
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 700
@@ -7989,8 +8344,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 620
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 600
@@ -8017,8 +8373,9 @@
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
     - Elona.TagItemFish
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 450
@@ -8050,8 +8407,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipWrist
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
@@ -8088,8 +8446,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -8129,8 +8488,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRing
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
@@ -8165,8 +8525,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -8209,8 +8570,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -8252,8 +8614,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRing
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
@@ -8286,8 +8649,9 @@
     - Elona.ItemCatContainer
     - Elona.NoGenerate
     - Elona.NoWish
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -8308,8 +8672,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8331,8 +8696,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8349,8 +8715,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8367,8 +8734,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8390,8 +8758,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 1080
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -8413,8 +8782,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8437,8 +8807,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 40
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8460,8 +8831,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8483,8 +8855,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8506,8 +8879,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8529,8 +8903,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8552,8 +8927,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8580,8 +8956,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8608,8 +8985,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 850
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8627,8 +9005,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 30
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8645,8 +9024,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4200
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -8663,8 +9043,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2600
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8686,8 +9067,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8709,8 +9091,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8737,8 +9120,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 6400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8761,8 +9145,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 30
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -8784,8 +9169,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 11000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8812,8 +9198,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8835,8 +9222,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 3600
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -8858,8 +9246,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8886,8 +9275,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 9800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -8914,8 +9304,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8937,8 +9328,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8960,8 +9352,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -8983,8 +9376,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4100
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -9003,8 +9397,9 @@
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
@@ -9021,8 +9416,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -9038,8 +9434,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -9060,8 +9457,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -9083,8 +9481,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3400
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -9111,8 +9510,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -9139,8 +9539,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -9157,8 +9558,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoBarrel
   parent: BaseItem
@@ -9172,8 +9574,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 420
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoPiano
   parent: BaseItem
@@ -9192,8 +9595,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoRope
   parent: BaseItem
@@ -9207,8 +9611,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 550
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoCoffin
   parent: BaseItem
@@ -9227,8 +9632,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoManboo
   parent: BaseItem
@@ -9247,8 +9653,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoGrave
   parent: BaseItem
@@ -9267,8 +9674,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 2800
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoTunaFish
   parent: BaseItem
@@ -9287,8 +9695,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoWhisky
   parent: BaseItem
@@ -9307,8 +9716,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoNobleToy
   parent: BaseItem
@@ -9327,8 +9737,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoInnerTube
   parent: BaseItem
@@ -9347,8 +9758,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 340
+  - type: Item
 - type: Entity
   id: Elona.ItemSpellbookOfDetectObjects
   parent: BaseItem
@@ -9367,8 +9779,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -9390,8 +9803,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -9413,8 +9827,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -9438,8 +9853,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
   - type: Weight
     weight: 140000
 - type: Entity
@@ -9462,8 +9878,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
   - type: Weight
     weight: 140000
 - type: Entity
@@ -9484,8 +9901,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -9507,8 +9925,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -9526,8 +9945,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 240
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -9552,8 +9972,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -9578,8 +9999,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -9603,8 +10025,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -9631,10 +10054,13 @@
     - Elona.ItemCatFood
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 120000
+  - type: Item
   - type: Weight
     weight: 40
+  - type: MedalValue
+    medalValue: 15
   - type: Food
     foodQuality: 1
 - type: Entity
@@ -9656,8 +10082,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 1050
+  - type: Item
   - type: Weight
     weight: 250
   - type: Food
@@ -9699,8 +10126,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 210
   - type: Food
@@ -9742,8 +10170,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 900
+  - type: Item
   - type: Weight
     weight: 220
   - type: Food
@@ -9780,8 +10209,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 680
+  - type: Item
   - type: Weight
     weight: 260
   - type: Food
@@ -9823,8 +10253,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 120
   - type: Food
@@ -9861,8 +10292,9 @@
     tags:
     - Elona.ItemCatCropHerb
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 480
   - type: Food
@@ -9899,8 +10331,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.ItemCatFurnitureBed
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 2400
   - type: Bed
@@ -9919,8 +10352,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -9943,11 +10377,14 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
+  - type: MedalValue
+    medalValue: 5
 - type: Entity
   id: Elona.ItemScrollOfFaith
   parent: BaseItem
@@ -9967,11 +10404,14 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
+  - type: MedalValue
+    medalValue: 8
 - type: Entity
   id: Elona.ItemPotionOfMutation
   parent: BaseItem
@@ -9991,8 +10431,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -10014,8 +10455,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -10037,8 +10479,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 20000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -10061,8 +10504,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 6500
@@ -10086,8 +10530,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 12500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 7500
@@ -10111,8 +10556,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 5000
@@ -10136,8 +10582,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 5500
@@ -10161,8 +10608,9 @@
     tags:
     - Elona.ItemCatEquipBodyMail
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 5200
@@ -10186,8 +10634,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1200
@@ -10211,8 +10660,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1800
@@ -10236,8 +10686,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1500
@@ -10261,8 +10712,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 5500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 2800
@@ -10286,8 +10738,9 @@
     tags:
     - Elona.ItemCatEquipBodyRobe
     - Elona.ItemCatEquipBody
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1600
@@ -10311,8 +10764,9 @@
     tags:
     - Elona.ItemCatEquipWristGlove
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 450
@@ -10338,8 +10792,9 @@
     tags:
     - Elona.ItemCatEquipWristGauntlet
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1800
@@ -10365,8 +10820,9 @@
     tags:
     - Elona.ItemCatEquipWristGlove
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 200
@@ -10391,8 +10847,9 @@
     tags:
     - Elona.ItemCatEquipWristGauntlet
     - Elona.ItemCatEquipWrist
-  - type: Item
+  - type: Value
     value: 950
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1300
@@ -10418,8 +10875,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1200
@@ -10443,8 +10901,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1500
@@ -10468,8 +10927,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1000
@@ -10493,8 +10953,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1400
@@ -10518,8 +10979,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 3500
@@ -10543,8 +11005,9 @@
     tags:
     - Elona.ItemCatEquipShieldShield
     - Elona.ItemCatEquipShield
-  - type: Item
+  - type: Value
     value: 18000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2400
@@ -10568,8 +11031,9 @@
     tags:
     - Elona.ItemCatEquipLegShoes
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 260
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 250
@@ -10593,8 +11057,9 @@
     tags:
     - Elona.ItemCatEquipLegShoes
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 450
@@ -10618,8 +11083,9 @@
     tags:
     - Elona.ItemCatEquipLegShoes
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 650
@@ -10643,8 +11109,9 @@
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1400
@@ -10667,8 +11134,9 @@
     tags:
     - Elona.ItemCatEquipBackGirdle
     - Elona.ItemCatEquipCloak
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 650
@@ -10692,8 +11160,9 @@
     tags:
     - Elona.ItemCatEquipBackGirdle
     - Elona.ItemCatEquipCloak
-  - type: Item
+  - type: Value
     value: 3900
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1400
@@ -10717,8 +11186,9 @@
     tags:
     - Elona.ItemCatEquipBack
     - Elona.ItemCatEquipBackCloak
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1800
@@ -10742,8 +11212,9 @@
     tags:
     - Elona.ItemCatEquipBack
     - Elona.ItemCatEquipBackCloak
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 1500
@@ -10767,8 +11238,9 @@
     tags:
     - Elona.ItemCatEquipHeadHat
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 500
@@ -10792,8 +11264,9 @@
     tags:
     - Elona.ItemCatEquipHeadHelm
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2400
@@ -10817,8 +11290,9 @@
     tags:
     - Elona.ItemCatEquipHeadHelm
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2000
@@ -10842,8 +11316,9 @@
     tags:
     - Elona.ItemCatEquipHeadHelm
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 600
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1600
@@ -10867,8 +11342,9 @@
     tags:
     - Elona.ItemCatEquipHeadHelm
     - Elona.ItemCatEquipHead
-  - type: Item
+  - type: Value
     value: 9600
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1800
@@ -10892,8 +11368,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -10916,8 +11393,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 50
@@ -10940,8 +11418,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -10965,8 +11444,9 @@
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 50
@@ -10989,8 +11469,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11017,8 +11498,9 @@
     tags:
     - Elona.ItemCatEquipNeckArmor
     - Elona.ItemCatEquipNeck
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11040,8 +11522,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11064,8 +11547,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11088,8 +11572,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11116,8 +11601,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 5200
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -11138,8 +11624,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 250
 - type: Entity
@@ -11160,8 +11647,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 9000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11184,11 +11672,14 @@
     tags:
     - Elona.ItemCatRod
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 16000
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
+  - type: MedalValue
+    medalValue: 20
 - type: Entity
   id: Elona.ItemSpellbookOfDomination
   parent: BaseItem
@@ -11207,8 +11698,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 28000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -11231,8 +11723,9 @@
     tags:
     - Elona.ItemCatEquipRangedCrossbow
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 2800
@@ -11274,8 +11767,9 @@
     tags:
     - Elona.ItemCatEquipAmmo
     - Elona.ItemCatEquipAmmoBolt
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 3500
@@ -11307,8 +11801,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -11335,8 +11830,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -11360,8 +11856,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 3600
+  - type: Item
   - type: Weight
     weight: 150000
 - type: Entity
@@ -11384,8 +11881,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
   - type: Weight
     weight: 45000
 - type: Entity
@@ -11408,8 +11906,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 120000
 - type: Entity
@@ -11433,8 +11932,9 @@
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 1600
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -11457,8 +11957,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 3200
+  - type: Item
   - type: Weight
     weight: 150000
 - type: Entity
@@ -11481,8 +11982,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 95000
 - type: Entity
@@ -11505,8 +12007,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 3100
+  - type: Item
   - type: Weight
     weight: 14000
 - type: Entity
@@ -11528,8 +12031,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 8000
 - type: Entity
@@ -11552,8 +12056,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -11576,8 +12081,9 @@
     - Elona.ItemCatFurniture
     - Elona.ItemCatOfferingSf
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -11595,8 +12101,9 @@
     - Elona.ItemCatEquipRangedGun
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1500
@@ -11644,8 +12151,9 @@
     - Elona.ItemCatFood
     - Elona.TagItemSf
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 440
+  - type: Item
   - type: Weight
     weight: 200
   - type: Food
@@ -11670,8 +12178,9 @@
     - Elona.ItemCatFood
     - Elona.TagItemSf
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
   - type: Weight
     weight: 180
   - type: Food
@@ -11696,8 +12205,9 @@
     - Elona.ItemCatFood
     - Elona.TagItemSf
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
   - type: Weight
     weight: 500
   - type: Food
@@ -11716,8 +12226,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNeg
-  - type: Item
+  - type: Value
     value: 600
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11739,8 +12250,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11763,11 +12275,14 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 20000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
+  - type: MedalValue
+    medalValue: 7
 - type: Entity
   id: Elona.ItemFigurine
   parent: BaseItem
@@ -11788,8 +12303,9 @@
     tags:
     - Elona.ItemCatRemains
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 2500
 - type: Entity
@@ -11812,8 +12328,9 @@
     tags:
     - Elona.ItemCatRemains
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 200
 - type: Entity
@@ -11835,11 +12352,14 @@
     tags:
     - Elona.ItemCatBook
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 380
+  - type: MedalValue
+    medalValue: 12
 - type: Entity
   id: Elona.ItemScrollOfEnchantWeapon
   parent: BaseItem
@@ -11858,8 +12378,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11881,8 +12402,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 14000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11904,8 +12426,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11927,8 +12450,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 14000
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -11952,8 +12476,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 20000
 - type: Entity
@@ -11974,8 +12499,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -11999,8 +12525,9 @@
     - Elona.ItemCatEquipRangedLaserGun
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 1200
@@ -12043,8 +12570,9 @@
     - Elona.ItemCatEquipAmmo
     - Elona.ItemCatEquipAmmoEnergyCell
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 150
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 800
@@ -12082,8 +12610,9 @@
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 60000
+  - type: Item
     material: Elona.Ether
     identifyDifficulty: 500
     isPrecious: true
@@ -12131,8 +12660,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -12154,11 +12684,14 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 280
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
+  - type: MedalValue
+    medalValue: 3
 - type: Entity
   id: Elona.ItemRodOfChangeCreature
   parent: BaseItem
@@ -12177,8 +12710,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -12200,8 +12734,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 6000
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -12225,8 +12760,9 @@
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 120
@@ -12249,8 +12785,9 @@
     tags:
     - Elona.ItemCatEquipBackCloak
     - Elona.ItemCatEquipBack
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 500
@@ -12281,8 +12818,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 140000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -12308,8 +12846,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 200000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -12331,8 +12870,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 45000
@@ -12354,8 +12894,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 38000
@@ -12379,8 +12920,9 @@
     tags:
     - Elona.ItemCatTree
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 35000
@@ -12402,8 +12944,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 42000
@@ -12426,8 +12969,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 20000
 - type: Entity
@@ -12448,8 +12992,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 28000
@@ -12471,8 +13016,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 39000
@@ -12494,8 +13040,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatTree
-  - type: Item
+  - type: Value
     value: 900
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 28000
@@ -12517,8 +13064,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
   - type: Weight
     weight: 68000
 - type: Entity
@@ -12539,8 +13087,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 9400
+  - type: Item
   - type: Weight
     weight: 45000
 - type: Entity
@@ -12561,8 +13110,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 85000
 - type: Entity
@@ -12583,8 +13133,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -12605,8 +13156,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 5800
 - type: Entity
@@ -12627,8 +13179,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
     originalnameref2: painting
   - type: Weight
     weight: 2000
@@ -12650,8 +13203,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 8200
+  - type: Item
     originalnameref2: painting
   - type: Weight
     weight: 500
@@ -12673,8 +13227,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: painting
   - type: Weight
     weight: 450
@@ -12696,8 +13251,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     originalnameref2: statue
   - type: Weight
     weight: 48000
@@ -12719,8 +13275,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7000
+  - type: Item
   - type: Weight
     weight: 2500
 - type: Entity
@@ -12741,8 +13298,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 200
+  - type: Item
   - type: Weight
     weight: 8500
 - type: Entity
@@ -12767,8 +13325,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 45000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -12794,8 +13353,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -12818,8 +13378,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -12840,8 +13401,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -12863,8 +13425,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 6800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -12893,8 +13456,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 6400
+  - type: Item
   - type: Weight
     weight: 20000
 - type: Entity
@@ -12915,8 +13479,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -12944,8 +13509,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -12967,8 +13533,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -12995,8 +13562,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 5600
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -13019,8 +13587,9 @@
     tags:
     - Elona.ItemCatEquipBack
     - Elona.ItemCatEquipBackCloak
-  - type: Item
+  - type: Value
     value: 18000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 500
@@ -13050,8 +13619,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -13076,8 +13646,9 @@
     tags:
     - Elona.ItemCatCropSeed
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 40
   - type: Food
@@ -13100,8 +13671,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 6500
+  - type: Item
   - type: Weight
     weight: 12500
 - type: Entity
@@ -13123,8 +13695,9 @@
     tags:
     - Elona.ItemCatEquipLegShoes
     - Elona.ItemCatEquipLeg
-  - type: Item
+  - type: Value
     value: 24000
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 300
@@ -13153,8 +13726,9 @@
     tags:
     - Elona.ItemCatEquipBack
     - Elona.ItemCatEquipBackCloak
-  - type: Item
+  - type: Value
     value: 18000
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 400
@@ -13183,8 +13757,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 17000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -13212,11 +13787,14 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
+  - type: MedalValue
+    medalValue: 10
 - type: Entity
   id: Elona.ItemMastersDeliveryChest
   parent: BaseItem
@@ -13238,8 +13816,9 @@
     - Elona.ItemCatContainer
     - Elona.NoGenerate
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 380
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 20000
@@ -13263,8 +13842,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
   - type: Weight
     weight: 20000
 - type: Entity
@@ -13287,8 +13867,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 20000
 - type: Entity
@@ -13309,8 +13890,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatBook
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -13331,8 +13913,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -13359,8 +13942,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 4400
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -13383,8 +13967,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 1900
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -13406,8 +13991,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -13429,8 +14015,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -13451,8 +14038,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 5800
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -13479,8 +14067,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -13502,8 +14091,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 640
+  - type: Item
   - type: Weight
     weight: 450
   - type: Food
@@ -13530,8 +14120,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 80000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -13553,8 +14144,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 300
   - type: Food
@@ -13578,8 +14170,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 300
@@ -13601,8 +14194,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 25
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -13625,8 +14219,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -13643,8 +14238,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
   - type: Weight
     weight: 50
 - type: Entity
@@ -13665,8 +14261,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -13689,8 +14286,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -13711,8 +14309,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1600
+  - type: Item
   - type: Weight
     weight: 10200
 - type: Entity
@@ -13733,8 +14332,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatRod
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: rod
   - type: Weight
     weight: 800
@@ -13756,8 +14356,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -13779,8 +14380,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 200
+  - type: Item
   - type: Weight
     weight: 150
 - type: Entity
@@ -13801,8 +14403,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 200
 - type: Entity
@@ -13823,8 +14426,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -13846,8 +14450,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
   - type: Weight
     weight: 250000
 - type: Entity
@@ -13868,8 +14473,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
     originalnameref2: handful
   - type: Weight
     weight: 50
@@ -13893,8 +14499,9 @@
     tags:
     - Elona.ItemCatTree
     - Elona.ItemCatSnowTree
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 14000
@@ -13918,8 +14525,9 @@
     tags:
     - Elona.ItemCatTree
     - Elona.ItemCatSnowTree
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     originalnameref2: tree
   - type: Weight
     weight: 28000
@@ -13936,8 +14544,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
   - type: Weight
     weight: 4800
 - type: Entity
@@ -13958,8 +14567,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
   - type: Weight
     weight: 8500
 - type: Entity
@@ -13980,8 +14590,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 180
+  - type: Item
   - type: Weight
     weight: 3400
 - type: Entity
@@ -14003,8 +14614,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSf
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
   - type: Weight
     weight: 250000
 - type: Entity
@@ -14025,8 +14637,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 18000
+  - type: Item
     originalnameref2: statue
   - type: Weight
     weight: 12000
@@ -14048,8 +14661,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 16000
 - type: Entity
@@ -14070,8 +14684,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 4800
 - type: Entity
@@ -14087,8 +14702,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoSnowMan
   parent: BaseItem
@@ -14107,8 +14723,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
 - type: Entity
   id: Elona.ItemChristmasTree
   parent: BaseItem
@@ -14129,8 +14746,9 @@
     tags:
     - Elona.ItemCatTree
     - Elona.ItemCatSnowTree
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
   - type: Weight
     weight: 35000
 - type: Entity
@@ -14154,8 +14772,9 @@
     - Elona.ItemCatContainer
     - Elona.NoGenerate
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 150000
@@ -14177,8 +14796,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -14201,8 +14821,9 @@
     tags:
     - Elona.ItemCatFurnitureWell
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 185000
+  - type: Item
   - type: Weight
     weight: 350000
 - type: Entity
@@ -14224,11 +14845,14 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 2400
+  - type: MedalValue
+    medalValue: 20
 - type: Entity
   id: Elona.ItemGreenPlant
   parent: BaseItem
@@ -14247,8 +14871,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
   - type: Weight
     weight: 800
 - type: Entity
@@ -14269,8 +14894,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -14291,8 +14917,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
   - type: Weight
     weight: 8250
 - type: Entity
@@ -14313,8 +14940,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2600
+  - type: Item
   - type: Weight
     weight: 4200
 - type: Entity
@@ -14335,8 +14963,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 1500
 - type: Entity
@@ -14357,8 +14986,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 700
+  - type: Item
   - type: Weight
     weight: 1600
 - type: Entity
@@ -14379,8 +15009,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 5600
 - type: Entity
@@ -14401,8 +15032,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -14423,8 +15055,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 2000
 - type: Entity
@@ -14446,8 +15079,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
   - type: Weight
     weight: 24000
   - type: Bed
@@ -14470,8 +15104,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 8000
 - type: Entity
@@ -14495,11 +15130,14 @@
     - Elona.ItemCatScroll
     - Elona.NoGenerate
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 100
+  - type: MedalValue
+    medalValue: 5
 - type: Entity
   id: Elona.ItemTaxMastersTaxBox
   parent: BaseItem
@@ -14521,11 +15159,14 @@
     - Elona.ItemCatContainer
     - Elona.NoGenerate
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 14500
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 6500
+  - type: MedalValue
+    medalValue: 18
 - type: Entity
   id: Elona.ItemBait
   parent: BaseItem
@@ -14546,8 +15187,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 250
 - type: Entity
@@ -14571,8 +15213,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatFood
     - Elona.ItemCatOfferingFish
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 1250
@@ -14599,8 +15242,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatJunk
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 1250
 - type: Entity
@@ -14622,8 +15266,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 50
 - type: Entity
@@ -14646,8 +15291,9 @@
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
   - type: Weight
     weight: 20
   - type: TreasureMap
@@ -14671,8 +15317,9 @@
     - Elona.ItemCatOre
     - Elona.TagItemNoshop
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1
@@ -14695,11 +15342,14 @@
     tags:
     - Elona.ItemCatBook
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 380
+  - type: MedalValue
+    medalValue: 85
 - type: Entity
   id: Elona.ItemGirlsDiary
   parent: BaseItem
@@ -14719,11 +15369,14 @@
     tags:
     - Elona.ItemCatBook
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 380
+  - type: MedalValue
+    medalValue: 25
 - type: Entity
   id: Elona.ItemShrineGate
   parent: BaseItem
@@ -14745,11 +15398,14 @@
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 8000
+  - type: MedalValue
+    medalValue: 11
 - type: Entity
   id: Elona.ItemBottleOfHermesBlood
   parent: BaseItem
@@ -14770,12 +15426,15 @@
     - Elona.ItemCatDrink
     - Elona.TagItemSpshop
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: bottle
     isPrecious: true
   - type: Weight
     weight: 120
+  - type: MedalValue
+    medalValue: 30
 - type: Entity
   id: Elona.ItemSagesHelm
   parent: BaseItem
@@ -14801,13 +15460,16 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipHead
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1500
+  - type: MedalValue
+    medalValue: 55
   - type: Equipment
     equipSlots:
     - Elona.Head
@@ -14832,8 +15494,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 7000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -14860,8 +15523,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
   - type: Weight
     weight: 3500
 - type: Entity
@@ -14884,8 +15548,9 @@
     - Elona.ItemCatMiscItem
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 5000
 - type: Entity
@@ -14908,8 +15573,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
   - type: Weight
     weight: 5000000
 - type: Entity
@@ -14930,8 +15596,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
   - type: Weight
     weight: 5
 - type: Entity
@@ -14953,8 +15620,9 @@
     tags:
     - Elona.ItemCatEquipRangedThrown
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     material: Elona.Soft
   - type: Weight
     weight: 500
@@ -14998,8 +15666,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15021,8 +15690,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 9800
 - type: Entity
@@ -15043,8 +15713,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 400
 - type: Entity
@@ -15070,8 +15741,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 150000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 400
@@ -15093,8 +15765,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatScroll
-  - type: Item
+  - type: Value
     value: 450
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -15123,8 +15796,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFood
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 720
@@ -15150,8 +15824,9 @@
     - Elona.ItemCatMiscItem
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 8000
+  - type: Item
   - type: Weight
     weight: 2000
 - type: Entity
@@ -15177,8 +15852,9 @@
     - Elona.ItemCatContainer
     - Elona.ItemCatUniqueItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 2500
@@ -15195,8 +15871,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
   - type: Weight
     weight: 4800
 - type: Entity
@@ -15218,8 +15895,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 2000
   - type: Bed
@@ -15242,8 +15920,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 2000
 - type: Entity
@@ -15264,8 +15943,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
   - type: Weight
     weight: 11000
 - type: Entity
@@ -15286,8 +15966,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1800
+  - type: Item
   - type: Weight
     weight: 4500
 - type: Entity
@@ -15308,8 +15989,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
   - type: Weight
     weight: 7800
 - type: Entity
@@ -15330,8 +16012,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 5000
 - type: Entity
@@ -15352,8 +16035,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 4000
 - type: Entity
@@ -15374,8 +16058,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureWell
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 12000
 - type: Entity
@@ -15396,8 +16081,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
   - type: Weight
     weight: 8400
 - type: Entity
@@ -15418,8 +16104,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -15440,8 +16127,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 600
+  - type: Item
   - type: Weight
     weight: 150000
 - type: Entity
@@ -15463,8 +16151,9 @@
     tags:
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 16000
   - type: Bed
@@ -15493,8 +16182,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFood
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 500
@@ -15518,8 +16208,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3000
+  - type: Item
   - type: Weight
     weight: 7900
 - type: Entity
@@ -15540,8 +16231,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15562,8 +16254,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -15584,8 +16277,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 1000
 - type: Entity
@@ -15601,8 +16295,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -15636,8 +16331,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipLeg
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     material: Elona.Leather
     identifyDifficulty: 500
     isPrecious: true
@@ -15674,8 +16370,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFood
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 440
@@ -15704,8 +16401,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatJunk
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 2500
@@ -15728,8 +16426,9 @@
     tags:
     - Elona.ItemCatEquipRingRing
     - Elona.ItemCatEquipRing
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 50
@@ -15760,8 +16459,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -15789,8 +16489,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -15815,8 +16516,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 900
+  - type: Item
   - type: Weight
     weight: 500
   - type: Food
@@ -15840,8 +16542,9 @@
     tags:
     - Elona.ItemCatBook
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -15862,8 +16565,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
 - type: Entity
   id: Elona.ItemCargoCanvas
   parent: BaseItem
@@ -15877,8 +16581,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatCargo
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
 - type: Entity
   id: Elona.ItemNuclearBomb
   parent: BaseItem
@@ -15902,8 +16607,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 120000
@@ -15930,8 +16636,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1000
@@ -15960,8 +16667,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Ether
     identifyDifficulty: 500
     isPrecious: true
@@ -16016,8 +16724,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Diamond
     identifyDifficulty: 500
     isPrecious: true
@@ -16072,8 +16781,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.SpiritCloth
     identifyDifficulty: 500
     isPrecious: true
@@ -16115,8 +16825,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -16158,8 +16869,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Silver
     identifyDifficulty: 500
     isPrecious: true
@@ -16202,8 +16914,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Mica
     identifyDifficulty: 500
     isPrecious: true
@@ -16247,8 +16960,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     material: Elona.Adamantium
     identifyDifficulty: 500
     isPrecious: true
@@ -16288,8 +17002,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: Lulwy's gem stone
     isPrecious: true
   - type: Weight
@@ -16318,8 +17033,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: Jure's gem stone
     isPrecious: true
   - type: Weight
@@ -16348,8 +17064,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: Kumiromi's gem stone
     isPrecious: true
   - type: Weight
@@ -16378,8 +17095,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: gem stone
     isPrecious: true
   - type: Weight
@@ -16403,8 +17121,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 20000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 25000
@@ -16426,8 +17145,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 1400
 - type: Entity
@@ -16453,8 +17173,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -16478,8 +17199,9 @@
     tags:
     - Elona.ItemCatSpellbook
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 380
   - type: AncientBook
@@ -16504,8 +17226,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 26000
 - type: Entity
@@ -16526,8 +17249,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 5000
+  - type: Item
   - type: Weight
     weight: 22000
 - type: Entity
@@ -16550,8 +17274,9 @@
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
   - type: Weight
     weight: 18000
   - type: Instrument
@@ -16576,8 +17301,9 @@
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 8500
   - type: Instrument
@@ -16602,8 +17328,9 @@
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 850
   - type: Instrument
@@ -16627,8 +17354,9 @@
     tags:
     - Elona.ItemCatFurnitureInstrument
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 30000
   - type: Instrument
@@ -16651,8 +17379,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 1200
 - type: Entity
@@ -16680,8 +17409,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     material: Elona.Rubynus
     identifyDifficulty: 500
     isPrecious: true
@@ -16714,8 +17444,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 14200
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -16742,8 +17473,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 12500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -16770,8 +17502,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 50
@@ -16795,8 +17528,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 10
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 3000
@@ -16818,8 +17552,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatBook
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
   - type: Weight
     weight: 20
 - type: Entity
@@ -16840,8 +17575,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 2200
+  - type: Item
   - type: Weight
     weight: 20
 - type: Entity
@@ -16868,8 +17604,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFood
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 10000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 150
@@ -16893,8 +17630,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1400
+  - type: Item
   - type: Weight
     weight: 20
 - type: Entity
@@ -16915,8 +17653,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
   - type: Weight
     weight: 100
 - type: Entity
@@ -16943,8 +17682,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipNeck
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -16973,8 +17713,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -17002,8 +17743,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFurniture
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 4500
@@ -17028,8 +17770,9 @@
     tags:
     - Elona.ItemCatBook
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 6000
+  - type: Item
     originalnameref2: book
   - type: Weight
     weight: 380
@@ -17052,8 +17795,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 3500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -17075,8 +17819,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -17103,8 +17848,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatDrink
-  - type: Item
+  - type: Value
     value: 12000
+  - type: Item
     originalnameref2: potion
   - type: Weight
     weight: 120
@@ -17130,8 +17876,9 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatScrollDeed
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 500000
+  - type: Item
     originalnameref2: deed
   - type: Weight
     weight: 500
@@ -17154,8 +17901,9 @@
     tags:
     - Elona.ItemCatEquipRangedThrown
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 750
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 400
@@ -17201,8 +17949,9 @@
     tags:
     - Elona.ItemCatEquipRangedThrown
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 550
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 850
@@ -17247,8 +17996,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 6800
+  - type: Item
     originalnameref2: secret experience
   - type: Weight
     weight: 1200
@@ -17276,8 +18026,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
     material: Elona.Adamantium
     identifyDifficulty: 500
     isPrecious: true
@@ -17326,8 +18077,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 6800
+  - type: Item
     originalnameref2: secret experience
   - type: Weight
     weight: 1200
@@ -17356,8 +18108,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 94000
+  - type: Item
     material: Elona.Silk
     identifyDifficulty: 500
     isPrecious: true
@@ -17411,8 +18164,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 45000
+  - type: Item
     material: Elona.Silver
     identifyDifficulty: 500
     isPrecious: true
@@ -17448,8 +18202,9 @@
     - Elona.ItemCatFurnitureBed
     - Elona.ItemCatFurniture
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
   - type: Weight
     weight: 31000
   - type: Bed
@@ -17477,8 +18232,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -17508,8 +18264,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipNeck
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
     material: Elona.Coral
     identifyDifficulty: 500
     isPrecious: true
@@ -17545,8 +18302,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipNeck
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 9500
+  - type: Item
     material: Elona.Mica
     identifyDifficulty: 500
     isPrecious: true
@@ -17579,8 +18337,9 @@
     - Elona.ItemCatOre
     - Elona.TagItemNoshop
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1
@@ -17609,8 +18368,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipRanged
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     material: Elona.Gold
     identifyDifficulty: 500
     isPrecious: true
@@ -17663,8 +18423,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipShield
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     material: Elona.Wood
     identifyDifficulty: 500
     isPrecious: true
@@ -17701,8 +18462,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatEquipShield
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 17500
+  - type: Item
     material: Elona.Coral
     identifyDifficulty: 500
     isPrecious: true
@@ -17739,8 +18501,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipCloak
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     material: Elona.Mithril
     identifyDifficulty: 500
     isPrecious: true
@@ -17771,8 +18534,9 @@
     tags:
     - Elona.ItemCatFurniture
     - Elona.TagItemSpshop
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 1000
 - type: Entity
@@ -17797,8 +18561,9 @@
     - Elona.ItemCatOre
     - Elona.TagItemNoshop
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 1
+  - type: Item
     originalnameref2: token
     isPrecious: true
   - type: Weight
@@ -17821,8 +18586,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 8500
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -17849,8 +18615,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
     originalnameref2: spellbook
   - type: Weight
     weight: 380
@@ -17877,8 +18644,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
   - type: Weight
     weight: 8500
 - type: Entity
@@ -17899,8 +18667,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 3400
 - type: Entity
@@ -17917,8 +18686,9 @@
     tags:
     - Elona.ItemCatEquipMeleeScythe
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 4000
@@ -17952,8 +18722,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.TagItemNogive
-  - type: Item
+  - type: Value
     value: 1500
+  - type: Item
   - type: Weight
     weight: 120
 - type: Entity
@@ -17975,8 +18746,9 @@
     tags:
     - Elona.ItemCatScroll
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
     originalnameref2: scroll
   - type: Weight
     weight: 20
@@ -17999,8 +18771,9 @@
     tags:
     - Elona.ItemCatFood
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 250
+  - type: Item
   - type: Weight
     weight: 50
   - type: Food
@@ -18030,8 +18803,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 30000
+  - type: Item
     material: Elona.Ether
     identifyDifficulty: 500
     isPrecious: true
@@ -18073,8 +18847,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipNeck
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
     material: Elona.Mica
     identifyDifficulty: 500
     isPrecious: true
@@ -18111,8 +18886,9 @@
     - Elona.ItemCatUniqueWeapon
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 40000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -18152,12 +18928,15 @@
     - Elona.ItemCatScroll
     - Elona.ItemCatUniqueItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     originalnameref2: license
     isPrecious: true
   - type: Weight
     weight: 500
+  - type: MedalValue
+    medalValue: 72
 - type: Entity
   id: Elona.ItemPlankOfCarneades
   parent: BaseItem
@@ -18180,8 +18959,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     originalnameref2: plank
     isPrecious: true
   - type: Weight
@@ -18208,8 +18988,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -18235,8 +19016,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -18262,8 +19044,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -18288,8 +19071,9 @@
     - Elona.ItemCatBook
     - Elona.NoGenerate
     - Elona.TagItemNoshop
-  - type: Item
+  - type: Value
     value: 4000
+  - type: Item
     originalnameref2: book
   - type: Weight
     weight: 80
@@ -18312,8 +19096,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 4500
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 7500
@@ -18336,8 +19121,9 @@
     tags:
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -18362,8 +19148,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 150000
+  - type: Item
   - type: Weight
     weight: 7500
 - type: Entity
@@ -18386,8 +19173,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 150000
+  - type: Item
   - type: Weight
     weight: 7500
 - type: Entity
@@ -18410,8 +19198,9 @@
     tags:
     - Elona.ItemCatContainer
     - Elona.NoGenerate
-  - type: Item
+  - type: Value
     value: 1650
+  - type: Item
   - type: Weight
     weight: 80
 - type: Entity
@@ -18434,8 +19223,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7800
+  - type: Item
   - type: Weight
     weight: 9800
 - type: Entity
@@ -18458,8 +19248,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3200
+  - type: Item
   - type: Weight
     weight: 720
 - type: Entity
@@ -18482,8 +19273,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 800
   - type: Food
@@ -18507,8 +19299,9 @@
     tags:
     - Elona.ItemCatFood
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 800
+  - type: Item
   - type: Weight
     weight: 350
   - type: Food
@@ -18538,8 +19331,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipHead
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 15000
+  - type: Item
     material: Elona.Obsidian
     identifyDifficulty: 500
     isPrecious: true
@@ -18578,8 +19372,9 @@
     - Elona.ItemCatEquipRanged
     - Elona.TagItemSf
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 25000
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -18628,8 +19423,9 @@
     tags:
     - Elona.ItemCatEquipMeleeLongSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 4800
+  - type: Item
     material: Elona.Ether
   - type: Weight
     weight: 600
@@ -18665,11 +19461,14 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 75000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 5000
+  - type: MedalValue
+    medalValue: 94
 - type: Entity
   id: Elona.ItemGouldsPiano
   parent: BaseItem
@@ -18695,8 +19494,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatFurniture
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 35000
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 45000
@@ -18723,8 +19523,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 760
+  - type: Item
   - type: Weight
     weight: 280
 - type: Entity
@@ -18745,8 +19546,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3600
+  - type: Item
   - type: Weight
     weight: 85000
 - type: Entity
@@ -18767,8 +19569,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 1200
+  - type: Item
   - type: Weight
     weight: 9900
 - type: Entity
@@ -18789,8 +19592,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 48500
 - type: Entity
@@ -18811,8 +19615,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 3800
+  - type: Item
   - type: Weight
     weight: 48500
 - type: Entity
@@ -18836,8 +19641,9 @@
     - Elona.ItemCatFurnitureBed
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 250
+  - type: Item
   - type: Weight
     weight: 800
   - type: Bed
@@ -18863,8 +19669,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 400
+  - type: Item
   - type: Weight
     weight: 150
 - type: Entity
@@ -18888,8 +19695,9 @@
     - Elona.NoGenerate
     - Elona.ItemCatFurniture
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 1650
+  - type: Item
   - type: Weight
     weight: 530
 - type: Entity
@@ -18913,8 +19721,9 @@
     - Elona.ItemCatDrink
     - Elona.NoGenerate
     - Elona.TagItemFest
-  - type: Item
+  - type: Value
     value: 500
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 50
@@ -18940,8 +19749,9 @@
     tags:
     - Elona.ItemCatDrink
     - Elona.ItemCatUniqueItem
-  - type: Item
+  - type: Value
     value: 7500
+  - type: Item
   - type: Weight
     weight: 100
 - type: Entity
@@ -18958,8 +19768,9 @@
     tags:
     - Elona.ItemCatFoodFruit
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 90
+  - type: Item
     material: Elona.Fresh
   - type: Weight
     weight: 330
@@ -18984,8 +19795,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
   - type: Weight
     weight: 15000
 - type: Entity
@@ -19006,8 +19818,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 7200
+  - type: Item
   - type: Weight
     weight: 23800
 - type: Entity
@@ -19029,8 +19842,9 @@
     tags:
     - Elona.ItemCatFood
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 160
+  - type: Item
     isPrecious: true
   - type: Weight
     weight: 250
@@ -19059,8 +19873,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -19088,8 +19903,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatMiscItem
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 100000
+  - type: Item
     originalnameref2: statue
     isPrecious: true
   - type: Weight
@@ -19112,8 +19928,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 4900
+  - type: Item
   - type: Weight
     weight: 9000
 - type: Entity
@@ -19134,8 +19951,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 16000
+  - type: Item
   - type: Weight
     weight: 1800
 - type: Entity
@@ -19156,8 +19974,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 23000
+  - type: Item
   - type: Weight
     weight: 4200
 - type: Entity
@@ -19179,8 +19998,9 @@
     tags:
     - Elona.ItemCatEquipMeleeShortSword
     - Elona.ItemCatEquipMelee
-  - type: Item
+  - type: Value
     value: 2400
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 400
@@ -19213,8 +20033,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
-  - type: Item
+  - type: Value
     value: 100
+  - type: Item
   - type: Weight
     weight: 150
 - type: Entity
@@ -19235,8 +20056,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 50
 - type: Entity
@@ -19257,8 +20079,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatContainer
-  - type: Item
+  - type: Value
     value: 2500
+  - type: Item
   - type: Weight
     weight: 550
 - type: Entity
@@ -19279,8 +20102,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 80
+  - type: Item
     originalnameref2: bottle
   - type: Weight
     weight: 80
@@ -19304,8 +20128,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 50
+  - type: Item
     originalnameref2: sack
   - type: Weight
     weight: 120
@@ -19329,8 +20154,9 @@
   - type: Tag
     tags:
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 350
+  - type: Item
   - type: Weight
     weight: 350
   - type: Food
@@ -19355,8 +20181,9 @@
     tags:
     - Elona.ItemCatEquipRangedBow
     - Elona.ItemCatEquipRanged
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
     material: Elona.Metal
   - type: Weight
     weight: 700
@@ -19398,8 +20225,9 @@
     tags:
     - Elona.ItemCatMiscItemCrafting
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -19416,8 +20244,9 @@
     tags:
     - Elona.ItemCatMiscItemCrafting
     - Elona.ItemCatMiscItem
-  - type: Item
+  - type: Value
     value: 1000
+  - type: Item
   - type: Weight
     weight: 500
 - type: Entity
@@ -19444,8 +20273,9 @@
     - Elona.ItemCatUniqueItem
     - Elona.ItemCatEquipMelee
     - Elona.Precious
-  - type: Item
+  - type: Value
     value: 72000
+  - type: Item
     material: Elona.Iron
     identifyDifficulty: 500
     isPrecious: true
@@ -19483,8 +20313,9 @@
     tags:
     - Elona.NoGenerate
     - Elona.ItemCatFood
-  - type: Item
+  - type: Value
     value: 2000
+  - type: Item
   - type: Weight
     weight: 200
   - type: Food

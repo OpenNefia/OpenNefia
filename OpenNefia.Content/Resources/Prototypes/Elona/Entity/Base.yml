@@ -64,6 +64,7 @@
     drawDepth: Items
   - type: Item
   - type: ItemDescription
+  - type: Value
   - type: Identify
   - type: Stack
   - type: Weight

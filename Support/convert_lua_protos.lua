@@ -116,6 +116,12 @@ local function rgbToHex(rgb)
     return hexadecimal
 end
 
+local function enum(enumClass)
+    return function(i)
+        return enumClass:to_string(i)
+    end
+end
+
 local id = function(i)
     return i
 end
@@ -424,8 +430,10 @@ handlers["base.item"] = function(from, to)
         c.tags[#c.tags + 1] = "Elona.Precious"
     end
 
-    c = comp(to, "Item")
+    c = comp(to, "Value")
     c.value = from.value
+
+    c = comp(to, "Item")
     if from.material then
         c.material = dotted(from.material)
     end
@@ -442,6 +450,11 @@ handlers["base.item"] = function(from, to)
     if from.weight ~= 0 then
         c = comp(to, "Weight")
         c.weight = from.weight
+    end
+
+    if from.medal_value ~= 0 then
+        c = comp(to, "MedalValue")
+        c.medalValue = from.medal_value
     end
 
     local equipment = from._ext and from._ext[IItemEquipment]
@@ -985,7 +998,66 @@ handlers["base.activity"] = function(from, to)
     comp(to, ("Activity%s"):format(dataPart(from._id)))
 end
 
-handlers["elona.shop_inventory"] = function(from, to) end
+local function shop_modifier(from)
+    if from.choices then
+        return nil
+    else
+        local t = {}
+        if from.id == "Skip" then
+            return nil
+        else
+            field(from, t, "categories", function(i)
+                return { itemCategory(dotted(i), "ItemCat") }
+            end, "tags")
+            field(from, t, "id", function(i)
+                return itemCategory(dotted(i), "Item")
+            end)
+            field(from, t, "quality", enum(Enum.Quality))
+            return t
+        end
+    end
+end
+
+local function shop_action(from)
+    if from.choices then
+        local choices = fun.iter(from.choices):map(shop_modifier):to_list()
+        return setmetatable({
+            choices = choices,
+        }, { tag = "type:ChoicesShopInventoryAction", type = "mapping" })
+    else
+        local t = {}
+        if from.id == "Skip" then
+            return setmetatable(t, { tag = "type:AbortShopInventoryAction", type = "mapping" })
+        else
+            return nil
+        end
+    end
+end
+
+handlers["elona.shop_inventory"] = function(from, to)
+    to.rules = {}
+    if type(from.rules) == "function" then
+        to.rules[1] = "TODO"
+    else
+        for _, rule in ipairs(from.rules) do
+            local r = {}
+            field(rule, r, "one_in")
+            field(rule, r, "all_but_one_in")
+            if rule.index then
+                r.itemIndex = rule.index
+            end
+            if rule.predicate then
+                r.predicate = "TODO"
+            end
+            r.modifier = shop_modifier(rule)
+            r.action = shop_action(rule)
+            to.rules[#to.rules + 1] = r
+        end
+    end
+    event(from, to, "item_number", "Shopkeeper", "VanillaShopInventoriesSystem", "CalcItemAmount")
+    event(from, to, "item_base_value", "Shopkeeper", "VanillaShopInventoriesSystem", "CalcItemBaseValue")
+    event(from, to, "on_generate_item", "Shopkeeper", "VanillaShopInventoriesSystem", "BeforeGenerateItem")
+end
 
 handlers["elona.random_event"] = function(from, to)
     field(from, to, "image", dotted)
@@ -1011,6 +1083,8 @@ handlers["base.skill"] = function(from, to)
         field(from, e, "difficulty")
     end
 end
+
+handlers["elona.guild"] = function(from, to) end
 
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
@@ -1132,12 +1206,17 @@ local function write_entity_system(ty, eventful, system_type)
         return
     end
 
+    -- Namespace.P_SomeEvent -> P_.SomeEvent
+    local function split_id(id)
+        return id:gsub("^[^.]+%.(.+)$", "%1")
+    end
+
     local function print_handler(event)
         return ([[
         public void %s(%s proto, ref %s ev)
         {
         }
-]]):format(event.method, prototype_type, event.type)
+]]):format(event.method, prototype_type, split_id(event.type))
     end
 
     local function print_event_handlers(dat)
@@ -1168,7 +1247,7 @@ local function write_entity_system(ty, eventful, system_type)
     local event_names = fun.iter(eventful)
         :extract("events")
         :flatmap(function(d)
-            return fun.iter(d):extract("type"):to_list()
+            return fun.iter(d):extract("type"):map(split_id):to_list()
         end)
         :to_set()
     event_names = table.keys(event_names)
@@ -1295,22 +1374,15 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
 -- write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
-write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
+-- write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
 -- write("elona.random_event", "RandomEvent.yml", "OpenNefia.Content.RandomEvent.RandomEventPrototype")
+-- write("elona.guild", "Guild.yml", "OpenNefia.Content.Guild.GuildPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)
 -- end
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
-
-write("base.skill", function(datas)
-    print(make_yaml(fun.iter(datas)
-        :filter(function(i)
-            return rawget(i, "extendedData")
-        end)
-        :to_list()))
-end)
 
 -- Local Variables:
 -- open-nefia-always-send-to-repl: t

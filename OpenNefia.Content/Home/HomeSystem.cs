@@ -3,6 +3,7 @@ using OpenNefia.Content.DeferredEvents;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
@@ -22,9 +23,9 @@ namespace OpenNefia.Content.Home
 {
     public interface IHomeSystem : IEntitySystem
     {
-        int CalcItemValue(EntityUid entity, ItemComponent? itemComp = null);
-        int CalcFurnitureValue(EntityUid entity, ItemComponent? itemComp = null);
-        IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
+        int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
+        int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
+        IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
         int CalcTotalHomeValue(IMap map);
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
@@ -90,12 +91,12 @@ namespace OpenNefia.Content.Home
             return TurnResult.NoResult;
         }
 
-        public int CalcItemValue(EntityUid entity, ItemComponent? itemComp = null)
+        public int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null)
         {
-            if (!Resolve(entity, ref itemComp))
+            if (!Resolve(entity, ref valueComp))
                 return 0;
 
-            var value = itemComp.Value * _stacks.GetCount(entity);
+            var value = valueComp.Value * _stacks.GetCount(entity);
 
             if (_tags.HasTag(entity, Protos.Tag.ItemCatFurniture))
                 value /= 20;
@@ -109,18 +110,18 @@ namespace OpenNefia.Content.Home
             return value;
         }
 
-        public int CalcFurnitureValue(EntityUid entity, ItemComponent? itemComp = null)
+        public int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null)
         {
-            if (!Resolve(entity, ref itemComp) || !_tags.HasTag(entity, Protos.Tag.ItemCatFurniture))
+            if (!Resolve(entity, ref valueComp) || !_tags.HasTag(entity, Protos.Tag.ItemCatFurniture))
                 return 0;
 
-            return Math.Clamp(itemComp.Value / 50, 50, 500);
+            return Math.Clamp(valueComp.Value / 50, 50, 500);
         }
 
-        public IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)
+        public IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)
         {
-            return _lookup.EntityQueryInMap<ItemComponent>(map)
-                .Select(item => (item, CalcItemValue(item.Owner, item)))
+            return _lookup.EntityQueryInMap<ValueComponent>(map)
+                .Select(value => (value, CalcItemValue(value.Owner, value)))
                 .OrderByDescending(tuple => tuple.Item2)
                 .Take(amount);
         }
@@ -132,8 +133,8 @@ namespace OpenNefia.Content.Home
 
         public int CalcTotalFurnitureValue(IMap map)
         {
-            return _lookup.EntityQueryInMap<ItemComponent>(map)
-                .Select(item => CalcFurnitureValue(item.Owner, item))
+            return _lookup.EntityQueryInMap<ValueComponent>(map)
+                .Select(value => CalcFurnitureValue(value.Owner, value))
                 .Sum();
         }
 
