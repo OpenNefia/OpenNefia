@@ -45,7 +45,7 @@ namespace OpenNefia.Content.World
 
         public GameTimeSpan(long totalSeconds)
         {
-            TotalSeconds = Math.Max(totalSeconds, 0);
+            TotalSeconds = totalSeconds;
         }
 
         public GameTimeSpan(GameTimeSpan other)
