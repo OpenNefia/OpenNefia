@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -14,6 +15,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 
         private static readonly PrototypeId<EntityPrototype> TestProto1ID = new("TestProto1");
         private static readonly PrototypeId<EntityPrototype> TestProto2ID = new("TestProto2");
+        private static readonly PrototypeId<TilePrototype> TestProto3ID = new("TestProto3");
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -69,10 +71,25 @@ namespace OpenNefia.Tests.Core.Prototypes
 
             Assert.Throws<PrototypeLoadException>(() => manager.LoadString(prototypes), "Unable to find type ending with");
         }
+
+        [Test]
+        public void TestExtendedData_IncompatiblePrototype()
+        {
+            var prototypes = @$"
+- type: Tile
+  id: {TestProto3ID}
+  extendedData:
+  - type: TestExtendedData
+    foo: 42
+    bar: 'baz'
+";
+
+            Assert.Throws<PrototypeLoadException>(() => manager.LoadString(prototypes), "cannot apply to prototype of type");
+        }
     }
 
     [DataDefinition]
-    public sealed class TestExtendedData : IPrototypeExtendedData
+    public sealed class TestExtendedData : IPrototypeExtendedData<EntityPrototype>
     {
         [DataField]
         public int Foo { get; set; } = 0;

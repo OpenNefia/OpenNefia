@@ -6,6 +6,10 @@
   id: Elona.ItemCatBug
 - type: Tag
   id: Elona.ItemCatCargo
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 200
 - type: Tag
   id: Elona.ItemCatCargoFood
 - type: Tag
@@ -14,8 +18,15 @@
   id: Elona.ItemCatCropHerb
 - type: Tag
   id: Elona.ItemCatCropSeed
+  extendedData:
+  - type: Shopkeeper.ExtShopExclusion
+    isExcludedFromShops: true
 - type: Tag
   id: Elona.ItemCatDrink
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 100
 - type: Tag
   id: Elona.ItemCatDrinkAlcohol
 - type: Tag
@@ -112,6 +123,10 @@
   id: Elona.ItemCatEquipWristGlove
 - type: Tag
   id: Elona.ItemCatFood
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:ConstantShopAmountAdjustment
+      amount: 1
 - type: Tag
   id: Elona.ItemCatFoodFlour
 - type: Tag
@@ -122,6 +137,10 @@
   id: Elona.ItemCatFoodVegetable
 - type: Tag
   id: Elona.ItemCatFurniture
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 200
 - type: Tag
   id: Elona.ItemCatFurnitureAltar
 - type: Tag
@@ -134,12 +153,20 @@
   id: Elona.ItemCatGold
 - type: Tag
   id: Elona.ItemCatJunk
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 80
 - type: Tag
   id: Elona.ItemCatJunkInField
 - type: Tag
   id: Elona.ItemCatJunkTown
 - type: Tag
   id: Elona.ItemCatMiscItem
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 500
 - type: Tag
   id: Elona.ItemCatMiscItemCrafting
 - type: Tag
@@ -162,6 +189,10 @@
   id: Elona.ItemCatRod
 - type: Tag
   id: Elona.ItemCatScroll
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 100
 - type: Tag
   id: Elona.ItemCatScrollDeed
 - type: Tag
@@ -170,6 +201,10 @@
   id: Elona.ItemCatSpellbook
 - type: Tag
   id: Elona.ItemCatTree
+  extendedData:
+  - type: Shopkeeper.ExtShopAmountAdjustment
+    adjustment: !type:RarityShopAmountAdjustment
+      coefficient: 100
 - type: Tag
   id: Elona.ItemCatUniqueItem
 - type: Tag

@@ -133,7 +133,7 @@ namespace OpenNefia.Content.Fame
         private bool IsWanderingMerchant(EntityUid entity)
         {
             return TryComp<RoleShopkeeperComponent>(entity, out var shopkeeper)
-                && shopkeeper.InventoryId == Protos.ShopInventory.WanderingMerchant;
+                && shopkeeper.ShopInventoryId == Protos.ShopInventory.WanderingMerchant;
         }
 
         private void ApplyAggro(EntityUid criminal, EntityUid guard, VanillaAIComponent? vai = null)

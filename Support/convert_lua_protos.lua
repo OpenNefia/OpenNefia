@@ -555,6 +555,17 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "TreasureMap")
     end
 
+    if from._id == "elona.small_gamble_chest" then
+        local e = extData(to, "Shopkeeper.ExtShopAmountAdjustment")
+        local t = { maxAmount = 8 }
+        e.adjustment = setmetatable(t, { tag = "type:RandomShopAmountAdjustment", type = "mapping" })
+    end
+
+    if from._id == "elona.bottle_of_water" then
+        local e = extData(to, "Shopkeeper.ExtShopExclusion")
+        e.isExcludedFromShops = true
+    end
+
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")

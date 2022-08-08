@@ -365,10 +365,7 @@ connection endpoint."
 ;;;###autoload
 (defun open-nefia-cs-validate-prototypes ()
   (interactive)
-  (let* ((projectile-project-compilation-cmd "dotnet run --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj")
-         (compile-command projectile-project-compilation-cmd)
-         (compilation-read-command nil)
-         (compilation-auto-jump-to-first-error t))
-    (projectile-compile-project nil)))
+  (let* ((default-directory (projectile-project-root)))
+    (compile "dotnet run --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj")))
 
 (provide 'open-nefia-cs)

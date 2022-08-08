@@ -500,7 +500,7 @@
   difficulty: 1250
 
 - type: Elona.Spell
-  id: Elona.FourDimensionalPocket
+  id: Elona.SpellFourDimensionalPocket
   hspIds:
     elona122: 463
   relatedSkill: Elona.AttrPerception

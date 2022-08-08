@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Pickable
         public const string VerbTypePickUp = "Elona.PickUp";
         public const string VerbTypeDrop = "Elona.Drop";
 
-        [Dependency] private readonly ContainerSystem _containerSystem = default!;
+        [Dependency] private readonly IContainerSystem _containerSystem = default!;
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;

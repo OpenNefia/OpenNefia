@@ -13,6 +13,9 @@ using NuGet.Packaging;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.GameObjects.EntitySystems;
+using ICSharpCode.Decompiler.CSharp.Syntax;
+using System.Data;
+using System;
 
 namespace OpenNefia.Content.Shopkeeper
 {
@@ -47,6 +50,11 @@ namespace OpenNefia.Content.Shopkeeper
     public interface IShopItemArgs
     {
         /// <summary>
+        /// Shopkeeper for whom the item is being generated.
+        /// </summary>
+        public EntityUid Shopkeeper { get; }
+
+        /// <summary>
         /// Currently generated item's position in the shop inventory.
         /// </summary>
         public int ItemIndex { get; }
@@ -57,13 +65,15 @@ namespace OpenNefia.Content.Shopkeeper
         public ItemFilter ItemFilter { get; set; }
     }
 
-    public sealed class ShopItemParams : IShopItemArgs
+    public sealed class ShopItemArgs : IShopItemArgs
     {
+        public EntityUid Shopkeeper { get; }
         public int ItemIndex { get; }
         public ItemFilter ItemFilter { get; set; } = new();
 
-        public ShopItemParams(int itemIndex)
+        public ShopItemArgs(EntityUid shopkeeper, int itemIndex)
         {
+            Shopkeeper = shopkeeper;
             ItemIndex = itemIndex;
         }
     }
@@ -83,26 +93,35 @@ namespace OpenNefia.Content.Shopkeeper
     [DataDefinition]
     public sealed class ShopInventoryRule
     {
-        [DataField]
-        public int? OneIn { get; set; } = null;
+        public ShopInventoryRule() { }
 
-        [DataField]
-        public int? AllButOneIn { get; set; } = null;
-
-        [DataField]
-        public double? Prob { get; set; } = null;
-
-        [DataField]
-        public int? ItemIndex { get; set; } = null;
-
-        [DataField]
-        public IShopInventoryPredicate? Predicate { get; }
+        public ShopInventoryRule(ShopInventoryModifier modifier, int? oneIn = null, int? allButOneIn = null, float? prob = null, int? itemIndex = null, IShopInventoryPredicate? predicate = null)
+        {
+            Modifier = modifier;
+            OneIn = oneIn;
+            AllButOneIn = allButOneIn;
+            Prob = prob;
+            ItemIndex = itemIndex;
+            Predicate = predicate;
+        }
 
         [DataField]
         public ShopInventoryModifier Modifier { get; } = new();
 
         [DataField]
-        public IShopInventoryAction? ExtraAction { get; set; }
+        public int? OneIn { get; } = null;
+
+        [DataField]
+        public int? AllButOneIn { get; } = null;
+
+        [DataField]
+        public float? Prob { get; } = null;
+
+        [DataField]
+        public int? ItemIndex { get; } = null;
+
+        [DataField]
+        public IShopInventoryPredicate? Predicate { get; }
     }
 
     #region Standard predicates
@@ -144,14 +163,29 @@ namespace OpenNefia.Content.Shopkeeper
                 return ShopInventoryResult.Continue;
 
             var _rand = IoCManager.Resolve<IRandom>();
+            var _shopkeepers = EntitySystem.Get<IShopkeeperSystem>();
 
             var choice = _rand.Pick(_choices);
-            return choice.Apply(args);
+            return _shopkeepers.ApplyShopInventoryModifier(args, choice);
         }
     }
 
+    [DataDefinition]
     public sealed class ShopInventoryModifier
     {
+        public ShopInventoryModifier() { }
+
+        public ShopInventoryModifier(PrototypeId<EntityPrototype>? id = null, int? minLevel = null, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, int? amount = null, Quality? quality = null, IShopInventoryAction? action = null)
+        {
+            Id = id;
+            MinLevel = minLevel;
+            Tags = tags;
+            Fltselect = fltselect;
+            Amount = amount;
+            Quality = quality;
+            Action = action;
+        }
+
         [DataField]
         public PrototypeId<EntityPrototype>? Id { get; set; }
 
@@ -170,26 +204,8 @@ namespace OpenNefia.Content.Shopkeeper
         [DataField]
         public Quality? Quality { get; set; }
 
-        public ShopInventoryResult Apply(IShopItemArgs args)
-        {
-            if (Id != null)
-                args.ItemFilter.Id = Id;
-            if (MinLevel != null)
-                args.ItemFilter.MinLevel = MinLevel.Value;
-            if (Tags != null)
-            {
-                args.ItemFilter.Tags ??= new PrototypeId<TagPrototype>[] {};
-                args.ItemFilter.Tags.AddRange(Tags);
-            }
-            if (Fltselect != null)
-                args.ItemFilter.Fltselect = Fltselect;
-            if (Amount != null)
-                args.ItemFilter.Amount = Amount;
-            if (Quality != null)
-                args.ItemFilter.Quality = Quality;
-
-            return ShopInventoryResult.Continue;
-        }
+        [DataField]
+        public IShopInventoryAction? Action { get; }
     }
 
     #endregion

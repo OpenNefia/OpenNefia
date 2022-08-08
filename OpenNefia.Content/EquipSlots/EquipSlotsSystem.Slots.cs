@@ -14,7 +14,7 @@ namespace OpenNefia.Content.EquipSlots
     public sealed partial class EquipSlotsSystem
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ContainerSystem _containerSys = default!;
+        [Dependency] private readonly IContainerSystem _containerSys = default!;
 
         // That's one beefy mutant.
         private const int MaxContainerSlotsPerEquipSlot = 1024;

@@ -1077,7 +1077,7 @@ namespace OpenNefia.Content.Combat
         CriticalHit
     }
 
-    public sealed class ExtAttackAnim : IPrototypeExtendedData
+    public sealed class ExtAttackAnim : IPrototypeExtendedData<SkillPrototype>
     {
         [DataField]
         public PrototypeId<AssetPrototype> AttackAnim { get; set; }

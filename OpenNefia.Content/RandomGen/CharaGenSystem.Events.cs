@@ -72,7 +72,7 @@ namespace OpenNefia.Content.RandomGen
     }
 
     [DataDefinition]
-    public sealed class ExtRandomHumanChip : IPrototypeExtendedData
+    public sealed class ExtRandomHumanChip : IPrototypeExtendedData<ChipPrototype>
     {
         [DataField]
         public Gender Gender { get; set; }

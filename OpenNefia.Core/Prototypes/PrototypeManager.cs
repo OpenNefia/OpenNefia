@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Prototypes
         /// </exception>
         TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData;
+            where TExt : class, IPrototypeExtendedData<TProto>;
 
         /// <summary>
         /// Index for a <see cref="IPrototype"/>'s extended data.
@@ -105,11 +105,11 @@ namespace OpenNefia.Core.Prototypes
 
         bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData;
+            where TExt : class, IPrototypeExtendedData<TProto>;
         bool HasExtendedData(Type protoType, Type extType, string id);
         bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData;
+            where TExt : class, IPrototypeExtendedData<TProto>;
         bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out IPrototypeExtendedData? data);
 
         /// <summary>
@@ -220,6 +220,12 @@ namespace OpenNefia.Core.Prototypes
 
     [ImplicitDataDefinitionForInheritors]
     public interface IPrototypeExtendedData
+    {
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface IPrototypeExtendedData<T> : IPrototypeExtendedData
+        where T : IPrototype
     {
     }
 
@@ -935,6 +941,9 @@ namespace OpenNefia.Core.Prototypes
 
         private void ParseExtendedData(string? filename, Type prototypeType, IPrototype prototype, YamlSequenceNode extDataSequenceNode)
         {
+            var extDataIfaceType = typeof(IPrototypeExtendedData<>)
+                .MakeGenericType(prototypeType);
+
             foreach (var child in extDataSequenceNode.Children.Cast<YamlMappingNode>())
             {
                 if (!child.TryGetNode("type", out var extDataTypeNode))
@@ -951,6 +960,11 @@ namespace OpenNefia.Core.Prototypes
                 var extDataMappingNode = child.ToDataNodeCast<MappingDataNode>();
                 var extDataRes = _serializationManager.Read(extDataType, extDataMappingNode, skipHook: true);
                 var obj = (IPrototypeExtendedData)extDataRes.RawValue!;
+
+                if (!extDataIfaceType.IsAssignableFrom(obj.GetType()))
+                {
+                    throw new PrototypeLoadException($"Extended data of type '{obj.GetType()}' cannot apply to prototype of type '{prototypeType}', as it does not implement '{extDataIfaceType}'", filename, child);
+                }    
 
                 var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
                 objs.Add(obj.GetType(), obj);
@@ -1108,7 +1122,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData
+            where TExt : class, IPrototypeExtendedData<TProto>
         {
             if (!TryGetExtendedData<TProto, TExt>(id, out var data))
                 throw new KeyNotFoundException($"Extended data {typeof(TExt)} for {typeof(TProto)}:{id} not found.");
@@ -1128,7 +1142,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData
+            where TExt : class, IPrototypeExtendedData<TProto>
         {
             return HasExtendedData(typeof(TProto), typeof(TExt), (string)id);
         }
@@ -1148,7 +1162,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
-            where TExt : class, IPrototypeExtendedData
+            where TExt : class, IPrototypeExtendedData<TProto>
         {
             if (!TryGetExtendedData(typeof(TProto), typeof(TExt), (string)id, out var obj))
             {

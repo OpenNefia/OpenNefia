@@ -440,4 +440,12 @@ namespace OpenNefia.Core.Prototypes
         where TEvent : notnull;
 
     public abstract class PrototypeEventArgs { }
+    
+    public abstract class HandledPrototypeEventArgs : PrototypeEventArgs
+    {
+        /// <summary>
+        ///     If this message has already been "handled" by a previous system.
+        /// </summary>
+        public bool Handled { get; set; }
+    }
 }
