@@ -27,8 +27,9 @@ namespace OpenNefia.Content.Inventory
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new GroundInvSource(context.User);
-            yield return new EntityInvSource(context.User);
+            if (context.User == context.Target)
+                yield return new GroundInvSource(context.Target);
+            yield return new EntityInvSource(context.Target);
         }
 
         public override string GetQueryText(InventoryContext context)

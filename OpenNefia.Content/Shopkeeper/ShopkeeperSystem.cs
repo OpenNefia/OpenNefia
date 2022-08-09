@@ -1,7 +1,8 @@
 ﻿using ICSharpCode.Decompiler.IL;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Dialog;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
@@ -30,7 +31,7 @@ namespace OpenNefia.Content.Shopkeeper
     {
         ShopInventoryResult ApplyShopInventoryModifier(IShopItemArgs args, ShopInventoryModifier modifier);
         ShopInventoryResult ApplyShopInventoryRule(IShopItemArgs args, ShopInventoryRule rule);
-        void RefreshShop(EntityUid shopkeeper, RoleShopkeeperComponent? shopkeeperComp = null);
+        void RestockShop(EntityUid shopkeeper, RoleShopkeeperComponent? shopkeeperComp = null);
     }
 
     [DataDefinition]
@@ -280,9 +281,21 @@ namespace OpenNefia.Content.Shopkeeper
                     return false;
                 }
 
+                EnsureComp<ValueComponent>(item.Value);
+
+                // Items are generated with amount 1 by default, but attaching an
+                // ExtShopAmountAdjustment to the tag/entity prototypes can increase this.
+                var itemAmount = _rand.Next(CalcShopItemMaxAmount(item.Value)) + 1;
+
+                // Blessed items are never generated in multiple (per cycle).
+                if (_curseStates.IsBlessed(item.Value))
+                    itemAmount = 1;
+
+                _stacks.SetCount(item.Value, itemAmount);
+
                 var pevAfterGenerate = new P_ShopInventoryAfterGenerateItemEvent(shopkeeper, index, item.Value);
                 _protos.EventBus.RaiseEvent(shopInvProto, pevAfterGenerate);
-                if (pevAfterGenerate.Handled || !IsAlive(item.Value))
+                if (!IsAlive(item.Value))
                     return true;
 
                 if (ShouldRemoveGeneratedShopItem(item.Value, shopInvProto))
@@ -290,32 +303,6 @@ namespace OpenNefia.Content.Shopkeeper
                     EntityManager.DeleteEntity(item.Value);
                     return true;
                 }
-
-                // Items are generated with amount 1 by default, but attaching an
-                // ExtShopAmountAdjustment to the tag/entity prototypes can increase this.
-                var itemAmount = _rand.Next(CalcShopItemMaxAmount(item.Value)) + 1;
-
-                // Cargo traders have special behavior for calculating the sold item number. They
-                // also have a chance to discard the item entirely (setting the amount to 0).
-                var pevItemAmount = new P_ShopInventoryCalcItemAmountEvent(shopkeeper, index, item.Value, itemAmount);
-                itemAmount = pevItemAmount.OutItemAmount;
-
-                if (itemAmount <= 0)
-                {
-                    EntityManager.DeleteEntity(item.Value);
-                    return true;
-                }
-
-                // Blessed items are never generated in multiple (per cycle)
-                if (_curseStates.IsBlessed(item.Value))
-                    itemAmount = 1;
-
-                _stacks.SetCount(item.Value, itemAmount);
-
-                // Shops can adjust the prices of items through a formula.
-                var value = EnsureComp<ValueComponent>(item.Value);
-                var pevItemValue = new P_ShopInventoryCalcItemBaseValueEvent(shopkeeper, index, item.Value, value.Value);
-                value.Value = pevItemValue.OutBaseValue;
 
                 _stacks.TryStackAtSamePos(item.Value);
                 return true;
@@ -328,7 +315,7 @@ namespace OpenNefia.Content.Shopkeeper
             }
         }
 
-        public void RefreshShop(EntityUid shopkeeper, RoleShopkeeperComponent? shopkeeperComp = null)
+        public void RestockShop(EntityUid shopkeeper, RoleShopkeeperComponent? shopkeeperComp = null)
         {
             if (!Resolve(shopkeeper, ref shopkeeperComp))
                 return;

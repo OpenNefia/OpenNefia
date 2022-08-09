@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.CurseStates
 {
     [RegisterComponent]
     public class CurseStateComponent : Component
@@ -17,6 +17,12 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public CurseState CurseState { get; set; } = CurseState.Normal;
+
+        /// <summary>
+        /// If true, do not modify <see cref="CurseState"/> when the entity is being generated.
+        /// </summary>
+        [DataField]
+        public bool NoRandomizeCurseState { get; set; } = false;
     }
 
     public enum CurseState

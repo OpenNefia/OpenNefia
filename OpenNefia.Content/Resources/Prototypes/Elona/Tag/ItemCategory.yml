@@ -10,6 +10,11 @@
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 200
+  - type: Identify.ExtDefaultIdentifyState
+    identifyState: Full
+    autoMemorize: true
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatCargoFood
 - type: Tag
@@ -157,6 +162,8 @@
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 80
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatJunkInField
 - type: Tag
@@ -179,12 +186,18 @@
   id: Elona.ItemCatOfferingVegetable
 - type: Tag
   id: Elona.ItemCatOre
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatOreValuable
 - type: Tag
   id: Elona.ItemCatPlatinum
 - type: Tag
   id: Elona.ItemCatRemains
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatRod
 - type: Tag

@@ -174,9 +174,9 @@
   - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: Blackmarket_CalcTotalItemCount
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Blackmarket_CalcItemBaseValue
+    method: Blackmarket_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.GoodsVendor
   hspIds:
@@ -258,9 +258,9 @@
       tags:
       - Elona.ItemCatCargo
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemAmountEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Trader_CalcItemAmount
+    method: Trader_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.WanderingMerchant
   hspIds:
@@ -305,9 +305,9 @@
   - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: WanderingMerchant_CalcTotalItemCount
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: WanderingMerchant_CalcItemBaseValue
+    method: WanderingMerchant_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.CyberDome
   hspIds:
@@ -421,9 +421,9 @@
       quality: Great
     oneIn: 10
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: Moyer_CalcItemBaseValue
+    method: Moyer_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.Miral
   hspIds:
@@ -458,9 +458,9 @@
   - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: SouvenirVendor_CalcTotalItemCount
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: SouvenirVendor_CalcItemBaseValue
+    method: SouvenirVendor_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.YoungerSisterOfMansion
   hspIds:
@@ -475,9 +475,9 @@
   rules:
   - action: !type:SpellWriterShopInventoryAction
   events:
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: SpellWriter_CalcItemBaseValue
+    method: SpellWriter_AfterGenerateItem
 - type: Elona.ShopInventory
   id: Elona.TheFence
   hspIds:
@@ -562,7 +562,7 @@
   - type: Shopkeeper.P_ShopInventoryCalcTotalItemCountEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
     method: VisitingMerchant_CalcTotalItemCount
-  - type: Shopkeeper.P_ShopInventoryCalcItemBaseValueEvent
+  - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
-    method: VisitingMerchant_CalcItemBaseValue
+    method: VisitingMerchant_AfterGenerateItem
 ...

@@ -43,10 +43,10 @@ namespace OpenNefia.Content.Dialog
 
         private void Innkeeper_Initialize()
         {
-            SubscribeComponent<RoleInnkeeperComponent, GetDefaultDialogChoicesEvent>(Innkeeper_AddTalkChoices);
+            SubscribeComponent<RoleInnkeeperComponent, GetDefaultDialogChoicesEvent>(Innkeeper_AddDialogChoices, priority: EventPriorities.High);
         }
 
-        private void Innkeeper_AddTalkChoices(EntityUid uid, RoleInnkeeperComponent component, GetDefaultDialogChoicesEvent args)
+        private void Innkeeper_AddDialogChoices(EntityUid uid, RoleInnkeeperComponent component, GetDefaultDialogChoicesEvent args)
         {
             var textBuyMeal = Loc.GetString("Elona.Dialog.Innkeeper.Choices.BuyMeal") + $" ({CalcInnkeeperMealCost()} {Loc.GetString("Elona.Currency.Gold.Pieces")})";
             args.OutChoices.Add(new()

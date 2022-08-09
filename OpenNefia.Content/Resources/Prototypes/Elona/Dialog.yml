@@ -78,6 +78,13 @@
 
 - type: Elona.Dialog
   id: Elona.Shopkeeper
+  nodes:
+    Buy: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Shopkeeper_Buy
+      nextNode: Elona.Default:Talk
+    Sell: !type:DialogJumpNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:Shopkeeper_Sell
+      nextNode: Elona.Default:Talk
 
 - type: Elona.Dialog
   id: Elona.Trainer

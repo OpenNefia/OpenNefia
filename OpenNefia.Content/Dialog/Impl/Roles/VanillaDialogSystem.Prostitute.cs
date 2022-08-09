@@ -35,10 +35,10 @@ namespace OpenNefia.Content.Dialog
     {
         private void Prostitute_Initialize()
         {
-            SubscribeComponent<RoleProstituteComponent, GetDefaultDialogChoicesEvent>(Prostitute_AddTalkChoices);
+            SubscribeComponent<RoleProstituteComponent, GetDefaultDialogChoicesEvent>(Prostitute_AddDialogChoices, priority: EventPriorities.High);
         }
 
-        private void Prostitute_AddTalkChoices(EntityUid uid, RoleProstituteComponent component, GetDefaultDialogChoicesEvent args)
+        private void Prostitute_AddDialogChoices(EntityUid uid, RoleProstituteComponent component, GetDefaultDialogChoicesEvent args)
         {
             args.OutChoices.Add(new()
             {

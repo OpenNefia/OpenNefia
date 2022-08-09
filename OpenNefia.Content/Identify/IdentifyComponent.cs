@@ -9,14 +9,14 @@ namespace OpenNefia.Content.Identify
     {
         public override string Name => "Identify";
 
+        [DataField]
+        public IdentifyState IdentifyState { get; set; } = IdentifyState.None;
+
         [Localize]
         public string UnidentifiedName { get; private set; } = string.Empty;
 
         [DataField]
         public int IdentifyDifficulty { get; set; } = 0;
-
-        [DataField]
-        public IdentifyState IdentifyState { get; set; } = IdentifyState.None;
 
         void IComponentLocalizable.LocalizeFromLua(NLua.LuaTable table)
         {

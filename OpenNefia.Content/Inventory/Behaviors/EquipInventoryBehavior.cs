@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Inventory
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new EntityInvSource(context.User);
+            yield return new EntityInvSource(context.Target);
         }
 
         public override string GetQueryText(InventoryContext context)
@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Inventory
         {
             // TODO fairy trait
             // That will probably be a hook on IsEquippingAttemptEvent.
-
+            
             return new InventoryResult.Finished(TurnResult.Succeeded);
         }
     }

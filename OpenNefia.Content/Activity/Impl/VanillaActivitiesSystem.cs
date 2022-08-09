@@ -1,10 +1,10 @@
-﻿using OpenNefia.Content.Damage;
+﻿using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.Dialog;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Fame;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.InUse;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;

@@ -73,7 +73,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool TryComp<T>(EntityUid? uid, [NotNullWhen(true)] out T? component)
+        protected bool TryComp<T>([NotNullWhen(true)] EntityUid? uid, [NotNullWhen(true)] out T? component)
             where T : class, IComponent
         {
             if (uid == null)
