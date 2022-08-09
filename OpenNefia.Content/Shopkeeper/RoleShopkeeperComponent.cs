@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Shopkeeper
         public override string Name => "RoleShopkeeper";
 
         [DataField(required: true)]
-        public PrototypeId<ShopInventoryPrototype> ShopInventoryId { get; set; } = default!;
+        public PrototypeId<ShopInventoryPrototype> ShopInventoryId { get; set; }
 
         [DataField]
         public int ShopRank { get; set; } = 1;

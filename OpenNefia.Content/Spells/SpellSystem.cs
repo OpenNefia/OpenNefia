@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;

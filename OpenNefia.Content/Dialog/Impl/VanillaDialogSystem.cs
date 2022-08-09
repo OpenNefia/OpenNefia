@@ -43,7 +43,8 @@ namespace OpenNefia.Content.Dialog
         {
             Default_Initialize();
             Ally_Initialize();
-            
+
+            Shopkeeper_Initialize();
             Trainer_Initialize();
             Prostitute_Initialize();
             Innkeeper_Initialize();

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Cargo;
+using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Feats;

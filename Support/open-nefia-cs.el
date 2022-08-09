@@ -366,6 +366,6 @@ connection endpoint."
 (defun open-nefia-cs-validate-prototypes ()
   (interactive)
   (let* ((default-directory (projectile-project-root)))
-    (compile "dotnet run --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj")))
+    (compile "dotnet run --verbosity m --project ./OpenNefia.YAMLValidator/OpenNefia.YAMLValidator.csproj")))
 
 (provide 'open-nefia-cs)

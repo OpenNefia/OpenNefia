@@ -25,20 +25,26 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public EntityUid User { get; }
+        public EntityUid Target { get; }
         public IInventoryBehavior Behavior { get; internal set; }
 
         public bool ShowInventoryWindow { get; set; } = true;
 
-        public InventoryContext(EntityUid user, IInventoryBehavior behavior)
+        public InventoryContext(EntityUid user, EntityUid target, IInventoryBehavior behavior)
         {
             EntitySystem.InjectDependencies(this);
             EntitySystem.InjectDependencies(behavior);
 
             User = user;
+            Target = target;
             Behavior = behavior;
+        }
+
+        public InventoryContext(EntityUid user, IInventoryBehavior behavior)
+            : this(user, user, behavior)
+        {
         }
 
         public IEnumerable<IInventorySource> GetSources()

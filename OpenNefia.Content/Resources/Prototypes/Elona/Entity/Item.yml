@@ -1250,6 +1250,11 @@
   - type: Value
     value: 1
   - type: Item
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemPlatinumCoin
   parent: BaseItem
@@ -1269,6 +1274,11 @@
   - type: Item
   - type: Weight
     weight: 1
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemDiablo
   parent: BaseItem
@@ -1298,7 +1308,6 @@
     value: 40000
   - type: Item
     material: Elona.Steel
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2200
@@ -1317,6 +1326,8 @@
     diceY: 8
     pierceRate: 10
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1346,7 +1357,6 @@
     value: 40000
   - type: Item
     material: Elona.Silver
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1400
@@ -1360,6 +1370,8 @@
     diceY: 7
     pierceRate: 25
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1565,7 +1577,6 @@
     value: 50000
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 9000
@@ -1579,6 +1590,8 @@
     diceY: 44
     pierceRate: 15
     weaponSkill: Elona.Scythe
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1608,7 +1621,6 @@
     value: 60000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 4000
@@ -1625,6 +1637,8 @@
     diceY: 13
     pierceRate: 15
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -1840,7 +1854,6 @@
     value: 20000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 4200
@@ -1857,6 +1870,8 @@
     diceY: 18
     pierceRate: 20
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -4745,7 +4760,6 @@
     value: 60000
   - type: Item
     material: Elona.Ether
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 600
@@ -4762,6 +4776,8 @@
     diceY: 5
     pierceRate: 20
     weaponSkill: Elona.ShortSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -4791,7 +4807,6 @@
     value: 60000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -4819,6 +4834,8 @@
       - 0.6
       - 0.5
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemWorthlessFakeGoldBar
   parent: BaseItem
@@ -8411,7 +8428,6 @@
     value: 40000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -8421,6 +8437,8 @@
   - type: EquipStats
     dv: 5
     pv: 30
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemBloodMoon
   parent: BaseItem
@@ -8450,7 +8468,6 @@
     value: 30000
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1800
@@ -8464,6 +8481,8 @@
     diceX: 3
     diceY: 5
     weaponSkill: Elona.Blunt
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -8492,7 +8511,6 @@
     value: 30000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -8501,6 +8519,8 @@
     - Elona.Ring
   - type: EquipStats
     pv: 50
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemStaffOfInsanity
   parent: BaseItem
@@ -8529,7 +8549,6 @@
     value: 30000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2500
@@ -8545,6 +8564,8 @@
     diceX: 1
     diceY: 8
     weaponSkill: Elona.Stave
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -8574,7 +8595,6 @@
     value: 30000
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2000
@@ -8590,6 +8610,8 @@
     diceY: 4
     pierceRate: 40
     weaponSkill: Elona.Polearm
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -8618,7 +8640,6 @@
     value: 30000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 500
@@ -8628,6 +8649,8 @@
   - type: EquipStats
     dv: 15
     pv: 5
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemShopkeepersTrunk
   parent: BaseItem
@@ -12614,7 +12637,6 @@
     value: 60000
   - type: Item
     material: Elona.Ether
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 8500
@@ -12642,6 +12664,8 @@
       - 0.5
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemScrollOfRecharge
   parent: BaseItem
@@ -15141,6 +15165,11 @@
     weight: 100
   - type: MedalValue
     medalValue: 5
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemTaxMastersTaxBox
   parent: BaseItem
@@ -15326,6 +15355,11 @@
     isPrecious: true
   - type: Weight
     weight: 1
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemCatSistersDiary
   parent: BaseItem
@@ -15467,7 +15501,6 @@
     value: 40000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1500
@@ -15479,6 +15512,8 @@
   - type: EquipStats
     dv: 4
     pv: 15
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemSpellbookOfIncognito
   parent: BaseItem
@@ -16338,7 +16373,6 @@
     value: 25000
   - type: Item
     material: Elona.Leather
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 650
@@ -16348,6 +16382,8 @@
   - type: EquipStats
     dv: 16
     pv: 7
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemMagicFruit
   parent: BaseItem
@@ -16674,7 +16710,6 @@
     value: 35000
   - type: Item
     material: Elona.Ether
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 800
@@ -16702,6 +16737,8 @@
       - 0.6
       - 0.5
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemWinchesterPremium
   parent: BaseItem
@@ -16731,7 +16768,6 @@
     value: 35000
   - type: Item
     material: Elona.Diamond
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2800
@@ -16759,6 +16795,8 @@
       - 0.2
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemKumiromiScythe
   parent: BaseItem
@@ -16788,7 +16826,6 @@
     value: 35000
   - type: Item
     material: Elona.SpiritCloth
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 850
@@ -16803,6 +16840,8 @@
     diceY: 38
     pierceRate: 15
     weaponSkill: Elona.Scythe
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -16832,7 +16871,6 @@
     value: 35000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 900
@@ -16848,6 +16886,8 @@
     diceX: 1
     diceY: 14
     weaponSkill: Elona.Stave
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -16876,7 +16916,6 @@
     value: 35000
   - type: Item
     material: Elona.Silver
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 4400
@@ -16892,6 +16931,8 @@
     diceY: 5
     pierceRate: 30
     weaponSkill: Elona.Polearm
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -16921,7 +16962,6 @@
     value: 35000
   - type: Item
     material: Elona.Mica
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 400
@@ -16938,6 +16978,8 @@
     diceY: 6
     pierceRate: 10
     weaponSkill: Elona.ShortSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -16967,7 +17009,6 @@
     value: 35000
   - type: Item
     material: Elona.Adamantium
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 6500
@@ -16981,6 +17022,8 @@
     diceX: 2
     diceY: 30
     weaponSkill: Elona.Blunt
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -17416,7 +17459,6 @@
     value: 50000
   - type: Item
     material: Elona.Rubynus
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 14000
@@ -17429,6 +17471,8 @@
     diceX: 1
     diceY: 70
     weaponSkill: Elona.Axe
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -17689,7 +17733,6 @@
     value: 50
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 250
@@ -17698,6 +17741,8 @@
     - Elona.Neck
   - type: EquipStats
     dv: 8
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemPotionOfDescent
   parent: BaseItem
@@ -18033,7 +18078,6 @@
     value: 9500
   - type: Item
     material: Elona.Adamantium
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 7500
@@ -18059,6 +18103,8 @@
       - 0.2
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -18115,7 +18161,6 @@
     value: 94000
   - type: Item
     material: Elona.Silk
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 250
@@ -18143,6 +18188,8 @@
       - 0.2
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemClaymoreUnique
   parent: BaseItem
@@ -18171,7 +18218,6 @@
     value: 45000
   - type: Item
     material: Elona.Silver
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 6500
@@ -18185,6 +18231,8 @@
     diceX: 3
     diceY: 14
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -18271,7 +18319,6 @@
     value: 9500
   - type: Item
     material: Elona.Coral
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 400
@@ -18280,6 +18327,8 @@
     - Elona.Neck
   - type: EquipStats
     hitBonus: 12
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemTwinEdge
   parent: BaseItem
@@ -18309,7 +18358,6 @@
     value: 9500
   - type: Item
     material: Elona.Mica
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 400
@@ -18318,6 +18366,8 @@
     - Elona.Neck
   - type: EquipStats
     damageBonus: 4
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemMusicTicket
   parent: BaseItem
@@ -18346,6 +18396,11 @@
     isPrecious: true
   - type: Weight
     weight: 1
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemKillKillPiano
   parent: BaseItem
@@ -18375,7 +18430,6 @@
     value: 25000
   - type: Item
     material: Elona.Gold
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 75000
@@ -18401,6 +18455,8 @@
       - 0.2
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemAlud
   parent: BaseItem
@@ -18430,7 +18486,6 @@
     value: 7500
   - type: Item
     material: Elona.Wood
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2850
@@ -18440,6 +18495,8 @@
   - type: EquipStats
     dv: -1
     pv: 35
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemShieldOfThorn
   parent: BaseItem
@@ -18469,7 +18526,6 @@
     value: 17500
   - type: Item
     material: Elona.Coral
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 950
@@ -18479,6 +18535,8 @@
   - type: EquipStats
     pv: 1
     damageBonus: 14
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemCrimsonPlate
   parent: BaseItem
@@ -18508,7 +18566,6 @@
     value: 15000
   - type: Item
     material: Elona.Mithril
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 1250
@@ -18518,6 +18575,8 @@
   - type: EquipStats
     dv: 2
     pv: 15
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemGift
   parent: BaseItem
@@ -18571,6 +18630,11 @@
     isPrecious: true
   - type: Weight
     weight: 1
+  - type: Identify
+    identifyState: Full
+  - type: CurseState
+    curseState: Normal
+    noRandomizeCurseState: true
 - type: Entity
   id: Elona.ItemSpellbookOf4DimensionalPocket
   parent: BaseItem
@@ -18814,7 +18878,6 @@
     value: 30000
   - type: Item
     material: Elona.Ether
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 376500
@@ -18829,6 +18892,8 @@
     diceY: 16
     pierceRate: 65
     weaponSkill: Elona.Scythe
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -18858,7 +18923,6 @@
     value: 1200
   - type: Item
     material: Elona.Mica
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 150
@@ -18868,6 +18932,8 @@
   - type: EquipStats
     dv: 2
     pv: 14
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemHiryuTo
   parent: BaseItem
@@ -18897,7 +18963,6 @@
     value: 40000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2500
@@ -18912,6 +18977,8 @@
     diceY: 6
     pierceRate: 20
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -19342,7 +19409,6 @@
     value: 15000
   - type: Item
     material: Elona.Obsidian
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 2400
@@ -19353,6 +19419,8 @@
     dv: 2
     pv: 7
     damageBonus: 8
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemMauserC96Custom
   parent: BaseItem
@@ -19383,7 +19451,6 @@
     value: 25000
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 950
@@ -19411,6 +19478,8 @@
       - 0.2
       - 0.2
       - 0.2
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemLightsabre
   parent: BaseItem
@@ -20284,7 +20353,6 @@
     value: 72000
   - type: Item
     material: Elona.Iron
-    identifyDifficulty: 500
     isPrecious: true
   - type: Weight
     weight: 22500
@@ -20300,6 +20368,8 @@
     diceX: 3
     diceY: 14
     weaponSkill: Elona.LongSword
+  - type: Identify
+    identifyDifficulty: 500
 - type: Entity
   id: Elona.ItemPutitoro
   parent: BaseItem

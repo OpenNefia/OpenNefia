@@ -214,3 +214,6 @@ entities:
   - type: RoleTrainer
   - type: RoleProstitute
   - type: RoleInnkeeper
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GeneralVendor
+    shopRank: 10

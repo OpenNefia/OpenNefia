@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;

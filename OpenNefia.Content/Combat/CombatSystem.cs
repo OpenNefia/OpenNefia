@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.DisplayName;

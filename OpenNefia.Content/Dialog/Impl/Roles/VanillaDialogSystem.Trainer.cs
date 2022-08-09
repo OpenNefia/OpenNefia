@@ -33,10 +33,10 @@ namespace OpenNefia.Content.Dialog
 
         private void Trainer_Initialize()
         {
-            SubscribeComponent<RoleTrainerComponent, GetDefaultDialogChoicesEvent>(Trainer_AddTalkChoices);
+            SubscribeComponent<RoleTrainerComponent, GetDefaultDialogChoicesEvent>(Trainer_AddDialogChoices, priority: EventPriorities.High);
         }
 
-        private void Trainer_AddTalkChoices(EntityUid uid, RoleTrainerComponent component, GetDefaultDialogChoicesEvent args)
+        private void Trainer_AddDialogChoices(EntityUid uid, RoleTrainerComponent component, GetDefaultDialogChoicesEvent args)
         {
             args.OutChoices.Add(new()
             {

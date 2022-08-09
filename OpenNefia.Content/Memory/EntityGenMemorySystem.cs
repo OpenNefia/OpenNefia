@@ -41,6 +41,7 @@ namespace OpenNefia.Content.Memory
     [DataDefinition]
     public sealed class EntityGenMemory : Dictionary<string, Dictionary<PrototypeId<EntityPrototype>, int>> { }
 
+    // TODO this API is too general... should refactor it.
     public sealed class EntityGenMemorySystem : EntitySystem, IEntityGenMemorySystem
     {
         [RegisterSaveData("Elona.EntityMemorySystem.Memory")]

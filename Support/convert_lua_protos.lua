@@ -281,7 +281,8 @@ handlers["base.chara"] = function(from, to)
         local spells
         for _, skill in ipairs(from.skills) do
             skill = skill:gsub("%.stat_", "%.attr_")
-            if data["base.skill"]:ensure(skill).type == "spell" then
+            local ty = data["base.skill"]:ensure(skill).type
+            if ty == "spell" or ty == "action" then
                 if spells == nil then
                     spells = comp(to, "Spells")
                     spells.spells = {}
@@ -437,9 +438,6 @@ handlers["base.item"] = function(from, to)
     if from.material then
         c.material = dotted(from.material)
     end
-    if (from.identify_difficulty or 0) ~= 0 then
-        c.identifyDifficulty = from.identify_difficulty
-    end
     if from.originalnameref2 then
         c.originalnameref2 = from.originalnameref2
     end
@@ -564,6 +562,26 @@ handlers["base.item"] = function(from, to)
     if from._id == "elona.bottle_of_water" then
         local e = extData(to, "Shopkeeper.ExtShopExclusion")
         e.isExcludedFromShops = true
+    end
+
+    if (from.identify_difficulty or 0) ~= 0 then
+        c = comp(to, "Identify")
+        c.identifyDifficulty = from.identify_difficulty
+    end
+
+    if
+        from._id == "elona.gold_piece"
+        or from._id == "elona.platinum_coin"
+        or from._id == "elona.small_medal"
+        or from._id == "elona.music_ticket"
+        or from._id == "elona.token_of_friendship"
+        or from._id == "elona.bill"
+    then
+        c = comp(to, "Identify")
+        c.identifyState = "Full"
+        c = comp(to, "CurseState")
+        c.curseState = "Normal"
+        c.noRandomizeCurseState = true
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]
