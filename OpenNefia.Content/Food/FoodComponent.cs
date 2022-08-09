@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Food
         public List<ExperienceGain> ExperienceGains { get; } = new();
 
         [DataField]
-        public int? SpoilTimeHours { get; set; }
+        public GameTimeSpan? SpoilageInterval { get; set; }
 
         [DataField]
         public PrototypeId<EntityPrototype>? EntityMadeOf { get; set; }

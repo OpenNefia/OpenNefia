@@ -5,18 +5,12 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Chest
+namespace OpenNefia.Content.GameObjects.Components
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class ChestComponent : Component
+    public sealed class StolenComponent : Component
     {
-        public override string Name => "Chest";
-
-        [DataField]
-        public int LockpickDifficulty { get; set; }
-
-        [DataField]
-        public bool HasItems { get; set; } = true;
+        public override string Name => "Stolen";
     }
 }

@@ -75,6 +75,9 @@ Elona.Inventory.Behavior = {
             "あなたは財布を開いてがっかりした…",
             "もっと稼がないと買えない！",
         },
+        YouBuy = function(item)
+            return ("%sを買った。"):format(_.name(item))
+        end,
     },
 
     Identify = {
@@ -87,6 +90,12 @@ Elona.Inventory.Behavior = {
         QueryText = "どれを売却する？",
         HowMany = function(min, max, entity)
             return ("%sをいくつ売る？ (%s〜%s)"):format(_.name(entity), min, max)
+        end,
+        YouSell = function(item)
+            return ("%sを売った。"):format(_.name(item))
+        end,
+        YouSellStolen = function(item)
+            return ("盗品の%sを売却した。"):format(_.name(item))
         end,
     },
 

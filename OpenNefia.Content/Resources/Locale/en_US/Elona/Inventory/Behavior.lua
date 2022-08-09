@@ -66,6 +66,10 @@ Elona.Inventory.Behavior = {
             return ("Do you really want to buy %s for %s gold pieces?"):format(_.name(item), cost)
         end,
         NotEnoughMoney = { "You check your wallet and shake your head.", "You need to earn more money!" },
+
+        you_buy = function(item)
+            return ("You buy %s."):format(_.name(item))
+        end,
     },
 
     Identify = {
@@ -76,6 +80,13 @@ Elona.Inventory.Behavior = {
     Sell = {
         WindowTitle = "Sell",
         QueryText = "What do you want to sell?",
+
+        YouSell = function(item)
+            return ("You sell %s."):format(_.name(item))
+        end,
+        YouSellStolen = function(item)
+            return ("You sell %s.(Stolen item sold) "):format(_.name(item))
+        end,
     },
 
     Use = {

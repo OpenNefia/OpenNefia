@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Inventory
     public class DropInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
+        [Dependency] private readonly IPickableSystem _pickable = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 2));
 
@@ -38,7 +39,7 @@ namespace OpenNefia.Content.Inventory
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
-            if (CheckNoDropAndMessage(item))
+            if (!_pickable.CheckNoDropAndMessage(item))
                 return new InventoryResult.Continuing();
 
             var result = TurnResult.NoResult;

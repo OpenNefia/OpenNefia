@@ -15,7 +15,15 @@ using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.Pickable
 {
-    public class PickableSystem : EntitySystem
+    public interface IPickableSystem : IEntitySystem
+    {
+        bool CheckNoDropAndMessage(EntityUid item, PickableComponent? pickable = null);
+        bool CheckPickableOwnStateAndMessage(EntityUid item, PickableComponent? pickable = null);
+        TurnResult PickUp(EntityUid picker, EntityUid item, PickableComponent? pickable = null);
+        TurnResult Drop(EntityUid picker, EntityUid item, PickableComponent? pickable = null);
+    }
+
+    public class PickableSystem : EntitySystem, IPickableSystem
     {
         public const string VerbTypePickUp = "Elona.PickUp";
         public const string VerbTypeDrop = "Elona.Drop";
@@ -56,8 +64,30 @@ namespace OpenNefia.Content.Pickable
             }
         }
 
-        private bool CheckPickableOwnState(PickableComponent pickable)
+        public bool CheckNoDropAndMessage(EntityUid item, PickableComponent? pickable = null)
         {
+            if (!Resolve(item, ref pickable))
+                return true;
+
+            if (pickable.IsNoDrop)
+            {
+                Sounds.Play(Protos.Sound.Fail1);
+                _mes.Display(Loc.GetString("Elona.Inventory.Common.SetAsNoDrop"));
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CheckPickableOwnStateAndMessage(EntityUid item, PickableComponent? pickable = null)
+        {
+            if (!Resolve(item, ref pickable))
+            {
+                _sounds.Play(Protos.Sound.Fail1);
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.CannotCarry"));
+                return false;
+            }
+
             switch (pickable.OwnState)
             {
                 case OwnState.NPC:
@@ -81,7 +111,7 @@ namespace OpenNefia.Content.Pickable
             if (!EntityManager.TryGetComponent<InventoryComponent>(picker, out var pickerInv))
                 return TurnResult.Failed;
 
-            if (!CheckPickableOwnState(pickable))
+            if (!CheckPickableOwnStateAndMessage(item, pickable))
                 return TurnResult.Failed;
 
             var success = pickerInv.Container.Insert(item);
