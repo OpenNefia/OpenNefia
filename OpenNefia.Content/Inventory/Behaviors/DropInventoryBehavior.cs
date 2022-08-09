@@ -18,6 +18,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drop);
+        public override bool ExitAfterSelectionIfEmpty => true;
 
         public override bool QueryAmount => true;
         public override LocaleKey? QueryAmountPrompt => "Elona.Inventory.Behavior.Drop.HowMany";

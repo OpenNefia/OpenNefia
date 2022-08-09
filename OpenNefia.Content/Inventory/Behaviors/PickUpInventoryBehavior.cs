@@ -25,6 +25,7 @@ namespace OpenNefia.Content.Inventory
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.PickUp.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.PickUp);
         public override bool ApplyNameModifiers => false;
+        public override bool ExitAfterSelectionIfEmpty => true;
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
