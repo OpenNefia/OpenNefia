@@ -158,9 +158,9 @@ namespace OpenNefia.Core.GameObjects
             SubscribeComponent<StackComponent, EntityMapInitEvent>(HandleEntityInitialized);
             SubscribeComponent<StackComponent, StackCountChangedEvent>(HandleStackCountChanged);
 
-            SubscribeComponent<SpatialComponent, EntityClonedEventArgs>(HandleCloneSpatial);
-            SubscribeComponent<MetaDataComponent, EntityClonedEventArgs>(HandleCloneMetaData);
-            SubscribeComponent<StackComponent, EntityClonedEventArgs>(HandleCloneStack);
+            SubscribeComponent<SpatialComponent, BeforeEntityClonedEvent>(HandleCloneSpatial);
+            SubscribeComponent<MetaDataComponent, BeforeEntityClonedEvent>(HandleCloneMetaData);
+            SubscribeComponent<StackComponent, BeforeEntityClonedEvent>(HandleCloneStack);
         }
 
         private void HandleEntityInitialized(EntityUid uid, StackComponent stackable, ref EntityMapInitEvent args)
@@ -371,7 +371,7 @@ namespace OpenNefia.Core.GameObjects
 
         #region Cloning
 
-        private void CopyComponents(EntityUid target, EntityUid source, EntityClonedEventArgs args)
+        private void CopyComponents(EntityUid target, EntityUid source, BeforeEntityClonedEvent args)
         {
             foreach (var sourceComp in EntityManager.GetComponents(source))
             {
@@ -392,12 +392,12 @@ namespace OpenNefia.Core.GameObjects
         {
             var newEntity = EntityManager.SpawnEntity(null, spawnPosition);
 
-            var args = new EntityClonedEventArgs(newEntity);
+            var args = new BeforeEntityClonedEvent(newEntity);
             RaiseEvent(target, args);
 
             CopyComponents(newEntity, target, args);
 
-            var ev = new EntityCloneFinishedEventArgs(target);
+            var ev = new AfterEntityClonedEvent(target);
             RaiseEvent(newEntity, ev);
 
             return newEntity;
@@ -411,7 +411,7 @@ namespace OpenNefia.Core.GameObjects
             return Clone(target, entityPosition);
         }
 
-        private void HandleCloneMetaData(EntityUid source, MetaDataComponent spatial, EntityClonedEventArgs args)
+        private void HandleCloneMetaData(EntityUid source, MetaDataComponent spatial, BeforeEntityClonedEvent args)
         {
             var newSpatial = EntityManager.EnsureComponent<MetaDataComponent>(args.NewEntity);
 
@@ -420,7 +420,7 @@ namespace OpenNefia.Core.GameObjects
             args.MarkAsCloned<MetaDataComponent>();
         }
 
-        private void HandleCloneSpatial(EntityUid source, SpatialComponent spatial, EntityClonedEventArgs args)
+        private void HandleCloneSpatial(EntityUid source, SpatialComponent spatial, BeforeEntityClonedEvent args)
         {
             var newSpatial = EntityManager.EnsureComponent<SpatialComponent>(args.NewEntity);
 
@@ -430,7 +430,7 @@ namespace OpenNefia.Core.GameObjects
             args.MarkAsCloned<SpatialComponent>();
         }
 
-        private void HandleCloneStack(EntityUid source, StackComponent stack, EntityClonedEventArgs args)
+        private void HandleCloneStack(EntityUid source, StackComponent stack, BeforeEntityClonedEvent args)
         {
             var newStack = EntityManager.EnsureComponent<StackComponent>(args.NewEntity);
 
@@ -525,7 +525,7 @@ namespace OpenNefia.Core.GameObjects
     /// a <see cref="StackComponent"/> is split off. Use this event to
     /// run custom deep copying logic per component.
     /// </summary>
-    public class EntityClonedEventArgs
+    public class BeforeEntityClonedEvent
     {
         /// <summary>
         /// The UID of the newly created entity.
@@ -540,7 +540,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public HashSet<Type> HandledTypes { get; } = new();
 
-        public EntityClonedEventArgs(EntityUid newEntity)
+        public BeforeEntityClonedEvent(EntityUid newEntity)
         {
             NewEntity = newEntity;
         }
@@ -559,14 +559,14 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     /// Raised on a cloned entity after all its components have been finalized.
     /// </summary>
-    public class EntityCloneFinishedEventArgs
+    public class AfterEntityClonedEvent
     {
         /// <summary>
         /// The UID of the entity this entity was cloned from.
         /// </summary>
         public EntityUid ClonedFrom { get; }
 
-        public EntityCloneFinishedEventArgs(EntityUid clonedFrom)
+        public AfterEntityClonedEvent(EntityUid clonedFrom)
         {
             ClonedFrom = clonedFrom;
         }

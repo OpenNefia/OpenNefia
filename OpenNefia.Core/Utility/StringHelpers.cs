@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -180,6 +181,13 @@ namespace OpenNefia.Core.Utility
                 return str.Substring(boundLeft.Value);
 
             return str.Substring(boundLeft.Value, normalLength);
+        }
+
+        public static int HashStringToInteger(string str)
+        {
+            var hasher = SHA256.Create();
+            var hashed = hasher.ComputeHash(Encoding.UTF8.GetBytes(str));
+            return BitConverter.ToInt32(hashed, 0);
         }
     }
 }

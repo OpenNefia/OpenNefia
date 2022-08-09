@@ -51,7 +51,7 @@ namespace OpenNefia.Content.EntityGen
         {
             _mapLoader.OnBlueprintEntityStartup += HandleBlueprintEntityStartup;
 
-            SubscribeEntity<EntityCloneFinishedEventArgs>(HandleClone, priority: EventPriorities.VeryLow);
+            SubscribeEntity<AfterEntityClonedEvent>(HandleClone, priority: EventPriorities.VeryLow);
         }
 
         public void FireGeneratingEvents(EntityUid entity, EntityGenArgSet? args = null)
@@ -76,7 +76,7 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// Runs entity generation events for all cloned entities.
         /// </summary>
-        private void HandleClone(EntityUid entity, EntityCloneFinishedEventArgs args)
+        private void HandleClone(EntityUid entity, AfterEntityClonedEvent args)
         {
             FireGeneratingEvents(entity);
         }

@@ -77,6 +77,10 @@ namespace OpenNefia.Content.Inventory
 
         string GetQueryText(InventoryContext context);
 
+        string GetItemName(InventoryContext context, EntityUid item);
+
+        string GetItemDetails(InventoryContext context, EntityUid item);
+
         bool IsAccepted(InventoryContext context, EntityUid item);
 
         void OnQuery(InventoryContext inventoryContext);

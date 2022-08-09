@@ -18,6 +18,7 @@ namespace OpenNefia.Content.Inventory
     public class PickUpInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
+        [Dependency] private readonly IPickableSystem _pickable = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
 
@@ -42,6 +43,9 @@ namespace OpenNefia.Content.Inventory
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
+            if (!_pickable.CheckPickableOwnStateAndMessage(item))
+                return new InventoryResult.Finished(TurnResult.Failed);
+
             var result = TurnResult.NoResult;
             if (_verbSystem.TryGetVerb(context.User, item, PickableSystem.VerbTypePickUp, out var verb))
                 result = verb.Act();

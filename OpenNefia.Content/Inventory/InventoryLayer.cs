@@ -305,42 +305,21 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
-        private string DefaultDetailText(EntityUid ent)
-        {
-            int? weight = null;
-
-            if (_entityManager.TryGetComponent(ent, out WeightComponent? weightComp))
-            {
-                weight = weightComp.Weight;
-            }
-            if (_entityManager.TryGetComponent(ent, out CargoComponent? cargoComp))
-            {
-                weight = cargoComp.CargoWeight;
-            }
-
-            if (weight != null)
-            {
-                return UiUtils.DisplayWeight(weight.Value);
-            }
-
-            return "-";
-        }
-
         private IEnumerable<InventoryEntry> GetFilteredEntries()
         {
-            InventoryEntry ToEntry(EntityUid ent, IInventorySource source)
+            InventoryEntry ToEntry(EntityUid item, IInventorySource source)
             {
-                var itemName = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", ent));
+                var itemName = Context.Behavior.GetItemName(Context, item);
                 
                 if (Context.Behavior.ApplyNameModifiers)
                     source.ModifyEntityName(ref itemName);
 
-                var itemDetail = DefaultDetailText(ent);
+                var itemDetail = Context.Behavior.GetItemDetails(Context, item);
                 var chipColor = Color.White;
-                if (_entityManager.TryGetComponent(ent, out ChipComponent? chip))
+                if (_entityManager.TryGetComponent(item, out ChipComponent? chip))
                     chipColor = chip.Color;
 
-                return new InventoryEntry(ent, source, itemName, itemDetail, chipColor);
+                return new InventoryEntry(item, source, itemName, itemDetail, chipColor);
             };
 
             var entries = new List<InventoryEntry>();

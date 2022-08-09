@@ -8,6 +8,7 @@ using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
@@ -82,6 +83,7 @@ namespace OpenNefia.Content.Food
             SubscribeComponent<FoodComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
             SubscribeComponent<FoodComponent, AfterItemEatenEvent>(HandleEatFood, priority: EventPriorities.VeryLow);
+            SubscribeComponent<FoodComponent, AfterItemPurchasedEvent>(HandlePurchaseItem);
             SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
         }
 
@@ -109,8 +111,8 @@ namespace OpenNefia.Content.Food
                 }
             }
 
-            if (foodComp.SpoilTimeHours != null)
-                foodComp.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromHours(foodComp.SpoilTimeHours.Value);
+            if (foodComp.SpoilageInterval != null)
+                foodComp.SpoilageDate = _world.State.GameDate + foodComp.SpoilageInterval;
 
             if (IsCooked(uid, foodComp) && TryComp<ChipComponent>(uid, out var chip))
                 chip.ChipID = GetFoodChip(foodComp.FoodType!.Value, foodComp.FoodQuality);
@@ -166,6 +168,18 @@ namespace OpenNefia.Content.Food
 
             var ev = new AfterFinishedEatingEvent(args.Eater);
             RaiseEvent(food, ev);
+        }
+
+        private void HandlePurchaseItem(EntityUid uid, FoodComponent component, AfterItemPurchasedEvent args)
+        {
+            if (component.SpoilageInterval != null)
+            {
+                component.SpoilageDate = _world.State.GameDate + component.SpoilageInterval.Value;
+                if (IsCooked(uid, component))
+                {
+                    component.SpoilageDate = component.SpoilageDate.Value + GameTimeSpan.FromDays(3);
+                }
+            }
         }
 
         private void ProcSpoilFoodInMap(EntityUid uid, ref MapOnTimePassedEvent args)
@@ -275,7 +289,7 @@ namespace OpenNefia.Content.Food
             if (TryComp<WeightComponent>(item, out var weight))
                 weight.Weight = 500;
 
-            if (!food.IsRotten && food.SpoilTimeHours != null)
+            if (!food.IsRotten && food.SpoilageInterval != null)
                 food.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromDays(3);
 
             food.FoodQuality = foodQuality;

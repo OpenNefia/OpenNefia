@@ -1,5 +1,9 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Cargo;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Pickable;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.Weight;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
@@ -55,6 +59,32 @@ namespace OpenNefia.Content.Inventory
             return string.Empty;
         }
 
+        public virtual string GetItemName(InventoryContext context, EntityUid item)
+        {
+            return Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", item));
+        }
+
+        public virtual string GetItemDetails(InventoryContext context, EntityUid item)
+        {
+            int? weight = null;
+
+            if (EntityManager.TryGetComponent(item, out WeightComponent? weightComp))
+            {
+                weight = weightComp.Weight;
+            }
+            if (EntityManager.TryGetComponent(item, out CargoComponent? cargoComp))
+            {
+                weight = cargoComp.CargoWeight;
+            }
+
+            if (weight != null)
+            {
+                return UiUtils.DisplayWeight(weight.Value);
+            }
+
+            return "-";
+        }
+
         public virtual void OnQuery(InventoryContext context)
         {
         }
@@ -76,18 +106,6 @@ namespace OpenNefia.Content.Inventory
         public virtual List<UiKeyHint> MakeKeyHints()
         {
             return new List<UiKeyHint>();
-        }
-
-        public bool CheckNoDropAndMessage(EntityUid item)
-        {
-            if (EntityManager.TryGetComponent(item, out PickableComponent pickable) && pickable.IsNoDrop)
-            {
-                Sounds.Play(Sound.Fail1);
-                _mes.Display(Loc.GetString("Elona.Inventory.Common.SetAsNoDrop"));
-                return true;
-            }
-
-            return false;
         }
     }
 }

@@ -122,6 +122,13 @@ local function enum(enumClass)
     end
 end
 
+local function dateTime(hours, minutes, seconds)
+    hours = hours or 0
+    minutes = minutes or 0
+    seconds = seconds or 0
+    return ("%02d:%02d:%02d"):format(hours, minutes, seconds)
+end
+
 local id = function(i)
     return i
 end
@@ -532,7 +539,7 @@ handlers["base.item"] = function(from, to)
                 })
             end
         end
-        field(food, c, "spoilage_hours", nil, "spoilTimeHours")
+        field(food, c, "spoilage_hours", dateTime, "spoilageInterval")
     end
 
     if from.params and from.params.bed_quality then
