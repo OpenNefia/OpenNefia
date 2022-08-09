@@ -91,12 +91,22 @@ Elona.Inventory.Behavior = {
         HowMany = function(min, max, entity)
             return ("%sをいくつ売る？ (%s〜%s)"):format(_.name(entity), min, max)
         end,
-        YouSell = function(item)
-            return ("%sを売った。"):format(_.name(item))
+
+        PromptConfirm = function(item, price)
+            return ("%sを %s gp で売る？"):format(_.name(item), price)
         end,
-        YouSellStolen = function(item)
-            return ("盗品の%sを売却した。"):format(_.name(item))
+        NotEnoughMoney = function(shopkeeper)
+            return ("%sは財布を開いてがっかりした…"):format(_.name(shopkeeper))
         end,
+        ShopkeepersInventoryIsFull = "店の倉庫が一杯のため売れない。",
+        YouSell = {
+            Normal = function(item)
+                return ("%sを売った。"):format(_.name(item))
+            end,
+            Stolen = function(item)
+                return ("盗品の%sを売却した。"):format(_.name(item))
+            end,
+        },
     },
 
     Use = {

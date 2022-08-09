@@ -280,7 +280,7 @@ namespace OpenNefia.Content.Inventory
             UpdateFiltering();
             _field.RefreshScreen();
 
-            if (List.Count == 0)
+            if (List.Count == 0 && Context.Behavior.ExitAfterSelectionIfEmpty)
             {
                 this.Finish(new(new InventoryResult.Finished(TurnResult.Succeeded), null));
             }

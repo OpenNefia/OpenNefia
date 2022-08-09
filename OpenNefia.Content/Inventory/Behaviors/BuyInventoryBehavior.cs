@@ -19,7 +19,6 @@ namespace OpenNefia.Content.Inventory
 {
     public class BuyInventoryBehavior : BaseInventoryBehavior
     {
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IShopkeeperSystem _shopkeepers = default!;
         [Dependency] private readonly IPickableSystem _pickable = default!;

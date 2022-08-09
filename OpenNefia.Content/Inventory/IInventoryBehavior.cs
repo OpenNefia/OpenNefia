@@ -69,6 +69,11 @@ namespace OpenNefia.Content.Inventory
         bool ApplyNameModifiers { get; }
 
         /// <summary>
+        /// If true, automatically exit the inventory menu if there are no more filtered items. Used by the get/drop actions.
+        /// </summary>
+        bool ExitAfterSelectionIfEmpty { get; }
+
+        /// <summary>
         /// Allocates the icon that this behavior will display in the icon bar.
         /// </summary>
         UiElement? MakeIcon();

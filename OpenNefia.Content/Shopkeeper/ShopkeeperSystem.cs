@@ -14,7 +14,9 @@ using OpenNefia.Content.Guild;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Qualities;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.World;
@@ -65,6 +67,7 @@ namespace OpenNefia.Content.Shopkeeper
         void RestockShop(EntityUid shopkeeper, RoleShopkeeperComponent? shopkeeperComp = null);
 
         int CalcItemValue(EntityUid player, EntityUid item, ItemValueMode mode, bool isShop = false);
+        bool CanSellItemToShopkeeper(EntityUid player, EntityUid shopkeeper, EntityUid item);
     }
 
     [DataDefinition]
@@ -87,11 +90,7 @@ namespace OpenNefia.Content.Shopkeeper
 
     public sealed class ShopkeeperSystem : EntitySystem, IShopkeeperSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
@@ -103,6 +102,7 @@ namespace OpenNefia.Content.Shopkeeper
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IFoodSystem _food = default!;
 
         public override void Initialize()
         {
@@ -501,8 +501,7 @@ namespace OpenNefia.Content.Shopkeeper
                     value = Math.Max(value, valueLimit);
                     break;
                 case ItemValueMode.Sell:
-                    valueLimit = negotiation * 250 + 5000;
-                    value = Math.Max(value / 3, valueLimit);
+                    valueLimit = Math.Min(negotiation * 250 + 5000, value / 3);
                     value = (int)(value * (100.0 + negotiation * 5.0) / 1000.0);
                     if (HasComp<EquipmentComponent>(item))
                     {
@@ -539,6 +538,26 @@ namespace OpenNefia.Content.Shopkeeper
 
             return value;
             // <<<<<<<< shade2/calculation.hsp:670 	return value ..
+        }
+
+        public bool CanSellItemToShopkeeper(EntityUid player, EntityUid shopkeeper, EntityUid item)
+        {
+            if (HasComp<CargoComponent>(item))
+                return false;
+
+            if (!TryComp<ValueComponent>(item, out var value) || value.Value <= 1)
+                return false;
+
+            if (TryComp<ItemComponent>(item, out var itemComp) && itemComp.IsPrecious)
+                return false;
+
+            if (TryComp<FoodComponent>(item, out var food) && food.IsRotten)
+                return false;
+
+            if (TryComp<QualityComponent>(item, out var quality) && quality.Quality.Base == Quality.Unique)
+                return false;
+
+            return true;
         }
     }
 

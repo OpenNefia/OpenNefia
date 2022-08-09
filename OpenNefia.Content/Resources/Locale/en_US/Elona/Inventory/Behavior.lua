@@ -81,12 +81,26 @@ Elona.Inventory.Behavior = {
         WindowTitle = "Sell",
         QueryText = "What do you want to sell?",
 
-        YouSell = function(item)
-            return ("You sell %s."):format(_.name(item))
+        PromptConfirm = function(item, price)
+            return ("Do you really want to sell %s for %s gold pieces?"):format(_.name(item), price)
         end,
-        YouSellStolen = function(item)
-            return ("You sell %s.(Stolen item sold) "):format(_.name(item))
+        NotEnoughMoney = function(shopkeeper)
+            return ("%s checks %s wallet and shake%s %s head."):format(
+                _.name(shopkeeper),
+                _.his(shopkeeper),
+                _.s(shopkeeper),
+                _.his(shopkeeper)
+            )
         end,
+        ShopkeepersInventoryIsFull = "Shopkeeper's inventory is full.",
+        YouSell = {
+            Normal = function(item)
+                return ("You sell %s."):format(_.name(item))
+            end,
+            Stolen = function(item)
+                return ("You sell %s.(Stolen item sold) "):format(_.name(item))
+            end,
+        },
     },
 
     Use = {

@@ -39,6 +39,7 @@ namespace OpenNefia.Content.Inventory
         public virtual bool AllowSpecialOwned => false;
         public virtual LocaleKey? QueryAmountPrompt => null;
         public virtual bool ApplyNameModifiers => true;
+        public virtual bool ExitAfterSelectionIfEmpty => false;
 
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);
