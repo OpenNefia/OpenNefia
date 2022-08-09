@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Tests.Areas
   parent: BaseItem
   components:
   - type: Food
-    spoilTimeHours: 24
+    spoilageInterval: 24:00:00
     foodType: Elona.Meat
     foodQuality: 5
   - type: Item
