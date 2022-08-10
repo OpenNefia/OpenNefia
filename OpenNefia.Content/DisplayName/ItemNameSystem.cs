@@ -8,6 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Activity;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.DisplayName
 {
