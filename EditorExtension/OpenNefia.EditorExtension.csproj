@@ -107,7 +107,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="Commands\InsertDependencyCommandPackage.vsct">
+    <VSCTCompile Include="OpenNefiaEditorExtensionCommandPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
   </ItemGroup>

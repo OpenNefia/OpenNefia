@@ -22,7 +22,7 @@
 
   <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-  <Commands package="guidInsertDependencyCommandPackage">
+  <Commands package="guidOpenNefiaEditorExtensionPackage">
     <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -36,7 +36,7 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidInsertDependencyCommandPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidOpenNefiaEditorExtensionPackageCmdSet" id="idOpenNefiaEditorExtensionMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
     </Groups>
@@ -52,11 +52,11 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidInsertDependencyCommandPackageCmdSet" id="InsertDependencyCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidInsertDependencyCommandPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="guidOpenNefiaEditorExtensionPackageCmdSet" id="idInsertDependencyCommand" priority="0x0100" type="Button">
+        <Parent guid="guidOpenNefiaEditorExtensionPackageCmdSet" id="idOpenNefiaEditorExtensionMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke InsertDependencyCommand</ButtonText>
+          <ButtonText>Insert Dependency...</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -68,18 +68,18 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="..\Resources\InsertDependencyCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\InsertDependencyCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
     </Bitmaps>
   </Commands>
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidInsertDependencyCommandPackage" value="{7998893b-36dc-43f7-89b1-f1cac24256cd}" />
+    <GuidSymbol name="guidOpenNefiaEditorExtensionPackage" value="{7998893b-36dc-43f7-89b1-f1cac24256cd}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidInsertDependencyCommandPackageCmdSet" value="{ff861f2c-6ee8-44e0-801d-1cb1a705f8e3}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="InsertDependencyCommandId" value="0x0100" />
+    <GuidSymbol name="guidOpenNefiaEditorExtensionPackageCmdSet" value="{ff861f2c-6ee8-44e0-801d-1cb1a705f8e3}">
+      <IDSymbol name="idOpenNefiaEditorExtensionMenuGroup" value="0x1020" />
+      <IDSymbol name="idInsertDependencyCommand" value="0x0100" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{571e83c9-e341-4263-877d-1dcac1113538}" >

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static OpenNefia.EditorExtension.InsertDependencyCommandPackage;
 
-namespace OpenNefia.EditorExtension
+namespace OpenNefia.EditorExtension 
 {
     public static class InsertDependencyUtility
     {
@@ -17,20 +17,20 @@ namespace OpenNefia.EditorExtension
 
         public static string GetDefaultPropertyNameForType(string shortName)
         {
-            var match = ManagerRegex.Match(shortName);
+            var match = EntitySystemRegex.Match(shortName);
             if (match.Success)
             {
-                return "_" + match.Groups[2].Value.FirstCharToLowerCase();
+                // ISkillSystem -> _skills
+                var noun = match.Groups[2].Value.FirstCharToLowerCase();
+                return $"_{noun.Pluralize()}";
             }
 
-            foreach (var regex in new Regex[] { EntitySystemRegex, GeneralTypeRegex })
+            foreach (var regex in new Regex[] { ManagerRegex, GeneralTypeRegex })
             {
                 match = regex.Match(shortName);
                 if (match.Success)
                 {
-                    // ISkillSystem -> _skills
-                    var noun = match.Groups[2].Value.FirstCharToLowerCase();
-                    return $"_{noun.Pluralize()}";
+                    return "_" + match.Groups[2].Value.FirstCharToLowerCase();
                 }
             }
 
