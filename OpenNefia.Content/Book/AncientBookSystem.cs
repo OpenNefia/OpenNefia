@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
@@ -28,7 +30,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.Book
 {
     public interface IAncientBookSystem : IEntitySystem
     {
@@ -47,22 +49,44 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         public override void Initialize()
         {
-            SubscribeComponent<AncientBookComponent, EntityBeingGeneratedEvent>(HandleBeingGenerated);
-            SubscribeComponent<AncientBookComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeComponent<AncientBookComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_AncientBook);
+            SubscribeComponent<AncientBookComponent, EntityBeingGeneratedEvent>(BeingGenerated_AncientBook);
+            SubscribeComponent<AncientBookComponent, GetVerbsEventArgs>(GetVerbs_AncientBook);
         }
 
         public const int MaxAncientBookLevel = 14;
 
-        private void HandleBeingGenerated(EntityUid uid, AncientBookComponent component, ref EntityBeingGeneratedEvent args)
+        private void BeingGenerated_AncientBook(EntityUid uid, AncientBookComponent component, ref EntityBeingGeneratedEvent args)
         {
             // >>>>>>>> elona122/shade2/item.hsp:671 		iParam1(ci)=rnd(rnd(limit(objLv/2,1,maxMageBook) ...
             component.DecodeDifficulty = _rand.Next(_rand.Next(Math.Clamp(args.CommonArgs.MinLevel / 2, 1, MaxAncientBookLevel)) + 1);
             // <<<<<<<< elona122/shade2/item.hsp:671 		iParam1(ci)=rnd(rnd(limit(objLv/2,1,maxMageBook) ...
         }
 
-        private void HandleGetVerbs(EntityUid uid, AncientBookComponent component, GetVerbsEventArgs args)
+        private void LocalizeExtra_AncientBook(EntityUid uid, AncientBookComponent component, ref LocalizeItemNameExtraEvent args)
         {
-            args.Verbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Ancient Book", () => ReadAncientBook(args.Source, args.Target)));
+            var identify = CompOrNull<IdentifyComponent>(uid)?.IdentifyState ?? IdentifyState.None;
+            if (identify >= IdentifyState.Full)
+            {
+                var title = Loc.GetString($"Elona.Read.AncientBook.ItemName.Titles.{component.DecodeDifficulty}");
+                var s = Loc.GetString($"Elona.Read.AncientBook.ItemName.Title",
+                    ("name", args.OutFullName.ToString()),
+                    ("title", title));
+                args.OutFullName = new StringBuilder(s);
+            }
+            if (component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Decoded", out var s, ("name", args.OutFullName.ToString())))
+            {
+                args.OutFullName = new StringBuilder(s);
+            }
+            else if (!component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Undecoded", out s, ("name", args.OutFullName.ToString())))
+            {
+                args.OutFullName = new StringBuilder(s);
+            }
+        }
+
+        private void GetVerbs_AncientBook(EntityUid uid, AncientBookComponent component, GetVerbsEventArgs args)
+        {
+            args.OutVerbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Ancient Book", () => ReadAncientBook(args.Source, args.Target)));
         }
 
         public int GetDecodeDifficulty(EntityUid uid, AncientBookComponent? ancientBook = null)

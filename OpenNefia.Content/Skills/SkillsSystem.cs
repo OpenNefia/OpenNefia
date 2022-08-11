@@ -50,11 +50,12 @@ namespace OpenNefia.Content.Skills
         IEnumerable<SkillPrototype> EnumerateWeaponProficiencies();
 
         SkillPrototype PickRandomBaseAttribute();
+        SkillPrototype PickRandomRegularSkill();
 
         #endregion
 
         #region Leveling (Shared)
-        
+
         void GainSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
         
         void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);

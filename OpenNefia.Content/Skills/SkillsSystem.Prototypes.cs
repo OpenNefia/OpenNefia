@@ -52,5 +52,10 @@ namespace OpenNefia.Content.Skills
         {
             return _rand.Pick(EnumerateBaseAttributes().ToList());
         }
+
+        public SkillPrototype PickRandomRegularSkill()
+        {
+            return _rand.Pick(EnumerateRegularSkills().ToList());
+        }
     }
 }

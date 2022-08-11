@@ -24,12 +24,12 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.Book
 {
     public interface ISpellbookSystem : IEntitySystem
     {
         public SpellbookReserveStates SpellbookReserveStates { get; }
-        
+
         bool ProcSpellbookSuccess(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
         void FailToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
 
@@ -46,7 +46,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
     }
 
     [DataDefinition]
-    public sealed class SpellbookReserveStates : Dictionary<PrototypeId<EntityPrototype>, SpellbookReserveState> {}
+    public sealed class SpellbookReserveStates : Dictionary<PrototypeId<EntityPrototype>, SpellbookReserveState> { }
 
     public sealed class SpellbookSystem : EntitySystem, ISpellbookSystem
     {
@@ -66,18 +66,18 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        
+
         [RegisterSaveData("Elona.SpellbookSystem.ReservedStates")]
         public SpellbookReserveStates SpellbookReserveStates { get; } = new();
 
         public override void Initialize()
         {
-            SubscribeComponent<SpellbookComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeComponent<SpellbookComponent, GetVerbsEventArgs>(GetVerbs_Spellbook);
         }
 
-        private void HandleGetVerbs(EntityUid uid, SpellbookComponent component, GetVerbsEventArgs args)
+        private void GetVerbs_Spellbook(EntityUid uid, SpellbookComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Spellbook", () => ReadSpellbook(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Spellbook", () => ReadSpellbook(args.Source, args.Target)));
         }
 
         private TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook)
@@ -95,7 +95,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
             var activity = EntityManager.SpawnEntity(Protos.Activity.ReadingSpellbook, MapCoordinates.Global);
             Comp<ActivityReadingSpellbookComponent>(activity).Spellbook = split;
             _activities.StartActivity(reader, activity, turns);
-            
+
             return TurnResult.Succeeded;
         }
 

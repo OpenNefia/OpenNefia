@@ -32,14 +32,14 @@ namespace OpenNefia.Content.GameObjects
             switch (component.Direction)
             {
                 case StairsDirection.Up:
-                    args.Verbs.Add(new Verb(VerbTypeAscend, "Ascend Stairs", () => UseStairs(args.Source, args.Target)));
+                    args.OutVerbs.Add(new Verb(VerbTypeAscend, "Ascend Stairs", () => UseStairs(args.Source, args.Target)));
                     break;
                 case StairsDirection.Down:
-                    args.Verbs.Add(new Verb(VerbTypeDescend, "Descend Stairs", () => UseStairs(args.Source, args.Target)));
+                    args.OutVerbs.Add(new Verb(VerbTypeDescend, "Descend Stairs", () => UseStairs(args.Source, args.Target)));
                     break;
             }
 
-            args.Verbs.Add(new Verb(VerbTypeActivate, "Use Stairs", () => UseStairs(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(VerbTypeActivate, "Use Stairs", () => UseStairs(args.Source, args.Target)));
         }
 
         private TurnResult UseStairs(EntityUid user, EntityUid entrance,

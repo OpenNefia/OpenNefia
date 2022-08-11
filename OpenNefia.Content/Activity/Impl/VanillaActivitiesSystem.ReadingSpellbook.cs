@@ -11,10 +11,10 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Skills;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Book;
 
 namespace OpenNefia.Content.Activity
 {

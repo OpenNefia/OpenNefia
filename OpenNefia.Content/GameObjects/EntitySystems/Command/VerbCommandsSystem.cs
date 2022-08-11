@@ -8,7 +8,6 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;

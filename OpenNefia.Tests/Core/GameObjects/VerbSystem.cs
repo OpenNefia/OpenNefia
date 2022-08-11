@@ -84,12 +84,12 @@ namespace OpenNefia.Tests.Core.GameObjects
             private void HandleGetVerbs(EntityUid uid, TestVerbComponent component, GetVerbsEventArgs args)
             {
                 // Sorting should be in alphabetical order by type then name.
-                args.Verbs.Add(new Verb("Test", "Z Test Verb", () =>
+                args.OutVerbs.Add(new Verb("Test", "Z Test Verb", () =>
                 {
                     return TurnResult.Failed;
                 }));
 
-                args.Verbs.Add(new Verb("Test", "Test Verb", () =>
+                args.OutVerbs.Add(new Verb("Test", "Test Verb", () =>
                 {
                     VerbsCalled++;
                     return TurnResult.Succeeded;

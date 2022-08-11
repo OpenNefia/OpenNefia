@@ -179,9 +179,8 @@ namespace OpenNefia.Content.DisplayName
 
             if (TryComp<RandomItemComponent>(uid, out var randomItem))
             {
-                seed ??= _world.State.RandomSeed;
                 var name = Loc.GetString($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Name");
-                var index = _randomItems.GetRandomEntityIndex(uid);
+                var index = _randomItems.GetRandomEntityIndex(uid, seed);
                 var adjective = "???";
 
                 if (Loc.TryGetTable($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Adjectives", out var adjectives))

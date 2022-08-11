@@ -34,7 +34,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (component.IsOpen)
             {
-                args.Verbs.Add(new Verb(VerbTypeClose, "Close Door", () => DoClose(args.Source, args.Target)));
+                args.OutVerbs.Add(new Verb(VerbTypeClose, "Close Door", () => DoClose(args.Source, args.Target)));
             }
         }
 

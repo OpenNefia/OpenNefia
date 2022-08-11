@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Items
 {
-    public interface IShopkeepersTrunkSystem : IEntitySystem
+    public interface ITemporalSystem : IEntitySystem
     {
     }
 
-    public sealed class ShopkeepersTrunkSystem : EntitySystem, IShopkeepersTrunkSystem
+    public sealed class TemporalSystem : EntitySystem, ITemporalSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
@@ -29,10 +29,10 @@ namespace OpenNefia.Content.Items
 
         public override void Initialize()
         {
-            SubscribeComponent<ShopkeepersTrunkComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_ShopkeepersTrunk);
+            SubscribeComponent<TemporalComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_ShopkeepersTrunk);
         }
 
-        private void LocalizeExtra_ShopkeepersTrunk(EntityUid uid, ShopkeepersTrunkComponent component, ref LocalizeItemNameExtraEvent args)
+        private void LocalizeExtra_ShopkeepersTrunk(EntityUid uid, TemporalComponent component, ref LocalizeItemNameExtraEvent args)
         {
             args.OutFullName.Append(Loc.GetString("Elona.Chest.ItemName.Temporal"));
         }

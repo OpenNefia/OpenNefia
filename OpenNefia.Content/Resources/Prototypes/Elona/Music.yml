@@ -3,6 +3,9 @@
   hspIds:
     elona122: 50
   filepath: /Sound/Elona/gm_on.mid
+  extendedData:
+  - type: Items.Impl.ExtMusicDisc
+    canAppearInMusicDiscs: false
 
 - type: Music
   id: Elona.Town1

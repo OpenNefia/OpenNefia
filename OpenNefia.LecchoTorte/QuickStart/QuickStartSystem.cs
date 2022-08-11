@@ -16,6 +16,8 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.Food;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Currency;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Items.Impl;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -76,6 +78,13 @@ namespace OpenNefia.LecchoTorte.QuickStart
             {
                 if (proto.Components.HasComponent<FoodComponent>())
                     _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
+            }
+
+            foreach (var proto in _protoMan.EnumeratePrototypes<MusicPrototype>())
+            {
+                var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
+                if (IsAlive(item))
+                    Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
             }
         }
     }

@@ -1,10 +1,9 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Identify;
 using OpenNefia.Core.IoC;
-using OpenNefia.Content.GameObjects.EntitySystems;
+using OpenNefia.Content.Book;
 
 namespace OpenNefia.Content.Activity
 {

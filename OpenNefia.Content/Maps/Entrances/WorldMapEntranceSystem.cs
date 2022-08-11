@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Maps
 
         private void HandleGetVerbs(EntityUid uid, WorldMapEntranceComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Area", () => UseWorldMapEntrance(args.Target, args.Source)));
+            args.OutVerbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Area", () => UseWorldMapEntrance(args.Target, args.Source)));
         }
 
         private TurnResult UseWorldMapEntrance(EntityUid entrance, EntityUid user,

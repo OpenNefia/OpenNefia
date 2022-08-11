@@ -1,23 +1,19 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Items
+namespace OpenNefia.Content.Book
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class UseIntervalComponent : Component
+    public sealed class BookOfRachelComponent : Component
     {
-        public override string Name => "UseInterval";
+        public override string Name => "BookOfRachel";
 
         [DataField]
-        public GameTimeSpan UseInterval { get; set; }
-
-        [DataField]
-        public GameDateTime DateNextUseableOn { get; set; }
+        public int BookOfRachelNumber { get; set; } = 0;
     }
 }
