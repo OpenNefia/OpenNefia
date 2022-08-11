@@ -1,0 +1,44 @@
+---
+- type: Elona.Bait
+  id: Elona.WaterFlea
+  hspIds:
+    elona122: 0
+  chipID: Elona.ItemBaitWaterFlea
+  rank: 0
+  value: 200
+- type: Elona.Bait
+  id: Elona.Grasshopper
+  hspIds:
+    elona122: 1
+  chipID: Elona.ItemBaitGrasshopper
+  rank: 1
+  value: 700
+- type: Elona.Bait
+  id: Elona.Ladybug
+  hspIds:
+    elona122: 2
+  chipID: Elona.ItemBaitLadybug
+  rank: 2
+  value: 2200
+- type: Elona.Bait
+  id: Elona.Dragonfly
+  hspIds:
+    elona122: 3
+  chipID: Elona.ItemBaitDragonfly
+  rank: 3
+  value: 4700
+- type: Elona.Bait
+  id: Elona.Locust
+  hspIds:
+    elona122: 4
+  chipID: Elona.ItemBaitLocust
+  rank: 4
+  value: 8200
+- type: Elona.Bait
+  id: Elona.Beetle
+  hspIds:
+    elona122: 5
+  chipID: Elona.ItemBaitBeetle
+  rank: 5
+  value: 12700
+...

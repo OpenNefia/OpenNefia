@@ -12,10 +12,10 @@ using static ICSharpCode.Decompiler.TypeSystem.ReflectionHelper;
 using NuGet.Packaging;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Memory;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using ICSharpCode.Decompiler.CSharp.Syntax;
 using System.Data;
 using System;
+using OpenNefia.Content.Book;
 
 namespace OpenNefia.Content.Shopkeeper
 {

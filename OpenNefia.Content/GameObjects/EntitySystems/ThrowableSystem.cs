@@ -55,7 +55,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbTypeThrow, "Throw Entity", () => Throw(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(VerbTypeThrow, "Throw Entity", () => Throw(args.Source, args.Target)));
         }
 
         private TurnResult Throw(EntityUid thrower, EntityUid item)

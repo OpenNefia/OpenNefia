@@ -93,7 +93,7 @@ namespace OpenNefia.Content.Food
 
         private void HandleGetVerbs(EntityUid uid, FoodComponent food, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbTypeEat, "Eat Food", () => DoEat(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(VerbTypeEat, "Eat Food", () => DoEat(args.Source, args.Target)));
         }
 
         private void HandleGenerated(EntityUid uid, FoodComponent foodComp, ref EntityBeingGeneratedEvent args)

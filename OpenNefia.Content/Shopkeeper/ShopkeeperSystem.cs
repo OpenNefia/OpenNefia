@@ -20,6 +20,7 @@ using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Book;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;

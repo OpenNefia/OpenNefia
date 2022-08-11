@@ -122,7 +122,7 @@ local function enum(enumClass)
     end
 end
 
-local function dateTime(hours, minutes, seconds)
+local function timeSpan(hours, minutes, seconds)
     hours = hours or 0
     minutes = minutes or 0
     seconds = seconds or 0
@@ -558,7 +558,7 @@ handlers["base.item"] = function(from, to)
                 })
             end
         end
-        field(food, c, "spoilage_hours", dateTime, "spoilageInterval")
+        field(food, c, "spoilage_hours", timeSpan, "spoilageInterval")
     end
 
     if from.params and from.params.bed_quality then
@@ -608,6 +608,47 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "CurseState")
         c.curseState = "Normal"
         c.noRandomizeCurseState = true
+    end
+
+    if from._id == "elona.book_of_rachel" then
+        c = comp(to, "BookOfRachel")
+    end
+
+    if from._id == "elona.bill" then
+        c = comp(to, "Bill")
+    end
+
+    if from._id == "elona.wallet" or from._id == "elona.suitcase" then
+        c = comp(to, "LostProperty")
+    end
+
+    if from._id == "elona.shopkeepers_trunk" then
+        c = comp(to, "Temporal")
+    end
+
+    if from._id == "elona.shelter" then
+        c = comp(to, "Shelter")
+    end
+
+    if from._id == "elona.material_kit" then
+        c = comp(to, "MaterialKit")
+    end
+
+    if from._id == "elona.book" then
+        c = comp(to, "Book")
+    end
+
+    if from._id == "elona.textbook" then
+        c = comp(to, "Textbook")
+    end
+
+    if from._id == "elona.disc" then
+        c = comp(to, "MusicDisc")
+    end
+
+    if from.cooldown_hours then
+        c = comp(to, "UseInterval")
+        c.useInterval = timeSpan(from.cooldown_hours)
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]
@@ -1153,12 +1194,24 @@ handlers["elona.fish"] = function(from, to)
     end, "itemID")
 end
 
+handlers["elona.bait"] = function(from, to)
+    field(from, to, "image", dotted, "chipID")
+    field(from, to, "rank")
+    field(from, to, "value")
+end
+
 handlers["elona.home"] = function(from, to)
     to.mapBlueprint = "TODO"
     field(from, to, "image", nil, "areaEntranceChip")
     field(from, to, "value")
     field(from, to, "home_scale")
     event(from, to, "on_generate", "Home", "VanillaHomesSystem", "OnGenerated")
+end
+
+handlers["elona.book"] = function(from, to)
+    field(from, to, "no_generate", function(i)
+        return not i
+    end, "generateRandomly")
 end
 
 local function sort(a, b)
@@ -1453,7 +1506,9 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("elona.random_event", "RandomEvent.yml", "OpenNefia.Content.RandomEvent.RandomEventPrototype")
 -- write("elona.guild", "Guild.yml", "OpenNefia.Content.Guild.GuildPrototype")
 -- write("elona.fish", "Fish.yml", "OpenNefia.Content.Fishing.FishPrototype")
-write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
+write("elona.bait", "Bait.yml", "OpenNefia.Content.Fishing.BaitPrototype")
+-- write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
+write("elona.book", "Book.yml", "OpenNefia.Content.Book.BookPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)
@@ -1464,12 +1519,3 @@ write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
 -- Local Variables:
 -- open-nefia-always-send-to-repl: t
 -- End:
-
-data["base.item"]
-    :iter()
-    :filter(function(i)
-        return i.has_random_name and i.random_color ~= "Random"
-    end)
-    :each(function(i)
-        print(i._id)
-    end)

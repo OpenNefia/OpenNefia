@@ -25,7 +25,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid uid, WorldMapFieldsComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Field", () => EnterField(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(StairsSystem.VerbTypeActivate, "Enter Field", () => EnterField(args.Source, args.Target)));
         }
 
         public PrototypeId<FieldTypePrototype> GetFieldMapFromStoodTile(PrototypeId<TilePrototype> stoodTile)

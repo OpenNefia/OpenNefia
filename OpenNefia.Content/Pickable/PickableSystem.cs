@@ -58,9 +58,9 @@ namespace OpenNefia.Content.Pickable
             if (EntityManager.HasComponent<InventoryComponent>(args.Source))
             {
                 if (_containerSystem.ContainsEntity(args.Source, uid))
-                    args.Verbs.Add(new Verb(VerbTypeDrop, "Drop Item", () => Drop(args.Source, args.Target)));
+                    args.OutVerbs.Add(new Verb(VerbTypeDrop, "Drop Item", () => Drop(args.Source, args.Target)));
                 else
-                    args.Verbs.Add(new Verb(VerbTypePickUp, "Pick Up Item", () => PickUp(args.Source, args.Target)));
+                    args.OutVerbs.Add(new Verb(VerbTypePickUp, "Pick Up Item", () => PickUp(args.Source, args.Target)));
             }
         }
 

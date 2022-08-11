@@ -5,18 +5,15 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Book
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class AncientBookComponent : Component
+    public sealed class BookComponent : Component
     {
-        public override string Name => "AncientBook";
+        public override string Name => "Book";
 
         [DataField]
-        public int DecodeDifficulty { get; set; }
-
-        [DataField]
-        public bool IsDecoded { get; set; }
+        public PrototypeId<BookPrototype> BookID { get; set; }
     }
 }

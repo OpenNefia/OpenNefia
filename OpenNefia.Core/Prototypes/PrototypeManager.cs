@@ -94,6 +94,16 @@ namespace OpenNefia.Core.Prototypes
         TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>;
+        
+        /// <summary>
+        /// Index for a <see cref="IPrototype"/>'s extended data.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">
+        /// Thrown if the type of prototype is not registered.
+        /// </exception>
+        TExt GetExtendedData<TProto, TExt>(TProto proto)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>;
 
         /// <summary>
         /// Index for a <see cref="IPrototype"/>'s extended data.
@@ -106,8 +116,14 @@ namespace OpenNefia.Core.Prototypes
         bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>;
+        bool HasExtendedData<TProto, TExt>(TProto proto)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>;
         bool HasExtendedData(Type protoType, Type extType, string id);
         bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>;
+        bool TryGetExtendedData<TProto, TExt>(TProto proto, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>;
         bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out IPrototypeExtendedData? data);
@@ -1131,6 +1147,17 @@ namespace OpenNefia.Core.Prototypes
         }
 
         /// <inheritdoc />
+        public TExt GetExtendedData<TProto, TExt>(TProto proto)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>
+        {
+            if (!TryGetExtendedData<TProto, TExt>(proto, out var data))
+                throw new KeyNotFoundException($"Extended data {typeof(TExt)} for {typeof(TProto)}:{id} not found.");
+
+            return data;
+        }
+
+        /// <inheritdoc />
         public IPrototypeExtendedData GetExtendedData(Type protoType, Type extType, string id)
         {
             if (!TryGetExtendedData(protoType, extType, id, out var data))
@@ -1145,6 +1172,14 @@ namespace OpenNefia.Core.Prototypes
             where TExt : class, IPrototypeExtendedData<TProto>
         {
             return HasExtendedData(typeof(TProto), typeof(TExt), (string)id);
+        }
+
+        /// <inheritdoc />
+        public bool HasExtendedData<TProto, TExt>(TProto proto)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>
+        {
+            return HasExtendedData(typeof(TProto), typeof(TExt), proto.ID);
         }
 
         /// <inheritdoc />
@@ -1165,6 +1200,20 @@ namespace OpenNefia.Core.Prototypes
             where TExt : class, IPrototypeExtendedData<TProto>
         {
             if (!TryGetExtendedData(typeof(TProto), typeof(TExt), (string)id, out var obj))
+            {
+                data = null;
+                return false;
+            }
+
+            data = (TExt)obj;
+            return true;
+        }
+        
+        public bool TryGetExtendedData<TProto, TExt>(TProto proto, [NotNullWhen(true)] out TExt? data)
+            where TProto : class, IPrototype
+            where TExt : class, IPrototypeExtendedData<TProto>
+        {
+            if (!TryGetExtendedData(typeof(TProto), typeof(TExt), proto.ID, out var obj))
             {
                 data = null;
                 return false;

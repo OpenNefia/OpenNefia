@@ -1,23 +1,20 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.World;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Items
+namespace OpenNefia.Content.Items.Impl
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class UseIntervalComponent : Component
+    public sealed class MusicDiscComponent : Component
     {
-        public override string Name => "UseInterval";
+        public override string Name => "MusicDisc";
 
         [DataField]
-        public GameTimeSpan UseInterval { get; set; }
-
-        [DataField]
-        public GameDateTime DateNextUseableOn { get; set; }
+        public PrototypeId<MusicPrototype> MusicID { get; set; }
     }
 }

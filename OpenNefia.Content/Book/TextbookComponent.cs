@@ -1,23 +1,20 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.World;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Items
+namespace OpenNefia.Content.Book
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class UseIntervalComponent : Component
+    public sealed class TextbookComponent : Component
     {
-        public override string Name => "UseInterval";
+        public override string Name => "Textbook";
 
         [DataField]
-        public GameTimeSpan UseInterval { get; set; }
-
-        [DataField]
-        public GameDateTime DateNextUseableOn { get; set; }
+        public PrototypeId<SkillPrototype> SkillID { get; set; }
     }
 }

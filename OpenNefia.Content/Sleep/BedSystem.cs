@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Sleep
 
         private void HandleGetVerbs(EntityUid uid, BedComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Bed", () => UseBed(args.Source, args.Target, component)));
+            args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Bed", () => UseBed(args.Source, args.Target, component)));
         }
 
         private TurnResult UseBed(EntityUid user, EntityUid bed, BedComponent? bedComp = null)

@@ -1,0 +1,69 @@
+---
+- type: Elona.Book
+  id: Elona.MyDiary
+  hspIds:
+    elona122: 0
+- type: Elona.Book
+  id: Elona.BeginnersGuide
+  hspIds:
+    elona122: 1
+  generateRandomly: false
+- type: Elona.Book
+  id: Elona.ItsABug
+  hspIds:
+    elona122: 2
+  generateRandomly: false
+- type: Elona.Book
+  id: Elona.DontReadThis
+  hspIds:
+    elona122: 3
+- type: Elona.Book
+  id: Elona.MuseumGuide
+  hspIds:
+    elona122: 4
+- type: Elona.Book
+  id: Elona.CrimberryAddict
+  hspIds:
+    elona122: 5
+- type: Elona.Book
+  id: Elona.CatsCradle
+  hspIds:
+    elona122: 6
+- type: Elona.Book
+  id: Elona.HerbEffect
+  hspIds:
+    elona122: 7
+- type: Elona.Book
+  id: Elona.ShopkeeperGuide
+  hspIds:
+    elona122: 8
+- type: Elona.Book
+  id: Elona.EasyGardening
+  hspIds:
+    elona122: 9
+- type: Elona.Book
+  id: Elona.Water
+  hspIds:
+    elona122: 10
+- type: Elona.Book
+  id: Elona.BreedersGuide
+  hspIds:
+    elona122: 11
+- type: Elona.Book
+  id: Elona.StrangeDiary
+  hspIds:
+    elona122: 12
+- type: Elona.Book
+  id: Elona.PyramidInvitation
+  hspIds:
+    elona122: 13
+  generateRandomly: false
+- type: Elona.Book
+  id: Elona.CardGameManual
+  hspIds:
+    elona122: 14
+- type: Elona.Book
+  id: Elona.DungeonGuide
+  hspIds:
+    elona122: 15
+...

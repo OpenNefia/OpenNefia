@@ -31,7 +31,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleGetVerbs(EntityUid potion, DrinkableComponent drinkableComp, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(VerbTypeDrink, "Drink Item", () => Drink(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(VerbTypeDrink, "Drink Item", () => Drink(args.Source, args.Target)));
         }
 
         private TurnResult Drink(EntityUid drinker, EntityUid target,

@@ -28,7 +28,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void HandleGetVerbs(EntityUid uid, InstrumentComponent component, GetVerbsEventArgs args)
         {
-            args.Verbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Perform", () => Perform(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Perform", () => Perform(args.Source, args.Target)));
         }
 
         private TurnResult Perform(EntityUid performer, EntityUid instrument)

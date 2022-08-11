@@ -1,5 +1,4 @@
 ﻿using NetVips;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -39,7 +38,7 @@ namespace OpenNefia.Core.GameObjects
 
             var getVerbsEvent = new GetVerbsEventArgs(source, target);
             RaiseEvent(target, getVerbsEvent);
-            verbs.AddRange(getVerbsEvent.Verbs);
+            verbs.AddRange(getVerbsEvent.OutVerbs);
 
             return verbs;
         }
@@ -87,7 +86,7 @@ namespace OpenNefia.Core.GameObjects
         /// This is a sorted set to be able to use Verb.IComparable,
         /// so that duplicate verbs cannot be added.
         /// </summary>
-        public readonly SortedSet<Verb> Verbs = new();
+        public readonly SortedSet<Verb> OutVerbs = new();
 
         public readonly EntityUid Source;
         public readonly EntityUid Target;

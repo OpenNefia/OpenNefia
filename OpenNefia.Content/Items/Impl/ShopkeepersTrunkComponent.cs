@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,14 +9,8 @@ namespace OpenNefia.Content.Items
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class UseIntervalComponent : Component
+    public sealed class TemporalComponent : Component
     {
-        public override string Name => "UseInterval";
-
-        [DataField]
-        public GameTimeSpan UseInterval { get; set; }
-
-        [DataField]
-        public GameDateTime DateNextUseableOn { get; set; }
+        public override string Name => "Temporal";
     }
 }

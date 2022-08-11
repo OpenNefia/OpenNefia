@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Core.Logic
+namespace OpenNefia.Core.GameObjects
 {
     public delegate TurnResult VerbAction();
 

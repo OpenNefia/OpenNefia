@@ -16,12 +16,13 @@ namespace OpenNefia.Content.Items
 
         /// <summary>
         /// A qualifier like "cargo", "dish", "potion", etc. for use in item names. Example: "a
-        /// [potion] of teleportation", where the name in the <see cref="MetaDataComponent"/> is
-        /// just "teleportation".
+        /// [potion] of teleportation", where the DisplayName in the <see cref="MetaDataComponent"/>
+        /// is just "teleportation".
         /// </summary>
         /// <remarks>
         /// The purpose of this field, instead of just setting the name to "potion of
-        /// teleportation", is to be able to display it like "3 [pair]s of rubynus boots."
+        /// teleportation", is to be able to display the item's name like "3 [pair]s of rubynus
+        /// boots."
         /// </remarks>
         [Localize]
         public string? ItemTypeName { get; private set; }

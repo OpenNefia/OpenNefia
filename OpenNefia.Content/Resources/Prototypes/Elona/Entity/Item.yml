@@ -7024,6 +7024,7 @@
   - type: Item
   - type: Weight
     weight: 1200
+  - type: LostProperty
 - type: Entity
   id: Elona.ItemWallet
   parent: BaseItem
@@ -7049,6 +7050,7 @@
   - type: Item
   - type: Weight
     weight: 250
+  - type: LostProperty
 - type: Entity
   id: Elona.ItemPotionOfRestoreBody
   parent: BaseItem
@@ -9001,6 +9003,7 @@
   - type: Item
   - type: Weight
     weight: 1200
+  - type: Temporal
 - type: Entity
   id: Elona.ItemScrollOfGreaterIdentify
   parent: BaseItem
@@ -14218,6 +14221,7 @@
   - type: Item
   - type: Weight
     weight: 12500
+  - type: Shelter
 - type: Entity
   id: Elona.ItemSevenLeagueBoots
   parent: BaseItem
@@ -15708,6 +15712,7 @@
   - type: CurseState
     curseState: Normal
     noRandomizeCurseState: true
+  - type: Bill
 - type: Entity
   id: Elona.ItemTaxMastersTaxBox
   parent: BaseItem
@@ -16141,6 +16146,7 @@
   - type: Item
   - type: Weight
     weight: 5000
+  - type: MaterialKit
 - type: Entity
   id: Elona.ItemMoonGate
   parent: BaseItem
@@ -17076,6 +17082,8 @@
     isPrecious: true
   - type: Weight
     weight: 15000
+  - type: UseInterval
+    useInterval: '240:00:00'
 - type: Entity
   id: Elona.ItemStatueOfLulwy
   parent: BaseItem
@@ -17105,6 +17113,8 @@
     isPrecious: true
   - type: Weight
     weight: 14000
+  - type: UseInterval
+    useInterval: '120:00:00'
 - type: Entity
   id: Elona.ItemSistersLoveFueledLunch
   parent: BaseItem
@@ -17156,6 +17166,7 @@
   - type: Item
   - type: Weight
     weight: 80
+  - type: BookOfRachel
 - type: Entity
   id: Elona.ItemCargoArt
   parent: BaseItem
@@ -17631,6 +17642,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '12:00:00'
 - type: Entity
   id: Elona.ItemJuresGemStoneOfHolyRain
   parent: BaseItem
@@ -17661,6 +17674,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '08:00:00'
 - type: Entity
   id: Elona.ItemKumiromisGemStoneOfRejuvenation
   parent: BaseItem
@@ -17691,6 +17706,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '72:00:00'
 - type: Entity
   id: Elona.ItemGemStoneOfMani
   parent: BaseItem
@@ -17721,6 +17738,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '24:00:00'
 - type: Entity
   id: Elona.ItemGeneMachine
   parent: BaseItem
@@ -17798,6 +17817,8 @@
     isPrecious: true
   - type: Weight
     weight: 12000
+  - type: UseInterval
+    useInterval: '720:00:00'
 - type: Entity
   id: Elona.ItemAncientBook
   parent: BaseItem
@@ -18880,6 +18901,8 @@
     isPrecious: true
   - type: Weight
     weight: 12000
+  - type: UseInterval
+    useInterval: '480:00:00'
 - type: Entity
   id: Elona.ItemArbalest
   parent: BaseItem
@@ -19646,6 +19669,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '24:00:00'
 - type: Entity
   id: Elona.ItemSchrodingersCat
   parent: BaseItem
@@ -19674,6 +19699,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '24:00:00'
 - type: Entity
   id: Elona.ItemHeart
   parent: BaseItem
@@ -19702,6 +19729,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '24:00:00'
 - type: Entity
   id: Elona.ItemTamersWhip
   parent: BaseItem
@@ -19730,6 +19759,8 @@
     isPrecious: true
   - type: Weight
     weight: 1200
+  - type: UseInterval
+    useInterval: '24:00:00'
 - type: Entity
   id: Elona.ItemBookOfBokonon
   parent: BaseItem
@@ -20568,6 +20599,8 @@
     isPrecious: true
   - type: Weight
     weight: 15000
+  - type: UseInterval
+    useInterval: '240:00:00'
 - type: Entity
   id: Elona.ItemStatueOfMani
   parent: BaseItem
@@ -20597,6 +20630,8 @@
     isPrecious: true
   - type: Weight
     weight: 15000
+  - type: UseInterval
+    useInterval: '240:00:00'
 - type: Entity
   id: Elona.ItemLuxurySofa
   parent: BaseItem

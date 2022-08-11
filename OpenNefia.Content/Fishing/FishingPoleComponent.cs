@@ -1,20 +1,22 @@
 ﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Spells;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Fishing
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class SpellbookComponent : Component
+    public sealed class FishingPoleComponent : Component
     {
-        public override string Name => "Spellbook";
+        public override string Name => "FishingPole";
 
         [DataField]
-        public PrototypeId<SpellPrototype> SpellID { get; set; }
+        public PrototypeId<BaitPrototype>? BaitID { get; set; }
+
+        [DataField]
+        public int BaitAmount { get; set; }
     }
 }
