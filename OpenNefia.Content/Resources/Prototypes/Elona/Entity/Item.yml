@@ -658,6 +658,7 @@
   - type: Item
   - type: Weight
     weight: 80
+  - type: Book
 - type: Entity
   id: Elona.ItemBuggedBook
   parent: BaseItem
@@ -13915,6 +13916,7 @@
     randomColor: Furniture
   - type: Weight
     weight: 500
+  - type: MusicDisc
 - type: Entity
   id: Elona.ItemRodOfWallCreation
   parent: BaseItem
@@ -14448,6 +14450,7 @@
   - type: Item
   - type: Weight
     weight: 80
+  - type: Textbook
 - type: Entity
   id: Elona.ItemSpellbookOfAcidGround
   parent: BaseItem
@@ -14831,6 +14834,8 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: MoneyBox
+  - type: Throwable
 - type: Entity
   id: Elona.ItemFreezer
   parent: BaseItem
@@ -17788,6 +17793,9 @@
   - type: Item
   - type: Weight
     weight: 1400
+  - type: MonsterBall
+  - type: Throwable
+    splitAmount: 1
 - type: Entity
   id: Elona.ItemStatueOfJure
   parent: BaseItem

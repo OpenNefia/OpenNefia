@@ -1,7 +1,7 @@
 Elona.Salary = {
     ItemName = {
-        Bill = function(gold)
-            return ("%sgoldの"):format(gold)
+        Bill = function(amount)
+            return ("<%s gp>"):format(amount)
         end,
     },
 }

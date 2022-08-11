@@ -235,8 +235,6 @@ namespace OpenNefia.Content.TitleScreen
             _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
             QueryFieldLayer();
-
-            _saveGameManager.CurrentSave = null;
         }
 
         private void LoadGame(ISaveGameHandle saveGame)

@@ -21,13 +21,13 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         public PrototypeId(string id)
         {
-            _id = id;
+            _id = id ?? "";
         }
 
         [Pure]
         public bool IsValid()
         {
-            return _id != string.Empty;
+            return _id != null && _id != string.Empty;
         }
 
         /// <inheritdoc />

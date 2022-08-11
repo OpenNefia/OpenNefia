@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Items.Impl
             if (component.GoldIncrement <= 0)
             {
                 var count = MoneyBoxIncrements.Length;
-                component.GoldIncrement = MoneyBoxIncrements[_rand.Next(_rand.Next(count) + 1) + 1];
+                component.GoldIncrement = MoneyBoxIncrements[_rand.Next(_rand.Next(count) + 1)];
             }
 
             int index = MoneyBoxIncrements.Length - 1;
