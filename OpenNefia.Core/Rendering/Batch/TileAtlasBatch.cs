@@ -87,6 +87,7 @@ namespace OpenNefia.Core.Rendering
         public void Flush() => _batch.Flush();
 
         public Vector2i GetTileSize(TileSpecifier spec) => _atlas.GetTileSize(spec);
+        public Vector2i GetTileSize(string tileId) => _atlas.GetTileSize(tileId);
 
         public void Clear()
         {

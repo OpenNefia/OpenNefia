@@ -3,6 +3,7 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -37,8 +38,14 @@ namespace OpenNefia.Content.World
 
         public override void Initialize()
         {
+            SubscribeBroadcast<NewGameStartedEventArgs>(InitializeState);
             SubscribeEntity<CheckKillEvent>(IncrementTotalKills);
             SubscribeEntity<MapOnTimePassedEvent>(UpdateAwakeHours, priority: EventPriorities.Low);
+        }
+
+        private void InitializeState(NewGameStartedEventArgs ev)
+        {
+            State.RandomSeed = _rand.Next(800) + 2;
         }
 
         private void IncrementTotalKills(EntityUid victim, ref CheckKillEvent args)
