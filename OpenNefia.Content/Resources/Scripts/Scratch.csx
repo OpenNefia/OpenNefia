@@ -6,6 +6,8 @@
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
 
 using NLua;
+using OpenNefia.Core;
+using OpenNefia.Content;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.IoC;
@@ -66,6 +68,7 @@ var _tags = EntitySystem.Get<ITagSystem>();
 var _factions = EntitySystem.Get<IFactionSystem>();
 var _damage = EntitySystem.Get<IDamageSystem>();
 var _skills = EntitySystem.Get<ISkillsSystem>();
+var _config = IoCManager.Get<IConfigurationManager>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);

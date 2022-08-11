@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Logic;
+
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;

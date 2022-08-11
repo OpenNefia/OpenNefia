@@ -7,8 +7,6 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
@@ -21,6 +19,7 @@ namespace OpenNefia.Content.Book
 {
     public interface IBookOfRachelSystem : IEntitySystem
     {
+        TurnResult ReadBookOfRachel(EntityUid source, EntityUid target, BookOfRachelComponent component);
     }
 
     public sealed class BookOfRachelSystem : EntitySystem, IBookOfRachelSystem
@@ -57,7 +56,7 @@ namespace OpenNefia.Content.Book
             args.OutVerbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Book of Rachel", () => ReadBookOfRachel(args.Source, args.Target, component)));
         }
 
-        private TurnResult ReadBookOfRachel(EntityUid source, EntityUid target, BookOfRachelComponent component)
+        public TurnResult ReadBookOfRachel(EntityUid source, EntityUid target, BookOfRachelComponent component)
         {
             _audio.Play(Protos.Sound.Book1);
             _mes.Display(Loc.GetString("Elona.Read.BookOfRachel.Text"));

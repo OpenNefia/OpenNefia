@@ -3,7 +3,6 @@ using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 using System;

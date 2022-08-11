@@ -17,7 +17,6 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
@@ -37,6 +36,7 @@ namespace OpenNefia.Content.Book
         /// Rolls the spellbook check, and if it fails then run the failure effects on the reader.
         /// </summary>
         bool TryToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
+        TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook);
     }
 
     public enum SpellbookReserveState
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.Book
             args.OutVerbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Spellbook", () => ReadSpellbook(args.Source, args.Target)));
         }
 
-        private TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook)
+        public TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook)
         {
             if (_effects.HasEffect(reader, Protos.StatusEffect.Blindness))
             {

@@ -646,6 +646,17 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "MusicDisc")
     end
 
+    if from._id == "elona.kitty_bank" then
+        c = comp(to, "MoneyBox")
+        c = comp(to, "Throwable")
+    end
+
+    if from._id == "elona.monster_ball" then
+        c = comp(to, "MonsterBall")
+        c = comp(to, "Throwable")
+        c.splitAmount = 1
+    end
+
     if from.cooldown_hours then
         c = comp(to, "UseInterval")
         c.useInterval = timeSpan(from.cooldown_hours)

@@ -24,6 +24,7 @@ namespace OpenNefia.Content.Items.Impl
 {
     public interface IMusicDiscSystem : IEntitySystem
     {
+        TurnResult PlayMusicDisc(EntityUid source, EntityUid target, MusicDiscComponent? musicDisc = null);
     }
 
     public sealed class MusicDiscSystem : EntitySystem, IMusicDiscSystem
@@ -92,7 +93,7 @@ namespace OpenNefia.Content.Items.Impl
             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Play Music Disc", () => PlayMusicDisc(args.Source, args.Target)));
         }
 
-        private TurnResult PlayMusicDisc(EntityUid source, EntityUid target, MusicDiscComponent? musicDisc = null)
+        public TurnResult PlayMusicDisc(EntityUid source, EntityUid target, MusicDiscComponent? musicDisc = null)
         {
             if (!Resolve(target, ref musicDisc))
                 return TurnResult.Aborted;

@@ -7,7 +7,6 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
@@ -113,6 +112,13 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled)
                 return;
 
+            if (throwable.SplitAmount != null)
+            {
+                if (!_stackSystem.TrySplit(itemThrown, throwable.SplitAmount.Value, out var split))
+                    return;
+                itemThrown = split;
+            }
+
             DoEntityThrown(itemThrown, args);
         }
 
@@ -200,7 +206,7 @@ namespace OpenNefia.Content.GameObjects
         public readonly EntityUid Thrower;
         public readonly MapCoordinates Coords;
 
-        public bool DidImpact = true;
+        public bool OutDidImpact { get; set; } = true;
 
         public ThrownEntityImpactedGroundEvent(EntityUid thrower, MapCoordinates coords)
         {

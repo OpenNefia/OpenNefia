@@ -86,6 +86,15 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 if (IsAlive(item))
                     Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
             }
+
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.KittyBank);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Textbook);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Book);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.MonsterBall, minLevel: 100, amount: 99);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Wallet, amount: 99);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Suitcase, amount: 99);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.BookOfRachel);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Bill);
         }
     }
 }
