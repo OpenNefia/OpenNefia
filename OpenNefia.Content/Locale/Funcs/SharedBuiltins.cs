@@ -5,6 +5,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,12 @@ namespace OpenNefia.Content.Locale.Funcs
                 return $"\"{obj}\"";
         }
 
+        [LocaleFunction("capitalize")]
+        public static string BuiltIn_Capitalize(object? obj)
+        {
+            return $"{obj}".FirstCharToUpper();
+        }
+
         [LocaleFunction("loc")]
         public static string BuiltIn_Loc(object? obj)
         {
@@ -122,7 +129,7 @@ namespace OpenNefia.Content.Locale.Funcs
                 return "";
 
             return IoCManager.Resolve<IEntityManager>()
-                .GetComponentOrNull<CharaComponent>(entity)?.Alias ?? "";
+                .GetComponentOrNull<AliasComponent>(entity)?.Alias ?? "";
         }
     }
 }

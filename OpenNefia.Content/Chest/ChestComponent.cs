@@ -18,5 +18,8 @@ namespace OpenNefia.Content.Chest
 
         [DataField]
         public bool HasItems { get; set; } = true;
+
+        [DataField]
+        public bool DisplayLevelInName { get; set; } = false;
     }
 }

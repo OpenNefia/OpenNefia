@@ -13,14 +13,14 @@ namespace OpenNefia.Content.Identify
         public IdentifyState IdentifyState { get; set; } = IdentifyState.None;
 
         [Localize]
-        public string UnidentifiedName { get; private set; } = string.Empty;
+        public string? UnidentifiedName { get; private set; }
 
         [DataField]
         public int IdentifyDifficulty { get; set; } = 0;
 
         void IComponentLocalizable.LocalizeFromLua(NLua.LuaTable table)
         {
-            UnidentifiedName = table.GetStringOrEmpty(nameof(UnidentifiedName));
+            UnidentifiedName = table.GetStringOrNull(nameof(UnidentifiedName));
         }
     }
 

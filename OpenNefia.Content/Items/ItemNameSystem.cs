@@ -1,0 +1,85 @@
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Locale.Funcs;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenNefia.Content.Activity;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Combat;
+using OpenNefia.Content.Equipment;
+using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Identify;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Core.Maps;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Food;
+using OpenNefia.Content.Hunger;
+using OpenNefia.Content.Items;
+
+namespace OpenNefia.Content.DisplayName
+{
+    public sealed partial class ItemNameSystem : EntitySystem
+    {
+        [Dependency] private readonly IEquipmentSystem _equipment = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IChargedSystem _chargeds = default!;
+        [Dependency] private readonly IIdentifySystem _identifies = default!;
+        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly IFoodSystem _food = default!;
+        [Dependency] private readonly IHungerSystem _hungers = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            SubscribeComponent<ItemComponent, GetItemNameEvent>(BasicName, priority: EventPriorities.VeryHigh);
+
+            Initialize_ItemEvents();
+        }
+
+        // TODO: refactoring out component-specific name modifiers.
+        // will take forever, and this set of functions have already aged me enough as-is
+        public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
+        {
+            switch(Loc.Language)
+            {
+                case var jp when jp == LanguagePrototypeOf.Japanese:
+                    args.OutItemName += ItemNameJP(uid, component);
+                    break;
+                case var de when de == LanguagePrototypeOf.German:
+                    args.OutItemName += ItemNameDE(uid, component);
+                    break;
+                case var en when en == LanguagePrototypeOf.English:
+                default:
+                    args.OutItemName += ItemNameEN(uid, args.NoArticle, component);
+                    break;
+            }
+        }
+
+        public string ItemNameDE(EntityUid uid,
+            ItemComponent? item = null,
+            MetaDataComponent? meta = null,
+            StackComponent? stack = null)
+        {
+            if (!Resolve(uid, ref item, ref meta, ref stack))
+                return $"<item {uid}>";
+
+            return GermanBuiltins.GetDisplayData(uid, meta.DisplayName!).GetIndirectName(stack.Count);
+        }
+    }
+}

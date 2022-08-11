@@ -7,7 +7,6 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
@@ -15,6 +14,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Input;
 using System.Collections.Generic;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Inventory
 {

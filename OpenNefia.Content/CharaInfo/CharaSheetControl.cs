@@ -245,6 +245,10 @@ namespace OpenNefia.Content.CharaInfo
             {
                 Logger.WarningS("charasheet", $"entity {_charaEntity} does not posess a {nameof(CustomNameComponent)}");
             }
+            if (!_entityManager.TryGetComponent<AliasComponent>(_charaEntity, out var alias))
+            {
+                Logger.WarningS("charasheet", $"entity {_charaEntity} does not posess a {nameof(CustomNameComponent)}");
+            }
 
             var dict = new OrderedDictionary<string, string>();
 
@@ -256,8 +260,8 @@ namespace OpenNefia.Content.CharaInfo
             {
                 dict[string.Empty] = string.Empty;
                 dict[_locScope.GetString("Group.Personal.Name")] = _displayNames.GetDisplayName(_charaEntity);
-                if (!string.IsNullOrEmpty(chara.Alias))
-                    dict[_locScope.GetString("Group.Personal.Alias")] = chara.Alias;
+                if (!string.IsNullOrEmpty(alias.Alias))
+                    dict[_locScope.GetString("Group.Personal.Alias")] = alias.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
                 dict[_locScope.GetString("Group.Personal.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
                 SetupContainer(NameContainer, 4, dict);
@@ -297,7 +301,7 @@ namespace OpenNefia.Content.CharaInfo
             dict[_locScope.GetString("Group.Exp.Guild")] = levelGuildName;
             SetupContainer(ExpContainer, 5, dict);
             dict.Clear();
-
+            
             //
             // Attributes
             //

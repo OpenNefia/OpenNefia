@@ -1,0 +1,69 @@
+---
+- type: Elona.Home
+  id: Elona.Cave
+  hspIds:
+    elona122: 0
+  mapBlueprint: /Maps/Elona/home0.yml
+  areaEntranceChip: Elona.MObjAreaYourDungeon
+  value: 5000
+  homeScale: 0
+  itemOnFloorLimit: 100
+  homeRankPoints: 1000
+  events:
+  - type: Home.P_HomeOnGeneratedEvent
+    system: Home.VanillaHomesSystem
+    method: Cave_OnGenerated
+- type: Elona.Home
+  id: Elona.Shack
+  hspIds:
+    elona122: 1
+  mapBlueprint: /Maps/Elona/home1.yml
+  areaEntranceChip: Elona.MObjAreaTown
+  value: 29500
+  homeScale: 1
+  itemOnFloorLimit: 150
+  homeRankPoints: 3000
+- type: Elona.Home
+  id: Elona.CozyHouse
+  hspIds:
+    elona122: 2
+  mapBlueprint: /Maps/Elona/home2.yml
+  value: 81000
+  homeScale: 2
+  itemOnFloorLimit: 200
+  homeRankPoints: 5000
+- type: Elona.Home
+  id: Elona.Estate
+  hspIds:
+    elona122: 3
+  mapBlueprint: /Maps/Elona/home3.yml
+  value: 186500
+  homeScale: 3
+  itemOnFloorLimit: 300
+  homeRankPoints: 7000
+- type: Elona.Home
+  id: Elona.CyberHouse
+  hspIds:
+    elona122: 4
+  mapBlueprint: /Maps/Elona/home4.yml
+  areaEntranceChip: Elona.MObjAreaTent
+  value: 373000
+  homeScale: 4
+  itemOnFloorLimit: 350
+  homeRankPoints: 8000
+  tilesetID : Elona.Sf
+- type: Elona.Home
+  id: Elona.SmallCastle
+  hspIds:
+    elona122: 5
+  mapBlueprint: /Maps/Elona/home5.yml
+  areaEntranceChip: Elona.MObjAreaCastle
+  value: 1335000
+  homeScale: 5
+  itemOnFloorLimit: 400
+  homeRankPoints: 10000
+  events:
+  - type: Home.P_HomeOnGeneratedEvent
+    system: Home.VanillaHomesSystem
+    method: SmallCastle_OnGenerated
+...

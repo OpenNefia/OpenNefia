@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Equipment;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Prototypes;

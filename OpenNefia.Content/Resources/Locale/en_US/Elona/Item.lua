@@ -1,4 +1,10 @@
 Elona.Item = {
+    ItemName = {
+        LostProperty = "(Lost property)",
+        UseInterval = function(hours)
+            return ("(Next: %sh.)"):format(hours)
+        end,
+    },
     NameModifiers = {
         Great = function(name)
             return ("<%s>"):format(name)

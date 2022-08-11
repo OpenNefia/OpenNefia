@@ -9,6 +9,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
@@ -259,10 +260,14 @@ namespace OpenNefia.Content.Food
 
             if (foodType.UsesCharaName)
             {
-                if (food.EntityMadeOf == null)
-                    origin = Loc.GetPrototypeString(food.FoodType.Value, "DefaultOrigin");
+                if (TryComp<ItemFromEntityComponent>(ent, out var fromChara))
+                {
+                    origin = Loc.GetPrototypeString(fromChara.EntityID, "MetaData.Name");
+                }
                 else
-                    origin = Loc.GetPrototypeString(food.EntityMadeOf.Value, "MetaData.Name");
+                {
+                    origin = Loc.GetPrototypeString(food.FoodType.Value, "DefaultOrigin");
+                }
             }
 
             return Loc.GetPrototypeString(foodType, $"Names.{food.FoodQuality}", ("origin", origin));

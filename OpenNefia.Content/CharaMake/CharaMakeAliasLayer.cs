@@ -137,13 +137,7 @@ namespace OpenNefia.Content.CharaMake
 
             public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
             {
-                if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
-                {
-                    Logger.WarningS("charamake", "No CharaComponent present on entity");
-                    return;
-                }
-
-                chara.Alias = Alias;
+                EntityManager.EnsureComponent<AliasComponent>(entity).Alias = Alias;
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Analyzers;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.CustomName;
-using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
@@ -29,19 +29,22 @@ namespace OpenNefia.Content.DisplayName
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
         {
-            var ev = new GetItemNameEvent();
+            var ev = new GetItemNameEvent(noArticle: false);
             EntityManager.EventBus.RaiseEvent(uid, ref ev);
-            args.OutName = ev.ItemName;
+            args.OutName = ev.OutItemName;
         }
     }
 
     [ByRefEvent]
     public struct GetItemNameEvent
     {
-        public string ItemName = string.Empty;
+        public bool NoArticle { get; }
 
-        public GetItemNameEvent()
+        public string OutItemName { get; set; } = string.Empty;
+
+        public GetItemNameEvent(bool noArticle)
         {
+            NoArticle = noArticle;
         }
     }
 }

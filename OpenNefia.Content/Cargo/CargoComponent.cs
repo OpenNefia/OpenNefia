@@ -10,5 +10,8 @@ namespace OpenNefia.Content.Cargo
 
         [DataField]
         public int CargoWeight { get; set; } = 0;
+
+        [DataField]
+        public int? BuyingPrice { get; set; }
     }
 }

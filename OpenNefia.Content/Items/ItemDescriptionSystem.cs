@@ -4,7 +4,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Utility;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.Items
 {
     public interface IItemDescriptionSystem
     {
@@ -73,7 +73,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         {
             var ev = new GetItemDescriptionEventArgs(entries);
             RaiseEvent(entity, ev);
-         
+
             if (entries.Count == 0)
             {
                 entries.Add(new ItemDescriptionEntry() { Text = Loc.GetString("Elona.ItemDescription.NoInformation") });

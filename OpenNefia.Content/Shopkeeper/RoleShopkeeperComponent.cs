@@ -28,6 +28,9 @@ namespace OpenNefia.Content.Shopkeeper
         [DataField]
         public GameDateTime RestockDate { get; set; }
 
+        [DataField]
+        public bool ShowTitleInName { get; set; } = true;
+
         public Container ShopContainer { get; private set; } = default!;
 
         protected override void Initialize()

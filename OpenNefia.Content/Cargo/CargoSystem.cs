@@ -1,9 +1,11 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,7 @@ namespace OpenNefia.Content.Cargo
         public override void Initialize()
         {
             SubscribeComponent<CargoHolderComponent, EntityBeingGeneratedEvent>(InitializeCargoWeights);
+            SubscribeComponent<CargoComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_Cargo);
         }
 
         private void InitializeCargoWeights(EntityUid uid, CargoHolderComponent cargo, ref EntityBeingGeneratedEvent args)
@@ -38,6 +41,14 @@ namespace OpenNefia.Content.Cargo
             cargo.InitialMaxCargoWeight = 80000;
             cargo.MaxCargoWeight = cargo.InitialMaxCargoWeight;
             // <<<<<<<< shade2/chara.hsp:534 		} ..
+        }
+
+        private void LocalizeExtra_Cargo(EntityUid uid, CargoComponent cargo, ref LocalizeItemNameExtraEvent args)
+        {
+            if (cargo.BuyingPrice != null)
+            {
+                args.OutFullName.Append(Loc.GetString("Elona.Cargo.ItemName.BuyingPrice", ("price", cargo.BuyingPrice.Value)));
+            }
         }
 
         public int GetCargoWeight(EntityUid item, CargoComponent? cargo = null)

@@ -50,6 +50,7 @@
   - type: ItemUser
   - type: Marriage
   - type: Tone
+  - type: Alias
 
 - type: Entity
   id: BaseItem
@@ -72,6 +73,8 @@
   - type: Pickable
   - type: Bonus
   - type: InUse
+  - type: Enchantments
+  - type: Alias
 
 - type: Entity
   id: BaseMObj

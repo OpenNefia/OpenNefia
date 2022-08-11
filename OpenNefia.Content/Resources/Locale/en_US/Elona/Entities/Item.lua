@@ -157,6 +157,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "identify",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -167,6 +170,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfOracle = {
         MetaData = {
             Name = "oracle",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -179,6 +185,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "teleportation",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -189,6 +198,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfIncognito = {
         MetaData = {
             Name = "incognito",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -201,6 +213,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "identify",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A wooden rod,",
@@ -211,6 +226,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfTeleportation = {
         MetaData = {
             Name = "teleportation",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -223,6 +241,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "teleportation",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A yellowed tome whose words seem to move on their own/",
@@ -234,6 +255,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "identify",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A yellowed tome that contains the secret of any item,",
@@ -244,6 +268,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfUncurse = {
         MetaData = {
             Name = "uncurse",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -298,6 +325,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "dirty water",
         },
+        Item = {
+            ItemTypeName = "bottle",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A bottle of murky water,",
@@ -312,6 +342,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "blindness",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Sometimes carried by prostitutes,",
@@ -323,6 +356,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "confusion",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A label says \"Please do not drink to identify contents,",
@@ -333,6 +369,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfParalysis = {
         MetaData = {
             Name = "paralysis",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -356,6 +395,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "crim ale",
         },
+        Item = {
+            ItemTypeName = "bottle",
+        },
         ItemDescription = {
             Primary = {
                 Text = "crim is some kind of addictive berry",
@@ -370,6 +412,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ice bolt",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "The tome is cool to the touch,",
@@ -381,6 +426,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "fire bolt",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "The tome is strangely warm,",
@@ -391,6 +439,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfLightningBolt = {
         MetaData = {
             Name = "lightning bolt",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -427,11 +478,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "rubynus",
         },
+        Item = {
+            ItemTypeName = raw "ore",
+        },
     },
 
     ItemRawOreOfMica = {
         MetaData = {
             Name = "mica",
+        },
+        Item = {
+            ItemTypeName = raw "ore",
         },
     },
 
@@ -439,11 +496,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "emerald",
         },
+        Item = {
+            ItemTypeName = raw "ore",
+        },
     },
 
     ItemRawOreOfDiamond = {
         MetaData = {
             Name = "diamond",
+        },
+        Item = {
+            ItemTypeName = raw "ore",
         },
     },
 
@@ -732,6 +795,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure minor wound",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion that cures some wounds,",
@@ -742,6 +808,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfCureMajorWound = {
         MetaData = {
             Name = "cure major wound",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -754,6 +823,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure critical wound",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion that cures some wounds,",
@@ -765,6 +837,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "healing",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion that cures some wounds,",
@@ -775,6 +850,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfHealer = {
         MetaData = {
             Name = "healer",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -798,6 +876,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "healer <Odina>",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion made by a talented alchemist cures some wounds,",
@@ -809,6 +890,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "healer <Eris>",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion made by a talented alchemist cures some wounds,",
@@ -819,6 +903,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfHealerJure = {
         MetaData = {
             Name = "healer <Jure>",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -930,6 +1017,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "goods",
         },
+        Item = {
+            ItemTypeName = "lot",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A display case for various gift items,",
@@ -940,6 +1030,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemLotOfAccessories = {
         MetaData = {
             Name = "accessories",
+        },
+        Item = {
+            ItemTypeName = "lot",
         },
         ItemDescription = {
             Primary = {
@@ -1087,6 +1180,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "potions",
         },
+        Item = {
+            ItemTypeName = "rack",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potions rack,",
@@ -1159,11 +1255,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "tools",
         },
+        Item = {
+            ItemTypeName = "variety",
+        },
     },
 
     ItemVarietyOfGoods = {
         MetaData = {
             Name = "goods",
+        },
+        Item = {
+            ItemTypeName = "variety",
         },
     },
 
@@ -1181,6 +1283,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemVarietyOfClothes = {
         MetaData = {
             Name = "clothes",
+        },
+        Item = {
+            ItemTypeName = "variety",
         },
     },
 
@@ -1243,6 +1348,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "minor teleportation",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "The words in this tome do not seem to stay in one place,",
@@ -1265,6 +1373,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "summon monsters",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You can swear you hear growling,",
@@ -1275,6 +1386,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfCureMinorWound = {
         MetaData = {
             Name = "cure minor wound",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -1287,6 +1401,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic missile",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of iron,",
@@ -1297,6 +1414,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfSummonMonsters = {
         MetaData = {
             Name = "summon monsters",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -1309,6 +1429,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ice bolt",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of wood,",
@@ -1319,6 +1442,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfFireBolt = {
         MetaData = {
             Name = "fire bolt",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -1331,6 +1457,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "breads",
         },
+        Item = {
+            ItemTypeName = "show case",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A shelf of bread for display,",
@@ -1341,6 +1470,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfHeal = {
         MetaData = {
             Name = "heal",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -1540,6 +1672,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "bows",
         },
+        Item = {
+            ItemTypeName = "bundle",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A display of bows,",
@@ -1550,6 +1685,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBundleOfWeapons = {
         MetaData = {
             Name = "weapons",
+        },
+        Item = {
+            ItemTypeName = "bundle",
         },
         ItemDescription = {
             Primary = {
@@ -1584,6 +1722,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "armor",
         },
+        Item = {
+            ItemTypeName = "statue",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A shelf or armor,",
@@ -1605,6 +1746,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemLotOfBooks = {
         MetaData = {
             Name = "books",
+        },
+        Item = {
+            ItemTypeName = "lot",
         },
         ItemDescription = {
             Primary = {
@@ -1638,6 +1782,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemLotOfAlcohols = {
         MetaData = {
             Name = "alcohols",
+        },
+        Item = {
+            ItemTypeName = "lot",
         },
         ItemDescription = {
             Primary = {
@@ -1793,6 +1940,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ornamented with flowers",
         },
+        Item = {
+            ItemTypeName = "grave",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A recent grave with flowers for the departed... The name is still readable,",
@@ -1892,6 +2042,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "lightning bolt",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of bronze,",
@@ -1902,6 +2055,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfSlow = {
         MetaData = {
             Name = "slow",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -2189,6 +2345,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic mapping",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod plated with adamantium,",
@@ -2199,6 +2358,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfCure = {
         MetaData = {
             Name = "cure",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -2221,6 +2383,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfWhisky = {
         MetaData = {
             Name = "whisky",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -2269,6 +2434,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfUncurse = {
         MetaData = {
             Name = "uncurse",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -2335,6 +2503,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemLotOfEmptyBottles = {
         MetaData = {
             Name = "empty bottles",
+        },
+        Item = {
+            ItemTypeName = "lot",
         },
         ItemDescription = {
             Primary = {
@@ -2567,6 +2738,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "return",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -2578,11 +2752,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "warrior",
         },
+        Item = {
+            ItemTypeName = "figurine",
+        },
     },
 
     ItemFigurineOfSword = {
         MetaData = {
             Name = "sword",
+        },
+        Item = {
+            ItemTypeName = "figurine",
         },
     },
 
@@ -2623,6 +2803,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magical map",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -2633,6 +2816,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfGainAttribute = {
         MetaData = {
             Name = "gain attribute",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -2645,6 +2831,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "wonder",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -2655,6 +2844,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfMinorTeleportation = {
         MetaData = {
             Name = "minor teleportation",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -2667,6 +2859,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic mapping",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome that makes you aware of your surroundings,",
@@ -2677,6 +2872,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfOracle = {
         MetaData = {
             Name = "oracle",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2689,6 +2887,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "return",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome that allows a person to return to specific places containing a rift,",
@@ -2699,6 +2900,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfCureMinorWound = {
         MetaData = {
             Name = "cure minor wound",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2711,6 +2915,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure critical wound",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome has been carefully preserved,",
@@ -2721,6 +2928,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfCureEris = {
         MetaData = {
             Name = "cure <Eris>",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2733,6 +2943,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure <Jure>",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome of words written by Jure herself,",
@@ -2743,6 +2956,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfBeer = {
         MetaData = {
             Name = "beer",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -2791,6 +3007,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic arrow",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome that teaches how to use magical energy,",
@@ -2823,6 +3042,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSackOfFlour = {
         MetaData = {
             Name = "flour",
+        },
+        Item = {
+            ItemTypeName = "sack",
         },
         ItemDescription = {
             Primary = {
@@ -2857,6 +3079,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "nether eye",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You feel like the world of the dead has its eye on you,",
@@ -2868,6 +3093,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "chaos eye",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome makes no sense,",
@@ -2878,6 +3106,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfNerveEye = {
         MetaData = {
             Name = "nerve eye",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2901,6 +3132,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "darkness beam",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome seems to bend light,",
@@ -2911,6 +3145,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfIllusionBeam = {
         MetaData = {
             Name = "illusion beam",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2923,6 +3160,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ice ball",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome is cold,",
@@ -2933,6 +3173,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfFireBall = {
         MetaData = {
             Name = "fire ball",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -2945,6 +3188,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "sound ball",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You can swear you hear a buzzing sound from this tome,",
@@ -2955,6 +3201,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfChaosBall = {
         MetaData = {
             Name = "chaos ball",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -3099,6 +3348,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "restore body",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A potion that restores physical stats,",
@@ -3109,6 +3361,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfRestoreSpirit = {
         MetaData = {
             Name = "restore spirit",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -3121,6 +3376,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "potential",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A valuable potion,",
@@ -3131,6 +3389,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfCurse = {
         MetaData = {
             Name = "curse",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -3143,6 +3404,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "wishing",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome is ancient and has a crushing aura of power,",
@@ -3153,6 +3417,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfWishing = {
         MetaData = {
             Name = "wishing",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -3176,6 +3443,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "goods",
         },
+        Item = {
+            ItemTypeName = "rack",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Products for display or sale,",
@@ -3186,6 +3456,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRackOfAccessories = {
         MetaData = {
             Name = "accessories",
+        },
+        Item = {
+            ItemTypeName = "rack",
         },
         ItemDescription = {
             Primary = {
@@ -3285,6 +3558,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemChestOfClothes = {
         MetaData = {
             Name = "clothes",
+        },
+        Item = {
+            ItemTypeName = "chest",
         },
         ItemDescription = {
             Primary = {
@@ -3572,6 +3848,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfCross = {
         MetaData = {
             Name = "cross",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
         ItemDescription = {
             Primary = {
@@ -3890,6 +4169,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "greater identify",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -3900,6 +4182,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfVanishCurse = {
         MetaData = {
             Name = "vanish curse",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -3912,6 +4197,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "defender",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical potion that can protect you from harm,",
@@ -3922,6 +4210,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfHolyShield = {
         MetaData = {
             Name = "holy shield",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -3934,6 +4225,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "silence",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A mica tipped rod,",
@@ -3944,6 +4238,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfSilence = {
         MetaData = {
             Name = "silence",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -3956,6 +4253,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "silence",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "...,,",
@@ -3966,6 +4266,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfRegeneration = {
         MetaData = {
             Name = "regeneration",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -3978,6 +4281,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "troll blood",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Tastes worse than it smells,",
@@ -3988,6 +4294,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfResistance = {
         MetaData = {
             Name = "resistance",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4000,6 +4309,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "resistance",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical potion that can protect you from harm,",
@@ -4010,6 +4322,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfSpeed = {
         MetaData = {
             Name = "speed",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4022,6 +4337,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "slow",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A yellowed tome that's pages seem to move slowly,",
@@ -4032,6 +4350,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfSpeed = {
         MetaData = {
             Name = "speed",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -4044,6 +4365,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "slow",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "An item often carried by thieves,",
@@ -4054,6 +4378,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfSpeed = {
         MetaData = {
             Name = "speed",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -4066,6 +4393,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "hero",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Strangely reading this book gives you a slight adrenalin rush,",
@@ -4076,6 +4406,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfHero = {
         MetaData = {
             Name = "hero",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -4088,6 +4421,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "weakness",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A battered tome,",
@@ -4098,6 +4434,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfElementalScar = {
         MetaData = {
             Name = "elemental scar",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4110,6 +4449,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "weakness",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A strangely colored potion,",
@@ -4120,6 +4462,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfHolyVeil = {
         MetaData = {
             Name = "holy veil",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4132,6 +4477,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "holy veil",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4142,6 +4490,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfHolyLight = {
         MetaData = {
             Name = "holy light",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -4154,6 +4505,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "holy light",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome with a calming glow,",
@@ -4164,6 +4518,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfHolyRain = {
         MetaData = {
             Name = "holy rain",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4176,6 +4533,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "holy light",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4186,6 +4546,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfHolyRain = {
         MetaData = {
             Name = "holy rain",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -4198,6 +4561,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "mana",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4209,6 +4575,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "mana",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod wrapped in dawn cloth,",
@@ -4219,6 +4588,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfSulfuric = {
         MetaData = {
             Name = "sulfuric",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -4256,6 +4628,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "gain material",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4266,6 +4641,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfNightmare = {
         MetaData = {
             Name = "nightmare",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -4278,6 +4656,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "knowledge",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "An insightful tome,",
@@ -4288,6 +4669,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfKnowledge = {
         MetaData = {
             Name = "knowledge",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -4421,6 +4805,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "detect objects",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Makes you feel like a treasure hunter,",
@@ -4432,6 +4819,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "detect objects",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4442,6 +4832,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfUncurse = {
         MetaData = {
             Name = "uncurse",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -4630,6 +5023,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "weaken resistance",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A label informs you \"can cause harmful side effects,",
@@ -4640,6 +5036,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfGrowth = {
         MetaData = {
             Name = "growth",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -4652,6 +5051,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "faith",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -4662,6 +5064,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfMutation = {
         MetaData = {
             Name = "mutation",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -4674,6 +5079,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure mutation",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Cures mutated genes,",
@@ -4684,6 +5092,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfMutation = {
         MetaData = {
             Name = "mutation",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -5180,6 +5591,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ally",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5191,6 +5605,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "domination",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of rubynus,",
@@ -5201,6 +5618,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfDomination = {
         MetaData = {
             Name = "domination",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -5235,6 +5655,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "web",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You can swear you see spiders crawling over this tome out of the corner of your eye,",
@@ -5245,6 +5668,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfWeb = {
         MetaData = {
             Name = "web",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -5411,6 +5837,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "inferior material",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5422,6 +5851,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "change material",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5432,6 +5864,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfSuperiorMaterial = {
         MetaData = {
             Name = "superior material",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -5477,6 +5912,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "enchant weapon",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5487,6 +5925,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfGreaterEnchantWeapon = {
         MetaData = {
             Name = "greater enchant weapon",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -5499,6 +5940,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "enchant armor",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5509,6 +5953,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfGreaterEnchantArmor = {
         MetaData = {
             Name = "greater enchant armor",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -5531,6 +5978,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemDeedOfHeirship = {
         MetaData = {
             Name = "heirship",
+        },
+        Item = {
+            ItemTypeName = "deed",
         },
         ItemDescription = {
             Primary = {
@@ -5571,6 +6021,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "recharge",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -5581,6 +6034,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfWater = {
         MetaData = {
             Name = "water",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -5596,6 +6052,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "change creature",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of ether,",
@@ -5607,6 +6066,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "alchemy",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rod made out of emerald,",
@@ -5617,6 +6079,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfDye = {
         MetaData = {
             Name = "dye",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -5640,6 +6105,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "museum",
         },
+        Item = {
+            ItemTypeName = "deed",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A deed for a museum,",
@@ -5650,6 +6118,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemDeedOfShop = {
         MetaData = {
             Name = "shop",
+        },
+        Item = {
+            ItemTypeName = "deed",
         },
         ItemDescription = {
             Primary = {
@@ -5662,6 +6133,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "beech",
         },
+        Item = {
+            ItemTypeName = "tree",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A type of tree,",
@@ -5672,6 +6146,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemTreeOfCedar = {
         MetaData = {
             Name = "cedar",
+        },
+        Item = {
+            ItemTypeName = "tree",
         },
         ItemDescription = {
             Primary = {
@@ -5684,6 +6161,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "fruitless",
         },
+        Item = {
+            ItemTypeName = "tree",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tree with no fruits,",
@@ -5694,6 +6174,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemTreeOfFruits = {
         MetaData = {
             Name = "fruits",
+        },
+        Item = {
+            ItemTypeName = "tree",
         },
         ItemDescription = {
             Primary = {
@@ -5717,6 +6200,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "zelkova",
         },
+        Item = {
+            ItemTypeName = "tree",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A type of tree,",
@@ -5728,6 +6214,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "palm",
         },
+        Item = {
+            ItemTypeName = "tree",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tree found in warm climates,",
@@ -5738,6 +6227,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemTreeOfAsh = {
         MetaData = {
             Name = "ash",
+        },
+        Item = {
+            ItemTypeName = "tree",
         },
         ItemDescription = {
             Primary = {
@@ -5800,6 +6292,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "madam",
         },
+        Item = {
+            ItemTypeName = "painting",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A copy of a painting by a famous Yerles artist,",
@@ -5810,6 +6305,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPaintingOfLandscape = {
         MetaData = {
             Name = "landscape",
+        },
+        Item = {
+            ItemTypeName = "painting",
         },
         ItemDescription = {
             Primary = {
@@ -5822,6 +6320,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "sunflower",
         },
+        Item = {
+            ItemTypeName = "painting",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A painting of a sunflower,",
@@ -5832,6 +6333,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfCat = {
         MetaData = {
             Name = "cat",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
         ItemDescription = {
             Primary = {
@@ -5866,6 +6370,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "farm",
         },
+        Item = {
+            ItemTypeName = "deed",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A deed for a farm,",
@@ -5876,6 +6383,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemDeedOfStorageHouse = {
         MetaData = {
             Name = "storage house",
+        },
+        Item = {
+            ItemTypeName = "deed",
         },
         ItemDescription = {
             Primary = {
@@ -5899,6 +6409,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "wall creation",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A wall made out of obsidian,",
@@ -5909,6 +6422,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfWallCreation = {
         MetaData = {
             Name = "wall creation",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -5932,6 +6448,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "healing rain",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A slightly damp tome,",
@@ -5942,6 +6461,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfHealingRain = {
         MetaData = {
             Name = "healing rain",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -5954,6 +6476,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "healing hands",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A handy tome,",
@@ -5964,6 +6489,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfHealingHands = {
         MetaData = {
             Name = "healing hands",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -6053,6 +6581,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "cure corruption",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A label reads \"For use in curing harmful diseases only",
@@ -6106,6 +6637,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "acid ground",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "The pages of this tome are tinted green,",
@@ -6116,6 +6650,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfAcidGround = {
         MetaData = {
             Name = "acid ground",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -6161,6 +6698,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "fire wall",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome is warm,",
@@ -6171,6 +6711,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRodOfFireWall = {
         MetaData = {
             Name = "fire wall",
+        },
+        Item = {
+            ItemTypeName = "rod",
         },
         ItemDescription = {
             Primary = {
@@ -6194,6 +6737,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "ranch",
         },
+        Item = {
+            ItemTypeName = "deed",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A deed for a ranch,",
@@ -6215,6 +6761,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemBottleOfMilk = {
         MetaData = {
             Name = "milk",
+        },
+        Item = {
+            ItemTypeName = "bottle",
         },
         ItemDescription = {
             Primary = {
@@ -6288,6 +6837,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "make door",
         },
+        Item = {
+            ItemTypeName = "rod",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A pearl tipped rod,",
@@ -6298,6 +6850,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfMakeDoor = {
         MetaData = {
             Name = "make door",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -6354,6 +6909,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "snow",
         },
+        Item = {
+            ItemTypeName = "handful",
+        },
         ItemDescription = {
             Primary = {
                 Text = "Some snow,",
@@ -6365,6 +6923,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "naked",
         },
+        Item = {
+            ItemTypeName = "tree",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A type of tree,",
@@ -6375,6 +6936,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemTreeOfFir = {
         MetaData = {
             Name = "fir",
+        },
+        Item = {
+            ItemTypeName = "tree",
         },
         ItemDescription = {
             Primary = {
@@ -6430,6 +6994,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfHolyCross = {
         MetaData = {
             Name = "holy cross",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
         ItemDescription = {
             Primary = {
@@ -6735,6 +7302,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "hermes blood",
         },
+        Item = {
+            ItemTypeName = "bottle",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A rare item that increases your speed,",
@@ -6751,6 +7321,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfIncognito = {
         MetaData = {
             Name = "incognito",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -6856,6 +7429,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfEscape = {
         MetaData = {
             Name = "escape",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -7078,6 +7654,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "darkness arrow",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This tome seems to carefully bend light,",
@@ -7137,6 +7716,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "Opatos",
         },
+        Item = {
+            ItemTypeName = "statue",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You feel the ground shake slightly at this statue,",
@@ -7147,6 +7729,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfLulwy = {
         MetaData = {
             Name = "Lulwy",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
         ItemDescription = {
             Primary = {
@@ -7285,6 +7870,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "god speed",
         },
+        Item = {
+            ItemTypeName = "Lulwy's gem stone",
+        },
         Identify = {
             UnidentifiedName = "heavenly jewel",
         },
@@ -7293,6 +7881,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemJuresGemStoneOfHolyRain = {
         MetaData = {
             Name = "holy rain",
+        },
+        Item = {
+            ItemTypeName = "Jure's gem stone",
         },
         Identify = {
             UnidentifiedName = "heavenly jewel",
@@ -7303,6 +7894,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "rejuvenation",
         },
+        Item = {
+            ItemTypeName = "Kumiromi's gem stone",
+        },
         Identify = {
             UnidentifiedName = "heavenly jewel",
         },
@@ -7311,6 +7905,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemGemStoneOfMani = {
         MetaData = {
             Name = "Mani",
+        },
+        Item = {
+            ItemTypeName = "gem stone",
         },
         Identify = {
             UnidentifiedName = "strange jewel",
@@ -7340,6 +7937,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfJure = {
         MetaData = {
             Name = "Jure",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
     },
 
@@ -7439,6 +8039,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic ball",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome that teaches how to manipulate magic energy by sheer force of will, ",
@@ -7450,6 +8053,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "magic laser",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome that teaches how to focus magic energy",
@@ -7460,6 +8066,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPotionOfSaltSolution = {
         MetaData = {
             Name = "salt solution",
+        },
+        Item = {
+            ItemTypeName = "potion",
         },
         ItemDescription = {
             Primary = {
@@ -7545,6 +8154,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "descent",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A strange potion,",
@@ -7567,6 +8179,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "resurrection",
         },
+        Item = {
+            ItemTypeName = "book",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A book said to hold the secrets of life itself,",
@@ -7577,6 +8192,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemScrollOfContingency = {
         MetaData = {
             Name = "contingency",
+        },
+        Item = {
+            ItemTypeName = "scroll",
         },
         ItemDescription = {
             Primary = {
@@ -7589,6 +8207,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "contingency",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "An ancient tome,",
@@ -7600,6 +8221,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "evolution",
         },
+        Item = {
+            ItemTypeName = "potion",
+        },
         ItemDescription = {
             Primary = {
                 Text = "You say it's evolution?",
@@ -7610,6 +8234,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemDeedOfDungeon = {
         MetaData = {
             Name = "dungeon",
+        },
+        Item = {
+            ItemTypeName = "deed",
         },
     },
 
@@ -7639,6 +8266,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "Kumiromi",
         },
+        Item = {
+            ItemTypeName = "secret experience",
+        },
     },
 
     ItemVanillaRock = {
@@ -7650,6 +8280,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSecretExperienceOfLomias = {
         MetaData = {
             Name = "Lomias",
+        },
+        Item = {
+            ItemTypeName = "secret experience",
         },
     },
 
@@ -7682,6 +8315,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfEhekatl = {
         MetaData = {
             Name = "Ehekatl",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
     },
 
@@ -7762,6 +8398,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "friendship",
         },
+        Item = {
+            ItemTypeName = "token",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A token given only to friends,",
@@ -7773,6 +8412,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "4 dimensional pocket",
         },
+        Item = {
+            ItemTypeName = "spellbook",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A tome on alternate dimension",
@@ -7783,6 +8425,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemSpellbookOfHarvest = {
         MetaData = {
             Name = "harvest",
+        },
+        Item = {
+            ItemTypeName = "spellbook",
         },
         ItemDescription = {
             Primary = {
@@ -7839,6 +8484,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "name",
         },
+        Item = {
+            ItemTypeName = "scroll",
+        },
         ItemDescription = {
             Primary = {
                 Text = "A magical scroll with arcane writing,",
@@ -7885,6 +8533,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "the void explorer",
         },
+        Item = {
+            ItemTypeName = "license",
+        },
         ItemDescription = {
             Primary = {
                 Text = "This will allow you to explore the void that has been found recently in the south-west,",
@@ -7898,6 +8549,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemPlankOfCarneades = {
         MetaData = {
             Name = "Carneades",
+        },
+        Item = {
+            ItemTypeName = "plank",
         },
     },
 
@@ -7923,6 +8577,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "Bokonon",
         },
+        Item = {
+            ItemTypeName = "book",
+        },
     },
 
     ItemSummoningCrystal = {
@@ -7934,6 +8591,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemStatueOfCreator = {
         MetaData = {
             Name = "Creator",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
     },
 
@@ -8073,6 +8733,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "soda",
         },
+        Item = {
+            ItemTypeName = "bottle",
+        },
         Identify = {
             UnidentifiedName = "clear liquid",
         },
@@ -8115,11 +8778,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "Kumiromi",
         },
+        Item = {
+            ItemTypeName = "statue",
+        },
     },
 
     ItemStatueOfMani = {
         MetaData = {
             Name = "Mani",
+        },
+        Item = {
+            ItemTypeName = "statue",
         },
     },
 
@@ -8169,11 +8838,17 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "salt",
         },
+        Item = {
+            ItemTypeName = "bottle",
+        },
     },
 
     ItemSackOfSugar = {
         MetaData = {
             Name = "sugar",
+        },
+        Item = {
+            ItemTypeName = "sack",
         },
     },
 

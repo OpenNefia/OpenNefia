@@ -14,6 +14,6 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Gift";
 
         [DataField]
-        public int GiftQuality { get; set; }
+        public int GiftRank { get; set; }
     }
 }

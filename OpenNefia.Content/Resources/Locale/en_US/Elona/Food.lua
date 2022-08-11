@@ -74,4 +74,24 @@ Elona.Food = {
         return ("But %s%s stomach isn't affected."):format(_.name(_1), _.his_named(_1))
     end,
     PassedRotten = { "Yuck!!", "....!!", "W-What...", "Are you teasing me?", "You fool!" },
+
+    Harvesting = {
+        ItemName = {
+            Grown = function(weight)
+                return ("grown %s"):format(weight)
+            end,
+        },
+        Weight = {
+            ["0"] = "extremely mini",
+            ["1"] = "small",
+            ["2"] = "handy",
+            ["3"] = "rather big",
+            ["4"] = "huge",
+            ["5"] = "pretty huge",
+            ["6"] = "monstrous-size",
+            ["7"] = "bigger than a man",
+            ["8"] = "legendary-size",
+            ["9"] = "heavier than an elephant",
+        },
+    },
 }
