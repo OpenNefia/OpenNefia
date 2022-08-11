@@ -30,10 +30,8 @@ namespace OpenNefia.Content.Items.Impl
     public sealed class MusicDiscSystem : EntitySystem, IMusicDiscSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IMusicManager _music = default!;
 
@@ -46,7 +44,7 @@ namespace OpenNefia.Content.Items.Impl
 
         private void EntityBeingGenerated_MusicDisc(EntityUid uid, MusicDiscComponent component, ref EntityBeingGeneratedEvent args)
         {
-            if (!_protos.HasIndex(component.MusicID))
+            if (!component.MusicID.IsValid())
             {
                 component.MusicID = PickRandomMusicID();
             }

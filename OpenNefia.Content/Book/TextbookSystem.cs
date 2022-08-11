@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Book
 
         private void EntityBeingGenerated_Textbook(EntityUid uid, TextbookComponent component, ref EntityBeingGeneratedEvent args)
         {
-            if (!_protos.HasIndex(component.SkillID))
+            if (component.SkillID == null || !_protos.HasIndex(component.SkillID))
             {
                 component.SkillID = _skills.PickRandomRegularSkill().GetStrongID();
             }

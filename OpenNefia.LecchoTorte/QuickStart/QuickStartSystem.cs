@@ -18,6 +18,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.Currency;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Items.Impl;
+using OpenNefia.Content.Identify;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {

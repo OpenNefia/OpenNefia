@@ -429,6 +429,7 @@ namespace OpenNefia.Core.SaveGames
             _mapManager.FlushMaps();
             _areaManager.FlushAreas();
             ResetGlobalSaveData();
+            _saveGameManager.CurrentSave = null;
         }
     }
 }

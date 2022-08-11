@@ -1057,6 +1057,9 @@ namespace OpenNefia.Core.Prototypes
 
         public bool HasIndex(Type type, string id)
         {
+            if (id == null)
+                return false;
+
             if (!_prototypes.TryGetValue(type, out var index))
             {
                 throw new UnknownPrototypeException(id, type);
@@ -1074,6 +1077,12 @@ namespace OpenNefia.Core.Prototypes
 
         public bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype)
         {
+            if (id == null)
+            {
+                prototype = null;
+                return false;
+            }
+
             if (!_prototypes.TryGetValue(type, out var index))
             {
                 throw new UnknownPrototypeException(id, type);

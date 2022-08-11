@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Book
 
         private void EntityBeingGenerated_Book(EntityUid uid, BookComponent component, ref EntityBeingGeneratedEvent args)
         {
-            if (!_protos.HasIndex(component.BookID))
+            if (!component.BookID.IsValid())
             {
                 component.BookID = PickRandomBookID();
             }
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Book
             var identify = CompOrNull<IdentifyComponent>(uid)?.IdentifyState ?? IdentifyState.None;
             if (identify >= IdentifyState.Name)
             {
-                var title = Loc.GetPrototypeString(component.BookID, "Name");
+                var title = Loc.GetPrototypeString(component.BookID, "Title");
                 var s = Loc.GetString("Elona.Read.Book.ItemName.Title", ("name", args.OutFullName.ToString()), ("title", title));
                 args.OutFullName.Clear().Append(s);
             }

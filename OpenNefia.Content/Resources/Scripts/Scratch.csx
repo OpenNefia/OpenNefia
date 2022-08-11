@@ -45,6 +45,7 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Charas;
+using OpenNefia.Core.Configuration;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -68,7 +69,7 @@ var _tags = EntitySystem.Get<ITagSystem>();
 var _factions = EntitySystem.Get<IFactionSystem>();
 var _damage = EntitySystem.Get<IDamageSystem>();
 var _skills = EntitySystem.Get<ISkillsSystem>();
-var _config = IoCManager.Get<IConfigurationManager>();
+var _config = IoCManager.Resolve<IConfigurationManager>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);

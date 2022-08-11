@@ -10339,10 +10339,6 @@ OpenNefia.Prototypes.Entity.Elona = {
                 Text = "決まった時期に金を求めるという悪魔の紙。燃やすなどして消滅させても無駄だ。奴らは仲間を連れ、一ヶ月後再びやってくる…。",
             },
         },
-
-        title = function(gold)
-            return ("%sgoldの"):format(gold)
-        end,
     },
 
     ItemTaxMastersTaxBox = {

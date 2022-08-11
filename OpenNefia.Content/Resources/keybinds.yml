@@ -132,6 +132,7 @@ binds:
 - function: Elona.Throw
   type: State
   key: T
+  mod1: Shift
 - function: Elona.Fire
   type: State
   key: F

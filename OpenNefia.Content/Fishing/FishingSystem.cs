@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Fishing
 
         private void EntityBeingGenerated_Bait(EntityUid uid, BaitComponent component, ref EntityBeingGeneratedEvent args)
         {
-            if (!_protos.HasIndex(component.BaitID))
+            if (!component.BaitID.IsValid())
             {
                 component.BaitID = _rand.Pick(_protos.EnumeratePrototypes<BaitPrototype>().ToList()).GetStrongID();
             }
