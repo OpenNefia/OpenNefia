@@ -89,30 +89,40 @@ namespace OpenNefia.Content.World
         [DataField]
         public long TotalSeconds { get; private set; }
 
+        public long TotalYears => TotalSeconds / SecondsPerYear;
+
+        public long TotalMonths => TotalSeconds / SecondsPerMonth;
+
+        public long TotalDays => TotalSeconds / SecondsPerDay;
+
+        public long TotalHours => TotalSeconds / SecondsPerHour;
+
+        public long TotalMinutes => TotalSeconds / SecondsPerMinute;
+
         /// <summary>
         /// Current in-game year.
         /// </summary>
-        public int Year   => (int)((TotalSeconds / SecondsPerYear) + 1);
+        public int Year   => (int)(TotalYears + 1);
 
         /// <summary>
         /// Current in-game month.
         /// </summary>
-        public int Month  => (int)((TotalSeconds / SecondsPerMonth) % 12 + 1);
+        public int Month  => (int)(TotalMonths % 12 + 1);
 
         /// <summary>
         /// Current in-game day.
         /// </summary>
-        public int Day    => (int)((TotalSeconds / SecondsPerDay) % 31 + 1);
+        public int Day    => (int)(TotalDays % 31 + 1);
 
         /// <summary>
         /// Current in-game hour.
         /// </summary>
-        public int Hour   => (int)((TotalSeconds / SecondsPerHour) % 24);
+        public int Hour   => (int)(TotalHours % 24);
 
         /// <summary>
         /// Current in-game minute.
         /// </summary>
-        public int Minute => (int)((TotalSeconds / SecondsPerMinute) % 60);
+        public int Minute => (int)(TotalMinutes % 60);
 
         /// <summary>
         /// Current in-game second.

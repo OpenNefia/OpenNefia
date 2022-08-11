@@ -3,6 +3,7 @@ using OpenNefia.Content.Cargo;
 using OpenNefia.Content.Chest;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Fame;
@@ -12,6 +13,7 @@ using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Guild;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Pickable;
@@ -106,6 +108,15 @@ namespace OpenNefia.Content.Shopkeeper
 
         public override void Initialize()
         {
+            SubscribeComponent<RoleShopkeeperComponent, GetDisplayNameEventArgs>(HandleGetDisplayName, priority: EventPriorities.Low);
+        }
+
+        private void HandleGetDisplayName(EntityUid uid, RoleShopkeeperComponent component, ref GetDisplayNameEventArgs args)
+        {
+            if (component.ShowTitleInName && Loc.TryGetPrototypeString(component.ShopInventoryId, "Title", out var name, ("name", args.OutName)))
+            {
+                args.OutName = name;
+            }
         }
 
         private int CalcShopGeneratedItemCount(EntityUid shopkeeper)

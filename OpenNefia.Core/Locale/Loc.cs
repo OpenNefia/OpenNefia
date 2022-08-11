@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using NLua;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
@@ -60,6 +61,11 @@ namespace OpenNefia.Core.Locale
                 return text.FirstCharToUpper();
 
             return text;
+        }
+
+        public static bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
+        {
+            return _localization.TryGetTable(key, out table);
         }
 
         public static string GetPrototypeString<T>(T proto, LocaleKey keySuffix, params LocaleArg[] args)

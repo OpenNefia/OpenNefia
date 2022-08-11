@@ -2,7 +2,7 @@
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.EquipSlots;
-using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Qualities;

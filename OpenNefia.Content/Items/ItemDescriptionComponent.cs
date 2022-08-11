@@ -4,7 +4,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.Items
 {
     [RegisterComponent]
     public class ItemDescriptionComponent : Component, IComponentLocalizable

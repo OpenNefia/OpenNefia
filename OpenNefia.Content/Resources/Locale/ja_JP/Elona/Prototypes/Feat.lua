@@ -738,36 +738,54 @@ OpenNefia.Prototypes.Elona.Feat.Elona = {
         ["1"] = {
             Desc = "あなたは罪悪感を感じない[カルマ上限-20]",
         },
+        SecretTreasureName = function(itemName)
+            return ("悪人の%s"):format(itemName)
+        end,
     },
 
     PermGood = {
         ["1"] = {
             Desc = "あなたは良い心を持っている[カルマ上限+20]",
         },
+        SecretTreasureName = function(itemName)
+            return ("善人の%s"):format(itemName)
+        end,
     },
 
     GodLuck = {
         ["1"] = {
             Desc = "あなたの周りでは質の高いエンチャントが生成される",
         },
+        SecretTreasureName = function(itemName)
+            return ("エヘカトルの%s"):format(itemName)
+        end,
     },
 
     GodEarth = {
         ["1"] = {
             Desc = "あなたが受ける物理ダメージは軽減される",
         },
+        SecretTreasureName = function(itemName)
+            return ("オパートスの%s"):format(itemName)
+        end,
     },
 
     GodElement = {
         ["1"] = {
             Desc = "あなたの元素魔法は強化されている",
         },
+        SecretTreasureName = function(itemName)
+            return ("イツパロトルの%s"):format(itemName)
+        end,
     },
 
     GodHeal = {
         ["1"] = {
             Desc = "あなたは周囲の狂気を緩和する",
         },
+        SecretTreasureName = function(itemName)
+            return ("ジュアの%s"):format(itemName)
+        end,
     },
 
     Moe = {

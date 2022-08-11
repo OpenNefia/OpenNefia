@@ -445,11 +445,19 @@ handlers["base.item"] = function(from, to)
     if from.material then
         c.material = dotted(from.material)
     end
-    if from.originalnameref2 then
-        c.originalnameref2 = from.originalnameref2
-    end
+    -- if from.originalnameref2 then
+    --     c.itemTypeName = from.originalnameref2
+    -- end
     if from.is_precious then
         c.isPrecious = true
+    end
+
+    if from.knownnameref then
+        if from.knownnameref == "staff" then
+            from.knownnameref = "rod"
+        end
+        c = comp(to, "RandomItem")
+        c.knownNameRef = dotted("elona." .. from.knownnameref)
     end
 
     if from.weight ~= 0 then
@@ -1122,6 +1130,26 @@ end
 
 handlers["elona.guild"] = function(from, to) end
 
+handlers["elona.fish"] = function(from, to)
+    field(from, to, "level")
+    field(from, to, "rarity")
+    field(from, to, "power")
+    field(from, to, "speed")
+    field(from, to, "weight")
+    field(from, to, "value")
+    field(from, to, "item_id", function(id)
+        return itemCategory(id, "Item")
+    end, "itemID")
+end
+
+handlers["elona.home"] = function(from, to)
+    to.mapBlueprint = "TODO"
+    field(from, to, "image", nil, "areaEntranceChip")
+    field(from, to, "value")
+    field(from, to, "home_scale")
+    event(from, to, "on_generate", "Home", "VanillaHomesSystem", "OnGenerated")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1413,6 +1441,8 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("elona.ex_help", "ExHelp.yml", "OpenNefia.Content.ExHelp.ExHelpPrototype")
 -- write("elona.random_event", "RandomEvent.yml", "OpenNefia.Content.RandomEvent.RandomEventPrototype")
 -- write("elona.guild", "Guild.yml", "OpenNefia.Content.Guild.GuildPrototype")
+-- write("elona.fish", "Fish.yml", "OpenNefia.Content.Fishing.FishPrototype")
+write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

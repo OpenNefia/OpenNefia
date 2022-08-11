@@ -28,6 +28,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.Spells;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Religion
 {

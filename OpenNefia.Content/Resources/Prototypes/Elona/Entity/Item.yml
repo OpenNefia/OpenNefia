@@ -378,6 +378,8 @@
     value: 450
   - type: Item
     material: Elona.Soft
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -400,7 +402,8 @@
   - type: Value
     value: 480
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -419,7 +422,8 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -439,7 +443,8 @@
   - type: Value
     value: 200
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -463,7 +468,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -482,7 +488,8 @@
   - type: Value
     value: 1080
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -501,7 +508,8 @@
   - type: Value
     value: 840
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -520,7 +528,8 @@
   - type: Value
     value: 3200
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -544,7 +553,8 @@
   - type: Value
     value: 5600
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -568,7 +578,8 @@
   - type: Value
     value: 6400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -666,7 +677,6 @@
   - type: Value
     value: 100
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 120
 - type: Entity
@@ -686,7 +696,8 @@
   - type: Value
     value: 20
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -706,7 +717,8 @@
   - type: Value
     value: 30
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -726,7 +738,8 @@
   - type: Value
     value: 40
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -746,6 +759,8 @@
   - type: Value
     value: 120
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -765,7 +780,6 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
 - type: Entity
@@ -784,7 +798,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -808,7 +823,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -832,7 +848,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -948,7 +965,6 @@
   - type: Value
     value: 1400
   - type: Item
-    originalnameref2: raw ore
   - type: Weight
     weight: 240
 - type: Entity
@@ -969,7 +985,6 @@
   - type: Value
     value: 720
   - type: Item
-    originalnameref2: raw ore
   - type: Weight
     weight: 70
 - type: Entity
@@ -996,7 +1011,6 @@
   - type: Value
     value: 2450
   - type: Item
-    originalnameref2: raw ore
   - type: Weight
     weight: 380
 - type: Entity
@@ -1023,7 +1037,6 @@
   - type: Value
     value: 4200
   - type: Item
-    originalnameref2: raw ore
   - type: Weight
     weight: 320
 - type: Entity
@@ -1709,6 +1722,8 @@
     value: 200
   - type: Item
     material: Elona.Soft
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -1732,7 +1747,8 @@
   - type: Value
     value: 150
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1752,7 +1768,8 @@
   - type: Value
     value: 300
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1772,7 +1789,8 @@
   - type: Value
     value: 1280
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1797,7 +1815,8 @@
   - type: Value
     value: 3000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1822,7 +1841,8 @@
   - type: Value
     value: 5000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1894,7 +1914,8 @@
   - type: Value
     value: 7500
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1919,7 +1940,8 @@
   - type: Value
     value: 10000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -1944,7 +1966,8 @@
   - type: Value
     value: 15000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -2154,7 +2177,6 @@
   - type: Value
     value: 450
   - type: Item
-    originalnameref2: lot
   - type: Weight
     weight: 800
 - type: Entity
@@ -2173,7 +2195,6 @@
   - type: Value
     value: 720
   - type: Item
-    originalnameref2: lot
   - type: Weight
     weight: 750
 - type: Entity
@@ -2452,7 +2473,6 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: rack
   - type: Weight
     weight: 80
 - type: Entity
@@ -2599,7 +2619,6 @@
   - type: Value
     value: 1050
   - type: Item
-    originalnameref2: variety
   - type: Weight
     weight: 750
 - type: Entity
@@ -2623,7 +2642,6 @@
   - type: Value
     value: 1300
   - type: Item
-    originalnameref2: variety
   - type: Weight
     weight: 820
 - type: Entity
@@ -2665,7 +2683,6 @@
   - type: Value
     value: 1800
   - type: Item
-    originalnameref2: variety
   - type: Weight
     weight: 950
 - type: Entity
@@ -2785,7 +2802,8 @@
   - type: Value
     value: 2400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -2828,7 +2846,8 @@
   - type: Value
     value: 6000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -2852,7 +2871,8 @@
   - type: Value
     value: 650
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -2871,7 +2891,8 @@
   - type: Value
     value: 800
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -2890,7 +2911,8 @@
   - type: Value
     value: 700
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -2909,7 +2931,8 @@
   - type: Value
     value: 1460
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -2928,7 +2951,8 @@
   - type: Value
     value: 1600
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -2952,7 +2976,6 @@
   - type: Value
     value: 1400
   - type: Item
-    originalnameref2: show case
   - type: Weight
     weight: 7800
 - type: Entity
@@ -2976,7 +2999,8 @@
   - type: Value
     value: 4800
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -3346,7 +3370,6 @@
   - type: Value
     value: 240
   - type: Item
-    originalnameref2: bundle
   - type: Weight
     weight: 1500
 - type: Entity
@@ -3365,7 +3388,6 @@
   - type: Value
     value: 940
   - type: Item
-    originalnameref2: bundle
   - type: Weight
     weight: 2400
 - type: Entity
@@ -3435,7 +3457,6 @@
   - type: Value
     value: 3600
   - type: Item
-    originalnameref2: statue
   - type: Weight
     weight: 7500
 - type: Entity
@@ -3472,7 +3493,6 @@
   - type: Value
     value: 320
   - type: Item
-    originalnameref2: lot
   - type: Weight
     weight: 940
 - type: Entity
@@ -3537,7 +3557,6 @@
   - type: Value
     value: 350
   - type: Item
-    originalnameref2: lot
   - type: Weight
     weight: 320
 - type: Entity
@@ -3838,7 +3857,6 @@
   - type: Value
     value: 3250
   - type: Item
-    originalnameref2: grave
   - type: Weight
     weight: 650000
 - type: Entity
@@ -4050,7 +4068,8 @@
   - type: Value
     value: 1900
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -4069,7 +4088,8 @@
   - type: Value
     value: 1500
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -4662,7 +4682,8 @@
   - type: Value
     value: 3250
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -4686,7 +4707,8 @@
   - type: Value
     value: 2600
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -4728,7 +4750,6 @@
   - type: Value
     value: 180
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
 - type: Entity
@@ -4870,7 +4891,8 @@
   - type: Value
     value: 1050
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5045,7 +5067,6 @@
   - type: Value
     value: 10
   - type: Item
-    originalnameref2: lot
   - type: Weight
     weight: 220
 - type: Entity
@@ -5602,7 +5623,8 @@
   - type: Value
     value: 750
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5626,7 +5648,6 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: figurine
   - type: Weight
     weight: 240
 - type: Entity
@@ -5650,7 +5671,6 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: figurine
   - type: Weight
     weight: 240
 - type: Entity
@@ -5738,7 +5758,8 @@
   - type: Value
     value: 480
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5763,7 +5784,8 @@
   - type: Value
     value: 240000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5787,7 +5809,8 @@
   - type: Value
     value: 8000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5807,7 +5830,8 @@
   - type: Value
     value: 200
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -5831,7 +5855,8 @@
   - type: Value
     value: 8500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5860,7 +5885,8 @@
   - type: Value
     value: 25000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5889,7 +5915,8 @@
   - type: Value
     value: 8900
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5913,7 +5940,8 @@
   - type: Value
     value: 4500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5937,7 +5965,8 @@
   - type: Value
     value: 9000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5966,7 +5995,8 @@
   - type: Value
     value: 15000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -5995,7 +6025,8 @@
   - type: Value
     value: 35000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6020,7 +6051,6 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
 - type: Entity
@@ -6102,7 +6132,8 @@
   - type: Value
     value: 2500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6180,7 +6211,6 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: sack
   - type: Weight
     weight: 800
   - type: Food
@@ -6232,6 +6262,8 @@
   - type: Value
     value: 120
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -6250,7 +6282,8 @@
   - type: Value
     value: 7200
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6279,7 +6312,8 @@
   - type: Value
     value: 9600
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6303,7 +6337,8 @@
   - type: Value
     value: 6400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6359,7 +6394,8 @@
   - type: Value
     value: 4500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6383,7 +6419,8 @@
   - type: Value
     value: 5500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6407,7 +6444,8 @@
   - type: Value
     value: 5400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6431,7 +6469,8 @@
   - type: Value
     value: 5400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6460,7 +6499,8 @@
   - type: Value
     value: 8400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6489,7 +6529,8 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6766,7 +6807,8 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -6786,7 +6828,8 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -6811,7 +6854,8 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -6831,7 +6875,8 @@
   - type: Value
     value: 150
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -6856,7 +6901,8 @@
   - type: Value
     value: 40000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -6885,7 +6931,8 @@
   - type: Value
     value: 300000
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -6932,7 +6979,6 @@
   - type: Value
     value: 1800
   - type: Item
-    originalnameref2: rack
   - type: Weight
     weight: 6800
 - type: Entity
@@ -6956,7 +7002,6 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: rack
   - type: Weight
     weight: 7500
 - type: Entity
@@ -7153,7 +7198,6 @@
   - type: Value
     value: 1500
   - type: Item
-    originalnameref2: chest
   - type: Weight
     weight: 6800
 - type: Entity
@@ -7797,7 +7841,6 @@
   - type: Value
     value: 1500
   - type: Item
-    originalnameref2: statue
   - type: Weight
     weight: 15600
 - type: Entity
@@ -8698,7 +8741,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -8722,7 +8766,8 @@
   - type: Value
     value: 4400
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -8741,7 +8786,8 @@
   - type: Value
     value: 150
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -8760,7 +8806,8 @@
   - type: Value
     value: 2800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -8784,7 +8831,8 @@
   - type: Value
     value: 1080
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -8808,7 +8856,8 @@
   - type: Value
     value: 8400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -8833,7 +8882,8 @@
   - type: Value
     value: 40
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -8857,7 +8907,8 @@
   - type: Value
     value: 4400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -8881,7 +8932,8 @@
   - type: Value
     value: 800
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -8905,7 +8957,8 @@
   - type: Value
     value: 7500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -8929,7 +8982,8 @@
   - type: Value
     value: 700
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -8953,7 +9007,8 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -8982,7 +9037,8 @@
   - type: Value
     value: 4800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9011,7 +9067,8 @@
   - type: Value
     value: 850
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -9031,7 +9088,8 @@
   - type: Value
     value: 30
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -9050,7 +9108,8 @@
   - type: Value
     value: 4200
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -9069,7 +9128,8 @@
   - type: Value
     value: 2600
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9093,7 +9153,8 @@
   - type: Value
     value: 450
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -9117,7 +9178,8 @@
   - type: Value
     value: 2500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9146,7 +9208,8 @@
   - type: Value
     value: 6400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9171,7 +9234,8 @@
   - type: Value
     value: 30
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -9195,7 +9259,8 @@
   - type: Value
     value: 11000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9224,7 +9289,8 @@
   - type: Value
     value: 1500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9248,7 +9314,8 @@
   - type: Value
     value: 3600
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -9272,7 +9339,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9301,7 +9369,8 @@
   - type: Value
     value: 9800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9330,7 +9399,8 @@
   - type: Value
     value: 350
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9354,7 +9424,8 @@
   - type: Value
     value: 1400
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9378,7 +9449,8 @@
   - type: Value
     value: 2400
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9402,7 +9474,8 @@
   - type: Value
     value: 4100
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -9423,7 +9496,6 @@
   - type: Value
     value: 800
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
 - type: Entity
@@ -9483,7 +9555,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9507,7 +9580,8 @@
   - type: Value
     value: 3400
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9536,7 +9610,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9565,7 +9640,8 @@
   - type: Value
     value: 1800
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9805,7 +9881,8 @@
   - type: Value
     value: 4000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -9829,7 +9906,8 @@
   - type: Value
     value: 350
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -9853,7 +9931,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -10378,7 +10457,8 @@
   - type: Value
     value: 150
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -10403,7 +10483,8 @@
   - type: Value
     value: 15000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
   - type: MedalValue
@@ -10430,7 +10511,8 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
   - type: MedalValue
@@ -10457,7 +10539,8 @@
   - type: Value
     value: 5000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -10481,7 +10564,8 @@
   - type: Value
     value: 4000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -10505,7 +10589,8 @@
   - type: Value
     value: 20000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -11395,6 +11480,8 @@
     value: 4400
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11420,6 +11507,8 @@
     value: 4400
   - type: Item
     material: Elona.Soft
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11445,6 +11534,8 @@
     value: 2200
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11471,6 +11562,8 @@
     value: 2000
   - type: Item
     material: Elona.Soft
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11496,6 +11589,8 @@
     value: 1800
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11525,6 +11620,8 @@
     value: 5000
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Amulet
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11549,6 +11646,8 @@
     value: 450
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11574,6 +11673,8 @@
     value: 450
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11599,6 +11700,8 @@
     value: 450
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11628,6 +11731,8 @@
     value: 5200
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -11673,7 +11778,8 @@
   - type: Value
     value: 9000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -11698,7 +11804,8 @@
   - type: Value
     value: 16000
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
   - type: MedalValue
@@ -11724,7 +11831,8 @@
   - type: Value
     value: 28000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -11827,7 +11935,8 @@
   - type: Value
     value: 4500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -11856,7 +11965,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -12252,7 +12362,8 @@
   - type: Value
     value: 600
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12276,7 +12387,8 @@
   - type: Value
     value: 5000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12301,7 +12413,8 @@
   - type: Value
     value: 20000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
   - type: MedalValue
@@ -12379,6 +12492,8 @@
     value: 8000
   - type: Item
     isPrecious: true
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: MedalValue
@@ -12404,7 +12519,8 @@
   - type: Value
     value: 8000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12428,7 +12544,8 @@
   - type: Value
     value: 14000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12452,7 +12569,8 @@
   - type: Value
     value: 8000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12476,7 +12594,8 @@
   - type: Value
     value: 14000
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12525,7 +12644,6 @@
   - type: Value
     value: 10000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -12687,7 +12805,8 @@
   - type: Value
     value: 2500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -12711,7 +12830,6 @@
   - type: Value
     value: 280
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
   - type: MedalValue
@@ -12740,7 +12858,8 @@
   - type: Value
     value: 4500
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -12764,7 +12883,8 @@
   - type: Value
     value: 6000
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -12790,7 +12910,8 @@
   - type: Value
     value: 500
   - type: Item
-    originalnameref2: bottle
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -12848,7 +12969,6 @@
   - type: Value
     value: 140000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -12876,7 +12996,6 @@
   - type: Value
     value: 200000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -12900,7 +13019,6 @@
   - type: Value
     value: 700
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 45000
 - type: Entity
@@ -12924,7 +13042,6 @@
   - type: Value
     value: 500
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 38000
 - type: Entity
@@ -12950,7 +13067,6 @@
   - type: Value
     value: 500
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 35000
 - type: Entity
@@ -12974,7 +13090,6 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 42000
   - type: FruitTree
@@ -13022,7 +13137,6 @@
   - type: Value
     value: 800
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 28000
 - type: Entity
@@ -13046,7 +13160,6 @@
   - type: Value
     value: 1000
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 39000
 - type: Entity
@@ -13070,7 +13183,6 @@
   - type: Value
     value: 900
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 28000
 - type: Entity
@@ -13209,7 +13321,6 @@
   - type: Value
     value: 8500
   - type: Item
-    originalnameref2: painting
   - type: Weight
     weight: 2000
 - type: Entity
@@ -13233,7 +13344,6 @@
   - type: Value
     value: 8200
   - type: Item
-    originalnameref2: painting
   - type: Weight
     weight: 500
 - type: Entity
@@ -13257,7 +13367,6 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: painting
   - type: Weight
     weight: 450
 - type: Entity
@@ -13281,7 +13390,6 @@
   - type: Value
     value: 25000
   - type: Item
-    originalnameref2: statue
   - type: Weight
     weight: 48000
 - type: Entity
@@ -13355,7 +13463,6 @@
   - type: Value
     value: 45000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -13383,7 +13490,6 @@
   - type: Value
     value: 10000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -13431,7 +13537,8 @@
   - type: Value
     value: 4000
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -13455,7 +13562,8 @@
   - type: Value
     value: 6800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -13509,7 +13617,8 @@
   - type: Value
     value: 9500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -13539,7 +13648,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -13563,7 +13673,8 @@
   - type: Value
     value: 5800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -13592,7 +13703,8 @@
   - type: Value
     value: 5600
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -13788,6 +13900,8 @@
     value: 17000
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -13817,7 +13931,8 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
   - type: MedalValue
@@ -13943,7 +14058,8 @@
   - type: Value
     value: 7500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -13972,7 +14088,8 @@
   - type: Value
     value: 4400
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -13997,6 +14114,8 @@
   - type: Value
     value: 1900
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -14068,7 +14187,8 @@
   - type: Value
     value: 5800
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -14097,7 +14217,8 @@
   - type: Value
     value: 3800
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -14150,7 +14271,6 @@
   - type: Value
     value: 80000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -14200,7 +14320,6 @@
   - type: Value
     value: 1000
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 300
 - type: Entity
@@ -14268,6 +14387,8 @@
   - type: Value
     value: 400
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 50
 - type: Entity
@@ -14362,7 +14483,8 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: rod
+  - type: RandomItem
+    knownNameRef: Elona.Rod
   - type: Weight
     weight: 800
 - type: Entity
@@ -14386,7 +14508,8 @@
   - type: Value
     value: 2000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -14503,7 +14626,6 @@
   - type: Value
     value: 10
   - type: Item
-    originalnameref2: handful
   - type: Weight
     weight: 50
 - type: Entity
@@ -14529,7 +14651,6 @@
   - type: Value
     value: 500
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 14000
 - type: Entity
@@ -14555,7 +14676,6 @@
   - type: Value
     value: 1800
   - type: Item
-    originalnameref2: tree
   - type: Weight
     weight: 28000
 - type: Entity
@@ -14667,7 +14787,6 @@
   - type: Value
     value: 18000
   - type: Item
-    originalnameref2: statue
   - type: Weight
     weight: 12000
 - type: Entity
@@ -15383,6 +15502,8 @@
     value: 15000
   - type: Item
     isPrecious: true
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: MedalValue
@@ -15410,6 +15531,8 @@
     value: 10000
   - type: Item
     isPrecious: true
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: MedalValue
@@ -15466,8 +15589,9 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: bottle
     isPrecious: true
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
   - type: MedalValue
@@ -15535,7 +15659,8 @@
   - type: Value
     value: 7000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -15637,6 +15762,8 @@
   - type: Value
     value: 40000
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 5
 - type: Entity
@@ -15806,7 +15933,8 @@
   - type: Value
     value: 450
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -16336,7 +16464,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -16469,6 +16598,8 @@
     value: 50000
   - type: Item
     material: Elona.Metal
+  - type: RandomItem
+    knownNameRef: Elona.Ring
   - type: Weight
     weight: 50
   - type: Equipment
@@ -16501,7 +16632,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 15000
@@ -16531,7 +16661,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 14000
@@ -17051,7 +17180,6 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: Lulwy's gem stone
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -17082,7 +17210,6 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: Jure's gem stone
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -17113,7 +17240,6 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: Kumiromi's gem stone
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -17144,7 +17270,6 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: gem stone
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -17222,7 +17347,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 12000
@@ -17494,7 +17618,8 @@
   - type: Value
     value: 14200
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -17523,7 +17648,8 @@
   - type: Value
     value: 12500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -17552,7 +17678,6 @@
   - type: Value
     value: 10
   - type: Item
-    originalnameref2: potion
   - type: Weight
     weight: 50
 - type: Entity
@@ -17764,7 +17889,8 @@
   - type: Value
     value: 4500
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -17821,7 +17947,8 @@
   - type: Value
     value: 6000
   - type: Item
-    originalnameref2: book
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
 - type: Entity
@@ -17846,7 +17973,8 @@
   - type: Value
     value: 3500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -17870,7 +17998,8 @@
   - type: Value
     value: 8500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -17899,7 +18028,8 @@
   - type: Value
     value: 12000
   - type: Item
-    originalnameref2: potion
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -17927,7 +18057,6 @@
   - type: Value
     value: 500000
   - type: Item
-    originalnameref2: deed
   - type: Weight
     weight: 500
 - type: Entity
@@ -18047,7 +18176,6 @@
   - type: Value
     value: 6800
   - type: Item
-    originalnameref2: secret experience
   - type: Weight
     weight: 1200
 - type: Entity
@@ -18129,7 +18257,6 @@
   - type: Value
     value: 6800
   - type: Item
-    originalnameref2: secret experience
   - type: Weight
     weight: 1200
 - type: Entity
@@ -18286,7 +18413,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 12000
@@ -18626,7 +18752,6 @@
   - type: Value
     value: 1
   - type: Item
-    originalnameref2: token
     isPrecious: true
   - type: Weight
     weight: 1
@@ -18656,7 +18781,8 @@
   - type: Value
     value: 8500
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -18685,7 +18811,8 @@
   - type: Value
     value: 4000
   - type: Item
-    originalnameref2: spellbook
+  - type: RandomItem
+    knownNameRef: Elona.Spellbook
   - type: Weight
     weight: 380
   - type: Spellbook
@@ -18796,6 +18923,8 @@
   - type: Value
     value: 1500
   - type: Item
+  - type: RandomItem
+    knownNameRef: Elona.Potion
   - type: Weight
     weight: 120
 - type: Entity
@@ -18820,7 +18949,8 @@
   - type: Value
     value: 7500
   - type: Item
-    originalnameref2: scroll
+  - type: RandomItem
+    knownNameRef: Elona.Scroll
   - type: Weight
     weight: 20
 - type: Entity
@@ -19005,7 +19135,6 @@
   - type: Value
     value: 15000
   - type: Item
-    originalnameref2: license
     isPrecious: true
   - type: Weight
     weight: 500
@@ -19036,7 +19165,6 @@
   - type: Value
     value: 50000
   - type: Item
-    originalnameref2: plank
     isPrecious: true
   - type: Weight
     weight: 1200
@@ -19148,7 +19276,6 @@
   - type: Value
     value: 4000
   - type: Item
-    originalnameref2: book
   - type: Weight
     weight: 80
 - type: Entity
@@ -19198,7 +19325,6 @@
   - type: Value
     value: 50
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 15000
@@ -19800,7 +19926,6 @@
   - type: Value
     value: 500
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 50
 - type: Entity
@@ -19952,7 +20077,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 15000
@@ -19982,7 +20106,6 @@
   - type: Value
     value: 100000
   - type: Item
-    originalnameref2: statue
     isPrecious: true
   - type: Weight
     weight: 15000
@@ -20181,7 +20304,6 @@
   - type: Value
     value: 80
   - type: Item
-    originalnameref2: bottle
   - type: Weight
     weight: 80
   - type: Food
@@ -20207,7 +20329,6 @@
   - type: Value
     value: 50
   - type: Item
-    originalnameref2: sack
   - type: Weight
     weight: 120
   - type: Food

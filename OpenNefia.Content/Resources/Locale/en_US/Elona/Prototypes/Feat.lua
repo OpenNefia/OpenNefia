@@ -738,36 +738,56 @@ OpenNefia.Prototypes.Elona.Feat.Elona = {
         ["1"] = {
             Desc = "You don't feel guilty. [Karma limit -20]",
         },
+
+        SecretTreasureName = function(itemName)
+            return ("%s of wicked"):format(itemName)
+        end,
     },
 
     PermGood = {
         ["1"] = {
             Desc = "You are a good man. [Karma limit +20]",
         },
+
+        SecretTreasureName = function(itemName)
+            return ("%s of saint"):format(itemName)
+        end,
     },
 
     GodLuck = {
         ["1"] = {
             Desc = "Quality stuff are generated around you.",
         },
+        SecretTreasureName = function(itemName)
+            return ("%s of Ehekatl"):format(itemName)
+        end,
     },
 
     GodEarth = {
         ["1"] = {
             Desc = "You are given physical damage reduction.",
         },
+        SecretTreasureName = function(itemName)
+            return ("%s of Opatos"):format(itemName)
+        end,
     },
 
     GodElement = {
         ["1"] = {
             Desc = "Elemental spells you cast are empowered.",
         },
+        SecretTreasureName = function(itemName)
+            return ("%s of Itzpalt"):format(itemName)
+        end,
     },
 
     GodHeal = {
         ["1"] = {
             Desc = "You are surrounded by an aura that cures sanity.",
         },
+        SecretTreasureName = function(itemName)
+            return ("%s of Jure"):format(itemName)
+        end,
     },
 
     Moe = {
