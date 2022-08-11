@@ -12,6 +12,7 @@ using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Material;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
@@ -199,7 +200,7 @@ namespace OpenNefia.Content.Food
             if (!Resolve(ent, ref food))
                 return false;
 
-            if (TryComp<ItemComponent>(ent, out var item) && item.Material != Protos.Material.Fresh)
+            if (TryComp<MaterialComponent>(ent, out var material) && material.MaterialID != Protos.Material.Fresh)
                 return false;
 
             if (TryComp<PickableComponent>(ent, out var pickable) && pickable.OwnState > OwnState.NPC)
@@ -210,7 +211,7 @@ namespace OpenNefia.Content.Food
 
         public bool IsCooked(EntityUid ent, FoodComponent? food = null)
         {
-            if (!Resolve(ent, ref food))
+            if (!Resolve(ent, ref food, logMissing: false))
                 return false;
 
             return food.FoodType != null && food.FoodQuality > 0;

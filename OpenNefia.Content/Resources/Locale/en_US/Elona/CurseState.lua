@@ -1,4 +1,9 @@
 Elona.CurseState = {
+    ItemName = {
+        Blessed = "blessed",
+        Cursed = "cursed",
+        Doomed = "doomed",
+    },
     CannotBeTakenOff = function(entity)
         return ("%s can't be taken off."):format(_.name(entity))
     end,

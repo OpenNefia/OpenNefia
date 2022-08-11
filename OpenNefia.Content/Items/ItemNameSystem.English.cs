@@ -20,6 +20,8 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Content.Chest;
 using System.Text.RegularExpressions;
 using OpenNefia.Content.Fishing;
+using OpenNefia.Content.Material;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.DisplayName
 {
@@ -37,6 +39,7 @@ namespace OpenNefia.Content.DisplayName
             var quality = CompOrNull<QualityComponent>(uid)?.Quality.Buffed ?? Quality.Bad;
             var identify = CompOrNull<IdentifyComponent>(uid)?.IdentifyState ?? IdentifyState.None;
             var curse = CompOrNull<CurseStateComponent>(uid)?.CurseState ?? CurseState.Normal;
+            var materialID = CompOrNull<MaterialComponent>(uid)?.MaterialID;
             var enchantments = CompOrNull<EnchantmentsComponent>(uid);
             var amount = _stacks.GetCount(uid);
 
@@ -135,9 +138,9 @@ namespace OpenNefia.Content.DisplayName
             // >>>>>>>> shade2/item_func.hsp:545 	if iId(id)=idMaterialKit:s+=""+mtName@(0,iMateria ..
             if (HasComp<MaterialKitComponent>(uid))
             {
-                if (item.Material != null)
+                if (materialID != null)
                 {
-                    fullName.Append(Loc.GetPrototypeString(item.Material.Value, "Name") + " ");
+                    fullName.Append(Loc.GetPrototypeString(materialID.Value, "Name") + " ");
                 }
                 else
                 {
@@ -147,9 +150,9 @@ namespace OpenNefia.Content.DisplayName
             // <<<<<<<< shade2/item_func.hsp:546 			 ...
 
             // >>>>>>>> shade2/item_func.hsp:549 	if a=fltFurniture{ ..
-            if (HasComp<FurnitureComponent>(uid) && item.Material != null)
+            if (HasComp<FurnitureComponent>(uid) && materialID != null)
             {
-                fullName.Append(Loc.GetPrototypeString(item.Material.Value, "Name") + "work ");
+                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Name") + "work ");
             }
 
             if (TryComp<GiftComponent>(uid, out var gift))
@@ -173,65 +176,69 @@ namespace OpenNefia.Content.DisplayName
                             fullName = new StringBuilder(s);
                         }
 
-                        if (item.Material != null)
+                        if (materialID != null)
                         {
                             if (quality != Quality.Unique && quality >= Quality.Great)
                             {
-                                fullName.Append(Loc.GetPrototypeString(item.Material.Value, "Alias") + Loc.Space());
+                                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Alias") + Loc.Space());
                             }
                             else
                             {
-                                fullName.Append(Loc.GetPrototypeString(item.Material.Value, "Name") + Loc.Space());
+                                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Name") + Loc.Space());
                             }
                         }
                     }
+                }
 
-                    var unidentifiedName = GetUnidentifiedName(uid);
+                var unidentifiedName = GetUnidentifiedName(uid);
 
-                    switch (identify)
-                    {
-                        case IdentifyState.None:
+                switch (identify)
+                {
+                    case IdentifyState.None:
+                        fullName.Append(unidentifiedName);
+                        break;
+                    case IdentifyState.Name:
+                    case IdentifyState.Quality:
+                        if (quality < Quality.Great && !HasComp<EquipmentComponent>(uid))
+                        {
+                            fullName.Append(basename);
+                        }
+                        else
+                        {
                             fullName.Append(unidentifiedName);
-                            break;
-                        case IdentifyState.Name:
-                        case IdentifyState.Quality:
-                            if (quality < Quality.Great && !HasComp<EquipmentComponent>(uid))
+                        }
+                        break;
+                    case IdentifyState.Full:
+                    default:
+                        if (quality == Quality.Unique || item.IsPrecious)
+                        {
+                            fullName.Append(basename);
+                        }
+                        else
+                        {
+                            if (HasComp<EquipmentComponent>(uid) && enchantments != null && enchantments.EgoMajorEnchantment != null)
                             {
-                                fullName.Append(basename);
+                                var s = Loc.GetString($"Elona.Enchantments.Ego.Major.{enchantments.EgoMajorEnchantment}", ("name", fullName.ToString()));
+                                fullName = new StringBuilder(s);
                             }
                             else
                             {
-                                fullName.Append(unidentifiedName);
-                            }
-                            break;
-                        case IdentifyState.Full:
-                        default:
-                            if (quality == Quality.Unique || item.IsPrecious)
-                            {
                                 fullName.Append(basename);
                             }
-                            else
-                            {
-                                if (HasComp<EquipmentComponent>(uid) && enchantments != null && enchantments.EgoMajorEnchantment != null)
-                                {
-                                    var s = Loc.GetString($"Elona.Enchantments.Ego.Major.{enchantments.EgoMajorEnchantment}", ("name", fullName.ToString()));
-                                    fullName = new StringBuilder(s);
-                                }
 
-                                if (TryComp<AliasComponent>(uid, out var alias))
+                            if (TryComp<AliasComponent>(uid, out var alias) && !string.IsNullOrWhiteSpace(alias.Alias))
+                            {
+                                if (quality == Quality.Great)
                                 {
-                                    if (quality == Quality.Great)
-                                    {
-                                        fullName.Append(Loc.GetString("Elona.Quality.Brackets.Great", ("name", alias.Alias)));
-                                    }
-                                    else
-                                    {
-                                        fullName.Append(Loc.GetString("Elona.Quality.Brackets.God", ("name", alias.Alias)));
-                                    }
+                                    fullName.Append(Loc.GetString("Elona.Quality.Brackets.Great", ("name", alias.Alias)));
+                                }
+                                else
+                                {
+                                    fullName.Append(Loc.GetString("Elona.Quality.Brackets.God", ("name", alias.Alias)));
                                 }
                             }
-                            break;
-                    }
+                        }
+                        break;
                 }
             }
             // <<<<<<<< shade2/item_func.hsp:605 *skipName ..
@@ -256,9 +263,9 @@ namespace OpenNefia.Content.DisplayName
             // >>>>>>>> shade2/item_func.hsp:640 	if iId(id)=idFishingPole{ ..
             if (identify == IdentifyState.Quality && HasComp<EquipmentComponent>(uid))
             {
-                if (item.Material != null)
+                if (materialID != null)
                 {
-                    var materialName = Loc.GetPrototypeString(item.Material.Value, "Name");
+                    var materialName = Loc.GetPrototypeString(materialID.Value, "Name");
                     fullName.Append(Loc.GetString("Elona.SenseQuality.ItemName",
                         ("quality", Loc.GetString($"Elona.Quality.Names.{quality}")),
                         ("materialName", materialName)));

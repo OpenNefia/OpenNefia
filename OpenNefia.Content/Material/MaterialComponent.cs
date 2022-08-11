@@ -5,15 +5,15 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.Material
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class AliasComponent : Component
+    public sealed class MaterialComponent : Component
     {
-        public override string Name => "Alias";
+        public override string Name => "Material";
 
         [DataField]
-        public string? Alias { get; set; }
+        public PrototypeId<MaterialPrototype>? MaterialID { get; set; }
     }
 }

@@ -75,6 +75,7 @@
   - type: InUse
   - type: Enchantments
   - type: Alias
+  - type: Material
 
 - type: Entity
   id: BaseMObj

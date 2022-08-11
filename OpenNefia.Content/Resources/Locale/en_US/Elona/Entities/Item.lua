@@ -479,7 +479,7 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "rubynus",
         },
         Item = {
-            ItemTypeName = raw "ore",
+            ItemTypeName = "raw ore",
         },
     },
 
@@ -488,7 +488,7 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "mica",
         },
         Item = {
-            ItemTypeName = raw "ore",
+            ItemTypeName = "raw ore",
         },
     },
 
@@ -497,7 +497,7 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "emerald",
         },
         Item = {
-            ItemTypeName = raw "ore",
+            ItemTypeName = "raw ore",
         },
     },
 
@@ -506,7 +506,7 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "diamond",
         },
         Item = {
-            ItemTypeName = raw "ore",
+            ItemTypeName = "raw ore",
         },
     },
 

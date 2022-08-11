@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Material;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Utility;
@@ -41,13 +42,13 @@ namespace OpenNefia.Content.Items
             }
         }
 
-        private static void AddQualityInfo(ItemComponent item, GetItemDescriptionEventArgs args)
+        private void AddQualityInfo(ItemComponent item, GetItemDescriptionEventArgs args)
         {
-            if (item.Material != null)
+            if (TryComp<MaterialComponent>(item.Owner, out var material) && material.MaterialID != null)
             {
                 var entry = new ItemDescriptionEntry()
                 {
-                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", item.Material.ToString()))
+                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", material.MaterialID.ToString()))
                 };
                 args.Entries.Add(entry);
             }
