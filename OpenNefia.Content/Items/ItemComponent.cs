@@ -14,9 +14,6 @@ namespace OpenNefia.Content.Items
         [DataField]
         public bool IsPrecious { get; set; } = false;
 
-        [DataField]
-        public PrototypeId<MaterialPrototype>? Material { get; set; }
-
         /// <summary>
         /// A qualifier like "cargo", "dish", "potion", etc. for use in item names. Example: "a
         /// [potion] of teleportation", where the name in the <see cref="MetaDataComponent"/> is

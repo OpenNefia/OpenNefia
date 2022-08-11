@@ -441,10 +441,12 @@ handlers["base.item"] = function(from, to)
     c = comp(to, "Value")
     c.value = from.value
 
-    c = comp(to, "Item")
     if from.material then
-        c.material = dotted(from.material)
+        c = comp(to, "Material")
+        c.materialID = dotted(from.material)
     end
+
+    c = comp(to, "Item")
     -- if from.originalnameref2 then
     --     c.itemTypeName = from.originalnameref2
     -- end

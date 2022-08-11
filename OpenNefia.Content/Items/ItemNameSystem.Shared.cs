@@ -134,7 +134,7 @@ namespace OpenNefia.Content.DisplayName
 
             if (diceX != 0 || diceY != 0 || hitBonus != 0 || damageBonus != 0)
             {
-                knownInfo.Append("(");
+                knownInfo.Append(" (");
                 if (diceX != 0 || diceY != 0)
                 {
                     knownInfo.Append($"{diceX}d{diceY}");
@@ -144,18 +144,18 @@ namespace OpenNefia.Content.DisplayName
                         var sign = damageBonus >= 0 ? "+" : "";
                         knownInfo.Append($"{sign}{damageBonus}");
                     }
+
+                    knownInfo.Append(")");
+
+                    if (hitBonus != 0)
+                    {
+                        knownInfo.Append($"({hitBonus})");
+                    }
                 }
-
-                knownInfo.Append(")");
-
-                if (hitBonus != 0)
+                else
                 {
-                    knownInfo.Append($"({hitBonus})");
+                    knownInfo.Append($"{hitBonus},{damageBonus})");
                 }
-            }
-            else
-            {
-                knownInfo.Append($"{hitBonus},{damageBonus})");
             }
 
             var dv = equipStats?.DV.Buffed ?? 0;
