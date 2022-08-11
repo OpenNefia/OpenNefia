@@ -1,7 +1,6 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Effects;
 using OpenNefia.Core.IoC;
@@ -60,6 +59,11 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
         {
+            if (args.Handled)
+                return;
+            
+            args.Handled = true;
+
             _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
@@ -70,6 +74,11 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactGround(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedGroundEvent args)
         {
+            if (args.Handled)
+                return;
+            
+            args.Handled = true;
+
             _mes.Display(Loc.GetString("Elona.Drinkable.Thrown.Shatters"));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 

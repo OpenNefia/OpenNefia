@@ -1,7 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;

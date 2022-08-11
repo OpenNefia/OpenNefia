@@ -54,6 +54,10 @@ namespace OpenNefia.Content.Charas
         [DataField]
         public GameDateTime RespawnDate { get; set; } = new();
 
+        // TODO PreciousComponent?
+        [DataField]
+        public bool IsPrecious { get; set; }
+
         [ComponentDependency]
         private MetaDataComponent? _metaData;
 

@@ -1152,7 +1152,7 @@ namespace OpenNefia.Core.Prototypes
             where TExt : class, IPrototypeExtendedData<TProto>
         {
             if (!TryGetExtendedData<TProto, TExt>(proto, out var data))
-                throw new KeyNotFoundException($"Extended data {typeof(TExt)} for {typeof(TProto)}:{id} not found.");
+                throw new KeyNotFoundException($"Extended data {typeof(TExt)} for {typeof(TProto)}:{proto.ID} not found.");
 
             return data;
         }

@@ -8,7 +8,6 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using System;
@@ -19,13 +18,14 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Sleep
 {
-    public sealed class BedSystem : EntitySystem
+    public interface IBedSystem : IEntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
+        TurnResult UseBed(EntityUid user, EntityUid bed, BedComponent? bedComp = null);
+    }
+
+    public sealed class BedSystem : EntitySystem, IBedSystem
+    {
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
 
@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Sleep
             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Bed", () => UseBed(args.Source, args.Target, component)));
         }
 
-        private TurnResult UseBed(EntityUid user, EntityUid bed, BedComponent? bedComp = null)
+        public TurnResult UseBed(EntityUid user, EntityUid bed, BedComponent? bedComp = null)
         {
             if (!Resolve(bed, ref bedComp))
                 return TurnResult.Aborted;

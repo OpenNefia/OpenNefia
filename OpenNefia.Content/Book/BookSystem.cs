@@ -21,6 +21,7 @@ namespace OpenNefia.Content.Book
 {
     public interface IBookSystem : IEntitySystem
     {
+        TurnResult ReadBook(EntityUid source, EntityUid target, BookComponent? book = null);
     }
 
     public sealed class BookSystem : EntitySystem, IBookSystem
@@ -72,7 +73,7 @@ namespace OpenNefia.Content.Book
             args.OutVerbs.Add(new Verb(ReadInventoryBehavior.VerbTypeRead, "Read Book", () => ReadBook(args.Source, args.Target)));
         }
 
-        private TurnResult ReadBook(EntityUid source, EntityUid target, BookComponent? book = null)
+        public TurnResult ReadBook(EntityUid source, EntityUid target, BookComponent? book = null)
         {
             if (!Resolve(target, ref book))
                 return TurnResult.Aborted;

@@ -19,7 +19,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Logic;
+
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
@@ -36,6 +36,7 @@ namespace OpenNefia.Content.Book
     {
         int GetDecodeDifficulty(EntityUid uid, AncientBookComponent? ancientBook = null);
         int GetDecodeDifficulty(int baseDifficulty);
+        TurnResult ReadAncientBook(EntityUid reader, EntityUid ancientBook, AncientBookComponent? ancientBookComp = null);
     }
 
     public sealed class AncientBookSystem : EntitySystem, IAncientBookSystem
@@ -65,16 +66,17 @@ namespace OpenNefia.Content.Book
 
         private void LocalizeExtra_AncientBook(EntityUid uid, AncientBookComponent component, ref LocalizeItemNameExtraEvent args)
         {
+            string? s = "";
             var identify = CompOrNull<IdentifyComponent>(uid)?.IdentifyState ?? IdentifyState.None;
             if (identify >= IdentifyState.Full)
             {
                 var title = Loc.GetString($"Elona.Read.AncientBook.ItemName.Titles.{component.DecodeDifficulty}");
-                var s = Loc.GetString($"Elona.Read.AncientBook.ItemName.Title",
+                s = Loc.GetString($"Elona.Read.AncientBook.ItemName.Title",
                     ("name", args.OutFullName.ToString()),
                     ("title", title));
                 args.OutFullName = new StringBuilder(s);
             }
-            if (component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Decoded", out var s, ("name", args.OutFullName.ToString())))
+            if (component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Decoded", out s, ("name", args.OutFullName.ToString())))
             {
                 args.OutFullName = new StringBuilder(s);
             }
@@ -102,12 +104,10 @@ namespace OpenNefia.Content.Book
             return 50 + baseDifficulty * 50 + baseDifficulty * baseDifficulty * 20;
         }
 
-        private TurnResult ReadAncientBook(EntityUid reader, EntityUid ancientBook)
+        public TurnResult ReadAncientBook(EntityUid reader, EntityUid ancientBook, AncientBookComponent? ancientBookComp = null)
         {
-            if (!TryComp<AncientBookComponent>(ancientBook, out var ancientBookComp))
-            {
+            if (!Resolve(ancientBook, ref ancientBookComp))
                 return TurnResult.Aborted;
-            }
 
             if (ancientBookComp.IsDecoded)
             {

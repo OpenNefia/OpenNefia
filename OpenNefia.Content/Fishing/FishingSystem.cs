@@ -24,11 +24,7 @@ namespace OpenNefia.Content.Fishing
 
     public sealed class FishingSystem : EntitySystem, IFishingSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
@@ -44,6 +40,11 @@ namespace OpenNefia.Content.Fishing
             var baitName = Loc.GetPrototypeString(component.BaitID, "Name");
             var s = Loc.GetString("Elona.Fishing.ItemName.Bait", ("name", args.OutFullName.ToString()), ("baitName", baitName));
             args.OutFullName = new StringBuilder(s);
+        }
+
+        private int GetDefaultBaitValue(int rank)
+        {
+            return rank * rank * 500 + 200;
         }
 
         private void EntityBeingGenerated_Bait(EntityUid uid, BaitComponent component, ref EntityBeingGeneratedEvent args)
@@ -62,7 +63,7 @@ namespace OpenNefia.Content.Fishing
                 value.Value = proto.Value ?? GetDefaultBaitValue(proto.Rank);
         }
 
-        private void LocalizeExtra_FishingPole(EntityUid uid, FishingPoleComponent component, LocalizeItemNameExtraEvent args)
+        private void LocalizeExtra_FishingPole(EntityUid uid, FishingPoleComponent component, ref LocalizeItemNameExtraEvent args)
         {
             if (component.BaitID != null && component.BaitAmount > 0)
             {
@@ -73,11 +74,6 @@ namespace OpenNefia.Content.Fishing
                     ("baitAmount", component.BaitAmount));
                 args.OutFullName = new StringBuilder(s);
             }
-        }
-
-        private int GetDefaultBaitValue(int rank)
-        {
-            return rank * rank * 500 + 200;
         }
     }
 }
