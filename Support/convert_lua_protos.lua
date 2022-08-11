@@ -462,6 +462,15 @@ handlers["base.item"] = function(from, to)
         c.knownNameRef = dotted("elona." .. from.knownnameref)
     end
 
+    if from.random_color then
+        c = comp(to, "RandomItem")
+        if from.random_color == "Random" then
+            c.randomColor = "RandomItem"
+        elseif from.random_color == "Furniture" then
+            c.randomColor = "Furniture"
+        end
+    end
+
     if from.weight ~= 0 then
         c = comp(to, "Weight")
         c.weight = from.weight
@@ -1455,3 +1464,12 @@ write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
 -- Local Variables:
 -- open-nefia-always-send-to-repl: t
 -- End:
+
+data["base.item"]
+    :iter()
+    :filter(function(i)
+        return i.has_random_name and i.random_color ~= "Random"
+    end)
+    :each(function(i)
+        print(i._id)
+    end)

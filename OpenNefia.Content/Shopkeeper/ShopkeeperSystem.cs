@@ -105,6 +105,7 @@ namespace OpenNefia.Content.Shopkeeper
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IFoodSystem _food = default!;
+        [Dependency] private readonly IRandomItemSystem _randomItems = default!;
 
         public override void Initialize()
         {
@@ -393,8 +394,8 @@ namespace OpenNefia.Content.Shopkeeper
                 else
                 {
                     var pcLevel = _levels.GetLevel(player);
-                    var id = ProtoIDOrNull(item)?.ToString() ?? "";
-                    value = pcLevel / 5 * ((_world.State.RandomSeed + StringHelpers.HashStringToInteger(id) * 31) % pcLevel + 4) + 10;
+                    var randIndex = _randomItems.GetRandomEntityIndex(item);
+                    value = (int)(pcLevel / 5 * ((randIndex * 31) % pcLevel + 4) + 10);
                 }
             }
             else

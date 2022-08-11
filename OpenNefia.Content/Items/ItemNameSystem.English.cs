@@ -71,7 +71,7 @@ namespace OpenNefia.Content.DisplayName
             // a dish <with/of> [...]
             var preposition = "";
 
-            if (!HasComp<RandomItemComponent>(uid) && identify < IdentifyState.Name)
+            if (HasComp<RandomItemComponent>(uid) || identify >= IdentifyState.Name)
             {
                 typeName = item.ItemTypeName;
                 preposition = item.ItemPreposition ?? "of";
@@ -244,7 +244,7 @@ namespace OpenNefia.Content.DisplayName
             // <<<<<<<< shade2/item_func.hsp:605 *skipName ..
 
             // >>>>>>>> shade2/item_func.hsp:606 	if en@{ ..
-            if (string.IsNullOrEmpty(typeName) && HasComp<FishComponent>(uid) && amount > 1)
+            if (string.IsNullOrEmpty(typeName) && !HasComp<FishComponent>(uid) && amount > 1)
             {
                 fullName.Append("s");
             }

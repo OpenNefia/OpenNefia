@@ -124,7 +124,7 @@ namespace OpenNefia.Content.Inventory
                 UiText.Draw();
                 UiSubtext.Draw();
 
-                SpriteBatch.Add(Data.ItemEntityUid, X - 40, Y - 12, color: Data.ChipColor);
+                SpriteBatch.Add(Data.ItemEntityUid, X - 40, Y - 12, centering: EntitySpriteBatch.Centering.AlignBottom, color: Data.ChipColor);
             }
 
             public override void Update(float dt)
@@ -148,7 +148,6 @@ namespace OpenNefia.Content.Inventory
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IInventorySystem _invSys = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;

@@ -81,20 +81,6 @@ namespace OpenNefia.Core.Prototypes
             Components.Add("MetaData", new MetaDataComponent());
         }
 
-        public bool TryGetComponent<T>(string name, [NotNullWhen(true)] out T? component) where T : IComponent
-        {
-            if (!Components.TryGetValue(name, out var componentUnCast))
-            {
-                component = default;
-                return false;
-            }
-
-            // There are no duplicate component names
-            // TODO Sanity check with names being in an attribute of the type instead
-            component = (T)componentUnCast;
-            return true;
-        }
-
         public override string ToString()
         {
             return $"EntityPrototype({ID})";
@@ -113,6 +99,7 @@ namespace OpenNefia.Core.Prototypes
             public bool HasComponent<T>()
                 where T : class, IComponent
             {
+                // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
 
                 if (!TryGetValue(dummy.Name, out var comp))
@@ -124,6 +111,7 @@ namespace OpenNefia.Core.Prototypes
             public bool TryGetComponent<T>([NotNullWhen(true)] out T? component)
                 where T : class, IComponent
             {
+                // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
 
                 if (TryGetValue(dummy.Name, out var comp) && comp is T)
@@ -139,6 +127,7 @@ namespace OpenNefia.Core.Prototypes
             public T GetComponent<T>()
                 where T : class, IComponent
             {
+                // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
                 return (this[dummy.Name] as T)!;
             }

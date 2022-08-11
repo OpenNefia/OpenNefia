@@ -183,11 +183,11 @@ namespace OpenNefia.Core.Utility
             return str.Substring(boundLeft.Value, normalLength);
         }
 
-        public static int HashStringToInteger(string str)
+        public static uint HashStringToUInt32(string str)
         {
             var hasher = SHA256.Create();
             var hashed = hasher.ComputeHash(Encoding.UTF8.GetBytes(str));
-            return BitConverter.ToInt32(hashed, 0);
+            return BitConverter.ToUInt32(hashed, 0);
         }
     }
 }

@@ -66,8 +66,7 @@ Elona.Inventory.Behavior = {
             return ("Do you really want to buy %s for %s gold pieces?"):format(_.name(item), cost)
         end,
         NotEnoughMoney = { "You check your wallet and shake your head.", "You need to earn more money!" },
-
-        you_buy = function(item)
+        YouBuy = function(item)
             return ("You buy %s."):format(_.name(item))
         end,
     },

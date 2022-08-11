@@ -10,6 +10,7 @@ namespace OpenNefia.Content.Inventory
     public class EntitySpriteBatch : UiElement
     {
         [Dependency] private readonly IEntityMemorySystem _entityMemory = default!;
+        [Dependency] private readonly ICoords _coords = default!;
 
         private class Entry 
         {
@@ -48,15 +49,32 @@ namespace OpenNefia.Content.Inventory
             _atlasBatch = new TileAtlasBatch(AtlasNames.Chip);
         }
 
-        public void Add(EntityUid entity, float x, float y, float? width = null, float? height = null, Color? color = null, bool centered = false, float rotation = 0f)
+        public enum Centering
+        {
+            None,
+            Centered,
+            AlignBottom
+        }
+
+        public void Add(EntityUid entity, float x, float y, float? width = null, float? height = null, Color? color = null, Centering centering = Centering.None, float rotation = 0f)
         {
             color ??= Color.White;
 
             var memory = _entityMemory.GetEntityMemory(entity);
 
+            var centered = centering == Centering.Centered;
+            if (centering == Centering.AlignBottom)
+            {
+                var size = GetTileSize(memory.AtlasIndex);
+                y -= size.Y - _coords.TileSize.Y;
+            }
+
             var entry = new Entry(memory, x, y, width, height, color.Value, centered, rotation);
             _entries.Add(entry);
         }
+
+        public Vector2i GetTileSize(TileSpecifier spec) => _atlasBatch.GetTileSize(spec);
+        public Vector2i GetTileSize(string tileId) => _atlasBatch.GetTileSize(tileId);
 
         public void Clear()
         {

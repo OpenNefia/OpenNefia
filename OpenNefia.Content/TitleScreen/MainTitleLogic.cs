@@ -195,7 +195,7 @@ namespace OpenNefia.Content.TitleScreen
         {
             foreach (var proto in _prototypeManager.EnumeratePrototypes<EntityPrototype>())
             {
-                if (proto.TryGetComponent<AreaEntranceComponent>("AreaEntrance", out var areaEntrance))
+                if (proto.Components.TryGetComponent<AreaEntranceComponent>(out var areaEntrance))
                 {
                     if (areaEntrance.GlobalId != null)
                     {

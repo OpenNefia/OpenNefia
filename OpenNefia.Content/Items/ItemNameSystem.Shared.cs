@@ -17,11 +17,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Content.DisplayName
 {
     public sealed partial class ItemNameSystem
     {
+        [Dependency] private readonly IRandomItemSystem _randomItems = default!;
+
         // TODO split up across entity systems
         private bool ItemNameSub(ref StringBuilder fullName, EntityUid uid, bool isJapanese)
         {
@@ -124,7 +127,7 @@ namespace OpenNefia.Content.DisplayName
 
             if (TryComp<ChargedComponent>(uid, out var charged) && charged.DisplayChargeCount)
             {
-                knownInfo.Append(Loc.GetString("Elona.Charged.ItemName.Charges", ("charges", charged.Charges)));
+                knownInfo.Append(Loc.Space() + Loc.GetString("Elona.Charged.ItemName.Charges", ("charges", charged.Charges)));
             }
 
             var (diceX, diceY) = GetDice(uid);
@@ -178,7 +181,7 @@ namespace OpenNefia.Content.DisplayName
             {
                 seed ??= _world.State.RandomSeed;
                 var name = Loc.GetString($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Name");
-                var index = StringHelpers.HashStringToInteger(ProtoIDOrNull(uid)?.ToString() ?? "") % seed.Value;
+                var index = _randomItems.GetRandomEntityIndex(uid);
                 var adjective = "???";
 
                 if (Loc.TryGetTable($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Adjectives", out var adjectives))

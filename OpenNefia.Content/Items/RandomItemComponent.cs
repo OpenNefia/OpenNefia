@@ -27,5 +27,26 @@ namespace OpenNefia.Content.Items
         /// </summary>
         [DataField(required: true)]
         public LocaleKey KnownNameRef { get; }
+
+        [DataField]
+        public RandomColorType RandomColor { get; set; }
+    }
+
+    public enum RandomColorType
+    {
+        /// <summary>
+        /// No random color will be applied.
+        /// </summary>
+        None,
+        
+        /// <summary>
+        /// Colors for items with randomized unidentified states like potions/spellbooks.
+        /// </summary>
+        RandomItem,
+
+        /// <summary>
+        /// Colors for randomly generated furniture.
+        /// </summary>
+        Furniture
     }
 }
