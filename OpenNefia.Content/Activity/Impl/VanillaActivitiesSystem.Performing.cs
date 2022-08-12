@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Activity
 
             if (_rand.OneIn(3))
             {
-                if (TryComp<WalletComponent>(actor, out var actorWallet) && TryComp<WalletComponent>(audience, out var audienceWallet))
+                if (TryComp<MoneyComponent>(actor, out var actorWallet) && TryComp<MoneyComponent>(audience, out var audienceWallet))
                 {
                     goldEarned = CalcPerformanceEarnedGold(actor, component, audienceWallet);
                     audienceWallet.Gold -= goldEarned;
@@ -118,7 +118,7 @@ namespace OpenNefia.Content.Activity
             return goldEarned;
         }
 
-        private int CalcPerformanceEarnedGold(EntityUid actor, ActivityPerformingComponent component, WalletComponent audienceWallet)
+        private int CalcPerformanceEarnedGold(EntityUid actor, ActivityPerformingComponent component, MoneyComponent audienceWallet)
         {
             var instrumentQuality = CompOrNull<InstrumentComponent>(component.Instrument)?.PerformanceQuality ?? 0;
 

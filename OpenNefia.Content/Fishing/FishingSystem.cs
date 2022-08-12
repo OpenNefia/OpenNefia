@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Fishing
         {
             var baitName = Loc.GetPrototypeString(component.BaitID, "Name");
             var s = Loc.GetString("Elona.Fishing.ItemName.Bait", ("name", args.OutFullName.ToString()), ("baitName", baitName));
-            args.OutFullName = new StringBuilder(s);
+            args.OutFullName.Clear().Append(s);
         }
 
         private int GetDefaultBaitValue(int rank)
@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Fishing
                     ("name", args.OutFullName.ToString()),
                     ("baitName", baitName),
                     ("baitAmount", component.BaitAmount));
-                args.OutFullName = new StringBuilder(s);
+                args.OutFullName.Clear().Append(s);
             }
         }
     }

@@ -1,7 +1,7 @@
 Elona.MonsterBall = {
     ItemName = {
         Empty = function(name, lv)
-            return ("%s Lv %s (空)"):format(name, lv)
+            return ("%s Lv%s (空)"):format(name, lv)
         end,
         Full = function(name, charaName)
             return ("%s(%s)"):format(name, charaName)

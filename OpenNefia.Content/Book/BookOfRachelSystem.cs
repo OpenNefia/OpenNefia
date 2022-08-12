@@ -41,7 +41,7 @@ namespace OpenNefia.Content.Book
             var s = Loc.GetString("Elona.Read.BookOfRachel.ItemName.Title",
                 ("name", args.OutFullName.ToString()),
                 ("no", component.BookOfRachelNumber));
-            args.OutFullName = new StringBuilder(s);
+            args.OutFullName.Clear().Append(s);
         }
 
         private void HandleEntityBeingGenerated(EntityUid uid, BookOfRachelComponent component, ref EntityBeingGeneratedEvent args)

@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Inventory
             new DrinkInventoryBehavior(),
             // TODO: zap behaviour
             new UseInventoryBehavior(),
-            // TODO: open behaviour
+            new OpenInventoryBehavior(),
             // TODO: mix behaviour
             new ThrowInventoryBehavior(),
         };

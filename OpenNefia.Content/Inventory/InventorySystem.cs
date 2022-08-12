@@ -7,6 +7,7 @@ using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -20,6 +21,9 @@ namespace OpenNefia.Content.Inventory
     public interface IInventorySystem : IEntitySystem
     {
         IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null);
+        
+        IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null) 
+            where TComp : IComponent;
 
         int GetItemWeight(EntityUid item, WeightComponent? weight = null);
 
@@ -121,11 +125,27 @@ namespace OpenNefia.Content.Inventory
         {
             if (!Resolve(ent, ref invComp))
                 return true;
-            
+
             if (invComp.MaxItemCount == null)
                 return false;
 
             return invComp.Container.ContainedEntities.Count >= invComp.MaxItemCount;
+        }
+
+        public IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp : IComponent
+        {
+            if (!Resolve(entity, ref inv))
+                yield break;
+
+            foreach (var ent in EntityManager.EntityQuery<TComp>())
+            {
+                if (inv.Container.Contains(ent.Owner)
+                    && (includeDead || IsAlive(ent.Owner)))
+                {
+                    yield return ent;
+                }
+            }
         }
     }
 }

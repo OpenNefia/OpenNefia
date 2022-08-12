@@ -4737,7 +4737,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     ItemSuitcase = {
         MetaData = {
-            Name = "カバン(落し物)",
+            Name = "カバン",
         },
         ItemDescription = {
             Primary = {
@@ -4753,7 +4753,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     ItemWallet = {
         MetaData = {
-            Name = "財布(落し物)",
+            Name = "財布",
         },
         ItemDescription = {
             Primary = {

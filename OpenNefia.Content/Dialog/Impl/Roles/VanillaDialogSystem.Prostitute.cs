@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Dialog
             texts.Add(DialogTextEntry.FromString(text));
 
             var choices = new List<DialogChoiceEntry>();
-            if (TryComp<WalletComponent>(engine.Player, out var wallet) && wallet.Gold >= data.GoldCost)
+            if (TryComp<MoneyComponent>(engine.Player, out var wallet) && wallet.Gold >= data.GoldCost)
             {
                 choices.Add(new()
                 {
@@ -96,8 +96,8 @@ namespace OpenNefia.Content.Dialog
         {
             _audio.Play(Protos.Sound.Paygold1);
             var data = engine.Data.Get<DialogProstituteData>();
-            Comp<WalletComponent>(engine.Player).Gold -= data.GoldCost;
-            Comp<WalletComponent>(engine.Speaker!.Value).Gold += data.GoldCost;
+            Comp<MoneyComponent>(engine.Player).Gold -= data.GoldCost;
+            Comp<MoneyComponent>(engine.Speaker!.Value).Gold += data.GoldCost;
         }
 
         public void Prostitute_BuyExecute_After(IDialogEngine engine, IDialogNode node)

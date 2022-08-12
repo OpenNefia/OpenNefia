@@ -52,6 +52,8 @@ namespace OpenNefia.Content.GameObjects
                     new InventoryInputCmdHandler(_uiMgr, new UseInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Read,
                     new InventoryInputCmdHandler(_uiMgr, new ReadInventoryBehavior()))
+                .Bind(ContentKeyFunctions.Open,
+                    new InventoryInputCmdHandler(_uiMgr, new OpenInventoryBehavior()))
                 .Register<InventoryCommandsSystem>();
         }
 

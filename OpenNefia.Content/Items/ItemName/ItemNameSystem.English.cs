@@ -309,7 +309,7 @@ namespace OpenNefia.Content.Items
     [ByRefEvent]
     public struct LocalizeItemNameExtraEvent
     {
-        public StringBuilder OutFullName { get; set; }
+        public StringBuilder OutFullName { get; }
 
         public LocalizeItemNameExtraEvent(StringBuilder fullName)
         {

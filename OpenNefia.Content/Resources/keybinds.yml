@@ -133,6 +133,9 @@ binds:
   type: State
   key: T
   mod1: Shift
+- function: Elona.Open
+  type: State
+  key: O
 - function: Elona.Fire
   type: State
   key: F

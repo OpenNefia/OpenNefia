@@ -106,7 +106,7 @@ namespace OpenNefia.Content.Items.Impl
             args.Handled = true;
         }
 
-        private void DepositGold(WalletComponent source, MoneyBoxComponent moneyBox, int amount)
+        private void DepositGold(MoneyComponent source, MoneyBoxComponent moneyBox, int amount)
         {
             amount = Math.Min(amount, source.Gold);
             source.Gold -= amount;
@@ -122,7 +122,7 @@ namespace OpenNefia.Content.Items.Impl
             if (!Resolve(target, ref moneyBox))
                 return TurnResult.Aborted;
 
-            if (!TryComp<WalletComponent>(source, out var wallet) || moneyBox.GoldIncrement > wallet.Gold)
+            if (!TryComp<MoneyComponent>(source, out var wallet) || moneyBox.GoldIncrement > wallet.Gold)
             {
                 _mes.Display(Loc.GetString("Elona.MoneyBox.NotEnoughGold"));
                 return TurnResult.Aborted;
