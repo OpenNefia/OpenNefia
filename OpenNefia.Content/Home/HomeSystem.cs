@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Home
 
         private void WelcomeHome(EntityUid uid, MapHomeComponent component, MapEnterEvent args)
         {
-            _deferredEvents.Enqueue(() => DefEvWelcomeHome(args.Map));
+            _deferredEvents.Enqueue(() => Event_WelcomeHome(args.Map));
         }
 
         private bool CanWelcome(EntityUid ent, IMap map)
@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Home
                     || _stayers.IsStayingInMapGlobal(ent, map));
         }
 
-        private TurnResult DefEvWelcomeHome(IMap map)
+        private TurnResult Event_WelcomeHome(IMap map)
         {
             var extraTalks = 0;
 

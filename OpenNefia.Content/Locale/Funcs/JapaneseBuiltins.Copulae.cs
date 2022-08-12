@@ -68,6 +68,8 @@ namespace OpenNefia.Content.Locale.Funcs
             { CopulaMark.None, "﻿" },
         };
 
+#pragma warning disable format
+
         private static Dictionary<string, Dictionary<CopulaType, CopulaEntry>> CopulaTable = new()
         {
             {
@@ -86,7 +88,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "よしなに", "よろしく頼むでござる" },
                                                female: new[] { "よろしくでござりまする", "どうぞよしなに" })},
                       { CopulaType.Ssu,      new(male: new[] { "よろしくッス" },
-                         female: new[] { "よろしくにゃの" })},
+                                               female: new[] { "よろしくにゃの" })},
                 }
             },
             {
@@ -105,7 +107,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "お待たせ申した", "待たせたでござる" },
                                                female: new[] { "お待たせ致しました", "ささ、どうぞ" })},
                       { CopulaType.Ssu,      new(male: new[] { "お待たせッス" },
-                         female: new[] { "お待たせにゃん" })},
+                                               female: new[] { "お待たせにゃん" })},
                 }
             },
             {
@@ -124,7 +126,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "かたじけない", "恩に着る" },
                                                female: new[] { "ありがたや", "お礼申し上げます" })},
                       { CopulaType.Ssu,      new(male: new[] { "アザーッス" },
-                         female: new[] { "にゃりーん" })},
+                                               female: new[] { "にゃりーん" })},
                 }
             },
             {
@@ -143,7 +145,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "何をするでござるか" },
                                                female: new[] { "ご無体な", "まあ、お戯れが過ぎますわ" })},
                       { CopulaType.Ssu,      new(male: new[] { "見損なったッス" },
-                         female: new[] { "にゃりーん" })},
+                                               female: new[] { "にゃりーん" })},
                 }
             },
             {
@@ -162,7 +164,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござるか" },
                                                female: new[] { "でござりまするか" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスか" },
-                         female: new[] { "かにゃ", "かニャン" })},
+                                               female: new[] { "かにゃ", "かニャン" })},
                 }
             },
             {
@@ -181,7 +183,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござる", "でござるよ" },
                                                female: new[] { "でござりまする" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッス" },
-                         female: new[] { "みゃん", "ミャ" })},
+                                               female: new[] { "みゃん", "ミャ" })},
                 }
             },
             {
@@ -200,7 +202,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "のでござる" },
                                                female: new[] { "のでございます" })},
                       { CopulaType.Ssu,      new(male: new[] { "んだッス" },
-                         female: new[] { "のニャ", "のにゃん" })},
+                                               female: new[] { "のニャ", "のにゃん" })},
                 }
             },
             {
@@ -219,7 +221,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "のでござるか" },
                                                female: new[] { "のでございます" })},
                       { CopulaType.Ssu,      new(male: new[] { "のッスか" },
-                         female: new[] { "にゃんか", "ニャン" })},
+                                               female: new[] { "にゃんか", "ニャン" })},
                 }
             },
             {
@@ -238,7 +240,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござるか" },
                                                female: new[] { "でございますか" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスか" },
-                         female: new[] { "かにゃん", "かニャ" })},
+                                               female: new[] { "かにゃん", "かニャ" })},
                 }
             },
             {
@@ -257,7 +259,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "そこもと" },
                                                female: new[] { "そなた様" })},
                       { CopulaType.Ssu,      new(male: new[] { "アンタ" },
-                         female: new[] { "あにゃた" })},
+                                               female: new[] { "あにゃた" })},
                 }
             },
             {
@@ -276,7 +278,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "るでござる", "るでござるよ" },
                                                female: new[] { "るのでございます" })},
                       { CopulaType.Ssu,      new(male: new[] { "るッス" },
-                         female: new[] { "るのニャ", "るにゃん" })},
+                                               female: new[] { "るのニャ", "るにゃん" })},
                 }
             },
             {
@@ -295,7 +297,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "頼み申す", "頼むでござる" },
                                                female: new[] { "お頼み申し上げます" })},
                       { CopulaType.Ssu,      new(male: new[] { "頼むッス" },
-                         female: new[] { "おねがいにゃ", "おねがいニャン" })},
+                                               female: new[] { "おねがいにゃ", "おねがいニャン" })},
                 }
             },
             {
@@ -314,7 +316,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "拙者" },
                                                female: new[] { "手前" })},
                       { CopulaType.Ssu,      new(male: new[] { "あっし" },
-                         female: new[] { "みゅー" })},
+                                               female: new[] { "みゅー" })},
                 }
             },
             {
@@ -333,7 +335,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござるが" },
                                                female: new[] { "でございますが" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスけど", "ッスが" },
-                         female: new[] { "ニャけど", "にゃが" })},
+                                               female: new[] { "ニャけど", "にゃが" })},
                 }
             },
             {
@@ -352,7 +354,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござるな" },
                                                female: new[] { "でございますね" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスね" },
-                         female: new[] { "にゃ", "みゃ" })},
+                                               female: new[] { "にゃ", "みゃ" })},
                 }
             },
             {
@@ -371,7 +373,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "頂きたいでござる" },
                                                female: new[] { "くださいませ" })},
                       { CopulaType.Ssu,      new(male: new[] { "くれッス" },
-                         female: new[] { "にゃ", "みゃ" })},
+                                               female: new[] { "にゃ", "みゃ" })},
                 }
             },
             {
@@ -390,7 +392,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござろうな" },
                                                female: new[] { "でございましょう" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスね" },
-                         female: new[] { "にゃ", "みゃ" })},
+                                               female: new[] { "にゃ", "みゃ" })},
                 }
             },
             {
@@ -409,7 +411,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござろう" },
                                                female: new[] { "でございますわ" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスよ", "ッス" },
-                         female: new[] { "にゃぁ", "みゃぁ" })},
+                                               female: new[] { "にゃぁ", "みゃぁ" })},
                 }
             },
             {
@@ -428,7 +430,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "あるでござる", "あるでござるな" },
                                                female: new[] { "ござます" })},
                       { CopulaType.Ssu,      new(male: new[] { "あるッスよ", "あるッス" },
-                         female: new[] { "あにゅ", "あみぅ" })},
+                                               female: new[] { "あにゅ", "あみぅ" })},
                 }
             },
             {
@@ -447,7 +449,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "うでござる", "うでござるよ" },
                                                female: new[] { "うでございます" })},
                       { CopulaType.Ssu,      new(male: new[] { "うッスよ", "うッス" },
-                         female: new[] { "うにぁ", "うみぁ" })},
+                                               female: new[] { "うにぁ", "うみぁ" })},
                 }
             },
             {
@@ -466,7 +468,7 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "でござるな" },
                                                female: new[] { "でございますわ" })},
                       { CopulaType.Ssu,      new(male: new[] { "ッスね", "ッス" },
-                         female: new[] { "ニァ", "ミァ" })},
+                                               female: new[] { "ニァ", "ミァ" })},
                 }
             },
             {
@@ -485,11 +487,13 @@ namespace OpenNefia.Content.Locale.Funcs
                       { CopulaType.DeGozaru, new(male: new[] { "たでござる" },
                                                female: new[] { "ましてございます" })},
                       { CopulaType.Ssu,      new(male: new[] { "たッスよ", "たッス" },
-                         female: new[] { "たにゃぁ", "たみゃぁ" })},
+                                               female: new[] { "たにゃぁ", "たみゃぁ" })},
                 }
             },
         };
-        
+
+#pragma warning restore format
+
         [LocaleFunction("yoro")]
         public static string BuiltIn_yoro(object? obj, int? mark = null) => PrintCopula("yoro", obj, mark);
         [LocaleFunction("dozo")]

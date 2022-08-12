@@ -162,8 +162,8 @@ namespace OpenNefia.Content.Rendering
             var isShadow = (shadow & ShadowTile.IsShadow) == ShadowTile.IsShadow;
             if (!isShadow)
             {
-                // Tile is lighted.Draw the fancy quarter-size shadow corners
-                // depending on the directions that border a shadow.
+                // Tile is lighted. Draw the fancy quarter-size shadow corners depending on the
+                // directions that border a shadow.
                 AddDeco(screenPos, shadow);
                 return;
             }
