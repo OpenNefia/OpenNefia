@@ -29,6 +29,9 @@ using OpenNefia.Content.Weight;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Content.BaseAnim;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Items.Impl
 {
@@ -49,6 +52,7 @@ namespace OpenNefia.Content.Items.Impl
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
         public override void Initialize()
         {
@@ -65,7 +69,7 @@ namespace OpenNefia.Content.Items.Impl
             {
                 var s = Loc.GetString("Elona.MonsterBall.ItemName.Full", 
                     ("name", args.OutFullName.ToString()), 
-                    ("charaName", Loc.GetPrototypeString(component.CapturedEntityID.Value, "Name")));
+                    ("charaName", Loc.GetPrototypeString(component.CapturedEntityID.Value, "MetaData.Name")));
                 args.OutFullName.Clear().Append(s);
             }
             else
@@ -180,7 +184,10 @@ namespace OpenNefia.Content.Items.Impl
                 return;
             }
 
-            _mes.Display(Loc.GetString("Elona.MonsterBall.Throw.YouCapture", ("user", args.Thrower), ("target", args.ImpactedWith)));
+            _mes.Display(Loc.GetString("Elona.MonsterBall.Throw.YouCapture", ("user", args.Thrower), ("target", args.ImpactedWith)), UiColors.MesGreen);
+            var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSmoke);
+            _mapDrawables.Enqueue(anim, uid);
+
             CaptureEntity(uid, args.ImpactedWith, component);
         }
 
@@ -200,7 +207,7 @@ namespace OpenNefia.Content.Items.Impl
                 return TurnResult.Aborted;
             }
 
-            if (_parties.CanRecruitMoreMembers(user))
+            if (!_parties.CanRecruitMoreMembers(user))
             {
                 _mes.Display(Loc.GetString("Elona.MonsterBall.Use.PartyIsFull"));
                 return TurnResult.Aborted;

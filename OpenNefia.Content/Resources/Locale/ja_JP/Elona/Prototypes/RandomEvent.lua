@@ -154,6 +154,7 @@ OpenNefia.Prototypes.Elona.RandomEvent.Elona = {
         },
 
         NoEffect = "あなたは祈祷を捧げ呪いのつぶやきを無効にした。",
+        Beggars = "強盗があなたに目をつけた！",
     },
     Regeneration = {
         Title = "自然治癒力の向上",

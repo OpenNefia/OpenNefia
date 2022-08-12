@@ -18,13 +18,14 @@ using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.Parties
 {
     [DataDefinition]
     internal sealed class Party
     {
-        public Party() {}
+        public Party() { }
 
         public Party(EntityUid leader)
         {
@@ -209,8 +210,12 @@ namespace OpenNefia.Content.Parties
         /// </summary>
         bool IsUnderlingOfPlayer(EntityUid entity, PartyComponent? party = null);
 
+        int CalcMaxPartySize(EntityUid entity);
+
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
+
         bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false);
+
         bool TryLeaveParty(EntityUid ally, PartyComponent? party = null);
     }
 
@@ -219,6 +224,7 @@ namespace OpenNefia.Content.Parties
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         [RegisterSaveData("Elona.PartySystem.Parties")]
         private PartyCollection Parties { get; set; } = new();
@@ -256,8 +262,8 @@ namespace OpenNefia.Content.Parties
 
         public bool TryGetMembers(EntityUid leader, [NotNullWhen(true)] out IReadOnlySet<EntityUid>? members, PartyComponent? partyComp = null)
         {
-            if (!Resolve(leader, ref partyComp, logMissing: false) 
-                || partyComp.PartyID == null 
+            if (!Resolve(leader, ref partyComp, logMissing: false)
+                || partyComp.PartyID == null
                 || !Parties.TryGetParty(partyComp.PartyID.Value, out var party))
             {
                 members = null;
@@ -321,13 +327,36 @@ namespace OpenNefia.Content.Parties
             return IsDirectAllyOf(_gameSession.Player, entity);
         }
 
+        public const int MaxCharasInParty = 16;
+
+        public int CalcMaxPartySize(EntityUid entity)
+        {
+            // >>>>>>>> shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ...
+            return Math.Clamp(_skills.Level(entity, Protos.Skill.AttrCharisma) / 5 + 1, 2, MaxCharasInParty);
+            // <<<<<<<< shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ..
+        }
+
         public bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null)
         {
             if (!Resolve(entity, ref party, logMissing: false))
                 return false;
 
-            // TODO
-            return true;
+            if (party.PartyID == null)
+            {
+                // Entity is not a member or leader of a party yet; they can start a new party
+                // from scratch.
+                return true;
+            }
+
+            if (!Parties.TryGetParty(party.PartyID.Value, out var partyInstance) || partyInstance.Leader != entity)
+                return false;
+
+            var maxPartySize = CalcMaxPartySize(entity);
+            var otherMemberCount = partyInstance.Members.Count - 1;
+
+            // TODO stayers
+
+            return otherMemberCount < maxPartySize;
         }
 
         public bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false)

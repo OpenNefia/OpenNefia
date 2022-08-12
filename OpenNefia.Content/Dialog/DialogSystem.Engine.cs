@@ -39,7 +39,6 @@ namespace OpenNefia.Content.Dialog
                 return TurnResult.Failed;
 
             if (!TryComp<DialogComponent>(target, out var dialog) 
-                || !dialog.CanTalk
                 || (_factions.GetRelationTowards(target, source) <= Factions.Relation.Dislike && !force))
             {
                 _mes.Display(Loc.GetString("Elona.Dialog.Common.WillNotListen", ("entity", target)));
