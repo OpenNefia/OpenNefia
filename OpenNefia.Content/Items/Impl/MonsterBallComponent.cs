@@ -14,12 +14,12 @@ namespace OpenNefia.Content.Items.Impl
         public override string Name => "MonsterBall";
 
         [DataField]
+        public int MaxLevel { get; set; }
+
+        [DataField]
         public PrototypeId<EntityPrototype>? CapturedEntityID { get; set; }
 
         [DataField]
         public int CapturedEntityLevel { get; set; }
-
-        [DataField]
-        public int MaxLevel { get; set; }
     }
 }

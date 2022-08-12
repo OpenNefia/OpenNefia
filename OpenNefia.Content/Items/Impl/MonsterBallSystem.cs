@@ -219,7 +219,8 @@ namespace OpenNefia.Content.Items.Impl
             var args = EntityGenArgSet.Make(new EntityGenCommonArgs()
             {
                 // Don't apply Void level modifiers.
-                NoRandomModify = true
+                NoRandomModify = true,
+                LevelOverride = monsterBallComp.CapturedEntityLevel,
             });
 
             var chara = _charaGen.GenerateChara(user, args: args);

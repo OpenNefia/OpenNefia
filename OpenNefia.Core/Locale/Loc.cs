@@ -52,11 +52,14 @@ namespace OpenNefia.Core.Locale
             return _localization.IsFullwidth();
         }
 
-        public static string Space()
+        public static string Space 
         {
-            if (_localization.IsFullwidth())
-                return "";
-            return " ";
+            get
+            {
+                if (_localization.IsFullwidth())
+                    return "";
+                return " ";
+            }
         }
 
         public static string Capitalize(string text)

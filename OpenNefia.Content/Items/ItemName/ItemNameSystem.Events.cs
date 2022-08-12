@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Items
         private void LocalizeExtra_LostProperty(EntityUid uid, LostPropertyComponent component, ref LocalizeItemNameExtraEvent args)
         {
             // >>>>>>>> shade2/item_func.hsp:636 	if en@{ ...
-            args.OutFullName.Append(Loc.Space() + Loc.GetString("Elona.Item.ItemName.LostProperty"));
+            args.OutFullName.Append(Loc.Space + Loc.GetString("Elona.Item.ItemName.LostProperty"));
             // <<<<<<<< shade2/item_func.hsp:638 		} ..
         }
     }

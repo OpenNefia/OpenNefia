@@ -47,6 +47,7 @@ namespace OpenNefia.Content.EtherDisease
 
         public void ModifyCorruption(EntityUid player, int v, EtherDiseaseComponent? etherDisease = null)
         {
+            // TODO
         }
     }
 }

@@ -4,6 +4,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Roles;
+using OpenNefia.Content.Shopkeeper;
 using OpenNefia.Content.World;
 using OpenNefia.Core;
 using OpenNefia.Core.Areas;
@@ -80,7 +81,8 @@ namespace OpenNefia.Content.Dialog
                 key = "Elona.Dialog.Villager.Talk.Ally";
             else if (HasComp<RoleProstituteComponent>(target))
                 key = "Elona.Dialog.Villager.Talk.Prostitute";
-            // TODO moyer
+            else if (TryComp<RoleShopkeeperComponent>(target, out var shopkeeper) && shopkeeper.ShopInventoryId == Protos.ShopInventory.Moyer)
+                key = "Elona.Dialog.Villager.Talk.Moyer";
             else if (HasComp<RoleSlaverComponent>(target))
                 key = "Elona.Dialog.Villager.Talk.Slavekeeper";
             else if (dialog != null && dialog.Impression >= ImpressionLevels.Friend && _rand.OneIn(3))

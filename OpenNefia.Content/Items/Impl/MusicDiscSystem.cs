@@ -82,8 +82,7 @@ namespace OpenNefia.Content.Items.Impl
                 }
             }
 
-            var s = $"{args.OutFullName} <{info}>";
-            args.OutFullName.Clear().Append(s);
+            args.OutFullName.Append($" <{info}>");
         }
 
         private void GetVerbs_MusicDisc(EntityUid uid, MusicDiscComponent component, GetVerbsEventArgs args)
