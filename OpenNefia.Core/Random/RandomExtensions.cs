@@ -158,5 +158,18 @@ namespace OpenNefia.Core.Random
                 list[n] = value;
             }
         }
+
+        public static void WithSeed(this IRandom random, int seed, Action action)
+        {
+            random.PushSeed(seed);
+            try
+            {
+                action();
+            }
+            finally
+            {
+                random.PopSeed();
+            }
+        }
     }
 }

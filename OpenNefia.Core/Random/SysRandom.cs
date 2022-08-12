@@ -46,12 +46,14 @@ namespace OpenNefia.Core.Random
 
         public void PopSeed()
         {
-            throw new NotImplementedException();
+            // TODO
+            RandomizeSeed();
         }
 
         public void ClearPushedSeeds()
         {
-            throw new NotImplementedException();
+            // TODO
+            RandomizeSeed();
         }
     }
 }

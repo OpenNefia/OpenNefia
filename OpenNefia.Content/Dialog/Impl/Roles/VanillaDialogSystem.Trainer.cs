@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Dialog
             texts.Add(DialogTextEntry.FromString(text));
 
             var choices = new List<DialogChoiceEntry>();
-            if (TryComp<WalletComponent>(engine.Player, out var wallet) && wallet.Platinum >= data.PlatinumCost)
+            if (TryComp<MoneyComponent>(engine.Player, out var wallet) && wallet.Platinum >= data.PlatinumCost)
             {
                 choices.Add(new()
                 {
@@ -116,9 +116,9 @@ namespace OpenNefia.Content.Dialog
                 Logger.WarningS("dialog.role", $"Missing {nameof(DialogTrainerData)} in {nameof(engine.Data)}");
                 return;
             }
-            if (!TryComp<WalletComponent>(engine.Player, out var wallet))
+            if (!TryComp<MoneyComponent>(engine.Player, out var wallet))
             {
-                Logger.WarningS("dialog.role", $"Missing {nameof(WalletComponent)} in {nameof(engine.Player)}");
+                Logger.WarningS("dialog.role", $"Missing {nameof(MoneyComponent)} in {nameof(engine.Player)}");
                 return;
             }
 
@@ -171,7 +171,7 @@ namespace OpenNefia.Content.Dialog
             texts.Add(DialogTextEntry.FromString(text));
 
             var choices = new List<DialogChoiceEntry>();
-            if (TryComp<WalletComponent>(engine.Player, out var wallet) && wallet.Platinum >= data.PlatinumCost)
+            if (TryComp<MoneyComponent>(engine.Player, out var wallet) && wallet.Platinum >= data.PlatinumCost)
             {
                 choices.Add(new()
                 {
@@ -197,9 +197,9 @@ namespace OpenNefia.Content.Dialog
                 Logger.WarningS("dialog.role", $"Missing {nameof(DialogTrainerData)} in {nameof(engine.Data)}");
                 return;
             }
-            if (!TryComp<WalletComponent>(engine.Player, out var wallet))
+            if (!TryComp<MoneyComponent>(engine.Player, out var wallet))
             {
-                Logger.WarningS("dialog.role", $"Missing {nameof(WalletComponent)} in {nameof(engine.Player)}");
+                Logger.WarningS("dialog.role", $"Missing {nameof(MoneyComponent)} in {nameof(engine.Player)}");
                 return;
             }
 

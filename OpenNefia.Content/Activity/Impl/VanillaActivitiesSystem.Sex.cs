@@ -128,7 +128,7 @@ namespace OpenNefia.Content.Activity
 
             if (!_gameSession.IsPlayer(component.Partner))
             {
-                if (TryComp<WalletComponent>(component.Partner, out var partnerWallet))
+                if (TryComp<MoneyComponent>(component.Partner, out var partnerWallet))
                 {
                     if (partnerWallet.Gold >= goldEarned)
                     {
@@ -158,7 +158,7 @@ namespace OpenNefia.Content.Activity
                         _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
                         _karma.ModifyKarma(actor, -1);
                     }
-                    else if (TryComp<WalletComponent>(actor, out var actorWallet))
+                    else if (TryComp<MoneyComponent>(actor, out var actorWallet))
                     {
                         actorWallet.Gold += goldEarned;
                     }

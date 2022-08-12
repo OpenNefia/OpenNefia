@@ -19,6 +19,7 @@ using OpenNefia.Content.Currency;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Items.Impl;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Chest;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -65,7 +66,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _refresh.Refresh(ally.Value);
             _damage.HealToMax(ally.Value);
 
-            var wallet = EntityManager.GetComponent<WalletComponent>(player);
+            var wallet = EntityManager.GetComponent<MoneyComponent>(player);
             wallet.Gold = 1000000;
             wallet.Platinum = 1000;
 
@@ -97,6 +98,16 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Suitcase, amount: 99);
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.BookOfRachel);
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Bill);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.AncientBook);
+            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.SpellbookOfAcidGround);
+
+            foreach (var proto in _protoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
+            {
+                _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);
+            }
+
+            _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.Lockpick, amount: 999);
+            _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.SkeletonKey, amount: 999);
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {

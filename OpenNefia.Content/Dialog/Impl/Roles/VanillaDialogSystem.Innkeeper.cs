@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Dialog
         public QualifiedDialogNode? Innkeeper_BuyMeal(IDialogEngine engine, IDialogNode node)
         {
             var cost = CalcInnkeeperMealCost();
-            if (!TryComp<WalletComponent>(engine.Player, out var wallet) || wallet.Gold < cost)
+            if (!TryComp<MoneyComponent>(engine.Player, out var wallet) || wallet.Gold < cost)
             {
                 _mes.Display(Loc.GetString("Elona.Inventory.Behavior.Buy.NotEnoughMoney"));
                 return engine.GetNodeByID(Protos.Dialog.Default, "Talk");

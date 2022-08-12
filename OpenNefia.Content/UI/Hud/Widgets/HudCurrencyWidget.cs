@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Hud
         public override void RefreshWidget()
         {
             base.RefreshWidget();
-            if (_entMan.TryGetComponent<WalletComponent>(GameSession.Player, out var wallet))
+            if (_entMan.TryGetComponent<MoneyComponent>(GameSession.Player, out var wallet))
             {
                 Text = $"{wallet.Gold} {Loc.GetString("Elona.Hud.Info.Gold")}";
             }
@@ -83,7 +83,7 @@ namespace OpenNefia.Content.Hud
         public override void RefreshWidget()
         {
             base.RefreshWidget();
-            if (_entMan.TryGetComponent<WalletComponent>(GameSession.Player, out var wallet))
+            if (_entMan.TryGetComponent<MoneyComponent>(GameSession.Player, out var wallet))
             {
                 Text = $"{wallet.Platinum} {Loc.GetString("Elona.Hud.Info.Platinum")}";
             }

@@ -13,9 +13,9 @@ namespace OpenNefia.Content.Currency
     /// characters.
     /// </summary>
     [RegisterComponent]
-    public sealed class WalletComponent : Component
+    public sealed class MoneyComponent : Component
     {
-        public override string Name => "Wallet";
+        public override string Name => "Money";
 
         [DataField]
         public int Gold { get; set; }

@@ -147,7 +147,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void MaliciousHand_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            if (!TryComp<WalletComponent>(ev.Target, out var wallet))
+            if (!TryComp<MoneyComponent>(ev.Target, out var wallet))
                 return;
 
             var stolenAmount = _rand.Next(wallet.Gold / 8 + 1);
@@ -171,7 +171,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void GreatLuck_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            if (TryComp<WalletComponent>(ev.Target, out var wallet))
+            if (TryComp<MoneyComponent>(ev.Target, out var wallet))
                 wallet.Platinum++;
         }
 
@@ -295,7 +295,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void MadMillionaire_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            if (!TryComp<WalletComponent>(ev.Target, out var wallet))
+            if (!TryComp<MoneyComponent>(ev.Target, out var wallet))
                 return;
 
             var amount = _rand.Next(wallet.Gold / 10 + 1000) + 1;

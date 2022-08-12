@@ -36,7 +36,7 @@
   - type: VanillaAI
   - type: Buffs
   - type: Sanity
-  - type: Wallet
+  - type: Money
   - type: GuildMember
   - type: Religion
   - type: Party

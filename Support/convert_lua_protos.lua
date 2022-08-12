@@ -667,6 +667,71 @@ handlers["base.item"] = function(from, to)
         c.useInterval = timeSpan(from.cooldown_hours)
     end
 
+    if
+        from._id == "elona.small_gamble_chest"
+        or from._id == "elona.bejeweled_chest"
+        or from._id == "elona.safe"
+        or from._id == "elona.suitcase"
+        or from._id == "elona.wallet"
+        or from._id == "elona.treasure_ball"
+        or from._id == "elona.rare_treasure_ball"
+        or from._id == "elona.chest"
+    then
+        c = comp(to, "Chest")
+    end
+
+    if from._id == "elona.small_gamble_chest" then
+        c = comp(to, "SmallGambleChest")
+        c = comp(to, "Chest")
+        c.smallMedalProb = 0.1
+        c.itemCount = 1
+    end
+
+    if from._id == "elona.safe" then
+        c = comp(to, "Safe")
+    end
+
+    if from._id == "elona.wallet" then
+        c = comp(to, "Wallet")
+    end
+
+    if from._id == "elona.suitcase" then
+        c = comp(to, "Suitcase")
+    end
+
+    if from._id == "elona.treasure_ball" then
+        c = comp(to, "TreasureBall")
+        c.itemQuality = "Good"
+        c = comp(to, "Chest")
+        c.itemCount = 1
+    end
+
+    if from._id == "elona.rare_treasure_ball" then
+        c = comp(to, "TreasureBall")
+        c.itemQuality = "Great"
+        c = comp(to, "Chest")
+        c.itemCount = 1
+    end
+
+    if from._id == "elona.bejeweled_chest" or from._id == "elona.chest" then
+        c = comp(to, "Chest")
+        c.smallMedalProb = 0.2
+    end
+
+    if from._id == "elona.bejeweled_chest" then
+        c = comp(to, "BejeweledChest")
+        c = comp(to, "Chest")
+        c.smallMedalProb = 0.2
+    end
+
+    if from._id == "elona.lockpick" then
+        c = comp(to, "Lockpick")
+    end
+
+    if from._id == "elona.skeleton_key" then
+        c = comp(to, "SkeletonKey")
+    end
+
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")
@@ -685,7 +750,7 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Charged")
         field(ancientBook, c, "charges")
         field(ancientBook, c, "max_charges")
-        field(ancientBook, c, "display_charge_count")
+        c.displayChargeCount = false
     end
 
     local fromChara = from._ext and from._ext[IItemFromChara]

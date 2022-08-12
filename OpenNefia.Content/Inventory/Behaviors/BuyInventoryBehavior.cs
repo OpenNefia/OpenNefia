@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Inventory
                 ("cost", cost))))
                 return new InventoryResult.Continuing();
 
-            if (!EntityManager.TryGetComponent<WalletComponent>(context.User, out var wallet) || cost > wallet.Gold)
+            if (!EntityManager.TryGetComponent<MoneyComponent>(context.User, out var wallet) || cost > wallet.Gold)
             {
                 _mes.Display(Loc.GetString("Elona.Inventory.Behavior.Buy.NotEnoughMoney"));
                 return new InventoryResult.Continuing();
@@ -87,7 +87,7 @@ namespace OpenNefia.Content.Inventory
             _audio.Play(Protos.Sound.Paygold1, context.User);
 
             wallet.Gold -= cost;
-            if (EntityManager.TryGetComponent<WalletComponent>(context.Target, out var shopkeeperWallet))
+            if (EntityManager.TryGetComponent<MoneyComponent>(context.Target, out var shopkeeperWallet))
                 shopkeeperWallet.Gold += cost;
 
             var ev = new AfterItemPurchasedEvent(context.User, context.Target, amount);

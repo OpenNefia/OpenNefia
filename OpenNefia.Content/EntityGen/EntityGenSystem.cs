@@ -78,7 +78,10 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         private void HandleClone(EntityUid entity, AfterEntityClonedEvent args)
         {
-            FireGeneratingEvents(entity);
+            // NOTE: Not running EntityBeingGeneratedEvent here, as that would redo random
+            // initializations and things.
+            var ev = new EntityGeneratedEvent();
+            RaiseEvent(entity, ref ev);
         }
 
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? count = null, EntityGenArgSet? args = null)
@@ -191,6 +194,13 @@ namespace OpenNefia.Content.EntityGen
         }
     }
 
+    /// <summary>
+    /// Fired when an entity is being generated.
+    /// </summary>
+    /// <remarks>
+    /// This event is *not* fired when an entity is cloned. Use this event when doing one-time
+    /// random initialization to an entity.
+    /// </remarks>
     [ByRefEvent]
     public struct EntityBeingGeneratedEvent
     {
@@ -203,6 +213,13 @@ namespace OpenNefia.Content.EntityGen
         }
     }
 
+    /// <summary>
+    /// Fired after an entity is generated.
+    /// </summary>
+    /// <remarks>
+    /// NOTE: This event is also fired after an entity is cloned, so don't do any one-time random
+    /// initialization to the entity in handlers to this event.
+    /// </remarks>
     [ByRefEvent]
     public struct EntityGeneratedEvent
     {

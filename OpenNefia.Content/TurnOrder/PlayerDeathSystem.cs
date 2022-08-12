@@ -60,7 +60,7 @@ namespace OpenNefia.Content.TurnOrder
                 _etherDisease.ModifyCorruption(player, -2000, etherDisease);
             }
 
-            if (TryComp<WalletComponent>(player, out var wallet))
+            if (TryComp<MoneyComponent>(player, out var wallet))
             {
                 _mes.Display(Loc.GetString("Elona.PlayerDeath.YouLostSomeMoney"));
                 wallet.Gold /= 3;

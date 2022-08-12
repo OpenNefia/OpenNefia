@@ -173,7 +173,7 @@ namespace OpenNefia.Content.Items
             {
                 var name = Loc.GetString($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Name");
                 var index = _randomItems.GetRandomEntityIndex(uid, seed);
-                var adjective = "???";
+                var adjective = "";
 
                 if (Loc.TryGetTable($"Elona.RandomItem.Kinds.{randomItem.KnownNameRef}.Adjectives", out var adjectives))
                 {

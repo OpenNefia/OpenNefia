@@ -27,6 +27,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.Cargo;
 using static OpenNefia.Content.Equipment.EquipmentLayer;
 using OpenNefia.Content.Weight;
+using OpenNefia.Content.Currency;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -365,6 +366,11 @@ namespace OpenNefia.Content.Inventory
             else
             {
                 TextNoteTotalWeight.Text = string.Empty;
+            }
+
+            if (Context.Behavior.ShowMoney && _entityManager.TryGetComponent<MoneyComponent>(Context.Target, out var money))
+            {
+                TextGoldCount.Text = $"{money.Gold} gp";
             }
 
             RedisplayList();

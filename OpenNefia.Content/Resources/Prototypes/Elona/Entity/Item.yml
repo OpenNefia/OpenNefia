@@ -5962,6 +5962,9 @@
     randomColor: Furniture
   - type: Weight
     weight: 3000
+  - type: Chest
+    smallMedalProb: 0.2
+  - type: BejeweledChest
 - type: Entity
   id: Elona.ItemChest
   parent: BaseItem
@@ -5987,6 +5990,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 300000
+  - type: Chest
+    smallMedalProb: 0.2
 - type: Entity
   id: Elona.ItemSafe
   parent: BaseItem
@@ -6012,6 +6017,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 300000
+  - type: Chest
+  - type: Safe
 - type: Entity
   id: Elona.ItemScrollOfMagicalMap
   parent: BaseItem
@@ -7087,6 +7094,8 @@
   - type: Weight
     weight: 1200
   - type: LostProperty
+  - type: Chest
+  - type: Suitcase
 - type: Entity
   id: Elona.ItemWallet
   parent: BaseItem
@@ -7113,6 +7122,8 @@
   - type: Weight
     weight: 250
   - type: LostProperty
+  - type: Chest
+  - type: Wallet
 - type: Entity
   id: Elona.ItemPotionOfRestoreBody
   parent: BaseItem
@@ -10441,6 +10452,10 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: Chest
+    itemCount: 1
+  - type: TreasureBall
+    itemQuality: Good
 - type: Entity
   id: Elona.ItemRareTreasureBall
   parent: BaseItem
@@ -10465,6 +10480,10 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: Chest
+    itemCount: 1
+  - type: TreasureBall
+    itemQuality: Great
 - type: Entity
   id: Elona.ItemVegetableSeed
   parent: BaseItem
@@ -16477,6 +16496,7 @@
   - type: Item
   - type: Weight
     weight: 400
+  - type: Lockpick
 - type: Entity
   id: Elona.ItemSkeletonKey
   parent: BaseItem
@@ -16506,6 +16526,7 @@
     isPrecious: true
   - type: Weight
     weight: 400
+  - type: SkeletonKey
 - type: Entity
   id: Elona.ItemScrollOfEscape
   parent: BaseItem
@@ -18013,6 +18034,7 @@
   - type: Charged
     charges: 2
     maxCharges: 2
+    displayChargeCount: false
 - type: Entity
   id: Elona.ItemIronMaiden
   parent: BaseItem
@@ -19536,6 +19558,10 @@
   - type: Item
   - type: Weight
     weight: 3400
+  - type: Chest
+    smallMedalProb: 0.1
+    itemCount: 1
+  - type: SmallGambleChest
   extendedData:
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RandomShopAmountAdjustment
