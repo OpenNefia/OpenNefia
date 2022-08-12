@@ -154,6 +154,7 @@ OpenNefia.Prototypes.Elona.RandomEvent.Elona = {
         },
 
         NoEffect = "Your prayer nullifies the curse.",
+        Beggars = "Blaggers pick on you!",
     },
     Regeneration = {
         Title = "Regeneration",
