@@ -32,7 +32,8 @@ namespace OpenNefia.Content.Tests.Areas
     foodType: Elona.Meat
     foodQuality: 5
   - type: Item
-    material: Elona.Fresh
+  - type: Material
+    materialID: Elona.Fresh
 ";
 
         [Test]

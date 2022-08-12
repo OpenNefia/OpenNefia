@@ -304,22 +304,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 Assert.That(dummy, Is.EqualTo(split), "Original entity is equal to split entity");
             });
         }
-
-        [Test]
-        public void TestSplit_Localized()
-        {
-            var sim = SimulationFactory();
-            var entityManager = sim.Resolve<IEntityManager>();
-            var stackSys = sim.GetEntitySystem<IStackSystem>();
-            var map = sim.ActiveMap!;
-
-            var dummy = entityManager.CreateEntityUninitialized(DummyNonStackedID);
-            var mapCoords = map.AtPos(Vector2i.Zero);
-
-            var result = stackSys.TrySplit(dummy, 1, mapCoords, out var split);
-
-            Assert.Fail("asdf");
-        }
     }
 
     public class StackTestComponent : Component

@@ -1,9 +1,13 @@
 ﻿using System.IO;
 using NUnit.Framework;
+using OpenNefia.Content.Activity;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -18,6 +22,7 @@ using OpenNefia.Tests;
 namespace OpenNefia.Content.Tests.EntityGen
 {
     [TestFixture, Parallelizable]
+    [TestOf(typeof(EntityGenSystem))]
     public class EntityGen_Tests : ContentUnitTest
     {
         private const string Prototypes = @"
@@ -30,22 +35,14 @@ namespace OpenNefia.Content.Tests.EntityGen
 
         private static ISimulation SimulationFactory()
         {
-            var sim = ContentGameSimulation
+            var sim = ContentFullGameSimulation
                .NewSimulation()
                .RegisterComponents(factory =>
                {
                    factory.RegisterClass<EntityGenTestComponent>();
                })
                .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
-               .RegisterEntitySystems(factory =>
-               {
-                   factory.LoadExtraSystemType<EntityGenSystem>();
-                   factory.LoadExtraSystemType<MapPlacementSystem>();
-                   factory.LoadExtraSystemType<MapTilesetSystem>();
-                   factory.LoadExtraSystemType<PartySystem>();
-                   factory.LoadExtraSystemType<RefreshSystem>();
-                   factory.LoadExtraSystemType<EntityGenTestSystem>();
-               })
+               .RegisterEntitySystems(factory => factory.LoadExtraSystemType<EntityGenTestSystem>())
                .InitializeInstance();
 
             sim.CreateMapAndSetActive(50, 50);
