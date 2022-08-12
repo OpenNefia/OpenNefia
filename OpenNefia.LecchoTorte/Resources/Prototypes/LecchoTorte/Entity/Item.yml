@@ -9,7 +9,6 @@
     value: 5
   - type: Chip
     id: Elona.ItemPotion
-  - type: Throwable
   - type: Drinkable
     args:
       power: 100

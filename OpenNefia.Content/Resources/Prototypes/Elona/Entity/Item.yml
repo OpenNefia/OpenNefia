@@ -15003,7 +15003,6 @@
   - type: Weight
     weight: 500
   - type: MoneyBox
-  - type: Throwable
 - type: Entity
   id: Elona.ItemFreezer
   parent: BaseItem
@@ -17973,7 +17972,6 @@
   - type: Weight
     weight: 1400
   - type: MonsterBall
-  - type: Throwable
     splitAmount: 1
 - type: Entity
   id: Elona.ItemStatueOfJure

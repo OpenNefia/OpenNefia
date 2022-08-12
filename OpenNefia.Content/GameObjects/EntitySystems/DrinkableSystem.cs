@@ -64,7 +64,7 @@ namespace OpenNefia.Content.GameObjects
             
             args.Handled = true;
 
-            _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
+            _mes.Display(Loc.GetString("Elona.Throw.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);

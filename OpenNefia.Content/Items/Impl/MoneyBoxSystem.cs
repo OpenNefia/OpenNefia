@@ -34,6 +34,7 @@ namespace OpenNefia.Content.Items.Impl
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IActionThrowSystem _throwables = default!;
 
         public override void Initialize()
         {
@@ -87,6 +88,7 @@ namespace OpenNefia.Content.Items.Impl
         private void GetVerbs_MoneyBox(EntityUid uid, MoneyBoxComponent component, GetVerbsEventArgs args)
         {
             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Deposit Gold", () => UseMoneyBox(args.Source, args.Target)));
+            args.OutVerbs.Add(new Verb(ActionThrowSystem.VerbTypeThrow, "Throw Entity", () => _throwables.PromptThrow(args.Source, args.Target)));
         }
 
         private void OnThrown_MoneyBox(EntityUid uid, MoneyBoxComponent component, ThrownEntityImpactedGroundEvent args)

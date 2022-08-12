@@ -14,7 +14,13 @@ using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class ThrowableSystem : EntitySystem
+    public interface IActionThrowSystem : IEntitySystem
+    {
+        TurnResult PromptThrow(EntityUid thrower, EntityUid item);
+        bool ThrowEntity(EntityUid thrower, EntityUid item, MapCoordinates coords);
+    }
+
+    public class ActionThrowSystem : EntitySystem, IActionThrowSystem
     {
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
@@ -29,9 +35,7 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeComponent<ThrowableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeComponent<ChipComponent, EntityThrownEventArgs>(ShowThrownChipRenderable, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<ThrowableComponent, EntityThrownEventArgs>(HandleEntityThrown);
+            SubscribeComponent<ChipComponent, BeforeEntityThrownEventArgs>(ShowThrownChipRenderable, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CharaComponent, HitByThrownEntityEventArgs>(HandleCharaHitByThrown);
         }
 
@@ -40,7 +44,7 @@ namespace OpenNefia.Content.GameObjects
             args.WasHit = true;
         }
 
-        private void ShowThrownChipRenderable(EntityUid target, ChipComponent targetChip, EntityThrownEventArgs args)
+        private void ShowThrownChipRenderable(EntityUid target, ChipComponent targetChip, BeforeEntityThrownEventArgs args)
         {
             if (!EntityManager.TryGetComponent(args.Thrower, out SpatialComponent sourceSpatial))
                 return;
@@ -52,12 +56,7 @@ namespace OpenNefia.Content.GameObjects
             _mapDrawables.Enqueue(animBreaking, args.Coords);
         }
 
-        private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
-        {
-            args.OutVerbs.Add(new Verb(VerbTypeThrow, "Throw Entity", () => Throw(args.Source, args.Target)));
-        }
-
-        private TurnResult Throw(EntityUid thrower, EntityUid item)
+        public TurnResult PromptThrow(EntityUid thrower, EntityUid item)
         {
             if (!EntityManager.TryGetComponent(thrower, out SpatialComponent sourceSpatial))
                 return TurnResult.Failed;
@@ -91,7 +90,7 @@ namespace OpenNefia.Content.GameObjects
                 || !Spatial(thrower).MapPosition.TryDistanceTiled(coords, out var dist))
                 return false;
 
-            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", thrower), ("item", item)), entity: thrower);
+            _mes.Display(Loc.GetString("Elona.Throw.Throws", ("entity", thrower), ("item", item)), entity: thrower);
 
             // Offset final position randomly based on Throwing skill
             if (dist * 4 > _rand.Next(_skills.Level(thrower, Protos.Skill.Throwing) + 10) + _skills.Level(thrower, Protos.Skill.Throwing) / 4
@@ -102,71 +101,59 @@ namespace OpenNefia.Content.GameObjects
                     coords = new(coords.MapId, newPos);
             }
 
-            var ev = new EntityThrownEventArgs(thrower, coords);
-            RaiseEvent(item, ev);
+            var ev = new BeforeEntityThrownEventArgs(thrower, coords);
+            if (Raise(item, ev))
+                return false;
+            
+            DoEntityThrown(thrower, item, coords);
+            
             return true;
         }
 
-        private void HandleEntityThrown(EntityUid itemThrown, ThrowableComponent throwable, EntityThrownEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            if (throwable.SplitAmount != null)
-            {
-                if (!_stackSystem.TrySplit(itemThrown, throwable.SplitAmount.Value, out var split))
-                    return;
-                itemThrown = split;
-            }
-
-            DoEntityThrown(itemThrown, args);
-        }
-
-        private void DoEntityThrown(EntityUid thrown,
-            EntityThrownEventArgs args,
+        private void DoEntityThrown(EntityUid thrower,
+            EntityUid itemThrown,
+            MapCoordinates coords,
             SpatialComponent? sourceSpatial = null,
             SpatialComponent? targetSpatial = null)
         {
-            if (!Resolve(args.Thrower, ref sourceSpatial))
+            if (!Resolve(thrower, ref sourceSpatial))
                 return;
-            if (!Resolve(thrown, ref targetSpatial))
+            if (!Resolve(itemThrown, ref targetSpatial))
                 return;
-            if (sourceSpatial.MapPosition.MapId != args.Coords.MapId)
+            if (sourceSpatial.MapPosition.MapId != coords.MapId)
                 return;
-
-            args.Handled = true;
 
             // Place the entity on the map.
-            targetSpatial.WorldPosition = args.Coords.Position;
+            targetSpatial.WorldPosition = coords.Position;
 
-            foreach (var onMapSpatial in _lookup.GetLiveEntitiesAtCoords(args.Coords))
+            foreach (var onMapSpatial in _lookup.GetLiveEntitiesAtCoords(coords))
             {
-                if (onMapSpatial.Owner == thrown)
+                if (onMapSpatial.Owner == itemThrown)
                     continue;
 
-                var ev = new HitByThrownEntityEventArgs(args.Thrower, thrown, onMapSpatial.MapPosition);
-                if (!Raise(onMapSpatial.Owner, ev) && EntityManager.IsAlive(thrown) && ev.WasHit)
+                var ev = new HitByThrownEntityEventArgs(thrower, itemThrown, onMapSpatial.MapPosition);
+                if (!Raise(onMapSpatial.Owner, ev) && EntityManager.IsAlive(itemThrown) && ev.WasHit)
                 {
-                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, onMapSpatial.Owner, onMapSpatial.MapPosition);
+                    var ev2 = new ThrownEntityImpactedOtherEvent(thrower, onMapSpatial.Owner, onMapSpatial.MapPosition);
 
-                    if (!Raise(thrown, ev2))
+                    if (!Raise(itemThrown, ev2))
                     {
                     }
 
                     return;
                 }
-                if (!EntityManager.IsAlive(thrown))
+                if (!EntityManager.IsAlive(itemThrown))
                 {
                     return;
                 }
             }
 
-            var ev3 = new ThrownEntityImpactedGroundEvent(args.Thrower, args.Coords);
+            var ev3 = new ThrownEntityImpactedGroundEvent(thrower, coords);
 
-            if (!Raise(thrown, ev3))
+            if (!Raise(itemThrown, ev3))
             {
                 // Place the entity on the map.
-                targetSpatial.WorldPosition = args.Coords.Position;
+                targetSpatial.WorldPosition = coords.Position;
             }
         }
     }
@@ -215,12 +202,12 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
-    public class EntityThrownEventArgs : HandledEntityEventArgs
+    public class BeforeEntityThrownEventArgs : HandledEntityEventArgs
     {
         public readonly EntityUid Thrower;
         public readonly MapCoordinates Coords;
 
-        public EntityThrownEventArgs(EntityUid thrower, MapCoordinates coords)
+        public BeforeEntityThrownEventArgs(EntityUid thrower, MapCoordinates coords)
         {
             Thrower = thrower;
             Coords = coords;

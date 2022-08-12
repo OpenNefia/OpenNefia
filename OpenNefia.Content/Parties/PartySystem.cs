@@ -388,7 +388,7 @@ namespace OpenNefia.Content.Parties
             if (!CanRecruitMoreMembers(leader, partyLeader))
             {
                 if (!noMessage)
-                    _mes.Display(Loc.GetString("Party.AllyJoins.PartyFull"));
+                    _mes.Display(Loc.GetString("Elona.Party.Recruit.PartyFull"));
                 return false;
             }
 
@@ -414,7 +414,7 @@ namespace OpenNefia.Content.Parties
 
             if (_gameSession.IsPlayer(leader) && !noMessage)
             {
-                _mes.Display(Loc.GetString("Party.AllyJoins.Success", ("ally", ally)), color: UiColors.MesYellow);
+                _mes.Display(Loc.GetString("Elona.Party.Recruit.Success", ("ally", ally)), color: UiColors.MesYellow);
                 _audio.Play(Protos.Sound.Pray1);
             }
 

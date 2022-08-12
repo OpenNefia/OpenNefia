@@ -1,4 +1,4 @@
-Elona.Throwable = {
+Elona.Throw = {
     Throws = function(entity, item)
         return ("%sは%sを投げた。"):format(_.name(entity), _.name(item))
     end,

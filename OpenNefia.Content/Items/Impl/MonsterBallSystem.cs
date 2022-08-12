@@ -53,12 +53,13 @@ namespace OpenNefia.Content.Items.Impl
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly IActionThrowSystem _throwables = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<MonsterBallComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_MonsterBall);
             SubscribeComponent<MonsterBallComponent, EntityBeingGeneratedEvent>(BeingGenerated_MonsterBall);
-            SubscribeComponent<MonsterBallComponent, EntityThrownEventArgs>(Thrown_MonsterBall, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MonsterBallComponent, BeforeEntityThrownEventArgs>(BeforeThrown_MonsterBall, priority: EventPriorities.VeryHigh);
             SubscribeComponent<MonsterBallComponent, ThrownEntityImpactedOtherEvent>(ThrownImpactedOther_MonsterBall);
             SubscribeComponent<MonsterBallComponent, GetVerbsEventArgs>(GetVerbs_MonsterBall);
         }
@@ -67,8 +68,8 @@ namespace OpenNefia.Content.Items.Impl
         {
             if (component.CapturedEntityID != null)
             {
-                var s = Loc.GetString("Elona.MonsterBall.ItemName.Full", 
-                    ("name", args.OutFullName.ToString()), 
+                var s = Loc.GetString("Elona.MonsterBall.ItemName.Full",
+                    ("name", args.OutFullName.ToString()),
                     ("charaName", Loc.GetPrototypeString(component.CapturedEntityID.Value, "MetaData.Name")));
                 args.OutFullName.Clear().Append(s);
             }
@@ -92,7 +93,7 @@ namespace OpenNefia.Content.Items.Impl
                 value.Value = 200 + component.MaxLevel * component.MaxLevel + component.MaxLevel * 100;
         }
 
-        private void Thrown_MonsterBall(EntityUid uid, MonsterBallComponent component, EntityThrownEventArgs args)
+        private void BeforeThrown_MonsterBall(EntityUid uid, MonsterBallComponent component, BeforeEntityThrownEventArgs args)
         {
             if (args.Handled)
                 return;
@@ -153,8 +154,8 @@ namespace OpenNefia.Content.Items.Impl
 
             component.CapturedEntityID = id;
             component.CapturedEntityLevel = _levels.GetLevel(target);
-            
-            if (TryComp<WeightComponent>(monsterBall, out var weight) 
+
+            if (TryComp<WeightComponent>(monsterBall, out var weight)
                 && TryComp<WeightComponent>(target, out var targetWeight))
             {
                 weight.Weight = Math.Clamp(targetWeight.Weight, 10000, 100000);
@@ -162,9 +163,6 @@ namespace OpenNefia.Content.Items.Impl
 
             if (TryComp<ValueComponent>(monsterBall, out var value))
                 value.Value = 1000;
-
-            if (HasComp<ThrowableComponent>(monsterBall))
-                EntityManager.RemoveComponent<ThrowableComponent>(monsterBall);
 
             EntityManager.DeleteEntity(target);
         }
@@ -176,7 +174,7 @@ namespace OpenNefia.Content.Items.Impl
 
             args.Handled = true;
 
-            _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
+            _mes.Display(Loc.GetString("Elona.Throw.Hits", ("entity", args.ImpactedWith)));
 
             if (!CanCaptureEntity(uid, args.ImpactedWith, out var reason, component))
             {
@@ -193,7 +191,11 @@ namespace OpenNefia.Content.Items.Impl
 
         private void GetVerbs_MonsterBall(EntityUid uid, MonsterBallComponent component, GetVerbsEventArgs args)
         {
-             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Monster Ball", () => UseMonsterBall(args.Source, args.Target)));
+            if (component.CapturedEntityID == null)
+            {
+                args.OutVerbs.Add(new Verb(ActionThrowSystem.VerbTypeThrow, "Throw Entity", () => _throwables.PromptThrow(args.Source, args.Target)));
+            }
+            args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Monster Ball", () => UseMonsterBall(args.Source, args.Target)));
         }
 
         public TurnResult UseMonsterBall(EntityUid user, EntityUid monsterBall, MonsterBallComponent? monsterBallComp = null)
@@ -223,7 +225,7 @@ namespace OpenNefia.Content.Items.Impl
                 LevelOverride = monsterBallComp.CapturedEntityLevel,
             });
 
-            var chara = _charaGen.GenerateChara(user, args: args);
+            var chara = _charaGen.GenerateChara(user, id: monsterBallComp.CapturedEntityID.Value, args: args);
             if (IsAlive(chara))
                 _parties.RecruitAsAlly(user, chara.Value);
 
