@@ -67,7 +67,6 @@ namespace OpenNefia.Content.Activity
                         args.Handle(TurnResult.Succeeded);
                     }
                 }
-                return;
             }
         }
 

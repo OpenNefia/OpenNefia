@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace OpenNefia.Content.Equipment
 {
     /// <summary>
-    /// Represents a bonus attached to an item (+2, +9, etc.)
+    /// Represents a bonus attached to an item (+2, -9, etc.)
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]

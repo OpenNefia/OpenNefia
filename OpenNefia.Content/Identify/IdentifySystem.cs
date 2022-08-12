@@ -72,7 +72,7 @@ namespace OpenNefia.Content.Identify
             }
         }
 
-        public IdentifyResult GetNewIdentifyState(EntityUid ent, IdentifyState newState, IdentifyComponent? identify = null)
+        private IdentifyResult GetNewIdentifyState(EntityUid ent, IdentifyState newState, IdentifyComponent? identify = null)
         {
             if (!Resolve(ent, ref identify))
                 return new(false, IdentifyState.None);
