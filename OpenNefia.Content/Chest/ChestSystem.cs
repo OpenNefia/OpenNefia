@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Chest
         {
             if (chest.DisplayLevelInName)
             {
-                args.OutFullName.Append(Loc.Space() + Loc.GetString($"Elona.Chest.ItemName.Level", ("level", chest.LockpickDifficulty)));
+                args.OutFullName.Append(Loc.Space + Loc.GetString($"Elona.Chest.ItemName.Level", ("level", chest.LockpickDifficulty)));
             }
             if (!chest.HasItems)
             {

@@ -61,20 +61,20 @@ namespace OpenNefia.Content.Items
                 switch (curse)
                 {
                     case CurseState.Blessed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Blessed") + Loc.Space());
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Blessed") + Loc.Space);
                         break;
                     case CurseState.Cursed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Cursed") + Loc.Space());
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Cursed") + Loc.Space);
                         break;
                     case CurseState.Doomed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Doomed") + Loc.Space());
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Doomed") + Loc.Space);
                         break;
                 }
             }
             
             if (food != null && food.IsRotten)
             {
-                fullName.Append(Loc.GetString("Elona.Food.ItemName.Rotten") + Loc.Space());
+                fullName.Append(Loc.GetString("Elona.Food.ItemName.Rotten") + Loc.Space);
             }
 
             if (HasComp<MaterialKitComponent>(uid))
@@ -82,11 +82,11 @@ namespace OpenNefia.Content.Items
                 if (materialID != null)
                 {
                     var materialName = Loc.GetPrototypeString(materialID.Value, "Name");
-                    fullName.Append(Loc.GetString("Elona.MaterialKit.ItemName.Name", ("materialName", materialName)) + Loc.Space());
+                    fullName.Append(Loc.GetString("Elona.MaterialKit.ItemName.Name", ("materialName", materialName)) + Loc.Space);
                 }
                 else
                 {
-                    fullName.Append("???" + Loc.Space());
+                    fullName.Append("???" + Loc.Space);
                 }
             }
 
@@ -95,12 +95,12 @@ namespace OpenNefia.Content.Items
             if (HasComp<FurnitureComponent>(uid) && materialID != null)
             {
                 var matName = Loc.GetPrototypeString(materialID.Value, "Name");
-                fullName.Append(Loc.GetString("Elona.Furniture.ItemName.Work", ("matName", matName)) + Loc.Space());
+                fullName.Append(Loc.GetString("Elona.Furniture.ItemName.Work", ("matName", matName)) + Loc.Space);
             }
 
             if (TryComp<GiftComponent>(uid, out var gift))
             {
-                fullName.Append(Loc.GetString($"Elona.Gift.ItemName.Ranks.{gift.GiftRank}") + Loc.Space());
+                fullName.Append(Loc.GetString($"Elona.Gift.ItemName.Ranks.{gift.GiftRank}") + Loc.Space);
             }
 
             var katakana = false;
@@ -111,7 +111,7 @@ namespace OpenNefia.Content.Items
                 {
                     if (CompOrNull<EternalForceComponent>(uid)?.IsEternalForce.Buffed == true)
                     {
-                        fullName.Append(Loc.GetString("Elona.Item.ItemName.EternalForce") + Loc.Space());
+                        fullName.Append(Loc.GetString("Elona.Item.ItemName.EternalForce") + Loc.Space);
                     }
                     else
                     {
@@ -133,12 +133,12 @@ namespace OpenNefia.Content.Items
                         {
                             if (quality != Quality.Unique && quality >= Quality.Great)
                             {
-                                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Alias") + Loc.Space());
+                                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Alias") + Loc.Space);
                             }
                             else
                             {
                                 var materialName = Loc.GetPrototypeString(materialID.Value, "Name");
-                                fullName.Append(materialName + Loc.Space());
+                                fullName.Append(materialName + Loc.Space);
                                 if (StartsWithKatakana(materialName))
                                 {
                                     katakana = true;

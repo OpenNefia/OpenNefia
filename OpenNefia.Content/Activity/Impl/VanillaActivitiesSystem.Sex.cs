@@ -132,13 +132,13 @@ namespace OpenNefia.Content.Activity
                 {
                     if (partnerWallet.Gold >= goldEarned)
                     {
-                        mes += Loc.Space() + Loc.GetString("Elona.Activity.Sex.Take", ("partner", component.Partner));
+                        mes += Loc.Space + Loc.GetString("Elona.Activity.Sex.Take", ("partner", component.Partner));
                     }
                     else
                     {
                         if (_vis.IsInWindowFov(actor))
                         {
-                            mes += Loc.Space() + Loc.GetString("Elona.Activity.Sex.TakeAllIHave", ("partner", component.Partner));
+                            mes += Loc.Space + Loc.GetString("Elona.Activity.Sex.TakeAllIHave", ("partner", component.Partner));
                             if (_rand.OneIn(3) && !_gameSession.IsPlayer(actor))
                             {
                                 _mes.Display(Loc.GetString("Elona.Activity.Sex.GetsFurious", ("actor", actor)));

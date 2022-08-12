@@ -33,9 +33,6 @@ namespace OpenNefia.Content.Food
         [DataField]
         public GameTimeSpan? SpoilageInterval { get; set; }
 
-        [DataField]
-        public PrototypeId<EntityPrototype>? EntityMadeOf { get; set; }
-
         #region Instance fields
 
         [DataField]

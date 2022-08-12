@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Items
                 if (TryComp<HarvestedFoodComponent>(uid, out var harvested))
                 {
                     var weight = Loc.GetString($"Elona.Food.Harvesting.Weight.{harvested.WeightClass}");
-                    fullName.Append(Loc.Space() + Loc.GetString("Elona.Food.Harvesting.ItemName.Grown", ("weight", weight)));
+                    fullName.Append(Loc.Space + Loc.GetString("Elona.Food.Harvesting.ItemName.Grown", ("weight", weight)));
                 }
             }
             else if (TryComp<FishComponent>(uid, out var fish))
@@ -76,12 +76,12 @@ namespace OpenNefia.Content.Items
             if (TryComp<DeedComponent>(uid, out var deed))
             {
                 var homeName = Loc.GetPrototypeString(deed.HomeID, "Name");
-                fullName.Append(Loc.Space() + Loc.GetString($"Elona.Home.ItemName.Deed", ("homeName", homeName)));
+                fullName.Append(Loc.Space + Loc.GetString($"Elona.Home.ItemName.Deed", ("homeName", homeName)));
             }
 
             if (TryComp<BillComponent>(uid, out var bill))
 {
-                fullName.Append(Loc.Space() + Loc.GetString($"Elona.Salary.ItemName.Bill", ("amount", bill.GoldOwed)));
+                fullName.Append(Loc.Space + Loc.GetString($"Elona.Salary.ItemName.Bill", ("amount", bill.GoldOwed)));
             }
 
             if (TryComp<SecretTreasureComponent>(uid, out var secretTreasure))
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.Items
 
             if (TryComp<ChargedComponent>(uid, out var charged) && charged.DisplayChargeCount)
             {
-                knownInfo.Append(Loc.Space() + Loc.GetString("Elona.Charged.ItemName.Charges", ("charges", charged.Charges)));
+                knownInfo.Append(Loc.Space + Loc.GetString("Elona.Charged.ItemName.Charges", ("charges", charged.Charges)));
             }
 
             var (diceX, diceY) = GetDice(uid);
@@ -180,7 +180,7 @@ namespace OpenNefia.Content.Items
                     adjective = adjectives[(index % adjectives.Keys.Count).ToString()].ToString();
                 }
 
-                return $"{adjective}{Loc.Space()}{name}";
+                return $"{adjective}{Loc.Space}{name}";
             }
 
             return MetaData(uid).DisplayName ?? "<???>";

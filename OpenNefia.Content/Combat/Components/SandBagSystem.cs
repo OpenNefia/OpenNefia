@@ -72,7 +72,7 @@ namespace OpenNefia.Content.Combat
         private void ShowDialogAndDamageNumbers(EntityUid uid, SandBaggedComponent _, ref AfterDamageHPEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1769 	if cBit(cSandBag,tc):if sync(tc):txt "("+dmg+")"+ ..
-            _mes.Display($"({args.FinalDamage}{Loc.Space()})", entity: uid);
+            _mes.Display($"({args.FinalDamage}{Loc.Space})", entity: uid);
 
             if (_rand.OneIn(20))
                 _mes.Display(Loc.GetString("Elona.SandBag.Dialog.Damage"), UiColors.MesTalk);
