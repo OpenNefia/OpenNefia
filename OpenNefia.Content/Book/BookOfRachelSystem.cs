@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Audio;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Book
 {

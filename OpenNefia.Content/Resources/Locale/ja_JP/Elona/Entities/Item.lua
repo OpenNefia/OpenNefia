@@ -10370,6 +10370,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "",
         },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.SmallAnimals",
+        },
     },
 
     ItemFishJunk = {
@@ -10436,6 +10439,9 @@ OpenNefia.Prototypes.Entity.Elona = {
                 Footnote = "〜鑑定報告書：＜貨幣＞カテゴリ〜",
                 Text = "どこかにコレクターがいると言われるメダルだ。",
             },
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 
@@ -12259,6 +12265,9 @@ OpenNefia.Prototypes.Entity.Elona = {
                 Text = "いくつかの楽器が描かれた謎のチケット。そこには演奏家の夢と聴衆の感謝が込められている。",
             },
         },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
+        },
     },
 
     ItemKillKillPiano = {
@@ -12378,6 +12387,9 @@ OpenNefia.Prototypes.Entity.Elona = {
                 Footnote = "〜私の愛する幾千ものガラクタ〜",
                 Text = "金では買えない価値があるとされる紙きれ。ミミズの這ったような字で「友情」と書かれている。",
             },
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 
@@ -13267,6 +13279,9 @@ OpenNefia.Prototypes.Entity.Elona = {
                 Footnote = "〜料理を支える脇役達〜",
                 Text = "調理人達の優れたセンスと秘密の技術が封じ込まれた紙片。これさえあれば一流の調理人にも劣らぬ知識を得ることができるだろう。…技術がそれに追いつくかは別として。",
             },
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 

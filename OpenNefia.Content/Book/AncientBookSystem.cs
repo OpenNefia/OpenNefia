@@ -1,34 +1,18 @@
 ﻿using OpenNefia.Content.Activity;
-using OpenNefia.Content.Damage;
-using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Factions;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
-using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Skills;
-using OpenNefia.Content.Spells;
 using OpenNefia.Content.StatusEffects;
-using OpenNefia.Content.Visibility;
-using OpenNefia.Core.Areas;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.SaveGames;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Book
 {

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Content.Identify
 {
@@ -34,10 +35,11 @@ namespace OpenNefia.Content.Identify
     {
         [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<IdentifyComponent, EntityBeingGeneratedEvent>(TryToAutoIdentifyItem);
+            SubscribeComponent<IdentifyComponent, EntityBeingGeneratedEvent>(TryToAutoIdentifyItem, priority: EventPriorities.High);
         }
 
         private void TryToAutoIdentifyItem(EntityUid uid, IdentifyComponent component, ref EntityBeingGeneratedEvent args)
@@ -62,6 +64,11 @@ namespace OpenNefia.Content.Identify
                         }
                     }
                 }
+            }
+            
+            if (_config.GetCVar(CCVars.DebugAutoIdentify))
+            {
+                Identify(uid, IdentifyState.Full);
             }
         }
 

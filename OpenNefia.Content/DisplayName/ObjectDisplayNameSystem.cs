@@ -34,17 +34,4 @@ namespace OpenNefia.Content.DisplayName
             args.OutName = ev.OutItemName;
         }
     }
-
-    [ByRefEvent]
-    public struct GetItemNameEvent
-    {
-        public bool NoArticle { get; }
-
-        public string OutItemName { get; set; } = string.Empty;
-
-        public GetItemNameEvent(bool noArticle)
-        {
-            NoArticle = noArticle;
-        }
-    }
 }

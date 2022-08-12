@@ -9,6 +9,11 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Random;
+using OpenNefia.Content.CharaMake;
+using OpenNefia.Content.Qualities;
+using System.ComponentModel;
+using Pidgin;
 
 namespace OpenNefia.Content.CurseStates
 {
@@ -16,27 +21,27 @@ namespace OpenNefia.Content.CurseStates
     {
         bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null);
         bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null);
+        CurseState GetDefaultCurseState(EntityUid uid);
+        CurseState PickRandomCurseState(EntityUid uid);
     }
 
     public class CurseStateSystem : EntitySystem, ICurseStateSystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IRandom _rand = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<CurseStateComponent, EntityBeingGeneratedEvent>(TryRandomizeCurseState, priority: EventPriorities.High);
+            SubscribeComponent<CurseStateComponent, EntityBeingGeneratedEvent>(SetRandomCurseState, priority: EventPriorities.High);
             SubscribeComponent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, priority: EventPriorities.High);
             SubscribeComponent<CurseStateComponent, BeingUnequippedAttemptEvent>(OnBeingUnequipped, priority: EventPriorities.High);
         }
 
-        private void TryRandomizeCurseState(EntityUid uid, CurseStateComponent component, ref EntityBeingGeneratedEvent args)
+        public CurseState GetDefaultCurseState(EntityUid uid)
         {
-
-            if (component.NoRandomizeCurseState)
-                return;
-
-            // TODO
+            if (CompOrNull<QualityComponent>(uid)?.Quality == Quality.Unique)
+                return CurseState.Normal;
 
             if (TryComp<TagComponent>(uid, out var tags))
             {
@@ -44,10 +49,40 @@ namespace OpenNefia.Content.CurseStates
                 {
                     if (_protos.TryGetExtendedData<TagPrototype, ExtDefaultCurseState>(tag, out var def))
                     {
-                        component.CurseState = def.CurseState;
+                        return def.CurseState;
                     }
                 }
             }
+
+            // No default curse state should be set at this point, so we can go ahead and randomize.
+            return PickRandomCurseState(uid);
+        }
+
+        public CurseState PickRandomCurseState(EntityUid uid)
+        {
+            var curseState = CurseState.Normal;
+            if (_rand.OneIn(12))
+            {
+                curseState = CurseState.Blessed;
+            }
+            if (_rand.OneIn(13))
+            {
+                curseState = CurseState.Cursed;
+                if (HasComp<EquipmentComponent>(uid) && _rand.OneIn(4))
+                    curseState = CurseState.Doomed;
+            }
+            return curseState;
+        }
+
+        private void SetRandomCurseState(EntityUid uid, CurseStateComponent curseState, ref EntityBeingGeneratedEvent args)
+        {
+            if (curseState.NoRandomizeCurseState)
+                return;
+
+            if (args.GenArgs.Has<CharaMakeGenArgs>())
+                return;
+
+            curseState.CurseState = GetDefaultCurseState(uid);
         }
 
         private void OnEquippedInMenu(EntityUid item, CurseStateComponent component, GotEquippedInMenuEvent args)

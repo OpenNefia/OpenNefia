@@ -1,4 +1,7 @@
 Elona.Food = {
+    ItemName = {
+        Rotten = "腐った",
+    },
     Cook = function(_1, _2, _3)
         return ("%sで%sを料理して、%sを作った。"):format(_2, _1, _3)
     end,

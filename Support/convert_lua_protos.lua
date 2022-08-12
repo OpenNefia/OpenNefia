@@ -20,6 +20,7 @@ local IItemAmmo = require "mod.elona.api.aspect.IItemAmmo"
 local IItemFood = require "mod.elona.api.aspect.IItemFood"
 local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
+local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -155,6 +156,10 @@ local function event(from, to, field_name, namespace, system, event_name)
     e.system = ("%s.%s"):format(namespace, system)
     e.method = ("%s_%s"):format(dataPart(from._id), event_name)
     table.insert(to.events, e)
+end
+
+local function ext(from, iface)
+    return from._ext and from._ext[iface]
 end
 
 local ops = {
@@ -463,7 +468,7 @@ handlers["base.item"] = function(from, to)
     end
 
     if from.random_color then
-        c = comp(to, "RandomItem")
+        c = comp(to, "RandomColor")
         if from.random_color == "Random" then
             c.randomColor = "RandomItem"
         elseif from.random_color == "Furniture" then
@@ -681,6 +686,11 @@ handlers["base.item"] = function(from, to)
         field(ancientBook, c, "charges")
         field(ancientBook, c, "max_charges")
         field(ancientBook, c, "display_charge_count")
+    end
+
+    local fromChara = from._ext and from._ext[IItemFromChara]
+    if fromChara then
+        c = comp(to, "EntityProtoSource")
     end
 end
 

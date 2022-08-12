@@ -23,10 +23,17 @@ namespace OpenNefia.Content.Items
         /// Type of the entity in its unidentified name.
         /// This localizes as "spellbook" in "a mossy [spellbook]".
         /// All random items should have this field set.
-        /// This indexes into <c>Elona.RandomItem.KnownNameRef</c>.
+        /// This indexes into the locale key <c>Elona.RandomItem.KnownNameRef</c>.
         /// </summary>
         [DataField(required: true)]
         public LocaleKey KnownNameRef { get; }
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Normal)]
+    public sealed class RandomColorComponent : Component
+    {
+        public override string Name => "RandomColor";
 
         [DataField]
         public RandomColorType RandomColor { get; set; }

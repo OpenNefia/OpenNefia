@@ -2,8 +2,14 @@
   id: Elona.NoGenerate
 - type: Tag
   id: Elona.ItemCatBook
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Books
 - type: Tag
   id: Elona.ItemCatBug
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatCargo
   extendedData:
@@ -17,8 +23,14 @@
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatCargoFood
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatContainer
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatCropHerb
 - type: Tag
@@ -32,6 +44,8 @@
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Doses
 - type: Tag
   id: Elona.ItemCatDrinkAlcohol
 - type: Tag
@@ -54,6 +68,9 @@
   id: Elona.ItemCatEquipBackGirdle
 - type: Tag
   id: Elona.ItemCatEquipBody
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Clothing
 - type: Tag
   id: Elona.ItemCatEquipBodyMail
 - type: Tag
@@ -68,12 +85,18 @@
   id: Elona.ItemCatEquipHeadHelm
 - type: Tag
   id: Elona.ItemCatEquipLeg
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Pairs
 - type: Tag
   id: Elona.ItemCatEquipLegHeavyBoots
 - type: Tag
   id: Elona.ItemCatEquipLegShoes
 - type: Tag
   id: Elona.ItemCatEquipMelee
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Rods
 - type: Tag
   id: Elona.ItemCatEquipMeleeAxe
 - type: Tag
@@ -122,6 +145,9 @@
   id: Elona.ItemCatEquipShieldShield
 - type: Tag
   id: Elona.ItemCatEquipWrist
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Pairs
 - type: Tag
   id: Elona.ItemCatEquipWristGauntlet
 - type: Tag
@@ -146,16 +172,29 @@
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 200
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatFurnitureAltar
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatFurnitureBed
 - type: Tag
   id: Elona.ItemCatFurnitureInstrument
 - type: Tag
   id: Elona.ItemCatFurnitureWell
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatGold
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Flats
 - type: Tag
   id: Elona.ItemCatJunk
   extendedData:
@@ -193,6 +232,11 @@
   id: Elona.ItemCatOreValuable
 - type: Tag
   id: Elona.ItemCatPlatinum
+  extendedData:
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Flats
 - type: Tag
   id: Elona.ItemCatRemains
   extendedData:
@@ -206,18 +250,25 @@
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Scrolls
 - type: Tag
   id: Elona.ItemCatScrollDeed
 - type: Tag
   id: Elona.ItemCatSnowTree
 - type: Tag
   id: Elona.ItemCatSpellbook
+  extendedData:
+  - type: Items.ExtTagJapaneseCounter
+    counterKey: Elona.Item.Japanese.Counters.Books
 - type: Tag
   id: Elona.ItemCatTree
   extendedData:
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
+  - type: CurseStates.ExtDefaultCurseState
+    curseState: Normal
 - type: Tag
   id: Elona.ItemCatUniqueItem
 - type: Tag

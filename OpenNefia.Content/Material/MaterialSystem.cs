@@ -44,6 +44,8 @@ namespace OpenNefia.Content.Material
             {
                 material.MaterialID = Protos.Material.Paper;
             }
+
+            // TODO value.Value = RecalcValue(uid);
         }
     }
 }

@@ -23,6 +23,12 @@ namespace OpenNefia.Core.Utility
             return (T)_instances[typeof(T)];
         }
 
+        public T? GetOrNull<T>() where T : class, TType
+        {
+            TryGet<T>(out var result);
+            return result;
+        }
+
         public bool Has<T>() where T : class, TType
         {
             return TryGet<T>(out _);

@@ -19,6 +19,7 @@ using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Activity;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Book
 {
