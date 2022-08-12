@@ -16,6 +16,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Book
 {

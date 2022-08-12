@@ -73,6 +73,14 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// If true, this item is being generated in a shopkeeper's inventory.
         /// </summary>
+        /// <remarks>
+        /// Known effects in 1.22 when true:
+        /// - Do not autoidentify with Sense Quality immediately upon creation.
+        /// - No chance to generate unique items.
+        /// - No artifact generation log for oracle. (implies <see cref="NoOracle"/>)
+        /// - Can generate any kind of home deed.
+        /// - Can generate cooked food in addition to raw food.
+        /// </remarks>
         public bool IsShop { get; set; } = false;
 
         /// <summary>

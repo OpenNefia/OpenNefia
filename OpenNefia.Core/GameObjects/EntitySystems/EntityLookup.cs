@@ -248,7 +248,8 @@ namespace OpenNefia.Core.GameObjects
             if (!map.IsInBounds(coords))
                 return Enumerable.Empty<SpatialComponent>();
 
-            var mapLookupComp = EntityManager.GetComponent<MapEntityLookupComponent>(map.MapEntityUid);
+            if (!TryComp<MapEntityLookupComponent>(map.MapEntityUid, out var mapLookupComp))
+                return Enumerable.Empty<SpatialComponent>();
 
             var ents = mapLookupComp.EntitySpatial[coords.X, coords.Y]
                 .Where(uid => EntityManager.IsAlive(uid));

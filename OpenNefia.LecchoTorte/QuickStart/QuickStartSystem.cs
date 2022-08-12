@@ -33,6 +33,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IMapManager _mapMan = default!;
+        [Dependency] private readonly IEntityLookup _entityLookup = default!;
 
         public override void Initialize()
         {
@@ -96,6 +97,11 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Suitcase, amount: 99);
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.BookOfRachel);
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Bill);
+
+            foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
+            {
+                identify.IdentifyState = IdentifyState.Full;
+            }
         }
     }
 }

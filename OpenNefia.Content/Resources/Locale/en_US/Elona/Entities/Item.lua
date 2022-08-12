@@ -7226,6 +7226,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         MetaData = {
             Name = "",
         },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.SmallAnimals",
+        },
     },
 
     ItemFishJunk = {
@@ -7267,6 +7270,9 @@ OpenNefia.Prototypes.Entity.Elona = {
             Primary = {
                 Text = "Dwarven currency rarely found outside of their homeland,",
             },
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 
@@ -8348,6 +8354,9 @@ OpenNefia.Prototypes.Entity.Elona = {
         Identify = {
             UnidentifiedName = "some kind of ticket",
         },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
+        },
     },
 
     ItemKillKillPiano = {
@@ -8405,6 +8414,9 @@ OpenNefia.Prototypes.Entity.Elona = {
             Primary = {
                 Text = "A token given only to friends,",
             },
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 
@@ -8825,6 +8837,9 @@ OpenNefia.Prototypes.Entity.Elona = {
     ItemRecipe = {
         MetaData = {
             Name = "recipe",
+        },
+        JapaneseCounter = {
+            CounterText = _.ref "Elona.Item.Japanese.Counters.Flats",
         },
     },
 

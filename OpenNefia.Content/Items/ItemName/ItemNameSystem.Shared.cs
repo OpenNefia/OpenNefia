@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.IoC;
 
-namespace OpenNefia.Content.DisplayName
+namespace OpenNefia.Content.Items
 {
     public sealed partial class ItemNameSystem
     {
@@ -62,23 +62,15 @@ namespace OpenNefia.Content.DisplayName
                 fullName.Append(fishName);
             }
 
-            if (TryComp<ItemFromEntityComponent>(uid, out var fromEntity) && CompOrNull<PickableComponent>(uid)?.OwnState != OwnState.Quest)
+            if (TryComp<EntityProtoSourceComponent>(uid, out var fromEntity) && CompOrNull<PickableComponent>(uid)?.OwnState != OwnState.Quest)
             {
                 var name = Loc.GetPrototypeString(fromEntity.EntityID, "MetaData.Name");
-                if (!isJapanese)
-                {
-                    fullName.Append(" of ");
-                }
-                fullName.Append(name);
-                if (isJapanese)
-                {
-                    fullName.Append("の");
-                }
+                fullName.Append(Loc.GetString("Elona.Item.ItemName.FromEntity", ("name", name)));
             }
 
             if (isJapanese && TryComp<FurnitureComponent>(uid, out var furniture) && furniture.FurnitureQuality > 0)
             {
-                fullName.Append(Loc.GetString($"Elona.Furniture.Qualities.{furniture.FurnitureQuality}"));
+                fullName.Append(Loc.GetString($"Elona.Furniture.ItemName.Qualities.{furniture.FurnitureQuality}"));
             }
 
             if (TryComp<DeedComponent>(uid, out var deed))

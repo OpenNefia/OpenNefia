@@ -25,9 +25,10 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
-using OpenNefia.Content.Items;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Core.Prototypes;
 
-namespace OpenNefia.Content.DisplayName
+namespace OpenNefia.Content.Items
 {
     public sealed partial class ItemNameSystem : EntitySystem
     {
@@ -42,11 +43,13 @@ namespace OpenNefia.Content.DisplayName
         [Dependency] private readonly IHungerSystem _hungers = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
             base.Initialize();
 
+            SubscribeEntity<EntityGeneratedEvent>(AddJapaneseCounterTranslation);
             SubscribeComponent<ItemComponent, GetItemNameEvent>(BasicName, priority: EventPriorities.VeryHigh);
 
             Initialize_ItemEvents();
@@ -80,6 +83,19 @@ namespace OpenNefia.Content.DisplayName
                 return $"<item {uid}>";
 
             return GermanBuiltins.GetDisplayData(uid, meta.DisplayName!).GetIndirectName(stack.Count);
+        }
+    }
+
+    [ByRefEvent]
+    public struct GetItemNameEvent
+    {
+        public bool NoArticle { get; }
+
+        public string OutItemName { get; set; } = string.Empty;
+
+        public GetItemNameEvent(bool noArticle)
+        {
+            NoArticle = noArticle;
         }
     }
 }

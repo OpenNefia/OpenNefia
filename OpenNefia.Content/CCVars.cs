@@ -211,6 +211,9 @@ namespace OpenNefia.Content
 
         public static readonly CVarDef<bool> DebugNoEncounters =
             CVarDef.Create("debug.noEncounters", false, CVar.Archive | CVar.Cheat);
+
+        public static readonly CVarDef<bool> DebugAutoIdentify =
+            CVarDef.Create("debug.autoIdentify", false, CVar.Archive | CVar.Cheat);
     }
 
     public enum AutosaveType

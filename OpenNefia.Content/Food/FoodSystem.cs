@@ -261,7 +261,7 @@ namespace OpenNefia.Content.Food
 
             if (foodType.UsesCharaName)
             {
-                if (TryComp<ItemFromEntityComponent>(ent, out var fromChara))
+                if (TryComp<EntityProtoSourceComponent>(ent, out var fromChara))
                 {
                     origin = Loc.GetPrototypeString(fromChara.EntityID, "MetaData.Name");
                 }

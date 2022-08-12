@@ -23,7 +23,7 @@ using OpenNefia.Content.Fishing;
 using OpenNefia.Content.Material;
 using static OpenNefia.Content.Prototypes.Protos;
 
-namespace OpenNefia.Content.DisplayName
+namespace OpenNefia.Content.Items
 {
     public sealed partial class ItemNameSystem
     {
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.DisplayName
 
             if (food != null && food.IsRotten)
             {
-                fullName.Append("rotten ");
+                fullName.Append(Loc.GetString("Elona.Food.ItemName.Rotten") + Loc.Space());
             }
             // <<<<<<<< shade2/item_func.hsp:521 		} ..
 
@@ -130,7 +130,7 @@ namespace OpenNefia.Content.DisplayName
 
             if (TryComp<FurnitureComponent>(uid, out var furniture) && furniture.FurnitureQuality > 0)
             {
-                fullName.Append(Loc.GetString($"Elona.Furniture.Qualities.{furniture.FurnitureQuality}") + " ");
+                fullName.Append(Loc.GetString($"Elona.Furniture.ItemName.Qualities.{furniture.FurnitureQuality}") + " ");
             }
             // TODO recipe
             // <<<<<<<< shade2/item_func.hsp:534 	} ..
@@ -140,11 +140,12 @@ namespace OpenNefia.Content.DisplayName
             {
                 if (materialID != null)
                 {
-                    fullName.Append(Loc.GetPrototypeString(materialID.Value, "Name") + " ");
+                    var materialName = Loc.GetPrototypeString(materialID.Value, "Name");
+                    fullName.Append(Loc.GetString("Elona.MaterialKit.ItemName.Name", ("materialName", materialName)) + Loc.Space());
                 }
                 else
                 {
-                    fullName.Append("??? ");
+                    fullName.Append("???" + Loc.Space());
                 }
             }
             // <<<<<<<< shade2/item_func.hsp:546 			 ...
@@ -152,12 +153,13 @@ namespace OpenNefia.Content.DisplayName
             // >>>>>>>> shade2/item_func.hsp:549 	if a=fltFurniture{ ..
             if (HasComp<FurnitureComponent>(uid) && materialID != null)
             {
-                fullName.Append(Loc.GetPrototypeString(materialID.Value, "Name") + "work ");
+                var matName = Loc.GetPrototypeString(materialID.Value, "Name");
+                fullName.Append(Loc.GetString("Elona.Furniture.ItemName.Work", ("matName", matName)) + Loc.Space());
             }
 
             if (TryComp<GiftComponent>(uid, out var gift))
             {
-                fullName.Append(Loc.GetString($"Elona.Gift.Ranks.{gift.GiftRank}") + " ");
+                fullName.Append(Loc.GetString($"Elona.Gift.ItemName.Ranks.{gift.GiftRank}") + Loc.Space());
             }
 
             if (!skipDetail)
@@ -166,7 +168,7 @@ namespace OpenNefia.Content.DisplayName
                 {
                     if (CompOrNull<EternalForceComponent>(uid)?.IsEternalForce.Buffed == true)
                     {
-                        fullName.Append("eternal force ");
+                        fullName.Append(Loc.GetString("Elona.Item.ItemName.EternalForce") + Loc.Space());
                     }
                     else
                     {
@@ -284,7 +286,7 @@ namespace OpenNefia.Content.DisplayName
                 }
                 else if (amount == 1)
                 {
-                    if (IsVowel(fullName[0]))
+                    if (fullName.Length > 0 && IsVowel(fullName[0]))
                     {
                         fullName.Insert(0, "an ");
                     }

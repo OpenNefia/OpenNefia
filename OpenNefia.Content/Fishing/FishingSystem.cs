@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Fishing
 {

@@ -37,6 +37,11 @@ namespace OpenNefia.Core.Locale
             return _localization.GetString(key, args);
         }
 
+        public static bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table)
+        {
+            return _localization.TryGetLocalizationData(uid, out table);
+        }
+
         public static EntityLocData GetLocalizationData(string prototypeId)
         {
             return _localization.GetEntityData(prototypeId);

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Items;
@@ -50,6 +51,19 @@ namespace OpenNefia.Content.SenseQuality
         public override void Initialize()
         {
             SubscribeBroadcast<MapOnTimePassedEvent>(ProcSenseQuality);
+            SubscribeComponent<IdentifyComponent, EntityBeingGeneratedEvent>(HandleEntityBeingGenerated, priority: EventPriorities.Default);
+        }
+
+        private void HandleEntityBeingGenerated(EntityUid uid, IdentifyComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            var isShop = args.GenArgs.GetOrNull<ItemGenArgs>()?.IsShop ?? false;
+            if (IsAlive(_gameSession.Player) && !isShop && HasComp<EquipmentComponent>(uid))
+            {
+                if (_rand.Next(_skills.Level(_gameSession.Player, Protos.Skill.SenseQuality) + 1) > 5)
+                {
+                    component.IdentifyState = IdentifyState.Quality;
+                }
+            }
         }
 
         private void ProcSenseQuality(ref MapOnTimePassedEvent ev)

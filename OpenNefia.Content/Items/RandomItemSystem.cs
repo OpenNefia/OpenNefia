@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Items
 {
     public interface IRandomItemSystem : IEntitySystem
     {
-        Color GetDefaultItemColor(EntityUid uid, int? seed = null, RandomItemComponent? randomItem = null);
+        Color GetDefaultItemColor(EntityUid uid, int? seed = null, RandomColorComponent? randomColor = null);
 
         /// <summary>
         /// Gets an integer randomized per-save for this entity based on its prototype ID.
@@ -42,10 +42,10 @@ namespace OpenNefia.Content.Items
         
         public override void Initialize()
         {
-            SubscribeComponent<RandomItemComponent, EntityBeingGeneratedEvent>(SetRandomItemColor, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<RandomColorComponent, EntityBeingGeneratedEvent>(SetRandomItemColor, priority: EventPriorities.VeryHigh);
         }
 
-        private void SetRandomItemColor(EntityUid uid, RandomItemComponent component, ref EntityBeingGeneratedEvent args)
+        private void SetRandomItemColor(EntityUid uid, RandomColorComponent component, ref EntityBeingGeneratedEvent args)
         {
             if (TryComp<ChipComponent>(uid, out var chip))
             {
@@ -90,16 +90,16 @@ namespace OpenNefia.Content.Items
             return RandomItemColors[index % RandomItemColors.Length];
         }
 
-        public Color GetDefaultItemColor(EntityUid uid, int? seed = null, RandomItemComponent? randomItem = null)
+        public Color GetDefaultItemColor(EntityUid uid, int? seed = null, RandomColorComponent? randomColor = null)
         {
             // >>>>>>>> shade2/item.hsp:615 	iCol(ci)=iColOrg(ci) ...
-            if (Resolve(uid, ref randomItem, logMissing: false))
+            if (Resolve(uid, ref randomColor, logMissing: false))
             {
-                if (randomItem.RandomColor == RandomColorType.RandomItem)
+                if (randomColor.RandomColor == RandomColorType.RandomItem)
                 {
                     return RandomItemColor(uid, seed);
                 }
-                else if (randomItem.RandomColor == RandomColorType.Furniture)
+                else if (randomColor.RandomColor == RandomColorType.Furniture)
                 {
                     return _rand.Pick(RandomFurnitureColors);
                 }

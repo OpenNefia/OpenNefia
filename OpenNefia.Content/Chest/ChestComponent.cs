@@ -20,6 +20,15 @@ namespace OpenNefia.Content.Chest
         public bool HasItems { get; set; } = true;
 
         [DataField]
+        public int ItemLevel { get; set; }
+
+        [DataField]
         public bool DisplayLevelInName { get; set; } = false;
+
+        /// <summary>
+        /// Random seed to prevent save-scumming.
+        /// </summary>
+        [DataField]
+        public int RandomSeed { get; set; }
     }
 }
