@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Activity
         {
             if (args.Handled)
                 return;
-            
+
             // Traveling logic for the HSP version:
             //
             // When the player is in the world map and tries to move onto another tile, the game
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Activity
                         // traveling activity finishes.
                         var traveling = EnsureComp<ActivityTravelingComponent>(activityComp.Owner);
                         traveling.Destination = args.OutNewPosition;
-                        
+
                         args.Handle(TurnResult.Succeeded);
                     }
                 }
@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Activity
         private void Traveling_OnPassTurn(EntityUid uid, ActivityTravelingComponent component, OnActivityPassTurnEvent args)
         {
             var ev = new OnTravelInWorldMapEvent(args.Activity);
-            RaiseEvent(args.Activity.Actor, ev);
+            RaiseEvent(args.Activity.Actor, ref ev);
 
             _world.PassTime(GameTimeSpan.FromMinutes(1));
         }
@@ -88,7 +88,8 @@ namespace OpenNefia.Content.Activity
         }
     }
 
-    public sealed class OnTravelInWorldMapEvent : EntityEventArgs
+    [ByRefEvent]
+    public struct OnTravelInWorldMapEvent
     {
         public ActivityComponent Activity { get; }
 
