@@ -39,21 +39,10 @@ namespace OpenNefia.Content.FruitTree
             SubscribeComponent<FruitTreeComponent, EntityBashedEventArgs>(HandleBashed);
         }
 
-        // TODO
-        private readonly PrototypeId<EntityPrototype>[] FruitTreeFruits = new[]
-        {
-            Protos.Item.Apple,
-            Protos.Item.Grape,
-            Protos.Item.Orange,
-            Protos.Item.Lemon,
-            Protos.Item.Strawberry,
-            Protos.Item.Cherry
-        };
-
         private void InitializeFruitTree(EntityUid uid, FruitTreeComponent fruitTree, ref EntityBeingGeneratedEvent args)
         {
             fruitTree.FruitAmount = _rand.Next(2) + 3;
-            fruitTree.FruitItemID = _rand.Pick(FruitTreeFruits);
+            fruitTree.FruitItemID = _rand.Pick(RandomGenConsts.ItemSets.Fruit);
         }
 
         private void HandleRenew(EntityUid uid, FruitTreeComponent fruitTree, OnItemRenewMajorEvent args)
