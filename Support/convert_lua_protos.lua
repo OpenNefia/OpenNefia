@@ -261,7 +261,7 @@ handlers["base.chara"] = function(from, to)
         c.quality = Enum.Quality:to_string(from.quality)
     end
 
-    if (from.fltselect or 0) ~= 0 or (from.rarity or 0) ~= 0 then
+    if not table.set(from.categories or {})["elona.no_generate"] then
         c = comp(to, "RandomGen")
         c.tables.chara = {
             coefficient = from.coefficient or 400,
@@ -436,11 +436,11 @@ handlers["base.item"] = function(from, to)
     c = comp(to, "Level")
     c.level = from.level or 1
 
-    if (from.fltselect or 0) ~= 0 or (from.rarity or 0) ~= 0 then
+    if not table.set(from.categories or {})["elona.no_generate"] then
         c = comp(to, "RandomGen")
         c.tables.item = {
-            coefficient = from.coefficient or 400,
-            rarity = from.rarity or 100000,
+            coefficient = from.coefficient or 100,
+            rarity = from.rarity or 1000000,
         }
         if (from.fltselect or 0) ~= 0 then
             c.tables.item.fltselect = "Elona." .. Enum.FltSelect:to_string(from.fltselect)

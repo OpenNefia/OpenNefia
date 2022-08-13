@@ -70,6 +70,7 @@ var _factions = EntitySystem.Get<IFactionSystem>();
 var _damage = EntitySystem.Get<IDamageSystem>();
 var _skills = EntitySystem.Get<ISkillsSystem>();
 var _config = IoCManager.Resolve<IConfigurationManager>();
+var _refresh = EntitySystem.Get<IRefreshSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -179,4 +180,10 @@ public void killAllFoes()
     {
         _damage.Kill(foe.Owner, player());
     }
+}
+
+public void refresh(EntityUid? uid = null)
+{
+    uid ??= player();
+    _refresh.Refresh(uid.Value);
 }

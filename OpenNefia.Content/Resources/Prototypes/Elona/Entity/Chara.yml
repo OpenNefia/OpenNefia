@@ -6,6 +6,11 @@
   - type: Chip
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 0
   - type: Chara
     race: Elona.Slime
     class: Elona.Predator

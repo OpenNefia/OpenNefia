@@ -30,11 +30,11 @@ namespace OpenNefia.Content.EquipSlots
         public override void Initialize()
         {
             //these events ensure that the client also gets its proper events raised when getting its containerstate updated
-            SubscribeComponent<EquipSlotsComponent, EntInsertedIntoContainerMessage>(OnEntInserted, priority: EventPriorities.Low);
-            SubscribeComponent<EquipSlotsComponent, EntRemovedFromContainerMessage>(OnEntRemoved, priority: EventPriorities.Low);
+            SubscribeComponent<EquipSlotsComponent, EntInsertedIntoContainerEventArgs>(OnEntInserted, priority: EventPriorities.Low);
+            SubscribeComponent<EquipSlotsComponent, EntRemovedFromContainerEventArgs>(OnEntRemoved, priority: EventPriorities.Low);
         }
 
-        private void OnEntRemoved(EntityUid uid, EquipSlotsComponent equipSlots, EntRemovedFromContainerMessage args)
+        private void OnEntRemoved(EntityUid uid, EquipSlotsComponent equipSlots, EntRemovedFromContainerEventArgs args)
 {
             if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
                 return;
@@ -46,7 +46,7 @@ namespace OpenNefia.Content.EquipSlots
             RaiseEvent(uid, unequippedEvent);
         }
 
-        private void OnEntInserted(EntityUid uid, EquipSlotsComponent equipSlots, EntInsertedIntoContainerMessage args)
+        private void OnEntInserted(EntityUid uid, EquipSlotsComponent equipSlots, EntInsertedIntoContainerEventArgs args)
         {
             if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
                 return;

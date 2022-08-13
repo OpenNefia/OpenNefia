@@ -14,21 +14,23 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Mount;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Feats;
+using OpenNefia.Content.Prototypes;
+using System.Security.Cryptography;
 
 namespace OpenNefia.Content.Inventory
 {
     public interface IInventorySystem : IEntitySystem
     {
         IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null);
-        
-        IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null) 
+
+        IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
             where TComp : IComponent;
         IEnumerable<(TComp1, TComp2)> EntityQueryInInventory<TComp1, TComp2>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
             where TComp1 : IComponent
@@ -49,6 +51,9 @@ namespace OpenNefia.Content.Inventory
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         bool TryGetInventoryContainer(EntityUid ent, [NotNullWhen(true)] out IContainer? inv, InventoryComponent? invComp = null);
+
+        int CalcMaxInventoryWeight(EntityUid uid);
+        void RefreshInventoryWeight(EntityUid ent, bool refreshSpeed = true, InventoryComponent? inv = null);
     }
 
     /// <summary>
@@ -61,6 +66,9 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
 
         public override void Initialize()
         {
@@ -68,13 +76,16 @@ namespace OpenNefia.Content.Inventory
             SubscribeComponent<InventoryComponent, BeforeMoveEventArgs>(ProcMovementPreventionOnBurden);
             SubscribeComponent<InventoryComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntityTurnEndingEventArgs>(HandleTurnEnding);
+            SubscribeComponent<InventoryComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<InventoryComponent, EntInsertedIntoContainerEventArgs>(HandleInserted, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<InventoryComponent, EntRemovedFromContainerEventArgs>(HandleRemoved, priority: EventPriorities.VeryHigh);
         }
 
         private void AddStatusIndicator(EntityUid uid, InventoryComponent inv, GetStatusIndicatorsEvent args)
         {
             if (inv.BurdenType > BurdenType.None)
             {
-                var color = new Color(0, Math.Min((int)inv.BurdenType * 40, 255), Math.Min((int)inv.BurdenType * 40, 255), 255);
+                var color = new Color(0 / 255f, Math.Min((int)inv.BurdenType * 40, 255) / 255f, Math.Min((int)inv.BurdenType * 40, 255) / 255f, 255 / 255f);
                 args.OutIndicators.Add(new()
                 {
                     Text = Loc.GetString($"Elona.Inventory.Burden.Indicator.{inv.BurdenType}"),
@@ -126,6 +137,55 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
+        private void HandleRefresh(EntityUid uid, InventoryComponent component, ref EntityRefreshEvent args)
+        {
+            // Speed is refreshed by TurnOrderSystem later, no need to calculate it twice.
+            RefreshInventoryWeight(uid, refreshSpeed: false, component);
+        }
+
+        private void HandleInserted(EntityUid uid, InventoryComponent component, EntInsertedIntoContainerEventArgs args)
+        {
+            RefreshInventoryWeight(uid, refreshSpeed: true, component);
+        }
+
+        private void HandleRemoved(EntityUid uid, InventoryComponent component, EntRemovedFromContainerEventArgs args)
+        {
+            RefreshInventoryWeight(uid, refreshSpeed: true, component);
+        }
+
+        public int CalcMaxInventoryWeight(EntityUid uid)
+        {
+            return _skills.Level(uid, Protos.Skill.AttrStrength) * 500
+                + _skills.Level(uid, Protos.Skill.AttrConstitution) * 250
+                + _skills.Level(uid, Protos.Skill.WeightLifting) * 2000
+                + 45000;
+        }
+
+        public void RefreshInventoryWeight(EntityUid uid, bool refreshSpeed = true, InventoryComponent? inv = null)
+        {
+            if (!Resolve(uid, ref inv))
+                return;
+
+            inv.BurdenType = BurdenType.None;
+            inv.MaxWeight = CalcMaxInventoryWeight(uid);
+
+            var weight = GetTotalInventoryWeight(uid);
+
+            if (weight > inv.MaxWeight.Value * 2)
+                inv.BurdenType = BurdenType.Max;
+            else if (weight > inv.MaxWeight.Value)
+                inv.BurdenType = BurdenType.Heavy;
+            else if (weight > inv.MaxWeight.Value / 4 * 3)
+                inv.BurdenType = BurdenType.Moderate;
+            else if (weight > inv.MaxWeight.Value / 2)
+                inv.BurdenType = BurdenType.Light;
+            else
+                inv.BurdenType = BurdenType.None;
+
+            if (refreshSpeed)
+                _turnOrder.RefreshSpeed(uid);
+        }
+
         public IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null)
         {
             if (!Resolve(entity, ref inv))
@@ -150,9 +210,14 @@ namespace OpenNefia.Content.Inventory
             if (!Resolve(ent, ref inv))
                 return 0;
 
-            return EnumerateLiveItems(ent, inv)
+            var baseWeight = EnumerateLiveItems(ent, inv)
                 .Select(item => GetItemWeight(item))
-                .Sum();
+.Sum();
+
+            var modifiedWeight = baseWeight * (100 - _feats.Level(ent, Protos.Feat.EtherGravity) * 10
+                                            + _feats.Level(ent, Protos.Feat.EtherFeather) * 20) / 100;
+
+            return modifiedWeight;
         }
 
         public int? GetMaxInventoryWeight(EntityUid ent, InventoryComponent? inv = null)

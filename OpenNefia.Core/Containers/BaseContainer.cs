@@ -180,7 +180,7 @@ namespace OpenNefia.Core.Containers
         {
             DebugTools.Assert(!Deleted);
 
-            entMan.EventBus.RaiseEvent(Owner, new EntInsertedIntoContainerMessage(toinsert, this));
+            entMan.EventBus.RaiseEvent(Owner, new EntInsertedIntoContainerEventArgs(toinsert, this));
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace OpenNefia.Core.Containers
             DebugTools.AssertNotNull(toremove);
             DebugTools.Assert(entMan.EntityExists(toremove));
 
-            entMan.EventBus.RaiseEvent(Owner, new EntRemovedFromContainerMessage(toremove, this));
+            entMan.EventBus.RaiseEvent(Owner, new EntRemovedFromContainerEventArgs(toremove, this));
         }
     }
 }
