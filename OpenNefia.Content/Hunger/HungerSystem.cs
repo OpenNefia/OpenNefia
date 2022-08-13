@@ -6,11 +6,13 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Mount;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Weight;
@@ -54,12 +56,14 @@ namespace OpenNefia.Content.Hunger
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<HungerComponent, EntityBeingGeneratedEvent>(InitializeNutrition, priority: EventPriorities.High);
             SubscribeComponent<HungerComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<HungerComponent, OnCharaSleepEvent>(HandleCharaSleep);
+            SubscribeComponent<HungerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
         }
 
         private void AddStatusIndicator(EntityUid uid, HungerComponent hunger, GetStatusIndicatorsEvent ev)
@@ -111,6 +115,17 @@ namespace OpenNefia.Content.Hunger
                 CureAnorexia(uid, hunger);
                 hunger.AnorexiaCounter = 0;
             }
+        }
+
+        private void HandleRefreshSpeed(EntityUid uid, HungerComponent hunger, ref EntityRefreshSpeedEvent args)
+        {
+            if (!_gameSession.IsPlayer(uid) || _mounts.HasMount(uid))
+                return;
+
+            if (hunger.Nutrition < HungerLevels.VeryHungry)
+                args.OutSpeedModifier -= 0.3f;
+            if (hunger.Nutrition < HungerLevels.Hungry)
+                args.OutSpeedModifier -= 0.1f;
         }
 
         public bool VomitIfAnorexic(EntityUid entity, HungerComponent? hunger = null)

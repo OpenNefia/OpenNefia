@@ -6,6 +6,11 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Core.Maths;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Tests.Skills
 {
@@ -35,6 +40,7 @@ namespace OpenNefia.Content.Tests.Skills
       {Skill.Tactics}:
         level: 1
         potential: 50
+      {Skill.AttrSpeed}: 100
 ";
 
         [Test]
@@ -157,6 +163,60 @@ namespace OpenNefia.Content.Tests.Skills
             {
                 // Random.
                 Assert.That(level.Experience, Is.EqualTo(1175));
+            });
+        }
+
+        [Test]
+        public void TestSkillSystem_SpeedPenalty()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+            var ent = entGen.SpawnEntity(TestSkillsEntityID, map);
+            var skills = entMan.GetComponent<SkillsComponent>(ent!.Value);
+
+            // Stamina speed penalty only applies to the player.
+            var gameSess = sim.Resolve<IGameSessionManager>();
+            gameSess.Player = ent.Value;
+
+            Assert.Multiple(() =>
+            {
+                var ev = new EntityRefreshSpeedEvent();
+                skills.Stamina = FatigueThresholds.Light;
+                entMan.EventBus.RaiseEvent(ent.Value, ref ev);
+                Assert.That(ev.OutSpeed, Is.EqualTo(200));
+                Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(1f));
+
+                ev = new EntityRefreshSpeedEvent();
+                skills.Stamina = FatigueThresholds.Light - 1;
+                entMan.EventBus.RaiseEvent(ent.Value, ref ev);
+                Assert.That(ev.OutSpeed, Is.EqualTo(200));
+                Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(0.9f));
+
+                ev = new EntityRefreshSpeedEvent();
+                skills.Stamina = FatigueThresholds.Moderate - 1;
+                entMan.EventBus.RaiseEvent(ent.Value, ref ev);
+                Assert.That(ev.OutSpeed, Is.EqualTo(200));
+                Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(0.7f));
+
+                ev = new EntityRefreshSpeedEvent();
+                skills.Stamina = FatigueThresholds.Heavy - 1;
+                entMan.EventBus.RaiseEvent(ent.Value, ref ev);
+                Assert.That(ev.OutSpeed, Is.EqualTo(200));
+                Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(0.4f));
+
+                ev = new EntityRefreshSpeedEvent();
+                gameSess.Player = EntityUid.Invalid;
+                entMan.EventBus.RaiseEvent(ent.Value, ref ev);
+                Assert.That(ev.OutSpeed, Is.EqualTo(200));
+                Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(1f));
             });
         }
     }

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using OpenNefia.Content.Items;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.TurnOrder;
 
 namespace OpenNefia.Content.Cargo
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.Cargo
         public override void Initialize()
         {
             SubscribeComponent<CargoHolderComponent, EntityBeingGeneratedEvent>(InitializeCargoWeights);
+            SubscribeComponent<CargoHolderComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
             SubscribeComponent<CargoComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_Cargo);
         }
 
@@ -47,6 +49,27 @@ namespace OpenNefia.Content.Cargo
             // <<<<<<<< shade2/chara.hsp:534 		} ..
         }
 
+        private bool CargoSpeedPenaltyAppliesTo(IMap map)
+        {
+            return HasComp<MapTypeWorldMapComponent>(map.MapEntityUid) 
+                || HasComp<MapTypeFieldComponent>(map.MapEntityUid);
+        }
+
+        private void HandleRefreshSpeed(EntityUid uid, CargoHolderComponent cargoHolder, ref EntityRefreshSpeedEvent args)
+        {
+            if (!_gameSession.IsPlayer(uid) || !TryMap(uid, out var map))
+                return;
+
+            if (CargoSpeedPenaltyAppliesTo(map))
+            {
+                var cargoWeight = GetTotalCargoWeight(uid);
+                if (cargoHolder.MaxCargoWeight != null && cargoWeight > cargoHolder.MaxCargoWeight)
+                {
+                    args.OutSpeedModifier -= 0.25f + 0.25f * (cargoWeight / 100f) / ((cargoHolder.MaxCargoWeight.Value / 100f) + 1f);
+                }
+            }
+        }
+
         private void LocalizeExtra_Cargo(EntityUid uid, CargoComponent cargo, ref LocalizeItemNameExtraEvent args)
         {
             if (cargo.BuyingPrice != null)
@@ -55,7 +78,7 @@ namespace OpenNefia.Content.Cargo
             }
         }
 
-        public int GetCargoWeight(EntityUid item, CargoComponent? cargo = null)
+        public int GetCargoItemWeight(EntityUid item, CargoComponent? cargo = null)
         {
             if (!Resolve(item, ref cargo, logMissing: false))
                 return 0;
@@ -71,7 +94,7 @@ namespace OpenNefia.Content.Cargo
                 return 0;
 
             return _invSys.EnumerateLiveItems(ent, inv)
-                .Select(item => GetCargoWeight(item))
+                .Select(item => GetCargoItemWeight(item))
                 .Sum();
         }
 

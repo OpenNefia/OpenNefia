@@ -18,11 +18,13 @@ using OpenNefia.Content.Currency;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Qualities;
+using OpenNefia.Content.Shopkeeper;
 
 namespace OpenNefia.Content.Money
 {
     public interface IMoneySystem : IEntitySystem
     {
+        void TryGenerateExtraGoldForChara(EntityUid chara, MoneyComponent? money = null);
     }
 
     public sealed class MoneySystem : EntitySystem, IMoneySystem
@@ -152,6 +154,23 @@ namespace OpenNefia.Content.Money
             EntityManager.DeleteEntity(item);
 
             return TurnResult.Succeeded;
+        }
+
+        public void TryGenerateExtraGoldForChara(EntityUid chara, MoneyComponent? money = null)
+        {
+            if (!Resolve(chara, ref money))
+                return;
+
+            // >>>>>>>> shade2/calculation.hsp:703 #deffunc generateMoney int id ...
+            var gold = _rand.Next(100) + _rand.Next(_levels.GetLevel(chara) * 50 + 1);
+            if (TryComp<RoleShopkeeperComponent>(chara, out var shopkeeper))
+            {
+                gold += 2500 + shopkeeper.ShopRank * 250;
+            }
+
+            if (money.Gold < gold / 2)
+                money.Gold = gold;
+            // <<<<<<<< shade2/calculation.hsp:707 	return ..
         }
     }
 }

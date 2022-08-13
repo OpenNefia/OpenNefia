@@ -25,12 +25,12 @@ namespace OpenNefia.Content.DeferredEvents
 
         public override void Initialize()
         {
-            SubscribeBroadcast<BeforeTurnBeginEventArgs>(RunDeferredEvents);
+            SubscribeBroadcast<MapBeforeTurnBeginEventArgs>(RunDeferredEvents);
             SubscribeBroadcast<MapLeaveEventArgs>(ClearDeferredEvents);
             SubscribeBroadcast<GameQuickLoadedEventArgs>(ClearDeferredEvents);
         }
 
-        private void RunDeferredEvents(BeforeTurnBeginEventArgs ev)
+        private void RunDeferredEvents(MapBeforeTurnBeginEventArgs ev)
         {
             if (ev.Handled)
                 return;

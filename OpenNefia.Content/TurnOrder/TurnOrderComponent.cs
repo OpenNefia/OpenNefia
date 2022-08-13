@@ -44,13 +44,13 @@ namespace OpenNefia.Content.TurnOrder
         /// This should not be set to a value below 10.
         /// </remarks>
         [DataField]
-        public int CurrentSpeed { get; set; } = 10;
+        public int CurrentSpeed { get; set; } = TurnOrderSystem.MinSpeed;
 
         /// <summary>
-        /// Speed percentage to apply to this character. Default is 1.0 (100%).
+        /// Speed modifier to apply to this character. Default is 1.0 (100%).
         /// </summary>
         [DataField]
-        public float SpeedPercentage { get; set; } = 1f;
+        public float CurrentSpeedModifier { get; set; } = 1f;
 
         [DataField]
         public int SpeedCorrection { get; set; } = 0;

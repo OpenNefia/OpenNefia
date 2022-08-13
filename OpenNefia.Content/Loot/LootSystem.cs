@@ -40,6 +40,8 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.Currency;
 using OpenNefia.Core.Maths;
 using static ICSharpCode.Decompiler.TypeSystem.ReflectionHelper;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Loot
 {
@@ -57,17 +59,13 @@ namespace OpenNefia.Content.Loot
 
         void DropLoot(EntityUid victim, EntityUid? attacker = null);
 
-        void AddLoot(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null);
-        void AddLoot(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null);
+        void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null);
+        void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null);
     }
 
     public sealed class LootSystem : EntitySystem, ILootSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ICargoSystem _cargo = default!;
@@ -83,6 +81,12 @@ namespace OpenNefia.Content.Loot
 
         public override void Initialize()
         {
+            SubscribeComponent<CharaComponent, EntityKilledEvent>(HandleKilled);
+        }
+
+        private void HandleKilled(EntityUid uid, CharaComponent component, ref EntityKilledEvent args)
+        {
+            DropLoot(uid, args.Attacker);
         }
 
         private bool ShouldDropCardOrFigurine(EntityUid uid)
@@ -384,10 +388,10 @@ namespace OpenNefia.Content.Loot
             }
         }
 
-        public void AddLoot(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null)
-            => AddLoot(lootDrops, victim, new[] { category }, onGenerateLoot);
+        public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null)
+            => AddLootToResultList(lootDrops, victim, new[] { category }, onGenerateLoot);
         
-        public void AddLoot(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null)
+        public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null)
         {
             var itemFilter = MakeDefaultLootItemFilter(victim, categoryChoices.ToArray());
             lootDrops!.Add(new LootDrop(itemFilter, onGenerateLoot));
@@ -427,7 +431,7 @@ namespace OpenNefia.Content.Loot
             var remainsChance = _config.GetCVar(CCVars.DebugAlwaysDropRemains) ? 1 : 40;
 
             if (_rand.OneIn(remainsChance))
-                AddLoot(result, victim, new[] { Protos.Tag.ItemCatRemains }, ModifyItemForRemains);
+                AddLootToResultList(result, victim, new[] { Protos.Tag.ItemCatRemains }, ModifyItemForRemains);
 
             // TODO show house
             // TODO arena
