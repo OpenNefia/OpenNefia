@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Loot;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
@@ -38,6 +40,7 @@ namespace OpenNefia.Content.Combat
             SubscribeComponent<SplittableComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<SplittableComponent, EntityWoundedEvent>(HandleWounded, priority: EventPriorities.VeryHigh + 40000);
             SubscribeComponent<SplittableComponent, CalcKillExperienceEvent>(ModifyKillExperience, priority: EventPriorities.Low);
+            SubscribeComponent<SplittableComponent, BeforeDropItemsOnDeathEvent>(HandleBeforeDropItems);
         }
 
         private void HandleRefresh(EntityUid uid, SplittableComponent component, ref EntityRefreshEvent args)
@@ -104,6 +107,18 @@ namespace OpenNefia.Content.Combat
         {
             if (component.SplitsOnHighDamage.Buffed|| component.SplitsRandomlyWhenAttacked.Buffed)
                 args.OutExperience /= 20;
+        }
+
+        private void HandleBeforeDropItems(EntityUid uid, SplittableComponent component, BeforeDropItemsOnDeathEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (_rand.OneIn(6))
+            {
+                args.OutDroppedItems.Clear();
+                args.Handled = true;
+            }
         }
     }
 }

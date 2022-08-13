@@ -17,7 +17,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var range = new IntRange(123, 4567);
             var node = Serialization.WriteValueAs<ValueDataNode>(range);
-            var serializedValue = $"({range.Min}~{range.Max})";
+            var serializedValue = $"{range.Min}~{range.Max}";
 
             Assert.That(node.Value, Is.EqualTo(serializedValue));
         }
@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         public void DeserializationTest()
         {
             var range = new IntRange(123, 4567);
-            var node = new ValueDataNode($"({range.Min}~{range.Max})");
+            var node = new ValueDataNode($"{range.Min}~{range.Max}");
             var deserializedRange = Serialization.ReadValue<IntRange>(node);
 
             Assert.That(deserializedRange, Is.EqualTo(range));

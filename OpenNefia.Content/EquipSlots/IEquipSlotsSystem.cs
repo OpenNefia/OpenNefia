@@ -8,7 +8,7 @@ namespace OpenNefia.Content.EquipSlots
 {
     public partial interface IEquipSlotsSystem : IEntitySystem
     {
-        bool CanEquip(EntityUid uid, EntityUid itemUid, EquipSlotInstance equipSlot,
+        bool CanEquip(EntityUid actor, EntityUid itemUid, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason, 
             EquipSlotsComponent? inventory = null, 
             EquipmentComponent? item = null);
@@ -18,7 +18,7 @@ namespace OpenNefia.Content.EquipSlots
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);
 
-        bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotInstance equipSlot,
+        bool TryEquip(EntityUid actor, EntityUid itemUid, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null);
@@ -28,7 +28,7 @@ namespace OpenNefia.Content.EquipSlots
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);
 
-        bool CanUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+        bool CanUnequip(EntityUid actor, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason, 
             ContainerSlot? containerSlot = null, 
             EquipSlotsComponent? equipSlots = null);
@@ -38,7 +38,7 @@ namespace OpenNefia.Content.EquipSlots
             ContainerSlot? containerSlot = null,
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot, 
+        bool TryUnequip(EntityUid actor, EquipSlotInstance equipSlot, 
             IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? inventory = null);
@@ -48,7 +48,7 @@ namespace OpenNefia.Content.EquipSlots
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+        bool TryUnequip(EntityUid actor, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? removedItem,
             IContainer? placeInto = null,
             bool silent = false, bool force = false, 

@@ -4962,6 +4962,7 @@
   - type: Food
     foodType: Elona.Meat
     spoilageInterval: '04:00:00'
+  - type: Corpse
   - type: EntityProtoSource
 - type: Entity
   id: Elona.ItemBottleOfWhisky

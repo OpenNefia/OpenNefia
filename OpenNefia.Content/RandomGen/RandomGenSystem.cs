@@ -32,6 +32,8 @@ namespace OpenNefia.Content.RandomGen
         int CalcObjectLevel(EntityUid uid);
         int CalcObjectLevel(int level);
         Quality CalcObjectQuality(Quality baseQuality = Quality.Bad);
+
+        int GetRarity(EntityUid uid, string randomTableName, RandomGenComponent? randomGen = null);
     }
 
     // TODO no hardcoding
@@ -165,6 +167,17 @@ namespace OpenNefia.Content.RandomGen
             }
 
             return EnumHelpers.Clamp(quality, Quality.Bad, Quality.God);
+        }
+
+        public int GetRarity(EntityUid uid, string randomTableName, RandomGenComponent? randomGen = null)
+        {
+            if (!Resolve(uid, ref randomGen))
+                return RandomGenTable.DefaultRarity;
+
+            if (!randomGen.Tables.TryGetValue(randomTableName, out var randomGenTable))
+                return RandomGenTable.DefaultRarity;
+
+            return randomGenTable.Rarity;
         }
     }
 }

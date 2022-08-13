@@ -130,6 +130,10 @@ local function timeSpan(hours, minutes, seconds)
     return ("%02d:%02d:%02d"):format(hours, minutes, seconds)
 end
 
+local function intRange(min, max)
+    return ("%d~%d"):format(min, max)
+end
+
 local id = function(i)
     return i
 end
@@ -384,12 +388,39 @@ handlers["base.chara"] = function(from, to)
     if from._id == "elona.rich_person" then
         c = comp(to, "KarmaValue")
         c.karmaValue = 15
+        c = comp(to, "RichLoot")
+        c.richLootItemCount = 8
+        c = comp(to, "Money")
+        c.initialGold = intRange(5000, 16000)
     elseif from._id == "elona.noble_child" then
         c = comp(to, "KarmaValue")
         c.karmaValue = 10
+        c = comp(to, "RichLoot")
+        c.richLootItemCount = 4
+        c = comp(to, "Money")
+        c.initialGold = intRange(2000, 7000)
     elseif from._id == "elona.tourist" then
         c = comp(to, "KarmaValue")
         c.karmaValue = 5
+        c = comp(to, "RichLoot")
+        c.richLootItemCount = 2
+        c = comp(to, "Money")
+        c.initialGold = intRange(1000, 4000)
+    end
+
+    if from.always_drops_gold then
+        c = comp(to, "Money")
+        c.alwaysDropsGoldOnDeath = from.always_drops_gold
+    end
+
+    if from.equipment_type then
+        c = comp(to, "EquipmentType")
+        c.equipmentType = dotted(from.equipmentType)
+    end
+
+    if from.loot_type then
+        c = comp(to, "LootType")
+        c.lootType = dotted(from.loot_type)
     end
 end
 
@@ -740,6 +771,10 @@ handlers["base.item"] = function(from, to)
 
     if from.always_drop then
         c = comp(to, "AlwaysDropOnDeath")
+    end
+
+    if from._id == "elona.corpse" then
+        c = comp(to, "Corpse")
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]
@@ -1310,6 +1345,15 @@ handlers["elona.book"] = function(from, to)
     end, "generateRandomly")
 end
 
+handlers["base.equipment_type"] = function(from, to)
+    event(from, to, "on_initialize_equipment", "Equipment", "VanillaEquipmentTypesSystem", "OnInitializeEquipment")
+    event(from, to, "on_drop_loot", "Equipment", "VanillaEquipmentTypesSystem", "OnGenerateLoot")
+end
+
+handlers["base.loot_type"] = function(from, to)
+    event(from, to, "on_drop_loot", "Loot", "VanillaLootTypesSystem", "OnGenerateLoot")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1604,7 +1648,9 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("elona.fish", "Fish.yml", "OpenNefia.Content.Fishing.FishPrototype")
 write("elona.bait", "Bait.yml", "OpenNefia.Content.Fishing.BaitPrototype")
 -- write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
-write("elona.book", "Book.yml", "OpenNefia.Content.Book.BookPrototype")
+-- write("elona.book", "Book.yml", "OpenNefia.Content.Book.BookPrototype")
+-- write("base.equipment_type", "EquipmentType.yml", "OpenNefia.Content.Equipment.EquipmentTypePrototype")
+-- write("base.loot_type", "LootType.yml", "OpenNefia.Content.Loot.LootTypePrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

@@ -299,20 +299,33 @@ namespace OpenNefia.Content.EquipSlots
             return false;
         }
 
-        public bool IsEquippedOnAnySlot(EntityUid uid)
+        /// <inheritdoc/>
+        public bool IsEquippedOnAnySlot(EntityUid item) => TryGetSlotEquippedOn(item, out _);
+
+        public bool TryGetSlotEquippedOn(EntityUid item, [NotNullWhen(true)] out EntityUid? owner, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance)
         {
-            if (!TryComp<SpatialComponent>(uid, out var spatialComp))
+            if (!TryComp<SpatialComponent>(item, out var spatialComp))
+            {
+                owner = null;
+                equipSlotInstance = null;
                 return false;
+            }
 
             foreach (var equipSlot in GetEquipSlots(spatialComp.ParentUid))
             {
                 if (!TryGetContainerForEquipSlot(spatialComp.ParentUid, equipSlot, out var containerSlot))
                     continue;
 
-                if (containerSlot.ContainedEntity == uid)
+                if (containerSlot.ContainedEntity == item)
+                {
+                    owner = spatialComp.ParentUid;
+                    equipSlotInstance = equipSlot;
                     return true;
+                }
             }
 
+            owner = null;
+            equipSlotInstance = null;
             return false;
         }
 

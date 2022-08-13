@@ -31,6 +31,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaShopkeeper
   parent: BaseChara
@@ -66,6 +68,8 @@
     moveChance: 0.8
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaZeome
   parent: BaseChara
@@ -106,6 +110,8 @@
     portraitID: Elona.Zeome
   - type: Tone
     id: Elona.Zeome
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPutit
   parent: BaseChara
@@ -132,6 +138,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaRedPutit
   parent: BaseChara
@@ -160,6 +168,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaRabbit
   parent: BaseChara
@@ -182,6 +192,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSnail
   parent: BaseChara
@@ -208,6 +220,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Snail
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFallenSoldier
   parent: BaseChara
@@ -297,6 +311,8 @@
     id: Elona.Beggar
   - type: CharaNameGen
     hasRandomName: true
+  - type: Money
+    alwaysDropsGoldOnDeath: true
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
@@ -319,6 +335,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFlyingFrog
   parent: BaseChara
@@ -341,6 +359,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGangster
   parent: BaseChara
@@ -371,6 +391,8 @@
     id: Elona.Punk
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaKobold
   parent: BaseChara
@@ -392,6 +414,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCentipede
   parent: BaseChara
@@ -411,6 +435,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaMushroom
   parent: BaseChara
@@ -437,6 +463,8 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaCitizen
   parent: BaseChara
@@ -468,6 +496,8 @@
     id: Elona.Citizen
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaOrc
   parent: BaseChara
@@ -490,6 +520,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWarriorOfElea
   parent: BaseChara
@@ -516,6 +548,8 @@
     relation: Enemy
   - type: Portrait
     hasRandomPortrait: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMandrake
   parent: BaseChara
@@ -535,6 +569,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaOrcWarrior
   parent: BaseChara
@@ -556,6 +592,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaZombie
   parent: BaseChara
@@ -580,6 +618,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBeetle
   parent: BaseChara
@@ -599,6 +639,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaOrphe
   parent: BaseChara
@@ -634,6 +676,8 @@
     portraitID: Elona.Orphe
   - type: Tone
     id: Elona.Orphe
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWizardOfElea
   parent: BaseChara
@@ -665,6 +709,8 @@
     relation: Enemy
   - type: Portrait
     hasRandomPortrait: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoda
   parent: BaseChara
@@ -692,6 +738,8 @@
     relation: Enemy
   - type: UniqueCompanion
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMadScientist
   parent: BaseChara
@@ -722,6 +770,8 @@
   - type: Portrait
     portraitID: Elona.Man7
   - type: UniqueCompanion
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaIsca
   parent: BaseChara
@@ -753,6 +803,8 @@
   - type: Portrait
     portraitID: Elona.Isca
   - type: UniqueCompanion
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWhomDwellInTheVanity
   parent: BaseChara
@@ -787,6 +839,8 @@
     portraitID: Elona.Bethel
   - type: Tone
     id: Elona.WhomDwellInTheVanity
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLoyter
   parent: BaseChara
@@ -821,6 +875,8 @@
     portraitID: Elona.Loyter
   - type: Tone
     id: Elona.Loyter
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMiches
   parent: BaseChara
@@ -855,6 +911,8 @@
     portraitID: Elona.Miches
   - type: Tone
     id: Elona.Miches
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaShena
   parent: BaseChara
@@ -889,6 +947,8 @@
     portraitID: Elona.Shena
   - type: Tone
     id: Elona.Shena
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDungeonCleaner
   parent: BaseChara
@@ -917,6 +977,8 @@
     canTalk: true
   - type: Tone
     id: Elona.DungeonCleaner
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLarnneire
   parent: BaseChara
@@ -954,6 +1016,8 @@
     portraitID: Elona.Larnneire
   - type: Tone
     id: Elona.Larnneire
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLomias
   parent: BaseChara
@@ -994,6 +1058,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTownChild
   parent: BaseChara
@@ -1087,6 +1153,8 @@
     portraitID: Elona.Zeome
   - type: Tone
     id: Elona.At
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaElder
   parent: BaseChara
@@ -1120,6 +1188,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCitizen2
   parent: BaseChara
@@ -1151,6 +1221,8 @@
     id: Elona.Citizen
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTrainer
   parent: BaseChara
@@ -1184,6 +1256,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWizard
   parent: BaseChara
@@ -1221,6 +1295,8 @@
     targetDistance: 2
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBat
   parent: BaseChara
@@ -1246,6 +1322,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaVampireBat
   parent: BaseChara
@@ -1275,6 +1353,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaDragonBat
   parent: BaseChara
@@ -1303,6 +1383,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFireEnt
   parent: BaseChara
@@ -1330,6 +1412,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 200
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaIceEnt
   parent: BaseChara
@@ -1354,6 +1438,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Cold
       power: 200
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaLich
   parent: BaseChara
@@ -1384,6 +1470,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaMasterLich
   parent: BaseChara
@@ -1416,6 +1504,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaDemiLich
   parent: BaseChara
@@ -1447,6 +1537,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaHound
   parent: BaseChara
@@ -1473,6 +1565,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFireHound
   parent: BaseChara
@@ -1505,6 +1599,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaIceHound
   parent: BaseChara
@@ -1536,6 +1632,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaLightningHound
   parent: BaseChara
@@ -1567,6 +1665,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaDarkHound
   parent: BaseChara
@@ -1598,6 +1698,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaIllusionHound
   parent: BaseChara
@@ -1629,6 +1731,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaNerveHound
   parent: BaseChara
@@ -1660,6 +1764,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaPoisonHound
   parent: BaseChara
@@ -1691,6 +1797,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSoundHound
   parent: BaseChara
@@ -1722,6 +1830,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaNetherHound
   parent: BaseChara
@@ -1753,6 +1863,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaChaosHound
   parent: BaseChara
@@ -1784,6 +1896,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGiantSquirrel
   parent: BaseChara
@@ -1808,6 +1922,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaKillerSquirrel
   parent: BaseChara
@@ -1832,6 +1948,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGrudge
   parent: BaseChara
@@ -1859,6 +1977,8 @@
       Elona.BuffSlow: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHungryDemon
   parent: BaseChara
@@ -1885,6 +2005,8 @@
       Elona.ActionTouchOfHunger: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaElectricCloud
   parent: BaseChara
@@ -1911,6 +2033,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaChaosCloud
   parent: BaseChara
@@ -1940,6 +2064,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 300
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFloatingEye
   parent: BaseChara
@@ -1966,6 +2092,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 250
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaWyvern
   parent: BaseChara
@@ -1993,6 +2121,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Drake
 - type: Entity
   id: Elona.CharaInformer
   parent: BaseChara
@@ -2026,6 +2156,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBartender
   parent: BaseChara
@@ -2059,6 +2191,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSailor
   parent: BaseChara
@@ -2090,6 +2224,8 @@
     id: Elona.Citizen2
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCaptain
   parent: BaseChara
@@ -2123,6 +2259,8 @@
     id: Elona.Captain
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaArenaMaster
   parent: BaseChara
@@ -2158,6 +2296,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHealer
   parent: BaseChara
@@ -2191,6 +2331,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWarrior
   parent: BaseChara
@@ -2218,6 +2360,8 @@
     hasRandomPortrait: true
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGuardPortKapul
   parent: BaseChara
@@ -2252,6 +2396,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGuard
   parent: BaseChara
@@ -2286,6 +2432,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPuppet
   parent: BaseChara
@@ -2314,6 +2462,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaStersha
   parent: BaseChara
@@ -2348,6 +2498,8 @@
     portraitID: Elona.Stersha
   - type: Tone
     id: Elona.Stersha
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaXabi
   parent: BaseChara
@@ -2382,6 +2534,8 @@
     portraitID: Elona.Xabi
   - type: Tone
     id: Elona.Xabi
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWasp
   parent: BaseChara
@@ -2407,6 +2561,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaRedWasp
   parent: BaseChara
@@ -2436,6 +2592,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaCyclops
   parent: BaseChara
@@ -2458,6 +2616,8 @@
   - type: VanillaAI
     moveChance: 0.85
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTitan
   parent: BaseChara
@@ -2485,6 +2645,8 @@
   - type: VanillaAI
     moveChance: 0.85
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaImp
   parent: BaseChara
@@ -2516,6 +2678,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaNetherImp
   parent: BaseChara
@@ -2547,6 +2711,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaChaosImp
   parent: BaseChara
@@ -2575,6 +2741,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHandOfTheDead
   parent: BaseChara
@@ -2609,6 +2777,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Darkness
       power: 80
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHandOfTheChaos
   parent: BaseChara
@@ -2643,6 +2813,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 180
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHandOfTheMurderer
   parent: BaseChara
@@ -2674,6 +2846,8 @@
     calmAction: Stand
     targetDistance: 3
     moveChance: 0.25
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGhost
   parent: BaseChara
@@ -2705,6 +2879,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 80
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaNymph
   parent: BaseChara
@@ -2740,6 +2916,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaManEaterFlower
   parent: BaseChara
@@ -2767,6 +2945,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaChaosFlower
   parent: BaseChara
@@ -2795,6 +2975,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 250
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaCobra
   parent: BaseChara
@@ -2821,6 +3003,8 @@
       Elona.ActionTouchOfPoison: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaKingCobra
   parent: BaseChara
@@ -2847,6 +3031,8 @@
       Elona.ActionTouchOfPoison: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFireDrake
   parent: BaseChara
@@ -2874,6 +3060,8 @@
       Elona.ActionFireBreath: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Drake
 - type: Entity
   id: Elona.CharaIceDrake
   parent: BaseChara
@@ -2899,6 +3087,8 @@
       Elona.ActionColdBreath: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Drake
 - type: Entity
   id: Elona.CharaLesserMummy
   parent: BaseChara
@@ -2928,6 +3118,8 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMummy
   parent: BaseChara
@@ -2958,6 +3150,8 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGreaterMummy
   parent: BaseChara
@@ -2988,6 +3182,8 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoblin
   parent: BaseChara
@@ -3010,6 +3206,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoblinWarrior
   parent: BaseChara
@@ -3032,6 +3230,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoblinShaman
   parent: BaseChara
@@ -3062,6 +3262,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.85
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoblinWizard
   parent: BaseChara
@@ -3089,6 +3291,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRedBaptist
   parent: BaseChara
@@ -3121,6 +3325,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBlueBaptist
   parent: BaseChara
@@ -3152,6 +3358,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBrownBear
   parent: BaseChara
@@ -3182,6 +3390,8 @@
     id: Elona.BrownBear
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGrizzly
   parent: BaseChara
@@ -3208,6 +3418,8 @@
   - type: Faction
     relation: Enemy
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaLivingArmor
   parent: BaseChara
@@ -3230,6 +3442,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSteelMass
   parent: BaseChara
@@ -3253,6 +3467,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoldenArmor
   parent: BaseChara
@@ -3276,6 +3492,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDeathArmor
   parent: BaseChara
@@ -3299,6 +3517,8 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMedusa
   parent: BaseChara
@@ -3321,6 +3541,8 @@
     class: Elona.Warmage
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaEuryale
   parent: BaseChara
@@ -3344,6 +3566,8 @@
     class: Elona.Warmage
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaStheno
   parent: BaseChara
@@ -3367,6 +3591,8 @@
     class: Elona.Warmage
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCupidOfLove
   parent: BaseChara
@@ -3395,6 +3621,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLesserPhantom
   parent: BaseChara
@@ -3420,6 +3648,8 @@
       Elona.BuffSlow: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHarpy
   parent: BaseChara
@@ -3439,6 +3669,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGreenDragon
   parent: BaseChara
@@ -3467,6 +3699,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaRedDragon
   parent: BaseChara
@@ -3496,6 +3730,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaWhiteDragon
   parent: BaseChara
@@ -3523,6 +3759,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaElecDragon
   parent: BaseChara
@@ -3551,6 +3789,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaNetherDragon
   parent: BaseChara
@@ -3580,6 +3820,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaChaosDragon
   parent: BaseChara
@@ -3608,6 +3850,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaCerberus
   parent: BaseChara
@@ -3635,6 +3879,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Drake
 - type: Entity
   id: Elona.CharaSpider
   parent: BaseChara
@@ -3666,6 +3912,8 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaBlackWidow
   parent: BaseChara
@@ -3702,6 +3950,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaParalyzer
   parent: BaseChara
@@ -3738,6 +3988,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaTarantula
   parent: BaseChara
@@ -3774,6 +4026,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 200
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaBloodSpider
   parent: BaseChara
@@ -3810,6 +4064,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 100
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaWoodenGolem
   parent: BaseChara
@@ -3832,6 +4088,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaStoneGolem
   parent: BaseChara
@@ -3856,6 +4114,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSteelGolem
   parent: BaseChara
@@ -3881,6 +4141,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoldenGolem
   parent: BaseChara
@@ -3903,6 +4165,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMithrilGolem
   parent: BaseChara
@@ -3925,6 +4189,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSkyGolem
   parent: BaseChara
@@ -3947,6 +4213,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAdamantiumGolem
   parent: BaseChara
@@ -3969,6 +4237,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSlan
   parent: BaseChara
@@ -4003,6 +4273,8 @@
     portraitID: Elona.Karam
   - type: Tone
     id: Elona.Slan
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaVesda
   parent: BaseChara
@@ -4034,6 +4306,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaIssizzle
   parent: BaseChara
@@ -4070,6 +4344,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaErystia
   parent: BaseChara
@@ -4104,6 +4380,8 @@
     portraitID: Elona.Erystia
   - type: Tone
     id: Elona.Erystia
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWynan
   parent: BaseChara
@@ -4135,6 +4413,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaQuruiza
   parent: BaseChara
@@ -4166,6 +4446,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaCorgon
   parent: BaseChara
@@ -4191,6 +4473,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Dragon
 - type: Entity
   id: Elona.CharaKaram
   parent: BaseChara
@@ -4225,6 +4509,8 @@
     portraitID: Elona.Karam
   - type: Tone
     id: Elona.Karam
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaFireCrab
   parent: BaseChara
@@ -4251,6 +4537,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaFireCentipede
   parent: BaseChara
@@ -4278,6 +4566,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 200
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaCultistOfFire
   parent: BaseChara
@@ -4308,6 +4598,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.85
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSkeletonWarrior
   parent: BaseChara
@@ -4332,6 +4624,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSkeletonBerserker
   parent: BaseChara
@@ -4357,6 +4651,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMissionaryOfDarkness
   parent: BaseChara
@@ -4395,6 +4691,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPawn
   parent: BaseChara
@@ -4417,6 +4715,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRook
   parent: BaseChara
@@ -4440,6 +4740,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBishop
   parent: BaseChara
@@ -4471,6 +4773,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaKnight
   parent: BaseChara
@@ -4497,6 +4801,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaQueen
   parent: BaseChara
@@ -4524,6 +4830,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaKing
   parent: BaseChara
@@ -4550,6 +4858,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMercenaryWarrior
   parent: BaseChara
@@ -4584,6 +4894,8 @@
     moveChance: 0.8
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMercenaryArcher
   parent: BaseChara
@@ -4618,6 +4930,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMercenaryWizard
   parent: BaseChara
@@ -4656,6 +4970,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYerlesMachineInfantry
   parent: BaseChara
@@ -4686,6 +5002,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRockThrower
   parent: BaseChara
@@ -4712,6 +5030,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.25
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCat
   parent: BaseChara
@@ -4739,6 +5059,8 @@
     canTalk: true
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaDog
   parent: BaseChara
@@ -4769,6 +5091,8 @@
     id: Elona.Dog
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaLittleGirl
   parent: BaseChara
@@ -4798,6 +5122,8 @@
     id: Elona.LittleGirl
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRat
   parent: BaseChara
@@ -4823,6 +5149,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaHermitCrab
   parent: BaseChara
@@ -4845,6 +5173,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSlime
   parent: BaseChara
@@ -4873,6 +5203,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaPublicPerformer
   parent: BaseChara
@@ -4903,6 +5235,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome
   parent: BaseChara
@@ -4934,6 +5268,8 @@
     id: Elona.Citizen
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome2
   parent: BaseChara
@@ -4965,6 +5301,8 @@
     id: Elona.Citizen
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSalesPerson
   parent: BaseChara
@@ -4996,6 +5334,8 @@
     id: Elona.SalesPerson
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPunk
   parent: BaseChara
@@ -5060,6 +5400,8 @@
     id: Elona.Frisia
   - type: VanillaAI
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYoungerSister
   parent: BaseChara
@@ -5090,6 +5432,8 @@
     id: Elona.YoungerSister
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaUtima
   parent: BaseChara
@@ -5125,6 +5469,8 @@
     id: Elona.Utima
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAzzrssil
   parent: BaseChara
@@ -5167,6 +5513,8 @@
     id: Elona.Azzrssil
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaPetArenaMaster
   parent: BaseChara
@@ -5191,6 +5539,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTwintail
   parent: BaseChara
@@ -5216,6 +5566,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Twintail
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSilverWolf
   parent: BaseChara
@@ -5244,6 +5596,8 @@
     canTalk: true
   - type: Tone
     id: Elona.SilverWolf
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaNurse
   parent: BaseChara
@@ -5278,6 +5632,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRichPerson
   parent: BaseChara
@@ -5311,6 +5667,12 @@
     hasRandomName: true
   - type: KarmaValue
     karmaValue: 15
+  - type: RichLoot
+    richLootItemCount: 8
+  - type: Money
+    initialGold: 5000~16000
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaNobleChild
   parent: BaseChara
@@ -5344,6 +5706,12 @@
     hasRandomName: true
   - type: KarmaValue
     karmaValue: 10
+  - type: RichLoot
+    richLootItemCount: 4
+  - type: Money
+    initialGold: 2000~7000
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTourist
   parent: BaseChara
@@ -5377,6 +5745,12 @@
     hasRandomName: true
   - type: KarmaValue
     karmaValue: 5
+  - type: RichLoot
+    richLootItemCount: 2
+  - type: Money
+    initialGold: 1000~4000
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBlade
   parent: BaseChara
@@ -5400,6 +5774,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 100
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
@@ -5424,6 +5800,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 120
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
@@ -5448,6 +5826,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 150
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
@@ -5477,6 +5857,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaImpureEye
   parent: BaseChara
@@ -5507,6 +5889,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaWisp
   parent: BaseChara
@@ -5538,6 +5922,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHedgehog
   parent: BaseChara
@@ -5561,6 +5947,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaShiningHedgehog
   parent: BaseChara
@@ -5586,6 +5974,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaAcidSlime
   parent: BaseChara
@@ -5623,6 +6013,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Acid
       power: 100
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaChicken
   parent: BaseChara
@@ -5649,6 +6041,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Chicken
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaPumpkin
   parent: BaseChara
@@ -5680,6 +6074,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 100
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaGreaterPumpkin
   parent: BaseChara
@@ -5712,6 +6108,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaHalloweenNightmare
   parent: BaseChara
@@ -5744,6 +6142,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 250
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaStalker
   parent: BaseChara
@@ -5770,6 +6170,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaShadowStalker
   parent: BaseChara
@@ -5797,6 +6199,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPuppy
   parent: BaseChara
@@ -5829,6 +6233,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaEbon
   parent: BaseChara
@@ -5863,6 +6269,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMoyerTheCrooked
   parent: BaseChara
@@ -5896,6 +6304,8 @@
     id: Elona.MoyerTheCrooked
   - type: VanillaAI
     calmAction: Stand
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPalmianEliteSoldier
   parent: BaseChara
@@ -5930,6 +6340,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMaid
   parent: BaseChara
@@ -5959,6 +6371,8 @@
     id: Elona.Maid
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaNun
   parent: BaseChara
@@ -5992,6 +6406,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaEbon2
   parent: BaseChara
@@ -6028,6 +6444,8 @@
     id: Elona.Ebon2
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGarokk
   parent: BaseChara
@@ -6060,6 +6478,8 @@
     dialogID: Elona.Garokk
   - type: Tone
     id: Elona.Garokk
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMiral
   parent: BaseChara
@@ -6092,6 +6512,8 @@
     dialogID: Elona.Miral
   - type: Tone
     id: Elona.Miral
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYoungerCatSister
   parent: BaseChara
@@ -6121,6 +6543,8 @@
     id: Elona.YoungerCatSister
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYoungLady
   parent: BaseChara
@@ -6156,6 +6580,8 @@
     id: Elona.YoungLady
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTestSubject
   parent: BaseChara
@@ -6182,6 +6608,8 @@
     relation: Enemy
   - type: Portrait
     portraitID: Elona.Stersha
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGwen
   parent: BaseChara
@@ -6215,6 +6643,8 @@
     id: Elona.Gwen
   - type: VanillaAI
     calmAction: Follow
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaThief
   parent: BaseChara
@@ -6247,6 +6677,10 @@
     id: Elona.Thief
   - type: VanillaAI
     moveChance: 0.7
+  - type: Money
+    alwaysDropsGoldOnDeath: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRobber
   parent: BaseChara
@@ -6280,6 +6714,10 @@
     id: Elona.Robber
   - type: VanillaAI
     moveChance: 0.7
+  - type: Money
+    alwaysDropsGoldOnDeath: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGreatRaceOfYith
   parent: BaseChara
@@ -6305,6 +6743,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaMasterThief
   parent: BaseChara
@@ -6338,6 +6778,10 @@
     id: Elona.MasterThief
   - type: VanillaAI
     moveChance: 0.7
+  - type: Money
+    alwaysDropsGoldOnDeath: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaShubNiggurath
   parent: BaseChara
@@ -6367,6 +6811,8 @@
     calmAction: Stand
     targetDistance: 3
     moveChance: 0
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGagu
   parent: BaseChara
@@ -6392,6 +6838,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSpiralKing
   parent: BaseChara
@@ -6425,6 +6873,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPael
   parent: BaseChara
@@ -6461,6 +6911,8 @@
     id: Elona.Pael
   - type: VanillaAI
     calmAction: Stand
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLily
   parent: BaseChara
@@ -6497,6 +6949,8 @@
     id: Elona.Lily
   - type: VanillaAI
     calmAction: Stand
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRaphael
   parent: BaseChara
@@ -6533,6 +6987,8 @@
     id: Elona.Raphael
   - type: VanillaAI
     calmAction: Dull
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAinc
   parent: BaseChara
@@ -6569,6 +7025,8 @@
     id: Elona.Ainc
   - type: VanillaAI
     calmAction: Stand
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaPoppy
   parent: BaseChara
@@ -6600,6 +7058,8 @@
     dialogID: Elona.Poppy
   - type: Tone
     id: Elona.Poppy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaRilian
   parent: BaseChara
@@ -6635,6 +7095,8 @@
     id: Elona.Rilian
   - type: VanillaAI
     calmAction: Dull
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTam
   parent: BaseChara
@@ -6671,6 +7133,8 @@
     id: Elona.Tam
   - type: VanillaAI
     calmAction: Dull
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCarbuncle
   parent: BaseChara
@@ -6703,6 +7167,8 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaLion
   parent: BaseChara
@@ -6733,6 +7199,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Lion
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaCacy
   parent: BaseChara
@@ -6770,6 +7238,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGilbert
   parent: BaseChara
@@ -6808,6 +7278,8 @@
     calmAction: Dull
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYerlesSelfPropelledGun
   parent: BaseChara
@@ -6832,6 +7304,8 @@
     calmAction: Stand
     targetDistance: 4
     moveChance: 0
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaJuereInfantry
   parent: BaseChara
@@ -6861,6 +7335,8 @@
     id: Elona.JuereInfantry
   - type: VanillaAI
     moveChance: 0.95
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYerlesEliteMachineInfantry
   parent: BaseChara
@@ -6892,6 +7368,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaJuereSwordman
   parent: BaseChara
@@ -6920,6 +7398,8 @@
     canTalk: true
   - type: Tone
     id: Elona.JuereInfantry
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYeek
   parent: BaseChara
@@ -6944,6 +7424,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaKamikazeYeek
   parent: BaseChara
@@ -6972,6 +7454,8 @@
       Elona.ActionSuicideAttack: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYeekWarrior
   parent: BaseChara
@@ -6997,6 +7481,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHotSpringManiac
   parent: BaseChara
@@ -7028,6 +7514,8 @@
     id: Elona.Citizen
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMasterYeek
   parent: BaseChara
@@ -7061,6 +7549,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaYeekArcher
   parent: BaseChara
@@ -7089,6 +7579,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRodlob
   parent: BaseChara
@@ -7130,6 +7622,8 @@
     id: Elona.Rodlob
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaArnord
   parent: BaseChara
@@ -7166,6 +7660,8 @@
     id: Elona.Arnord
   - type: VanillaAI
     calmAction: Stand
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaKamikazeSamurai
   parent: BaseChara
@@ -7195,6 +7691,8 @@
     canTalk: true
   - type: Tone
     id: Elona.KamikazeSamurai
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBombRock
   parent: BaseChara
@@ -7222,6 +7720,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.1
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSilverCat
   parent: BaseChara
@@ -7250,6 +7750,8 @@
     canTalk: true
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaMia
   parent: BaseChara
@@ -7284,6 +7786,8 @@
     portraitID: Elona.Mia
   - type: Tone
     id: Elona.Mia
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTyrannosaurus
   parent: BaseChara
@@ -7306,6 +7810,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaYoungerSisterOfMansion
   parent: BaseChara
@@ -7339,6 +7845,8 @@
     id: Elona.YoungerSister
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaFairy
   parent: BaseChara
@@ -7365,6 +7873,10 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: Money
+    alwaysDropsGoldOnDeath: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTroll
   parent: BaseChara
@@ -7386,6 +7898,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRenton
   parent: BaseChara
@@ -7429,6 +7943,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMarks
   parent: BaseChara
@@ -7468,6 +7984,8 @@
     id: Elona.Marks
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAncientCoffin
   parent: BaseChara
@@ -7500,6 +8018,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.8
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaScorpion
   parent: BaseChara
@@ -7527,6 +8047,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaKingScorpion
   parent: BaseChara
@@ -7555,6 +8077,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 350
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaTuwen
   parent: BaseChara
@@ -7588,6 +8112,8 @@
       Elona.BuffDeathWord: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaIronMaiden
   parent: BaseChara
@@ -7612,6 +8138,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 150
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaNoel
   parent: BaseChara
@@ -7651,6 +8179,8 @@
     id: Elona.Noel
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBlackCat
   parent: BaseChara
@@ -7690,6 +8220,8 @@
     moveChance: 0.75
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCuteFairy
   parent: BaseChara
@@ -7730,6 +8262,8 @@
     moveChance: 0.4
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAndroid
   parent: BaseChara
@@ -7764,6 +8298,8 @@
     moveChance: 0.4
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBlackAngel
   parent: BaseChara
@@ -7805,6 +8341,8 @@
     moveChance: 0.7
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaExile
   parent: BaseChara
@@ -7841,6 +8379,8 @@
     moveChance: 0.65
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaGoldenKnight
   parent: BaseChara
@@ -7875,6 +8415,8 @@
     relation: Enemy
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDefender
   parent: BaseChara
@@ -7909,6 +8451,8 @@
     relation: Enemy
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLameHorse
   parent: BaseChara
@@ -7939,6 +8483,8 @@
     id: Elona.LameHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaYowynHorse
   parent: BaseChara
@@ -7969,6 +8515,8 @@
     id: Elona.YowynHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaFarmer
   parent: BaseChara
@@ -8188,6 +8736,8 @@
     id: Elona.NoyelHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaWildHorse
   parent: BaseChara
@@ -8218,6 +8768,8 @@
     id: Elona.WildHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaWildHorse2
   parent: BaseChara
@@ -8248,6 +8800,8 @@
     id: Elona.WildHorse2
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaMutant
   parent: BaseChara
@@ -8270,6 +8824,8 @@
     relation: Enemy
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaIcolle
   parent: BaseChara
@@ -8306,6 +8862,8 @@
     id: Elona.Icolle
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBalzak
   parent: BaseChara
@@ -8343,6 +8901,8 @@
   - type: VanillaAI
     calmAction: Special
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLizardMan
   parent: BaseChara
@@ -8366,6 +8926,8 @@
   - type: Faction
     relation: Enemy
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMinotaur
   parent: BaseChara
@@ -8388,6 +8950,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSporeMushroom
   parent: BaseChara
@@ -8419,6 +8983,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaChaosMushroom
   parent: BaseChara
@@ -8451,6 +9017,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 250
+  - type: LootType
+    lootType: Elona.Insect
 - type: Entity
   id: Elona.CharaBlueBubble
   parent: BaseChara
@@ -8479,6 +9047,8 @@
     canTalk: true
   - type: Splittable
     splitsOnHighDamage: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaBubble
   parent: BaseChara
@@ -8506,6 +9076,8 @@
     canTalk: true
   - type: Splittable
     splitsOnHighDamage: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaMassMonster
   parent: BaseChara
@@ -8534,6 +9106,8 @@
     moveChance: 0.2
   - type: Splittable
     splitsOnHighDamage: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaRevlus
   parent: BaseChara
@@ -8575,6 +9149,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.65
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMageGuildMember
   parent: BaseChara
@@ -8614,6 +9190,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLexus
   parent: BaseChara
@@ -8657,6 +9235,8 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0.65
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaFray
   parent: BaseChara
@@ -8688,6 +9268,8 @@
     portraitID: Elona.Woman18
   - type: VanillaAI
     moveChance: 0.9
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSin
   parent: BaseChara
@@ -8719,6 +9301,8 @@
     portraitID: Elona.Man7
   - type: VanillaAI
     moveChance: 0.65
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaThiefGuildMember
   parent: BaseChara
@@ -8752,6 +9336,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaAbyss
   parent: BaseChara
@@ -8789,6 +9375,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.65
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaFighterGuildMember
   parent: BaseChara
@@ -8822,6 +9410,8 @@
     moveChance: 0.9
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMinotaurMagician
   parent: BaseChara
@@ -8853,6 +9443,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDoria
   parent: BaseChara
@@ -8890,6 +9482,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.9
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMinotaurBoxer
   parent: BaseChara
@@ -8914,6 +9508,8 @@
   - type: Faction
     relation: Enemy
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMinotaurKing
   parent: BaseChara
@@ -8937,6 +9533,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaUngaga
   parent: BaseChara
@@ -8966,6 +9564,8 @@
       Elona.BuffBoost: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaConery
   parent: BaseChara
@@ -9001,6 +9601,8 @@
   - type: Tone
     id: Elona.Conery
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRogueBoss
   parent: BaseChara
@@ -9042,6 +9644,8 @@
     moveChance: 0.8
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRogueWarrior
   parent: BaseChara
@@ -9075,6 +9679,8 @@
     moveChance: 0.8
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRogueArcher
   parent: BaseChara
@@ -9108,6 +9714,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaRogueWizard
   parent: BaseChara
@@ -9147,6 +9755,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLulwy
   parent: BaseChara
@@ -9181,6 +9791,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaExecutioner
   parent: BaseChara
@@ -9211,6 +9823,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaMessengerOfDeath
   parent: BaseChara
@@ -9242,6 +9856,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.7
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaAsura
   parent: BaseChara
@@ -9266,6 +9882,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.9
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMitra
   parent: BaseChara
@@ -9291,6 +9909,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.9
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaVaruna
   parent: BaseChara
@@ -9316,6 +9936,8 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.9
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaHungrySeaLion
   parent: BaseChara
@@ -9339,6 +9961,8 @@
       Elona.ActionScavenge: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSuperHungrySeaLion
   parent: BaseChara
@@ -9363,6 +9987,8 @@
       Elona.ActionScavenge: 1
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaDeathGaze
   parent: BaseChara
@@ -9394,6 +10020,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 450
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaChaosEye
   parent: BaseChara
@@ -9424,6 +10052,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 400
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaMadGaze
   parent: BaseChara
@@ -9455,6 +10085,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 300
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSilverEyedWitch
   parent: BaseChara
@@ -9487,6 +10119,8 @@
     moveChance: 0.8
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBigDaddy
   parent: BaseChara
@@ -9518,6 +10152,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.25
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaLittleSister
   parent: BaseChara
@@ -9548,6 +10184,8 @@
     id: Elona.LittleSister
   - type: VanillaAI
     targetDistance: 5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCleaner
   parent: BaseChara
@@ -9613,6 +10251,8 @@
     canTalk: true
   - type: Tone
     id: Elona.HardGay
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaStrangeScientist
   parent: BaseChara
@@ -9647,6 +10287,8 @@
     id: Elona.StrangeScientist
   - type: VanillaAI
     targetDistance: 3
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaShade
   parent: BaseChara
@@ -9678,6 +10320,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 400
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaQuickling
   parent: BaseChara
@@ -9701,6 +10345,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaQuicklingArcher
   parent: BaseChara
@@ -9727,6 +10373,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.5
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaBard
   parent: BaseChara
@@ -9791,6 +10439,8 @@
     isImmuneToElementalDamage: true
   - type: Splittable
     splitsRandomlyWhenAttacked: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaSilverBell
   parent: BaseChara
@@ -9818,6 +10468,8 @@
   - type: VanillaAI
     targetDistance: 4
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGoldBell
   parent: BaseChara
@@ -9846,6 +10498,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaAlien
   parent: BaseChara
@@ -9877,6 +10531,8 @@
     damageType: !type:ElementalDamageType
       elementID: Elona.Acid
       power: 250
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaEhekatl
   parent: BaseChara
@@ -9910,6 +10566,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.6
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaStrayCat
   parent: BaseChara
@@ -9941,6 +10599,8 @@
     id: Elona.StrayCat
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaGuildTrainer
   parent: BaseChara
@@ -9974,6 +10634,8 @@
     calmAction: Dull
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMysteriousProducer
   parent: BaseChara
@@ -10007,6 +10669,8 @@
     id: Elona.MysteriousProducer
   - type: VanillaAI
     targetDistance: 3
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaProstitute
   parent: BaseChara
@@ -10076,6 +10740,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaPrisoner
   parent: BaseChara
@@ -10137,6 +10803,8 @@
       Elona.ActionMewmewmew: 1
   - type: Faction
     relation: Neutral
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaKumiromi
   parent: BaseChara
@@ -10167,6 +10835,8 @@
       Elona.ActionMewmewmew: 1
   - type: Faction
     relation: Neutral
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaTest
   parent: BaseChara
@@ -10199,6 +10869,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaMineDog
   parent: BaseChara
@@ -10226,6 +10898,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaMani
   parent: BaseChara
@@ -10256,6 +10930,8 @@
       Elona.ActionMewmewmew: 1
   - type: Faction
     relation: Neutral
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaUser
   parent: BaseChara
@@ -10280,6 +10956,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
+  - type: LootType
+    lootType: Elona.Lich
 - type: Entity
   id: Elona.CharaMammoth
   parent: BaseChara
@@ -10305,6 +10983,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: LootType
+    lootType: Elona.Animal
 - type: Entity
   id: Elona.CharaKanedaBike
   parent: BaseChara
@@ -10336,6 +11016,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCub
   parent: BaseChara
@@ -10363,6 +11045,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaFanatic
   parent: BaseChara
@@ -10494,6 +11178,8 @@
     id: Elona.FestivalTourist
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaTheLeopardWarrior
   parent: BaseChara
@@ -10529,6 +11215,8 @@
   - type: Tone
     id: Elona.TheLeopardWarrior
   - type: QuickTempered
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaSilvia
   parent: BaseChara
@@ -10562,6 +11250,8 @@
     id: Elona.Silvia
   - type: VanillaAI
     calmAction: Special
+  - type: LootType
+    lootType: Elona.Humanoid
 - type: Entity
   id: Elona.CharaCaravanMaster
   parent: BaseChara
@@ -10592,4 +11282,6 @@
     calmAction: Stand
   - type: CharaNameGen
     hasRandomName: true
+  - type: LootType
+    lootType: Elona.Humanoid
 ...

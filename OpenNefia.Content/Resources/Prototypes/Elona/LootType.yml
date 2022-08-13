@@ -1,0 +1,50 @@
+---
+- type: Elona.LootType
+  id: Elona.Animal
+  hspIds:
+    elona122: 1
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Animal_OnGenerateLoot
+- type: Elona.LootType
+  id: Elona.Insect
+  hspIds:
+    elona122: 2
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Insect_OnGenerateLoot
+- type: Elona.LootType
+  id: Elona.Humanoid
+  hspIds:
+    elona122: 3
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Humanoid_OnGenerateLoot
+- type: Elona.LootType
+  id: Elona.Drake
+  hspIds:
+    elona122: 4
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Drake_OnGenerateLoot
+- type: Elona.LootType
+  id: Elona.Dragon
+  hspIds:
+    elona122: 5
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Dragon_OnGenerateLoot
+- type: Elona.LootType
+  id: Elona.Lich
+  hspIds:
+    elona122: 6
+  events:
+  - type: Loot.P_LootTypeOnGenerateLootEvent
+    system: Loot.VanillaLootTypesSystem
+    method: Lich_OnGenerateLoot
+...
