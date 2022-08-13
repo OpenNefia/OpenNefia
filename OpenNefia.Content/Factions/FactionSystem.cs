@@ -110,8 +110,8 @@ namespace OpenNefia.Content.Factions
                 return Relation.Neutral;
             }
 
-            var ourRelation = GetBaseRelation(us, ourFaction);
-            var theirRelation = GetBaseRelation(them, theirFaction);
+            var ourRelation = GetBaseRelationToPlayer(us, ourFaction);
+            var theirRelation = GetBaseRelationToPlayer(them, theirFaction);
 
             if (!ignorePersonal)
             {
@@ -162,7 +162,7 @@ namespace OpenNefia.Content.Factions
             return (Relation)Math.Min((int)ourRelation, (int)theirRelation);
         }
 
-        private Relation GetBaseRelation(EntityUid entity, FactionComponent faction)
+        private Relation GetBaseRelationToPlayer(EntityUid entity, FactionComponent faction)
         {
             if (_gameSession.IsPlayer(entity))
             {
@@ -178,6 +178,9 @@ namespace OpenNefia.Content.Factions
         {
             if (!Resolve(target, ref faction))
                 return Relation.Neutral;
+
+            if (faction.PersonalRelations.TryGetValue(_gameSession.Player, out var relation))
+                return relation;
 
             return faction.RelationToPlayer;
         }
