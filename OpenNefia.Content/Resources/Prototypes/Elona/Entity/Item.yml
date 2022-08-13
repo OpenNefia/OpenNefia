@@ -9,12 +9,6 @@
     id: Elona.ItemWorthlessFakeGoldBar
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatBug
@@ -35,6 +29,11 @@
     id: Elona.ItemLongSword
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeLongSword
@@ -67,6 +66,11 @@
     id: Elona.ItemDagger
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeShortSword
@@ -100,6 +104,11 @@
     id: Elona.ItemHandAxe
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeHandAxe
@@ -131,6 +140,11 @@
     id: Elona.ItemClub
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeClub
@@ -162,6 +176,11 @@
     id: Elona.ItemMagicHat
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHat
@@ -189,6 +208,11 @@
     id: Elona.ItemFairyHat
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHat
@@ -216,6 +240,11 @@
     id: Elona.ItemBreastplate
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -243,6 +272,11 @@
     id: Elona.ItemRobe
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -270,6 +304,11 @@
     id: Elona.ItemDecoratedGloves
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGlove
@@ -299,6 +338,11 @@
     id: Elona.ItemThickGauntlets
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGauntlet
@@ -328,6 +372,11 @@
     id: Elona.ItemHeavyBoots
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
@@ -355,6 +404,11 @@
     id: Elona.ItemCompositeBoots
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
@@ -382,6 +436,11 @@
     id: Elona.ItemDecorativeRing
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRingRing
@@ -409,6 +468,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -431,6 +495,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -453,6 +522,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -503,6 +577,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 4
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -525,6 +604,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -547,6 +631,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -574,6 +663,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 6
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -601,6 +695,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -628,12 +727,6 @@
     id: Elona.ItemBook
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatBook
@@ -678,12 +771,6 @@
     id: Elona.ItemBook
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatBook
@@ -703,6 +790,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -721,6 +813,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -744,6 +841,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -767,6 +869,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -790,6 +897,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -813,6 +925,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -832,6 +949,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -859,6 +981,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -886,6 +1013,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -914,6 +1046,11 @@
     color: '#FFFFAF'
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatOre
@@ -934,6 +1071,11 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatOre
@@ -954,6 +1096,11 @@
     color: '#FFD7AF'
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatOre
@@ -1023,6 +1170,11 @@
     id: Elona.ItemRawOre
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatOreValuable
@@ -1095,6 +1247,11 @@
     id: Elona.ItemWoodPiece
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1115,6 +1272,11 @@
     id: Elona.ItemJunkStone
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkInField
@@ -1135,6 +1297,11 @@
     id: Elona.ItemGarbage
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1155,6 +1322,11 @@
     id: Elona.ItemBrokenVase
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1174,6 +1346,11 @@
     id: Elona.ItemWashing
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkTown
@@ -1193,6 +1370,11 @@
     id: Elona.ItemBonfire
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1211,6 +1393,11 @@
     id: Elona.ItemFlag
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1229,6 +1416,11 @@
     id: Elona.ItemBrokenSword
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1248,6 +1440,11 @@
     id: Elona.ItemBoneFragment
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1267,6 +1464,11 @@
     id: Elona.ItemSkeleton
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1285,6 +1487,11 @@
     id: Elona.ItemTombstone
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -1303,6 +1510,11 @@
     id: Elona.ItemGoldPiece
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatGold
@@ -1325,6 +1537,11 @@
     id: Elona.ItemPlatinumCoin
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatPlatinum
@@ -1357,7 +1574,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -1407,7 +1624,7 @@
       item:
         coefficient: 100
         fltselect: Elona.Unique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -1446,6 +1663,11 @@
     id: Elona.ItemLongBow
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedBow
@@ -1491,6 +1713,11 @@
     id: Elona.ItemKnightShield
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -1518,6 +1745,11 @@
     id: Elona.ItemPistol
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedGun
@@ -1564,6 +1796,11 @@
     id: Elona.ItemBolt
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipAmmo
@@ -1595,6 +1832,11 @@
     id: Elona.ItemBullet
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipAmmo
@@ -1633,7 +1875,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -1678,7 +1920,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -1720,6 +1962,11 @@
     id: Elona.ItemLightCloak
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBack
@@ -1747,6 +1994,11 @@
     id: Elona.ItemGirdle
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBackGirdle
@@ -1774,6 +2026,11 @@
     id: Elona.ItemDecorativeAmulet
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -1801,6 +2058,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -1824,6 +2086,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 4
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -1847,6 +2114,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 50
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -1932,7 +2204,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -2058,6 +2330,11 @@
     id: Elona.ItemRoundChair
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2122,6 +2399,11 @@
     id: Elona.ItemBed
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureBed
@@ -2145,6 +2427,11 @@
     id: Elona.ItemRagDoll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2166,6 +2453,11 @@
     id: Elona.ItemNobleToy
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2261,6 +2553,11 @@
     id: Elona.ItemLotOfGoods
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2281,6 +2578,11 @@
     id: Elona.ItemLotOfAccessories
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2377,6 +2679,11 @@
     id: Elona.ItemBarrel
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2421,6 +2728,11 @@
     id: Elona.ItemPick
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2441,6 +2753,11 @@
     id: Elona.ItemLantern
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2511,6 +2828,11 @@
     id: Elona.ItemClosedPot
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2531,6 +2853,11 @@
     id: Elona.ItemOpenPot
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2599,6 +2926,11 @@
     id: Elona.ItemSquareChair
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2619,6 +2951,11 @@
     id: Elona.ItemCheapChair
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2662,6 +2999,11 @@
     id: Elona.ItemBarn
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2774,6 +3116,11 @@
     id: Elona.ItemWell
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureWell
@@ -2864,6 +3211,11 @@
     id: Elona.ItemSign
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2882,6 +3234,11 @@
     id: Elona.ItemCrossroadSign
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2900,6 +3257,11 @@
     id: Elona.ItemBoard
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -2918,6 +3280,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -2945,6 +3312,11 @@
     id: Elona.ItemEmptyBasket
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -2966,6 +3338,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -2993,6 +3370,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -3015,6 +3397,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 2
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -3037,6 +3424,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -3059,6 +3451,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -3081,6 +3478,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -3153,6 +3555,11 @@
     id: Elona.ItemBeaker
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3173,6 +3580,11 @@
     id: Elona.ItemAlchemyKit
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -3293,6 +3705,11 @@
     id: Elona.ItemSage
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3313,6 +3730,11 @@
     id: Elona.ItemGazania
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3333,6 +3755,11 @@
     id: Elona.ItemNerine
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3403,6 +3830,11 @@
     id: Elona.ItemCarnation
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3469,6 +3901,11 @@
     id: Elona.ItemCanvas
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -3489,6 +3926,11 @@
     id: Elona.ItemMap
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3532,6 +3974,11 @@
     id: Elona.ItemBundleOfBows
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3550,6 +3997,11 @@
     id: Elona.ItemBundleOfWeapons
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3645,6 +4097,11 @@
     id: Elona.ItemDisorderlyBook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3663,6 +4120,11 @@
     id: Elona.ItemLotOfBooks
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3731,6 +4193,11 @@
     id: Elona.ItemLotOfAlcohols
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3826,6 +4293,11 @@
     id: Elona.ItemNarrowDiningTable
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3869,6 +4341,11 @@
     id: Elona.ItemGorgeousCandlestick
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -3912,6 +4389,11 @@
     id: Elona.ItemSewingKit
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -3932,6 +4414,11 @@
     id: Elona.ItemCarpentersTool
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -3952,6 +4439,11 @@
     id: Elona.ItemMessyCloth
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -4161,12 +4653,6 @@
     id: Elona.ItemCeremonyAltar
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureAltar
@@ -4186,12 +4672,6 @@
     id: Elona.ItemCeremonyAltar
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureAltar
@@ -4211,12 +4691,6 @@
     id: Elona.ItemFountain
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureWell
@@ -4262,6 +4736,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -4284,6 +4763,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -4306,6 +4790,11 @@
     id: Elona.ItemQuwapana
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4330,6 +4819,11 @@
     id: Elona.ItemStomafillia
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4354,6 +4848,11 @@
     id: Elona.ItemEdibleWildPlant
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkInField
@@ -4379,6 +4878,11 @@
     id: Elona.ItemHappyApple
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4403,6 +4907,11 @@
     id: Elona.ItemGrape
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4427,6 +4936,11 @@
     id: Elona.ItemKiwi
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4451,6 +4965,11 @@
     id: Elona.ItemCherry
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4475,6 +4994,11 @@
     id: Elona.ItemGuava
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4499,6 +5023,11 @@
     id: Elona.ItemCarrot
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4524,6 +5053,11 @@
     id: Elona.ItemRadish
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4549,6 +5083,11 @@
     id: Elona.ItemSweetPotato
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4572,6 +5111,11 @@
     id: Elona.ItemLettuce
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4597,6 +5141,11 @@
     id: Elona.ItemStackOfDishes
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -4615,6 +5164,11 @@
     id: Elona.ItemImo
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4637,6 +5191,11 @@
     id: Elona.ItemApiNut
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkInField
@@ -4658,6 +5217,11 @@
     id: Elona.ItemStrawberry
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4682,6 +5246,11 @@
     id: Elona.ItemHealthyLeaf
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkInField
@@ -4704,6 +5273,11 @@
     id: Elona.ItemRainbowFruit
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4728,6 +5302,11 @@
     id: Elona.ItemQucche
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4752,6 +5331,11 @@
     id: Elona.ItemOrange
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4776,6 +5360,11 @@
     id: Elona.ItemMagicFruit
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -4800,6 +5389,11 @@
     id: Elona.ItemGreenPea
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4825,6 +5419,11 @@
     id: Elona.ItemCbocchi
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4850,6 +5449,11 @@
     id: Elona.ItemMelon
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4875,6 +5479,11 @@
     id: Elona.ItemLeccho
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodVegetable
@@ -4900,6 +5509,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 4
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -4949,6 +5563,11 @@
     id: Elona.ItemCorpse
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFood
@@ -4974,6 +5593,11 @@
     id: Elona.ItemBottleOfWhisky
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -4999,7 +5623,7 @@
       item:
         coefficient: 100
         fltselect: Elona.Unique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -5047,7 +5671,7 @@
       item:
         coefficient: 100
         fltselect: Elona.Unique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -5100,6 +5724,11 @@
     id: Elona.ItemWorthlessFakeGoldBar
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatOre
@@ -5118,6 +5747,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -5140,6 +5774,11 @@
     id: Elona.ItemStone
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedThrown
@@ -5183,6 +5822,11 @@
     id: Elona.ItemScythe
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeScythe
@@ -5215,6 +5859,11 @@
     id: Elona.ItemStaff
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeStaff
@@ -5247,6 +5896,11 @@
     id: Elona.ItemSpear
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeLance
@@ -5280,6 +5934,11 @@
     id: Elona.ItemOrePiece
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5301,6 +5960,11 @@
     id: Elona.ItemWhisky
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkTown
@@ -5322,6 +5986,11 @@
     id: Elona.ItemBasket
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5343,6 +6012,11 @@
     id: Elona.ItemEmptyBowl
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5363,6 +6037,11 @@
     id: Elona.ItemBowl
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5383,6 +6062,11 @@
     id: Elona.ItemRope
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunkInField
@@ -5404,6 +6088,11 @@
     id: Elona.ItemBombFish
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5424,6 +6113,11 @@
     id: Elona.ItemStraw
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5442,6 +6136,11 @@
     id: Elona.ItemAnimalBone
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -5461,6 +6160,11 @@
     id: Elona.ItemPot
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -5479,6 +6183,11 @@
     id: Elona.ItemKatana
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeLongSword
@@ -5510,6 +6219,11 @@
     id: Elona.ItemScimitar
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeShortSword
@@ -5543,6 +6257,11 @@
     id: Elona.ItemBattleAxe
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeAxe
@@ -5574,6 +6293,11 @@
     id: Elona.ItemHammer
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeHammer
@@ -5605,6 +6329,11 @@
     id: Elona.ItemTrident
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeLance
@@ -5638,6 +6367,11 @@
     id: Elona.ItemLongStaff
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeStaff
@@ -5670,6 +6404,11 @@
     id: Elona.ItemLongBow
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedBow
@@ -5715,6 +6454,11 @@
     id: Elona.ItemMachineGun
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedGun
@@ -5760,6 +6504,11 @@
     id: Elona.ItemClaymore
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeBroadsword
@@ -5791,6 +6540,11 @@
     id: Elona.ItemSack
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFood
@@ -5811,6 +6565,11 @@
     id: Elona.ItemBardiche
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeAxe
@@ -5842,6 +6601,11 @@
     id: Elona.ItemHalberd
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeHalberd
@@ -6033,6 +6797,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -6110,6 +6879,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -6229,6 +7003,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6256,6 +7035,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6347,6 +7131,11 @@
     id: Elona.ItemMolotov
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -6393,6 +7182,11 @@
     id: Elona.ItemCampfire
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -6411,6 +7205,11 @@
     id: Elona.ItemPortableCookingTool
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -6429,6 +7228,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6456,6 +7260,11 @@
     id: Elona.ItemStickBread
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFood
@@ -6561,6 +7370,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -6585,6 +7399,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 6
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6644,6 +7463,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6671,6 +7495,11 @@
     id: Elona.ItemWakizashi
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeShortSword
@@ -6704,6 +7533,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6731,6 +7565,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6758,6 +7597,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6785,6 +7629,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -6876,6 +7725,11 @@
     id: Elona.ItemFireWood
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -6896,6 +7750,11 @@
     id: Elona.ItemScarecrow
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -6916,6 +7775,11 @@
     id: Elona.ItemBroom
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -7004,6 +7868,11 @@
     id: Elona.ItemWaterTub
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -7045,6 +7914,11 @@
     id: Elona.ItemInnerTube
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -7064,6 +7938,11 @@
     id: Elona.ItemTreasureMap
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -7082,12 +7961,6 @@
     id: Elona.ItemHeirTrunk
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -7110,12 +7983,6 @@
     id: Elona.ItemWallet
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -7138,6 +8005,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -7161,6 +8033,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -7212,6 +8089,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -7364,6 +8246,11 @@
     id: Elona.ItemTowel
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -7383,6 +8270,11 @@
     id: Elona.ItemRaggedTable
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -7519,6 +8411,11 @@
     id: Elona.ItemLargeBouquet
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -7586,6 +8483,11 @@
     id: Elona.ItemPlainBed
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureBed
@@ -7778,12 +8680,6 @@
     id: Elona.ItemPachisuroMachine
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 200000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -7803,12 +8699,6 @@
     id: Elona.ItemCasinoTable
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 200000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -7828,12 +8718,6 @@
     id: Elona.ItemSlotMachine
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 200000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -7853,12 +8737,6 @@
     id: Elona.ItemDartsBoard
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 200000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -8185,6 +9063,11 @@
     id: Elona.ItemStatueOfCross
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -8203,6 +9086,11 @@
     id: Elona.ItemStump
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -8267,6 +9155,11 @@
     id: Elona.ItemTravelersFood
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargoFood
@@ -8355,6 +9248,11 @@
     id: Elona.ItemRabbitsTail
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRemains
@@ -8446,6 +9344,11 @@
     id: Elona.ItemRemainsBone
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRemains
@@ -8465,6 +9368,11 @@
     id: Elona.ItemFishingPole
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -8483,6 +9391,11 @@
     id: Elona.ItemRune
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -8502,12 +9415,6 @@
     color: '#AFFFAF'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -8648,6 +9555,11 @@
     id: Elona.ItemSeabream
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFood
@@ -8673,6 +9585,11 @@
     id: Elona.ItemSalmon
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFood
@@ -8824,7 +9741,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -8865,7 +9782,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -8909,7 +9826,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -8948,7 +9865,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -8995,7 +9912,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -9041,7 +9958,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -9076,12 +9993,6 @@
     id: Elona.ItemHeirTrunk
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -9157,6 +10068,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9179,6 +10095,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 3
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -9206,6 +10127,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 4
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -9260,6 +10186,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9315,6 +10246,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 9
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9369,6 +10305,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9482,6 +10423,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9505,6 +10451,11 @@
     id: Elona.ItemRod
   - type: Level
     level: 8
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatRod
@@ -9527,6 +10478,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 2
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -9554,6 +10510,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9640,6 +10601,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9921,6 +10887,11 @@
     id: Elona.ItemMolotov
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -9941,6 +10912,11 @@
     id: Elona.ItemGemCutter
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -9961,6 +10937,11 @@
     id: Elona.ItemMaterialBox
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -10097,6 +11078,11 @@
     id: Elona.ItemRagDoll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargo
@@ -10113,6 +11099,11 @@
     id: Elona.ItemBarrel
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargo
@@ -10150,6 +11141,11 @@
     id: Elona.ItemRope
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargo
@@ -10345,6 +11341,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -10394,12 +11395,6 @@
     id: Elona.ItemRedTreasureMachine
   - type: Level
     level: 18
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -10419,12 +11414,6 @@
     id: Elona.ItemBlueTreasureMachine
   - type: Level
     level: 18
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -10500,6 +11489,11 @@
     color: '#AFFFAF'
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCropSeed
@@ -10766,6 +11760,11 @@
     id: Elona.ItemStomafillia
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCropHerb
@@ -10849,6 +11848,11 @@
     id: Elona.ItemStomafillia
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCropHerb
@@ -10888,6 +11892,11 @@
     id: Elona.ItemSleepingBag
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -10909,6 +11918,11 @@
     id: Elona.ItemPotion
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -11079,6 +12093,11 @@
     id: Elona.ItemBandedMail
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -11106,6 +12125,11 @@
     id: Elona.ItemPlateMail
   - type: Level
     level: 50
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -11133,6 +12157,11 @@
     id: Elona.ItemRingMail
   - type: Level
     level: 20
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -11160,6 +12189,11 @@
     id: Elona.ItemCompositeMail
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -11187,6 +12221,11 @@
     id: Elona.ItemChainMail
   - type: Level
     level: 40
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyMail
@@ -11214,6 +12253,11 @@
     id: Elona.ItemPopeRobe
   - type: Level
     level: 45
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -11241,6 +12285,11 @@
     id: Elona.ItemLightMail
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -11268,6 +12317,11 @@
     id: Elona.ItemCoat
   - type: Level
     level: 20
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -11295,6 +12349,11 @@
     id: Elona.ItemBreastPlate
   - type: Level
     level: 25
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -11322,6 +12381,11 @@
     id: Elona.ItemBulletproofJacket
   - type: Level
     level: 35
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBodyRobe
@@ -11349,6 +12413,11 @@
     id: Elona.ItemGloves
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGlove
@@ -11378,6 +12447,11 @@
     id: Elona.ItemPlateGauntlets
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGauntlet
@@ -11407,6 +12481,11 @@
     id: Elona.ItemLightGloves
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGlove
@@ -11435,6 +12514,11 @@
     id: Elona.ItemCompositeGauntlets
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipWristGauntlet
@@ -11464,6 +12548,11 @@
     id: Elona.ItemSmallShield
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11491,6 +12580,11 @@
     id: Elona.ItemRoundShield
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11518,6 +12612,11 @@
     id: Elona.ItemShield
   - type: Level
     level: 20
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11545,6 +12644,11 @@
     id: Elona.ItemLargeShield
   - type: Level
     level: 40
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11572,6 +12676,11 @@
     id: Elona.ItemKiteShield
   - type: Level
     level: 50
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11599,6 +12708,11 @@
     id: Elona.ItemTowerShield
   - type: Level
     level: 60
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipShieldShield
@@ -11626,6 +12740,11 @@
     id: Elona.ItemBoots
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegShoes
@@ -11653,6 +12772,11 @@
     id: Elona.ItemBoots
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegShoes
@@ -11680,6 +12804,11 @@
     id: Elona.ItemTightBoots
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegShoes
@@ -11707,6 +12836,11 @@
     id: Elona.ItemArmoredBoots
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipLegHeavyBoots
@@ -11733,6 +12867,11 @@
     id: Elona.ItemCompositeGirdle
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBackGirdle
@@ -11760,6 +12899,11 @@
     id: Elona.ItemCompositeGirdle
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBackGirdle
@@ -11787,6 +12931,11 @@
     id: Elona.ItemArmoredCloak
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBack
@@ -11814,6 +12963,11 @@
     id: Elona.ItemCloak
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipBack
@@ -11841,6 +12995,11 @@
     id: Elona.ItemFeatherHat
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHat
@@ -11868,6 +13027,11 @@
     id: Elona.ItemHeavyHelm
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHelm
@@ -11895,6 +13059,11 @@
     id: Elona.ItemKnightHelm
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHelm
@@ -11922,6 +13091,11 @@
     id: Elona.ItemHelm
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHelm
@@ -11949,6 +13123,11 @@
     id: Elona.ItemCompositeHelm
   - type: Level
     level: 60
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipHeadHelm
@@ -11976,6 +13155,11 @@
     id: Elona.ItemPeridot
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -12004,6 +13188,11 @@
     id: Elona.ItemTalisman
   - type: Level
     level: 30
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -12032,6 +13221,11 @@
     id: Elona.ItemNeckGuard
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -12060,6 +13254,11 @@
     id: Elona.ItemCharm
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -12089,6 +13288,11 @@
     id: Elona.ItemBejeweledAmulet
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipNeckArmor
@@ -12148,6 +13352,11 @@
     id: Elona.ItemCompositeRing
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRingRing
@@ -12176,6 +13385,11 @@
     id: Elona.ItemArmoredRing
   - type: Level
     level: 15
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRingRing
@@ -12204,6 +13418,11 @@
     id: Elona.ItemRing
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRingRing
@@ -12263,6 +13482,11 @@
     id: Elona.ItemStethoscope
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -12370,6 +13594,11 @@
     id: Elona.ItemCrossbow
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedCrossbow
@@ -12415,6 +13644,11 @@
     id: Elona.ItemBolt
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipAmmo
@@ -12755,6 +13989,11 @@
     id: Elona.ItemShotGun
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipRangedGun
@@ -12882,6 +14121,11 @@
     id: Elona.ItemScroll
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -12962,12 +14206,6 @@
     id: Elona.ItemFigurine
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 100000
   - type: Tag
     tags:
     - Elona.ItemCatRemains
@@ -12988,12 +14226,6 @@
     id: Elona.ItemCard
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 100000
   - type: Tag
     tags:
     - Elona.ItemCatRemains
@@ -13153,12 +14385,6 @@
     id: Elona.ItemHeirTrunk
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -13252,6 +14478,11 @@
     id: Elona.ItemEnergyCell
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipAmmo
@@ -13510,12 +14741,6 @@
     color: '#FFD7AF'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -13537,12 +14762,6 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -13609,12 +14828,6 @@
     id: Elona.ItemTreeOfFruitless
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 100000
   - type: Tag
     tags:
     - Elona.ItemCatTree
@@ -14004,12 +15217,6 @@
     color: '#E1E1FF'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -14031,12 +15238,6 @@
     color: '#FFE1E1'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -14143,12 +15344,6 @@
     id: Elona.ItemSalaryChest
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -14524,12 +15719,6 @@
     id: Elona.ItemMastersDeliveryChest
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -14551,12 +15740,6 @@
     id: Elona.ItemShopStrongbox
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -14576,12 +15759,6 @@
     id: Elona.ItemRegister
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -14846,12 +16023,6 @@
     color: '#EBD79B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -14971,6 +16142,11 @@
     id: Elona.ItemMolotov
   - type: Level
     level: 10
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -15018,12 +16194,6 @@
     id: Elona.ItemFreezer
   - type: Level
     level: 30
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -15125,6 +16295,11 @@
     id: Elona.ItemTorch
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItem
@@ -15288,6 +16463,11 @@
     id: Elona.ItemSnowScarecrow
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatJunk
@@ -15447,6 +16627,11 @@
     id: Elona.ItemChristmasTree
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargo
@@ -15509,12 +16694,6 @@
     id: Elona.ItemGiantsShackle
   - type: Level
     level: 10
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 100000
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -15559,12 +16738,6 @@
     id: Elona.ItemHolyWell
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureWell
@@ -15867,12 +17040,6 @@
     id: Elona.ItemBill
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 400000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -15902,12 +17069,6 @@
     id: Elona.ItemTaxMastersTaxBox
   - type: Level
     level: 30
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 100000
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -15931,12 +17092,6 @@
     id: Elona.ItemBaitWaterFlea
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -15956,12 +17111,6 @@
     id: Elona.ItemFish
   - type: Level
     level: 15
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 300000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -15987,12 +17136,6 @@
     id: Elona.ItemFish
   - type: Level
     level: 15
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 300000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -16155,12 +17298,6 @@
     id: Elona.ItemShrineGate
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 10000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -16222,7 +17359,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -16340,12 +17477,6 @@
     id: Elona.ItemMoonGate
   - type: Level
     level: 15
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 400000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -16574,7 +17705,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -16655,6 +17786,11 @@
     id: Elona.ItemRiceBarrel
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFurniture
@@ -16969,7 +18105,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17089,6 +18225,11 @@
     id: Elona.ItemSpellbook
   - type: Level
     level: 5
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 0
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatSpellbook
@@ -17122,7 +18263,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17163,7 +18304,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17313,12 +18454,6 @@
     id: Elona.ItemGift
   - type: Level
     level: 3
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 250000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -17386,6 +18521,11 @@
     id: Elona.ItemCanvas
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatCargo
@@ -17466,7 +18606,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17525,7 +18665,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17584,7 +18724,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17630,7 +18770,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17676,7 +18816,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17723,7 +18863,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -17771,7 +18911,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -18230,7 +19370,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -18433,7 +19573,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -18510,7 +19650,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -18719,12 +19859,6 @@
     color: '#AFAFFF'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.ItemCatScroll
@@ -18871,7 +20005,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -18923,12 +20057,6 @@
     color: '#9BCDCD'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 1000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -18954,7 +20082,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19012,7 +20140,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19117,7 +20245,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19157,7 +20285,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19191,12 +20319,6 @@
     id: Elona.ItemTokenOfFriendship
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 10000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19230,7 +20352,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19287,7 +20409,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19328,7 +20450,7 @@
       item:
         coefficient: 100
         fltselect: Elona.Unique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19369,7 +20491,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19428,12 +20550,6 @@
     id: Elona.ItemTokenOfFriendship
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 10000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19579,6 +20695,11 @@
     id: Elona.ItemScythe
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatEquipMeleeScythe
@@ -19699,7 +20820,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19745,7 +20866,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19786,7 +20907,7 @@
       item:
         coefficient: 100
         fltselect: Elona.Unique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -19858,12 +20979,6 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 800000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19888,12 +21003,6 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 800000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19918,12 +21027,6 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 800000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19948,12 +21051,6 @@
     color: '#FF9B9B'
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 800000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -19977,12 +21074,6 @@
     id: Elona.ItemBook
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.ItemCatBook
@@ -20053,12 +21144,6 @@
     id: Elona.ItemUpstairs
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 20000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20078,12 +21163,6 @@
     id: Elona.ItemDownstairs
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 20000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20103,12 +21182,6 @@
     id: Elona.ItemNewYearsGift
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 50000
   - type: Tag
     tags:
     - Elona.ItemCatContainer
@@ -20128,12 +21201,6 @@
     id: Elona.ItemKotatsu
   - type: Level
     level: 28
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 10000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20155,12 +21222,6 @@
     id: Elona.ItemDaruma
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 0
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20180,12 +21241,6 @@
     id: Elona.ItemKagamiMochi
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 400000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20239,7 +21294,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -20281,7 +21336,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -20436,12 +21491,6 @@
     id: Elona.ItemFestivalWreath
   - type: Level
     level: 25
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 5000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20556,12 +21605,6 @@
     id: Elona.ItemJuresBodyPillow
   - type: Level
     level: 5
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 25000
   - type: Tag
     tags:
     - Elona.ItemCatFurnitureBed
@@ -20584,12 +21627,6 @@
     id: Elona.ItemNewYearsDecoration
   - type: Level
     level: 10
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 5000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20610,12 +21647,6 @@
     id: Elona.ItemMiniatureTree
   - type: Level
     level: 10
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 100
-        fltselect: Elona.Sp
-        rarity: 5000
   - type: Tag
     tags:
     - Elona.NoGenerate
@@ -20636,12 +21667,6 @@
     id: Elona.ItemBottleOfSoda
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 400000
   - type: Tag
     tags:
     - Elona.ItemCatDrink
@@ -20689,6 +21714,11 @@
     id: Elona.ItemTomato
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatFoodFruit
@@ -21151,6 +22181,11 @@
     id: Elona.ItemPotForTesting
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItemCrafting
@@ -21172,6 +22207,11 @@
     id: Elona.ItemFryingPanForTesting
   - type: Level
     level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
   - type: Tag
     tags:
     - Elona.ItemCatMiscItemCrafting
@@ -21198,7 +22238,7 @@
       item:
         coefficient: 100
         fltselect: Elona.SpUnique
-        rarity: 0
+        rarity: 1000000
   - type: Quality
     quality: Unique
   - type: Tag
@@ -21239,12 +22279,6 @@
     id: Elona.ItemPutitoro
   - type: Level
     level: 1
-  - type: RandomGen
-    tables:
-      item:
-        coefficient: 0
-        fltselect: Elona.Sp
-        rarity: 150000
   - type: Tag
     tags:
     - Elona.NoGenerate

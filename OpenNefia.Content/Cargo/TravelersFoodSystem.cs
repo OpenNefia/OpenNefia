@@ -3,18 +3,10 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Cargo
 {
@@ -22,27 +14,28 @@ namespace OpenNefia.Content.Cargo
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
-        [Dependency] private readonly IFoodSystem _foods = default!;
+        [Dependency] private readonly IFoodSystem _food = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<InventoryComponent, OnTravelInWorldMapEvent>(ProcEatTravelersFood);
         }
 
-        private void ProcEatTravelersFood(EntityUid uid, InventoryComponent component, OnTravelInWorldMapEvent args)
+        private void ProcEatTravelersFood(EntityUid uid, InventoryComponent inv, OnTravelInWorldMapEvent args)
         {
-            if (!TryComp<HungerComponent>(uid, out var hunger))
+            if (!_gameSession.IsPlayer(uid) || !TryComp<HungerComponent>(uid, out var hunger))
                 return;
 
             if (hunger.Nutrition <= HungerLevels.Normal)
             {
-                var travelersFood = _inv.EntityQueryInInventory<TravelersFoodComponent>(uid, inv: component)
+                var travelersFood = _inv.EntityQueryInInventory<TravelersFoodComponent>(uid, inv: inv)
                     .FirstOrDefault();
 
                 if (travelersFood != null)
                 {
                     _mes.Display(Loc.GetString("Elona.Activity.Eating.Finish", ("actor", uid), ("food", travelersFood.Owner)), entity: uid);
-                    _foods.EatFood(uid, travelersFood.Owner);
+                    _food.EatFood(uid, travelersFood.Owner);
                 }
             }
         }

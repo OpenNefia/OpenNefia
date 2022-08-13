@@ -230,4 +230,4 @@ entities:
     pos: 13,4
   - type: TurnOrder
   - type: LecchoTorte.InfiniteSpawner
-    entityID: Elona.CharaPutit
+    entityID: Elona.CharaFireDrake
