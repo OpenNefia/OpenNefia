@@ -26,5 +26,8 @@ namespace OpenNefia.Content.Currency
 
         [DataField]
         public IntRange? InitialGold { get; set; }
+
+        [DataField]
+        public bool AlwaysDropsGoldOnDeath { get; set; }
     }
 }

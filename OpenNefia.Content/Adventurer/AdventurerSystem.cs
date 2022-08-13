@@ -1,5 +1,8 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.Loot;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Roles;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -32,6 +35,17 @@ namespace OpenNefia.Content.Adventurer
         public override void Initialize()
         {
             SubscribeEntity<MapOnTimePassedEvent>(ProcUpdateAdventurers);
+            SubscribeComponent<HiredAdventurerComponent, BeforeDropItemsOnDeathEvent>(HandleBeforeDropItems);
+            SubscribeComponent<RoleAdventurerComponent, AfterDroppedItemsOnDeathEvent>(HandleAfterDroppedLoot);
+        }
+
+        private void HandleBeforeDropItems(EntityUid uid, HiredAdventurerComponent component, BeforeDropItemsOnDeathEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            args.OutDroppedItems.Clear();
+            args.Handled = true;
         }
 
         public bool TryGetArea(EntityUid value, [NotNullWhen(true)] out IArea? area)
@@ -46,6 +60,11 @@ namespace OpenNefia.Content.Adventurer
                 return;
 
             // TODO
+        }
+
+        private void HandleAfterDroppedLoot(EntityUid uid, RoleAdventurerComponent component, AfterDroppedItemsOnDeathEvent args)
+        {
+            // TODO regenerate equipment
         }
     }
 }

@@ -26,8 +26,10 @@ namespace OpenNefia.Content.RandomGen
     [DataDefinition]
     public class RandomGenTable
     {
+        public const int DefaultRarity = 100000;
+
         [DataField]
-        public int Rarity { get; set; } = 100000;
+        public int Rarity { get; set; } = DefaultRarity;
 
         [DataField]
         public int Coefficient { get; set; } = 400;

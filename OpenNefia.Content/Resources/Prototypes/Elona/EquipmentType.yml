@@ -1,55 +1,87 @@
-- id: Elona.Warrior
-  ordering: 101000
-  type: Elona.EquipmentType
+---
+- type: Elona.EquipmentType
+  id: Elona.Warrior
   hspIds:
     elona122: 1
-  behavior: !type:WarriorEquipmentTypeBehavior {}
-
-- id: Elona.Mage
-  ordering: 102000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Warrior_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Warrior_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.Mage
   hspIds:
     elona122: 2
-  behavior: !type:MageEquipmentTypeBehavior {}
-
-- id: Elona.Archer
-  ordering: 103000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Mage_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Mage_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.Archer
   hspIds:
     elona122: 3
-  behavior: !type:ArcherEquipmentTypeBehavior {}
-
-- id: Elona.Gunner
-  ordering: 104000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Archer_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Archer_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.Gunner
   hspIds:
     elona122: 4
-  behavior: !type:GunnerEquipmentTypeBehavior {}
-
-- id: Elona.WarMage
-  ordering: 105000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Gunner_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Gunner_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.WarMage
   hspIds:
     elona122: 5
-  behavior: !type:WarMageEquipmentTypeBehavior {}
-
-- id: Elona.Priest
-  ordering: 106000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: WarMage_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: WarMage_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.Priest
   hspIds:
     elona122: 6
-  behavior: !type:PriestEquipmentTypeBehavior {}
-
-- id: Elona.Thief
-  ordering: 107000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Priest_OnInitializeEquipment
+- type: Elona.EquipmentType
+  id: Elona.Thief
   hspIds:
     elona122: 7
-  behavior: !type:ThiefEquipmentTypeBehavior {}
-
-- id: Elona.Claymore
-  ordering: 108000
-  type: Elona.EquipmentType
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Thief_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Thief_OnGenerateLoot
+- type: Elona.EquipmentType
+  id: Elona.Claymore
   hspIds:
     elona122: 8
-  behavior: !type:ClaymoreEquipmentTypeBehavior {}
+  events:
+  - type: Equipment.P_EquipmentTypeOnInitializeEquipmentEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Claymore_OnInitializeEquipment
+  - type: Equipment.P_EquipmentTypeOnGenerateLootEvent
+    system: Equipment.VanillaEquipmentTypesSystem
+    method: Claymore_OnGenerateLoot
+...

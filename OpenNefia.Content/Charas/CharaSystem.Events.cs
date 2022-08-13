@@ -3,6 +3,7 @@ using OpenNefia.Content.Buffs;
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
@@ -21,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.CharaInfo.SkillsListControl.SkillsListEntry;
 using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Charas
@@ -55,6 +57,7 @@ namespace OpenNefia.Content.Charas
             InitClassComponents(uid, chara);
             InitClassSkills(uid, chara);
             InitCharaMakeSkills(uid, args.GenArgs);
+            InitClassEquipmentType(uid, chara);
         }
 
         private void InitRaceComponents(EntityUid uid, CharaComponent chara)
@@ -196,6 +199,15 @@ namespace OpenNefia.Content.Charas
                 {
                     Level = new(skill.Value),
                 };
+            }
+        }
+
+        private void InitClassEquipmentType(EntityUid uid, CharaComponent chara)
+        {
+            var klass = _protos.Index(chara.Class);
+            if (klass.EquipmentType != null && !HasComp<EquipmentTypeComponent>(uid))
+            {
+                EnsureComp<EquipmentTypeComponent>(uid).EquipmentType = klass.EquipmentType.Value;
             }
         }
     }

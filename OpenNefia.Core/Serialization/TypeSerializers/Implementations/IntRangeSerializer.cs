@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class IntRangeSerializer : ITypeSerializer<IntRange, ValueDataNode>
     {
-        private static readonly Regex IntRangeRegex = new Regex(@"\((\d+)~(\d+)\)");
+        private static readonly Regex IntRangeRegex = new Regex(@"(\d+)~(\d+)");
 
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         public DataNode Write(ISerializationManager serializationManager, IntRange value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return new ValueDataNode($"({value.Min}~{value.Max})");
+            return new ValueDataNode($"{value.Min}~{value.Max}");
         }
 
         [MustUseReturnValue]
