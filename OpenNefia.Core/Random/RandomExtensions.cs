@@ -82,6 +82,11 @@ namespace OpenNefia.Core.Random
             return random.Next() * 4.6566128752458E-10f;
         }
 
+        public static int NextIntInRange(this IRandom random, IntRange range)
+        {
+            return random.Next(range.TrueMin, range.TrueMax);
+        }
+
         public static Vector2i NextVec2iInVec(this IRandom random, int boundX, int boundY)
         {
             return new Vector2i(random.Next(boundX), random.Next(boundY));

@@ -101,6 +101,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.AncientBook);
             _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.SpellbookOfAcidGround);
 
+            _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.GoldPiece, amount: 1000);
+            _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.PlatinumCoin, amount: 50);
+
             foreach (var proto in _protoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
             {
                 _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);

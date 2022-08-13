@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Maths
 
         public override string ToString()
         {
-            return $"{Min}~{Max}";
+            return $"({Min}~{Max})";
         }
 
 		public override int GetHashCode()
@@ -55,6 +55,12 @@ namespace OpenNefia.Core.Maths
 		public static bool operator !=(IntRange lhs, IntRange rhs)
 		{
 			return !(lhs == rhs);
+		}
+
+		public readonly void Deconstruct(out int min, out int max)
+		{
+			min = Min;
+			max = Max;
 		}
 
 		public bool Includes(int val)

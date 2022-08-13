@@ -22,7 +22,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void HandleGenerated(EntityUid uid, VanillaAIComponent ai, ref EntityGeneratedEvent args)
         {
-            if (!EntityManager.TryGetComponent(uid, out SpatialComponent spatial))
+            if (!IsAlive(uid) || !EntityManager.TryGetComponent(uid, out SpatialComponent spatial))
                 return;
 
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))

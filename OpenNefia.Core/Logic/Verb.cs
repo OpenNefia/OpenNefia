@@ -45,13 +45,14 @@ namespace OpenNefia.Core.GameObjects
         /// <remarks>
         ///     Smaller is higher priority (gets executed preferentially).
         /// </remarks>
-        public int Priority;
+        public long Priority = EventPriorities.Default;
 
-        public Verb(string verbType, string name, VerbAction act)
+        public Verb(string verbType, string name, VerbAction act, long priority = 0)
         {
             VerbType = verbType;
             DisplayName = name;
             Act = act;
+            Priority = priority;
         }
 
         public int CompareTo(object? obj)
@@ -59,7 +60,11 @@ namespace OpenNefia.Core.GameObjects
             if (obj is not Verb otherVerb)
                 return -1;
 
-            var comp = string.Compare(VerbType, otherVerb.VerbType);
+            var comp = Priority.CompareTo(otherVerb.Priority);
+            if (comp != 0)
+                return comp;
+
+            comp = string.Compare(VerbType, otherVerb.VerbType);
             if (comp != 0)
                 return comp;
 
