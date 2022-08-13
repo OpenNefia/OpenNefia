@@ -183,6 +183,7 @@ namespace OpenNefia.Core.GameObjects
 
             _hotReload.OnUpdateApplication += OnUpdateApplication;
 
+            Logger.InfoS("esm", $"Registered {_systemTypes.Count} entity systems.");
             _initialized = true;
         }
 

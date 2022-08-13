@@ -27,10 +27,10 @@ namespace OpenNefia.Content.Feats
 
         public override void Initialize()
         {
-            SubscribeComponent<FeatsComponent, BeforeTurnBeginEventArgs>(ProcFeatTurnBeginEvents);
+            SubscribeComponent<FeatsComponent, MapBeforeTurnBeginEventArgs>(ProcFeatTurnBeginEvents);
         }
 
-        private void ProcFeatTurnBeginEvents(EntityUid uid, FeatsComponent component, BeforeTurnBeginEventArgs args)
+        private void ProcFeatTurnBeginEvents(EntityUid uid, FeatsComponent component, MapBeforeTurnBeginEventArgs args)
         {
             var ev = new P_FeatBeforeTurnBeginEvent(uid);
             

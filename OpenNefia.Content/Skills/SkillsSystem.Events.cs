@@ -22,6 +22,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Skills
 {
@@ -31,6 +32,7 @@ namespace OpenNefia.Content.Skills
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         public override void Initialize()
         {
@@ -41,28 +43,26 @@ namespace OpenNefia.Content.Skills
 
             SubscribeComponent<SkillsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.Low);
-        }
 
-        public const int FatigueThresholdLight = 50;
-        public const int FatigueThresholdModerate = 25;
-        public const int FatigueThresholdHeavy = 0;
+            SubscribeComponent<SkillsComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.Highest);
+        }
 
         private void AddStaminaStatusIndicator(EntityUid uid, SkillsComponent component, GetStatusIndicatorsEvent args)
         {
             Color? color = null;
             LocaleKey? key = null;
 
-            if (component.Stamina < FatigueThresholdHeavy)
+            if (component.Stamina < FatigueThresholds.Heavy)
             {
                 color = UiColors.FatigueIndicatorHeavy;
                 key = "Elona.Skill.Fatigue.Indicator.Heavy";
             }
-            else if (component.Stamina < FatigueThresholdModerate)
+            else if (component.Stamina < FatigueThresholds.Moderate)
             {
                 color = UiColors.FatigueIndicatorModerate;
                 key = "Elona.Skill.Fatigue.Indicator.Moderate";
             }
-            else if (component.Stamina < FatigueThresholdLight)
+            else if (component.Stamina < FatigueThresholds.Light)
             {
                 color = UiColors.FatigueIndicatorLight;
                 key = "Elona.Skill.Fatigue.Indicator.Light";
@@ -172,6 +172,23 @@ namespace OpenNefia.Content.Skills
             foreach (var (_, level) in skills.Skills)
             {
                 level.Level.Reset();
+            }
+        }
+
+        private void HandleRefreshSpeed(EntityUid uid, SkillsComponent skills, ref EntityRefreshSpeedEvent args)
+        {
+            var speedCorrection = CompOrNull<TurnOrderComponent>(uid)?.SpeedCorrection ?? 0;
+
+            args.OutSpeed = Math.Max(TurnOrderSystem.MinSpeed, Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100));
+
+            if (_gameSession.IsPlayer(uid) && !_mounts.HasMount(uid))
+            {
+                if (skills.Stamina < FatigueThresholds.Heavy)
+                    args.OutSpeedModifier -= 0.3f;
+                if (skills.Stamina < FatigueThresholds.Moderate)
+                    args.OutSpeedModifier -= 0.2f;
+                if (skills.Stamina < FatigueThresholds.Light)
+                    args.OutSpeedModifier -= 0.1f;
             }
         }
 
@@ -290,6 +307,13 @@ namespace OpenNefia.Content.Skills
                 _damage.HealMP(uid, mpDelta, showMessage: false, skills);
             }
         }
+    }
+
+    public static class FatigueThresholds
+    {
+        public const int Light = 50;
+        public const int Moderate = 25;
+        public const int Heavy = 0;
     }
 
     [ByRefEvent]

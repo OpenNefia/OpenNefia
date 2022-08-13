@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:244 	case lootAnimal ...
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatRemains, _loot.ModifyItemForRemains);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatRemains, _loot.ModifyItemForRemains);
             // <<<<<<<< shade2/item.hsp:246 	swbreak ..
         }
 
@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:248 	case lootInsect ...
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatRemains, _loot.ModifyItemForRemains);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatRemains, _loot.ModifyItemForRemains);
             // <<<<<<<< shade2/item.hsp:250 	swbreak ..
         }
 
@@ -42,15 +42,15 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:236 	case lootHumanoid ...
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
             // <<<<<<<< shade2/item.hsp:242 	swbreak ..
         }
 
@@ -62,13 +62,13 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:263 	case lootDrake ...
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
             if (_rand.OneIn(4))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
             // <<<<<<<< shade2/item.hsp:268 	swbreak ..
         }
 
@@ -80,21 +80,21 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:270 	case lootDragon ...
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
             if (_rand.OneIn(15))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
             if (_rand.OneIn(5))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
             if (_rand.OneIn(4))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
             if (_rand.OneIn(4))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatOre);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatOre);
             // <<<<<<<< shade2/item.hsp:279 	swbreak ..
         }
 
@@ -106,21 +106,21 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:252 	case lootLich ...
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatEquipRing);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatEquipRing);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatEquipNeck);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatEquipNeck);
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
             if (_rand.OneIn(10))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatOre);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatOre);
             // <<<<<<<< shade2/item.hsp:261 	swbreak ..
         }
 

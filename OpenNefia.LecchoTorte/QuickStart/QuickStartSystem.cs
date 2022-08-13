@@ -20,6 +20,8 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Items.Impl;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Chest;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -35,6 +37,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IMapManager _mapMan = default!;
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public override void Initialize()
         {
@@ -111,6 +114,16 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.Lockpick, amount: 999);
             _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.SkeletonKey, amount: 999);
+
+            var inv = Comp<InventoryComponent>(player).Container;
+
+            var bow = _itemGen.GenerateItem(inv, Protos.Item.LongBow);
+            if (IsAlive(bow) && _equipSlots.TryGetEmptyEquipSlot(player, Protos.EquipSlot.Ranged, out var slot))
+                _equipSlots.TryEquip(player, bow.Value, slot, silent: true);
+
+            var ammo = _itemGen.GenerateItem(inv, Protos.Item.Arrow);
+            if (IsAlive(ammo) && _equipSlots.TryGetEmptyEquipSlot(player, Protos.EquipSlot.Ammo, out slot))
+                _equipSlots.TryEquip(player, ammo.Value, slot, silent: true);
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {

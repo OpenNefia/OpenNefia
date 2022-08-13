@@ -24,6 +24,11 @@ namespace OpenNefia.Content.TurnOrder
         bool PlayerAboutToRespawn { get; }
 
         /// <summary>
+        /// Recalculates the speed value/modifier for this entity.
+        /// </summary>
+        void RefreshSpeed(EntityUid entity, TurnOrderComponent? turnOrder = null);
+
+        /// <summary>
         /// Calculates the raw speed value for an entity.
         /// </summary>
         int CalculateSpeed(EntityUid entity, TurnOrderComponent? turnOrder = null);
@@ -65,7 +70,7 @@ namespace OpenNefia.Content.TurnOrder
     /// turn budget is replenished from waiting enough consecutive turns.
     /// </para>
     /// </remarks>
-    public class TurnOrderSystem : EntitySystem, ITurnOrderSystem
+    public sealed partial class TurnOrderSystem : EntitySystem, ITurnOrderSystem
     {
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
@@ -128,17 +133,6 @@ namespace OpenNefia.Content.TurnOrder
         #endregion
 
         #region ITurnOrder Implementation
-
-        /// <inheritdoc/>
-        public int CalculateSpeed(EntityUid entity, TurnOrderComponent? turnOrder = null)
-        {
-            if (!Resolve(entity, ref turnOrder))
-            {
-                return 10;
-            }
-
-            return (int)MathF.Max(turnOrder.CurrentSpeed * turnOrder.SpeedPercentage, 10f);
-        }
 
         /// <inheritdoc/>
         public void InitializeState()
@@ -310,7 +304,7 @@ namespace OpenNefia.Content.TurnOrder
             var map = _mapManager.ActiveMap!;
             var player = _gameSession.Player;
 
-            var ev = new BeforeTurnBeginEventArgs();
+            var ev = new MapBeforeTurnBeginEventArgs();
             if (Raise(map.MapEntityUid, ev))
             {
                 return ev.TurnResult.ToTurnOrderState();
@@ -586,10 +580,12 @@ namespace OpenNefia.Content.TurnOrder
 
     #region Events
 
-    public sealed class BeforeTurnBeginEventArgs : TurnResultEntityEventArgs
+    [EventUsage(EventTarget.Map)]
+    public sealed class MapBeforeTurnBeginEventArgs : TurnResultEntityEventArgs
     {
     }
 
+    [EventUsage(EventTarget.Normal)]
     public sealed class EntityTurnStartingEventArgs : TurnResultEntityEventArgs
     {
         public EntityTurnStartingEventArgs(bool isFirstTurn)
@@ -600,14 +596,17 @@ namespace OpenNefia.Content.TurnOrder
         public bool IsFirstTurn { get; }
     }
 
+    [EventUsage(EventTarget.Normal)]
     public sealed class EntityPassTurnEventArgs : TurnResultEntityEventArgs
     {
     }
 
+    [EventUsage(EventTarget.Normal)]
     public sealed class EntityTurnEndingEventArgs : TurnResultEntityEventArgs
     {
     }
 
+    [EventUsage(EventTarget.Normal)]
     public sealed class PlayerDiedEventArgs : TurnResultEntityEventArgs
     {
     }

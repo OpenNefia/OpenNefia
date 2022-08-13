@@ -13,6 +13,7 @@ using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Loot;
+using OpenNefia.Content.Money;
 
 namespace OpenNefia.Content.Equipment
 {
@@ -20,19 +21,19 @@ namespace OpenNefia.Content.Equipment
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ILootSystem _loot = default!;
-
+        [Dependency] private readonly IMoneySystem _money = default!;
 
         #region Elona.Warrior
 
         public void Warrior_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Warrior_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
         }
 
         #endregion
@@ -41,15 +42,15 @@ namespace OpenNefia.Content.Equipment
 
         public void Mage_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Mage_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
             if (_rand.OneIn(40))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
         }
 
         #endregion
@@ -58,13 +59,13 @@ namespace OpenNefia.Content.Equipment
 
         public void Archer_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Archer_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
         }
 
         #endregion
@@ -73,13 +74,13 @@ namespace OpenNefia.Content.Equipment
 
         public void Gunner_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Gunner_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
         }
 
         #endregion
@@ -88,13 +89,13 @@ namespace OpenNefia.Content.Equipment
 
         public void WarMage_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void WarMage_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(50))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
         }
 
         #endregion
@@ -103,7 +104,7 @@ namespace OpenNefia.Content.Equipment
 
         public void Priest_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Priest_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
@@ -116,13 +117,13 @@ namespace OpenNefia.Content.Equipment
 
         public void Thief_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Thief_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
         {
             if (_rand.OneIn(20))
-                _loot.AddLoot(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatDrink);
         }
 
         #endregion
@@ -131,7 +132,7 @@ namespace OpenNefia.Content.Equipment
 
         public void Claymore_OnInitializeEquipment(EquipmentTypePrototype proto, ref P_EquipmentTypeOnInitializeEquipmentEvent ev)
         {
-            // TODO
+            _money.TryGenerateExtraGoldForChara(ev.Chara);
         }
 
         public void Claymore_OnGenerateLoot(EquipmentTypePrototype proto, ref P_EquipmentTypeOnGenerateLootEvent ev)
@@ -146,8 +147,11 @@ namespace OpenNefia.Content.Equipment
     [PrototypeEvent(typeof(EquipmentTypePrototype))]
     public sealed class P_EquipmentTypeOnInitializeEquipmentEvent : PrototypeEventArgs
     {
-        public P_EquipmentTypeOnInitializeEquipmentEvent()
+        public EntityUid Chara { get; }
+
+        public P_EquipmentTypeOnInitializeEquipmentEvent(EntityUid chara)
         {
+            Chara = chara;
         }
     }
 

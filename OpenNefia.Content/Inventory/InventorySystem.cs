@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
@@ -15,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Mount;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -39,11 +42,14 @@ namespace OpenNefia.Content.Inventory
     public sealed class InventorySystem : EntitySystem, IInventorySystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<InventoryComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<InventoryComponent, BeforeMoveEventArgs>(ProcMovementPreventionOnBurden);
+            SubscribeComponent<InventoryComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
         }
 
         private void AddStatusIndicator(EntityUid uid, InventoryComponent inv, GetStatusIndicatorsEvent args)
@@ -57,6 +63,19 @@ namespace OpenNefia.Content.Inventory
                     Color = color
                 });
             }
+        }
+
+        private void HandleRefreshSpeed(EntityUid uid, InventoryComponent component, ref EntityRefreshSpeedEvent args)
+        {
+            if (!_gameSession.IsPlayer(uid))
+                return;
+
+            if (component.BurdenType >= BurdenType.Heavy)
+                args.OutSpeedModifier -= 0.5f;
+            if (component.BurdenType >= BurdenType.Moderate)
+                args.OutSpeedModifier -= 0.3f;
+            if (component.BurdenType >= BurdenType.Light)
+                args.OutSpeedModifier -= 0.1f;
         }
 
         private void ProcMovementPreventionOnBurden(EntityUid uid, InventoryComponent inv, BeforeMoveEventArgs args)

@@ -30,10 +30,10 @@ namespace OpenNefia.Content.EtherDisease
 
         public override void Initialize()
         {
-            SubscribeComponent<EtherDiseaseComponent, BeforeTurnBeginEventArgs>(ProcEtherDiseaseDeath);
+            SubscribeComponent<EtherDiseaseComponent, MapBeforeTurnBeginEventArgs>(ProcEtherDiseaseDeath);
         }
 
-        private void ProcEtherDiseaseDeath(EntityUid uid, EtherDiseaseComponent etherDisease, BeforeTurnBeginEventArgs args)
+        private void ProcEtherDiseaseDeath(EntityUid uid, EtherDiseaseComponent etherDisease, MapBeforeTurnBeginEventArgs args)
         {
             if (!EntityManager.IsAlive(uid))
                 return;

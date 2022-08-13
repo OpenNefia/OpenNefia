@@ -3,18 +3,19 @@ meta:
   name: test
   author: ruin
 grid: |
-  @@@@@@@@@@@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@
+  @.........@@@@@@@
+  @.........@.....@
+  @.........@.....@
+  @............^..@
+  @.........@.....@
+  @.........@.....@
+  @.........@@@@@@@
+  @@@@@@@@@@@@@@@@@
 tilemap:
   '@': Elona.WallBrick
   '.': Elona.Tile1
+  '^': Elona.Tile2
 entities:
 - uid: 0
   components:
@@ -217,3 +218,16 @@ entities:
   - type: RoleShopkeeper
     shopInventoryId: Elona.GeneralVendor
     shopRank: 10
+- uid: 28
+  protoId: Elona.MObjDoorJail
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 10,4
+- uid: 28
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 13,4
+  - type: LecchoTorte.InfiniteSpawner
+    entityID: Elona.CharaPutit
