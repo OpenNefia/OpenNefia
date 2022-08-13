@@ -8275,6 +8275,7 @@
   - type: Item
   - type: Food
     foodQuality: 3
+  - type: TravelersFood
 - type: Entity
   id: Elona.ItemThrone
   parent: BaseItem

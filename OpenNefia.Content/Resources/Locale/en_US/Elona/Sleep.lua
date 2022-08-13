@@ -1,6 +1,7 @@
 Elona.Sleep = {
     NotSleepy = "You don't feel sleepy yet.",
     ButYouCannot = "But you can't sleep right now.",
+    YouNeedToSleep = "You need to sleep.",
 
     Activity = {
         Start = {

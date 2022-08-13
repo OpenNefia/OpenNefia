@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Mount;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.Random;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -27,13 +30,25 @@ namespace OpenNefia.Content.Inventory
         
         IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null) 
             where TComp : IComponent;
+        IEnumerable<(TComp1, TComp2)> EntityQueryInInventory<TComp1, TComp2>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent;
+        bool IsInventoryFull(EntityUid ent, InventoryComponent? inv = null);
+        IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryInInventory<TComp1, TComp2, TComp3>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryInInventory<TComp1, TComp2, TComp3, TComp4>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent;
 
         int GetItemWeight(EntityUid item, WeightComponent? weight = null);
 
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         bool TryGetInventoryContainer(EntityUid ent, [NotNullWhen(true)] out IContainer? inv, InventoryComponent? invComp = null);
-        bool IsInventoryFull(EntityUid ent, InventoryComponent? inv = null);
     }
 
     /// <summary>
@@ -44,12 +59,15 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<InventoryComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<InventoryComponent, BeforeMoveEventArgs>(ProcMovementPreventionOnBurden);
             SubscribeComponent<InventoryComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<InventoryComponent, EntityTurnEndingEventArgs>(HandleTurnEnding);
         }
 
         private void AddStatusIndicator(EntityUid uid, InventoryComponent inv, GetStatusIndicatorsEvent args)
@@ -76,6 +94,23 @@ namespace OpenNefia.Content.Inventory
                 args.OutSpeedModifier -= 0.3f;
             if (component.BurdenType >= BurdenType.Light)
                 args.OutSpeedModifier -= 0.1f;
+        }
+
+        private void HandleTurnEnding(EntityUid uid, InventoryComponent inv, EntityTurnEndingEventArgs args)
+        {
+            if (_gameSession.IsPlayer(uid))
+            {
+                if (inv.BurdenType >= BurdenType.Heavy)
+                {
+                    if (_rand.OneIn(20) && TryComp<SkillsComponent>(uid, out var skills) && inv.MaxWeight != null)
+                    {
+                        var totalWeight = GetTotalInventoryWeight(uid);
+                        _mes.Display(Loc.GetString("Elona.Inventory.Burden.BackpackSquashing", ("entity", uid)));
+                        var damage = skills.MaxHP * (totalWeight * 10 / inv.MaxWeight.Value + 10) / 200 + 1;
+                        _damage.DamageHP(uid, damage, damageType: new GenericDamageType("Elona.DamageType.Burden"));
+                    }
+                }
+            }
         }
 
         private void ProcMovementPreventionOnBurden(EntityUid uid, InventoryComponent inv, BeforeMoveEventArgs args)
@@ -161,6 +196,60 @@ namespace OpenNefia.Content.Inventory
             {
                 if (inv.Container.Contains(ent.Owner)
                     && (includeDead || IsAlive(ent.Owner)))
+                {
+                    yield return ent;
+                }
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2)> EntityQueryInInventory<TComp1, TComp2>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+        {
+            if (!Resolve(entity, ref inv))
+                yield break;
+
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2>())
+            {
+                if (inv.Container.Contains(ent.Item1.Owner)
+                    && (includeDead || IsAlive(ent.Item1.Owner)))
+                {
+                    yield return ent;
+                }
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryInInventory<TComp1, TComp2, TComp3>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+        {
+            if (!Resolve(entity, ref inv))
+                yield break;
+
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3>())
+            {
+                if (inv.Container.Contains(ent.Item1.Owner)
+                    && (includeDead || IsAlive(ent.Item1.Owner)))
+                {
+                    yield return ent;
+                }
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryInInventory<TComp1, TComp2, TComp3, TComp4>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent
+        {
+            if (!Resolve(entity, ref inv))
+                yield break;
+
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3, TComp4>())
+            {
+                if (inv.Container.Contains(ent.Item1.Owner)
+                    && (includeDead || IsAlive(ent.Item1.Owner)))
                 {
                     yield return ent;
                 }

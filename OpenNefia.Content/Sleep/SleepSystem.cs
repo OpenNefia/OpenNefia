@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Damage;
 using OpenNefia.Content.Effects;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.GameObjects;
@@ -16,6 +17,7 @@ using OpenNefia.Content.Religion;
 using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.World;
 using OpenNefia.Core;
@@ -74,6 +76,7 @@ namespace OpenNefia.Content.Sleep
         public override void Initialize()
         {
             SubscribeEntity<GetStatusIndicatorsEvent>(AddStatusIndicator);
+            SubscribeEntity<EntityTurnEndingEventArgs>(HandleTurnEnding);
         }
 
         public static readonly GameTimeSpan SleepThresholdLight = GameTimeSpan.FromHours(15);
@@ -105,6 +108,30 @@ namespace OpenNefia.Content.Sleep
             if (color != null && key != null)
                 args.OutIndicators.Add(new() { Text = Loc.GetString(key.Value), Color = color.Value });
         }
+
+        private void HandleTurnEnding(EntityUid uid, EntityTurnEndingEventArgs args)
+        {
+            if (_world.State.AwakeTime >= SleepThresholdModerate)
+            {
+                if (_world.State.PlayTurns % 100 == 0)
+                {
+                    _mes.Display(Loc.GetString("Elona.Sleep.YouNeedToSleep"));
+                }
+
+                if (TryComp<SkillsComponent>(uid, out var skills))
+                {
+                    if (_rand.OneIn(2))
+                        skills.CanRegenerateThisTurn = false;
+
+                    if (_world.State.AwakeTime >= SleepThresholdHeavy)
+                    {
+                        skills.CanRegenerateThisTurn = false;
+                        _damage.DamageStamina(uid, 1);
+                    }
+                }
+            }
+        }
+
         public bool IsPlayerSleeping { get; private set; } = false;
 
         private bool CanSleepRightNow(EntityUid sleeper)
@@ -245,7 +272,7 @@ namespace OpenNefia.Content.Sleep
         {
             if (IsPlayerSleeping)
                 return;
-            
+
             if (!CanSleepRightNow(sleeper))
             {
                 _mes.Display(Loc.GetString("Elona.Sleep.ButYouCannot"));

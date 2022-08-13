@@ -18,8 +18,7 @@ tilemap:
   '^': Elona.Tile2
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: BaseMap
 # - uid: 1
 #   protoId: Elona.CharaYeek
 #   components:
@@ -224,10 +223,11 @@ entities:
   - type: Spatial
     parent: 0
     pos: 10,4
-- uid: 28
+- uid: 29
   components:
   - type: Spatial
     parent: 0
     pos: 13,4
+  - type: TurnOrder
   - type: LecchoTorte.InfiniteSpawner
     entityID: Elona.CharaPutit

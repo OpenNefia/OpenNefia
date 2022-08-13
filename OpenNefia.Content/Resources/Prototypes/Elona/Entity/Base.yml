@@ -104,6 +104,7 @@
   abstract: true
   components:
   - type: Map
+  - type: Level
 
 - type: Entity
   id: BaseArea

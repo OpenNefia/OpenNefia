@@ -42,6 +42,7 @@ namespace OpenNefia.Content.Locale.Funcs
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
+            // TODO implement quantity!
             return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity);
         }
 

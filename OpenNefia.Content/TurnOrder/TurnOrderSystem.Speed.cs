@@ -17,8 +17,6 @@ namespace OpenNefia.Content.TurnOrder
             if (!Resolve(entity, ref turnOrder))
                 return MinSpeed;
 
-            // TODO calculate speed
-
             return (int)MathF.Max(turnOrder.CurrentSpeed * turnOrder.CurrentSpeedModifier, MinSpeed);
         }
 
@@ -32,6 +30,11 @@ namespace OpenNefia.Content.TurnOrder
 
             turnOrder.CurrentSpeed = ev.OutSpeed;
             turnOrder.CurrentSpeedModifier = ev.OutSpeedModifier;
+        }
+
+        private void RefreshSpeedOnTurnEnd(EntityUid uid, TurnOrderComponent component, EntityTurnEndingEventArgs args)
+        {
+            RefreshSpeed(uid);
         }
     }
 

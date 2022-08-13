@@ -1,6 +1,7 @@
 Elona.Sleep = {
     NotSleepy = "まだ眠たくない。",
     ButYouCannot = "しかし、大事な用を思い出して飛び起きた。",
+    YouNeedToSleep = "あなたは眠りを必要としている。",
 
     Activity = {
         Start = {
