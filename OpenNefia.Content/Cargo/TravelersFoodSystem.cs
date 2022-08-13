@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Cargo
             SubscribeComponent<InventoryComponent, OnTravelInWorldMapEvent>(ProcEatTravelersFood);
         }
 
-        private void ProcEatTravelersFood(EntityUid uid, InventoryComponent inv, OnTravelInWorldMapEvent args)
+        private void ProcEatTravelersFood(EntityUid uid, InventoryComponent inv, ref OnTravelInWorldMapEvent args)
         {
             if (!_gameSession.IsPlayer(uid) || !TryComp<HungerComponent>(uid, out var hunger))
                 return;

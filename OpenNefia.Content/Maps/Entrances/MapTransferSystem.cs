@@ -85,6 +85,8 @@ namespace OpenNefia.Content.Maps
                     _mapLoader.DeleteMap(oldMap.Id, save);
                 }
             }
+
+            GC.Collect();
         }
 
         private void TransferPlayerParty(SpatialComponent playerSpatial, EntityCoordinates newCoords)
