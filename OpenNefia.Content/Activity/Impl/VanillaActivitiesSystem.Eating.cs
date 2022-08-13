@@ -7,11 +7,14 @@ using OpenNefia.Content.Pickable;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Core.IoC;
+using OpenNefia.Content.Food;
 
 namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
+        [Dependency] private readonly IFoodSystem _food = default!;
+
         private void Initialize_Eating()
         {
             SubscribeComponent<ActivityEatingComponent, OnActivityStartEvent>(Eating_OnStart);
@@ -87,9 +90,7 @@ namespace OpenNefia.Content.Activity
 
             _inUse.RemoveItemInUse(actor, component.Food.Value);
 
-            var ev = new AfterItemEatenEvent(actor);
-            RaiseEvent(component.Food.Value, ev);
-            EntityManager.DeleteEntity(component.Food.Value);
+            _food.EatFood(actor, component.Food.Value);
         }
 
         private void Eating_OnCleanup(EntityUid activity, ActivityEatingComponent component, OnActivityCleanupEvent args)

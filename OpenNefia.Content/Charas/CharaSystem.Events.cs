@@ -9,6 +9,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Weight;
 using OpenNefia.Core.GameObjects;
@@ -24,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static OpenNefia.Content.CharaInfo.SkillsListControl.SkillsListEntry;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Charas
 {

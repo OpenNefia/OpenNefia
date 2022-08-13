@@ -1,36 +1,49 @@
-﻿using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Logic;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.TurnOrder;
-using OpenNefia.Core.Areas;
+﻿using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
-    public interface IInfiniteSpawnerSystem : IEntitySystem
+    public sealed class InfiniteSpawnerSystem : EntitySystem
     {
-    }
-
-    public sealed class InfiniteSpawnerSystem : EntitySystem, IInfiniteSpawnerSystem
-    {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
-            SubscribeBroadcast<MapBeforeTurnBeginEventArgs>(HandleEntityBeingGenerated);
+            SubscribeComponent<InfiniteSpawnerComponent, NPCTurnStartedEvent>(HandleTurnStarted);
+            SubscribeComponent<InfiniteSpawnerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
+        }
+
+        private void HandleTurnStarted(EntityUid uid, InfiniteSpawnerComponent component, ref NPCTurnStartedEvent args)
+        {
+            if (!TryMap(uid, out var map))
+                return;
+
+            var spawned = _lookup.EntityQueryInMap<InfiniteSpawnedComponent>(map)
+                .Any(s => s.Spawner == uid);
+
+            if (!spawned)
+                SpawnEntity(uid, component);
+        }
+
+        private void SpawnEntity(EntityUid uid, InfiniteSpawnerComponent component)
+        {
+            var ent = _charaGen.GenerateChara(uid, component.EntityID);
+            if (IsAlive(ent))
+                EnsureComp<InfiniteSpawnedComponent>(ent.Value).Spawner = uid;
+        }
+
+        private void HandleRefreshSpeed(EntityUid uid, InfiniteSpawnerComponent component, ref EntityRefreshSpeedEvent args)
+        {
+            if (!TryComp<TurnOrderComponent>(_gameSession.Player, out var playerTurnOrder))
+                return;
+
+            args.OutSpeed = playerTurnOrder.CurrentSpeed;
+            args.OutSpeedModifier = playerTurnOrder.CurrentSpeedModifier;
         }
     }
 }

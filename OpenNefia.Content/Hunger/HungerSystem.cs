@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Activity;
 
 namespace OpenNefia.Content.Hunger
 {
@@ -57,6 +58,8 @@ namespace OpenNefia.Content.Hunger
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         public override void Initialize()
         {
@@ -64,6 +67,7 @@ namespace OpenNefia.Content.Hunger
             SubscribeComponent<HungerComponent, GetStatusIndicatorsEvent>(AddStatusIndicator);
             SubscribeComponent<HungerComponent, OnCharaSleepEvent>(HandleCharaSleep);
             SubscribeComponent<HungerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<HungerComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.VeryHigh);
         }
 
         private void AddStatusIndicator(EntityUid uid, HungerComponent hunger, GetStatusIndicatorsEvent ev)
@@ -251,7 +255,7 @@ namespace OpenNefia.Content.Hunger
                         _mes.Display(Loc.GetString("Elona.Hunger.Status.Hungry"));
                 }
 
-                _skills.RefreshSpeed(chara);
+                _turnOrder.RefreshSpeed(chara);
             }
             else
             {
@@ -261,6 +265,36 @@ namespace OpenNefia.Content.Hunger
                 hunger.Nutrition -= HungerDecrementAmount * 2;
                 if (hunger.Nutrition < HungerLevels.Ally && !hunger.IsAnorexic)
                     hunger.Nutrition = HungerLevels.Ally;
+            }
+        }
+
+        private void HandleTurnEnding(EntityUid uid, HungerComponent component, EntityTurnEndingEventArgs args)
+        {
+            MakeHungry(uid, component);
+
+            if (_gameSession.IsPlayer(uid))
+            {
+                if (component.Nutrition < HungerLevels.Hungry && TryComp<SkillsComponent>(uid, out var skills))
+                {
+                    skills.CanRegenerateThisTurn = false;
+                }
+
+                if (component.Nutrition < HungerLevels.VeryHungry)
+                {
+                    if (!_activities.HasActivity(uid, Protos.Activity.Eating) && TryComp<SkillsComponent>(uid, out skills))
+                    {
+                        _audio.Play(Protos.Sound.Fizzle);
+                        _damage.DamageHP(uid, _rand.Next(2) + skills.MaxHP / 50, damageType: new GenericDamageType("Elona.DamageType.Hunger"));
+                        if (TryComp<TurnOrderComponent>(uid, out var turnOrder) && turnOrder.TotalTurnsTaken % 10 == 0)
+                        {
+                            _activities.InterruptActivity(uid);
+                            if (_rand.OneIn(50))
+                            {
+                                _weight.ModifyWeight(uid, -1);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

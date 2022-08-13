@@ -86,8 +86,6 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         void ApplyBonusPoint(EntityUid uid, PrototypeId<SkillPrototype> skillId, SkillsComponent? skills = null);
         
-        void RefreshSpeed(EntityUid chara, SkillsComponent? skills = null);
-
         #endregion
     }
 

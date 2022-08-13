@@ -777,6 +777,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Corpse")
     end
 
+    if from._id == "elona.cargo_travelers_food" then
+        c = comp(to, "TravelersFood")
+    end
+
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")

@@ -32,14 +32,6 @@ namespace OpenNefia.Content.Skills
             _refresh.Refresh(uid);
             // <<<<<<<< shade2/command.hsp:2743 		goto *com_charaInfo_loop ..
         }
-
-        public void RefreshSpeed(EntityUid chara, SkillsComponent? skills = null)
-        {
-            if (!Resolve(chara, ref skills))
-                return;
-
-            // TODO
-        }
     }
 
     public enum HealType

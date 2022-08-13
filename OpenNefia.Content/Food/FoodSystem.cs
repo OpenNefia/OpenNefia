@@ -55,6 +55,9 @@ namespace OpenNefia.Content.Food
         PrototypeId<ChipPrototype> GetFoodChip(PrototypeId<FoodTypePrototype> foodType, int foodQuality);
         void MakeDish(EntityUid item, int foodQuality, FoodComponent? food = null);
         bool IsHumanFlesh(EntityUid entity, FoodComponent? food = null);
+
+        void EatFood(EntityUid eater, EntityUid food, HungerComponent? hungerComp = null, FoodComponent? foodComp = null);
+        void ApplyFoodEffects(EntityUid eater, EntityUid food, HungerComponent? hungerComp = null, FoodComponent? foodComp = null);
     }
 
     public sealed class FoodSystem : EntitySystem, IFoodSystem
@@ -151,24 +154,39 @@ namespace OpenNefia.Content.Food
 
         private void HandleEatFood(EntityUid food, FoodComponent foodComp, AfterItemEatenEvent args)
         {
-            if (!TryComp<HungerComponent>(args.Eater, out var hunger))
+            ApplyFoodEffects(args.Eater, food, null, foodComp);
+        }
+
+        public void EatFood(EntityUid eater, EntityUid food, HungerComponent? hungerComp = null, FoodComponent? foodComp = null)
+        {
+            // TODO unequip first
+
+            var ev = new AfterItemEatenEvent(eater);
+            RaiseEvent(food, ev);
+
+            _stacks.Use(food, 1);
+        }
+
+        public void ApplyFoodEffects(EntityUid eater, EntityUid food, HungerComponent? hungerComp = null, FoodComponent? foodComp = null)
+        {
+            if (!Resolve(eater, ref hungerComp) || !Resolve(food, ref foodComp))
                 return;
 
-            ApplyGeneralEatingEffect(args.Eater, foodComp);
+            ApplyGeneralEatingEffect(eater, foodComp);
 
-            if (_gameSession.IsPlayer(args.Eater))
+            if (_gameSession.IsPlayer(eater))
             {
                 _identify.Identify(food, IdentifyState.Name);
-                _mes.Display(GetNutritionMessage(hunger.Nutrition), UiColors.MesGreen);
+                _mes.Display(GetNutritionMessage(hungerComp.Nutrition), UiColors.MesGreen);
             }
             else
             {
                 // TODO eating traded item
             }
 
-            _hunger.VomitIfAnorexic(args.Eater);
+            _hunger.VomitIfAnorexic(eater);
 
-            var ev = new AfterFinishedEatingEvent(args.Eater);
+            var ev = new AfterFinishedEatingEvent(eater);
             RaiseEvent(food, ev);
         }
 

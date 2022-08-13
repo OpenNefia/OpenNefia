@@ -16,6 +16,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.TurnOrder
 {
@@ -100,6 +101,7 @@ namespace OpenNefia.Content.TurnOrder
             _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
             SubscribeComponent<MapTurnOrderComponent, ActiveMapChangedEvent>(HandleMapChangedTurnOrder, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<TurnOrderComponent, EntityTurnEndingEventArgs>(RefreshSpeedOnTurnEnd, priority: EventPriorities.Lowest);
         }
 
         #region Event Handlers

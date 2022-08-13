@@ -63,7 +63,7 @@ namespace OpenNefia.Content.World
             {
                 if (_rand.OneIn(3))
                 {
-                    State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                    State.AwakeTime += args.TotalTimePassed;
                 }
                 if (_rand.OneIn(15))
                 {
@@ -77,7 +77,7 @@ namespace OpenNefia.Content.World
             {
                 if (!HasComp<MapNoSleepAdvancementComponent>(args.Map.MapEntityUid))
                 {
-                    State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                    State.AwakeTime += args.TotalTimePassed;
                 }
             }
             

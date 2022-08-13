@@ -125,6 +125,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
             if (IsAlive(ammo) && _equipSlots.TryGetEmptyEquipSlot(player, Protos.EquipSlot.Ammo, out slot))
                 _equipSlots.TryEquip(player, ammo.Value, slot, silent: true);
 
+            _itemGen.GenerateItem(inv, Protos.Item.CargoTravelersFood, amount: 999);
+            
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {
                 identify.IdentifyState = IdentifyState.Full;

@@ -15,6 +15,9 @@ using OpenNefia.Content.Items;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Activity;
+using OpenNefia.Content.Hunger;
+using OpenNefia.Content.Logic;
 
 namespace OpenNefia.Content.Cargo
 {
@@ -30,6 +33,7 @@ namespace OpenNefia.Content.Cargo
     {
         [Dependency] private readonly IInventorySystem _invSys = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {
