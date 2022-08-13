@@ -600,6 +600,14 @@ handlers["base.item"] = function(from, to)
         c.identifyDifficulty = from.identify_difficulty
     end
 
+    if from._id == "elona.gold_piece" then
+        c = comp(to, "GoldPiece")
+    end
+
+    if from._id == "elona.platinum_coin" then
+        c = comp(to, "PlatinumCoin")
+    end
+
     if
         from._id == "elona.gold_piece"
         or from._id == "elona.platinum_coin"
@@ -728,6 +736,10 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.skeleton_key" then
         c = comp(to, "SkeletonKey")
+    end
+
+    if from.always_drop then
+        c = comp(to, "AlwaysDropOnDeath")
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]

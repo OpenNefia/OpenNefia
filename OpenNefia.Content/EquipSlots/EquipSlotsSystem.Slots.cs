@@ -299,6 +299,23 @@ namespace OpenNefia.Content.EquipSlots
             return false;
         }
 
+        public bool IsEquippedOnAnySlot(EntityUid uid)
+        {
+            if (!TryComp<SpatialComponent>(uid, out var spatialComp))
+                return false;
+
+            foreach (var equipSlot in GetEquipSlots(spatialComp.ParentUid))
+            {
+                if (!TryGetContainerForEquipSlot(spatialComp.ParentUid, equipSlot, out var containerSlot))
+                    continue;
+
+                if (containerSlot.ContainedEntity == uid)
+                    return true;
+            }
+
+            return false;
+        }
+
         public struct ContainerSlotEnumerator
         {
             private readonly EquipSlotsSystem _equipSlotsSystem;

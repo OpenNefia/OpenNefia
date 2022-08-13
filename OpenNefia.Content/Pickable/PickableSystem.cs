@@ -34,7 +34,8 @@ namespace OpenNefia.Content.Pickable
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
-        private readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
+        // TODO: SoundSpecifier instead
+        public static readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
         {
             Protos.Sound.Get1,
             Protos.Sound.Get2
@@ -42,7 +43,7 @@ namespace OpenNefia.Content.Pickable
 
         public override void Initialize()
         {
-            SubscribeComponent<PickableComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeComponent<PickableComponent, GetVerbsEventArgs>(HandleGetVerbs, priority: EventPriorities.VeryHigh);
             SubscribeComponent<PickableComponent, EntityBeingGeneratedEvent>(HandleBeingGenerated);
         }
 

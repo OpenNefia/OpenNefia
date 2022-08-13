@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,8 @@ namespace OpenNefia.Content.Currency
 
         [DataField]
         public int Platinum { get; set; }
+
+        [DataField]
+        public IntRange? InitialGold { get; set; }
     }
 }

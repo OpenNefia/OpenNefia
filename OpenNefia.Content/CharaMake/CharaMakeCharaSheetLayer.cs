@@ -98,7 +98,7 @@ namespace OpenNefia.Content.CharaMake
             customName.CustomName = "????";
 
             AddPlayerOnlyComponents(playerEntity);
-            _entityGen.FireGeneratingEvents(playerEntity, genArgs);
+            _entityGen.FireGeneratingEvents(playerEntity, args: genArgs);
 
             return playerEntity;
         }

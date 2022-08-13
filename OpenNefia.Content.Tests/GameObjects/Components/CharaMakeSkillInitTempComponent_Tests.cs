@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             charaGenArgs.InitialSkills[Protos.Skill.AttrMagic] = 888;
             charaGenArgs.InitialSkills[Protos.Skill.AttrDexterity] = 999;
 
-            entityGen.FireGeneratingEvents(playerEntity, EntityGenArgSet.Make(charaGenArgs));
+            entityGen.FireGeneratingEvents(playerEntity, args: EntityGenArgSet.Make(charaGenArgs));
             var skills = _entityManager.GetComponent<SkillsComponent>(playerEntity);
             Assert.That(skills.Skills[Protos.Skill.AttrStrength].Level.Base == 777);
             Assert.That(skills.Skills[Protos.Skill.AttrMagic].Level.Base == 888);

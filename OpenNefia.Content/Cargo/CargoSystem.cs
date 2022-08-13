@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Items;
+using OpenNefia.Core.Maps;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Cargo
 {
@@ -20,6 +22,7 @@ namespace OpenNefia.Content.Cargo
         int GetTotalCargoWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxCargoWeight(EntityUid ent, CargoHolderComponent? cargoHolder = null);
         bool IsBurdenedByCargo(EntityUid ent, CargoHolderComponent? cargoHolder = null, InventoryComponent? inv = null);
+        bool CanUseCargoItemsIn(IMap map);
     }
 
     public class CargoSystem : EntitySystem, ICargoSystem
@@ -86,6 +89,17 @@ namespace OpenNefia.Content.Cargo
                 return false;
 
             return GetTotalCargoWeight(ent, inv) > GetMaxCargoWeight(ent, cargoHolder);
+        }
+
+        public bool CanUseCargoItemsIn(IMap map)
+        {
+            var uid = map.MapEntityUid;
+            return HasComp<MapTypeWorldMapComponent>(uid)
+                || HasComp<MapTypePlayerOwnedComponent>(uid)
+                || HasComp<MapTypeTownComponent>(uid)
+                || HasComp<MapTypeShelterComponent>(uid)
+                || HasComp<MapTypeFieldComponent>(uid)
+                || HasComp<MapTypeGuildComponent>(uid);
         }
     }
 }

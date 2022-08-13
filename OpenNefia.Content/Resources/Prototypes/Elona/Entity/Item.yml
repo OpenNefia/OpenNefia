@@ -1309,6 +1309,7 @@
   - type: Value
     value: 1
   - type: Item
+  - type: GoldPiece
   - type: Identify
     identifyState: Full
   - type: CurseState
@@ -1333,11 +1334,13 @@
   - type: Item
   - type: Weight
     weight: 1
+  - type: PlatinumCoin
   - type: Identify
     identifyState: Full
   - type: CurseState
     curseState: Normal
     noRandomizeCurseState: true
+  - type: AlwaysDropOnDeath
 - type: Entity
   id: Elona.ItemDiablo
   parent: BaseItem

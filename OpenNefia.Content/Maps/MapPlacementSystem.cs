@@ -12,6 +12,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,16 @@ namespace OpenNefia.Content.Maps
         /// <param name="coords"></param>
         /// <returns>True if the placement was successful.</returns>
         bool TryPlaceChara(EntityUid entity, MapCoordinates coords);
+
+        /// <summary>
+        /// Tries to place a character near a position, moving it somewhere close if it isn't available.
+        /// If the tile is blocked, the character's state is set accordingly (dead, pet dead, etc.)
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="coords"></param>
+        /// <param name="actualCoords">Actual coordinates the entity was placed at after adjustment.</param>
+        /// <returns>True if the placement was successful.</returns>
+        bool TryPlaceChara(EntityUid entity, MapCoordinates coords, out EntityCoordinates actualCoords);
     }
 
     public sealed class MapPlacementSystem : EntitySystem, IMapPlacement
@@ -234,9 +245,15 @@ namespace OpenNefia.Content.Maps
         }
 
         public bool TryPlaceChara(EntityUid entity, MapCoordinates coords)
+            => TryPlaceChara(entity, coords, out _);
+
+        public bool TryPlaceChara(EntityUid entity, MapCoordinates coords, out EntityCoordinates realCoordinates)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
+            {
+                realCoordinates = EntityCoordinates.Invalid;
                 return false;
+            }
 
             var type = CharaPlaceType.Npc;
             if (_parties.IsInPlayerParty(entity))
@@ -256,12 +273,14 @@ namespace OpenNefia.Content.Maps
             {
                 Logger.DebugS("map.placement", $"Place {entity} {coords} --> {result}");
 
-                spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, result.Value.Position);
+                realCoordinates = new EntityCoordinates(map.MapEntityUid, result.Value.Position);
+                spatial.Coordinates = realCoordinates;
                 return true;
             }
 
             Logger.WarningS("map.placement", $"Failed to place {entity} near {coords}");
-            spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, Vector2i.Zero);
+            realCoordinates = new EntityCoordinates(map.MapEntityUid, Vector2i.Zero);
+            spatial.Coordinates = realCoordinates;
             FailedToPlaceChara(entity);
             return false;
         }
