@@ -343,7 +343,7 @@ namespace OpenNefia.Content.Inventory
             List.SelectedIndex = index;
 
             var totalWeight = _invSys.GetTotalInventoryWeight(Context.User);
-            var totalWeightStr = UiUtils.DisplayWeight(1500);
+            var totalWeightStr = UiUtils.DisplayWeight(totalWeight);
 
             var maxWeight = _invSys.GetMaxInventoryWeight(Context.User);
             var maxWeightStr = maxWeight != null ? UiUtils.DisplayWeight(maxWeight.Value) : "-";
