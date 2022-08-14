@@ -46,9 +46,10 @@ namespace OpenNefia.Content.Items
         {
             if (TryComp<MaterialComponent>(item.Owner, out var material) && material.MaterialID != null)
             {
+                var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
                 var entry = new ItemDescriptionEntry()
                 {
-                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", material.MaterialID.ToString()))
+                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
                 };
                 args.Entries.Add(entry);
             }
