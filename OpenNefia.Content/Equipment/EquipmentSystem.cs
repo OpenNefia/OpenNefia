@@ -2,18 +2,14 @@
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.EquipSlots.Events;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Weight;
-using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CommandLine.Parsing;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
 namespace OpenNefia.Content.Equipment
@@ -25,19 +21,28 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         /// <param name="item">Entity to check.</param>
         /// <param name="equipSlotId">Equipment slot equipping to.</param>
-        bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId, 
+        bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId,
             EquipmentComponent? itemEquipment = null);
 
         int GetTotalEquipmentWeight(EntityUid equipTarget, EquipSlotsComponent? equipSlotsComp = null);
-        
+
         PrototypeId<SkillPrototype> GetArmorClass(int weight);
         PrototypeId<SkillPrototype> GetArmorClass(EntityUid ent, EquipSlotsComponent? equipSlotsComp = null);
+
+        /// <summary>
+        /// Equips the items in the character's inventory with the highest
+        /// value. Ignores curse state, intended to be used by the AI.
+        /// </summary>
+        /// <param name="npc"></param>
+        void EquipAllHighestValueItemsForNPC(EntityUid npc, InventoryComponent? inv = null);
+        void EquipIfHigherValueInSlotForNPC(EntityUid npc, EntityUid item, EquipmentComponent? itemEquip = null);
     }
 
     public class EquipmentSystem : EntitySystem, IEquipmentSystem
     {
         [Dependency] private readonly IRefreshSystem _refresh = default!;
-        [Dependency] private readonly IEquipSlotsSystem _equipSlotsSystem = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IInventorySystem _inv = default!;
 
         public override void Initialize()
         {
@@ -73,7 +78,7 @@ namespace OpenNefia.Content.Equipment
 
         private void HandleRefresh(EntityUid equipper, EquipSlotsComponent component, ref EntityRefreshEvent args)
         {
-            if (_equipSlotsSystem.TryGetContainerSlotEnumerator(equipper, out var enumerator))
+            if (_equipSlots.TryGetContainerSlotEnumerator(equipper, out var enumerator))
             {
                 while (enumerator.MoveNext(out var containerSlot))
                 {
@@ -103,14 +108,14 @@ namespace OpenNefia.Content.Equipment
 
         public int GetTotalEquipmentWeight(EntityUid equipTarget, EquipSlotsComponent? equipSlotsComp = null)
         {
-            if (!_equipSlotsSystem.TryGetEquipSlots(equipTarget, out var equipSlots, equipSlotsComp))
+            if (!_equipSlots.TryGetEquipSlots(equipTarget, out var equipSlots, equipSlotsComp))
                 return 0;
 
             var totalWeight = 0;
 
             foreach (var equipSlot in equipSlots)
             {
-                if (!_equipSlotsSystem.TryGetContainerForEquipSlot(equipTarget, equipSlot, out var containerSlot))
+                if (!_equipSlots.TryGetContainerForEquipSlot(equipTarget, equipSlot, out var containerSlot))
                     continue;
 
                 if (!EntityManager.IsAlive(containerSlot.ContainedEntity))
@@ -145,6 +150,52 @@ namespace OpenNefia.Content.Equipment
             else
             {
                 return Protos.Skill.LightArmor;
+            }
+        }
+
+        public void EquipAllHighestValueItemsForNPC(EntityUid npc, InventoryComponent? inv = null)
+        {
+            if (!Resolve(npc, ref inv))
+                return;
+
+            var items = _inv.EnumerateLiveItems(npc)
+                .Where(i => !_equipSlots.IsEquippedOnAnySlot(i));
+
+            foreach (var item in items)
+            {
+                EquipIfHigherValueInSlotForNPC(npc, item);
+            }
+        }
+
+        public void EquipIfHigherValueInSlotForNPC(EntityUid npc, EntityUid item, EquipmentComponent? itemEquip = null)
+        {
+            if (!Resolve(item, ref itemEquip))
+                return;
+
+            var itemValue = CompOrNull<ValueComponent>(item)?.Value ?? 0;
+
+            foreach (var slotType in itemEquip.EquipSlots)
+            {
+                if (_equipSlots.TryGetEmptyEquipSlot(npc, slotType, out var slotInstance))
+                {
+                    _equipSlots.TryEquip(npc, item, slotInstance);
+                    return;.
+                }
+                foreach (var slot in _equipSlots.GetEquipSlots(npc))
+                {
+                    if (slot.ID == slotType && _equipSlots.TryGetContainerForEquipSlot(npc, slot, out var container) && IsAlive(container.ContainedEntity))
+                    {
+                        var otherValue = CompOrNull<ValueComponent>(container.ContainedEntity)?.Value ?? 0;
+                        if (itemValue > otherValue)
+                        {
+                            if (_equipSlots.TryUnequip(npc, slot))
+                            {
+                                _equipSlots.TryEquip(npc, item, slot);
+                                return;
+                            }
+                        }
+                    }
+                }
             }
         }
 

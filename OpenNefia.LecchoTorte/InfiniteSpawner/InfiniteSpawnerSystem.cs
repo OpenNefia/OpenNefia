@@ -3,6 +3,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
@@ -17,6 +18,7 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
             SubscribeComponent<InfiniteSpawnerComponent, NPCTurnStartedEvent>(HandleTurnStarted);
             SubscribeComponent<InfiniteSpawnerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
             SubscribeComponent<InfiniteSpawnedComponent, EntityDeletedEvent>(HandleDeleted);
+            SubscribeComponent<InfiniteSpawnedComponent, EntityKilledEvent>(HandleKilled);
         }
 
         private void HandleTurnStarted(EntityUid uid, InfiniteSpawnerComponent component, ref NPCTurnStartedEvent args)
@@ -51,6 +53,12 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
         }
 
         private void HandleDeleted(EntityUid uid, InfiniteSpawnedComponent component, EntityDeletedEvent args)
+        {
+            if (IsAlive(component.Spawner))
+                SpawnEntity(component.Spawner);
+        }
+
+        private void HandleKilled(EntityUid uid, InfiniteSpawnedComponent component, ref EntityKilledEvent args)
         {
             if (IsAlive(component.Spawner))
                 SpawnEntity(component.Spawner);
