@@ -67,8 +67,8 @@ namespace OpenNefia.Content.Tests.EquipSlots
             Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.False);
             Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.False);
 
-            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new() 
-            { 
+            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
+            {
                 TestSlot1ID,
                 TestSlot2ID,
                 InvalidID,
@@ -106,7 +106,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             var containerSys = sim.GetEntitySystem<IContainerSystem>();
             var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
-             var map = sim.CreateMapAndSetActive(10, 10);
+            var map = sim.CreateMapAndSetActive(10, 10);
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
@@ -510,7 +510,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
 
                 Assert.That(equipSlotSys.TryEquip(ent, entItem, equipSlot!), Is.True, "Try equip");
                 Assert.That(equipSlotSys.IsEquippedOnSlotOfType(entItem, TestSlot1ID), Is.True, "Is equipped on slot of type (true)");
-                
+
                 Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip");
                 Assert.That(equipSlotSys.IsEquippedOnSlotOfType(entItem, TestSlot1ID), Is.False, "Is equipped on slot of type (false)");
             });

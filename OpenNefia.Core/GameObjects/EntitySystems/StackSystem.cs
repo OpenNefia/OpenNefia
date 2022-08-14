@@ -58,8 +58,8 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Returns true if the provided entities can be stacked together.
         /// </summary>
-        bool CanStack(EntityUid ent1, EntityUid ent2, 
-            ref StackComponent? stackEnt1, 
+        bool CanStack(EntityUid ent1, EntityUid ent2,
+            ref StackComponent? stackEnt1,
             ref StackComponent? stackEnt2);
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="spawnPosition">Position to spawn the newly cloned entity.</param>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
         EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition);
-        
+
         /// <summary>
         /// Clones this entity.
         /// </summary>
@@ -386,7 +386,7 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
         }
-        
+
         /// <inheritdoc/>
         public EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition)
         {
@@ -436,7 +436,7 @@ namespace OpenNefia.Core.GameObjects
 
             newStack.Count = stack.Count;
             newStack.Unlimited = stack.Unlimited;
-            
+
             args.MarkAsCloned<StackComponent>();
         }
 
@@ -550,7 +550,7 @@ namespace OpenNefia.Core.GameObjects
         /// on this entity.
         /// </summary>
         /// <typeparam name="T">Type of component that the calling event handler added/set up.</typeparam>
-        public void MarkAsCloned<T>() where T: IComponent
+        public void MarkAsCloned<T>() where T : IComponent
         {
             HandledTypes.Add(typeof(T));
         }

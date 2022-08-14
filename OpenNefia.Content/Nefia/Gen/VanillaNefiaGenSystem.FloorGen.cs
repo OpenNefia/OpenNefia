@@ -104,8 +104,8 @@ namespace OpenNefia.Content.Nefia
                     if (_rand.OneIn(2))
                     {
                         var pos = _rand.NextVec2iInBounds(bounds);
-                        _itemGen.GenerateItem(map.AtPos(pos), 
-                            minLevel: _randomGen.CalcObjectLevel(map), 
+                        _itemGen.GenerateItem(map.AtPos(pos),
+                            minLevel: _randomGen.CalcObjectLevel(map),
                             quality: _randomGen.CalcObjectQuality(Quality.Normal),
                             tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand) });
                     }

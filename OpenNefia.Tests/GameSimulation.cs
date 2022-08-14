@@ -57,7 +57,7 @@ namespace OpenNefia.Tests
         /// </summary>
         T Resolve<T>();
 
-        T GetEntitySystem<T>() where T: IEntitySystem;
+        T GetEntitySystem<T>() where T : IEntitySystem;
 
         /// <summary>
         /// Creates a map and sets it as active.

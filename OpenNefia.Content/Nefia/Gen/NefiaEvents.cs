@@ -9,14 +9,14 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Nefia
 {
-    public class NefiaGenParams {}
+    public class NefiaGenParams { }
 
     /// <summary>
     /// Parameters general to all nefia geneation algorithms.
     /// </summary>
     public sealed class BaseNefiaGenParams : NefiaGenParams
     {
-        public BaseNefiaGenParams() : this(10, 10) {}
+        public BaseNefiaGenParams() : this(10, 10) { }
 
         public BaseNefiaGenParams(int width, int height)
         {

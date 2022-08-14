@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Maps.Debris
                     mapDebris.DebrisMemory[tile.X, tile.Y] = mapDebris.DebrisState[tile.X, tile.Y];
                 }
             }
-            
+
             RebuildBatches();
         }
 

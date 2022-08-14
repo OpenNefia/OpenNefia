@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Console
     public sealed class DummyConsoleOutput : IConsoleOutput
     {
         public void WriteLine(string text)
-{
+        {
             Logger.InfoS("con.exec", text);
         }
 

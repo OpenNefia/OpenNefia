@@ -26,7 +26,8 @@ namespace OpenNefia.Content.UI.Element
         public int KeyHintXOffset { get; set; }
         public int YOffset { get; }
         public bool HasTitle => TextTitle.Text != string.Empty;
-        public string Title { 
+        public string Title
+        {
             get => TextTitle.Text;
             set
             {
@@ -45,7 +46,7 @@ namespace OpenNefia.Content.UI.Element
 
         private IAssetInstance AssetTipIcons;
 
-        [Child] [Localize("Title")] private UiText TextTitle;
+        [Child][Localize("Title")] private UiText TextTitle;
         [Child] private UiText TextKeyHint;
         [Child] private UiWindowBacking Window;
         [Child] private UiWindowBacking WindowShadow;
@@ -107,7 +108,7 @@ namespace OpenNefia.Content.UI.Element
 
             if (HasTitle)
             {
-                TextTitle.SetPosition(X + 45 * Width / 200 + 34 - TextTitle.Width / 2 
+                TextTitle.SetPosition(X + 45 * Width / 200 + 34 - TextTitle.Width / 2
                     + Math.Clamp(TextTitle.Width - 120, 0, 200) / 2, Y + 4);
                 TopicWindow.SetPosition(X + 34, Y - 4);
             }

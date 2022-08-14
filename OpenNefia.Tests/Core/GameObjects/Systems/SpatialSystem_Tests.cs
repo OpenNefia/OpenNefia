@@ -238,7 +238,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         {
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            
+
             var map1 = sim.ActiveMap!;
             var map2 = sim.Resolve<IMapManager>().CreateMap(50, 50);
 

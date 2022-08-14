@@ -81,7 +81,7 @@ namespace OpenNefia.Core.IoC
         public static T CreateInstance<T>(this IDynamicTypeFactory dynamicTypeFactory, Type type)
         {
             DebugTools.Assert(typeof(T).IsAssignableFrom(type), "type must be subtype of T");
-            return (T) dynamicTypeFactory.CreateInstance(type);
+            return (T)dynamicTypeFactory.CreateInstance(type);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace OpenNefia.Core.IoC
         public static T CreateInstance<T>(this IDynamicTypeFactory dynamicTypeFactory, Type type, object[] args)
         {
             DebugTools.Assert(typeof(T).IsAssignableFrom(type), "type must be subtype of T");
-            return (T) dynamicTypeFactory.CreateInstance(type, args);
+            return (T)dynamicTypeFactory.CreateInstance(type, args);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace OpenNefia.Core.IoC
             bool oneOff = false)
         {
             DebugTools.Assert(typeof(T).IsAssignableFrom(type), "type must be subtype of T");
-            return (T) dynamicTypeFactory.CreateInstanceUnchecked(type, oneOff);
+            return (T)dynamicTypeFactory.CreateInstanceUnchecked(type, oneOff);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace OpenNefia.Core.IoC
             object[] args)
         {
             DebugTools.Assert(typeof(T).IsAssignableFrom(type), "type must be subtype of T");
-            return (T) dynamicTypeFactory.CreateInstanceUnchecked(type, args);
+            return (T)dynamicTypeFactory.CreateInstanceUnchecked(type, args);
         }
     }
 

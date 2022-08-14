@@ -25,11 +25,11 @@ namespace OpenNefia.Core.Rendering
             var radiusVector = new Vector2i(radius, radius);
             double maxDist = (double)fovMax / 2;
 
-            var fovMap = new bool[fovMax+2, fovMax+2];
+            var fovMap = new bool[fovMax + 2, fovMax + 2];
 
-            for (int y = 0; y < fovMax+2; y++)
+            for (int y = 0; y < fovMax + 2; y++)
             {
-                for (int x = 0; x < fovMax+2; x++)
+                for (int x = 0; x < fovMax + 2; x++)
                 {
                     fovMap[y, x] = (new Vector2i(x, y) - radiusVector).LengthSquared < maxDist * maxDist;
                 }
@@ -59,7 +59,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             Cache.Add(fovMax, fovList);
-            
+
             return fovList;
         }
     }

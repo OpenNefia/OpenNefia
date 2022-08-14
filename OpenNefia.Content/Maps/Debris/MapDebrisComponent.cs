@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Maps
             DebrisMemory = new MapDebris[map.Width, map.Height];
         }
     }
-    
+
     [DataDefinition]
     public struct MapDebris
     {

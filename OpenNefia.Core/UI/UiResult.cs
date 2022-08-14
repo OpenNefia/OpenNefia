@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public abstract record UiResult<T> where T: class
+    public abstract record UiResult<T> where T : class
     {
         public bool HasValue { get => this is Finished; }
 

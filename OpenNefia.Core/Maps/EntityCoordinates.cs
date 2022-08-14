@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Maps
         /// <returns></returns>
         public MapCoordinates ToMap(IEntityManager entityManager)
         {
-            if(!IsValid(entityManager))
+            if (!IsValid(entityManager))
                 return MapCoordinates.Nullspace;
 
             var transform = entityManager.GetComponent<SpatialComponent>(EntityId);
@@ -150,7 +150,7 @@ namespace OpenNefia.Core.Maps
         /// <returns></returns>
         public Vector2i ToVector2i(IEntityManager entityManager)
         {
-            if(!IsValid(entityManager))
+            if (!IsValid(entityManager))
                 return new Vector2i();
 
             var (x, y) = ToMapPos(entityManager);
@@ -291,7 +291,7 @@ namespace OpenNefia.Core.Maps
         /// <exception cref="ArgumentException">Thrown when the relative entities aren't the same</exception>
         public static EntityCoordinates operator +(EntityCoordinates left, EntityCoordinates right)
         {
-            if(left.EntityId != right.EntityId)
+            if (left.EntityId != right.EntityId)
                 throw new ArgumentException("Can't sum EntityCoordinates with different relative entities.");
 
             return new EntityCoordinates(left.EntityId, left.Position + right.Position);
@@ -303,7 +303,7 @@ namespace OpenNefia.Core.Maps
         /// <exception cref="ArgumentException">Thrown when the relative entities aren't the same</exception>
         public static EntityCoordinates operator -(EntityCoordinates left, EntityCoordinates right)
         {
-            if(left.EntityId != right.EntityId)
+            if (left.EntityId != right.EntityId)
                 throw new ArgumentException("Can't subtract EntityCoordinates with different relative entities.");
 
             return new EntityCoordinates(left.EntityId, left.Position - right.Position);
@@ -315,7 +315,7 @@ namespace OpenNefia.Core.Maps
         /// <exception cref="ArgumentException">When the relative entities aren't the same</exception>
         public static EntityCoordinates operator *(EntityCoordinates left, EntityCoordinates right)
         {
-            if(left.EntityId != right.EntityId)
+            if (left.EntityId != right.EntityId)
                 throw new ArgumentException("Can't multiply EntityCoordinates with different relative entities.");
 
             return new EntityCoordinates(left.EntityId, left.Position * right.Position);

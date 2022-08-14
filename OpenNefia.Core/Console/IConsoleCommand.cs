@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Console
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public interface IConsoleCommand<T> : IConsoleCommand
-        where T: notnull
+        where T : notnull
     {
         /// <summary>
         /// Executes the client command.

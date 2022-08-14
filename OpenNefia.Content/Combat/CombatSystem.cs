@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Combat
             var rangedWeapon = _equipSlots.EnumerateEquippedEntities(entity)
                 .Where(IsRangedWeapon)
                 .FirstOrNull();
-            
+
             if (!IsAlive(rangedWeapon))
             {
                 pair = null;
@@ -181,7 +181,7 @@ namespace OpenNefia.Content.Combat
                 pair = (rangedWeapon.Value, null);
                 errorReason = null;
                 return true;
-            }    
+            }
 
             if (!TryGetAmmo(entity, rangedWeapon.Value, out var ammo))
             {
@@ -214,11 +214,11 @@ namespace OpenNefia.Content.Combat
                 ammo = _equipSlots.EnumerateEquippedEntities(entity)
                     .Where(ent => IsAmmo(ent) && weaponComp.WeaponSkill == Comp<AmmoComponent>(ent).AmmoSkill)
                     .FirstOrNull();
-                
+
                 if (ammo != null)
                     return true;
             }
-            
+
             ammo = _equipSlots.EnumerateEquippedEntities(entity)
                 .Where(ent => IsAmmo(ent))
                 .FirstOrNull();
@@ -256,7 +256,7 @@ namespace OpenNefia.Content.Combat
             {
                 // TODO ammo enchantments
             }
-            
+
             if (!TryComp<WeaponComponent>(rangedWeapon, out var weaponComp))
             {
                 Logger.WarningS("combat", $"No {nameof(WeaponComponent)} on {rangedWeapon}!");

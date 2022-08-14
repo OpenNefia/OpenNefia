@@ -237,7 +237,7 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        private bool EventFiltered<T>(UiElement control, T guiEvent) 
+        private bool EventFiltered<T>(UiElement control, T guiEvent)
             where T : GUIBoundKeyEventArgs
         {
             foreach (var filter in control.BoundKeyEventFilters)

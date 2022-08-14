@@ -75,7 +75,7 @@ public class GeneratorOptions
 
             if (propertyValue.Contains(";"))
                 return propertyValue.Split(';');
-            return new[] {propertyValue};
+            return new[] { propertyValue };
         }
     }
 
@@ -89,7 +89,7 @@ public class GeneratorOptions
 
             if (propertyValue.Contains(";"))
                 return propertyValue.Split(';');
-            return new[] {propertyValue};
+            return new[] { propertyValue };
         }
     }
 

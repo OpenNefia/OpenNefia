@@ -39,7 +39,7 @@ namespace OpenNefia.Tests.Core.Maps
             Assert.That(mapMan.MapIsLoaded(map.Id), Is.True);
             Assert.That(map.MapEntityUid, Is.EqualTo(mapEnt));
             Assert.That(map.Id, Is.EqualTo(mapId));
-            
+
             // RegisterMap() will not affect the highest map ID. This is
             // an internal function for game save purposes only. It is
             // assumed that HighestMapId is saved as part of the global
@@ -69,7 +69,7 @@ namespace OpenNefia.Tests.Core.Maps
 
             Assert.That(mapMan.NextMapId == (int)map2.Id + 1);
         }
-        
+
         [Test]
         public void TestSetActiveMap_GlobalMap()
         {

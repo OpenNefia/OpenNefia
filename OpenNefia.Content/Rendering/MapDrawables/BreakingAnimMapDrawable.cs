@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Rendering
         protected Particle[] Particles;
         protected FrameCounter Counter;
 
-        public BreakingAnimMapDrawable(PrototypeId<AssetPrototype> asset, uint duration, int maxParticles,float? waitSecs = null)
+        public BreakingAnimMapDrawable(PrototypeId<AssetPrototype> asset, uint duration, int maxParticles, float? waitSecs = null)
         {
             // TODO
             IoCManager.InjectDependencies(this);

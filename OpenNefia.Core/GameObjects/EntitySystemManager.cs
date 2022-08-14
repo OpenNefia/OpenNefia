@@ -64,7 +64,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 throw new ArgumentException($"Type '{type}' does not implement {nameof(IEntitySystem)}");
             }
-            
+
             return (IEntitySystem)_systemDependencyCollection.ResolveType(type);
         }
 
@@ -209,8 +209,9 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        private static IEnumerable<Type> GetBaseTypes(Type type) {
-            if(type.BaseType == null) return type.GetInterfaces();
+        private static IEnumerable<Type> GetBaseTypes(Type type)
+        {
+            if (type.BaseType == null) return type.GetInterfaces();
 
             return Enumerable.Repeat(type.BaseType, 1)
                 .Concat(type.GetInterfaces())
@@ -224,7 +225,7 @@ namespace OpenNefia.Core.GameObjects
             // System.Values is modified by RemoveSystem
             foreach (var systemType in _systemTypes)
             {
-                if(_systemDependencyCollection == null) continue;
+                if (_systemDependencyCollection == null) continue;
                 var system = (IEntitySystem)_systemDependencyCollection.ResolveType(systemType);
                 SystemUnloaded?.Invoke(this, new SystemChangedArgs(system));
                 system.Shutdown();
@@ -280,7 +281,7 @@ namespace OpenNefia.Core.GameObjects
                 return true;
             }
 
-            var mUpdate = type.GetMethod(nameof(EntitySystem.Update), new[] {typeof(float)});
+            var mUpdate = type.GetMethod(nameof(EntitySystem.Update), new[] { typeof(float) });
 
             DebugTools.AssertNotNull(mUpdate);
 
@@ -294,7 +295,7 @@ namespace OpenNefia.Core.GameObjects
                 return true;
             }
 
-            var mFrameUpdate = type.GetMethod(nameof(EntitySystem.FrameUpdate), new[] {typeof(float)});
+            var mFrameUpdate = type.GetMethod(nameof(EntitySystem.FrameUpdate), new[] { typeof(float) });
 
             DebugTools.AssertNotNull(mFrameUpdate);
 

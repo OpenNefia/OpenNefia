@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Combat
                         _effects.SetTurns(uid, Protos.StatusEffect.Fury, _rand.Next(30) + 15);
                     }
                 }
-            } 
+            }
             // <<<<<<<< shade2/chara_func.hsp:1581 		} ..
         }
     }

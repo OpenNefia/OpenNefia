@@ -26,7 +26,7 @@ namespace OpenNefia.Core.ResourceManagement
             var cache = GetTypeDict<T>();
             if (cache.TryGetValue(path, out var cached))
             {
-                return (T) cached;
+                return (T)cached;
             }
 
             var _resource = new T();
@@ -63,7 +63,7 @@ namespace OpenNefia.Core.ResourceManagement
             var cache = GetTypeDict<T>();
             if (cache.TryGetValue(path, out var cached))
             {
-                resource = (T) cached;
+                resource = (T)cached;
                 return true;
             }
 
@@ -131,7 +131,7 @@ namespace OpenNefia.Core.ResourceManagement
         {
             if (_fallbacks.TryGetValue(typeof(T), out var fallback))
             {
-                return (T) fallback;
+                return (T)fallback;
             }
 
             var res = new T();
@@ -142,12 +142,12 @@ namespace OpenNefia.Core.ResourceManagement
 
             fallback = GetResource<T>(res.Fallback, useFallback: false);
             _fallbacks.Add(typeof(T), fallback);
-            return (T) fallback;
+            return (T)fallback;
         }
 
         public IEnumerable<KeyValuePair<ResourcePath, T>> GetAllResources<T>() where T : BaseResource, new()
         {
-            return GetTypeDict<T>().Select(p => new KeyValuePair<ResourcePath, T>(p.Key, (T) p.Value));
+            return GetTypeDict<T>().Select(p => new KeyValuePair<ResourcePath, T>(p.Key, (T)p.Value));
         }
 
         #region IDisposable Members

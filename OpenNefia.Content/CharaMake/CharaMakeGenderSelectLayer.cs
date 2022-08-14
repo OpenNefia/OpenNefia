@@ -34,20 +34,20 @@ namespace OpenNefia.Content.CharaMake
                 Gender.Male => "Elona.Gender.Names.Male.Polite",
                 _ => "Elona.Gender.Names.Female.Polite",
             };
-            public GenderCell(Gender data) 
+            public GenderCell(Gender data)
                 : base(data, new UiText(UiFonts.ListText))
             {
                 Text = Loc.GetString(LocalizeKey!).FirstCharToUpper();
             }
         }
 
-        [Child] [Localize] private UiWindow Window = new();
-        [Child] [Localize] private UiTextTopic GenderTopic = new();
+        [Child][Localize] private UiWindow Window = new();
+        [Child][Localize] private UiTextTopic GenderTopic = new();
         [Child] private UiList<Gender> List = new();
 
         public CharaMakeGenderSelectLayer()
         {
-            List.SetCells(new[] 
+            List.SetCells(new[]
             {
                 new GenderCell(Gender.Male),
                 new GenderCell(Gender.Female),

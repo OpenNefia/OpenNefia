@@ -10,13 +10,13 @@ namespace OpenNefia.Core.Stats
     {
         private T _base;
         private T _buffed;
-     
+
         public bool IsBuffed { get; private set; }
 
         public T Base
         {
             get => _base;
-            set 
+            set
             {
                 _base = value;
                 if (!IsBuffed)
@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Stats
             {
                 if (!_buffed?.Equals(value) ?? false)
                     IsBuffed = true;
-                
+
                 _buffed = value;
             }
         }
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.Stats
         // Needed for copying in de/serialization
         public Stat() : this(default!, default!) { }
 
-        public Stat(T baseValue) : this (baseValue, baseValue) {}
+        public Stat(T baseValue) : this(baseValue, baseValue) { }
 
         public Stat(T baseValue, T buffedValue)
         {

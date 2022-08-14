@@ -28,7 +28,7 @@ namespace OpenNefia.Content.DisplayName
 
         public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
         {
-            switch(Loc.Language)
+            switch (Loc.Language)
             {
                 case var jp when jp == LanguagePrototypeOf.Japanese:
                     args.ItemName += BasicNameJP(uid, component);

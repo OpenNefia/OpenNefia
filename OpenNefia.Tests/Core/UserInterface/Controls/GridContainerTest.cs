@@ -14,12 +14,12 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [TestCase(false)]
         public void TestBasic(bool limitByCount)
         {
-            var grid = limitByCount ? new GridContainer {Columns = 2} : new GridContainer {MaxGridWidth = 125};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+            var grid = limitByCount ? new GridContainer { Columns = 2 } : new GridContainer { MaxGridWidth = 125 };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -43,13 +43,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestBasicRows(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Rows = 2}
-                : new GridContainer {MaxGridHeight = 125};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Rows = 2 }
+                : new GridContainer { MaxGridHeight = 125 };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -75,12 +75,12 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
             // max minwidth / minheight among them.
             // Note that when limiting by count, the behavior is different - rows and columns are individually
             // expanded based on the max size of their elements
-            var grid = new GridContainer {MaxGridWidth = 125};
-            var child1 = new WispControl {MinSize = (12, 24)};
-            var child2 = new WispControl {MinSize = (30, 50)};
-            var child3 = new WispControl {MinSize = (40, 20)};
-            var child4 = new WispControl {MinSize = (20, 12)};
-            var child5 = new WispControl {MinSize = (50, 10)};
+            var grid = new GridContainer { MaxGridWidth = 125 };
+            var child1 = new WispControl { MinSize = (12, 24) };
+            var child2 = new WispControl { MinSize = (30, 50) };
+            var child3 = new WispControl { MinSize = (40, 20) };
+            var child4 = new WispControl { MinSize = (20, 12) };
+            var child5 = new WispControl { MinSize = (50, 10) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -102,12 +102,12 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestUnevenLimitSizeRows()
         {
-            var grid = new GridContainer {MaxGridHeight = 125};
-            var child1 = new WispControl {MinSize = (12, 2)};
-            var child2 = new WispControl {MinSize = (5, 23)};
-            var child3 = new WispControl {MinSize = (42, 4)};
-            var child4 = new WispControl {MinSize = (2, 50)};
-            var child5 = new WispControl {MinSize = (50, 34)};
+            var grid = new GridContainer { MaxGridHeight = 125 };
+            var child1 = new WispControl { MinSize = (12, 2) };
+            var child2 = new WispControl { MinSize = (5, 23) };
+            var child3 = new WispControl { MinSize = (42, 4) };
+            var child4 = new WispControl { MinSize = (2, 50) };
+            var child5 = new WispControl { MinSize = (50, 34) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -131,13 +131,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestBasicBackwards(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Columns = 2, ExpandBackwards = true}
-                : new GridContainer {MaxGridWidth = 125, ExpandBackwards = true};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Columns = 2, ExpandBackwards = true }
+                : new GridContainer { MaxGridWidth = 125, ExpandBackwards = true };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -161,13 +161,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestBasicRowsBackwards(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Rows = 2, ExpandBackwards = true}
-                : new GridContainer {MaxGridHeight = 125, ExpandBackwards = true};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Rows = 2, ExpandBackwards = true }
+                : new GridContainer { MaxGridHeight = 125, ExpandBackwards = true };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -194,13 +194,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
             // pre-expanded size should be used to determine the size of each "cell", and then expansion
             // happens within the defined control size
             var grid = limitByCount
-                ? new GridContainer {Columns = 2, ExactSize = (200, 200)}
-                : new GridContainer {MaxGridWidth = 125, ExactSize = (200, 200)};
-            var child1 = new WispControl {MinSize = (50, 50), HorizontalExpand = true};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50), VerticalExpand = true};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Columns = 2, ExactSize = (200, 200) }
+                : new GridContainer { MaxGridWidth = 125, ExactSize = (200, 200) };
+            var child1 = new WispControl { MinSize = (50, 50), HorizontalExpand = true };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50), VerticalExpand = true };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -227,13 +227,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestExpandRows(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Rows = 2, ExactSize = (200, 200)}
-                : new GridContainer {MaxGridHeight = 125, ExactSize = (200, 200)};
-            var child1 = new WispControl {MinSize = (50, 50), VerticalExpand = true};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50), HorizontalExpand = true};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Rows = 2, ExactSize = (200, 200) }
+                : new GridContainer { MaxGridHeight = 125, ExactSize = (200, 200) };
+            var child1 = new WispControl { MinSize = (50, 50), VerticalExpand = true };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50), HorizontalExpand = true };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -260,13 +260,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestRowCount(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Columns = 2}
-                : new GridContainer {MaxGridWidth = 125};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Columns = 2 }
+                : new GridContainer { MaxGridWidth = 125 };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);
@@ -292,13 +292,13 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestColumnCountRows(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Rows = 2}
-                : new GridContainer {MaxGridHeight = 125};
-            var child1 = new WispControl {MinSize = (50, 50)};
-            var child2 = new WispControl {MinSize = (50, 50)};
-            var child3 = new WispControl {MinSize = (50, 50)};
-            var child4 = new WispControl {MinSize = (50, 50)};
-            var child5 = new WispControl {MinSize = (50, 50)};
+                ? new GridContainer { Rows = 2 }
+                : new GridContainer { MaxGridHeight = 125 };
+            var child1 = new WispControl { MinSize = (50, 50) };
+            var child2 = new WispControl { MinSize = (50, 50) };
+            var child3 = new WispControl { MinSize = (50, 50) };
+            var child4 = new WispControl { MinSize = (50, 50) };
+            var child5 = new WispControl { MinSize = (50, 50) };
 
             grid.AddChild(child1);
             grid.AddChild(child2);

@@ -12,7 +12,7 @@ namespace OpenNefia.Content.CharaMake
 {
     public class CharaMakeCaption : UiElement
     {
-        public string Text 
+        public string Text
         {
             get => TextCaption.Text;
             set

@@ -112,7 +112,8 @@ namespace OpenNefia.Core.Input
         public bool DeferringEnabled
         {
             get => _deferringEnabled;
-            set {
+            set
+            {
                 // Must be first because _setActiveContextImmediately triggers input events.
                 _deferringEnabled = value;
                 if (!value)
@@ -121,7 +122,7 @@ namespace OpenNefia.Core.Input
                     {
                         var icc = _deferredContextSwitch;
                         _deferredContextSwitch = null;
-                        _setActiveContextImmediately( icc);
+                        _setActiveContextImmediately(icc);
                     }
                 }
             }

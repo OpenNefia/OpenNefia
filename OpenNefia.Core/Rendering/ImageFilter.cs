@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace OpenNefia.Core.Rendering
 {
     [DataDefinition]
-    public class ImageFilter 
+    public class ImageFilter
     {
         [DataField]
         public Love.FilterMode Min = Love.FilterMode.Linear;

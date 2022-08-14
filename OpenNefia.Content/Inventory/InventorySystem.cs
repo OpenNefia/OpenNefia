@@ -121,7 +121,7 @@ namespace OpenNefia.Content.Inventory
         {
             if (!Resolve(ent, ref invComp))
                 return true;
-            
+
             if (invComp.MaxItemCount == null)
                 return false;
 

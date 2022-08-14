@@ -4,7 +4,7 @@ namespace OpenNefia.Core.Utility
 {
     public class VectorSerializerUtility
     {
-        private static char[] _separators = {',', 'x'};
+        private static char[] _separators = { ',', 'x' };
 
         public static bool TryParseArgs(string value, int count, [NotNullWhen(true)] out string[]? args)
         {

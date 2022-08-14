@@ -33,7 +33,7 @@ namespace OpenNefia.Content.DebugView
                 var box = new BoxContainer() { Orientation = LayoutOrientation.Vertical };
 
                 var tileView = new TileView() { Tile = tileProto, Name = nameof(TileView) };
-                var button = new ContainerButton() {};
+                var button = new ContainerButton() { };
                 button.AddStyleClass(StyleClassTileButton);
                 button.OnPressed += OnButtonPressed;
                 tileView.AddChild(button);

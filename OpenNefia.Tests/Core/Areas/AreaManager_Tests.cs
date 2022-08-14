@@ -42,7 +42,7 @@ namespace OpenNefia.Tests.Core.Areas
         public void Setup()
         {
             var mapMan = IoCManager.Resolve<IMapManagerInternal>();
-            
+
             mapMan.FlushMaps();
             IoCManager.Resolve<IAreaManagerInternal>().FlushAreas();
             IoCManager.Resolve<IEntityManagerInternal>().FlushEntities();
@@ -67,7 +67,7 @@ namespace OpenNefia.Tests.Core.Areas
             // (no RegisterAreaFloor() was called
             var map = mapMan.CreateMap(10, 10);
             area._containedMaps[TestMapFloor] = new AreaFloor(map.Id);
-            
+
             areaMan.RegisterArea(area, areaId, areaEnt);
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);

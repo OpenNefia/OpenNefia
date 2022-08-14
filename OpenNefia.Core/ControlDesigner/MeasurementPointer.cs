@@ -43,7 +43,7 @@ namespace OpenNefia.Core.ControlDesigner
                 {
                     return RulerColorOverride.Value;
                 }
-                
+
                 if (TryGetStyleProperty<Color>(StylePropertyRulerColor, out var color))
                 {
                     return color;

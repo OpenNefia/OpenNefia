@@ -520,7 +520,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 throw new ArgumentException($"Delegate target type {systemType} does not implement {nameof(IEntitySystem)}.");
             }
-            
+
             // End result should be equivalent to:
             // (...) => EntitySystem.Get<TSystem>().MethodName(...);
 
@@ -543,7 +543,7 @@ namespace OpenNefia.Core.Serialization.Manager
             }
 
             var call = Expression.Call(Expression.Call(entitySystemGet), method, parameters);
-            
+
             var value = Expression.Lambda<TDelegate>(call, parameters).Compile();
 
             return new DeserializedValue<TDelegate?>(value);

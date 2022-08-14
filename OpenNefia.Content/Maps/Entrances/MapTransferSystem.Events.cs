@@ -325,7 +325,7 @@ namespace OpenNefia.Content.Maps
             if (!common.IsTemporary && common.IsRenewable)
             {
                 if ((_world.State.GameDate > common.RenewMajorDate
-                    || _config.GetCVar(CCVars.DebugForceMapRenewal) == ForceMapRenewalType.Major) 
+                    || _config.GetCVar(CCVars.DebugForceMapRenewal) == ForceMapRenewalType.Major)
                     && !isFirstRenewal)
                 {
                     var ev = new MapRenewGeometryEvent();

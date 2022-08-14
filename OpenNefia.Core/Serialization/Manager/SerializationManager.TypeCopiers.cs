@@ -37,14 +37,14 @@ namespace OpenNefia.Core.Serialization.Manager
                     var call = Expression.Call(
                         instanceParam,
                         nameof(TryCopy),
-                        new[] {t, tuple.sourceType, tuple.targetType},
+                        new[] { t, tuple.sourceType, tuple.targetType },
                         Expression.Convert(sourceParam, tuple.sourceType),
                         targetCastVariable,
                         skipHookParam,
                         contextParam);
 
                     var block = Expression.Block(
-                        new[] {targetCastVariable, returnVariable},
+                        new[] { targetCastVariable, returnVariable },
                         Expression.Assign(
                             targetCastVariable,
                             Expression.Convert(targetParam, tuple.targetType)),
@@ -88,14 +88,14 @@ namespace OpenNefia.Core.Serialization.Manager
                 context.TypeCopiers.TryGetValue(typeof(TCommon), out rawCopier) ||
                 _typeCopiers.TryGetValue(typeof(TCommon), out rawCopier))
             {
-                var copier = (ITypeCopier<TCommon>) rawCopier;
-                target = (TTarget) copier.Copy(this, source, target, skipHook, context);
+                var copier = (ITypeCopier<TCommon>)rawCopier;
+                target = (TTarget)copier.Copy(this, source, target, skipHook, context);
                 return true;
             }
 
             if (TryGetGenericCopier(out ITypeCopier<TCommon>? genericCopier))
             {
-                target = (TTarget) genericCopier.Copy(this, source, target, skipHook, context);
+                target = (TTarget)genericCopier.Copy(this, source, target, skipHook, context);
                 return true;
             }
 
@@ -124,7 +124,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 if (serializerTypeDef == null) return false;
 
                 var serializerType = serializerTypeDef.MakeGenericType(typeof(T).GetGenericArguments());
-                rawCopier = (ITypeCopier<T>) RegisterSerializer(serializerType)!;
+                rawCopier = (ITypeCopier<T>)RegisterSerializer(serializerType)!;
 
                 return true;
             }

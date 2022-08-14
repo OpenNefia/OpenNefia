@@ -329,7 +329,7 @@ namespace OpenNefia.Content.RandomEvent
         {
             if (!_inv.TryGetInventoryContainer(ev.Target, out var inv))
                 return;
-            
+
             var treasureMap = _itemGen.GenerateItem(inv, Protos.Item.TreasureMap);
             if (IsAlive(treasureMap))
                 _mes.Display(Loc.GetString("Elona.Common.PutInBackpack", ("item", treasureMap.Value)));

@@ -74,7 +74,7 @@ namespace OpenNefia.Content.UI.Element
 
             if (CurrentElement != null)
                 keyHints.AddRange(CurrentElement.MakeKeyHints());
-            
+
             if (PageCount > 1)
             {
                 keyHints.Add(new(UiKeyHints.Page, new[] { EngineKeyFunctions.UIPreviousPage, EngineKeyFunctions.UINextPage }));
@@ -164,7 +164,7 @@ namespace OpenNefia.Content.UI.Element
 
             if (mapping.Element is IUiPaged elemPaged)
                 changed = elemPaged.SetPage(mapping.ChildPage);
-            
+
             if (playSound && !changed)
                 Sounds.Play(Sound.Pop1);
 

@@ -66,7 +66,7 @@ namespace OpenNefia.Core.Locale
         }
 
         public bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
-            where T: class, IPrototype
+            where T : class, IPrototype
         {
             return _localizationManager.TryGetPrototypeString(protoId, key, out str, args);
         }

@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Hud
         [Child] private HudMessageWindow MessageWindow;
         [Child] private UiContainer MessageBoxContainer;
         [Child] private UiContainer BacklogContainer;
-        
+
         public bool IsShowingBacklog { get; private set; }
 
         public HudMessageBoxWidget()

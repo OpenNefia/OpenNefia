@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Directions
             {
                 dir = Direction.Invalid;
                 return false;
-            } 
+            }
             dir = (to.Position - from.Position).GetDir();
             return true;
         }

@@ -73,7 +73,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
         {
             _cache.Clear();
             _ended = false;
-            
+
             var enumerable = (IEnumerable)Instance.Object;
             _enumerator = enumerable.GetEnumerator();
 
@@ -113,7 +113,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
                 {
                     // The page is higher than the highest page we have, but the enumerator hasn't ended yet so that might be valid.
                     // Gotta get more data.
-                     _cacheTo((page + 1) * ElementsPerPage);
+                    _cacheTo((page + 1) * ElementsPerPage);
 
                     if (page > HighestKnownPage)
                     {
@@ -178,7 +178,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
                 // This check is probably redundant, oh well.
                 return;
             }
-            
+
             DebugTools.AssertNotNull(_enumerator);
             while (_cache.Count < index)
             {

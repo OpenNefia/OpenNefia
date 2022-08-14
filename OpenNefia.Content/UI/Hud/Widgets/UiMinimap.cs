@@ -50,9 +50,9 @@ namespace OpenNefia.Content.Hud
             var tileWidth = Width / tiles.GetLength(0);
             var tileHeight = Height / tiles.GetLength(1);
             Batch.Clear();
-            for(int x = 0; x < tiles.GetLength(0); x++)
+            for (int x = 0; x < tiles.GetLength(0); x++)
             {
-                for(int y = 0; y < tiles.GetLength(1); y++)
+                for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     var tile = _tileDefManager[tiles[x, y].Type];
                     Batch.Add(UIScale,

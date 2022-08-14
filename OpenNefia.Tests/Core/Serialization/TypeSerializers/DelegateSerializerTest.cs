@@ -32,7 +32,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
         }
     }
-    
+
     [TestFixture]
     public class DelegateSerializerTest : SerializationTest
     {

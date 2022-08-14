@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Ranks
         public const int MinRankExp = ExpPerRankPlace * MinRankPlace;
         public const int MaxRankExp = ExpPerRankPlace * MaxRankPlace;
 
-        public Rank() {}
+        public Rank() { }
 
         public Rank(int experience, GameTimeSpan? timeUntilDecay)
         {
@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Ranks
     }
 
     [DataDefinition]
-    public sealed class RankData : Dictionary<PrototypeId<RankPrototype>, Rank> {}
+    public sealed class RankData : Dictionary<PrototypeId<RankPrototype>, Rank> { }
 
     public sealed class RankSystem : EntitySystem, IRankSystem
     {

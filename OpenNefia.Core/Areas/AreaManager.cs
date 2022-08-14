@@ -252,7 +252,7 @@ namespace OpenNefia.Core.Areas
                 result = areaComp;
                 break;
             }
-            
+
             if (result != null)
             {
                 _areaEntities.Add(actualID, result.Owner);
@@ -274,7 +274,7 @@ namespace OpenNefia.Core.Areas
 
                 var areaComp = _entityManager.EnsureComponent<AreaComponent>(newEnt);
                 areaComp.AreaId = actualID;
-                
+
                 // Area entities will always live in the global map.
                 var areaSpatial = _entityManager.GetComponent<SpatialComponent>(newEnt);
                 areaSpatial.AttachParent(globalMapSpatial);

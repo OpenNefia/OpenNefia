@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Fame
         {
             if (!Resolve(ent, ref fame))
                 return 0;
-            
+
             var delta = fame.Fame.Base / fraction + 5;
             delta += _rand.Next(delta / 2) - _rand.Next(delta / 2);
             fame.Fame.Base = Math.Max(fame.Fame.Base - delta, 0);
@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Fame
         {
             if (!Resolve(ent, ref fame))
                 return 0;
-            
+
             var ret = baseAmount * 100 / (100 + fame.Fame.Base / 100 * (fame.Fame.Base / 100) / 2500);
             if (ret < 5)
                 ret = _rand.Next(5) + 1;

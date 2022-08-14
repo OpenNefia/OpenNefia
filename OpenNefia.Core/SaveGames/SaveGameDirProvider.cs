@@ -164,7 +164,7 @@ namespace OpenNefia.Core.SaveGames
             Logger.DebugS("save.writer", "Clearing temporary directory");
 
             var (files, dirs) = _tempDir.Find("*", recursive: false);
-        
+
             foreach (var file in files)
             {
                 _tempDir.Delete(file);

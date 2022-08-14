@@ -49,9 +49,9 @@ namespace OpenNefia.Core.Input
         void KeyDown(KeyEventArgs e);
         void KeyUp(KeyEventArgs e);
 
-        IKeyBinding RegisterBinding(in KeyBindingRegistration reg, bool markModified=true);
+        IKeyBinding RegisterBinding(in KeyBindingRegistration reg, bool markModified = true);
 
-        void RemoveBinding(IKeyBinding binding, bool markModified=true);
+        void RemoveBinding(IKeyBinding binding, bool markModified = true);
 
         /// <summary>
         ///     Gets a key binding according to the function it is bound to.

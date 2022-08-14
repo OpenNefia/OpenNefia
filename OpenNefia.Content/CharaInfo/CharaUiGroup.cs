@@ -78,7 +78,7 @@ namespace OpenNefia.Content.CharaInfo
         public override void Initialize(CharaUiGroupArgs args)
         {
             base.Initialize(args);
-            
+
             // for tracking equipment status
             CharaGroupSublayerResult sharedResult = new();
 

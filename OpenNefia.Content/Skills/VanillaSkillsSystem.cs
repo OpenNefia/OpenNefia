@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Skills
                 + CompOrNull<EquipStatsComponent>(ev.Attacker)?.DamageBonus.Buffed ?? 0;
             var diceX = 2;
             var diceY = _skills.Level(ev.Attacker, Protos.Skill.MartialArts) / 8 + 5;
-            var multiplier = 0.5f + (_skills.Level(ev.Attacker, relatedSkill) 
+            var multiplier = 0.5f + (_skills.Level(ev.Attacker, relatedSkill)
                 + _skills.Level(ev.Attacker, Protos.Skill.MartialArts)) / 5.0f
                 + _skills.Level(ev.Attacker, Protos.Skill.Tactics)
                 / 40.0f;

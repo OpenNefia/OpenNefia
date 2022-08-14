@@ -83,7 +83,7 @@ namespace OpenNefia.Packaging.Tasks
             foreach (var projectDir in ProjectsWithResources)
             {
                 var resourcesDir = Path.Combine(projectDir, "Resources");
-                
+
                 foreach (var file in Directory.EnumerateFiles(resourcesDir, "*", enumOptions))
                 {
                     var filename = Path.GetFileName(file);

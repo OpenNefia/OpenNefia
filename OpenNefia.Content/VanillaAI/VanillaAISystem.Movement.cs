@@ -24,8 +24,8 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
-        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
-            int maxDistance = 2, 
+        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai,
+            int maxDistance = 2,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(entity, ref spatial))
@@ -189,7 +189,7 @@ namespace OpenNefia.Content.VanillaAI
 
                     if (Resolve(target, ref targetLevel) && Resolve(onCell, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
-                        if (onCellQuality.Quality.Buffed > Quality.Good 
+                        if (onCellQuality.Quality.Buffed > Quality.Good
                             && onCellLevel.Level > targetLevel.Level
                             && onCellAi.CurrentTarget != ai.CurrentTarget)
                         {
@@ -310,7 +310,7 @@ namespace OpenNefia.Content.VanillaAI
                     reverse = true;
                 }
                 dir = Direction.East;
-            } 
+            }
             else if (desired.X < spatial.WorldPosition.X)
             {
                 if (desired.Y < spatial.WorldPosition.Y)
@@ -350,8 +350,8 @@ namespace OpenNefia.Content.VanillaAI
             return new MovementResult(pos, blocked, SouthNorth);
         }
 
-        private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse, 
-            VanillaAIComponent ai, 
+        private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse,
+            VanillaAIComponent ai,
             SpatialComponent spatial)
         {
             var pos = Vector2i.Zero;

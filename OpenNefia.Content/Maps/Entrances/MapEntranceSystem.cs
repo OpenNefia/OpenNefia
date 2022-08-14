@@ -85,7 +85,7 @@ namespace OpenNefia.Content.Maps
             _audio.Play(Protos.Sound.Exitmap1);
 
             _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
-            
+
             return true;
         }
 

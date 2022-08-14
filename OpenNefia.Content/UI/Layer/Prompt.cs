@@ -31,7 +31,7 @@ namespace OpenNefia.Content.UI.Layer
         }
 
         public PromptChoice(T result, LocaleKey localeKey, Keyboard.Key key = Keyboard.Key.Unknown)
-            : this(result, Loc.GetString(localeKey), key) 
+            : this(result, Loc.GetString(localeKey), key)
         {
         }
 

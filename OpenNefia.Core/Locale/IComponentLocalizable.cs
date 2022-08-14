@@ -15,6 +15,6 @@ namespace OpenNefia.Core.Locale
         /// corresponding localization data in Lua.
         /// </summary>
         /// <param name="table">Table containing the localization data.</param>
-        void LocalizeFromLua(LuaTable table) {}
+        void LocalizeFromLua(LuaTable table) { }
     }
 }

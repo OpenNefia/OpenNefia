@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Nefia
         [DataField]
         public int ItemModifier { get; set; }
 
-        public SimpleCrowdDensityModifier() : this(4, 4) {}
+        public SimpleCrowdDensityModifier() : this(4, 4) { }
 
         public SimpleCrowdDensityModifier(int mob, int item)
         {
@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Nefia
 
         [DataField]
         public UIBox2i Bounds { get; set; }
-        
+
         [DataField]
         public Direction Alignment { get; set; }
     }

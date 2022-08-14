@@ -15,10 +15,10 @@ namespace OpenNefia.Content.Religion
         /// </summary>
         [DataField]
         public PrototypeId<GodPrototype>? GodID { get; set; }
-   
+
         [DataField]
         public int Piety { get; set; }
-        
+
         [DataField]
         public int GodRank { get; set; }
 

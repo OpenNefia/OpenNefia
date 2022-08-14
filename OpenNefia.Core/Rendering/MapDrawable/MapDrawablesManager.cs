@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Rendering
         bool HasActiveDrawables();
         void WaitForDrawables();
     }
-    
+
     public class MapDrawablesManager : BaseDrawable, IMapDrawablesManager
     {
         [Dependency] private readonly IEntityManager _entityMan = default!;

@@ -10,7 +10,7 @@ using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Nefia
 {
-    public sealed class NefiaTemplateAncientCastle: IVanillaNefiaTemplate
+    public sealed class NefiaTemplateAncientCastle : IVanillaNefiaTemplate
     {
         [Dependency] private readonly IEntityManager _entityMan = default!;
 

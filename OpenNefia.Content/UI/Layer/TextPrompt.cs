@@ -17,7 +17,7 @@ namespace OpenNefia.Content.UI.Layer
     public class TextPrompt : UiLayerWithResult<TextPrompt.Args, TextPrompt.Result>
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
-        
+
         public class Result
         {
             public string Text { get; set; }
@@ -26,7 +26,7 @@ namespace OpenNefia.Content.UI.Layer
                 Text = text;
             }
         }
-        
+
         public class Args
         {
             public bool IsCancellable { get; set; } = true;
@@ -35,7 +35,7 @@ namespace OpenNefia.Content.UI.Layer
             public bool HasShadow { get; set; } = true;
             public string? QueryText { get; set; } = null;
 
-            public Args(int? maxLength = 16, string? initialValue = null, bool isCancellable = true, 
+            public Args(int? maxLength = 16, string? initialValue = null, bool isCancellable = true,
                 bool hasShadow = true, string? queryText = null)
             {
                 MaxLength = maxLength;

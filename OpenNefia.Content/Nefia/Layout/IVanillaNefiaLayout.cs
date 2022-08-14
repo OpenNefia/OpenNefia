@@ -18,6 +18,6 @@ namespace OpenNefia.Content.Nefia
     {
         IMap? Generate(IArea area, MapId mapId, int generationAttempt, int floorNumber, Blackboard<NefiaGenParams> data);
 
-        void AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data) {}
+        void AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data) { }
     }
 }

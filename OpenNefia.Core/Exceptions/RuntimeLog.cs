@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Exceptions
 
         public int ExceptionCount => exceptions.Values.Sum(l => l.Count);
 
-        public void LogException(Exception exception, string? catcher=null)
+        public void LogException(Exception exception, string? catcher = null)
         {
             if (!exceptions.TryGetValue(exception.GetType(), out var list))
             {
@@ -86,7 +86,7 @@ namespace OpenNefia.Core.Exceptions
     {
         int ExceptionCount { get; }
 
-        void LogException(Exception exception, string? catcher=null);
+        void LogException(Exception exception, string? catcher = null);
 
         string Display();
     }

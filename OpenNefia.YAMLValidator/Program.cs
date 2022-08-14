@@ -23,7 +23,7 @@ namespace OpenNefia.YAMLValidator
         {
             return new Program().Run();
         }
-        
+
         private static void InitIoC()
         {
             IoCManager.InitThread();
@@ -76,8 +76,8 @@ namespace OpenNefia.YAMLValidator
                 return 0;
             }
 
-            var res = IoCManager.Resolve<IResourceManagerInternal>(); 
-            
+            var res = IoCManager.Resolve<IResourceManagerInternal>();
+
             foreach (var (resPath, errorHashset) in errors)
             {
                 foreach (var errorNode in errorHashset)

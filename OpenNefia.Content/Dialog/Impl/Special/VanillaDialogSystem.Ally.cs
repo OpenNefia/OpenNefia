@@ -58,7 +58,8 @@ namespace OpenNefia.Content.Dialog
                 }
             }
 
-            args.OutChoices.Add(new() { 
+            args.OutChoices.Add(new()
+            {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Ally.Choices.Abandon"),
                 NextNode = new(Protos.Dialog.Ally, "AbandonConfirm")
             });

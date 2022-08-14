@@ -132,7 +132,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 if (_gameSession.IsPlayer(attacker))
                     _mes.Display(Loc.GetString("Elona.Targeting.NoTarget"));
-                
+
                 target = null;
                 return false;
             }

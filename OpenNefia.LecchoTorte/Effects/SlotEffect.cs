@@ -10,7 +10,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 namespace OpenNefia.Content.Effects
 {
     public class SlotEffect : Effect, ISerializationHooks
-    {       
+    {
         [DataField]
         public ComponentRegistry Components { get; set; } = new();
 

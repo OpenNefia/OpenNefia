@@ -11,10 +11,10 @@ namespace OpenNefia.Core.Prototypes
 
         [DataField("system", required: true)]
         public Type EntitySystemType { get; set; } = default!;
-        
+
         [DataField("method", required: true)]
         public string MethodName { get; set; } = string.Empty;
-        
+
         [DataField("priority")]
         public long Priority { get; set; } = EventPriorities.Default;
     }

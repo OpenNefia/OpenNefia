@@ -78,7 +78,7 @@ namespace OpenNefia.Content.CharaInfo
             if (_mode is TrainerMode.Learn modeLearn)
             {
                 var protoID = proto.GetStrongID();
-                return modeLearn.TrainableSkills.Contains(protoID) 
+                return modeLearn.TrainableSkills.Contains(protoID)
                     && !_skills.HasSkill(charaEntity, protoID)
                     && proto.RelatedSkill != null;
             }

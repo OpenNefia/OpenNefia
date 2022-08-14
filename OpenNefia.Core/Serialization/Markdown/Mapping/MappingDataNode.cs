@@ -130,7 +130,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
 
         public T Cast<T>(string index) where T : DataNode
         {
-            return (T) this[index];
+            return (T)this[index];
         }
 
         public YamlMappingNode ToYaml()

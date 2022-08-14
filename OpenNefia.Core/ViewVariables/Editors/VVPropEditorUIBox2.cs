@@ -59,41 +59,41 @@ namespace OpenNefia.Core.ViewVariables.Editors
             switch (_type)
             {
                 case BoxType.Box2:
-                {
-                    var box = (Box2) value!;
-                    left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
-                    top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
-                    right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
-                    bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
-                    break;
-                }
+                    {
+                        var box = (Box2)value!;
+                        left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
+                        top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
+                        right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
+                        bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
+                        break;
+                    }
                 case BoxType.Box2i:
-                {
-                    var box = (Box2i) value!;
-                    left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
-                    top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
-                    right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
-                    bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
-                    break;
-                }
+                    {
+                        var box = (Box2i)value!;
+                        left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
+                        top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
+                        right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
+                        bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
+                        break;
+                    }
                 case BoxType.UIBox2:
-                {
-                    var box = (UIBox2) value!;
-                    left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
-                    top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
-                    right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
-                    bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
-                    break;
-                }
+                    {
+                        var box = (UIBox2)value!;
+                        left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
+                        top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
+                        right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
+                        bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
+                        break;
+                    }
                 case BoxType.UIBox2i:
-                {
-                    var box = (UIBox2i) value!;
-                    left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
-                    top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
-                    right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
-                    bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
-                    break;
-                }
+                    {
+                        var box = (UIBox2i)value!;
+                        left.Text = box.Left.ToString(CultureInfo.InvariantCulture);
+                        top.Text = box.Top.ToString(CultureInfo.InvariantCulture);
+                        right.Text = box.Right.ToString(CultureInfo.InvariantCulture);
+                        bottom.Text = box.Bottom.ToString(CultureInfo.InvariantCulture);
+                        break;
+                    }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -124,41 +124,41 @@ namespace OpenNefia.Core.ViewVariables.Editors
                 switch (_type)
                 {
                     case BoxType.Box2:
-                    {
-                        var leftVal = float.Parse(left.Text, CultureInfo.InvariantCulture);
-                        var topVal = float.Parse(top.Text, CultureInfo.InvariantCulture);
-                        var rightVal = float.Parse(right.Text, CultureInfo.InvariantCulture);
-                        var bottomVal = float.Parse(bottom.Text, CultureInfo.InvariantCulture);
-                        ValueChanged(new Box2(leftVal, bottomVal, rightVal, topVal));
-                        break;
-                    }
+                        {
+                            var leftVal = float.Parse(left.Text, CultureInfo.InvariantCulture);
+                            var topVal = float.Parse(top.Text, CultureInfo.InvariantCulture);
+                            var rightVal = float.Parse(right.Text, CultureInfo.InvariantCulture);
+                            var bottomVal = float.Parse(bottom.Text, CultureInfo.InvariantCulture);
+                            ValueChanged(new Box2(leftVal, bottomVal, rightVal, topVal));
+                            break;
+                        }
                     case BoxType.Box2i:
-                    {
-                        var leftVal = int.Parse(left.Text, CultureInfo.InvariantCulture);
-                        var topVal = int.Parse(top.Text, CultureInfo.InvariantCulture);
-                        var rightVal = int.Parse(right.Text, CultureInfo.InvariantCulture);
-                        var bottomVal = int.Parse(bottom.Text, CultureInfo.InvariantCulture);
-                        ValueChanged(new Box2i(leftVal, bottomVal, rightVal, topVal));
-                        break;
-                    }
+                        {
+                            var leftVal = int.Parse(left.Text, CultureInfo.InvariantCulture);
+                            var topVal = int.Parse(top.Text, CultureInfo.InvariantCulture);
+                            var rightVal = int.Parse(right.Text, CultureInfo.InvariantCulture);
+                            var bottomVal = int.Parse(bottom.Text, CultureInfo.InvariantCulture);
+                            ValueChanged(new Box2i(leftVal, bottomVal, rightVal, topVal));
+                            break;
+                        }
                     case BoxType.UIBox2:
-                    {
-                        var leftVal = float.Parse(left.Text, CultureInfo.InvariantCulture);
-                        var topVal = float.Parse(top.Text, CultureInfo.InvariantCulture);
-                        var rightVal = float.Parse(right.Text, CultureInfo.InvariantCulture);
-                        var bottomVal = float.Parse(bottom.Text, CultureInfo.InvariantCulture);
-                        ValueChanged(new UIBox2(leftVal, topVal, rightVal, bottomVal));
-                        break;
-                    }
+                        {
+                            var leftVal = float.Parse(left.Text, CultureInfo.InvariantCulture);
+                            var topVal = float.Parse(top.Text, CultureInfo.InvariantCulture);
+                            var rightVal = float.Parse(right.Text, CultureInfo.InvariantCulture);
+                            var bottomVal = float.Parse(bottom.Text, CultureInfo.InvariantCulture);
+                            ValueChanged(new UIBox2(leftVal, topVal, rightVal, bottomVal));
+                            break;
+                        }
                     case BoxType.UIBox2i:
-                    {
-                        var leftVal = int.Parse(left.Text, CultureInfo.InvariantCulture);
-                        var topVal = int.Parse(top.Text, CultureInfo.InvariantCulture);
-                        var rightVal = int.Parse(right.Text, CultureInfo.InvariantCulture);
-                        var bottomVal = int.Parse(bottom.Text, CultureInfo.InvariantCulture);
-                        ValueChanged(new UIBox2i(leftVal, topVal, rightVal, bottomVal));
-                        break;
-                    }
+                        {
+                            var leftVal = int.Parse(left.Text, CultureInfo.InvariantCulture);
+                            var topVal = int.Parse(top.Text, CultureInfo.InvariantCulture);
+                            var rightVal = int.Parse(right.Text, CultureInfo.InvariantCulture);
+                            var bottomVal = int.Parse(bottom.Text, CultureInfo.InvariantCulture);
+                            ValueChanged(new UIBox2i(leftVal, topVal, rightVal, bottomVal));
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

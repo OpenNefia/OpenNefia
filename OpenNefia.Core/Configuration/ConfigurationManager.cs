@@ -103,7 +103,7 @@ namespace OpenNefia.Core.Configuration
                 {
                     //or add another unregistered CVar
                     //Note: the defaultValue is arbitrarily 0, it will get overwritten when the cvar is registered.
-                    cfgVar = new ConfigVar(tablePath, 0, CVar.None) {Value = tomlValue};
+                    cfgVar = new ConfigVar(tablePath, 0, CVar.None) { Value = tomlValue };
                     _configVars.Add(tablePath, cfgVar);
                 }
 
@@ -168,7 +168,7 @@ namespace OpenNefia.Core.Configuration
                     switch (value)
                     {
                         case Enum val:
-                            table.Add(keyName, (int) (object) val); // asserts Enum value != (ulong || long)
+                            table.Add(keyName, (int)(object)val); // asserts Enum value != (ulong || long)
                             break;
                         case int val:
                             table.Add(keyName, val);
@@ -253,11 +253,11 @@ namespace OpenNefia.Core.Configuration
             where T : notnull
         {
             var reg = _configVars[name];
-            var exDel = (Action<T>?) reg.ValueChanged;
+            var exDel = (Action<T>?)reg.ValueChanged;
             exDel += onValueChanged;
             reg.ValueChanged = exDel;
 
-            reg.ValueChangedInvoker ??= (del, v) => ((Action<T>) del)((T) v);
+            reg.ValueChangedInvoker ??= (del, v) => ((Action<T>)del)((T)v);
 
             if (invokeImmediately)
             {
@@ -273,7 +273,7 @@ namespace OpenNefia.Core.Configuration
         public void UnsubValueChanged<T>(string name, Action<T> onValueChanged) where T : notnull
         {
             var reg = _configVars[name];
-            var exDel = (Action<T>?) reg.ValueChanged;
+            var exDel = (Action<T>?)reg.ValueChanged;
             exDel -= onValueChanged;
             reg.ValueChanged = exDel;
         }
@@ -299,7 +299,7 @@ namespace OpenNefia.Core.Configuration
                         $"Found CVarDef '{defField.Name}' on '{defField.DeclaringType?.FullName}' that is not readonly. Please mark it as readonly.");
                 }
 
-                var def = (CVarDef?) defField.GetValue(null);
+                var def = (CVarDef?)defField.GetValue(null);
 
                 if (def == null)
                 {
@@ -364,7 +364,7 @@ namespace OpenNefia.Core.Configuration
         {
             if (_configVars.TryGetValue(name, out var cVar) && cVar.Registered)
                 //TODO: Make flags work, required non-derpy net system.
-                return (T) (GetConfigVarValue(cVar))!;
+                return (T)(GetConfigVarValue(cVar))!;
 
             throw new InvalidConfigurationException($"Trying to get unregistered variable '{name}'");
         }
@@ -402,7 +402,7 @@ namespace OpenNefia.Core.Configuration
             return cVar.Value?.GetType() ?? typeof(string);
         }
 
-        public bool TryGetCVarDef<T>(string name, [NotNullWhen(true)] out CVarDef<T>? def) 
+        public bool TryGetCVarDef<T>(string name, [NotNullWhen(true)] out CVarDef<T>? def)
             where T : notnull
         {
             if (!TryGetCVarDef(name, typeof(T), out var defRaw))
@@ -456,7 +456,7 @@ namespace OpenNefia.Core.Configuration
                 {
                     //or add another unregistered CVar
                     //Note: the defaultValue is arbitrarily 0, it will get overwritten when the cvar is registered.
-                    var cVar = new ConfigVar(key, 0, CVar.None) {OverrideValue = value};
+                    var cVar = new ConfigVar(key, 0, CVar.None) { OverrideValue = value };
                     _configVars.Add(key, cVar);
                 }
             }

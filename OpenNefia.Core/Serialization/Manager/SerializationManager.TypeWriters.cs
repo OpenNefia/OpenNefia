@@ -33,7 +33,7 @@ namespace OpenNefia.Core.Serialization.Manager
                     var call = Expression.Call(
                         instanceParam,
                         nameof(TryWrite),
-                        new[] {t},
+                        new[] { t },
                         Expression.Convert(objParam, t),
                         nodeParam,
                         alwaysWriteParam,
@@ -65,7 +65,7 @@ namespace OpenNefia.Core.Serialization.Manager
             if (context != null && context.TypeWriters.TryGetValue(typeof(T), out var rawTypeWriter) ||
                 _typeWriters.TryGetValue(typeof(T), out rawTypeWriter))
             {
-                writer = (ITypeWriter<T>) rawTypeWriter;
+                writer = (ITypeWriter<T>)rawTypeWriter;
                 return true;
             }
 
@@ -110,7 +110,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 if (serializerTypeDef == null) return false;
 
                 var serializerType = serializerTypeDef.MakeGenericType(typeof(T).GetGenericArguments());
-                rawWriter = (ITypeWriter<T>) RegisterSerializer(serializerType)!;
+                rawWriter = (ITypeWriter<T>)RegisterSerializer(serializerType)!;
 
                 return true;
             }

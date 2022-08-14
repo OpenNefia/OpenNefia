@@ -9,7 +9,7 @@ using OpenNefia.Core.IoC.Exceptions;
 namespace OpenNefia.Tests.Core.GameObjects
 {
     [TestFixture, TestOf(typeof(EntitySystemManager))]
-    public class EntitySystemManager_Tests: OpenNefiaUnitTest
+    public class EntitySystemManager_Tests : OpenNefiaUnitTest
     {
 
         public abstract class ESystemBase : IEntitySystem

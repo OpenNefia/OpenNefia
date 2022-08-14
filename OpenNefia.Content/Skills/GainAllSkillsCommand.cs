@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Skills
                 if (!_skills.HasSkill(entity, skillId))
                 {
                     _skills.GainSkill(entity, skillId, initial);
-                    gained++;    
+                    gained++;
                 }
             }
 

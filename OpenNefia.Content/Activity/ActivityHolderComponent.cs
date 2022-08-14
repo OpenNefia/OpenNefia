@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Activity
     public sealed class ActivityHolderComponent : Component
     {
         public static readonly ContainerId ContainerIdActivityHolder = new("Elona.ActivityHolder");
-        
+
         public override string Name => "ActivityHolder";
 
         /// <summary>

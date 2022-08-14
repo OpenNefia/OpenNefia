@@ -46,7 +46,7 @@ namespace OpenNefia.Content.Maps
         {
             var damageLevel = (args.FinalDamage * 6) / CompOrNull<SkillsComponent>(uid)?.MaxHP ?? 1;
             if (damageLevel > 1)
-{
+            {
                 if (CompOrNull<StoneBloodComponent>(uid)?.HasStoneBlood ?? false)
                     SpillFragments(Spatial(uid).MapPosition, 1 + _rand.Next(2));
                 else

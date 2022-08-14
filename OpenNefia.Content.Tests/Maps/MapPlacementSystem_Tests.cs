@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             Assert.That(mapPlacement.FindFreePositionForChara(desired), Is.EqualTo(map.AtPos((1, 0))));
         }
-        
+
         [Test]
         public void TestMapPlacement_Open()
         {

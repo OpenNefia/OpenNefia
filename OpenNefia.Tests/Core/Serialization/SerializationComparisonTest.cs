@@ -98,7 +98,7 @@ namespace OpenNefia.Tests.Core.Serialization
         }
 
         [DataDefinition]
-        public class CompareTestClassInherited : CompareTestClass 
+        public class CompareTestClassInherited : CompareTestClass
         {
         }
 

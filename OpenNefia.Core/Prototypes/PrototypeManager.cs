@@ -964,7 +964,7 @@ namespace OpenNefia.Core.Prototypes
                 if (!extDataIfaceType.IsAssignableFrom(obj.GetType()))
                 {
                     throw new PrototypeLoadException($"Extended data of type '{obj.GetType()}' cannot apply to prototype of type '{prototypeType}', as it does not implement '{extDataIfaceType}'", filename, child);
-                }    
+                }
 
                 var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
                 objs.Add(obj.GetType(), obj);

@@ -27,10 +27,10 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.CharaMake
 {
     public abstract class CharaMakeLayer : UiLayerWithResult<CharaMakeResultSet, CharaMakeUIResult>, ICharaMakeLayer
-        {}
+    { }
 
     public class CharaMakeLayer<T> : CharaMakeLayer, ICharaMakeLayer<T>
-        where T: ICharaMakeResult
+        where T : ICharaMakeResult
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
 
@@ -40,7 +40,7 @@ namespace OpenNefia.Content.CharaMake
 
         protected CharaMakeResultSet Results = default!;
 
-        [Child] [Localize] protected CharaMakeCaption Caption;
+        [Child][Localize] protected CharaMakeCaption Caption;
         private int UiMoveCount;
 
         public CharaMakeLayer()

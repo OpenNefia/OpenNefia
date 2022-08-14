@@ -70,7 +70,7 @@ namespace OpenNefia.Core.ViewVariables
                 }
 
                 members.Add((propertyInfo, (VVAccess)access, propertyInfo.GetValue(obj),
-                    (v, _) => propertyInfo.GetSetMethod(true)!.Invoke(obj, new[] {v}), propertyInfo.PropertyType));
+                    (v, _) => propertyInfo.GetSetMethod(true)!.Invoke(obj, new[] { v }), propertyInfo.PropertyType));
             }
 
             var groupedSorted = members
@@ -102,7 +102,7 @@ namespace OpenNefia.Core.ViewVariables
         {
             if (top == bottom)
             {
-                return new Label {Text = top, ClipText = true};
+                return new Label { Text = top, ClipText = true };
             }
 
             //var smallFont =
@@ -115,11 +115,11 @@ namespace OpenNefia.Core.ViewVariables
                 Orientation = LayoutOrientation.Vertical,
                 SeparationOverride = 0
             };
-            headBox.AddChild(new Label {Text = top, ClipText = true});
+            headBox.AddChild(new Label { Text = top, ClipText = true });
             headBox.AddChild(new Label
             {
                 Text = bottom,
-            //    FontOverride = smallFont,
+                //    FontOverride = smallFont,
                 FontColorOverride = Color.DarkGray,
                 ClipText = true
             });

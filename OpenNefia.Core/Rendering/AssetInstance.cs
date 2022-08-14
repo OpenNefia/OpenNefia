@@ -36,7 +36,7 @@ namespace OpenNefia.Core.Rendering
         void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
     }
-    
+
     public class AssetInstance : IAssetInstance
     {
         /// <summary>

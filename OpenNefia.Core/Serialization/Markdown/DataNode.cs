@@ -21,7 +21,7 @@ namespace OpenNefia.Core.Serialization.Markdown
 
         public T CopyCast<T>() where T : DataNode
         {
-            return (T) Copy();
+            return (T)Copy();
         }
     }
 

@@ -34,7 +34,7 @@ namespace OpenNefia.Content.ConfigMenu
     }
 
     public interface IConfigCVarMenuNode<T> : IConfigMenuNode
-        where T: notnull
+        where T : notnull
     {
         CVarDef<T> CVar { get; }
     }

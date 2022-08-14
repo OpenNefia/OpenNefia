@@ -7,7 +7,7 @@
         // so it would not make sense to be able to pass NoResult
         // in those cases.
         NoResult = 0,
-        
+
         Failed = 1,
         Aborted = 2,
         Succeeded = 3

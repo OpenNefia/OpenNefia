@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Feats
 
         public bool Equals(FeatLevel? other)
         {
-            if (other == null) 
+            if (other == null)
                 return false;
 
             return other.Level == Level;

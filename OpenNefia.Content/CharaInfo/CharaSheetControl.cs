@@ -159,7 +159,7 @@ namespace OpenNefia.Content.CharaInfo
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
-{
+        {
             if (evt.Function == ContentKeyFunctions.UIPortrait)
             {
                 var args = new CharaAppearanceLayer.Args(_charaEntity);

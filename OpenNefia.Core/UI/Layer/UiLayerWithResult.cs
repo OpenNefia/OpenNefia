@@ -3,7 +3,7 @@ using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class UiLayerWithResult<TArgs, TResult> : UiLayer, IUiLayerWithResult<TArgs, TResult> 
+    public class UiLayerWithResult<TArgs, TResult> : UiLayer, IUiLayerWithResult<TArgs, TResult>
         where TResult : class
     {
         public bool WasCancelled { get; set; }

@@ -101,7 +101,7 @@ namespace OpenNefia.Content.Equipment
             // parented to layer and shared across all cells
             private readonly EntitySpriteBatch SpriteBatch;
 
-            public ListCell(CellData data, EntitySpriteBatch spriteBatch) 
+            public ListCell(CellData data, EntitySpriteBatch spriteBatch)
                 : base(data, new UiText())
             {
                 SpriteBatch = spriteBatch;
@@ -211,7 +211,7 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         [Child] protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
-        [Child] [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
+        [Child][Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
         public delegate void EquippedDelegate(GotEquippedInMenuEvent ev);

@@ -244,7 +244,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
         }
 
         public bool Compare(ISerializationManager serializationManager, HashSet<T> left, HashSet<T> right,
-            bool skipHook, 
+            bool skipHook,
             ISerializationContext? context = null)
         {
             if (left.Count != right.Count)
@@ -260,8 +260,8 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             return true;
         }
 
-        public bool Compare(ISerializationManager serializationManager, ImmutableHashSet<T> left, ImmutableHashSet<T> right, 
-            bool skipHook, 
+        public bool Compare(ISerializationManager serializationManager, ImmutableHashSet<T> left, ImmutableHashSet<T> right,
+            bool skipHook,
             ISerializationContext? context = null)
         {
             if (left.Count != right.Count)

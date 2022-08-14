@@ -41,7 +41,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (!Resolve(uid, ref charged))
                 return;
-            
+
             charged.Charges = Math.Clamp(charges, 0, charged.MaxCharges);
         }
 

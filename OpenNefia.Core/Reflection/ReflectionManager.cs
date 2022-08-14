@@ -77,7 +77,7 @@ namespace OpenNefia.Core.Reflection
             {
                 foreach (var type in typeSet)
                 {
-                    var attribute = (ReflectAttribute?) Attribute.GetCustomAttribute(type, typeof(ReflectAttribute));
+                    var attribute = (ReflectAttribute?)Attribute.GetCustomAttribute(type, typeof(ReflectAttribute));
 
                     if (!(attribute?.Discoverable ?? ReflectAttribute.DEFAULT_DISCOVERABLE))
                         continue;
@@ -197,7 +197,7 @@ namespace OpenNefia.Core.Reflection
                         continue;
                     }
 
-                    @enum = (Enum) Enum.Parse(type, value);
+                    @enum = (Enum)Enum.Parse(type, value);
                     _enumCache[reference] = @enum;
                     return true;
                 }

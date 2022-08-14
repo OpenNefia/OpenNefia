@@ -21,7 +21,8 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         {
             var sim = GameSimulation
                 .NewSimulation()
-                .RegisterComponents(compFac => {
+                .RegisterComponents(compFac =>
+                {
                     compFac.RegisterClass<SlotsComponent>();
                     compFac.RegisterClass<SlotTestComponent>();
                 })
@@ -50,11 +51,11 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var slotId = slotSys.AddSlot(ent, comps);
-            
+
             var slots = entMan.GetComponent<SlotsComponent>(ent);
 
             Assert.That(slots.Registrations.ContainsKey(slotId), Is.True);
-            
+
             var reg = slots.Registrations[slotId];
 
             Assert.That(reg.Id, Is.EqualTo(slotId));

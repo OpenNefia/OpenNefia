@@ -21,14 +21,14 @@ namespace OpenNefia.Core.Serialization.Markdown
 
         public static T ToDataNodeCast<T>(this YamlNode node) where T : DataNode
         {
-            return (T) node.ToDataNode();
+            return (T)node.ToDataNode();
         }
 
         public static YamlNode ToYamlNode(this DataNode node)
         {
             return node switch
             {
-                ValueDataNode valueDataNode => new YamlScalarNode(valueDataNode.Value){Tag = valueDataNode.Tag},
+                ValueDataNode valueDataNode => new YamlScalarNode(valueDataNode.Value) { Tag = valueDataNode.Tag },
                 MappingDataNode mappingDataNode => mappingDataNode.ToYaml(),
                 SequenceDataNode sequenceNode => sequenceNode.ToSequenceNode(),
                 _ => throw new ArgumentOutOfRangeException(nameof(node))

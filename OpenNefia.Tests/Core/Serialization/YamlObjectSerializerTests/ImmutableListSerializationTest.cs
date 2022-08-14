@@ -28,7 +28,7 @@ namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
             // Arrange
             var data = _serializableList;
             var serMan = IoCManager.Resolve<ISerializationManager>();
-            var sequence = (SequenceDataNode) serMan.WriteValue(data);
+            var sequence = (SequenceDataNode)serMan.WriteValue(data);
             var mapping = new MappingDataNode();
             mapping.Add("datalist", sequence);
 
@@ -66,7 +66,7 @@ namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
             var document = new YamlDocument(root.ToYamlNode());
 
             using var stream = new MemoryStream();
-            using var writer = new StreamWriter(stream) {NewLine = "\n"};
+            using var writer = new StreamWriter(stream) { NewLine = "\n" };
 
             var yamlStream = new YamlStream(document);
             yamlStream.Save(writer);

@@ -310,7 +310,7 @@ namespace OpenNefia.Content.Inventory
             InventoryEntry ToEntry(EntityUid item, IInventorySource source)
             {
                 var itemName = Context.Behavior.GetItemName(Context, item);
-                
+
                 if (Context.Behavior.ApplyNameModifiers)
                     source.ModifyEntityName(ref itemName);
 

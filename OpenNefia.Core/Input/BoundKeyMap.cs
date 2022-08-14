@@ -110,13 +110,13 @@ namespace OpenNefia.Core.Input
 
         public BoundKeyFunction KeyFunctionName(KeyFunctionId function)
         {
-            return KeyFunctionsList[(int) function];
+            return KeyFunctionsList[(int)function];
         }
 
         public bool TryGetKeyFunction(KeyFunctionId funcId, out BoundKeyFunction func)
         {
             var list = KeyFunctionsList;
-            var index = (int) funcId;
+            var index = (int)funcId;
 
             if (0 > index || index >= list.Count)
             {

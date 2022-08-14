@@ -78,7 +78,7 @@ namespace OpenNefia.Core.Utility
         /// </summary>
         public bool ContainsAll(params PrototypeId<T>[] flags)
         {
-            return ContainsAll((IEnumerable<PrototypeId<T>>) flags);
+            return ContainsAll((IEnumerable<PrototypeId<T>>)flags);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Utility
         /// </summary>
         public bool ContainsAny(params PrototypeId<T>[] flags)
         {
-            return ContainsAny((IEnumerable<PrototypeId<T>>) flags);
+            return ContainsAny((IEnumerable<PrototypeId<T>>)flags);
         }
 
         /// <summary>

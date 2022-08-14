@@ -16,7 +16,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void SerializationTest()
         {
-            var list = new List<string> {"A", "E"};
+            var list = new List<string> { "A", "E" };
             var node = Serialization.WriteValueAs<SequenceDataNode>(list);
 
             Assert.That(node.Cast<ValueDataNode>(0).Value, Is.EqualTo("A"));
@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void DeserializationTest()
         {
-            var list = new List<string> {"A", "E"};
+            var list = new List<string> { "A", "E" };
             var node = new SequenceDataNode("A", "E");
             var deserializedList = Serialization.ReadValue<List<string>>(node);
 
@@ -39,7 +39,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var node = new SequenceDataNode("A", "E");
 
             var result = Serialization.ReadWithTypeSerializer(typeof(List<string>), typeof(ListSerializers<string>), node);
-            var list = (List<string>?) result.RawValue;
+            var list = (List<string>?)result.RawValue;
 
             Assert.NotNull(list);
             Assert.IsNotEmpty(list!);
@@ -51,9 +51,9 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void CustomWriteTest()
         {
-            var list = new List<string> {"A", "E"};
+            var list = new List<string> { "A", "E" };
 
-            var node = (SequenceDataNode) Serialization.WriteWithTypeSerializer(typeof(List<string>), typeof(ListSerializers<string>), list);
+            var node = (SequenceDataNode)Serialization.WriteWithTypeSerializer(typeof(List<string>), typeof(ListSerializers<string>), list);
 
             Assert.That(node.Sequence.Count, Is.EqualTo(2));
             Assert.That(node.Cast<ValueDataNode>(0).Value, Is.EqualTo("A"));
@@ -63,13 +63,13 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void CustomCopyTest()
         {
-            var source = new List<string> {"A", "E"};
+            var source = new List<string> { "A", "E" };
             var target = new List<string>();
 
             Assert.IsNotEmpty(source);
             Assert.IsEmpty(target);
 
-            var copy = (List<string>?) Serialization.CopyWithTypeSerializer(typeof(ListSerializers<string>), source, target);
+            var copy = (List<string>?)Serialization.CopyWithTypeSerializer(typeof(ListSerializers<string>), source, target);
 
             Assert.NotNull(copy);
 

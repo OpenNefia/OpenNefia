@@ -64,7 +64,7 @@ namespace OpenNefia.Core.Console
 
             public void LogPaths(string message, Func<IEnumerable<string?>> paths)
             {
-                _sawmill.Log(LogLevel.Debug, $"{message}, { string.Join(", ", paths())}");
+                _sawmill.Log(LogLevel.Debug, $"{message}, {string.Join(", ", paths())}");
             }
         }
 

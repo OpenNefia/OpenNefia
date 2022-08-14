@@ -62,7 +62,7 @@ namespace OpenNefia.Core.Rendering
                     foreach (var region in group)
                     {
                         region.spec.AtlasIndex = region.id;
-                    
+
                         // True if this tile is a wall, for fancy wall rendering.
                         region.spec.HasOverhang = region.hasOverhang;
                     }

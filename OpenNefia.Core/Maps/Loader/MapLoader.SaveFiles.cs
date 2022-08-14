@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Maps
     public sealed partial class MapLoader
     {
         public event MapDeletedDelegate? OnMapDeleted;
-        
+
         /// <inheritdoc/>
         public bool MapExistsInSave(MapId id, ISaveGameHandle save)
         {

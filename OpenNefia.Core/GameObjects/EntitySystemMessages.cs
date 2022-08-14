@@ -33,7 +33,7 @@ namespace OpenNefia.Core.GameObjects
     /// The children of this entity are about to be deleted.
     /// </summary>
     [ByRefEvent]
-    public sealed class EntityTerminatingEvent : EntityEventArgs 
+    public sealed class EntityTerminatingEvent : EntityEventArgs
     {
     }
 

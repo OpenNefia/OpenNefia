@@ -12,7 +12,7 @@ namespace OpenNefia.Tests.Maths
     {
         private const double Epsilon = 1.0e-8;
 
-        private static IEnumerable<(float, float, Direction, double)> Sources => new(float, float, Direction, double)[]
+        private static IEnumerable<(float, float, Direction, double)> Sources => new (float, float, Direction, double)[]
         {
             (1, 0, Direction.East, 0.0),
             (1, 1, Direction.SouthEast, System.Math.PI / 4.0),
@@ -87,7 +87,7 @@ namespace OpenNefia.Tests.Maths
             var control = new Angle(new Vector2(test.Item1, test.Item2));
 
             double impl = control;
-            var expl = (double) control;
+            var expl = (double)control;
 
             Assert.That(impl, Is.EqualTo(expl).Within(Epsilon));
         }
@@ -106,7 +106,7 @@ namespace OpenNefia.Tests.Maths
         [Test]
         public void TestFloatToAngleImplicitConversion([ValueSource(nameof(Sources))] (float, float, Direction, double) test)
         {
-            var rads = (float) test.Item4;
+            var rads = (float)test.Item4;
 
             Angle impl = rads;
             var expl = new Angle(rads);

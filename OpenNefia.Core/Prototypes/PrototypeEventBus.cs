@@ -440,7 +440,7 @@ namespace OpenNefia.Core.Prototypes
         where TEvent : notnull;
 
     public abstract class PrototypeEventArgs { }
-    
+
     public abstract class HandledPrototypeEventArgs : PrototypeEventArgs
     {
         /// <summary>

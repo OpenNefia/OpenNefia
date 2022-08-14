@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IEntityMemorySystem _entityMemory = default!;
 
-        private class Entry 
+        private class Entry
         {
             public MapObjectMemory Memory { get; set; }
             public float X { get; set; }
@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Inventory
             public bool Centered { get; set; }
             public float Rotation { get; set; }
 
-            public Entry(MapObjectMemory memory, float x, float y, float? width, float? height, 
+            public Entry(MapObjectMemory memory, float x, float y, float? width, float? height,
                 Color color, bool centered, float rotation)
             {
                 Memory = memory;
@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Inventory
 
             foreach (var entry in _entries)
             {
-                _atlasBatch.Add(UIScale, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
+                _atlasBatch.Add(UIScale, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height,
                     entry.Color, entry.Centered, entry.Rotation);
             }
 

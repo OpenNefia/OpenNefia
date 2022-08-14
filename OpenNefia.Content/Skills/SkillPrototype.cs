@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Skills
         /// Actions.
         /// </summary>
         Action,
-        
+
         /// <summary>
         /// Effects.
         /// </summary>

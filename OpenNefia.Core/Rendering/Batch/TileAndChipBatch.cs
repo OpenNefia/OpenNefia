@@ -58,14 +58,14 @@ namespace OpenNefia.Core.Rendering
         public void SetMapSize(Vector2i size)
         {
             var (width, height) = size;
-            
+
             _tiledSize = size;
             _tiles = new string[width, height];
-            
+
             _deadEntries.Clear();
             _rows = new TileBatchRow[height];
             _dirtyRows.Clear();
-            
+
             _redrawAll = true;
 
             for (int tileY = 0; tileY < height; tileY++)
@@ -174,7 +174,7 @@ namespace OpenNefia.Core.Rendering
             TileBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             ChipBatch = new ChipBatch(chipAtlas, coords);
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
-            
+
             TileWidth = Coords.TileSize.Y;
             RowYIndex = rowYIndex;
             ScreenWidth = widthInTiles * TileWidth;
@@ -191,7 +191,7 @@ namespace OpenNefia.Core.Rendering
             TileBatch.Clear();
             TileOverhangBatch.Clear();
             HasOverhang = false;
-            
+
             for (int x = 0; x < widthInTiles; x++)
             {
                 var tileId = tiles[x, y];

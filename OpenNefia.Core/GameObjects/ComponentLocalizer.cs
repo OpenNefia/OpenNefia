@@ -26,7 +26,7 @@ namespace OpenNefia.Core.GameObjects
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
-        
+
         public void Initialize()
         {
             _entityManager.EventBus.SubscribeBroadcastEvent<EntityInitializedEvent>(this, HandleEntityInitialized);

@@ -80,7 +80,7 @@ namespace OpenNefia.Content.UI.Hud
             public bool HasContent => _entries.Any(x => x.Element is MessageText);
             public void SetOpacities(byte opacity)
             {
-                foreach(var item in _entries)
+                foreach (var item in _entries)
                 {
                     if (item.Element is MessageText text && text.ChangeOpacity)
                         text.Color = text.Color.WithAlphaB(opacity);
@@ -157,7 +157,7 @@ namespace OpenNefia.Content.UI.Hud
 
             foreach (var message in Messages.Reverse())
             {
-                foreach(var tag in message.Tags)
+                foreach (var tag in message.Tags)
                 {
                     switch (tag)
                     {
@@ -175,7 +175,7 @@ namespace OpenNefia.Content.UI.Hud
                         case TextMessageTag textTag:
                             var sb = new StringBuilder();
                             var words = UiHelpers.SplitString(textTag.Message, Loc.Language);
-                            foreach(var word in words)
+                            foreach (var word in words)
                             {
                                 var wordWidth = UiFonts.MessageText.LoveFont.GetWidthV(UIScale, word);
                                 if (totalWidth + wordWidth > Width)

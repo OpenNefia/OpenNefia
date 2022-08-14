@@ -46,7 +46,7 @@ namespace OpenNefia.Core.GameObjects
         {
             return EntityManager.IsAlive(uid);
         }
-        
+
         /// <inheritdoc cref="IEntityManager.GetComponent&lt;T&gt;"/>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected T Comp<T>(EntityUid uid) where T : class, IComponent
@@ -81,7 +81,7 @@ namespace OpenNefia.Core.GameObjects
                 component = null;
                 return false;
             }
-            
+
             return EntityManager.TryGetComponent(uid.Value, out component);
         }
 
@@ -116,7 +116,7 @@ namespace OpenNefia.Core.GameObjects
             proto = metaData.EntityPrototype;
             return proto != null;
         }
-        
+
         protected bool TryProtoID(EntityUid uid, [NotNullWhen(true)] out PrototypeId<EntityPrototype>? protoID)
         {
             if (!TryComp<MetaDataComponent>(uid, out var metaData))
@@ -178,7 +178,7 @@ namespace OpenNefia.Core.GameObjects
             IoCManager.Resolve(ref mapMan);
             return mapMan.TryGetMapOfEntity(uid, out map);
         }
-        
+
         protected IArea? AreaOrNull(EntityUid uid, IMapManager? mapMan = null, IAreaManager? areaMan = null)
         {
             IoCManager.Resolve(ref mapMan);

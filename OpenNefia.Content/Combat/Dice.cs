@@ -16,8 +16,8 @@ namespace OpenNefia.Content.Combat
     [DataDefinition]
     public class Dice : IDice
     {
-        public Dice() {}
-        
+        public Dice() { }
+
         public Dice(int x, int y, int bonus)
         {
             X = x;

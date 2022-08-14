@@ -71,8 +71,8 @@ namespace OpenNefia.Content.CharaMake
 
         public const string ResultName = "alias";
 
-        [Child] [Localize] private UiWindow Window;
-        [Child] [Localize] private UiText AliasTopic;
+        [Child][Localize] private UiWindow Window;
+        [Child][Localize] private UiText AliasTopic;
         [Child] private UiList<CreateCharaAliasData> List;
 
         public CharaMakeAliasLayer()
@@ -125,7 +125,7 @@ namespace OpenNefia.Content.CharaMake
                 Finish(Result);
             }
         }
-        
+
         public sealed class ResultData : CharaMakeResult
         {
             public string Alias { get; set; }
@@ -163,7 +163,7 @@ namespace OpenNefia.Content.CharaMake
                     alias = List.DisplayedCells[i].Data.Alias;
                 else
                     alias = _aliasGenerator.GenerateRandomAlias(AliasType.Chara);
-                
+
                 items[i] = new CreateCharaAliasCell(new CreateCharaAliasData(alias, isReroll: false, isLocked: isLocked), alias);
             }
 

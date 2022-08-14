@@ -56,7 +56,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(ContentKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
                 .Bind(ContentKeyFunctions.Journal, InputCmdHandler.FromDelegate(ShowJournal))
                 .Bind(ContentKeyFunctions.ChatLog, InputCmdHandler.FromDelegate(ShowChatLog))
-                
+
                 // Other commands
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
@@ -175,8 +175,8 @@ namespace OpenNefia.Content.GameObjects
                 QueryText = Loc.GetString("Elona.UserInterface.Exit.Prompt.Text")
             };
 
-            var result = _uiManager.Query<Prompt<EscapeMenuChoice>, 
-                Prompt<EscapeMenuChoice>.Args, 
+            var result = _uiManager.Query<Prompt<EscapeMenuChoice>,
+                Prompt<EscapeMenuChoice>.Args,
                 PromptChoice<EscapeMenuChoice>>(promptArgs);
 
             if (result.HasValue)
@@ -210,7 +210,7 @@ namespace OpenNefia.Content.GameObjects
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             bool save;
-            
+
             switch (_config.GetCVar(CCVars.GameSaveOnReturnToTitle))
             {
                 case SaveOnReturnToTitle.Always:

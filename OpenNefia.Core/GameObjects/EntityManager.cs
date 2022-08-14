@@ -106,8 +106,8 @@ namespace OpenNefia.Core.GameObjects
 
         #region Entity Management
 
-        public EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, 
-            EntityUid ? euid = null, IEntityLoadContext? context = null)
+        public EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId,
+            EntityUid? euid = null, IEntityLoadContext? context = null)
         {
             return CreateEntity(prototypeId, context, euid);
         }
@@ -241,7 +241,7 @@ namespace OpenNefia.Core.GameObjects
 
         public void QueueDeleteEntity(EntityUid uid)
         {
-            if(QueuedDeletionsSet.Add(uid))
+            if (QueuedDeletionsSet.Add(uid))
                 QueuedDeletions.Enqueue(uid);
         }
 

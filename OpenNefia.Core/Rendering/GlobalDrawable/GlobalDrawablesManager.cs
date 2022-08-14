@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using static NetVips.Enums;
 
 namespace OpenNefia.Core.Rendering
-{    
+{
     /// <summary>
     /// Displays and updates animatable graphics in screenspace.
     /// </summary>
@@ -54,7 +54,7 @@ namespace OpenNefia.Core.Rendering
         private SortedSet<Entry> _active = new();
 
         public void Enqueue(IGlobalDrawable drawable, Vector2 screenPos, int zOrder = 0)
-{
+        {
             // TODO this needs to handle resizing, hence an anchoring system
             // like with IHud is necessary
             drawable.SetPosition(screenPos.X, screenPos.Y);

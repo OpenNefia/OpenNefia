@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Skills
                 if (skills.TryGetKnown(skillId, out var skill))
                 {
                     var amount = adjust;
-                    
+
                     if (EntityManager.TryGetComponent<QualityComponent>(entity, out var quality)
                         && quality.Quality >= Quality.Good)
                     {

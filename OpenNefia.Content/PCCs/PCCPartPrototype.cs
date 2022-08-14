@@ -10,7 +10,7 @@ namespace OpenNefia.Content.PCCs
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField("pccPartType", required:true)]
+        [DataField("pccPartType", required: true)]
         public PCCPartType PCCPartType { get; }
 
         [DataField(required: true)]

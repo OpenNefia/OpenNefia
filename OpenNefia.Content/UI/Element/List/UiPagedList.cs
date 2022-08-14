@@ -70,7 +70,7 @@ namespace OpenNefia.Content.UI.Element.List
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             base.HandleKeyBindDown(args);
-            
+
             if (args.Function == EngineKeyFunctions.UIPreviousPage)
             {
                 PageBackward();

@@ -17,8 +17,8 @@ namespace OpenNefia.Content.ConfigMenu
         /// <summary>
         /// Queries the default (top-level) config menu.
         /// </summary>
-        public static void QueryDefaultConfigMenu(IPrototypeManager? protos = null, 
-            IUserInterfaceManager? uiManager = null, 
+        public static void QueryDefaultConfigMenu(IPrototypeManager? protos = null,
+            IUserInterfaceManager? uiManager = null,
             IConfigurationManager? config = null)
         {
             IoCManager.Resolve(ref protos);

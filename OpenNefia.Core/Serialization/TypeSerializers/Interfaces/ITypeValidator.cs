@@ -5,7 +5,7 @@ using OpenNefia.Core.Serialization.Markdown.Validation;
 
 namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
-    public interface ITypeValidator<[UsedImplicitly]TType, TNode>
+    public interface ITypeValidator<[UsedImplicitly] TType, TNode>
     {
         ValidationNode Validate(
             ISerializationManager serializationManager,

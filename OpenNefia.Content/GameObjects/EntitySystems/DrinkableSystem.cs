@@ -88,7 +88,7 @@ namespace OpenNefia.Content.GameObjects
                 puddleComp.Effect = potionComp.Effect;
                 puddleComp.Args = potionComp.Args;
             }
-        
+
             EntityManager.DeleteEntity(thrown);
         }
 

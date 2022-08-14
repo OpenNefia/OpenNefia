@@ -99,7 +99,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 var context = new InventoryContext(player, new PickUpInventoryBehavior());
                 var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
-                
+
                 if (result.HasValue && result.Value.Data is InventoryResult.Finished finished)
                 {
                     return finished.TurnResult;

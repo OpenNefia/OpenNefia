@@ -69,7 +69,7 @@ namespace OpenNefia.Core.ViewVariables
                         access = VVAccess.ReadWrite;
                     else
                         access = VVAccess.ReadOnly;
-                    
+
                     return true;
                 }
 

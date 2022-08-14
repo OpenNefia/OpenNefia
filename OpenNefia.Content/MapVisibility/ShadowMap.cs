@@ -13,7 +13,7 @@ namespace OpenNefia.Content.MapVisibility
         [Dependency] private readonly ICoords _coords = default!;
 
         private IMap _map = default!;
-        internal ShadowTile[,] ShadowTiles = new ShadowTile[0,0];
+        internal ShadowTile[,] ShadowTiles = new ShadowTile[0, 0];
         public Vector2i ShadowPos { get; internal set; }
         public Vector2i ShadowSize { get; internal set; }
         internal UIBox2i ShadowBounds { get => UIBox2i.FromDimensions(ShadowPos, ShadowSize); }

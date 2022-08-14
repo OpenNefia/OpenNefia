@@ -34,7 +34,7 @@ namespace OpenNefia.Core.Maps
 
         // { "#" -> "Elona.Wall" }
         private Dictionary<string, PrototypeId<TilePrototype>> _tileMap = new();
-        
+
         public IEnumerable<EntityUid> Entities => _context.Entities;
 
         public Map? MapGrid { get; private set; }
@@ -194,7 +194,7 @@ namespace OpenNefia.Core.Maps
         private void ReadObjectMemorySection()
         {
             var objectMemoryNode = _rootNode.GetNode(MapLoadConstants.ObjectMemory).ToDataNodeCast<MappingDataNode>();
-            
+
             if (objectMemoryNode == null)
             {
                 throw new InvalidDataException($"Object memory section '{MapLoadConstants.ObjectMemory}' not found!");

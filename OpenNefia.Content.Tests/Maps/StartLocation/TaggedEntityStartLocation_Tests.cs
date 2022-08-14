@@ -39,7 +39,8 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
         {
             var sim = ContentGameSimulation
                 .NewSimulation()
-                .RegisterPrototypes(protoFactory => {
+                .RegisterPrototypes(protoFactory =>
+                {
                     protoFactory.RegisterType<TagPrototype>();
                     protoFactory.LoadString(Prototypes);
                 })

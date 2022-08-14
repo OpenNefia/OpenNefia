@@ -33,10 +33,10 @@ namespace OpenNefia.Content.Rendering
         private TileAtlasBatch _chipBatch;
         private FrameCounter _counter;
 
-        public RangedAttackMapDrawable(MapCoordinates startPos, MapCoordinates endPos, 
+        public RangedAttackMapDrawable(MapCoordinates startPos, MapCoordinates endPos,
             PrototypeId<ChipPrototype> chip,
-            Color? color = null, 
-            PrototypeId<SoundPrototype>? sound = null, 
+            Color? color = null,
+            PrototypeId<SoundPrototype>? sound = null,
             PrototypeId<SoundPrototype>? impactSound = null)
         {
             IoCManager.InjectDependencies(this);
@@ -49,8 +49,9 @@ namespace OpenNefia.Content.Rendering
             _impactSound = impactSound;
             _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
-            var maxFrames = 0; 
-            if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
+            var maxFrames = 0;
+            if (_startPos.TryDistanceTiled(_endPos, out var dist))
+            {
                 maxFrames = (int)dist / 2 + 1;
             }
             _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 5, (uint)maxFrames);
@@ -67,8 +68,8 @@ namespace OpenNefia.Content.Rendering
         {
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(_gameSession.Player);
 
-            return _startPos.MapId == _endPos.MapId 
-                && (Map.HasLineOfSight(playerSpatial.WorldPosition, _startPos.Position) 
+            return _startPos.MapId == _endPos.MapId
+                && (Map.HasLineOfSight(playerSpatial.WorldPosition, _startPos.Position)
                 || Map.HasLineOfSight(playerSpatial.WorldPosition, _endPos.Position));
         }
 
@@ -102,14 +103,14 @@ namespace OpenNefia.Content.Rendering
             if (_graphics.IsPointInVisibleScreen(PixelPosition + new Vector2i(cx, cy)))
             {
                 _chipBatch.Clear();
-                _chipBatch.Add(_graphics.WindowScale, 
-                    _chip.Image.AtlasIndex, 
-                    cx + _coords.TileSize.X / 2, 
-                    cy + _coords.TileSize.Y / 2, 
+                _chipBatch.Add(_graphics.WindowScale,
+                    _chip.Image.AtlasIndex,
+                    cx + _coords.TileSize.X / 2,
+                    cy + _coords.TileSize.Y / 2,
                     _coords.TileSize.X,
                     _coords.TileSize.Y,
-                    color: _color, 
-                    centered: true, 
+                    color: _color,
+                    centered: true,
                     rotationRads: -(float)Angle.BetweenPoints(_endPos.Position, _startPos.Position).Theta);
                 _chipBatch.Flush();
                 _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);

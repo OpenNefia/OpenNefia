@@ -8,12 +8,12 @@ namespace OpenNefia.Core.Serialization
         /// <summary>
         /// Gets executed after deserialization is complete
         /// </summary>
-        void AfterDeserialization() {}
+        void AfterDeserialization() { }
 
         /// <summary>
         /// Gets executed before serialization
         /// </summary>
-        void BeforeSerialization() {}
+        void BeforeSerialization() { }
 
         /// <summary>
         /// Gets executed after deep comparison.

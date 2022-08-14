@@ -226,7 +226,7 @@ namespace OpenNefia.Content.Spells
         }
 
         #endregion
-        
+
         public EffectResult Cast(PrototypeId<SpellPrototype> spellId, int power, EntityUid target, EntityUid? source = null, EntityUid? item = null, CurseState curseState = CurseState.Normal)
         {
             IoCManager.Resolve<IMessagesManager>().Display($"TODO: Cast spell {spellId}", UiColors.MesYellow);

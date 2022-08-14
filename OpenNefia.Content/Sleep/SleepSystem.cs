@@ -245,7 +245,7 @@ namespace OpenNefia.Content.Sleep
         {
             if (IsPlayerSleeping)
                 return;
-            
+
             if (!CanSleepRightNow(sleeper))
             {
                 _mes.Display(Loc.GetString("Elona.Sleep.ButYouCannot"));

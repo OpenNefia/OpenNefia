@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Locale
         bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         string GetString(LocaleKey key, params LocaleArg[] args);
         string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
-            where T: class, IPrototype;
+            where T : class, IPrototype;
         string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args);
         bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
             where T : class, IPrototype;
@@ -133,7 +133,7 @@ namespace OpenNefia.Core.Locale
 
             SwitchLanguage(protoId);
         }
-        
+
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
             using var profiler = new ProfilerLogger(LogLevel.Info, "loc", $"Switching language to {language}");

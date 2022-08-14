@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Hud
         private readonly List<StatusIndicator> _indicators = new();
         private IAssetInstance _assetStatusEffectBar = default!;
         private int _maxWidth;
-        
+
         private GetStatusIndicatorsEvent _evInstance = new();
 
         public override void Initialize()
@@ -58,7 +58,7 @@ namespace OpenNefia.Content.Hud
         {
             base.SetPosition(x, y);
         }
-        
+
         public override void SetSize(float w, float h)
         {
             base.SetSize(w, h);
@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Hud
         {
             GraphicsEx.SetFont(UiFonts.StatusIndicatorText);
             var y = Y;
-            
+
             foreach (var indicator in _indicators)
             {
                 Love.Graphics.SetColor(Color.White);

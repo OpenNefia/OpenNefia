@@ -6,7 +6,7 @@ using OpenNefia.Core.Prototypes;
 namespace OpenNefia.Core.GameObjects
 {
     public partial interface IEntityManager
-    {        
+    {
         void Initialize();
         void Startup();
         void Shutdown();
@@ -45,7 +45,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="protoId">The prototype to clone. If this is null, the entity won't have a prototype.</param>
         /// <param name="coordinates"></param>
         /// <returns>Newly created entity.</returns>
-        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, 
+        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates,
             IEntityLoadContext? context = null);
 
         /// <summary>

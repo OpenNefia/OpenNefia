@@ -43,10 +43,12 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         {
             var sim = GameSimulation
                 .NewSimulation()
-                .RegisterComponents(compFac => {
+                .RegisterComponents(compFac =>
+                {
                     compFac.RegisterClass<StackTestComponent>();
                 })
-                .RegisterDataDefinitionTypes(types => {
+                .RegisterDataDefinitionTypes(types =>
+                {
                     types.Add(typeof(StackTestNested));
                 })
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
@@ -321,7 +323,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
     }
 
     [DataDefinition]
-    public class StackTestNested 
+    public class StackTestNested
     {
         [DataField]
         public string Foo { get; set; } = string.Empty;

@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Activity
         {
             if (args.Handled)
                 return;
-            
+
             // Traveling logic for the HSP version:
             //
             // When the player is in the world map and tries to move onto another tile, the game
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Activity
                         // traveling activity finishes.
                         var traveling = EnsureComp<ActivityTravelingComponent>(activityComp.Owner);
                         traveling.Destination = args.OutNewPosition;
-                        
+
                         args.Handle(TurnResult.Succeeded);
                     }
                 }

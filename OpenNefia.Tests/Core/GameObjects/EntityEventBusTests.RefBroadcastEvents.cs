@@ -17,7 +17,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .RegisterEntitySystems(factory => factory.LoadExtraSystemType<SubscribeCompRefBroadcastSystem>())
                 .InitializeInstance();
 
-            var ev = new TestStructEvent() {TestNumber = 5};
+            var ev = new TestStructEvent() { TestNumber = 5 };
             simulation.Resolve<IEntityManager>().EventBus.RaiseEvent(ref ev);
             Assert.That(ev.TestNumber, Is.EqualTo(15));
         }
@@ -81,7 +81,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .InitializeInstance();
 
             // Act.
-            var testEvent = new TestStructEvent {TestNumber = 5};
+            var testEvent = new TestStructEvent { TestNumber = 5 };
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
             eventBus.RaiseEvent(ref testEvent);
 

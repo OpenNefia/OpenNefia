@@ -58,7 +58,7 @@ namespace OpenNefia.Core.UserInterface
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class;
 
-        TLayer CreateLayer<TLayer, TArgs>(TArgs args) 
+        TLayer CreateLayer<TLayer, TArgs>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new();
 
         TLayer CreateLayer<TLayer>()

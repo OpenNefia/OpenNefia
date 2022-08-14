@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Damage
         [DataField]
         public int AttackCount { get; }
 
-        public CharaDamageType() {}
+        public CharaDamageType() { }
 
         public CharaDamageType(CharaDeathType type)
         {
@@ -91,7 +91,7 @@ namespace OpenNefia.Content.Damage
         [DataField]
         public int Power { get; }
 
-        public ElementalDamageType() {}
+        public ElementalDamageType() { }
 
         public ElementalDamageType(PrototypeId<ElementPrototype> elementID, int power)
         {
@@ -115,7 +115,7 @@ namespace OpenNefia.Content.Damage
         [DataField]
         public EntityUid? ItemSquashedBy { get; }
 
-        public BurdenDamageType() {}
+        public BurdenDamageType() { }
 
         public BurdenDamageType(EntityUid itemSquashedBy)
         {
@@ -151,7 +151,7 @@ namespace OpenNefia.Content.Damage
         [DataField]
         public LocaleKey LocaleKey { get; }
 
-        public GenericDamageType() {}
+        public GenericDamageType() { }
 
         public GenericDamageType(LocaleKey localeKey)
         {

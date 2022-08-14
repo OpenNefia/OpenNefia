@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Feats
     public class FeatsComponent : Component
     {
         public override string Name => "Feats";
-        
+
         /// <summary>
         /// Current amount of learnable Feats.
         /// </summary>

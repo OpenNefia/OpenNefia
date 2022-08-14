@@ -23,7 +23,7 @@ namespace OpenNefia.Content.GameObjects
         {
             return _dialog.TryToChatWith(source, target);
         }
-        
+
         private TurnResult InteractAction_Attack(EntityUid source, EntityUid target)
         {
             // TODO
@@ -56,7 +56,7 @@ namespace OpenNefia.Content.GameObjects
 
             var args = new TextPrompt.Args(20, isCancellable: true, queryText: Loc.GetString("Elona.Tone.ChangeTone.Prompt", ("entity", target)));
             var result = _uiManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(args);
-            
+
             if (result.HasValue && !string.IsNullOrWhiteSpace(result.Value.Text))
             {
                 EnsureComp<TaughtWordsComponent>(target).TaughtWords.Add(result.Value.Text);
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.GameObjects
             EntityManager.RemoveComponent<SandBaggedComponent>(target);
             _mes.Display(Loc.GetString("Elona.Interact.Release", ("source", source), ("entity", target)));
             _refresh.Refresh(target);
-            
+
             return TurnResult.Succeeded;
         }
 

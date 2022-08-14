@@ -5,7 +5,7 @@ using XamlX.TypeSystem;
 
 namespace OpenNefia.XamlNameGenerator.Generator;
 
-internal class InitializeComponentCodeGenerator: ICodeGenerator
+internal class InitializeComponentCodeGenerator : ICodeGenerator
 {
     private readonly bool _diagnosticsAreConnected;
     private const string AttachDevToolsCodeBlock = @"
@@ -69,7 +69,7 @@ namespace {nameSpace}
 }}
 ";
     }
-        
+
     private static bool IsWindow(IXamlType xamlType)
     {
         var type = xamlType;

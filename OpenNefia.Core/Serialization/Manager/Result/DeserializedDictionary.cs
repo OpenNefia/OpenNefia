@@ -47,7 +47,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
                 var newKeyRes = keyRes.Copy();
                 var newValueRes = valRes.Copy();
 
-                valueDict.Add((TKey) newKeyRes.RawValue!, (TValue)newValueRes.RawValue!);
+                valueDict.Add((TKey)newKeyRes.RawValue!, (TValue)newValueRes.RawValue!);
                 mappingDict.Add(newKeyRes, newValueRes);
             }
 

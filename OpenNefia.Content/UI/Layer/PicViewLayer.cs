@@ -37,7 +37,7 @@ namespace OpenNefia.Content.UI.Layer
                 Cancel();
             }
         }
-        
+
         public override void Initialize(Image image)
         {
             Image = image;

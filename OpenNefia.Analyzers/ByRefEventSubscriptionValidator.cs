@@ -28,7 +28,7 @@ namespace OpenNefia.Analyzers
                 var byRefEventAttributeType = compilationContext.Compilation.GetTypeByMetadataName(ByRefEventAttributeTypeName);
                 if (byRefEventAttributeType == null)
                     return;
-                
+
                 var entitySystemType = compilationContext.Compilation.GetTypeByMetadataName(EntitySystemTypeName);
                 if (entitySystemType == null)
                     return;
@@ -83,7 +83,7 @@ namespace OpenNefia.Analyzers
                     case OperationKind.Invocation:
                         var invocation = (IInvocationOperation)context.Operation;
                         var method = invocation.TargetMethod;
-                        
+
                         if (SubMethodNames.Contains(method.Name) && SymbolEqualityComparer.Default.Equals(method.ContainingType, _entitySystemType))
                         {
                             ITypeSymbol eventType;
@@ -109,7 +109,7 @@ namespace OpenNefia.Analyzers
 
                             var isEventByRef = eventType.GetAttributes()
                                     .Any(attr => SymbolEqualityComparer.Default.Equals(attr.AttributeClass, _byRefEventAttributeType));
-                            
+
                             var isSubscribedByRef = SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _componentEventRefHandlerType) || SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _entityEventRefHandlerType) || SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _broadcastEventRefHandlerType);
 
                             if (isEventByRef != isSubscribedByRef)
@@ -132,7 +132,7 @@ namespace OpenNefia.Analyzers
                                 }
                             }
                         }
-                        
+
                         break;
                 }
             }

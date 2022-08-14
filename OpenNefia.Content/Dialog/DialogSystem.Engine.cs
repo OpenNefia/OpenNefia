@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Dialog
             if (_factions.IsPlayer(target))
                 return TurnResult.Failed;
 
-            if (!TryComp<DialogComponent>(target, out var dialog) 
+            if (!TryComp<DialogComponent>(target, out var dialog)
                 || !dialog.CanTalk
                 || (_factions.GetRelationTowards(target, source) <= Factions.Relation.Dislike && !force))
             {
@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Dialog
 
             if (_effects.HasEffect(target, Protos.StatusEffect.Sleep))
                 return StartDialog(source, target, Protos.Dialog.IsSleeping);
-        
+
             if (_activities.HasAnyActivity(target))
                 return StartDialog(source, target, Protos.Dialog.IsBusy);
 

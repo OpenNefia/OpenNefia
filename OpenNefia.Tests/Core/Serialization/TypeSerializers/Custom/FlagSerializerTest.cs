@@ -19,7 +19,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers.Custom
         [Test]
         public void SingleFlagTest()
         {
-            var definition = new TestDefinition {Flag = (int) TestFlagsEnum.One};
+            var definition = new TestDefinition { Flag = (int)TestFlagsEnum.One };
 
             var node = Serialization.WriteValueAs<MappingDataNode>(definition);
             Assert.That(node.Children.Count, Is.EqualTo(1));
@@ -35,7 +35,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers.Custom
         [Test]
         public void DualFlagTest()
         {
-            var definition = new TestDefinition {Flag = (int) TestFlagsEnum.Three};
+            var definition = new TestDefinition { Flag = (int)TestFlagsEnum.Three };
 
             var node = Serialization.WriteValueAs<MappingDataNode>(definition);
             Assert.That(node.Children.Count, Is.EqualTo(1));
@@ -52,7 +52,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers.Custom
         [Test]
         public void NegativeFlagTest()
         {
-            var definition = new TestDefinition {Flag = (int) TestFlagsEnum.NegativeFlag};
+            var definition = new TestDefinition { Flag = (int)TestFlagsEnum.NegativeFlag };
 
             var node = Serialization.WriteValueAs<MappingDataNode>(definition);
             Assert.That(node.Children.Count, Is.EqualTo(1));

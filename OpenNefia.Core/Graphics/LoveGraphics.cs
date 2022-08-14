@@ -139,7 +139,7 @@ namespace OpenNefia.Core.Graphics
             var settings = GetWindowSettings();
 
             settings.Display = displaynumber;
-            
+
             SetWindowSettings(_lastFullscreenMode, settings);
         }
 

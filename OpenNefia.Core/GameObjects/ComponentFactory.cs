@@ -319,7 +319,7 @@ namespace OpenNefia.Core.GameObjects
 
             foreach (var attribute in Attribute.GetCustomAttributes(type, typeof(ComponentReferenceAttribute)))
             {
-                var cast = (ComponentReferenceAttribute) attribute;
+                var cast = (ComponentReferenceAttribute)attribute;
 
                 var refType = cast.ReferenceType;
 

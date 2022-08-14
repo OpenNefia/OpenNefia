@@ -12,8 +12,8 @@ namespace OpenNefia.Core.Utility
     /// <typeparam name="K"></typeparam>
     /// <typeparam name="V"></typeparam>
     /// <typeparam name="P"></typeparam>
-    public class PriorityMap<K, V, P> : IDictionary<K, V>, IEnumerable<KeyValuePair<K, V>> 
-        where K : notnull 
+    public class PriorityMap<K, V, P> : IDictionary<K, V>, IEnumerable<KeyValuePair<K, V>>
+        where K : notnull
         where P : notnull, IComparable<P>, IEquatable<P>, new()
     {
         private IDictionary<K, V> Inner = new Dictionary<K, V>();
@@ -72,7 +72,8 @@ namespace OpenNefia.Core.Utility
         public V this[K key]
         {
             get => this.Inner[key];
-            set {
+            set
+            {
                 this.Inner[key] = value;
                 this.Priorities[key] = new P();
                 this.Dirty = true;
@@ -100,7 +101,7 @@ namespace OpenNefia.Core.Utility
             if (this.Dirty)
                 UpdateSorting();
 
-            foreach (var key in this.SortedKeys) 
+            foreach (var key in this.SortedKeys)
             {
                 yield return new KeyValuePair<K, V>(key, Inner[key]);
             }

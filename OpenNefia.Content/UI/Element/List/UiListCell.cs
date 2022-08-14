@@ -29,7 +29,7 @@ namespace OpenNefia.Content.UI.Element.List
             _data = data;
         }
 
-        public UiListCell(T data, string text = "", UiListChoiceKey? key = null) 
+        public UiListCell(T data, string text = "", UiListChoiceKey? key = null)
             : this(data, new UiText(UiFonts.ListText, text), key)
         {
         }
@@ -66,7 +66,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public int IndexInList { get; set; }
 
-        [Child] [Localize("Text")] protected UiText UiText;
+        [Child][Localize("Text")] protected UiText UiText;
         [Child] protected UiText KeyNameText = null!;
 
         public virtual string? LocalizeKey => null;

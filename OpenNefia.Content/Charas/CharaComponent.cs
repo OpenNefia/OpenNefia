@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Charas
 
         [DataField(required: true)]
         private CharaLivenessState _liveness = CharaLivenessState.Alive;
-        
+
         public CharaLivenessState Liveness
         {
             get => _liveness;

@@ -34,7 +34,7 @@ namespace OpenNefia.Content.ConsoleCommands
             }
 
             _mapRenderer.SetTileLayerEnabled(ty, true);
-        
+
         }
     }
 

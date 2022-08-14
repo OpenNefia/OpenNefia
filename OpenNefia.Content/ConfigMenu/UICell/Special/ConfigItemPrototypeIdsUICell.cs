@@ -14,7 +14,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         private List<IPrototype> _choices = new();
         private int _currentIndex = 0;
 
-        public ConfigItemPrototypeIdsUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigPrototypeIdsMenuNode data) 
+        public ConfigItemPrototypeIdsUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigPrototypeIdsMenuNode data)
             : base(protoId, data)
         {
         }

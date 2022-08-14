@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
 
             Assert.IsInstanceOf<MappingDataNode>(mapping);
 
-            var scalar = (MappingDataNode) mapping;
+            var scalar = (MappingDataNode)mapping;
 
             Assert.That(scalar.Children.Count, Is.EqualTo(0));
             Assert.That(scalar.Tag, Is.EqualTo("!type:TestTypeOne"));
@@ -54,7 +54,7 @@ test:
             var yamlStream = new YamlStream();
             yamlStream.Load(streamReader);
 
-            var mapping = (YamlMappingNode) yamlStream.Documents[0].RootNode;
+            var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
             var serMan = IoCManager.Resolve<ISerializationManager>();
             var type = serMan.ReadValue<ITestType>(new MappingDataNode(mapping)["test"]);
 

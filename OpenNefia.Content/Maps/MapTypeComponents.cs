@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Maps
         /// <inheritdoc />
         public override string Name => "MapTypeGuild";
     }
-    
+
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public class MapTypeShelterComponent : Component

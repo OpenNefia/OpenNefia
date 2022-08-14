@@ -77,10 +77,10 @@ namespace OpenNefia.Core.Maths
             var scale = Math.Pow(matrix.Determinant, 1.0d / 3.0d);
             float x, y, z;
 
-            w = (float) (Math.Sqrt(Math.Max(0, scale + matrix[0, 0] + matrix[1, 1] + matrix[2, 2])) / 2);
-            x = (float) (Math.Sqrt(Math.Max(0, scale + matrix[0, 0] - matrix[1, 1] - matrix[2, 2])) / 2);
-            y = (float) (Math.Sqrt(Math.Max(0, scale - matrix[0, 0] + matrix[1, 1] - matrix[2, 2])) / 2);
-            z = (float) (Math.Sqrt(Math.Max(0, scale - matrix[0, 0] - matrix[1, 1] + matrix[2, 2])) / 2);
+            w = (float)(Math.Sqrt(Math.Max(0, scale + matrix[0, 0] + matrix[1, 1] + matrix[2, 2])) / 2);
+            x = (float)(Math.Sqrt(Math.Max(0, scale + matrix[0, 0] - matrix[1, 1] - matrix[2, 2])) / 2);
+            y = (float)(Math.Sqrt(Math.Max(0, scale - matrix[0, 0] + matrix[1, 1] - matrix[2, 2])) / 2);
+            z = (float)(Math.Sqrt(Math.Max(0, scale - matrix[0, 0] - matrix[1, 1] + matrix[2, 2])) / 2);
 
             xyz = new Vector3(x, y, z);
 
@@ -209,8 +209,8 @@ namespace OpenNefia.Core.Maths
 
             var result = new Vector4();
 
-            result.W = 2.0f * (float) Math.Acos(q.W); // angle
-            var den = (float) Math.Sqrt(1.0 - q.W * q.W);
+            result.W = 2.0f * (float)Math.Acos(q.W); // angle
+            var den = (float)Math.Sqrt(1.0 - q.W * q.W);
             if (den > 0.0001f)
             {
                 result.Xyz = q.Xyz / den;
@@ -236,7 +236,7 @@ namespace OpenNefia.Core.Maths
         public float Length
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => (float) Math.Sqrt(W * W + Xyz.LengthSquared);
+            get => (float)Math.Sqrt(W * W + Xyz.LengthSquared);
         }
 
         #endregion public float Length
@@ -288,8 +288,8 @@ namespace OpenNefia.Core.Maths
 
         #region Fields
 
-        private const float RadToDeg = (float) (180.0 / Math.PI);
-        private const float DegToRad = (float) (Math.PI / 180.0);
+        private const float RadToDeg = (float)(180.0 / Math.PI);
+        private const float DegToRad = (float)(Math.PI / 180.0);
 
         /// <summary>
         /// Defines the identity quaternion.
@@ -538,8 +538,8 @@ namespace OpenNefia.Core.Maths
 
             angle *= 0.5f;
             axis.Normalize();
-            result.Xyz = axis * (float) Math.Sin(angle);
-            result.W = (float) Math.Cos(angle);
+            result.Xyz = axis * (float)Math.Sin(angle);
+            result.W = (float)Math.Cos(angle);
 
             return Normalize(result);
         }
@@ -594,11 +594,11 @@ namespace OpenNefia.Core.Maths
             if (cosHalfAngle < 0.99f)
             {
                 // do proper slerp for big angles
-                var halfAngle = (float) Math.Acos(cosHalfAngle);
-                var sinHalfAngle = (float) Math.Sin(halfAngle);
+                var halfAngle = (float)Math.Acos(cosHalfAngle);
+                var sinHalfAngle = (float)Math.Sin(halfAngle);
                 var oneOverSinHalfAngle = 1.0f / sinHalfAngle;
-                blendA = (float) Math.Sin(halfAngle * (1.0f - blend)) * oneOverSinHalfAngle;
-                blendB = (float) Math.Sin(halfAngle * blend) * oneOverSinHalfAngle;
+                blendA = (float)Math.Sin(halfAngle * (1.0f - blend)) * oneOverSinHalfAngle;
+                blendB = (float)Math.Sin(halfAngle * blend) * oneOverSinHalfAngle;
             }
             else
             {
@@ -638,7 +638,7 @@ namespace OpenNefia.Core.Maths
         public static float Angle(Quaternion a, Quaternion b)
         {
             var f = Dot(a, b);
-            return (float) (Math.Acos(Math.Min(Math.Abs(f), 1f)) * 2f * RadToDeg);
+            return (float)(Math.Acos(Math.Min(Math.Abs(f), 1f)) * 2f * RadToDeg);
         }
 
         #endregion Angle
@@ -666,7 +666,7 @@ namespace OpenNefia.Core.Maths
             var quaternion = new Quaternion();
             if (num8 > 0f)
             {
-                var num = (float) MathF.Sqrt(num8 + 1f);
+                var num = (float)MathF.Sqrt(num8 + 1f);
                 quaternion.w = num * 0.5f;
                 num = 0.5f / num;
                 quaternion.X = (m12 - m21) * num;
@@ -677,7 +677,7 @@ namespace OpenNefia.Core.Maths
 
             if (m00 >= m11 && m00 >= m22)
             {
-                var num7 = (float) MathF.Sqrt(1f + m00 - m11 - m22);
+                var num7 = (float)MathF.Sqrt(1f + m00 - m11 - m22);
                 var num4 = 0.5f / num7;
                 quaternion.X = 0.5f * num7;
                 quaternion.Y = (m01 + m10) * num4;
@@ -688,7 +688,7 @@ namespace OpenNefia.Core.Maths
 
             if (m11 > m22)
             {
-                var num6 = (float) MathF.Sqrt(1f + m11 - m00 - m22);
+                var num6 = (float)MathF.Sqrt(1f + m11 - m00 - m22);
                 var num3 = 0.5f / num6;
                 quaternion.X = (m10 + m01) * num3;
                 quaternion.Y = 0.5f * num6;
@@ -697,7 +697,7 @@ namespace OpenNefia.Core.Maths
                 return quaternion;
             }
 
-            var num5 = (float) MathF.Sqrt(1f + m22 - m00 - m11);
+            var num5 = (float)MathF.Sqrt(1f + m22 - m00 - m11);
             var num2 = 0.5f / num5;
             quaternion.X = (m20 + m02) * num2;
             quaternion.Y = (m21 + m12) * num2;
@@ -725,8 +725,8 @@ namespace OpenNefia.Core.Maths
             if (test > 0.4995f * unit)
             {
                 // singularity at north pole
-                v.Y = (float) (2f * MathF.Atan2(rotation.y, rotation.x));
-                v.X = (float) (Math.PI / 2);
+                v.Y = (float)(2f * MathF.Atan2(rotation.y, rotation.x));
+                v.X = (float)(Math.PI / 2);
                 v.Z = 0;
                 return NormalizeAngles(v * RadToDeg);
             }
@@ -734,16 +734,16 @@ namespace OpenNefia.Core.Maths
             if (test < -0.4995f * unit)
             {
                 // singularity at south pole
-                v.Y = (float) (-2f * MathF.Atan2(rotation.y, rotation.x));
-                v.X = (float) (-Math.PI / 2);
+                v.Y = (float)(-2f * MathF.Atan2(rotation.y, rotation.x));
+                v.X = (float)(-Math.PI / 2);
                 v.Z = 0;
                 return NormalizeAngles(v * RadToDeg);
             }
 
             var q = new Quaternion(rotation.w, rotation.z, rotation.x, rotation.y);
-            v.Y = (float) MathF.Atan2(2f * q.x * q.w + 2f * q.y * q.z, 1 - 2f * (q.z * q.z + q.w * q.w)); // Yaw
-            v.X = (float) MathF.Asin(2f * (q.x * q.z - q.w * q.y)); // Pitch
-            v.Z = (float) MathF.Atan2(2f * q.x * q.y + 2f * q.z * q.w, 1 - 2f * (q.y * q.y + q.z * q.z)); // Roll
+            v.Y = (float)MathF.Atan2(2f * q.x * q.w + 2f * q.y * q.z, 1 - 2f * (q.z * q.z + q.w * q.w)); // Yaw
+            v.X = (float)MathF.Asin(2f * (q.x * q.z - q.w * q.y)); // Pitch
+            v.Z = (float)MathF.Atan2(2f * q.x * q.y + 2f * q.z * q.w, 1 - 2f * (q.y * q.y + q.z * q.z)); // Roll
             return NormalizeAngles(v * RadToDeg);
         }
 
@@ -785,7 +785,7 @@ namespace OpenNefia.Core.Maths
 
             */
 
-            return angle - MathF.Floor(angle * (1/360f)) * 360f;
+            return angle - MathF.Floor(angle * (1 / 360f)) * 360f;
             /* asm:
     L0000: vzeroupper
     L0003: vmovaps xmm1, xmm0

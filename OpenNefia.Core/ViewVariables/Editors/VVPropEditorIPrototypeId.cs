@@ -95,7 +95,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
         private void SetNewValue(string text)
         {
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
-            if(protoMan.TryIndex(typeof(T), text, out var prototype))
+            if (protoMan.TryIndex(typeof(T), text, out var prototype))
                 ValueChanged(prototype, false);
 
             return;

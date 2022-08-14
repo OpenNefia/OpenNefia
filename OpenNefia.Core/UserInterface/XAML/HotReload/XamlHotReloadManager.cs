@@ -127,7 +127,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
         /// <inheritdoc/>
         public bool IsXamlCompiledControlType(Type type)
         {
-            return typeof(WispControl).IsAssignableFrom(type) 
+            return typeof(WispControl).IsAssignableFrom(type)
                 && type.GetMethod(XamlCompiler.TrampolineName, BindingFlags.Static | BindingFlags.NonPublic) != null;
         }
 

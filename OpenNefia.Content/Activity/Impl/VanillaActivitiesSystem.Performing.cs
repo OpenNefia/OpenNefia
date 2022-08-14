@@ -331,7 +331,7 @@ namespace OpenNefia.Content.Activity
             if (_gameSession.IsPlayer(actor))
             {
                 int qualityRank;
-                
+
                 if (quality < 0)
                     qualityRank = 0;
                 else if (quality < 20)

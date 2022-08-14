@@ -212,7 +212,7 @@ namespace OpenNefia.Content.RandomAreas
 
             foreach (var (entrance, area) in EnumerateRandomMapEntrancesIn(mapId).ToList())
             {
-                if(IsRandomAreaActive(area))
+                if (IsRandomAreaActive(area))
                     totalActive++;
             }
 

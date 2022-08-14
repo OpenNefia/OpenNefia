@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Tests.Inventory
             var inv = entMan.GetComponent<InventoryComponent>(ent);
 
             Assert.That(sys.IsInventoryFull(ent, inv), Is.False);
-            
+
             entGen.SpawnEntity(TestEntity, inv.Container);
             Assert.That(sys.IsInventoryFull(ent, inv), Is.False);
 

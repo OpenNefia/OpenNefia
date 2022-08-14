@@ -89,13 +89,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom
             foreach (var elem in node.Sequence)
             {
                 if (elem is not ValueDataNode valueDataNode) throw new InvalidNodeTypeException();
-                flags |= (int) Enum.Parse(flagType, valueDataNode.Value);
+                flags |= (int)Enum.Parse(flagType, valueDataNode.Value);
             }
 
             return new DeserializedValue(flags);
         }
 
-        public bool Compare(ISerializationManager serializationManager, int left, int right, 
+        public bool Compare(ISerializationManager serializationManager, int left, int right,
             bool skipHook, ISerializationContext? context = null)
         {
             return left == right;

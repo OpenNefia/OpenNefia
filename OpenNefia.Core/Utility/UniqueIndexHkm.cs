@@ -52,7 +52,7 @@ namespace OpenNefia.Core.Utility
                 return set.Add(value);
             }
 
-            _index.Add(key, new HashSet<TValue> {value});
+            _index.Add(key, new HashSet<TValue> { value });
             return true;
         }
 

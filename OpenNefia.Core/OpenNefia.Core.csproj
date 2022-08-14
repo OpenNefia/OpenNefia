@@ -11,6 +11,10 @@
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     <PackageReference Include="Lib.Harmony" Version="2.2.0" />
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Mono.Reflection" Version="2.0.0" />
     <PackageReference Include="NativeFileDialogSharp" Version="0.5.0" />
     <PackageReference Include="Nett" Version="0.15.0" />
@@ -35,6 +39,11 @@
     <ProjectReference Include="..\OpenNefia.XamlInjectors\OpenNefia.XamlInjectors.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
   <Import Project="..\MSBuild\XamlIL.targets" />
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
   <ItemGroup>
@@ -42,9 +51,7 @@
       <LogicalName>OpenNefia.Core.Utility.TypeAbbreviations.yaml</LogicalName>
     </EmbeddedResource>
     <None Remove="ContentPack\Sandbox.yml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ControlTest\" />
-    <Folder Include="DebugView\" />
+    <None Remove="PublicApi.Shipped.txt" />
+    <None Remove="PublicAPI.Unshipped.txt" />
   </ItemGroup>
 </Project>

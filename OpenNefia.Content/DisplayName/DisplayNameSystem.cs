@@ -26,7 +26,7 @@ namespace OpenNefia.Content.DisplayName
 
         private void GetDefaultBaseName(EntityUid uid, MetaDataComponent metaData, ref GetBaseNameEventArgs args)
         {
-            var baseName = metaData.DisplayName ?? GetFallbackName(uid); 
+            var baseName = metaData.DisplayName ?? GetFallbackName(uid);
 
             args.OutBaseName = baseName;
         }
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.DisplayName
     public struct GetDisplayNameEventArgs
     {
         public string BaseName { get; }
-        
+
         public string OutName { get; set; } = string.Empty;
 
         public GetDisplayNameEventArgs(string baseName)

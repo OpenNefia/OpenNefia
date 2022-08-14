@@ -70,7 +70,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color CharaMakeAttrLevelGood = new(0, 0, 150);
         public static readonly Color CharaMakeAttrLevelGreat = new(0, 0, 200);
         public static readonly Color CharaMakeAttrLevelBest = new(0, 0, 200);
-        
+
         public static readonly Color InventoryItemNoDrop = new(120, 80, 0, 255);
         public static readonly Color InventoryItemDoomed = new(100, 10, 100, 255);
         public static readonly Color InventoryItemCursed = new(150, 10, 10, 255);

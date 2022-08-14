@@ -10,10 +10,10 @@ namespace OpenNefia.Core.Reflection
         {
             return member.MemberType switch
             {
-                MemberTypes.Event => ((EventInfo) member).EventHandlerType!,
-                MemberTypes.Field => ((FieldInfo) member).FieldType,
-                MemberTypes.Method => ((MethodInfo) member).ReturnType,
-                MemberTypes.Property => ((PropertyInfo) member).PropertyType,
+                MemberTypes.Event => ((EventInfo)member).EventHandlerType!,
+                MemberTypes.Field => ((FieldInfo)member).FieldType,
+                MemberTypes.Method => ((MethodInfo)member).ReturnType,
+                MemberTypes.Property => ((PropertyInfo)member).PropertyType,
                 _ => throw new ArgumentException("MemberInfo must be one of: EventInfo, FieldInfo, MethodInfo, PropertyInfo")
             };
         }

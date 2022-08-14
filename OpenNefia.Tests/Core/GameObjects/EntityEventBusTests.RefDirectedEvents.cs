@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             entMan.AddComponent<DummyComponent>(entity);
 
             // Act.
-            var testEvent = new TestStructEvent {TestNumber = 5};
+            var testEvent = new TestStructEvent { TestNumber = 5 };
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
             eventBus.RaiseEvent(entity, ref testEvent);
 
@@ -112,7 +112,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             entMan.AddComponent<OrderComponentC2>(entity);
 
             // Act.
-            var testEvent = new TestStructEvent {TestNumber = 5};
+            var testEvent = new TestStructEvent { TestNumber = 5 };
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
             eventBus.RaiseEvent(entity, ref testEvent);
 

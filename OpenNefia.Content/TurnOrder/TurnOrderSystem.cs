@@ -652,7 +652,7 @@ namespace OpenNefia.Content.TurnOrder
         }
     }
 
-    public sealed class PlayerRevivingEvent : EntityEventArgs {}
+    public sealed class PlayerRevivingEvent : EntityEventArgs { }
 
     #endregion
 }

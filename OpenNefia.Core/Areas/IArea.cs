@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Areas
         /// ID of this area.
         /// </summary>
         public AreaId Id { get; }
-       
+
         /// <summary>
         /// ID used for referencing this specific area in prototype data.
         /// </summary>

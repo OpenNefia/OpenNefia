@@ -87,7 +87,8 @@ namespace OpenNefia.Core.Input.Binding
         /// mouse button)</param>
         public PointerInputCmdHandler(PointerInputCmdDelegate callback, bool ignoreUp = true)
             : this((in PointerInputCmdArgs args) =>
-            callback(args.Session, args.Coordinates, args.EntityUid), ignoreUp) { }
+            callback(args.Session, args.Coordinates, args.EntityUid), ignoreUp)
+        { }
 
         /// <summary>
         /// Handler which will handle the command using the indicated callback

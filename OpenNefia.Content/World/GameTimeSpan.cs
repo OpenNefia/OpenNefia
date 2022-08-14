@@ -9,10 +9,10 @@ namespace OpenNefia.Content.World
     public struct GameTimeSpan
     {
         public const long SecondsPerMinute = 60;
-        public const long SecondsPerHour   = 60 * 60;
-        public const long SecondsPerDay    = 60 * 60 * 24;
-        public const long SecondsPerMonth  = 60 * 60 * 24 * 31;
-        public const long SecondsPerYear   = 60 * 60 * 24 * 31 * 12;
+        public const long SecondsPerHour = 60 * 60;
+        public const long SecondsPerDay = 60 * 60 * 24;
+        public const long SecondsPerMonth = 60 * 60 * 24 * 31;
+        public const long SecondsPerYear = 60 * 60 * 24 * 31 * 12;
 
         public static GameTimeSpan Zero => new(0);
         public static GameTimeSpan MinValue => new(long.MinValue);
@@ -31,7 +31,7 @@ namespace OpenNefia.Content.World
         }
 
         public GameTimeSpan(int hours, int minutes, int seconds)
-            : this(0, 0, 0, hours, minutes, seconds) {}
+            : this(0, 0, 0, hours, minutes, seconds) { }
 
         public GameTimeSpan(int years, int months, int days, int hours, int minutes, int seconds)
         {
@@ -72,12 +72,12 @@ namespace OpenNefia.Content.World
         /// <summary>
         /// Gets the days component of the time interval this time span represents.
         /// </summary>
-        public int Day    => (int)((TotalSeconds / SecondsPerDay) % 31);
+        public int Day => (int)((TotalSeconds / SecondsPerDay) % 31);
 
         /// <summary>
         /// Gets the hours component of the time interval this time span represents.
         /// </summary>
-        public int Hour   => (int)((TotalSeconds / SecondsPerHour) % 24);
+        public int Hour => (int)((TotalSeconds / SecondsPerHour) % 24);
 
         /// <summary>
         /// Gets the minutes component of the time interval this time span represents.
@@ -139,7 +139,7 @@ namespace OpenNefia.Content.World
         {
             if (other is GameTimeSpan otherTime)
                 return this == otherTime;
-            
+
             return false;
         }
 

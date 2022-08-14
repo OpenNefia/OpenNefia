@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Rendering
         public int YOffset = 0;
         public bool HasOverhang = false;
 
-        public AtlasTile() 
+        public AtlasTile()
         {
             Quad = Love.Graphics.NewQuad(0, 0, 0, 0, 0, 0);
         }

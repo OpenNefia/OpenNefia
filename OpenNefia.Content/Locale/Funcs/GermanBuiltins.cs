@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Locale.Funcs
             private string Article { get; set; } = "";
             private string Adjective { get; set; } = "";
             public string Noun { get; set; } = "";
-            
+
             EntityLocData Data { get; set; } = default!;
 
             public EntityDisplayData(EntityUid entity, string noun)

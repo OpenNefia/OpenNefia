@@ -394,8 +394,8 @@ namespace OpenNefia.Core.Maths
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CreateFromAxisAngle(Vector3 axis, float angle, out Matrix4 result)
         {
-            var cos = (float) Math.Cos(-angle);
-            var sin = (float) Math.Sin(-angle);
+            var cos = (float)Math.Cos(-angle);
+            var sin = (float)Math.Sin(-angle);
             var t = 1.0f - cos;
 
             axis.Normalize();
@@ -431,8 +431,8 @@ namespace OpenNefia.Core.Maths
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CreateRotationX(float angle, out Matrix4 result)
         {
-            var cos = (float) Math.Cos(angle);
-            var sin = (float) Math.Sin(angle);
+            var cos = (float)Math.Cos(angle);
+            var sin = (float)Math.Sin(angle);
 
             result.Row0 = Vector4.UnitX;
             result.Row1 = new Vector4(0.0f, cos, sin, 0.0f);
@@ -460,8 +460,8 @@ namespace OpenNefia.Core.Maths
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CreateRotationY(float angle, out Matrix4 result)
         {
-            var cos = (float) Math.Cos(angle);
-            var sin = (float) Math.Sin(angle);
+            var cos = (float)Math.Cos(angle);
+            var sin = (float)Math.Sin(angle);
 
             result.Row0 = new Vector4(cos, 0.0f, -sin, 0.0f);
             result.Row1 = Vector4.UnitY;
@@ -489,8 +489,8 @@ namespace OpenNefia.Core.Maths
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CreateRotationZ(float angle, out Matrix4 result)
         {
-            var cos = (float) Math.Cos(angle);
-            var sin = (float) Math.Sin(angle);
+            var cos = (float)Math.Cos(angle);
+            var sin = (float)Math.Sin(angle);
 
             result.Row0 = new Vector4(cos, sin, 0.0f, 0.0f);
             result.Row1 = new Vector4(-sin, cos, 0.0f, 0.0f);
@@ -683,7 +683,7 @@ namespace OpenNefia.Core.Maths
             if (zFar <= 0)
                 throw new ArgumentOutOfRangeException("zFar");
 
-            var yMax = zNear * (float) Math.Tan(0.5f * fovy);
+            var yMax = zNear * (float)Math.Tan(0.5f * fovy);
             var yMin = -yMax;
             var xMin = yMin * aspect;
             var xMax = yMax * aspect;
@@ -1193,7 +1193,7 @@ namespace OpenNefia.Core.Maths
             if (!(obj is Matrix4))
                 return false;
 
-            return Equals((Matrix4) obj);
+            return Equals((Matrix4)obj);
         }
 
         #endregion public override bool Equals(object obj)

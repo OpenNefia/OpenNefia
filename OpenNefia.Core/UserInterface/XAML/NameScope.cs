@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.UserInterface.XAML
 {
-/// <summary>
+    /// <summary>
     /// Implements a name scope.
     /// </summary>
     public sealed class NameScope

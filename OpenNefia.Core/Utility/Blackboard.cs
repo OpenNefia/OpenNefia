@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Utility
             return TryGet<T>(out _);
         }
 
-        public T Ensure<T>() where T: class, TType, new()
+        public T Ensure<T>() where T : class, TType, new()
         {
             if (TryGet<T>(out var instance))
                 return instance;
@@ -38,20 +38,20 @@ namespace OpenNefia.Core.Utility
             return instance;
         }
 
-        public void Add<T>(T instance) where T: class, TType
+        public void Add<T>(T instance) where T : class, TType
         {
             var specificType = instance.GetType();
             _instances[specificType] = instance;
         }
 
-        public bool Remove<T>() where T: class, TType
+        public bool Remove<T>() where T : class, TType
         {
             return _instances.Remove(typeof(T));
         }
 
-        public void Clear() 
-        { 
-            _instances.Clear(); 
+        public void Clear()
+        {
+            _instances.Clear();
         }
     }
 }

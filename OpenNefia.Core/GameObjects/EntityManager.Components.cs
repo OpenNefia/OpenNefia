@@ -672,7 +672,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <inheritdoc />
         public IEnumerable<T> GetAllComponents<T>()
-            where T: IComponent
+            where T : IComponent
         {
             return GetAllComponents(typeof(T)).Cast<T>();
         }

@@ -47,7 +47,7 @@ namespace OpenNefia.LecchoTorte.LivingWall
             UpdateLivingWall(uid, oldCoords, newCoords, component);
         }
 
-        private void UpdateLivingWall(EntityUid uid, 
+        private void UpdateLivingWall(EntityUid uid,
             MapCoordinates oldCoords,
             MapCoordinates newCoords,
             LivingWallComponent livingWall,

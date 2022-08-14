@@ -47,7 +47,7 @@ namespace OpenNefia.Content.UI
         protected Dictionary<TSublayerArgs, TLayer> Layers = new();
         private Dictionary<TSublayerArgs, UiText> Texts = new();
         private Dictionary<TSublayerArgs, AssetDrawable?> Icons = new();
-        
+
         [Child] private UiTopicWindow TabIconWindow = default!;
         private IAssetInstance TabDeco;
 

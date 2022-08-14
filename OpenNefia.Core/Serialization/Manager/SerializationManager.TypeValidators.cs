@@ -25,12 +25,12 @@ namespace OpenNefia.Core.Serialization.Manager
             var method = typeof(SerializationManager).GetRuntimeMethods().First(m =>
                 m.Name == nameof(TryValidateWithTypeValidator) && m.GetParameters().Length == 4).MakeGenericMethod(type, node.GetType());
 
-            var arr = new object?[] {node, dependencies, context, null};
+            var arr = new object?[] { node, dependencies, context, null };
             var res = method.Invoke(this, arr);
 
             if (res as bool? ?? false)
             {
-                valid = (ValidationNode) arr[3]!;
+                valid = (ValidationNode)arr[3]!;
                 return true;
             }
 
@@ -63,7 +63,7 @@ namespace OpenNefia.Core.Serialization.Manager
             if (context != null && context.TypeValidators.TryGetValue((typeof(T), typeof(TNode)), out var rawTypeValidator) ||
                 _typeValidators.TryGetValue((typeof(T), typeof(TNode)), out rawTypeValidator))
             {
-                reader = (ITypeReader<T, TNode>) rawTypeValidator;
+                reader = (ITypeReader<T, TNode>)rawTypeValidator;
                 return true;
             }
 
@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 if (serializerTypeDef == null) return false;
 
                 var serializerType = serializerTypeDef.MakeGenericType(typeof(T).GetGenericArguments());
-                rawReader = (ITypeValidator<T, TNode>) RegisterSerializer(serializerType)!;
+                rawReader = (ITypeValidator<T, TNode>)RegisterSerializer(serializerType)!;
 
                 return true;
             }

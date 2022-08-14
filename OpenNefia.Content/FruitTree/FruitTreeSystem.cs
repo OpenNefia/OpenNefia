@@ -71,7 +71,7 @@ namespace OpenNefia.Content.FruitTree
         private void HandleBashed(EntityUid uid, FruitTreeComponent fruitTree, EntityBashedEventArgs args)
         {
             args.Handle(TurnResult.Succeeded);
-            
+
             if (!_stacks.TrySplit(uid, 1, out var split))
                 return;
 

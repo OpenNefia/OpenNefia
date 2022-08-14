@@ -25,7 +25,7 @@ namespace OpenNefia.Content.CharaMake
     }
 
     public interface ICharaMakeLayer<T> : ICharaMakeLayer
-        where T: ICharaMakeResult
+        where T : ICharaMakeResult
     {
     }
 }

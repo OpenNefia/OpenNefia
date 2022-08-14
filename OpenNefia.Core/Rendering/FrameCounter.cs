@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Rendering
             MaxFrames = Math.Max(maxFrames, 0);
         }
 
-        public FrameCounter(float delaySecs, uint maxFrames) 
+        public FrameCounter(float delaySecs, uint maxFrames)
             : this(delaySecs, (int)maxFrames) { }
 
         public void Update(float dt)

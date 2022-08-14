@@ -14,14 +14,14 @@ namespace OpenNefia.Core.ViewVariables.Editors
     {
         protected override WispControl MakeUI(object? value)
         {
-            var coords = (EntityCoordinates) value!;
+            var coords = (EntityCoordinates)value!;
             var hBoxContainer = new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
                 MinSize = new Vector2(240, 0),
             };
 
-            hBoxContainer.AddChild(new Label {Text = "map: "});
+            hBoxContainer.AddChild(new Label { Text = "map: " });
 
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
@@ -36,7 +36,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
 
             hBoxContainer.AddChild(gridId);
 
-            hBoxContainer.AddChild(new Label {Text = "pos: "});
+            hBoxContainer.AddChild(new Label { Text = "pos: " });
 
             var x = new LineEdit
             {

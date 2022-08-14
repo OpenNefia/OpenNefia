@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
 
 namespace OpenNefia.Content
-{   
+{
     /// <summary>
     /// Contains content <see cref="CVar"/>s.
     /// </summary>
@@ -261,7 +261,7 @@ namespace OpenNefia.Content
         AtTurnStart,
         NeverWait
     }
-    
+
     public enum ForceMapRenewalType
     {
         Disabled,

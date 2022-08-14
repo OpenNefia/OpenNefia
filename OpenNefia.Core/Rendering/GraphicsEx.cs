@@ -75,7 +75,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
-        }   
+        }
 
         public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width = null, float? height = null, float rotation = 0)
         {

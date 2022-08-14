@@ -63,7 +63,7 @@ namespace OpenNefia.Content.CharaAppearance
             return appearanceData;
         }
 
-        public static void ApplyAppearanceDataTo(EntityUid entity, CharaAppearanceData appearance, 
+        public static void ApplyAppearanceDataTo(EntityUid entity, CharaAppearanceData appearance,
             IEntityManager _entityManager,
             IPCCSystem pccs)
         {

@@ -43,12 +43,12 @@ namespace OpenNefia.Content.Maps
         public PrototypeId<TilePrototype>? GetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, bool noFallback = false)
         {
             var tileset = _protos.Index(tilesetId);
-        
+
             if (tileset.Tiles.TryGetValue(tileId, out var tilePicker))
             {
                 return tilePicker.GetTile();
             }
-            
+
             if (!noFallback)
             {
                 return GetTile(tileId, Protos.MapTileset.Default, noFallback: true);

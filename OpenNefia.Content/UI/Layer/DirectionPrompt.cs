@@ -73,7 +73,7 @@ namespace OpenNefia.Content.UI.Layer
             _centerCoords = args.Origin;
             _queryText = args.QueryText;
         }
-        
+
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function.TryToDirection(out var dir))

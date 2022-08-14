@@ -115,7 +115,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="manager">The container manager that this entity is inside of.</param>
         /// <returns>If a container manager was found.</returns>
         bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out ContainerManagerComponent? manager);
-        
+
         /// <summary>
         /// Attempts to remove an entity from its container, if any.
         /// </summary>
@@ -137,18 +137,18 @@ namespace OpenNefia.Core.Containers
         /// Attempts to remove all entities in a container.
         /// </summary>
         void EmptyContainer(IContainer container, bool force = false, EntityCoordinates? moveTo = null, bool attachToMap = false);
-        
+
         /// <summary>
         /// Attempts to remove and delete all entities in a container.
         /// </summary>
         void CleanContainer(IContainer container);
 
         void AttachParentToContainerOrMap(SpatialComponent transform);
-        
+
         bool IsInSameOrNoContainer(EntityUid user, EntityUid other);
-        
+
         bool IsInSameOrParentContainer(EntityUid user, EntityUid other);
-        
+
         /// <summary>
         ///     Check whether a given entity can see another entity despite whatever containers they may be in.
         /// </summary>

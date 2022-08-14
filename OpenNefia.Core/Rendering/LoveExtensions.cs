@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Rendering
         {
             text.Set(new Love.ColoredStringArray(Love.ColoredString.Create(str, color ?? Love.Color.White)));
         }
-        
+
         public static Love.GlyphData GetGlyphData(this Love.Rasterizer rasterizer, Rune rune)
         {
             return rasterizer.GetGlyphData((uint)rune.Value);

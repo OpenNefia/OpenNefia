@@ -116,7 +116,7 @@ namespace OpenNefia.Core.Log
                         var chunkSize = chunk.Length;
                         var totalRead = 0;
                         var span = chunk.Span;
-                        for (;;)
+                        for (; ; )
                         {
                             var finalChunk = totalRead + chunkSize >= totalChars;
                             Utf8.FromUtf16(span, buf, out var read, out var wrote, isFinalBlock: finalChunk);
@@ -175,7 +175,7 @@ namespace OpenNefia.Core.Log
                 LogLevel.Warning => "[" + LogMessage.LogNameWarning + "] ",
                 LogLevel.Error => "[" + LogMessage.LogNameError + "] ",
                 LogLevel.Fatal => "[" + LogMessage.LogNameFatal + "] ",
-                _ => "[" + LogMessage.LogNameUnknown +"] "
+                _ => "[" + LogMessage.LogNameUnknown + "] "
             };
         }
 

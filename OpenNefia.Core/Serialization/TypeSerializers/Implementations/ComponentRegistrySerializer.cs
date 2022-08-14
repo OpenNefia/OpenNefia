@@ -33,12 +33,12 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             foreach (var componentMapping in node.Sequence.Cast<MappingDataNode>())
             {
-                string compType = ((ValueDataNode) componentMapping.Get("type")).Value;
+                string compType = ((ValueDataNode)componentMapping.Get("type")).Value;
                 // See if type exists to detect errors.
                 if (!factory.IsRegistered(compType))
                 {
-                        Logger.ErrorS(SerializationManager.LogCategory, $"Unknown component '{compType}' in prototype!");
-                        continue;
+                    Logger.ErrorS(SerializationManager.LogCategory, $"Unknown component '{compType}' in prototype!");
+                    continue;
                 }
 
                 // Has this type already been added?
@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             foreach (var componentMapping in node.Sequence.Cast<MappingDataNode>())
             {
-                string compType = ((ValueDataNode) componentMapping.Get("type")).Value;
+                string compType = ((ValueDataNode)componentMapping.Get("type")).Value;
                 // See if type exists to detect errors.
                 if (!factory.IsRegistered(compType))
                 {

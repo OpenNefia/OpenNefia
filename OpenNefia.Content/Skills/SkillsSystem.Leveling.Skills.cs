@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem
     {
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
-        
+
         public void ModifyPotential(EntityUid uid, PrototypeId<SkillPrototype> skillId, int delta, SkillsComponent? skills = null)
         {
             if (delta == 0 || !Resolve(uid, ref skills) || !_protos.TryIndex(skillId, out var skillProto) || !TryGetKnown(uid, skillId, out var level))
@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Skills
 
         public void ModifyPotential(EntityUid uid, SkillPrototype skillProto, int delta, SkillsComponent? skills = null)
             => ModifyPotential(uid, skillProto.GetStrongID(), delta, skills);
-        
+
         public void GainFixedSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillID, int expGained,
             SkillsComponent? skills = null)
         {
@@ -217,7 +217,7 @@ namespace OpenNefia.Content.Skills
         {
             if (!Resolve(entity, ref skillsComp))
                 return;
-            
+
             void Grow(PrototypeId<SkillPrototype> skillId)
             {
                 skillsComp!.Ensure(skillId).Level.Base += _rand.Next(3);

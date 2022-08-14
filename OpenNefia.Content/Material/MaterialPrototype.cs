@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Material
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
-        
+
         /// <inheritdoc/>
         [DataField]
         [NeverPushInheritance]

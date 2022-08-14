@@ -124,7 +124,7 @@ namespace OpenNefia.Content.Dialog
 
             _assetIeChat = Assets.Get(Protos.Asset.IeChat);
             _assetImpressionIcon = Assets.Get(Protos.Asset.ImpressionIcon);
-            
+
             CanControlFocus = false;
             EventFilter = UIEventFilterMode.Stop;
             OnKeyBindDown += HandleKeyBindDown;

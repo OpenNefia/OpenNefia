@@ -9,7 +9,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
     {
         protected override WispControl MakeUI(object? value)
         {
-            var ts = (TimeSpan) value!;
+            var ts = (TimeSpan)value!;
             var lineEdit = new LineEdit
             {
                 Text = ts.ToString(),

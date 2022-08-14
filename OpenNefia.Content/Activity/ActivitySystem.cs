@@ -131,7 +131,7 @@ namespace OpenNefia.Content.Activity
                 RemoveActivity(actor);
                 return;
             }
-            
+
             var ev = new OnActivityPassTurnEvent(activityComp);
             RaiseEvent(activityComp.Owner, ev);
 
@@ -270,7 +270,7 @@ namespace OpenNefia.Content.Activity
                 result = null;
                 return false;
             }
-            
+
             var activityProto = _protos.Index(activityId);
             if (!activityProto.Components.HasComponent<ActivityComponent>())
             {

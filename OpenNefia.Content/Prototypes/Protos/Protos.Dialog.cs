@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly DialogPrototypeId IgnoresYou = new($"Elona.{nameof(IgnoresYou)}");
             public static readonly DialogPrototypeId IsBusy = new($"Elona.{nameof(IsBusy)}");
             public static readonly DialogPrototypeId IsSleeping = new($"Elona.{nameof(IsSleeping)}");
-            
+
             public static readonly DialogPrototypeId Default = new($"Elona.{nameof(Default)}");
             public static readonly DialogPrototypeId Ally = new($"Elona.{nameof(Ally)}");
 

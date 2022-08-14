@@ -59,7 +59,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return (result, default);
             }
 
-            return (result, (T) result.RawValue);
+            return (result, (T)result.RawValue);
         }
 
         public static (DeserializationResult result, T? value) ReadWithValueCast<T>(
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return (result, default);
             }
 
-            return (result, (T) result.RawValue);
+            return (result, (T)result.RawValue);
         }
 
 
@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 throw new NullReferenceException();
             }
 
-            return ((T) result.RawValue, result);
+            return ((T)result.RawValue, result);
         }
 
         public static (T value, DeserializationResult result) ReadWithValueOrThrow<T>(
@@ -110,7 +110,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 throw new NullReferenceException();
             }
 
-            return ((T) result.RawValue, result);
+            return ((T)result.RawValue, result);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Parties
     [DataDefinition]
     internal sealed class Party
     {
-        public Party() {}
+        public Party() { }
 
         public Party(EntityUid leader)
         {
@@ -256,8 +256,8 @@ namespace OpenNefia.Content.Parties
 
         public bool TryGetMembers(EntityUid leader, [NotNullWhen(true)] out IReadOnlySet<EntityUid>? members, PartyComponent? partyComp = null)
         {
-            if (!Resolve(leader, ref partyComp, logMissing: false) 
-                || partyComp.PartyID == null 
+            if (!Resolve(leader, ref partyComp, logMissing: false)
+                || partyComp.PartyID == null
                 || !Parties.TryGetParty(partyComp.PartyID.Value, out var party))
             {
                 members = null;

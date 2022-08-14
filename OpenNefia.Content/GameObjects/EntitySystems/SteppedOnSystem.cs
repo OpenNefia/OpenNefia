@@ -19,7 +19,7 @@ namespace OpenNefia.Content.GameObjects
         }
 
         private void CheckSteppedOn(EntityUid stepper,
-            AfterMoveEventArgs args, 
+            AfterMoveEventArgs args,
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {

@@ -46,7 +46,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             _components.FinishRegistration();
 
             IoCManager.Resolve<ISerializationManager>().Initialize();
-            _prototypes = (PrototypeManager) IoCManager.Resolve<IPrototypeManager>();
+            _prototypes = (PrototypeManager)IoCManager.Resolve<IPrototypeManager>();
             _prototypes.RegisterType<EntityPrototype>();
             _prototypes.LoadString(InitialPrototypes);
             _prototypes.Resync();

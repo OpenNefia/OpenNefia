@@ -43,7 +43,7 @@ namespace OpenNefia.Content.InUse
                 RemoveItemInUse(otherUser.Value, item);
 
             EnsureComp<InUseComponent>(item).User = user;
-            
+
             itemUser.InUse.Add(item);
         }
 

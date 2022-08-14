@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Identify
                 return new(false, IdentifyState.None);
 
             if (identify.IdentifyState == IdentifyState.Quality && !HasComp<EquipmentComponent>(ent))
-                    newState = IdentifyState.Full;
+                newState = IdentifyState.Full;
 
             if (identify.IdentifyState >= newState)
                 return new(false, identify.IdentifyState);

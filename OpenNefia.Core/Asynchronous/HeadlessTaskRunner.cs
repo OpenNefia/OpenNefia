@@ -10,12 +10,12 @@ namespace OpenNefia.Core.Asynchronous
     {
         public void Run(Task task)
         {
-            while (!task.IsCompleted) {}
+            while (!task.IsCompleted) { }
         }
 
         public T Run<T>(Task<T> task)
         {
-            while (!task.IsCompleted) {}
+            while (!task.IsCompleted) { }
             return task.Result;
         }
     }

@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Inventory
     public class EquipInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly IEquipmentSystem _equipmentSystem = default!;
-        
+
         /// <summary>
         /// Equipment slot type to filter the items by.
         /// </summary>
@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Inventory
         {
             // TODO fairy trait
             // That will probably be a hook on IsEquippingAttemptEvent.
-            
+
             return new InventoryResult.Finished(TurnResult.Succeeded);
         }
     }

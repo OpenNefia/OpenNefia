@@ -100,7 +100,7 @@ namespace OpenNefia.Content.UI.Element
             switch (style)
             {
                 case FontStyle.Bold:
-                    Love.Graphics.Draw(text, x+1, y);
+                    Love.Graphics.Draw(text, x + 1, y);
                     break;
             }
         }
@@ -148,7 +148,7 @@ namespace OpenNefia.Content.UI.Element
     {
         private IAssetInstance AssetTipIcons;
 
-        public UiTextTopic(string text = "") 
+        public UiTextTopic(string text = "")
             : base(new FontSpec(12, 12, style: FontStyle.Bold), text)
         {
             AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);

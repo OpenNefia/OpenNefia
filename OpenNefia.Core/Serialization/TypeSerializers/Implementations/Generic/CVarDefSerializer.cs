@@ -37,7 +37,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
                 : new ErrorNode(node, $"Could not find {nameof(CVarDef<T>)} registered with name: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node, 
+        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
             var configManager = dependencies.Resolve<IConfigurationManager>();
@@ -52,7 +52,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             return new ValueDataNode(value.Name);
         }
 
-        public CVarDef<T> Copy(ISerializationManager serializationManager, CVarDef<T> source, CVarDef<T> target, 
+        public CVarDef<T> Copy(ISerializationManager serializationManager, CVarDef<T> source, CVarDef<T> target,
             bool skipHook, ISerializationContext? context = null)
         {
             return source;

@@ -48,7 +48,7 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(entrance, ref stairs))
                 return TurnResult.Aborted;
 
-            return _mapEntrances.UseMapEntrance(user, stairs.Entrance) 
+            return _mapEntrances.UseMapEntrance(user, stairs.Entrance)
                 ? TurnResult.Succeeded : TurnResult.Aborted;
         }
     }

@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Inventory
                 return new InventoryResult.Continuing();
             }
 
-            if (!EntityManager.TryGetComponent<InventoryComponent>(context.User, out var inv) 
+            if (!EntityManager.TryGetComponent<InventoryComponent>(context.User, out var inv)
                 || !_stacks.TrySplit(item, amount, out var split)
                 || !inv.Container.Insert(split))
             {
@@ -93,7 +93,7 @@ namespace OpenNefia.Content.Inventory
 
             var ev = new AfterItemPurchasedEvent(context.User, context.Target, amount);
             EntityManager.EventBus.RaiseEvent(split, ev);
-            
+
             _stacks.TryStackAtSamePos(split);
 
             return new InventoryResult.Continuing();

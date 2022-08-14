@@ -69,7 +69,7 @@ namespace OpenNefia.Core.Utility
 
             if (path == "")
             {
-                Segments = new string[] {"."};
+                Segments = new string[] { "." };
                 return;
             }
 
@@ -254,7 +254,7 @@ namespace OpenNefia.Core.Utility
             ResourcePath path;
             if (IsRooted)
             {
-                var clone = (string[]) Segments.Clone();
+                var clone = (string[])Segments.Clone();
                 clone[0] = newSeparator;
                 path = new ResourcePath(clone, newSeparator);
             }
@@ -569,7 +569,7 @@ namespace OpenNefia.Core.Utility
                 throw new ArgumentException("New file name cannot be '.'");
             }
 
-            var newSegments = (string[]) Segments.Clone();
+            var newSegments = (string[])Segments.Clone();
             newSegments[newSegments.Length - 1] = name;
 
             return new ResourcePath(newSegments, Separator);
@@ -673,9 +673,9 @@ namespace OpenNefia.Core.Utility
 
         public static bool operator ==(ResourcePath? a, ResourcePath? b)
         {
-            if ((object?) a == null)
+            if ((object?)a == null)
             {
-                return (object?) b == null;
+                return (object?)b == null;
             }
 
             return a.Equals(b);

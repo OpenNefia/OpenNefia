@@ -73,7 +73,7 @@ namespace OpenNefia.Content.World
                     State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
                 }
             }
-            
+
             if (State.GameDate.Hour == 8)
             {
                 _mes.Display(Loc.GetString("Elona.World.NewDay"), UiColors.MesYellow);
@@ -105,7 +105,7 @@ namespace OpenNefia.Content.World
             int daysPassed = 0;
             int monthsPassed = 0;
             int yearsPassed = 0;
-            
+
             newSeconds += secondsPassed;
             if (newSeconds >= 60)
             {
@@ -166,14 +166,14 @@ namespace OpenNefia.Content.World
     public struct MapOnTimePassedEvent
     {
         public IMap Map { get; }
-        
+
         public int YearsPassed { get; }
         public int MonthsPassed { get; }
         public int DaysPassed { get; }
         public int HoursPassed { get; }
         public int MinutesPassed { get; }
         public int SecondsPassed { get; }
-        
+
         /// <summary>
         /// Amount of time that was actually passed. Used if the event handler
         /// is accumulating time by adding up this value on every turn.

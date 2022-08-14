@@ -17,8 +17,8 @@ namespace OpenNefia.Content.Activity
 
         public abstract SoundSpecifier Sound { get; set; }
 
-        public virtual void Initialize() {}
-        public virtual void OnFirstFrame() {}
+        public virtual void Initialize() { }
+        public virtual void OnFirstFrame() { }
         public abstract IGlobalDrawable MakeGlobalDrawable();
     }
 
@@ -64,7 +64,7 @@ namespace OpenNefia.Content.Activity
                     IoCManager.Resolve<IAudioManager>().Play(Protos.Sound.Dig1);
                     _playedSound = true;
                 }
-                
+
                 if (_counter.IsFinished)
                     Finish();
             }

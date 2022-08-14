@@ -64,5 +64,5 @@ namespace OpenNefia.Tests.Core.Utility
 #pragma warning restore 414
 #pragma warning restore 169
 
-    public interface INullableTestInterface{}
+    public interface INullableTestInterface { }
 }

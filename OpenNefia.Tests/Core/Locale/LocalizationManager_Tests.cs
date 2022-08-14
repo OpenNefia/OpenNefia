@@ -247,7 +247,7 @@ Test = {
 
             Assert.That(locMan.GetString("Test.Bar.String"), Is.EqualTo("<missing reference: Test.Foo.String -> Test.Bar.String>"));
         }
-        
+
         [Test]
         public void TestReferences_Found()
         {

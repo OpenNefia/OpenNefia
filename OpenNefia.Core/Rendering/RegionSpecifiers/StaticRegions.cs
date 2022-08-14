@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Rendering
         public AssetRegions GetRegions(Vector2i size)
         {
             var regions = new AssetRegions();
-            foreach(var region in Regions)
+            foreach (var region in Regions)
             {
                 regions[region.Key] = region.Value;
             }

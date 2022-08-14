@@ -20,8 +20,8 @@ namespace OpenNefia.Core.UserInterface
             ScreenCoordinates pointerPosition,
             [NotNullWhen(true)] out (UiElement control, Vector2i rel)? hitData);
 
-        void HandleCanFocusUp(); 
-        
+        void HandleCanFocusUp();
+
         void KeyBindDown(BoundKeyEventArgs args);
 
         void KeyBindUp(BoundKeyEventArgs args);

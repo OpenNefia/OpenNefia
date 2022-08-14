@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Feats
         private void ProcFeatTurnBeginEvents(EntityUid uid, FeatsComponent component, BeforeTurnBeginEventArgs args)
         {
             var ev = new P_FeatBeforeTurnBeginEvent(uid);
-            
+
             foreach (var proto in _protos.EnumeratePrototypes<FeatPrototype>())
             {
                 var id = proto.GetStrongID();

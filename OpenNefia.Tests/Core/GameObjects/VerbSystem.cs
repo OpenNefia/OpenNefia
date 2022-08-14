@@ -57,10 +57,10 @@ namespace OpenNefia.Tests.Core.GameObjects
                 Assert.That(verbSys.CanUseVerbOn(player, ent1, "Test"), Is.True, "CanUseVerbOn success");
                 Assert.That(verbSys.CanUseVerbOn(ent1, player, "Test"), Is.False, "CanUseVerbOn failure 1");
                 Assert.That(verbSys.CanUseVerbOn(player, ent2, "Test"), Is.False, "CanUseVerbOn failure 2");
-                
+
                 Assert.That(verbSys.CanUseAnyVerbOn(player, ent1, new HashSet<string>() { "Test", "foo" }), Is.True, "CanUseAnyVerbOn success");
                 Assert.That(verbSys.CanUseAnyVerbOn(ent1, player, new HashSet<string>() { "Test", "foo" }), Is.False, "CanUseAnyVerbOn failure");
-                
+
                 Assert.That(verbSys.TryGetVerb(ent1, player, "Test", out _), Is.False, "TryGetVerb failure 1");
                 Assert.That(verbSys.TryGetVerb(player, ent2, "Test", out _), Is.False, "TryGetVerb failure 2");
 

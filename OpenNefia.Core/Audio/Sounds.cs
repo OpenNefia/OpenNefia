@@ -5,7 +5,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Audio
-{  
+{
     /// <summary>
     /// A static proxy class for interfacing with the <see cref="IAudioManager"/>.
     /// TODO remove

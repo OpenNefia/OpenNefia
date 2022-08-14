@@ -107,7 +107,7 @@ namespace OpenNefia.Content.StatusEffects
         {
             return GetTurns(entity, id, statusEffects) > 0;
         }
-        
+
         public IEnumerable<KeyValuePair<PrototypeId<StatusEffectPrototype>, StatusEffect>> EnumerateStatusEffects(EntityUid entity, StatusEffectsComponent? statusEffects = null)
         {
             if (!Resolve(entity, ref statusEffects))

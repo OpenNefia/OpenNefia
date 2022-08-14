@@ -66,7 +66,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     /// a <see cref="IConfigMenuNode"/>.
     /// </remarks>
     public abstract class BaseConfigMenuUICell<TMenuNode> : BaseConfigMenuUICell
-        where TMenuNode: IConfigMenuNode
+        where TMenuNode : IConfigMenuNode
     {
         protected readonly IConfigurationManager ConfigManager;
 
@@ -79,7 +79,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         protected Color ColorArrowDisabled = Color.White.WithAlphaB(100);
 
-        public BaseConfigMenuUICell(ConfigMenuItemProtoId protoId, TMenuNode menuNode) 
+        public BaseConfigMenuUICell(ConfigMenuItemProtoId protoId, TMenuNode menuNode)
             : base(menuNode)
         {
             ProtoId = protoId;
@@ -99,7 +99,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             UiText.Color = Enabled ? UiColors.TextBlack : UiColors.TextDisabled;
 
             var (leftArrowEnabled, rightArrowEnabled) = CanChange();
-            AssetArrowLeft.Color = leftArrowEnabled ? Color.White : ColorArrowDisabled;  
+            AssetArrowLeft.Color = leftArrowEnabled ? Color.White : ColorArrowDisabled;
             AssetArrowRight.Color = rightArrowEnabled ? Color.White : ColorArrowDisabled;
         }
 
@@ -142,7 +142,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
     public abstract class BaseConfigMenuCVarUICell<TMenuNode, TCVar> : BaseConfigMenuUICell<TMenuNode>
         where TMenuNode : IConfigCVarMenuNode<TCVar>
-        where TCVar: notnull
+        where TCVar : notnull
     {
         protected BaseConfigMenuCVarUICell(ConfigMenuItemProtoId protoId, TMenuNode data) : base(protoId, data)
         {

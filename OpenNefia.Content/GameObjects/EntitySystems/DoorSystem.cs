@@ -42,7 +42,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (!Resolve(doorEntity, ref doorComp))
                 return TurnResult.Failed;
-            
+
             if (!doorComp.IsOpen)
                 return TurnResult.Failed;
 

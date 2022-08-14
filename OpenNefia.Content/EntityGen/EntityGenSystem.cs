@@ -178,11 +178,11 @@ namespace OpenNefia.Content.EntityGen
 
             if (!EntityManager.IsAlive(ent))
                 return null;
-        
+
             if (!container.Insert(ent.Value))
             {
                 Logger.WarningS("entity.gen", $"Could not fit entity '{ent}' into container of entity '{container.Owner}'.");
-                
+
                 EntityManager.DeleteEntity(ent.Value);
                 return null;
             }

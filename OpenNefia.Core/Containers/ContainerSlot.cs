@@ -83,7 +83,7 @@ namespace OpenNefia.Core.Containers
         {
             base.Shutdown();
 
-            if (ContainedEntity is {} contained)
+            if (ContainedEntity is { } contained)
             {
                 IoCManager.Resolve<IEntityManager>().DeleteEntity(contained);
             }

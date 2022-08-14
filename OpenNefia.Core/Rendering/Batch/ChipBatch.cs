@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Rendering
             NeedsRedraw = true;
         }
 
-        public void AddOrUpdateChipEntry(ChipBatchEntry entry) 
+        public void AddOrUpdateChipEntry(ChipBatchEntry entry)
         {
             if (!ByIndex.ContainsKey(entry.Memory.Index))
             {

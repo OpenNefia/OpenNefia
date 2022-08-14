@@ -12,7 +12,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestMarginLayoutBasic()
         {
-            var control = new LayoutContainer {Size = (100, 100)};
+            var control = new LayoutContainer { Size = (100, 100) };
             var child = new WispControl();
 
             LayoutContainer.SetMarginRight(child, 5);
@@ -37,7 +37,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestAnchorLayoutBasic()
         {
-            var control = new LayoutContainer {Size = new Vector2(100, 100)};
+            var control = new LayoutContainer { Size = new Vector2(100, 100) };
             var child = new WispControl();
             LayoutContainer.SetAnchorRight(child, 1);
             LayoutContainer.SetAnchorBottom(child, 1);
@@ -64,7 +64,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestMarginLayoutMinimumSize()
         {
-            var control = new LayoutContainer {Size = new Vector2(100, 100)};
+            var control = new LayoutContainer { Size = new Vector2(100, 100) };
             var child = new WispControl
             {
                 MinSize = new Vector2(50, 50),
@@ -82,7 +82,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestMarginAnchorLayout()
         {
-            var control = new LayoutContainer {Size = new Vector2(100, 100)};
+            var control = new LayoutContainer { Size = new Vector2(100, 100) };
             var child = new WispControl();
 
             LayoutContainer.SetMarginRight(child, -10);
@@ -105,7 +105,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestGrowEnd()
         {
             var parent = new LayoutContainer();
-            var child = new WispControl { ExactSize = (100, 100)};
+            var child = new WispControl { ExactSize = (100, 100) };
 
             LayoutContainer.SetAnchorRight(child, 1);
 
@@ -129,7 +129,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestGrowBegin()
         {
             var parent = new LayoutContainer();
-            var child = new WispControl { ExactSize = (100, 100)};
+            var child = new WispControl { ExactSize = (100, 100) };
 
             LayoutContainer.SetGrowHorizontal(child, LayoutContainer.GrowDirection.Begin);
             LayoutContainer.SetAnchorRight(child, 1);
@@ -153,8 +153,8 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestGrowBoth()
         {
-            var parent = new LayoutContainer {MinSize = (100, 100)};
-            var child = new WispControl { ExactSize = (100, 100)};
+            var parent = new LayoutContainer { MinSize = (100, 100) };
+            var child = new WispControl { ExactSize = (100, 100) };
 
             LayoutContainer.SetGrowHorizontal(child, LayoutContainer.GrowDirection.Both);
             LayoutContainer.SetAnchorRight(child, 1);
@@ -178,7 +178,7 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         [Test]
         public void TestGrowDirectionChange()
         {
-            var parent = new LayoutContainer {MinSize = (100, 100)};
+            var parent = new LayoutContainer { MinSize = (100, 100) };
             var child = new WispControl();
             parent.AddChild(child);
             parent.Arrange(new UIBox2(0, 0, 100, 100));

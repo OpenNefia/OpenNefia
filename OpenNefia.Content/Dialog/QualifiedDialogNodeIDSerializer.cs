@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Skills
 
             var dialogID = new PrototypeId<DialogPrototype>(split[0]);
             var nodeID = split[1];
-            
+
             var protos = dependencies.Resolve<IPrototypeManager>();
             if (!protos.TryIndex(dialogID, out var dialogProto))
                 throw new ArgumentException($"{nameof(DialogPrototype)} with ID {dialogID} not found.");

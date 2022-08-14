@@ -25,7 +25,7 @@ internal sealed class MiniCompiler : XamlCompiler<object, IXamlEmitResult>
             mappings);
         return new MiniCompiler(configuration);
     }
-        
+
     private MiniCompiler(TransformerConfiguration configuration)
         : base(configuration, new XamlLanguageEmitMappings<object, IXamlEmitResult>(), false)
     {

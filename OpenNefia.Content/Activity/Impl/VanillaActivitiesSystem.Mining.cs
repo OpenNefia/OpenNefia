@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Activity
                 args.Cancel();
                 return;
             }
-                
+
             _mes.Display(Loc.GetString("Elona.Dig.Mining.Start.Wall"));
             if (tile.Kind == TileKind.HardWall)
                 _mes.Display(Loc.GetString("Elona.Dig.Mining.Start.HardWall"));
@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Activity
             }
             else
             {
-                if (CompOrNull<TurnOrderComponent>(actor)?.TotalTurnsTaken % 5 == 0) 
+                if (CompOrNull<TurnOrderComponent>(actor)?.TotalTurnsTaken % 5 == 0)
                     _mes.Display(Loc.GetString("Elona.Dig.Sound"), UiColors.MesBlue);
             }
         }

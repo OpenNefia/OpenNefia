@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Tests.Oracle
             Assert.That(oracle.ArtifactLocations, Is.Empty);
 
             entGen.SpawnEntity(TestEntity, map);
-            
+
             Assert.That(oracle.ArtifactLocations.Count, Is.EqualTo(1));
         }
     }

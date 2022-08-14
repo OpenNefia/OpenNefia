@@ -15,6 +15,11 @@
     <Compile Remove="Scratch.cs" />
   </ItemGroup>
 	
+  <ItemGroup>
+    <None Remove="PublicAPI.Shipped.txt" />
+    <None Remove="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+	
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
@@ -25,6 +30,18 @@
 	  </None>
 	</ItemGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
   <Import Project="..\MSBuild\XamlIL.targets" />
 </Project>

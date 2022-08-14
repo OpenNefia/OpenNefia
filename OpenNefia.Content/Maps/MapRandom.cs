@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Maps
         }
 
         public TileRef? PickRandomTileInRadius(MapCoordinates coords, int radius)
-{
+        {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return null;
 

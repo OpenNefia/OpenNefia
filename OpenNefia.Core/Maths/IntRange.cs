@@ -29,42 +29,42 @@ namespace OpenNefia.Core.Maths
             return $"{Min}~{Max}";
         }
 
-		public override int GetHashCode()
-		{
-			return HashCode.Combine(Min, Max);
-		}
-
-		public override bool Equals(object? obj)
-		{
-			if (obj is not IntRange other)
-				return false;
-
-			return Equals(other);
-		}
-
-		public bool Equals(IntRange other)
-		{
-			return Min == other.Min && Max == other.Max;
-		}
-
-		public static bool operator ==(IntRange lhs, IntRange rhs)
-		{
-			return lhs.Equals(rhs);
-		}
-
-		public static bool operator !=(IntRange lhs, IntRange rhs)
-		{
-			return !(lhs == rhs);
-		}
-
-		public bool Includes(int val)
-		{
-			return val >= Min && val <= Max;
-		}
-
-		public int Clamp(int val)
+        public override int GetHashCode()
         {
-			return Math.Clamp(val, Min, Max); 
+            return HashCode.Combine(Min, Max);
         }
-	}
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not IntRange other)
+                return false;
+
+            return Equals(other);
+        }
+
+        public bool Equals(IntRange other)
+        {
+            return Min == other.Min && Max == other.Max;
+        }
+
+        public static bool operator ==(IntRange lhs, IntRange rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(IntRange lhs, IntRange rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        public bool Includes(int val)
+        {
+            return val >= Min && val <= Max;
+        }
+
+        public int Clamp(int val)
+        {
+            return Math.Clamp(val, Min, Max);
+        }
+    }
 }

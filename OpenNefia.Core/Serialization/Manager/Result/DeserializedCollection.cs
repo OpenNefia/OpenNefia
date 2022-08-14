@@ -55,7 +55,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
             foreach (var oldRes in Mappings)
             {
                 var newRes = oldRes.Copy();
-                valueList.Add((TElement) newRes.RawValue!);
+                valueList.Add((TElement)newRes.RawValue!);
                 resList.Add(newRes);
             }
 

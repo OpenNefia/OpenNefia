@@ -25,11 +25,11 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         /// <param name="item">Entity to check.</param>
         /// <param name="equipSlotId">Equipment slot equipping to.</param>
-        bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId, 
+        bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId,
             EquipmentComponent? itemEquipment = null);
 
         int GetTotalEquipmentWeight(EntityUid equipTarget, EquipSlotsComponent? equipSlotsComp = null);
-        
+
         PrototypeId<SkillPrototype> GetArmorClass(int weight);
         PrototypeId<SkillPrototype> GetArmorClass(EntityUid ent, EquipSlotsComponent? equipSlotsComp = null);
     }

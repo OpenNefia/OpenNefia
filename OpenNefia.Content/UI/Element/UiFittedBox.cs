@@ -80,9 +80,9 @@ namespace OpenNefia.Content.UI.Element
     public class UiFittedBox : UiElement
     {
         private UiElement? _child;
-        public UiElement? Child 
+        public UiElement? Child
         {
-            get => _child; 
+            get => _child;
             set
             {
                 if (_child != null)

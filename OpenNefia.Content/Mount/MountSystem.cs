@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Mount
                 return;
 
             args.OutAccuracy = args.OutAccuracy * 100 / Math.Clamp(150 - _skills.Level(uid, Protos.Skill.Riding) / 2, 115, 150);
-            if (EntityManager.IsAlive(args.Weapon) && !args.IsRanged 
+            if (EntityManager.IsAlive(args.Weapon) && !args.IsRanged
                 && TryComp<WeightComponent>(args.Weapon.Value, out var weight) && weight.Weight >= 400)
             {
                 args.OutAccuracy -= (weight.Weight - 4000 + 400) / (10 + _skills.Level(uid, Protos.Skill.Riding) / 5);

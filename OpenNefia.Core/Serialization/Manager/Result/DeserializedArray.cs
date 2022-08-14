@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
         public override DeserializationResult PushInheritanceFrom(DeserializationResult source)
         {
             var sourceCollection = source.Cast<DeserializedArray>();
-            var values = (Array) Activator.CreateInstance(Value.GetType(), Value.Length)!;
+            var values = (Array)Activator.CreateInstance(Value.GetType(), Value.Length)!;
             var results = new DeserializationResult[sourceCollection.Mappings.Length];
 
             for (var i = 0; i < sourceCollection.Mappings.Length; i++)
@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
 
         public override DeserializationResult Copy()
         {
-            var values = (Array) Activator.CreateInstance(Value.GetType(), Value.Length)!;
+            var values = (Array)Activator.CreateInstance(Value.GetType(), Value.Length)!;
             var results = new DeserializationResult[Mappings.Length];
 
             for (var i = 0; i < Mappings.Length; i++)

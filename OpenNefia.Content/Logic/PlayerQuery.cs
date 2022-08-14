@@ -59,10 +59,10 @@ namespace OpenNefia.Content.Logic
                 items.Reverse();
             }
 
-            var promptOpts = new Prompt<YesNo>.Args(items) 
-            { 
-                QueryText = opts.QueryText, 
-                IsCancellable = opts.IsCancellable 
+            var promptOpts = new Prompt<YesNo>.Args(items)
+            {
+                QueryText = opts.QueryText,
+                IsCancellable = opts.IsCancellable
             };
             var result = _uiManager.Query<Prompt<YesNo>, Prompt<YesNo>.Args, PromptChoice<YesNo>>(promptOpts);
 

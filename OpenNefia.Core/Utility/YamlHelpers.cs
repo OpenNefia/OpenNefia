@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Utility
         [Pure]
         public static string AsString(this YamlNode node)
         {
-            return ((YamlScalarNode) node).Value ?? "";
+            return ((YamlScalarNode)node).Value ?? "";
         }
 
         [Pure]
@@ -109,7 +109,7 @@ namespace OpenNefia.Core.Utility
         [Pure]
         public static T AsEnum<T>(this YamlNode node)
         {
-            return (T) Enum.Parse(typeof(T), node.AsString(), true);
+            return (T)Enum.Parse(typeof(T), node.AsString(), true);
         }
 
         [Pure]
@@ -155,7 +155,7 @@ namespace OpenNefia.Core.Utility
         [Pure]
         public static T GetNode<T>(this YamlMappingNode mapping, string key) where T : YamlNode
         {
-            return (T) mapping[_getFetchNode(key)];
+            return (T)mapping[_getFetchNode(key)];
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace OpenNefia.Core.Utility
         {
             if (mapping.Children.TryGetValue(_getFetchNode(key), out var node))
             {
-                returnNode = (T) node;
+                returnNode = (T)node;
                 return true;
             }
 

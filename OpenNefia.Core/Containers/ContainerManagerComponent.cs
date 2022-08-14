@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Containers
         {
             foreach (var (_, container) in Containers)
             {
-                var baseContainer = (BaseContainer) container;
+                var baseContainer = (BaseContainer)container;
                 baseContainer.Manager = this;
             }
         }
@@ -140,7 +140,7 @@ namespace OpenNefia.Core.Containers
 
             void IEnumerator.Reset()
             {
-                ((IEnumerator<IContainer>) _enumerator).Reset();
+                ((IEnumerator<IContainer>)_enumerator).Reset();
             }
 
             [AllowNull]

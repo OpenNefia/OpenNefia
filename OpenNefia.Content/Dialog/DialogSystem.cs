@@ -84,12 +84,12 @@ namespace OpenNefia.Content.Dialog
                 }
             }
         }
-        
+
         private void HandledCollidedWith(EntityUid uid, DialogComponent component, WasCollidedWithEventArgs args)
         {
             if (args.Handled)
                 return;
-            
+
             args.Handle(TryToChatWith(args.Source, uid));
         }
 

@@ -54,13 +54,13 @@ namespace OpenNefia.Content.Skills
         #endregion
 
         #region Leveling (Shared)
-        
+
         void GainSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
-        
+
         void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);
-        
+
         void ModifyPotential(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int delta);
-        
+
         #endregion
 
         #region Leveling (Skills)
@@ -84,7 +84,7 @@ namespace OpenNefia.Content.Skills
         /// Applies the skill point bonus. Does not consume any skill points.
         /// </summary>
         void ApplyBonusPoint(EntityUid uid, PrototypeId<SkillPrototype> skillId, SkillsComponent? skills = null);
-        
+
         void RefreshSpeed(EntityUid chara, SkillsComponent? skills = null);
 
         #endregion

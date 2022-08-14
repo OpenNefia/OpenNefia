@@ -287,7 +287,7 @@ namespace OpenNefia.Content.UI.Element.List
                 var cell = DisplayedCells[index];
                 cell.XOffset = ItemOffsetX;
                 cell.SetPosition(X, iy);
-                
+
                 iy += cell.Height;
             }
         }

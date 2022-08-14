@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Maps
         /// <summary>
         /// Spatial lookup of entities on this map.
         /// </summary>
-        public SortedSet<EntityUid>[,] EntitySpatial = new SortedSet<EntityUid>[0,0];
+        public SortedSet<EntityUid>[,] EntitySpatial = new SortedSet<EntityUid>[0, 0];
 
         internal void InitializeFromMap(IMap map)
         {

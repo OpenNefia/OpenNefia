@@ -33,7 +33,7 @@ namespace OpenNefia.Content.GameObjects
         }
 
         public void CheckMovementOutOfMap(EntityUid uid, BeforeMoveEventArgs args,
-           PlayerComponent? player = null, 
+           PlayerComponent? player = null,
            SpatialComponent? playerSpatial = null)
         {
             if (args.Handled || !Resolve(uid, ref player, ref playerSpatial))

@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Combat
 
         private void ModifyKillExperience(EntityUid uid, SplittableComponent component, ref CalcKillExperienceEvent args)
         {
-            if (component.SplitsOnHighDamage.Buffed|| component.SplitsRandomlyWhenAttacked.Buffed)
+            if (component.SplitsOnHighDamage.Buffed || component.SplitsRandomlyWhenAttacked.Buffed)
                 args.OutExperience /= 20;
         }
     }

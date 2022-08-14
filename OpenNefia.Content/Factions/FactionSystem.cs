@@ -96,7 +96,7 @@ namespace OpenNefia.Content.Factions
                     && theirUnderlingFaction.PersonalRelations.TryGetValue(us, out var theirRel))
                     theirUnderlingRelation = theirRel;
             }
-            
+
             if (_partySystem.TryGetLeader(us, out var leader))
                 us = leader.Value;
             if (_partySystem.TryGetLeader(them, out leader))

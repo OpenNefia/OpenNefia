@@ -70,8 +70,8 @@ namespace OpenNefia.Content.Rendering
             Love.Graphics.SetColor(Love.Color.White);
             foreach (var p in this.Particles)
             {
-                this.AssetParticle.DrawUnscaled(PixelX + p.Pos.X, 
-                    PixelY + p.Pos.Y + frame2 / p.Rotation, 
+                this.AssetParticle.DrawUnscaled(PixelX + p.Pos.X,
+                    PixelY + p.Pos.Y + frame2 / p.Rotation,
                     GameSession.Coords.TileSize.X - frame2 * 2,
                     GameSession.Coords.TileSize.Y - frame2 * 2,
                     true,

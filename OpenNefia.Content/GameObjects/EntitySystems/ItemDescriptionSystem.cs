@@ -73,7 +73,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         {
             var ev = new GetItemDescriptionEventArgs(entries);
             RaiseEvent(entity, ev);
-         
+
             if (entries.Count == 0)
             {
                 entries.Add(new ItemDescriptionEntry() { Text = Loc.GetString("Elona.ItemDescription.NoInformation") });

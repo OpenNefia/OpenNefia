@@ -249,7 +249,7 @@ namespace OpenNefia.Content.Shopkeeper
             OutTotalItemCount = totalItemCount;
         }
     }
-    
+
     [PrototypeEvent(typeof(ShopInventoryPrototype))]
     public sealed class P_ShopInventoryAfterGenerateItemEvent : PrototypeEventArgs
     {

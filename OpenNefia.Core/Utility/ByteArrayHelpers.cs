@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Utility
             {
                 sBuilder.Append(data[i].ToString("x2"));
             }
-           return sBuilder.ToString();
+            return sBuilder.ToString();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems.Tag
 
         IEnumerable<TagComponent> EntitiesWithTagInMap(MapId mapId, PrototypeId<TagPrototype> tag);
         IEnumerable<T> EntitiesWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag)
-            where T: IComponent;
+            where T : IComponent;
 
         TagComponent? EntityWithTagInMap(MapId mapId, PrototypeId<TagPrototype> tag);
         T? EntityWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag)
@@ -34,13 +34,13 @@ namespace OpenNefia.Content.GameObjects.EntitySystems.Tag
             return tagComp.HasTag(tag);
         }
 
-        public IEnumerable<TagComponent> EntitiesWithTagInMap(MapId mapId, PrototypeId<TagPrototype> tag) 
+        public IEnumerable<TagComponent> EntitiesWithTagInMap(MapId mapId, PrototypeId<TagPrototype> tag)
         {
             return _lookup.EntityQueryInMap<TagComponent>(mapId)
                 .Where(comp => comp.HasTag(tag));
         }
 
-        public IEnumerable<T> EntitiesWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag) 
+        public IEnumerable<T> EntitiesWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag)
             where T : IComponent
         {
             return _lookup.EntityQueryInMap<TagComponent, T>(mapId)
@@ -51,7 +51,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems.Tag
         public TagComponent? EntityWithTagInMap(MapId mapId, PrototypeId<TagPrototype> tag)
             => EntitiesWithTagInMap(mapId, tag).FirstOrDefault();
 
-        public T? EntityWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag) 
+        public T? EntityWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag)
             where T : IComponent
             => EntitiesWithTagInMap<T>(mapId, tag).FirstOrDefault();
     }

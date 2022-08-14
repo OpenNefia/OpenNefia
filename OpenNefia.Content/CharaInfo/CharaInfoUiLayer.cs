@@ -88,7 +88,7 @@ namespace OpenNefia.Content.CharaInfo
 
                 if (!unlimited)
                     skills.BonusPoints--;
-                
+
                 CharaInfoPages.RefreshFromEntity();
             }
             else

@@ -99,7 +99,7 @@ namespace OpenNefia.Content.Charas
             {
                 vai.Aggro = 0;
             }
-            
+
             _refresh.Refresh(entity);
 
             return true;

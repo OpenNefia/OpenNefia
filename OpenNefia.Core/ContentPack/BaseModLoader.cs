@@ -42,7 +42,7 @@ namespace OpenNefia.Core.ContentPack
 
             foreach (var entryPoint in entryPoints)
             {
-                var entryPointInstance = (ModEntryPoint) Activator.CreateInstance(entryPoint)!;
+                var entryPointInstance = (ModEntryPoint)Activator.CreateInstance(entryPoint)!;
                 if (_testingCallbacks != null)
                 {
                     entryPointInstance.SetTestingCallbacks(_testingCallbacks);

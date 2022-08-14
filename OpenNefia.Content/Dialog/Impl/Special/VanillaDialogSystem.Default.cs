@@ -30,7 +30,8 @@ namespace OpenNefia.Content.Dialog
 
         private void Default_AddTalkChoice(EntityUid uid, GetDefaultDialogChoicesEvent args)
         {
-            args.OutChoices.Add(new() { 
+            args.OutChoices.Add(new()
+            {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Villager.Choices.Talk"),
                 NextNode = new(Protos.Dialog.Default, "Talk")
             });
@@ -105,7 +106,8 @@ namespace OpenNefia.Content.Dialog
             RaiseEvent(target, ev);
             result.AddRange(ev.OutChoices);
 
-            result.Add(new() { 
+            result.Add(new()
+            {
                 Text = DialogTextEntry.FromLocaleKey("Elona.Dialog.Common.Choices.Bye"),
                 NextNode = null,
                 IsDefault = true

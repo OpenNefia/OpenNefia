@@ -33,7 +33,7 @@ namespace OpenNefia.Tests.Core.Maths
             (0, 0, 0, b)
         }).Distinct();
 
-        static IEnumerable<float> FloatsSource = BytesSource.Select(i => i / (float) byte.MaxValue);
+        static IEnumerable<float> FloatsSource = BytesSource.Select(i => i / (float)byte.MaxValue);
 
         static IEnumerable<(float, float, float, float)> FourFloatsSource = FloatsSource.SelectMany(f => new (float, float, float, float)[] {
             (f, 0, 0, 0),
@@ -100,12 +100,12 @@ namespace OpenNefia.Tests.Core.Maths
 
             var color = new Color(rb, gb, bb, ab);
 
-            var argb = (uint) color.ToArgb();
+            var argb = (uint)color.ToArgb();
 
-            var aMask = (uint) byte.MaxValue << 24;
-            var rMask = (uint) byte.MaxValue << 16;
-            var gMask = (uint) byte.MaxValue << 8;
-            var bMask = (uint) byte.MaxValue;
+            var aMask = (uint)byte.MaxValue << 24;
+            var rMask = (uint)byte.MaxValue << 16;
+            var gMask = (uint)byte.MaxValue << 8;
+            var bMask = (uint)byte.MaxValue;
 
             Assert.That((argb & aMask) >> 24, Is.EqualTo(ab));
             Assert.That((argb & rMask) >> 16, Is.EqualTo(rb));
@@ -199,8 +199,8 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rf, gf, bf, af);
             var sysColor = System.Drawing.Color.FromArgb(color.ToArgb());
 
-            Assert.That(color, Is.EqualTo((Color) sysColor));
-            Assert.That(sysColor, Is.EqualTo((System.Drawing.Color) color));
+            Assert.That(color, Is.EqualTo((Color)sysColor));
+            Assert.That(sysColor, Is.EqualTo((System.Drawing.Color)color));
         }
 
         static IEnumerable<string> DefaultColorNames => Color.GetAllDefaultColors().Select(e => e.Key);
@@ -211,7 +211,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = Color.FromName(colorName);
             var sysColor = System.Drawing.Color.FromName(colorName);
 
-            Assert.That(color, Is.EqualTo((Color) sysColor));
+            Assert.That(color, Is.EqualTo((Color)sysColor));
         }
 
         [Test]
@@ -325,7 +325,7 @@ namespace OpenNefia.Tests.Core.Maths
         public void WithAlphaByte([ValueSource(nameof(FourBytesSource))] (byte, byte, byte, byte) bytes)
         {
             var (rb, gb, bb, ab) = bytes;
-            var b = (byte) (byte.MaxValue - ab);
+            var b = (byte)(byte.MaxValue - ab);
 
             var color = new Color(rb, gb, bb, ab);
             var controlColor = new Color(rb, gb, bb, b);

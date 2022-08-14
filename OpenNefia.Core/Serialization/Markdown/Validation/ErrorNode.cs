@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Validation
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
 
-            return Equals((ErrorNode) obj);
+            return Equals((ErrorNode)obj);
         }
 
         public static bool operator ==(ErrorNode? left, ErrorNode? right)

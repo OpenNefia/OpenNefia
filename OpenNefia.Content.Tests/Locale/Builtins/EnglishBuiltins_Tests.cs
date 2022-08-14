@@ -418,7 +418,7 @@ Test.Content.Builtins = {
             var locMan = IoCManager.Resolve<ILocalizationManager>();
             locMan.LoadString(LocaleTestFile_theTarget);
             locMan.Resync();
-            
+
             // Primitive boxing means that it will not output "itself".
             Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", 1), ("target", 1)), Is.EqualTo("it"));
             Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", 1), ("target", 2)), Is.EqualTo("it"));

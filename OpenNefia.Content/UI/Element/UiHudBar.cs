@@ -21,7 +21,7 @@ namespace OpenNefia.Content.UI.Element
             var parts = new List<AssetBatchPart>();
             for (int x = 0; x < PixelWidth / HudBarWidth; x++)
             {
-                parts.Add(new AssetBatchPart("bar",(x * HudBarWidth), 0));
+                parts.Add(new AssetBatchPart("bar", (x * HudBarWidth), 0));
             }
 
             Batch?.Dispose();

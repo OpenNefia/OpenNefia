@@ -14,5 +14,6 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="eUid">Entity out of which newComp was removed</param>
         /// <param name="removedComp">Removed component</param>
-        public void OnComponentRemove(EntityUid eUid, IComponent removedComp); }
+        public void OnComponentRemove(EntityUid eUid, IComponent removedComp);
+    }
 }

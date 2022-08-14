@@ -36,8 +36,8 @@ namespace OpenNefia.Content.CharaMake
         }
 
         public bool TryGet<TLayer, TResult>([NotNullWhen(true)] out TResult? resultData)
-            where TLayer: ICharaMakeLayer<TResult>
-            where TResult: class, ICharaMakeResult
+            where TLayer : ICharaMakeLayer<TResult>
+            where TResult : class, ICharaMakeResult
         {
             foreach (var (layer, result) in AllResults)
             {

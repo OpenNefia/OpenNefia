@@ -36,8 +36,8 @@ namespace OpenNefia.Core.Serialization.Manager.Result
 
                 if (mappingDict.Any(p =>
                 {
-                    var k1 = (string) newKeyRes.RawValue!;
-                    var k2 = (string) p.Key.RawValue!;
+                    var k1 = (string)newKeyRes.RawValue!;
+                    var k2 = (string)p.Key.RawValue!;
 
                     if (k1 == k2)
                     {
@@ -77,7 +77,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
             var valueDict = new ComponentRegistry();
             foreach (var (key, val) in mappingDict)
             {
-                valueDict.Add((string) key.RawValue!, (IComponent) val.RawValue!);
+                valueDict.Add((string)key.RawValue!, (IComponent)val.RawValue!);
             }
 
             return new DeserializedComponentRegistry(valueDict, mappingDict);
@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
                 var newKeyRes = keyRes.Copy();
                 var newValueRes = valRes.Copy();
 
-                registry.Add((string) newKeyRes.RawValue!, (IComponent) newValueRes.RawValue!);
+                registry.Add((string)newKeyRes.RawValue!, (IComponent)newValueRes.RawValue!);
                 mappingDict.Add(newKeyRes, newValueRes);
             }
 

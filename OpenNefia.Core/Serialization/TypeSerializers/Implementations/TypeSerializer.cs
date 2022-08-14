@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class TypeSerializer : ITypeSerializer<Type, ValueDataNode>
     {
-        private static readonly Dictionary<string, Type> Shortcuts = new ()
+        private static readonly Dictionary<string, Type> Shortcuts = new()
         {
             {"bool", typeof(bool)}
         };

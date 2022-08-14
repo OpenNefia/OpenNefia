@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.Pickable;
-﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -46,7 +46,7 @@ namespace OpenNefia.Content.Inventory
             var result = TurnResult.NoResult;
             if (_verbSystem.TryGetVerb(context.User, item, PickableSystem.VerbTypeDrop, out var verb))
                 result = verb.Act();
-            
+
             if (result != TurnResult.NoResult)
                 return new InventoryResult.Finished(result);
 

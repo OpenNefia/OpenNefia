@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Containers
             var transform = entMan.GetComponent<SpatialComponent>(toinsert);
 
             // CanInsert already checks nullability of Parent (or container forgot to call base that does)
-            if (ContainerHelpers.TryGetContainerMan(toinsert, out var containerManager) 
+            if (ContainerHelpers.TryGetContainerMan(toinsert, out var containerManager)
                 && !ContainerHelpers.RemoveEntity(containerManager.Owner, toinsert, containerManager: containerManager))
                 return false; // Can't remove from existing container, can't insert.
 

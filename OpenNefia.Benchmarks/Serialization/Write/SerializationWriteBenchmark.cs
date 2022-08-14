@@ -19,7 +19,7 @@ namespace OpenNefia.Benchmarks.Serialization.Write
         {
             InitializeSerialization();
 
-            DataDefinitionWithString = new DataDefinitionWithString {StringField = "ABC"};
+            DataDefinitionWithString = new DataDefinitionWithString { StringField = "ABC" };
 
             var yamlStream = new YamlStream();
             yamlStream.Load(new StringReader(SeedDataDefinition.Prototype));

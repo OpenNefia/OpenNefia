@@ -64,7 +64,7 @@ namespace OpenNefia.Core.Rendering
             foreach (var type in GetSortedLayers())
             {
                 var attr = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
-                var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
+                var layer = (ITileLayer)_layerDependencyCollection.ResolveType(type);
                 layer.Initialize();
                 _allTileLayers.Add(layer);
                 _tileLayerMetaData.Add(layer, new TileLayerMetaData(enabled: attr.EnabledAtStartup));
@@ -184,7 +184,7 @@ namespace OpenNefia.Core.Rendering
                     layer.RedrawAll();
                 }
             }
-            else if(_map.DirtyTilesThisTurn.Count > 0)
+            else if (_map.DirtyTilesThisTurn.Count > 0)
             {
                 foreach (var layer in _allTileLayers)
                 {

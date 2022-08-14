@@ -46,8 +46,8 @@ namespace OpenNefia.Content.PCCs
                 var y = i % 4;
 
                 _quads[i]?.Dispose();
-                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight, 
-                    PartWidth, PartHeight, 
+                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight,
+                    PartWidth, PartHeight,
                     SheetWidth, SheetHeight);
             }
         }

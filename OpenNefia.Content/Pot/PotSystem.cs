@@ -53,9 +53,9 @@ namespace OpenNefia.Content.Pot
         {
             if (args.Handled)
                 return;
-            
+
             ShatterPot(uid, args.Source);
-            
+
             args.Handle(TurnResult.Succeeded);
         }
 

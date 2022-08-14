@@ -84,7 +84,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Sequence
 
         public T Cast<T>(int index) where T : DataNode
         {
-            return (T) this[index];
+            return (T)this[index];
         }
 
         public override SequenceDataNode Copy()

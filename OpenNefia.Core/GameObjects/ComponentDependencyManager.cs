@@ -154,7 +154,7 @@ namespace OpenNefia.Core.GameObjects
                 var methods = objType.GetRuntimeMethods().ToArray();
 
                 MethodInfo getterMethod = typeof(ComponentDependencyManager).GetMethod("GetEventMethodDelegate",
-                    BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(objType);;
+                    BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(objType); ;
 
                 Action<object>? onAddMethod = null;
                 if (attribute.OnAddMethodName != null)
@@ -184,13 +184,13 @@ namespace OpenNefia.Core.GameObjects
             var method = methods.FirstOrDefault(m => m.Name == methodName);
             if (method == null) return null;
 
-            return (Action<object>?) getterMethod.Invoke(null, new object[]{method});
+            return (Action<object>?)getterMethod.Invoke(null, new object[] { method });
         }
 
         private static Action<object> GetEventMethodDelegate<T>(MethodInfo m)
         {
-            var @delegate = (Action<T>) m.CreateDelegate(typeof(Action<T>));
-            return o => @delegate((T) o);
+            var @delegate = (Action<T>)m.CreateDelegate(typeof(Action<T>));
+            return o => @delegate((T)o);
         }
 
         private static int GetFieldOffset(Type type, FieldInfo field)
@@ -199,7 +199,7 @@ namespace OpenNefia.Core.GameObjects
             var dynamicMethod = new DynamicMethod(
                 $"_fieldOffsetCalc<>{type}<>{field}",
                 typeof(int),
-                new[] {typeof(object)},
+                new[] { typeof(object) },
                 type,
                 true);
             dynamicMethod.DefineParameter(1, ParameterAttributes.In, "obj");
@@ -286,12 +286,12 @@ namespace OpenNefia.Core.GameObjects
     public class ComponentDependencyInvalidOnAddMethodNameException : ComponentDependencyInvalidMethodNameException
     {
         public ComponentDependencyInvalidOnAddMethodNameException([NotNull] FieldInfo field) : base("OnAdd", field)
-        {}
+        { }
     }
 
     public class ComponentDependencyInvalidOnRemoveMethodNameException : ComponentDependencyInvalidMethodNameException
     {
         public ComponentDependencyInvalidOnRemoveMethodNameException([NotNull] FieldInfo field) : base("OnRemove", field)
-        {}
+        { }
     }
 }

@@ -127,7 +127,7 @@ namespace OpenNefia.Core.ContentPack
         {
             return TryGetNodeAt(path, out var node) && node is DirectoryNode;
         }
-        
+
         public DateTime GetLastWriteTime(ResourcePath path)
         {
             if (!TryGetNodeAt(path, out var node))
@@ -160,82 +160,82 @@ namespace OpenNefia.Core.ContentPack
                 throw new ArgumentException("There is a directory at that location.");
             }
 
-            var fileNode = (FileNode) maybeFileNode!;
+            var fileNode = (FileNode)maybeFileNode!;
 
             switch (fileMode)
             {
                 case FileMode.Append:
-                {
-                    if (fileNode == null)
                     {
-                        fileNode = new FileNode();
-                        parentDir.Children.Add(fileName, fileNode);
-                    }
+                        if (fileNode == null)
+                        {
+                            fileNode = new FileNode();
+                            parentDir.Children.Add(fileName, fileNode);
+                        }
 
-                    return new VirtualFileStream(fileNode.Contents, false, true, fileNode.Contents.Length);
-                }
+                        return new VirtualFileStream(fileNode.Contents, false, true, fileNode.Contents.Length);
+                    }
 
                 case FileMode.Create:
-                {
-                    if (fileNode == null)
                     {
-                        fileNode = new FileNode();
-                        parentDir.Children.Add(fileName, fileNode);
-                    }
-                    else
-                    {
-                        // Clear contents if it already exists.
-                        fileNode.Contents.SetLength(0);
-                    }
+                        if (fileNode == null)
+                        {
+                            fileNode = new FileNode();
+                            parentDir.Children.Add(fileName, fileNode);
+                        }
+                        else
+                        {
+                            // Clear contents if it already exists.
+                            fileNode.Contents.SetLength(0);
+                        }
 
-                    return new VirtualFileStream(fileNode.Contents, true, true, 0);
-                }
+                        return new VirtualFileStream(fileNode.Contents, true, true, 0);
+                    }
 
                 case FileMode.CreateNew:
-                {
-                    if (fileNode != null)
                     {
-                        throw new IOException("File already exists.");
-                    }
+                        if (fileNode != null)
+                        {
+                            throw new IOException("File already exists.");
+                        }
 
-                    fileNode = new FileNode();
-                    parentDir.Children.Add(fileName, fileNode);
-
-                    return new VirtualFileStream(fileNode.Contents, true, true, 0);
-                }
-
-                case FileMode.Open:
-                {
-                    if (fileNode == null)
-                    {
-                        throw new FileNotFoundException();
-                    }
-
-                    return new VirtualFileStream(fileNode.Contents, true, true, 0);
-                }
-
-                case FileMode.OpenOrCreate:
-                {
-                    if (fileNode == null)
-                    {
                         fileNode = new FileNode();
                         parentDir.Children.Add(fileName, fileNode);
+
+                        return new VirtualFileStream(fileNode.Contents, true, true, 0);
                     }
 
-                    return new VirtualFileStream(fileNode.Contents, true, true, 0);
-                }
+                case FileMode.Open:
+                    {
+                        if (fileNode == null)
+                        {
+                            throw new FileNotFoundException();
+                        }
+
+                        return new VirtualFileStream(fileNode.Contents, true, true, 0);
+                    }
+
+                case FileMode.OpenOrCreate:
+                    {
+                        if (fileNode == null)
+                        {
+                            fileNode = new FileNode();
+                            parentDir.Children.Add(fileName, fileNode);
+                        }
+
+                        return new VirtualFileStream(fileNode.Contents, true, true, 0);
+                    }
 
                 case FileMode.Truncate:
-                {
-                    if (fileNode == null)
                     {
-                        throw new FileNotFoundException();
+                        if (fileNode == null)
+                        {
+                            throw new FileNotFoundException();
+                        }
+
+                        fileNode.Contents.SetLength(0);
+
+                        return new VirtualFileStream(fileNode.Contents, true, true, 0);
                     }
-
-                    fileNode.Contents.SetLength(0);
-
-                    return new VirtualFileStream(fileNode.Contents, true, true, 0);
-                }
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(fileMode), fileMode, null);
@@ -279,7 +279,7 @@ namespace OpenNefia.Core.ContentPack
                     return true;
                 }
 
-                directory = (DirectoryNode) child;
+                directory = (DirectoryNode)child;
             }
 
             throw new InvalidOperationException("Unreachable.");

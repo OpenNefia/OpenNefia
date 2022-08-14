@@ -26,7 +26,7 @@ namespace OpenNefia.Core.UI
 
         /// <inheritdoc/>
         public int PageCount => PagedElements.Count() / Math.Max(1, ItemsPerPage);
-        
+
         private List<T> _currentElements = new();
 
         /// <summary>

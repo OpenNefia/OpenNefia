@@ -221,7 +221,7 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
         }
-        
+
         private const string ValueDispatchError = "Tried to dispatch a value event to a by-reference subscription.";
         private const string RefDispatchError = "Tried to dispatch a ref event to a by-value subscription.";
 

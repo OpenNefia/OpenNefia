@@ -8,13 +8,13 @@ namespace OpenNefia.Core.Log
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LogLevel ToRobust(this LogEventLevel level)
         {
-            return (LogLevel) level;
+            return (LogLevel)level;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LogEventLevel ToSerilog(this LogLevel level)
         {
-            return (LogEventLevel) level;
+            return (LogEventLevel)level;
         }
     }
 }

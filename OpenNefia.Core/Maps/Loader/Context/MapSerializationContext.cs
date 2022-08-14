@@ -131,7 +131,7 @@ namespace OpenNefia.Core.Maps
 
             var val = int.Parse(node.Value);
 
-            if ((_mode == MapSerializeMode.Blueprint && val >= Entities.Count) 
+            if ((_mode == MapSerializeMode.Blueprint && val >= Entities.Count)
                 || !UidEntityMap.ContainsKey(val)
                 || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
             {

@@ -78,7 +78,7 @@ namespace OpenNefia.Tests
         }
 
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
-            where T: class, IPrototype
+            where T : class, IPrototype
         {
             return string.Empty;
         }

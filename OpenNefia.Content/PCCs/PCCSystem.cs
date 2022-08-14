@@ -17,7 +17,7 @@ namespace OpenNefia.Content.PCCs
         /// <summary>
         /// Gets the underlying PCC drawable for this entity, if it exists.
         /// </summary>
-        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable, 
+        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,
             PCCComponent? pccComp = null);
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace OpenNefia.Content.TitleScreen
             }
 
             protected override void OnCellDataChanged()
-{
+            {
                 UiText.Text = Data.SaveGame.Header.Name;
                 TextSaveDate.Text = Data.SaveGame.LastWriteTime.ToString();
             }
@@ -99,17 +99,17 @@ namespace OpenNefia.Content.TitleScreen
         private readonly IAssetInstance AssetVoid;
         private readonly AssetDrawable AssetNoScreenshot;
 
-        [Child] [Localize] private readonly UiWindow Window = new();
-        [Child] [Localize] private readonly CharaMakeCaption Caption = new();
+        [Child][Localize] private readonly UiWindow Window = new();
+        [Child][Localize] private readonly CharaMakeCaption Caption = new();
         [Child] private readonly UiPagedList<RestoreSaveCellData> List = new(itemsPerPage: 18);
         private readonly Dictionary<ISaveGameHandle, Love.Image> _imageCache = new();
 
         [Child] private readonly UiFittedBox ScreenshotBox;
         private UiTextureElement? ScreenshotElement;
 
-        [Child] [Localize("NoSaves")] private readonly UiText TextNoSaves = new UiText();
-        [Child] [Localize("Topic.SaveName")] private readonly UiText TextTopicSaveName = new UiTextTopic();
-        [Child] [Localize("Topic.SaveDate")] private readonly UiText TextTopicSaveDate = new UiTextTopic();
+        [Child][Localize("NoSaves")] private readonly UiText TextNoSaves = new UiText();
+        [Child][Localize("Topic.SaveName")] private readonly UiText TextTopicSaveName = new UiTextTopic();
+        [Child][Localize("Topic.SaveDate")] private readonly UiText TextTopicSaveDate = new UiTextTopic();
 
         public RestoreSaveLayer()
         {
@@ -190,7 +190,7 @@ namespace OpenNefia.Content.TitleScreen
                 return true;
 
             var screenshotPath = SaveGameConstants.ScreenshotPath;
-            
+
             if (!save.Files.Exists(screenshotPath))
                 return false;
 
@@ -294,7 +294,7 @@ namespace OpenNefia.Content.TitleScreen
             AssetVoid.DrawUnscaled(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Caption.Draw();
             Window.Draw();
-            
+
             if (List.Count == 0)
             {
                 TextNoSaves.Draw();

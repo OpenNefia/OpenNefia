@@ -27,13 +27,13 @@ namespace OpenNefia.Content.Activity
                 args.Cancel();
                 return;
             }
-            
+
             _mes.Display(Loc.GetString("Elona.Dig.Spot.Start"));
         }
 
         private void DiggingSpot_OnPassTurn(EntityUid activity, ActivityDiggingSpotComponent component, OnActivityPassTurnEvent args)
         {
-            if (args.Activity.TurnsRemaining % 5 == 0) 
+            if (args.Activity.TurnsRemaining % 5 == 0)
                 _mes.Display(Loc.GetString("Elona.Dig.Sound"), UiColors.MesBlue);
         }
 

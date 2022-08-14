@@ -47,7 +47,7 @@ namespace OpenNefia.Core.UserInterface
         public ScreenCoordinates MousePositionScaled => _inputManager.MouseScreenPosition;
 
         private readonly List<UiElement> _modalStack = new();
-        
+
         public event Action? OnHoveredElementChanged;
 
         public void Initialize()

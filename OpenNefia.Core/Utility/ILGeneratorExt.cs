@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Utility
     {
         public static RobustILGenerator GetRobustGen(this DynamicMethod dynamicMethod) =>
             new(dynamicMethod.GetILGenerator());
-        public static RobustILGenerator GetRobustGen(this ILGenerator generator) => new (generator);
+        public static RobustILGenerator GetRobustGen(this ILGenerator generator) => new(generator);
 
     }
 

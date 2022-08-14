@@ -30,7 +30,7 @@ namespace OpenNefia.Content.TurnOrder
         /// </remarks>
         [DataField]
         public int TimeThisTurn { get; set; } = 0;
-        
+
         /// <summary>
         /// How many in-game turns this entity has taken across its entire lifetime.
         /// </summary>

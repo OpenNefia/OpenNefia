@@ -295,7 +295,7 @@ namespace OpenNefia.Core.GameObjects
 
             // eUid -> EventType -> { CompType1, ... CompTypeN }
             private Dictionary<EntityUid, Dictionary<Type, EntityEventTable>> _eventTables;
-            
+
             private readonly NullComponentType _nullComp = new();
 
             public class EntityEventTable

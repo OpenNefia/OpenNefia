@@ -183,7 +183,7 @@ namespace OpenNefia.Core.GameObjects
         /// If true, this entity cannot be moved over. This also causes
         /// collision events to be fired when the entity is moved into.
         /// </summary>
-        public bool IsSolid 
+        public bool IsSolid
         {
             get => _isSolid;
             set
@@ -192,7 +192,7 @@ namespace OpenNefia.Core.GameObjects
 
                 var ev = new EntityTangibilityChangedEvent();
                 _entityManager.EventBus.RaiseEvent(Owner, ref ev);
-            } 
+            }
         }
 
         [DataField("isOpaque")]
@@ -513,7 +513,7 @@ namespace OpenNefia.Core.GameObjects
                 return true;
             }
             else
-            {   
+            {
                 //Recursively search up the entities containers for this object
                 return ContainsEntity(entityTransform.Parent);
             }
@@ -544,7 +544,7 @@ namespace OpenNefia.Core.GameObjects
 
             _invLocalMatrix = posImat;
         }
-        
+
         /// <inheritdoc/>
         bool ISerializationHooks.AfterCompare(object? other)
         {

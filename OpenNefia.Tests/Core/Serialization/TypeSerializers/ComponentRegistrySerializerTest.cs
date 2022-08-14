@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         public void SerializationTest()
         {
             var component = new TestComponent();
-            var registry = new ComponentRegistry {{"Test", component}};
+            var registry = new ComponentRegistry { { "Test", component } };
             var node = Serialization.WriteValueAs<SequenceDataNode>(registry);
 
             Assert.That(node.Sequence.Count, Is.EqualTo(1));

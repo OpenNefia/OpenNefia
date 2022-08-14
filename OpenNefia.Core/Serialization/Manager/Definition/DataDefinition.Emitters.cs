@@ -52,7 +52,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
         {
             // TODO Serialization: validate mappings array count
             var constructor =
-                typeof(DeserializedDefinition<>).MakeGenericType(Type).GetConstructor(new[] {Type, typeof(DeserializedFieldEntry[])}) ??
+                typeof(DeserializedDefinition<>).MakeGenericType(Type).GetConstructor(new[] { Type, typeof(DeserializedFieldEntry[]) }) ??
                 throw new NullReferenceException();
 
             var valueParam = Expression.Parameter(typeof(object), "value");
@@ -254,7 +254,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             var method = new DynamicMethod(
                 "AccessField",
                 typeof(object),
-                new[] {typeof(object).MakeByRefType()},
+                new[] { typeof(object).MakeByRefType() },
                 true);
 
             method.DefineParameter(1, ParameterAttributes.Out, "target");
@@ -305,7 +305,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             var method = new DynamicMethod(
                 "AssignField",
                 typeof(void),
-                new[] {typeof(object).MakeByRefType(), typeof(object)},
+                new[] { typeof(object).MakeByRefType(), typeof(object) },
                 true);
 
             method.DefineParameter(1, ParameterAttributes.Out, "target");

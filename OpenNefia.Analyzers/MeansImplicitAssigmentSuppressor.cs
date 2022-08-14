@@ -13,7 +13,7 @@ namespace OpenNefia.Analyzers
             var implAttr = context.Compilation.GetTypeByMetadataName(typeof(MeansImplicitAssignmentAttribute).FullName);
             foreach (var reportedDiagnostic in context.ReportedDiagnostics)
             {
-                if(reportedDiagnostic.Id != Diagnostics.MeansImplicitAssignment.SuppressedDiagnosticId) continue;
+                if (reportedDiagnostic.Id != Diagnostics.MeansImplicitAssignment.SuppressedDiagnosticId) continue;
 
                 var node = reportedDiagnostic.Location.SourceTree?.GetRoot(context.CancellationToken).FindNode(reportedDiagnostic.Location.SourceSpan);
                 if (node == null) continue;

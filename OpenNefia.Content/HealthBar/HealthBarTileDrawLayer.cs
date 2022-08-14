@@ -96,7 +96,7 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var entry in _entries)
             {
-                UiHelpers.DrawPercentageBar(1f, 
+                UiHelpers.DrawPercentageBar(1f,
                     entry,
                     Position + entry.ScreenPos + (9, size.Y),
                     entry.HPRatio * BarWidthPixels);

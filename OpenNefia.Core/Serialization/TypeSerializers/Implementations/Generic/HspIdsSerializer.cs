@@ -18,7 +18,7 @@ using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
     [TypeSerializer]
-    public class HspIdsSerializer<T> : ITypeSerializer<HspIds<T>, MappingDataNode> where T: struct
+    public class HspIdsSerializer<T> : ITypeSerializer<HspIds<T>, MappingDataNode> where T : struct
     {
         public DeserializationResult Read(ISerializationManager serializationManager,
             MappingDataNode node,
@@ -96,7 +96,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
                 : new ErrorNode(node, "No node in hspIds list tagged as origin ('!*')");
         }
 
-        public DataNode Write(ISerializationManager serializationManager, 
+        public DataNode Write(ISerializationManager serializationManager,
             HspIds<T> value, bool alwaysWrite = false, ISerializationContext? context = null)
         {
             var compSequence = new MappingDataNode();

@@ -29,10 +29,10 @@ namespace OpenNefia.Core.Rendering
 
         private Love.Canvas _workCanvas;
 
-        public TileAtlasFactory(IResourceCache resourceCache, 
-            int tileWidth = OrthographicCoords.TILE_SIZE, 
-            int tileHeight = OrthographicCoords.TILE_SIZE, 
-            int tileCountX = 48, 
+        public TileAtlasFactory(IResourceCache resourceCache,
+            int tileWidth = OrthographicCoords.TILE_SIZE,
+            int tileHeight = OrthographicCoords.TILE_SIZE,
+            int tileCountX = 48,
             int tileCountY = 48)
         {
             _resourceCache = resourceCache;
@@ -54,16 +54,16 @@ namespace OpenNefia.Core.Rendering
             if (tile.Region != null)
             {
                 var imageRegion = tile.Region.Value;
-                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, 
-                    imageRegion.Width, imageRegion.Height, 
+                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top,
+                    imageRegion.Width, imageRegion.Height,
                     image.GetWidth(), image.GetHeight());
 
                 return Tuple.Create(image, quad);
             }
             else
             {
-                var quad = Love.Graphics.NewQuad(0, 0, 
-                    image.GetWidth(), image.GetHeight(), 
+                var quad = Love.Graphics.NewQuad(0, 0,
+                    image.GetWidth(), image.GetHeight(),
                     image.GetWidth(), image.GetHeight());
 
                 return Tuple.Create(image, quad);

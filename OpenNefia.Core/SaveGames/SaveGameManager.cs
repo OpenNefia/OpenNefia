@@ -262,7 +262,7 @@ namespace OpenNefia.Core.SaveGames
 
         public void DeleteSave(ISaveGameHandle save)
         {
-            if (!ContainsSave(save) )
+            if (!ContainsSave(save))
             {
                 throw new ArgumentException($"Save is not registered: {save.Files.RootDir}");
             }

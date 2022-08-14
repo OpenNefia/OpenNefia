@@ -168,7 +168,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
                 results.Add(result);
             }
 
-            return new DeserializedCollection<ImmutableList<T>,T>(list.ToImmutable(), results, elements => ImmutableList.Create(elements.ToArray()));
+            return new DeserializedCollection<ImmutableList<T>, T>(list.ToImmutable(), results, elements => ImmutableList.Create(elements.ToArray()));
         }
 
         [MustUseReturnValue]

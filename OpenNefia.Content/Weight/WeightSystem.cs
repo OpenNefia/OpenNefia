@@ -46,7 +46,7 @@ namespace OpenNefia.Content.Weight
 
             weight.Weight = Math.Max(1, weight.Weight * (100 + delta) / 100 + (delta > 0 ? 1 : 0) - (delta < 0 ? 1 : 0));
 
-            if (delta > 2 )
+            if (delta > 2)
             {
                 _mes.Display(Loc.GetString("Elona.Weight.Weight.Gain", ("entity", ent)));
             }

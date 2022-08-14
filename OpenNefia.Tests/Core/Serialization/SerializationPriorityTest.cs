@@ -47,7 +47,7 @@ namespace OpenNefia.Tests.Core.Serialization
     {
         public override string Name => "PriorityTest";
 
-        public readonly List<string> Strings = new() {string.Empty, string.Empty, string.Empty};
+        public readonly List<string> Strings = new() { string.Empty, string.Empty, string.Empty };
 
         [DataField("first", priority: 3)]
         public string First

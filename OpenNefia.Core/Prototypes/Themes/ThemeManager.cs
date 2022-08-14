@@ -49,7 +49,7 @@ namespace OpenNefia.Core.Prototypes
         void Initialize();
 
         void Shutdown();
-        
+
         /// <summary>
         /// Index for an <see cref="ITheme"/> by ID.
         /// </summary>
@@ -267,7 +267,7 @@ namespace OpenNefia.Core.Prototypes
                     }
 
                     var type = ((ValueDataNode)typeNode).Value;
-                    
+
                     if (!entry.TryGet("id", out var idNode))
                     {
                         throw new PrototypeLoadException($"Missing 'id' property", filename, node);

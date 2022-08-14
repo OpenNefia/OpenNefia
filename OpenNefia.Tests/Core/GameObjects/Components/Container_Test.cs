@@ -77,7 +77,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         [Test]
         public void TestInsertion()
         {
-            var sim = SimulationFactory(); 
+            var sim = SimulationFactory();
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<IContainerSystem>();
 
             var owner = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0)));
@@ -133,7 +133,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         [Test]
         public void TestNestedRemovalWithDenial()
         {
-            var sim = SimulationFactory(); 
+            var sim = SimulationFactory();
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<IContainerSystem>();
 
             var coordinates = new EntityCoordinates(new EntityUid(1), (0, 0));

@@ -131,7 +131,7 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent
             where TComp3 : IComponent
             where TComp4 : IComponent;
-        
+
         IEnumerable<TComp> EntityQueryInMap<TComp>(IMap map, bool includeChildren = false, bool includeDead = false) where TComp : IComponent;
         IEnumerable<(TComp1, TComp2)> EntityQueryInMap<TComp1, TComp2>(IMap map, bool includeChildren = false, bool includeDead = false)
             where TComp1 : IComponent
@@ -201,7 +201,7 @@ namespace OpenNefia.Core.GameObjects
                 yield break;
             if (!EntityManager.TryGetComponent(map.MapEntityUid, out SpatialComponent mapEntitySpatial))
                 yield break;
-            
+
             foreach (var spatial in EntityManager.GetAllComponents<SpatialComponent>())
             {
                 if (spatial.MapID == mapId && spatial.Owner != mapEntitySpatial.Owner)
@@ -252,7 +252,7 @@ namespace OpenNefia.Core.GameObjects
 
             var ents = mapLookupComp.EntitySpatial[coords.X, coords.Y]
                 .Where(uid => EntityManager.IsAlive(uid));
-        
+
             if (includeMapEntity)
             {
                 ents = ents.Append(map.MapEntityUid);
@@ -278,7 +278,7 @@ namespace OpenNefia.Core.GameObjects
 
             return null;
         }
-        
+
         /// <inheritdoc/>
         public IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null)
         {
@@ -290,7 +290,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc/>
-        public bool TryGetOwningEntity<T>(EntityUid item, [NotNullWhen(true)] out EntityUid? owner) 
+        public bool TryGetOwningEntity<T>(EntityUid item, [NotNullWhen(true)] out EntityUid? owner)
             where T : IComponent
         {
             foreach (var parent in Spatial(item).Parents)
@@ -321,7 +321,7 @@ namespace OpenNefia.Core.GameObjects
         {
             foreach (var ent in EntityManager.EntityQuery<TComp>())
             {
-                if (EntityManager.TryGetComponent(ent.Owner, out SpatialComponent? spatial) 
+                if (EntityManager.TryGetComponent(ent.Owner, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren)
                     && (IsAlive(ent.Owner) || includeDead))
                 {
@@ -430,7 +430,7 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        public IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(EntityUid ent) 
+        public IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(EntityUid ent)
             where TComp1 : IComponent
             where TComp2 : IComponent
         {

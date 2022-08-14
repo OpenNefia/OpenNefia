@@ -266,10 +266,10 @@ namespace OpenNefia.Content.RandomEvent
 
             if (!TryComp<TurnOrderComponent>(target, out var turnOrder) || turnOrder.CurrentSpeed < 10)
                 return null;
-            
+
             if (_config.GetCVar(CCVars.DebugSkipRandomEvents))
                 return null;
-            
+
             var id = PickRandomEventID();
             if (id == null)
                 return null;
@@ -309,7 +309,7 @@ namespace OpenNefia.Content.RandomEvent
                 Choices = choices
             };
             var result = _uiManager.Query<RandomEventPrompt, RandomEventPrompt.Args, RandomEventPrompt.Result>(args);
-            
+
             _field.RefreshScreen();
 
             if (result.HasValue && result.Value.Choice != null)

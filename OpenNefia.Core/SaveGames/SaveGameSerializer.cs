@@ -383,7 +383,7 @@ namespace OpenNefia.Core.SaveGames
             {
                 _areaManager.RegisterArea(area, areaId, area.AreaEntityUid);
             }
-        
+
             var playerUid = new EntityUid(sessionData.PlayerUid);
             if (!_entityManager.TryGetComponent(playerUid, out SpatialComponent player) || player.MapID != map.Id)
             {

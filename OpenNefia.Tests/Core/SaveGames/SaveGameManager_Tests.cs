@@ -129,7 +129,7 @@ namespace OpenNefia.Tests.Core.SaveGames
         {
             var resMan = IoCManager.Resolve<IResourceManager>();
             var saveMan = IoCManager.Resolve<ISaveGameManager>();
-            
+
             var header1 = new SaveGameHeader("testSave1");
             var header2 = new SaveGameHeader("testSave2");
             var testSavePath = new ResourcePath("/testSave");

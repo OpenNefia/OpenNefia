@@ -120,7 +120,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Update(float dt)
         {
-            
+
         }
     }
 }

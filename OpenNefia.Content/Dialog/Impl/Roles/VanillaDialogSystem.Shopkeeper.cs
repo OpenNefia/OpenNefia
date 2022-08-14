@@ -64,7 +64,7 @@ namespace OpenNefia.Content.Dialog
         {
             if (!TryComp<RoleShopkeeperComponent>(engine.Speaker, out var shopkeeper))
                 return;
-            
+
             if (_world.State.GameDate >= shopkeeper.RestockDate || true)
             {
                 _shopkeepers.RestockShop(engine.Speaker.Value, shopkeeper);

@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Buffs
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        
+
         public override void Initialize()
         {
             SubscribeComponent<BuffsComponent, EntityRefreshEvent>(ApplyBuffs, priority: EventPriorities.High);

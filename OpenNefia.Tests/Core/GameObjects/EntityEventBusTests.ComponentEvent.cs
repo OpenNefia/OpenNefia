@@ -22,7 +22,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var compFacMock = new Mock<IComponentFactory>();
 
-            compRegistration.Setup(m => m.References).Returns(new List<Type> {typeof(MetaDataComponent)});
+            compRegistration.Setup(m => m.References).Returns(new List<Type> { typeof(MetaDataComponent) });
             compFacMock.Setup(m => m.GetRegistration(typeof(MetaDataComponent))).Returns(compRegistration.Object);
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
 
@@ -40,7 +40,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             bus.SubscribeComponentEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
 
             // add a component to the system
-            entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
+            entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(compInstance, entUid));
 
             // Raise
@@ -71,7 +71,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var compFacMock = new Mock<IComponentFactory>();
 
-            compRegistration.Setup(m => m.References).Returns(new List<Type> {typeof(MetaDataComponent)});
+            compRegistration.Setup(m => m.References).Returns(new List<Type> { typeof(MetaDataComponent) });
             compFacMock.Setup(m => m.GetRegistration(typeof(MetaDataComponent))).Returns(compRegistration.Object);
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
 
@@ -120,7 +120,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var compFacMock = new Mock<IComponentFactory>();
 
-            compRegistration.Setup(m => m.References).Returns(new List<Type> {typeof(MetaDataComponent)});
+            compRegistration.Setup(m => m.References).Returns(new List<Type> { typeof(MetaDataComponent) });
             compFacMock.Setup(m => m.GetRegistration(typeof(MetaDataComponent))).Returns(compRegistration.Object);
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
 
@@ -138,7 +138,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             bus.SubscribeComponentEvent<MetaDataComponent, ComponentInit>(HandleTestEvent);
 
             // add a component to the system
-            entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
+            entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(compInstance, entUid));
 
             // Raise
@@ -167,7 +167,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 IComponent? inst = instance = new T();
                 var reg = new Mock<IComponentRegistration>();
-                reg.Setup(m => m.References).Returns(new Type[] {typeof(T)});
+                reg.Setup(m => m.References).Returns(new Type[] { typeof(T) });
 
                 compFacMock.Setup(m => m.GetRegistration(typeof(T))).Returns(reg.Object);
                 entManMock.Setup(m => m.TryGetComponent(entUid, typeof(T), out inst)).Returns(true);
@@ -267,7 +267,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 Assert.That(b, Is.True, "A should run after B");
                 a = true;
             }
-            
+
             void HandleTestEventB(EntityUid uid, MetaDataComponent component, TestEvent args)
             {
                 Assert.That(a, Is.False, "B should run before A.");
@@ -310,13 +310,13 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             public override string Name => "OrderComponentC";
         }
-        
+
         private class OrderComponentC2 : Component
         {
             public override string Name => "OrderComponentC2";
         }
 
-        private class DummyEventSubscriber : IEntityEventSubscriber {}
+        private class DummyEventSubscriber : IEntityEventSubscriber { }
 
         private class TestEvent : EntityEventArgs
         {

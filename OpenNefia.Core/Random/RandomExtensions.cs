@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Random
         {
             while (true)
             {
-                var result = new Vector2(random.NextFloat() - 0.5f, 
+                var result = new Vector2(random.NextFloat() - 0.5f,
                                          random.NextFloat() - 0.5f) * 2f;
                 if (result.LengthSquared <= 1f)
                     return result * radius;
@@ -138,7 +138,7 @@ namespace OpenNefia.Core.Random
         {
             if (chance <= 1)
                 return true;
-            
+
             return random.Next(chance) == 0;
         }
 

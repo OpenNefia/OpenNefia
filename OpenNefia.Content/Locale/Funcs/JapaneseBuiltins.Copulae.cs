@@ -489,7 +489,7 @@ namespace OpenNefia.Content.Locale.Funcs
                 }
             },
         };
-        
+
         [LocaleFunction("yoro")]
         public static string BuiltIn_yoro(object? obj, int? mark = null) => PrintCopula("yoro", obj, mark);
         [LocaleFunction("dozo")]

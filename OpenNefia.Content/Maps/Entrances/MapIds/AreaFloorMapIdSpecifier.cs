@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public AreaFloorId? FloorId { get; set; }
 
-        public AreaFloorMapIdSpecifier() {}
+        public AreaFloorMapIdSpecifier() { }
 
         public AreaFloorMapIdSpecifier(AreaId areaId, AreaFloorId? floorId = null)
         {

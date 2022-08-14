@@ -12,7 +12,7 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem
     {
         public const int BonusPointExperienceAmount = 400;
-        
+
         public void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))

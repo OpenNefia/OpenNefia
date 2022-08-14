@@ -10,7 +10,7 @@ using System.Reflection;
 namespace OpenNefia.Core.Maps
 {
     internal interface IMapManagerInternal : IMapManager
-    { 
+    {
         /// <summary>
         /// The next free map ID to use when generating new maps.
         /// </summary>
@@ -84,7 +84,7 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc/>
         public IMap CreateMap(int width, int height, PrototypeId<EntityPrototype>? mapEntityProto = null)
         {
-            return CreateMap(width, height, GenerateMapId(), mapEntityProto);  
+            return CreateMap(width, height, GenerateMapId(), mapEntityProto);
         }
 
         /// <inheritdoc/>
@@ -122,7 +122,7 @@ namespace OpenNefia.Core.Maps
             // Check to see if the IDs on the passed map were already set elsewhere.
             if (map.MapEntityUid.IsValid() || map.Id != MapId.Nullspace)
             {
-                throw new ArgumentException("Map is already in use.", nameof(map)); 
+                throw new ArgumentException("Map is already in use.", nameof(map));
             }
 
             _maps[mapId] = map;
@@ -155,7 +155,7 @@ namespace OpenNefia.Core.Maps
             {
                 var newEnt = _entityManager.CreateEntityUninitialized(mapEntityProto);
                 _mapEntities.Add(actualID, newEnt);
-                
+
                 // Make sure the map IDs are set on the map object before map component
                 // events are fired.
                 SetMapAndEntityIds(map, actualID, newEnt);
@@ -282,7 +282,7 @@ namespace OpenNefia.Core.Maps
                 map = null;
                 return false;
             }
-            
+
             return TryGetMap(spatial.MapID, out map);
         }
 
@@ -339,7 +339,7 @@ namespace OpenNefia.Core.Maps
     {
         public IMap Map { get; }
         public MapCreationMode Mode { get; }
-        
+
         public MapCreatedEvent(IMap map, MapCreationMode mode)
         {
             Map = map;

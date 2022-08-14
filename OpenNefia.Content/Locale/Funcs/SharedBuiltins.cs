@@ -25,7 +25,7 @@ namespace OpenNefia.Content.Locale.Funcs
         {
             if (obj is string s)
                 return s;
-            
+
             if (obj is not EntityUid entity)
                 return Loc.GetString("Elona.GameObjects.Common.Something");
 
@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Locale.Funcs
 
             if (obj is not EntityUid entity)
                 return Loc.GetString("Elona.GameObjects.Common.Something");
-            
+
             return EntitySystem.Get<IDisplayNameSystem>().GetBaseName(entity);
         }
 

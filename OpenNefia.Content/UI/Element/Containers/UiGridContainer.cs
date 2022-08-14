@@ -78,7 +78,7 @@ namespace OpenNefia.Content.UI.Element.Containers
 
                         float mainOffset = elemIndex % Length;
                         float subOffset;
-                        switch(GridType)
+                        switch (GridType)
                         {
                             case GridType.Horizontal:
                                 mainOffset *= xMax;

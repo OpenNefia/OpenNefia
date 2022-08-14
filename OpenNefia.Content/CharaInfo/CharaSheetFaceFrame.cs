@@ -85,6 +85,6 @@ namespace OpenNefia.Content.CharaInfo
             WindowFrame.Draw();
             _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
             EntityBatch.Draw();
-        }   
+        }
     }
 }

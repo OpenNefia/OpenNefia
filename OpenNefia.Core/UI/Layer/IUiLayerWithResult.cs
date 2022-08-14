@@ -3,7 +3,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public interface IUiLayerWithResult<TArgs, TResult> : IUiLayer where TResult: class
+    public interface IUiLayerWithResult<TArgs, TResult> : IUiLayer where TResult : class
     {
         int? DefaultZOrder { get; }
 

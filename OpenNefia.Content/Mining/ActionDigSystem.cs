@@ -179,7 +179,7 @@ namespace OpenNefia.Content.Mining
             var activity = EntityManager.SpawnEntity(Protos.Activity.Mining, MapCoordinates.Global);
             Comp<ActivityMiningComponent>(activity).TargetTile = targetCoords;
             _activities.StartActivity(player, activity);
-            
+
             return TurnResult.Succeeded;
         }
     }

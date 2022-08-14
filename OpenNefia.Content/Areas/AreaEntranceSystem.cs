@@ -46,7 +46,7 @@ namespace OpenNefia.Content.Areas
                 return;
 
             var areaId = worldMapEntrance.Entrance.MapIdSpecifier.GetAreaId();
-            if (areaId == null || !TryArea(areaId.Value, out var area) 
+            if (areaId == null || !TryArea(areaId.Value, out var area)
                 || !TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance)
                 || areaEntrance.EntranceMessage == null)
                 return;

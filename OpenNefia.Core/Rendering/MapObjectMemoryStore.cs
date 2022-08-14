@@ -48,7 +48,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var coords = memory.Coords;
                 var at = _positional[coords.X, coords.Y];
-                
+
                 if (at == null)
                 {
                     at = new List<MapObjectMemory>();

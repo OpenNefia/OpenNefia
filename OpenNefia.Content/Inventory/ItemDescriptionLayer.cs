@@ -177,7 +177,7 @@ namespace OpenNefia.Content.Inventory
                 GraphicsS.PrintS(UIScale, entry.Text, x, y);
 
                 Love.Graphics.SetColor(Color.White);
-            
+
                 if (icon.HasValue)
                 {
                     AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);

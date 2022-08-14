@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Activity
 {
-     public enum AutoTurnSpeed
+    public enum AutoTurnSpeed
     {
         Normal,
         High,

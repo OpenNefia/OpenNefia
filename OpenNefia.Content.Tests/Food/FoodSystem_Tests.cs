@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Tests.Areas
             var food = entGen.SpawnEntity(TestFoodPerishable, map.AtPos(Vector2i.Zero))!.Value;
             var foodComp = entMan.GetComponent<FoodComponent>(food);
 
-            Assert.That(foodComp.SpoilageDate, Is.EqualTo(new GameDateTime(512, 1, 13))); 
+            Assert.That(foodComp.SpoilageDate, Is.EqualTo(new GameDateTime(512, 1, 13)));
             Assert.That(entMan.GetComponent<ChipComponent>(food).ChipID, Is.EqualTo(Protos.Chip.ItemDishMeat5));
         }
 
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Tests.Areas
 
             worldSys.PassTime(GameTimeSpan.FromHours(23));
             Assert.That(foodComp.IsRotten, Is.False);
-            
+
             worldSys.PassTime(GameTimeSpan.FromHours(2));
             Assert.That(foodComp.IsRotten, Is.True);
             Assert.That(entMan.GetComponent<ChipComponent>(food).ChipID, Is.EqualTo(Protos.Chip.ItemRottenFood));

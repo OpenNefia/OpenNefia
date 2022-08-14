@@ -7,7 +7,7 @@ namespace OpenNefia.Content.UI.Element
     public class UiPageText : UiElement
     {
         public IUiElement? PageTextParent { get; set; }
-        
+
         public Vector2 TextOffset { get; set; }
         public Vector2i TextPixelOffset => (Vector2i)(TextOffset * UIScale);
 

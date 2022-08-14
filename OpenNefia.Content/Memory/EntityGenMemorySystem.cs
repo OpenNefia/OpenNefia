@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Memory
         /// How many of this entity have been generated.
         /// </summary>
         public const string Generated = nameof(Generated);
-        
+
         /// <summary>
         /// How many of this entity have been killed.
         /// </summary>
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.Memory
         public static int Killed(this IEntityGenMemorySystem mem, PrototypeId<EntityPrototype> id)
             => mem.Get(id, EntityMemoryKinds.Killed);
 
-        public static bool IsIdentified(this IEntityGenMemorySystem mem, PrototypeId<EntityPrototype> id) 
+        public static bool IsIdentified(this IEntityGenMemorySystem mem, PrototypeId<EntityPrototype> id)
             => mem.Get(id, EntityMemoryKinds.Identified) > 0;
 
         public static void SetIdentified(this IEntityGenMemorySystem mem, PrototypeId<EntityPrototype> id, bool identified)

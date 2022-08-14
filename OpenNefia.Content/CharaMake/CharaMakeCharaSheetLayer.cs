@@ -120,7 +120,7 @@ namespace OpenNefia.Content.CharaMake
         public override List<UiKeyHint> MakeKeyHints()
         {
             var keyHints = new List<UiKeyHint>();
-            
+
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.Common.KeyHint.Reroll"), UiKeyNames.EnterKey));
             keyHints.AddRange(CharaInfoPages.MakeKeyHints());
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.CharaSheet.KeyHint.FinalConfirmation"), EngineKeyFunctions.UICancel));

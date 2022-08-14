@@ -29,8 +29,8 @@ namespace OpenNefia.Core.GameObjects
         public bool IsValid()
         {
             return _uid > 0;
-        }        
-        
+        }
+
         /// <summary>
         ///     Creates an entity UID by parsing a string number.
         /// </summary>

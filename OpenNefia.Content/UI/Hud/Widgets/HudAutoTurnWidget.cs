@@ -18,7 +18,7 @@ namespace OpenNefia.Content.UI.Hud
         private const int TurnsBetweenAnimationLoops = 15;
 
         private IAssetInstance _autoTurnIcon = default!;
-        
+
         private BaseAutoTurnAnim? _autoTurnAnimation;
         public BaseAutoTurnAnim? AutoTurnAnimation
         {
@@ -31,7 +31,7 @@ namespace OpenNefia.Content.UI.Hud
                 _turnsUntilAnimLoop = 0;
                 _isFirstAnimFrame = true;
                 _autoTurnAnimation = value;
-                
+
                 if (_autoTurnAnimation != null)
                     UiHelpers.AddChildrenRecursive(this, _autoTurnAnimation);
 

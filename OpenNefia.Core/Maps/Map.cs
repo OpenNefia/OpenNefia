@@ -146,7 +146,7 @@ namespace OpenNefia.Core.Maps
 
             // TODO
             var tileDefinitions = IoCManager.Resolve<ITileDefinitionManager>();
-            
+
             var tile = Tiles[pos.X, pos.Y];
             var tileProto = tileDefinitions[tile.Type];
             var isSolid = tileProto.IsSolid;

@@ -82,7 +82,7 @@ namespace OpenNefia.Core.DebugServer
 
             if (!_server.Pending())
                 return;
-            
+
             try
             {
                 using (var client = _server.AcceptTcpClient())
@@ -167,7 +167,7 @@ namespace OpenNefia.Core.DebugServer
         private string Process(string json)
         {
             ICommandResult commandResult;
-          
+
             try
             {
                 commandResult = RunCommand(json);
@@ -176,7 +176,7 @@ namespace OpenNefia.Core.DebugServer
             {
                 commandResult = new SerializedError(ex);
             }
-          
+
             return JsonConvert.SerializeObject(commandResult, _jsonSettings);
 
         }
@@ -238,7 +238,7 @@ namespace OpenNefia.Core.DebugServer
             var script = Regex.Unescape(opts.Script);
 
             var result = _replExecutor.Execute($"return {script}");
-            
+
             if (result is not ReplExecutionResult.Success)
             {
                 result = _replExecutor.Execute(script);

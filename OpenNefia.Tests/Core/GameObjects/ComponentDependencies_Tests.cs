@@ -460,7 +460,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // I absolutely hate this. On RELEASE, the exception thrown is EntityCreationException with an inner exception.
             // On DEBUG, however, the exception is simply the ComponentDependencyValueTypeException. This is awful.
-            Assert.That(except is ComponentDependencyValueTypeException || except is EntityCreationException {InnerException: ComponentDependencyValueTypeException},
+            Assert.That(except is ComponentDependencyValueTypeException || except is EntityCreationException { InnerException: ComponentDependencyValueTypeException },
                 $"Expected a different exception type! Exception: {except}");
         }
 
@@ -474,7 +474,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // I absolutely hate this. On RELEASE, the exception thrown is EntityCreationException with an inner exception.
             // On DEBUG, however, the exception is simply the ComponentDependencyNotNullableException. This is awful.
-            Assert.That(except is ComponentDependencyNotNullableException || except is EntityCreationException {InnerException: ComponentDependencyNotNullableException},
+            Assert.That(except is ComponentDependencyNotNullableException || except is EntityCreationException { InnerException: ComponentDependencyNotNullableException },
                 $"Expected a different exception type! Exception: {except}");
         }
 

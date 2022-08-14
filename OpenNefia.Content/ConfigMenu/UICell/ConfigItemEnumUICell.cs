@@ -21,7 +21,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             {
                 var rawValue = ConfigManager.GetCVarRaw(MenuNode.CVar);
                 return (Enum)Enum.ToObject(MenuNode.EnumType, rawValue);
-            } 
+            }
             set => ConfigManager.SetCVarRaw(MenuNode.CVar, value);
         }
 

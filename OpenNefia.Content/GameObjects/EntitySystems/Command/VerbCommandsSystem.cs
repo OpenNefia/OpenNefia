@@ -111,7 +111,7 @@ namespace OpenNefia.Content.GameObjects
                 {
                     return Get<VerbCommandsSystem>().HandleVerb(session, _verbReq);
                 }
-                
+
                 return null;
             }
         }

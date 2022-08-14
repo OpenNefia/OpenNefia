@@ -35,7 +35,7 @@ namespace OpenNefia.Content.EquipSlots
         }
 
         private void OnEntRemoved(EntityUid uid, EquipSlotsComponent equipSlots, EntRemovedFromContainerMessage args)
-{
+        {
             if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
                 return;
 
@@ -65,8 +65,8 @@ namespace OpenNefia.Content.EquipSlots
             TryEquip(uid, uid, itemUid, equipSlot, silent, force, equipSlots, item);
 
         public bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotInstance equipSlot,
-            bool silent = false, bool force = false, 
-            EquipSlotsComponent? equipSlots = null, 
+            bool silent = false, bool force = false,
+            EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null)
         {
             if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
@@ -131,7 +131,7 @@ namespace OpenNefia.Content.EquipSlots
             CanEquip(uid, uid, itemUid, equipSlot, out reason, inventory, item);
 
         public bool CanEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotInstance equipSlot,
-            [NotNullWhen(false)] out string? reason, 
+            [NotNullWhen(false)] out string? reason,
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null)
         {
@@ -176,12 +176,12 @@ namespace OpenNefia.Content.EquipSlots
         public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
             IContainer? placeInto = null,
             bool silent = false, bool force = false,
-            EquipSlotsComponent? inventory = null) => 
+            EquipSlotsComponent? inventory = null) =>
             TryUnequip(uid, uid, equipSlot, placeInto, silent, force, inventory);
 
-        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot, 
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             IContainer? placeInto = null,
-            bool silent = false, bool force = false, 
+            bool silent = false, bool force = false,
             EquipSlotsComponent? equipSlots = null) =>
             TryUnequip(actor, target, equipSlot, out _, placeInto, silent, force, equipSlots);
 
@@ -189,13 +189,13 @@ namespace OpenNefia.Content.EquipSlots
             [NotNullWhen(true)] out EntityUid? removedItem,
             IContainer? placeInto = null,
             bool silent = false, bool force = false,
-            EquipSlotsComponent? equipSlots = null) 
+            EquipSlotsComponent? equipSlots = null)
             => TryUnequip(uid, uid, equipSlot, out removedItem, placeInto, silent, force, equipSlots);
 
         public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? removedItem,
             IContainer? placeInto = null,
-            bool silent = false, bool force = false, 
+            bool silent = false, bool force = false,
             EquipSlotsComponent? equipSlots = null)
         {
             removedItem = null;
@@ -223,9 +223,9 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!force && !CanUnequip(actor, target, equipSlot, out var reason, slotContainer, equipSlots))
             {
-                if (!silent) _mes.Display(Loc.GetString(reason, 
+                if (!silent) _mes.Display(Loc.GetString(reason,
                     ("actor", actor),
-                    ("target", target), 
+                    ("target", target),
                     ("item", slotContainer.ContainedEntity)));
                 return false;
             }
@@ -286,7 +286,7 @@ namespace OpenNefia.Content.EquipSlots
             CanUnequip(uid, uid, equipSlot, out reason, containerSlot, equipSlots);
 
         public bool CanUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
-            [NotNullWhen(false)] out string? reason, 
+            [NotNullWhen(false)] out string? reason,
             ContainerSlot? containerSlot = null,
             EquipSlotsComponent? equipSlots = null)
         {
@@ -333,8 +333,8 @@ namespace OpenNefia.Content.EquipSlots
             return true;
         }
 
-        public bool TryGetSlotEntity(EntityUid uid, EquipSlotInstance equipSlot, [NotNullWhen(true)] out EntityUid? entityUid, 
-            EquipSlotsComponent? equipSlotsComponent = null, 
+        public bool TryGetSlotEntity(EntityUid uid, EquipSlotInstance equipSlot, [NotNullWhen(true)] out EntityUid? entityUid,
+            EquipSlotsComponent? equipSlotsComponent = null,
             ContainerManagerComponent? containerManagerComponent = null)
         {
             entityUid = null;

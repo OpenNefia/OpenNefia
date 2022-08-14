@@ -112,7 +112,7 @@ namespace OpenNefia.Core.Utility
         /// <param name="rune"></param>
         /// <returns></returns>
         public static int GetWideWidth(this Rune rune) => UnicodeWidth.GetWidth(rune);
-        
+
         public static string WidePadRight(this string str, int totalWideWidth, char paddingChar = ' ')
         {
             var wideWidth = str.GetWideLength();

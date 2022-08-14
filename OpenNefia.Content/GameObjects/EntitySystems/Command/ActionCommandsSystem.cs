@@ -76,7 +76,7 @@ namespace OpenNefia.Content.GameObjects
                 _activities.StartActivity(session.Player, activity);
                 return TurnResult.Succeeded;
             }
-            
+
             return _actionDig.StartMining(session!.Player, dir.Value.Coords);
         }
 

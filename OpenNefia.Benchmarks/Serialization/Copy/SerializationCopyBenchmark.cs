@@ -19,7 +19,7 @@ namespace OpenNefia.Benchmarks.Serialization.Copy
         {
             InitializeSerialization();
 
-            DataDefinitionWithString = new DataDefinitionWithString {StringField = "ABC"};
+            DataDefinitionWithString = new DataDefinitionWithString { StringField = "ABC" };
 
             var yamlStream = new YamlStream();
             yamlStream.Load(new StringReader(SeedDataDefinition.Prototype));
@@ -124,8 +124,8 @@ namespace OpenNefia.Benchmarks.Serialization.Copy
         {
             return SerializationManager.CopyWithTypeSerializer(
                 typeof(FlagSerializer<BenchmarkFlags>),
-                (int) FlagZero,
-                (int) FlagZero);
+                (int)FlagZero,
+                (int)FlagZero);
         }
 
         [Benchmark]
@@ -134,8 +134,8 @@ namespace OpenNefia.Benchmarks.Serialization.Copy
         {
             return SerializationManager.CopyWithTypeSerializer(
                 typeof(FlagSerializer<BenchmarkFlags>),
-                (int) FlagThirtyOne,
-                (int) FlagThirtyOne);
+                (int)FlagThirtyOne,
+                (int)FlagThirtyOne);
         }
 
         [Benchmark]

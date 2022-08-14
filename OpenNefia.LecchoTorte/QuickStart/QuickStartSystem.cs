@@ -45,8 +45,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
             if (ally != null)
             {
                 _parties.RecruitAsAlly(player, ally.Value);
-            } 
-            
+            }
+
             var skills = EntityManager.GetComponent<SkillsComponent>(player);
             skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;

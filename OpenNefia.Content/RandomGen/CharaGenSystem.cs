@@ -18,13 +18,13 @@ namespace OpenNefia.Content.RandomGen
 {
     public interface ICharaGen : IEntitySystem
     {
-        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
+        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
         PrototypeId<EntityPrototype> PickRandomCharaId(EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
 
-        EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null, 
-            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
+        EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,

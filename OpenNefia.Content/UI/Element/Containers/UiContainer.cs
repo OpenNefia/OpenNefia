@@ -28,7 +28,7 @@ namespace OpenNefia.Content.UI.Element.Containers
     public class UiContainerEntry
     {
         public UiElement? Element { get; set; }
-        public LayoutType Type { get; set;}
+        public LayoutType Type { get; set; }
         public int Offset { get; set; }
 
         public UiContainerEntry(UiElement uiElement)

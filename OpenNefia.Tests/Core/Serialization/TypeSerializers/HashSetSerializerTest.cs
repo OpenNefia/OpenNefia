@@ -16,7 +16,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void SerializationTest()
         {
-            var list = new HashSet<string> {"A", "E"};
+            var list = new HashSet<string> { "A", "E" };
             var node = Serialization.WriteValueAs<SequenceDataNode>(list);
 
             Assert.That(node.Cast<ValueDataNode>(0).Value, Is.EqualTo("A"));
@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         [Test]
         public void DeserializationTest()
         {
-            var list = new HashSet<string> {"A", "E"};
+            var list = new HashSet<string> { "A", "E" };
             var node = new SequenceDataNode("A", "E");
             var deserializedList = Serialization.ReadValue<HashSet<string>>(node);
 

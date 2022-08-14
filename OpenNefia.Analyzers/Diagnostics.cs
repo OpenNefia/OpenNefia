@@ -6,7 +6,7 @@ namespace OpenNefia.Analyzers
     {
         public static SuppressionDescriptor MeansImplicitAssignment =>
             new SuppressionDescriptor("ONAS1000", "CS0649", "Marked as implicitly assigned.");
-        
+
         public const string DiagnosticCategory = "OpenNefia";
 
         public static DiagnosticDescriptor InvalidEventSubscribingByValue =

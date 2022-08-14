@@ -96,7 +96,7 @@ namespace OpenNefia.Core.ResourceManagement
         public ImageLoadParameters()
         {
         }
-        
+
         public static ImageLoadParameters FromYaml(YamlMappingNode yaml)
         {
             var loadParams = new ImageLoadParameters();

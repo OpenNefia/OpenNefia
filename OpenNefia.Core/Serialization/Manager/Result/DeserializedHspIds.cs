@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Serialization.Manager.Result
         public DeserializedHspIds(
             HspIds<TValue> value,
             IReadOnlyDictionary<DeserializationResult, DeserializationResult> mappings)
-            :base(value, mappings, dict => DoCreate(dict, value.HspOrigin))
+            : base(value, mappings, dict => DoCreate(dict, value.HspOrigin))
         {
         }
 

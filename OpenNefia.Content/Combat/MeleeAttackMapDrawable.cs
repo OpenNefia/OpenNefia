@@ -102,9 +102,9 @@ namespace OpenNefia.Content.Combat
                 {
                     var firstPoint = _points.FirstOrDefault();
                     var size = _counter.FrameInt * 10 + _points.Count;
-                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), 
+                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(),
                         PixelX + firstPoint.X + _coords.TileSize.X / 2,
-                        PixelY + firstPoint.Y + 10, 
+                        PixelY + firstPoint.Y + 10,
                         size,
                         size,
                         centered: true,
