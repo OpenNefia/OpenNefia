@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading;
-using ICSharpCode.Decompiler.TypeSystem;
-using JetBrains.Annotations;
-using NLua;
+﻿using JetBrains.Annotations;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -25,6 +14,10 @@ using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
@@ -94,7 +87,7 @@ namespace OpenNefia.Core.Prototypes
         TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>;
-        
+
         /// <summary>
         /// Index for a <see cref="IPrototype"/>'s extended data.
         /// </summary>
@@ -557,14 +550,16 @@ namespace OpenNefia.Core.Prototypes
                     {
                         if (!typeof(IEntitySystem).IsAssignableFrom(eventDef.EntitySystemType))
                         {
-                            Logger.ErrorS("Serv3", $"Cannot register events for non-entity system {eventDef.EntitySystemType}! ({prototypeId})");
+                            var errorMessage = $"Cannot register events for non-entity system {eventDef.EntitySystemType}! ({prototypeId})";
+                            Logger.ErrorS("Serv3", errorMessage);
                             continue;
                         }
 
                         var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, flags);
                         if (methodDef == null)
                         {
-                            Logger.ErrorS("Serv3", $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})");
+                            var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})";
+                            Logger.ErrorS("Serv3", errorMessage);
                             continue;
                         }
 
@@ -585,13 +580,25 @@ namespace OpenNefia.Core.Prototypes
                             subMethod = subscribeValue;
                         }
 
-                        var handler = methodDef.CreateDelegate(handlerType
-                            .MakeGenericType(prototypeType, eventDef.EventType), target);
+                        var handlerTypeGeneric = handlerType.MakeGenericType(prototypeType, eventDef.EventType);
+                        
+                        try
+                        {
+                            var handler = methodDef.CreateDelegate(handlerTypeGeneric, target);
 
-                        var genericSubMethod = subMethod.MakeGenericMethod(prototypeType, eventDef.EventType);
-                        genericSubMethod.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
+                            // Call the subscription method on the prototype event bus based on refness.
+                            var genericSubMethod = subMethod.MakeGenericMethod(prototypeType, eventDef.EventType);
+                            genericSubMethod.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
 
-                        registered++;
+                            registered++;
+                        }
+                        catch (ArgumentException ex)
+                        // "Cannot bind to the target method because its signature is not compatible with that of the delegate type."
+                        {
+                            var handlerMethod = handlerTypeGeneric.GetMethod("Invoke", flags)!;
+                            var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName} is not compatible with delegate type.\nDelegate: {PrettyPrint.PrintMethodSignature(handlerMethod)}\nPassed method: {PrettyPrint.PrintMethodSignature(methodDef)}\nException:{ex}";
+                            Logger.ErrorS("Serv3", errorMessage); 
+                        }
                     }
                 }
             }
@@ -701,11 +708,12 @@ namespace OpenNefia.Core.Prototypes
                     foreach (YamlMappingNode node in rootNode.Cast<YamlMappingNode>())
                     {
                         var type = node.GetNode("type").AsString();
-                        if (!_prototypeTypes.ContainsKey(type))
+                        if (!_prototypeTypes.TryGetValue(type, out var prototypeType))
                         {
                             throw new PrototypeLoadException($"Unknown prototype type: '{type}'", resourcePath.ToString(), node);
                         }
 
+                        var prototypeID = node.GetNode("id").AsString();
                         var mapping = node.ToDataNodeCast<MappingDataNode>();
                         mapping.Remove("type");
                         var errorNodes = _serializationManager.ValidateNode(_prototypeTypes[type], mapping).GetErrors()
@@ -714,11 +722,110 @@ namespace OpenNefia.Core.Prototypes
                         if (!dict.TryGetValue(resourcePath.ToString(), out var hashSet))
                             dict[resourcePath.ToString()] = new HashSet<ErrorNode>();
                         dict[resourcePath.ToString()].UnionWith(errorNodes);
+
+                        if (node.TryGetNode("extendedData", out var extDataNode) && extDataNode is YamlSequenceNode extDataSequenceNode)
+                        {
+                            ValidateExtendedData(resourcePath.ToString(), prototypeType, prototypeID, extDataSequenceNode, dict);
+                        }
+
+                        if (node.TryGetNode("events", out var eventsNode) && eventsNode is YamlSequenceNode eventsSequenceNode)
+                        {
+                            ValidateEvents(resourcePath.ToString(), prototypeType, prototypeID, eventsSequenceNode, dict);
+                        }
                     }
                 }
             }
 
             return dict;
+        }
+
+        private void ValidateExtendedData(string filename, Type prototypeType, string prototypeID, YamlSequenceNode extDataSequenceNode, Dictionary<string, HashSet<ErrorNode>> errors)
+        {
+            var extDataIfaceType = typeof(IPrototypeExtendedData<>)
+                .MakeGenericType(prototypeType);
+
+            foreach (var child in extDataSequenceNode.Children.Cast<YamlMappingNode>())
+            {
+                var childNode = child.ToDataNode();
+                if (!child.TryGetNode("type", out var extDataTypeNode))
+                {
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(childNode, $"Extended data entry is missing 'type' property"));
+                    continue;
+                }
+
+                var extDataTypeStr = extDataTypeNode.AsString();
+                if (!_reflectionManager.TryLooseGetType(extDataTypeStr, out var extDataType))
+                {
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(childNode, $"Unable to find type ending with '{extDataTypeStr}'"));
+                    continue;
+                }
+
+                if (!extDataIfaceType.IsAssignableFrom(extDataType))
+                {
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(childNode, $"Extended data of type '{extDataType}' cannot apply to prototype of type '{prototypeType}', as it does not implement '{extDataIfaceType}'"));
+                }
+            }
+        }
+
+        private void ValidateEvents(string filename, Type prototypeType, string prototypeID, YamlSequenceNode eventsSequenceNode, Dictionary<string, HashSet<ErrorNode>> errors)
+        {
+            var sequence = eventsSequenceNode.ToDataNodeCast<SequenceDataNode>();
+            var errorNodes = _serializationManager.ValidateNode<List<PrototypeEventHandlerDef>>(sequence).GetErrors()
+                .ToHashSet();
+            if (errorNodes.Count != 0)
+            {
+                errors.GetValueOrInsert(filename).AddRange(errorNodes);
+                return;
+            }
+
+            var flags = BindingFlags.Instance | BindingFlags.Public;
+
+            foreach (var node in sequence.Sequence)
+            {
+                var eventDef = _serializationManager.ReadValueOrThrow<PrototypeEventHandlerDef>(node);
+
+                if (!typeof(IEntitySystem).IsAssignableFrom(eventDef.EntitySystemType))
+                {
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(node, $"Cannot register events for non-entity system {eventDef.EntitySystemType}. ({prototypeID})"));
+                    continue;
+                }
+
+                var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, flags);
+                if (methodDef == null)
+                {
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(node, $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found. ({prototypeID})"));
+                    continue;
+                }
+
+                var target = EntitySystem.Get(eventDef.EntitySystemType);
+
+                Type handlerType;
+                var isByRef = eventDef.EventType.HasCustomAttribute<ByRefEventAttribute>();
+
+                if (isByRef)
+                {
+                    handlerType = typeof(PrototypeEventRefHandler<,>);
+                }
+                else
+                {
+                    handlerType = typeof(PrototypeEventHandler<,>);
+                }
+
+                var handlerTypeGeneric = handlerType.MakeGenericType(prototypeType, eventDef.EventType);
+
+                try
+                {
+                    methodDef.CreateDelegate(handlerTypeGeneric, target);
+                }
+                catch (ArgumentException ex)
+                {
+                    // "Cannot bind to the target method because its signature is not compatible with that of the delegate type."
+                    var handlerMethod = handlerTypeGeneric.GetMethod("Invoke", flags)!;
+                    var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName} is not compatible with delegate type. --- Delegate: {PrettyPrint.PrintMethodSignature(handlerMethod)} - Passed method: {PrettyPrint.PrintMethodSignature(methodDef)}";
+                    errors.GetValueOrInsert(filename).Add(new ErrorNode(node, errorMessage));
+                    continue;
+                }
+            }
         }
 
         private StreamReader? ReadFile(ResourcePath file, bool @throw = true)
@@ -877,7 +984,7 @@ namespace OpenNefia.Core.Prototypes
 
                 var type = typeNode.AsString();
 
-                if (!_prototypeTypes.ContainsKey(type))
+                if (!_prototypeTypes.TryGetValue(type, out var prototypeType))
                 {
                     throw new PrototypeLoadException($"Unknown prototype type: '{type}'", filename, node);
                 }
@@ -885,7 +992,6 @@ namespace OpenNefia.Core.Prototypes
                 var dataNode = node.ToDataNodeCast<MappingDataNode>();
                 BeforePrototypeLoad?.Invoke(dataNode);
 
-                var prototypeType = _prototypeTypes[type];
                 var res = _serializationManager.Read(prototypeType, dataNode, skipHook: true);
                 var prototype = (IPrototype)res.RawValue!;
 
@@ -919,12 +1025,12 @@ namespace OpenNefia.Core.Prototypes
 
                 if (node.TryGetNode("extendedData", out var extDataNode) && extDataNode is YamlSequenceNode extDataSequenceNode)
                 {
-                    ParseExtendedData(filename, prototypeType, prototype, extDataSequenceNode);
+                    ParseExtendedData(filename, prototypeType, prototype.ID, extDataSequenceNode);
                 }
 
                 if (node.TryGetNode("events", out var eventsNode) && eventsNode is YamlSequenceNode eventsSequenceNode)
                 {
-                    ParseEvents(filename, prototypeType, prototype, eventsSequenceNode);
+                    ParseEvents(filename, prototypeType, prototype.ID, eventsSequenceNode);
                 }
 
                 previousProtoID = prototype.ID;
@@ -955,7 +1061,7 @@ namespace OpenNefia.Core.Prototypes
             _prototypeOrdering[prototypeType][prototype.ID] = ordering;
         }
 
-        private void ParseExtendedData(string? filename, Type prototypeType, IPrototype prototype, YamlSequenceNode extDataSequenceNode)
+        private void ParseExtendedData(string? filename, Type prototypeType, string prototypeID, YamlSequenceNode extDataSequenceNode)
         {
             var extDataIfaceType = typeof(IPrototypeExtendedData<>)
                 .MakeGenericType(prototypeType);
@@ -980,17 +1086,17 @@ namespace OpenNefia.Core.Prototypes
                 if (!extDataIfaceType.IsAssignableFrom(obj.GetType()))
                 {
                     throw new PrototypeLoadException($"Extended data of type '{obj.GetType()}' cannot apply to prototype of type '{prototypeType}', as it does not implement '{extDataIfaceType}'", filename, child);
-                }    
+                }
 
-                var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
+                var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototypeID, () => new());
                 objs.Add(obj.GetType(), obj);
             }
         }
 
-        private void ParseEvents(string filename, Type prototypeType, IPrototype prototype, YamlSequenceNode eventsSequenceNode)
+        private void ParseEvents(string filename, Type prototypeType, string prototypeID, YamlSequenceNode eventsSequenceNode)
         {
             var node = eventsSequenceNode.ToDataNodeCast<SequenceDataNode>();
-            _prototypeEventDefs[prototypeType][prototype.ID] = _serializationManager.ReadValueOrThrow<List<PrototypeEventHandlerDef>>(node);
+            _prototypeEventDefs[prototypeType][prototypeID] = _serializationManager.ReadValueOrThrow<List<PrototypeEventHandlerDef>>(node);
         }
 
         /// <inheritdoc />
@@ -1217,7 +1323,7 @@ namespace OpenNefia.Core.Prototypes
             data = (TExt)obj;
             return true;
         }
-        
+
         public bool TryGetExtendedData<TProto, TExt>(TProto proto, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>

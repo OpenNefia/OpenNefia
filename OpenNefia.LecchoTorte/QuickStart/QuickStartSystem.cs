@@ -17,11 +17,11 @@ using OpenNefia.Content.Food;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Currency;
 using OpenNefia.Core.Audio;
-using OpenNefia.Content.Items.Impl;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Chest;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Items.Impl;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {

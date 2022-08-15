@@ -1,30 +1,23 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Combat;
+using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.Identify;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.Loot;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Roles;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Content.Equipment;
-using OpenNefia.Content.RandomGen;
-using OpenNefia.Content.Inventory;
-using OpenNefia.Content.Loot;
-using OpenNefia.Content.Levels;
-using OpenNefia.Content.Roles;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.EquipSlots;
-using OpenNefia.Content.GameObjects.EntitySystems.Tag;
-using OpenNefia.Content.Combat;
-using OpenNefia.Content.Identify;
-using OpenNefia.Content.Qualities;
-using OpenNefia.Core.Utility;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Equipment
 {
@@ -67,8 +60,8 @@ namespace OpenNefia.Content.Equipment
 
                 if (deleteCandidates.Any())
                 {
-                    var item = _rand.PickAndTake(deleteCandidates);
-                    EntityManager.DeleteEntity(item);
+                    var toDelete = _rand.PickAndTake(deleteCandidates);
+                    EntityManager.DeleteEntity(toDelete);
                 }
 
                 var filter = new ItemFilter()
@@ -154,10 +147,30 @@ namespace OpenNefia.Content.Equipment
         }
     }
 
-    public sealed record EquipmentSpecifier(PrototypeId<EquipmentSpecPrototype> ID, ItemFilter ItemFilter);
+    [DataDefinition]
+    public sealed class EquipmentTemplateEntry
+    {
+        public EquipmentTemplateEntry() {}
 
+        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, PrototypeId<EntityPrototype>? itemID = null,
+            IReadOnlyCollection<PrototypeId<TagPrototype>>? categories = null)
+        {
+            SpecID = specID;
+            ItemID = itemID;
+            Categories = categories ?? new List<PrototypeId<TagPrototype>>();
+        }
+
+        public PrototypeId<EquipmentSpecPrototype> SpecID { get; }
+        public PrototypeId<EntityPrototype>? ItemID { get; }
+        public IReadOnlyCollection<PrototypeId<TagPrototype>> Categories { get; } = new List<PrototypeId<TagPrototype>>();
+    }
+
+    /// <summary>
+    /// Describes how to randomly generate equipment for a character.
+    /// </summary>
+    [DataDefinition]
     public sealed class EquipmentGenTemplate
     {
-        public IList<EquipmentSpecifier> Specifiers { get; } = new List<EquipmentSpecifier>();
+        public IList<EquipmentTemplateEntry> Specifiers { get; } = new List<EquipmentTemplateEntry>();
     }
 }

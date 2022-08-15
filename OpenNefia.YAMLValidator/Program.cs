@@ -88,7 +88,7 @@ namespace OpenNefia.YAMLValidator
 
                     // This syntax is for interfacing with GitHub Actions.
                     // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
-                    Console.WriteLine($"::error file={realPath},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{resPath}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}");
+                    Console.WriteLine($"::error file={realPath},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{errorNode.ErrorReason}");
                 }
             }
 
