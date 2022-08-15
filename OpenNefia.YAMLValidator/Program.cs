@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Content;
+using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -47,7 +48,14 @@ namespace OpenNefia.YAMLValidator
         {
             InitIoC();
 
-            var options = new GameControllerOptions();
+            var options = new GameControllerOptions()
+            {
+                ConfigOptionOverrides = new()
+                {
+                    { CCVars.ReplAutoloadOnStartup, false },
+                    { CCVars.ReplAutoloadScript, string.Empty },
+                }
+            };
 
             var gc = IoCManager.Resolve<IGameController>();
 

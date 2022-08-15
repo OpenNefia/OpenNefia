@@ -1,3 +1,4 @@
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
@@ -42,5 +43,10 @@ namespace OpenNefia.Core.GameController
         ///     Whether to load config and user data.
         /// </summary>
         public bool LoadConfigAndUserData { get; init; } = true;
+
+        /// <summary>
+        ///     Config options to inject on startup.
+        /// </summary>
+        public Dictionary<CVarDef, object> ConfigOptionOverrides { get; init; } = new();
     }
 }

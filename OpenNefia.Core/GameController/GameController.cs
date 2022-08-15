@@ -85,7 +85,7 @@ namespace OpenNefia.Core.GameController
             _resourceCache.Initialize(Options.UserDataDirectoryName);
             _profileManager.Initialize();
 
-            InitializeConfig();
+            InitializeConfig(options);
             SetupLogging(() => new ConsoleLogHandler());
 
             _taskManager.Initialize();
@@ -181,7 +181,7 @@ namespace OpenNefia.Core.GameController
             return true;
         }
 
-        private void InitializeConfig()
+        private void InitializeConfig(GameControllerOptions options)
         {
             _config.Initialize();
 
@@ -204,6 +204,11 @@ namespace OpenNefia.Core.GameController
             }
 
             _config.OverrideConVars(EnvironmentVariables.GetEnvironmentCVars());
+
+            var passedOverrides = options
+                .ConfigOptionOverrides
+                .Select(pair => (pair.Key.Name, $"{pair.Value}"));
+            _config.OverrideConVars(passedOverrides);
         }
 
         private void ShowSplashScreen()
