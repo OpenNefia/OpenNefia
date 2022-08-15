@@ -25,6 +25,9 @@ namespace OpenNefia.Content.Equipment
 
         [DataField("validEquipSlots")]
         public HashSet<PrototypeId<EquipSlotPrototype>> _validEquipSlots { get; } = new();
-        public IReadOnlySet<PrototypeId<EquipSlotPrototype>> NewField => _validEquipSlots; 
+        public IReadOnlySet<PrototypeId<EquipSlotPrototype>> ValidEquipSlots => _validEquipSlots;
+
+        [DataField]
+        public int? MaxEquipSlotsToApplyTo { get; set; } = 1;
     }
 }

@@ -77,25 +77,36 @@
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
-    method: PrimaryWeapon_OnGenerateEquipment
+    method: GenerateLightWeapon
 
 - type: Elona.EquipmentSpec
-  id: Elona.SecondaryWeapon
+  id: Elona.TwoHandedWeapon
   validEquipSlots:
   - Elona.Hand
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
-    method: SecondaryWeapon_OnGenerateEquipment
+    method: TwoHanded_OnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.DualWieldWeapons
+  validEquipSlots:
+  - Elona.Hand
+  maxEquipSlotsToApplyTo: 2
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: GenerateLightWeapon
 
 - type: Elona.EquipmentSpec
   id: Elona.MultiWeapon
   validEquipSlots:
   - Elona.Hand
+  maxEquipSlotsToApplyTo: null # fill all remaining slots
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
-    method: MultiWeapon_OnGenerateEquipment
+    method: GenerateLightWeapon
 
 - type: Elona.EquipmentSpec
   id: Elona.Shield
