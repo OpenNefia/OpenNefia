@@ -152,17 +152,33 @@ namespace OpenNefia.Content.Equipment
     {
         public EquipmentTemplateEntry() {}
 
-        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, PrototypeId<EntityPrototype>? itemID = null,
-            IReadOnlyCollection<PrototypeId<TagPrototype>>? categories = null)
+        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, 
+            PrototypeId<EntityPrototype> itemID,
+            float itemGenProb = 1f,
+            Quality quality = default)
         {
             SpecID = specID;
             ItemID = itemID;
-            Categories = categories ?? new List<PrototypeId<TagPrototype>>();
+            ItemGenProb = itemGenProb;
+            Quality = quality;
+        }
+
+        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID,
+            IReadOnlyCollection<PrototypeId<TagPrototype>> categories,
+            float itemGenProb = 1f,
+            Quality quality = default)
+        {
+            SpecID = specID;
+            Categories = categories;
+            ItemGenProb = itemGenProb;
+            Quality = quality;
         }
 
         public PrototypeId<EquipmentSpecPrototype> SpecID { get; }
         public PrototypeId<EntityPrototype>? ItemID { get; }
         public IReadOnlyCollection<PrototypeId<TagPrototype>> Categories { get; } = new List<PrototypeId<TagPrototype>>();
+        public float ItemGenProb { get; } = 1f;
+        public Quality Quality { get; }
     }
 
     /// <summary>

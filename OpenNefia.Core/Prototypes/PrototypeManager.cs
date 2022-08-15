@@ -555,14 +555,6 @@ namespace OpenNefia.Core.Prototypes
                             continue;
                         }
 
-                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, flags);
-                        if (methodDef == null)
-                        {
-                            var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})";
-                            Logger.ErrorS("Serv3", errorMessage);
-                            continue;
-                        }
-
                         var target = EntitySystem.Get(eventDef.EntitySystemType);
 
                         Type handlerType;
@@ -581,6 +573,16 @@ namespace OpenNefia.Core.Prototypes
                         }
 
                         var handlerTypeGeneric = handlerType.MakeGenericType(prototypeType, eventDef.EventType);
+                        var handlerMethod = handlerTypeGeneric.GetMethod("Invoke", flags)!;
+
+                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, flags);
+                        if (methodDef == null)
+                        {
+                            var handlerMethodSignature = $"void {eventDef.MethodName}{PrettyPrint.PrintMethodSignature(handlerMethod, returnType: false, name: false)}";
+                            var errorMessage = $"Method {handlerMethodSignature} on entity system {eventDef.EntitySystemType} not found! ({prototypeId})";
+                            Logger.ErrorS("Serv3", errorMessage);
+                            continue;
+                        }
                         
                         try
                         {
@@ -593,9 +595,8 @@ namespace OpenNefia.Core.Prototypes
                             registered++;
                         }
                         catch (ArgumentException ex)
-                        // "Cannot bind to the target method because its signature is not compatible with that of the delegate type."
                         {
-                            var handlerMethod = handlerTypeGeneric.GetMethod("Invoke", flags)!;
+                            // "Cannot bind to the target method because its signature is not compatible with that of the delegate type."
                             var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName} is not compatible with delegate type.\nDelegate: {PrettyPrint.PrintMethodSignature(handlerMethod)}\nPassed method: {PrettyPrint.PrintMethodSignature(methodDef)}\nException:{ex}";
                             Logger.ErrorS("Serv3", errorMessage); 
                         }
