@@ -1,0 +1,125 @@
+- type: Elona.EquipmentSpec
+  id: Elona.Amulet
+  validEquipSlots:
+  - Elona.Neck
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Ring
+  validEquipSlots:
+  - Elona.Ring
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Cloak
+  validEquipSlots:
+  - Elona.Back
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Girdle
+  validEquipSlots:
+  - Elona.Waist
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Helmet
+  validEquipSlots:
+  - Elona.Head
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Armor
+  validEquipSlots:
+  - Elona.Body
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Gloves
+  validEquipSlots:
+  - Elona.Arm
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Boots
+  validEquipSlots:
+  - Elona.Leg
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.PrimaryWeapon
+  validEquipSlots:
+  - Elona.Hand
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: PrimaryWeapon_OnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.SecondaryWeapon
+  validEquipSlots:
+  - Elona.Hand
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: SecondaryWeapon_OnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.MultiWeapon
+  validEquipSlots:
+  - Elona.Hand
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: MultiWeapon_OnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Shield
+  validEquipSlots:
+  - Elona.Hand
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.RangedWeapon
+  validEquipSlots:
+  - Elona.Ranged
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Ammo
+  validEquipSlots:
+  - Elona.Ammo
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment

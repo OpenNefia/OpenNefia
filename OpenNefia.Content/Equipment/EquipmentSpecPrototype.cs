@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -21,5 +22,9 @@ namespace OpenNefia.Content.Equipment
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
+
+        [DataField("validEquipSlots")]
+        public HashSet<PrototypeId<EquipSlotPrototype>> _validEquipSlots { get; } = new();
+        public IReadOnlySet<PrototypeId<EquipSlotPrototype>> NewField => _validEquipSlots; 
     }
 }
