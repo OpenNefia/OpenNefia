@@ -26,6 +26,10 @@ namespace OpenNefia.Content.Equipment
 {
     public interface IEquipmentGenSystem : IEntitySystem
     {
+        void ApplyEquipmentTemplate(EntityUid chara, EquipmentTemplate template, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null);
+        void GenerateAndEquipEquipment(EntityUid chara, InventoryComponent? inv = null);
+        EquipmentTemplate GenerateEquipmentTemplate(EntityUid chara);
+        void GenerateEquipment(EntityUid chara, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null);
     }
 
     public sealed class EquipmentGenSystem : EntitySystem, IEquipmentGenSystem
@@ -197,10 +201,10 @@ namespace OpenNefia.Content.Equipment
 
             var template = new EquipmentTemplate(itemGenProb);
 
-            if (TryComp<EquipmentGenComponent>(chara, out var equip))
+            if (TryComp<EquipmentGenComponent>(chara, out var equip) && equip.EquipmentType != null)
             {
                 var pev = new P_EquipmentTypeOnInitializeEquipmentEvent(chara, template);
-                _protos.EventBus.RaiseEvent(equip.EquipmentType, pev);
+                _protos.EventBus.RaiseEvent(equip.EquipmentType.Value, pev);
                 template = pev.OutEquipTemplate;
             }
 
@@ -324,7 +328,7 @@ namespace OpenNefia.Content.Equipment
             }
         }
 
-        public void GenerateInitialEquipment(EntityUid chara, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null)
+        public void GenerateEquipment(EntityUid chara, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null)
         {
             if (!Resolve(chara, ref equipSlots) || !Resolve(chara, ref inv))
                 return;

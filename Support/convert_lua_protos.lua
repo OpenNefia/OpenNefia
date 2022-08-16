@@ -525,9 +525,6 @@ handlers["base.chara"] = function(from, to)
     then
       c = comp(to, "GenTwoHandedWeapon")
     end
-
-
-
 end
 
 handlers["base.item"] = function(from, to)
