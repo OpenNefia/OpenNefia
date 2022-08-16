@@ -1418,7 +1418,7 @@ namespace OpenNefia.Core.Prototypes
             }
         }
 
-        IPrototypeComparer<T> GetComparator<T>() where T : class, IPrototype
+        public IPrototypeComparer<T> GetComparator<T>() where T : class, IPrototype
         {
             return new PrototypeComparator<T>(this);
         }

@@ -249,7 +249,7 @@ namespace OpenNefia.Content.Equipment
         {
             _money.TryGenerateExtraGoldForChara(ev.Chara);
 
-            ev.OutEquipTemplate.Entries.Add(new(EquipmentSpec.TwoHandedWeapon, new ItemFilter() { Id = Item.Claymore, Quality = Quality.Good }));
+            ev.OutEquipTemplate.Entries[EquipmentSpec.TwoHandedWeapon] = new EquipmentTemplateEntry(new ItemFilter() { Id = Item.Claymore, Quality = Quality.Good });
             if (_rand.Prob(ev.ItemGenProb))
                 AddSpec(ev, EquipmentSpec.Boots, Tag.ItemCatEquipLegHeavyBoots);
             if (_rand.Prob(ev.ItemGenProb))

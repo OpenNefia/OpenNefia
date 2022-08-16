@@ -15,10 +15,10 @@ namespace OpenNefia.Content.Equipment
         public override string Name => "EquipmentGen";
 
         [DataField(required: true)]
-        public PrototypeId<EquipmentTypePrototype> EquipmentType { get; set; }
+        public PrototypeId<EquipmentTypePrototype>? EquipmentType { get; set; }
 
         [DataField("initialEquipment")]
-        private OrderedDictionary<PrototypeId<EquipmentSpecPrototype>, InitialEquipmentEntry> _initialEquipment = new();
+        private Dictionary<PrototypeId<EquipmentSpecPrototype>, InitialEquipmentEntry> _initialEquipment = new();
 
         /// <summary>
         /// Describes the initial equipment for a character. Applied *after* the

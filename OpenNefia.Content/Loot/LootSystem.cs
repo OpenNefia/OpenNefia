@@ -416,10 +416,10 @@ namespace OpenNefia.Content.Loot
                 }
             }
 
-            if (TryComp<EquipmentGenComponent>(victim, out var eqType))
+            if (TryComp<EquipmentGenComponent>(victim, out var eqType) && eqType.EquipmentType != null)
             {
                 var pev = new P_EquipmentTypeOnGenerateLootEvent(victim, result);
-                _protos.EventBus.RaiseEvent(eqType.EquipmentType, pev);
+                _protos.EventBus.RaiseEvent(eqType.EquipmentType.Value, pev);
             }
 
             if (TryComp<LootTypeComponent>(victim, out var lootType))
