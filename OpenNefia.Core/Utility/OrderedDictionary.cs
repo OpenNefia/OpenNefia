@@ -150,6 +150,17 @@ namespace OpenNefia.Core.Utility
 
         IEnumerator IEnumerable.GetEnumerator() => list.GetEnumerator();
 
+        public void Sort()
+            => Sort(0, Count, null);
+
+        public void Sort(IComparer<KeyValuePair<TKey, TValue>>? comparer)
+            => Sort(0, Count, comparer);
+
+        public void Sort(int index, int count, IComparer<KeyValuePair<TKey, TValue>>? comparer)
+            => list.Sort(index, count, comparer);
+
+        public void Sort(Comparison<KeyValuePair<TKey, TValue>> comparison)
+            => list.Sort(comparison);
 
         [OnDeserialized]
         internal void OnDeserializedMethod(StreamingContext context)

@@ -207,9 +207,9 @@ namespace OpenNefia.Content.Charas
         private void InitClassEquipmentType(EntityUid uid, CharaComponent chara)
         {
             var klass = _protos.Index(chara.Class);
-            if (klass.EquipmentType != null && !HasComp<EquipmentTypeComponent>(uid))
+            if (klass.EquipmentType != null && !HasComp<EquipmentGenComponent>(uid))
             {
-                EnsureComp<EquipmentTypeComponent>(uid).EquipmentType = klass.EquipmentType.Value;
+                EnsureComp<EquipmentGenComponent>(uid).EquipmentType = klass.EquipmentType.Value;
             }
         }
     }
