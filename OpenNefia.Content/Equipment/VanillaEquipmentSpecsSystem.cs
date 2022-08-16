@@ -1,4 +1,5 @@
 using OpenNefia.Content.Combat;
+using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomGen;
@@ -12,7 +13,6 @@ namespace OpenNefia.Content.Equipment
 {
     public sealed class VanillaEquipmentSpecsSystem : EntitySystem
     {
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
 
@@ -20,14 +20,10 @@ namespace OpenNefia.Content.Equipment
 
         public EntityUid? DefaultGenerateEquipment(P_EquipmentSpecOnGenerateEquipmentEvent ev)
         {
-            var filter = new ItemFilter()
-            {
-                MinLevel = _randomGen.CalcObjectLevel(ev.Chara),
-                Quality = _randomGen.CalcObjectQuality(ev.TemplateEntry.Quality),
-                Id = ev.TemplateEntry.ItemID,
-                Tags = ev.TemplateEntry.Categories.ToArray(),
-            };
-            var item = _itemGen.GenerateItem(ev.CharaInventory.Container, filter);
+            ev.TemplateEntry.ItemFilter.MinLevel = _randomGen.CalcObjectLevel(ev.Chara);
+            ev.TemplateEntry.ItemFilter.Quality = _randomGen.CalcObjectQuality(ev.TemplateEntry.ItemFilter.Quality ?? Qualities.Quality.Bad);
+
+            var item = _itemGen.GenerateItem(ev.CharaEquipSlots.Container, ev.TemplateEntry.ItemFilter);
             return item;
         }
 
@@ -83,25 +79,14 @@ namespace OpenNefia.Content.Equipment
                 }
             }
         }
-
-        public void TwoHanded_OnGenerateEquipment(EquipmentSpecPrototype proto, P_EquipmentSpecOnGenerateEquipmentEvent ev)
-        {
-            ev.OutSpecBlacklist.Add(Protos.EquipmentSpec.Shield);
-            GenerateHeavyWeapon(proto, ev);
-        }
-
-        public void MultiWeapon_OnGenerateEquipment(EquipmentSpecPrototype proto, P_EquipmentSpecOnGenerateEquipmentEvent ev)
-        {
-            ev.OutSpecBlacklist.Add(Protos.EquipmentSpec.PrimaryWeapon);
-            GenerateLightWeapon(proto, ev);
-        }
     }
 
     [PrototypeEvent(typeof(EquipmentSpecPrototype))]
     public sealed class P_EquipmentSpecOnGenerateEquipmentEvent : HandledPrototypeEventArgs
     {
-        public EntityUid Chara => CharaInventory.Owner;
-        public InventoryComponent CharaInventory { get; }
+        public EntityUid Chara => CharaEquipSlots.Owner;
+        public InventoryComponent CharaEquipSlots { get; }
+        public EquipSlotInstance EquipSlot { get; }
         public EquipmentTemplateEntry TemplateEntry { get; }
 
         public EntityUid? OutItem { get; set; } = null;
@@ -113,9 +98,10 @@ namespace OpenNefia.Content.Equipment
             OutItem = item;
         }
 
-        public P_EquipmentSpecOnGenerateEquipmentEvent(InventoryComponent charaInventory, EquipmentTemplateEntry entry)
+        public P_EquipmentSpecOnGenerateEquipmentEvent(InventoryComponent charaInventory, EquipSlotInstance equipSlot, EquipmentTemplateEntry entry)
         {
-            CharaInventory = charaInventory;
+            CharaEquipSlots = charaInventory;
+            EquipSlot = equipSlot;
             TemplateEntry = entry;
         }
     }

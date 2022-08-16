@@ -1,5 +1,5 @@
 - type: Elona.EquipmentSpec
-  id: Elona.Amulet
+  id: Elona.Amulet1
   validEquipSlots:
   - Elona.Neck
   events:
@@ -8,7 +8,25 @@
     method: DefaultOnGenerateEquipment
 
 - type: Elona.EquipmentSpec
-  id: Elona.Ring
+  id: Elona.Amulet2
+  validEquipSlots:
+  - Elona.Neck
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Ring1
+  validEquipSlots:
+  - Elona.Ring
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.Ring2
   validEquipSlots:
   - Elona.Ring
   events:
@@ -74,25 +92,28 @@
   id: Elona.PrimaryWeapon
   validEquipSlots:
   - Elona.Hand
+  blacklistedSpecs:
+  - Elona.Shield
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
-    method: GenerateLightWeapon
+    method: DefaultOnGenerateEquipment
 
 - type: Elona.EquipmentSpec
   id: Elona.TwoHandedWeapon
   validEquipSlots:
   - Elona.Hand
+  blacklistedSpecs:
+  - Elona.Shield
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
-    method: TwoHanded_OnGenerateEquipment
+    method: GenerateHeavyWeapon
 
 - type: Elona.EquipmentSpec
-  id: Elona.DualWieldWeapons
+  id: Elona.DualWieldWeapon
   validEquipSlots:
   - Elona.Hand
-  maxEquipSlotsToApplyTo: 2
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
@@ -102,7 +123,10 @@
   id: Elona.MultiWeapon
   validEquipSlots:
   - Elona.Hand
-  maxEquipSlotsToApplyTo: null # fill all remaining slots
+  blacklistedSpecs:
+  - Elona.PrimaryWeapon
+  maxEquipSlotsToApplyTo: 999999 # fill all remaining slots
+  # maxEquipSlotsToApplyTo: null # needs RobustToolbox/2605, 3026, 3027
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem

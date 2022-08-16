@@ -24,8 +24,12 @@ namespace OpenNefia.Content.Equipment
         public string ID { get; } = default!;
 
         [DataField("validEquipSlots")]
-        public HashSet<PrototypeId<EquipSlotPrototype>> _validEquipSlots { get; } = new();
+        private HashSet<PrototypeId<EquipSlotPrototype>> _validEquipSlots = new();
         public IReadOnlySet<PrototypeId<EquipSlotPrototype>> ValidEquipSlots => _validEquipSlots;
+
+        [DataField("blacklistedSpecs")]
+        private HashSet<PrototypeId<EquipmentSpecPrototype>> _blacklistedSpecs = new();
+        public IReadOnlySet<PrototypeId<EquipmentSpecPrototype>> BlacklistedSpecs => _blacklistedSpecs;
 
         [DataField]
         public int? MaxEquipSlotsToApplyTo { get; set; } = 1;

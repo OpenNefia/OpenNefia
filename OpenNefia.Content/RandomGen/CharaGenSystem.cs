@@ -13,6 +13,7 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.RandomGen
 {
@@ -219,23 +220,33 @@ namespace OpenNefia.Content.RandomGen
         public CharaFilter CharaFilter { get; set; } = new();
     }
 
-    public class CharaFilter
+    [DataDefinition]
+    public sealed class CharaFilter
     {
-        public CharaFilter()
-        {
-            Args = EntityGenArgSet.Make();
-        }
-
+        [DataField]
         public PrototypeId<EntityPrototype>? Id { get; set; } = null;
+
+        [DataField]
         public int MinLevel { get; set; } = 1;
+
+        [DataField]
         public PrototypeId<TagPrototype>[]? Tags { get; set; } = null;
+
+        [DataField]
         public string? Fltselect { get; set; } = null;
+
+        [DataField]
         public PrototypeId<RacePrototype>? RaceFilter = null;
-        public EntityGenArgSet Args { get; set; }
+
+        // TODO: args are not serializable yet
+        public EntityGenArgSet Args { get; set; } = EntityGenArgSet.Make();
 
         public EntityGenCommonArgs CommonArgs => Args.Get<EntityGenCommonArgs>();
 
+        [DataField]
         public Quality? Quality { get => CommonArgs.Quality; set => CommonArgs.Quality = value; }
+
+        [DataField]
         public int? LevelOverride { get => CommonArgs.LevelOverride; set => CommonArgs.LevelOverride = value; }
     }
 }

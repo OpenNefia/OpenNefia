@@ -14,10 +14,13 @@ using OpenNefia.Content.Roles;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Utility;
+using System.Collections.Generic;
 
 namespace OpenNefia.Content.Equipment
 {
@@ -27,11 +30,7 @@ namespace OpenNefia.Content.Equipment
 
     public sealed class EquipmentGenSystem : EntitySystem, IEquipmentGenSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEquipmentSystem _equipment = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
@@ -39,7 +38,7 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
-        [Dependency] private readonly ICombatSystem _combat = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -145,48 +144,211 @@ namespace OpenNefia.Content.Equipment
                     break;
             }
         }
+
+        public EquipmentTemplate GenerateEquipmentTemplate(EntityUid chara)
+        {
+            var quality = CompOrNull<QualityComponent>(chara)?.Quality.Buffed ?? Quality.Bad;
+
+            float itemGenProb;
+            int addQuality = 0;
+
+            if (quality <= Quality.Normal)
+            {
+                itemGenProb = 0.3f;
+            }
+            else if (quality == Quality.Good)
+            {
+                itemGenProb = 0.6f;
+            }
+            else if (quality == Quality.Great)
+            {
+                itemGenProb = 0.8f;
+                addQuality = 1;
+            }
+            else
+            {
+                itemGenProb = 1f;
+                addQuality = 1;
+            }
+
+            var template = new EquipmentTemplate(itemGenProb);
+
+            if (TryComp<EquipmentTypeComponent>(chara, out var equip))
+            {
+                var pev = new P_EquipmentTypeOnInitializeEquipmentEvent(chara, template);
+                _protos.EventBus.RaiseEvent(equip.EquipmentType, pev);
+                template = pev.OutEquipTemplate;
+            }
+
+            if (quality >= Quality.Great && template.Specifiers.Count > 0)
+            {
+                var i = 0;
+                while (i < 2)
+                {
+                    if (_rand.OneIn(2))
+                    {
+                        var entry = _rand.Pick(template.Specifiers.Values);
+                        entry.ItemFilter.Quality = Quality.Good;
+                    }
+                    if (_rand.OneIn(2))
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            var ev = new OnInitializeEquipmentEvent(template);
+            RaiseEvent(chara, ev);
+            template = ev.OutEquipTemplate;
+
+            foreach (var specifier in template.Specifiers.Values)
+            {
+                specifier.ItemFilter.Quality ??= Quality.Bad;
+                specifier.ItemFilter.Quality = EnumHelpers.Clamp((Quality)((int)(specifier.ItemFilter.Quality ?? Quality.Bad) + addQuality), Quality.Bad, Quality.God);
+            }
+
+            return template;
+        }
+
+        public void ApplyEquipmentTemplate(EntityUid chara, EquipmentTemplate template, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null)
+        {
+            if (!Resolve(chara, ref equipSlots) || !Resolve(chara, ref inv))
+                return;
+
+            Dictionary<PrototypeId<EquipmentSpecPrototype>, int?> slotsLeftPerEntry = new();
+            foreach (var (specID, entry) in template.Specifiers)
+            {
+                slotsLeftPerEntry[specID] = entry.SlotsToApplyTo ?? _protos.Index(specID).MaxEquipSlotsToApplyTo;
+            }
+
+            foreach (var slot in _equipSlots.GetEquipSlots(chara, equipSlots))
+            {
+                if (!_equipSlots.TryGetContainerForEquipSlot(chara, slot, out var container))
+                    continue;
+
+                if (IsAlive(container.ContainedEntity))
+                    continue;
+
+                // Let's see if there's a way to randomly generate equipment for
+                // this body part type. This should always be true for the
+                // vanilla body parts.
+                foreach (var (specID, entry) in template.Specifiers)
+                {
+                    var specProto = _protos.Index(specID);
+
+                    if (!slotsLeftPerEntry.TryGetValue(specID, out var left))
+                    {
+                        continue;
+                    }
+
+                    if (specProto.ValidEquipSlots.Contains(slot.ID))
+                    {
+                        // Grab the generator for this spec kind and run it. For
+                        // example, Elona.MultiWeapon will generate enough
+                        // weapons to fill all the character's hand slots, while
+                        // Elona.PrimaryWeapon stops generating after the first
+                        // hand slot was found.
+                        var pev = new P_EquipmentSpecOnGenerateEquipmentEvent(inv, slot, entry);
+                        _protos.EventBus.RaiseEvent(specProto, pev);
+                        var item = pev.OutItem;
+
+                        if (left != null)
+                        {
+                            if (left.Value <= 1)
+                            {
+                                slotsLeftPerEntry.Remove(specID);
+                            }
+                            else
+                            {
+                                slotsLeftPerEntry[specID] = left.Value - 1;
+                            }
+                        }
+
+                        foreach (var blacklistedID in specProto.BlacklistedSpecs)
+                            slotsLeftPerEntry.Remove(blacklistedID);
+
+                        if (IsAlive(item))
+                        {
+                            if (!_equipSlots.TryEquip(chara, item.Value, slot, force: true, equipSlots: equipSlots))
+                            {
+                                Logger.ErrorS("equipment.gen", $"Could not equip generated equipment for {chara}, slot {slot.ID}, item {item}");
+                                EntityManager.DeleteEntity(item.Value);
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Logger.ErrorS("equipment.gen", $"No generated equipment for {chara}, slot {slot.ID}");
+                        }
+                    }
+                }
+            }
+        }
+
+        public void GenerateInitialEquipment(EntityUid chara, EquipSlotsComponent? equipSlots = null, InventoryComponent? inv = null)
+        {
+            if (!Resolve(chara, ref equipSlots) || !Resolve(chara, ref inv))
+                return;
+
+            var template = GenerateEquipmentTemplate(chara);
+            ApplyEquipmentTemplate(chara, template, equipSlots, inv);
+        }
     }
 
     [DataDefinition]
     public sealed class EquipmentTemplateEntry
     {
-        public EquipmentTemplateEntry() {}
+        public EquipmentTemplateEntry() { }
 
-        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, 
-            PrototypeId<EntityPrototype> itemID,
-            float itemGenProb = 1f,
-            Quality quality = default)
+        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, ItemFilter itemFilter, int? slotsToApplyTo = null)
         {
             SpecID = specID;
-            ItemID = itemID;
-            ItemGenProb = itemGenProb;
-            Quality = quality;
+            ItemFilter = itemFilter;
+            SlotsToApplyTo = slotsToApplyTo;
         }
 
-        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID,
-            IReadOnlyCollection<PrototypeId<TagPrototype>> categories,
-            float itemGenProb = 1f,
-            Quality quality = default)
-        {
-            SpecID = specID;
-            Categories = categories;
-            ItemGenProb = itemGenProb;
-            Quality = quality;
-        }
-
+        [DataField(required: true)]
         public PrototypeId<EquipmentSpecPrototype> SpecID { get; }
-        public PrototypeId<EntityPrototype>? ItemID { get; }
-        public IReadOnlyCollection<PrototypeId<TagPrototype>> Categories { get; } = new List<PrototypeId<TagPrototype>>();
-        public float ItemGenProb { get; } = 1f;
-        public Quality Quality { get; }
+
+        [DataField(required: true)]
+        public ItemFilter ItemFilter { get; } = new();
+
+        [DataField]
+        public int? SlotsToApplyTo { get; }
+
+        [DataField]
+        public bool? Replace { get; }
     }
 
     /// <summary>
     /// Describes how to randomly generate equipment for a character.
     /// </summary>
     [DataDefinition]
-    public sealed class EquipmentGenTemplate
+    public sealed class EquipmentTemplate
     {
-        public IList<EquipmentTemplateEntry> Specifiers { get; } = new List<EquipmentTemplateEntry>();
+        public EquipmentTemplate(float itemGenProb)
+        {
+            ItemGenProb = itemGenProb;
+        }
+
+        [DataField]
+        public Dictionary<PrototypeId<EquipmentSpecPrototype>, EquipmentTemplateEntry> Specifiers { get; } = new();
+
+        /// <summary>
+        /// Probability for generating items. Used by equipment type prototype
+        /// events.
+        /// </summary>
+        [DataField]
+        public float ItemGenProb { get; }
+    }
+
+    public sealed class OnInitializeEquipmentEvent : EntityEventArgs
+    {
+        public EquipmentTemplate OutEquipTemplate { get; }
+
+        public OnInitializeEquipmentEvent(EquipmentTemplate template)
+        {
+            OutEquipTemplate = template;
+        }
     }
 }
