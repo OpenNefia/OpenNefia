@@ -22,7 +22,7 @@ local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 
-local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
+local rootDir = "C:/build/OpenNefia"
 
 local tags = {}
 
@@ -117,10 +117,13 @@ local function rgbToHex(rgb)
     return hexadecimal
 end
 
-local function enum(enumClass)
-    return function(i)
-        return enumClass:to_string(i)
-    end
+local function enum(enumClass, x)
+  if x ~= nil then
+    return enumClass:to_string(x)
+  end
+  return function(i)
+    return enumClass:to_string(i)
+  end
 end
 
 local function timeSpan(hours, minutes, seconds)
@@ -414,7 +417,7 @@ handlers["base.chara"] = function(from, to)
     end
 
     if from.equipment_type then
-        c = comp(to, "EquipmentType")
+        c = comp(to, "EquipmentGen")
         c.equipmentType = dotted(from.equipmentType)
     end
 
@@ -422,6 +425,109 @@ handlers["base.chara"] = function(from, to)
         c = comp(to, "LootType")
         c.lootType = dotted(from.loot_type)
     end
+
+    if from.initial_equipment then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      for k, v in pairs(from.initial_equipment) do
+        if v.is_two_handed then
+          k = "elona.two_handed_weapon"
+        end
+        local itemFilter = {}
+        if v._id ~= nil then
+          itemFilter.id = itemCategory(v._id, "Item")
+        end
+        if v.quality ~= nil then
+          itemFilter.quality = enum(Enum.Quality, v.quality)
+        end
+        if v.category ~= nil then
+          itemFilter.tags = { itemCategory(v.category, "ItemCat") }
+        end
+
+        c.initialEquipment[dotted(k)] = {
+          itemFilter = itemFilter
+        }
+      end
+    end
+
+    if from._id == "elona.beggar" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.amulet_1")] = {
+        itemFilter = { id = itemCategory("elona.beggars_pendant", "Item"), oneIn = 120 }
+      }
+    end
+
+    if from._id == "elona.noble" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.ranged_weapon")] = {
+        itemFilter = { id = itemCategory("elona.shenas_panty", "Item"), oneIn = 100 }
+      }
+    end
+
+    if from._id == "elona.asura" or from._id == "elona.mitra" or from._id == "elona.varuna" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.amulet_1")] = {
+        itemFilter = { id = itemCategory("elona.twin_edge", "Item"), oneIn = 600 }
+      }
+    end
+
+    if from._id == "elona.asura" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.amulet_1")] = {
+        itemFilter = { id = itemCategory("elona.twin_edge", "Item"), oneIn = 600 }
+      }
+    end
+
+    if from._id == "elona.rogue_archer" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.amulet_1")] = {
+        itemFilter = { id = itemCategory("elona.arbalest", "Item"), oneIn = 250 }
+      }
+    end
+
+    if from._id == "elona.rock_thrower" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.ranged_weapon")] = {
+        itemFilter = { id = itemCategory("elona.vanilla_rock", "Item"), oneIn = 200 }
+      }
+    end
+
+    if from._id == "elona.blade" or from._id == "elona.blade_alpha" or from._id == "elona.blade_omega" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.girdle")] = {
+        itemFilter = { id = itemCategory("elona.crimson_plate", "Item"), oneIn = 800 }
+      }
+    end
+
+    if from._id == "elona.silver_eyed_witch" then
+      c = comp(to, "EquipmentGen")
+      c.initialEquipment = c.initialEquipment or {}
+      c.initialEquipment[dotted("elona.two_handed_weapon")] = {
+        itemFilter = { id = itemCategory("elona.claymore_unique", "Item"), oneIn = 150 }
+      }
+    end
+
+    if from._id == "elona.minotaur_king"
+      or from._id == "elona.hound"
+      or from._id == "elona.hand_of_the_murderer"
+      or from._id == "elona.skeleton_berserker"
+      or from._id == "elona.knight"
+      or from._id == "elona.rogue_warrior"
+      or from._id == "elona.conery"
+      or from._id == "elona.silver_eyed_witch"
+    then
+      c = comp(to, "GenTwoHandedWeapon")
+    end
+
+
+
 end
 
 handlers["base.item"] = function(from, to)

@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Equipment
 
         private void AddSpec(P_EquipmentTypeOnInitializeEquipmentEvent ev, PrototypeId<EquipmentSpecPrototype> specID, PrototypeId<TagPrototype> category, Quality quality = Quality.Bad)
         {
-            ev.OutEquipTemplate.Specifiers[specID] = (new(new ItemFilter() { Tags = new[] { category }, Quality = quality }));
+            ev.OutEquipTemplate.Entries[specID] = new EquipmentTemplateEntry(new ItemFilter() { Tags = new[] { category }, Quality = quality });
         }
 
         public void Warrior_OnInitializeEquipment(EquipmentTypePrototype proto, P_EquipmentTypeOnInitializeEquipmentEvent ev)
@@ -249,7 +249,7 @@ namespace OpenNefia.Content.Equipment
         {
             _money.TryGenerateExtraGoldForChara(ev.Chara);
 
-            ev.OutEquipTemplate.Specifiers.Add(new(EquipmentSpec.TwoHandedWeapon, new ItemFilter() { Id = Item.Claymore, Quality = Quality.Good }));
+            ev.OutEquipTemplate.Entries.Add(new(EquipmentSpec.TwoHandedWeapon, new ItemFilter() { Id = Item.Claymore, Quality = Quality.Good }));
             if (_rand.Prob(ev.ItemGenProb))
                 AddSpec(ev, EquipmentSpec.Boots, Tag.ItemCatEquipLegHeavyBoots);
             if (_rand.Prob(ev.ItemGenProb))

@@ -1,3 +1,50 @@
+# NOTE: TwoHandedWeapon needs to have lower prototype priority than
+# PrimaryWeapon so the former can override the latter.
+- type: Elona.EquipmentSpec
+  id: Elona.TwoHandedWeapon
+  validEquipSlots:
+  - Elona.Hand
+  blacklistedSpecs:
+  - Elona.PrimaryWeapon
+  - Elona.Shield
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: GenerateHeavyWeapon
+
+- type: Elona.EquipmentSpec
+  id: Elona.PrimaryWeapon
+  validEquipSlots:
+  - Elona.Hand
+  blacklistedSpecs:
+  - Elona.Shield
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: DefaultOnGenerateEquipment
+
+- type: Elona.EquipmentSpec
+  id: Elona.DualWieldWeapon
+  validEquipSlots:
+  - Elona.Hand
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: GenerateLightWeapon
+
+- type: Elona.EquipmentSpec
+  id: Elona.MultiWeapon
+  validEquipSlots:
+  - Elona.Hand
+  blacklistedSpecs:
+  - Elona.PrimaryWeapon
+  maxEquipSlotsToApplyTo: 999999 # fill all remaining slots
+  # maxEquipSlotsToApplyTo: null # needs RobustToolbox/2605, 3026, 3027
+  events:
+  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
+    system: Equipment.VanillaEquipmentSpecsSystem
+    method: GenerateLightWeapon
+
 - type: Elona.EquipmentSpec
   id: Elona.Amulet1
   validEquipSlots:
@@ -87,50 +134,6 @@
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
     method: DefaultOnGenerateEquipment
-
-- type: Elona.EquipmentSpec
-  id: Elona.PrimaryWeapon
-  validEquipSlots:
-  - Elona.Hand
-  blacklistedSpecs:
-  - Elona.Shield
-  events:
-  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
-    system: Equipment.VanillaEquipmentSpecsSystem
-    method: DefaultOnGenerateEquipment
-
-- type: Elona.EquipmentSpec
-  id: Elona.TwoHandedWeapon
-  validEquipSlots:
-  - Elona.Hand
-  blacklistedSpecs:
-  - Elona.Shield
-  events:
-  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
-    system: Equipment.VanillaEquipmentSpecsSystem
-    method: GenerateHeavyWeapon
-
-- type: Elona.EquipmentSpec
-  id: Elona.DualWieldWeapon
-  validEquipSlots:
-  - Elona.Hand
-  events:
-  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
-    system: Equipment.VanillaEquipmentSpecsSystem
-    method: GenerateLightWeapon
-
-- type: Elona.EquipmentSpec
-  id: Elona.MultiWeapon
-  validEquipSlots:
-  - Elona.Hand
-  blacklistedSpecs:
-  - Elona.PrimaryWeapon
-  maxEquipSlotsToApplyTo: 999999 # fill all remaining slots
-  # maxEquipSlotsToApplyTo: null # needs RobustToolbox/2605, 3026, 3027
-  events:
-  - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
-    system: Equipment.VanillaEquipmentSpecsSystem
-    method: GenerateLightWeapon
 
 - type: Elona.EquipmentSpec
   id: Elona.Shield

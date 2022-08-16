@@ -42,6 +42,30 @@ namespace OpenNefia.Content.Equipment
 
         public override void Initialize()
         {
+            SubscribeComponent<EquipmentGenComponent, EntityGenerateEquipmentEvent>(AddInitialEquipment, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<GenTwoHandedWeaponComponent, EntityGenerateEquipmentEvent>(UpgradePrimaryToTwoHanded, priority: EventPriorities.VeryHigh + 1000);
+        }
+
+        private void AddInitialEquipment(EntityUid uid, EquipmentGenComponent component, EntityGenerateEquipmentEvent args)
+        {
+            foreach (var (specID, entry) in component.InitialEquipment)
+            {
+                if (entry.OneIn != null && !_rand.OneIn(entry.OneIn.Value))
+                    continue;
+                else if (entry.Prob != null && _rand.Prob(entry.Prob.Value))
+                    continue;
+
+                args.OutEquipTemplate.Entries[specID] = entry;
+            }
+        }
+
+        private void UpgradePrimaryToTwoHanded(EntityUid uid, GenTwoHandedWeaponComponent component, EntityGenerateEquipmentEvent args)
+        {
+            if (args.OutEquipTemplate.Entries.TryGetValue(Protos.EquipmentSpec.PrimaryWeapon, out var primary))
+            {
+                args.OutEquipTemplate.Entries[Protos.EquipmentSpec.TwoHandedWeapon] = primary;
+                args.OutEquipTemplate.Entries.Remove(Protos.EquipmentSpec.PrimaryWeapon);
+            }
         }
 
         public void GenerateAndEquipEquipment(EntityUid chara, InventoryComponent? inv = null)
@@ -173,21 +197,21 @@ namespace OpenNefia.Content.Equipment
 
             var template = new EquipmentTemplate(itemGenProb);
 
-            if (TryComp<EquipmentTypeComponent>(chara, out var equip))
+            if (TryComp<EquipmentGenComponent>(chara, out var equip))
             {
                 var pev = new P_EquipmentTypeOnInitializeEquipmentEvent(chara, template);
                 _protos.EventBus.RaiseEvent(equip.EquipmentType, pev);
                 template = pev.OutEquipTemplate;
             }
 
-            if (quality >= Quality.Great && template.Specifiers.Count > 0)
+            if (quality >= Quality.Great && template.Entries.Count > 0)
             {
                 var i = 0;
                 while (i < 2)
                 {
                     if (_rand.OneIn(2))
                     {
-                        var entry = _rand.Pick(template.Specifiers.Values);
+                        var entry = _rand.Pick(template.Entries.Values);
                         entry.ItemFilter.Quality = Quality.Good;
                     }
                     if (_rand.OneIn(2))
@@ -197,11 +221,11 @@ namespace OpenNefia.Content.Equipment
                 }
             }
 
-            var ev = new OnInitializeEquipmentEvent(template);
+            var ev = new EntityGenerateEquipmentEvent(template);
             RaiseEvent(chara, ev);
             template = ev.OutEquipTemplate;
 
-            foreach (var specifier in template.Specifiers.Values)
+            foreach (var specifier in template.Entries.Values)
             {
                 specifier.ItemFilter.Quality ??= Quality.Bad;
                 specifier.ItemFilter.Quality = EnumHelpers.Clamp((Quality)((int)(specifier.ItemFilter.Quality ?? Quality.Bad) + addQuality), Quality.Bad, Quality.God);
@@ -216,10 +240,25 @@ namespace OpenNefia.Content.Equipment
                 return;
 
             Dictionary<PrototypeId<EquipmentSpecPrototype>, int?> slotsLeftPerEntry = new();
-            foreach (var (specID, entry) in template.Specifiers)
+            foreach (var (specID, entry) in template.Entries)
             {
                 slotsLeftPerEntry[specID] = entry.SlotsToApplyTo ?? _protos.Index(specID).MaxEquipSlotsToApplyTo;
             }
+
+            // Specifiers should be applied in prototype order, because ordering
+            // is important for the blacklist system to work.
+            // 
+            // Example: If PrimaryWeapon is specified in the EquipmentType and
+            // TwoHandedWeapon is specified in InitialEquipment, then
+            // TwoHandedWeapon should override PrimaryWeapon by removing it from
+            // the list, to avoid generating two primary weapons.
+            //
+            // In the HSP version you would set the flag "eqTwoWield" and
+            // PrimaryWeapon would be treated like TwoHandedWeapon instead.
+            var protoComp = _protos.GetComparator<EquipmentSpecPrototype>();
+            var entries = new OrderedDictionary<PrototypeId<EquipmentSpecPrototype>, EquipmentTemplateEntry>();
+            entries.AddRange(template.Entries);
+            entries.Sort((a, b) => protoComp.Compare(a.Key, b.Key));
 
             foreach (var slot in _equipSlots.GetEquipSlots(chara, equipSlots))
             {
@@ -232,7 +271,7 @@ namespace OpenNefia.Content.Equipment
                 // Let's see if there's a way to randomly generate equipment for
                 // this body part type. This should always be true for the
                 // vanilla body parts.
-                foreach (var (specID, entry) in template.Specifiers)
+                foreach (var (specID, entry) in template.Entries)
                 {
                     var specProto = _protos.Index(specID);
 
@@ -296,28 +335,34 @@ namespace OpenNefia.Content.Equipment
     }
 
     [DataDefinition]
-    public sealed class EquipmentTemplateEntry
+    public class EquipmentTemplateEntry
     {
         public EquipmentTemplateEntry() { }
 
-        public EquipmentTemplateEntry(PrototypeId<EquipmentSpecPrototype> specID, ItemFilter itemFilter, int? slotsToApplyTo = null)
+        public EquipmentTemplateEntry(ItemFilter itemFilter, int? slotsToApplyTo = null)
         {
-            SpecID = specID;
             ItemFilter = itemFilter;
             SlotsToApplyTo = slotsToApplyTo;
         }
-
-        [DataField(required: true)]
-        public PrototypeId<EquipmentSpecPrototype> SpecID { get; }
 
         [DataField(required: true)]
         public ItemFilter ItemFilter { get; } = new();
 
         [DataField]
         public int? SlotsToApplyTo { get; }
+    }
+
+
+    [DataDefinition]
+    public class InitialEquipmentEntry : EquipmentTemplateEntry
+    {
+        public InitialEquipmentEntry() { }
 
         [DataField]
-        public bool? Replace { get; }
+        public int? OneIn { get; }
+
+        [DataField]
+        public float? Prob { get; }
     }
 
     /// <summary>
@@ -332,7 +377,7 @@ namespace OpenNefia.Content.Equipment
         }
 
         [DataField]
-        public Dictionary<PrototypeId<EquipmentSpecPrototype>, EquipmentTemplateEntry> Specifiers { get; } = new();
+        public Dictionary<PrototypeId<EquipmentSpecPrototype>, EquipmentTemplateEntry> Entries { get; } = new();
 
         /// <summary>
         /// Probability for generating items. Used by equipment type prototype
@@ -342,11 +387,11 @@ namespace OpenNefia.Content.Equipment
         public float ItemGenProb { get; }
     }
 
-    public sealed class OnInitializeEquipmentEvent : EntityEventArgs
+    public sealed class EntityGenerateEquipmentEvent : EntityEventArgs
     {
         public EquipmentTemplate OutEquipTemplate { get; }
 
-        public OnInitializeEquipmentEvent(EquipmentTemplate template)
+        public EntityGenerateEquipmentEvent(EquipmentTemplate template)
         {
             OutEquipTemplate = template;
         }

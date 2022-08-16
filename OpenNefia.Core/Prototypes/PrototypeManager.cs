@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Microsoft.Extensions.Options;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -120,6 +121,8 @@ namespace OpenNefia.Core.Prototypes
             where TProto : class, IPrototype
             where TExt : class, IPrototypeExtendedData<TProto>;
         bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out IPrototypeExtendedData? data);
+
+        IPrototypeComparer<T> GetComparator<T>() where T : class, IPrototype;
 
         /// <summary>
         ///     Returns whether a prototype variant <param name="variant"/> exists.
@@ -305,6 +308,7 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
         private readonly Dictionary<Type, Dictionary<string, PrototypeOrderingData>> _prototypeOrdering = new();
         private readonly Dictionary<Type, List<IPrototype>> _sortedPrototypes = new();
+        private readonly Dictionary<Type, Dictionary<string, int>> _sortedPrototypeIndices = new();
         private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>> _prototypeExtendedData = new();
         private readonly Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> _prototypeEventDefs = new();
 
@@ -407,6 +411,7 @@ namespace OpenNefia.Core.Prototypes
             _prototypes.Clear();
             _prototypeResults.Clear();
             _sortedPrototypes.Clear();
+            _sortedPrototypeIndices.Clear();
             _inheritanceTrees.Clear();
             _prototypeExtendedData.Clear();
             _prototypeEventDefs.Clear();
@@ -611,6 +616,7 @@ namespace OpenNefia.Core.Prototypes
         {
             // Sort all prototypes according to topological sort order.
             _sortedPrototypes.Clear();
+            _sortedPrototypeIndices.Clear();
             foreach (var (prototypeType, protos) in _prototypes)
             {
                 var nodes = TopologicalSort.FromBeforeAfter(
@@ -622,6 +628,7 @@ namespace OpenNefia.Core.Prototypes
                     allowMissing: true);
 
                 _sortedPrototypes[prototypeType] = TopologicalSort.Sort(nodes).ToList();
+                BuildPrototypeIndices(prototypeType);
             }
         }
 
@@ -1136,6 +1143,7 @@ namespace OpenNefia.Core.Prototypes
                 {
                     _prototypeOrdering[prototypeType][prototypeId] = orderingData;
                 }
+                BuildPrototypeIndices(prototypeType);
             }
 
             foreach (var (prototypeType, extendedDatas) in cache.PrototypeExtendedData)
@@ -1157,6 +1165,17 @@ namespace OpenNefia.Core.Prototypes
             }
 
             return changedPrototypes;
+        }
+
+        private void BuildPrototypeIndices(Type prototypeType)
+        {
+            var indices = new Dictionary<string, int>();
+            for (var i = 0; i < _sortedPrototypes[prototypeType].Count; i++)
+            {
+                var proto = _sortedPrototypes[prototypeType][i];
+                indices[proto.ID] = i;
+            }
+            _sortedPrototypeIndices[prototypeType] = indices;
         }
 
         public bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype
@@ -1399,9 +1418,48 @@ namespace OpenNefia.Core.Prototypes
             }
         }
 
+        IPrototypeComparer<T> GetComparator<T>() where T : class, IPrototype
+        {
+            return new PrototypeComparator<T>(this);
+        }
+
         public event Action<YamlStream, string>? LoadedData;
         public event Action<PrototypesReloadedEventArgs>? PrototypesReloaded;
         public event Action<MappingDataNode>? BeforePrototypeLoad;
+
+        /// <summary>
+        /// Orders prototypes and prototype IDs by prototype ordering.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public sealed class PrototypeComparator<T> : IPrototypeComparer<T>
+            where T : class, IPrototype
+        {
+            private readonly Dictionary<string, int> _indices;
+
+            public PrototypeComparator(PrototypeManager protos)
+            {
+                _indices = protos._sortedPrototypeIndices[typeof(T)];
+            }
+
+            public int Compare(PrototypeId<T> x, PrototypeId<T> y)
+            {
+                return _indices[(string)x].CompareTo(_indices[(string)y]);
+            }
+
+            public int Compare(T? x, T? y)
+            {
+                if (x == null && y == null)
+                    return 0;
+
+                if (x == null)
+                    return -1;
+
+                if (y == null)
+                    return 1;
+
+                return _indices[x.ID].CompareTo(_indices[y.ID]);
+            }
+        }
     }
 
     [Serializable]
@@ -1486,5 +1544,10 @@ namespace OpenNefia.Core.Prototypes
     public sealed record PrototypesReloadedEventArgs(IReadOnlyDictionary<Type, PrototypesReloadedEventArgs.PrototypeChangeSet> ByType)
     {
         public sealed record PrototypeChangeSet(IReadOnlyDictionary<string, IPrototype> Modified);
+    }
+
+    public interface IPrototypeComparer<T> : IComparer<PrototypeId<T>>, IComparer<T>
+        where T : class, IPrototype
+    {
     }
 }

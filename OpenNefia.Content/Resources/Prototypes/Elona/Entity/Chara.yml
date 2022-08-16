@@ -117,6 +117,11 @@
     id: Elona.Zeome
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemScytheOfVoid
 - type: Entity
   id: Elona.CharaPutit
   parent: BaseChara
@@ -318,6 +323,12 @@
     hasRandomName: true
   - type: Money
     alwaysDropsGoldOnDeath: true
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Amulet1:
+        itemFilter:
+          id: Elona.ItemBeggarsPendant
+          oneIn: 120
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
@@ -683,6 +694,11 @@
     id: Elona.Orphe
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemMournblade
 - type: Entity
   id: Elona.CharaWizardOfElea
   parent: BaseChara
@@ -846,6 +862,11 @@
     id: Elona.WhomDwellInTheVanity
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemRagnarok
 - type: Entity
   id: Elona.CharaLoyter
   parent: BaseChara
@@ -1023,6 +1044,11 @@
     id: Elona.Larnneire
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemClaymore
 - type: Entity
   id: Elona.CharaLomias
   parent: BaseChara
@@ -1065,6 +1091,19 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Ammo:
+        itemFilter:
+          quality: Bad
+          tags:
+          - Elona.ItemCatEquipAmmoArrow
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemLongSword
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemBowOfVindale
 - type: Entity
   id: Elona.CharaTownChild
   parent: BaseChara
@@ -1572,6 +1611,7 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Animal
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaFireHound
   parent: BaseChara
@@ -2853,6 +2893,7 @@
     moveChance: 0.25
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaGhost
   parent: BaseChara
@@ -4351,6 +4392,11 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemStaffOfInsanity
 - type: Entity
   id: Elona.CharaErystia
   parent: BaseChara
@@ -4420,6 +4466,11 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemRankis
 - type: Entity
   id: Elona.CharaQuruiza
   parent: BaseChara
@@ -4453,6 +4504,11 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemBloodMoon
 - type: Entity
   id: Elona.CharaCorgon
   parent: BaseChara
@@ -4480,6 +4536,11 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Dragon
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Ring1:
+        itemFilter:
+          id: Elona.ItemRingOfSteelDragon
 - type: Entity
   id: Elona.CharaKaram
   parent: BaseChara
@@ -4658,6 +4719,7 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaMissionaryOfDarkness
   parent: BaseChara
@@ -4808,6 +4870,7 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaQueen
   parent: BaseChara
@@ -5037,6 +5100,12 @@
     moveChance: 0.25
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemVanillaRock
+          oneIn: 200
 - type: Entity
   id: Elona.CharaCat
   parent: BaseChara
@@ -5242,6 +5311,11 @@
     moveChance: 0.7
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemStone
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome
   parent: BaseChara
@@ -5476,6 +5550,19 @@
     moveChance: 0.8
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Ammo:
+        itemFilter:
+          quality: Good
+          tags:
+          - Elona.ItemCatEquipAmmoEnergyCell
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemLongSword
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemRailGun
 - type: Entity
   id: Elona.CharaAzzrssil
   parent: BaseChara
@@ -5781,6 +5868,12 @@
       power: 100
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Girdle:
+        itemFilter:
+          id: Elona.ItemCrimsonPlate
+          oneIn: 800
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
@@ -5807,6 +5900,12 @@
       power: 120
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Girdle:
+        itemFilter:
+          id: Elona.ItemCrimsonPlate
+          oneIn: 800
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
@@ -5833,6 +5932,12 @@
       power: 150
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Girdle:
+        itemFilter:
+          id: Elona.ItemCrimsonPlate
+          oneIn: 800
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
@@ -6615,6 +6720,11 @@
     portraitID: Elona.Stersha
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemDiablo
 - type: Entity
   id: Elona.CharaGwen
   parent: BaseChara
@@ -8711,6 +8821,12 @@
     id: Elona.Noble
   - type: CharaNameGen
     hasRandomName: true
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemShenasPanty
+          oneIn: 100
 - type: Entity
   id: Elona.CharaNoyelHorse
   parent: BaseChara
@@ -9540,6 +9656,7 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaUngaga
   parent: BaseChara
@@ -9571,6 +9688,11 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemAxeOfDestruction
 - type: Entity
   id: Elona.CharaConery
   parent: BaseChara
@@ -9608,6 +9730,7 @@
   - type: QuickTempered
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaRogueBoss
   parent: BaseChara
@@ -9686,6 +9809,7 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaRogueArcher
   parent: BaseChara
@@ -9721,6 +9845,12 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.Amulet1:
+        itemFilter:
+          id: Elona.ItemArbalest
+          oneIn: 250
 - type: Entity
   id: Elona.CharaRogueWizard
   parent: BaseChara
@@ -9830,6 +9960,11 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemScythe
 - type: Entity
   id: Elona.CharaMessengerOfDeath
   parent: BaseChara
@@ -9863,6 +9998,11 @@
     moveChance: 0.7
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.PrimaryWeapon:
+        itemFilter:
+          id: Elona.ItemScythe
 - type: Entity
   id: Elona.CharaAsura
   parent: BaseChara
@@ -9889,6 +10029,16 @@
     moveChance: 0.9
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.MultiWeapon:
+        itemFilter:
+          id: Elona.ItemDagger
+          quality: Normal
+      Elona.Amulet1:
+        itemFilter:
+          id: Elona.ItemTwinEdge
+          oneIn: 600
 - type: Entity
   id: Elona.CharaMitra
   parent: BaseChara
@@ -9916,6 +10066,16 @@
     moveChance: 0.9
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.MultiWeapon:
+        itemFilter:
+          id: Elona.ItemWakizashi
+          quality: Normal
+      Elona.Amulet1:
+        itemFilter:
+          id: Elona.ItemTwinEdge
+          oneIn: 600
 - type: Entity
   id: Elona.CharaVaruna
   parent: BaseChara
@@ -9943,6 +10103,16 @@
     moveChance: 0.9
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.MultiWeapon:
+        itemFilter:
+          id: Elona.ItemKatana
+          quality: Normal
+      Elona.Amulet1:
+        itemFilter:
+          id: Elona.ItemTwinEdge
+          oneIn: 600
 - type: Entity
   id: Elona.CharaHungrySeaLion
   parent: BaseChara
@@ -10126,6 +10296,13 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemClaymoreUnique
+          oneIn: 150
+  - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaBigDaddy
   parent: BaseChara
@@ -10159,6 +10336,17 @@
     moveChance: 0.25
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.RangedWeapon:
+        itemFilter:
+          id: Elona.ItemShotGun
+          quality: Great
+      Elona.Ammo:
+        itemFilter:
+          quality: Good
+          tags:
+          - Elona.ItemCatEquipAmmoBullet
 - type: Entity
   id: Elona.CharaLittleSister
   parent: BaseChara
@@ -10747,6 +10935,11 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemFrisiasTail
 - type: Entity
   id: Elona.CharaPrisoner
   parent: BaseChara
@@ -10810,6 +11003,11 @@
     relation: Neutral
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemFrisiasTail
 - type: Entity
   id: Elona.CharaKumiromi
   parent: BaseChara
@@ -10842,6 +11040,11 @@
     relation: Neutral
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemFrisiasTail
 - type: Entity
   id: Elona.CharaTest
   parent: BaseChara
@@ -10876,6 +11079,11 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemFrisiasTail
 - type: Entity
   id: Elona.CharaMineDog
   parent: BaseChara
@@ -10937,6 +11145,11 @@
     relation: Neutral
   - type: LootType
     lootType: Elona.Lich
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemFrisiasTail
 - type: Entity
   id: Elona.CharaUser
   parent: BaseChara
@@ -11222,6 +11435,11 @@
   - type: QuickTempered
   - type: LootType
     lootType: Elona.Humanoid
+  - type: EquipmentGen
+    initialEquipment:
+      Elona.TwoHandedWeapon:
+        itemFilter:
+          id: Elona.ItemClaymore
 - type: Entity
   id: Elona.CharaSilvia
   parent: BaseChara
