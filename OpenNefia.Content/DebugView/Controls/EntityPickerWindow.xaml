@@ -1,13 +1,13 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Class="OpenNefia.Content.DebugView.TilePickerWindow"
-               Title="Tile Picker"
+               Class="OpenNefia.Content.DebugView.EntityPickerWindow"
+               Title="Entity Picker"
                ExactSize ="400 300">
     <BoxContainer Orientation="Vertical" VerticalExpand="True">
         <LineEdit Name="SearchLineEdit" PlaceHolder="Search..." HorizontalExpand="True" />
         <Label Text="Label" HorizontalAlignment="Left" Margin ="0 4" Name="SelectedName" />
         <ScrollContainer VerticalExpand="True">
             <BoxContainer Orientation="Vertical">
-                <GridContainer AutoExpand="True" Name="TileGrid">
+                <GridContainer AutoExpand="True" Name="EntityGrid">
                 </GridContainer>
             </BoxContainer>
         </ScrollContainer>
