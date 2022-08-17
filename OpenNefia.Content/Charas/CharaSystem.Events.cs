@@ -41,6 +41,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IBuffsSystem _buffs = default!;
         [Dependency] private readonly ISkillAdjustsSystem _skillAdjusts = default!;
         [Dependency] private readonly ISlotSystem _slots = default!;
+        [Dependency] private readonly IEquipmentGenSystem _equipmentGen = default!;
 
         public override void Initialize()
         {
@@ -59,6 +60,8 @@ namespace OpenNefia.Content.Charas
             InitClassSkills(uid, chara);
             InitCharaMakeSkills(uid, args.GenArgs);
             InitClassEquipmentType(uid, chara);
+
+            InitEquipment(uid);
         }
 
         private void InitRaceComponents(EntityUid uid, CharaComponent chara)
@@ -203,6 +206,11 @@ namespace OpenNefia.Content.Charas
             {
                 EnsureComp<EquipmentGenComponent>(uid).EquipmentType = klass.EquipmentType.Value;
             }
+        }
+
+        private void InitEquipment(EntityUid uid)
+        {
+            _equipmentGen.GenerateEquipment(uid);
         }
     }
 }

@@ -53,9 +53,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
 
             var chipProto = _protos.Index(Chip.ChipID);
+            var chipSize = _chipBatch.GetTileSize(chipProto.Image);
 
             _chipBatch.Clear();
-            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, _coords.TileSize.X, _coords.TileSize.Y, Chip.Color);
+            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, chipSize.X, chipSize.Y, Chip.Color);
             _chipBatch.Draw(UIScale, GlobalX, GlobalY);
         }
     }

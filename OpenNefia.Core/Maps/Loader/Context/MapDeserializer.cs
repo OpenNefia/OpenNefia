@@ -330,6 +330,9 @@ namespace OpenNefia.Core.Maps
             mapComponent.MapId = _targetMapId;
             mapComponent.Metadata = _mapMetadata;
             _mapManager.RegisterMap(MapGrid!, _targetMapId, mapEntityInBlueprint);
+
+            var mapLookup = _entityManager.EnsureComponent<MapEntityLookupComponent>(mapEntityInBlueprint);
+            mapLookup.InitializeFromMap(MapGrid!);
         }
 
         private void FinishEntitiesInitialization()

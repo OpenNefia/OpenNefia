@@ -205,10 +205,14 @@ namespace OpenNefia.Content.Damage
 
     public enum DamageHPMessageTense
     {
-        // "...was killed."
+        /// <summary>
+        /// "...was killed."
+        /// </summary>
         Passive,
 
-        // "...and kills them."
+        /// <summary>
+        /// "...and kills them."
+        /// </summary>
         Active
     }
 

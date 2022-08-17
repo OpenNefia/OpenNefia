@@ -414,7 +414,7 @@ namespace OpenNefia.Content.Combat
 
                 if (weapon != null)
                 {
-                    if (_rand.OneIn(5))
+                    if (CompOrNull<QualityComponent>(weapon.Value)?.Quality.Buffed >= Quality.Great && _rand.OneIn(5))
                     {
                         ShowWieldsProudlyMesssage(attacker, weapon.Value);
                     }
@@ -491,7 +491,7 @@ namespace OpenNefia.Content.Combat
 
             if (attackCount > 0)
             {
-                _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.Furthermore"));
+                _mes.Display(Loc.GetString("Elona.Damage.Furthermore"));
                 capitalize = false;
             }
 
@@ -519,7 +519,7 @@ namespace OpenNefia.Content.Combat
 
             if (attackCount > 0)
             {
-                _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.Furthermore"));
+                _mes.Display(Loc.GetString("Elona.Damage.Furthermore"));
                 capitalize = false;
             }
 

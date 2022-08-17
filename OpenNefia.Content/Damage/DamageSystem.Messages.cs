@@ -1,32 +1,20 @@
-﻿using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.Resists;
+﻿using OpenNefia.Content.Combat;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Content.Visibility;
-using OpenNefia.Content.Factions;
-using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Random;
-using NuGet.DependencyResolver;
-using System.IO.Abstractions;
-using OpenNefia.Content.Charas;
-using OpenNefia.Core.Audio;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Content.Combat;
+using OpenNefia.Core.IoC;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Damage
 {
     public sealed partial class DamageSystem
     {
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+
         private void DisplayAttackMessage(EntityUid target, ref AfterDamageAppliedEvent args)
         {
             if (args.ExtraArgs.NoAttackText || !IsAlive(args.Attacker))
@@ -76,13 +64,14 @@ namespace OpenNefia.Content.Damage
             {
                 if (IsAlive(args.ExtraArgs.Weapon))
                 {
-                    if (Loc.TryGetPrototypeString(attackSkill, "Damage.WeaponName", out var weaponName))
-                    {
-                        text = Loc.GetString("Elona.Damage.Attacks.Passive.Armed",
-                            ("attacker", args.Attacker),
-                            ("target", target),
-                            ("weapon", weaponName));
-                    }
+                    // TODO DisplayNAme without article
+                    var weaponName = _displayNames.GetBaseName(args.ExtraArgs.Weapon.Value);
+                    var verb = Loc.GetPrototypeString(attackSkill, "Damage.VerbPassive");
+                    text = Loc.GetString("Elona.Damage.Attacks.Passive.Armed",
+                        ("attacker", args.Attacker),
+                        ("verb", verb),
+                        ("target", target),
+                        ("weapon", weaponName));
                 }
                 else
                 {
@@ -96,7 +85,7 @@ namespace OpenNefia.Content.Damage
             }
 
             if (text != null)
-                _mes.Display(text, noCapitalize: !capitalize);
+                _mes.Display(text, entity: target, noCapitalize: !capitalize);
         }
 
         private void DisplayElementalDamageMessage(EntityUid target, ref EntityWoundedEvent args)
@@ -171,7 +160,7 @@ namespace OpenNefia.Content.Damage
 
                 if (key != null)
                 {
-                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker)), color, noCapitalize: true);
+                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker)), color, entity: entity, noCapitalize: true);
                 }
 
                 goto skipDmgTxt;
@@ -244,7 +233,7 @@ namespace OpenNefia.Content.Damage
             }
 
             if (text != null)
-                _mes.Display(text, UiColors.MesRed);
+                _mes.Display(text, UiColors.MesRed, entity: target);
         }
 
         private readonly LocaleKey[] DeathMessageKeys = new LocaleKey[]
@@ -261,7 +250,7 @@ namespace OpenNefia.Content.Damage
             var deathType = _rand.Pick(DeathMessageKeys);
             var capitalize = args.ExtraArgs.MessageTense == DamageHPMessageTense.Passive;
 
-            _mes.Display(Loc.GetString($"Elona.DamageType.Combat.{deathType}.{args.ExtraArgs.MessageTense}", ("target", target), ("attacker", args.Attacker)), UiColors.MesRed, noCapitalize: !capitalize);
+            _mes.Display(Loc.GetString($"Elona.DamageType.Combat.{deathType}.{args.ExtraArgs.MessageTense}", ("target", target), ("attacker", args.Attacker)), UiColors.MesRed, entity: target, noCapitalize: !capitalize);
             // <<<<<<<< shade2/chara_func.hsp:1608 				} ...
         }
 

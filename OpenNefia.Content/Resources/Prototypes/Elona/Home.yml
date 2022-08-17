@@ -4,7 +4,7 @@
   hspIds:
     elona122: 0
   mapBlueprint: TODO
-  areaEntranceChip: elona.feat_area_your_dungeon
+  areaEntranceChip: Elona.FeatAreaYourDungeon
   value: 5000
   homeScale: 0
   events:
@@ -16,7 +16,7 @@
   hspIds:
     elona122: 1
   mapBlueprint: TODO
-  areaEntranceChip: elona.feat_area_town
+  areaEntranceChip: Elona.FeatAreaTown
   value: 29500
   homeScale: 1
 - type: Elona.Home
@@ -38,7 +38,7 @@
   hspIds:
     elona122: 4
   mapBlueprint: TODO
-  areaEntranceChip: elona.feat_area_tent
+  areaEntranceChip: Elona.FeatAreaTent
   value: 373000
   homeScale: 4
 - type: Elona.Home
@@ -46,7 +46,7 @@
   hspIds:
     elona122: 5
   mapBlueprint: TODO
-  areaEntranceChip: elona.feat_area_castle
+  areaEntranceChip: Elona.FeatAreaCastle
   value: 1335000
   homeScale: 5
   events:
