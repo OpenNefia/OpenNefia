@@ -32,7 +32,7 @@ namespace OpenNefia.Content.UI.Element.List
             get => _SelectedIndex;
             set
             {
-                _SelectedIndex = Math.Clamp(value, 0, DisplayedCells.Count());
+                _SelectedIndex = Math.Clamp(value, 0, Math.Max(DisplayedCells.Count() - 1, 0));
             }
         }
 
