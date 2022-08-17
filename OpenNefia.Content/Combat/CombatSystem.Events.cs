@@ -80,7 +80,7 @@ namespace OpenNefia.Content.Combat
             if (args.AttackCount <= 0)
                 return;
 
-            var hits = 100 - (args.AttackCount - 1) * (10000 / (100 * _skills.Level(attacker, Protos.Skill.DualWield) * 10));
+            var hits = 100 - (args.AttackCount - 1) * (10000 / (100 + _skills.Level(attacker, Protos.Skill.DualWield) * 10));
 
             if (args.OutAccuracy > 0)
                 args.OutAccuracy = args.OutAccuracy * hits / 100;
