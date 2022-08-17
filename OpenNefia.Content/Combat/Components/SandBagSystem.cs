@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Combat
             if (_rand.OneIn(20))
                 _mes.Display(Loc.GetString("Elona.SandBag.Dialog.Damage"), UiColors.MesTalk);
 
-            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == DisplayDamageType.SandbagOnly)
+            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == ShowDamageNumbersType.SandbagOnly)
             {
                 _mes.Display($"({args.FinalDamage})", UiColors.MesYellow, noCapitalize: true, entity: uid);
             }

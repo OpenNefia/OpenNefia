@@ -1,18 +1,9 @@
 ﻿using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.MapVisibility;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Items.Impl
 {
@@ -22,7 +13,14 @@ namespace OpenNefia.Content.Items.Impl
 
         public override void Initialize()
         {
+            SubscribeComponent<DungeonLightComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_Torch);
             SubscribeComponent<TorchComponent, GetVerbsEventArgs>(GetVerbs_Torch);
+        }
+
+        private void LocalizeExtra_Torch(EntityUid uid, DungeonLightComponent component, ref LocalizeItemNameExtraEvent args)
+        {
+            if (component.IsLit)
+                args.OutFullName.Append(Loc.Space + Loc.GetString("Elona.Item.Torch.ItemName.Lit"));
         }
 
         private void GetVerbs_Torch(EntityUid uid, TorchComponent component, GetVerbsEventArgs args)
@@ -38,12 +36,12 @@ namespace OpenNefia.Content.Items.Impl
             if (light.IsLit)
             {
                 light.IsLit = false;
-                _mes.Display(Loc.GetString("Elona.Items.Torch.PutOut", ("entity", source), ("item", target)), entity: source);
+                _mes.Display(Loc.GetString("Elona.Item.Torch.PutOut", ("entity", source), ("item", target)), entity: source);
             }
             else
             {
                 light.IsLit = true;
-                _mes.Display(Loc.GetString("Elona.Items.Torch.Light", ("entity", source), ("item", target)), entity: source);
+                _mes.Display(Loc.GetString("Elona.Item.Torch.Light", ("entity", source), ("item", target)), entity: source);
             }
 
             return TurnResult.Aborted;

@@ -67,7 +67,6 @@ namespace OpenNefia.Content.Rendering
         private Vector2i _sizeInTiles;
         private ShadowTile[,] _tiles = new ShadowTile[0, 0];
         private UIBox2i _shadowPixelBounds;
-        private int _shadowStrength;
 
         public void Initialize(IAssetManager assetManager, ICoords coords)
         {
@@ -134,7 +133,7 @@ namespace OpenNefia.Content.Rendering
 
             _tiles = tiles;
             _shadowPixelBounds = shadowPixelBounds;
-            _shadowStrength = shadowStrength;
+            ShadowStrength = shadowStrength;
         }
 
         public void UpdateBatches()

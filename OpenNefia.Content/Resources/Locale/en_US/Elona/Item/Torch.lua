@@ -1,4 +1,7 @@
 Elona.Item.Torch = {
+    ItemName = {
+        Lit = "(Lit)",
+    },
     Light = function(entity, item)
         return ("%s light%s up the %s."):format(_.name(entity), _.s(entity), _.basename(item))
     end,
