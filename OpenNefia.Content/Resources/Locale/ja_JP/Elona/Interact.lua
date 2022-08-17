@@ -18,6 +18,7 @@ Elona.Interact = {
         Give = "何かを渡す",
         Info = "情報",
         Inventory = "所持品",
+        Items = "アイテム",
         Name = "名前をつける",
         Release = "縄を解く",
         Talk = "話しかける",

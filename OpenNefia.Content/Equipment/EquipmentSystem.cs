@@ -158,7 +158,7 @@ namespace OpenNefia.Content.Equipment
             if (!Resolve(npc, ref inv))
                 return;
 
-            var items = _inv.EnumerateLiveItems(npc)
+            var items = _inv.EnumerateItems(npc)
                 .Where(i => !_equipSlots.IsEquippedOnAnySlot(i));
 
             foreach (var item in items)

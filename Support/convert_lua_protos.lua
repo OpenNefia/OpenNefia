@@ -1020,6 +1020,17 @@ handlers["base.item"] = function(from, to)
     if fromChara then
         c = comp(to, "EntityProtoSource")
     end
+
+    if from.light then
+        c = comp(to, "LightSource")
+        c.id = dotted(from.light)
+    end
+
+    if from._id == "elona.torch" then
+        c = comp(to, "DungeonLight")
+        c.isLit = false
+        c = comp(to, "Torch")
+    end
 end
 
 handlers["base.feat"] = function(from, to)

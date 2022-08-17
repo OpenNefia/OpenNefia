@@ -18,6 +18,7 @@ Elona.Interact = {
         Give = "Give",
         Info = "Info",
         Inventory = "Inventory",
+        Items = "Items",
         Name = "Name",
         Release = "Release",
         Talk = "Talk",

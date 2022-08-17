@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Equipment
 
             for (var i = 0; i < 100; i++)
             {
-                var deleteCandidates = _inv.EnumerateLiveItems(chara, inv)
+                var deleteCandidates = _inv.EnumerateItems(chara, inv)
                     .Where(i => !HasComp<AlwaysDropOnDeathComponent>(i))
                     .ToList();
 

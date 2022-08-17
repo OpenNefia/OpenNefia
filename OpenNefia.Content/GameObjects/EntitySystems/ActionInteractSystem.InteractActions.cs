@@ -11,6 +11,7 @@ using OpenNefia.Content.CustomName;
 using OpenNefia.Content.CharaInfo;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Content.Inventory;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -93,6 +94,13 @@ namespace OpenNefia.Content.GameObjects
         {
             var context = new CharaUiGroupArgs(CharaTab.CharaInfo, target);
             var result = _uiManager.Query<CharaUiGroup, CharaUiGroupArgs, CharaGroupSublayerResult>(context);
+            return TurnResult.Aborted;
+        }
+
+        private TurnResult InteractAction_Items(EntityUid source, EntityUid target)
+        {
+            var context = new InventoryContext(source, target, new ExamineInventoryBehavior());
+            _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
             return TurnResult.Aborted;
         }
 

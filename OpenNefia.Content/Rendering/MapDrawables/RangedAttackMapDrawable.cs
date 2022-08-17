@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Rendering
                     _coords.TileSize.X,
                     _coords.TileSize.Y,
                     color: _color, 
-                    centered: true, 
+                    centering: BatchCentering.Centered, 
                     rotationRads: -(float)Angle.BetweenPoints(_endPos.Position, _startPos.Position).Theta);
                 _chipBatch.Flush();
                 _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);

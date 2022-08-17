@@ -44,7 +44,7 @@ namespace OpenNefia.Content.TreasureMap
 
         private void HandleFinishedDiggingSpot(EntityUid uid, EntityFinishedDiggingSpotEvent args)
         {
-            var treasureMap = _inv.EnumerateLiveItems(uid).Select(i => CompOrNull<TreasureMapComponent>(i)).FirstOrDefault();
+            var treasureMap = _inv.EnumerateItems(uid).Select(i => CompOrNull<TreasureMapComponent>(i)).FirstOrDefault();
             if (treasureMap == null)
                 return;
 

@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Inventory
 {
     public interface IInventorySystem : IEntitySystem
     {
-        IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null);
+        IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null);
 
         IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
             where TComp : IComponent;
@@ -182,7 +182,7 @@ namespace OpenNefia.Content.Inventory
                 _turnOrder.RefreshSpeed(uid);
         }
 
-        public IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null)
+        public IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null)
         {
             if (!Resolve(entity, ref inv))
                 return Enumerable.Empty<EntityUid>();
@@ -206,7 +206,7 @@ namespace OpenNefia.Content.Inventory
             if (!Resolve(ent, ref inv))
                 return 0;
 
-            var baseWeight = EnumerateLiveItems(ent, inv)
+            var baseWeight = EnumerateItems(ent, inv)
                 .Concat(_equipSlots.EnumerateEquippedEntities(ent))
                 .Select(item => GetItemWeight(item))
                 .Sum();

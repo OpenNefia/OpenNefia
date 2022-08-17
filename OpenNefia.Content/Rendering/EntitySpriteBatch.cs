@@ -20,11 +20,11 @@ namespace OpenNefia.Content.Inventory
             public float? Width { get; set; }
             public float? Height { get; set; }
             public Color Color { get; set; }
-            public bool Centered { get; set; }
+            public BatchCentering Centering { get; set; }
             public float Rotation { get; set; }
 
             public Entry(MapObjectMemory memory, float x, float y, float? width, float? height, 
-                Color color, bool centered, float rotation)
+                Color color, BatchCentering centering, float rotation)
             {
                 Memory = memory;
                 X = x;
@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Inventory
                 Width = width;
                 Height = height;
                 Color = color;
-                Centered = centered;
+                Centering = centering;
                 Rotation = rotation;
             }
 
@@ -49,27 +49,12 @@ namespace OpenNefia.Content.Inventory
             _atlasBatch = new TileAtlasBatch(AtlasNames.Chip);
         }
 
-        public enum Centering
-        {
-            None,
-            Centered,
-            AlignBottom
-        }
-
-        public void Add(EntityUid entity, float x, float y, float? width = null, float? height = null, Color? color = null, Centering centering = Centering.None, float rotation = 0f)
+        public void Add(EntityUid entity, float x, float y, float? width = null, float? height = null, Color? color = null, BatchCentering centering = BatchCentering.None, float rotation = 0f)
         {
             color ??= Color.White;
 
             var memory = _entityMemory.GetEntityMemory(entity);
-
-            var centered = centering == Centering.Centered;
-            if (centering == Centering.AlignBottom)
-            {
-                var size = GetTileSize(memory.AtlasIndex);
-                y -= size.Y - _coords.TileSize.Y;
-            }
-
-            var entry = new Entry(memory, x, y, width, height, color.Value, centered, rotation);
+            var entry = new Entry(memory, x, y, width, height, color.Value, centering, rotation);
             _entries.Add(entry);
         }
 
@@ -92,7 +77,7 @@ namespace OpenNefia.Content.Inventory
             foreach (var entry in _entries)
             {
                 _atlasBatch.Add(UIScale, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
-                    entry.Color, entry.Centered, entry.Rotation);
+                    entry.Color, entry.Centering, entry.Rotation);
             }
 
             _atlasBatch.Flush();
