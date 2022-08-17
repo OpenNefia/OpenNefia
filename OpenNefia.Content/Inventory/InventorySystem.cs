@@ -16,6 +16,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -63,6 +64,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public override void Initialize()
         {
@@ -205,6 +207,7 @@ namespace OpenNefia.Content.Inventory
                 return 0;
 
             var baseWeight = EnumerateLiveItems(ent, inv)
+                .Concat(_equipSlots.EnumerateEquippedEntities(ent))
                 .Select(item => GetItemWeight(item))
                 .Sum();
 
