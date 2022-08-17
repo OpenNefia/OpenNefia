@@ -82,10 +82,10 @@ namespace OpenNefia.Content.SenseQuality
             if (!Resolve(ent, ref statusEffects))
                 return true;
 
-            return _effects.HasEffect(ent, Protos.StatusEffect.Confusion)
+            return !(_effects.HasEffect(ent, Protos.StatusEffect.Confusion)
              || _effects.HasEffect(ent, Protos.StatusEffect.Sleep)
              || _effects.HasEffect(ent, Protos.StatusEffect.Paralysis)
-             || _effects.HasEffect(ent, Protos.StatusEffect.Choking);
+             || _effects.HasEffect(ent, Protos.StatusEffect.Choking));
         }
 
         public void SenseQuality(EntityUid ent)
