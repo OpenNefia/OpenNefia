@@ -17,6 +17,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         private TileAndChipBatch _tileAndChipBatch = new();
         private WallTileShadows _wallShadows = new();
 
+        public Color TileShadow { get => _tileAndChipBatch.TileShadow; set => _tileAndChipBatch.TileShadow = value; }
+
         public override void Initialize()
         {
             _tileAndChipBatch.Initialize(_atlasManager, _coords);

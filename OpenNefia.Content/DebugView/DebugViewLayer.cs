@@ -156,7 +156,7 @@ namespace OpenNefia.Content.DebugView
                     var tilePos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
                     var screenPos = _field.Camera.TileToVisibleScreen(_mapManager.ActiveMap.AtPos(tilePos));
                     // TODO separate scaling for tile viewport/UI
-                    _tileBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1, 1, 1, 0.25f));
+                    _tileBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1f, 1f, 1f, 0.25f));
 
                 }
             }
@@ -168,7 +168,7 @@ namespace OpenNefia.Content.DebugView
                     var tilePos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
                     var screenPos = _field.Camera.TileToVisibleScreen(_mapManager.ActiveMap.AtPos(tilePos));
                     // TODO separate scaling for tile viewport/UI
-                    _chipBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1, 1, 1, 0.25f));
+                    _chipBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1f, 1f, 1f, 0.25f));
 
                 }
             }

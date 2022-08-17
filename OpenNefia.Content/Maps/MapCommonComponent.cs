@@ -6,6 +6,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.World;
 using OpenNefia.Content.MaterialSpot;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Maps
 {
