@@ -120,7 +120,7 @@ namespace OpenNefia.Content.Inventory
                 AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
-                Data.Origin.OnDraw();
+                Data.Origin.OnDraw(UIScale, X, Y);
 
                 UiText.Draw();
                 UiSubtext.Draw();

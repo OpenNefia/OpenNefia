@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Inventory
             name += Loc.GetString("Elona.Inventory.Common.NameModifiers.Ground");
         }
 
-        public void OnDraw()
+        public void OnDraw(float uiScale, float x, float y)
         {
         }
     }

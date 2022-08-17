@@ -1,10 +1,12 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -27,8 +29,8 @@ namespace OpenNefia.Content.Inventory
             return inv.Container.ContainedEntities;
         }
 
-        public void OnDraw()
+        public void OnDraw(float uiScale, float x, float y)
         {
-        }
+        }   
     }
 }

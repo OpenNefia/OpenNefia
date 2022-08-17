@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Inventory
             return Container.ContainedEntities;
         }
 
-        public void OnDraw()
+        public void OnDraw(float uiScale, float x, float y)
         {
         }
     }
