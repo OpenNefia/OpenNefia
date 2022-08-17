@@ -1,28 +1,21 @@
 ﻿using Love;
-using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Feats;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Mount;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Weight;
 using OpenNefia.Core.Containers;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using OpenNefia.Content.Mount;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.Random;
-using OpenNefia.Content.Skills;
-using OpenNefia.Content.Damage;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Feats;
-using OpenNefia.Content.Prototypes;
-using System.Security.Cryptography;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -69,6 +62,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
 
         public override void Initialize()
         {
@@ -202,7 +196,7 @@ namespace OpenNefia.Content.Inventory
 
             // TODO sum container item weights here too.
 
-            return weight.Weight;
+            return weight.Weight * _stacks.GetCount(item);
         }
 
         public int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null)
@@ -212,10 +206,10 @@ namespace OpenNefia.Content.Inventory
 
             var baseWeight = EnumerateLiveItems(ent, inv)
                 .Select(item => GetItemWeight(item))
-.Sum();
+                .Sum();
 
-            var modifiedWeight = baseWeight * (100 - _feats.Level(ent, Protos.Feat.EtherGravity) * 10
-                                            + _feats.Level(ent, Protos.Feat.EtherFeather) * 20) / 100;
+            var modifiedWeight = (int)(baseWeight * (1f - _feats.Level(ent, Protos.Feat.EtherGravity) * 0.1f
+                                                        + _feats.Level(ent, Protos.Feat.EtherFeather) * 0.2f));
 
             return modifiedWeight;
         }
