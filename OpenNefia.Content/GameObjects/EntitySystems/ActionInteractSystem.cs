@@ -95,6 +95,7 @@ namespace OpenNefia.Content.GameObjects
             if (_config.GetCVar(CVars.DebugDevelopmentMode))
             {
                 args.OutInteractActions.Add(new(Loc.GetString("Elona.Interact.Actions.Info"), InteractAction_Info));
+                args.OutInteractActions.Add(new(Loc.GetString("Elona.Interact.Actions.Equipment"), InteractAction_Equipment));
             }
         }
 

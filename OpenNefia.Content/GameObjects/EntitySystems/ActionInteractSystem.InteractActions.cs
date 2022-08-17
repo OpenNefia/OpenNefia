@@ -10,6 +10,7 @@ using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.CharaInfo;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
+using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -93,6 +94,13 @@ namespace OpenNefia.Content.GameObjects
             var context = new CharaUiGroupArgs(CharaTab.CharaInfo, target);
             var result = _uiManager.Query<CharaUiGroup, CharaUiGroupArgs, CharaGroupSublayerResult>(context);
             return TurnResult.Aborted;
+        }
+
+        private TurnResult InteractAction_Equipment(EntityUid source, EntityUid target)
+        {
+            var context = new EquipmentLayer.Args(source, target);
+            var result = _uiManager.Query<EquipmentLayer, EquipmentLayer.Args, EquipmentLayer.Result>(context);
+            return result.HasValue && result.Value.ChangedEquipment ? TurnResult.Succeeded : TurnResult.Aborted;
         }
     }
 }

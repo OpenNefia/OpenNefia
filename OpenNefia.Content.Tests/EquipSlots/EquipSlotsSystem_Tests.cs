@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Containers;
@@ -25,6 +26,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
         private static readonly PrototypeId<EquipSlotPrototype> InvalidID = new("Invalid");
 
         private static readonly PrototypeId<EntityPrototype> TestEquipment1ID = new("TestEquipment1");
+        private static readonly PrototypeId<EntityPrototype> TestEntity1ID = new("TestEntity1");
 
         private static readonly string Prototypes = @$"
 - type: Elona.EquipSlot
@@ -38,6 +40,15 @@ namespace OpenNefia.Content.Tests.EquipSlots
   - type: Equipment
     equipSlots:
     - {TestSlot1ID}
+
+- type: Entity
+  id: {TestEntity1ID}
+  components:
+  - type: EquipSlots
+    initialEquipSlots:
+    - {TestSlot1ID}
+    - {TestSlot1ID}
+    - {TestSlot2ID}
 ";
 
         private ISimulation SimulationFactory()
@@ -92,6 +103,39 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 Assert.That((string)equipSlots[0].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot1:0"));
                 Assert.That((string)equipSlots[1].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot2:0"));
                 Assert.That((string)equipSlots[2].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot2:1"));
+            });
+        }
+
+        [Test]
+        public void TestInitializeEquipSlots_FromComponent()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entGen.SpawnEntity(TestEntity1ID, map.AtPos(Vector2i.One))!.Value;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.True);
+                Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.True);
+
+                Assert.That(equipSlotSys.TryGetEquipSlots(ent, out var equipSlots), Is.True);
+                Assert.That(equipSlots!.Count, Is.EqualTo(3));
+
+                Assert.That(equipSlots[0].ID, Is.EqualTo(TestSlot1ID));
+                Assert.That(equipSlots[1].ID, Is.EqualTo(TestSlot1ID));
+                Assert.That(equipSlots[2].ID, Is.EqualTo(TestSlot2ID));
+
+                Assert.That((string)equipSlots[0].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot1:0"));
+                Assert.That((string)equipSlots[1].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot1:1"));
+                Assert.That((string)equipSlots[2].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot2:0"));
             });
         }
 

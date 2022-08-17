@@ -266,7 +266,7 @@ namespace OpenNefia.Content.EquipSlots
         /// <inheritdoc/>
         public IEnumerable<EntityUid> EnumerateEquippedEntities(EntityUid uid, EquipSlotsComponent? equipSlotsComp = null)
         {
-            foreach (var equipSlot in GetEquipSlots(uid))
+            foreach (var equipSlot in GetEquipSlots(uid, equipSlotsComp))
             {
                 if (!TryGetContainerForEquipSlot(uid, equipSlot, out var containerSlot))
                     continue;

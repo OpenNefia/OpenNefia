@@ -396,7 +396,6 @@ namespace OpenNefia.Content.Prototypes
             public static readonly EntityPrototypeId BlueTreasureMachine             = new($"Elona.Item{nameof(BlueTreasureMachine)}");
             public static readonly EntityPrototypeId Machine                         = new($"Elona.Item{nameof(Machine)}");
             public static readonly EntityPrototypeId Computer                        = new($"Elona.Item{nameof(Computer)}");
-            public static readonly EntityPrototypeId ItemComputer                    = new($"Elona.Item{nameof(ItemComputer)}");
             public static readonly EntityPrototypeId TrainingMachine                 = new($"Elona.Item{nameof(TrainingMachine)}");
             public static readonly EntityPrototypeId Camera                          = new($"Elona.Item{nameof(Camera)}");
             public static readonly EntityPrototypeId MicrowaveOven                   = new($"Elona.Item{nameof(MicrowaveOven)}");

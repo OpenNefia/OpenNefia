@@ -32,7 +32,6 @@ namespace OpenNefia.Content.Charas
     public sealed partial class CharaSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IRandom _rand = default!; // randomness is only used for race height/weight here.
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
@@ -45,14 +44,14 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
+            SubscribeComponent<CharaComponent, GetInitialEquipSlotsEvent>(GetInitialEquipSlots_Race, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(HandleGenerated, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityBeingGeneratedEvent args)
         {
             InitRaceComponents(uid, chara);
             InitRaceSkills(uid, chara);
-            InitRaceEquipSlots(uid, chara);
             InitRacePhysiqueAndGender(uid, chara);
             SetDefaultCharaChip(uid, chara);
 
@@ -83,20 +82,13 @@ namespace OpenNefia.Content.Charas
             }
         }
 
-        private void InitRaceEquipSlots(EntityUid uid, CharaComponent chara,
-            EquipSlotsComponent? equipSlots = null)
+        private void GetInitialEquipSlots_Race(EntityUid uid, CharaComponent chara, GetInitialEquipSlotsEvent ev)
         {
-            if (!Resolve(uid, ref equipSlots))
-                return;
-
             var race = _protos.Index(chara.Race);
-
-            // Everyone gets a ranged and ammo slot.
             var initialEquipSlots = race.InitialEquipSlots
                 .Append(EquipSlot.Ranged)
                 .Append(EquipSlot.Ammo);
-
-            _equipSlots.InitializeEquipSlots(uid, initialEquipSlots, equipSlots: equipSlots);
+            ev.OutEquipSlots.AddRange(initialEquipSlots);
         }
 
         private void InitRacePhysiqueAndGender(EntityUid uid, CharaComponent chara)
