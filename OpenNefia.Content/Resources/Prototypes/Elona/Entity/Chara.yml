@@ -204,6 +204,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Animal
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemRabbitsTail
+      oneIn: 200
 - type: Entity
   id: Elona.CharaSnail
   parent: BaseChara
@@ -328,7 +332,7 @@
       Elona.Amulet1:
         itemFilter:
           id: Elona.ItemBeggarsPendant
-          oneIn: 120
+        oneIn: 120
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
@@ -636,6 +640,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemPotionOfDescent
+      oneIn: 100
 - type: Entity
   id: Elona.CharaBeetle
   parent: BaseChara
@@ -1091,6 +1099,10 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemSecretExperienceOfLomias
+      oneIn: 4
   - type: EquipmentGen
     initialEquipment:
       Elona.Ammo:
@@ -2725,6 +2737,10 @@
     moveChance: 0.5
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemScrollOfName
+      oneIn: 600
 - type: Entity
   id: Elona.CharaNetherImp
   parent: BaseChara
@@ -2758,6 +2774,10 @@
     moveChance: 0.5
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemScrollOfName
+      oneIn: 600
 - type: Entity
   id: Elona.CharaChaosImp
   parent: BaseChara
@@ -2788,6 +2808,10 @@
     moveChance: 0.5
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemScrollOfName
+      oneIn: 600
 - type: Entity
   id: Elona.CharaHandOfTheDead
   parent: BaseChara
@@ -3166,6 +3190,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBookOfResurrection
+      oneIn: 300
 - type: Entity
   id: Elona.CharaMummy
   parent: BaseChara
@@ -3198,6 +3226,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBookOfResurrection
+      oneIn: 300
 - type: Entity
   id: Elona.CharaGreaterMummy
   parent: BaseChara
@@ -3230,6 +3262,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBookOfResurrection
+      oneIn: 300
 - type: Entity
   id: Elona.CharaGoblin
   parent: BaseChara
@@ -3669,6 +3705,10 @@
     moveChance: 0.5
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemHappyBed
+      oneIn: 140
 - type: Entity
   id: Elona.CharaLesserPhantom
   parent: BaseChara
@@ -5105,7 +5145,7 @@
       Elona.RangedWeapon:
         itemFilter:
           id: Elona.ItemVanillaRock
-          oneIn: 200
+        oneIn: 200
 - type: Entity
   id: Elona.CharaCat
   parent: BaseChara
@@ -5249,6 +5289,10 @@
     relation: Enemy
   - type: LootType
     lootType: Elona.Animal
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemUnknownShell
+      oneIn: 100
 - type: Entity
   id: Elona.CharaSlime
   parent: BaseChara
@@ -5873,7 +5917,7 @@
       Elona.Girdle:
         itemFilter:
           id: Elona.ItemCrimsonPlate
-          oneIn: 800
+        oneIn: 800
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
@@ -5905,7 +5949,7 @@
       Elona.Girdle:
         itemFilter:
           id: Elona.ItemCrimsonPlate
-          oneIn: 800
+        oneIn: 800
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
@@ -5937,7 +5981,7 @@
       Elona.Girdle:
         itemFilter:
           id: Elona.ItemCrimsonPlate
-          oneIn: 800
+        oneIn: 800
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
@@ -5969,6 +6013,10 @@
     moveChance: 0.8
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemPotionOfEvolution
+      oneIn: 150
 - type: Entity
   id: Elona.CharaImpureEye
   parent: BaseChara
@@ -6001,6 +6049,10 @@
     moveChance: 0.8
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemPotionOfEvolution
+      oneIn: 150
 - type: Entity
   id: Elona.CharaWisp
   parent: BaseChara
@@ -8826,7 +8878,7 @@
       Elona.RangedWeapon:
         itemFilter:
           id: Elona.ItemShenasPanty
-          oneIn: 100
+        oneIn: 100
 - type: Entity
   id: Elona.CharaNoyelHorse
   parent: BaseChara
@@ -9774,6 +9826,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBlueCapsuleDrug
+      oneIn: 90
 - type: Entity
   id: Elona.CharaRogueWarrior
   parent: BaseChara
@@ -9809,6 +9865,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBlueCapsuleDrug
+      oneIn: 90
   - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaRogueArcher
@@ -9845,12 +9905,16 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBlueCapsuleDrug
+      oneIn: 90
   - type: EquipmentGen
     initialEquipment:
       Elona.Amulet1:
         itemFilter:
           id: Elona.ItemArbalest
-          oneIn: 250
+        oneIn: 250
 - type: Entity
   id: Elona.CharaRogueWizard
   parent: BaseChara
@@ -9892,6 +9956,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemBlueCapsuleDrug
+      oneIn: 90
 - type: Entity
   id: Elona.CharaLulwy
   parent: BaseChara
@@ -9960,6 +10028,10 @@
     moveChance: 0.6
   - type: LootType
     lootType: Elona.Lich
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemScrollOfContingency
+      oneIn: 150
   - type: EquipmentGen
     initialEquipment:
       Elona.TwoHandedWeapon:
@@ -9998,6 +10070,10 @@
     moveChance: 0.7
   - type: LootType
     lootType: Elona.Lich
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemScrollOfContingency
+      oneIn: 150
   - type: EquipmentGen
     initialEquipment:
       Elona.PrimaryWeapon:
@@ -10038,7 +10114,7 @@
       Elona.Amulet1:
         itemFilter:
           id: Elona.ItemTwinEdge
-          oneIn: 600
+        oneIn: 600
 - type: Entity
   id: Elona.CharaMitra
   parent: BaseChara
@@ -10075,7 +10151,7 @@
       Elona.Amulet1:
         itemFilter:
           id: Elona.ItemTwinEdge
-          oneIn: 600
+        oneIn: 600
 - type: Entity
   id: Elona.CharaVaruna
   parent: BaseChara
@@ -10112,7 +10188,7 @@
       Elona.Amulet1:
         itemFilter:
           id: Elona.ItemTwinEdge
-          oneIn: 600
+        oneIn: 600
 - type: Entity
   id: Elona.CharaHungrySeaLion
   parent: BaseChara
@@ -10301,7 +10377,7 @@
       Elona.TwoHandedWeapon:
         itemFilter:
           id: Elona.ItemClaymoreUnique
-          oneIn: 150
+        oneIn: 150
   - type: GenTwoHandedWeapon
 - type: Entity
   id: Elona.CharaBigDaddy
@@ -10663,6 +10739,12 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Animal
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemSmallMedal
+      oneIn: 2
+  - type: Money
+    initialPlatinum: 1~4
 - type: Entity
   id: Elona.CharaGoldBell
   parent: BaseChara
@@ -10693,6 +10775,7 @@
     moveChance: 0.3
   - type: LootType
     lootType: Elona.Animal
+  - type: GoldLoot
 - type: Entity
   id: Elona.CharaAlien
   parent: BaseChara
@@ -11113,6 +11196,10 @@
     moveChance: 0.4
   - type: LootType
     lootType: Elona.Humanoid
+    lootDrops:
+    - itemFilter:
+        id: Elona.ItemMine
+      oneIn: 3
 - type: Entity
   id: Elona.CharaMani
   parent: BaseChara
