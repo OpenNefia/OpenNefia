@@ -103,6 +103,21 @@ namespace OpenNefia.Core.Maths
         }
 
         /// <summary>
+        ///     Constructs a new Color4 structure from the specified components.
+        /// </summary>
+        /// <param name="r">The red component of the new Color4 structure.</param>
+        /// <param name="g">The green component of the new Color4 structure.</param>
+        /// <param name="b">The blue component of the new Color4 structure.</param>
+        /// <param name="a">The alpha component of the new Color4 structure.</param>
+        public Color(int r, int g, int b, int a = 255)
+        {
+            R = r / (float)byte.MaxValue;
+            G = g / (float)byte.MaxValue;
+            B = b / (float)byte.MaxValue;
+            A = a / (float)byte.MaxValue;
+        }
+
+        /// <summary>
         ///     Converts this color to an integer representation with 8 bits per channel.
         /// </summary>
         /// <returns>A <see cref="System.Int32" /> that represents this instance.</returns>
