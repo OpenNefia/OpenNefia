@@ -514,7 +514,7 @@ namespace OpenNefia.Core.GameObjects
             if (!EntityManager.TryGetComponent<SpatialComponent>(uid, out var spatial))
                 return false;
 
-            return TrySplit(uid, amount, spatial.MapPosition, out split, stack);
+            return TrySplit(uid, amount, spatial.Coordinates, out split, stack);
         }
 
         #endregion
