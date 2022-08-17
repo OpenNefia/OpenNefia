@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
@@ -13,6 +14,14 @@ namespace OpenNefia.Content.EquipSlots
     public class EquipSlotsComponent : Component
     {
         public override string Name => "EquipSlots";
+
+        [DataField("initialEquipSlots")]
+        private List<EquipSlotPrototypeId> _initialEquipSlots = new();
+
+        /// <summary>
+        /// Equipment slots to generate this character with.
+        /// </summary>
+        public IReadOnlyList<EquipSlotPrototypeId> InitialEquipSlots => _initialEquipSlots;
 
         /// <summary>
         /// Valid equipment slots on this entity. These all have active containers in the

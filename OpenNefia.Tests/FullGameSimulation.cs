@@ -223,6 +223,8 @@ namespace OpenNefia.Tests
             var compLoc = container.Resolve<IComponentLocalizerInternal>();
             compLoc.Initialize();
 
+            protoMan.RegisterEvents();
+
             return this;
         }
 

@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Equipment
     {
         public override string Name => "EquipmentGen";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<EquipmentTypePrototype>? EquipmentType { get; set; }
 
         [DataField("initialEquipment")]

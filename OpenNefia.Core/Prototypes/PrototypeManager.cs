@@ -289,6 +289,7 @@ namespace OpenNefia.Core.Prototypes
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
+        [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
 
         private readonly Dictionary<string, Type> _prototypeTypes = new();
         private readonly Dictionary<Type, int> _prototypePriorities = new();
@@ -560,7 +561,7 @@ namespace OpenNefia.Core.Prototypes
                             continue;
                         }
 
-                        var target = EntitySystem.Get(eventDef.EntitySystemType);
+                        var target = _entitySystemManager.GetEntitySystem(eventDef.EntitySystemType);
 
                         Type handlerType;
                         MethodInfo subMethod;
@@ -805,7 +806,7 @@ namespace OpenNefia.Core.Prototypes
                     continue;
                 }
 
-                var target = EntitySystem.Get(eventDef.EntitySystemType);
+                var target = _entitySystemManager.GetEntitySystem(eventDef.EntitySystemType);
 
                 Type handlerType;
                 var isByRef = eventDef.EventType.HasCustomAttribute<ByRefEventAttribute>();
@@ -1143,7 +1144,6 @@ namespace OpenNefia.Core.Prototypes
                 {
                     _prototypeOrdering[prototypeType][prototypeId] = orderingData;
                 }
-                BuildPrototypeIndices(prototypeType);
             }
 
             foreach (var (prototypeType, extendedDatas) in cache.PrototypeExtendedData)

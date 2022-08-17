@@ -14,6 +14,7 @@ Elona.Interact = {
         Attack = "Attack",
         BringOut = "Bring Out",
         ChangeTone = "Change Tone",
+        Equipment = "Equipment",
         Give = "Give",
         Info = "Info",
         Inventory = "Inventory",
