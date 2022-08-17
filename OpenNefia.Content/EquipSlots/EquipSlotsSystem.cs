@@ -84,7 +84,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
-                    ("item", itemUid)));
+                    ("item", itemUid)),
+                    entity: target);
                 return false;
             }
 
@@ -93,7 +94,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
-                    ("item", itemUid)));
+                    ("item", itemUid)),
+                    entity: target);
                 return false;
             }
 
@@ -102,7 +104,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString(reason,
                     ("actor", actor),
                     ("target", target),
-                    ("item", itemUid)));
+                    ("item", itemUid)),
+                    entity: target);
                 return false;
             }
 
@@ -111,7 +114,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
-                    ("item", itemUid)));
+                    ("item", itemUid)),
+                    entity: target);
                 return false;
             }
 
@@ -128,7 +132,8 @@ namespace OpenNefia.Content.EquipSlots
                 _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Succeeds",
                     ("actor", actor),
                     ("target", target),
-                    ("item", itemUid)));
+                    ("item", itemUid)),
+                    entity: target);
             }
 
             return true;
@@ -214,7 +219,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
-                    ("item", EntityUid.Invalid)));
+                    ("item", EntityUid.Invalid)),
+                    entity: target);
                 return false;
             }
 
@@ -223,7 +229,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
-                    ("item", EntityUid.Invalid)));
+                    ("item", EntityUid.Invalid)),
+                    entity: target);
                 return false;
             }
 
@@ -236,7 +243,8 @@ namespace OpenNefia.Content.EquipSlots
                 if (!silent) _mes.Display(Loc.GetString(reason,
                     ("actor", actor),
                     ("target", target),
-                    ("item", slotContainer.ContainedEntity)));
+                    ("item", slotContainer.ContainedEntity)),
+                    entity: target);
                 return false;
             }
 
@@ -266,7 +274,8 @@ namespace OpenNefia.Content.EquipSlots
                 _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Succeeds",
                     ("actor", actor),
                     ("target", target),
-                    ("item", removedItem.Value)));
+                    ("item", removedItem.Value)),
+                    entity: target);
             }
 
             return true;

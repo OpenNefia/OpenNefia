@@ -1,23 +1,15 @@
-﻿using Melanchall.DryWetMidi.MusicTheory;
-using OpenNefia.Content.Combat;
+﻿using OpenNefia.Content.Combat;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Fishing;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Home;
 using OpenNefia.Content.Identify;
-using OpenNefia.Content.Items;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
+using System.Text;
 
 namespace OpenNefia.Content.Items
 {
@@ -65,7 +57,7 @@ namespace OpenNefia.Content.Items
             if (TryComp<EntityProtoSourceComponent>(uid, out var fromEntity) && CompOrNull<PickableComponent>(uid)?.OwnState != OwnState.Quest)
             {
                 var name = Loc.GetPrototypeString(fromEntity.EntityID, "MetaData.Name");
-                fullName.Append(Loc.GetString("Elona.Item.ItemName.FromEntity", ("name", name)));
+                fullName.Append(Loc.Space + Loc.GetString("Elona.Item.ItemName.FromEntity", ("name", name)));
             }
 
             if (isJapanese && TryComp<FurnitureComponent>(uid, out var furniture) && furniture.FurnitureQuality > 0)
@@ -80,7 +72,7 @@ namespace OpenNefia.Content.Items
             }
 
             if (TryComp<BillComponent>(uid, out var bill))
-{
+            {
                 fullName.Append(Loc.Space + Loc.GetString($"Elona.Salary.ItemName.Bill", ("amount", bill.GoldOwed)));
             }
 

@@ -55,6 +55,7 @@ entities:
     pos: 2,2
   - type: CurseState
     curseState: Doomed
+    noRandomizeCurseState: true
   - type: Identify
     identifyState: Full
 - uid: 6
@@ -65,6 +66,7 @@ entities:
     pos: 3,2
   - type: CurseState
     curseState: Cursed
+    noRandomizeCurseState: true
   - type: Identify
     identifyState: Full
 - uid: 7
@@ -75,6 +77,7 @@ entities:
     pos: 4,2
   - type: CurseState
     curseState: Normal
+    noRandomizeCurseState: true
   - type: Identify
     identifyState: Full
 - uid: 8
@@ -85,6 +88,7 @@ entities:
     pos: 5,2
   - type: CurseState
     curseState: Blessed
+    noRandomizeCurseState: true
   - type: Identify
     identifyState: Full
 - uid: 9

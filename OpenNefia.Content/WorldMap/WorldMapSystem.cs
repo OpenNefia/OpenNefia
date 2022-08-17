@@ -26,12 +26,12 @@ namespace OpenNefia.Content.WorldMap
 
         public override void Initialize()
         {
-            SubscribeBroadcast<MapEnterEvent>(CheckCloudLayer);
+            SubscribeBroadcast<ActiveMapChangedEvent>(CheckCloudLayer);
         }
 
-        private void CheckCloudLayer(MapEnterEvent ev)
+        private void CheckCloudLayer(ActiveMapChangedEvent ev)
         {
-            var isWorldMap = HasComp<MapTypeWorldMapComponent>(ev.Map.MapEntityUid);
+            var isWorldMap = HasComp<MapTypeWorldMapComponent>(ev.NewMap.MapEntityUid);
             _mapRenderer.SetTileLayerEnabled<CloudTileLayer>(isWorldMap);
         }
     }

@@ -1,8 +1,6 @@
-﻿using ICSharpCode.Decompiler.IL;
-using OpenNefia.Content.Cargo;
+﻿using OpenNefia.Content.Cargo;
 using OpenNefia.Content.Chest;
 using OpenNefia.Content.CurseStates;
-using OpenNefia.Content.Dialog;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
@@ -15,33 +13,21 @@ using OpenNefia.Content.Guild;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Levels;
-using OpenNefia.Content.Logic;
-using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Book;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.World;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Shopkeeper
 {

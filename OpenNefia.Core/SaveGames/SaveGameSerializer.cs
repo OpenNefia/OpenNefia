@@ -348,6 +348,9 @@ namespace OpenNefia.Core.SaveGames
             save.Files.ClearTemp();
 
             ResetGameState();
+
+            _saveGameManager.CurrentSave = save;
+
             LoadSession(save);
             LoadGlobalData(save);
 

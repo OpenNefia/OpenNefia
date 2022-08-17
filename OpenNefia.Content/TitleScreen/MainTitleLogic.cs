@@ -133,7 +133,7 @@ namespace OpenNefia.Content.TitleScreen
             var player = layer.CreatePlayerEntity(new List<ICharaMakeResult>()
             {
                 new CharaMakeClassSelectLayer.ResultData(Protos.Class.Predator),
-                new CharaMakeRaceSelectLayer.ResultData(Protos.Race.God),
+                new CharaMakeRaceSelectLayer.ResultData(Protos.Race.Machinegod),
             });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
             customName.CustomName = "*QuickStart*";
