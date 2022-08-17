@@ -1,47 +1,35 @@
-﻿using OpenNefia.Content.Logic;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Qualities;
-using OpenNefia.Core.Areas;
-using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Configuration;
-using OpenNefia.Content.Maps;
+﻿using OpenNefia.Content.Cargo;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.Currency;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
-using OpenNefia.Content.Items;
-using OpenNefia.Content.Cargo;
-using OpenNefia.Content.CurseStates;
-using OpenNefia.Content.Identify;
-using OpenNefia.Content.Roles;
-using OpenNefia.Content.Inventory;
-using OpenNefia.Core.Game;
 using OpenNefia.Content.Factions;
-using OpenNefia.Content.Adventurer;
-using OpenNefia.Content.Combat;
-using OpenNefia.Core.Log;
-using OpenNefia.Content.Pickable;
-using OpenNefia.Content.RandomGen;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Content.Charas;
-using OpenNefia.Content.Weight;
 using OpenNefia.Content.Food;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Identify;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Levels;
-using ICSharpCode.Decompiler.IL;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Pickable;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Roles;
 using OpenNefia.Content.Skills;
-using OpenNefia.Content.Currency;
+using OpenNefia.Content.Weight;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
-using static ICSharpCode.Decompiler.TypeSystem.ReflectionHelper;
-using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Damage;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Fame;
 
 namespace OpenNefia.Content.Loot
 {
@@ -78,15 +66,41 @@ namespace OpenNefia.Content.Loot
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IFameSystem _fame = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<CharaComponent, EntityKilledEvent>(HandleKilled);
+            SubscribeComponent<LootTypeComponent, OnGenerateLootDropsEvent>(AddLootDropsFromComponent, priority: EventPriorities.Highest);
+            SubscribeComponent<GoldLootComponent, OnGenerateLootDropsEvent>(AddGoldLootDrops);
         }
 
         private void HandleKilled(EntityUid uid, CharaComponent component, ref EntityKilledEvent args)
         {
             DropLoot(uid, args.Attacker);
+        }
+
+        private void AddLootDropsFromComponent(EntityUid uid, LootTypeComponent component, OnGenerateLootDropsEvent args)
+        {
+            foreach (var entry in component.LootDrops)
+            {
+                if (entry.OneIn != null && !_rand.OneIn(entry.OneIn.Value))
+                    continue;
+                else if (entry.Prob != null && !_rand.Prob(entry.Prob.Value))
+                    continue;
+
+                args.OutLootDrops.Add(entry);
+            }
+        }
+
+        private void AddGoldLootDrops(EntityUid uid, GoldLootComponent component, OnGenerateLootDropsEvent args)
+        {
+            var fame = CompOrNull<FameComponent>(args.Attacker ?? _gameSession.Player)?.Fame.Buffed ?? 0;
+            args.OutLootDrops.Add(new LootDrop(new ItemFilter()
+            {
+                Id = Protos.Item.GoldPiece,
+                Amount = 2500 + _rand.Next(fame + 1000)
+            }));
         }
 
         private bool ShouldDropCardOrFigurine(EntityUid uid)
@@ -390,7 +404,7 @@ namespace OpenNefia.Content.Loot
 
         public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null)
             => AddLootToResultList(lootDrops, victim, new[] { category }, onGenerateLoot);
-        
+
         public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null)
         {
             var itemFilter = MakeDefaultLootItemFilter(victim, categoryChoices.ToArray());
@@ -414,6 +428,11 @@ namespace OpenNefia.Content.Loot
                     result.Add(new LootDrop(new ItemFilter() { Id = Protos.Item.GoldPiece, Amount = goldDropped }));
                     victimMoney.Gold -= goldDropped;
                 }
+
+                if (victimMoney.Platinum > 0)
+                {
+                    result.Add(new LootDrop(new ItemFilter() { Id = Protos.Item.PlatinumCoin, Amount = victimMoney.Platinum }));
+                }
             }
 
             if (TryComp<EquipmentGenComponent>(victim, out var eqType) && eqType.EquipmentType != null)
@@ -422,10 +441,10 @@ namespace OpenNefia.Content.Loot
                 _protos.EventBus.RaiseEvent(eqType.EquipmentType.Value, pev);
             }
 
-            if (TryComp<LootTypeComponent>(victim, out var lootType))
+            if (TryComp<LootTypeComponent>(victim, out var lootType) && lootType.LootType != null)
             {
                 var pev = new P_LootTypeOnGenerateLootEvent(victim, result);
-                _protos.EventBus.RaiseEvent(lootType.LootType, pev);
+                _protos.EventBus.RaiseEvent(lootType.LootType.Value, pev);
             }
 
             var remainsChance = _config.GetCVar(CCVars.DebugAlwaysDropRemains) ? 1 : 40;
@@ -524,7 +543,35 @@ namespace OpenNefia.Content.Loot
 
     public delegate void OnGenerateLootItemDelegate(EntityUid item, EntityUid victim, EntityUid? attacker = null);
 
-    public sealed record LootDrop(ItemFilter ItemFilter, OnGenerateLootItemDelegate? OnGenerateItem = null);
+    [DataDefinition]
+    public class LootDrop
+    {
+        public LootDrop() {}
+
+        public LootDrop(ItemFilter itemFilter, OnGenerateLootItemDelegate? onGenerateItem = null)
+        {
+            ItemFilter = itemFilter;
+            OnGenerateItem = onGenerateItem;
+        }
+
+        [DataField]
+        public ItemFilter ItemFilter { get; } = new();
+
+        [DataField]
+        public OnGenerateLootItemDelegate? OnGenerateItem { get; } = null;
+    }
+
+    [DataDefinition]
+    public sealed class LootDropEntry : LootDrop
+    {
+        public LootDropEntry() {}
+
+        [DataField]
+        public int? OneIn { get; }
+
+        [DataField]
+        public float? Prob { get; }
+    }
 
     public enum DropAction
     {

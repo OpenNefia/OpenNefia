@@ -13,7 +13,11 @@ namespace OpenNefia.Content.Loot
     {
         public override string Name => "LootType";
 
-        [DataField(required: true)]
-        public PrototypeId<LootTypePrototype> LootType { get; set; }
+        [DataField]
+        public PrototypeId<LootTypePrototype>? LootType { get; set; }
+
+        [DataField("lootDrops")]
+        private List<LootDropEntry> _lootDrops = new();
+        public IReadOnlyList<LootDropEntry> LootDrops => _lootDrops;
     }
 }
