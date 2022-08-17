@@ -1,9 +1,8 @@
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Wisp.Controls
 {
@@ -24,7 +23,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
         }
 
-        public ChipComponent? Chip { get; set; }
+        public ChipComponent? ChipComp { get; set; }
+        private PrototypeId<ChipPrototype> _chipId = new("Default");
+        public PrototypeId<ChipPrototype> ChipID { get => ChipComp?.ChipID ?? _chipId; set => _chipId = value; }
+        private Color _color = Maths.Color.White;
+        public Color Color { get => ChipComp?.Color ?? _color; set => _color = value; }
         private TileAtlasBatch _chipBatch;
 
         public ChipView()
@@ -38,25 +41,17 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
         {
-            if (Chip == null || Chip.Deleted)
-                return _coords.TileSize * Scale;
-
-            var chipProto = _protos.Index(Chip.ChipID);
+            var chipProto = _protos.Index(ChipID);
             return _chipBatch.GetTileSize(chipProto.Image) * Scale;
         }
 
         public override void Draw()
         {
-            if (Chip == null || Chip.Deleted)
-            {
-                return;
-            }
-
-            var chipProto = _protos.Index(Chip.ChipID);
+            var chipProto = _protos.Index(ChipID);
             var chipSize = _chipBatch.GetTileSize(chipProto.Image);
 
             _chipBatch.Clear();
-            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, chipSize.X, chipSize.Y, Chip.Color);
+            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, chipSize.X, chipSize.Y, Color);
             _chipBatch.Draw(UIScale, GlobalX, GlobalY);
         }
     }

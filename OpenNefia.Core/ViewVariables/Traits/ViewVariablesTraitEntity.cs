@@ -74,7 +74,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
                     Orientation = LayoutOrientation.Horizontal
                 };
                 headBox.AddChild(hBox);
-                hBox.AddChild(new ChipView { Chip = chip });
+                hBox.AddChild(new ChipView { ChipComp = chip });
             }
         }
 

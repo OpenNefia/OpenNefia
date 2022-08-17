@@ -17,6 +17,9 @@ using OpenNefia.Core.ViewVariables;
 using static OpenNefia.Core.UI.Wisp.Controls.BoxContainer;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.DebugView
 {
@@ -30,7 +33,7 @@ namespace OpenNefia.Content.DebugView
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IViewVariablesManager _viewVariables = default!;
-
+        [Dependency] private readonly IAudioManager _audio = default!;
         private bool _initialized = false;
 
         public DebugViewLayer()
@@ -67,6 +70,14 @@ namespace OpenNefia.Content.DebugView
                 };
                 tilePickerButton.OnPressed += _ => OpenTilePicker();
                 box.AddChild(tilePickerButton);
+                var entityPickerButton = new Button()
+                {
+                    Text = "Entity Picker",
+                    HorizontalExpand = true,
+                    Margin = new Thickness(0, 4),
+                };
+                entityPickerButton.OnPressed += _ => OpenEntityPicker();
+                box.AddChild(entityPickerButton);
                 win.Contents.AddChild(box);
                 this.OpenWindowAt(win, controlTestWindow.Rect.TopRight);
             }
@@ -75,6 +86,10 @@ namespace OpenNefia.Content.DebugView
             _tilePicker.OnTileButtonPressed += SetSelectedTile;
             _tileBatch = new TileAtlasBatch(AtlasNames.Tile);
 
+            _entityPicker = new EntityPickerWindow();
+            _entityPicker.OnEntityButtonPressed += SetSelectedEntity;
+            _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
+
             _initialized = true;
         }
 
@@ -82,7 +97,13 @@ namespace OpenNefia.Content.DebugView
         private TilePickerWindow _tilePicker = default!;
         private bool CanPlaceTile => _selectedTile != null && _tilePicker.IsOpen;
         private TileAtlasBatch _tileBatch = default!;
+
+        private EntityPrototype? _selectedEntity;
+        private EntityPickerWindow _entityPicker = default!;
+        private bool CanPlaceEntity => _selectedEntity != null && _entityPicker.IsOpen;
+        private TileAtlasBatch _chipBatch = default!;
         private bool _placingTile = false;
+        private Vector2i? _lastPlacedPos;
 
         private void OpenTilePicker()
         {
@@ -92,13 +113,32 @@ namespace OpenNefia.Content.DebugView
                 this.OpenWindowCentered(_tilePicker);
         }
 
+        private void OpenEntityPicker()
+        {
+            if (_entityPicker.IsOpen)
+                _entityPicker.GrabFocus();
+            else
+                this.OpenWindowCentered(_entityPicker);
+        }
+
         private void SetSelectedTile(TilePickerWindow.TileButtonPressedEventArgs args)
         {
             _selectedTile = args.TilePrototype;
+            _selectedEntity = null;
             _tileBatch.Clear();
             // TODO separate scaling for tile viewport/UI
             _tileBatch.Add(1, _selectedTile.Image.AtlasIndex, 0, 0);
             _tileBatch.Flush();
+        }
+
+        private void SetSelectedEntity(EntityPickerWindow.EntityButtonPressedEventArgs args)
+        {
+            _selectedTile = null;
+            _selectedEntity = args.EntityPrototype;
+            _chipBatch.Clear();
+            // TODO separate scaling for tile viewport/UI
+            _chipBatch.Add(1, args.ChipPrototype.Image.AtlasIndex, 0, 0);
+            _chipBatch.Flush();
         }
 
         public override void OnQuery()
@@ -121,6 +161,18 @@ namespace OpenNefia.Content.DebugView
                 }
             }
 
+            if (CanPlaceEntity)
+            {
+                if (_mapManager.ActiveMap != null)
+                {
+                    var tilePos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
+                    var screenPos = _field.Camera.TileToVisibleScreen(_mapManager.ActiveMap.AtPos(tilePos));
+                    // TODO separate scaling for tile viewport/UI
+                    _chipBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1, 1, 1, 0.25f));
+
+                }
+            }
+
             base.Draw();
         }
 
@@ -128,14 +180,30 @@ namespace OpenNefia.Content.DebugView
         {
             base.Update(dt);
 
-            if (!CanPlaceTile)
+            if (!CanPlaceTile && !CanPlaceEntity)
+            {
                 _placingTile = false;
+                _lastPlacedPos = null;
+            }
 
             if (_placingTile && _mapManager.ActiveMap != null)
             {
                 var pos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
-                _mapManager.ActiveMap.SetTile(pos, _selectedTile!.GetStrongID());
-                _mapManager.ActiveMap.MemorizeTile(pos);
+
+                if (_selectedTile != null)
+                {
+                    if (_selectedTile.IsSolid && _mapManager.ActiveMap.GetTilePrototype(pos) != _selectedTile)
+                        _audio.Play(Protos.Sound.Offer1, pos);
+                    _mapManager.ActiveMap.SetTile(pos, _selectedTile.GetStrongID());
+                    _mapManager.ActiveMap.MemorizeTile(pos);
+                }
+                else if (_selectedEntity != null)
+                {
+                    if (_lastPlacedPos != pos)
+                        EntitySystem.Get<IEntityGen>().SpawnEntity(_selectedEntity.GetStrongID(), _mapManager.ActiveMap.AtPos(pos));
+                }
+
+                _lastPlacedPos = pos;
                 _field.RefreshScreen();
             }
         }
