@@ -137,7 +137,7 @@ namespace OpenNefia.Content.DebugView
             _selectedEntity = args.EntityPrototype;
             _chipBatch.Clear();
             // TODO separate scaling for tile viewport/UI
-            _chipBatch.Add(1, args.ChipPrototype.Image.AtlasIndex, 0, 0);
+            _chipBatch.Add(1, args.ChipPrototype.Image.AtlasIndex, 0, 0, centering: BatchCentering.AlignBottom);
             _chipBatch.Flush();
         }
 

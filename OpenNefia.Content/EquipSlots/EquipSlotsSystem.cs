@@ -24,6 +24,7 @@ namespace OpenNefia.Content.EquipSlots
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
 
         public override void Initialize()
         {
@@ -98,6 +99,18 @@ namespace OpenNefia.Content.EquipSlots
                     entity: target);
                 return false;
             }
+
+            if (!_stacks.TrySplit(itemUid, 1, out var split))
+            {
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", itemUid)),
+                    entity: target);
+                return false;
+            }
+
+            itemUid = split;
 
             if (!force && !CanEquip(actor, target, itemUid, equipSlot, out var reason, equipSlots, item))
             {

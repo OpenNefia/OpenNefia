@@ -1,8 +1,7 @@
-﻿using OpenNefia.Analyzers;
+﻿using OpenNefia.Core.Containers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
 using System.Diagnostics;
@@ -58,8 +57,8 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Returns true if the provided entities can be stacked together.
         /// </summary>
-        bool CanStack(EntityUid ent1, EntityUid ent2, 
-            ref StackComponent? stackEnt1, 
+        bool CanStack(EntityUid ent1, EntityUid ent2,
+            ref StackComponent? stackEnt1,
             ref StackComponent? stackEnt2);
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="spawnPosition">Position to spawn the newly cloned entity.</param>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
         EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition);
-        
+
         /// <summary>
         /// Clones this entity.
         /// </summary>
@@ -129,6 +128,7 @@ namespace OpenNefia.Core.GameObjects
         /// </remarks>
         bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition,
             out EntityUid split,
+            IContainer? container = null,
             StackComponent? stack = null);
 
         /// <summary>
@@ -152,6 +152,7 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IContainerSystem _containers = default!;
 
         public override void Initialize()
         {
@@ -272,6 +273,22 @@ namespace OpenNefia.Core.GameObjects
             if (!Resolve(ent1, ref stackEnt1, logMissing: false) || !Resolve(ent2, ref stackEnt2, logMissing: false))
                 return false;
 
+            // Check parents/containment.
+            var spatial1 = Spatial(ent1);
+            var spatial2 = Spatial(ent2);
+
+            if (spatial1.Parent != spatial2.Parent)
+                return false;
+
+            var inCont1 = _containers.TryGetContainingContainer(ent1, out var container1);
+            var inCont2 = _containers.TryGetContainingContainer(ent2, out var container2);
+
+            if (inCont1 != inCont2)
+                return false;
+
+            if (inCont1 && inCont2 && container1!.ID != container2!.ID)
+                return false;
+
             foreach (var comp1 in EntityManager.GetComponents(ent1))
             {
                 var compType = comp1.GetType();
@@ -386,7 +403,7 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
         }
-        
+
         /// <inheritdoc/>
         public EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition)
         {
@@ -436,7 +453,7 @@ namespace OpenNefia.Core.GameObjects
 
             newStack.Count = stack.Count;
             newStack.Unlimited = stack.Unlimited;
-            
+
             args.MarkAsCloned<StackComponent>();
         }
 
@@ -445,7 +462,7 @@ namespace OpenNefia.Core.GameObjects
         #region Splitting
 
         /// <inheritdoc/>
-        public bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition, out EntityUid split, StackComponent? stack = null)
+        public bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition, out EntityUid split, IContainer? container = null, StackComponent? stack = null)
         {
             split = EntityUid.Invalid;
 
@@ -492,6 +509,14 @@ namespace OpenNefia.Core.GameObjects
             var ev = new EntitySplitEvent(split);
             RaiseEvent(uid, ref ev);
 
+            if (container != null && !container.Insert(split))
+            {
+                Logger.ErrorS("stack", $"Could not insert split entity {split} into container {container.ID}");
+                EntityManager.DeleteEntity(split);
+                split = EntityUid.Invalid;
+                return false;
+            }
+
             return true;
         }
 
@@ -503,7 +528,7 @@ namespace OpenNefia.Core.GameObjects
             if (!spawnPosition.TryToEntity(_mapManager, out var entityCoords))
                 return false;
 
-            return TrySplit(uid, amount, entityCoords, out split, stack);
+            return TrySplit(uid, amount, entityCoords, out split, null, stack);
         }
 
         /// <inheritdoc/>
@@ -514,7 +539,9 @@ namespace OpenNefia.Core.GameObjects
             if (!EntityManager.TryGetComponent<SpatialComponent>(uid, out var spatial))
                 return false;
 
-            return TrySplit(uid, amount, spatial.Coordinates, out split, stack);
+            _containers.TryGetContainingContainer(uid, out IContainer? container);
+
+            return TrySplit(uid, amount, spatial.Coordinates, out split, container, stack);
         }
 
         #endregion
@@ -550,7 +577,7 @@ namespace OpenNefia.Core.GameObjects
         /// on this entity.
         /// </summary>
         /// <typeparam name="T">Type of component that the calling event handler added/set up.</typeparam>
-        public void MarkAsCloned<T>() where T: IComponent
+        public void MarkAsCloned<T>() where T : IComponent
         {
             HandledTypes.Add(typeof(T));
         }

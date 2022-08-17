@@ -6,8 +6,17 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.Rendering
 {
+    public enum BatchCentering
+    {
+        None,
+        Centered,
+        AlignBottom
+    }
+
     public class TileAtlasBatch : IDisposable
     {
+        private ICoords _coords;
+
         private string _atlasName { get; }
         private TileAtlas _atlas { get; set; }
         private SpriteBatch _batch { get; set; }
@@ -16,6 +25,7 @@ namespace OpenNefia.Core.Rendering
 
         public TileAtlasBatch(string atlasName)
         {
+            _coords = IoCManager.Resolve<ICoords>();
             _atlasName = atlasName;
             _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(atlasName);
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
@@ -29,7 +39,7 @@ namespace OpenNefia.Core.Rendering
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
         }
 
-        public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, bool centered = false, float rotationRads = 0f)
+        public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, BatchCentering centering = BatchCentering.None, float rotationRads = 0f)
         {
             if (!_atlas.TryGetTile(tileId, out var tile))
             {
@@ -72,10 +82,15 @@ namespace OpenNefia.Core.Rendering
 
             var ox = 0f;
             var oy = 0f;
-            if (centered)
+            switch (centering)
             {
-                ox = ((float)ttw) / 2;
-                oy = ((float)tth) / 2;
+                case BatchCentering.Centered:
+                    ox = ((float)ttw) / 2;
+                    oy = ((float)tth) / 2;
+                    break;
+                case BatchCentering.AlignBottom:
+                    oy = tth - _coords.TileSize.Y;
+                    break;
             }
 
             _batch.Add(tile.Quad, x, y, rotationRads, sx, sy, ox, oy);

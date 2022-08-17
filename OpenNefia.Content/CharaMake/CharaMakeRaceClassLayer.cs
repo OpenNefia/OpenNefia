@@ -127,8 +127,8 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             RaceText.Draw();
             Atlas.Clear();
-            Atlas.Add(UIScale, FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
-            Atlas.Add(UIScale, MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
+            Atlas.Add(UIScale, FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centering: BatchCentering.Centered);
+            Atlas.Add(UIScale, MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centering: BatchCentering.Centered);
             Atlas.Flush();
             Atlas.Draw(UIScale, 0, 0);
         }

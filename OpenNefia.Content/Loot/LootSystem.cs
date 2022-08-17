@@ -240,7 +240,7 @@ namespace OpenNefia.Content.Loot
 
             var result = new List<DroppedItem>();
 
-            foreach (var item in _inv.EnumerateLiveItems(player).Where(i => ShouldDropPlayerItem(player, i)))
+            foreach (var item in _inv.EnumerateItems(player).Where(i => ShouldDropPlayerItem(player, i)))
             {
                 var action = DropAction.PlaceInMap;
                 var isPrecious = CompOrNull<ItemComponent>(item)?.IsPrecious ?? false;
@@ -286,7 +286,7 @@ namespace OpenNefia.Content.Loot
             if (_factions.GetRelationToPlayer(npc) >= Relation.Ally)
                 return new List<DroppedItem>();
 
-            return _inv.EnumerateLiveItems(npc)
+            return _inv.EnumerateItems(npc)
                 .Where(i => ShouldDropNPCItem(npc, i))
                 .Select(i => new DroppedItem(i, DropAction.PlaceInMap))
                 .ToList();

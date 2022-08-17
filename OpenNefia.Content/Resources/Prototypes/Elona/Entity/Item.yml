@@ -19,6 +19,8 @@
   - type: Item
   - type: Weight
     weight: 1
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLongSword
   parent: BaseItem
@@ -1110,6 +1112,8 @@
   - type: Item
   - type: Weight
     weight: 1200
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemGoldBar
   parent: BaseItem
@@ -1134,6 +1138,8 @@
   - type: Item
   - type: Weight
     weight: 1100
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemRawOreOfRubynus
   parent: BaseItem
@@ -1160,6 +1166,8 @@
   - type: Item
   - type: Weight
     weight: 240
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemRawOreOfMica
   parent: BaseItem
@@ -1211,6 +1219,8 @@
   - type: Item
   - type: Weight
     weight: 380
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemRawOreOfDiamond
   parent: BaseItem
@@ -1237,6 +1247,8 @@
   - type: Item
   - type: Weight
     weight: 320
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemWoodPiece
   parent: BaseItem
@@ -1383,6 +1395,8 @@
   - type: Item
   - type: Weight
     weight: 3200
+  - type: LightSource
+    id: Elona.TorchLamp
 - type: Entity
   id: Elona.ItemFlag
   parent: BaseItem
@@ -1608,6 +1622,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1653,6 +1669,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1904,6 +1922,8 @@
     weaponSkill: Elona.Scythe
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1952,6 +1972,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -2236,6 +2258,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -2493,6 +2517,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 6800
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemDiningTable
   parent: BaseItem
@@ -2619,6 +2645,8 @@
     weight: 45000
   - type: Instrument
     performanceQuality: 200
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemBarTableAlpha
   parent: BaseItem
@@ -2768,6 +2796,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 400
+  - type: LightSource
+    id: Elona.Lantern
 - type: Entity
   id: Elona.ItemDecorativeArmor
   parent: BaseItem
@@ -3129,6 +3159,8 @@
   - type: Item
   - type: Weight
     weight: 350000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemVarietyOfClothes
   parent: BaseItem
@@ -3177,6 +3209,8 @@
   - type: Item
   - type: Weight
     weight: 45800
+  - type: LightSource
+    id: Elona.TorchLamp
 - type: Entity
   id: Elona.ItemOven
   parent: BaseItem
@@ -3620,6 +3654,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 1840
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSmallFoliagePlant
   parent: BaseItem
@@ -4354,6 +4390,8 @@
   - type: Item
   - type: Weight
     weight: 860
+  - type: LightSource
+    id: Elona.Lamp
 - type: Entity
   id: Elona.ItemSimpleShelf
   parent: BaseItem
@@ -4662,6 +4700,8 @@
   - type: Item
   - type: Weight
     weight: 500000
+  - type: LightSource
+    id: Elona.CandleLow
 - type: Entity
   id: Elona.ItemCeremonyAltar
   parent: BaseItem
@@ -4681,6 +4721,8 @@
   - type: Item
   - type: Weight
     weight: 500000
+  - type: LightSource
+    id: Elona.CandleLow
 - type: Entity
   id: Elona.ItemFountain
   parent: BaseItem
@@ -5655,6 +5697,8 @@
     weaponSkill: Elona.ShortSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -5714,6 +5758,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemWorthlessFakeGoldBar
   parent: BaseItem
@@ -6733,6 +6779,8 @@
   - type: Chest
     smallMedalProb: 0.2
   - type: BejeweledChest
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemChest
   parent: BaseItem
@@ -6760,6 +6808,8 @@
     weight: 300000
   - type: Chest
     smallMedalProb: 0.2
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSafe
   parent: BaseItem
@@ -6787,6 +6837,8 @@
     weight: 300000
   - type: Chest
   - type: Safe
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemScrollOfMagicalMap
   parent: BaseItem
@@ -7195,6 +7247,8 @@
   - type: Item
   - type: Weight
     weight: 12000
+  - type: LightSource
+    id: Elona.Torch
 - type: Entity
   id: Elona.ItemPortableCookingTool
   parent: BaseItem
@@ -7858,6 +7912,8 @@
   - type: Item
   - type: Weight
     weight: 300000
+  - type: LightSource
+    id: Elona.TownLight
 - type: Entity
   id: Elona.ItemWaterTub
   parent: BaseItem
@@ -8355,6 +8411,8 @@
   - type: Item
   - type: Weight
     weight: 2400
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemHighGradeDresser
   parent: BaseItem
@@ -8378,6 +8436,8 @@
   - type: Item
   - type: Weight
     weight: 9000
+  - type: LightSource
+    id: Elona.CrystalMiddle
 - type: Entity
   id: Elona.ItemNeatBarTable
   parent: BaseItem
@@ -8621,6 +8681,8 @@
   - type: Item
   - type: Weight
     weight: 8000
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemCleanBed
   parent: BaseItem
@@ -8670,6 +8732,8 @@
   - type: Item
   - type: Weight
     weight: 28000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemPachisuroMachine
   parent: BaseItem
@@ -8689,6 +8753,8 @@
   - type: Item
   - type: Weight
     weight: 14000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemCasinoTable
   parent: BaseItem
@@ -8727,6 +8793,8 @@
   - type: Item
   - type: Weight
     weight: 12000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemDartsBoard
   parent: BaseItem
@@ -8910,6 +8978,8 @@
   - type: Item
   - type: Weight
     weight: 12000
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemBigCupboard
   parent: BaseItem
@@ -8956,6 +9026,8 @@
   - type: Item
   - type: Weight
     weight: 15000
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemComfortableBed
   parent: BaseItem
@@ -9053,6 +9125,8 @@
     weight: 29000
   - type: Instrument
     performanceQuality: 150
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemStatueOfCross
   parent: BaseItem
@@ -9076,6 +9150,8 @@
   - type: Item
   - type: Weight
     weight: 15600
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemStump
   parent: BaseItem
@@ -9192,6 +9268,8 @@
   - type: Item
   - type: Weight
     weight: 35000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGoldenPedestal
   parent: BaseItem
@@ -9215,6 +9293,8 @@
   - type: Item
   - type: Weight
     weight: 15000
+  - type: LightSource
+    id: Elona.Lamp
 - type: Entity
   id: Elona.ItemGoldenStatue
   parent: BaseItem
@@ -9404,6 +9484,8 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemDeed
   parent: BaseItem
@@ -9766,6 +9848,8 @@
     pv: 30
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemBloodMoon
   parent: BaseItem
@@ -9811,6 +9895,8 @@
     weaponSkill: Elona.Blunt
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -9850,6 +9936,8 @@
     pv: 50
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemStaffOfInsanity
   parent: BaseItem
@@ -9896,6 +9984,8 @@
     weaponSkill: Elona.Stave
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -9943,6 +10033,8 @@
     weaponSkill: Elona.Polearm
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -9983,6 +10075,8 @@
     pv: 5
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemShopkeepersTrunk
   parent: BaseItem
@@ -13754,6 +13848,8 @@
   - type: Item
   - type: Weight
     weight: 150000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemComputer
   parent: BaseItem
@@ -13779,6 +13875,8 @@
   - type: Item
   - type: Weight
     weight: 45000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemTrainingMachine
   parent: BaseItem
@@ -13979,6 +14077,8 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemShotGun
   parent: BaseItem
@@ -14563,6 +14663,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemScrollOfRecharge
   parent: BaseItem
@@ -14976,6 +15078,8 @@
   - type: Item
   - type: Weight
     weight: 68000
+  - type: LightSource
+    id: Elona.Stove
 - type: Entity
   id: Elona.ItemFireplace
   parent: BaseItem
@@ -14999,6 +15103,8 @@
   - type: Item
   - type: Weight
     weight: 45000
+  - type: LightSource
+    id: Elona.Stove
 - type: Entity
   id: Elona.ItemStove
   parent: BaseItem
@@ -15022,6 +15128,8 @@
   - type: Item
   - type: Weight
     weight: 85000
+  - type: LightSource
+    id: Elona.Stove
 - type: Entity
   id: Elona.ItemGiantFoliagePlant
   parent: BaseItem
@@ -15183,6 +15291,8 @@
   - type: Item
   - type: Weight
     weight: 2500
+  - type: LightSource
+    id: Elona.Crystal
 - type: Entity
   id: Elona.ItemSnowMan
   parent: BaseItem
@@ -15206,6 +15316,8 @@
   - type: Item
   - type: Weight
     weight: 8500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemDeedOfFarm
   parent: BaseItem
@@ -15275,6 +15387,8 @@
   - type: Weight
     weight: 500
   - type: MusicDisc
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemRodOfWallCreation
   parent: BaseItem
@@ -15582,6 +15696,8 @@
   - type: Weight
     weight: 12500
   - type: Shelter
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSevenLeagueBoots
   parent: BaseItem
@@ -16132,6 +16248,8 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemMolotov
   parent: BaseItem
@@ -16184,6 +16302,8 @@
   - type: Weight
     weight: 500
   - type: MoneyBox
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemFreezer
   parent: BaseItem
@@ -16308,6 +16428,11 @@
   - type: Item
   - type: Weight
     weight: 150
+  - type: LightSource
+    id: Elona.Torch
+  - type: DungeonLight
+    isLit: false
+  - type: Torch
 - type: Entity
   id: Elona.ItemCandle
   parent: BaseItem
@@ -16333,6 +16458,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 200
+  - type: LightSource
+    id: Elona.Candle
 - type: Entity
   id: Elona.ItemFancyLamp
   parent: BaseItem
@@ -16356,6 +16483,8 @@
   - type: Item
   - type: Weight
     weight: 1500
+  - type: LightSource
+    id: Elona.Lamp
 - type: Entity
   id: Elona.ItemModernLampA
   parent: BaseItem
@@ -16380,6 +16509,8 @@
   - type: Item
   - type: Weight
     weight: 250000
+  - type: LightSource
+    id: Elona.PortLight
 - type: Entity
   id: Elona.ItemHandfulOfSnow
   parent: BaseItem
@@ -16403,6 +16534,8 @@
   - type: Item
   - type: Weight
     weight: 50
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemTreeOfNaked
   parent: BaseItem
@@ -16501,6 +16634,8 @@
   - type: Item
   - type: Weight
     weight: 8500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSnowBarrel
   parent: BaseItem
@@ -16548,6 +16683,8 @@
   - type: Item
   - type: Weight
     weight: 250000
+  - type: LightSource
+    id: Elona.PortLightSnow
 - type: Entity
   id: Elona.ItemStatueOfHolyCross
   parent: BaseItem
@@ -16571,6 +16708,8 @@
   - type: Item
   - type: Weight
     weight: 12000
+  - type: LightSource
+    id: Elona.PortLightSnow
 - type: Entity
   id: Elona.ItemPillar
   parent: BaseItem
@@ -16617,6 +16756,8 @@
   - type: Item
   - type: Weight
     weight: 4800
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemCargoChristmasTree
   parent: BaseItem
@@ -16638,6 +16779,8 @@
   - type: Value
     value: 3500
   - type: Item
+  - type: LightSource
+    id: Elona.CrystalHigh
 - type: Entity
   id: Elona.ItemCargoSnowMan
   parent: BaseItem
@@ -16659,6 +16802,8 @@
   - type: Value
     value: 1200
   - type: Item
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemChristmasTree
   parent: BaseItem
@@ -16684,6 +16829,8 @@
   - type: Item
   - type: Weight
     weight: 35000
+  - type: LightSource
+    id: Elona.CrystalHigh
 - type: Entity
   id: Elona.ItemGiantsShackle
   parent: BaseItem
@@ -16705,6 +16852,8 @@
     isPrecious: true
   - type: Weight
     weight: 150000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemEmptyBottle
   parent: BaseItem
@@ -16747,6 +16896,8 @@
   - type: Item
   - type: Weight
     weight: 350000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemPresidentsChair
   parent: BaseItem
@@ -16774,6 +16925,8 @@
     weight: 2400
   - type: MedalValue
     medalValue: 20
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGreenPlant
   parent: BaseItem
@@ -16889,6 +17042,8 @@
   - type: Item
   - type: Weight
     weight: 1500
+  - type: LightSource
+    id: Elona.Window
 - type: Entity
   id: Elona.ItemWindow
   parent: BaseItem
@@ -16912,6 +17067,8 @@
   - type: Item
   - type: Weight
     weight: 1600
+  - type: LightSource
+    id: Elona.Window
 - type: Entity
   id: Elona.ItemTrianglePlant
   parent: BaseItem
@@ -16981,6 +17138,8 @@
   - type: Item
   - type: Weight
     weight: 2000
+  - type: LightSource
+    id: Elona.Window
 - type: Entity
   id: Elona.ItemKingsBed
   parent: BaseItem
@@ -17386,6 +17545,8 @@
     pv: 15
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSpellbookOfIncognito
   parent: BaseItem
@@ -17486,6 +17647,8 @@
   - type: Item
   - type: Weight
     weight: 5000000
+  - type: LightSource
+    id: Elona.Gate
 - type: Entity
   id: Elona.ItemFlyingScroll
   parent: BaseItem
@@ -17848,6 +18011,8 @@
   - type: Item
   - type: Weight
     weight: 2000
+  - type: LightSource
+    id: Elona.Window
 - type: Entity
   id: Elona.ItemKingDrawer
   parent: BaseItem
@@ -18144,6 +18309,8 @@
   - type: Item
   - type: Weight
     weight: 7900
+  - type: LightSource
+    id: Elona.CandleLow
 - type: Entity
   id: Elona.ItemEasternWindow
   parent: BaseItem
@@ -18167,6 +18334,8 @@
   - type: Item
   - type: Weight
     weight: 1200
+  - type: LightSource
+    id: Elona.Window
 - type: Entity
   id: Elona.ItemChochin
   parent: BaseItem
@@ -18190,6 +18359,8 @@
   - type: Item
   - type: Weight
     weight: 500
+  - type: LightSource
+    id: Elona.WindowRed
 - type: Entity
   id: Elona.ItemPartition
   parent: BaseItem
@@ -18288,6 +18459,8 @@
     pv: 7
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemMagicFruit
   parent: BaseItem
@@ -18350,6 +18523,8 @@
     isPrecious: true
   - type: Weight
     weight: 2500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSpeedRing
   parent: BaseItem
@@ -18649,6 +18824,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemWinchesterPremium
   parent: BaseItem
@@ -18708,6 +18885,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemKumiromiScythe
   parent: BaseItem
@@ -18754,6 +18933,8 @@
     weaponSkill: Elona.Scythe
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -18801,6 +18982,8 @@
     weaponSkill: Elona.Stave
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -18847,6 +19030,8 @@
     weaponSkill: Elona.Polearm
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -18895,6 +19080,8 @@
     weaponSkill: Elona.ShortSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -18940,6 +19127,8 @@
     weaponSkill: Elona.Blunt
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -19398,6 +19587,8 @@
     weaponSkill: Elona.Axe
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -19511,6 +19702,8 @@
     isPrecious: true
   - type: Weight
     weight: 3000
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemTownBook
   parent: BaseItem
@@ -19674,6 +19867,8 @@
     dv: 8
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemPotionOfDescent
   parent: BaseItem
@@ -19733,6 +19928,8 @@
     weight: 4500
   - type: Instrument
     performanceQuality: 180
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemBookOfResurrection
   parent: BaseItem
@@ -20046,6 +20243,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -20125,6 +20324,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemClaymoreUnique
   parent: BaseItem
@@ -20169,6 +20370,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -20198,6 +20401,8 @@
     weight: 31000
   - type: Bed
     bedQuality: 2
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemStatueOfEhekatl
   parent: BaseItem
@@ -20269,6 +20474,8 @@
     hitBonus: 12
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemTwinEdge
   parent: BaseItem
@@ -20309,6 +20516,8 @@
     damageBonus: 4
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemMusicTicket
   parent: BaseItem
@@ -20393,6 +20602,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemAlud
   parent: BaseItem
@@ -20434,6 +20645,8 @@
     pv: 35
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemShieldOfThorn
   parent: BaseItem
@@ -20475,6 +20688,8 @@
     damageBonus: 14
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemCrimsonPlate
   parent: BaseItem
@@ -20516,6 +20731,8 @@
     pv: 15
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGift
   parent: BaseItem
@@ -20850,6 +21067,8 @@
     weaponSkill: Elona.Scythe
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -20891,6 +21110,8 @@
     pv: 14
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemHiryuTo
   parent: BaseItem
@@ -20937,6 +21158,8 @@
     weaponSkill: Elona.LongSword
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -21109,6 +21332,8 @@
     isPrecious: true
   - type: Weight
     weight: 7500
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemStatueOfCreator
   parent: BaseItem
@@ -21320,6 +21545,8 @@
     damageBonus: 8
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemMauserC96Custom
   parent: BaseItem
@@ -21380,6 +21607,8 @@
       - 0.2
   - type: Identify
     identifyDifficulty: 500
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemLightsabre
   parent: BaseItem
@@ -21417,6 +21646,8 @@
     diceY: 5
     pierceRate: 100
     weaponSkill: Elona.LongSword
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGaroksHammer
   parent: BaseItem
@@ -21448,6 +21679,8 @@
     weight: 5000
   - type: MedalValue
     medalValue: 94
+  - type: LightSource
+    id: Elona.Item
 - type: Entity
   id: Elona.ItemGouldsPiano
   parent: BaseItem
@@ -21481,6 +21714,8 @@
     weight: 45000
   - type: Instrument
     performanceQuality: 200
+  - type: LightSource
+    id: Elona.ItemMiddle
 - type: Entity
   id: Elona.ItemFestivalWreath
   parent: BaseItem
@@ -21501,6 +21736,8 @@
   - type: Item
   - type: Weight
     weight: 280
+  - type: LightSource
+    id: Elona.CrystalHigh
 - type: Entity
   id: Elona.ItemPedestal
   parent: BaseItem

@@ -1,0 +1,170 @@
+- type: Elona.LightSource
+  id: Elona.Lantern
+  assetID: Elona.LightLantern
+  brightness: 80
+  offset: 0, -0
+  power: 6
+  flicker: 40
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.Lamp
+  assetID: Elona.LightLantern
+  brightness: 100
+  offset: 0, -30
+  power: 8
+  flicker: 20
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.Torch
+  assetID: Elona.LightTorch
+  brightness: 50
+  offset: 0, -8
+  power: 8
+  flicker: 50
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Torch_lamp
+  assetID: Elona.LightTorch
+  brightness: 70
+  offset: 0, -28
+  power: 8
+  flicker: 70
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.TownLight
+  assetID: Elona.LightTownLight
+  brightness: 140
+  offset: 0, -48
+  power: 10
+  flicker: 20
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.PortLight
+  assetID: Elona.LightPortLight
+  brightness: 140
+  offset: 0, -62
+  power: 10
+  flicker: 20
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.PortLightSnow
+  assetID: Elona.LightTownLight
+  brightness: 100
+  offset: 0, -72
+  power: 10
+  flicker: 20
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.Stove
+  assetID: Elona.LightStove
+  brightness: 170
+  offset: 0, -4
+  power: 2
+  flicker: 80
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Crystal
+  assetID: Elona.LightCrystal
+  brightness: 30
+  offset: 0, -8
+  power: 2
+  flicker: 80
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.CrystalMiddle
+  assetID: Elona.LightCrystal
+  brightness: 30
+  offset: 0, -24
+  power: 2
+  flicker: 80
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.CrystalHigh
+  assetID: Elona.LightCrystal
+  brightness: 30
+  offset: 0, -50
+  power: 5
+  flicker: 80
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Town
+  assetID: Elona.LightTown
+  brightness: 120
+  offset: 0, -0
+  power: 15
+  flicker: 15
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.Item
+  assetID: Elona.LightItem
+  brightness: 35
+  offset: 0, -4
+  power: 1
+  flicker: 40
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.ItemMiddle
+  assetID: Elona.LightItem
+  brightness: 35
+  offset: 0, -24
+  power: 1
+  flicker: 40
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Gate
+  assetID: Elona.LightWindow
+  brightness: 20
+  offset: 0, -32
+  power: 2
+  flicker: 30
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Candle
+  assetID: Elona.LightCandle
+  brightness: 50
+  offset: 0, -48
+  power: 5
+  flicker: 70
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.CandleLow
+  assetID: Elona.LightCandle
+  brightness: 50
+  offset: 0, -16
+  power: 5
+  flicker: 70
+  alwaysOn: true
+
+- type: Elona.LightSource
+  id: Elona.Window
+  assetID: Elona.LightWindow
+  brightness: 100
+  offset: 0, -24
+  power: 3
+  flicker: 10
+  alwaysOn: false
+
+- type: Elona.LightSource
+  id: Elona.Window_red
+  assetID: Elona.LightWindowRed
+  brightness: 70
+  offset: 0, -35
+  power: 3
+  flicker: 10
+  alwaysOn: false
