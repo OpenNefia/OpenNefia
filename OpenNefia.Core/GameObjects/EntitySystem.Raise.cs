@@ -191,6 +191,12 @@ namespace OpenNefia.Core.GameObjects
         {
             IoCManager.Resolve(ref areaMan);
 
+            if (TryComp<AreaComponent>(uid, out var areaComp))
+            {
+                area = areaMan.GetArea(areaComp.AreaId);
+                return true;
+            }
+
             if (!TryMap(uid, out var map, mapMan))
             {
                 area = null;

@@ -624,6 +624,9 @@ namespace OpenNefia.Core.Maths
         public static int Wrap(int n, int lowerBound, int upperBound)
         {
             var rangeSize = upperBound - lowerBound + 1;
+            
+            if (rangeSize == 0)
+                return lowerBound;
 
             if (n < lowerBound)
                 n += rangeSize * ((lowerBound - n) / rangeSize + 1);
