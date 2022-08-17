@@ -63,10 +63,10 @@ namespace OpenNefia.Content.Damage
 
         private void ShowDamageNumbers(EntityUid entity, ref AfterDamageHPEvent args)
         {
-            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == DisplayDamageType.Always
+            if (_config.GetCVar(CCVars.MessageShowDamageNumbers) == ShowDamageNumbersType.Always
                 && _factions.GetRelationToPlayer(entity) <= Relation.Enemy)
             {
-                _mes.Display($"({args.FinalDamage})", UiColors.MesYellow, noCapitalize: true);
+                _mes.Display($"({args.FinalDamage})", UiColors.MesYellow, noCapitalize: true, entity: entity);
             }
         }
 
