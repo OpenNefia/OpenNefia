@@ -29,7 +29,6 @@ namespace OpenNefia.Content.HealthBar
     {
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly IFactionSystem _factions = default!;
 
         public override void Initialize()
         {
@@ -37,7 +36,7 @@ namespace OpenNefia.Content.HealthBar
             SubscribeEntity<EntityWoundedEvent>(SetStethoscopeTarget);
         }
 
-        [RegisterSaveData("Elona.HealthBarSystem.StethoscopeTarget")]
+        [RegisterSaveData("Elona.HealthBarSystem.LastAttackedTarget")]
         // TODO: save data requires non-nullable references...
         public EntityUid LastAttackedTarget { get; set; } = EntityUid.Invalid;
 
