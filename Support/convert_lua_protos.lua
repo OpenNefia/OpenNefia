@@ -118,12 +118,12 @@ local function rgbToHex(rgb)
 end
 
 local function enum(enumClass, x)
-  if x ~= nil then
-    return enumClass:to_string(x)
-  end
-  return function(i)
-    return enumClass:to_string(i)
-  end
+    if x ~= nil then
+        return enumClass:to_string(x)
+    end
+    return function(i)
+        return enumClass:to_string(i)
+    end
 end
 
 local function timeSpan(hours, minutes, seconds)
@@ -427,200 +427,214 @@ handlers["base.chara"] = function(from, to)
     end
 
     if from.initial_equipment then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      for k, v in pairs(from.initial_equipment) do
-        if v.is_two_handed then
-          k = "elona.two_handed_weapon"
-        end
-        local itemFilter = {}
-        if v._id ~= nil then
-          itemFilter.id = itemCategory(v._id, "Item")
-        end
-        if v.quality ~= nil then
-          itemFilter.quality = enum(Enum.Quality, v.quality)
-        end
-        if v.category ~= nil then
-          itemFilter.tags = { itemCategory(v.category, "ItemCat") }
-        end
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        for k, v in pairs(from.initial_equipment) do
+            if v.is_two_handed then
+                k = "elona.two_handed_weapon"
+            end
+            local itemFilter = {}
+            if v._id ~= nil then
+                itemFilter.id = itemCategory(v._id, "Item")
+            end
+            if v.quality ~= nil then
+                itemFilter.quality = enum(Enum.Quality, v.quality)
+            end
+            if v.category ~= nil then
+                itemFilter.tags = { itemCategory(v.category, "ItemCat") }
+            end
 
-        c.initialEquipment[dotted(k)] = {
-          itemFilter = itemFilter
-        }
-      end
+            c.initialEquipment[dotted(k)] = {
+                itemFilter = itemFilter,
+            }
+        end
     end
 
     if from._id == "elona.beggar" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.amulet_1")] = {
-        itemFilter = { id = itemCategory("elona.beggars_pendant", "Item")}, oneIn = 120
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.amulet_1"] = {
+            itemFilter = { id = itemCategory("elona.beggars_pendant", "Item") },
+            oneIn = 120,
+        }
     end
 
     if from._id == "elona.noble" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.ranged_weapon")] = {
-        itemFilter = { id = itemCategory("elona.shenas_panty", "Item")}, oneIn = 100
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.ranged_weapon"] = {
+            itemFilter = { id = itemCategory("elona.shenas_panty", "Item") },
+            oneIn = 100,
+        }
     end
 
     if from._id == "elona.asura" or from._id == "elona.mitra" or from._id == "elona.varuna" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.amulet_1")] = {
-        itemFilter = { id = itemCategory("elona.twin_edge", "Item")}, oneIn = 600
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.amulet_1"] = {
+            itemFilter = { id = itemCategory("elona.twin_edge", "Item") },
+            oneIn = 600,
+        }
     end
 
     if from._id == "elona.asura" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.amulet_1")] = {
-        itemFilter = { id = itemCategory("elona.twin_edge", "Item")}, oneIn = 600
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.amulet_1"] = {
+            itemFilter = { id = itemCategory("elona.twin_edge", "Item") },
+            oneIn = 600,
+        }
     end
 
     if from._id == "elona.rogue_archer" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.amulet_1")] = {
-        itemFilter = { id = itemCategory("elona.arbalest", "Item")}, oneIn = 250
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.amulet_1"] = {
+            itemFilter = { id = itemCategory("elona.arbalest", "Item") },
+            oneIn = 250,
+        }
     end
 
     if from._id == "elona.rock_thrower" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.ranged_weapon")] = {
-        itemFilter = { id = itemCategory("elona.vanilla_rock", "Item")}, oneIn = 200
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.ranged_weapon"] = {
+            itemFilter = { id = itemCategory("elona.vanilla_rock", "Item") },
+            oneIn = 200,
+        }
     end
 
     if from._id == "elona.blade" or from._id == "elona.blade_alpha" or from._id == "elona.blade_omega" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.girdle")] = {
-        itemFilter = { id = itemCategory("elona.crimson_plate", "Item")}, oneIn = 800
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.girdle"] = {
+            itemFilter = { id = itemCategory("elona.crimson_plate", "Item") },
+            oneIn = 800,
+        }
     end
 
     if from._id == "elona.silver_eyed_witch" then
-      c = comp(to, "EquipmentGen")
-      c.initialEquipment = c.initialEquipment or {}
-      c.initialEquipment[dotted("elona.two_handed_weapon")] = {
-        itemFilter = { id = itemCategory("elona.claymore_unique", "Item")}, oneIn = 150
-      }
+        c = comp(to, "EquipmentGen")
+        c.initialEquipment = c.initialEquipment or {}
+        c.initialEquipment[dotted "elona.two_handed_weapon"] = {
+            itemFilter = { id = itemCategory("elona.claymore_unique", "Item") },
+            oneIn = 150,
+        }
     end
 
-    if from._id == "elona.minotaur_king"
-      or from._id == "elona.hound"
-      or from._id == "elona.hand_of_the_murderer"
-      or from._id == "elona.skeleton_berserker"
-      or from._id == "elona.knight"
-      or from._id == "elona.rogue_warrior"
-      or from._id == "elona.conery"
-      or from._id == "elona.silver_eyed_witch"
+    if
+        from._id == "elona.minotaur_king"
+        or from._id == "elona.hound"
+        or from._id == "elona.hand_of_the_murderer"
+        or from._id == "elona.skeleton_berserker"
+        or from._id == "elona.knight"
+        or from._id == "elona.rogue_warrior"
+        or from._id == "elona.conery"
+        or from._id == "elona.silver_eyed_witch"
     then
-      c = comp(to, "GenTwoHandedWeapon")
+        c = comp(to, "GenTwoHandedWeapon")
     end
 
     if from._id == "elona.lomias" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.secret_experience_of_lomias", "Item")}, oneIn = 4 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.secret_experience_of_lomias", "Item") }, oneIn = 4 },
+        }
     end
 
     if from._id == "elona.rabbit" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.rabbits_tail", "Item")}, oneIn = 200 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.rabbits_tail", "Item") }, oneIn = 200 },
+        }
     end
 
     if from._id == "elona.zombie" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.potion_of_descent", "Item")}, oneIn = 100 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.potion_of_descent", "Item") }, oneIn = 100 },
+        }
     end
 
     if from._id == "elona.executioner" or from._id == "elona.messenger_of_death" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.scroll_of_contingency", "Item")}, oneIn = 150 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.scroll_of_contingency", "Item") }, oneIn = 150 },
+        }
     end
 
     if from._id == "elona.imp" or from._id == "elona.nether_imp" or from._id == "elona.chaos_imp" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.scroll_of_name", "Item")}, oneIn = 600 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.scroll_of_name", "Item") }, oneIn = 600 },
+        }
     end
 
     if from._id == "elona.lesser_mummy" or from._id == "elona.mummy" or from._id == "elona.greater_mummy" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.book_of_resurrection", "Item")}, oneIn = 300 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.book_of_resurrection", "Item") }, oneIn = 300 },
+        }
     end
 
     if from._id == "elona.cupid_of_love" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.happy_bed", "Item")}, oneIn = 140 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.happy_bed", "Item") }, oneIn = 140 },
+        }
     end
 
-    if from._id == "elona.rogue_boss" or from._id == "elona.rogue_warrior" or from._id == "elona.rogue_archer" or from._id == "elona.rogue_wizard" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.blue_capsule_drug", "Item")}, oneIn = 90 }
-      }
+    if
+        from._id == "elona.rogue_boss"
+        or from._id == "elona.rogue_warrior"
+        or from._id == "elona.rogue_archer"
+        or from._id == "elona.rogue_wizard"
+    then
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.blue_capsule_drug", "Item") }, oneIn = 90 },
+        }
     end
 
     if from._id == "elona.hermit_crab" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.unknown_shell", "Item")}, oneIn = 100 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.unknown_shell", "Item") }, oneIn = 100 },
+        }
     end
 
     if from._id == "elona.mine_dog" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.mine", "Item")}, oneIn = 3 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.mine", "Item") }, oneIn = 3 },
+        }
     end
 
     if from._id == "elona.deformed_eye" or from._id == "elona.impure_eye" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.potion_of_evolution", "Item")}, oneIn = 150 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.potion_of_evolution", "Item") }, oneIn = 150 },
+        }
     end
 
     if from._id == "elona.silver_bell" then
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.small_medal", "Item")}, oneIn = 2 }
-      }
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.small_medal", "Item") }, oneIn = 2 },
+        }
     end
 
     if from._id == "elona.silver_bell" then
-      c = comp(to, "Money")
-      c.initialPlatinum = intRange(1, 4)
-      c = comp(to, "LootType")
-      c.lootDrops = {
-        { itemFilter = { id = itemCategory("elona.small_medal", "Item")}, oneIn = 2 }
-      }
+        c = comp(to, "Money")
+        c.initialPlatinum = intRange(1, 4)
+        c = comp(to, "LootType")
+        c.lootDrops = {
+            { itemFilter = { id = itemCategory("elona.small_medal", "Item") }, oneIn = 2 },
+        }
     end
 
     if from._id == "elona.gold_bell" then
-      c = comp(to, "GoldLoot")
+        c = comp(to, "GoldLoot")
     end
 end
 

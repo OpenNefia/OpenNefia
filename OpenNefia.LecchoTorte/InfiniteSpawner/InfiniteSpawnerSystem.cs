@@ -4,6 +4,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
@@ -15,6 +16,7 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
 
         public override void Initialize()
         {
+            SubscribeBroadcast<MapEnterEvent>(HandleMapEntered);
             SubscribeComponent<InfiniteSpawnerComponent, NPCTurnStartedEvent>(HandleTurnStarted);
             SubscribeComponent<InfiniteSpawnerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
             SubscribeComponent<InfiniteSpawnedComponent, EntityDeletedEvent>(HandleDeleted);
@@ -23,14 +25,25 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
 
         private void HandleTurnStarted(EntityUid uid, InfiniteSpawnerComponent component, ref NPCTurnStartedEvent args)
         {
-            if (!TryMap(uid, out var map))
+            SpawnIfMissing(component);
+        }
+
+        private void HandleMapEntered(MapEnterEvent args)
+        {
+            foreach (var spawner in _lookup.EntityQueryInMap<InfiniteSpawnerComponent>(args.Map))
+                SpawnIfMissing(spawner);
+        }
+
+        private void SpawnIfMissing(InfiniteSpawnerComponent component)
+        {
+            if (!TryMap(component.Owner, out var map))
                 return;
 
             var spawned = _lookup.EntityQueryInMap<InfiniteSpawnedComponent>(map)
-                .Any(s => s.Spawner == uid);
+                .Any(s => s.Spawner == component.Owner);
 
             if (!spawned)
-                SpawnEntity(uid, component);
+                SpawnEntity(component.Owner, component);
         }
 
         private void SpawnEntity(EntityUid uid, InfiniteSpawnerComponent? component = null)

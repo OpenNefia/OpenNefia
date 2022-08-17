@@ -101,7 +101,8 @@ namespace OpenNefia.Content.EntityGen
             var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
             var originalCount = count;
 
-            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out var commonArgs))
+            EntityGenCommonArgs? commonArgs = null;
+            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out commonArgs))
                 count = commonArgs.Amount;
 
             if (EntityManager.HasComponent<StackComponent>(ent))
@@ -132,6 +133,11 @@ namespace OpenNefia.Content.EntityGen
 
                 Logger.WarningS("entity.gen", $"Entity {ent} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
                 return null;
+            }
+
+            if (commonArgs != null && !commonArgs.NoStack)
+            {
+                _stacks.TryStackAtSamePos(ent, showMessage: false);
             }
 
             return ent;

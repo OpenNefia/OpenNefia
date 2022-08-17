@@ -10,6 +10,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Areas
 {
@@ -25,6 +26,7 @@ namespace OpenNefia.Content.Areas
     public sealed class AreaEntranceSystem : EntitySystem, IAreaEntranceSystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -34,8 +36,15 @@ namespace OpenNefia.Content.Areas
 
         private void DisplayAreaEntranceMessage(EntityUid uid, WorldMapEntranceComponent component, EntitySteppedOnEvent args)
         {
+            if (!_gameSession.IsPlayer(args.Stepper))
+                return;
+
+            var areaId = component.Entrance.MapIdSpecifier.GetAreaId();
+            if (areaId == null || !TryArea(areaId.Value, out var area))
+                return;
+
             var ev = new GetAreaEntranceMessageEvent();
-            RaiseEvent(uid, ev);
+            RaiseEvent(area.AreaEntityUid, ev);
             if (!string.IsNullOrEmpty(ev.OutMessage))
                 _mes.Display(ev.OutMessage);
         }
@@ -45,9 +54,7 @@ namespace OpenNefia.Content.Areas
             if (!TryComp<WorldMapEntranceComponent>(uid, out var worldMapEntrance))
                 return;
 
-            var areaId = worldMapEntrance.Entrance.MapIdSpecifier.GetAreaId();
-            if (areaId == null || !TryArea(areaId.Value, out var area) 
-                || !TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance)
+            if (!TryComp<AreaEntranceComponent>(uid, out var areaEntrance)
                 || areaEntrance.EntranceMessage == null)
                 return;
 

@@ -51,7 +51,6 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
         [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IDeferredEventsSystem _deferredEvs = default!;
@@ -64,7 +63,6 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IFameSystem _fame = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
-        [Dependency] private readonly ICharaSystem _charas = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
 
         public override void Initialize()
@@ -72,13 +70,17 @@ namespace OpenNefia.Content.Nefia
             SubscribeComponent<AreaNefiaComponent, AreaEnteredEvent>(OnNefiaAreaEntered, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, GetAreaEntranceMessageEvent>(GetAreaEntranceMessage);
             SubscribeComponent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss);
             SubscribeEntity<MapCalcDefaultMusicEvent>(SetNefiaMusic, priority: EventPriorities.High);
 
             SubscribeBroadcast<GenerateRandomAreaEvent>(GenerateRandomNefia, priority: EventPriorities.VeryLow);
 
+            // TODO: defer map name to area name by default?
             SubscribeComponent<MapComponent, GetDisplayNameEventArgs>(GetNefiaMapName, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, GetDisplayNameEventArgs>(GetNefiaAreaName, priority: EventPriorities.High);
+
             SubscribeComponent<NefiaBossComponent, GetDisplayNameEventArgs>(AppendBossLevelToName, priority: EventPriorities.High);
             SubscribeEntity<MapLeaveEventArgs>(RemoveNefiaBossOnMapLeave);
             SubscribeEntity<BeforeUseMapEntranceEvent>(CheckNefiaBossBeforeUseEntrance);
@@ -95,6 +97,11 @@ namespace OpenNefia.Content.Nefia
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)
         {
             args.IsActive |= areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
+        }
+
+        private void GetAreaEntranceMessage(EntityUid uid, AreaNefiaComponent component, GetAreaEntranceMessageEvent args)
+        {
+            args.OutMessage = Loc.GetString("Elona.Nefia.EntranceMessage", ("area", uid), ("level", component.BaseLevel));
         }
 
         private void SpawnNefiaBoss(EntityUid uid, AreaNefiaComponent areaNefia, AreaMapInitializeEvent args)
@@ -211,6 +218,14 @@ namespace OpenNefia.Content.Nefia
         {
             if (!TryMap(uid, out var map) || !TryArea(map, out var area)
                 || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            GetNefiaAreaName(uid, areaNefia, ref args);
+        }
+
+        private void GetNefiaAreaName(EntityUid uid, AreaNefiaComponent areaNefia, ref GetDisplayNameEventArgs args)
+        {
+            if (!TryArea(uid, out var area))
                 return;
 
             // !!! Recursion alert !!!

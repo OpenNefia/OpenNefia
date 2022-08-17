@@ -83,9 +83,9 @@ namespace OpenNefia.Content.SenseQuality
                 return true;
 
             return !(_effects.HasEffect(ent, Protos.StatusEffect.Confusion)
-             || _effects.HasEffect(ent, Protos.StatusEffect.Sleep)
-             || _effects.HasEffect(ent, Protos.StatusEffect.Paralysis)
-             || _effects.HasEffect(ent, Protos.StatusEffect.Choking));
+                  || _effects.HasEffect(ent, Protos.StatusEffect.Sleep)
+                  || _effects.HasEffect(ent, Protos.StatusEffect.Paralysis)
+                  || _effects.HasEffect(ent, Protos.StatusEffect.Choking));
         }
 
         public void SenseQuality(EntityUid ent)
@@ -105,18 +105,16 @@ namespace OpenNefia.Content.SenseQuality
                 if (power > _rand.Next(proc * 5))
                 {
                     var unidentifiedName = _names.GetDisplayName(item.Owner);
+                    _identify.Identify(item.Owner, IdentifyState.Full, identify);
 
-                    // TODO
-                    var proto = MetaData(ent).EntityPrototype;
-                    if (proto != null)
-                        _entityGenMemory.SetIdentified(proto.GetStrongID(), true);
+                    if (TryProtoID(ent, out var protoID))
+                        _entityGenMemory.SetIdentified(protoID.Value, true);
 
                     if (_config.GetCVar(CCVars.GameHideAutoidentify) != AutoIdentifyType.All)
                     {
-                        _mes.Display(Loc.GetString("Elona.SenseQuality.FullyIdentified", ("unidentifiedName", unidentifiedName), ("identifiedName", _names.GetDisplayName(item.Owner))));
+                        _mes.Display(Loc.GetString("Elona.SenseQuality.Identify.FullyIdentified", ("unidentifiedName", unidentifiedName), ("identifiedName", _names.GetDisplayName(item.Owner))));
                     }
 
-                    _identify.Identify(item.Owner, IdentifyState.Full, identify);
                     _skills.GainSkillExp(ent, Protos.Skill.SenseQuality, 50);
                 }
 
@@ -126,7 +124,7 @@ namespace OpenNefia.Content.SenseQuality
                     {
                         if (TryComp<QualityComponent>(item.Owner, out var quality))
                         {
-                            _mes.Display(Loc.GetString("Elona.SenseQuality.AlmostIdentified", ("unidentifiedName", _names.GetDisplayName(item.Owner)), ("quality", quality.Quality.Base.GetLocalizedName())));
+                            _mes.Display(Loc.GetString("Elona.SenseQuality.Identify.AlmostIdentified", ("unidentifiedName", _names.GetDisplayName(item.Owner)), ("quality", quality.Quality.Base.GetLocalizedName())));
                         }
 
                         _identify.Identify(item.Owner, IdentifyState.Quality, identify);

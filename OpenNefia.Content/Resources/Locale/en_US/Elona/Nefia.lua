@@ -5,6 +5,9 @@ Elona.Nefia = {
     Level = function(floorNumber)
         return ("%s"):format(_.ordinal(floorNumber))
     end,
+    EntranceMessage = function(area, level)
+        return ("You see an entrance leading to %s. (Approximate danger level: %s) "):format(_.name(area, true), level)
+    end,
 
     Event = {
         ReachedDeepestLevel = "It seems you have reached the deepest level of this dungeon.",
