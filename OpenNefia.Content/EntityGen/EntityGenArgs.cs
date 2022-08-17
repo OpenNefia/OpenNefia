@@ -2,6 +2,7 @@
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.EntityGen
 {
+    [ImplicitDataDefinitionForInheritors]
     public abstract class EntityGenArgs
     {
     }
@@ -35,36 +37,43 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// Amount of this entity to spawn. If null, a random amount is chosen.
         /// </summary>
+        [DataField]
         public int? Amount { get; set; }
 
         /// <summary>
         /// Level to set the generated entity to.
         /// </summary>
+        [DataField]
         public int? LevelOverride { get; set; }
 
         /// <summary>
         /// Level for random generation purposes.
         /// </summary>
+        [DataField]
         public int MinLevel { get; set; }
 
         /// <summary>
         /// Quality of the entity to spawn.
         /// </summary>
+        [DataField]
         public Quality? Quality { get; set; }
 
         /// <summary>
         /// If true, the entity will not be stacked with anything on the same tile.
         /// </summary>
+        [DataField]
         public bool NoStack { get; set; } = false;
 
         /// <summary>
         /// If true, the entity's type will not be randomly modified. Applies to things like Shade generation.
         /// </summary>
+        [DataField]
         public bool NoRandomModify { get; set; } = false;
 
         /// <summary>
         /// If true, the <see cref="EntityGeneratedEvent"/> will not be fired when spawning this entity.
         /// </summary>
+        [DataField]
         public bool NoFireGeneratedEvent { get; set; } = false;
     }
 
@@ -81,16 +90,19 @@ namespace OpenNefia.Content.EntityGen
         /// - Can generate any kind of home deed.
         /// - Can generate cooked food in addition to raw food.
         /// </remarks>
+        [DataField]
         public bool IsShop { get; set; } = false;
 
         /// <summary>
         /// If true, do not log this item in the oracle artifacts log if it is unique.
         /// </summary>
+        [DataField]
         public bool NoOracle { get; set; } = false;
 
         /// <summary>
         /// Own state to generate this item/pickable with.
         /// </summary>
+        [DataField]
         public OwnState OwnState { get; set; } = OwnState.None;
     }
 
@@ -99,16 +111,19 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// Number of turns this mef will last for.
         /// </summary>
+        [DataField]
         public int TurnDuration { get; set; } = 10;
 
         /// <summary>
         /// Power of this mef.
         /// </summary>
+        [DataField]
         public int Power { get; set; } = 10;
 
         /// <summary>
         /// The entity responsible for creating this mef.
         /// </summary>
+        [DataField]
         public EntityUid? Origin { get; set; } = null;
     }
 }

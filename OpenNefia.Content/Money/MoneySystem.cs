@@ -1,24 +1,20 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using OpenNefia.Content.Currency;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.Shopkeeper;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Audio;
-using OpenNefia.Content.Currency;
-using OpenNefia.Content.Levels;
-using OpenNefia.Content.Maps;
-using OpenNefia.Content.Qualities;
-using OpenNefia.Content.Shopkeeper;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Money
 {
@@ -35,6 +31,7 @@ namespace OpenNefia.Content.Money
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
 
         public override void Initialize()
         {
@@ -42,8 +39,11 @@ namespace OpenNefia.Content.Money
             SubscribeComponent<GoldPieceComponent, EntityGeneratedEvent>(Generated_GoldPiece, priority: EventPriorities.Lowest);
             SubscribeComponent<GoldPieceComponent, GetVerbsEventArgs>(GetVerbs_GoldPiece);
 
-            SubscribeComponent<PlatinumCoinComponent, GetVerbsEventArgs>(GetVerbs_PlatinumCoin);
+            SubscribeComponent<PlatinumCoinComponent, EntityBeingGeneratedEvent>(BeingGenerated_PlatinumCoin);
             SubscribeComponent<PlatinumCoinComponent, EntityGeneratedEvent>(Generated_PlatinumCoin, priority: EventPriorities.Lowest);
+            SubscribeComponent<PlatinumCoinComponent, GetVerbsEventArgs>(GetVerbs_PlatinumCoin);
+
+            SubscribeComponent<MoneyComponent, EntityBeingGeneratedEvent>(BeingGenerated_Money);
         }
 
         private int CalcInitialGold(EntityUid item, EntityCoordinates coords)
@@ -89,6 +89,15 @@ namespace OpenNefia.Content.Money
             _stacks.SetCount(uid, initialGold);
         }
 
+        private void Generated_GoldPiece(EntityUid uid, GoldPieceComponent component, ref EntityGeneratedEvent args)
+        {
+            if (TryComp<MoneyComponent>(args.Coords.EntityId, out var money))
+            {
+                money.Gold += _stacks.GetCount(uid);
+                EntityManager.DeleteEntity(uid);
+            }
+        }
+
         private void GetVerbs_GoldPiece(EntityUid uid, GoldPieceComponent component, GetVerbsEventArgs args)
         {
             if (HasComp<MoneyComponent>(args.Source))
@@ -96,25 +105,6 @@ namespace OpenNefia.Content.Money
                 args.OutVerbs.RemoveWhere(v => v.VerbType == PickableSystem.VerbTypePickUp);
                 args.OutVerbs.Add(new Verb(PickableSystem.VerbTypePickUp, "Pick Up Gold Piece", () => PickUpGoldPiece(args.Source, args.Target),
                     priority: EventPriorities.High));
-            }
-        }
-
-        private void GetVerbs_PlatinumCoin(EntityUid uid, PlatinumCoinComponent component, GetVerbsEventArgs args)
-        {
-            if (HasComp<MoneyComponent>(args.Source))
-            {
-                args.OutVerbs.RemoveWhere(v => v.VerbType == PickableSystem.VerbTypePickUp);
-                args.OutVerbs.Add(new Verb(PickableSystem.VerbTypePickUp, "Pick Up Platinum Coin", () => PickUpPlatinumCoin(args.Source, args.Target),
-                    priority: EventPriorities.High));
-            }
-        }
-
-        private void Generated_GoldPiece(EntityUid uid, GoldPieceComponent component, ref EntityGeneratedEvent args)
-        {
-            if (TryComp<MoneyComponent>(args.Coords.EntityId, out var money))
-            {
-                money.Gold += _stacks.GetCount(uid);
-                EntityManager.DeleteEntity(uid);
             }
         }
 
@@ -132,12 +122,30 @@ namespace OpenNefia.Content.Money
             return TurnResult.Succeeded;
         }
 
+        private void BeingGenerated_PlatinumCoin(EntityUid uid, PlatinumCoinComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (TryComp<MoneyComponent>(args.Coords.EntityId, out var money) && money.InitialPlatinum != null && args.OriginalAmount == null)
+            {
+                _stacks.SetCount(uid, _rand.NextIntInRange(money.InitialPlatinum.Value));
+            }
+        }
+
         private void Generated_PlatinumCoin(EntityUid uid, PlatinumCoinComponent component, ref EntityGeneratedEvent args)
         {
             if (TryComp<MoneyComponent>(args.Coords.EntityId, out var money))
             {
                 money.Platinum += _stacks.GetCount(uid);
                 EntityManager.DeleteEntity(uid);
+            }
+        }
+
+        private void GetVerbs_PlatinumCoin(EntityUid uid, PlatinumCoinComponent component, GetVerbsEventArgs args)
+        {
+            if (HasComp<MoneyComponent>(args.Source))
+            {
+                args.OutVerbs.RemoveWhere(v => v.VerbType == PickableSystem.VerbTypePickUp);
+                args.OutVerbs.Add(new Verb(PickableSystem.VerbTypePickUp, "Pick Up Platinum Coin", () => PickUpPlatinumCoin(args.Source, args.Target),
+                    priority: EventPriorities.High));
             }
         }
 
@@ -171,6 +179,14 @@ namespace OpenNefia.Content.Money
             if (money.Gold < gold / 2)
                 money.Gold = gold;
             // <<<<<<<< shade2/calculation.hsp:707 	return ..
+        }
+
+        private void BeingGenerated_Money(EntityUid uid, MoneyComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (component.InitialPlatinum != null && TryComp<InventoryComponent>(uid, out var inv))
+            {
+                _itemGen.GenerateItem(inv.Container, Protos.Item.PlatinumCoin, _rand.NextIntInRange(component.InitialPlatinum.Value));
+            }
         }
     }
 }
