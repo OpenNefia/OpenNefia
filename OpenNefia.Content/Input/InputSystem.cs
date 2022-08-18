@@ -97,14 +97,21 @@ namespace OpenNefia.Content.Input
             //}
             _cmdStates.SetState(function, message.State);
 
-            foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
+            try
             {
-                var result = handler.HandleCmdMessage(session, message);
-                if (result != null)
+                foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
                 {
-                    _turnOrder.AdvanceStateFromPlayer(result.Value);
-                    return true;
+                    var result = handler.HandleCmdMessage(session, message);
+                    if (result != null)
+                    {
+                        _turnOrder.AdvanceStateFromPlayer(result.Value);
+                        return true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
 
             return false;

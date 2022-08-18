@@ -4,35 +4,38 @@
   hspIds:
     elona122: 1001
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipBody
-      - tags:
-        - Elona.ItemCatEquipHead
-      - tags:
-        - Elona.ItemCatEquipWrist
-      - tags:
-        - Elona.ItemCatEquipLeg
-      - tags:
-        - Elona.ItemCatEquipShield
-      - tags:
-        - Elona.ItemCatEquipCloak
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipRanged
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipBody
+        - tags:
+          - Elona.ItemCatEquipHead
+        - tags:
+          - Elona.ItemCatEquipWrist
+        - tags:
+          - Elona.ItemCatEquipLeg
+        - tags:
+          - Elona.ItemCatEquipShield
+        - tags:
+          - Elona.ItemCatEquipCloak
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipRanged
     oneIn: 3
 - type: Elona.ShopInventory
   id: Elona.FoodVendor
   hspIds:
     elona122: 1002
   rules:
-  - action: !type:AbortShopInventoryAction {}
+  - modifier:
+      action: !type:AbortShopInventoryAction {}
     allButOneIn: 3
   - modifier:
       tags:
@@ -46,29 +49,32 @@
   hspIds:
     elona122: 1003
   rules:
-  - action: !type:AbortShopInventoryAction {}
+  - modifier:
+      action: !type:AbortShopInventoryAction {}
     allButOneIn: 3
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatFoodFlour
-      - tags:
-        - Elona.ItemCatFoodFlour
-      - tags:
-        - Elona.ItemCatFoodNoodle
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatFoodFlour
+        - tags:
+          - Elona.ItemCatFoodFlour
+        - tags:
+          - Elona.ItemCatFoodNoodle
 - type: Elona.ShopInventory
   id: Elona.MagicVendor
   hspIds:
     elona122: 1004
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatDrinkPotion
-      - tags:
-        - Elona.ItemCatScroll
-      - tags:
-        - Elona.ItemCatDrink
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatDrinkPotion
+        - tags:
+          - Elona.ItemCatScroll
+        - tags:
+          - Elona.ItemCatDrink
   - modifier:
       tags:
       - Elona.ItemCatSpellbook
@@ -100,18 +106,19 @@
   hspIds:
     elona122: 1006
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipAmmo
-      - tags:
-        - Elona.ItemCatFurniture
-      - tags:
-        - Elona.ItemCatEquipBack
-      - tags:
-        - Elona.ItemCatOre
-      - tags:
-        - Elona.ItemCatMiscItem
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipAmmo
+        - tags:
+          - Elona.ItemCatFurniture
+        - tags:
+          - Elona.ItemCatEquipBack
+        - tags:
+          - Elona.ItemCatOre
+        - tags:
+          - Elona.ItemCatMiscItem
   - modifier:
       id: Elona.ItemSmallGambleChest
     oneIn: 20
@@ -119,51 +126,53 @@
       tags:
       - Elona.ItemCatCargoFood
     oneIn: 8
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - id: Elona.ItemDeed
-      - id: Elona.ItemDeedOfMuseum
-      - id: Elona.ItemDeedOfShop
-      - id: Elona.ItemDeedOfFarm
-      - id: Elona.ItemDeedOfStorageHouse
-      - id: Elona.ItemShelter
-      - id: Elona.ItemDeedOfRanch
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - id: Elona.ItemDeed
+        - id: Elona.ItemDeedOfMuseum
+        - id: Elona.ItemDeedOfShop
+        - id: Elona.ItemDeedOfFarm
+        - id: Elona.ItemDeedOfStorageHouse
+        - id: Elona.ItemShelter
+        - id: Elona.ItemDeedOfRanch
     oneIn: 10
 - type: Elona.ShopInventory
   id: Elona.Blackmarket
   hspIds:
     elona122: 1007
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipAmmo
-      - tags:
-        - Elona.ItemCatEquipHead
-      - tags:
-        - Elona.ItemCatEquipBody
-      - tags:
-        - Elona.ItemCatEquipBack
-      - tags:
-        - Elona.ItemCatEquipCloak
-      - tags:
-        - Elona.ItemCatEquipLeg
-      - tags:
-        - Elona.ItemCatEquipWrist
-      - tags:
-        - Elona.ItemCatEquipShield
-      - tags:
-        - Elona.ItemCatEquipRing
-      - tags:
-        - Elona.ItemCatEquipNeck
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipAmmo
+        - tags:
+          - Elona.ItemCatEquipHead
+        - tags:
+          - Elona.ItemCatEquipBody
+        - tags:
+          - Elona.ItemCatEquipBack
+        - tags:
+          - Elona.ItemCatEquipCloak
+        - tags:
+          - Elona.ItemCatEquipLeg
+        - tags:
+          - Elona.ItemCatEquipWrist
+        - tags:
+          - Elona.ItemCatEquipShield
+        - tags:
+          - Elona.ItemCatEquipRing
+        - tags:
+          - Elona.ItemCatEquipNeck
   - modifier:
       quality: Good
     oneIn: 3
@@ -185,36 +194,37 @@
   - modifier:
       tags:
       - Elona.ItemCatRod
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipAmmo
-      - tags:
-        - Elona.ItemCatEquipHead
-      - tags:
-        - Elona.ItemCatEquipBody
-      - tags:
-        - Elona.ItemCatEquipBack
-      - tags:
-        - Elona.ItemCatEquipCloak
-      - tags:
-        - Elona.ItemCatEquipLeg
-      - tags:
-        - Elona.ItemCatEquipWrist
-      - tags:
-        - Elona.ItemCatEquipShield
-      - tags:
-        - Elona.ItemCatEquipRing
-      - tags:
-        - Elona.ItemCatEquipNeck
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipAmmo
+        - tags:
+          - Elona.ItemCatEquipHead
+        - tags:
+          - Elona.ItemCatEquipBody
+        - tags:
+          - Elona.ItemCatEquipBack
+        - tags:
+          - Elona.ItemCatEquipCloak
+        - tags:
+          - Elona.ItemCatEquipLeg
+        - tags:
+          - Elona.ItemCatEquipWrist
+        - tags:
+          - Elona.ItemCatEquipShield
+        - tags:
+          - Elona.ItemCatEquipRing
+        - tags:
+          - Elona.ItemCatEquipNeck
     oneIn: 3
   - modifier:
       tags:
@@ -236,15 +246,16 @@
       tags:
       - Elona.ItemCatCargoFood
     oneIn: 10
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - id: Elona.ItemDeed
-      - id: Elona.ItemDeedOfMuseum
-      - id: Elona.ItemDeedOfShop
-      - id: Elona.ItemDeedOfFarm
-      - id: Elona.ItemDeedOfStorageHouse
-      - id: Elona.ItemShelter
-      - id: Elona.ItemDeedOfRanch
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - id: Elona.ItemDeed
+        - id: Elona.ItemDeedOfMuseum
+        - id: Elona.ItemDeedOfShop
+        - id: Elona.ItemDeedOfFarm
+        - id: Elona.ItemDeedOfStorageHouse
+        - id: Elona.ItemShelter
+        - id: Elona.ItemDeedOfRanch
     oneIn: 10
   - modifier:
       id: Elona.ItemDeedOfHeirship
@@ -266,36 +277,37 @@
   hspIds:
     elona122: 1010
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipAmmo
-      - tags:
-        - Elona.ItemCatEquipHead
-      - tags:
-        - Elona.ItemCatEquipBody
-      - tags:
-        - Elona.ItemCatEquipBack
-      - tags:
-        - Elona.ItemCatEquipCloak
-      - tags:
-        - Elona.ItemCatEquipLeg
-      - tags:
-        - Elona.ItemCatEquipWrist
-      - tags:
-        - Elona.ItemCatEquipShield
-      - tags:
-        - Elona.ItemCatEquipRing
-      - tags:
-        - Elona.ItemCatEquipNeck
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipAmmo
+        - tags:
+          - Elona.ItemCatEquipHead
+        - tags:
+          - Elona.ItemCatEquipBody
+        - tags:
+          - Elona.ItemCatEquipBack
+        - tags:
+          - Elona.ItemCatEquipCloak
+        - tags:
+          - Elona.ItemCatEquipLeg
+        - tags:
+          - Elona.ItemCatEquipWrist
+        - tags:
+          - Elona.ItemCatEquipShield
+        - tags:
+          - Elona.ItemCatEquipRing
+        - tags:
+          - Elona.ItemCatEquipNeck
   - modifier:
       quality: Good
   - modifier:
@@ -336,39 +348,50 @@
   - modifier:
       tags:
       - Elona.ItemCatFurniture
-  - itemIndex: 0
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 0
     modifier:
       id: Elona.ItemMicrowaveOven
-  - itemIndex: 1
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 1
     modifier:
       id: Elona.ItemShopStrongbox
-  - itemIndex: 2
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 2
     modifier:
       id: Elona.ItemRegister
-  - itemIndex: 3
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 3
     modifier:
       id: Elona.ItemSalaryChest
-  - itemIndex: 4
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 4
     modifier:
       id: Elona.ItemFreezer
-  - itemIndex: 5
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 5
     modifier:
       id: Elona.ItemPlaybackDisc
-  - itemIndex: 6
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 6
     modifier:
       id: Elona.ItemHouseBoard
   - allButOneIn: 3
     predicate: !type:IndexShopInventoryPredicate
       comparison: GreaterThan
       itemIndex: 10
-    action: !type:AbortShopInventoryAction {}
-  - itemIndex: 19
+    modifier:
+      action: !type:AbortShopInventoryAction {}
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 19
     modifier:
       id: Elona.ItemRedTreasureMachine
-  - itemIndex: 20
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 20
     modifier:
       id: Elona.ItemBlueTreasureMachine
-  - itemIndex: 21
+  - predicate: !type:IndexShopInventoryPredicate
+      itemIndex: 21
     modifier:
       id: Elona.ItemTaxMastersTaxBox
 - type: Elona.ShopInventory
@@ -376,20 +399,22 @@
   hspIds:
     elona122: 1013
   rules:
-  - action: !type:AbortShopInventoryAction {}
+  - modifier:
+      action: !type:AbortShopInventoryAction {}
     allButOneIn: 3
   - modifier:
       tags:
       - Elona.ItemCatBook
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - id: Elona.ItemDeed
-      - id: Elona.ItemDeedOfMuseum
-      - id: Elona.ItemDeedOfShop
-      - id: Elona.ItemDeedOfFarm
-      - id: Elona.ItemDeedOfStorageHouse
-      - id: Elona.ItemShelter
-      - id: Elona.ItemDeedOfRanch
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - id: Elona.ItemDeed
+        - id: Elona.ItemDeedOfMuseum
+        - id: Elona.ItemDeedOfShop
+        - id: Elona.ItemDeedOfFarm
+        - id: Elona.ItemDeedOfStorageHouse
+        - id: Elona.ItemShelter
+        - id: Elona.ItemDeedOfRanch
     oneIn: 3
   - modifier:
       id: Elona.ItemDeedOfHeirship
@@ -406,14 +431,15 @@
   hspIds:
     elona122: 1015
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatMiscItem
-      - tags:
-        - Elona.ItemCatEquipRing
-      - tags:
-        - Elona.ItemCatEquipNeck
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatMiscItem
+        - tags:
+          - Elona.ItemCatEquipRing
+        - tags:
+          - Elona.ItemCatEquipNeck
   - modifier:
       quality: Good
     oneIn: 3
@@ -473,7 +499,8 @@
   hspIds:
     elona122: 1020
   rules:
-  - action: !type:SpellWriterShopInventoryAction
+  - modifier:
+      action: !type:SpellWriterShopInventoryAction
   events:
   - type: Shopkeeper.P_ShopInventoryAfterGenerateItemEvent
     system: Shopkeeper.VanillaShopInventoriesSystem
@@ -523,36 +550,37 @@
   hspIds:
     elona122: 2003
   rules:
-  - action: !type:ChoicesShopInventoryAction
-      choices:
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipMelee
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipRanged
-      - tags:
-        - Elona.ItemCatEquipAmmo
-      - tags:
-        - Elona.ItemCatEquipHead
-      - tags:
-        - Elona.ItemCatEquipBody
-      - tags:
-        - Elona.ItemCatEquipBack
-      - tags:
-        - Elona.ItemCatEquipCloak
-      - tags:
-        - Elona.ItemCatEquipLeg
-      - tags:
-        - Elona.ItemCatEquipWrist
-      - tags:
-        - Elona.ItemCatEquipShield
-      - tags:
-        - Elona.ItemCatEquipRing
-      - tags:
-        - Elona.ItemCatEquipNeck
+  - modifier:
+      action: !type:ChoicesShopInventoryAction
+        choices:
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipMelee
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipRanged
+        - tags:
+          - Elona.ItemCatEquipAmmo
+        - tags:
+          - Elona.ItemCatEquipHead
+        - tags:
+          - Elona.ItemCatEquipBody
+        - tags:
+          - Elona.ItemCatEquipBack
+        - tags:
+          - Elona.ItemCatEquipCloak
+        - tags:
+          - Elona.ItemCatEquipLeg
+        - tags:
+          - Elona.ItemCatEquipWrist
+        - tags:
+          - Elona.ItemCatEquipShield
+        - tags:
+          - Elona.ItemCatEquipRing
+        - tags:
+          - Elona.ItemCatEquipNeck
   - modifier:
       quality: Good
   - modifier:

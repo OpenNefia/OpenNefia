@@ -26,7 +26,7 @@
   alwaysOn: true
 
 - type: Elona.LightSource
-  id: Elona.Torch_lamp
+  id: Elona.TorchLamp
   assetID: Elona.LightTorch
   brightness: 70
   offset: 0, -28
@@ -161,7 +161,7 @@
   alwaysOn: false
 
 - type: Elona.LightSource
-  id: Elona.Window_red
+  id: Elona.WindowRed
   assetID: Elona.LightWindowRed
   brightness: 70
   offset: 0, -35
