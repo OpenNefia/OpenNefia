@@ -1,0 +1,5 @@
+- type: Elona.Dialog
+  id: LecchoTorte.PleaseMove
+  nodes:
+    Execute: !type:DialogCallbackNode
+      callback: OpenNefia.LecchoTorte.PleaseMove.PleaseMoveSystem:PleaseMove_Execute
