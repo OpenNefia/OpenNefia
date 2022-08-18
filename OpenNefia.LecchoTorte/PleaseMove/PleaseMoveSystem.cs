@@ -21,6 +21,7 @@ using OpenNefia.Core.Audio;
 using Love;
 using OpenNefia.Content.World;
 using NetVips;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.LecchoTorte.PleaseMove
 {
@@ -74,8 +75,7 @@ namespace OpenNefia.LecchoTorte.PleaseMove
             dialog.Interest -= 20;
             dialog.InterestRenewDate = _world.State.GameDate + GameTimeSpan.FromHours(12);
 
-            _mes.Display(Loc.GetString("LecchoTorte.PleaseMove.Response", ("speaker", engine.Speaker), ("player", engine.Player)));
-
+            _mes.Display(Loc.GetString("LecchoTorte.PleaseMove.Response", ("speaker", engine.Speaker), ("player", engine.Player)), color: UiColors.MesTalk, entity: engine.Speaker.Value);
             _mes.Display(Loc.GetString("Elona.Movement.Displace.Text", ("source", engine.Player), ("target", engine.Speaker)));
             _moveable.SwapPlaces(engine.Player, engine.Speaker.Value);
 
