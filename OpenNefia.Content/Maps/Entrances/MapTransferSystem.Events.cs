@@ -383,11 +383,11 @@ namespace OpenNefia.Content.Maps
                                 {
                                     _levels.GainLevel(ent, showMessage: false);
                                 }
-                            }
-                            if (!TryComp<KarmaComponent>(player, out var karma) || !karma.IsIncognito.Buffed)
-                            {
-                                _vanillaAI.SetTarget(ent, player, 200);
-                                EnsureComp<FactionComponent>(ent).RelationToPlayer = Relation.Enemy;
+                                if (!TryComp<KarmaComponent>(player, out var karma) || !karma.IsIncognito.Buffed)
+                                {
+                                    _vanillaAI.SetTarget(ent, player, 200);
+                                    EnsureComp<FactionComponent>(ent).RelationToPlayer = Relation.Enemy;
+                                }
                             }
                         }
                     }
