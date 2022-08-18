@@ -81,7 +81,7 @@ namespace OpenNefia.Content.TurnOrder
                 _skills.GainSkillExp(player, attr, -500);
             }
             
-            if (_karma.GetKarma(player) < KarmaSystem.KarmaThresholdBad)
+            if (_karma.GetKarma(player) < KarmaLevels.Bad)
             {
                 _karma.ModifyKarma(player, 10);
             }

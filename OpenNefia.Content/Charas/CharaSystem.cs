@@ -32,8 +32,9 @@ namespace OpenNefia.Content.Charas
     public interface ICharaSystem : IEntitySystem
     {
         PrototypeId<ChipPrototype> GetDefaultCharaChip(EntityUid uid, CharaComponent? chara = null);
-        PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender);
-        PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender);
+        PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender, IReadOnlyDictionary<Gender, PrototypeId<ChipPrototype>>? chipFromGender = null);
+        PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender, IReadOnlyDictionary<Gender, PrototypeId<ChipPrototype>>? chipFromGender = null);
+
         bool RenewStatus(EntityUid entity, CharaComponent? chara);
         bool Revive(EntityUid uid, bool force = false, CharaComponent? chara = null);
         IEnumerable<CharaComponent> EnumerateNonAllies(IMap map);

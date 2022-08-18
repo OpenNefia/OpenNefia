@@ -35,13 +35,13 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeEntity<MapCreatedEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
+            SubscribeEntity<MapCreatedFromBlueprintEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
             SubscribeEntity<MapRenewMajorEvent>(SpawnRandomSites, priority: EventPriorities.Low);
             SubscribeComponent<MapCommonComponent, MapEnterEvent>(SpoilFood, priority: EventPriorities.Low);
             SubscribeEntity<MapCalcDefaultMusicEvent>(CalcDefaultMapMusic, priority: EventPriorities.Highest);
         }
 
-        private void AddRequiredComponents(EntityUid mapEntity, MapCreatedEvent args)
+        private void AddRequiredComponents(EntityUid mapEntity, MapCreatedFromBlueprintEvent args)
         {
             EntityManager.EnsureComponent<MapCommonComponent>(mapEntity);
         }

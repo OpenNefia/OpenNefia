@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Content.Charas;
+﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
@@ -8,7 +7,6 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -18,11 +16,6 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -34,7 +27,7 @@ namespace OpenNefia.Content.CharaMake
             return _prototypeManager.EnumeratePrototypes<RacePrototype>().OrderBy(x => x.IsExtra).Select(x => new RaceClass(x));
         }
 
-        public sealed class ResultData :CharaMakeResult
+        public sealed class ResultData : CharaMakeResult
         {
             public PrototypeId<RacePrototype> RaceID { get; set; }
 
@@ -54,7 +47,7 @@ namespace OpenNefia.Content.CharaMake
                 chara.Race = RaceID;
             }
         }
-        
+
         protected override void Select(RaceClass item)
         {
             Finish(new CharaMakeUIResult(new ResultData(((RacePrototype)item.Data).GetStrongID())));
@@ -64,11 +57,11 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer<CharaMakeClassSelectLayer.ResultData>
     {
         public const string ResultName = "class";
-        
+
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         [Child] private UiText RaceText;
-        
+
         private TileAtlasBatch Atlas = default!;
         private ChipPrototype MaleChip = default!;
         private ChipPrototype FemaleChip = default!;
@@ -82,7 +75,7 @@ namespace OpenNefia.Content.CharaMake
         public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
-            
+
             if (Results.TryGet<CharaMakeRaceSelectLayer.ResultData>(out var raceResult))
             {
                 var race = _protos.Index(raceResult.RaceID);
@@ -156,7 +149,7 @@ namespace OpenNefia.Content.CharaMake
     }
 
     public abstract class CharaMakeRaceClassLayer<T> : CharaMakeLayer<T>
-        where T: ICharaMakeResult
+        where T : ICharaMakeResult
     {
         public class RaceClass
         {
@@ -220,8 +213,8 @@ namespace OpenNefia.Content.CharaMake
         }
         public class RaceClassCell : UiListCell<RaceClass>
         {
-            
-            public RaceClassCell(RaceClass wrapper) 
+
+            public RaceClassCell(RaceClass wrapper)
                 : base(wrapper, new UiText(UiFonts.ListText))
             {
                 Text = Data.GetName();
@@ -231,12 +224,12 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
 
-        [Child] [Localize] protected UiWindow Window;
-        [Child] [Localize] protected UiTextTopic RaceTopic;
-        [Child] [Localize] protected UiTextTopic DetailTopic;
+        [Child][Localize] protected UiWindow Window;
+        [Child][Localize] protected UiTextTopic RaceTopic;
+        [Child][Localize] protected UiTextTopic DetailTopic;
         [Child] private UiVerticalContainer DetailContainer;
         [Child] private UiPagedList<RaceClass> List;
-        
+
         //
         // DetailContainer children
         // 
@@ -248,7 +241,7 @@ namespace OpenNefia.Content.CharaMake
 
         private UiGridContainer AttributeContainer;
         private RaceClassCell[] AllData;
-        
+
         public CharaMakeRaceClassLayer()
         {
             Window = new UiWindow();
@@ -329,7 +322,7 @@ namespace OpenNefia.Content.CharaMake
         {
             AttributeContainer.Clear();
             AttributeContainer.AddLayout(LayoutType.XMin, 100);
-            
+
             foreach (var attr in MakeDetailAttribute(skills))
             {
                 AttributeContainer.AddElement(attr);
@@ -347,7 +340,7 @@ namespace OpenNefia.Content.CharaMake
 
         private IEnumerable<UiElement> MakeDetailAttribute(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
-            foreach(var attrProto in _skillsSys.EnumerateBaseAttributes())
+            foreach (var attrProto in _skillsSys.EnumerateBaseAttributes())
             {
                 var attrProtoId = attrProto.GetStrongID();
                 skills.TryGetValue(attrProtoId, out var amt);

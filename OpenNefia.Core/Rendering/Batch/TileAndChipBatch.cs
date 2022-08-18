@@ -245,9 +245,16 @@ namespace OpenNefia.Core.Rendering
                 var overhangHeight = Coords.TileSize.Y / 4;
                 Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, ScreenWidth, overhangHeight);
                 Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight);
+
+                Love.Graphics.SetBlendMode(BlendMode.Subtract);
+                Love.Graphics.SetColor(TileShadow);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight);
+                Love.Graphics.SetBlendMode(BlendMode.Alpha);
+
                 Love.Graphics.SetScissor();
             }
 
+            Love.Graphics.SetColor(Color.White);
             Love.Graphics.Draw(TileBatch, screenX, screenY);
 
             // TODO: The original HSP code uses the gfdec2 function. gfdec2
@@ -255,7 +262,8 @@ namespace OpenNefia.Core.Rendering
             // the colors here are inaccurate.
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             Love.Graphics.SetColor(TileShadow);
-            Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
+            //Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
+            Love.Graphics.Draw(TileBatch, screenX, screenY);
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
             Love.Graphics.SetColor(Color.White);

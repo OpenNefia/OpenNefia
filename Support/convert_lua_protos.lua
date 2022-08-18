@@ -636,6 +636,16 @@ handlers["base.chara"] = function(from, to)
     if from._id == "elona.gold_bell" then
         c = comp(to, "GoldLoot")
     end
+
+    if from.male_image or from.female_image then
+        c = comp(to, "ChipFromGender")
+        if from.male_image then
+            c.chips.Male = dotted(from.male_image)
+        end
+        if from.female_image then
+            c.chips.Female = dotted(from.female_image)
+        end
+    end
 end
 
 handlers["base.item"] = function(from, to)

@@ -5,6 +5,8 @@
   components:
   - type: Level
     level: 1
+  - type: MapCharaGen
+    charaFilterGen: !type:TownCharaFilterGen {}
   - type: MapCommon
     isIndoors: false
   - type: MapVanillaAI
@@ -21,7 +23,10 @@
     music: Elona.Town1
   - type: MapCharaGen
     maxCharaCount: 40
-    charaFilter: !type:CharaFilterVernis {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+        - oneIn: 2
+          id: Elona.CharaMiner
   - type: MapTypeTown
     townId: 1
   - type: MapTrainers
@@ -59,7 +64,10 @@
       elona122: 12
     music: Elona.Village1
   - type: MapCharaGen
-    charaFilter: !type:CharaFilterYowyn {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+        - oneIn: 2
+          id: Elona.CharaFarmer
   - type: MapTypeTown
     townId: 2
   - type: MapTrainers
@@ -100,7 +108,10 @@
     music: Elona.Town4
   - type: MapCharaGen
     maxCharaCount: 45
-    charaFilter: !type:CharaFilterPalmia {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+        - oneIn: 3
+          id: Elona.CharaNoble
   - type: MapTypeTown
     townId: 3
   - type: MapTrainers
@@ -136,7 +147,12 @@
       elona122: 14
     music: Elona.Town3
   - type: MapCharaGen
-    charaFilter: !type:CharaFilterDerphy {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+        - oneIn: 3
+          id: Elona.CharaRogue
+        - oneIn: 2
+          id: Elona.CharaProstitute
   - type: MapTypeTown
     townId: 4
   - type: MapTrainers
@@ -171,7 +187,7 @@
       elona122: 11
     music: Elona.Town2
   - type: MapCharaGen
-    charaFilter: !type:CharaFilterPortKapul {}
+    charaFilterGen: !type:TownCharaFilterGen {}
   - type: MapTypeTown
     townId: 5
   - type: MapTrainers
@@ -208,7 +224,10 @@
       elona122: 33
     music: Elona.Town6
   - type: MapCharaGen
-    charaFilter: !type:CharaFilterNoyel {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+      - oneIn: 3
+        id: Elona.CharaSister
   - type: MapTypeTown
     townId: 6
   - type: MapTrainers
@@ -230,7 +249,10 @@
       elona122: 36
     music: Elona.Town2
   - type: MapCharaGen
-    charaFilter: !type:CharaFilterLumiest {}
+    charaFilterGen: !type:TownCharaFilterGen
+      extraChoices:
+      - oneIn: 3
+        id: Elona.CharaArtist
   - type: MapTypeTown
     townId: 7
   - type: MapTrainers

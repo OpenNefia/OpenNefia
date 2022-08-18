@@ -124,6 +124,44 @@ namespace OpenNefia.Content.Shopkeeper
         public IShopInventoryPredicate? Predicate { get; }
     }
 
+    [DataDefinition]
+    public sealed class ShopInventoryModifier
+    {
+        public ShopInventoryModifier() { }
+
+        public ShopInventoryModifier(PrototypeId<EntityPrototype>? id = null, int? minLevel = null, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, int? amount = null, Quality? quality = null, IShopInventoryAction? action = null)
+        {
+            Id = id;
+            MinLevel = minLevel;
+            Tags = tags;
+            Fltselect = fltselect;
+            Amount = amount;
+            Quality = quality;
+            Action = action;
+        }
+
+        [DataField]
+        public PrototypeId<EntityPrototype>? Id { get; set; }
+
+        [DataField]
+        public int? MinLevel { get; set; }
+
+        [DataField]
+        public PrototypeId<TagPrototype>[]? Tags { get; set; }
+
+        [DataField]
+        public string? Fltselect { get; set; }
+
+        [DataField]
+        public int? Amount { get; set; }
+
+        [DataField]
+        public Quality? Quality { get; set; }
+
+        [DataField]
+        public IShopInventoryAction? Action { get; }
+    }
+
     #region Standard predicates
 
     public sealed class IndexShopInventoryPredicate : IShopInventoryPredicate
@@ -168,44 +206,6 @@ namespace OpenNefia.Content.Shopkeeper
             var choice = _rand.Pick(_choices);
             return _shopkeepers.ApplyShopInventoryModifier(args, choice);
         }
-    }
-
-    [DataDefinition]
-    public sealed class ShopInventoryModifier
-    {
-        public ShopInventoryModifier() { }
-
-        public ShopInventoryModifier(PrototypeId<EntityPrototype>? id = null, int? minLevel = null, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, int? amount = null, Quality? quality = null, IShopInventoryAction? action = null)
-        {
-            Id = id;
-            MinLevel = minLevel;
-            Tags = tags;
-            Fltselect = fltselect;
-            Amount = amount;
-            Quality = quality;
-            Action = action;
-        }
-
-        [DataField]
-        public PrototypeId<EntityPrototype>? Id { get; set; }
-
-        [DataField]
-        public int? MinLevel { get; set; }
-
-        [DataField]
-        public PrototypeId<TagPrototype>[]? Tags { get; set; }
-
-        [DataField]
-        public string? Fltselect { get; set; }
-
-        [DataField]
-        public int? Amount { get; set; }
-
-        [DataField]
-        public Quality? Quality { get; set; }
-
-        [DataField]
-        public IShopInventoryAction? Action { get; }
     }
 
     #endregion

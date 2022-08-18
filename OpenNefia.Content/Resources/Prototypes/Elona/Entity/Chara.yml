@@ -75,6 +75,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaShopkeeperMale
+      Female: Elona.CharaShopkeeperFemale
 - type: Entity
   id: Elona.CharaZeome
   parent: BaseChara
@@ -294,6 +298,10 @@
     hasRandomPortrait: true
   - type: Tone
     id: Elona.FallenSoldier
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaMercenaryMale
+      Female: Elona.CharaMercenaryFemale
 - type: Entity
   id: Elona.CharaBeggar
   parent: BaseChara
@@ -333,6 +341,10 @@
         itemFilter:
           id: Elona.ItemBeggarsPendant
         oneIn: 120
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaBeggarMale
+      Female: Elona.CharaBeggarFemale
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
@@ -413,6 +425,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaGangsterMale
+      Female: Elona.CharaGangsterFemale
 - type: Entity
   id: Elona.CharaKobold
   parent: BaseChara
@@ -518,6 +534,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaCitizenMale
+      Female: Elona.CharaCitizenFemale
 - type: Entity
   id: Elona.CharaOrc
   parent: BaseChara
@@ -570,6 +590,9 @@
     hasRandomPortrait: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Female: Elona.CharaWarriorOfEleaFemale
 - type: Entity
   id: Elona.CharaMandrake
   parent: BaseChara
@@ -740,6 +763,10 @@
     hasRandomPortrait: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaWizardOfEleaMale
+      Female: Elona.CharaWizardOfEleaFemale
 - type: Entity
   id: Elona.CharaGoda
   parent: BaseChara
@@ -1147,6 +1174,10 @@
     id: Elona.TownChild
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaMaidMale
+      Female: Elona.CharaTownChildFemale
 - type: Entity
   id: Elona.CharaOldPerson
   parent: BaseChara
@@ -1178,6 +1209,10 @@
     id: Elona.OldPerson
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaOldPersonMale
+      Female: Elona.CharaOldPersonFemale
 - type: Entity
   id: Elona.CharaAt
   parent: BaseChara
@@ -1246,6 +1281,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaElderMale
+      Female: Elona.CharaElderFemale
 - type: Entity
   id: Elona.CharaCitizen2
   parent: BaseChara
@@ -1279,6 +1318,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaCitizen2Male
+      Female: Elona.CharaCitizen2Female
 - type: Entity
   id: Elona.CharaTrainer
   parent: BaseChara
@@ -1314,6 +1357,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaTrainerMale
+      Female: Elona.CharaJuereFemale
 - type: Entity
   id: Elona.CharaWizard
   parent: BaseChara
@@ -1353,6 +1400,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaWizardMale
+      Female: Elona.CharaWizardFemale
 - type: Entity
   id: Elona.CharaBat
   parent: BaseChara
@@ -2215,6 +2266,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaInformerMale
+      Female: Elona.CharaInformerFemale
 - type: Entity
   id: Elona.CharaBartender
   parent: BaseChara
@@ -2250,6 +2305,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaBartenderMale
+      Female: Elona.CharaBartenderFemale
 - type: Entity
   id: Elona.CharaSailor
   parent: BaseChara
@@ -2283,6 +2342,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaSailorMale
+      Female: Elona.CharaSailorFemale
 - type: Entity
   id: Elona.CharaCaptain
   parent: BaseChara
@@ -2419,6 +2482,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaWarriorMale
+      Female: Elona.CharaWarriorFemale
 - type: Entity
   id: Elona.CharaGuardPortKapul
   parent: BaseChara
@@ -5393,6 +5460,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaCitizenOfCyberDomeMale
+      Female: Elona.CharaCitizenOfCyberDomeFemale
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome2
   parent: BaseChara
@@ -5426,6 +5497,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaCitizenOfCyberDome2Male
+      Female: Elona.CharaCitizenOfCyberDome2Female
 - type: Entity
   id: Elona.CharaSalesPerson
   parent: BaseChara
@@ -5459,6 +5534,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaSalesPersonMale
+      Female: Elona.CharaSalesPersonFemale
 - type: Entity
   id: Elona.CharaPunk
   parent: BaseChara
@@ -5491,6 +5570,10 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaPunkMale
+      Female: Elona.CharaPunkFemale
 - type: Entity
   id: Elona.CharaFrisia
   parent: BaseChara
@@ -5809,6 +5892,10 @@
     initialGold: 5000~16000
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaRichPersonMale
+      Female: Elona.CharaRichPersonFemale
 - type: Entity
   id: Elona.CharaNobleChild
   parent: BaseChara
@@ -5848,6 +5935,10 @@
     initialGold: 2000~7000
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaNobleChildMale
+      Female: Elona.CharaNobleChildFemale
 - type: Entity
   id: Elona.CharaTourist
   parent: BaseChara
@@ -5887,6 +5978,10 @@
     initialGold: 1000~4000
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaTouristMale
+      Female: Elona.CharaCitizenOfCyberDomeFemale
 - type: Entity
   id: Elona.CharaBlade
   parent: BaseChara
@@ -6504,6 +6599,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaPalmianEliteSoldierMale
+      Female: Elona.CharaPalmianEliteSoldierFemale
 - type: Entity
   id: Elona.CharaMaid
   parent: BaseChara
@@ -6535,6 +6634,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaMaidMale
+      Female: Elona.CharaMaidFemale
 - type: Entity
   id: Elona.CharaNun
   parent: BaseChara
@@ -7683,6 +7786,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaHotSpringManiacMale
+      Female: Elona.CharaHotSpringManiacFemale
 - type: Entity
   id: Elona.CharaMasterYeek
   parent: BaseChara
@@ -8715,6 +8822,10 @@
     id: Elona.Farmer
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaFarmerMale
+      Female: Elona.CharaFarmerFemale
 - type: Entity
   id: Elona.CharaSister
   parent: BaseChara
@@ -8746,6 +8857,10 @@
     id: Elona.Sister
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaSisterMale
+      Female: Elona.CharaSisterFemale
 - type: Entity
   id: Elona.CharaRogue
   parent: BaseChara
@@ -8780,6 +8895,10 @@
     id: Elona.Rogue
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaRogueMale
+      Female: Elona.CharaRogueFemale
 - type: Entity
   id: Elona.CharaArtist
   parent: BaseChara
@@ -8811,6 +8930,10 @@
     id: Elona.Artist
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaArtistMale
+      Female: Elona.CharaArtistFemale
 - type: Entity
   id: Elona.CharaMiner
   parent: BaseChara
@@ -8842,6 +8965,10 @@
     id: Elona.Miner
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaMinerMale
+      Female: Elona.CharaMinerFemale
 - type: Entity
   id: Elona.CharaNoble
   parent: BaseChara
@@ -8879,6 +9006,10 @@
         itemFilter:
           id: Elona.ItemShenasPanty
         oneIn: 100
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaNobleMale
+      Female: Elona.CharaNobleFemale
 - type: Entity
   id: Elona.CharaNoyelHorse
   parent: BaseChara
@@ -9365,6 +9496,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaMageGuildMemberMale
+      Female: Elona.CharaMageGuildMemberFemale
 - type: Entity
   id: Elona.CharaLexus
   parent: BaseChara
@@ -9511,6 +9646,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaThiefGuildMemberMale
+      Female: Elona.CharaThiefGuildMemberFemale
 - type: Entity
   id: Elona.CharaAbyss
   parent: BaseChara
@@ -9585,6 +9724,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaFighterGuildMemberMale
+      Female: Elona.CharaFighterGuildMemberFemale
 - type: Entity
   id: Elona.CharaMinotaurMagician
   parent: BaseChara
@@ -10912,6 +11055,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaGuildTrainerMale
+      Female: Elona.CharaGuildTrainerFemale
 - type: Entity
   id: Elona.CharaMysteriousProducer
   parent: BaseChara
@@ -10980,6 +11127,10 @@
     calmAction: Special
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaProstituteMale
+      Female: Elona.CharaProstituteFemale
 - type: Entity
   id: Elona.CharaGodInsideEhekatl
   parent: BaseChara
@@ -11054,6 +11205,10 @@
     id: Elona.Prisoner
   - type: CharaNameGen
     hasRandomName: true
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaPrisonerMale
+      Female: Elona.CharaPrisonerFemale
 - type: Entity
   id: Elona.CharaOpatos
   parent: BaseChara
@@ -11387,6 +11542,10 @@
   - type: CharaNameGen
     hasRandomName: true
   - type: QuickTempered
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaFanaticMale
+      Female: Elona.CharaFanaticFemale
 - type: Entity
   id: Elona.CharaPartTimeWorker
   parent: BaseChara
@@ -11485,6 +11644,10 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: ChipFromGender
+    chips:
+      Male: Elona.CharaFestivalTouristMale
+      Female: Elona.CharaFestivalTouristFemale
 - type: Entity
   id: Elona.CharaTheLeopardWarrior
   parent: BaseChara

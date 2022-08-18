@@ -167,7 +167,7 @@ namespace OpenNefia.Core.Maps
                 _entityManager.StartComponents(newEnt);
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt}");
 
-                var ev = new MapCreatedEvent(map, MapCreationMode.Normal);
+                var ev = new MapCreatedFromBlueprintEvent(map, MapCreationMode.Normal);
                 _entityManager.EventBus.RaiseEvent(map.MapEntityUid, ev);
 
                 return newEnt;
@@ -335,12 +335,12 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised when a map is created from scratch.
     /// </summary>
-    public sealed class MapCreatedEvent : EntityEventArgs
+    public sealed class MapCreatedFromBlueprintEvent : EntityEventArgs
     {
         public IMap Map { get; }
         public MapCreationMode Mode { get; }
         
-        public MapCreatedEvent(IMap map, MapCreationMode mode)
+        public MapCreatedFromBlueprintEvent(IMap map, MapCreationMode mode)
         {
             Map = map;
             Mode = mode;

@@ -364,7 +364,7 @@ namespace OpenNefia.Core.Maps
 
             if (_mode == MapSerializeMode.Blueprint)
             {
-                var ev = new MapCreatedEvent(MapGrid!, MapCreationMode.LoadedFromBlueprint);
+                var ev = new MapCreatedFromBlueprintEvent(MapGrid!, MapCreationMode.LoadedFromBlueprint);
                 _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
             }
             else if (_mode == MapSerializeMode.Full)

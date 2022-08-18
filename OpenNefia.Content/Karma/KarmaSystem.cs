@@ -44,10 +44,6 @@ namespace OpenNefia.Content.Fame
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
-        [Dependency] private readonly IDialogSystem _dialog = default!;
-
-        public const int KarmaThresholdBad = -30;
-        public const int KarmaThresholdGood = 20;
 
         public override void Initialize()
         {
@@ -97,14 +93,14 @@ namespace OpenNefia.Content.Fame
 
             if (delta > 0)
             {
-                if (karma.Karma < KarmaThresholdBad && KarmaThresholdBad + delta >= KarmaThresholdBad)
+                if (karma.Karma < KarmaLevels.Bad && KarmaLevels.Bad + delta >= KarmaLevels.Bad)
                 {
                     _mes.Display(Loc.GetString("Elona.Karma.StatusChange.NoLongerCriminal"), UiColors.MesGreen);
                 }
             }
             else if (delta < 0)
             {
-                if (karma.Karma >= KarmaThresholdBad && KarmaThresholdBad + delta < KarmaThresholdBad)
+                if (karma.Karma >= KarmaLevels.Bad && KarmaLevels.Bad + delta < KarmaLevels.Bad)
                 {
                     _mes.Display(Loc.GetString("Elona.Karma.StatusChange.AreCriminalNow"), UiColors.MesPurple);
                     TurnGuardsHostile(uid, karma);

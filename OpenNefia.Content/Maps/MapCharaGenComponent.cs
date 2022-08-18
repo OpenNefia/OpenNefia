@@ -34,20 +34,12 @@ namespace OpenNefia.Content.Maps
         /// Random character generation behavior.
         /// </summary>
         [DataField]
-        public IMapCharaFilter? CharaFilterGen { get; set; }
+        public IMapCharaFilterGen? CharaFilterGen { get; set; }
     }
 
     [ImplicitDataDefinitionForInheritors]
-    public interface IMapCharaFilter
+    public interface IMapCharaFilterGen
     {
         CharaFilter GenerateFilter(IMap map);
-    }
-
-    public class DefaultCharaFilter : IMapCharaFilter
-    {
-        public CharaFilter GenerateFilter(IMap map)
-        {
-            return new();
-        }
     }
 }

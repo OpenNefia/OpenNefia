@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Nefia
             }
 
             if (charaGen.CharaFilterGen == null)
-                charaGen.CharaFilterGen = new DungeonCharaFilter();
+                charaGen.CharaFilterGen = new DungeonCharaFilterGen();
 
             AddMobsAndTraps(map, density);
 
