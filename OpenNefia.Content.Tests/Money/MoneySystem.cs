@@ -77,10 +77,10 @@ namespace OpenNefia.Content.Tests.Money
                 Assert.That(entMan.IsAlive(mapGold), Is.True, "Map gold alive");
                 Assert.That(entMan.IsAlive(mapPlatinum), Is.True, "Map platinum alive");
 
-                Assert.That(money.Gold, Is.EqualTo(1000), "Inv gold amount");
+                Assert.That(money.Gold, Is.EqualTo(1099), "Inv gold amount");
                 Assert.That(money.Platinum, Is.EqualTo(50), "Inv platinum amount");
                 Assert.That(stacks.GetCount(mapGold), Is.EqualTo(1000), "Map gold amount");
-                Assert.That(stacks.GetCount(mapGoldRandom), Is.EqualTo(25), "Map gold random amount");
+                Assert.That(stacks.GetCount(mapGoldRandom), Is.EqualTo(26), "Map gold random amount");
                 Assert.That(stacks.GetCount(mapPlatinum), Is.EqualTo(50), "Map platinum amount");
             });
         }
