@@ -28,6 +28,14 @@ namespace OpenNefia.Content.UI.Element.List
             set => PageText.PageTextParent = value;
         }
 
+        public Vector2 PageTextOffset
+        {
+            get => PageText.TextOffset;
+            set => PageText.TextOffset = value;
+        }
+
+        public Vector2 PageTextPixelOffset => PageText.TextPixelOffset;
+
         [Child] private UiPageText PageText;
 
         public event PageChangedDelegate? OnPageChanged

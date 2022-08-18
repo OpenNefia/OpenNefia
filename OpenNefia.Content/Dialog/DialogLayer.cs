@@ -97,7 +97,8 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IDialogSystem _dialog = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
 
-        private IAssetInstance _assetIeChat = default!;
+        [Child] AssetDrawable AssetIeChat = default!;
+        [Child] AssetDrawable AssetIeChatShadow = default!;
         private IAssetInstance _assetImpressionIcon = default!;
 
         private TileAtlasBatch _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
@@ -109,7 +110,7 @@ namespace OpenNefia.Content.Dialog
         [Child] private UiText TextImpression = new(UiFonts.DialogImpressionText);
         [Child] private UiText TextImpression2 = new(UiFonts.DialogImpressionText);
         [Child] private UiWrappedText TextBody = new(UiFonts.DialogBodyText);
-        [Child] private UiList<DialogChoiceData> List = new();
+        [Child] private UiPagedList<DialogChoiceData> List = new(8);
 
         private EntityUid? _target = null;
         private PortraitPrototype? _portrait = null;
@@ -122,12 +123,15 @@ namespace OpenNefia.Content.Dialog
         {
             Sounds.Play(Protos.Sound.Chat);
 
-            _assetIeChat = Assets.Get(Protos.Asset.IeChat);
+            AssetIeChat = new AssetDrawable(Protos.Asset.IeChat, color: Color.White);
+            AssetIeChatShadow = new AssetDrawable(Protos.Asset.IeChat, color: Color.White.WithAlphaB(80));
             _assetImpressionIcon = Assets.Get(Protos.Asset.ImpressionIcon);
             
             CanControlFocus = false;
             EventFilter = UIEventFilterMode.Stop;
             OnKeyBindDown += HandleKeyBindDown;
+            List.PageTextElement = AssetIeChat;
+            List.PageTextOffset = (0, 28);
             List.OnActivated += List_OnActivated;
         }
 
@@ -224,6 +228,8 @@ namespace OpenNefia.Content.Dialog
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
+            AssetIeChatShadow.SetPreferredSize();
+            AssetIeChat.SetPreferredSize();
             TopicImpress.SetPreferredSize();
             TopicAttract.SetPreferredSize();
             TextSpeakerName.SetPreferredSize();
@@ -236,6 +242,8 @@ namespace OpenNefia.Content.Dialog
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
+            AssetIeChatShadow.SetPosition(X + 4, Y - 16);
+            AssetIeChat.SetPosition(X, Y - 20);
             TopicImpress.SetPosition(X + 28, Y + 170);
             TopicAttract.SetPosition(X + 28, Y + 215);
             TextSpeakerName.SetPosition(X + 120, Y + 16);
@@ -250,6 +258,8 @@ namespace OpenNefia.Content.Dialog
 
         public override void Update(float dt)
         {
+            AssetIeChatShadow.Update(dt);
+            AssetIeChat.Update(dt);
             TopicImpress.Update(dt);
             TopicAttract.Update(dt);
             TextSpeakerName.Update(dt);
@@ -261,10 +271,8 @@ namespace OpenNefia.Content.Dialog
 
         public override void Draw()
         {
-            Love.Graphics.SetColor(Color.White.WithAlphaB(80));
-            _assetIeChat.Draw(UIScale, X + 4, Y - 16);
-            Love.Graphics.SetColor(Color.White);
-            _assetIeChat.Draw(UIScale, X, Y - 20);
+            AssetIeChatShadow.Draw();
+            AssetIeChat.Draw();
 
             if (_portrait != null)
             {
