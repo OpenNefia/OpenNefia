@@ -6,6 +6,7 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -158,6 +159,7 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
+        [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
 
         public override void Initialize()
         {
@@ -167,6 +169,7 @@ namespace OpenNefia.Core.GameObjects
             SubscribeComponent<SpatialComponent, BeforeEntityClonedEvent>(HandleCloneSpatial);
             SubscribeComponent<MetaDataComponent, BeforeEntityClonedEvent>(HandleCloneMetaData);
             SubscribeComponent<StackComponent, BeforeEntityClonedEvent>(HandleCloneStack);
+            SubscribeComponent<StackComponent, AfterEntityClonedEvent>(HandleAfterCloned, priority: EventPriorities.Highest);
         }
 
         private void HandleEntityInitialized(EntityUid uid, StackComponent stackable, ref EntityMapInitEvent args)
@@ -402,7 +405,8 @@ namespace OpenNefia.Core.GameObjects
 
         private void CopyComponents(EntityUid target, EntityUid source, BeforeEntityClonedEvent args)
         {
-            foreach (var sourceComp in EntityManager.GetComponents(source))
+            var sourceComponents = EntityManager.GetComponents(source);
+            foreach (var sourceComp in sourceComponents)
             {
                 var compType = sourceComp.GetType();
                 if (!args.HandledTypes.Contains(compType))
@@ -467,6 +471,11 @@ namespace OpenNefia.Core.GameObjects
             newStack.Unlimited = stack.Unlimited;
 
             args.MarkAsCloned<StackComponent>();
+        }
+
+        private void HandleAfterCloned(EntityUid uid, StackComponent component, AfterEntityClonedEvent args)
+        {
+            _componentLocalizer.LocalizeComponents(uid);
         }
 
         #endregion
@@ -564,7 +573,7 @@ namespace OpenNefia.Core.GameObjects
     /// a <see cref="StackComponent"/> is split off. Use this event to
     /// run custom deep copying logic per component.
     /// </summary>
-    public class BeforeEntityClonedEvent
+    public sealed class BeforeEntityClonedEvent : EntityEventArgs
     {
         /// <summary>
         /// The UID of the newly created entity.
@@ -598,7 +607,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     /// Raised on a cloned entity after all its components have been finalized.
     /// </summary>
-    public class AfterEntityClonedEvent
+    public sealed class AfterEntityClonedEvent : EntityEventArgs
     {
         /// <summary>
         /// The UID of the entity this entity was cloned from.
