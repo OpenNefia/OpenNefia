@@ -62,6 +62,11 @@ namespace OpenNefia.Core.GameObjects
             ref StackComponent? stackEnt2);
 
         /// <summary>
+        /// Returns true if the provided entities can be stacked together.
+        /// </summary>
+        bool CanStack(EntityUid ent1, EntityUid ent2);
+
+        /// <summary>
         /// Tries to stack the provided entities.
         /// </summary>
         /// <param name="target">Entity to stack into.</param>
@@ -305,6 +310,13 @@ namespace OpenNefia.Core.GameObjects
             }
 
             return true;
+        }
+
+        public bool CanStack(EntityUid target, EntityUid with)
+        {
+            StackComponent? stack1 = null;
+            StackComponent? stack2 = null;
+            return CanStack(target, with, ref stack1, ref stack2);
         }
 
         /// <inheritdoc/>

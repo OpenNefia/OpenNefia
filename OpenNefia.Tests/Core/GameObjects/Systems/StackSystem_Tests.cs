@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
@@ -52,7 +54,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
                 .InitializeInstance();
 
-            sim.CreateMapAndSetActive(50, 50);
+            sim.CreateMapAndSetActive(10, 10);
 
             return sim;
         }
@@ -303,6 +305,39 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 Assert.That(entityManager.IsAlive(dummy), Is.True, "Original entity IsAlive()");
                 Assert.That(dummy, Is.EqualTo(split), "Original entity is equal to split entity");
             });
+        }
+
+        private static readonly ContainerId DummyContId1 = new("dummy1");
+        private static readonly ContainerId DummyContId2 = new("dummy2");
+
+        [Test]
+        public void TestCanStack_SeparateContainers()
+        {
+            var sim = SimulationFactory();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var contSys = sim.GetEntitySystem<IContainerSystem>();
+            var map = sim.ActiveMap!;
+
+            var owner = sim.SpawnEntity(DummyID, new EntityCoordinates(map.MapEntityUid, (0, 0)));
+            var inserted1 = sim.SpawnEntity(DummyID, new EntityCoordinates(map.MapEntityUid, (0, 0)));
+            var inserted2 = sim.SpawnEntity(DummyID, new EntityCoordinates(map.MapEntityUid, (0, 0)));
+
+            Assert.That(stackSys.CanStack(inserted1, inserted2), Is.True);
+
+            var container1 = contSys.MakeContainer<Container>(owner, DummyContId1);
+            Assert.That(container1.Insert(inserted1), Is.True);
+
+            Assert.That(stackSys.CanStack(inserted1, inserted2), Is.False);
+
+            var container2 = contSys.MakeContainer<Container>(owner, DummyContId2);
+            Assert.That(container2.Insert(inserted2), Is.True);
+
+            Assert.That(stackSys.CanStack(inserted1, inserted2), Is.False);
+
+            Assert.That(container1.Remove(inserted1), Is.True);
+            Assert.That(container2.Insert(inserted1), Is.True);
+
+            Assert.That(stackSys.CanStack(inserted1, inserted2), Is.True);
         }
     }
 

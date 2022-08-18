@@ -24,7 +24,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
                 .InitializeInstance();
 
-            sim.CreateMapAndSetActive(50, 50);
+            sim.CreateMapAndSetActive(10, 10);
 
             return sim;
         }
