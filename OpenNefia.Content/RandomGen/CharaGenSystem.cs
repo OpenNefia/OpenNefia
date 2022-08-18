@@ -161,24 +161,24 @@ namespace OpenNefia.Content.RandomGen
 
         public EntityUid? GenerateChara(MapCoordinates coords, CharaFilter filter)
         {
-            return GenerateChara(coords, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.RaceFilter, filter.Quality, filter.Args);
+            return GenerateChara(coords, filter.Id, filter.MinLevel, filter.Tags, filter.FltSelect, filter.RaceFilter, filter.Quality, filter.Args);
         }
 
         public EntityUid? GenerateChara(EntityUid ent, CharaFilter filter)
         {
-            return GenerateChara(ent, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.RaceFilter, filter.Quality, filter.Args);
+            return GenerateChara(ent, filter.Id, filter.MinLevel, filter.Tags, filter.FltSelect, filter.RaceFilter, filter.Quality, filter.Args);
         }
 
         public EntityUid? GenerateChara(IMap map, CharaFilter filter)
         {
-            return GenerateChara(map, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.RaceFilter, filter.Quality, filter.Args);
+            return GenerateChara(map, filter.Id, filter.MinLevel, filter.Tags, filter.FltSelect, filter.RaceFilter, filter.Quality, filter.Args);
         }
 
         public CharaFilter GenerateCharaFilter(IMap map)
         {
-            var ev = new GetCharaFilterEvent(map);
+            var ev = new GenerateCharaFilterEvent(map);
             RaiseEvent(map.MapEntityUid, ref ev);
-            return ev.CharaFilter;
+            return ev.OutCharaFilter;
         }
 
         public EntityUid? GenerateCharaFromMapFilter(MapCoordinates coords)
@@ -212,12 +212,12 @@ namespace OpenNefia.Content.RandomGen
     }
 
     [ByRefEvent]
-    public struct GetCharaFilterEvent
+    public struct GenerateCharaFilterEvent
     {
-        public GetCharaFilterEvent(IMap map) { Map = map; }
+        public GenerateCharaFilterEvent(IMap map) { Map = map; }
 
         public IMap Map { get; }
-        public CharaFilter CharaFilter { get; set; } = new();
+        public CharaFilter OutCharaFilter { get; set; } = new();
     }
 
     [DataDefinition]
@@ -233,7 +233,7 @@ namespace OpenNefia.Content.RandomGen
         public PrototypeId<TagPrototype>[]? Tags { get; set; } = null;
 
         [DataField]
-        public string? Fltselect { get; set; } = null;
+        public string? FltSelect { get; set; } = null;
 
         [DataField]
         public PrototypeId<RacePrototype>? RaceFilter = null;

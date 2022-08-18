@@ -9,13 +9,10 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Dialog;
 using OpenNefia.Content.VanillaAI;
-using NativeFileDialogSharp;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.RandomGen;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Rendering;
-using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Shopkeeper;
 
 namespace OpenNefia.Content.Activity

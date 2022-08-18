@@ -28,14 +28,14 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeBroadcast<MapCreatedFromBlueprintEvent>(HandleMapCreated, priority: EventPriorities.Highest);
             SubscribeEntity<EntityWoundedEvent>(HandleEntityWounded, priority: EventPriorities.VeryHigh);
         }
 
         public const int MaxBlood = 6;
         public const int MaxFragments = 4;
 
-        private void HandleMapCreated(MapCreatedEvent ev)
+        private void HandleMapCreated(MapCreatedFromBlueprintEvent ev)
         {
             var map = ev.Map;
             var mapDebris = EntityManager.EnsureComponent<MapDebrisComponent>(map.MapEntityUid);

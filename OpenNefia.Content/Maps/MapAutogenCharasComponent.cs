@@ -42,10 +42,10 @@ namespace OpenNefia.Content.Maps
     public class EntityAutogenSpec
     {
         [DataField]
-        public PrototypeId<EntityPrototype>? ProtoId { get; set; }
+        public PrototypeId<EntityPrototype> ProtoId { get; }
 
         [DataField(required: true)]
-        public int Amount { get; set; }
+        public int Amount { get; }
 
         [DataField]
         public ComponentRegistry Components { get; } = new();

@@ -142,16 +142,21 @@ namespace OpenNefia.Content.Charas
                 return Chip.Default;
             }
 
-            return GetDefaultCharaChip(chara.Race, chara.Gender);
+            return GetDefaultCharaChip(chara.Race, chara.Gender, CompOrNull<ChipFromGenderComponent>(uid)?.Chips);
         }
 
-        public PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender)
-            => GetDefaultCharaChip(_protos.Index(raceID), gender);
+        public PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender,
+            IReadOnlyDictionary<Gender, PrototypeId<ChipPrototype>>? chipFromGender = null)
+            => GetDefaultCharaChip(_protos.Index(raceID), gender, chipFromGender);
 
         public PrototypeId<ChipPrototype> GetDefaultCharaChip(
             RacePrototype race,
-            Gender gender)
+            Gender gender,
+            IReadOnlyDictionary<Gender, PrototypeId<ChipPrototype>>? chipFromGender = null)
         {
+            if (chipFromGender != null && chipFromGender.TryGetValue(gender, out var chip))
+                return chip;
+            
             switch (gender)
             {
                 case Gender.Male:

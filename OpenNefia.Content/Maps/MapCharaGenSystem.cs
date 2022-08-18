@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeComponent<MapCharaGenComponent, GetCharaFilterEvent>(SetDefaultFilter);
+            SubscribeComponent<MapCharaGenComponent, GenerateCharaFilterEvent>(SetDefaultFilter);
             SubscribeComponent<MapCharaGenComponent, MapOnTimePassedEvent>(RespawnMobs);
             SubscribeComponent<CharaComponent, EntityGeneratedEvent>(HandleEntityGenerated, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CharaComponent, EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
@@ -60,13 +60,13 @@ namespace OpenNefia.Content.Maps
             mapCharaGen.CurrentCharaCount = Math.Max(mapCharaGen.CurrentCharaCount - 1, 0);
         }
 
-        private void SetDefaultFilter(EntityUid uid, MapCharaGenComponent component, ref GetCharaFilterEvent args)
+        private void SetDefaultFilter(EntityUid uid, MapCharaGenComponent component, ref GenerateCharaFilterEvent args)
         {
             if (component.CharaFilterGen != null)
             {
                 Logger.DebugS("map.charagen", $"Setting chara filter: {component.CharaFilterGen}");
                 EntitySystem.InjectDependencies(component.CharaFilterGen);
-                args.CharaFilter = component.CharaFilterGen.GenerateFilter(args.Map);
+                args.OutCharaFilter = component.CharaFilterGen.GenerateFilter(args.Map);
             }
         }
 

@@ -91,7 +91,6 @@ namespace OpenNefia.Content.Shopkeeper
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IFoodSystem _food = default!;
         [Dependency] private readonly IRandomItemSystem _randomItems = default!;
 
         public override void Initialize()
@@ -192,7 +191,7 @@ namespace OpenNefia.Content.Shopkeeper
             args.ItemFilter = new ItemFilter()
             {
                 MinLevel = _randomGen.CalcObjectLevel(shopRank),
-                Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Normal)
+                Quality = _randomGen.CalcObjectQuality(Quality.Normal)
             };
 
             foreach (var rule in rules)

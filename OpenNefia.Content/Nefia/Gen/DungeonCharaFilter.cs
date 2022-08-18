@@ -5,7 +5,7 @@ using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Nefia
 {
-    public sealed class DungeonCharaFilter : IMapCharaFilter
+    public sealed class DungeonCharaFilterGen : IMapCharaFilterGen
     {
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
 
