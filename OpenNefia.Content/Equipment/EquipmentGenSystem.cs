@@ -312,7 +312,7 @@ namespace OpenNefia.Content.Equipment
 
                         if (IsAlive(item))
                         {
-                            if (!_equipSlots.TryEquip(chara, item.Value, slot, force: true, equipSlots: equipSlots))
+                            if (!_equipSlots.TryEquip(chara, item.Value, slot, silent: true, force: true, equipSlots: equipSlots))
                             {
                                 Logger.ErrorS("equipment.gen", $"Could not equip generated equipment for {chara}, slot {slot.ID}, item {item}");
                                 EntityManager.DeleteEntity(item.Value);

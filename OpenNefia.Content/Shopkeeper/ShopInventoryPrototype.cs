@@ -150,7 +150,7 @@ namespace OpenNefia.Content.Shopkeeper
             => ShopInventoryResult.Abort;
     }
 
-    public sealed class ChoiceShopInventoryAction : IShopInventoryAction
+    public sealed class ChoicesShopInventoryAction : IShopInventoryAction
     {
         [DataField("choices", required: true)]
         public List<ShopInventoryModifier> _choices { get; } = new();

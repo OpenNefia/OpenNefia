@@ -16,9 +16,9 @@ Elona.MapTransfer = {
         TimePassed = function(days, hours, lastTownName)
             return ("%s day%s and %s hour%s have passed since you left %s."):format(
                 days,
-                _.s(days),
+                _.plural(days),
                 hours,
-                _.s(hours),
+                _.plural(hours),
                 lastTownName
             )
         end,

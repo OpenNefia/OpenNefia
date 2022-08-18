@@ -188,9 +188,9 @@ namespace OpenNefia.Content.Equipment
                         var otherValue = CompOrNull<ValueComponent>(container.ContainedEntity)?.Value ?? 0;
                         if (itemValue > otherValue)
                         {
-                            if (_equipSlots.TryUnequip(npc, slot))
+                            if (_equipSlots.TryUnequip(npc, slot, silent: true))
                             {
-                                _equipSlots.TryEquip(npc, item, slot);
+                                _equipSlots.TryEquip(npc, item, slot, silent: true);
                                 return;
                             }
                         }
