@@ -52,7 +52,7 @@ namespace OpenNefia.Content.GameObjects
                 return true;
 
             _mes.Display(_targetText.GetTargetDangerText(player, target));
-            return _playerQuery.YesOrNo(Loc.GetString("Elona.Targeting.PromptReallyAttack"));
+            return _playerQuery.YesOrNo(Loc.GetString("Elona.Targeting.PromptReallyAttack", ("target", target)));
         }
 
         public List<SpatialComponent> FindTargets(EntityUid attacker)
