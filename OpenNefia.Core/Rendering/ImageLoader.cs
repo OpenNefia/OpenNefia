@@ -70,7 +70,7 @@ namespace OpenNefia.Core.Rendering
                     break;
             }
 
-            throw new InvalidOperationException($"Unknown .BMP image format: Interpretation={image.Interpretation} {image.Format}");
+            throw new InvalidOperationException($"Unknown .BMP image format: Interpretation={image.Interpretation} Format={image.Format}");
         }
     }
 }
