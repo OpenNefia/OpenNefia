@@ -2,8 +2,8 @@
 #r "System.Runtime"
 #r "System.Collections"
 #r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
-#r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
-#r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
+#r "C:/build/OpenNefia/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
+#r "C:/build/OpenNefia/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
 
 using NLua;
 using OpenNefia.Core;
@@ -19,7 +19,6 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomText;
-using OpenNefia.Content.Debug;
 using OpenNefia.Content.Nefia;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
@@ -187,3 +186,9 @@ public void refresh(EntityUid? uid = null)
     uid ??= player();
     _refresh.Refresh(uid.Value);
 }
+
+public void setcvar<T>(CVarDef<T> cvar, T val) where T: notnull
+    => _config.SetCVar(cvar, val);
+
+public T getcvar<T>(CVarDef<T> cvar) where T: notnull
+    => _config.GetCVar(cvar);

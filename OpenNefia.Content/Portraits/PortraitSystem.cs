@@ -1,12 +1,11 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Logic;
-using OpenNefia.Core.Areas;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Portraits
 {
@@ -22,7 +21,7 @@ namespace OpenNefia.Content.Portraits
 
         public override void Initialize()
         {
-            SubscribeComponent<PortraitComponent, EntityBeingGeneratedEvent>(SetRandomPortrait, priority: EventPriorities.Highest);
+            SubscribeComponent<PortraitComponent, EntityBeingGeneratedEvent>(SetRandomPortrait);
 
             _protos.PrototypesReloaded += ev =>
             {
@@ -33,20 +32,16 @@ namespace OpenNefia.Content.Portraits
             RegeneratePortraitCache();
         }
 
-        private readonly List<PrototypeId<PortraitPrototype>> MalePrototypes = new();
-        private readonly List<PrototypeId<PortraitPrototype>> FemalePrototypes = new();
+        private readonly Dictionary<Gender, List<PrototypeId<PortraitPrototype>>> RandomPortraits = new();
 
         private void RegeneratePortraitCache()
         {
-            MalePrototypes.Clear();
-            FemalePrototypes.Clear();
+            RandomPortraits.Clear();
 
-            foreach (var proto in _protos.EnumeratePrototypes<PortraitPrototype>())
+            foreach (var proto in _protos.EnumeratePrototypes<PortraitPrototype>().Where(p => p.RandomlyGenerate))
             {
-                if (proto.Gender == Gender.Male)
-                    MalePrototypes.Add(proto.GetStrongID());
-                else if (proto.Gender == Gender.Female)
-                    FemalePrototypes.Add(proto.GetStrongID());
+                if (proto.Gender != null)
+                    RandomPortraits.GetOrInsertNew(proto.Gender.Value).Add(proto.GetStrongID());
             }
         }
 
@@ -60,10 +55,12 @@ namespace OpenNefia.Content.Portraits
 
         public PrototypeId<PortraitPrototype> PickRandomPortraitID(EntityUid entity)
         {
-            if (TryComp<CharaComponent>(entity, out var chara) && chara.Gender == Gender.Male)
-                return _rand.Pick(MalePrototypes);
+            if (TryComp<CharaComponent>(entity, out var chara)
+                && RandomPortraits.TryGetValue(chara.Gender, out var portraits)
+                && portraits.Count > 0)
+                return _rand.Pick(portraits);
             else
-                return _rand.Pick(FemalePrototypes);
+                return Protos.Portrait.Default;
         }
     }
 }

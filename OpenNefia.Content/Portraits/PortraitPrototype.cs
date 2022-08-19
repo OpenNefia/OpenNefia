@@ -23,6 +23,9 @@ namespace OpenNefia.Content.Portraits
         [DataField]
         public Gender? Gender { get; }
 
+        [DataField]
+        public bool RandomlyGenerate { get; } = false;
+
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {
             yield return new(ContentAtlasNames.Portrait, $"{ID}:Default", Image);
