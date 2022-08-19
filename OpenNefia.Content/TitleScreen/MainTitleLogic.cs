@@ -24,6 +24,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.SaveLoad;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.RandomText;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -48,6 +49,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IRandomAliasGenerator _randomAlias = default!;
 
         private void Startup()
         {
@@ -134,6 +136,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 new CharaMakeClassSelectLayer.ResultData(Protos.Class.Predator),
                 new CharaMakeRaceSelectLayer.ResultData(Protos.Race.Machinegod),
+                new CharaMakeAliasLayer.ResultData(_randomAlias.GenerateRandomAlias(AliasType.Chara)),
             });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
             customName.CustomName = "*QuickStart*";
@@ -307,7 +310,7 @@ namespace OpenNefia.Content.TitleScreen
     }
 
     /// <summary>
-    /// Raised when the player quits the game, either back to the title screen or to desktop.
+    /// Raised when the player quits the game, either back to the title screen or to the desktop.
     /// </summary>
     public sealed class GameCleanedUpEventArgs : EntityEventArgs
     {

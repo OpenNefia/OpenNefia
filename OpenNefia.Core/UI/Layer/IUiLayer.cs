@@ -6,6 +6,7 @@ namespace OpenNefia.Core.UI.Layer
     public interface IUiLayer : IDrawable, IUiElement, ILocalizable
     {
         int ZOrder { get; set; }
+        bool ExceptionTolerance { get; }
 
         void GetPreferredBounds(out UIBox2 bounds);
         void GetPreferredPosition(out Vector2 pos);

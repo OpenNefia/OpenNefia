@@ -4,14 +4,8 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Input
 {
@@ -97,21 +91,14 @@ namespace OpenNefia.Content.Input
             //}
             _cmdStates.SetState(function, message.State);
 
-            try
+            foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
             {
-                foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
+                var result = handler.HandleCmdMessage(session, message);
+                if (result != null)
                 {
-                    var result = handler.HandleCmdMessage(session, message);
-                    if (result != null)
-                    {
-                        _turnOrder.AdvanceStateFromPlayer(result.Value);
-                        return true;
-                    }
+                    _turnOrder.AdvanceStateFromPlayer(result.Value);
+                    return true;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw;
             }
 
             return false;
