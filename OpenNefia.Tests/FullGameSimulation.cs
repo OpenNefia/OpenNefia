@@ -70,8 +70,15 @@ namespace OpenNefia.Tests
         public IMap CreateMapAndSetActive(int width, int height)
         {
             var mapMan = Collection.Resolve<IMapManager>();
-            var map = mapMan.CreateMap(width, height);
+            var map = CreateMap(width, height);
             mapMan.SetActiveMap(map.Id);
+            return map;
+        }
+
+        public IMap CreateMap(int width, int height)
+        {
+            var mapMan = Collection.Resolve<IMapManager>();
+            var map = mapMan.CreateMap(width, height);
             return map;
         }
 

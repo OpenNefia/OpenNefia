@@ -214,7 +214,7 @@ namespace OpenNefia.Content.Parties
 
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
 
-        bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false);
+        bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
 
         bool TryLeaveParty(EntityUid ally, PartyComponent? party = null);
     }
@@ -359,7 +359,7 @@ namespace OpenNefia.Content.Parties
             return otherMemberCount < maxPartySize;
         }
 
-        public bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false)
+        public bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false)
         {
             if (!Resolve(leader, ref partyLeader) || !Resolve(ally, ref partyAlly))
                 return false;
@@ -385,7 +385,7 @@ namespace OpenNefia.Content.Parties
                 return false;
             }
 
-            if (!CanRecruitMoreMembers(leader, partyLeader))
+            if (!CanRecruitMoreMembers(leader, partyLeader) && !force)
             {
                 if (!noMessage)
                     _mes.Display(Loc.GetString("Elona.Party.Recruit.PartyFull"));
