@@ -2149,7 +2149,7 @@ entities:
     pos: 24,47
     parent: 0
   - type: RoleShopkeeper
-    shopInventoryId: Elona.Innleeper
+    shopInventoryId: Elona.Innkeeper
     shopRank: 8
   - type: RoleInnkeeper
 - uid: 267

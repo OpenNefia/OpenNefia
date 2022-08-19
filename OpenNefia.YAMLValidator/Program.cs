@@ -3,6 +3,7 @@ using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.ResourceManagement;
@@ -106,8 +107,27 @@ namespace OpenNefia.YAMLValidator
 
         private Dictionary<string, HashSet<ErrorNode>> Validate()
         {
+            var errors = ValidatePrototypes();
+            var mapErrors = ValidateMapBlueprints();
+
+            foreach (var (file, errorSet) in mapErrors)
+            {
+                errors.GetOrInsertNew(file).AddRange(errorSet);
+            }
+
+            return errors;
+        }
+
+        private static Dictionary<string, HashSet<ErrorNode>> ValidatePrototypes()
+        {
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             return prototypeManager.ValidateDirectory(new ResourcePath("/Prototypes"));
+        }
+
+        private Dictionary<string, HashSet<ErrorNode>> ValidateMapBlueprints()
+        {
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+            return mapLoader.ValidateDirectory(new ResourcePath("/Maps"));
         }
 
         public Dictionary<string, HashSet<ErrorNode>> RunValidation()

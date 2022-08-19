@@ -146,11 +146,11 @@ namespace OpenNefia.Core.GameObjects
 
             var subscriptionTuple = new Registration(handler, equalityToken, order, byRef);
 
-            var subscriptions = _eventSubscriptions.GetOrNew(eventType);
+            var subscriptions = _eventSubscriptions.GetOrInsertNew(eventType);
             if (!subscriptions.Any(p => p.Equals(subscriptionTuple)))
                 subscriptions.Add(subscriptionTuple);
 
-            var inverseSubscription = _inverseEventSubscriptions.GetOrNew(subscriber);
+            var inverseSubscription = _inverseEventSubscriptions.GetOrInsertNew(subscriber);
             if (!inverseSubscription.ContainsKey(eventType))
                 inverseSubscription.Add(eventType, subscriptionTuple);
 

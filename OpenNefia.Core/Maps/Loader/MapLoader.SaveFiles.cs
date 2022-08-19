@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;

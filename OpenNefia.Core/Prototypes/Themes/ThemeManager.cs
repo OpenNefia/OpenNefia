@@ -257,7 +257,7 @@ namespace OpenNefia.Core.Prototypes
 
                 res.CallAfterDeserializationHook();
 
-                var forTheme = _allOverrides.GetOrNew(theme.ID);
+                var forTheme = _allOverrides.GetOrInsertNew(theme.ID);
 
                 foreach (var entry in theme.Overrides.Cast<MappingDataNode>())
                 {
@@ -275,7 +275,7 @@ namespace OpenNefia.Core.Prototypes
 
                     var id = ((ValueDataNode)idNode).Value;
 
-                    forTheme.GetOrNew(type).Add(id, entry);
+                    forTheme.GetOrInsertNew(type).Add(id, entry);
                 }
 
                 _themes[theme.ID] = theme;

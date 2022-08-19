@@ -100,7 +100,7 @@ namespace OpenNefia.Core.Locale
                     {
                         if (regAttr.Language != null)
                         {
-                            _builtInFunctions.GetOrNew(regAttr.Language.Value).Add(funcAttr.Name, func);
+                            _builtInFunctions.GetOrInsertNew(regAttr.Language.Value).Add(funcAttr.Name, func);
                         }
                         else
                         {

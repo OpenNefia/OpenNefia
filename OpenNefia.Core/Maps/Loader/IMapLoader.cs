@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 
@@ -82,5 +83,7 @@ namespace OpenNefia.Core.Maps
         /// Returns true if the map with this ID exists in the save file.
         /// </summary>
         bool MapExistsInSave(MapId id, ISaveGameHandle save);
+
+        Dictionary<string, HashSet<ErrorNode>> ValidateDirectory(ResourcePath path);
     }
 }
