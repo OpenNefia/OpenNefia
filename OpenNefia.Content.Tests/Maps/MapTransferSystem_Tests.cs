@@ -10,11 +10,6 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests.Maps.Entrances
 {
@@ -54,7 +49,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             });
 
             var expectedPos = new Vector2i(3, 4);
-            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full);
+            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full, noUnloadPrevious: true);
 
             Assert.Multiple(() =>
             {
@@ -77,6 +72,8 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
             var entGen = sim.GetEntitySystem<IEntityGen>();
+            var world = sim.GetEntitySystem<IWorldSystem>();
+            var lookup = sim.GetEntitySystem<IEntityLookup>();
             var saveGameMan = sim.Resolve<ISaveGameManager>();
 
             var sys = sim.GetEntitySystem<IMapTransferSystem>();
@@ -86,6 +83,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             using var save = new TempSaveGameHandle();
             saveGameMan.CurrentSave = save;
+            world.State.GameDate = new GameDateTime(512, 1, 1);
 
             var ent = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map1.AtPos(1, 1))!.Value;
             var entChara = entMan.GetComponent<CharaComponent>(ent);
@@ -98,19 +96,34 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             Assert.Multiple(() =>
             {
-                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
-                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
-
-                entChara = entMan.GetComponent<CharaComponent>(ent);
-                Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
-
-
-                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
-                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
-
-                entChara = entMan.GetComponent<CharaComponent>(ent);
-                Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
+                Assert.That(lookup.EntityQueryInMap<CharaComponent>(map1, includeDead: true).Count(), Is.EqualTo(2));
+                Assert.That(lookup.EntityQueryInMap<CharaComponent>(map2, includeDead: true).Count(), Is.EqualTo(0));
             });
+
+            sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full, noUnloadPrevious: true);
+            sys.DoMapTransfer(playerSpatial, map1, map1.AtPosEntity(0, 0), MapLoadType.Full, noUnloadPrevious: true);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(lookup.EntityQueryInMap<CharaComponent>(map1, includeDead: true).Count(), Is.EqualTo(2));
+                Assert.That(lookup.EntityQueryInMap<CharaComponent>(map2, includeDead: true).Count(), Is.EqualTo(0));
+            });
+
+            entChara = entMan.GetComponent<CharaComponent>(ent);
+            Assert.Multiple(() =>                                                                                                              
+            {
+                Assert.That(entMan.IsAlive(ent), Is.False);
+                Assert.That(entMan.IsDeadAndBuried(ent), Is.False);
+                Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.VillagerDead));
+            });
+
+            world.State.GameDate = new GameDateTime(512, 1, 2);
+
+            sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full, noUnloadPrevious: true);
+            sys.DoMapTransfer(playerSpatial, map1, map1.AtPosEntity(0, 0), MapLoadType.Full, noUnloadPrevious: true);
+
+            entChara = entMan.GetComponent<CharaComponent>(ent);
+            Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
         }
     }
 }

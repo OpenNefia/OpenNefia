@@ -25,21 +25,12 @@ namespace OpenNefia.Content.Tests.Damage
     [TestOf(typeof(DamageSystem))]
     public class DamageSystemSystem_Tests : OpenNefiaUnitTest
     {
-        private static readonly PrototypeId<EntityPrototype> TestEntity = new("TestEntity");
-
-        private static readonly string Prototypes = $@"
-- type: Entity
-  id: {TestEntity}
-  components:
-  - type: Spatial
-";
 
         [Test]
         public void TestDamageSystem_SetLivenessOnDeath()
         {
             var sim = ContentFullGameSimulation
                 .NewSimulation()
-                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
                 .InitializeInstance();
 
             var entMan = sim.Resolve<IEntityManager>();

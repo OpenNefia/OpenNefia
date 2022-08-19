@@ -5,7 +5,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.SaveGames;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Areas;
@@ -14,7 +13,7 @@ namespace OpenNefia.Content.Maps
 {
     public interface IMapTransferSystem : IEntitySystem
     {
-        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType);
+        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false);
     }
 
     public partial class MapTransferSystem : EntitySystem, IMapTransferSystem
@@ -29,7 +28,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapPlacement _placement = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
 
-        public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)
+        public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false)
         {
             if (newCoords.GetMapId(EntityManager) != map.Id)
                 throw new ArgumentException($"Coordinates {newCoords} are not within map ${map}!");
@@ -42,7 +41,7 @@ namespace OpenNefia.Content.Maps
 
             if (_gameSession.IsPlayer(spatial.Owner))
             {
-                TransferPlayer(spatial, map, newCoords, loadType);
+                TransferPlayer(spatial, map, newCoords, loadType, noUnloadPrevious);
             }
             else
             {
@@ -50,7 +49,7 @@ namespace OpenNefia.Content.Maps
             }
         }
 
-        public void TransferPlayer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)
+        public void TransferPlayer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false)
         {
             var oldMap = _mapManager.ActiveMap;
 
@@ -65,7 +64,7 @@ namespace OpenNefia.Content.Maps
             _mapManager.SetActiveMap(map.Id, loadType);
 
             // Unload the old map.
-            if (oldMap != null)
+            if (oldMap != null && !noUnloadPrevious)
             {
                 var save = _saveGameManager.CurrentSave!;
 

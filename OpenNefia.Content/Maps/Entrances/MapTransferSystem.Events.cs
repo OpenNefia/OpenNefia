@@ -408,7 +408,7 @@ namespace OpenNefia.Content.Maps
                 }
             }
 
-            foreach (var chara in _lookup.EntityQueryInMap<CharaComponent>(map.Id))
+            foreach (var chara in _lookup.EntityQueryInMap<CharaComponent>(map.Id, includeDead: true))
                 Renew(chara);
         }
 
