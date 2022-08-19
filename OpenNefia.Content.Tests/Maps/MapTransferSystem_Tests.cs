@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var ent = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map1.AtPos(1, 1))!.Value;
             var entChara = entMan.GetComponent<CharaComponent>(ent);
             entChara.Liveness = CharaLivenessState.VillagerDead;
-            entChara.RespawnDate = new GameDateTime(512, 1, 2);
+            entChara.RevivalDate = new GameDateTime(512, 1, 2);
 
             var player = entGen.SpawnEntity(Protos.Chara.Putit, map1.AtPos(0, 0))!.Value;
             sim.Resolve<IGameSessionManager>().Player = player;

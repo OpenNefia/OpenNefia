@@ -46,9 +46,12 @@ namespace OpenNefia.Content.Tests.Damage
             var mapMan = sim.Resolve<IMapManager>();
             var entGen = sim.GetEntitySystem<IEntityGen>();
             var parties = sim.GetEntitySystem<IPartySystem>();
+            var world = sim.GetEntitySystem<IWorldSystem>();
             var sys = sim.GetEntitySystem<IDamageSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
+
+            world.State.GameDate = new GameDateTime(512, 1, 2);
 
             var player = entGen.SpawnEntity(Protos.Chara.Putit, map.AtPos(0, 0))!.Value;
             sim.Resolve<IGameSessionManager>().Player = player;
@@ -75,7 +78,9 @@ namespace OpenNefia.Content.Tests.Damage
                 Assert.That(entMan.GetComponent<CharaComponent>(player).Liveness, Is.EqualTo(CharaLivenessState.Dead));
                 Assert.That(entMan.GetComponent<CharaComponent>(ally).Liveness, Is.EqualTo(CharaLivenessState.PetDead));
                 Assert.That(entMan.GetComponent<CharaComponent>(villager).Liveness, Is.EqualTo(CharaLivenessState.VillagerDead));
+                Assert.That(entMan.GetComponent<CharaComponent>(villager).RevivalDate, Is.EqualTo(new GameDateTime(512, 1, 4)));
                 Assert.That(entMan.GetComponent<CharaComponent>(adventurer).Liveness, Is.EqualTo(CharaLivenessState.AdventurerHospital));
+                Assert.That(entMan.GetComponent<CharaComponent>(adventurer).RevivalDate, Is.EqualTo(new GameDateTime(512, 1, 3, 6))); // Randomized
                 Assert.That(entMan.GetComponent<CharaComponent>(enemy).Liveness, Is.EqualTo(CharaLivenessState.Dead));
             });
         }
