@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Food;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -22,7 +23,7 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeComponent<MapRenewGeometryComponent, MapRenewGeometryEvent>(HandleRenewGeometry, priority: EventPriorities.High);
+            SubscribeComponent<MapRenewGeometryComponent, MapRenewGeometryEvent>(HandleRenewGeometry, priority: EventPriorities.VeryLow);
         }
 
         private void HandleRenewGeometry(EntityUid uid, MapRenewGeometryComponent component, MapRenewGeometryEvent args)
@@ -51,11 +52,15 @@ namespace OpenNefia.Content.Maps
             // TOOD: kind of hackish.
             foreach (var (spatial, _) in _lookup.EntityQueryInMap<SpatialComponent, ItemComponent>(newMap))
             {
+                // Check if any NPC-owned items are missing on this tile, and if
+                // so regenerate them by moving them from the newly generated
+                // map.
+                // NOTE: Only allows one NPC-owned item on a tile.
                 var destCoords = new EntityCoordinates(currentMap.MapEntityUid, spatial.WorldPosition);
-                if (_lookup.QueryLiveEntitiesAtCoords<ItemComponent>(destCoords).Count() == 0)
-                {
+                var npcOwnedAtCoords = _lookup.QueryLiveEntitiesAtCoords<PickableComponent>(destCoords).Where(p => p.OwnState == OwnState.NPC);
+
+                if (npcOwnedAtCoords.Count() == 0)
                     spatial.Coordinates = destCoords;
-                }
             }
 
             _mapManager.UnloadMap(newMap.Id);
