@@ -1511,4 +1511,132 @@ entities:
   - type: Spatial
     pos: 15,10
     parent: 0
+
+- uid: 185
+  protoId: Elona.CharaMarks
+  components:
+  - type: Spatial
+    pos: 23,14
+    parent: 0
+  - type: RoleSpecial
+- uid: 186
+  protoId: Elona.CharaNoel
+  components:
+  - type: Spatial
+    pos: 13,18
+    parent: 0
+  - type: RoleSpecial
+- uid: 187
+  protoId: Elona.CharaAbyss
+  components:
+  - type: Spatial
+    pos: 16,17
+    parent: 0
+  - type: RoleSpecial
+- uid: 188
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 10,17
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Trader
+    shopRank: 12
+- uid: 189
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 15,15
+    parent: 0
+  - type: RoleBartender
+- uid: 190
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 13,3
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GeneralVendor
+    shopRank: 10
+- uid: 191
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 29,23
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Innkeeper
+    shopRank: 8
+  - type: RoleInnkeeper
+- uid: 192
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 26,7
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GoodsVendor
+    shopRank: 10
+- uid: 193
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 30,4
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Blackmarket
+    shopRank: 10
+- uid: 194
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 29,4
+    parent: 0
+  - type: RoleSlaver
+- uid: 195
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 29,4
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Blacksmith
+    shopRank: 12
+- uid: 196
+  protoId: Elona.CharaArenaMaster
+  components:
+  - type: Spatial
+    pos: 29,4
+    parent: 0
+  - type: RoleArenaMaster
+- uid: 197
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 9,18
+    parent: 0
+  - type: RoleElder
+  - type: CustomName
+    name: Elona.Chara.Job.OfDerphy
+- uid: 198
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 13,18
+    parent: 0
+  - type: RoleTrainer
+- uid: 199
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 5,26
+    parent: 0
+  - type: RoleIdentifier
+- uid: 200
+  protoId: Elona.CharaInformer
+  components:
+  - type: Spatial
+    pos: 5,26
+    parent: 0
+  - type: RoleInformer
 ...

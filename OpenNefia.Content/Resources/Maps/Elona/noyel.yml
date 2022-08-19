@@ -2316,4 +2316,172 @@ entities:
     parent: 0
   - type: MapEdgesLocation
     targetDirection: South
+
+- uid: 290
+  protoId: Elona.CharaEbon
+  components:
+  - type: Spatial
+    pos: 46,18
+    parent: 0
+  - type: RoleSpecial
+  - type: FireGiant
+- uid: 291
+  protoId: Elona.CharaMoyerTheCrooked
+  components:
+  - type: Spatial
+    pos: 47,18
+    parent: 0
+  - type: RoleSpecial
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Moyer
+- uid: 292
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 47,20
+    parent: 0
+  - type: RoleSpecial
+- uid: 293
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 15,19
+    parent: 0
+  - type: RoleSpecial
+- uid: 294
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 49,20
+    parent: 0
+  - type: RoleSpecial
+- uid: 295
+  protoId: Elona.CharaBard
+  components:
+  - type: Spatial
+    pos: 28,22
+    parent: 0
+  - type: RoleSpecial
+- uid: 296
+  protoId: Elona.CharaPael
+  components:
+  - type: Spatial
+    pos: 19,3
+    parent: 0
+  - type: RoleSpecial
+- uid: 297 # TODO sidequest
+  protoId: Elona.CharaLily
+  components:
+  - type: Spatial
+    pos: 19,2
+    parent: 0
+  - type: RoleSpecial
+- uid: 298
+  protoId: Elona.CharaBartender
+  components:
+  - type: Spatial
+    pos: 40,33
+    parent: 0
+  - type: RoleBartender
+- uid: 299
+  protoId: Elona.CharaHealer
+  components:
+  - type: Spatial
+    pos: 44,6
+    parent: 0
+  - type: RoleHealer
+- uid: 300
+  protoId: Elona.CharaHealer
+  components:
+  - type: Spatial
+    pos: 44,3
+    parent: 0
+  - type: RoleSister
+- uid: 301
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 19,31
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Blacksmith
+    shopRank: 12
+- uid: 302
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 11,31
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GeneralVendor
+    shopRank: 10
+- uid: 303
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 38,34
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Innkeeper
+    shopRank: 8
+  - type: RoleInnkeeper
+- uid: 304
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 5,27
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Bakery
+    shopRank: 9
+  - type: Chip
+    id: Elona.CharaBaker
+- uid: 305
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 56,5
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.MagicVendor
+    shopRank: 11
+- uid: 306
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 39,35
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Trader
+    shopRank: 12
+- uid: 307
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 39,35
+    parent: 0
+  - type: RoleElder
+  - type: CustomName
+    name: Elona.Chara.Job.OfNoyel
+- uid: 308
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 18,20
+    parent: 0
+  - type: RoleTrainer
+- uid: 309
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 4,33
+    parent: 0
+  - type: RoleIdentifier
+- uid: 310
+  protoId: Elona.CharaInformer
+  components:
+  - type: Spatial
+    pos: 6, 33
+    parent: 0
+  - type: RoleInformer
 ...
