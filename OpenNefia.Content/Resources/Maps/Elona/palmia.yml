@@ -2443,7 +2443,7 @@ entities:
     pos: 11,14
     parent: 0
   - type: RoleShopkeeper
-    shopInventoryId: Elona.Baker
+    shopInventoryId: Elona.Bakery
     shopRank: 9
   - type: CustomName
     name: Elona.Chara.Job.Baker
