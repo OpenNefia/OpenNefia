@@ -60,11 +60,11 @@ namespace OpenNefia.Content.Effects
                 return;
 
             _effects.Apply(ent, Protos.StatusEffect.Wet, amount, statusEffects: statusEffects);
-            _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.GetsWet", ("entity", ent)));
+            _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.GetsWet", ("entity", ent)), entity: ent);
 
             if (TryComp<VisibilityComponent>(ent, out var vis) && vis.IsInvisible.Buffed)
             {
-                _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.IsRevealed", ("entity", ent)));
+                _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.IsRevealed", ("entity", ent)), entity: ent);
             }
         }
 

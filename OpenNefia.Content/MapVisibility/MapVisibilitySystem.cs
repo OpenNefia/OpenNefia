@@ -17,12 +17,12 @@ namespace OpenNefia.Content.MapVisibility
 
         public override void Initialize()
         {
-            SubscribeBroadcast<MapCreatedFromBlueprintEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
             SubscribeBroadcast<MapLoadedFromSaveEvent>(HandleMapLoadedFromSave, priority: EventPriorities.Highest);
             SubscribeComponent<MapVisibilityComponent, RefreshMapVisibilityEvent>(RefreshVisibility, priority: EventPriorities.High);
         }
 
-        private void HandleMapCreated(MapCreatedFromBlueprintEvent ev)
+        private void HandleMapCreated(MapCreatedEvent ev)
         {
             InitializeShadowMap(ev.Map);
         }

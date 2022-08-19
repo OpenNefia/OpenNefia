@@ -19,7 +19,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%s can see again."):format(_.name(chara))
         end,
-        Indicator = "Blinded",
+        Indicator = {
+            ["0"] = "Blinded",
+        },
     },
     Confusion = {
         Apply = function(chara)
@@ -28,7 +30,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%s recover%s from confusion."):format(_.name(chara), _.s(chara))
         end,
-        Indicator = "Confused",
+        Indicator = {
+            ["0"] = "Confused",
+        },
     },
     Dimming = {
         Apply = function(chara)
@@ -50,7 +54,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%s get%s sober."):format(_.name(chara), _.s(chara))
         end,
-        Indicator = "Drunk",
+        Indicator = {
+            ["0"] = "Drunk",
+        },
     },
     Fear = {
         Apply = function(chara)
@@ -59,7 +65,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%s shake%s off %s fear."):format(_.name(chara), _.s(chara), _.his(chara))
         end,
-        Indicator = "Fear",
+        Indicator = {
+            ["0"] = "Fear",
+        },
     },
     Insanity = {
         Apply = function(chara)
@@ -81,7 +89,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%s recover%s from paralysis."):format(_.name(chara), _.s(chara))
         end,
-        Indicator = "Paralyzed",
+        Indicator = {
+            ["0"] = "Paralyzed",
+        },
     },
     Poison = {
         Apply = function(chara)
@@ -120,7 +130,9 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         },
     },
     Choking = {
-        Indicator = "Choked",
+        Indicator = {
+            ["0"] = "Choked",
+        },
     },
     Fury = {
         Indicator = {
@@ -129,9 +141,13 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         },
     },
     Gravity = {
-        Indicator = "Gravity",
+        Indicator = {
+            ["0"] = "Gravity",
+        },
     },
     Wet = {
-        Indicator = "Wet",
+        Indicator = {
+            ["0"] = "Wet",
+        },
     },
 }

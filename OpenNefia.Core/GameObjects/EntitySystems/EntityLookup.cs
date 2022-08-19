@@ -173,7 +173,7 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeComponent<MapComponent, MapCreatedFromBlueprintEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeComponent<MapComponent, MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
             SubscribeComponent<MapComponent, MapLoadedFromSaveEvent>(HandleMapLoadedFromSave, priority: EventPriorities.Highest);
         }
 
@@ -182,7 +182,7 @@ namespace OpenNefia.Core.GameObjects
             InitializeLookup(uid, mapComp);
         }
 
-        private void HandleMapCreated(EntityUid uid, MapComponent mapComp, MapCreatedFromBlueprintEvent args)
+        private void HandleMapCreated(EntityUid uid, MapComponent mapComp, MapCreatedEvent args)
         {
             InitializeLookup(uid, mapComp);
         }

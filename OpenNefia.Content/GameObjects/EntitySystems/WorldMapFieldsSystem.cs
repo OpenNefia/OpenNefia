@@ -56,6 +56,7 @@ namespace OpenNefia.Content.GameObjects
 
             var stoodTile = map.Tiles[prevCoords.X, prevCoords.Y].ResolvePrototype().GetStrongID();
 
+            // TODO hack
             var gen = new FieldMapGenerator()
             {
                 FieldMap = GetFieldMapFromStoodTile(stoodTile)
@@ -73,6 +74,9 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Failed;
             }
 
+            var ev = new AfterFieldMapGeneratedEvent(gen.FieldMap);
+            RaiseEvent(fieldMap.MapEntityUid, ev);
+
             var entrance = new MapEntrance()
             {
                 MapIdSpecifier = new BasicMapIdSpecifier(fieldMap.Id),
@@ -86,6 +90,17 @@ namespace OpenNefia.Content.GameObjects
             }
 
             return TurnResult.Aborted;
+        }
+    }
+
+    [EventUsage(EventTarget.Map)]
+    public sealed class AfterFieldMapGeneratedEvent : EntityEventArgs
+    {
+        public PrototypeId<FieldTypePrototype> FieldMap { get; }
+
+        public AfterFieldMapGeneratedEvent(PrototypeId<FieldTypePrototype> fieldMap)
+        {
+            FieldMap = fieldMap;
         }
     }
 }

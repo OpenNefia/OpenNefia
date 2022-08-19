@@ -70,6 +70,9 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled)
                 return;
 
+            if (!_gameSession.IsPlayer(uid))
+                return;
+
             if (!EntityManager.HasComponent<MoveableComponent>(args.Target))
                 return;
 
@@ -106,7 +109,7 @@ namespace OpenNefia.Content.GameObjects
         {
             // TODO sandbag
 
-            _mes.Display(Loc.GetString("Elona.Movement.Displace.Text", ("source", source), ("target", target)));
+            _mes.Display(Loc.GetString("Elona.Movement.Displace.Text", ("source", source), ("target", target)), entity: source);
             if (_movement.SwapPlaces(source, target))
             {
                 OnEntityDisplaced(source, target);
@@ -122,7 +125,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 if (activityComp.InterruptOnDisplace)
                 {
-                    _mes.Display(Loc.GetString("Elona.Movement.Displace.InterruptActivity", ("source", source), ("target", target)));
+                    _mes.Display(Loc.GetString("Elona.Movement.Displace.InterruptActivity", ("source", source), ("target", target)), entity: target);
                     _activities.RemoveActivity(target);
                 }
             }
