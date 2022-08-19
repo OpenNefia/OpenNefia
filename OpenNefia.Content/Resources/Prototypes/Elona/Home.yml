@@ -3,8 +3,8 @@
   id: Elona.Cave
   hspIds:
     elona122: 0
-  mapBlueprint: TODO
-  areaEntranceChip: Elona.FeatAreaYourDungeon
+  mapBlueprint: /Maps/Elona/home0.yml
+  areaEntranceChip: Elona.MObjAreaYourDungeon
   value: 5000
   homeScale: 0
   events:
@@ -15,38 +15,38 @@
   id: Elona.Shack
   hspIds:
     elona122: 1
-  mapBlueprint: TODO
-  areaEntranceChip: Elona.FeatAreaTown
+  mapBlueprint: /Maps/Elona/home1.yml
+  areaEntranceChip: Elona.MObjAreaTown
   value: 29500
   homeScale: 1
 - type: Elona.Home
   id: Elona.CozyHouse
   hspIds:
     elona122: 2
-  mapBlueprint: TODO
+  mapBlueprint: /Maps/Elona/home2.yml
   value: 81000
   homeScale: 2
 - type: Elona.Home
   id: Elona.Estate
   hspIds:
     elona122: 3
-  mapBlueprint: TODO
+  mapBlueprint: /Maps/Elona/home3.yml
   value: 186500
   homeScale: 3
 - type: Elona.Home
   id: Elona.CyberHouse
   hspIds:
     elona122: 4
-  mapBlueprint: TODO
-  areaEntranceChip: Elona.FeatAreaTent
+  mapBlueprint: /Maps/Elona/home4.yml
+  areaEntranceChip: Elona.MObjAreaTent
   value: 373000
   homeScale: 4
 - type: Elona.Home
   id: Elona.SmallCastle
   hspIds:
     elona122: 5
-  mapBlueprint: TODO
-  areaEntranceChip: Elona.FeatAreaCastle
+  mapBlueprint: /Maps/Elona/home5.yml
+  areaEntranceChip: Elona.MObjAreaCastle
   value: 1335000
   homeScale: 5
   events:

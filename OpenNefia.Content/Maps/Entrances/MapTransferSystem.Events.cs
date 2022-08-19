@@ -139,8 +139,8 @@ namespace OpenNefia.Content.Maps
 
         private void HandleActiveMapChanged(EntityUid uid, ActiveMapChangedEvent args)
         {
-            Logger.WarningS("map.transfer", $"Map load: {args.OldMap} -> {args.NewMap} {args.LoadType}");
-            _mapCommon.PlayMapDefaultMusic(args.NewMap);
+            Logger.InfoS("map.transfer", $"Map load: {args.OldMap} -> {args.NewMap} : LoadType={args.LoadType}");
+            _mapCommon.PlayDefaultMapMusic(args.NewMap);
             RunMapInitializeEvents(args.NewMap, args.LoadType);
         }
 
@@ -212,11 +212,17 @@ namespace OpenNefia.Content.Maps
             // <<<<<<<< shade2/map.hsp:2273 	return ..
         }
 
+        private bool CanRenewItems(IMap map)
+        {
+            return HasComp<MapTypeTownComponent>(map.MapEntityUid) 
+                || HasComp<MapTypeGuildComponent>(map.MapEntityUid);
+        }
+
         private void RenewMajor(IMap map, MapCommonComponent common)
         {
             if (!common.IsRenewable)
             {
-                Logger.WarningS("map.renew", $"Skiping major renewal for {map}.");
+                Logger.WarningS("map.renew", $"Skipping major renewal for non-renewable map {map}.");
                 return;
             }
 
@@ -231,7 +237,7 @@ namespace OpenNefia.Content.Maps
                     EntityManager.DeleteEntity(tempEnt.Owner);
                 }
 
-                if (HasComp<MapTypeTownComponent>(map.MapEntityUid) || HasComp<MapTypeGuildComponent>(map.MapEntityUid))
+                if (CanRenewItems(map))
                 {
                     foreach (var item in _lookup.EntityQueryInMap<PickableComponent>(map.Id).ToList())
                     {
@@ -260,6 +266,7 @@ namespace OpenNefia.Content.Maps
                 }
             }
 
+            // TODO material spot regeneration
             var ev = new MapRenewMajorEvent(map, isFirstRenewal);
             RaiseEvent(map.MapEntityUid, ev);
         }
@@ -268,7 +275,7 @@ namespace OpenNefia.Content.Maps
         {
             if (!common.IsRenewable)
             {
-                Logger.WarningS("map.renew", $"Skiping minor renewal for map {map.Id}.");
+                Logger.WarningS("map.renew", $"Skipping minor renewal for non-renewable map {map.Id}.");
                 return;
             }
 

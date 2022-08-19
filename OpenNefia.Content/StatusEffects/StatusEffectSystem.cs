@@ -60,13 +60,13 @@ namespace OpenNefia.Content.StatusEffects
             foreach (var proto in _protos.EnumeratePrototypes<StatusEffectPrototype>())
             {
                 var id = proto.GetStrongID();
-                if (HasEffect(_gameSession.Player, id, effects))
+                if (HasEffect(uid, id, effects))
                 {
-                    var turns = GetTurns(_gameSession.Player, id, effects);
-                    for (var i = proto.Indicators.Count - 1; i > 0; i--)
+                    var turns = GetTurns(uid, id, effects);
+                    for (var i = proto.Indicators.Count - 1; i >= 0; i--)
                     {
                         var turnThreshold = proto.Indicators[i];
-                        if (turnThreshold >= turns)
+                        if (turns >= turnThreshold)
                         {
                             ev.OutIndicators.Add(new StatusIndicator()
                             {

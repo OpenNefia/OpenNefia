@@ -364,8 +364,10 @@ namespace OpenNefia.Core.Maps
 
             if (_mode == MapSerializeMode.Blueprint)
             {
-                var ev = new MapCreatedFromBlueprintEvent(MapGrid!, MapCreationMode.LoadedFromBlueprint);
+                var ev = new MapCreatedEvent(MapGrid!);
                 _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
+                var ev2 = new MapCreatedFromBlueprintEvent(MapGrid!);
+                _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev2);
             }
             else if (_mode == MapSerializeMode.Full)
             {
@@ -395,6 +397,17 @@ namespace OpenNefia.Core.Maps
 
                 MapGrid.RefreshTileEntities(pos, ents);
             }
+        }
+    }
+
+    [EventUsage(EventTarget.Map)]
+    public sealed class MapCreatedFromBlueprintEvent : EntityEventArgs
+    {
+        public IMap Map { get; }
+
+        public MapCreatedFromBlueprintEvent(IMap map)
+        {
+            Map = map;
         }
     }
 }

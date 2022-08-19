@@ -54,6 +54,8 @@
       - type: RoleGuard
   - type: MapAutogenCharas
     amount: 25
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/vernis.yml
 
 - type: Entity
   id: Elona.MapYowyn
@@ -97,6 +99,8 @@
       - type: RoleGuard
   - type: MapAutogenCharas
     amount: 15
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/yowyn.yml
 
 - type: Entity
   id: Elona.MapPalmia
@@ -137,6 +141,8 @@
       - type: RoleCitizen
   - type: MapAutogenCharas
     amount: 25
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/palmia.yml
 
 - type: Entity
   id: Elona.MapDerphy
@@ -177,6 +183,8 @@
       - type: RoleCitizen
   - type: MapAutogenCharas
     amount: 20
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/rogueden.yml
 
 - type: Entity
   id: Elona.MapPortKapul
@@ -214,6 +222,8 @@
       - type: RoleGuard
   - type: MapAutogenCharas
     amount: 20
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/kapul.yml
 
 - type: Entity
   id: Elona.MapNoyel
@@ -239,6 +249,8 @@
       - Elona.Traveling
       - Elona.Meditation
       - Elona.WeightLifting
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/noyel.yml # TODO christmas fest
 
 - type: Entity
   id: Elona.MapLumiest
@@ -281,3 +293,5 @@
       - type: RoleGuard
   - type: MapAutogenCharas
     amount: 25
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/Elona/lumiest.yml

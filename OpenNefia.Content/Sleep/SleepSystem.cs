@@ -256,7 +256,7 @@ namespace OpenNefia.Content.Sleep
             {
                 _playerQuery.PromptMore();
                 if (TryMap(sleeper, out map))
-                    _mapCommon.PlayMapDefaultMusic(map);
+                    _mapCommon.PlayDefaultMapMusic(map);
                 // TODO stop animation
             }
 
