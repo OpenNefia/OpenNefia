@@ -349,7 +349,7 @@ namespace OpenNefia.Content.Maps
                 var ent = chara.Owner;
 
                 if (chara.Liveness == CharaLivenessState.VillagerDead
-                    && _world.State.GameDate >= chara.RespawnDate)
+                    && _world.State.GameDate >= chara.RevivalDate)
                 {
                     _chara.Revive(ent, chara: chara);
                 }

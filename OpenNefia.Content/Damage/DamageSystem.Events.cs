@@ -266,12 +266,12 @@ namespace OpenNefia.Content.Damage
                 if (HasComp<RoleAdventurerComponent>(target))
                 {
                     chara.Liveness = CharaLivenessState.AdventurerHospital;
-                    chara.RespawnDate = _world.State.GameDate + GameTimeSpan.FromHours(AdventurerRespawnPeriodHours + _rand.Next(AdventurerRespawnPeriodHours / 2));
+                    chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(AdventurerRespawnPeriodHours + _rand.Next(AdventurerRespawnPeriodHours / 2));
                 }
                 else
                 {
                     chara.Liveness = CharaLivenessState.VillagerDead;
-                    chara.RespawnDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
+                    chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
                 }
             }
             else

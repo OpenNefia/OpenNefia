@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Charas
         /// Date of respawn for the <see cref="VillagerDead"/> state.
         /// </summary>
         [DataField]
-        public GameDateTime RespawnDate { get; set; } = new();
+        public GameDateTime RevivalDate { get; set; } = new();
 
         // TODO PreciousComponent?
         [DataField]
