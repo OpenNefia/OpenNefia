@@ -2398,7 +2398,7 @@ entities:
     pos: 48,18
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.GeneralVendor
+    shopInventoryId: Elona.GeneralVendor
     shopRank: 10
   - type: CustomName
     name: Elona.Chara.Job.GeneralVendor
@@ -2410,7 +2410,7 @@ entities:
     parent: 0
   - type: RoleInnkeeper
   - type: RoleShopkeeper
-    inventoryId: Elona.Innkeeper
+    shopInventoryId: Elona.Innkeeper
     shopRank: 8
   - type: CustomName
     name: Elona.Chara.Job.Innkeeper
@@ -2421,7 +2421,7 @@ entities:
     pos: 48,3
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.GoodsVendor
+    shopInventoryId: Elona.GoodsVendor
     shopRank: 8
   - type: CustomName
     name: Elona.Chara.Job.GoodsVendor
@@ -2432,7 +2432,7 @@ entities:
     pos: 42,17
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.Blacksmith
+    shopInventoryId: Elona.Blacksmith
     shopRank: 12
   - type: CustomName
     name: Elona.Chara.Job.Blacksmith
@@ -2443,7 +2443,7 @@ entities:
     pos: 11,14
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.Baker
+    shopInventoryId: Elona.Baker
     shopRank: 9
   - type: CustomName
     name: Elona.Chara.Job.Baker
@@ -2454,7 +2454,7 @@ entities:
     pos: 41,3
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.MagicVendor
+    shopInventoryId: Elona.MagicVendor
     shopRank: 11
   - type: CustomName
     name: Elona.Chara.Job.MagicVendor
@@ -2465,7 +2465,7 @@ entities:
     pos: 41,28
     parent: 0
   - type: RoleShopkeeper
-    inventoryId: Elona.Trader
+    shopInventoryId: Elona.Trader
     shopRank: 12
   - type: CustomName
     name: Elona.Chara.Job.Trader

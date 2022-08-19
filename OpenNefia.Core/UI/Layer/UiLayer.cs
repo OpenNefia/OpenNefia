@@ -14,6 +14,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public float? LayerUIScale { get; set; } = null;
         public override float UIScale => Parent?.UIScale ?? LayerUIScale ?? 1f;
+        public virtual bool ExceptionTolerance => true;
 
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }

@@ -89,6 +89,9 @@ namespace OpenNefia.Content.Dialog
         {
             if (args.Handled)
                 return;
+
+            if (!_gameSession.IsPlayer(args.Source))
+                return;
             
             args.Handle(TryToChatWith(args.Source, uid));
         }

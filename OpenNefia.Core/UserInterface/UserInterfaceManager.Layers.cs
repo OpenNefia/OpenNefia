@@ -3,18 +3,11 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.HotReload;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
-using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UserInterface
 {
@@ -262,13 +255,13 @@ namespace OpenNefia.Core.UserInterface
 
             PushLayer(baseLayer);
 
-            UiResult<TResult>? result;
+            UiResult<TResult>? result = null;
 
-            try
+            layer.OnQuery();
+
+            while (result == null)
             {
-                layer.OnQuery();
-
-                while (true)
+                try
                 {
                     var dt = Love.Timer.GetDelta();
                     var frameArgs = new FrameEventArgs(dt);
@@ -282,16 +275,36 @@ namespace OpenNefia.Core.UserInterface
                     _gameController.Draw();
                     _gameController.SystemStep();
                 }
+                catch (Exception ex)
+                {
+                    Logger.ErrorS("ui.layer", ex, $"Error during {this.GetType().Name}.Query()");
+
+                    if (layer.ExceptionTolerance)
+                    {
+                        var errorResult = Query<ErrorHandlerLayer, ErrorHandlerLayer.Args, ErrorHandlerLayer.Result>(new(ex));
+
+                        var action = ErrorHandlerAction.PopLayer;
+                        if (errorResult.HasValue)
+                            action = errorResult.Value.Action;
+
+                        switch (action)
+                        {
+                            case ErrorHandlerAction.Continue:
+                                break;
+                            case ErrorHandlerAction.PopLayer:
+                            default:
+                                result = new UiResult<TResult>.Error(ex);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        result = new UiResult<TResult>.Error(ex);
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                Logger.ErrorS("ui.layer", ex, $"Error during {this.GetType().Name}.Query()");
-                result = new UiResult<TResult>.Error(ex);
-            }
-            finally
-            {
-                PopLayer((UiLayer)layer);
-            }
+
+            PopLayer((UiLayer)layer);
 
             // layer.HaltInput();
             layer.OnQueryFinish();
