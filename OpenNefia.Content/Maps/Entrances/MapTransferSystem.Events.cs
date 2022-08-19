@@ -306,7 +306,7 @@ namespace OpenNefia.Content.Maps
                 {
                     _vanillaAI.ResetAI(chara.Owner);
                 }
-                if (!_parties.IsInPlayerParty(chara.Owner) && chara.Liveness == CharaLivenessState.Dead)
+                if (!_parties.IsInPlayerParty(chara.Owner) && chara.Liveness != CharaLivenessState.Dead)
                 {
                     gen.CurrentCharaCount++;
                 }

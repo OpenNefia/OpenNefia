@@ -7,6 +7,7 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Tests;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.Tests
             IoCManager.RegisterInstance<IHudLayer>(new DummyHudLayer(), true);
             IoCManager.RegisterInstance<IReplLayer>(new Mock<IReplLayer>().Object, true);
             IoCManager.RegisterInstance<IDebugViewLayer>(new Mock<IDebugViewLayer>().Object, true);
+            IoCManager.RegisterInstance<IAssetManager>(new Mock<IAssetManager>().Object, true);
         }
     }
 

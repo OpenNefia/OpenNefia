@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.RandomGen;
@@ -35,6 +36,7 @@ namespace OpenNefia.Content.Maps
             SubscribeComponent<MapCharaGenComponent, GenerateCharaFilterEvent>(SetDefaultFilter);
             SubscribeComponent<MapCharaGenComponent, MapOnTimePassedEvent>(RespawnMobs);
             SubscribeComponent<CharaComponent, EntityGeneratedEvent>(HandleEntityGenerated, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<CharaComponent, EntityKilledEvent>(HandleEntityKilled, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CharaComponent, EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
         }
 
@@ -47,6 +49,17 @@ namespace OpenNefia.Content.Maps
                 return;
 
             mapCharaGen.CurrentCharaCount = Math.Max(mapCharaGen.CurrentCharaCount + 1, 0);
+        }
+
+        private void HandleEntityKilled(EntityUid uid, CharaComponent component, ref EntityKilledEvent args)
+        {
+            if (!TryMap(uid, out var map) || !TryComp<MapCharaGenComponent>(map.MapEntityUid, out var mapCharaGen))
+                return;
+
+            if (!HasComp<TurnOrderComponent>(uid) || _parties.IsInPlayerParty(uid))
+                return;
+
+            mapCharaGen.CurrentCharaCount = Math.Max(mapCharaGen.CurrentCharaCount - 1, 0);
         }
 
         private void HandleEntityDeleted(EntityUid uid, CharaComponent component, EntityDeletedEvent args)

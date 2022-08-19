@@ -1,5 +1,9 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -60,6 +64,52 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
                 Assert.That(mapMan.MapIsLoaded(map2.Id), Is.True, "Map 2 is loaded");
                 Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(map2.Id), "Map 2 is active");
                 Assert.That(playerSpatial.MapPosition, Is.EqualTo(map2.AtPos(expectedPos)), "Position was updated");
+            });
+        }
+
+        [Test]
+        public void TestMapTransfer_VillagerRevival()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var saveGameMan = sim.Resolve<ISaveGameManager>();
+
+            var sys = sim.GetEntitySystem<IMapTransferSystem>();
+
+            var map1 = sim.CreateMapAndSetActive(10, 10);
+            var map2 = sim.CreateMap(10, 10);
+
+            using var save = new TempSaveGameHandle();
+            saveGameMan.CurrentSave = save;
+
+            var ent = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map1.AtPos(1, 1))!.Value;
+            var entChara = entMan.GetComponent<CharaComponent>(ent);
+            entChara.Liveness = CharaLivenessState.VillagerDead;
+            entChara.RespawnDate = new GameDateTime(512, 1, 2);
+
+            var player = entGen.SpawnEntity(Protos.Chara.Putit, map1.AtPos(0, 0))!.Value;
+            sim.Resolve<IGameSessionManager>().Player = player;
+            var playerSpatial = entMan.GetComponent<SpatialComponent>(player);
+
+            Assert.Multiple(() =>
+            {
+                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
+                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
+
+                entChara = entMan.GetComponent<CharaComponent>(ent);
+                Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
+
+
+                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
+                sys.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(0, 0), MapLoadType.Full);
+
+                entChara = entMan.GetComponent<CharaComponent>(ent);
+                Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
             });
         }
     }

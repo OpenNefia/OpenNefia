@@ -68,6 +68,12 @@ namespace OpenNefia.Content.RandomText
 
         private bool TryGetRandomName([NotNullWhen(true)] out string? name)
         {
+            if (_allNameData.Count == 0)
+            {
+                name = "???";
+                return true;
+            }
+
             name = null;
             var data = _random.Pick(_allNameData);
             var result = data.Base;
