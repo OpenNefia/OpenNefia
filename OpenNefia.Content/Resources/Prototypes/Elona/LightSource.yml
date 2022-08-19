@@ -161,7 +161,7 @@
   alwaysOn: false
 
 - type: Elona.LightSource
-  id: Elona.WindowRed20
+  id: Elona.WindowRed
   assetID: Elona.LightWindowRed
   brightness: 70
   offset: 0, -35

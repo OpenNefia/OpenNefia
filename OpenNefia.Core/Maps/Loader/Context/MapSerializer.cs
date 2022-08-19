@@ -112,13 +112,13 @@ namespace OpenNefia.Core.Maps
         private void DoWriteGrid(string name, IMap map, Tile[,] tiles)
         {
             var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
-            grid.Style = ScalarStyle.Literal;
+            grid.Style = ScalarStyle.Literal;                                                                 
             _rootNode.Add(name, grid);
         }
 
         private void WriteGridInSightSections()
         {
-            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight(MapGrid!.InSight, MapGrid.Size));
+            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight (MapGrid!.InSight, MapGrid.Size));
             _rootNode.Add(MapLoadConstants.GridInSight, gridInSight);
             _rootNode.Add(MapLoadConstants.GridLastSightId, new YamlScalarNode(MapGrid.LastSightId.ToString()));
         }

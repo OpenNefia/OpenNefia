@@ -1,8 +1,12 @@
 ﻿using OpenNefia.Core.ContentPack;
-using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using YamlDotNet.Core;
@@ -104,6 +108,50 @@ namespace OpenNefia.Core.Maps
             var grid = deserializer.MapGrid!;
 
             return grid;
+        }
+
+        public Dictionary<string, HashSet<ErrorNode>> ValidateDirectory(ResourcePath directory)
+        {
+            var errors = new Dictionary<string, HashSet<ErrorNode>>();
+            var streams = _resourceManager.ContentFindFiles(directory).ToList().AsParallel()
+                .Where(filePath => filePath.Extension == "yml" && !filePath.Filename.StartsWith("."));
+
+            foreach (var resourcePath in streams)
+            {
+                if (!_resourceManager.TryContentFileRead(resourcePath, out var contentReader))
+                    continue;
+
+                using var reader = new StreamReader(contentReader);
+
+                var yamlStream = new YamlStream();
+                yamlStream.Load(reader);
+
+                if (yamlStream.Documents.Count < 1)
+                {
+                    errors.GetOrInsertNew(resourcePath.ToString()).Add(new ErrorNode(new ValueDataNode(""), "Stream has no YAML documents."));
+                    continue;
+                }
+
+                var root = yamlStream.Documents[0].RootNode;
+
+                if (yamlStream.Documents.Count > 1)
+                {
+                    errors.GetOrInsertNew(resourcePath.ToString()).Add(new ErrorNode(root.ToDataNode(), "Stream has too many YAML documents. Map blueprints store exactly one."));
+                    continue;
+                }
+
+                if (root is not YamlMappingNode rootMapping)
+                {
+                    errors.GetOrInsertNew(resourcePath.ToString()).Add(new ErrorNode(root.ToDataNode(), "Root node is not a mapping node."));
+                    continue;
+                }
+
+                var validator = new MapValidator(MapSerializeMode.Blueprint, rootMapping);
+                var newErrors = validator.Validate();
+                errors.GetOrInsertNew(resourcePath.ToString()).AddRange(newErrors);
+            }
+
+            return errors;
         }
 
         /// <summary>

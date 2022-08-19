@@ -665,7 +665,7 @@ namespace OpenNefia.Core.Input
             }
 
             _bindings.Insert(pos, binding);
-            _bindingsByFunction.GetOrNew(binding.Function).Add(binding);
+            _bindingsByFunction.GetOrInsertNew(binding.Function).Add(binding);
             OnKeyBindingAdded?.Invoke(binding);
         }
 
@@ -682,7 +682,7 @@ namespace OpenNefia.Core.Input
 
         public IReadOnlyList<IKeyBinding> GetKeyBindings(BoundKeyFunction function)
         {
-            return _bindingsByFunction.GetOrNew(function);
+            return _bindingsByFunction.GetOrInsertNew(function);
         }
 
         public void ResetBindingsFor(BoundKeyFunction function)

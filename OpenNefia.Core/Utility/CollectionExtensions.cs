@@ -292,7 +292,7 @@ namespace OpenNefia.Core.Utility
         /// <param name="dict">Dictionary to query/modify.</param>
         /// <param name="key">Key to index.</param>
         /// <returns>A value guaranteed to be contained in <paramref name="dict"/>.</returns>
-        public static TValue GetOrNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : new()
+        public static TValue GetOrInsertNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : new()
             where TKey : notnull
         {
             if (!dict.TryGetValue(key, out var value))
