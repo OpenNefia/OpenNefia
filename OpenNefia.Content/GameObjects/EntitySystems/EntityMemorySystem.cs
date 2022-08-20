@@ -5,6 +5,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Visibility;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -17,6 +19,8 @@ namespace OpenNefia.Content.GameObjects
     public class EntityMemorySystem : EntitySystem, IEntityMemorySystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -44,7 +48,7 @@ namespace OpenNefia.Content.GameObjects
             memory.Color = chip.Color;
             memory.ScreenOffset = chipProto.Offset;
             memory.ShadowRotationRads = (float)Angle.FromDegrees(chipProto.ShadowRotation).Theta / 2;
-            memory.IsVisible = EntityManager.IsAlive(uid);
+            memory.IsVisible = _vis.CanSeeEntity(_gameSession.Player, uid, noLos: true);
             memory.ZOrder = chip.DrawDepth;
             memory.HideWhenOutOfSight = false;
         }

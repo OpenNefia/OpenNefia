@@ -95,21 +95,24 @@ namespace OpenNefia.Core.Rendering
             entry = new ChipBatchEntry(tile, memory);
 
             // Add shadow.
-            var screenPos = _coords.TileToScreen(memory.Coords.Position);
-            switch (memory.ShadowType)
+            if (memory.IsVisible)
             {
-                case ShadowType.None:
-                default:
-                    break;
-                case ShadowType.Normal:
-                    _rows[entry.RowIndex].ShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
-                    break;
-                case ShadowType.DropShadow:
-                    var viewport = tile.Quad.GetViewport();
-                    // TODO no idea what the actual rotation amounts should be
-                    // TODO this needs to be rendered as a solid color instead of the texture of the chip
-                    _rows[entry.RowIndex].ShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2 - (memory.ShadowRotationRads * (180 / MathF.PI)) / 4, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
-                    break;
+                var screenPos = _coords.TileToScreen(memory.Coords.Position);
+                switch (memory.ShadowType)
+                {
+                    case ShadowType.None:
+                    default:
+                        break;
+                    case ShadowType.Normal:
+                        _rows[entry.RowIndex].ShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
+                        break;
+                    case ShadowType.DropShadow:
+                        var viewport = tile.Quad.GetViewport();
+                        // TODO no idea what the actual rotation amounts should be
+                        // TODO this needs to be rendered as a solid color instead of the texture of the chip
+                        _rows[entry.RowIndex].ShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                        break;
+                }
             }
 
             // Add to the appropriate Z layer strip.

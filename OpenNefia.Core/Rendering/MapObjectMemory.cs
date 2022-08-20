@@ -41,7 +41,7 @@ namespace OpenNefia.Core.Rendering
         public Color Color;
 
         [DataField]
-        public ShadowType ShadowType;
+        public ShadowType ShadowType = ShadowType.None;
 
         [DataField]
         public int ZOrder;
