@@ -125,7 +125,7 @@ namespace OpenNefia.Content.RandomGen
             {
                 var tagString = tags != null ? string.Join(", ", tags.ToArray()) : "<no tags>";
                 raw = Protos.Chara.Bug;
-                Logger.WarningS("randomgen.chara", $"No character generation candidates found: {minLevel} {tagString} {fltselect}");
+                Logger.ErrorS("randomgen.chara", $"No character generation candidates found: minLevel={minLevel} tags={tagString} fltselect={fltselect} raceFilter={raceFilter} category={category}");
             }
 
             return raw!.Value;

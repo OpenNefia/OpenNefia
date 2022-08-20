@@ -134,6 +134,16 @@ namespace OpenNefia.Content.Visibility
             if (!TryMap(target, out var map) || _mapManager.ActiveMap?.Id != map.Id)
                 return false;
 
+            // Making sure the player can always "see" the map entity is
+            // important, because localization functions depend on visibility.
+            // Without this check, any call to `_.name(mapEntityUid)` in a
+            // locale file will just return "something".
+            if (EntityManager.TryGetComponent(target, out MapComponent? mapComp)
+                || EntityManager.TryGetComponent(onlooker, out mapComp))
+            {
+                return _mapManager.ActiveMap?.Id == mapComp.MapId;
+            }
+
             if (TryComp<VisibilityComponent>(target, out var vis) && vis.IsInvisible.Buffed)
             {
                 if (!TryComp<VisibilityComponent>(onlooker, out var onlookerVis) || !onlookerVis.CanSeeInvisible.Buffed)
