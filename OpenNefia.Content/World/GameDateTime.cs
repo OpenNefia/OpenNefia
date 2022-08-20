@@ -16,7 +16,7 @@ namespace OpenNefia.Content.World
     /// inappropriate for tracking time according to Elona's world, where all months are 31 days long.
     /// </remarks>
     [DataDefinition]
-    public struct GameDateTime
+    public struct GameDateTime : IComparable<GameDateTime>
     {
         public const long SecondsPerMinute = 60;
         public const long SecondsPerHour   = 60 * 60;
@@ -185,6 +185,11 @@ namespace OpenNefia.Content.World
                 return this == otherTime;
             
             return false;
+        }
+
+        public int CompareTo(GameDateTime other)
+        {
+            return TotalSeconds.CompareTo(other.TotalSeconds);
         }
 
         public override int GetHashCode()

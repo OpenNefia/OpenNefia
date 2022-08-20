@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             });
 
             var expectedPos = new Vector2i(3, 4);
-            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full, noUnloadPrevious: true);
+            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full);
 
             Assert.Multiple(() =>
             {
