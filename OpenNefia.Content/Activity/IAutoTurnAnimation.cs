@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Activity
 
         public virtual void Initialize() {}
         public virtual void OnFirstFrame() {}
-        public abstract IGlobalDrawable MakeGlobalDrawable();
+        public abstract IGlobalDrawable MakeGlobalDrawable(float uiScale);
     }
 
     public class MiningAutoTurnAnim : BaseAutoTurnAnim
@@ -44,7 +44,8 @@ namespace OpenNefia.Content.Activity
             private bool _playedSound = false;
             private IAssetInstance _assetAutoTurnMining;
 
-            public GlobalDrawable(IAssetInstance assetAutoTurnMining)
+            public GlobalDrawable(float uiScale, IAssetInstance assetAutoTurnMining)
+                : base(uiScale)
             {
                 _assetAutoTurnMining = assetAutoTurnMining;
             }
@@ -70,9 +71,9 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        public override IGlobalDrawable MakeGlobalDrawable()
+        public override IGlobalDrawable MakeGlobalDrawable(float uiScale)
         {
-            return new GlobalDrawable(_assetAutoTurnMining);
+            return new GlobalDrawable(uiScale, _assetAutoTurnMining);
         }
     }
 
@@ -97,7 +98,8 @@ namespace OpenNefia.Content.Activity
             private FrameCounter _counter = new(delaySecs: 50f * 0.001f, maxFrames: 10);
             private IAssetInstance _assetAutoTurnFishing;
 
-            public GlobalDrawable(IAssetInstance assetAutoTurnFishing)
+            public GlobalDrawable(float uiScale, IAssetInstance assetAutoTurnFishing)
+                : base(uiScale)
             {
                 _assetAutoTurnFishing = assetAutoTurnFishing;
             }
@@ -116,9 +118,9 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        public override IGlobalDrawable MakeGlobalDrawable()
+        public override IGlobalDrawable MakeGlobalDrawable(float uiScale)
         {
-            return new GlobalDrawable(_assetAutoTurnFishing);
+            return new GlobalDrawable(uiScale, _assetAutoTurnFishing);
         }
     }
 
@@ -144,7 +146,8 @@ namespace OpenNefia.Content.Activity
             private bool _playedSound = false;
             private IAssetInstance _assetAutoTurnHarvesting;
 
-            public GlobalDrawable(IAssetInstance assetAutoTurnHarvesting)
+            public GlobalDrawable(float uiScale, IAssetInstance assetAutoTurnHarvesting)
+                : base(uiScale)
             {
                 _assetAutoTurnHarvesting = assetAutoTurnHarvesting;
             }
@@ -170,9 +173,9 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        public override IGlobalDrawable MakeGlobalDrawable()
+        public override IGlobalDrawable MakeGlobalDrawable(float uiScale)
         {
-            return new GlobalDrawable(_assetAutoTurnHarvesting);
+            return new GlobalDrawable(uiScale, _assetAutoTurnHarvesting);
         }
     }
 
@@ -202,7 +205,8 @@ namespace OpenNefia.Content.Activity
             private bool _playedSound = false;
             private IAssetInstance _assetAutoTurnSearching;
 
-            public GlobalDrawable(IAssetInstance assetAutoTurnSearching)
+            public GlobalDrawable(float uiScale, IAssetInstance assetAutoTurnSearching)
+                : base(uiScale)
             {
                 _assetAutoTurnSearching = assetAutoTurnSearching;
             }
@@ -228,9 +232,9 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        public override IGlobalDrawable MakeGlobalDrawable()
+        public override IGlobalDrawable MakeGlobalDrawable(float uiScale)
         {
-            return new GlobalDrawable(_assetAutoTurnSearching);
+            return new GlobalDrawable(uiScale, _assetAutoTurnSearching);
         }
     }
 }

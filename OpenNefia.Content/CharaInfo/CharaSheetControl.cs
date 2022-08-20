@@ -404,7 +404,7 @@ namespace OpenNefia.Content.CharaInfo
             }
             var eqWeight = _equip.GetTotalEquipmentWeight(_charaEntity);
             dict[_locScope.GetString("Group.Extra.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
-            dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
+            dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_world.State.DeepestLevel}{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
             SetupContainer(ExtraContainer, 6, dict);
             dict.Clear();
 

@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Items
             // a dish <with/of> [...]
             var preposition = "";
 
-            if (HasComp<RandomItemComponent>(uid) || identify >= IdentifyState.Name)
+            if (!(HasComp<RandomItemComponent>(uid) && identify < IdentifyState.Name))
             {
                 typeName = item.ItemTypeName;
                 preposition = item.ItemPreposition ?? "of";
