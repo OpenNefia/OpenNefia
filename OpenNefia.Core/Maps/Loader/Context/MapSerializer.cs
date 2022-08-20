@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.SaveGames;
-using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Value;
-using OpenNefia.Core.Timing;
 using System.Globalization;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
@@ -112,13 +104,13 @@ namespace OpenNefia.Core.Maps
         private void DoWriteGrid(string name, IMap map, Tile[,] tiles)
         {
             var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
-            grid.Style = ScalarStyle.Literal;                                                                 
+            grid.Style = ScalarStyle.Literal;
             _rootNode.Add(name, grid);
         }
 
         private void WriteGridInSightSections()
         {
-            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight (MapGrid!.InSight, MapGrid.Size));
+            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight(MapGrid!.InSight, MapGrid.Size));
             _rootNode.Add(MapLoadConstants.GridInSight, gridInSight);
             _rootNode.Add(MapLoadConstants.GridLastSightId, new YamlScalarNode(MapGrid.LastSightId.ToString()));
         }
@@ -212,13 +204,13 @@ namespace OpenNefia.Core.Maps
         /// </summary>
         private void PopulateEntityListFull()
         {
-            foreach (var entityUid in GetAllEntitiesInMap(_targetMapId))
+            // Need to also account for entity UIDs that are outside this map,
+            // for example the player. Otherwise they become null on saving.
+            foreach (var spatial in _entityManager.GetAllComponents<SpatialComponent>())
             {
-                if (IsMapSavable(entityUid))
-                {
-                    _context.Entities.Add(entityUid);
-                    _context.EntityUidMap.Add(entityUid, (int)entityUid);
-                }
+                if (spatial.MapID == _targetMapId)
+                    _context.Entities.Add(spatial.Owner);
+                _context.EntityUidMap.Add(spatial.Owner, (int)spatial.Owner);
             }
         }
 
