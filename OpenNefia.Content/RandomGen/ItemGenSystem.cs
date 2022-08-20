@@ -104,7 +104,7 @@ namespace OpenNefia.Content.RandomGen
             {
                 var tagString = tags != null ? string.Join(", ", tags.ToArray()) : "<no tags>";
                 raw = Protos.Item.Bug;
-                Logger.WarningS("randomgen.item", $"No item generation candidates found: {minLevel} {tagString} {fltselect}");
+                Logger.ErrorS("randomgen.item", $"No item generation candidates found: {minLevel} {tagString} {fltselect}");
             }
 
             return raw!.Value;

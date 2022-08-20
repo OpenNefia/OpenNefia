@@ -211,6 +211,7 @@ public void healcon(PrototypeId<StatusEffectPrototype> id, int? turns = null)
 public void setlog(LogLevel level)
 {
     _config.SetCVar(CCVars.LogLevel, level);
+    IoCManager.Resolve<ILogManager>().RootSawmill.Level = level;
 }
 
 public void setlog(string sawmill, LogLevel level)
