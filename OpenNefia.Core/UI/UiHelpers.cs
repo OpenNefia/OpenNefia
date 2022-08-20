@@ -141,12 +141,12 @@ namespace OpenNefia.Core.UI
         public static void DrawPercentageBar(float uiScale, UiBarDrawableState entry, Vector2 pos, float barWidth, Vector2 drawSize = default)
         {
             var size = entry.Asset.VirtualSize(uiScale);
-            var lastWidth = barWidth;
+            var lastWidth = barWidth * uiScale;
 
             if (!MathHelper.CloseToPercent(entry.BarWidth, barWidth))
             {
-                entry.BarWidth = barWidth;
-                entry.BarQuad.SetViewport(size.X - barWidth, 0, lastWidth, size.Y);
+                entry.BarWidth = barWidth * uiScale;
+                entry.BarQuad.SetViewport(size.X * uiScale - barWidth * uiScale, 0, lastWidth, size.Y * uiScale);
             }
 
             entry.Asset.Draw(uiScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
