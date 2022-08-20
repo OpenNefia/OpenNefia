@@ -451,7 +451,7 @@ namespace OpenNefia.Content.Food
 
             var nutrition = food.BaseNutrition;
 
-            // TODO
+            // TODO configure this?
             if (HasComp<CargoComponent>(food.Owner))
                 nutrition += 2500;
 

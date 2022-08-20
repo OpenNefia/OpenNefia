@@ -15,6 +15,7 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.World;
+using OpenNefia.Content.TitleScreen;
 
 namespace OpenNefia.Content.Maps
 {
@@ -32,6 +33,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IFoodSystem _food = default!;
         [Dependency] private readonly IMusicManager _music = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         public override void Initialize()
         {
@@ -39,6 +41,7 @@ namespace OpenNefia.Content.Maps
             SubscribeEntity<MapRenewMajorEvent>(SpawnRandomSites, priority: EventPriorities.Low);
             SubscribeComponent<MapCommonComponent, MapEnterEvent>(SpoilFood, priority: EventPriorities.Low);
             SubscribeEntity<MapCalcDefaultMusicEvent>(CalcDefaultMapMusic, priority: EventPriorities.Highest);
+            SubscribeBroadcast<GameQuickLoadedEventArgs>(HandleQuickLoaded);
         }
 
         private void AddRequiredComponents(EntityUid mapEntity, MapCreatedEvent args)
@@ -62,6 +65,11 @@ namespace OpenNefia.Content.Maps
         {
             if (!common.IsTemporary)
                 _food.SpoilFoodInMap(args.Map);
+        }
+
+        private void HandleQuickLoaded(GameQuickLoadedEventArgs ev)
+        {
+            PlayDefaultMapMusic(_mapManager.ActiveMap!);
         }
 
         private static readonly PrototypeId<MusicPrototype>[] DungeonMusicIDs = new[]
