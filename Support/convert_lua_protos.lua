@@ -646,6 +646,11 @@ handlers["base.chara"] = function(from, to)
             c.chips.Female = dotted(from.female_image)
         end
     end
+
+    if from.is_invisible then
+        c = comp(to, "Visibility")
+        c.isInvisible = from.is_invisible
+    end
 end
 
 handlers["base.item"] = function(from, to)

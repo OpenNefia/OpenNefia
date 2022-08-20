@@ -1,15 +1,13 @@
-﻿using Love;
-using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
-using XamlX.Transform.Transformers;
-using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.Visibility
 {
@@ -39,7 +37,7 @@ namespace OpenNefia.Content.Visibility
         /// <summary>
         /// Returns true if the onlooker can see the entity, including visibility checks.
         /// </summary>
-        bool CanSeeEntity(EntityUid onlooker, EntityUid target);
+        bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool noLos = false);
 
         bool TryToPercieve(EntityUid perceiver, EntityUid target);
     }
@@ -128,16 +126,13 @@ namespace OpenNefia.Content.Visibility
             return true;
         }
 
-        public bool CanSeeEntity(EntityUid onlooker, EntityUid target)
+        public bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool noLos = false)
         {
             if (!EntityManager.TryGetComponent(target, out SpatialComponent targetSpatial))
                 return false;
 
-            if (EntityManager.TryGetComponent(target, out MapComponent? map)
-                || EntityManager.TryGetComponent(onlooker, out map))
-            {
-                return _mapManager.ActiveMap?.Id == map.MapId;
-            }
+            if (!TryMap(target, out var map) || _mapManager.ActiveMap?.Id != map.Id)
+                return false;
 
             if (TryComp<VisibilityComponent>(target, out var vis) && vis.IsInvisible.Buffed)
             {
@@ -145,7 +140,7 @@ namespace OpenNefia.Content.Visibility
                     return false;
             }
 
-            return HasLineOfSight(onlooker, targetSpatial.MapPosition);
+            return noLos || HasLineOfSight(onlooker, targetSpatial.MapPosition);
         }
 
         private bool IsInSquare(MapCoordinates from, MapCoordinates to, int radius)

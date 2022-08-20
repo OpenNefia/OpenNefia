@@ -6367,6 +6367,8 @@
       power: 200
   - type: LootType
     lootType: Elona.Insect
+  - type: Visibility
+    isInvisible: true
 - type: Entity
   id: Elona.CharaHalloweenNightmare
   parent: BaseChara
@@ -6401,6 +6403,8 @@
       power: 250
   - type: LootType
     lootType: Elona.Insect
+  - type: Visibility
+    isInvisible: true
 - type: Entity
   id: Elona.CharaStalker
   parent: BaseChara
@@ -6429,6 +6433,8 @@
     moveChance: 0.8
   - type: LootType
     lootType: Elona.Humanoid
+  - type: Visibility
+    isInvisible: true
 - type: Entity
   id: Elona.CharaShadowStalker
   parent: BaseChara
@@ -6458,6 +6464,8 @@
     moveChance: 0.7
   - type: LootType
     lootType: Elona.Humanoid
+  - type: Visibility
+    isInvisible: true
 - type: Entity
   id: Elona.CharaPuppy
   parent: BaseChara
@@ -6492,6 +6500,8 @@
       power: 150
   - type: LootType
     lootType: Elona.Insect
+  - type: Visibility
+    isInvisible: true
 - type: Entity
   id: Elona.CharaEbon
   parent: BaseChara
