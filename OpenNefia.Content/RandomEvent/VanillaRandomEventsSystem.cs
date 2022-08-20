@@ -258,7 +258,7 @@ namespace OpenNefia.Content.RandomEvent
                     if (TryComp<HungerComponent>(ev.Target, out var hunger))
                     {
                         hunger.Nutrition = HungerLevels.InnkeeperMeal;
-                        _mes.Display(Loc.GetString("Elona.Talk.Npc.Innkeeper.Eat.Results"));
+                        _mes.Display(Loc.GetString("Elona.Dialog.Innkeeper.BuyMeal.Results"));
                         _mes.Display(_food.GetNutritionMessage(hunger.Nutrition));
                         _hunger.VomitIfAnorexic(ev.Target);
                     }
