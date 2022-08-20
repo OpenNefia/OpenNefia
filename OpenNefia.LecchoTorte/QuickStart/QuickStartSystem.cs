@@ -73,8 +73,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
             wallet.Gold = 1000000;
             wallet.Platinum = 1000;
 
-            _mapRenderer.SetTileLayerEnabled(typeof(VanillaAIDebugTileLayer), true);
-
             var testEv = new P_ElementKillCharaEvent(null, player);
             _protoMan.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
 

@@ -10,7 +10,7 @@ Elona.Bash = {
         return ("%sは睡眠を妨害された。"):format(_.name(target))
     end,
     Choking = {
-        Dialog = "「助かったよ！」",
+        Dialog = _.quote "助かったよ！",
         Execute = function(basher, target)
             return ("%sは%sに全力で体当たりした。"):format(_.name(basher), _.name(target))
         end,

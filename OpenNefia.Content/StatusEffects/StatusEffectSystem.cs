@@ -97,7 +97,6 @@ namespace OpenNefia.Content.StatusEffects
 
         private void HandleTurnStarting(EntityUid uid, StatusEffectsComponent component, EntityTurnStartingEventArgs args)
         {
-            // TODO OnTurnStart
             if (args.Handled)
                 return;
 

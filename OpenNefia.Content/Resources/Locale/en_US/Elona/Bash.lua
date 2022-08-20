@@ -10,7 +10,7 @@ Elona.Bash = {
         return ("%s disturb%s %s sleep."):format(_.name(basher), _.s(basher), _.his(target))
     end,
     Choking = {
-        Dialog = "You saved me!",
+        Dialog = _.quote "You saved me!",
         Execute = function(basher, target)
             return ("%s bash%s up %s at full power."):format(_.name(basher), _.s(basher, true), _.name(target))
         end,
