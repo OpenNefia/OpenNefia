@@ -500,7 +500,8 @@ entities:
             // Add some UIDs that aren't valid.
             // The idea is that these UIDs could still be valid in another map
             // that's currently unloaded, thus they should still get saved.
-            testComp.Uids.Add(new EntityUid(-1));
+            // It would be the entity system's responsibility to check validity in this case.
+            testComp.Uids.Add(new EntityUid(100));
             testComp.Uids.Add(new EntityUid(999));
 
             using var save = new TempSaveGameHandle();
@@ -510,7 +511,7 @@ entities:
             map = mapLoader.LoadMap(mapId, save);
 
             testComp = entMan.GetComponent<MapDeserializeTestEntityUidsComponent>(ent);
-            Assert.That(testComp.Uids, Is.EquivalentTo(new EntityUid[] { ent, new EntityUid(-1), new EntityUid(999) }));
+            Assert.That(testComp.Uids, Is.EquivalentTo(new EntityUid[] { ent, new EntityUid(100), new EntityUid(999) }));
         }
 
         [DataDefinition]
