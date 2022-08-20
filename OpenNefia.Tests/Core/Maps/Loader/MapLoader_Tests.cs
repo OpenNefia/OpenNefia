@@ -9,12 +9,6 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Tests.Core.Maps.Loader
 {
@@ -85,6 +79,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             compFactory.RegisterClass<MapDeserializeTestAddComponent>();
             compFactory.RegisterClass<MapDeserializeTestRemoveComponent>();
             compFactory.RegisterClass<MapDeserializeTestOverrideComponent>();
+            compFactory.RegisterClass<MapDeserializeTestEntityUidsComponent>();
             compFactory.FinishRegistration();
             IoCManager.Resolve<ISerializationManager>().Initialize();
 
@@ -481,6 +476,43 @@ entities:
             });
         }
 
+        /// <summary>
+        /// Tests that EntityUids are *always* saved on a full map save.
+        /// </summary>
+        [Test]
+        public void TestMapSaveFullEntityUids()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var tileDefMan = IoCManager.Resolve<ITileDefinitionManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+
+            var map = mapMan.CreateMap(5, 5);
+            var mapId = map.Id;
+            var coords = map.AtPos(Vector2i.One);
+
+            var ent = entMan.SpawnEntity(TestDeserializeOverrideID, coords);
+            var testComp = entMan.EnsureComponent<MapDeserializeTestEntityUidsComponent>(ent);
+
+            testComp.Uids.Add(ent);
+
+            // Add some UIDs that aren't valid.
+            // The idea is that these UIDs could still be valid in another map
+            // that's currently unloaded, thus they should still get saved.
+            testComp.Uids.Add(new EntityUid(-1));
+            testComp.Uids.Add(new EntityUid(999));
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
+
+            testComp = entMan.GetComponent<MapDeserializeTestEntityUidsComponent>(ent);
+            Assert.That(testComp.Uids, Is.EquivalentTo(new EntityUid[] { ent, new EntityUid(-1), new EntityUid(999) }));
+        }
+
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {
@@ -516,6 +548,15 @@ entities:
 
             [DataField]
             public ITestData Baz { get; set; } = new TestDataCtor();
+        }
+
+        [DataDefinition]
+        private sealed class MapDeserializeTestEntityUidsComponent : Component
+        {
+            public override string Name => "MapDeserializeTestEntityUids";
+
+            [DataField]
+            public List<EntityUid> Uids { get; set; } = new();
         }
     }
 
