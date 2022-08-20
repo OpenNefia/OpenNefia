@@ -156,6 +156,11 @@ namespace OpenNefia.Content.StatusEffects
                 stumble = true;
             }
 
+            if (_statusEffects.HasEffect(uid, Protos.StatusEffect.Confusion))
+            {
+                stumble = true;
+            }
+
             if (stumble)
             {
                 args.OutNewPosition = new(args.DesiredPosition.MapId,
