@@ -11141,6 +11141,7 @@
     chips:
       Male: Elona.CharaProstituteMale
       Female: Elona.CharaProstituteFemale
+  - type: RoleProstitute
 - type: Entity
   id: Elona.CharaGodInsideEhekatl
   parent: BaseChara
