@@ -99,11 +99,12 @@ namespace OpenNefia.Content.EntityGen
                 return null;
 
             var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
-            var originalCount = count;
 
             EntityGenCommonArgs? commonArgs = null;
             if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out commonArgs))
                 count = commonArgs.Amount;
+            
+            var originalCount = count;
 
             if (EntityManager.HasComponent<StackComponent>(ent))
                 _stacks.SetCount(ent, Math.Max(count ?? 1, 1));
