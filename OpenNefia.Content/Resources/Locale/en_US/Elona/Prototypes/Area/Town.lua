@@ -45,7 +45,7 @@ OpenNefia.Prototypes.Entity.Elona = {
             "Head east out of town, and follow the road north to reach the capital of the Kingdom of Palmia.  Be careful around that old fortress though, it's a strange place.  I've heard sometimes people that go near that place are gunned down by ancient machines that survived from Eyth Terre.",
             "The elder always talks about an old run down castle to the southwest.  That old bag is always making up crazy stories.",
             "Yowyn's economy is pretty small, but we do make excellent caskets.  Sometimes the nobles from Palmia send their squires and servants down here to buy them.",
-            "The air is so fresh and lively here in the countryside.  I wouldn't give this up for anything.%END",
+            "The air is so fresh and lively here in the countryside.  I wouldn't give this up for anything.",
         },
     },
 
