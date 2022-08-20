@@ -22,7 +22,7 @@ namespace OpenNefia.Content.EmotionIcon
                 emoIcon.EmotionIconId = null;
         }
 
-        public void SetEmotionIcon(EntityUid entity, string? id, int turns = 0, EmotionIconComponent? emoicon = null)
+        public void SetEmotionIcon(EntityUid entity, string? id, int turns = 1, EmotionIconComponent? emoicon = null)
         {
             if (!Resolve(entity, ref emoicon))
                 return;

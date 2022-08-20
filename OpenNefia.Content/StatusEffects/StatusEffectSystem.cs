@@ -1,11 +1,11 @@
 ﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Sleep;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI;
-using OpenNefia.Content.World;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -47,12 +47,15 @@ namespace OpenNefia.Content.StatusEffects
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
-        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IEmotionIconSystem _emotionIcons = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<StatusEffectsComponent, GetStatusIndicatorsEvent>(AddStatusIndicators, priority: EventPriorities.VeryHigh);
             SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(HandleCharaSleep);
+            SubscribeComponent<StatusEffectsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.High);
+            SubscribeComponent<StatusEffectsComponent, EntityPassTurnEventArgs>(HandlePassTurn, priority: EventPriorities.High);
+            SubscribeComponent<StatusEffectsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.High);
         }
 
         private void AddStatusIndicators(EntityUid uid, StatusEffectsComponent effects, GetStatusIndicatorsEvent ev)
@@ -92,6 +95,62 @@ namespace OpenNefia.Content.StatusEffects
             }
         }
 
+        private void HandleTurnStarting(EntityUid uid, StatusEffectsComponent component, EntityTurnStartingEventArgs args)
+        {
+            // TODO OnTurnStart
+            if (args.Handled)
+                return;
+
+            foreach (var (id, effect) in EnumerateStatusEffects(uid).ToList())
+            {
+                var pev = new P_StatusEffectBeforeTurnStartEvent(uid);
+                _protos.EventBus.RaiseEvent(id, pev);
+                if (pev.Handled)
+                {
+                    args.Handle(pev.TurnResult);
+                    return;
+                }
+            }
+        }
+
+        private void HandlePassTurn(EntityUid uid, StatusEffectsComponent component, EntityPassTurnEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            foreach (var (id, effect) in EnumerateStatusEffects(uid).ToList())
+            {
+                var proto = _protos.Index(id);
+                if (proto.EmotionIconId != null)
+                {
+                    _emotionIcons.SetEmotionIcon(uid, proto.EmotionIconId);
+                }
+
+                var pev = new P_StatusEffectOnPassTurnEvent(uid);
+                _protos.EventBus.RaiseEvent(proto, pev);
+                if (pev.Handled)
+                {
+                    args.Handle(pev.TurnResult);
+                    return;
+                }
+            }
+        }
+
+        private void HandleTurnEnding(EntityUid uid, StatusEffectsComponent component, EntityTurnEndingEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            foreach (var (id, effect) in EnumerateStatusEffects(uid).ToList())
+            {
+                var proto = _protos.Index(id);
+                if (proto.AutoHeal)
+                {
+                    Heal(uid, id, 1);
+                }
+            }
+        }
+
         public int GetTurns(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
         {
             if (!Resolve(entity, ref statusEffects))
@@ -107,7 +166,7 @@ namespace OpenNefia.Content.StatusEffects
         {
             return GetTurns(entity, id, statusEffects) > 0;
         }
-        
+
         public IEnumerable<KeyValuePair<PrototypeId<StatusEffectPrototype>, StatusEffect>> EnumerateStatusEffects(EntityUid entity, StatusEffectsComponent? statusEffects = null)
         {
             if (!Resolve(entity, ref statusEffects))
@@ -145,7 +204,8 @@ namespace OpenNefia.Content.StatusEffects
             {
                 if (hadEffect)
                 {
-                    // TODO on_remove
+                    var pev = new P_StatusEffectOnRemoveEvent(entity);
+                    _protos.EventBus.RaiseEvent(id, pev);
                 }
                 _slots.RemoveSlot(entity, eff.Slot);
                 statusEffects.StatusEffects.Remove(id);
@@ -154,7 +214,8 @@ namespace OpenNefia.Content.StatusEffects
             {
                 if (!hadEffect)
                 {
-                    // TODO on_add
+                    var pev = new P_StatusEffectOnAddEvent(entity);
+                    _protos.EventBus.RaiseEvent(id, pev);
                 }
             }
 
@@ -211,7 +272,6 @@ namespace OpenNefia.Content.StatusEffects
 
             var proto = _protos.Index(id);
 
-            // TODO before_apply
             var turns = CalcStatusEffectTurns(entity, power, proto);
 
             if (turns <= 0)
@@ -273,8 +333,9 @@ namespace OpenNefia.Content.StatusEffects
 
         private int CalcAdditivePower(EntityUid entity, PrototypeId<StatusEffectPrototype> id, int turns)
         {
-            // TODO
-            return turns / 3 + 1;
+            var pev = new P_StatusEffectCalcAdditivePowerEvent(entity, turns);
+            _protos.EventBus.RaiseEvent(id, pev);
+            return pev.OutPower;
         }
 
         private int CalcStatusEffectTurns(EntityUid entity, int power, StatusEffectPrototype proto)
@@ -289,9 +350,9 @@ namespace OpenNefia.Content.StatusEffects
                 power = (_rand.Next(power / 2 + 1) + (power / 2)) * 100 / (50 + resistGrade * 50);
             }
 
-            // TODO calc_adjusted_power
-
-            return power;
+            var pev = new P_StatusEffectCalcAdjustedPowerEvent(entity, power);
+            _protos.EventBus.RaiseEvent(proto, pev);
+            return pev.OutPower;
         }
     }
 }

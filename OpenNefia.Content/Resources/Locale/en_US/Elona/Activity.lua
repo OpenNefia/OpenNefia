@@ -65,11 +65,10 @@ Elona.Activity = {
                     return ("%s clap%s."):format(_.name(audience), _.s(audience))
                 end,
                 function(audience, actor)
-                    return ("%s listen%s to %s%s music joyfully."):format(
+                    return ("%s listen%s to %s music joyfully."):format(
                         _.name(audience),
                         _.s(audience),
-                        _.name(actor),
-                        _.his_owned(actor)
+                        _.possessive(actor)
                     )
                 end,
                 _.quote "Bravo!",

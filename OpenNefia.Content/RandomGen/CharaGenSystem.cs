@@ -1,17 +1,17 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Memory;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Charas;
-using OpenNefia.Content.Memory;
-using OpenNefia.Content.Maps;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
@@ -19,13 +19,13 @@ namespace OpenNefia.Content.RandomGen
 {
     public interface ICharaGen : IEntitySystem
     {
-        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
+        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
         PrototypeId<EntityPrototype> PickRandomCharaId(EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
 
-        EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null, 
-            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
+        EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
@@ -76,7 +76,15 @@ namespace OpenNefia.Content.RandomGen
                 return true;
             };
 
-            return _randomGen.PickRandomEntityId(RandomGenTables.Chara, GetWeight, extraFilter, minLevel, tags, fltselect);
+            var id = _randomGen.PickRandomEntityId(RandomGenTables.Chara, GetWeight, extraFilter, minLevel, tags, fltselect);
+
+            if (Logger.GetSawmill("randomgen.chara").Level <= LogLevel.Debug)
+            {
+                var tagString = string.Join(", ", tags ?? new PrototypeId<TagPrototype>[]{});
+                Logger.DebugS("randomgen.chara", $"ID: minLevel={minLevel} tags={tagString} fltselect={fltselect} raceFilter={raceFilter} category={category} -> {id}");
+            }
+
+            return id;
         }
 
         private int GetWeight(EntityPrototype proto, int minLevel)
@@ -117,7 +125,7 @@ namespace OpenNefia.Content.RandomGen
             {
                 var tagString = tags != null ? string.Join(", ", tags.ToArray()) : "<no tags>";
                 raw = Protos.Chara.Bug;
-                Logger.WarningS("randomgen.item", $"No character generation candidates found: {minLevel} {tagString} {fltselect}");
+                Logger.WarningS("randomgen.chara", $"No character generation candidates found: {minLevel} {tagString} {fltselect}");
             }
 
             return raw!.Value;
@@ -129,8 +137,8 @@ namespace OpenNefia.Content.RandomGen
         {
             args ??= EntityGenArgSet.Make();
 
-            if (id == null)
-                id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
+            if (id == null) { }
+            id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
 
             var commonArgs = args.Get<EntityGenCommonArgs>();
             commonArgs.MinLevel = minLevel;

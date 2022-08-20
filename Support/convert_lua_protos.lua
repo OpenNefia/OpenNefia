@@ -1383,6 +1383,14 @@ handlers["base.effect"] = function(from, to)
     if from.on_sleep == "remove" then
         to.removeOnSleep = true
     end
+
+    event(from, to, "calc_adjusted_power", "StatusEffects", "VanillaStatusEffectsSystem", "CalcAdjustedPower")
+    event(from, to, "calc_additive_power", "StatusEffects", "VanillaStatusEffectsSystem", "CalcAdditivePower")
+    event(from, to, "on_turn_start", "StatusEffects", "VanillaStatusEffectsSystem", "BeforeTurnStart")
+    event(from, to, "on_turn_end", "StatusEffects", "VanillaStatusEffectsSystem", "OnPassTurn")
+    event(from, to, "on_add", "StatusEffects", "VanillaStatusEffectsSystem", "OnAdd")
+    event(from, to, "on_remove", "StatusEffects", "VanillaStatusEffectsSystem", "OnRemove")
+
     to.components = {
         {
             type = ("Status%s"):format(dataPart(from._id)),
@@ -1875,9 +1883,9 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.material", "BlendMaterial.yml")
 -- write("elona.god", "God.yml")
 -- write("elona_sys.magic", "Magic.yml")
--- write("base.effect", "StatusEffect.yml")
+-- write("base.effect", "StatusEffect.yml", "OpenNefia.Content.StatusEffect.StatusEffectPrototype")
 -- write("elona.item_material", "Material.yml")
-write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototype")
+-- write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototype")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
 -- write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
@@ -1885,7 +1893,7 @@ write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototy
 -- write("elona.random_event", "RandomEvent.yml", "OpenNefia.Content.RandomEvent.RandomEventPrototype")
 -- write("elona.guild", "Guild.yml", "OpenNefia.Content.Guild.GuildPrototype")
 -- write("elona.fish", "Fish.yml", "OpenNefia.Content.Fishing.FishPrototype")
-write("elona.bait", "Bait.yml", "OpenNefia.Content.Fishing.BaitPrototype")
+-- write("elona.bait", "Bait.yml", "OpenNefia.Content.Fishing.BaitPrototype")
 -- write("elona.home", "Home.yml", "OpenNefia.Content.Home.HomePrototype")
 -- write("elona.book", "Book.yml", "OpenNefia.Content.Book.BookPrototype")
 -- write("base.equipment_type", "EquipmentType.yml", "OpenNefia.Content.Equipment.EquipmentTypePrototype")

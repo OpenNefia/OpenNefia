@@ -7,6 +7,16 @@
   - 30
   components:
   - type: StatusSick
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sick_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sick_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sick_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Fury
@@ -32,6 +42,16 @@
   - 60
   components:
   - type: StatusDimming
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Dimming_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Dimming_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Dimming_BeforeTurnStart
 
 - type: Elona.StatusEffect
   id: Elona.Bleeding
@@ -46,6 +66,13 @@
   - 20
   components:
   - type: StatusBleeding
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Bleeding_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Bleeding_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Drunk
@@ -58,6 +85,10 @@
   - 45
   components:
   - type: StatusDrunk
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Drunk_CalcAdjustedPower
 
 - type: Elona.StatusEffect
   id: Elona.Insanity
@@ -71,6 +102,16 @@
   - 50
   components:
   - type: StatusInsanity
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Insanity_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Insanity_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Insanity_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Wet
@@ -92,12 +133,23 @@
   - 0
   components:
   - type: StatusFear
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Fear_CalcAdjustedPower
 
 - type: Elona.StatusEffect
   id: Elona.Choking
   color: '#006464'
   components:
   - type: StatusChoking
+  events:
+  - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Choking_BeforeTurnStart
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Choking_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Poison
@@ -112,6 +164,16 @@
   - 30
   components:
   - type: StatusPoison
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Poison_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Poison_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Poison_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Confusion
@@ -125,6 +187,13 @@
   - 0
   components:
   - type: StatusConfusion
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Confusion_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Confusion_CalcAdditivePower
 
 - type: Elona.StatusEffect
   id: Elona.Sleep
@@ -139,6 +208,19 @@
   - 30
   components:
   - type: StatusSleep
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sleep_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sleep_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sleep_BeforeTurnStart
+  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Sleep_OnPassTurn
 
 - type: Elona.StatusEffect
   id: Elona.Paralysis
@@ -152,6 +234,16 @@
   - 0
   components:
   - type: StatusParalysis
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Paralysis_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Paralysis_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Paralysis_BeforeTurnStart
 
 - type: Elona.StatusEffect
   id: Elona.Blindness
@@ -165,6 +257,22 @@
   - 0
   components:
   - type: StatusBlindness
+  events:
+  - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Blindness_CalcAdjustedPower
+  - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Blindness_CalcAdditivePower
+  - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Blindness_BeforeTurnStart
+  - type: StatusEffects.P_StatusEffectOnAddEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Blindness_OnAdd
+  - type: StatusEffects.P_StatusEffectOnRemoveEvent
+    system: StatusEffects.VanillaStatusEffectsSystem
+    method: Blindness_OnRemove
 
 - type: Elona.StatusEffect
   id: Elona.Gravity

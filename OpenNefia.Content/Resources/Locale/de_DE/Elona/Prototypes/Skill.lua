@@ -4,10 +4,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         ShortName = "STR",
 
         OnDecrease = function(entity)
-            return ("%s%s muscles soften."):format(_.name(entity), _.his_owned(entity))
+            return ("%s muscles soften."):format(_.possessive(entity))
         end,
         InIncrease = function(entity)
-            return ("%s%s muscles feel stronger."):format(_.name(entity), _.his_owned(entity))
+            return ("%s muscles feel stronger."):format(_.possessive(entity))
         end,
     },
     StatConstitution = {
@@ -59,10 +59,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         ShortName = "WIL",
 
         OnDecrease = function(entity)
-            return ("%s%s will softens."):format(_.name(entity), _.his_owned(entity))
+            return ("%s will softens."):format(_.possessive(entity))
         end,
         OnIncrease = function(entity)
-            return ("%s%s will hardens."):format(_.name(entity), _.his_owned(entity))
+            return ("%s will hardens."):format(_.possessive(entity))
         end,
     },
     StatMagic = {
@@ -70,10 +70,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         ShortName = "MAG",
 
         OnDecrease = function(entity)
-            return ("%s%s magic degrades."):format(_.name(entity), _.his_owned(entity))
+            return ("%s magic degrades."):format(_.possessive(entity))
         end,
         OnIncrease = function(entity)
-            return ("%s%s magic improves."):format(_.name(entity), _.his_owned(entity))
+            return ("%s magic improves."):format(_.possessive(entity))
         end,
     },
     StatCharisma = {
@@ -91,10 +91,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Name = "Speed",
 
         OnDecrease = function(entity)
-            return ("%s%s speed decreases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s speed decreases."):format(_.possessive(entity))
         end,
         OnIncrease = function(entity)
-            return ("%s%s speed increases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s speed increases."):format(_.possessive(entity))
         end,
     },
     StatLuck = {
@@ -111,20 +111,20 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Name = "Life",
 
         OnDecrease = function(entity)
-            return ("%s%s life force decreases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s life force decreases."):format(_.possessive(entity))
         end,
         OnIncrease = function(entity)
-            return ("%s%s life force increases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s life force increases."):format(_.possessive(entity))
         end,
     },
     StatMana = {
         Name = "Mana",
 
         OnDecrease = function(entity)
-            return ("%s%s mana decreases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s mana decreases."):format(_.possessive(entity))
         end,
         OnIncrease = function(entity)
-            return ("%s%s mana increases."):format(_.name(entity), _.his_owned(entity))
+            return ("%s mana increases."):format(_.possessive(entity))
         end,
     },
 

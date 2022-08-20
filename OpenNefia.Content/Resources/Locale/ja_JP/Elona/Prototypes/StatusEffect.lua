@@ -54,6 +54,7 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         end,
         Indicator = {
             ["0"] = "酔払い",
+            ["1"] = "酔払い",
         },
     },
     Fear = {
@@ -74,10 +75,93 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Heal = function(chara)
             return ("%sは正気に戻った。"):format(_.name(chara))
         end,
-        Insane = {
+        Indicator = {
             ["0"] = "不安定",
             ["1"] = "狂気",
             ["2"] = "崩壊",
+        },
+
+        Dialog = {
+            function(entity)
+                return ("%s「キョキョキョ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「クワッ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「シャアァァ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「ばぶっふ！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「煮殺せ！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「許しなさい許しなさい！！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「フゥハハハー！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「あ、あ、あ、あ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「ぴ…ぴ…ぴか…」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「お兄ちゃん！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「うみみやぁ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%sは突然踊りだした。"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%sは着ていたものを脱ぎだした。"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%sはぐるぐる回りだした。"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%sは奇声を発した。"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「ねうねう♪ねうねう♪」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「ウージッムシ♪ウージッムシ♪」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「じゃあ殺さなきゃ。うん♪」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「このナメクジがっ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「おすわり！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「フーーーーン フーーーーン･･･ フーーーンフ」"):format(
+                    _.name(entity)
+                )
+            end,
+            function(entity)
+                return ("%s「このかたつむり野郎がっ」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「うにゅみゅあ！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「ごめんなさいごめんなさい！」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「もうすぐ生まれるよ♪」"):format(_.name(entity))
+            end,
+            function(entity)
+                return ("%s「フーーーーン フー…クワッ！」"):format(_.name(entity))
+            end,
         },
     },
     Paralysis = {
@@ -131,6 +215,7 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Indicator = {
             ["0"] = "窒息",
         },
+        Dialog = _.quote "うぐぐ…！",
     },
     Fury = {
         Indicator = {
