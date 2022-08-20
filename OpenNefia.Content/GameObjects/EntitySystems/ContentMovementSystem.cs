@@ -109,11 +109,17 @@ namespace OpenNefia.Content.GameObjects
         {
             // TODO sandbag
 
+            var sourceSpatial = Spatial(source);
+            var oldPosition = sourceSpatial.MapPosition;
+
             _mes.Display(Loc.GetString("Elona.Movement.Displace.Text", ("source", source), ("target", target)), entity: source);
             if (_movement.SwapPlaces(source, target))
             {
                 OnEntityDisplaced(source, target);
             }
+
+            var ev = new AfterMoveEventArgs(oldPosition, sourceSpatial.MapPosition);
+            RaiseEvent(source, ev);
 
             return true;
         }
@@ -129,6 +135,7 @@ namespace OpenNefia.Content.GameObjects
                     _activities.RemoveActivity(target);
                 }
             }
+
             // <<<<<<<< shade2 / action.hsp:551            if cRowAct(tc) = rowActEat:if cActionPeriod(tc) > 0..
         }
 
