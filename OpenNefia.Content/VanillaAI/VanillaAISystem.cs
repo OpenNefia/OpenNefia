@@ -202,7 +202,7 @@ namespace OpenNefia.Content.VanillaAI
                                     && _factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                                 {
                                     SetTarget(entity, onCellSpatial.Owner, 30, ai);
-                                    _emoIcons.SetEmotionIcon(onCellSpatial.Owner, EmotionIcons.Angry, 2);
+                                    _emoIcons.SetEmotionIcon(entity, EmotionIcons.Angry, 2);
                                     return true;
                                 }
                             }
