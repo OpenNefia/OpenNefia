@@ -651,6 +651,10 @@ handlers["base.chara"] = function(from, to)
         c = comp(to, "Visibility")
         c.isInvisible = from.is_invisible
     end
+
+    if from._id == "elona.prostitute" then
+        c = comp(to, "RoleProstitute")
+    end
 end
 
 handlers["base.item"] = function(from, to)
