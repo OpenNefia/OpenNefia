@@ -101,9 +101,9 @@ namespace OpenNefia.Content.Logic
                     _size = Height / 2;
                     _delay += delta;
 
-                    if (_delay > 20f)
+                    if (_delay > 1f)
                     {
-                        _delay = 20f;
+                        _delay = 1f;
                         _canFinish = true;
                     }
                 }
