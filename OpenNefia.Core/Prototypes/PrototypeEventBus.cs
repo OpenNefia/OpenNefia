@@ -448,4 +448,18 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         public bool Handled { get; set; }
     }
+
+    public abstract class TurnResultPrototypeEventArgs : HandledPrototypeEventArgs
+    {
+        /// <summary>
+        ///     Turn result of this event.
+        /// </summary>
+        public TurnResult TurnResult { get; set; }
+
+        public void Handle(TurnResult turnResult)
+        {
+            Handled = true;
+            TurnResult = turnResult;
+        }
+    }
 }

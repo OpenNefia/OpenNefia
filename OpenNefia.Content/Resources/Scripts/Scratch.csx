@@ -70,6 +70,7 @@ var _damage = EntitySystem.Get<IDamageSystem>();
 var _skills = EntitySystem.Get<ISkillsSystem>();
 var _config = IoCManager.Resolve<IConfigurationManager>();
 var _refresh = EntitySystem.Get<IRefreshSystem>();
+var _statusEffects = EntitySystem.Get<IStatusEffectSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -192,3 +193,24 @@ public void setcvar<T>(CVarDef<T> cvar, T val) where T: notnull
 
 public T getcvar<T>(CVarDef<T> cvar) where T: notnull
     => _config.GetCVar(cvar);
+
+public void addcon(PrototypeId<StatusEffectPrototype> id, int turns = 100)
+    => _statusEffects.Apply(player(), id, turns);
+
+public void healcon(PrototypeId<StatusEffectPrototype> id, int? turns = null)
+{
+    if (turns == null)
+        _statusEffects.HealFully(player(), id);
+    else
+        _statusEffects.Heal(player(), id, turns.Value);
+}
+
+public void setlog(LogLevel level)
+{
+    _config.SetCVar(CCVars.LogLevel, level);
+}
+
+public void setlog(string sawmill, LogLevel level)
+{
+    Logger.GetSawmill(sawmill).Level = level;
+}

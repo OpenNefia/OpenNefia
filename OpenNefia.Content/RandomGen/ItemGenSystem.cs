@@ -48,7 +48,15 @@ namespace OpenNefia.Content.RandomGen
 
         public PrototypeId<EntityPrototype>? PickRandomItemIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
         {
-            return _randomGen.PickRandomEntityId(RandomGenTables.Item, GetWeight, null, minLevel, tags, fltselect);
+            var id = _randomGen.PickRandomEntityId(RandomGenTables.Item, GetWeight, null, minLevel, tags, fltselect);
+
+            if (Logger.GetSawmill("randomgen.item").Level <= LogLevel.Debug)
+            {
+                var tagString = string.Join(", ", tags ?? new PrototypeId<TagPrototype>[] { });
+                Logger.DebugS("randomgen.item", $"ID: minLevel={minLevel} tags={tagString} fltselect={fltselect} -> {id}");
+            }
+
+            return id;
         }
 
         private int GetWeight(EntityPrototype proto, int minLevel)

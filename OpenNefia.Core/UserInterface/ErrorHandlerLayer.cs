@@ -65,7 +65,7 @@ namespace OpenNefia.Core.UserInterface
             }
             _lines.Add("Exception encountered!");
             _lines.Add("");
-            AddSplitLines(_exception.Message);
+            AddSplitLines(_exception.GetType().FullName + ": " + _exception.Message);
 
             _lines.Add("");
             _lines.Add("Strike [Enter] to continue, [Escape] to exit current layer, [Ctrl-C] to copy stacktrace.");

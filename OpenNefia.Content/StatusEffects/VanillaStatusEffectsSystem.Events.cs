@@ -23,10 +23,11 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Directions;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Hud;
+using OpenNefia.Content.Sleep;
 
 namespace OpenNefia.Content.StatusEffects
 {
-    public sealed class VanillaStatusEffectsSystem : EntitySystem
+    public sealed partial class VanillaStatusEffectsSystem : EntitySystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
@@ -41,6 +42,7 @@ namespace OpenNefia.Content.StatusEffects
 
         public override void Initialize()
         {
+            SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(Sick_OnSleep);
             SubscribeComponent<StatusEffectsComponent, CalcFinalDamageEvent>(HandleCalcDamageFury, priority: EventPriorities.VeryHigh);
             SubscribeComponent<StatusEffectsComponent, EntityPassTurnEventArgs>(HandlePassTurnDrunk);
             SubscribeComponent<StatusEffectsComponent, BeforeMoveEventArgs>(ProcRandomMovement);
@@ -59,14 +61,12 @@ namespace OpenNefia.Content.StatusEffects
 
         public const int DrunkLevelHeavy = 45;
 
-        private bool CanPickFightWith(SpatialComponent drunkard, SpatialComponent opponent)
+        private void Sick_OnSleep(EntityUid uid, StatusEffectsComponent comp, OnCharaSleepEvent ev)
         {
-            return EntityManager.IsAlive(opponent.Owner)
-                && drunkard.Owner != opponent.Owner
-                && drunkard.MapPosition.TryDistanceTiled(opponent.MapPosition, out var dist)
-                && dist <= 5
-                && _vis.HasLineOfSight(drunkard.Owner, opponent.Owner)
-                && _rand.OneIn(3);
+            if (_statusEffects.HasEffect(uid, Protos.StatusEffect.Sick))
+            {
+                _statusEffects.Heal(uid, Protos.StatusEffect.Sick, 7 + _rand.Next(7));
+            }
         }
 
         private void HandlePassTurnDrunk(EntityUid drunkard, StatusEffectsComponent component, EntityPassTurnEventArgs args)
@@ -87,6 +87,16 @@ namespace OpenNefia.Content.StatusEffects
                     return;
                 }
             }
+        }
+
+        private bool CanPickFightWith(SpatialComponent drunkard, SpatialComponent opponent)
+        {
+            return IsAlive(opponent.Owner)
+                && drunkard.Owner != opponent.Owner
+                && drunkard.MapPosition.TryDistanceTiled(opponent.MapPosition, out var dist)
+                && dist <= 5
+                && _vis.HasLineOfSight(drunkard.Owner, opponent.Owner)
+                && _rand.OneIn(3);
         }
 
         private void TryToPickDrunkardFight(EntityUid drunkard)
@@ -110,14 +120,14 @@ namespace OpenNefia.Content.StatusEffects
 
             if (isInFov)
             {
-                _mes.Display(Loc.GetString("Elona.StatusEffects.Drunk.GetsTheWorse", ("chara", drunkard), ("target", opponent)), UiColors.MesSkyBlue);
-                _mes.Display(Loc.GetString("Elona.StatusEffects.Drunk.Dialog"));
+                _mes.Display(Loc.GetString("Elona.StatusEffect.Drunk.GetsTheWorse", ("chara", drunkard), ("target", opponent)), UiColors.MesSkyBlue);
+                _mes.Display(Loc.GetString("Elona.StatusEffect.Drunk.Dialog"));
             }
 
             if (_rand.OneIn(4) && !_gameSession.IsPlayer(opponent) && isInFov)
             {
-                _mes.Display(Loc.GetString("Elona.StatusEffects.Drunk.Annoyed.Text"), UiColors.MesSkyBlue);
-                _mes.Display(Loc.GetString("Elona.StatusEffects.Drunk.Annoyed.Dialog"));
+                _mes.Display(Loc.GetString("Elona.StatusEffect.Drunk.Annoyed.Text"), UiColors.MesSkyBlue);
+                _mes.Display(Loc.GetString("Elona.StatusEffect.Drunk.Annoyed.Dialog"));
 
                 // XXX: This may not be correct.
                 if (TryComp<FactionComponent>(opponent, out var faction))
@@ -142,7 +152,7 @@ namespace OpenNefia.Content.StatusEffects
 
             if (_statusEffects.HasEffect(uid, Protos.StatusEffect.Drunk, statusEffects) && _rand.OneIn(5))
             {
-                _mes.Display(Loc.GetString("Elona.StatusEffects.Drunk.Move"), UiColors.MesSkyBlue);
+                _mes.Display(Loc.GetString("Elona.StatusEffect.Drunk.Stagger"), UiColors.MesSkyBlue);
                 stumble = true;
             }
 

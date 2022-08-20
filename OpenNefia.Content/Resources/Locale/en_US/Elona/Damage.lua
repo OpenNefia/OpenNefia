@@ -77,6 +77,6 @@ Elona.Damage = {
         return ("%s run%s away in terror."):format(_.name(entity), _.s(entity))
     end,
     SleepIsDisturbed = function(entity)
-        return ("%s%s sleep %s disturbed."):format(_.name(entity), _.his_owned(entity), _.is(entity))
+        return ("%s sleep %s disturbed."):format(_.possessive(entity), _.is(entity))
     end,
 }

@@ -4,7 +4,7 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
             return ("%s begin%s to bleed."):format(_.name(chara), _.s(chara))
         end,
         Heal = function(chara)
-            return ("%s%s bleeding stops."):format(_.name(chara), _.his_owned(chara))
+            return ("%s bleeding stops."):format(_.possessive(chara))
         end,
         Indicator = {
             ["0"] = "Bleeding",
@@ -56,6 +56,7 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         end,
         Indicator = {
             ["0"] = "Drunk",
+            ["1"] = "Drunk",
         },
     },
     Fear = {
@@ -80,6 +81,24 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
             ["0"] = "Unsteady",
             ["1"] = "Insane",
             ["2"] = "Paranoia",
+        },
+
+        Dialog = {
+            function(entity)
+                return ("%s start%s to take %s clothes off."):format(_.name(entity), _.s(entity), _.his(entity))
+            end,
+            function(entity)
+                return ("%s shout%s."):format(_.name(entity), _.s(entity))
+            end,
+            function(entity)
+                return ("%s dance%s."):format(_.name(entity), _.s(entity))
+            end,
+            _.quote "Weeeeeee!",
+            _.quote "Forgive me! Forgive me!",
+            _.quote "P-P-Pika!",
+            _.quote "Shhhhhh!",
+            _.quote "So I have to kill.",
+            _.quote "You snail!",
         },
     },
     Paralysis = {
@@ -133,6 +152,7 @@ OpenNefia.Prototypes.Elona.StatusEffect.Elona = {
         Indicator = {
             ["0"] = "Choked",
         },
+        Dialog = _.quote "Ughh...!",
     },
     Fury = {
         Indicator = {
