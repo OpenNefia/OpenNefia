@@ -64,19 +64,19 @@ namespace OpenNefia.Content.Nefia
 
             var rooms = EntityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid);
 
+            var charaGen = EntityManager.EnsureComponent<MapCharaGenComponent>(map.MapEntityUid);
+            if (charaGen.CharaFilterGen == null)
+                charaGen.CharaFilterGen = new DungeonCharaFilterGen();
+
             Logger.DebugS("nefia.gen.floor", $"Populating {rooms.Rooms.Count} dungeon rooms.");
             PopulateRooms(map, rooms.Rooms, ev.BaseParams);
 
-            var charaGen = EntityManager.EnsureComponent<MapCharaGenComponent>(map.MapEntityUid);
             var maxCrowdDensity = charaGen.MaxCharaCount;
             var density = new NefiaCrowdDensity(maxCrowdDensity / 4, maxCrowdDensity / 4);
             if (EntityManager.TryGetComponent<NefiaCrowdDensityModifierComponent>(map.MapEntityUid, out var modifier))
             {
                 density = modifier.Modifier.Calculate(map);
             }
-
-            if (charaGen.CharaFilterGen == null)
-                charaGen.CharaFilterGen = new DungeonCharaFilterGen();
 
             AddMobsAndTraps(map, density);
 
