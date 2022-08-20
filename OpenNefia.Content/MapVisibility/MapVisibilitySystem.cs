@@ -88,7 +88,7 @@ namespace OpenNefia.Content.MapVisibility
             shadows.ShadowSize = shadowEnd - shadows.ShadowPos;
 
             var fovSize = 15;
-            if (TryComp<VisibilityComponent>(uid, out var vis))
+            if (TryComp<VisibilityComponent>(player, out var vis))
                 fovSize = vis.FieldOfViewRadius.Buffed;
 
             var fovRadius = FovRadius.Get(fovSize);
