@@ -141,6 +141,8 @@
 - type: Elona.StatusEffect
   id: Elona.Choking
   color: '#006464'
+  indicators:
+  - 0
   components:
   - type: StatusChoking
   events:

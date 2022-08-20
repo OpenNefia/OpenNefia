@@ -397,18 +397,18 @@ namespace OpenNefia.Content.Maps
                                 }
                             }
                         }
-                    }
 
-                    if (HasComp<MapTypeTownComponent>(map.MapEntityUid)
-                        || HasComp<MapTypeGuildComponent>(map.MapEntityUid))
-                    {
-                        _effects.Remove(ent, Protos.StatusEffect.Sleep);
-                        var date = _world.State.GameDate;
-                        if (date.Hour >= 22 || date.Hour < 7)
+                        if (HasComp<MapTypeTownComponent>(map.MapEntityUid)
+                            || HasComp<MapTypeGuildComponent>(map.MapEntityUid))
                         {
-                            if (_rand.OneIn(6))
+                            _effects.Remove(ent, Protos.StatusEffect.Sleep);
+                            var date = _world.State.GameDate;
+                            if (date.Hour >= 22 || date.Hour < 7)
                             {
-                                _effects.SetTurns(ent, Protos.StatusEffect.Sleep, _rand.Next(400));
+                                if (_rand.OneIn(6))
+                                {
+                                    _effects.SetTurns(ent, Protos.StatusEffect.Sleep, _rand.Next(400));
+                                }
                             }
                         }
                     }

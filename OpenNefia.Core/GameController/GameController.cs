@@ -1,4 +1,5 @@
 ﻿using System.Runtime;
+using Love;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
@@ -410,8 +411,17 @@ namespace OpenNefia.Core.GameController
             }
             else
             {
+                var box = new Love.Event.EventQueueBox();
+                while (Love.Event.Poll(box))
+                {
+                    // nothing to do ...
+                }
+
                 // Don't poll keyboard/mouse.
                 Love.Timer.Step();
+
+                // TODO still need to handle window focused, etc.
+                // box.SceneHandleEvent((Love.Scene)_graphics);
             }
         }
     }
