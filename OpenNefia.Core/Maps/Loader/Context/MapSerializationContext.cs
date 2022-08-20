@@ -96,9 +96,14 @@ namespace OpenNefia.Core.Maps
                 return new ValidatedValueNode(node);
             }
 
-            if (!int.TryParse(node.Value, out var val) || !UidEntityMap.ContainsKey(val))
+            if (!int.TryParse(node.Value, out var val))
             {
-                return new ErrorNode(node, $"Invalid {nameof(EntityUid)}", true);
+                return new ErrorNode(node, $"Could not parse {nameof(EntityUid)}", true);
+            }
+
+            if (_mode == MapSerializeMode.Blueprint && !UidEntityMap.ContainsKey(val))
+            {
+                return new ErrorNode(node, $"{nameof(EntityUid)} {val} was not found in entity list of map blueprint.", true);
             }
 
             return new ValidatedValueNode(node);
@@ -107,15 +112,19 @@ namespace OpenNefia.Core.Maps
         public DataNode Write(ISerializationManager serializationManager, EntityUid value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            if (!EntityUidMap.TryGetValue(value, out var _entityUidMapped))
+            var entityUid = (int)value;
+
+            if (_mode == MapSerializeMode.Blueprint)
             {
-                Logger.WarningS(MapLoader.SawmillName, "Cannot write entity UID '{0}'.", value);
-                return new ValueDataNode("null");
+                if (!EntityUidMap.TryGetValue(value, out var entityUidMapped))
+                {
+                    Logger.WarningS(MapLoader.SawmillName, "Cannot write entity UID '{0}'.", value);
+                    return new ValueDataNode("null");
+                }
+                entityUid = entityUidMapped;
             }
-            else
-            {
-                return new ValueDataNode(_entityUidMapped.ToString(CultureInfo.InvariantCulture));
-            }
+
+            return new ValueDataNode(entityUid.ToString(CultureInfo.InvariantCulture));
         }
 
         DeserializationResult ITypeReader<EntityUid, ValueDataNode>.Read(ISerializationManager serializationManager,
@@ -131,16 +140,23 @@ namespace OpenNefia.Core.Maps
 
             var val = int.Parse(node.Value);
 
-            if ((_mode == MapSerializeMode.Blueprint && val >= Entities.Count) 
+            if (_mode == MapSerializeMode.Blueprint)
+            {
+                if (val >= Entities.Count
                 || !UidEntityMap.ContainsKey(val)
                 || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
-            {
-                Logger.ErrorS(MapLoader.SawmillName, "Error in map file: found local entity UID '{0}' which does not exist.", val);
-                return null!;
+                {
+                    Logger.ErrorS(MapLoader.SawmillName, $"Error in map blueprint file: found local entity UID '{val}' which does not exist.");
+                    return null!;
+                }
+                else
+                {
+                    return new DeserializedValue<EntityUid>(entity!.Value);
+                }
             }
             else
             {
-                return new DeserializedValue<EntityUid>(entity!.Value);
+                return new DeserializedValue<EntityUid>(new EntityUid(val));
             }
         }
 
