@@ -345,7 +345,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "912, 96, 48, 48"
   offset: 0,-8
-  shadowRot: 150
+  shadowRotation: 150
   stackYOffset: 8
 
 - type: Chip
@@ -1027,7 +1027,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "864, 192, 48, 48"
   offset: 0,-22
-  shadowRot: 70
+  shadowRotation: 70
   stackYOffset: 8
 
 - type: Chip
@@ -1090,7 +1090,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1152, 192, 48, 48"
   offset: 0,-8
-  shadowRot: 150
+  shadowRotation: 150
   stackYOffset: 20
 
 - type: Chip
@@ -1112,7 +1112,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1248, 192, 48, 48"
   offset: 0,-8
-  shadowRot: 150
+  shadowRotation: 150
   stackYOffset: 24
 
 - type: Chip
@@ -1124,7 +1124,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1296, 192, 48, 48"
   offset: 0,-8
-  shadowRot: 150
+  shadowRotation: 150
   stackYOffset: 24
 
 - type: Chip
@@ -1965,7 +1965,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "528, 336, 48, 48"
   offset: 0,-22
-  shadowRot: 250
+  shadowRotation: 250
   stackYOffset: 8
 
 - type: Chip
@@ -2561,7 +2561,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "96, 432, 48, 48"
   offset: 0,-22
-  shadowRot: 250
+  shadowRotation: 250
   stackYOffset: 8
 
 - type: Chip
@@ -3121,7 +3121,7 @@
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "1152, 480, 48, 48"
-  shadowRot: 20
+  shadowRotation: 20
   stackYOffset: 8
 
 - type: Chip
@@ -3182,7 +3182,7 @@
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "1440, 480, 48, 48"
-  shadowRot: 1
+  shadowRotation: 1
   stackYOffset: 2
 
 - type: Chip
@@ -3204,7 +3204,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "48, 528, 48, 48"
   offset: 0,-22
-  shadowRot: 250
+  shadowRotation: 250
   stackYOffset: 8
 
 - type: Chip
@@ -3971,7 +3971,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "624, 624, 48, 48"
   offset: 0,-8
-  shadowRot: 100
+  shadowRotation: 100
   stackYOffset: 8
 
 - type: Chip
@@ -4710,7 +4710,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1344, 720, 48, 96"
   offset: 0,-16
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 40
 
 - type: Chip
@@ -5093,7 +5093,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "384, 816, 48, 96"
   offset: 0,-12
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 70
 
 - type: Chip
@@ -5182,7 +5182,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "768, 816, 48, 96"
   offset: 0,-20
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 4
 
 - type: Chip
@@ -5216,7 +5216,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "912, 816, 48, 96"
   offset: 0,-20
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 4
 
 - type: Chip
@@ -5250,7 +5250,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1056, 816, 48, 96"
   offset: 0,-20
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 4
 
 - type: Chip
@@ -5262,7 +5262,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1104, 816, 48, 96"
   offset: 0,-20
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 4
 
 - type: Chip
@@ -5285,7 +5285,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1200, 816, 48, 96"
   offset: 0,-20
-  shadowRot: 6
+  shadowRotation: 6
   stackYOffset: 4
 
 - type: Chip
@@ -5878,7 +5878,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "816, 960, 48, 48"
   offset: 0,-16
-  shadowRot: 50
+  shadowRotation: 50
   stackYOffset: 8
 
 - type: Chip
@@ -5899,7 +5899,7 @@
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "912, 960, 48, 48"
-  shadowRot: 1
+  shadowRotation: 1
   stackYOffset: 8
 
 - type: Chip
@@ -5955,7 +5955,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1152, 960, 48, 96"
   offset: 0,-52
-  shadowRot: 18
+  shadowRotation: 18
   stackYOffset: 5
 
 - type: Chip
@@ -5967,7 +5967,7 @@
     filepath: /Graphic/Elona/item.bmp
     region: "1200, 960, 48, 96"
   offset: 0,-52
-  shadowRot: 18
+  shadowRotation: 18
   stackYOffset: 5
 
 - type: Chip

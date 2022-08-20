@@ -252,7 +252,7 @@ namespace OpenNefia.Core.Graphics
             {
                 return Love.Window.GetDisplayName(displaynumber);
             }
-            catch (Exception e)
+            catch
             {
                 return $"<unknown: {displaynumber}>";
             }

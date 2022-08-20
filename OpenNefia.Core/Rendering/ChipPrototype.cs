@@ -23,6 +23,12 @@ namespace OpenNefia.Core.Rendering
         public Vector2i Offset { get; } = Vector2i.Zero;
 
         /// <summary>
+        /// Shadow rotation in degrees.
+        /// </summary>
+        [DataField]
+        public int ShadowRotation { get; set; } = 20;
+
+        /// <summary>
         /// Offset to apply when rendering this chip as part of a stack, in pixels.
         /// </summary>
         [DataField]

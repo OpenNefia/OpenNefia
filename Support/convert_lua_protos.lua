@@ -1213,7 +1213,7 @@ handlers["base.chip"] = function(from, to)
         to.offset = ("0,%d"):format(from.y_offset)
     end
     if (from.shadow or 0) ~= 0 then
-        to.shadowRot = from.shadow
+        to.shadowRotation = from.shadow
     end
     if (from.stack_height or 0) ~= 0 then
         to.stackYOffset = from.stack_height
