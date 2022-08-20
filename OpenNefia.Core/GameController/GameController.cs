@@ -411,12 +411,6 @@ namespace OpenNefia.Core.GameController
             }
             else
             {
-                var box = new Love.Event.EventQueueBox();
-                while (Love.Event.Poll(box))
-                {
-                    // nothing to do ...
-                }
-
                 // Don't poll keyboard/mouse.
                 Love.Timer.Step();
 

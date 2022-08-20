@@ -49,6 +49,9 @@ namespace OpenNefia.Core.Rendering
         [DataField]
         public bool HideWhenOutOfSight;
 
+        [DataField]
+        public float ShadowRotationRads { get; set; } = 0.15f;
+
 
         [DataField]
         internal int Index;

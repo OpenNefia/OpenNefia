@@ -1,8 +1,8 @@
 ﻿using Love;
-using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 using Color = OpenNefia.Core.Maths.Color;
 
@@ -30,6 +30,8 @@ namespace OpenNefia.Core.Rendering
         private TileBatchRow[] _rows = new TileBatchRow[0];
         private HashSet<int> _dirtyRows = new();
         private bool _redrawAll;
+        private ChipPrototype _shadowChip = default!;
+        private AtlasTile _shadowTile = default!;
 
         /// <summary>
         /// Tint to apply to tiles (not chips). Subtracted from the rendered
@@ -44,12 +46,15 @@ namespace OpenNefia.Core.Rendering
 
             _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
             _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
+            _shadowChip = IoCManager.Resolve<IPrototypeManager>().Index(new PrototypeId<ChipPrototype>("Elona.EntityShadow")); // TODO move
+            _shadowTile = _chipAtlas.GetTile(_shadowChip.Image.AtlasIndex);
         }
 
         public void OnThemeSwitched()
         {
             _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
             _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
+            _shadowTile = _chipAtlas.GetTile(_shadowChip.Image.AtlasIndex);
 
             for (int tileY = 0; tileY < _tiledSize.Y; tileY++)
             {
@@ -88,6 +93,24 @@ namespace OpenNefia.Core.Rendering
 
             // Allocate a new chip batch entry.
             entry = new ChipBatchEntry(tile, memory);
+
+            // Add shadow.
+            var screenPos = _coords.TileToScreen(memory.Coords.Position);
+            switch (memory.ShadowType)
+            {
+                case ShadowType.None:
+                default:
+                    break;
+                case ShadowType.Normal:
+                    _rows[entry.RowIndex].ShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
+                    break;
+                case ShadowType.DropShadow:
+                    var viewport = tile.Quad.GetViewport();
+                    // TODO no idea what the actual rotation amounts should be
+                    // TODO this needs to be rendered as a solid color instead of the texture of the chip
+                    _rows[entry.RowIndex].ShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2 - (memory.ShadowRotationRads * (180 / MathF.PI)) / 4, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                    break;
+            }
 
             // Add to the appropriate Z layer strip.
             _rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
@@ -159,6 +182,7 @@ namespace OpenNefia.Core.Rendering
     {
         internal SpriteBatch TileBatch;
         internal ChipBatch ChipBatch;
+        internal SpriteBatch ShadowBatch;
         internal SpriteBatch TileOverhangBatch;
         private int TileWidth;
         private int RowYIndex;
@@ -179,6 +203,7 @@ namespace OpenNefia.Core.Rendering
 
             TileBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             ChipBatch = new ChipBatch(chipAtlas, coords);
+            ShadowBatch = Love.Graphics.NewSpriteBatch(chipAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
 
             TileWidth = Coords.TileSize.Y;
@@ -231,6 +256,7 @@ namespace OpenNefia.Core.Rendering
             TileBatch.Clear();
             TileOverhangBatch.Clear();
             ChipBatch.Clear();
+            ShadowBatch.Clear();
         }
 
         public void Update(float dt)
@@ -264,6 +290,9 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor(TileShadow);
             //Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
             Love.Graphics.Draw(TileBatch, screenX, screenY);
+
+            Love.Graphics.SetColor(Color.White.WithAlphaB(110));
+            Love.Graphics.Draw(ShadowBatch, screenX, screenY);
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
             Love.Graphics.SetColor(Color.White);

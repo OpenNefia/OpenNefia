@@ -1,0 +1,6 @@
+- type: Chip
+  id: Elona.EntityShadow
+  group: Special
+  image:
+    filepath: /Graphic/Elona/interface.bmp
+    region: "240, 384, 32, 16"

@@ -60,6 +60,14 @@ namespace OpenNefia.Core.Rendering
         public bool TryGetTile(TileSpecifier spec, [NotNullWhen(true)] out AtlasTile? tile)
             => TryGetTile(spec.AtlasIndex, out tile);
 
+        public AtlasTile GetTile(string tileId)
+        {
+            return _tiles[tileId];
+        }
+
+        public AtlasTile GetTile(TileSpecifier spec)
+            => GetTile(spec.AtlasIndex);
+
         public Vector2i GetTileSize(TileSpecifier spec)
             => GetTileSize(spec.AtlasIndex);
 

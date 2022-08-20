@@ -137,9 +137,9 @@ namespace OpenNefia.Core.Rendering
             {
                 var memory = GetOrCreateMemory();
 
-                _event.Memory = memory;
+                _event.OutMemory = memory;
                 entityManager.EventBus.RaiseEvent(spatial.Owner, _event);
-                memory = _event.Memory;
+                memory = _event.OutMemory;
 
                 if (at == null)
                 {
@@ -190,11 +190,11 @@ namespace OpenNefia.Core.Rendering
 
     public sealed class GetMapObjectMemoryEventArgs : EntityEventArgs
     {
-        public MapObjectMemory Memory;
+        public MapObjectMemory OutMemory;
 
         public GetMapObjectMemoryEventArgs(MapObjectMemory memory)
         {
-            Memory = memory;
+            OutMemory = memory;
         }
     }
 }
