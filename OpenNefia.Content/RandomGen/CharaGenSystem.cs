@@ -80,7 +80,7 @@ namespace OpenNefia.Content.RandomGen
 
             if (Logger.GetSawmill("randomgen.chara").Level <= LogLevel.Debug)
             {
-                var tagString = string.Join(", ", tags ?? new PrototypeId<TagPrototype>[]{});
+                var tagString = string.Join(", ", tags ?? new PrototypeId<TagPrototype>[] { });
                 Logger.DebugS("randomgen.chara", $"ID: minLevel={minLevel} tags={tagString} fltselect={fltselect} raceFilter={raceFilter} category={category} -> {id}");
             }
 
@@ -137,8 +137,8 @@ namespace OpenNefia.Content.RandomGen
         {
             args ??= EntityGenArgSet.Make();
 
-            if (id == null) { }
-            id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
+            if (id == null)
+                id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
 
             var commonArgs = args.Get<EntityGenCommonArgs>();
             commonArgs.MinLevel = minLevel;
