@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Tests.Damage
                 Assert.That(entMan.GetComponent<CharaComponent>(villager).Liveness, Is.EqualTo(CharaLivenessState.VillagerDead));
                 Assert.That(entMan.GetComponent<CharaComponent>(villager).RevivalDate, Is.EqualTo(new GameDateTime(512, 1, 4)));
                 Assert.That(entMan.GetComponent<CharaComponent>(adventurer).Liveness, Is.EqualTo(CharaLivenessState.AdventurerHospital));
-                Assert.That(entMan.GetComponent<CharaComponent>(adventurer).RevivalDate, Is.EqualTo(new GameDateTime(512, 1, 3, 6))); // Randomized
+                Assert.That(entMan.GetComponent<CharaComponent>(adventurer).RevivalDate, Is.GreaterThan(new GameDateTime(512, 1, 2))); // Randomized
                 Assert.That(entMan.GetComponent<CharaComponent>(enemy).Liveness, Is.EqualTo(CharaLivenessState.Dead));
             });
         }
