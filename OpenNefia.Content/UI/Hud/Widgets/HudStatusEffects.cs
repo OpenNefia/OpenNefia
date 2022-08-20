@@ -86,7 +86,7 @@ namespace OpenNefia.Content.Hud
                 _assetStatusEffectBar.Draw(UIScale, X, y, _maxWidth);
 
                 Love.Graphics.SetColor(indicator.Color);
-                Love.Graphics.Print(indicator.Text, X + 6, y + 1); // y + vfix + 1
+                GraphicsS.PrintS(UIScale, indicator.Text, X + 6, y + 1); // y + vfix + 1
                 y += 20;
             }
         }

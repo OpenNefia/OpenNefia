@@ -61,11 +61,11 @@ namespace OpenNefia.Content.UI.Hud
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(X + 43, Y + 6);
-            Window.SetPosition(X, Y);
-            AnimWindow.SetPosition(X, Y - 104);
+            UiText.SetPosition(X + 43 + 146, Y + 6);
+            Window.SetPosition(X + 146, Y);
+            AnimWindow.SetPosition(X + 146, Y - 104);
             if (_autoTurnAnimation != null)
-                _autoTurnAnimation.SetPosition(X + 2, Y - 102);
+                _autoTurnAnimation.SetPosition(X + 146, Y - 102);
         }
 
         public override void SetSize(float width, float height)
@@ -99,7 +99,7 @@ namespace OpenNefia.Content.UI.Hud
             if (_turnsUntilAnimLoop <= 0)
             {
                 _turnsUntilAnimLoop = TurnsBetweenAnimationLoops;
-                var anim = _autoTurnAnimation.MakeGlobalDrawable();
+                var anim = _autoTurnAnimation.MakeGlobalDrawable(UIScale);
                 _globalDrawables.Enqueue(anim, _autoTurnAnimation.Position);
             }
         }
@@ -112,7 +112,7 @@ namespace OpenNefia.Content.UI.Hud
 
             Love.Graphics.SetColor(Color.White);
             var rotation = (_world.State.GameDate.Minute / 4) % 2 * (MathF.PI / 2);
-            _autoTurnIcon.Draw(UIScale, X + 18, Y + 12, rotationRads: rotation, centered: true);
+            _autoTurnIcon.Draw(UIScale, X + 18 + 146, Y + 12, rotationRads: rotation, centered: true);
 
             if (_autoTurnAnimation != null)
             {

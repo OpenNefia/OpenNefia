@@ -1,13 +1,17 @@
-﻿using OpenNefia.Core.Game;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
-using OpenNefia.Core.UI.Element;
+﻿using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
 {
     public abstract class BaseGlobalDrawable : BaseDrawable, IGlobalDrawable
     {
         public bool IsFinished { get; protected set; }
+        public override float UIScale => _uiScale;
+        private float _uiScale = 1f;
+
+        public BaseGlobalDrawable(float uiScale)
+        {
+            _uiScale = uiScale;
+        }
 
         public virtual void OnEnqueue()
         {

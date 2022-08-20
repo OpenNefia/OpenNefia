@@ -42,6 +42,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void ProduceSpriteMemory(EntityUid uid, ChipComponent chip, GetMapObjectMemoryEventArgs args)
         {
+            // NOTE: All fields need to be reinitialized here as the memory is pooled!
             var chipProto = _protos.Index(chip.ChipID);
             var memory = args.OutMemory;
             memory.AtlasIndex = chipProto.Image.AtlasIndex;
@@ -51,6 +52,8 @@ namespace OpenNefia.Content.GameObjects
             memory.IsVisible = _vis.CanSeeEntity(_gameSession.Player, uid, noLos: true);
             memory.ZOrder = chip.DrawDepth;
             memory.HideWhenOutOfSight = false;
+            memory.ShadowType = ShadowType.None;
+            memory.ShadowRotationRads = .15f;
         }
 
         public void GetEntityMemory(EntityUid entity, ref MapObjectMemory memory)

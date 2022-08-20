@@ -77,15 +77,14 @@ namespace OpenNefia.Content.EffectMap
             _entries.Add(new(asset, maxFrames.Value, rotation, type, screenPos, tilePos, alpha));
         }
 
-        private void StepAll(float frames)
+        private void StepAll(float dt)
         {
             var i = 0;
             while (i < _entries.Count - 1)
             {
                 var entry = _entries[i];
-                var removed = false;
 
-                entry.Dt += frames;
+                entry.Dt += dt;
 
                 while (entry.Dt > 0)
                 {
@@ -101,17 +100,12 @@ namespace OpenNefia.Content.EffectMap
                             entry.Alpha = (byte)((entry.MaxFrames - entry.Frame) * 12 + 30);
                             break;
                     }
-                    if (entry.Frame >= entry.MaxFrames && _entries.Count > 0)
-                    {
-                        _entries[i] = _entries[_entries.Count - 1];
-                        _entries.RemoveAt(_entries.Count - 1);
-                        removed = true;
-                    }
                 }
 
-                if (!removed)
-                    i++;
+                i++;
             }
+
+            _entries.RemoveAll(entry => entry.Frame >= entry.MaxFrames);
         }
 
         public override void Update(float dt)
