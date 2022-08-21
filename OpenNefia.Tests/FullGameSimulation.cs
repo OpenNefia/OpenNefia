@@ -171,11 +171,11 @@ namespace OpenNefia.Tests
             }
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
-            ProgramShared.DoContentMounts(resMan);
 
             var modLoader = IoCManager.Resolve<TestingModLoader>();
             modLoader.Assemblies = contentAssemblies.ToArray();
             modLoader.TryLoadModulesFrom(ResourcePath.Root, "");
+            ProgramShared.DoContentMounts(resMan, contentAssemblies);
 
             var logMan = container.Resolve<ILogManager>();
             logMan.RootSawmill.AddHandler(new TestLogHandler("SIM"));
