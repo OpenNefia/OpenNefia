@@ -3,6 +3,7 @@ using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Feats;
@@ -71,6 +72,11 @@ namespace OpenNefia.Content.Combat
 
         public override void Initialize()
         {
+            #region Refresh events
+            SubscribeComponent<WeaponComponent, EntityRefreshEvent>(Weapon_Refresh, priority: EventPriorities.Highest);
+            SubscribeComponent<AmmoComponent, EntityRefreshEvent>(Ammo_Refresh, priority: EventPriorities.Highest);
+            #endregion
+
             #region Physical attack events
             SubscribeEntity<BeforePhysicalAttackEventArgs>(BlockPhysicalAttackFear, priority: EventPriorities.VeryHigh);
 
@@ -81,6 +87,19 @@ namespace OpenNefia.Content.Combat
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
             #endregion
+        }
+
+        private void Weapon_Refresh(EntityUid uid, WeaponComponent component, ref EntityRefreshEvent args)
+        {
+            component.DiceX.Reset();
+            component.DiceY.Reset();
+            component.PierceRate.Reset();
+        }
+
+        private void Ammo_Refresh(EntityUid uid, AmmoComponent component, ref EntityRefreshEvent args)
+        {
+            component.DiceX.Reset();
+            component.DiceY.Reset();
         }
 
         public EquipState GetEquipState(EntityUid ent)
@@ -664,9 +683,9 @@ namespace OpenNefia.Content.Combat
             if (CompOrNull<CurseStateComponent>(weapon.Value)?.CurseState == CurseState.Blessed)
                 diceBonus += 1;
 
-            var diceX = weaponComp.DiceX;
-            var diceY = weaponComp.DiceY;
-            var pierceRate = weaponComp.PierceRate;
+            var diceX = weaponComp.DiceX.Buffed;
+            var diceY = weaponComp.DiceY.Buffed;
+            var pierceRate = weaponComp.PierceRate.Buffed;
             var weaponSkill = weaponComp.WeaponSkill;
             float multiplier;
 
@@ -674,7 +693,7 @@ namespace OpenNefia.Content.Combat
             {
                 var ammoComp = Comp<AmmoComponent>(ammo.Value);
                 diceBonus += CompOrNull<EquipStatsComponent>(ammo.Value)?.DamageBonus.Buffed ?? 0
-                    + ammoComp.DiceX * ammoComp.DiceY / 2;
+                    + ammoComp.DiceX.Buffed * ammoComp.DiceY.Buffed / 2;
                 multiplier = 0.5f + (_skills.Level(attacker, Protos.Skill.AttrPerception)
                     + _skills.Level(attacker, weaponSkill) / 5
                     + _skills.Level(attacker, attackSkill) / 5
@@ -716,12 +735,12 @@ namespace OpenNefia.Content.Combat
                 }
                 else if (TryGetAmmo(attacker, weapon, out var ammo))
                 {
-                    var weight = CompOrNull<WeightComponent>(ammo.Value)?.Weight ?? 0;
+                    var weight = CompOrNull<WeightComponent>(ammo.Value)?.Weight.Buffed ?? 0;
                     strength.Multiplier *= Math.Clamp((float)weight / 100 + 100, 100, 150) / 100;
                 }
                 else if (weapon != null)
                 {
-                    var weight = CompOrNull<WeightComponent>(weapon.Value)?.Weight ?? 0;
+                    var weight = CompOrNull<WeightComponent>(weapon.Value)?.Weight.Buffed ?? 0;
                     strength.Multiplier *= Math.Clamp((float)weight / 200 + 100, 100, 150) / 100;
                 }
             }

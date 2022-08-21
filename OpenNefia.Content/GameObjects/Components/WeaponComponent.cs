@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -14,15 +15,15 @@ namespace OpenNefia.Content.GameObjects
         public PrototypeId<SkillPrototype> WeaponSkill { get; } = default!;
 
         [DataField]
-        public int DiceX { get; set; }
+        public Stat<int> DiceX { get; set; } = new(0);
 
         [DataField]
-        public int DiceY { get; set; }
+        public Stat<int> DiceY { get; set; } = new(0);
 
         /// <summary>
         /// 0-100.
         /// </summary>
         [DataField]
-        public int PierceRate { get; set; }
+        public Stat<int> PierceRate { get; set; } = new(0);
     }
 }

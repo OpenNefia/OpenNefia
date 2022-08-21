@@ -8,7 +8,7 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Items;
-using OpenNefia.Content.Material;
+using OpenNefia.Content.Materials;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;

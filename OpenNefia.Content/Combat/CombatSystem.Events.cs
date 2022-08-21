@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Combat
             }
             else
             {
-                var weight = CompOrNull<WeightComponent>(args.Weapon)?.Weight ?? 0;
+                var weight = CompOrNull<WeightComponent>(args.Weapon)?.Weight.Buffed ?? 0;
                 var equipState = GetEquipState(attacker);
                 if (equipState.IsWieldingTwoHanded)
                 {

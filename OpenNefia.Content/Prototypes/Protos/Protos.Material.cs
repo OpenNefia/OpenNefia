@@ -1,4 +1,4 @@
-﻿using MaterialPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Material.MaterialPrototype>;
+﻿using MaterialPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Materials.MaterialPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

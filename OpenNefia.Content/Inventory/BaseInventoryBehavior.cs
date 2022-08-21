@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Inventory
 
             if (EntityManager.TryGetComponent(item, out WeightComponent? weightComp))
             {
-                weight = weightComp.Weight;
+                weight = weightComp.Weight.Buffed;
             }
             if (EntityManager.TryGetComponent(item, out CargoComponent? cargoComp))
             {

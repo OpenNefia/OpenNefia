@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 
 namespace OpenNefia.Content.Weight
 {
@@ -10,7 +11,7 @@ namespace OpenNefia.Content.Weight
         public override string Name => "Weight";
 
         [DataField]
-        public int Weight { get; set; } = 0;
+        public Stat<int> Weight { get; set; } = new(0);
 
         [DataField]
         public int Height { get; set; } = 0;

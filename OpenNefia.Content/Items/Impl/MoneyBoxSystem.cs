@@ -75,7 +75,7 @@ namespace OpenNefia.Content.Items.Impl
             }
 
             if (TryComp<ValueComponent>(uid, out var value))
-                value.Value = 200 + index * index + index * 100;
+                value.Value.Base = 200 + index * index + index * 100;
         }
 
         private void LocalizeExtra_MoneyBox(EntityUid uid, MoneyBoxComponent component, ref LocalizeItemNameExtraEvent args)
@@ -115,7 +115,7 @@ namespace OpenNefia.Content.Items.Impl
             moneyBox.GoldDeposited += amount;
             if (amount > 0 && TryComp<WeightComponent>(moneyBox.Owner, out var weight))
             {
-                weight.Weight += 100;
+                weight.Weight.Base += 100;
             }
         }
 

@@ -367,7 +367,7 @@ namespace OpenNefia.Content.Shopkeeper
             // >>>>>>>> shade2/calculation.hsp:595 #defcfunc calcItemValue int id ,int mode ..
             var identifyState = CompOrNull<IdentifyComponent>(item)?.IdentifyState ?? IdentifyState.None;
             var curseState = CompOrNull<CurseStateComponent>(item)?.CurseState ?? CurseState.Normal;
-            var baseValue = CompOrNull<ValueComponent>(item)?.Value ?? 0;
+            var baseValue = CompOrNull<ValueComponent>(item)?.Value.Buffed ?? 0;
 
             int value;
 
@@ -543,7 +543,7 @@ namespace OpenNefia.Content.Shopkeeper
             if (HasComp<CargoComponent>(item))
                 return false;
 
-            if (!TryComp<ValueComponent>(item, out var value) || value.Value <= 1)
+            if (!TryComp<ValueComponent>(item, out var value) || value.Value.Buffed <= 1)
                 return false;
 
             if (TryComp<ItemComponent>(item, out var itemComp) && itemComp.IsPrecious)

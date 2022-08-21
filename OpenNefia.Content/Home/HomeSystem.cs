@@ -96,7 +96,7 @@ namespace OpenNefia.Content.Home
             if (!Resolve(entity, ref valueComp))
                 return 0;
 
-            var value = valueComp.Value * _stacks.GetCount(entity);
+            var value = valueComp.Value.Buffed * _stacks.GetCount(entity);
 
             if (_tags.HasTag(entity, Protos.Tag.ItemCatFurniture))
                 value /= 20;
@@ -115,7 +115,7 @@ namespace OpenNefia.Content.Home
             if (!Resolve(entity, ref valueComp) || !_tags.HasTag(entity, Protos.Tag.ItemCatFurniture))
                 return 0;
 
-            return Math.Clamp(valueComp.Value / 50, 50, 500);
+            return Math.Clamp(valueComp.Value.Buffed / 50, 50, 500);
         }
 
         public IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)

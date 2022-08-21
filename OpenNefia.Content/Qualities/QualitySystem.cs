@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Qualities
 {
-    public sealed class QualitySystem : EntitySystem
+    public interface IQualitySystem : IEntitySystem
+    {
+        Quality GetQuality(EntityUid ent, QualityComponent? quality = null);
+    }
+
+    public sealed class QualitySystem : EntitySystem, IQualitySystem
     {
         public override void Initialize()
         {
@@ -23,6 +28,14 @@ namespace OpenNefia.Content.Qualities
         private void HandleRefresh(EntityUid uid, QualityComponent component, ref EntityRefreshEvent args)
         {
             component.Quality.Reset();
+        }
+
+        public Quality GetQuality(EntityUid ent, QualityComponent? quality = null)
+        {
+            if (!Resolve(ent, ref quality))
+                return Quality.Bad;
+
+            return quality.Quality.Buffed;
         }
 
         private void SetQualityFromGenArgs(EntityUid uid, QualityComponent component, ref EntityBeingGeneratedEvent args)

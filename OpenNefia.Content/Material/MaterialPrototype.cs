@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OpenNefia.Content.Material
+namespace OpenNefia.Content.Materials
 {
     [Prototype("Elona.Material")]
     public class MaterialPrototype : IPrototype, IHspIds<int>
@@ -26,10 +26,10 @@ namespace OpenNefia.Content.Material
         public HspIds<int>? HspIds { get; }
 
         [DataField]
-        public int Weight { get; }
+        public float WeightModifier { get; }
 
         [DataField]
-        public int Value { get; }
+        public float ValueModifier { get; }
 
         [DataField]
         public int HitBonus { get; }
@@ -50,6 +50,6 @@ namespace OpenNefia.Content.Material
         public Color Color { get; }
 
         [DataField]
-        public bool NoFurniture { get; }
+        public bool GenerateOnFurniture { get; } = true;
     }
 }

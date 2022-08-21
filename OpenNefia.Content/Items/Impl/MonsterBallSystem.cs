@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Items.Impl
             }
 
             if (TryComp<ValueComponent>(uid, out var value))
-                value.Value = 200 + component.MaxLevel * component.MaxLevel + component.MaxLevel * 100;
+                value.Value.Base = 200 + component.MaxLevel * component.MaxLevel + component.MaxLevel * 100;
         }
 
         private void BeforeThrown_MonsterBall(EntityUid uid, MonsterBallComponent component, BeforeEntityThrownEventArgs args)
@@ -158,11 +158,11 @@ namespace OpenNefia.Content.Items.Impl
             if (TryComp<WeightComponent>(monsterBall, out var weight)
                 && TryComp<WeightComponent>(target, out var targetWeight))
             {
-                weight.Weight = Math.Clamp(targetWeight.Weight, 10000, 100000);
+                weight.Weight.Base = Math.Clamp(targetWeight.Weight.Base, 10000, 100000);
             }
 
             if (TryComp<ValueComponent>(monsterBall, out var value))
-                value.Value = 1000;
+                value.Value.Base = 1000;
 
             EntityManager.DeleteEntity(target);
         }

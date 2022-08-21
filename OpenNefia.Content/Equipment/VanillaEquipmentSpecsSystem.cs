@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Equipment
                 var item = DefaultGenerateEquipment(ev);
                 if (IsAlive(item))
                 {
-                    var weight = CompOrNull<WeightComponent>(item.Value)?.Weight ?? 0;
+                    var weight = CompOrNull<WeightComponent>(item.Value)?.Weight.Buffed ?? 0;
                     if (weight > WeaponWeight.Light && i < MaxItemGenerationTries - 1)
                     {
                         EntityManager.DeleteEntity(item.Value);
@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Equipment
                 var item = DefaultGenerateEquipment(ev);
                 if (IsAlive(item))
                 {
-                    var weight = CompOrNull<WeightComponent>(item.Value)?.Weight ?? 0;
+                    var weight = CompOrNull<WeightComponent>(item.Value)?.Weight.Buffed ?? 0;
                     if (weight < WeaponWeight.Heavy && i < MaxItemGenerationTries - 1)
                     {
                         EntityManager.DeleteEntity(item.Value);

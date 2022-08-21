@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Fishing
                 chip.ChipID = proto.ChipID;
 
             if (TryComp<ValueComponent>(uid, out var value))
-                value.Value = proto.Value ?? GetDefaultBaitValue(proto.Rank);
+                value.Value.Base = proto.Value ?? GetDefaultBaitValue(proto.Rank);
         }
 
         private void LocalizeExtra_FishingPole(EntityUid uid, FishingPoleComponent component, ref LocalizeItemNameExtraEvent args)

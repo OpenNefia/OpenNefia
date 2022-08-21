@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.Material;
+﻿using OpenNefia.Content.Materials;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;

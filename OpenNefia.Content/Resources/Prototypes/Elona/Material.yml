@@ -3,8 +3,8 @@
   id: Elona.Sand
   hspIds:
     elona122: 0
-  weight: 10
-  value: 80
+  weightModifier: 0.1
+  valueModifier: 0.8
   hitBonus: -5
   damageBonus: -5
   dv: -5
@@ -15,8 +15,8 @@
   id: Elona.Leather
   hspIds:
     elona122: 1
-  weight: 100
-  value: 150
+  weightModifier: 1
+  valueModifier: 1.5
   hitBonus: 12
   damageBonus: 2
   dv: 13
@@ -27,82 +27,87 @@
   id: Elona.Silk
   hspIds:
     elona122: 2
-  weight: 40
-  value: 190
+  weightModifier: 0.4
+  valueModifier: 1.9
   hitBonus: 9
   damageBonus: -2
   dv: 10
   pv: 2
   diceY: 100
   color: '#FFFFAF'
-  noFurniture: true
+  generateOnFurniture: false
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Cloth
   hspIds:
     elona122: 3
-  weight: 20
-  value: 30
+  weightModifier: 0.2
+  valueModifier: 0.3
   hitBonus: 6
   damageBonus: -5
   dv: 7
   pv: 2
   diceY: 100
   color: '#FFC3B9'
-  noFurniture: true
+  generateOnFurniture: false
 - type: Elona.Material
   id: Elona.Scale
   hspIds:
     elona122: 4
-  weight: 180
-  value: 250
+  weightModifier: 1.8
+  valueModifier: 2.5
   hitBonus: 14
   damageBonus: 6
   dv: 12
   pv: 11
   diceY: 120
   color: '#FFC3B9'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Glass
   hspIds:
     elona122: 5
-  weight: 180
-  value: 150
+  weightModifier: 1.8
+  valueModifier: 1.5
   hitBonus: 19
   damageBonus: 0
   dv: 17
   pv: 0
   diceY: 100
   color: '#AFAFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Mithril
   hspIds:
     elona122: 7
-  weight: 240
-  value: 750
+  weightModifier: 2.4
+  valueModifier: 7.5
   hitBonus: 20
   damageBonus: 18
   dv: 25
   pv: 17
   diceY: 190
   color: '#AFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Ether
   hspIds:
     elona122: 8
-  weight: 80
-  value: 1200
+  weightModifier: 0.8
+  valueModifier: 12
   hitBonus: 8
   damageBonus: 45
   dv: 35
   pv: 8
   diceY: 250
   color: '#AFAFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Steel
   hspIds:
     elona122: 9
-  weight: 270
-  value: 280
+  weightModifier: 2.7
+  valueModifier: 2.8
   hitBonus: 12
   damageBonus: 13
   dv: 8
@@ -113,250 +118,270 @@
   id: Elona.Iron
   hspIds:
     elona122: 10
-  weight: 280
-  value: 190
+  weightModifier: 2.8
+  valueModifier: 1.9
   hitBonus: 8
   damageBonus: 8
   dv: 3
   pv: 14
   diceY: 130
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Crystal
   hspIds:
     elona122: 11
-  weight: 200
-  value: 800
+  weightModifier: 2
+  valueModifier: 8
   hitBonus: 19
   damageBonus: 14
   dv: 16
   pv: 19
   diceY: 150
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Bronze
   hspIds:
     elona122: 12
-  weight: 200
-  value: 70
+  weightModifier: 2
+  valueModifier: 0.7
   hitBonus: 2
   damageBonus: 5
   dv: 1
   pv: 5
   diceY: 100
   color: '#FFD7AF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Diamond
   hspIds:
     elona122: 13
-  weight: 330
-  value: 1100
+  weightModifier: 3.3
+  valueModifier: 11
   hitBonus: 19
   damageBonus: 27
   dv: 13
   pv: 31
   diceY: 220
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.SpiritCloth
   hspIds:
     elona122: 14
-  weight: 40
-  value: 750
+  weightModifier: 0.4
+  valueModifier: 7.5
   hitBonus: 3
   damageBonus: 2
   dv: 34
   pv: 6
   diceY: 100
   color: '#AFAFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Rubynus
   hspIds:
     elona122: 15
-  weight: 250
-  value: 1000
+  weightModifier: 2.5
+  valueModifier: 10
   hitBonus: 38
   damageBonus: 18
   dv: 31
   pv: 24
   diceY: 190
   color: '#FF9B9B'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Paper
   hspIds:
     elona122: 16
-  weight: 10
-  value: 20
+  weightModifier: 0.1
+  valueModifier: 0.2
   hitBonus: 15
   damageBonus: -10
   dv: 12
   pv: 0
   diceY: 100
   color: '#FFFFFF'
-  noFurniture: true
+  generateOnFurniture: false
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.DawnCloth
   hspIds:
     elona122: 17
-  weight: 45
-  value: 850
+  weightModifier: 0.45
+  valueModifier: 8.5
   hitBonus: 10
   damageBonus: 8
   dv: 35
   pv: 15
   diceY: 100
   color: '#AFAFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Bone
   hspIds:
     elona122: 18
-  weight: 120
-  value: 300
+  weightModifier: 1.2
+  valueModifier: 3
   hitBonus: 10
   damageBonus: 6
   dv: 12
   pv: 11
   diceY: 140
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Chain
   hspIds:
     elona122: 19
-  weight: 200
-  value: 300
+  weightModifier: 2
+  valueModifier: 3
   hitBonus: 11
   damageBonus: 8
   dv: 17
   pv: 14
   diceY: 100
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Obsidian
   hspIds:
     elona122: 20
-  weight: 160
-  value: 350
+  weightModifier: 1.6
+  valueModifier: 3.5
   hitBonus: 16
   damageBonus: 10
   dv: 13
   pv: 14
   diceY: 130
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Mica
   hspIds:
     elona122: 21
-  weight: 40
-  value: 150
+  weightModifier: 0.4
+  valueModifier: 1.5
   hitBonus: 10
   damageBonus: -2
   dv: 12
   pv: 0
   diceY: 100
   color: '#FFFFFF'
-  noFurniture: true
+  generateOnFurniture: false
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Pearl
   hspIds:
     elona122: 22
-  weight: 240
-  value: 400
+  weightModifier: 2.4
+  valueModifier: 4
   hitBonus: 18
   damageBonus: 6
   dv: 18
   pv: 12
   diceY: 140
   color: '#FFC3B9'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Emerald
   hspIds:
     elona122: 23
-  weight: 240
-  value: 1050
+  weightModifier: 2.4
+  valueModifier: 10.5
   hitBonus: 22
   damageBonus: 23
   dv: 18
   pv: 28
   diceY: 190
   color: '#AFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.DragonScale
   hspIds:
     elona122: 24
-  weight: 220
-  value: 800
+  weightModifier: 2.2
+  valueModifier: 8
   hitBonus: 25
   damageBonus: 24
   dv: 29
   pv: 24
   diceY: 160
   color: '#AFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Silver
   hspIds:
     elona122: 25
-  weight: 230
-  value: 250
+  weightModifier: 2.3
+  valueModifier: 2.5
   hitBonus: 10
   damageBonus: 7
   dv: 7
   pv: 11
   diceY: 130
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Platinum
   hspIds:
     elona122: 26
-  weight: 260
-  value: 350
+  weightModifier: 2.6
+  valueModifier: 3.5
   hitBonus: 16
   damageBonus: 11
   dv: 14
   pv: 17
   diceY: 140
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Zylon
   hspIds:
     elona122: 27
-  weight: 50
-  value: 500
+  weightModifier: 0.5
+  valueModifier: 5
   hitBonus: 5
   damageBonus: 4
   dv: 21
   pv: 16
   diceY: 100
   color: '#AFAFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.GriffonScale
   hspIds:
     elona122: 28
-  weight: 70
-  value: 1000
+  weightModifier: 0.7
+  valueModifier: 10
   hitBonus: 16
   damageBonus: 17
   dv: 32
   pv: 24
   diceY: 120
   color: '#AFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Titanium
   hspIds:
     elona122: 29
-  weight: 200
-  value: 750
+  weightModifier: 2
+  valueModifier: 7.5
   hitBonus: 21
   damageBonus: 18
   dv: 19
   pv: 22
   diceY: 160
   color: '#FFFFFF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Chrome
   hspIds:
     elona122: 30
-  weight: 320
-  value: 500
+  weightModifier: 3.2
+  valueModifier: 5
   hitBonus: 15
   damageBonus: 17
   dv: 12
@@ -367,44 +392,47 @@
   id: Elona.Adamantium
   hspIds:
     elona122: 31
-  weight: 360
-  value: 1150
+  weightModifier: 3.6
+  valueModifier: 11.5
   hitBonus: 11
   damageBonus: 38
   dv: 8
   pv: 42
   diceY: 240
   color: '#FFC3B9'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Gold
   hspIds:
     elona122: 32
-  weight: 300
-  value: 800
+  weightModifier: 3
+  valueModifier: 8
   hitBonus: 13
   damageBonus: 18
   dv: 14
   pv: 22
   diceY: 140
   color: '#FFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Coral
   hspIds:
     elona122: 33
-  weight: 180
-  value: 240
+  weightModifier: 1.8
+  valueModifier: 2.4
   hitBonus: 7
   damageBonus: 2
   dv: 10
   pv: 7
   diceY: 120
   color: '#FFFFAF'
+  enchantments: TODO
 - type: Elona.Material
   id: Elona.Lead
   hspIds:
     elona122: 34
-  weight: 300
-  value: 50
+  weightModifier: 3
+  valueModifier: 0.5
   hitBonus: 3
   damageBonus: 4
   dv: -3
@@ -415,8 +443,8 @@
   id: Elona.Fresh
   hspIds:
     elona122: 35
-  weight: 100
-  value: 50
+  weightModifier: 1
+  valueModifier: 0.5
   hitBonus: -5
   damageBonus: -5
   dv: -5
@@ -427,8 +455,8 @@
   id: Elona.Wood
   hspIds:
     elona122: 43
-  weight: 150
-  value: 50
+  weightModifier: 1.5
+  valueModifier: 0.5
   hitBonus: -5
   damageBonus: -5
   dv: -5
@@ -439,8 +467,8 @@
   id: Elona.Metal
   hspIds:
     elona122: 1000
-  weight: 0
-  value: 0
+  weightModifier: 0
+  valueModifier: 0
   hitBonus: 0
   damageBonus: 0
   dv: 0
@@ -451,8 +479,8 @@
   id: Elona.Soft
   hspIds:
     elona122: 1001
-  weight: 0
-  value: 0
+  weightModifier: 0
+  valueModifier: 0
   hitBonus: 0
   damageBonus: 0
   dv: 0

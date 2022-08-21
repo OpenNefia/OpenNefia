@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Chest
                 chest.LockpickDifficulty = _rand.Next(_rand.Next(100) + 1) + 1;
 
                 if (TryComp<ValueComponent>(uid, out var value))
-                    value.Value = chest.LockpickDifficulty * 25 + 150;
+                    value.Value.Base = chest.LockpickDifficulty * 25 + 150;
             }
 
             _stacks.SetCount(uid, _rand.Next(8));
@@ -56,7 +56,7 @@ namespace OpenNefia.Content.Chest
 
         private void ChestFilter_SmallGambleChest(EntityUid uid, SmallGambleChestComponent component, BeforeGenerateChestItemEvent args)
         {
-            var value = CompOrNull<ValueComponent>(uid)?.Value ?? 0;
+            var value = CompOrNull<ValueComponent>(uid)?.Value.Buffed ?? 0;
             args.OutItemFilter.Id = Protos.Item.GoldPiece;
 
             if (_rand.OneIn(75))
