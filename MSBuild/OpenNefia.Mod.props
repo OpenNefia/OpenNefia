@@ -11,11 +11,6 @@
     <OpenNefiaEntryPointPath Condition=" '$(OpenNefiaEntryPointPath)' == '' ">$(SolutionDir)OpenNefia.EntryPoint\bin\$(Configuration)\$(TargetFramework)\</OpenNefiaEntryPointPath>
     <OpenNefiaYamlValidatorPath Condition=" '$(OpenNefiaYamlValidatorPath)' == '' ">$(SolutionDir)OpenNefia.YAMLValidator\bin\$(Configuration)\$(TargetFramework)\</OpenNefiaYamlValidatorPath>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)OpenNefia.EntryPoint\OpenNefia.EntryPoint.csproj" />
-    <ProjectReference Include="$(SolutionDir)OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj" />
-  </ItemGroup>
 
   <Target Name="EmbedLocalResourcesPath" BeforeTargets="PrepareForBuild" Condition=" '$(EmbedLocalReferences)' == 'True' AND '$(FullRelease)' != 'True'">
     <WriteLinesToFile File="$(IntermediateOutputPath)\LocalResourcesPath.txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
