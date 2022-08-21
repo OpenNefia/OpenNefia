@@ -82,6 +82,7 @@ namespace OpenNefia.Content.Equipment
             public string EquipSlotText { get; set; } = string.Empty;
             public UiElement? EquipSlotIcon { get; set; }
             public EntityUid? ItemEntityUid { get; set; }
+            public Color ItemChipColor { get; set; }
             public Color ItemTextColor { get; set; }
             public string ItemNameText { get; set; } = string.Empty;
             public string ItemSubnameText { get; set; } = string.Empty;
@@ -168,7 +169,7 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Draw();
 
                 if (Data.ItemEntityUid != null)
-                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12, Y - 14);
+                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12, Y - 14, color: Data.ItemChipColor);
             }
 
             public override void Dispose()
@@ -378,6 +379,7 @@ namespace OpenNefia.Content.Equipment
                     EquipSlotText = Loc.GetPrototypeString(equipSlot.ID, "Name"),
                     EquipSlotIcon = EquipmentHelpers.MakeEquipSlotIcon(equipSlotProto.Icon),
                     ItemEntityUid = null,
+                    ItemChipColor = Color.White,
                     ItemTextColor = UiColors.EquipmentItemTextDefault,
                     ItemNameText = "-    ",
                     ItemSubnameText = "-"
@@ -390,6 +392,7 @@ namespace OpenNefia.Content.Equipment
                         var item = containerSlot.ContainedEntity.Value;
 
                         cellData.ItemEntityUid = item;
+                        cellData.ItemChipColor = _entityManager.GetComponentOrNull<ChipComponent>(item)?.Color ?? Color.White;
                         cellData.ItemTextColor = InventoryHelpers.GetItemTextColor(item, _entityManager);
                         cellData.ItemNameText = _displayNames.GetDisplayName(item);
 
