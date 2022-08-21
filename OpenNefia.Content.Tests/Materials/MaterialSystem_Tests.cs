@@ -87,6 +87,8 @@ namespace OpenNefia.Content.Tests.Materials
 
             entMan.GetComponent<MaterialComponent>(entWeapon).RandomSeed = 0;
             entMan.GetComponent<MaterialComponent>(entFurniture).RandomSeed = 0;
+            refresh.Refresh(entWeapon);
+            refresh.Refresh(entFurniture);
 
             void DoAsserts()
             {

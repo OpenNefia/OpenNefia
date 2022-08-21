@@ -12,7 +12,7 @@ namespace OpenNefia.Content.RandomText
     public enum AliasType
     {
         Chara,
-        Weapon,
+        Item,
         Party
     }
 
@@ -185,10 +185,16 @@ namespace OpenNefia.Content.RandomText
 
         private bool TryGetRandomTitle(AliasType type, [NotNullWhen(true)] out string? alias)
         {
+            if (_allAliasData.Count == 0)
+            {
+                alias = "???";
+                return true;
+            }    
+
             alias = null;
             var (data, column, result) = RandomAliasAndChoice();
 
-            if (type == AliasType.Weapon && data.Category == AliasDataCategory.Tool)
+            if (type == AliasType.Item && data.Category == AliasDataCategory.Tool)
                 return false;
 
             var noSecondPart = false;
