@@ -10,13 +10,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
-    <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
-    <ProjectReference Include="..\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Move SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
-    <Move SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
-  </Target>
-
 </Project>

@@ -1,0 +1,31 @@
+﻿<Project>
+  <Import Project="OpenNefia.Properties.targets" />
+  <Import Project="OpenNefia.Engine.props" />
+  <Import Project="OpenNefia.DefineConstants.targets" />
+  <Import Project="OpenNefia.Analyzers.targets" />
+  <Import Project="XamlIL.targets" />
+  
+  <PropertyGroup>
+    <EmbedLocalReferences Condition=" '$(EmbedLocalReferences)' == '' ">True</EmbedLocalReferences>
+    <!-- TODO: Cleaner way of detecting this in a ProjectReference or similar? -->
+    <OpenNefiaEntryPointPath Condition=" '$(OpenNefiaEntryPointPath)' == '' ">$(SolutionDir)OpenNefia.EntryPoint\bin\$(Configuration)\$(TargetFramework)\</OpenNefiaEntryPointPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)OpenNefia.EntryPoint\OpenNefia.EntryPoint.csproj" />
+  </ItemGroup>
+
+  <Target Name="EmbedLocalResourcesPath" BeforeTargets="PrepareForBuild" Condition=" '$(EmbedLocalReferences)' == 'True' AND '$(FullRelease)' != 'True'">
+    <WriteLinesToFile File="$(IntermediateOutputPath)\LocalResourcesPath.txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
+    <ItemGroup>
+      <EmbeddedResource Include="$(IntermediateOutputPath)\LocalResourcesPath.txt">
+        <LogicalName>LocalResourcesPath.txt</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+    <Message Text="Dev resources path: $(MSBuildProjectDirectory)\Resources" Importance="high" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(OpenNefiaEntryPointPath)Resources\Assemblies" />
+  </Target>
+</Project>
