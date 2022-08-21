@@ -1,19 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
-  <Import Project="..\MSBuild\OpenNefia.Engine.props" />
-  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
-  <PropertyGroup>
-    <AnalysisLevel>none</AnalysisLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Analysis\**" />
-    <EmbeddedResource Remove="Analysis\**" />
-    <None Remove="Analysis\**" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <Compile Remove="Scratch.cs" />
-  </ItemGroup>
+  <Import Project="..\MSBuild\OpenNefia.Mod.props" />
 	
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
@@ -24,7 +10,4 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
-
-  <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
-  <Import Project="..\MSBuild\XamlIL.targets" />
 </Project>

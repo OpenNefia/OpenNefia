@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content;
+﻿using OpenNefia.Core;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
@@ -53,8 +53,8 @@ namespace OpenNefia.YAMLValidator
             {
                 ConfigOptionOverrides = new()
                 {
-                    { CCVars.ReplAutoloadOnStartup, false },
-                    { CCVars.ReplAutoloadScript, string.Empty },
+                    { CVars.ReplAutoloadOnStartup, false },
+                    { CVars.ReplAutoloadScript, string.Empty },
                 }
             };
 

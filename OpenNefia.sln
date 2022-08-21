@@ -21,10 +21,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRepl.Services", "Thirdparty\CSharpRepl\CSharpRepl.Services\CSharpRepl.Services.csproj", "{8A5B7637-6128-4046-A552-BB2310FFB73C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content", "OpenNefia.Content\OpenNefia.Content.csproj", "{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8} = {3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content.Tests", "OpenNefia.Content.Tests\OpenNefia.Content.Tests.csproj", "{92BB5654-5344-45C0-A10C-24C2635455EA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{4BE01788-D0A0-43C6-A932-24C591A9DE91}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8} = {3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56ECDAC6-A5E2-4C19-8C4C-B4F33EAC700A}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MSBuild\OpenNefia.DefineConstants.targets = MSBuild\OpenNefia.DefineConstants.targets
 		MSBuild\OpenNefia.Engine.props = MSBuild\OpenNefia.Engine.props
 		MSBuild\OpenNefia.Engine.Version.props = MSBuild\OpenNefia.Engine.Version.props
+		MSBuild\OpenNefia.Mod.props = MSBuild\OpenNefia.Mod.props
 		MSBuild\OpenNefia.Properties.targets = MSBuild\OpenNefia.Properties.targets
 		MSBuild\OpenNefia.ruleset = MSBuild\OpenNefia.ruleset
 		MSBuild\XamlIL.targets = MSBuild\XamlIL.targets
@@ -52,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.IL.Cecil", "Thirdpart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.Runtime", "Thirdparty\XamlX\src\XamlX.Runtime\XamlX.Runtime.csproj", "{52F5601C-712E-4DF4-AB92-171C39783EE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.YAMLValidator", "OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj", "{AE161F08-1876-4462-9743-347DCB4986DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.YAMLValidator", "OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj", "{AE161F08-1876-4462-9743-347DCB4986DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +69,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|x86.Build.0 = Release|Any CPU
 		{F186E14E-D351-40D4-9A0E-0D176003C36D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F186E14E-D351-40D4-9A0E-0D176003C36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F186E14E-D351-40D4-9A0E-0D176003C36D}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -110,14 +125,6 @@ Global
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Release|x86.Build.0 = Release|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|x86.Build.0 = Debug|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|x86.ActiveCfg = Release|Any CPU
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|x86.Build.0 = Release|Any CPU
 		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Debug|x86.ActiveCfg = Debug|Any CPU

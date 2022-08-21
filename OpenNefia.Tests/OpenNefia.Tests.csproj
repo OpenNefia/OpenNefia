@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
+    <ProjectReference Include="..\OpenNefia.XamlInjectors\OpenNefia.XamlInjectors.csproj" />
   </ItemGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
