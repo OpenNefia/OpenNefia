@@ -49,10 +49,10 @@ namespace OpenNefia.Content.Tests.RandomGen
                 Assert.That(entMan.IsAlive(ent), Is.True);
                 Assert.That(stacks.GetCount(ent), Is.EqualTo(15));
                 
-                ent = sys.GenerateItem(map.AtPos(0, 0), tags: new[] { Protos.Tag.ItemCatGold }, amount: 15, minLevel: 30);
+                ent = sys.GenerateItem(map.AtPos(0, 1), tags: new[] { Protos.Tag.ItemCatGold }, amount: 15, minLevel: 30);
                 Assert.That(entMan.IsAlive(ent), Is.True);
                 Assert.That(entMan.GetComponent<MetaDataComponent>(ent!.Value).EntityPrototype!.GetStrongID(), Is.EqualTo(Protos.Item.GoldPiece));
-                Assert.That(stacks.GetCount(ent), Is.EqualTo(30));
+                Assert.That(stacks.GetCount(ent), Is.EqualTo(15));
             });
         }
     }
