@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Qualities
     {
         public static string GetLocalizedName(this Quality quality)
         {
-            return Loc.GetString("Elona.Quality.Names. " + quality.ToString());
+            return Loc.GetString("Elona.Quality.Names." + quality.ToString());
         }
     }
 }

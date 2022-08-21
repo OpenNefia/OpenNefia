@@ -65,6 +65,7 @@
     drawDepth: Items
   - type: Item
   - type: ItemDescription
+  - type: Quality
   - type: Value
   - type: Identify
   - type: Stack
