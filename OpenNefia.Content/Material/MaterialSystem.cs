@@ -33,6 +33,10 @@ namespace OpenNefia.Content.Materials
     {
         MaterialPrototypeId PickRandomMaterialID(EntityUid uid, MaterialPrototypeId? baseMaterial = null);
         MaterialPrototypeId PickRandomMaterialIDRaw(int matQualityIndex, Quality baseQuality, MaterialPrototypeId? baseMaterial = null, EntityUid? item = null);
+
+        int GetMaterialStatDivisor(Quality quality);
+
+        void ChangeItemMaterial(EntityUid item, MaterialPrototypeId materialID, MaterialComponent? materialComp = null);
     }
 
     public sealed class MaterialSystem : EntitySystem, IMaterialSystem
@@ -48,6 +52,7 @@ namespace OpenNefia.Content.Materials
         public override void Initialize()
         {
             SubscribeComponent<MaterialComponent, EntityBeingGeneratedEvent>(Material_BeingGenerated, priority: EventPriorities.High);
+            SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription);
             SubscribeComponent<MaterialComponent, EntityRefreshEvent>(Material_Refreshed, priority: EventPriorities.VeryHigh);
             SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.VeryHigh);
 
@@ -89,6 +94,19 @@ namespace OpenNefia.Content.Materials
                     ApplyMaterialEnchantments(uid, material);
                 }
             }
+        }
+
+        private void Material_GetItemDescription(EntityUid uid, MaterialComponent material, GetItemDescriptionEventArgs args)
+        {
+            if (_identify.GetIdentifyState(uid) < IdentifyState.Quality || material.MaterialID == null)
+                return;
+
+            var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
+            var entry = new ItemDescriptionEntry()
+            {
+                Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
+            };
+            args.OutEntries.Add(entry);
         }
 
         private void Material_Refreshed(EntityUid uid, MaterialComponent component, ref EntityRefreshEvent args)
