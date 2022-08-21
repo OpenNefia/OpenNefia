@@ -156,6 +156,11 @@ namespace OpenNefia.Tests
             var random = container.Resolve<IRandom>();
             random.PushSeed(0);
 
+
+            var resMan = IoCManager.Resolve<IResourceManagerInternal>();
+            Directory.CreateDirectory("Resources/");
+            ProgramShared.DoCoreMounts(resMan);
+
             // Because of CVarDef, we have to load every one through reflection
             // just in case a system needs one of them.
             var configMan = container.Resolve<IConfigurationManagerInternal>();
@@ -166,10 +171,7 @@ namespace OpenNefia.Tests
             }
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
-
-            var resMan = IoCManager.Resolve<IResourceManagerInternal>();
-            Directory.CreateDirectory("Resources/");
-            ProgramShared.DoMounts(resMan);
+            ProgramShared.DoContentMounts(resMan);
 
             var modLoader = IoCManager.Resolve<TestingModLoader>();
             modLoader.Assemblies = contentAssemblies.ToArray();

@@ -92,9 +92,10 @@ namespace OpenNefia.Core.GameController
             _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
-            ProgramShared.DoMounts(_resourceCache);
 
             _fontManager.Initialize();
+
+            ProgramShared.DoCoreMounts(_resourceCache);
 
             BindWindowEvents();
             _graphics.Initialize();
@@ -108,6 +109,8 @@ namespace OpenNefia.Core.GameController
                 Logger.Fatal("Errors while loading content assemblies.");
                 return false;
             }
+            
+            ProgramShared.DoContentMounts(_resourceCache);
 
             foreach (var loadedModule in _modLoader.LoadedModules)
             {

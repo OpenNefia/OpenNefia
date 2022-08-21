@@ -1,7 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\MSBuild\OpenNefia.Mod.props" />
-  <ItemGroup>
-    <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
-    <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
-  </ItemGroup>
-</Project>
