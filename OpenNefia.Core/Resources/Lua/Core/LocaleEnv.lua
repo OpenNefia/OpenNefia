@@ -1,6 +1,11 @@
 _FinalizedKeys = {}
 _PendingRefs = {}
 
+-- TODO move!
+function math.clamp(i, min, max)
+    return math.min(max, math.max(min, i))
+end
+
 local auto, assign
 
 function auto(tab, key)

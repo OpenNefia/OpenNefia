@@ -23,6 +23,9 @@ using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Items.Impl;
 using OpenNefia.Content.Enchantments;
+using OpenNefia.Content.Materials;
+using OpenNefia.Content.LivingWeapon;
+using OpenNefia.Content.Qualities;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -32,14 +35,14 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
-        [Dependency] private readonly IMapRenderer _mapRenderer = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IMapManager _mapMan = default!;
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly IMaterialSystem _materials = default!;
 
         public override void Initialize()
         {
@@ -76,17 +79,17 @@ namespace OpenNefia.LecchoTorte.QuickStart
             wallet.Platinum = 1000;
 
             var testEv = new P_ElementKillCharaEvent(null, player);
-            _protoMan.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
+            _protos.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
 
             var map = _mapMan.ActiveMap!;
 
-            foreach (var proto in _protoMan.EnumeratePrototypes<EntityPrototype>())
+            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
             {
                 if (proto.Components.HasComponent<FoodComponent>())
                     _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
             }
 
-            foreach (var proto in _protoMan.EnumeratePrototypes<MusicPrototype>())
+            foreach (var proto in _protos.EnumeratePrototypes<MusicPrototype>())
             {
                 var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
                 if (IsAlive(item))
@@ -107,7 +110,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.GoldPiece, amount: 1000);
             _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.PlatinumCoin, amount: 50);
 
-            foreach (var proto in _protoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
+            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
             {
                 _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);
             }
@@ -144,6 +147,15 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifySkill, 100);
                 _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ElementalDamage, 100);
                 _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.SustainAttribute, 100);
+            }
+
+            foreach (var material in _protos.EnumeratePrototypes<MaterialPrototype>())
+            {
+                claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore, quality: Quality.God);
+                if (IsAlive(claymore))
+                {
+                    _materials.ChangeItemMaterial(claymore.Value, material.GetStrongID());
+                }
             }
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))

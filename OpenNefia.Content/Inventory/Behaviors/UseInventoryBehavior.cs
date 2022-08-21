@@ -1,17 +1,7 @@
-﻿using OpenNefia.Content.Food;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Pickable;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 
 namespace OpenNefia.Content.Inventory
@@ -31,6 +21,7 @@ namespace OpenNefia.Content.Inventory
         {
             if (context.User == context.Target)
                 yield return new GroundInvSource(context.Target);
+            yield return new EntityEquipmentSource(context.Target);
             yield return new EntityInvSource(context.Target);
         }
 
