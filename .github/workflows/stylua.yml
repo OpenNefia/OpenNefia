@@ -20,4 +20,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         version: v0.11.3
         sha256: a20c3d177866129f701fed3693825a4050ad45c32dda5369de8365aff4dba635
-        args: --config-path stylua.toml --check OpenNefia.Core/Resources OpenNefia.Content/Resources OpenNefia.LecchoTorte/Resources -g*.lua
+        args: --config-path stylua.toml --check OpenNefia.Core/Resources OpenNefia.Content/Resources Mods -g*.lua
