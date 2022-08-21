@@ -27,11 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content", "OpenNe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content.Tests", "OpenNefia.Content.Tests\OpenNefia.Content.Tests.csproj", "{92BB5654-5344-45C0-A10C-24C2635455EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{4BE01788-D0A0-43C6-A932-24C591A9DE91}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8} = {3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56ECDAC6-A5E2-4C19-8C4C-B4F33EAC700A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -60,6 +55,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.Runtime", "Thirdparty\XamlX\src\XamlX.Runtime\XamlX.Runtime.csproj", "{52F5601C-712E-4DF4-AB92-171C39783EE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.YAMLValidator", "OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj", "{AE161F08-1876-4462-9743-347DCB4986DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "Mods\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{832C413B-CB91-4401-BD5E-A4E187A97024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,14 +140,6 @@ Global
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Release|x86.Build.0 = Release|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Debug|x86.Build.0 = Debug|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|x86.ActiveCfg = Release|Any CPU
-		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|x86.Build.0 = Release|Any CPU
 		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -213,9 +204,20 @@ Global
 		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|x86.ActiveCfg = Release|Any CPU
 		{AE161F08-1876-4462-9743-347DCB4986DE}.Release|x86.Build.0 = Release|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Debug|x86.Build.0 = Debug|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|x86.ActiveCfg = Release|Any CPU
+		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{832C413B-CB91-4401-BD5E-A4E187A97024} = {CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E63F4360-703A-44AA-9E69-995B78622EE9}
