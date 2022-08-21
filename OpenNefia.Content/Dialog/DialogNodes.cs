@@ -86,7 +86,7 @@ namespace OpenNefia.Content.Dialog
     [DataDefinition]
     public sealed class DialogTextEntry
     {
-        private DialogTextEntry() { }
+        public DialogTextEntry() {}
 
         public static DialogTextEntry FromString(string text)
         {
