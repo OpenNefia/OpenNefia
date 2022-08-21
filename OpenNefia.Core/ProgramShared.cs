@@ -27,7 +27,7 @@ namespace OpenNefia.Core
             // In full release mode, all mods should be packaged under the "Resources" folder,
             // preferably in .zip format. The following mounts the "Resources" folder for each mod
             // from their respective source directories via an embedded resource generated with
-            // MSBuild.
+            // MSBuild, for development purposes (allows hot reloading from those directories).
             //
             // This will probably need changing if the mod system ends up using something like NuGet
             // to manage dependencies.
@@ -40,7 +40,8 @@ namespace OpenNefia.Core
 
                 using var reader = new StreamReader(stream);
                 var path = reader.ReadToEnd()!.Trim();
-                res.MountContentDirectory(ResourcePath.FromRelativeSystemPath(path).ToRelativePath().ToString());
+                var relative = Path.GetRelativePath(PathHelpers.GetExecutableDirectory(), path);
+                res.MountContentDirectory(relative);
             }
 #endif
         }

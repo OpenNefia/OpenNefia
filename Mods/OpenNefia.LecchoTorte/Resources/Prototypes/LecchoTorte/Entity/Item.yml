@@ -21,11 +21,6 @@
     displayName: potion of test
   - type: Chip
     color: yellow
-  - type: Drinkable
-    effect: !type:SlotEffect
-      components:
-      - type: LecchoTorte.TurnColor
-        color: "#11AA11"
   - type: ItemDescription
     entries:
     - text: "Test description"
