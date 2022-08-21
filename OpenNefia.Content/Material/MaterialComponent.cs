@@ -5,7 +5,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Material
+namespace OpenNefia.Content.Materials
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
@@ -15,5 +15,8 @@ namespace OpenNefia.Content.Material
 
         [DataField]
         public PrototypeId<MaterialPrototype>? MaterialID { get; set; }
+
+        [DataField]
+        public int RandomSeed { get; set; }
     }
 }

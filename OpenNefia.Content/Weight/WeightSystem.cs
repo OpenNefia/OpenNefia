@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -21,11 +23,17 @@ namespace OpenNefia.Content.Weight
 
     public sealed class WeightSystem : EntitySystem, IWeightSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<WeightComponent, EntityRefreshEvent>(Weight_Refresh, priority: EventPriorities.Highest);
+        }
+
+        private void Weight_Refresh(EntityUid uid, WeightComponent component, ref EntityRefreshEvent args)
+        {
+            component.Weight.Reset();
+        }
 
         public void ModifyWeight(EntityUid ent, int delta, bool force = false, WeightComponent? weight = null)
         {
@@ -36,15 +44,15 @@ namespace OpenNefia.Content.Weight
             var min = height * height * 18 / 25000;
             var max = height * height * 24 / 10000;
 
-            if (weight.Weight < min)
+            if (weight.Weight.Base < min)
             {
-                weight.Weight = min;
+                weight.Weight.Base = min;
                 return;
             }
-            if (delta > 0 && weight.Weight > max && !force)
+            if (delta > 0 && weight.Weight.Base > max && !force)
                 return;
 
-            weight.Weight = Math.Max(1, weight.Weight * (100 + delta) / 100 + (delta > 0 ? 1 : 0) - (delta < 0 ? 1 : 0));
+            weight.Weight.Base = Math.Max(1, weight.Weight.Base * (100 + delta) / 100 + (delta > 0 ? 1 : 0) - (delta < 0 ? 1 : 0));
 
             if (delta > 2 )
             {

@@ -12,7 +12,7 @@ using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
-using OpenNefia.Content.Material;
+using OpenNefia.Content.Materials;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
@@ -218,6 +218,7 @@ namespace OpenNefia.Content.Food
             if (!Resolve(ent, ref food))
                 return false;
 
+            // TODO make compatible with components instead of ID checks
             if (TryComp<MaterialComponent>(ent, out var material) && material.MaterialID != Protos.Material.Fresh)
                 return false;
 
@@ -311,7 +312,7 @@ namespace OpenNefia.Content.Food
             if (TryComp<ChipComponent>(item, out var chip))
                 chip.ChipID = GetFoodChip(food.FoodType.Value, foodQuality);
             if (TryComp<WeightComponent>(item, out var weight))
-                weight.Weight = 500;
+                weight.Weight.Base = 500;
 
             if (!food.IsRotten && food.SpoilageInterval != null)
                 food.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromDays(3);

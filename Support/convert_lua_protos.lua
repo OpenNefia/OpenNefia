@@ -22,7 +22,7 @@ local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 
-local rootDir = "C:/build/OpenNefia"
+local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
 local tags = {}
 
@@ -1409,10 +1409,10 @@ end
 
 handlers["elona.item_material"] = function(from, to)
     if from.weight then
-        to.weight = from.weight
+        to.weightModifier = from.weight / 100
     end
     if from.value then
-        to.value = from.value
+        to.valueModifier = from.value / 100
     end
     if from.hit_bonus then
         to.hitBonus = from.hit_bonus
@@ -1433,7 +1433,10 @@ handlers["elona.item_material"] = function(from, to)
         to.color = rgbToHex(from.color)
     end
     if from.no_furniture then
-        to.noFurniture = from.no_furniture
+        to.generateOnFurniture = not from.no_furniture
+    end
+    if #(from.enchantments or {}) > 0 then
+        to.enchantments = "TODO"
     end
 end
 
@@ -1893,7 +1896,7 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.god", "God.yml")
 -- write("elona_sys.magic", "Magic.yml")
 -- write("base.effect", "StatusEffect.yml", "OpenNefia.Content.StatusEffect.StatusEffectPrototype")
--- write("elona.item_material", "Material.yml")
+write("elona.item_material", "Material.yml", "OpenNefia.Content.Materials.MaterialPrototype")
 -- write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototype")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")

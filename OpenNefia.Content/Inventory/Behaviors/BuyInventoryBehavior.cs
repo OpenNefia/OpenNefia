@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetItemName(InventoryContext context, EntityUid item)
         {
-            var weight = EntityManager.GetComponentOrNull<WeightComponent>(item)?.Weight ?? 0;
+            var weight = EntityManager.GetComponentOrNull<WeightComponent>(item)?.Weight.Buffed ?? 0;
             return base.GetItemName(context, item) + " " + UiUtils.DisplayWeight(weight);
         }
 

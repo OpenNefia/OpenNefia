@@ -126,7 +126,7 @@ namespace OpenNefia.Content.Equipment
                 if (!EntityManager.TryGetComponent(equipment, out WeightComponent weight))
                     continue;
 
-                totalWeight += weight.Weight;
+                totalWeight += weight.Weight.Buffed;
             }
 
             return totalWeight;
@@ -172,7 +172,7 @@ namespace OpenNefia.Content.Equipment
             if (!Resolve(item, ref itemEquip))
                 return;
 
-            var itemValue = CompOrNull<ValueComponent>(item)?.Value ?? 0;
+            var itemValue = CompOrNull<ValueComponent>(item)?.Value.Buffed ?? 0;
 
             foreach (var slotType in itemEquip.EquipSlots)
             {
@@ -185,7 +185,7 @@ namespace OpenNefia.Content.Equipment
                 {
                     if (slot.ID == slotType && _equipSlots.TryGetContainerForEquipSlot(npc, slot, out var container) && IsAlive(container.ContainedEntity))
                     {
-                        var otherValue = CompOrNull<ValueComponent>(container.ContainedEntity)?.Value ?? 0;
+                        var otherValue = CompOrNull<ValueComponent>(container.ContainedEntity)?.Value.Buffed ?? 0;
                         if (itemValue > otherValue)
                         {
                             if (_equipSlots.TryUnequip(npc, slot, silent: true))

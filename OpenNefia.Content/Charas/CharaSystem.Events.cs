@@ -118,7 +118,7 @@ namespace OpenNefia.Content.Charas
 
             weight.Height = race.BaseHeight;
             weight.Height = weight.Height + _rand.Next(weight.Height / 5 + 1) - _rand.Next(weight.Height / 5 + 1);
-            weight.Weight = weight.Height * weight.Height * (_rand.Next(6) + 18) / 10000;
+            weight.Weight.Base = weight.Height * weight.Height * (_rand.Next(6) + 18) / 10000;
 
             // <<<<<<<< shade2/chara.hsp:519 	cWeight(rc)= cHeight(rc)*cHeight(rc)*(rnd(6)+18)/ ..
         }

@@ -41,9 +41,9 @@ namespace OpenNefia.Content.Mount
 
             args.OutAccuracy = args.OutAccuracy * 100 / Math.Clamp(150 - _skills.Level(uid, Protos.Skill.Riding) / 2, 115, 150);
             if (EntityManager.IsAlive(args.Weapon) && !args.IsRanged 
-                && TryComp<WeightComponent>(args.Weapon.Value, out var weight) && weight.Weight >= 400)
+                && TryComp<WeightComponent>(args.Weapon.Value, out var weight) && weight.Weight.Buffed >= 400)
             {
-                args.OutAccuracy -= (weight.Weight - 4000 + 400) / (10 + _skills.Level(uid, Protos.Skill.Riding) / 5);
+                args.OutAccuracy -= (weight.Weight.Buffed - 4000 + 400) / (10 + _skills.Level(uid, Protos.Skill.Riding) / 5);
             }
             // <<<<<<<< elona122/shade2/calculation.hsp:198 			} ...
         }
@@ -56,9 +56,9 @@ namespace OpenNefia.Content.Mount
 
             args.OutAccuracy = args.OutAccuracy * 100 / Math.Clamp(150 - _skills.Level(uid, Protos.Skill.AttrStrength) / 2, 115, 150);
             if (EntityManager.IsAlive(args.Weapon) && !args.IsRanged
-                && TryComp<WeightComponent>(args.Weapon.Value, out var weight) && weight.Weight >= 400)
+                && TryComp<WeightComponent>(args.Weapon.Value, out var weight) && weight.Weight.Buffed >= 400)
             {
-                args.OutAccuracy -= (weight.Weight - 4000 + 400) / (10 + _skills.Level(uid, Protos.Skill.AttrStrength) / 5);
+                args.OutAccuracy -= (weight.Weight.Buffed - 4000 + 400) / (10 + _skills.Level(uid, Protos.Skill.AttrStrength) / 5);
             }
             // <<<<<<<< elona122/shade2/calculation.hsp:203 		} ...
         }

@@ -48,11 +48,11 @@ namespace OpenNefia.Content.Shopkeeper
             var value = EnsureComp<ValueComponent>(ev.Item);
             if (TryComp<GuildMemberComponent>(_gameSession.Player, out var guild) && guild.GuildID == Protos.Guild.Thief)
             {
-                value.Value *= 2;
+                value.Value.Base *= 2;
             }
             else
             {
-                value.Value *= 3;
+                value.Value.Base *= 3;
             }
         }
 
@@ -123,7 +123,7 @@ namespace OpenNefia.Content.Shopkeeper
         public void WanderingMerchant_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             var value = EnsureComp<ValueComponent>(ev.Item);
-            value.Value *= 2;
+            value.Value.Base *= 2;
         }
 
         #endregion
@@ -133,7 +133,7 @@ namespace OpenNefia.Content.Shopkeeper
         public void Moyer_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             var value = EnsureComp<ValueComponent>(ev.Item);
-            value.Value *= 2;
+            value.Value.Base *= 2;
         }
 
         #endregion
@@ -184,10 +184,10 @@ namespace OpenNefia.Content.Shopkeeper
         public void SouvenirVendor_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             var value = EnsureComp<ValueComponent>(ev.Item);
-            var newValue = Math.Clamp(value.Value, 1, 1000000) * 50;
+            var newValue = Math.Clamp(value.Value.Base, 1, 1000000) * 50;
             if (HasComp<GiftComponent>(ev.Item))
                 newValue *= 10;
-            value.Value = newValue;
+            value.Value.Base = newValue;
         }
 
         #endregion
@@ -197,7 +197,7 @@ namespace OpenNefia.Content.Shopkeeper
         public void SpellWriter_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             var value = EnsureComp<ValueComponent>(ev.Item);
-            value.Value = (int)(value.Value * 1.5);
+            value.Value.Base = (int)(value.Value.Base * 1.5);
         }
 
         #endregion
@@ -212,7 +212,7 @@ namespace OpenNefia.Content.Shopkeeper
         public void VisitingMerchant_AfterGenerateItem(ShopInventoryPrototype proto, P_ShopInventoryAfterGenerateItemEvent ev)
         {
             var value = EnsureComp<ValueComponent>(ev.Item);
-            value.Value = (int)(value.Value * 1.5);
+            value.Value.Base = (int)(value.Value.Base * 1.5);
         }
 
         #endregion

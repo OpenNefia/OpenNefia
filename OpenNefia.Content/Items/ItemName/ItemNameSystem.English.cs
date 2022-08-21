@@ -20,7 +20,7 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Content.Chest;
 using System.Text.RegularExpressions;
 using OpenNefia.Content.Fishing;
-using OpenNefia.Content.Material;
+using OpenNefia.Content.Materials;
 using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Items

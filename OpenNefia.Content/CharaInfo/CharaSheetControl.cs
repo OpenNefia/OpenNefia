@@ -273,7 +273,7 @@ namespace OpenNefia.Content.CharaInfo
                 {
                     dict[_locScope.GetString("Group.Personal.Age")] = _locScope.GetString("Group.Personal.AgeCounter", ("years", weight.Age));
                     dict[_locScope.GetString("Group.Personal.Height")] = $"{weight.Height} {_locScope.GetString("Group.Personal.Cm")}";
-                    dict[_locScope.GetString("Group.Personal.Weight")] = $"{weight.Weight} {_locScope.GetString("Group.Personal.Kg")}";
+                    dict[_locScope.GetString("Group.Personal.Weight")] = $"{weight.Weight.Buffed} {_locScope.GetString("Group.Personal.Kg")}";
                 }
                 SetupContainer(ClassContainer, 4, dict);
                 dict.Clear();

@@ -1,7 +1,7 @@
 ﻿using Love;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.Material;
+using OpenNefia.Content.Materials;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;

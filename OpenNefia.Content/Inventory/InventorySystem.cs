@@ -198,7 +198,7 @@ namespace OpenNefia.Content.Inventory
 
             // TODO sum container item weights here too.
 
-            return weight.Weight * _stacks.GetCount(item);
+            return weight.Weight.Buffed * _stacks.GetCount(item);
         }
 
         public int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null)

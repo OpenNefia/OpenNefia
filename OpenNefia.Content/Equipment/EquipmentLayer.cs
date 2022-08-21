@@ -395,7 +395,7 @@ namespace OpenNefia.Content.Equipment
 
                         var weight = 0;
                         if (_entityManager.TryGetComponent(item, out WeightComponent weightComp))
-                            weight = weightComp.Weight;
+                            weight = weightComp.Weight.Buffed;
 
                         cellData.ItemSubnameText = UiUtils.DisplayWeight(weight);
                     }

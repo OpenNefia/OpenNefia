@@ -89,11 +89,11 @@ namespace OpenNefia.Content.Items
         {
             if (TryComp<WeaponComponent>(uid, out var weapon))
             {
-                return (weapon.DiceX, weapon.DiceY);
+                return (weapon.DiceX.Buffed, weapon.DiceY.Buffed);
             }
             else if (TryComp<AmmoComponent>(uid, out var ammo))
             {
-                return (ammo.DiceX, ammo.DiceY);
+                return (ammo.DiceX.Buffed, ammo.DiceY.Buffed);
             }
 
             return (0, 0);
