@@ -1,11 +1,15 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Utility;
+using System.Reflection;
 
 namespace OpenNefia.Core
 {
     internal static class ProgramShared
     {
+        /// <summary>
+        /// Embedded resource file. It should
+        /// </summary>
         private const string LocalResourcesPathFile = "LocalResourcesPath.txt";
 
         internal static void DoCoreMounts(IResourceManagerInternal res)
@@ -18,17 +22,21 @@ namespace OpenNefia.Core
 #endif
         }
 
-        internal static void DoContentMounts(IResourceManagerInternal res)
+        internal static void DoContentMounts(IResourceManagerInternal res, IEnumerable<Assembly>? assemblies = null)
         {
+            // In full release mode, all mods should be packaged under the "Resources" folder,
+            // preferably in .zip format. The following mounts the "Resources" folder for each mod
+            // from their respective source directories via an embedded resource generated with
+            // MSBuild.
+            //
+            // This will probably need changing if the mod system ends up using something like NuGet
+            // to manage dependencies.
 #if !FULL_RELEASE
-            var modLoader = IoCManager.Resolve<IModLoader>();
-            foreach (var mod in modLoader.LoadedModules)
+            foreach (var mod in assemblies ?? IoCManager.Resolve<IModLoader>().LoadedModules)
             {
                 var stream = mod.GetManifestResourceStream(LocalResourcesPathFile);
                 if (stream == null)
-                {
-                    throw new ArgumentException($"Content assembly '{mod.FullName}' has no embedded '{LocalResourcesPathFile}'");
-                }
+                    continue;
 
                 using var reader = new StreamReader(stream);
                 var path = reader.ReadToEnd()!.Trim();
