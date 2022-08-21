@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Materials
             return HasComp<EquipmentComponent>(uid) || (HasComp<FurnitureComponent>(uid) && _rand.OneIn(5));
         }
 
-        private bool IsRandomizedMaterial(MaterialPrototypeId? materialID)
+        private bool IsRandomizedMaterialType(MaterialPrototypeId? materialID)
         {
             return materialID != null && RandomMaterialTables.ContainsKey(materialID.Value);
         }
@@ -72,7 +72,7 @@ namespace OpenNefia.Content.Materials
 
             if (ShouldRandomizeMaterial(uid))
             {
-                if (IsRandomizedMaterial(material.MaterialID) || HasComp<FurnitureComponent>(uid))
+                if (IsRandomizedMaterialType(material.MaterialID) || HasComp<FurnitureComponent>(uid))
                 {
                     var matId = PickRandomMaterialID(uid);
                     material.MaterialID = matId;
@@ -82,6 +82,7 @@ namespace OpenNefia.Content.Materials
                     // If an item is generated with a material already defined on it (like the Blood
                     // Moon), then the stat bonuses from the material will *not* be applied, but the
                     // enchantments will.
+                    // See shade2/item.hsp:531.
                     ApplyMaterialEnchantments(uid, material);
                 }
             }
@@ -95,17 +96,6 @@ namespace OpenNefia.Content.Materials
             var matProto = _protos.Index(component.MaterialID.Value);
             var ev = new EntityApplyMaterialEvent(matProto, component.RandomSeed);
             RaiseEvent(uid, ref ev);
-
-            if (TryComp<WeightComponent>(uid, out var weight))
-                weight.Weight.Buffed = (int)(weight.Weight.Buffed * matProto.WeightModifier);
-
-            if (TryComp<ValueComponent>(uid, out var value))
-            {
-                if (HasComp<FurnitureComponent>(uid))
-                    value.Value.Buffed = value.Value.Buffed + (int)(matProto.ValueModifier * 200);
-                else
-                    value.Value.Buffed = (int)(value.Value.Buffed * matProto.ValueModifier);
-            }
         }
 
         private void Weight_ApplyMaterial(EntityUid uid, WeightComponent weight, ref EntityApplyMaterialEvent args)
@@ -124,7 +114,9 @@ namespace OpenNefia.Content.Materials
                 }
             }
             else
+            {
                 value.Value.Buffed = (int)(value.Value.Buffed * args.MaterialProto.ValueModifier);
+            }
         }
 
         private void Chip_ApplyMaterial(EntityUid uid, ChipComponent chip, ref EntityApplyMaterialEvent args)
@@ -138,7 +130,7 @@ namespace OpenNefia.Content.Materials
             var statDivisor = GetMaterialStatDivisor(quality);
 
             var materialProto = args.MaterialProto;
-            _rand.WithSeed(args.RandomSeed, DoApply);
+            _rand.WithSeed(args.RandomSeed + 1000, DoApply);
 
             void DoApply()
             {
@@ -162,7 +154,7 @@ namespace OpenNefia.Content.Materials
             var statDivisor = GetMaterialStatDivisor(quality);
 
             var materialProto = args.MaterialProto;
-            _rand.WithSeed(args.RandomSeed, DoApply);
+            _rand.WithSeed(args.RandomSeed + 2000, DoApply);
 
             void DoApply()
             {
@@ -177,7 +169,7 @@ namespace OpenNefia.Content.Materials
             var statDivisor = GetMaterialStatDivisor(quality);
 
             var materialProto = args.MaterialProto;
-            _rand.WithSeed(args.RandomSeed, DoApply);
+            _rand.WithSeed(args.RandomSeed + 3000, DoApply);
 
             void DoApply()
             {

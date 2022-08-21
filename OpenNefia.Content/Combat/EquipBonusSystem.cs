@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Combat
     {
         public override void Initialize()
         {
-            SubscribeComponent<EquipStatsComponent, EntityRefreshEvent>(OnRefresh, priority: EventPriorities.High);
+            SubscribeComponent<EquipStatsComponent, EntityRefreshEvent>(OnRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<EquipStatsComponent, ApplyEquipmentToEquipperEvent>(OnApplyToEquipper, priority: EventPriorities.High);
         }
 
