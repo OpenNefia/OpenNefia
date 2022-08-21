@@ -46,8 +46,8 @@ namespace OpenNefia.Content.UI
         public static readonly Color MesGreen = new(175, 255, 175, 255);
         public static readonly Color MesRed = new(255, 155, 155, 255);
         public static readonly Color MesBlue = new(175, 175, 255, 255);
-        public static readonly Color MesYellow = new(255, 215, 175, 255);
-        public static readonly Color MesBrown = new(255, 255, 175, 255);
+        public static readonly Color MesBrown = new(255, 215, 175, 255);
+        public static readonly Color MesYellow = new(255, 255, 175, 255);
         public static readonly Color MesBlack = new(155, 154, 153, 255);
         public static readonly Color MesPurple = new(185, 155, 215, 255);
         public static readonly Color MesSkyBlue = new(155, 205, 205, 255);
