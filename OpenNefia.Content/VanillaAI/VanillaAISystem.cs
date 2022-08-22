@@ -151,6 +151,7 @@ namespace OpenNefia.Content.VanillaAI
                 && (ai.Aggro > 0 || IsAlliedWithPlayer(entity)))
             {
                 DoTargetedAction(entity, ai, spatial);
+                return TurnResult.Succeeded;
             }
 
             if (EntityManager.TryGetComponent(entity, out TurnOrderComponent turnOrder))
