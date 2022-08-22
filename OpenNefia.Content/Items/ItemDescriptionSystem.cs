@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Items
         public override void Initialize()
         {
             SubscribeComponent<ItemComponent, GetItemDescriptionEventArgs>(GetDescItem, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<ItemDescriptionComponent, GetItemDescriptionEventArgs>(GetDescItemDesc, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<ItemDescriptionComponent, GetItemDescriptionEventArgs>(GetDescItemDesc, priority: EventPriorities.Lowest);
         }
 
         private void GetDescItem(EntityUid uid, ItemComponent item, GetItemDescriptionEventArgs args)
@@ -48,9 +48,10 @@ namespace OpenNefia.Content.Items
 
             if (itemDesc.Primary != null)
             {
-                args.OutEntries.Add(itemDesc.Primary);
+                args.OutEntries.Insert(0, itemDesc.Primary);
             }
 
+            args.OutEntries.Add(new ItemDescriptionEntry() { Text = string.Empty });
             args.OutEntries.AddRange(itemDesc.Extra);
         }
 

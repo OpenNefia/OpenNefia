@@ -52,7 +52,6 @@ namespace OpenNefia.Content.Materials
         public override void Initialize()
         {
             SubscribeComponent<MaterialComponent, EntityBeingGeneratedEvent>(Material_BeingGenerated, priority: EventPriorities.High);
-            SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription);
             SubscribeComponent<MaterialComponent, EntityRefreshEvent>(Material_Refreshed, priority: EventPriorities.VeryHigh);
             SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.VeryHigh);
 
@@ -104,7 +103,8 @@ namespace OpenNefia.Content.Materials
             var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
             var entry = new ItemDescriptionEntry()
             {
-                Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
+                Text = Loc.GetString("Elona.Material.ItemDescription.ItIsMadeOf", ("item", uid), ("materialName", materialName)),
+                Icon = ItemDescriptionIcon.Gem
             };
             args.OutEntries.Add(entry);
         }
@@ -117,19 +117,6 @@ namespace OpenNefia.Content.Materials
             var matProto = _protos.Index(component.MaterialID.Value);
             var ev = new EntityApplyMaterialEvent(matProto, component.RandomSeed);
             RaiseEvent(uid, ref ev);
-        }
-
-        private void Material_GetItemDescription(EntityUid uid, MaterialComponent material, GetItemDescriptionEventArgs args)
-        {
-            if (_identify.GetIdentifyState(uid) >= IdentifyState.Quality && material.MaterialID != null)
-            {
-                var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
-                var entry = new ItemDescriptionEntry()
-                {
-                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
-                };
-                args.OutEntries.Add(entry);
-            }
         }
 
         private void Weight_ApplyMaterial(EntityUid uid, WeightComponent weight, ref EntityApplyMaterialEvent args)
