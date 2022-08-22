@@ -1,4 +1,35 @@
-Elona.Enchantments = {
+Elona.Enchantment = {
+    PowerUnit = "#",
+
+    Item = {
+        ModifyAttribute = {
+            Equipment = {
+                Increases = function(item, skillName, power)
+                    return ("%s increases your %s by %s."):format(_.he(item), skillName, power)
+                end,
+                Decreases = function(item, skillName, power)
+                    return ("%s decreases your %s by %s."):format(_.he(item), skillName, power)
+                end,
+            },
+            Food = {
+                Increases = function(item, skillName, power)
+                    return ("%s has essential nutrients to enhance your %s."):format(_.he(item), skillName)
+                end,
+                Decreases = function(item, skillName, power)
+                    return ("%s has which deteriorates your %s."):format(_.he(item), skillName)
+                end,
+            },
+            Eaten = {
+                Increases = function(chara, skillName)
+                    return ("%s %s develops."):format(_.possessive(chara), skillName)
+                end,
+                Decreases = function(chara, skillName)
+                    return ("%s %s deteriorates."):format(_.possessive(chara), skillName)
+                end,
+            },
+        },
+    },
+
     Ego = {
         Major = {
             Elona = {

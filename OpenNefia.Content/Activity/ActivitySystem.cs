@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Activity
         bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, int? turns = null, ActivityHolderComponent? activityHolder = null);
         bool StartActivity(EntityUid entity, PrototypeId<EntityPrototype> activity, [NotNullWhen(true)] out ActivityComponent? result, int? turns = null, ActivityHolderComponent? activityHolder = null);
     }
-
+    
     public sealed class ActivitySystem : EntitySystem, IActivitySystem
     {
         [Dependency] private readonly IGameSessionManager _gameSession = default!;

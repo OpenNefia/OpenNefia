@@ -25,6 +25,8 @@ namespace OpenNefia.Content.Identify
 {
     public interface IIdentifySystem : IEntitySystem
     {
+        IdentifyState GetIdentifyState(EntityUid ent, IdentifyComponent? identify = null);
+
         IdentifyResult Identify(EntityUid ent, IdentifyState state, IdentifyComponent? identify = null);
         IdentifyResult TryToIdentify(EntityUid ent, int identifyPower, IdentifyComponent? identify = null);
     }
@@ -70,6 +72,14 @@ namespace OpenNefia.Content.Identify
             {
                 Identify(uid, IdentifyState.Full);
             }
+        }
+
+        public IdentifyState GetIdentifyState(EntityUid ent, IdentifyComponent? identify = null)
+        {
+            if (!Resolve(ent, ref identify))
+                return IdentifyState.None;
+
+            return identify.IdentifyState;
         }
 
         private IdentifyResult GetNewIdentifyState(EntityUid ent, IdentifyState newState, IdentifyComponent? identify = null)

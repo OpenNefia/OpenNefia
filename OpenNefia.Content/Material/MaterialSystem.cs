@@ -25,6 +25,7 @@ using OpenNefia.Content.Weight;
 using OpenNefia.Content.Equipment;
 using YamlDotNet.Core.Tokens;
 using OpenNefia.Content.Combat;
+using OpenNefia.Content.Identify;
 
 namespace OpenNefia.Content.Materials
 {
@@ -42,11 +43,13 @@ namespace OpenNefia.Content.Materials
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly IIdentifySystem _identify = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<MaterialComponent, EntityBeingGeneratedEvent>(Material_BeingGenerated, priority: EventPriorities.High);
             SubscribeComponent<MaterialComponent, EntityRefreshEvent>(Material_Refreshed, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.High);
 
             SubscribeComponent<WeightComponent, EntityApplyMaterialEvent>(Weight_ApplyMaterial);
             SubscribeComponent<ValueComponent, EntityApplyMaterialEvent>(Value_ApplyMaterial);
@@ -60,6 +63,7 @@ namespace OpenNefia.Content.Materials
         {
             return HasComp<EquipmentComponent>(uid) || (HasComp<FurnitureComponent>(uid) && _rand.OneIn(5));
         }
+
 
         private bool IsRandomizedMaterialType(MaterialPrototypeId? materialID)
         {
@@ -96,6 +100,19 @@ namespace OpenNefia.Content.Materials
             var matProto = _protos.Index(component.MaterialID.Value);
             var ev = new EntityApplyMaterialEvent(matProto, component.RandomSeed);
             RaiseEvent(uid, ref ev);
+        }
+
+        private void Material_GetItemDescription(EntityUid uid, MaterialComponent material, GetItemDescriptionEventArgs args)
+        {
+            if (_identify.GetIdentifyState(uid) >= IdentifyState.Quality && material.MaterialID != null)
+            {
+                var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
+                var entry = new ItemDescriptionEntry()
+                {
+                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
+                };
+                args.OutEntries.Add(entry);
+            }
         }
 
         private void Weight_ApplyMaterial(EntityUid uid, WeightComponent weight, ref EntityApplyMaterialEvent args)

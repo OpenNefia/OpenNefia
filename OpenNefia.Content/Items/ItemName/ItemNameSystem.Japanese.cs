@@ -119,12 +119,12 @@ namespace OpenNefia.Content.Items
                         {
                             if (enchantments.EgoMajorEnchantment != null)
                             {
-                                var s = Loc.GetString($"Elona.Enchantments.Ego.Major.{enchantments.EgoMajorEnchantment}", ("name", fullName.ToString()));
+                                var s = Loc.GetString($"Elona.Enchantment.Ego.Major.{enchantments.EgoMajorEnchantment}", ("name", fullName.ToString()));
                                 fullName.Clear().Append(s);
                             }
                             if (enchantments.EgoMinorEnchantment != null)
                             {
-                                var s = Loc.GetString($"Elona.Enchantments.Ego.Minor.{enchantments.EgoMinorEnchantment}", ("name", fullName.ToString()));
+                                var s = Loc.GetString($"Elona.Enchantment.Ego.Minor.{enchantments.EgoMinorEnchantment}", ("name", fullName.ToString()));
                                 fullName.Clear().Append(s);
                             }
                         }

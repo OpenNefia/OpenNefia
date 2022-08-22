@@ -79,6 +79,9 @@ namespace OpenNefia.Content.UI
 
         public static readonly Color EquipmentItemTextDefault = new Color(10, 10, 10, 255);
 
+        public static readonly Color EnchantmentDefault = new Color(80, 50, 0, 255);
+        public static readonly Color EnchantmentNegative = new Color(180, 0, 0, 255);
+
         public static readonly Color HungerIndicatorHungry = new Color(200, 0, 0, 255);
         public static readonly Color HungerIndicatorStarving = new Color(250, 0, 0, 255);
 

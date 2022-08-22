@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using OpenNefia.Core.GameObjects;
@@ -26,8 +27,10 @@ namespace OpenNefia.Core.Containers
     /// <seealso cref="IContainerManager" />
     [PublicAPI]
     [ImplicitDataDefinitionForInheritors]
-    public interface IContainer
+    public interface IContainer : IEnumerable
     {
+        IEnumerator IEnumerable.GetEnumerator() => ContainedEntities.GetEnumerator();
+
         /// <summary>
         /// Readonly collection of all the entities contained within this specific container
         /// </summary>

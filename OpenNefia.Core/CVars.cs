@@ -115,7 +115,7 @@ namespace OpenNefia.Core
         /// when code is executed.
         /// </summary>
         public static readonly CVarDef<bool> ReplAutoloadOnStartup =
-            CVarDef.Create("repl.autoloadOnStartup", true, CVar.Archive);
+            CVarDef.Create("repl.autoloadOnStartup", false, CVar.Archive);
 
         /// <summary>
         /// Resource path of a .csx script to load when the REPL environment is first started.

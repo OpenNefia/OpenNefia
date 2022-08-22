@@ -29,29 +29,12 @@ namespace OpenNefia.Content.Items
                 identifyState = identify.IdentifyState;
             }
 
-            if (identifyState >= IdentifyState.Quality)
+            if (identifyState < IdentifyState.Quality)
             {
-                AddQualityInfo(item, args);
-            }
-            else
-            {
-                args.Entries.Add(new ItemDescriptionEntry()
+                args.OutEntries.Add(new ItemDescriptionEntry()
                 {
                     Text = Loc.GetString("Elona.ItemDescription.HaveToIdentify")
                 });
-            }
-        }
-
-        private void AddQualityInfo(ItemComponent item, GetItemDescriptionEventArgs args)
-        {
-            if (TryComp<MaterialComponent>(item.Owner, out var material) && material.MaterialID != null)
-            {
-                var materialName = Loc.GetPrototypeString(material.MaterialID.Value, "Name");
-                var entry = new ItemDescriptionEntry()
-                {
-                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", materialName))
-                };
-                args.Entries.Add(entry);
             }
         }
 
@@ -65,10 +48,10 @@ namespace OpenNefia.Content.Items
 
             if (itemDesc.Primary != null)
             {
-                args.Entries.Add(itemDesc.Primary);
+                args.OutEntries.Add(itemDesc.Primary);
             }
 
-            args.Entries.AddRange(itemDesc.Extra);
+            args.OutEntries.AddRange(itemDesc.Extra);
         }
 
         public void GetItemDescription(EntityUid entity, IList<ItemDescriptionEntry> entries)
@@ -80,16 +63,21 @@ namespace OpenNefia.Content.Items
             {
                 entries.Add(new ItemDescriptionEntry() { Text = Loc.GetString("Elona.ItemDescription.NoInformation") });
             }
+
+            foreach (var entry in entries)
+            {
+                entry.Text = Loc.Capitalize(entry.Text);
+            }
         }
     }
 
     public class GetItemDescriptionEventArgs : EntityEventArgs
     {
-        public IList<ItemDescriptionEntry> Entries { get; }
+        public IList<ItemDescriptionEntry> OutEntries { get; }
 
         public GetItemDescriptionEventArgs(IList<ItemDescriptionEntry> entries)
         {
-            Entries = entries;
+            OutEntries = entries;
         }
     }
 }

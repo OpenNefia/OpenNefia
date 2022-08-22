@@ -32,6 +32,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This component should be used with area entities.
         /// </summary>
-        Area
+        Area,
+
+        /// <summary>
+        /// This component should be used with enchantment entities.
+        /// </summary>
+        Enchantment
     }
 }
