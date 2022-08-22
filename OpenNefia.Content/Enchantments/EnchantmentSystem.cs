@@ -29,6 +29,8 @@ using OpenNefia.Content.UI;
 using OpenNefia.Core.Containers;
 using OpenNefia.Content.Combat;
 using NetVips;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -56,12 +58,16 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
+        [Dependency] private readonly IEquipmentSystem _equipment = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<EnchantmentsComponent, EntityBeingGeneratedEvent>(Enchantments_BeingGenerated, priority: EventPriorities.High);
+            SubscribeComponent<EnchantmentsComponent, ContainerIsInsertingAttemptEvent>(Enchantments_GettingInserted, priority: EventPriorities.High);
             SubscribeComponent<EnchantmentsComponent, EntityRefreshEvent>(Enchantments_Refresh);
             SubscribeComponent<EnchantmentsComponent, ApplyEquipmentToEquipperEvent>(Enchantments_ApplyEquipment, priority: EventPriorities.VeryLow);
+            SubscribeComponent<EquipSlotsComponent, EntityPassTurnEventArgs>(EquipSplits_ProcEnchantmentPassTurns, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EnchantmentsComponent, AfterApplyFoodEffectsEvent>(Enchantments_ApplyFoodEffects, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EnchantmentsComponent, GetItemDescriptionEventArgs>(Enchantments_GetItemDescription, priority: EventPriorities.High);
             SubscribeEntity<AfterPhysicalAttackHitEventArgs>(Enchantments_AfterPhysicalAttackHit, priority: EventPriorities.High);
@@ -99,6 +105,22 @@ namespace OpenNefia.Content.Enchantments
             _ = _serialization.Copy(data, component, context);
         }
 
+        private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
+        {
+            if (args.Container.Contains(args.EntityUid))
+            {
+                args.Cancel();
+                return;
+            }
+
+            var totalEncs = EnumerateEnchantments(args.Container.Owner, component)
+                .Select(c => c.SubEnchantmentCount)
+                .Sum();
+
+            if (totalEncs >= EnchantmentsComponent.MaxEnchantments)
+                args.Cancel();
+        }
+
         private void Enchantments_Refresh(EntityUid item, EnchantmentsComponent encs, ref EntityRefreshEvent args)
         {
             if (!TryComp<ValueComponent>(item, out var value))
@@ -115,25 +137,24 @@ namespace OpenNefia.Content.Enchantments
             foreach (var enc in encs.Container.ContainedEntities)
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc, item);
-                var ev = new ApplyEnchantmentEffectsEvent(adjustedPower, args.Equipper, item);
+                var ev = new ApplyEnchantmentOnRefreshEvent(adjustedPower, args.Equipper, item);
                 RaiseEvent(enc, ref ev);
             }
         }
 
-        private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
+        private void EquipSlots_ProcEnchantmentPassTurns(EntityUid equipper, EquipSlotsComponent component, EntityPassTurnEventArgs args)
         {
-            if (args.Container.Contains(args.EntityUid))
-            {
-                args.Cancel();
+            if (args.Handled)
                 return;
+            
+            foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))
+            {
+                foreach (var enc in EnumerateEnchantments(item))
+                {
+                    var ev = new ApplyEnchantmentAfterPassTurnEvent(enc.TotalPower, equipper, item);
+                    RaiseEvent(enc.Owner, ref ev);
+                }
             }
-
-            var totalEncs = EnumerateEnchantments(args.Container.Owner, component)
-                .Select(c => c.SubEnchantmentCount)
-                .Sum();
-
-            if (totalEncs >= EnchantmentsComponent.MaxEnchantments)
-                args.Cancel();
         }
 
         private void Enchantments_ApplyFoodEffects(EntityUid item, EnchantmentsComponent component, AfterApplyFoodEffectsEvent args)
@@ -427,5 +448,102 @@ namespace OpenNefia.Content.Enchantments
 
         [DataField]
         public bool Randomize { get; }
+    }
+
+    [ByRefEvent]
+    public struct CalcEnchantmentAdjustedPowerEvent
+    {
+        public int OriginalPower { get; }
+        public EntityUid Item { get; }
+
+        public int OutPower { get; set; }
+
+        public CalcEnchantmentAdjustedPowerEvent(int power, EntityUid item)
+        {
+            OriginalPower = power;
+            Item = item;
+            OutPower = power;
+        }
+    }
+
+    public sealed class GetEnchantmentDescriptionEventArgs : EntityEventArgs
+    {
+        public int AdjustedPower { get; }
+        public EntityUid Item { get; }
+
+        public string OutDescription { get; set; }
+        public int OutGrade { get; set; }
+        public bool OutShowPower { get; set; } = false;
+
+        public GetEnchantmentDescriptionEventArgs(int adjustedPower, EntityUid item, string description)
+        {
+            AdjustedPower = adjustedPower;
+            Item = item;
+            OutDescription = description;
+        }
+    }
+
+    [ByRefEvent]
+    public struct ApplyEnchantmentOnRefreshEvent
+    {
+        public int AdjustedPower { get; }
+        public EntityUid Equipper { get; }
+        public EntityUid Item { get; }
+
+        public ApplyEnchantmentOnRefreshEvent(int power, EntityUid equipper, EntityUid item)
+        {
+            AdjustedPower = power;
+            Equipper = equipper;
+            Item = item;
+        }
+    }
+
+    [ByRefEvent]
+    public struct ApplyEnchantmentAfterPassTurnEvent
+    {
+        public int AdjustedPower { get; }
+        public EntityUid Equipper { get; }
+        public EntityUid Item { get; }
+
+        public ApplyEnchantmentAfterPassTurnEvent(int power, EntityUid equipper, EntityUid item)
+        {
+            AdjustedPower = power;
+            Equipper = equipper;
+            Item = item;
+        }
+    }
+
+    [ByRefEvent]
+    public struct ApplyEnchantmentFoodEffectsEvent
+    {
+        public int AdjustedPower { get; }
+        public EntityUid Eater { get; }
+        public EntityUid Item { get; }
+
+        public ApplyEnchantmentFoodEffectsEvent(int power, EntityUid eater, EntityUid item)
+        {
+            AdjustedPower = power;
+            Eater = eater;
+            Item = item;
+        }
+    }
+
+    [ByRefEvent]
+    public struct ApplyEnchantmentPhysicalAttackEffectsEvent
+    {
+        public int TotalPower { get; }
+        public int AdjustedPower { get; }
+        public EntityUid Attacker { get; }
+        public EntityUid Weapon => PhysicalAttackArgs.Weapon!.Value;
+        public EntityUid Target => PhysicalAttackArgs.Target;
+        public AfterPhysicalAttackHitEventArgs PhysicalAttackArgs { get; }
+
+        public ApplyEnchantmentPhysicalAttackEffectsEvent(int totalPower, int adjustedPower, EntityUid attacker, AfterPhysicalAttackHitEventArgs args)
+        {
+            TotalPower = totalPower;
+            AdjustedPower = adjustedPower;
+            Attacker = attacker;
+            PhysicalAttackArgs = args;
+        }
     }
 }

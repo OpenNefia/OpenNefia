@@ -23,11 +23,6 @@ namespace OpenNefia.Content.Charas
 
     public sealed class AliasSystem : EntitySystem, IAliasSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IRandomAliasGenerator _randomAliases = default!;
 
         public override void Initialize()

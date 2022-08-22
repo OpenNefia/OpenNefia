@@ -12,6 +12,9 @@ namespace OpenNefia.Content.Enchantments
     {
         string? Description { get; }
 
-        bool CanMergeWith(IEnchantmentComponent other);
+        bool CanMergeWith(IEnchantmentComponent other)
+        {
+            return this.GetType() == other.GetType();
+        }
     }
 }
