@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -25,10 +26,15 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeComponent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<DoorComponent, EntityMapInitEvent>(HandleInitialize);
+            SubscribeComponent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
             SubscribeComponent<DoorComponent, EntityBashedEventArgs>(HandleBashed);
+        }
+
+        private void HandleInitialize(EntityUid uid, DoorComponent door, ref EntityMapInitEvent args)
+        {
+            SetOpen(uid, door.IsOpen, door);
         }
 
         private void HandleGetVerbs(EntityUid uid, DoorComponent component, GetVerbsEventArgs args)
@@ -82,11 +88,6 @@ namespace OpenNefia.Content.GameObjects
             {
                 chip.ChipID = isOpen ? door.ChipOpen : door.ChipClosed;
             }
-        }
-
-        private void HandleInitialize(EntityUid uid, DoorComponent door, ref EntityMapInitEvent args)
-        {
-            SetOpen(uid, door.IsOpen, door);
         }
 
         private void HandleCollidedWith(EntityUid uid, DoorComponent door, WasCollidedWithEventArgs args)

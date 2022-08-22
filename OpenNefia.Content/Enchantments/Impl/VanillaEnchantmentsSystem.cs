@@ -20,6 +20,10 @@ using OpenNefia.Content.Resists;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Spells;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -31,6 +35,9 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IResistsSystem _resists = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         public override void Initialize()
         {
@@ -60,6 +67,14 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EncElementalDamageComponent, CalcEnchantmentAdjustedPowerEvent>(EncElementalDamage_GetAdjustedPower);
             SubscribeComponent<EncElementalDamageComponent, GetEnchantmentDescriptionEventArgs>(EncElementalDamage_Localize);
             SubscribeComponent<EncElementalDamageComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncElementalDamage_ApplyPhysicalAttack);
+
+            SubscribeComponent<EncInvokeSpellComponent, EntityBeingGeneratedEvent>(EncInvokeSpell_BeingGenerated);
+            SubscribeComponent<EncInvokeSpellComponent, CalcEnchantmentAdjustedPowerEvent>(EncInvokeSpell_GetAdjustedPower);
+            SubscribeComponent<EncInvokeSpellComponent, GetEnchantmentDescriptionEventArgs>(EncInvokeSpell_Localize);
+            SubscribeComponent<EncInvokeSpellComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncInvokeSpell_ApplyPhysicalAttack);
+
+            SubscribeComponent<EncAmmoComponent, EntityBeingGeneratedEvent>(EncAmmo_BeingGenerated);
+            SubscribeComponent<EncAmmoComponent, GetEnchantmentDescriptionEventArgs>(EncAmmo_Localize);
         }
 
         #region EncModifyAttribute
@@ -298,6 +313,118 @@ namespace OpenNefia.Content.Enchantments
             };
 
             _damage.DamageHP(args.PhysicalAttackArgs.Target, damage, args.Attacker, damageType, extraArgs);
+        }
+
+        #endregion
+
+        #region EncInvokeSpell
+
+        private void EncInvokeSpell_BeingGenerated(EntityUid uid, EncInvokeSpellComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            var encArgs = args.GenArgs.Get<EnchantmentGenArgs>();
+            if (!encArgs.Randomize)
+                return;
+
+            var item = encArgs.Item;
+
+            bool Filter(EnchantmentSpellPrototype encSpellProto)
+            {
+                if (encSpellProto.ValidItemCategories == null)
+                    return true;
+
+                foreach (var tag in _tags.EnumerateTags(item))
+                {
+                    if (encSpellProto.ValidItemCategories.Contains(tag))
+                        return true;
+                }
+
+                return false;
+            }
+
+            var candidates = _protos.EnumeratePrototypes<EnchantmentSpellPrototype>().Where(Filter).ToList();
+            if (candidates.Count == 0)
+            {
+                encArgs.OutIsValid = false;
+                return;
+            }
+
+            var sampler = new WeightedSampler<EnchantmentSpellPrototype>();
+            foreach (var cand in candidates)
+                sampler.Add(cand, cand.RandomWeight);
+
+            var result = sampler.Sample();
+            if (result == null)
+            {
+                encArgs.OutIsValid = false;
+                return;
+            }
+
+            component.EnchantmentSpellID = result.GetStrongID();
+        }
+
+        private void EncInvokeSpell_GetAdjustedPower(EntityUid uid, EncInvokeSpellComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncInvokeSpell_Localize(EntityUid uid, EncInvokeSpellComponent component, GetEnchantmentDescriptionEventArgs args)
+        {
+            var encSpellProto = _protos.Index(component.EnchantmentSpellID);
+            var spellName = Loc.GetPrototypeString(encSpellProto.SpellID, "Name");
+            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.InvokeSpell.Invokes", ("item", args.Item), ("spellName", spellName), ("adjustedPower", args.AdjustedPower));
+        }
+
+        private void EncInvokeSpell_ApplyPhysicalAttack(EntityUid uid, EncInvokeSpellComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            if (!IsAlive(args.Target))
+                return;
+
+            var encSpellProto = _protos.Index(component.EnchantmentSpellID);
+
+            // TODO magic
+            var spellPower = args.TotalPower + _skills.Level(args.Attacker, args.PhysicalAttackArgs.AttackSkill) * 10;
+            _spells.Cast(encSpellProto.SpellID, spellPower, args.Target, args.Attacker);
+        }
+
+        #endregion
+
+        #region EncAmmo
+
+        private void EncAmmo_BeingGenerated(EntityUid uid, EncAmmoComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            var encArgs = args.GenArgs.Get<EnchantmentGenArgs>();
+            if (encArgs.Randomize)
+            {
+                if (!TryComp<AmmoComponent>(encArgs.Item, out var itemAmmo))
+                {
+                    encArgs.OutIsValid = false;
+                    return;
+                }
+
+                var sampler = new WeightedSampler<AmmoEnchantmentPrototype>();
+                foreach (var cand in _protos.EnumeratePrototypes<AmmoEnchantmentPrototype>())
+                    sampler.Add(cand, cand.RandomWeight);
+
+                var result = sampler.Sample();
+                if (result == null)
+                {
+                    encArgs.OutIsValid = false;
+                    return;
+                }
+
+                component.AmmoEnchantmentID = result.GetStrongID();
+            }
+
+            var ammoEncProto = _protos.Index(component.AmmoEnchantmentID);
+
+            component.MaxAmmoAmount = Math.Clamp(encArgs.OutPower, 0, 500) * ammoEncProto.AmmoAmountFactor / 500;
+            component.CurrentAmmoAmount = component.MaxAmmoAmount;
+        }
+
+        private void EncAmmo_Localize(EntityUid uid, EncAmmoComponent component, GetEnchantmentDescriptionEventArgs args)
+        {
+            var ammoName = Loc.GetPrototypeString(component.AmmoEnchantmentID, "Name");
+            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.Ammo.Description", ("item", args.Item), ("ammoName", ammoName), ("maxAmmo", component.MaxAmmoAmount));
         }
 
         #endregion

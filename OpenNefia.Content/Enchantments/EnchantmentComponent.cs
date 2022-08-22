@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Enchantments
         public int Level { get; set; }
 
         [DataField]
-        public int Rarity { get; set; }
+        public int RandomWeight { get; set; }
 
         [DataField]
         public float ValueModifier { get; set; } = 1f;

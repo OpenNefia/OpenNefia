@@ -259,7 +259,7 @@ namespace OpenNefia.Content.Enchantments
             if (!Resolve(item, ref encs))
                 return null;
 
-            var encArgs = new EnchantmentGenArgs(power, cursePower, source, randomize);
+            var encArgs = new EnchantmentGenArgs(item, power, cursePower, source, randomize);
             var args = EntityGenArgSet.Make(encArgs);
             var ent = _entityGen.SpawnEntity(encID, encs.Container, args: args);
 
@@ -401,10 +401,11 @@ namespace OpenNefia.Content.Enchantments
     {
         public EnchantmentGenArgs() { }
 
-        public EnchantmentGenArgs(int power, int cursePower, string source, bool randomize)
+        public EnchantmentGenArgs(EntityUid item, int power, int cursePower, string source, bool randomize)
         {
             OutPower = power;
             OutCursePower = cursePower;
+            Item = item;
             Source = source;
             Randomize = randomize;
         }
@@ -417,6 +418,9 @@ namespace OpenNefia.Content.Enchantments
 
         [DataField]
         public bool OutIsValid { get; set; } = true;
+
+        [DataField]
+        public EntityUid Item { get; }
 
         [DataField]
         public string Source { get; } = EnchantmentSources.Generated;
