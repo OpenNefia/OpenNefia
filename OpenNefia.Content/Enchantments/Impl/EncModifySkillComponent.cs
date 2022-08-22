@@ -11,9 +11,9 @@ namespace OpenNefia.Content.Enchantments
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncModifyAttributeComponent : Component, IEnchantmentComponent
+    public sealed class EncModifySkillComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncModifyAttribute";
+        public override string Name => "EncModifySkill";
 
         [DataField(required: true)]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
@@ -22,8 +22,8 @@ namespace OpenNefia.Content.Enchantments
 
         public bool CanMergeWith(IEnchantmentComponent other)
         {
-            return other is EncModifyAttributeComponent otherModifyAttribute
-                && otherModifyAttribute.SkillID == SkillID;
+            return other is EncModifySkillComponent otherModifySkill
+                && otherModifySkill.SkillID == SkillID;
         }
     }
 }

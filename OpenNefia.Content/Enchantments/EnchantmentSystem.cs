@@ -27,6 +27,8 @@ using OpenNefia.Content.Items;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Containers;
+using OpenNefia.Content.Combat;
+using NetVips;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -62,6 +64,7 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EnchantmentsComponent, ApplyEquipmentToEquipperEvent>(Enchantments_ApplyEquipment, priority: EventPriorities.VeryLow);
             SubscribeComponent<EnchantmentsComponent, AfterApplyFoodEffectsEvent>(Enchantments_ApplyFoodEffects, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EnchantmentsComponent, GetItemDescriptionEventArgs>(Enchantments_GetItemDescription, priority: EventPriorities.High);
+            SubscribeEntity<AfterPhysicalAttackHitEventArgs>(Enchantments_AfterPhysicalAttackHit, priority: EventPriorities.High);
         }
 
         private void Enchantments_BeingGenerated(EntityUid uid, EnchantmentsComponent encs, ref EntityBeingGeneratedEvent args)
@@ -188,7 +191,20 @@ namespace OpenNefia.Content.Enchantments
                 });
             }
         }
-        
+
+        private void Enchantments_AfterPhysicalAttackHit(EntityUid attacker, AfterPhysicalAttackHitEventArgs args)
+        {
+            if (IsAlive(args.Weapon))
+            {
+                foreach (var enc in EnumerateEnchantments(args.Weapon.Value))
+                {
+                    var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, args.Weapon.Value, enc);
+                    var ev = new ApplyEnchantmentPhysicalAttackEffectsEvent(enc.TotalPower, adjustedPower, attacker, args);
+                    RaiseEvent(enc.Owner, ref ev);
+                }
+            }
+        }
+
         public static string GetEnchantmentPowerText(int grade, bool noBrackets = false)
         {
             grade = Math.Abs(grade);

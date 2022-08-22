@@ -1,19 +1,15 @@
-﻿using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Skills;
+﻿using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
 
 namespace OpenNefia.Content.Enchantments
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncModifyAttributeComponent : Component, IEnchantmentComponent
+    public sealed class EncSustainAttributeComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncModifyAttribute";
+        public override string Name => "EncSustainAttribute";
 
         [DataField(required: true)]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
@@ -22,8 +18,8 @@ namespace OpenNefia.Content.Enchantments
 
         public bool CanMergeWith(IEnchantmentComponent other)
         {
-            return other is EncModifyAttributeComponent otherModifyAttribute
-                && otherModifyAttribute.SkillID == SkillID;
+            return other is EncSustainAttributeComponent otherSustainAttribute
+                && otherSustainAttribute.SkillID == SkillID;
         }
     }
 }

@@ -62,5 +62,8 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public bool? RevealsFog { get; set; }
+
+        [DataField]
+        public int? ExperienceDivisor { get; set; }
     }
 }

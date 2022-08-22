@@ -2,8 +2,8 @@
 #r "System.Runtime"
 #r "System.Collections"
 #r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
-#r "C:/build/OpenNefia/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
-#r "C:/build/OpenNefia/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
+#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
+#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
 
 using NLua;
 using OpenNefia.Core;
@@ -118,6 +118,11 @@ public void gotoArea(string id)
 public LevelAndPotential skill(PrototypeId<SkillPrototype> id)
 {
     return _entityMan.GetComponent<SkillsComponent>(player()).Ensure(id);
+}
+
+public void gainSkill(PrototypeId<SkillPrototype> id)
+{
+    _skills.GainSkill(player(), id);
 }
 
 public LevelPotentialAndStock spell(PrototypeId<SpellPrototype> id)

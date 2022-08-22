@@ -44,6 +44,58 @@ namespace OpenNefia.Content.Locale.Funcs
             return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity) + "は";
         }
 
+        [LocaleFunction("kare_wa")]
+        public static string BuiltIn_he(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "それは";
+                    else
+                        return "それらは";
+
+                case long objLong:
+                    if (objLong == 1L)
+                        return "それは";
+                    else
+                        return "それらは";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "あなたは";
+                    }
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out CharaComponent chara))
+                    {
+                        switch (chara.Gender)
+                        {
+                            case Gender.Female:
+                                return "彼女は";
+                            case Gender.Male:
+                                return "彼は";
+                            default:
+                                return "彼らは";
+                        }
+                    }
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count != 1)
+                            return "それらは";
+                    }
+
+                    return "それは";
+
+                default:
+                    return "それは";
+            }
+        }
+
         /// <hsp>#defcfunc cnvDate int d,int mode</hsp>
         [LocaleFunction("format_date")]
         public static string BuiltIn_format_date(object? obj, string? mode = null)

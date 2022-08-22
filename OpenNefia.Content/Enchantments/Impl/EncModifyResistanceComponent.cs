@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
@@ -11,19 +12,19 @@ namespace OpenNefia.Content.Enchantments
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncModifyAttributeComponent : Component, IEnchantmentComponent
+    public sealed class EncModifyResistanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncModifyAttribute";
+        public override string Name => "EncModifyResistance";
 
         [DataField(required: true)]
-        public PrototypeId<SkillPrototype> SkillID { get; set; }
+        public PrototypeId<ElementPrototype> ElementID { get; set; }
 
         public string? Description => null;
 
         public bool CanMergeWith(IEnchantmentComponent other)
         {
-            return other is EncModifyAttributeComponent otherModifyAttribute
-                && otherModifyAttribute.SkillID == SkillID;
+            return other is EncModifyResistanceComponent otherModifyResistance
+                && otherModifyResistance.ElementID == ElementID;
         }
     }
 }

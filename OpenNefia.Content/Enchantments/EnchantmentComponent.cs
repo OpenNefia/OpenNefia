@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Items;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Items;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
@@ -52,7 +53,11 @@ namespace OpenNefia.Content.Enchantments
         /// <summary>
         /// Power contributions of enchantments merged into this enchantment.
         /// </summary>
+        [DataField]
         public List<EnchantmentPowerContrib> PowerContributions { get; set; } = new();
+
+        [DataField]
+        public HashSet<PrototypeId<TagPrototype>>? ValidItemCategories { get; set; }
 
         /// <summary>
         /// Number of "sub enchantments" that make up this enchantment, for purposes of item value

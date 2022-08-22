@@ -69,9 +69,6 @@ Elona.Food = {
                 return ("%s%s %s develops."):format(_.name(_1), _.his_named(_1), _2)
             end,
         },
-        SustainsGrowth = function(_1, _2)
-            return ("%s%s %s enters a period of rapid growth."):format(_.name(_1), _.his_named(_1), _2)
-        end,
     },
     NotAffectedByRotten = function(_1)
         return ("But %s%s stomach isn't affected."):format(_.name(_1), _.his_named(_1))
