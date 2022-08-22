@@ -7,7 +7,7 @@
   - type: Enchantment
     level: 1
     valueModifier: 1.2
-    rarity: 3000
+    randomWeight: 3000
     icon: Glove
     color: '#000064'
   - type: EncModifyAttribute
@@ -21,7 +21,7 @@
   - type: Enchantment
     level: 2
     valueModifier: 1.5
-    rarity: 2500
+    randomWeight: 2500
     icon: Orb
     color: '#506400'
   - type: EncModifyResistance
@@ -35,7 +35,7 @@
   - type: Enchantment
     level: 0
     valueModifier: 1.2
-    rarity: 4500
+    randomWeight: 4500
     icon: Ring
     color: '#006400'
   - type: EncModifySkill
@@ -49,7 +49,7 @@
   - type: Enchantment
     level: 0
     valueModifier: 1.2
-    rarity: 4500
+    randomWeight: 4500
     icon: Waist
     color: '#006464'
   - type: EncSustainAttribute
@@ -63,7 +63,7 @@
   - type: Enchantment
     level: 1
     valueModifier: 1.2
-    rarity: 300
+    randomWeight: 300
     validItemCategories:
     - Elona.ItemCatEquipMelee
     - Elona.ItemCatEquipRanged

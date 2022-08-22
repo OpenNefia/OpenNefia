@@ -1,11 +1,11 @@
 Elona.Quality = {
     Names = {
         Bad = "bad",
-        Good = "good",
-        Great = "great",
-        Miracle = "miracle",
-        Godly = "godly",
-        Special = "special",
+        Normal = "good",
+        Good = "great",
+        Great = "miracle",
+        God = "godly",
+        Unique = "special",
     },
     Brackets = {
         Great = function(name)

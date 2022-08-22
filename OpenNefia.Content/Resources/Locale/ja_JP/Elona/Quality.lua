@@ -1,11 +1,11 @@
 Elona.Quality = {
     Names = {
         Bad = "粗悪",
-        Good = "良質",
-        Great = "高品質",
-        Miracle = "奇跡",
-        Godly = "神器",
-        Special = "特別",
+        Normal = "良質",
+        Good = "高品質",
+        Great = "奇跡",
+        God = "神器",
+        Unique = "特別",
     },
     Brackets = {
         Great = function(name)

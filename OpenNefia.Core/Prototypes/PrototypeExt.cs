@@ -13,5 +13,11 @@ namespace OpenNefia.Core.Prototypes
         {
             return new(proto.ID);
         }
+
+        public static IEnumerable<PrototypeId<T>> ProtoIDs<T>(this IEnumerable<T> enumerable)
+            where T: class, IPrototype
+        {
+            return enumerable.Select(p => GetStrongID(p));
+        }
     }
 }
