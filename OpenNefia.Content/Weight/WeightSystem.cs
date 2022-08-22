@@ -27,12 +27,6 @@ namespace OpenNefia.Content.Weight
 
         public override void Initialize()
         {
-            SubscribeComponent<WeightComponent, EntityRefreshEvent>(Weight_Refresh, priority: EventPriorities.Highest);
-        }
-
-        private void Weight_Refresh(EntityUid uid, WeightComponent component, ref EntityRefreshEvent args)
-        {
-            component.Weight.Reset();
         }
 
         public void ModifyWeight(EntityUid ent, int delta, bool force = false, WeightComponent? weight = null)

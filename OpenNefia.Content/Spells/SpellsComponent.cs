@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Spells;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Spells;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -11,7 +12,7 @@ namespace OpenNefia.Content.Spells
     /// Holds spell level/stock data.
     /// </summary>
     [RegisterComponent]
-    public class SpellsComponent : Component
+    public class SpellsComponent : Component, IComponentRefreshable
     {
         public override string Name => "Spells";
 
@@ -79,6 +80,14 @@ namespace OpenNefia.Content.Spells
                 return 0;
 
             return level.Potential;
+        }
+
+        public void Refresh()
+        {
+            foreach (var level in Spells.Values)
+            {
+                level.Level.Reset();
+            }
         }
     }
 }

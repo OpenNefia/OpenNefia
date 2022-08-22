@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Stats;
@@ -6,12 +7,17 @@ using OpenNefia.Core.Stats;
 namespace OpenNefia.Content.Qualities
 {
     [RegisterComponent]
-    public class QualityComponent : Component
+    public class QualityComponent : Component, IComponentRefreshable
     {
         public override string Name => "Quality";
 
         [DataField(required: true)]
         public Stat<Quality> Quality { get; set; } = new(Qualities.Quality.Bad);
+
+        public void Refresh()
+        {
+            Quality.Reset();
+        }
     }
 
     public enum Quality

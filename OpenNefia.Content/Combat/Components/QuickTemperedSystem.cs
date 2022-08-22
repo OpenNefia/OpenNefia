@@ -30,13 +30,7 @@ namespace OpenNefia.Content.Combat
 
         public override void Initialize()
         {
-            SubscribeComponent<QuickTemperedComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<QuickTemperedComponent, EntityWoundedEvent>(HandleWounded, priority: EventPriorities.VeryHigh + 50000);
-        }
-
-        private void HandleRefresh(EntityUid uid, QuickTemperedComponent component, ref EntityRefreshEvent args)
-        {
-            component.IsQuickTempered.Reset();
         }
 
         private void HandleWounded(EntityUid uid, QuickTemperedComponent component, ref EntityWoundedEvent args)

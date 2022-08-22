@@ -1,7 +1,6 @@
 ﻿using Love;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Feats;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Mount;
@@ -17,6 +16,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Inventory
 {

@@ -22,16 +22,6 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
     public sealed class ValueSystem : EntitySystem, IValueSystem
     {
-        public override void Initialize()
-        {
-            SubscribeComponent<ValueComponent, EntityRefreshEvent>(Value_Refreshed, priority: EventPriorities.Highest);
-        }
-
-        private void Value_Refreshed(EntityUid uid, ValueComponent component, ref EntityRefreshEvent args)
-        {
-            component.Value.Reset();
-        }
-
         public int GetValue(EntityUid uid, ValueComponent? value = null)
         {
             if (!Resolve(uid, ref value))

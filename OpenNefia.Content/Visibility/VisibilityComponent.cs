@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,7 +11,7 @@ namespace OpenNefia.Content.Visibility
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class VisibilityComponent : Component
+    public sealed class VisibilityComponent : Component, IComponentRefreshable
     {
         public override string Name => "Visibility";
 
@@ -25,5 +26,12 @@ namespace OpenNefia.Content.Visibility
 
         [DataField]
         public Stat<int> FieldOfViewRadius { get; set; } = new(14);
+
+        public void Refresh()
+        {
+            IsInvisible.Reset();
+            CanSeeInvisible.Reset();
+            FieldOfViewRadius.Reset();
+        }
     }
 }

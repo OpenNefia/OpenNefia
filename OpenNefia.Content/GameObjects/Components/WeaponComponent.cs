@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Skills;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -7,7 +8,7 @@ using OpenNefia.Core.Stats;
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class WeaponComponent : Component
+    public class WeaponComponent : Component, IComponentRefreshable
     {
         public override string Name => "Weapon";
 
@@ -25,5 +26,12 @@ namespace OpenNefia.Content.GameObjects
         /// </summary>
         [DataField]
         public Stat<int> PierceRate { get; set; } = new(0);
+
+        public void Refresh()
+        {
+            DiceX.Reset();
+            DiceY.Reset();
+            PierceRate.Reset();
+        }
     }
 }

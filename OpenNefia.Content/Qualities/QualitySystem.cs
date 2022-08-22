@@ -20,14 +20,8 @@ namespace OpenNefia.Content.Qualities
     {
         public override void Initialize()
         {
-            SubscribeComponent<QualityComponent, EntityRefreshEvent>(HandleRefresh, EventPriorities.Highest);
             SubscribeComponent<QualityComponent, EntityBeingGeneratedEvent>(SetQualityFromGenArgs, EventPriorities.Highest);
             SubscribeComponent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
-        }
-
-        private void HandleRefresh(EntityUid uid, QualityComponent component, ref EntityRefreshEvent args)
-        {
-            component.Quality.Reset();
         }
 
         public Quality GetQuality(EntityUid ent, QualityComponent? quality = null)

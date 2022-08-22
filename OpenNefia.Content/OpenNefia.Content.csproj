@@ -10,4 +10,8 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Refresh\" />
+	</ItemGroup>
 </Project>

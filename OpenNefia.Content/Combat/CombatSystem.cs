@@ -93,19 +93,6 @@ namespace OpenNefia.Content.Combat
             #endregion
         }
 
-        private void Weapon_Refresh(EntityUid uid, WeaponComponent component, ref EntityRefreshEvent args)
-        {
-            component.DiceX.Reset();
-            component.DiceY.Reset();
-            component.PierceRate.Reset();
-        }
-
-        private void Ammo_Refresh(EntityUid uid, AmmoComponent component, ref EntityRefreshEvent args)
-        {
-            component.DiceX.Reset();
-            component.DiceY.Reset();
-        }
-
         public EquipState GetEquipState(EntityUid ent)
         {
             var attackCount = 0;

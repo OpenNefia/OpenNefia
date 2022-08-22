@@ -51,15 +51,8 @@ namespace OpenNefia.Content.Visibility
 
         public override void Initialize()
         {
-            SubscribeComponent<VisibilityComponent, EntityRefreshEvent>(OnEntityRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<VisibilityComponent, MapBeforeTurnBeginEventArgs>(BeforeTurnBegin);
             SubscribeComponent<VisibilityComponent, EntityTurnStartingEventArgs>(OnTurnStart);
-        }
-
-        private void OnEntityRefresh(EntityUid uid, VisibilityComponent vis, ref EntityRefreshEvent args)
-        {
-            vis.IsInvisible.Reset();
-            vis.CanSeeInvisible.Reset();
         }
 
         private void BeforeTurnBegin(EntityUid uid, VisibilityComponent component, MapBeforeTurnBeginEventArgs args)

@@ -18,16 +18,6 @@ namespace OpenNefia.Content.Fame
     {
         [Dependency] private readonly IRandom _rand = default!;
 
-        public override void Initialize()
-        {
-            SubscribeComponent<FameComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
-        }
-
-        private void HandleRefresh(EntityUid uid, FameComponent fameComp, ref EntityRefreshEvent args)
-        {
-            fameComp.Fame.Reset();
-        }
-
         /// <inheritdoc/>
         public int DecrementFame(EntityUid ent, int fraction, FameComponent? fame = null)
         {

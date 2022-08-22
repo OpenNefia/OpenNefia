@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Skills;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Resists
 {
     [RegisterComponent]
-    public sealed class ResistsComponent : Component
+    public sealed class ResistsComponent : Component, IComponentRefreshable
     {
         public override string Name => "Resists";
 
@@ -83,6 +84,14 @@ namespace OpenNefia.Content.Resists
         public int BaseGrade(PrototypeId<ElementPrototype> id)
         {
             return ResistHelpers.CalculateGrade(BaseLevel(id));
+        }
+
+        public void Refresh()
+        {
+            foreach (var level in Resists.Values)
+            {
+                level.Level.Reset();
+            }
         }
     }
 }

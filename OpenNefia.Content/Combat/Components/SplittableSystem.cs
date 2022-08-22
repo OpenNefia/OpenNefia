@@ -37,21 +37,9 @@ namespace OpenNefia.Content.Combat
 
         public override void Initialize()
         {
-            SubscribeComponent<SplittableComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<SplittableComponent, EntityWoundedEvent>(HandleWounded, priority: EventPriorities.VeryHigh + 40000);
             SubscribeComponent<SplittableComponent, CalcKillExperienceEvent>(ModifyKillExperience, priority: EventPriorities.Low);
             SubscribeComponent<SplittableComponent, BeforeDropItemsOnDeathEvent>(HandleBeforeDropItems);
-        }
-
-        private void HandleRefresh(EntityUid uid, SplittableComponent component, ref EntityRefreshEvent args)
-        {
-            // TODO separate these event handlers that just reset stats from EntityRefreshEvent entirely
-            // This is to not have to worry about priorities being set incorrectly, and it's a very common pattern.
-            component.SplitsOnHighDamage.Reset();
-            component.SplitOnHighDamageThreshold.Reset();
-            component.SplitOnHighDamageChance.Reset();
-            component.SplitsRandomlyWhenAttacked.Reset();
-            component.SplitRandomlyWhenAttackedChance.Reset();
         }
 
         private readonly PrototypeId<StatusEffectPrototype>[] SplitBlockingEffects = new[]

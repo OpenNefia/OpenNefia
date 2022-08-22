@@ -31,5 +31,19 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EncRandomTeleportComponent, ApplyEnchantmentOnRefreshEvent>(EncRandomTeleport_ApplyOnRefresh);
             SubscribeComponent<EncRandomTeleportComponent, ApplyEnchantmentAfterPassTurnEvent>(EncRandomTeleport_ApplyAfterPassTurn);
         }
+
+        private void EncRandomTeleport_CalcAdjustedPower(EntityUid uid, EncRandomTeleportComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncRandomTeleport_ApplyOnRefresh(EntityUid uid, EncRandomTeleportComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+        }
+
+        private void EncRandomTeleport_ApplyAfterPassTurn(EntityUid uid, EncRandomTeleportComponent component, ref ApplyEnchantmentAfterPassTurnEvent args)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

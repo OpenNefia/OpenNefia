@@ -13,7 +13,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Damage;
@@ -23,6 +22,7 @@ using OpenNefia.Core;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Mount;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Skills
 {
@@ -152,27 +152,7 @@ namespace OpenNefia.Content.Skills
 
         private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
         {
-            var level = EntityManager.EnsureComponent<LevelComponent>(uid);
-
-            ResetStatBuffs(skills);
-            ResetSkillBuffs(skills);
-            RefreshHPMPAndStamina(skills, level);
-        }
-
-        private void ResetStatBuffs(SkillsComponent skills)
-        {
-            skills.DV.Reset();
-            skills.PV.Reset();
-            skills.HitBonus.Reset();
-            skills.DamageBonus.Reset();
-        }
-
-        private void ResetSkillBuffs(SkillsComponent skills)
-        {
-            foreach (var (_, level) in skills.Skills)
-            {
-                level.Level.Reset();
-            }
+            RefreshHPMPAndStamina(skills);
         }
 
         private void HandleRefreshSpeed(EntityUid uid, SkillsComponent skills, ref EntityRefreshSpeedEvent args)

@@ -7,7 +7,6 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Skills;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Resists;
@@ -26,6 +25,7 @@ using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.Materials;
 using OpenNefia.Content.LivingWeapon;
 using OpenNefia.Content.Qualities;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
