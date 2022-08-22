@@ -330,7 +330,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Faith = {
         Description = "Gets you closer to god.",
-        EnchantmentDescription = "makes you pious.",
+        EnchantmentDescription = function(item, power)
+            return ("%s makes you pious."):format(_.he(item))
+        end,
         Name = "Faith",
     },
     ActionFillCharge = {
@@ -359,7 +361,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Fishing = {
         Description = "Displays your fishing skill.",
-        EnchantmentDescription = "makes you a better fisher.",
+        EnchantmentDescription = function(item, power)
+            return ("%s makes you a better fisher."):format(_.he(item))
+        end,
         Name = "Fishing",
     },
     SpellFourDimensionalPocket = {
@@ -468,7 +472,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Literacy = {
         Description = "Allows you to read difficult books.",
-        EnchantmentDescription = "makes you literate.",
+        EnchantmentDescription = function(item, power)
+            return ("%s makes you literate."):format(_.he(item))
+        end,
         Name = "Literacy",
     },
     LockPicking = {
@@ -516,7 +522,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Meditation = {
         Description = "Gradually restores your magic points.",
-        EnchantmentDescription = "enhances your meditation.",
+        EnchantmentDescription = function(item, power)
+            return ("%s enhances your meditation."):format(_.he(item))
+        end,
         Name = "Meditation",
     },
     MediumArmor = {
@@ -525,7 +533,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Memorization = {
         Description = "Helps you acquire additional spell stocks.",
-        EnchantmentDescription = "enhances your memory.",
+        EnchantmentDescription = function(item, power)
+            return ("%s enhances your memory."):format(_.he(item))
+        end,
         Name = "Memorization",
     },
     SpellMeteor = {
@@ -751,7 +761,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Tailoring = {
         Description = "Skill to sew materials and manufucture products.",
-        EnchantmentDescription = "makes you a better tailor.",
+        EnchantmentDescription = function(item, power)
+            return ("%s makes you a better tailor."):format(_.he(item))
+        end,
         Name = "Tailoring",
     },
     SpellTeleport = {

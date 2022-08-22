@@ -201,6 +201,9 @@ namespace OpenNefia.Content.Damage
         }
     }
 
+    /// <param name="WasKilled">True if the target was killed.</param>
+    /// <param name="BaseDamage">Damage passed to DamageHP(). Same as <see cref="Combat.AttackDamage.TotalDamage"/>.</param>
+    /// <param name="FinalDamage">Final damage calculated by DamageHP events.</param>
     public record struct DamageHPResult(bool WasKilled, int BaseDamage, int FinalDamage);
 
     public enum DamageHPMessageTense

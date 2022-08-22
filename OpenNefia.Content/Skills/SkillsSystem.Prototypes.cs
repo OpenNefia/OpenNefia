@@ -42,6 +42,13 @@ namespace OpenNefia.Content.Skills
         }
 
         /// <inheritdoc/>
+        public IEnumerable<SkillPrototype> EnumerateRegularSkillsAndWeaponProficiencies()
+        {
+            return _protos.EnumeratePrototypes<SkillPrototype>()
+                .Where(skillProto => skillProto.SkillType == SkillType.Skill || skillProto.SkillType == SkillType.WeaponProficiency);
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<SkillPrototype> EnumerateWeaponProficiencies()
         {
             return _protos.EnumeratePrototypes<SkillPrototype>()
@@ -56,6 +63,11 @@ namespace OpenNefia.Content.Skills
         public SkillPrototype PickRandomRegularSkill()
         {
             return _rand.Pick(EnumerateRegularSkills().ToList());
+        }
+
+        public SkillPrototype PickRandomRegularSkillOrWeaponProficiency()
+        {
+            return _rand.Pick(EnumerateRegularSkillsAndWeaponProficiencies().ToList());
         }
     }
 }

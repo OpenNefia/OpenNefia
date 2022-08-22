@@ -86,6 +86,9 @@ namespace OpenNefia.Content.Combat
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitStatusEffects, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
+
+            SubscribeComponent<SkillsComponent, AfterPhysicalAttackHitEventArgs>(GainCombatSkillExperienceOnHit, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<SkillsComponent, AfterPhysicalAttackMissEventArgs>(GainCombatSkillExperienceOnMiss, priority: EventPriorities.VeryHigh);
             #endregion
         }
 
@@ -378,11 +381,9 @@ namespace OpenNefia.Content.Combat
 
             var ev = new BeforePhysicalAttackEventArgs()
             {
-                Attacker = attacker,
                 Target = target,
                 Weapon = weapon,
                 AttackCount = attackCount
-
             };
 
             if (Raise(attacker, ev))
@@ -444,7 +445,7 @@ namespace OpenNefia.Content.Combat
                         damageType = unarmed.DamageType;
                 }
 
-                _damage.DamageHP(target, rawDamage.TotalDamage, attacker, damageType, new DamageHPExtraArgs()
+                var damageHPResult = _damage.DamageHP(target, rawDamage.TotalDamage, attacker, damageType, new DamageHPExtraArgs()
                 {
                     AttackCount = attackCount,
                     AttackSkill = attackSkill,
@@ -453,6 +454,18 @@ namespace OpenNefia.Content.Combat
                     MessageTense = _parties.IsInPlayerParty(target) ? DamageHPMessageTense.Passive : DamageHPMessageTense.Active
                 });
 
+                var evHit = new AfterPhysicalAttackHitEventArgs()
+                {
+                    Target = target,
+                    Weapon = weapon,
+                    AttackCount = attackCount,
+                    AttackSkill = attackSkill,
+                    IsRanged = isRanged,
+                    HitResult = hitResult,
+                    RawDamage = rawDamage,
+                    FinalDamage = damageHPResult.FinalDamage
+                };
+                RaiseEvent(attacker, evHit);
             }
             else
             {
@@ -460,6 +473,17 @@ namespace OpenNefia.Content.Combat
                 {
                     _audio.Play(Protos.Sound.Miss, target);
                 }
+
+                var evMiss = new AfterPhysicalAttackMissEventArgs()
+                {
+                    Target = target,
+                    Weapon = weapon,
+                    AttackCount = attackCount,
+                    AttackSkill = attackSkill,
+                    IsRanged = isRanged,
+                    HitResult = hitResult
+                };
+                RaiseEvent(attacker, evMiss);
             }
 
             if (hitResult == HitResult.Miss)
@@ -895,6 +919,9 @@ namespace OpenNefia.Content.Combat
             OriginalDamage = originalDamage;
         }
 
+        /// <summary>
+        /// Same as <see cref="DamageHPResult.BaseDamage"/>.
+        /// </summary>
         public int TotalDamage { get; set; }
         public bool Vorpal { get; set; }
         public int NormalDamage { get; set; }
@@ -904,10 +931,31 @@ namespace OpenNefia.Content.Combat
 
     public sealed class BeforePhysicalAttackEventArgs : HandledEntityEventArgs
     {
-        public EntityUid Attacker;
-        public EntityUid Target;
-        public EntityUid? Weapon;
-        public int AttackCount;
+        public EntityUid Target { get; set; }
+        public EntityUid? Weapon { get; set; }
+        public int AttackCount { get; set; }
+    }
+
+    public sealed class AfterPhysicalAttackHitEventArgs : EntityEventArgs
+    {
+        public EntityUid Target { get; set; }
+        public EntityUid? Weapon { get; set; }
+        public int AttackCount { get; set; }
+        public PrototypeId<SkillPrototype> AttackSkill { get; set; }
+        public bool IsRanged { get; set; }
+        public HitResult HitResult { get; set; }
+        public AttackDamage RawDamage { get; set; } = default!;
+        public int FinalDamage { get; set; }
+    }
+
+    public sealed class AfterPhysicalAttackMissEventArgs : EntityEventArgs
+    {
+        public EntityUid Target { get; set; }
+        public EntityUid? Weapon { get; set; }
+        public int AttackCount { get; set; }
+        public PrototypeId<SkillPrototype> AttackSkill { get; set; }
+        public bool IsRanged { get; set; }
+        public HitResult HitResult { get; set; }
     }
 
     [ByRefEvent]

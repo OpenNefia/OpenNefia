@@ -307,8 +307,8 @@
   id: Elona.EnchantmentIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
-    region: "72, 336, 240, 24"
-  countX: 10
+    region: "96, 336, 216, 24"
+  countX: 9
 
 - type: Asset
   id: Elona.InheritanceIcon

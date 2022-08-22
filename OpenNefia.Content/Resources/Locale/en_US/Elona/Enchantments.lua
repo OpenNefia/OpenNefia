@@ -28,6 +28,42 @@ Elona.Enchantment = {
                 end,
             },
         },
+
+        ModifyResistance = {
+            Increases = function(item, elementName)
+                return ("%s grants your resistance to %s."):format(_.he(item), elementName)
+            end,
+            Decreases = function(item, elementName)
+                return ("%s weakens your resistance to %s."):format(_.he(item), elementName)
+            end,
+        },
+
+        ModifySkill = {
+            Increases = function(item, skillName, power)
+                return ("%s improves your %s skill."):format(_.he(item), skillName)
+            end,
+            Decreases = function(item, skillName, power)
+                return ("%s decreases your %s skill."):format(_.he(item), skillName)
+            end,
+        },
+
+        SustainAttribute = {
+            Equipment = function(item, skillName, power)
+                return ("%s maintains %s."):format(_.he(item), skillName)
+            end,
+            Food = function(item, skillName, power)
+                return ("%s can help you exercise your %s faster."):format(_.he(item), skillName)
+            end,
+            Eaten = function(chara, skillName)
+                return ("%s %s enters a period of rapid growth."):format(_.possessive(chara), skillName)
+            end,
+        },
+
+        ElementalDamage = {
+            Description = function(item, elementName, power)
+                return ("%s deals %s damage."):format(_.he(item), elementName)
+            end,
+        },
     },
 
     Ego = {

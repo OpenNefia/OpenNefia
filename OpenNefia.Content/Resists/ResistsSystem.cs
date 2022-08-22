@@ -30,6 +30,9 @@ namespace OpenNefia.Content.Resists
         /// Enumerates all resistable elemental damage types.
         /// </summary>
         IEnumerable<ElementPrototype> EnumerateResistableElements();
+
+        ElementPrototype PickRandomElement();
+        ElementPrototype PickRandomElementByRarity();
     }
 
     public sealed partial class ResistsSystem : EntitySystem, IResistsSystem

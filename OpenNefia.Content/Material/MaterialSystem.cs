@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Materials
         {
             SubscribeComponent<MaterialComponent, EntityBeingGeneratedEvent>(Material_BeingGenerated, priority: EventPriorities.High);
             SubscribeComponent<MaterialComponent, EntityRefreshEvent>(Material_Refreshed, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.High);
+            SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.VeryHigh);
 
             SubscribeComponent<WeightComponent, EntityApplyMaterialEvent>(Weight_ApplyMaterial);
             SubscribeComponent<ValueComponent, EntityApplyMaterialEvent>(Value_ApplyMaterial);
@@ -63,7 +63,6 @@ namespace OpenNefia.Content.Materials
         {
             return HasComp<EquipmentComponent>(uid) || (HasComp<FurnitureComponent>(uid) && _rand.OneIn(5));
         }
-
 
         private bool IsRandomizedMaterialType(MaterialPrototypeId? materialID)
         {

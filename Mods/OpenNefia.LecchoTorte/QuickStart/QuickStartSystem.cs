@@ -131,6 +131,19 @@ namespace OpenNefia.LecchoTorte.QuickStart
             if (IsAlive(claymore))
             {
                 _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifyAttribute, 100);
+                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifyResistance, 100);
+                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifySkill, 100);
+                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ElementalDamage, 100);
+                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.SustainAttribute, 100);
+            }
+            var bread = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.StickBread, amount: 1);
+            if (IsAlive(bread))
+            {
+                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifyAttribute, 100);
+                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifyResistance, 100);
+                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifySkill, 100);
+                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ElementalDamage, 100);
+                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.SustainAttribute, 100);
             }
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))

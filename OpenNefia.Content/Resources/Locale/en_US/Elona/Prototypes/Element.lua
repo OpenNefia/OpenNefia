@@ -283,7 +283,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("shatter%s %s to atoms."):format(_.s(attacker), _.him(entity))
             end,
             Passive = function(entity)
-                return ("%s resonate%s and break up."):format(_.name(entity), _.s(entity))
+                return ("%s resonate%s and break%s up."):format(_.name(entity), _.s(entity), _.s(entity))
             end,
         },
     },

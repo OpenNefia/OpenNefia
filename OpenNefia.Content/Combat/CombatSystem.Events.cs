@@ -11,11 +11,16 @@ using NuGet.Packaging.Signing;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.UI;
 using OpenNefia.Core;
+using OpenNefia.Core.IoC;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Combat
 {
     public sealed partial class CombatSystem
     {
+        [Dependency] private readonly IMountSystem _mounts = default!;
+
         private void BlockPhysicalAttackFear(EntityUid attacker, BeforePhysicalAttackEventArgs args)
         {
             if (args.Handled)
@@ -196,6 +201,95 @@ namespace OpenNefia.Content.Combat
                 args.Handle(HitResult.Miss);
                 return;
             }
+        }
+
+        public int CalcExpDivisor(EntityUid target)
+        {
+            // TODO move into ECS events
+            // TODO make into float percentage modifier
+            var divisor = 1;
+
+            if (HasComp<SandBaggedComponent>(target))
+                divisor += 15;
+
+            if (TryComp<SplittableComponent>(target, out var splittable))
+            {
+                if (splittable.SplitsRandomlyWhenAttacked.Buffed)
+                    divisor += 1;
+                if (splittable.SplitsOnHighDamage.Buffed)
+                    divisor += 1;
+            }
+
+            if (TryMap(target, out var map) && TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon) && mapCommon.ExperienceDivisor != null)
+                divisor += mapCommon.ExperienceDivisor.Value;
+
+            return divisor;
+        }
+
+        private void GainCombatSkillExperienceOnHit(EntityUid attacker, SkillsComponent skills, AfterPhysicalAttackHitEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:1295 		if critical : skillExp rsCritical,cc,60/expModif ..
+            var expDivisor = CalcExpDivisor(args.Target);
+
+            if (args.HitResult == HitResult.CriticalHit)
+                _skills.GainSkillExp(attacker, Protos.Skill.EyeOfMind, 60 / expDivisor, 2);
+
+            if (args.RawDamage.TotalDamage > skills.MaxHP / 20
+                || args.RawDamage.TotalDamage > _skills.Level(attacker, Protos.Skill.Healing)
+                || _rand.OneIn(5))
+            {
+                var attackSkillExp = Math.Clamp(_skills.Level(args.Target, Protos.Skill.Evasion) * 2 - _skills.Level(attacker, args.AttackSkill) + 1, 5, 50) / expDivisor;
+                _skills.GainSkillExp(attacker, args.AttackSkill, attackSkillExp, 0, 4);
+
+                if (args.AttackSkill == Protos.Skill.Throwing)
+                {
+                    _skills.GainSkillExp(attacker, Protos.Skill.Tactics, 10 / expDivisor, 0, 4);
+                }
+                else if (args.IsRanged)
+                {
+                    _skills.GainSkillExp(attacker, Protos.Skill.Tactics, 25 / expDivisor, 0, 4);
+                }
+                else
+                {
+                    _skills.GainSkillExp(attacker, Protos.Skill.Tactics, 20 / expDivisor, 0, 4);
+
+                    var equipState = GetEquipState(attacker);
+                    if (equipState.IsWieldingTwoHanded)
+                        _skills.GainSkillExp(attacker, Protos.Skill.TwoHand, 20 / expDivisor, 0, 4);
+                    if (equipState.IsDualWielding)
+                        _skills.GainSkillExp(attacker, Protos.Skill.DualWield, 20 / expDivisor, 0, 4);
+                }
+
+                if (_mounts.HasMount(attacker))
+                    _skills.GainSkillExp(attacker, Protos.Skill.Riding, 30 / expDivisor, 0, 5);
+
+                if (IsAlive(args.Target) && TryComp<SkillsComponent>(args.Target, out var targetSkills))
+                {
+                    var armorClass = _equip.GetArmorClass(args.Target);
+                    var armorClassExp = Math.Clamp(250 * args.RawDamage.TotalDamage / targetSkills.MaxHP + 1, 3, 100) / expDivisor;
+                    _skills.GainSkillExp(args.Target, armorClass, armorClassExp, 0, 5);
+
+                    var equipState = GetEquipState(args.Target);
+                    if (equipState.IsWieldingShield)
+                        _skills.GainSkillExp(args.Target, Protos.Skill.Shield, 40 / expDivisor, 0, 4);
+                }
+            }
+            // <<<<<<<< elona122/shade2/action.hsp:1312 		} ..
+        }
+
+        private void GainCombatSkillExperienceOnMiss(EntityUid attacker, SkillsComponent skills, AfterPhysicalAttackMissEventArgs args)
+        {
+            // >>>>>>>> shade2/action.hsp:1356 		if (sdata(attackSkill,cc)>sEvade(tc))or(rnd(5)=0 ..
+            var expDivisor = CalcExpDivisor(args.Target);
+            var attackerSkillLevel = _skills.Level(attacker, args.AttackSkill);
+            var targetEvasionLevel = _skills.Level(args.Target, Protos.Skill.Evasion);
+            if (attackerSkillLevel > targetEvasionLevel || _rand.OneIn(5))
+            {
+                var exp = Math.Clamp(attackerSkillLevel - targetEvasionLevel / 2 + 1, 1, 20) / expDivisor;
+                _skills.GainSkillExp(args.Target, Protos.Skill.Evasion, exp, 0, 4);
+                _skills.GainSkillExp(args.Target, Protos.Skill.GreaterEvasion, exp, 0, 4);
+            }
+            // <<<<<<<< shade2/action.hsp:1360 			} ..
         }
 
         #endregion

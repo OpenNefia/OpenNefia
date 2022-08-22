@@ -51,6 +51,7 @@ namespace OpenNefia.Content.Skills
 
         SkillPrototype PickRandomBaseAttribute();
         SkillPrototype PickRandomRegularSkill();
+        SkillPrototype PickRandomRegularSkillOrWeaponProficiency();
 
         #endregion
 

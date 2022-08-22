@@ -77,9 +77,6 @@ Elona.Food = {
                 return ("%sの%sは発達した。"):format(_.name(_1), _2)
             end,
         },
-        SustainsGrowth = function(_1, _2)
-            return ("%sの%sは成長期に突入した。"):format(_.name(_1), _2)
-        end,
     },
     NotAffectedByRotten = function(_1)
         return ("しかし、%sは何ともなかった。"):format(_.name(_1))

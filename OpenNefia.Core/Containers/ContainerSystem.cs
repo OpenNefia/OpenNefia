@@ -172,6 +172,7 @@ namespace OpenNefia.Core.Containers
             base.Initialize();
 
             SubscribeEntity<EntityParentChangedEvent>(HandleParentChanged);
+            SubscribeComponent<ContainerManagerComponent, BeforeEntityClonedEvent>(HandleClone, priority: EventPriorities.Highest);
         }
 
         #region Container Management
@@ -356,6 +357,12 @@ namespace OpenNefia.Core.Containers
 
             if (EntityManager.TryGetComponent(oldParentEntity!.Value, out ContainerManagerComponent? containerManager))
                 ForceRemove(entity, containerManager);
+        }
+
+        private void HandleClone(EntityUid uid, ContainerManagerComponent component, BeforeEntityClonedEvent args)
+        {
+            // TODO!!!
+            args.MarkAsCloned<ContainerManagerComponent>();
         }
 
         #endregion
