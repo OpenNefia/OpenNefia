@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Activity;
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Damage;
@@ -231,7 +232,13 @@ namespace OpenNefia.Content.Combat
 
         public bool TryGetAmmo(EntityUid entity, EntityUid? weapon, [NotNullWhen(true)] out EntityUid? ammo)
         {
-            if (IsAlive(weapon) && TryComp<WeaponComponent>(weapon, out var weaponComp))
+            if (!IsAlive(weapon) || !IsRangedWeapon(weapon.Value))
+            {
+                ammo = null;
+                return false;
+            }    
+
+            if (TryComp<WeaponComponent>(weapon, out var weaponComp))
             {
                 ammo = _equipSlots.EnumerateEquippedEntities(entity)
                     .Where(ent => IsAmmo(ent) && weaponComp.WeaponSkill == Comp<AmmoComponent>(ent).AmmoSkill)
@@ -496,9 +503,6 @@ namespace OpenNefia.Content.Combat
             }
 
             _activities.InterruptActivity(target);
-
-            var ev2 = new AfterPhysicalAttackEventArgs(target, weapon, attackCount);
-            RaiseEvent(attacker, ev2);
             // <<<<<<<< shade2/action.hsp:1292  ..
         }
 
@@ -509,16 +513,16 @@ namespace OpenNefia.Content.Combat
             var itemName = _displayNames.GetBaseName(weapon);
             string name;
 
-            // Don't spoil the item's title if not fully identified yet
+            // Don't spoil the item's alias if not fully identified yet
             if (quality >= Quality.Great && identifyState >= IdentifyState.Full)
             {
                 name = Loc.GetString("Elona.Item.NameModifiers.Article", ("name", itemName));
             }
             else
             {
-                var customName = CompOrNull<CustomNameComponent>(weapon);
-                if (customName?.Title != null)
-                    name = customName.Title;
+                var alias = CompOrNull<AliasComponent>(weapon);
+                if (alias?.Alias != null)
+                    name = alias.Alias;
                 else
                     name = Loc.GetString("Elona.Item.NameModifiers.Article", ("name", itemName));
             }
@@ -797,7 +801,7 @@ namespace OpenNefia.Content.Combat
             var normalDamage = damage - pierceDamage;
 
             if (protection.Protection > 0)
-                normalDamage = Math.Max(protection.Dice.Roll(_rand), 0);
+                normalDamage = Math.Max(normalDamage - protection.Dice.Roll(_rand), 0);
 
             damage = pierceDamage + normalDamage;
 
