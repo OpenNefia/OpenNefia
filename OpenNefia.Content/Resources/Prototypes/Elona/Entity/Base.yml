@@ -75,7 +75,6 @@
   - type: Bonus
   - type: InUse
   - type: Enchantments
-  - type: Alias
   - type: Material
 
 - type: Entity
@@ -121,3 +120,14 @@
   abstract: true
   components:
   - type: Activity
+
+- type: Entity
+  id: BaseEnchantment
+  parent: BaseObject
+  abstract: true
+  hspEntityType: enchantment
+  components:
+  - type: Spatial
+    isSolid: false
+    isOpaque: false
+  - type: Enchantment

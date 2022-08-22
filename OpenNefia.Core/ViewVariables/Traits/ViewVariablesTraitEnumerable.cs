@@ -7,10 +7,11 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.UI.Wisp.Controls;
 using static OpenNefia.Core.UI.Wisp.Controls.BoxContainer;
 using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.ViewVariables.Traits
 {
-    internal sealed class ViewVariablesTraitEnumerable : ViewVariablesTrait
+    internal class ViewVariablesTraitEnumerable : ViewVariablesTrait
     {
         private const int ElementsPerPage = 25;
         private readonly List<object?> _cache = new();
@@ -69,12 +70,14 @@ namespace OpenNefia.Core.ViewVariables.Traits
             instance.AddTab(nameof(IEnumerable), outerVBox);
         }
 
+        protected virtual IEnumerable GetEnumerableTarget() => (IEnumerable)Instance.Object;
+
         public override void Refresh()
         {
             _cache.Clear();
             _ended = false;
-            
-            var enumerable = (IEnumerable)Instance.Object;
+
+            var enumerable = GetEnumerableTarget();
             _enumerator = enumerable.GetEnumerator();
 
             _moveToPage(_page);

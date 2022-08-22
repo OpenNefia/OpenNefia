@@ -13,6 +13,7 @@ namespace OpenNefia.Content.Inventory
     /// Contains a character's items and slots for equipment.
     /// </summary>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Normal)]
     public class InventoryComponent : Component, ISerializationHooks
     {
         public static readonly ContainerId ContainerIdInventory = new("Elona.Inventory");

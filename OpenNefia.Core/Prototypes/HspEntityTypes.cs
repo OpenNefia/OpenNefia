@@ -13,5 +13,6 @@
         public const string Item = "item";
         public const string Feat = "feat";
         public const string Mef = "mef";
+        public const string Enchantment = "enchantment";
     }
 }

@@ -558,8 +558,6 @@ namespace OpenNefia.Content.Food
             var ev2 = new AfterApplyFoodEffectsEvent(eater, nutrition);
             RaiseEvent(food.Owner, ev2);
 
-            // TODO enchantments
-
             ApplyFoodCurseState(eater, curseState, hunger);
         }
     }

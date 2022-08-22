@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Items
             yield return new ItemDescriptionEntry()
             {
                 Text = table.GetStringOrEmpty(nameof(Text)),
-                Icon = ItemDescriptionIcon.Icon1,
+                Icon = ItemDescriptionIcon.Ring,
                 Type = type
             };
 
@@ -92,17 +92,16 @@ namespace OpenNefia.Content.Items
         FlavorItalic
     }
 
-    public enum ItemDescriptionIcon : int
+    public enum ItemDescriptionIcon
     {
-        None = 0,
-        Icon1 = 1,
-        Icon2 = 2,
-        Icon3 = 3,
-        Icon4 = 4,
-        Icon5 = 5,
-        Icon6 = 6,
-        Icon7 = 7,
-        Icon8 = 8,
-        Icon9 = 9,
+        Ring = 0,
+        Glove = 1,
+        Orb = 2,
+        Boots = 3,
+        Weapon = 4,
+        Armor = 5,
+        Gem = 6,
+        Waist = 7,
+        Negative = 8,
     }
 }

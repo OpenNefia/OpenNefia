@@ -26,10 +26,10 @@ namespace OpenNefia.Content.Materials
         public HspIds<int>? HspIds { get; }
 
         [DataField]
-        public float WeightModifier { get; }
+        public float WeightModifier { get; } = 1f;
 
         [DataField]
-        public float ValueModifier { get; }
+        public float ValueModifier { get; } = 1f;
 
         [DataField]
         public int HitBonus { get; }
@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Materials
         public int DiceY { get; }
 
         [DataField]
-        public Color Color { get; }
+        public Color Color { get; } = Color.White;
 
         [DataField]
         public bool GenerateOnFurniture { get; } = true;

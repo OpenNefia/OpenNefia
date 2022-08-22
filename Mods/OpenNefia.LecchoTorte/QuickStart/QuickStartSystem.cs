@@ -22,6 +22,7 @@ using OpenNefia.Content.Chest;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Items.Impl;
+using OpenNefia.Content.Enchantments;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -38,6 +39,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IMapManager _mapMan = default!;
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
 
         public override void Initialize()
         {
@@ -124,7 +126,13 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 _equipSlots.TryEquip(player, ammo.Value, slot, silent: true);
 
             _itemGen.GenerateItem(inv, Protos.Item.CargoTravelersFood, amount: 999);
-            
+
+            var claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore);
+            if (IsAlive(claymore))
+            {
+                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifyAttribute, 100);
+            }
+
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {
                 identify.IdentifyState = IdentifyState.Full;
