@@ -16,7 +16,7 @@ using OpenNefia.Tests;
 
 namespace OpenNefia.Content.Tests.Materials
 {
-    [TestFixture, Parallelizable]
+    [TestFixture]
     [TestOf(typeof(MaterialSystem))]
     public class MaterialSystem_Tests : OpenNefiaUnitTest
     {
@@ -90,6 +90,8 @@ namespace OpenNefia.Content.Tests.Materials
             refresh.Refresh(entWeapon);
             refresh.Refresh(entFurniture);
 
+            var furnitureValueBefore = entMan.GetComponent<ValueComponent>(entFurniture).Value.Buffed;
+
             void DoAsserts()
             {
                 Assert.Multiple(() =>
@@ -116,10 +118,6 @@ namespace OpenNefia.Content.Tests.Materials
                     var ammo = entMan.GetComponent<AmmoComponent>(entWeapon);
                     Assert.That(ammo.DiceX.Buffed, Is.EqualTo(10));
                     Assert.That(ammo.DiceY.Buffed, Is.EqualTo(31));
-
-                    // Furniture value calculation.
-                    var valueFurniture = entMan.GetComponent<ValueComponent>(entFurniture);
-                    Assert.That(valueFurniture.Value.Buffed, Is.EqualTo(4000));
                 });
             }
 
@@ -130,6 +128,9 @@ namespace OpenNefia.Content.Tests.Materials
             refresh.Refresh(entFurniture);
 
             DoAsserts();
+
+            var furnitureValueAfter = entMan.GetComponent<ValueComponent>(entFurniture).Value.Buffed;
+            Assert.That(furnitureValueBefore, Is.EqualTo(furnitureValueAfter));
         }
     }
 }
