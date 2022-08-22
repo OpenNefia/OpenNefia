@@ -49,7 +49,7 @@ namespace OpenNefia.Content.LivingWeapon
         public override void Initialize()
         {
             SubscribeComponent<WeaponComponent, EntityBeingGeneratedEvent>(Weapon_ProcAddLivingWeapon, priority: EventPriorities.Low);
-            SubscribeEntity<AfterPhysicalAttackEventArgs>(ProcLivingWeaponExperienceGain);
+            SubscribeEntity<AfterPhysicalAttackHitEventArgs>(ProcLivingWeaponExperienceGain);
             SubscribeComponent<LivingWeaponComponent, GetItemDescriptionEventArgs>(LivingWeapon_GetItemDesc);
             SubscribeComponent<LivingWeaponComponent, GetVerbsEventArgs>(LivingWeapon_GetVerbs);
         }
@@ -68,14 +68,14 @@ namespace OpenNefia.Content.LivingWeapon
             // <<<<<<<< elona122/shade2/item_data.hsp:791 			} ...
         }
 
-        private void ProcLivingWeaponExperienceGain(EntityUid attacker, AfterPhysicalAttackEventArgs args)
+        private void ProcLivingWeaponExperienceGain(EntityUid attacker, AfterPhysicalAttackHitEventArgs args)
         {
             // >>>>>>>> elona122/shade2/action.hsp:1376 	if attackSkill!rsMartial:if cExist(tc)!cAlive:cw= ...
-            if (IsAlive(args.Weapon) && TryComp<LivingWeaponComponent>(args.Weapon, out var livingWeapon))
+            if (IsAlive(args.Weapon) && !IsAlive(args.Target) && TryComp<LivingWeaponComponent>(args.Weapon, out var livingWeapon))
             {
                 if (livingWeapon.Experience < livingWeapon.ExperienceToNext)
                 {
-                    livingWeapon.Experience += _rand.Next(_levels.GetLevel(attacker) / livingWeapon.Level.Base + 1);
+                    livingWeapon.Experience += _rand.Next(_levels.GetLevel(args.Target) / livingWeapon.Level.Base + 1);
                     if (livingWeapon.Experience >= livingWeapon.ExperienceToNext)
                     {
                         livingWeapon.Experience = livingWeapon.ExperienceToNext;
