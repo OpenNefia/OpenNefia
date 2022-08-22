@@ -6,7 +6,7 @@ Elona.LivingWeapon = {
                 levelStr = levelStr .. "(" .. levelBuffed .. ")"
             end
             local expPercent = math.floor(math.clamp(exp * 100 / expToNext, 0, 100))
-            return ("%s生きている [Lv:%s Exp:%s%%]"):format(_.sore_wa(item), levelStr, expPercent)
+            return ("%s生きている [Lv:%s Exp:%s%%]"):format(_.kare_wa(item), levelStr, expPercent)
         end,
     },
     HasTastedEnoughBlood = function(item)

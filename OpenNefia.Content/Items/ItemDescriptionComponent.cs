@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Items
             yield return new ItemDescriptionEntry()
             {
                 Text = table.GetStringOrEmpty(nameof(Text)),
-                Icon = ItemDescriptionIcon.Ring,
+                Icon = ItemDescriptionIcon.Gem,
                 Type = type
             };
 
