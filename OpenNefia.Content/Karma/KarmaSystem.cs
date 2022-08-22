@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Feats;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Karma;
 using OpenNefia.Core.GameObjects;
@@ -21,6 +20,7 @@ using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Shopkeeper;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Fame
 {
@@ -49,11 +49,6 @@ namespace OpenNefia.Content.Fame
         {
             SubscribeComponent<KarmaComponent, EntityRefreshEvent>(HandleRefresh);
             SubscribeEntity<CheckKillEvent>(ProcKarmaLossOnKill);
-        }
-
-        private void HandleRefresh(EntityUid uid, KarmaComponent karmaComp, ref EntityRefreshEvent args)
-        {
-            karmaComp.Karma.Reset();
         }
 
         public int GetKarma(EntityUid ent, KarmaComponent? karma = null)

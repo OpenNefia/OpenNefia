@@ -7,24 +7,23 @@ using OpenNefia.Core.Stats;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Combat
+namespace OpenNefia.Content.Enchantments
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class QuickTemperedComponent : Component, IComponentRefreshable
+    public sealed class HasCursedEnchantmentComponent : Component, IComponentRefreshable
     {
-        public override string Name => "QuickTempered";
+        public override string Name => "HasCursedEnchantment";
 
+        /// <summary>
+        /// If true, does random teleports/other cursed actions.
+        /// </summary>
         [DataField]
-        public Stat<bool> IsQuickTempered { get; set; } = new(true);
-
-        [DataField]
-        public Stat<float> EnrageChance { get; set; } = new(0.05f);
+        public Stat<bool> HasCursedEnchantment { get; set; } = new(true);
 
         public void Refresh()
         {
-            IsQuickTempered.Reset();
-            EnrageChance.Reset();
+            HasCursedEnchantment.Reset();
         }
     }
 }

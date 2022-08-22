@@ -6,6 +6,7 @@ using OpenNefia.Core.Stats;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.GameObjects.Components;
 
 namespace OpenNefia.Content.Skills
 {
@@ -16,7 +17,7 @@ namespace OpenNefia.Content.Skills
     /// Since max HP/MP/stamina are calculated from stats, I can't really see the benefit of separating the two.
     /// </remarks>
     [RegisterComponent]
-    public sealed class SkillsComponent : Component
+    public sealed class SkillsComponent : Component, IComponentRefreshable
     {
         public override string Name => "Skills";
 
@@ -178,6 +179,19 @@ namespace OpenNefia.Content.Skills
                 return 0;
 
             return level.Potential;
+        }
+
+        public void Refresh()
+        {
+            HitBonus.Reset();
+            DamageBonus.Reset();
+            DV.Reset();
+            PV.Reset();
+
+            foreach (var level in Skills.Values)
+            {
+                level.Level.Reset();
+            }
         }
     }
 }

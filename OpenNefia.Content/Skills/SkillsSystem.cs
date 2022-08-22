@@ -149,12 +149,14 @@ namespace OpenNefia.Content.Skills
             return skills.TryGetKnown(protoId, out _);
         }
 
-        private void RefreshHPMPAndStamina(SkillsComponent skills, LevelComponent level)
+        private void RefreshHPMPAndStamina(SkillsComponent skills)
         {
+            var level = _levels.GetLevel(skills.Owner);
+
             var maxMPRaw = (skills.Level(Skill.AttrMagic) * 2
                          + skills.Level(Skill.AttrWill)
                          + skills.Level(Skill.AttrLearning) / 3)
-                         * (level.Level / 25)
+                         * (level / 25)
                          + skills.Level(Skill.AttrMagic);
 
             skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (skills.Level(Skill.AttrMana) / 100);
@@ -163,7 +165,7 @@ namespace OpenNefia.Content.Skills
             var maxHPRaw = (skills.Level(Skill.AttrConstitution) * 2
                          + skills.Level(Skill.AttrStrength)
                          + skills.Level(Skill.AttrWill) / 3)
-                         * (level.Level / 25)
+                         * (level / 25)
                          + skills.Level(Skill.AttrConstitution);
 
             skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (skills.Level(Skill.AttrLife) / 100) + 5;

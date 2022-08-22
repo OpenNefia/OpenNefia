@@ -67,7 +67,7 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EnchantmentsComponent, ContainerIsInsertingAttemptEvent>(Enchantments_GettingInserted, priority: EventPriorities.High);
             SubscribeComponent<EnchantmentsComponent, EntityRefreshEvent>(Enchantments_Refresh);
             SubscribeComponent<EnchantmentsComponent, ApplyEquipmentToEquipperEvent>(Enchantments_ApplyEquipment, priority: EventPriorities.VeryLow);
-            SubscribeComponent<EquipSlotsComponent, EntityPassTurnEventArgs>(EquipSplits_ProcEnchantmentPassTurns, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<EquipSlotsComponent, EntityPassTurnEventArgs>(EquipSlots_ProcEnchantmentPassTurns, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EnchantmentsComponent, AfterApplyFoodEffectsEvent>(Enchantments_ApplyFoodEffects, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EnchantmentsComponent, GetItemDescriptionEventArgs>(Enchantments_GetItemDescription, priority: EventPriorities.High);
             SubscribeEntity<AfterPhysicalAttackHitEventArgs>(Enchantments_AfterPhysicalAttackHit, priority: EventPriorities.High);
@@ -144,15 +144,18 @@ namespace OpenNefia.Content.Enchantments
 
         private void EquipSlots_ProcEnchantmentPassTurns(EntityUid equipper, EquipSlotsComponent component, EntityPassTurnEventArgs args)
         {
-            if (args.Handled)
+            if (args.Handled || !TryComp<TurnOrderComponent>(equipper, out var turnOrder))
                 return;
             
-            foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))
+            if (turnOrder.TotalTurnsTaken % 25 == 0) // TODO: Make this configurable per enchantment?
             {
-                foreach (var enc in EnumerateEnchantments(item))
+                foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))
                 {
-                    var ev = new ApplyEnchantmentAfterPassTurnEvent(enc.TotalPower, equipper, item);
-                    RaiseEvent(enc.Owner, ref ev);
+                    foreach (var enc in EnumerateEnchantments(item))
+                    {
+                        var ev = new ApplyEnchantmentAfterPassTurnEvent(enc.TotalPower, equipper, item);
+                        RaiseEvent(enc.Owner, ref ev);
+                    }
                 }
             }
         }

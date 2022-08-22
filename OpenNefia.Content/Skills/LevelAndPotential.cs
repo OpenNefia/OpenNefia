@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Stats;
+using OpenNefia.Core.IoC;
+using OpenNefia.Content.Spells;
 
 namespace OpenNefia.Content.Skills
 {

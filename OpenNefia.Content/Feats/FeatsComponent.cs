@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Stats;
@@ -15,7 +16,7 @@ namespace OpenNefia.Content.Feats
     /// Holds the current Feats of an entity as well as the current amount of learnable Feats.
     /// </summary>
     [RegisterComponent]
-    public class FeatsComponent : Component
+    public class FeatsComponent : Component, IComponentRefreshable
     {
         public override string Name => "Feats";
         
@@ -82,6 +83,14 @@ namespace OpenNefia.Content.Feats
                 return 0;
 
             return level.Level.Base;
+        }
+
+        public void Refresh()
+        {
+            foreach (var level in Feats.Values)
+            {
+                level.Level.Reset();
+            }
         }
     }
 }

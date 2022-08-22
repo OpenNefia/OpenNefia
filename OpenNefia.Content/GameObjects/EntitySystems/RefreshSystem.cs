@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Core.GameObjects;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace OpenNefia.Content.GameObjects
         {
             SubscribeEntity<EntityMapInitEvent>(OnMapInit, priority: EventPriorities.VeryLow);
             SubscribeEntity<EntityGeneratedEvent>(OnGenerated, priority: EventPriorities.VeryLow);
+            SubscribeEntity<EntityRefreshEvent>(OnRefreshed, priority: EventPriorities.Highest);
         }
 
         public void Refresh(EntityUid entity)
@@ -35,6 +37,15 @@ namespace OpenNefia.Content.GameObjects
         private void OnGenerated(EntityUid uid, ref EntityGeneratedEvent args)
         {
             Refresh(uid);
+        }
+
+        private void OnRefreshed(EntityUid uid, ref EntityRefreshEvent args)
+        {
+            foreach (var component in EntityManager.GetComponents(uid))
+            {
+                if (component is IComponentRefreshable refreshable)
+                    refreshable.Refresh();
+            }
         }
     }
 

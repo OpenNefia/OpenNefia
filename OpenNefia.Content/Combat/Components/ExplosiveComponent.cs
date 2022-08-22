@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,7 +12,7 @@ namespace OpenNefia.Content.Combat
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class ExplosiveComponent : Component
+    public sealed class ExplosiveComponent : Component, IComponentRefreshable
     {
         public override string Name => "Explosive";
 
@@ -25,5 +27,11 @@ namespace OpenNefia.Content.Combat
 
         [DataField]
         public bool IsAboutToExplode { get; set; } = false;
+
+        public void Refresh()
+        {
+            IsExplosive.Reset();
+            ExplodeChance.Reset();
+        }
     }
 }

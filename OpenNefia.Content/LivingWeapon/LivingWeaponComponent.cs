@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,7 +11,7 @@ namespace OpenNefia.Content.LivingWeapon
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class LivingWeaponComponent : Component
+    public sealed class LivingWeaponComponent : Component, IComponentRefreshable
     {
         public override string Name => "LivingWeapon";
 
@@ -25,5 +26,10 @@ namespace OpenNefia.Content.LivingWeapon
 
         [DataField]
         public int RandomSeed { get; set; }
+
+        public void Refresh()
+        {
+            Level.Reset();
+        }
     }
 }

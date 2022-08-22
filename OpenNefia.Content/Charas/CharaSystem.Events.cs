@@ -5,7 +5,6 @@ using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
@@ -26,6 +25,7 @@ using System.Threading.Tasks;
 using static OpenNefia.Content.CharaInfo.SkillsListControl.SkillsListEntry;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Charas
 {

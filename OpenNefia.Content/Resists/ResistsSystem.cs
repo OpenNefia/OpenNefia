@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
@@ -11,6 +10,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Resists
 {
@@ -44,15 +44,9 @@ namespace OpenNefia.Content.Resists
 
         public override void Initialize()
         {
-            SubscribeComponent<ResistsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
             SubscribeComponent<ResistsComponent, EntityBeingGeneratedEvent>(CalcInitialResistanceLevels, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcFinalDamageEvent>(ApplyElementalDamage, priority: EventPriorities.VeryHigh + 20000);
             SubscribeEntity<AfterDamageAppliedEvent>(ApplyElementOnDamageEvents, priority: EventPriorities.High);
-        }
-
-        private void HandleRefresh(EntityUid uid, ResistsComponent resists, ref EntityRefreshEvent args)
-        {
-            ResetResistBuffs(resists);
         }
 
         private void CalcInitialResistanceLevels(EntityUid uid, ResistsComponent component, ref EntityBeingGeneratedEvent args)
@@ -90,14 +84,6 @@ namespace OpenNefia.Content.Resists
 
             return newLevel;
             // <<<<<<<< shade2/calculation.hsp:981 	loop ..
-        }
-
-        private void ResetResistBuffs(ResistsComponent resists)
-        {
-            foreach (var (_, level) in resists.Resists)
-            {
-                level.Level.Reset();
-            }
         }
 
         private void ApplyElementalDamage(EntityUid uid, ref CalcFinalDamageEvent args)

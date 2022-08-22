@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,7 +12,7 @@ namespace OpenNefia.Content.Combat
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class SplittableComponent : Component
+    public sealed class SplittableComponent : Component, IComponentRefreshable
     {
         public override string Name => "Splittable";
 
@@ -28,5 +30,14 @@ namespace OpenNefia.Content.Combat
 
         [DataField]
         public Stat<float> SplitRandomlyWhenAttackedChance { get; set; } = new(0.3333f);
+
+        public void Refresh()
+        {
+            SplitsOnHighDamage.Reset();
+            SplitOnHighDamageThreshold.Reset();
+            SplitOnHighDamageChance.Reset();
+            SplitsRandomlyWhenAttacked.Reset();
+            SplitRandomlyWhenAttackedChance.Reset();
+        }
     }
 }

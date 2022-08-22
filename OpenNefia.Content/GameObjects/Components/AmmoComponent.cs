@@ -1,17 +1,16 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Stats;
-using System;
-using System.Collections.Generic;
 
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class AmmoComponent : Component
+    public sealed class AmmoComponent : Component, IComponentRefreshable
     {
         public override string Name => "Ammo";
 
@@ -23,5 +22,11 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public Stat<int> DiceY { get; set; } = new(0);
+
+        public void Refresh()
+        {
+            DiceX.Reset();
+            DiceY.Reset();
+        }
     }
 }
