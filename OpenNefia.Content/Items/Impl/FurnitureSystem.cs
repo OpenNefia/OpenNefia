@@ -30,10 +30,8 @@ namespace OpenNefia.Content.Items
 
         private void HandleBeingGenerated(EntityUid uid, FurnitureComponent component, ref EntityBeingGeneratedEvent args)
         {
-            if (_rand.OneIn(3))
-            {
+            if (component.FurnitureQuality == 0 && _rand.OneIn(3))
                 component.FurnitureQuality = _rand.Next(_rand.Next(12) + 1);
-            }
         }
     }
 }
