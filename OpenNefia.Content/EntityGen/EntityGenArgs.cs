@@ -43,6 +43,7 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// Level to set the generated entity to.
         /// </summary>
+        // TODO implement in code
         [DataField]
         public int? LevelOverride { get; set; }
 
@@ -75,6 +76,16 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         [DataField]
         public bool NoFireGeneratedEvent { get; set; } = false;
+
+        /// <summary>
+        /// Don't modify the entity's level based on things like the current map/area. 
+        /// </summary>
+        /// <remarks>
+        /// In the HSP version this was called <c>noVoidLv</c>, and as the name implies, it disables
+        /// the special level scaling applied to characters spawned in The Void.
+        /// </remarks>
+        [DataField]
+        public bool NoLevelScaling { get; set; }
     }
 
     public sealed class ItemGenArgs : EntityGenArgs

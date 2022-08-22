@@ -9,6 +9,8 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
+using OpenNefia.Core.IoC;
+using OpenNefia.Content.RandomText;
 
 namespace OpenNefia.Content.Enchantments
 {

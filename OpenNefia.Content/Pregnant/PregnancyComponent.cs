@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Pregnancy
 {
     [RegisterComponent]
-    public class PregnantComponent : Component
+    public class PregnancyComponent : Component
     {
-        public override string Name => "Pregnant";
+        public override string Name => "Pregnancy";
+
+        [DataField]
+        public bool IsPregnant { get; set; }
     }
 }
