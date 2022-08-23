@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.World;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -7,7 +8,7 @@ using OpenNefia.Core.Stats;
 namespace OpenNefia.Content.StatusEffects
 {
     [RegisterComponent]
-    public sealed class StatusEffectsComponent : Component
+    public sealed class StatusEffectsComponent : Component, IComponentRefreshable
     {
         public override string Name => "StatusEffects";
 
@@ -16,6 +17,11 @@ namespace OpenNefia.Content.StatusEffects
 
         [DataField]
         public HashSetStat<PrototypeId<StatusEffectPrototype>> StatusEffectImmunities { get; } = new();
+
+        public void Refresh()
+        {
+            StatusEffectImmunities.Reset();
+        }
     }
 
     [DataDefinition]

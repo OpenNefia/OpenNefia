@@ -55,6 +55,30 @@ namespace OpenNefia.Content.Combat
         [DataField]
         public Stat<int> DamageResistance { get; set; } = new(0);
 
+        /// <summary>
+        /// Added damage immunity rate.
+        /// </summary>
+        [DataField]
+        public Stat<int> DamageImmunityRate { get; set; } = new(0);
+
+        /// <summary>
+        /// Added damage reflection.
+        /// </summary>
+        [DataField]
+        public Stat<int> DamageReflection { get; set; } = new(0);
+
+        /// <summary>
+        /// Added damage reflection.
+        /// </summary>
+        [DataField]
+        public Stat<int> ExtraMeleeAttackRate { get; set; } = new(0);
+
+        /// <summary>
+        /// Added damage reflection.
+        /// </summary>
+        [DataField]
+        public Stat<int> ExtraRangedAttackRate { get; set; } = new(0);
+
         public void Refresh()
         {
             DV.Reset();
@@ -64,6 +88,10 @@ namespace OpenNefia.Content.Combat
             PierceRate.Reset();
             CriticalRate.Reset();
             DamageResistance.Reset();
+            DamageImmunityRate.Reset();
+            DamageReflection.Reset();
+            ExtraMeleeAttackRate.Reset();
+            ExtraRangedAttackRate.Reset();
         }
     }
 }

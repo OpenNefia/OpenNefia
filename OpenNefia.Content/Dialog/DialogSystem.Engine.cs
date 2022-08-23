@@ -88,7 +88,7 @@ namespace OpenNefia.Content.Dialog
             if (EntityManager.TryGetComponent<RoleShopkeeperComponent>(uid, out var shopkeeper))
                 name += " " + Loc.GetString("Elona.Dialog.SpeakerName.ShopRank", ("shopRank", shopkeeper.ShopRank));
 
-            if (EntityManager.GetComponentOrNull<CommonProtectionsComponent>(_gameSession.Player)?.CanCatchGodSignals ?? false)
+            if (CompOrNull<CommonProtectionsComponent>(_gameSession.Player)?.CanDetectReligion.Buffed ?? false)
                 name += $" ({_religion.GetGodName(uid)})";
 
             if (_config.GetCVar(CCVars.DebugShowImpression) && EntityManager.TryGetComponent<DialogComponent>(uid, out var dialog))

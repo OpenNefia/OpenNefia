@@ -1,7 +1,9 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +11,7 @@ namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class CommonProtectionsComponent : Component
+    public sealed class CommonProtectionsComponent : Component, IComponentRefreshable
     {
         public override string Name => "CommonProtections";
 
@@ -17,13 +19,55 @@ namespace OpenNefia.Content.GameObjects
         // slots? refreshing?
 
         [DataField]
-        public bool IsProtectedFromRottenFood { get; set; }
+        public Stat<bool> IsProtectedFromRottenFood { get; set; } = new(false);
 
         [DataField]
-        public bool IsProtectedFromTheft { get; set; }
+        public Stat<bool> IsProtectedFromTheft { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> IsProtectedFromCurse { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> IsProtectedFromMutation { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> IsProtectedFromPregnancy { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> IsProtectedFromEtherwind { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> IsProtectedFromBadWeather { get; set; } = new(false);
 
         // TODO move
         [DataField]
-        public bool CanCatchGodSignals { get; set; }
+        public Stat<bool> CanCatchGodSignals { get; set; } = new(false);
+
+        // TODO move
+        [DataField]
+        public Stat<bool> CanDetectReligion { get; set; } = new(false);
+
+        // TODO move
+        [DataField]
+        public Stat<bool> IsFloating { get; set; } = new(false);
+
+        // TODO move
+        [DataField]
+        public Stat<bool> HasEnhancedSpells { get; set; } = new(false);
+
+        public void Refresh()
+        {
+            IsProtectedFromRottenFood.Reset();
+            IsProtectedFromTheft.Reset();
+            IsProtectedFromCurse.Reset();
+            IsProtectedFromMutation.Reset();
+            IsProtectedFromPregnancy.Reset();
+            IsProtectedFromEtherwind.Reset();
+            IsProtectedFromBadWeather.Reset();
+            CanCatchGodSignals.Reset();
+            CanDetectReligion.Reset();
+            IsFloating.Reset();
+            HasEnhancedSpells.Reset();
+        }
     }
 }

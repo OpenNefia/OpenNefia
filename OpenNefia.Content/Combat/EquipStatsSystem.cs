@@ -29,6 +29,10 @@ namespace OpenNefia.Content.Combat
             equipperStats.PierceRate.Buffed += bonus.PierceRate.Buffed;
             equipperStats.CriticalRate.Buffed += bonus.CriticalRate.Buffed;
             equipperStats.DamageResistance.Buffed += bonus.DamageResistance.Buffed;
+            equipperStats.DamageImmunityRate.Buffed += bonus.DamageImmunityRate.Buffed;
+            equipperStats.DamageReflection.Buffed += bonus.DamageReflection.Buffed;
+            equipperStats.ExtraMeleeAttackRate.Buffed += bonus.ExtraMeleeAttackRate.Buffed;
+            equipperStats.ExtraRangedAttackRate.Buffed += bonus.ExtraRangedAttackRate.Buffed;
         }
     }
 }

@@ -73,11 +73,6 @@ namespace OpenNefia.Content.Combat
 
         public override void Initialize()
         {
-            #region Refresh events
-            SubscribeComponent<WeaponComponent, EntityRefreshEvent>(Weapon_Refresh, priority: EventPriorities.Highest);
-            SubscribeComponent<AmmoComponent, EntityRefreshEvent>(Ammo_Refresh, priority: EventPriorities.Highest);
-            #endregion
-
             #region Physical attack events
             SubscribeEntity<BeforePhysicalAttackEventArgs>(BlockPhysicalAttackFear, priority: EventPriorities.VeryHigh);
 

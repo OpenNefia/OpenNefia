@@ -104,7 +104,6 @@ namespace OpenNefia.Content.Enchantments
             // TODO use this value to support struct components
             _ = _serialization.Copy(data, component, context);
         }
-
         private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
         {
             if (args.Container.Contains(args.EntityUid))
@@ -134,11 +133,11 @@ namespace OpenNefia.Content.Enchantments
 
         private void Enchantments_ApplyEquipment(EntityUid item, EnchantmentsComponent encs, ref ApplyEquipmentToEquipperEvent args)
         {
-            foreach (var enc in encs.Container.ContainedEntities)
+            foreach (var enc in EnumerateEnchantments(item, encs))
             {
-                var adjustedPower = CalcEnchantmentAdjustedPower(enc, item);
-                var ev = new ApplyEnchantmentOnRefreshEvent(adjustedPower, args.Equipper, item);
-                RaiseEvent(enc, ref ev);
+                var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item);
+                var ev = new ApplyEnchantmentOnRefreshEvent(enc.TotalPower, adjustedPower, args.Equipper, item);
+                RaiseEvent(enc.Owner, ref ev);
             }
         }
 
@@ -186,13 +185,7 @@ namespace OpenNefia.Content.Enchantments
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
 
-                var desc = EntityManager.GetComponents(enc.Owner)
-                    .WhereAssignable<IComponent, IEnchantmentComponent>()
-                    .Select(ec => ec.Description)
-                    .WhereNotNull()
-                    .FirstOrDefault()
-                    ?? string.Empty;
-
+                var desc = enc.Description != null ? Loc.GetString(enc.Description.Value) : "";
                 var hasProvidedDesc = !string.IsNullOrEmpty(desc);
 
                 var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower, item, desc);
@@ -498,13 +491,15 @@ namespace OpenNefia.Content.Enchantments
     [ByRefEvent]
     public struct ApplyEnchantmentOnRefreshEvent
     {
+        public int TotalPower { get; }
         public int AdjustedPower { get; }
         public EntityUid Equipper { get; }
         public EntityUid Item { get; }
 
-        public ApplyEnchantmentOnRefreshEvent(int power, EntityUid equipper, EntityUid item)
+        public ApplyEnchantmentOnRefreshEvent(int totalPower, int adjustedPower, EntityUid equipper, EntityUid item)
         {
-            AdjustedPower = power;
+            TotalPower = totalPower;
+            AdjustedPower = adjustedPower;
             Equipper = equipper;
             Item = item;
         }

@@ -47,7 +47,6 @@ namespace OpenNefia.Content.Fame
 
         public override void Initialize()
         {
-            SubscribeComponent<KarmaComponent, EntityRefreshEvent>(HandleRefresh);
             SubscribeEntity<CheckKillEvent>(ProcKarmaLossOnKill);
         }
 
