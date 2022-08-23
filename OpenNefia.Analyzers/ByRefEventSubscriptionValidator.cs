@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace OpenNefia.Analyzers
 {
@@ -114,12 +115,17 @@ namespace OpenNefia.Analyzers
 
                             if (isEventByRef != isSubscribedByRef)
                             {
+                                var arg = invocation.Arguments[0];
+                                var symbolInfo = arg.SemanticModel.GetSymbolInfo(arg.Value.Syntax);
+                                var additionalLocations = symbolInfo.Symbol.OriginalDefinition.Locations;
+
                                 if (isEventByRef)
                                 {
                                     context.ReportDiagnostic(
                                         Diagnostic.Create(
                                             Diagnostics.InvalidEventSubscribingByValue,
                                             invocation.Syntax.GetLocation(),
+                                            additionalLocations,
                                             eventType.Name));
                                 }
                                 else
@@ -128,6 +134,7 @@ namespace OpenNefia.Analyzers
                                         Diagnostic.Create(
                                             Diagnostics.InvalidEventSubscribingByRef,
                                             invocation.Syntax.GetLocation(),
+                                            additionalLocations,
                                             eventType.Name));
                                 }
                             }
