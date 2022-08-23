@@ -200,6 +200,7 @@
   - type: EquipStats
     dv: 6
     pv: 4
+  - type: Armor
 - type: Entity
   id: Elona.ItemFairyHat
   parent: BaseItem
@@ -232,6 +233,7 @@
   - type: EquipStats
     dv: 7
     pv: 5
+  - type: Armor
 - type: Entity
   id: Elona.ItemBreastplate
   parent: BaseItem
@@ -264,6 +266,7 @@
   - type: EquipStats
     dv: 6
     pv: 10
+  - type: Armor
 - type: Entity
   id: Elona.ItemRobe
   parent: BaseItem
@@ -296,6 +299,7 @@
   - type: EquipStats
     dv: 11
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemDecoratedGloves
   parent: BaseItem
@@ -330,6 +334,7 @@
     pv: 5
     hitBonus: 6
     damageBonus: 2
+  - type: Armor
 - type: Entity
   id: Elona.ItemThickGauntlets
   parent: BaseItem
@@ -364,6 +369,7 @@
     pv: 4
     hitBonus: 2
     damageBonus: 1
+  - type: Armor
 - type: Entity
   id: Elona.ItemHeavyBoots
   parent: BaseItem
@@ -396,6 +402,7 @@
   - type: EquipStats
     dv: 1
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemCompositeBoots
   parent: BaseItem
@@ -428,6 +435,7 @@
   - type: EquipStats
     dv: 1
     pv: 5
+  - type: Armor
 - type: Entity
   id: Elona.ItemDecorativeRing
   parent: BaseItem
@@ -460,6 +468,8 @@
     equipSlots:
     - Elona.Ring
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemScrollOfIdentify
   parent: BaseItem
@@ -1755,6 +1765,7 @@
   - type: EquipStats
     dv: -2
     pv: 8
+  - type: Armor
 - type: Entity
   id: Elona.ItemPistol
   parent: BaseItem
@@ -2010,6 +2021,7 @@
   - type: EquipStats
     dv: 4
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemGirdle
   parent: BaseItem
@@ -2042,6 +2054,7 @@
   - type: EquipStats
     dv: 3
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemDecorativeAmulet
   parent: BaseItem
@@ -2074,6 +2087,8 @@
     equipSlots:
     - Elona.Neck
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemPotionOfCureMinorWound
   parent: BaseItem
@@ -9995,6 +10010,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemBloodMoon
   parent: BaseItem
@@ -10085,6 +10101,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemStaffOfInsanity
   parent: BaseItem
@@ -10227,6 +10245,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemShopkeepersTrunk
   parent: BaseItem
@@ -12361,6 +12381,7 @@
   - type: EquipStats
     dv: 5
     pv: 12
+  - type: Armor
 - type: Entity
   id: Elona.ItemPlateMail
   parent: BaseItem
@@ -12393,6 +12414,7 @@
   - type: EquipStats
     dv: 6
     pv: 21
+  - type: Armor
 - type: Entity
   id: Elona.ItemRingMail
   parent: BaseItem
@@ -12425,6 +12447,7 @@
   - type: EquipStats
     dv: 6
     pv: 14
+  - type: Armor
 - type: Entity
   id: Elona.ItemCompositeMail
   parent: BaseItem
@@ -12457,6 +12480,7 @@
   - type: EquipStats
     dv: 7
     pv: 17
+  - type: Armor
 - type: Entity
   id: Elona.ItemChainMail
   parent: BaseItem
@@ -12489,6 +12513,7 @@
   - type: EquipStats
     dv: 7
     pv: 19
+  - type: Armor
 - type: Entity
   id: Elona.ItemPopeRobe
   parent: BaseItem
@@ -12521,6 +12546,7 @@
   - type: EquipStats
     dv: 18
     pv: 8
+  - type: Armor
 - type: Entity
   id: Elona.ItemLightMail
   parent: BaseItem
@@ -12553,6 +12579,7 @@
   - type: EquipStats
     dv: 10
     pv: 8
+  - type: Armor
 - type: Entity
   id: Elona.ItemCoat
   parent: BaseItem
@@ -12585,6 +12612,7 @@
   - type: EquipStats
     dv: 13
     pv: 9
+  - type: Armor
 - type: Entity
   id: Elona.ItemBreastPlate
   parent: BaseItem
@@ -12617,6 +12645,7 @@
   - type: EquipStats
     dv: 15
     pv: 11
+  - type: Armor
 - type: Entity
   id: Elona.ItemBulletproofJacket
   parent: BaseItem
@@ -12649,6 +12678,7 @@
   - type: EquipStats
     dv: 14
     pv: 15
+  - type: Armor
 - type: Entity
   id: Elona.ItemGloves
   parent: BaseItem
@@ -12683,6 +12713,7 @@
     pv: 4
     hitBonus: 5
     damageBonus: 1
+  - type: Armor
 - type: Entity
   id: Elona.ItemPlateGauntlets
   parent: BaseItem
@@ -12717,6 +12748,7 @@
     pv: 7
     hitBonus: 3
     damageBonus: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemLightGloves
   parent: BaseItem
@@ -12750,6 +12782,7 @@
     dv: 3
     pv: 3
     hitBonus: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemCompositeGauntlets
   parent: BaseItem
@@ -12784,6 +12817,7 @@
     pv: 5
     hitBonus: 4
     damageBonus: 2
+  - type: Armor
 - type: Entity
   id: Elona.ItemSmallShield
   parent: BaseItem
@@ -12816,6 +12850,7 @@
   - type: EquipStats
     dv: 3
     pv: 4
+  - type: Armor
 - type: Entity
   id: Elona.ItemRoundShield
   parent: BaseItem
@@ -12848,6 +12883,7 @@
   - type: EquipStats
     dv: 4
     pv: 5
+  - type: Armor
 - type: Entity
   id: Elona.ItemShield
   parent: BaseItem
@@ -12880,6 +12916,7 @@
   - type: EquipStats
     dv: 3
     pv: 6
+  - type: Armor
 - type: Entity
   id: Elona.ItemLargeShield
   parent: BaseItem
@@ -12912,6 +12949,7 @@
   - type: EquipStats
     dv: 2
     pv: 8
+  - type: Armor
 - type: Entity
   id: Elona.ItemKiteShield
   parent: BaseItem
@@ -12944,6 +12982,7 @@
   - type: EquipStats
     dv: -3
     pv: 13
+  - type: Armor
 - type: Entity
   id: Elona.ItemTowerShield
   parent: BaseItem
@@ -12976,6 +13015,7 @@
   - type: EquipStats
     dv: -1
     pv: 10
+  - type: Armor
 - type: Entity
   id: Elona.ItemShoes
   parent: BaseItem
@@ -13008,6 +13048,7 @@
   - type: EquipStats
     dv: 3
     pv: 1
+  - type: Armor
 - type: Entity
   id: Elona.ItemBoots
   parent: BaseItem
@@ -13040,6 +13081,7 @@
   - type: EquipStats
     dv: 5
     pv: 2
+  - type: Armor
 - type: Entity
   id: Elona.ItemTightBoots
   parent: BaseItem
@@ -13072,6 +13114,7 @@
   - type: EquipStats
     dv: 6
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemArmoredBoots
   parent: BaseItem
@@ -13103,6 +13146,7 @@
     - Elona.Leg
   - type: EquipStats
     pv: 6
+  - type: Armor
 - type: Entity
   id: Elona.ItemCompositeGirdle
   parent: BaseItem
@@ -13135,6 +13179,7 @@
   - type: EquipStats
     dv: 5
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemPlateGirdle
   parent: BaseItem
@@ -13167,6 +13212,7 @@
   - type: EquipStats
     dv: 3
     pv: 6
+  - type: Armor
 - type: Entity
   id: Elona.ItemArmoredCloak
   parent: BaseItem
@@ -13199,6 +13245,7 @@
   - type: EquipStats
     dv: 5
     pv: 4
+  - type: Armor
 - type: Entity
   id: Elona.ItemCloak
   parent: BaseItem
@@ -13231,6 +13278,7 @@
   - type: EquipStats
     dv: 7
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemFeatherHat
   parent: BaseItem
@@ -13263,6 +13311,7 @@
   - type: EquipStats
     dv: 5
     pv: 1
+  - type: Armor
 - type: Entity
   id: Elona.ItemHeavyHelm
   parent: BaseItem
@@ -13295,6 +13344,7 @@
   - type: EquipStats
     dv: 4
     pv: 7
+  - type: Armor
 - type: Entity
   id: Elona.ItemKnightHelm
   parent: BaseItem
@@ -13327,6 +13377,7 @@
   - type: EquipStats
     dv: 1
     pv: 7
+  - type: Armor
 - type: Entity
   id: Elona.ItemHelm
   parent: BaseItem
@@ -13359,6 +13410,7 @@
   - type: EquipStats
     dv: 3
     pv: 5
+  - type: Armor
 - type: Entity
   id: Elona.ItemCompositeHelm
   parent: BaseItem
@@ -13391,6 +13443,7 @@
   - type: EquipStats
     dv: 5
     pv: 8
+  - type: Armor
 - type: Entity
   id: Elona.ItemPeridot
   parent: BaseItem
@@ -13424,6 +13477,8 @@
     - Elona.Neck
   - type: EquipStats
     hitBonus: 4
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemTalisman
   parent: BaseItem
@@ -13457,6 +13512,8 @@
     - Elona.Neck
   - type: EquipStats
     dv: 4
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemNeckGuard
   parent: BaseItem
@@ -13490,6 +13547,8 @@
     - Elona.Neck
   - type: EquipStats
     pv: 3
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemCharm
   parent: BaseItem
@@ -13524,6 +13583,8 @@
     - Elona.Neck
   - type: EquipStats
     damageBonus: 3
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemBejeweledAmulet
   parent: BaseItem
@@ -13556,6 +13617,8 @@
     equipSlots:
     - Elona.Neck
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemEngagementAmulet
   parent: BaseItem
@@ -13588,6 +13651,8 @@
     equipSlots:
     - Elona.Neck
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemCompositeRing
   parent: BaseItem
@@ -13621,6 +13686,8 @@
     - Elona.Ring
   - type: EquipStats
     damageBonus: 2
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemArmoredRing
   parent: BaseItem
@@ -13654,6 +13721,8 @@
     - Elona.Ring
   - type: EquipStats
     pv: 2
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemRing
   parent: BaseItem
@@ -13686,6 +13755,8 @@
     equipSlots:
     - Elona.Ring
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemEngagementRing
   parent: BaseItem
@@ -13718,6 +13789,8 @@
     equipSlots:
     - Elona.Ring
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemStethoscope
   parent: BaseItem
@@ -14995,6 +15068,7 @@
     - Elona.Back
   - type: EquipStats
     dv: 9
+  - type: Armor
 - type: Entity
   id: Elona.ItemDeedOfMuseum
   parent: BaseItem
@@ -15792,6 +15866,7 @@
   - type: EquipStats
     dv: 4
     pv: 6
+  - type: Armor
 - type: Entity
   id: Elona.ItemGemSeed
   parent: BaseItem
@@ -15904,6 +15979,7 @@
   - type: EquipStats
     dv: 7
     pv: 2
+  - type: Armor
 - type: Entity
   id: Elona.ItemVindaleCloak
   parent: BaseItem
@@ -15936,6 +16012,7 @@
   - type: EquipStats
     dv: 7
     pv: 3
+  - type: Armor
 - type: Entity
   id: Elona.ItemAuroraRing
   parent: BaseItem
@@ -15970,6 +16047,8 @@
   - type: EquipStats
     dv: 2
     pv: 2
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemPotionOfCureCorruption
   parent: BaseItem
@@ -17744,6 +17823,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemSpellbookOfIncognito
   parent: BaseItem
@@ -18675,6 +18755,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemMagicFruit
   parent: BaseItem
@@ -18771,6 +18852,8 @@
     equipSlots:
     - Elona.Ring
   - type: EquipStats
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemStatueOfOpatos
   parent: BaseItem
@@ -20097,6 +20180,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemPotionOfDescent
   parent: BaseItem
@@ -20710,6 +20795,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemTwinEdge
   parent: BaseItem
@@ -20753,6 +20840,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemMusicTicket
   parent: BaseItem
@@ -20884,6 +20973,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemShieldOfThorn
   parent: BaseItem
@@ -20928,6 +21018,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemCrimsonPlate
   parent: BaseItem
@@ -20972,6 +21063,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemGift
   parent: BaseItem
@@ -21354,6 +21446,8 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
+  - type: Accessory
 - type: Entity
   id: Elona.ItemHiryuTo
   parent: BaseItem
@@ -21795,6 +21889,7 @@
     identifyDifficulty: 500
   - type: LightSource
     id: Elona.Item
+  - type: Armor
 - type: Entity
   id: Elona.ItemMauserC96Custom
   parent: BaseItem

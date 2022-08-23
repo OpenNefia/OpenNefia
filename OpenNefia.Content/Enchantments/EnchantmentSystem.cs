@@ -37,9 +37,9 @@ namespace OpenNefia.Content.Enchantments
 {
     public interface IEnchantmentSystem : IEntitySystem
     {
-        EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, string source = "Generated", int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null);
+        EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = "Generated", EnchantmentsComponent? encs = null);
 
-        bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null);
+        bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
         bool TryAddEnchantment(EntityUid item, EntityUid enchantment, int power, [NotNullWhen(true)] out EntityUid? mergedEnchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null, EnchantmentComponent? enc = null);
         
         void AddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Enchantments
                 return false;
             }
 
-            if (!TryAddEnchantment(uid, spec.ProtoID, spec.Power, out enchantment, source: source, cursePower: spec.CursePower, randomize: spec.Randomize, encs: encs))
+            if (!TryAddEnchantment(uid, spec.ProtoID, spec.Power, out enchantment, cursePower: spec.CursePower, randomize: spec.Randomize, source: source, encs: encs))
             {
                 return false;
             }
@@ -150,13 +150,23 @@ namespace OpenNefia.Content.Enchantments
 
         private void Enchantments_Refresh(EntityUid item, EnchantmentsComponent encs, ref EntityRefreshEvent args)
         {
-            if (!TryComp<ValueComponent>(item, out var value))
-                return;
-
-            foreach (var enc in EnumerateEnchantments(item, encs))
+            if (TryComp<ValueComponent>(item, out var value))
             {
-                value.Value.Buffed = (int)(value.Value.Buffed * enc.ValueModifier * enc.SubEnchantmentCount);
+                foreach (var enc in EnumerateEnchantments(item, encs))
+                {
+                    value.Value.Buffed = (int)(value.Value.Buffed * enc.ValueModifier * enc.SubEnchantmentCount);
+                }
             }
+
+            // >>>>>>>> elona-next/src/mod/elona/api/Enchantment.lua:192    if object_quality < Enum.Quality.Unique then ...
+            if (encs.HasRandomEnchantments)
+            {
+                if (TryComp<ValueComponent>(item, out value))
+                {
+                    value.Value.Buffed *= 3;
+                }
+            }
+            // <<<<<<<< elona-next/src/mod/elona/api/Enchantment.lua:195    end ...
         }
 
         private void Enchantments_ApplyEquipment(EntityUid item, EnchantmentsComponent encs, ref ApplyEquipmentToEquipperEvent args)
@@ -315,7 +325,7 @@ namespace OpenNefia.Content.Enchantments
             return ev.OutPower;
         }
 
-        public EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, string source = EnchantmentSources.Generated, int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null)
+        public EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
         {
             if (!Resolve(item, ref encs))
                 return null;
@@ -344,9 +354,9 @@ namespace OpenNefia.Content.Enchantments
             return realEnc;
         }
 
-        public bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null)
+        public bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
         {
-            enchantment = AddEnchantment(item, encID, power, source, cursePower, randomize, encs);
+            enchantment = AddEnchantment(item, encID, power, cursePower, randomize, source, encs);
             return IsAlive(enchantment);
         }
 

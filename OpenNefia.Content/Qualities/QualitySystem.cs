@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Equipment;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Items;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using System;
@@ -21,6 +23,7 @@ namespace OpenNefia.Content.Qualities
         public override void Initialize()
         {
             SubscribeComponent<QualityComponent, EntityBeingGeneratedEvent>(SetQualityFromGenArgs, EventPriorities.Highest);
+            SubscribeComponent<ItemComponent, EntityBeingGeneratedEvent>(FixQualityForNonEquipmentItem, EventPriorities.Lowest);
             SubscribeComponent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
         }
 
@@ -36,6 +39,19 @@ namespace OpenNefia.Content.Qualities
         {
             if (args.CommonArgs.Quality != null)
                 component.Quality.Base = args.CommonArgs.Quality.Value;
+        }
+
+        private void FixQualityForNonEquipmentItem(EntityUid item, ItemComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (!TryComp<QualityComponent>(item, out var quality))
+                return;
+
+            // >>>>>>>> elona122/shade2/item.hsp:541 	if refType<fltPotion{ ...
+            if (!HasComp<EquipmentComponent>(item) && quality.Quality.Base != Quality.Unique)
+            {
+                quality.Quality.Base = Quality.Normal;
+            }
+            // <<<<<<<< elona122/shade2/item.hsp:545 		} ...
         }
 
         private void AddQualityBrackets(EntityUid uid, QualityComponent quality, ref GetBaseNameEventArgs args)

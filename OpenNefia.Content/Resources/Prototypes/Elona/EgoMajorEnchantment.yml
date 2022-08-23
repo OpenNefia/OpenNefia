@@ -1,0 +1,134 @@
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Silence
+  level: 0
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncModifySkill
+    power: 100
+    components:
+    - type: Elona.EncModifySkill
+      skillID: Elona.Stealth
+  - protoID: Elona.EncPreventTeleport
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.ResistBlindness
+  level: 1
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncResistBlindness
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.ResistConfusion
+  level: 1
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncResistConfusion
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Fire
+  level: 1
+  filter: !type:EgoMajorGeneralFilter {}
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 150
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Fire
+  - protoID: Elona.EncElementalDamage
+    power: 150
+    components:
+    - type: EncElementalDamage
+      elementID: Elona.Fire
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Cold
+  level: 1
+  filter: !type:EgoMajorGeneralFilter {}
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 150
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Cold
+  - protoID: Elona.EncElementalDamage
+    power: 150
+    components:
+    - type: EncElementalDamage
+      elementID: Elona.Cold
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Lightning
+  level: 1
+  filter: !type:EgoMajorGeneralFilter {}
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 150
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Lightning
+  - protoID: Elona.EncElementalDamage
+    power: 150
+    components:
+    - type: EncElementalDamage
+      elementID: Elona.Lightning
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Healer
+  level: 1
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncModifySkill
+    power: 100
+    components:
+    - type: EncModifySkill
+      skillID: Elona.Healing
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.ResistParalyze
+  level: 2
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncResistParalyze
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.ResistFear
+  level: 0
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncResistFear
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.ResistSleep
+  level: 0
+  filter: !type:EgoMajorAccessoryFilter {}
+  enchantments:
+  - protoID: Elona.EncResistSleep
+    power: 100
+
+- type: Elona.EgoMajorEnchantment
+  id: Elona.Defender
+  level: 3
+  filter: !type:EgoMajorItemCategoryFilter
+    itemCategories:
+     - Elona.EquipMelee
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Fire
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Cold
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Lightning

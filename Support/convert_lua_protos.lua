@@ -657,6 +657,72 @@ handlers["base.chara"] = function(from, to)
     end
 end
 
+-- >>>>>>>> shade2/command.hsp:3399 		if invCtrl(1)=1: if (refType!fltWeapon)&(refType ..
+-- TODO add "elona.equipment" instead
+local EQUIPMENT_CATEGORIES = table.set {
+    "elona.equip_melee",
+    "elona.equip_head",
+    "elona.equip_shield",
+    "elona.equip_body",
+    "elona.equip_leg",
+    "elona.equip_cloak",
+    "elona.equip_back",
+    "elona.equip_wrist",
+    "elona.equip_ranged",
+    "elona.equip_ammo",
+    "elona.equip_ring",
+    "elona.equip_neck",
+}
+-- <<<<<<<< shade2/command.hsp:3399 		if invCtrl(1)=1: if (refType!fltWeapon)&(refType ...
+
+-- >>>>>>>> shade2/command.hsp:3400 		if invCtrl(1)=2: if (refType<fltHeadArmor)or(ref ..
+-- NOTE: Excludes ammo.
+-- TODO add "elona.equipment_armor" instead
+local ARMOR_CATEGORIES = table.set {
+    "elona.equip_head",
+    "elona.equip_shield",
+    "elona.equip_body",
+    "elona.equip_leg",
+    "elona.equip_cloak",
+    "elona.equip_back",
+    "elona.equip_wrist",
+    "elona.equip_ring",
+    "elona.equip_neck",
+}
+-- <<<<<<<< shade2/command.hsp:3400 		if invCtrl(1)=2: if (refType<fltHeadArmor)or(ref ...
+
+-- >>>>>>>> shade2/init.hsp:812 	#define global ctype range_fltAccessory(%%1)	((%%1> ...
+local ACCESSORY_CATEGORIES = table.set {
+    "elona.equip_ring",
+    "elona.equip_neck",
+}
+-- <<<<<<<< shade2/init.hsp:812 	#define global ctype range_fltAccessory(%%1)	((%%1> ...
+
+-- >>>>>>>> shade2/item.hsp:520 	if refType<fltFurniture{ ..
+-- TODO add "elona.non_usable" instead
+local NON_USEABLE_CATEGORIES = table.set {
+    "elona.furniture",
+    "elona.furniture_well",
+    "elona.furniture_altar",
+    "elona.remains",
+    "elona.junk",
+    "elona.gold",
+    "elona.platinum",
+    "elona.container",
+    "elona.ore",
+    "elona.tree",
+    "elona.cargo_food",
+    "elona.cargo",
+    "elona.bug",
+}
+-- <<<<<<<< shade2/item.hsp:520 	if refType<fltFurniture{ ..
+
+local function has_any_category(item, cats)
+    return fun.iter(cats):any(function(cat)
+        return table.set(item.categories or {})[cat] ~= nil
+    end)
+end
+
 handlers["base.item"] = function(from, to)
     local c = comp(to, "Chip")
     if from.image then
@@ -1059,6 +1125,13 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "DungeonLight")
         c.isLit = false
         c = comp(to, "Torch")
+    end
+
+    if has_any_category(from, ARMOR_CATEGORIES) then
+        c = comp(to, "Armor")
+    end
+    if has_any_category(from, ACCESSORY_CATEGORIES) then
+        c = comp(to, "Accessory")
     end
 end
 
