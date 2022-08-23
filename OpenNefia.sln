@@ -56,6 +56,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlX.Runtime", "Thirdparty\XamlX\src\XamlX.Runtime\XamlX.Runtime.csproj", "{52F5601C-712E-4DF4-AB92-171C39783EE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.YAMLValidator", "OpenNefia.YAMLValidator\OpenNefia.YAMLValidator.csproj", "{AE161F08-1876-4462-9743-347DCB4986DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{832C413B-CB91-4401-BD5E-A4E187A97024} = {832C413B-CB91-4401-BD5E-A4E187A97024}
+		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E} = {9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}"
 EndProject
