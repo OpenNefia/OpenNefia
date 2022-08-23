@@ -28,6 +28,7 @@ using OpenNefia.Content.Combat;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Enchantments;
 using System.Security.Cryptography;
+using static OpenNefia.Core.UI.Wisp.Controls.ItemList;
 
 namespace OpenNefia.Content.Materials
 {
@@ -56,6 +57,7 @@ namespace OpenNefia.Content.Materials
         {
             SubscribeComponent<MaterialComponent, EntityBeingGeneratedEvent>(Material_BeingGenerated, priority: EventPriorities.High);
             SubscribeComponent<MaterialComponent, EntityRefreshEvent>(Material_Refreshed, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MaterialComponent, ApplyEquipmentToEquipperEvent>(Material_ApplyEquipmentToEquipper, priority: EventPriorities.Low);
             SubscribeComponent<MaterialComponent, GetItemDescriptionEventArgs>(Material_GetItemDescription, priority: EventPriorities.VeryHigh);
 
             SubscribeComponent<WeightComponent, EntityApplyMaterialEvent>(Weight_ApplyMaterial);
@@ -105,14 +107,44 @@ namespace OpenNefia.Content.Materials
             args.OutEntries.Add(entry);
         }
 
-        private void Material_Refreshed(EntityUid uid, MaterialComponent component, ref EntityRefreshEvent args)
+        private void Material_Refreshed(EntityUid item, MaterialComponent component, ref EntityRefreshEvent args)
         {
-            if (component.MaterialID == null || component.NoMaterialEffects)
+            if (component.MaterialID == null)
                 return;
 
             var matProto = _protos.Index(component.MaterialID.Value);
-            var ev = new EntityApplyMaterialEvent(matProto, component.RandomSeed);
-            RaiseEvent(uid, ref ev);
+
+            if (TryComp<ItemResistsComponent>(item, out var itemResists))
+            {
+                if (matProto.IsFireproof)
+                    itemResists.IsFireproof.Buffed = true;
+                if (matProto.IsAcidproof)
+                    itemResists.IsAcidproof.Buffed = true;
+                if (matProto.IsColdproof)
+                    itemResists.IsColdproof.Buffed = true;
+            }
+
+            var pev = new P_MaterialApplyToItemEvent(item);
+            _protos.EventBus.RaiseEvent(matProto, ref pev);
+
+            // If NoMaterialEffects is set, item flags should still apply, but not stat bonuses like
+            // DV/PV.
+            if (!component.NoMaterialEffects)
+            {
+                var ev = new EntityApplyMaterialEvent(matProto, component.RandomSeed);
+                RaiseEvent(item, ref ev);
+            }
+        }
+
+        private void Material_ApplyEquipmentToEquipper(EntityUid item, MaterialComponent component, ref ApplyEquipmentToEquipperEvent args)
+        {
+            if (component.MaterialID == null)
+                return;
+
+            var matProto = _protos.Index(component.MaterialID.Value);
+
+            var pev = new P_MaterialApplyToEquipperEvent(args.Equipper, item);
+            _protos.EventBus.RaiseEvent(matProto, ref pev);
         }
 
         private void Weight_ApplyMaterial(EntityUid uid, WeightComponent weight, ref EntityApplyMaterialEvent args)

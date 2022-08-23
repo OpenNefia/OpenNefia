@@ -85,6 +85,7 @@
   pv: 0
   diceY: 100
   color: '#AFAFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 150
@@ -103,6 +104,8 @@
   pv: 17
   diceY: 190
   color: '#AFFFAF'
+  isFireproof: true
+  isAcidproof: true
   enchantments:
   - protoID: Elona.EncModifySkill
     power: 100
@@ -121,6 +124,8 @@
   pv: 8
   diceY: 250
   color: '#AFAFFF'
+  isFireproof: true
+  isAcidproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 200
@@ -139,6 +144,7 @@
   pv: 18
   diceY: 140
   color: '#FFFFFF'
+  isFireproof: true
 - type: Elona.Material
   id: Elona.Iron
   hspIds:
@@ -151,6 +157,7 @@
   pv: 14
   diceY: 130
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 25
@@ -223,6 +230,7 @@
   pv: 6
   diceY: 100
   color: '#AFAFFF'
+  isAcidproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 100
@@ -241,6 +249,8 @@
   pv: 24
   diceY: 190
   color: '#FF9B9B'
+  isFireproof: true
+  isAcidproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 125
@@ -296,6 +306,7 @@
   pv: 11
   diceY: 140
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 100
@@ -314,6 +325,7 @@
   pv: 14
   diceY: 100
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 50
@@ -405,6 +417,9 @@
   pv: 24
   diceY: 160
   color: '#AFFFAF'
+  isFireproof: true
+  isAcidproof: true
+  isColdproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 50
@@ -428,6 +443,7 @@
   pv: 11
   diceY: 130
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 50
@@ -446,6 +462,7 @@
   pv: 17
   diceY: 140
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 100
@@ -500,6 +517,7 @@
   pv: 22
   diceY: 160
   color: '#FFFFFF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 100
@@ -530,6 +548,8 @@
   pv: 42
   diceY: 240
   color: '#FFC3B9'
+  isFireproof: true
+  isAcidproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 100
@@ -548,6 +568,7 @@
   pv: 22
   diceY: 140
   color: '#FFFFAF'
+  isFireproof: true
   enchantments:
   - protoID: Elona.EncModifyAttribute
     power: 100
@@ -584,6 +605,7 @@
   pv: 11
   diceY: 100
   color: '#FFFFFF'
+  isAcidproof: true
 - type: Elona.Material
   id: Elona.Fresh
   hspIds:
