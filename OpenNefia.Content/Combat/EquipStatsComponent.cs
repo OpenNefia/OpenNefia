@@ -65,19 +65,19 @@ namespace OpenNefia.Content.Combat
         /// Added damage reflection.
         /// </summary>
         [DataField]
-        public Stat<int> DamageReflection { get; set; } = new(0);
+        public Stat<float> DamageReflection { get; set; } = new(0);
 
         /// <summary>
         /// Added damage reflection.
         /// </summary>
         [DataField]
-        public Stat<int> ExtraMeleeAttackRate { get; set; } = new(0);
+        public Stat<float> ExtraMeleeAttackRate { get; set; } = new(0);
 
         /// <summary>
         /// Added damage reflection.
         /// </summary>
         [DataField]
-        public Stat<int> ExtraRangedAttackRate { get; set; } = new(0);
+        public Stat<float> ExtraRangedAttackRate { get; set; } = new(0);
 
         public void Refresh()
         {

@@ -39,6 +39,7 @@ namespace OpenNefia.Content.Combat
 
         private void HandleCalcAccuracyEquipState(EntityUid attacker, ref CalcPhysicalAttackAccuracyEvent args)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:178 	if attackSkill ! rsMartial : if attackRange{ ...
             if (!EntityManager.IsAlive(args.Weapon))
                 return;
 
@@ -78,10 +79,12 @@ namespace OpenNefia.Content.Combat
                     }
                 }
             }
+            // <<<<<<<< elona122/shade2/calculation.hsp:192 		} ...
         }
 
         private void HandleCalcAccuracyAttackCount(EntityUid attacker, ref CalcPhysicalAttackAccuracyEvent args)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:205 	if attackNum>1{ ...
             if (args.AttackCount <= 0)
                 return;
 
@@ -89,6 +92,7 @@ namespace OpenNefia.Content.Combat
 
             if (args.OutAccuracy > 0)
                 args.OutAccuracy = args.OutAccuracy * hits / 100;
+            // <<<<<<<< elona122/shade2/calculation.hsp:208 		} ...
         }
 
         #endregion
@@ -178,6 +182,7 @@ namespace OpenNefia.Content.Combat
 
         private void HandleCalcHitCriticals(EntityUid attacker, ref CalcPhysicalAttackHitEvent args)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:235 	if rnd(5000) < ( sPER(cc) + 50) : critical = true ...
             if (_rand.Next(5000) < _skills.Level(attacker, Protos.Skill.AttrPerception) + 50)
             {
                 args.Handle(HitResult.CriticalHit);
@@ -201,10 +206,12 @@ namespace OpenNefia.Content.Combat
                 args.Handle(HitResult.Miss);
                 return;
             }
+            // <<<<<<<< elona122/shade2/calculation.hsp:239 	if rnd(20)=0	:return atkHit ...
         }
 
         public int CalcExpDivisor(EntityUid target)
         {
+            // >>>>>>>> elona122/shade2/action.hsp:1251 	expModifer=1+cBit(cSandBag,tc)*15+cBit(cSplit,tc) ...
             // TODO move into ECS events
             // TODO make into float percentage modifier
             var divisor = 1;
@@ -224,6 +231,7 @@ namespace OpenNefia.Content.Combat
                 divisor += mapCommon.ExperienceDivisor.Value;
 
             return divisor;
+            // <<<<<<<< elona122/shade2/action.hsp:1251 	expModifer=1+cBit(cSandBag,tc)*15+cBit(cSplit,tc) ...
         }
 
         private void GainCombatSkillExperienceOnHit(EntityUid attacker, SkillsComponent skills, AfterPhysicalAttackHitEventArgs args)
@@ -290,6 +298,17 @@ namespace OpenNefia.Content.Combat
                 _skills.GainSkillExp(args.Target, Protos.Skill.GreaterEvasion, exp, 0, 4);
             }
             // <<<<<<<< shade2/action.hsp:1360 			} ..
+        }
+
+        private void ProcDamageReflection(EntityUid attacker, EquipStatsComponent equipStats, AfterPhysicalAttackHitEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:1319 		if cReflectDamage(tc)>0{ ...
+            var damageReflection = equipStats.DamageReflection.Buffed;
+            if (damageReflection > 0 & !args.IsRanged)
+            {
+                _damage.DamageHP(attacker, (int)(args.FinalDamage * damageReflection + 1), args.Target, new ElementalDamageType(Protos.Element.Cut, 100));
+            }
+            // <<<<<<<< elona122/shade2/action.hsp:1321 			} ...
         }
 
         #endregion
