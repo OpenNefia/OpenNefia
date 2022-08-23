@@ -20,8 +20,6 @@ namespace OpenNefia.Content.Enchantments
         [DataField(required: true)]
         public PrototypeId<EnchantmentSpellPrototype> EnchantmentSpellID { get; set; }
 
-        public string? Description => null;
-
         public bool CanMergeWith(IEnchantmentComponent other)
         {
             return other is EncInvokeSpellComponent otherInvokeSpell
