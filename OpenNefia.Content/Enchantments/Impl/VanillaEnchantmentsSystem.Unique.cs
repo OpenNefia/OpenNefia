@@ -461,7 +461,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncDamageImmunity_ApplyOnRefresh(EntityUid uid, EncDamageImmunityComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<EquipStatsComponent>(args.Equipper).DamageImmunityRate.Buffed += args.TotalPower / 60 + 3;
+            EnsureComp<EquipStatsComponent>(args.Equipper).DamageImmunityRate.Buffed += (args.TotalPower / 60 + 3) / 100f;
         }
 
 
