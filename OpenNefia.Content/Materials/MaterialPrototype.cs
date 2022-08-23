@@ -53,6 +53,15 @@ namespace OpenNefia.Content.Materials
         [DataField]
         public bool GenerateOnFurniture { get; } = true;
 
+        [DataField]
+        public bool IsFireproof { get; }
+
+        [DataField]
+        public bool IsAcidproof { get; }
+
+        [DataField]
+        public bool IsColdproof { get; }
+
         [DataField("enchantments")]
         private List<EnchantmentSpecifer> _enchantments { get; set; } = new();
         public IReadOnlyList<EnchantmentSpecifer> Enchantments => _enchantments;
