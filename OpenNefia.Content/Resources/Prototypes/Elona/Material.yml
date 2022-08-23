@@ -132,6 +132,10 @@
     components:
     - type: EncModifyAttribute
       skillID: Elona.AttrSpeed
+  events:
+  - type: Materials.P_MaterialApplyToEquipperEvent
+    system: Materials.VanillaMaterialsSystem
+    method: IncreaseEtherDiseaseSpeed
 - type: Elona.Material
   id: Elona.Steel
   hspIds:
