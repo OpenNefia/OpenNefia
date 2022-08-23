@@ -85,6 +85,7 @@ namespace OpenNefia.Content.Combat
 
             SubscribeComponent<SkillsComponent, EntityRefreshEvent>(ApplyShieldPVBonus, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EquipStatsComponent, EntityRefreshEvent>(AdjustExtraMeleeAndCriticalChances, priority: EventPriorities.High);
+            SubscribeComponent<EquipStatsComponent, CalcFinalDamageEvent>(ProcDammageImmunity, priority: EventPriorities.Lowest);
 
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackHitEventArgs>(GainCombatSkillExperienceOnHit, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackMissEventArgs>(GainCombatSkillExperienceOnMiss, priority: EventPriorities.VeryHigh);
@@ -166,6 +167,16 @@ namespace OpenNefia.Content.Combat
                 equipStats.CriticalRate.Buffed = 30;
             }
             // <<<<<<<< elona122/shade2/calculation.hsp:553 	if cCritChance(r1)>30:cATK(r1)+=(cCritChance(r1)- ...
+        }
+
+        private void ProcDammageImmunity(EntityUid uid, EquipStatsComponent equipStats, CalcFinalDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1466 	if cImmuneDamage(tc)>0:if cImmuneDamage(tc)>rnd(1 ...
+            if (equipStats.DamageImmunityRate.Buffed > 0 && _rand.Prob(equipStats.DamageImmunityRate.Buffed))
+            {
+                args.OutFinalDamage = 0;
+            }
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1466 	if cImmuneDamage(tc)>0:if cImmuneDamage(tc)>rnd(1 ...
         }
 
         public bool IsMeleeWeapon(EntityUid ent)

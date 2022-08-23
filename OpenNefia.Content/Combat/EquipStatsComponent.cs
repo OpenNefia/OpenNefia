@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Combat
         /// Added damage immunity rate.
         /// </summary>
         [DataField]
-        public Stat<int> DamageImmunityRate { get; set; } = new(0);
+        public Stat<float> DamageImmunityRate { get; set; } = new(0);
 
         /// <summary>
         /// Added damage reflection.
