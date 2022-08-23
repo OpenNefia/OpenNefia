@@ -1601,6 +1601,7 @@
     value: 40000
   - type: Material
     materialID: Elona.Steel
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -1653,6 +1654,7 @@
     value: 40000
   - type: Material
     materialID: Elona.Silver
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -1906,6 +1908,7 @@
     value: 50000
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -1953,6 +1956,7 @@
     value: 60000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -2239,6 +2243,7 @@
     value: 20000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -2364,6 +2369,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 80
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 900
@@ -2387,6 +2393,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 10200
@@ -2410,6 +2417,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 6400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -2434,6 +2442,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1400
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2462,6 +2471,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 240
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2487,6 +2497,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 320
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2512,6 +2523,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2539,6 +2551,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2564,6 +2577,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1600
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2589,6 +2603,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 450
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2614,6 +2629,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 720
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2640,6 +2656,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 15000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 45000
@@ -2667,6 +2684,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2692,6 +2710,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2717,6 +2736,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 180
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 3400
@@ -2741,6 +2761,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 750
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2766,6 +2787,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 160
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2791,6 +2813,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 120
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2818,6 +2841,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4200
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2843,6 +2867,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2868,6 +2893,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 140
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2893,6 +2919,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 120
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2918,6 +2945,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1050
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2943,6 +2971,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 80
@@ -2966,6 +2995,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 360
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -2991,6 +3021,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 120
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3016,6 +3047,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7300
@@ -3039,6 +3071,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 750
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8200
@@ -3062,6 +3095,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7600
@@ -3085,6 +3119,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3110,6 +3145,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1050
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 750
@@ -3133,6 +3169,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1300
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 820
@@ -3181,6 +3218,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3206,6 +3244,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 45800
@@ -3232,6 +3271,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 8500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 14000
@@ -3255,6 +3295,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 100
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 3200
@@ -3278,6 +3319,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 120
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 3500
@@ -3301,6 +3343,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 240
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9500
@@ -3549,6 +3592,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7800
@@ -3599,6 +3643,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 80
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3649,6 +3694,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3676,6 +3722,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 850
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3701,6 +3748,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1050
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3726,6 +3774,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3751,6 +3800,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 650
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3776,6 +3826,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 750
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3801,6 +3852,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 880
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3826,6 +3878,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 920
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3851,6 +3904,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3876,6 +3930,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 780
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3901,6 +3956,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 32000
@@ -3924,6 +3980,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3900
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 32000
@@ -3972,6 +4029,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 450
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -3997,6 +4055,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 17400
@@ -4020,6 +4079,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 240
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1500
@@ -4043,6 +4103,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 940
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4068,6 +4129,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1400
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4093,6 +4155,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1900
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4118,6 +4181,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3600
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4143,6 +4207,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 240
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 830
@@ -4166,6 +4231,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 320
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 940
@@ -4189,6 +4255,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4214,6 +4281,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4400
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4239,6 +4307,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 350
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4264,6 +4333,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4289,6 +4359,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1100
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4314,6 +4385,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4339,6 +4411,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9700
@@ -4362,6 +4435,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4387,6 +4461,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 860
@@ -4412,6 +4487,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4487,6 +4563,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 430
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4512,6 +4589,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1400
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -4538,6 +4616,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 400000
@@ -4562,6 +4641,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1700
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 400000
@@ -4586,6 +4666,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3250
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 650000
@@ -4609,6 +4690,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 650000
@@ -4632,6 +4714,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 650000
@@ -4655,6 +4738,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 6500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 650000
@@ -4678,6 +4762,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 650000
@@ -4763,6 +4848,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12400
@@ -5193,6 +5279,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 120
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 450
@@ -5678,6 +5765,7 @@
     value: 60000
   - type: Material
     materialID: Elona.Ether
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -5728,6 +5816,7 @@
     value: 60000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -5833,6 +5922,7 @@
     value: 180
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
   - type: Weight
     weight: 2000
@@ -6721,6 +6811,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -6746,6 +6837,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -7219,6 +7311,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 6500
@@ -7862,6 +7955,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 350000
@@ -7885,6 +7979,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1300
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 300000
@@ -7909,6 +8004,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 300000
@@ -7934,6 +8030,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 380
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 300000
@@ -7957,6 +8054,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9800
@@ -7981,6 +8079,7 @@
     - Elona.TagItemFish
   - type: Value
     value: 380
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1500
@@ -8004,6 +8103,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 380
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 180
@@ -8243,6 +8343,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12000
@@ -8266,6 +8367,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 6800
@@ -8289,6 +8391,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7500
@@ -8313,6 +8416,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 320
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1080
@@ -8336,6 +8440,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 890
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4500
@@ -8359,6 +8464,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -8383,6 +8489,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 17500
@@ -8408,6 +8515,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2400
@@ -8433,6 +8541,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 5500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9000
@@ -8458,6 +8567,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1900
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8500
@@ -8504,6 +8614,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 6800
@@ -8528,6 +8639,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -8554,6 +8666,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 13000
@@ -8580,6 +8693,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -8606,6 +8720,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 5200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 34000
@@ -8630,6 +8745,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12000
@@ -8655,6 +8771,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9000
@@ -8678,6 +8795,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8000
@@ -8704,6 +8822,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9500
@@ -8729,6 +8848,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 28000
@@ -8750,6 +8870,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 14000
@@ -8771,6 +8892,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 24000
@@ -8790,6 +8912,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12000
@@ -8811,6 +8934,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -8834,6 +8958,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1200
@@ -8857,6 +8982,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 890
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7600
@@ -8880,6 +9006,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1020
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -8904,6 +9031,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 880
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2800
@@ -8929,6 +9057,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 900
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 6800
@@ -8952,6 +9081,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1480
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8800
@@ -8975,6 +9105,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12000
@@ -9000,6 +9131,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -9023,6 +9155,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -9049,6 +9182,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 10000
@@ -9074,6 +9208,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8900
@@ -9097,6 +9232,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 6400
@@ -9120,6 +9256,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 29000
@@ -9147,6 +9284,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15600
@@ -9195,6 +9333,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1440
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1050
@@ -9218,6 +9357,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4900
@@ -9265,6 +9405,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 6800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 35000
@@ -9290,6 +9431,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -9315,6 +9457,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 21000
@@ -9481,6 +9624,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 780
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 500
@@ -9836,6 +9980,7 @@
     value: 40000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -9879,6 +10024,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -9925,6 +10071,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -9966,6 +10113,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -10015,6 +10163,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -10063,6 +10212,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -11495,6 +11645,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 15000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 140000
@@ -11514,6 +11665,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 30000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 140000
@@ -13845,6 +13997,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 3600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 150000
@@ -13872,6 +14025,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 4400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 45000
@@ -13899,6 +14053,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 120000
@@ -13925,6 +14080,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 1600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1500
@@ -13950,6 +14106,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 3200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 150000
@@ -13975,6 +14132,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 95000
@@ -14000,6 +14158,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 3100
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 14000
@@ -14024,6 +14183,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 1000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8000
@@ -14049,6 +14209,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 800
@@ -14074,6 +14235,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 1000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 500
@@ -14633,6 +14795,7 @@
     value: 60000
   - type: Material
     materialID: Elona.Ether
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -15075,6 +15238,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 8500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 68000
@@ -15100,6 +15264,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 9400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 45000
@@ -15125,6 +15290,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 85000
@@ -15150,6 +15316,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -15173,6 +15340,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 5800
@@ -15196,6 +15364,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 8500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2000
@@ -15219,6 +15388,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 8200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 500
@@ -15242,6 +15412,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 12000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 450
@@ -15265,6 +15436,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 25000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 48000
@@ -15288,6 +15460,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2500
@@ -15313,6 +15486,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8500
@@ -16343,6 +16517,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 10200
@@ -16453,6 +16628,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -16480,6 +16656,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1500
@@ -16506,6 +16683,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 7200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 250000
@@ -16631,6 +16809,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8500
@@ -16656,6 +16835,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 180
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 3400
@@ -16680,6 +16860,7 @@
     - Elona.TagItemSf
   - type: Value
     value: 7200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 250000
@@ -16705,6 +16886,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 18000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 12000
@@ -16730,6 +16912,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 16000
@@ -16753,6 +16936,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4800
@@ -16919,6 +17103,7 @@
     - Elona.Precious
   - type: Value
     value: 12000
+  - type: Furniture
   - type: Item
     isPrecious: true
   - type: Weight
@@ -16947,6 +17132,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 800
@@ -16970,6 +17156,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1200
@@ -16993,6 +17180,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 9500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8250
@@ -17016,6 +17204,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4200
@@ -17039,6 +17228,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1500
@@ -17064,6 +17254,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 700
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1600
@@ -17089,6 +17280,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 5600
@@ -17135,6 +17327,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2000
@@ -17161,6 +17354,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 35000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 24000
@@ -17186,6 +17380,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8000
@@ -17464,6 +17659,7 @@
     - Elona.Precious
   - type: Value
     value: 7500
+  - type: Furniture
   - type: Item
     isPrecious: true
   - type: Weight
@@ -17531,6 +17727,7 @@
     value: 40000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -17644,6 +17841,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 50
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 5000000
@@ -17959,6 +18157,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4800
@@ -18008,6 +18207,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 2000
@@ -18033,6 +18233,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 9500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 11000
@@ -18056,6 +18257,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4500
@@ -18079,6 +18281,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 5000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7800
@@ -18102,6 +18305,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -18127,6 +18331,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -18177,6 +18382,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8400
@@ -18200,6 +18406,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -18223,6 +18430,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 600
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 150000
@@ -18247,6 +18455,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7500
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -18306,6 +18515,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7900
@@ -18331,6 +18541,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1200
@@ -18356,6 +18567,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 500
@@ -18381,6 +18593,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1000
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -18447,6 +18660,7 @@
     value: 25000
   - type: Material
     materialID: Elona.Leather
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -18794,6 +19008,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Ether
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -18855,6 +19070,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Diamond
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -18916,6 +19132,7 @@
     value: 35000
   - type: Material
     materialID: Elona.SpiritCloth
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -18964,6 +19181,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19012,6 +19230,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Silver
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19061,6 +19280,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Mica
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19111,6 +19331,7 @@
     value: 35000
   - type: Material
     materialID: Elona.Adamantium
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19435,6 +19656,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 4500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 18000
@@ -19462,6 +19684,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 8500
@@ -19489,6 +19712,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 1500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 850
@@ -19515,6 +19739,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 30000
@@ -19540,6 +19765,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1200
@@ -19572,6 +19798,7 @@
     value: 50000
   - type: Material
     materialID: Elona.Rubynus
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19856,6 +20083,7 @@
     value: 50
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -19922,6 +20150,7 @@
     - Elona.Precious
   - type: Value
     value: 35000
+  - type: Furniture
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20215,6 +20444,7 @@
     value: 9500
   - type: Material
     materialID: Elona.Adamantium
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20294,6 +20524,7 @@
     value: 94000
   - type: Material
     materialID: Elona.Silk
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20354,6 +20585,7 @@
     value: 45000
   - type: Material
     materialID: Elona.Silver
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20394,6 +20626,7 @@
     - Elona.TagItemNoshop
   - type: Value
     value: 25000
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -20463,6 +20696,7 @@
     value: 9500
   - type: Material
     materialID: Elona.Coral
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20505,6 +20739,7 @@
     value: 9500
   - type: Material
     materialID: Elona.Mica
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20574,6 +20809,7 @@
     value: 25000
   - type: Material
     materialID: Elona.Gold
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20633,6 +20869,7 @@
     value: 7500
   - type: Material
     materialID: Elona.Wood
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20676,6 +20913,7 @@
     value: 17500
   - type: Material
     materialID: Elona.Coral
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20719,6 +20957,7 @@
     value: 15000
   - type: Material
     materialID: Elona.Mithril
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -20754,6 +20993,7 @@
     - Elona.TagItemSpshop
   - type: Value
     value: 2500
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1000
@@ -21050,6 +21290,7 @@
     value: 30000
   - type: Material
     materialID: Elona.Ether
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21098,6 +21339,7 @@
     value: 1200
   - type: Material
     materialID: Elona.Mica
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21141,6 +21383,7 @@
     value: 40000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21375,6 +21618,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 150000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7500
@@ -21394,6 +21638,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 150000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 7500
@@ -21432,6 +21677,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7800
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -21453,6 +21699,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 720
@@ -21532,6 +21779,7 @@
     value: 15000
   - type: Material
     materialID: Elona.Obsidian
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21577,6 +21825,7 @@
     value: 25000
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21632,6 +21881,7 @@
     value: 4800
   - type: Material
     materialID: Elona.Ether
+    noMaterialEffects: true
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -21708,6 +21958,7 @@
     - Elona.Precious
   - type: Value
     value: 35000
+  - type: Furniture
   - type: Item
     isPrecious: true
   - type: Weight
@@ -21733,6 +21984,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 760
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 280
@@ -21758,6 +22010,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3600
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -21783,6 +22036,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 1200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 9900
@@ -21806,6 +22060,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 48500
@@ -21829,6 +22084,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 3800
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 48500
@@ -21849,6 +22105,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 250
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 800
@@ -21871,6 +22128,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 150
@@ -21891,6 +22149,7 @@
     - Elona.TagItemFest
   - type: Value
     value: 1650
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 530
@@ -21990,6 +22249,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 2400
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 15000
@@ -22013,6 +22273,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 7200
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 23800
@@ -22125,6 +22386,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 4900
+  - type: Furniture
   - type: Item
   - type: RandomColor
     randomColor: Furniture
@@ -22150,6 +22412,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 16000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 1800
@@ -22173,6 +22436,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 23000
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 4200
@@ -22233,6 +22497,7 @@
     - Elona.ItemCatFurniture
   - type: Value
     value: 100
+  - type: Furniture
   - type: Item
   - type: Weight
     weight: 150
@@ -22488,6 +22753,7 @@
     value: 72000
   - type: Material
     materialID: Elona.Iron
+    noMaterialEffects: true
   - type: Item
     isPrecious: true
   - type: Weight

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Enchantments;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -51,5 +52,9 @@ namespace OpenNefia.Content.Materials
 
         [DataField]
         public bool GenerateOnFurniture { get; } = true;
+
+        [DataField("enchantments")]
+        private List<EnchantmentSpecifer> _enchantments { get; set; } = new();
+        public IReadOnlyList<EnchantmentSpecifer> Enchantments => _enchantments;
     }
 }

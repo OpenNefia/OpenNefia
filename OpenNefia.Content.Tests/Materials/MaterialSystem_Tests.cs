@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.Areas;
 using OpenNefia.Content.Combat;
+using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Maps;
@@ -50,6 +51,7 @@ namespace OpenNefia.Content.Tests.Materials
   - type: Ammo
     diceX: 10
     diceY: 10
+  - type: Enchantments
 
 - type: Entity
   id: {TestEntityFurniture}
@@ -131,6 +133,91 @@ namespace OpenNefia.Content.Tests.Materials
 
             var furnitureValueAfter = entMan.GetComponent<ValueComponent>(entFurniture).Value.Buffed;
             Assert.That(furnitureValueBefore, Is.EqualTo(furnitureValueAfter));
+        }
+
+        [Test]
+        public void TestMaterialSystem_Enchantments()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var enchantments = sim.GetEntitySystem<IEnchantmentSystem>();
+
+            var sys = sim.GetEntitySystem<IMaterialSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var entWeapon = entGen.SpawnEntity(TestEntityWeapon, map.AtPos(0, 0))!.Value;
+
+            Assert.Multiple(() =>
+            {
+                var encs = enchantments.EnumerateEnchantments(entWeapon).Where(e => e.PowerContributions.Any(p => p.Source == EnchantmentSources.Material)).ToList();
+
+                Assert.That(encs.Count(), Is.EqualTo(1));
+
+                var enc = encs.First();
+                Assert.That(enc.TotalPower, Is.EqualTo(200));
+                Assert.That(entMan.TryGetComponent<EncModifyAttributeComponent>(enc.Owner, out var encModAttr), Is.True);
+                Assert.That(encModAttr.SkillID, Is.EqualTo(Protos.Skill.AttrSpeed));
+            });
+        }
+
+        [Test]
+        public void TestMaterialSystem_NoMaterialEffects()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var refresh = sim.GetEntitySystem<IRefreshSystem>();
+            var enchantments = sim.GetEntitySystem<IEnchantmentSystem>();
+
+            var sys = sim.GetEntitySystem<IMaterialSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var entLuckyDagger = entGen.SpawnEntity(Protos.Item.LuckyDagger, map.AtPos(0, 0))!.Value;
+
+            Assert.Multiple(() =>
+            {
+                // This weapon is made of mica on generation, so it should have an "enhances luck"
+                // enchantment.
+                var encs = enchantments.EnumerateEnchantments(entLuckyDagger).Where(e => e.PowerContributions.Any(p => p.Source == EnchantmentSources.Material)).ToList();
+
+                Assert.That(encs.Count(), Is.EqualTo(1));
+
+                var enc = encs.First();
+                Assert.That(enc.TotalPower, Is.EqualTo(100));
+                Assert.That(entMan.TryGetComponent<EncModifyAttributeComponent>(enc.Owner, out var encModAttr), Is.True);
+                Assert.That(encModAttr.SkillID, Is.EqualTo(Protos.Skill.AttrLuck));
+
+                // However, there should be no stat bonuses as NoMaterialEffects is set to true in
+                // the prototype.
+                var equipStats = entMan.GetComponent<EquipStatsComponent>(entLuckyDagger);
+                Assert.That(equipStats.HitBonus.Base, Is.EqualTo(13));
+                Assert.That(equipStats.DamageBonus.Base, Is.EqualTo(18));
+                Assert.That(equipStats.DV.Base, Is.EqualTo(18));
+                Assert.That(equipStats.PV.Base, Is.EqualTo(13));
+
+                // Now see what happens when we allow material effects again.
+                var material = entMan.GetComponent<MaterialComponent>(entLuckyDagger);
+                material.NoMaterialEffects = false;
+                refresh.Refresh(entLuckyDagger);
+                
+                Assert.That(equipStats.HitBonus.Base, Is.EqualTo(13));
+                Assert.That(equipStats.DamageBonus.Base, Is.EqualTo(18));
+                Assert.That(equipStats.DV.Base, Is.EqualTo(18));
+                Assert.That(equipStats.PV.Base, Is.EqualTo(13));
+            });
         }
     }
 }
