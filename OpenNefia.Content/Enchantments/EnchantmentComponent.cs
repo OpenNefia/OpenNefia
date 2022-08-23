@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Core;
+using NLua;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -58,9 +59,6 @@ namespace OpenNefia.Content.Enchantments
 
         [DataField]
         public int TurnsUntilNextEvent { get; set; }
-
-        [DataField]
-        public LocaleKey? Description { get; set; }
 
         /// <summary>
         /// Power contributions of enchantments merged into this enchantment.

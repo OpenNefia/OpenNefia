@@ -130,31 +130,27 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             _itemGen.GenerateItem(inv, Protos.Item.CargoTravelersFood, amount: 999);
 
-            var claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore);
-            if (IsAlive(claymore))
-            {
-                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifyAttribute, 100);
-                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifyResistance, 100);
-                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ModifySkill, 100);
-                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.ElementalDamage, 100);
-                _enchantments.AddEnchantment(claymore.Value, Protos.Enchantment.SustainAttribute, 100);
-            }
-            var bread = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.StickBread, amount: 1);
-            if (IsAlive(bread))
-            {
-                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifyAttribute, 100);
-                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifyResistance, 100);
-                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ModifySkill, 100);
-                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.ElementalDamage, 100);
-                _enchantments.AddEnchantment(bread.Value, Protos.Enchantment.SustainAttribute, 100);
-            }
-
             foreach (var material in _protos.EnumeratePrototypes<MaterialPrototype>())
             {
-                claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore, quality: Quality.God);
+                var claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore, quality: Quality.God);
                 if (IsAlive(claymore))
                 {
                     _materials.ChangeItemMaterial(claymore.Value, material.GetStrongID());
+                }
+            }
+
+            foreach (var enc in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<EnchantmentComponent>()))
+            {
+                var claymore = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Claymore, quality: Quality.Great);
+                if (IsAlive(claymore))
+                {
+                    _enchantments.AddEnchantment(claymore.Value, enc.GetStrongID(), 600);
+                }
+
+                var putitoro = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Putitoro, quality: Quality.Great);
+                if (IsAlive(putitoro))
+                {
+                    _enchantments.AddEnchantment(putitoro.Value, enc.GetStrongID(), 600);
                 }
             }
 

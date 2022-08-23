@@ -31,6 +31,7 @@ using OpenNefia.Content.Combat;
 using NetVips;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -60,6 +61,9 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IIdentifySystem _identify = default!;
         [Dependency] private readonly IEquipmentSystem _equipment = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IItemDescriptionSystem _itemDescriptions = default!;
+        [Dependency] private readonly IContainerSystem _containers = default!;
 
         public override void Initialize()
         {
@@ -181,18 +185,25 @@ namespace OpenNefia.Content.Enchantments
             if (_identify.GetIdentifyState(item) < IdentifyState.Full)
                 return;
 
+            var wielder = _gameSession.Player;
+            if (_containers.TryGetContainingContainer(item, out var container))
+                wielder = container.Owner;
+
             foreach (var enc in EnumerateEnchantments(item, encs))
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
 
-                var desc = enc.Description != null ? Loc.GetString(enc.Description.Value) : "";
+                string? desc = string.Empty;
+                if (TryProtoID(enc.Owner, out var encID) && Loc.TryGetPrototypeString(encID.Value, "Enchantment.Description", out var encDesc))
+                    desc = encDesc;
+
                 var hasProvidedDesc = !string.IsNullOrEmpty(desc);
 
-                var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower, item, desc);
+                var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower, item, wielder, desc);
                 RaiseEvent(enc.Owner, ev);
                 desc = ev.OutDescription;
 
-                if (TryProtoID(enc.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("enchantment", enc.Owner), ("item", item), ("adjustedPower", adjustedPower)))
+                if (TryProtoID(enc.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("item", item), ("adjustedPower", adjustedPower), ("wielder", wielder)))
                     desc = desc2;
 
                 if (ev.OutShowPower ?? hasProvidedDesc)
@@ -475,16 +486,19 @@ namespace OpenNefia.Content.Enchantments
     {
         public int AdjustedPower { get; }
         public EntityUid Item { get; }
+        public EntityUid ItemOwner { get; }
 
         public string OutDescription { get; set; }
         public int OutGrade { get; set; }
         public bool? OutShowPower { get; set; }
 
-        public GetEnchantmentDescriptionEventArgs(int adjustedPower, EntityUid item, string description)
+        public GetEnchantmentDescriptionEventArgs(int adjustedPower, EntityUid item, EntityUid equipper, string description)
         {
             AdjustedPower = adjustedPower;
             Item = item;
+            ItemOwner = equipper;
             OutDescription = description;
+            OutGrade = AdjustedPower;
         }
     }
 

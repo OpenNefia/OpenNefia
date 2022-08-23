@@ -432,7 +432,7 @@
   - type: EncAbsorbMana
 
 - type: Entity
-  id: Elona.EncAddPierceChance
+  id: Elona.EncPierceChance
   hspIds:
     elona122: 45
   parent: BaseEnchantment
@@ -445,10 +445,10 @@
     validItemCategories:
     - Elona.ItemCatEquipMelee
     - Elona.ItemCatEquipWrist
-  - type: EncAddPierceChance
+  - type: EncPierceChance
 
 - type: Entity
-  id: Elona.EncAddCriticalChance
+  id: Elona.EncCriticalChance
   hspIds:
     elona122: 46
   parent: BaseEnchantment
@@ -461,10 +461,10 @@
     validItemCategories:
     - Elona.ItemCatEquipRing
     - Elona.ItemCatEquipNeck
-  - type: EncAddCriticalChance
+  - type: EncCriticalChance
 
 - type: Entity
-  id: Elona.EncAddExtraMeleeAttackChance
+  id: Elona.EncExtraMeleeAttackChance
   hspIds:
     elona122: 47
   parent: BaseEnchantment
@@ -474,10 +474,10 @@
     valueModifier: 1.8
     randomWeight: 150
     alignmentType: Positive
-  - type: EncAddExtraMeleeAttackChance
+  - type: EncExtraMeleeAttackChance
 
 - type: Entity
-  id: Elona.EncAddExtraRangedAttackChance
+  id: Elona.EncExtraRangedAttackChance
   hspIds:
     elona122: 48
   parent: BaseEnchantment
@@ -490,7 +490,7 @@
     validItemCategories:
     - Elona.ItemCatEquipRing
     - Elona.ItemCatEquipNeck
-  - type: EncAddExtraRangedAttackChance
+  - type: EncExtraRangedAttackChance
 
 - type: Entity
   id: Elona.EncTimeStop

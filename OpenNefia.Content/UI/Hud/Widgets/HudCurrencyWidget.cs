@@ -108,7 +108,7 @@ namespace OpenNefia.Content.Hud
             base.RefreshWidget();
             if (_entMan.TryGetComponent<LevelComponent>(GameSession.Player, out var level))
             {
-                Text = $"{Loc.GetString("Elona.Hud.Info.Level")}{level.Level}/{level.ExperienceToNext}";
+                Text = $"{Loc.GetString("Elona.Hud.Info.Level")}{level.Level}/{level.Experience}";
             }
         }
     }

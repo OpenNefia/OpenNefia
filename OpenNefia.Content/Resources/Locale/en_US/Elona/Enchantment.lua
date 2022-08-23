@@ -4,19 +4,23 @@ Elona.Enchantment = {
     Item = {
         ModifyAttribute = {
             Equipment = {
-                Increases = function(item, skillName, power)
-                    return ("%s increases your %s by %s."):format(_.he(item), skillName, power)
+                Increases = function(item, wielder, skillName, power)
+                    return ("%s increases %s %s by %s."):format(_.he(item), _.possessive(wielder), skillName, power)
                 end,
-                Decreases = function(item, skillName, power)
-                    return ("%s decreases your %s by %s."):format(_.he(item), skillName, power)
+                Decreases = function(item, wielder, skillName, power)
+                    return ("%s decreases %s %s by %s."):format(_.he(item), _.possessive(wielder), skillName, power)
                 end,
             },
             Food = {
-                Increases = function(item, skillName, power)
-                    return ("%s has essential nutrients to enhance your %s."):format(_.he(item), skillName)
+                Increases = function(item, wielder, skillName, power)
+                    return ("%s has essential nutrients to enhance %s %s."):format(
+                        _.he(item),
+                        _.possessive(wielder),
+                        skillName
+                    )
                 end,
-                Decreases = function(item, skillName, power)
-                    return ("%s has which deteriorates your %s."):format(_.he(item), skillName)
+                Decreases = function(item, wielder, skillName, power)
+                    return ("%s has which deteriorates %s %s."):format(_.he(item), _.possessive(wielder), skillName)
                 end,
             },
             Eaten = {
@@ -30,29 +34,34 @@ Elona.Enchantment = {
         },
 
         ModifyResistance = {
-            Increases = function(item, elementName)
-                return ("%s grants your resistance to %s."):format(_.he(item), elementName)
+            Increases = function(item, wielder, elementName)
+                return ("%s grants %s resistance to %s."):format(_.he(item), _.posessive(wielder), elementName)
             end,
-            Decreases = function(item, elementName)
-                return ("%s weakens your resistance to %s."):format(_.he(item), elementName)
+            Decreases = function(item, wielder, elementName)
+                return ("%s weakens %s resistance to %s."):format(_.he(item), _.possessive(wielder), elementName)
             end,
         },
 
         ModifySkill = {
-            Increases = function(item, skillName, power)
-                return ("%s improves your %s skill."):format(_.he(item), skillName)
+            Increases = function(item, wielder, skillName, power)
+                return ("%s improves %s %s skill."):format(_.he(item), _.possessive(wielder), skillName)
             end,
-            Decreases = function(item, skillName, power)
-                return ("%s decreases your %s skill."):format(_.he(item), skillName)
+            Decreases = function(item, wielder, skillName, power)
+                return ("%s decreases %s %s skill."):format(_.he(item), _.possessive(wielder), skillName)
             end,
         },
 
         SustainAttribute = {
-            Equipment = function(item, skillName, power)
+            Equipment = function(item, wielder, skillName, power)
                 return ("%s maintains %s."):format(_.he(item), skillName)
             end,
-            Food = function(item, skillName, power)
-                return ("%s can help you exercise your %s faster."):format(_.he(item), skillName)
+            Food = function(item, wielder, skillName, power)
+                return ("%s can help %s exercise %s %s faster."):format(
+                    _.he(item),
+                    _.name(wielder, true),
+                    _.possessive(wielder),
+                    skillName
+                )
             end,
             Eaten = function(chara, skillName)
                 return ("%s %s enters a period of rapid growth."):format(_.possessive(chara), skillName)
@@ -60,9 +69,31 @@ Elona.Enchantment = {
         },
 
         ElementalDamage = {
-            Description = function(item, elementName, power)
+            Description = function(item, wielder, elementName, power)
                 return ("%s deals %s damage."):format(_.he(item), elementName)
             end,
+        },
+
+        InvokeSpell = {
+            Description = function(item, wielder, spellName, power)
+                return ("%s invokes %s."):format(_.he(item), spellName)
+            end,
+        },
+
+        SuckBlood = {
+            BloodSucked = function(entity)
+                return ("Something sucks %s blood."):format(_.possessive(entity))
+            end,
+        },
+
+        SuckExperience = {
+            ExperienceReduced = function(entity)
+                return ("%s become%s inexperienced."):format(_.name(entity), _.s(entity))
+            end,
+        },
+
+        SummonCreature = {
+            CreatureSummoned = "Several creatures are summoned from a vortex of magic.",
         },
     },
 

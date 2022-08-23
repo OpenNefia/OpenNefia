@@ -181,30 +181,30 @@ namespace OpenNefia.Content.Enchantments
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncAddPierceChanceComponent : Component, IEnchantmentComponent
+    public sealed class EncPierceChanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncAddPierceChance";
+        public override string Name => "EncPierceChance";
     }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncAddCriticalChanceComponent : Component, IEnchantmentComponent
+    public sealed class EncCriticalChanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncAddCriticalChance";
+        public override string Name => "EncCriticalChance";
     }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncAddExtraMeleeAttackChanceComponent : Component, IEnchantmentComponent
+    public sealed class EncExtraMeleeAttackChanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncAddExtraMeleeAttackChance";
+        public override string Name => "EncExtraMeleeAttackChance";
     }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
-    public sealed class EncAddExtraRangedAttackChanceComponent : Component, IEnchantmentComponent
+    public sealed class EncExtraRangedAttackChanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncAddExtraRangedAttackChance";
+        public override string Name => "EncExtraRangedAttackChance";
     }
 
     [RegisterComponent]
