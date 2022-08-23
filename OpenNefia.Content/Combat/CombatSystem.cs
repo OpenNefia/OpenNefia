@@ -48,6 +48,8 @@ namespace OpenNefia.Content.Combat
         bool TryGetAmmo(EntityUid entity, EntityUid? weapon, [NotNullWhen(true)] out EntityUid? ammo);
         TurnResult? RangedAttack(EntityUid attacker, EntityUid target, EntityUid rangedWeapon);
         bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair);
+        void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, ref int attackCount, EntityUid? weapon = null, bool isRanged = false);
+        void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null, bool isRanged = false);
     }
 
     public sealed partial class CombatSystem : EntitySystem, ICombatSystem
@@ -169,7 +171,7 @@ namespace OpenNefia.Content.Combat
             // <<<<<<<< elona122/shade2/calculation.hsp:553 	if cCritChance(r1)>30:cATK(r1)+=(cCritChance(r1)- ...
         }
 
-        private void ProcDammageImmunity(EntityUid uid, EquipStatsComponent equipStats, CalcFinalDamageEvent args)
+        private void ProcDammageImmunity(EntityUid uid, EquipStatsComponent equipStats, ref CalcFinalDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:1466 	if cImmuneDamage(tc)>0:if cImmuneDamage(tc)>rnd(1 ...
             if (equipStats.DamageImmunityRate.Buffed > 0 && _rand.Prob(equipStats.DamageImmunityRate.Buffed))
@@ -293,11 +295,11 @@ namespace OpenNefia.Content.Combat
 
             if (weapons.Count > 0)
             {
-                foreach (var (weapon, attackCount) in weapons.WithIndex())
+                var attackCount = 0;
+                foreach (var weapon in weapons)
                 {
-
                     var attackSkill = GetPhysicalAttackSkill(weapon);
-                    PhysicalAttack(attacker, target, attackSkill, weapon, attackCount);
+                    PhysicalAttack(attacker, target, attackSkill, ref attackCount, weapon, isRanged: false);
                 }
             }
             else
@@ -324,7 +326,7 @@ namespace OpenNefia.Content.Combat
             var weaponSkill = weaponComp.WeaponSkill;
 
             // TODO ammo enchantments
-            PhysicalAttack(attacker, target, weaponSkill, rangedWeapon, 0, isRanged: true);
+            PhysicalAttack(attacker, target, weaponSkill, rangedWeapon, isRanged: true);
             return TurnResult.Succeeded;
         }
 
@@ -403,7 +405,18 @@ namespace OpenNefia.Content.Combat
         /// chances.
         /// </summary>
         public void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null,
-            int attackCount = 0, bool isRanged = false)
+            bool isRanged = false)
+        {
+            var attackCount = 0;
+            PhysicalAttack(attacker, target, attackSkill, ref attackCount, weapon, isRanged);
+        }
+        
+        /// <summary>
+        /// Does one or more physical attacks, taking into account the extra melee/ranged attack
+        /// chances.
+        /// </summary>
+        public void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, ref int attackCount, EntityUid? weapon = null,
+            bool isRanged = false)
         {
             bool going = true;
 
