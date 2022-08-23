@@ -37,6 +37,8 @@ namespace OpenNefia.Content.StatusEffects
         bool Apply(EntityUid entity, PrototypeId<StatusEffectPrototype> id, int power = 10, bool showMessage = true, StatusEffectsComponent? statusEffects = null);
         bool Heal(EntityUid entity, PrototypeId<StatusEffectPrototype> id, int turns, bool showMessage = true, StatusEffectsComponent? statusEffects = null);
         bool HealFully(EntityUid entity, PrototypeId<StatusEffectPrototype> id, bool showMessage = true, StatusEffectsComponent? statusEffects = null);
+
+        void AddTemporaryEffectImmunity(EntityUid uid, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
     }
 
     public sealed class StatusEffectSystem : EntitySystem, IStatusEffectSystem
@@ -352,6 +354,14 @@ namespace OpenNefia.Content.StatusEffects
             var pev = new P_StatusEffectCalcAdjustedPowerEvent(entity, power);
             _protos.EventBus.RaiseEvent(proto, pev);
             return pev.OutPower;
+        }
+
+        public void AddTemporaryEffectImmunity(EntityUid uid, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
+        {
+            if (!Resolve(uid, ref statusEffects))
+                return;
+
+
         }
     }
 }

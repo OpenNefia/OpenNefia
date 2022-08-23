@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 
 namespace OpenNefia.Content.StatusEffects
 {
@@ -14,7 +15,7 @@ namespace OpenNefia.Content.StatusEffects
         public Dictionary<PrototypeId<StatusEffectPrototype>, StatusEffect> StatusEffects { get; } = new();
 
         [DataField]
-        public HashSet<PrototypeId<StatusEffectPrototype>> StatusEffectImmunities { get; } = new();
+        public HashSetStat<PrototypeId<StatusEffectPrototype>> StatusEffectImmunities { get; } = new();
     }
 
     [DataDefinition]

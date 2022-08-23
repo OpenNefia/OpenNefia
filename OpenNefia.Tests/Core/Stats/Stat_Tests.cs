@@ -27,6 +27,7 @@ namespace OpenNefia.Tests.Core.Stats
             Assert.That(new Stat<int>(42, 0).GetHashCode(), Is.EqualTo(new Stat<int>(42, 10000).GetHashCode()));
             Assert.That(new Stat<int>(0, 42).GetHashCode(), Is.Not.EqualTo(new Stat<int>(10000, 42).GetHashCode()));
         }
+        
         [Test]
         public void TestStatIsBuffed()
         {
