@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,11 +11,16 @@ namespace OpenNefia.Content.StatusEffects
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class CuresBleedingQuicklyComponent : Component
+    public sealed class CuresBleedingQuicklyComponent : Component, IComponentRefreshable
     {
         public override string Name => "CuresBleedingQuickly";
 
         [DataField]
         public Stat<bool> CuresBleedingQuickly { get; set; } = new(true);
+
+        public void Refresh()
+        {
+            CuresBleedingQuickly.Reset();
+        }
     }
 }

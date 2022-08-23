@@ -63,17 +63,13 @@ namespace OpenNefia.Analyzers
             MethodDeclarationSyntax decl,
             CancellationToken cancellationToken)
         {
-            var firstToken = decl.GetFirstToken();
-            var trimmedLocal = decl.ReplaceToken(
-                firstToken, firstToken.WithLeadingTrivia(SyntaxTriviaList.Empty));
-
-            var oldParamNode = trimmedLocal.ParameterList.Parameters[2];
+            var oldParamNode = decl.ParameterList.Parameters[2];
             var newParamNode = oldParamNode.WithModifiers(new SyntaxTokenList());
 
-            var newParameters = trimmedLocal.ParameterList.Parameters.Replace(oldParamNode, newParamNode);
-            var newParameterList = trimmedLocal.ParameterList.WithParameters(newParameters);
+            var newParameters = decl.ParameterList.Parameters.Replace(oldParamNode, newParamNode);
+            var newParameterList = decl.ParameterList.WithParameters(newParameters);
 
-            var newLocal = trimmedLocal.WithParameterList(newParameterList);
+            var newLocal = decl.WithParameterList(newParameterList);
             var formattedLocal = newLocal.WithAdditionalAnnotations(Formatter.Annotation);
 
             SyntaxNode oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
@@ -86,17 +82,13 @@ namespace OpenNefia.Analyzers
             MethodDeclarationSyntax decl,
             CancellationToken cancellationToken)
         {
-            var firstToken = decl.GetFirstToken();
-            var trimmedLocal = decl.ReplaceToken(
-                firstToken, firstToken.WithLeadingTrivia(SyntaxTriviaList.Empty));
-
-            var oldParamNode = trimmedLocal.ParameterList.Parameters[2];
+            var oldParamNode = decl.ParameterList.Parameters[2];
             var newParamNode = oldParamNode.WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.RefKeyword)));
 
-            var newParameters = trimmedLocal.ParameterList.Parameters.Replace(oldParamNode, newParamNode);
-            var newParameterList = trimmedLocal.ParameterList.WithParameters(newParameters);
+            var newParameters = decl.ParameterList.Parameters.Replace(oldParamNode, newParamNode);
+            var newParameterList = decl.ParameterList.WithParameters(newParameters);
 
-            var newLocal = trimmedLocal.WithParameterList(newParameterList);
+            var newLocal = decl.WithParameterList(newParameterList);
             var formattedLocal = newLocal.WithAdditionalAnnotations(Formatter.Annotation);
 
             SyntaxNode oldRoot = await document.GetSyntaxRootAsync(cancellationToken);

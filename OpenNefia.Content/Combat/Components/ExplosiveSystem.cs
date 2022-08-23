@@ -28,7 +28,6 @@ namespace OpenNefia.Content.Combat
 
         public override void Initialize()
         {
-            SubscribeComponent<ExplosiveComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<ExplosiveComponent, EntityWoundedEvent>(ProcExplode, priority: EventPriorities.VeryHigh + 30000);
         }
 

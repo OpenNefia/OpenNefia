@@ -365,7 +365,7 @@ namespace OpenNefia.Content.Food
 
         private void ApplyRottenFoodEffects(EntityUid entity, List<ExperienceGain> expGains, ref int nutrition)
         {
-            if (CompOrNull<CommonProtectionsComponent>(entity)?.IsProtectedFromRottenFood ?? false)
+            if (CompOrNull<CommonProtectionsComponent>(entity)?.IsProtectedFromRottenFood.Buffed ?? false)
             {
                 _mes.Display(Loc.GetString("Elona.Hunger.NotAffectedByRotten"));
                 return;

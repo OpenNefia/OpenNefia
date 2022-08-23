@@ -38,6 +38,10 @@ namespace OpenNefia.Content.StatusEffects
         bool Heal(EntityUid entity, PrototypeId<StatusEffectPrototype> id, int turns, bool showMessage = true, StatusEffectsComponent? statusEffects = null);
         bool HealFully(EntityUid entity, PrototypeId<StatusEffectPrototype> id, bool showMessage = true, StatusEffectsComponent? statusEffects = null);
 
+        /// <summary>
+        /// Adds a temporary status effect immunity that is removed when the entity is next
+        /// refreshed. For use in things like enchantments, buffs and feats.
+        /// </summary>
         void AddTemporaryEffectImmunity(EntityUid uid, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
     }
 
@@ -356,12 +360,13 @@ namespace OpenNefia.Content.StatusEffects
             return pev.OutPower;
         }
 
+        /// <inheritdoc/>
         public void AddTemporaryEffectImmunity(EntityUid uid, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
         {
             if (!Resolve(uid, ref statusEffects))
                 return;
 
-
+            statusEffects.StatusEffectImmunities.Add(id);
         }
     }
 }

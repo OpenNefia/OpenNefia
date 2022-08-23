@@ -25,6 +25,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Levels;
+using System.Runtime.InteropServices;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -37,6 +39,24 @@ namespace OpenNefia.Content.Enchantments
 
         private void Initialize_Unique()
         {
+            SubscribeComponent<EncResistBlindnessComponent, ApplyEnchantmentOnRefreshEvent>(EncResistBlindness_ApplyOnRefresh);
+            SubscribeComponent<EncResistParalysisComponent, ApplyEnchantmentOnRefreshEvent>(EncResistParalysis_ApplyOnRefresh);
+            SubscribeComponent<EncResistConfusionComponent, ApplyEnchantmentOnRefreshEvent>(EncResistConfusion_ApplyOnRefresh);
+            SubscribeComponent<EncResistFearComponent, ApplyEnchantmentOnRefreshEvent>(EncResistFear_ApplyOnRefresh);
+            SubscribeComponent<EncResistSleepComponent, ApplyEnchantmentOnRefreshEvent>(EncResistSleep_ApplyOnRefresh);
+            SubscribeComponent<EncResistPoisonComponent, ApplyEnchantmentOnRefreshEvent>(EncResistPoison_ApplyOnRefresh);
+            SubscribeComponent<EncResistTheftComponent, ApplyEnchantmentOnRefreshEvent>(EncResistTheft_ApplyOnRefresh);
+            SubscribeComponent<EncResistRottenFoodComponent, ApplyEnchantmentOnRefreshEvent>(EncResistRottenFood_ApplyOnRefresh);
+            SubscribeComponent<EncResistEtherwindComponent, ApplyEnchantmentOnRefreshEvent>(EncResistEtherwind_ApplyOnRefresh);
+            SubscribeComponent<EncResistBadWeatherComponent, ApplyEnchantmentOnRefreshEvent>(EncResistBadWeather_ApplyOnRefresh);
+            SubscribeComponent<EncResistPregnancyComponent, ApplyEnchantmentOnRefreshEvent>(EncResistPregnancy_ApplyOnRefresh);
+            SubscribeComponent<EncFloatComponent, ApplyEnchantmentOnRefreshEvent>(EncFloat_ApplyOnRefresh);
+            SubscribeComponent<EncResistMutationComponent, ApplyEnchantmentOnRefreshEvent>(EncResistMutation_ApplyOnRefresh);
+            SubscribeComponent<EncEnhanceSpellsComponent, ApplyEnchantmentOnRefreshEvent>(EncEnhanceSpells_ApplyOnRefresh);
+            SubscribeComponent<EncSeeInvisibleComponent, ApplyEnchantmentOnRefreshEvent>(EncSeeInvisible_ApplyOnRefresh);
+            SubscribeComponent<EncDetectReligionComponent, ApplyEnchantmentOnRefreshEvent>(EncDetectReligion_ApplyOnRefresh);
+            SubscribeComponent<EncGouldComponent, ApplyEnchantmentOnRefreshEvent>(EncGould_ApplyOnRefresh);
+
             SubscribeComponent<EncRandomTeleportComponent, CalcEnchantmentAdjustedPowerEvent>(EncRandomTeleport_CalcAdjustedPower);
             SubscribeComponent<EncRandomTeleportComponent, ApplyEnchantmentAfterPassTurnEvent>(EncRandomTeleport_ApplyAfterPassTurn);
 
@@ -49,7 +69,65 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EncSummonCreatureComponent, CalcEnchantmentAdjustedPowerEvent>(EncSummonCreature_CalcAdjustedPower);
             SubscribeComponent<EncSummonCreatureComponent, ApplyEnchantmentAfterPassTurnEvent>(EncSummonCreature_ApplyAfterPassTurn);
 
-            SubscribeComponent<EncResistBlindness, ApplyEnchantmentOnRefreshEvent>(EncResistBlindness_ApplyOnRefresh);
+            SubscribeComponent<EncFastTravelComponent, CalcEnchantmentAdjustedPowerEvent>(EncFastTravel_CalcAdjustedPower);
+            SubscribeComponent<EncFastTravelComponent, ApplyEnchantmentOnRefreshEvent>(EncFastTravel_ApplyOnRefresh);
+
+            SubscribeComponent<EncAbsorbStaminaComponent, CalcEnchantmentAdjustedPowerEvent>(EncAbsorbStamina_CalcAdjustedPower);
+            SubscribeComponent<EncAbsorbStaminaComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncAbsorbStamina_ApplyAfterPhysicalAttack);
+            SubscribeComponent<EncAbsorbStaminaComponent, ApplyEnchantmentFoodEffectsEvent>(EncAbsorbStamina_ApplyFoodEffects);
+
+            SubscribeComponent<EncRagnarokComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncRagnarok_ApplyAfterPhysicalAttack);
+            SubscribeComponent<EncRagnarokComponent, ApplyEnchantmentFoodEffectsEvent>(EncRagnarok_ApplyFoodEffects);
+
+            SubscribeComponent<EncAbsorbManaComponent, CalcEnchantmentAdjustedPowerEvent>(EncAbsorbMana_CalcAdjustedPower);
+            SubscribeComponent<EncAbsorbManaComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncAbsorbMana_ApplyAfterPhysicalAttack);
+            SubscribeComponent<EncAbsorbManaComponent, ApplyEnchantmentFoodEffectsEvent>(EncAbsorbMana_ApplyFoodEffects);
+
+            SubscribeComponent<EncAddPierceChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddPierceChance_CalcAdjustedPower);
+            SubscribeComponent<EncAddPierceChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddPierceChance_ApplyOnRefresh);
+
+            SubscribeComponent<EncAddCriticalChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddCriticalChance_CalcAdjustedPower);
+            SubscribeComponent<EncAddCriticalChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddCriticalChance_ApplyOnRefresh);
+
+            SubscribeComponent<EncAddExtraMeleeAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddExtraMeleeAttackChance_CalcAdjustedPower);
+            SubscribeComponent<EncAddExtraMeleeAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddExtraMeleeAttackChance_ApplyOnRefresh);
+
+            SubscribeComponent<EncAddExtraRangedAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddExtraRangedAttackChance_CalcAdjustedPower);
+            SubscribeComponent<EncAddExtraRangedAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddExtraRangedAttackChance_ApplyOnRefresh);
+
+            SubscribeComponent<EncFastTravelComponent, CalcEnchantmentAdjustedPowerEvent>(EncFastTravel_CalcAdjustedPower);
+            SubscribeComponent<EncFastTravelComponent, ApplyEnchantmentOnRefreshEvent>(EncFastTravel_ApplyOnRefresh);
+
+            SubscribeComponent<EncTimeStopComponent, CalcEnchantmentAdjustedPowerEvent>(EncTimeStop_CalcAdjustedPower);
+            SubscribeComponent<EncTimeStopComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncTimeStop_ApplyAfterPhysicalAttack);
+            SubscribeComponent<EncTimeStopComponent, ApplyEnchantmentFoodEffectsEvent>(EncTimeStop_ApplyFoodEffects);
+
+            SubscribeComponent<EncResistCurseComponent, CalcEnchantmentAdjustedPowerEvent>(EncResistCurse_CalcAdjustedPower);
+            SubscribeComponent<EncResistCurseComponent, ApplyEnchantmentOnRefreshEvent>(EncResistCurse_ApplyOnRefresh);
+
+            SubscribeComponent<EncStradivariusComponent, CalcEnchantmentAdjustedPowerEvent>(EncStradivarius_CalcAdjustedPower);
+            SubscribeComponent<EncStradivariusComponent, ApplyEnchantmentOnRefreshEvent>(EncStradivarius_ApplyOnRefresh);
+
+            SubscribeComponent<EncDamageResistanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncDamageResistance_CalcAdjustedPower);
+            SubscribeComponent<EncDamageResistanceComponent, ApplyEnchantmentOnRefreshEvent>(EncDamageResistance_ApplyOnRefresh);
+
+            SubscribeComponent<EncDamageImmunityComponent, CalcEnchantmentAdjustedPowerEvent>(EncDamageImmunity_CalcAdjustedPower);
+            SubscribeComponent<EncDamageImmunityComponent, ApplyEnchantmentOnRefreshEvent>(EncDamageImmunity_ApplyOnRefresh);
+
+            SubscribeComponent<EncDamageReflectionComponent, CalcEnchantmentAdjustedPowerEvent>(EncDamageReflection_CalcAdjustedPower);
+            SubscribeComponent<EncDamageReflectionComponent, ApplyEnchantmentOnRefreshEvent>(EncDamageReflection_ApplyOnRefresh);
+
+            SubscribeComponent<EncCuresBleedingQuicklyComponent, ApplyEnchantmentOnRefreshEvent>(EncCuresBleedingQuickly_ApplyOnRefresh);
+            SubscribeComponent<EncCatchesGodSignalsComponent, ApplyEnchantmentOnRefreshEvent>(EncCatchesGodSignals_ApplyOnRefresh);
+
+            SubscribeComponent<EncDragonBaneComponent, CalcEnchantmentAdjustedPowerEvent>(EncDragonBane_CalcAdjustedPower);
+            SubscribeComponent<EncDragonBaneComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncDragonBane_ApplyAfterPhysicalAttack);
+
+            SubscribeComponent<EncUndeadBaneComponent, CalcEnchantmentAdjustedPowerEvent>(EncUndeadBane_CalcAdjustedPower);
+            SubscribeComponent<EncUndeadBaneComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncUndeadBane_ApplyAfterPhysicalAttack);
+
+            SubscribeComponent<EncGodBaneComponent, CalcEnchantmentAdjustedPowerEvent>(EncGodBane_CalcAdjustedPower);
+            SubscribeComponent<EncGodBaneComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncGodBane_ApplyAfterPhysicalAttack);
         }
 
         private void EncRandomTeleport_CalcAdjustedPower(EntityUid uid, EncRandomTeleportComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
@@ -59,7 +137,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncRandomTeleport_ApplyAfterPassTurn(EntityUid uid, EncRandomTeleportComponent component, ref ApplyEnchantmentAfterPassTurnEvent args)
         {
-            if (!TryMap(uid, out var map) || HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
+            if (!TryMap(args.Equipper, out var map) || HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
                 return;
 
             if (_rand.Next(25) < Math.Clamp(Math.Abs(args.AdjustedPower) / 50, 1, 25))
@@ -84,6 +162,7 @@ namespace OpenNefia.Content.Enchantments
             }
         }
 
+
         private void EncSuckExperience_CalcAdjustedPower(EntityUid uid, EncSuckExperienceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
             args.OutPower /= 50;
@@ -91,13 +170,14 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncSuckExperience_ApplyAfterPassTurn(EntityUid uid, EncSuckExperienceComponent component, ref ApplyEnchantmentAfterPassTurnEvent args)
         {
-            if (_rand.OneIn(4) && TryComp<LevelComponent>(uid, out var level))
+            if (_rand.OneIn(4) && TryComp<LevelComponent>(args.Equipper, out var level))
             {
                 _mes.Display(Loc.GetString("Elona.Enchantment.Item.SuckExperience.ExperienceReduced", ("entity", args.Equipper)), color: UiColors.MesPurple, entity: args.Equipper);
                 var lostExp = level.ExperienceToNext / (100 - Math.Clamp(Math.Abs(args.TotalPower) / 2, 0, 50)) + _rand.Next(100);
                 level.Experience = Math.Max(level.Experience - lostExp, 0);
             }
         }
+
 
         private void EncSummonCreature_CalcAdjustedPower(EntityUid uid, EncSummonCreatureComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
@@ -125,10 +205,361 @@ namespace OpenNefia.Content.Enchantments
                 }
             }
         }
-
-        private void EncResistBlindness_ApplyOnRefresh(EntityUid uid, EncResistBlindness component, ApplyEnchantmentOnRefreshEvent args)
+        
+        private void EncResistBlindness_ApplyOnRefresh(EntityUid uid, EncResistBlindnessComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            _statusEffects.AddTemporaryEffectImmunity(uid, Protos.StatusEffect.Blindness);
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Blindness);
+        }
+        
+        private void EncResistParalysis_ApplyOnRefresh(EntityUid uid, EncResistParalysisComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Paralysis);
+        }
+
+        private void EncResistConfusion_ApplyOnRefresh(EntityUid uid, EncResistConfusionComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Confusion);
+        }
+
+        private void EncResistFear_ApplyOnRefresh(EntityUid uid, EncResistFearComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Fear);
+        }
+
+        private void EncResistSleep_ApplyOnRefresh(EntityUid uid, EncResistSleepComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Sleep);
+        }
+
+        private void EncResistPoison_ApplyOnRefresh(EntityUid uid, EncResistPoisonComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Poison);
+        }
+
+
+        private void EncResistTheft_ApplyOnRefresh(EntityUid uid, EncResistTheftComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromTheft.Buffed = true;
+        }
+
+
+        private void EncResistRottenFood_ApplyOnRefresh(EntityUid uid, EncResistRottenFoodComponent Componentcomponent, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromRottenFood.Buffed = true;
+        }
+
+
+        private void EncFastTravel_CalcAdjustedPower(EntityUid uid, EncFastTravelComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 100;
+        }
+
+        private void EncFastTravel_ApplyOnRefresh(EntityUid uid, EncFastTravelComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            if (_skills.TryGetKnown(args.Equipper, Protos.Skill.AttrSpeed, out var speed))
+                speed.Level.Buffed += args.AdjustedPower * 2 + 1;
+
+            EnsureComp<FastTravelComponent>(args.Equipper).TravelSpeedModifier.Buffed += args.TotalPower / 8 / 100f;
+        }
+
+
+        private void EncResistEtherwind_ApplyOnRefresh(EntityUid uid, EncResistEtherwindComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromEtherwind.Buffed = true;
+        }
+
+
+        private void EncResistBadWeather_ApplyOnRefresh(EntityUid uid, EncResistBadWeatherComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromBadWeather.Buffed = true;
+        }
+
+
+        private void EncResistPregnancy_ApplyOnRefresh(EntityUid uid, EncResistPregnancyComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromPregnancy.Buffed = true;
+        }
+
+
+        private void EncFloat_ApplyOnRefresh(EntityUid uid, EncFloatComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsFloating.Buffed = true;
+        }
+
+
+        private void EncResistMutation_ApplyOnRefresh(EntityUid uid, EncResistMutationComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromMutation.Buffed = true;
+        }
+
+
+        private void EncEnhanceSpells_ApplyOnRefresh(EntityUid uid, EncEnhanceSpellsComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).HasEnhancedSpells.Buffed = true;
+        }
+
+
+        private void EncSeeInvisible_ApplyOnRefresh(EntityUid uid, EncSeeInvisibleComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<VisibilityComponent>(args.Equipper).CanSeeInvisible.Buffed = true;
+        }
+
+
+        private void EncAbsorbStamina_CalcAdjustedPower(EntityUid uid, EncAbsorbStaminaComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAbsorbStamina_ApplyAfterPhysicalAttack(EntityUid uid, EncAbsorbStaminaComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            var staminaAmount = _rand.Next(args.AdjustedPower + 1) + 1;
+            _damage.HealStamina(args.Attacker, staminaAmount);
+
+            if (IsAlive(args.Target))
+                _damage.DamageStamina(args.Target, staminaAmount / 2);
+        }
+
+        private void EncAbsorbStamina_ApplyFoodEffects(EntityUid uid, EncAbsorbStaminaComponent component, ref ApplyEnchantmentFoodEffectsEvent args)
+        {
+            var staminaAmount = _rand.Next(args.AdjustedPower + 1) + 1;
+            _damage.HealStamina(args.Eater, staminaAmount);
+        }
+
+
+        private void EncRagnarok_ApplyAfterPhysicalAttack(EntityUid uid, EncRagnarokComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            _mes.Display("TODO ragnarok", color: UiColors.MesYellow);
+        }
+
+        private void EncRagnarok_ApplyFoodEffects(EntityUid uid, EncRagnarokComponent component, ref ApplyEnchantmentFoodEffectsEvent args)
+        {
+            _mes.Display("TODO ragnarok", color: UiColors.MesYellow);
+        }
+
+
+        private void EncAbsorbMana_CalcAdjustedPower(EntityUid uid, EncAbsorbManaComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAbsorbMana_ApplyAfterPhysicalAttack(EntityUid uid, EncAbsorbManaComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            var mpAmount = _rand.Next(args.AdjustedPower * 2 + 1) + 1;
+            _damage.HealMP(args.Attacker, mpAmount / 5);
+
+            if (IsAlive(args.Target))
+                _damage.DamageMP(args.Target, mpAmount);
+        }
+
+        private void EncAbsorbMana_ApplyFoodEffects(EntityUid uid, EncAbsorbManaComponent component, ref ApplyEnchantmentFoodEffectsEvent args)
+        {
+            var mpAmount = _rand.Next(args.AdjustedPower * 2 + 1) + 1;
+            _damage.HealStamina(args.Eater, mpAmount / 5);
+        }
+
+
+        private void EncAddPierceChance_CalcAdjustedPower(EntityUid uid, EncAddPierceChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAddPierceChance_ApplyOnRefresh(EntityUid uid, EncAddPierceChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).PierceRate.Buffed += args.AdjustedPower;
+        }
+
+
+        private void EncAddCriticalChance_CalcAdjustedPower(EntityUid uid, EncAddCriticalChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAddCriticalChance_ApplyOnRefresh(EntityUid uid, EncAddCriticalChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).CriticalRate.Buffed += args.AdjustedPower;
+        }
+
+
+        private void EncAddExtraMeleeAttackChance_CalcAdjustedPower(EntityUid uid, EncAddExtraMeleeAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAddExtraMeleeAttackChance_ApplyOnRefresh(EntityUid uid, EncAddExtraMeleeAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraMeleeAttackRate.Buffed += args.AdjustedPower;
+        }
+
+
+        private void EncAddExtraRangedAttackChance_CalcAdjustedPower(EntityUid uid, EncAddExtraRangedAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncAddExtraRangedAttackChance_ApplyOnRefresh(EntityUid uid, EncAddExtraRangedAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraRangedAttackRate.Buffed += args.AdjustedPower;
+        }
+
+
+        private void EncTimeStop_CalcAdjustedPower(EntityUid uid, EncTimeStopComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncTimeStop_ApplyAfterPhysicalAttack(EntityUid uid, EncTimeStopComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            if (_rand.OneIn(25))
+            {
+                _mes.Display("TODO time stop", color: UiColors.MesYellow);
+            }
+        }
+
+        private void EncTimeStop_ApplyFoodEffects(EntityUid uid, EncTimeStopComponent component, ref ApplyEnchantmentFoodEffectsEvent args)
+        {
+            _mes.Display("TODO time stop", color: UiColors.MesYellow);
+        }
+
+
+        private void EncResistCurse_CalcAdjustedPower(EntityUid uid, EncResistCurseComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncResistCurse_ApplyOnRefresh(EntityUid uid, EncResistCurseComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromCurse.Buffed = true;
+        }
+
+
+        private void EncStradivarius_CalcAdjustedPower(EntityUid uid, EncStradivariusComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncStradivarius_ApplyOnRefresh(EntityUid uid, EncStradivariusComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<SpecialInstrumentsComponent>(args.Item).IsStradivarius.Buffed = true;
+        }
+
+
+        private void EncDamageResistance_CalcAdjustedPower(EntityUid uid, EncDamageResistanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncDamageResistance_ApplyOnRefresh(EntityUid uid, EncDamageResistanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).DamageResistance.Buffed += args.TotalPower / 50 + 5;
+        }
+
+
+        private void EncDamageImmunity_CalcAdjustedPower(EntityUid uid, EncDamageImmunityComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncDamageImmunity_ApplyOnRefresh(EntityUid uid, EncDamageImmunityComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).DamageImmunityRate.Buffed += args.TotalPower / 60 + 3;
+        }
+
+
+        private void EncDamageReflection_CalcAdjustedPower(EntityUid uid, EncDamageReflectionComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncDamageReflection_ApplyOnRefresh(EntityUid uid, EncDamageReflectionComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<EquipStatsComponent>(args.Equipper).DamageReflection.Buffed += args.TotalPower / 5;
+        }
+
+
+        private void EncCuresBleedingQuickly_ApplyOnRefresh(EntityUid uid, EncCuresBleedingQuicklyComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CuresBleedingQuicklyComponent>(args.Item).CuresBleedingQuickly.Buffed = true;
+        }
+
+
+        private void EncCatchesGodSignals_ApplyOnRefresh(EntityUid uid, EncCatchesGodSignalsComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Item).CanCatchGodSignals.Buffed = true;
+        }
+
+
+        private void EncDragonBane_CalcAdjustedPower(EntityUid uid, EncDragonBaneComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncDragonBane_ApplyAfterPhysicalAttack(EntityUid uid, EncDragonBaneComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            if (!IsAlive(args.Target))
+                return;
+
+            if (_tags.HasTag(args.Target, Protos.Tag.CharaDragon))
+            {
+                var damage = args.PhysicalAttackArgs.RawDamage.OriginalDamage;
+                _damage.DamageHP(args.Target, damage / 2, args.Attacker, extraArgs: new DamageHPExtraArgs()
+                {
+                    DamageSubLevel = 1
+                });
+            }
+        }
+
+
+        private void EncUndeadBane_CalcAdjustedPower(EntityUid uid, EncUndeadBaneComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncUndeadBane_ApplyAfterPhysicalAttack(EntityUid uid, EncUndeadBaneComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            if (!IsAlive(args.Target))
+                return;
+
+            if (_tags.HasTag(args.Target, Protos.Tag.CharaUndead))
+            {
+                var damage = args.PhysicalAttackArgs.RawDamage.OriginalDamage;
+                _damage.DamageHP(args.Target, damage / 2, args.Attacker, extraArgs: new DamageHPExtraArgs()
+                {
+                    DamageSubLevel = 1
+                });
+            }
+        }
+
+
+        private void EncDetectReligion_ApplyOnRefresh(EntityUid uid, EncDetectReligionComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<CommonProtectionsComponent>(args.Item).CanDetectReligion.Buffed = true;
+        }
+
+
+        private void EncGould_ApplyOnRefresh(EntityUid uid, EncGouldComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        {
+            EnsureComp<SpecialInstrumentsComponent>(args.Item).IsGouldsPiano.Buffed = true;
+        }
+
+
+        private void EncGodBane_CalcAdjustedPower(EntityUid uid, EncGodBaneComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        {
+            args.OutPower /= 50;
+        }
+
+        private void EncGodBane_ApplyAfterPhysicalAttack(EntityUid uid, EncGodBaneComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
+        {
+            if (!IsAlive(args.Target))
+                return;
+
+            if (_tags.HasTag(args.Target, Protos.Tag.CharaGod))
+            {
+                var damage = args.PhysicalAttackArgs.RawDamage.OriginalDamage;
+                _damage.DamageHP(args.Target, damage / 2, args.Attacker, extraArgs: new DamageHPExtraArgs()
+                {
+                    DamageSubLevel = 1
+                });
+            }
         }
     }
 }
