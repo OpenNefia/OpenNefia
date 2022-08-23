@@ -19,12 +19,6 @@ namespace OpenNefia.Content.Materials
 {
     public sealed class VanillaMaterialsSystem : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-
         public void IncreaseEtherDiseaseSpeed(MaterialPrototype proto, ref P_MaterialApplyToEquipperEvent args)
         {
             if (TryComp<EtherDiseaseComponent>(args.Equipper, out var ether))
@@ -34,6 +28,9 @@ namespace OpenNefia.Content.Materials
         }
     }
 
+    /// <summary>
+    /// Event for applying buffed material properties to an item, on refresh.
+    /// </summary>
     [PrototypeEvent(typeof(MaterialPrototype))]
     [ByRefEvent]
     public struct P_MaterialApplyToItemEvent
@@ -46,6 +43,9 @@ namespace OpenNefia.Content.Materials
         }
     }
 
+    /// <summary>
+    /// Event for applying buffed material properties to an item's equipper, on refresh.
+    /// </summary>
     [PrototypeEvent(typeof(MaterialPrototype))]
     [ByRefEvent]
     public struct P_MaterialApplyToEquipperEvent
