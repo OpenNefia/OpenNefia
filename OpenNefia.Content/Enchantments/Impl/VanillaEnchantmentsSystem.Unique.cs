@@ -387,7 +387,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncExtraMeleeAttackChance_ApplyOnRefresh(EntityUid uid, EncExtraMeleeAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraMeleeAttackRate.Buffed += args.AdjustedPower;
+            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraMeleeAttackRate.Buffed += args.AdjustedPower / 100f;
         }
 
 
@@ -398,7 +398,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncExtraRangedAttackChance_ApplyOnRefresh(EntityUid uid, EncExtraRangedAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraRangedAttackRate.Buffed += args.AdjustedPower;
+            EnsureComp<EquipStatsComponent>(args.Equipper).ExtraRangedAttackRate.Buffed += args.AdjustedPower / 100f;
         }
 
 
@@ -472,7 +472,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncDamageReflection_ApplyOnRefresh(EntityUid uid, EncDamageReflectionComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<EquipStatsComponent>(args.Equipper).DamageReflection.Buffed += args.TotalPower / 5;
+            EnsureComp<EquipStatsComponent>(args.Equipper).DamageReflection.Buffed += args.TotalPower / 5 / 100f;
         }
 
 

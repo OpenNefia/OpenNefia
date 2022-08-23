@@ -83,8 +83,12 @@ namespace OpenNefia.Content.Combat
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
 
+            SubscribeComponent<SkillsComponent, EntityRefreshEvent>(ApplyShieldPVBonus, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<EquipStatsComponent, EntityRefreshEvent>(AdjustExtraMeleeAndCriticalChances, priority: EventPriorities.High);
+
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackHitEventArgs>(GainCombatSkillExperienceOnHit, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackMissEventArgs>(GainCombatSkillExperienceOnMiss, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<EquipStatsComponent, AfterPhysicalAttackHitEventArgs>(ProcDamageReflection, priority: EventPriorities.High);
             #endregion
         }
 
@@ -105,33 +109,63 @@ namespace OpenNefia.Content.Combat
 
                 if (TryComp<EquipmentComponent>(container.ContainedEntity.Value, out var equip))
                 {
+                    // >>>>>>>> elona122/shade2/calculation.hsp:442 		if cdata(cnt,r1)/extBody=bodyHand:attackNum++ ...
                     if (equip.EquipSlots.Contains(Protos.EquipSlot.Hand))
                         attackCount++;
+                    // <<<<<<<< elona122/shade2/calculation.hsp:442 		if cdata(cnt,r1)/extBody=bodyHand:attackNum++ ...
 
+                    // >>>>>>>> elona122/shade2/calculation.hsp:435 	if iSkillRef(rp)=rsShield : if cAttackStyle(r1)&s ...
                     if (_tags.HasTag(equip.Owner, Protos.Tag.ItemCatEquipShield))
                         isWieldingShield = true;
+                    // <<<<<<<< elona122/shade2/calculation.hsp:435 	if iSkillRef(rp)=rsShield : if cAttackStyle(r1)&s ...
                 }
             }
 
-            if (isWieldingShield)
+            // >>>>>>>> elona122/shade2/calculation.hsp:528 		}else{ ...
+            if (!isWieldingShield)
             {
-                if (TryComp<SkillsComponent>(ent, out var skills))
-                {
-                    if (skills.PV.Buffed > 0)
-                    {
-                        skills.PV.Buffed *= (int)((120 + Math.Sqrt(skills.Level(Protos.Skill.Shield)) * 2) / 100);
-                    }
-                }
-                else
-                {
-                    if (attackCount == 1)
-                        isWieldingTwoHanded = true;
-                    else if (attackCount > 0)
-                        isDualWielding = true;
-                }
+                if (attackCount == 1)
+                    isWieldingTwoHanded = true;
+                else if (attackCount > 0)
+                    isDualWielding = true;
             }
+            // <<<<<<<< elona122/shade2/calculation.hsp:530 		} ...
 
             return new(attackCount, isWieldingShield, isWieldingTwoHanded, isDualWielding);
+        }
+
+        private void ApplyShieldPVBonus(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
+        {
+            if (!HasComp<CharaComponent>(uid))
+                return;
+
+            var state = GetEquipState(uid);
+            if (state.IsWieldingShield && skills.PV.Buffed > 0)
+            {
+                skills.PV.Buffed *= (int)((120 + Math.Sqrt(skills.Level(Protos.Skill.Shield)) * 2) / 100);
+            }
+        }
+
+        private void AdjustExtraMeleeAndCriticalChances(EntityUid uid, EquipStatsComponent equipStats, ref EntityRefreshEvent args)
+        {
+            if (!HasComp<CharaComponent>(uid))
+                return;
+
+            // >>>>>>>> elona122/shade2/calculation.hsp:552 	if cAttackStyle(r1)&styleTwoWield:cExtraMelee(r1) ...
+            var state = GetEquipState(uid);
+            
+            if (state.IsDualWielding)
+            {
+                equipStats.ExtraMeleeAttackRate.Buffed += (MathF.Sqrt(_skills.Level(uid, Protos.Skill.DualWield)) * 3f / 2f + 4f) / 100f;
+            }
+
+            // TODO make into double
+            if (equipStats.CriticalRate.Buffed > 30)
+            {
+                equipStats.HitBonus.Buffed += (equipStats.CriticalRate.Buffed - 30) * 2;
+                equipStats.CriticalRate.Buffed = 30;
+            }
+            // <<<<<<<< elona122/shade2/calculation.hsp:553 	if cCritChance(r1)>30:cATK(r1)+=(cCritChance(r1)- ...
         }
 
         public bool IsMeleeWeapon(EntityUid ent)
@@ -166,6 +200,7 @@ namespace OpenNefia.Content.Combat
 
         public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair, [NotNullWhen(false)] out string? errorReason)
         {
+            // >>>>>>>> elona122/shade2/command.hsp:4284 *FindRangeWeapon ...
             var rangedWeapon = _equipSlots.EnumerateEquippedEntities(entity)
                 .Where(IsRangedWeapon)
                 .FirstOrNull();
@@ -207,6 +242,7 @@ namespace OpenNefia.Content.Combat
             pair = (rangedWeapon.Value, ammo.Value);
             errorReason = null;
             return true;
+            // <<<<<<<< elona122/shade2/command.hsp:4296 	return true ...
         }
 
         public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair)
@@ -218,7 +254,7 @@ namespace OpenNefia.Content.Combat
             {
                 ammo = null;
                 return false;
-            }    
+            }
 
             if (TryComp<WeaponComponent>(weapon, out var weaponComp))
             {
@@ -352,6 +388,50 @@ namespace OpenNefia.Content.Combat
         }
 
         /// <summary>
+        /// Does one or more physical attacks, taking into account the extra melee/ranged attack
+        /// chances.
+        /// </summary>
+        public void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null,
+            int attackCount = 0, bool isRanged = false)
+        {
+            bool going = true;
+
+            while (going)
+            {
+                DoPhysicalAttack(attacker, target, attackSkill, weapon, attackCount, isRanged);
+
+                // >>>>>>>> elona122/shade2/action.hsp:1383 	if extraAttack=false{ ...
+                if (attackCount == 0)
+                {
+                    if (isRanged)
+                    {
+                        if (TryComp<EquipStatsComponent>(attacker, out var stats) && _rand.Prob(stats.ExtraRangedAttackRate.Buffed))
+                        {
+                            attackCount++;
+                            // TODO ammo_enc = null;
+                        }
+                        else
+                        {
+                            going = false;
+                        }
+                    }
+                    else
+                    {
+                        if (TryComp<EquipStatsComponent>(attacker, out var stats) && _rand.Prob(stats.ExtraMeleeAttackRate.Buffed))
+                        {
+                            attackCount++;
+                        }
+                        else
+                        {
+                            going = false;
+                        }
+                    }
+                }
+                // <<<<<<<< elona122/shade2/action.hsp:1389 	} ...
+            }
+        }
+
+        /// <summary>
         /// Causes a physical attack.
         /// </summary>
         /// <param name="attacker">Attacking entity.</param>
@@ -362,7 +442,7 @@ namespace OpenNefia.Content.Combat
         /// 
         /// The first weapon gets count 0, the second count 1, and so on. 
         /// </param>
-        public void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null,
+        public void DoPhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null,
             int attackCount = 0, bool isRanged = false)
         {
             if (!EntityManager.IsAlive(attacker) || !EntityManager.IsAlive(target))
@@ -490,6 +570,7 @@ namespace OpenNefia.Content.Combat
 
         private void ShowWieldsProudlyMesssage(EntityUid attacker, EntityUid weapon)
         {
+            // >>>>>>>> elona122/shade2/action.hsp:1262 		if attackSkill!rsMartial:if iQuality(cw)>=fixGre ...
             var quality = CompOrNull<QualityComponent>(weapon)?.Quality;
             var identifyState = CompOrNull<IdentifyComponent>(weapon)?.IdentifyState;
             var itemName = _displayNames.GetBaseName(weapon);
@@ -511,6 +592,7 @@ namespace OpenNefia.Content.Combat
             name = Loc.GetString("Elona.Item.NameModifiers.Great", ("name", name));
 
             _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.WieldsProudly", ("wielder", attacker), ("itemName", name)), UiColors.MesSkyBlue, entity: attacker);
+            // <<<<<<<< elona122/shade2/action.hsp:1271 			} ...
         }
 
         private void ShowMissText(EntityUid attacker, EntityUid target, int attackCount)
@@ -601,12 +683,14 @@ namespace OpenNefia.Content.Combat
             toHit = ev.OutAccuracy;
             evasion = ev.OutEvasion;
 
+            // >>>>>>>> elona122/shade2/calculation.hsp:241 	if toHit<1	:return atkEvade ...
             if (toHit < 1)
                 return HitResult.Miss;
             else if (evasion < 1)
                 return HitResult.Hit;
             else if (_rand.Next(toHit) > _rand.Next(evasion * 3 / 2))
                 return HitResult.Hit;
+            // <<<<<<<< elona122/shade2/calculation.hsp:244 	if rnd(toHit) > rnd(evade*3/2) : return atkHit ...
 
             return HitResult.Miss;
         }
@@ -615,6 +699,7 @@ namespace OpenNefia.Content.Combat
         {
             var equipState = GetEquipState(attacker);
 
+            // >>>>>>>> elona122/shade2/calculation.hsp:162 	if attackSkill = rsMartial{ ...
             int accuracy;
             if (weapon != null)
             {
@@ -654,6 +739,7 @@ namespace OpenNefia.Content.Combat
             }
 
             return accuracy;
+            // <<<<<<<< elona122/shade2/calculation.hsp:172 		} ...
         }
 
         private int CalcPhysicalAttackAccuracy(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon, int attackCount, bool isRanged, bool considerDistance)
@@ -667,10 +753,12 @@ namespace OpenNefia.Content.Combat
 
         private int CalcBasePhysicalAttackEvasion(EntityUid target)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:212 	evade	= sPER(tc)/3 + sEvade(tc) + cDV(tc) +25 ...
             return _skills.Level(target, Protos.Skill.AttrPerception) / 3
                 + _skills.Level(target, Protos.Skill.Evasion)
                 + CompOrNull<EquipStatsComponent>(target)?.DV.Buffed ?? 0
                 + 25;
+            // <<<<<<<< elona122/shade2/calculation.hsp:212 	evade	= sPER(tc)/3 + sEvade(tc) + cDV(tc) +25 ...
         }
 
         private int CalcPhysicalAttackEvasion(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon, int attackCount, bool isRanged)
@@ -730,7 +818,8 @@ namespace OpenNefia.Content.Combat
         {
             var strength = CalcPhysicalAttackStrength(attacker, target, attackSkill, weapon, attackCount, isRanged, isCritical);
             var protection = CalcPhysicalAttackProtection(attacker, target, attackSkill, weapon, attackCount, isRanged, isCritical);
-
+            
+            // >>>>>>>> elona122/shade2/calculation.hsp:297 	if dmgFix<-100:dmgFix=-100 ...
             strength.Dice.Bonus = Math.Max(strength.Dice.Bonus, -100);
             var damage = strength.Dice.Roll(_rand);
 
@@ -796,6 +885,7 @@ namespace OpenNefia.Content.Combat
                 damage = (int)(damage * 100f / Math.Clamp(100f + damageResistance, 25f, 1000f));
 
             damage = Math.Max(damage, 0);
+            // <<<<<<<< elona122/shade2/calculation.hsp:343 	return damage ...
 
             return new(damage, vorpal, normalDamage, pierceDamage, originalDamage);
         }
@@ -824,6 +914,7 @@ namespace OpenNefia.Content.Combat
 
         private AttackProtection CalcPhysicalAttackBaseProtection(EntityUid target)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:280 	prot		= cPV(tc)  + sdata(cArmor(tc),tc) +sDEX(tc) ...
             var amount = CompOrNull<EquipStatsComponent>(target)?.PV?.Buffed ?? 0
                 + CalcArmorSkillLevel(target)
                 + _skills.Level(target, Protos.Skill.AttrDexterity)
@@ -840,6 +931,7 @@ namespace OpenNefia.Content.Combat
             }
 
             return new(new Dice(diceX, diceY, 0), amount);
+            // <<<<<<<< elona122/shade2/calculation.hsp:293 		} ...
         }
 
         private AttackProtection CalcPhysicalAttackProtection(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon, int attackCount, bool isRanged, bool isCritical)
