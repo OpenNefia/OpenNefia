@@ -1,4 +1,5 @@
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
@@ -25,6 +26,7 @@ namespace OpenNefia.Content.StatusEffects
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IVanillaEnchantmentsSystem _vanillaEncs = default!;
 
         private void AdjustPowerFromQuality(P_StatusEffectCalcAdjustedPowerEvent ev, int i, int j)
         {
@@ -55,9 +57,7 @@ namespace OpenNefia.Content.StatusEffects
             if (_rand.OneIn(80))
             {
                 var attb = _skills.PickRandomBaseAttribute();
-                // TODO enchantments
-                var hasSustainEnc = false;
-                if (!hasSustainEnc)
+                if (!_vanillaEncs.HasSustainEnchantment(ev.Entity, attb.GetStrongID()))
                 {
                     var delta = -_skills.BaseLevel(ev.Entity, attb) / 25 + 1;
                     // TODO stat adjustments

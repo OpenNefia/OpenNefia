@@ -19,10 +19,16 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Enchantments;
 
 namespace OpenNefia.Content.Enchantments
 {
-    public sealed partial class VanillaEnchantmentsSystem : EntitySystem
+    public interface IVanillaEnchantmentsSystem : IEntitySystem
+    {
+        bool HasSustainEnchantment(EntityUid item, PrototypeId<SkillPrototype> attrID, EnchantmentsComponent? encs = null);
+    }
+
+    public sealed partial class VanillaEnchantmentsSystem : EntitySystem, IVanillaEnchantmentsSystem
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
@@ -33,11 +39,18 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
 
         public override void Initialize()
         {
             Initialize_Parameterized();
             Initialize_Unique();
+        }
+
+        public bool HasSustainEnchantment(EntityUid item, PrototypeId<SkillPrototype> skillID, EnchantmentsComponent? encs = null)
+        {
+            return _enchantments.EnumerateEnchantments(item, encs)
+                .Any(enc => TryComp<EncSustainAttributeComponent>(enc.Owner, out var sustain) && sustain.SkillID == skillID);
         }
     }
 }

@@ -157,9 +157,7 @@ namespace OpenNefia.Content.Activity
             var map = GetMap(actor);
             var filter = new ItemFilter();
 
-            // TODO item enchantments
-            var strad = false;
-            if (strad)
+            if (TryComp<SpecialInstrumentsComponent>(component.Instrument, out var inst) && inst.IsStradivarius.Buffed)
             {
                 filter.MinLevel = _randomGen.CalcObjectLevel(component.PerformanceQuality / 8);
                 filter.Quality = Qualities.Quality.Good;
@@ -250,9 +248,7 @@ namespace OpenNefia.Content.Activity
                     component.PerformanceQuality -= qualityDelta;
             }
 
-            // TODO item enchantments
-            var isGould = false;
-            if (isGould)
+            if (TryComp<SpecialInstrumentsComponent>(component.Instrument, out var inst) && inst.IsGouldsPiano.Buffed)
             {
                 _effects.Apply(audience, Protos.StatusEffect.Drunk, 500);
             }
