@@ -27,21 +27,22 @@ namespace OpenNefia.Content.Enchantments
         /// </summary>
         public Container Container { get; private set; } = default!;
 
-        /// <summary>
-        /// Locale ID for indexing into <c>Elona.Enchantment.Ego.Major</c>.
-        /// </summary>
         [DataField]
-        public LocaleKey? EgoMajorEnchantment { get; set; }
+        public PrototypeId<EgoMajorEnchantmentPrototype>? EgoMajorEnchantment { get; set; }
 
-        /// <summary>
-        /// Locale ID for indexing into <c>Elona.Enchantment.Ego.Minor</c>.
-        /// </summary>
         [DataField]
-        public LocaleKey? EgoMinorEnchantment { get; set; }
+        public PrototypeId<EgoMinorEnchantmentPrototype>? EgoMinorEnchantment { get; set; }
 
         [DataField("initialEnchantments")]
         private List<EnchantmentSpecifer> _initialEnchantments { get; set; } = new();
         public IReadOnlyList<EnchantmentSpecifer> InitialEnchantments => _initialEnchantments;
+
+        /// <summary>
+        /// True if random enchantments have been generated on this item. If true, it triples the
+        /// item's buffed value and increases its identify difficulty.
+        /// </summary>
+        [DataField]
+        public bool HasRandomEnchantments { get; set; }
 
         protected override void Initialize()
         {
@@ -69,6 +70,17 @@ namespace OpenNefia.Content.Enchantments
     [DataDefinition]
     public sealed class EnchantmentSpecifer
     {
+        public EnchantmentSpecifer() {}
+
+        public EnchantmentSpecifer(PrototypeId<EntityPrototype> protoID, int power, int cursePower, bool randomize, ComponentRegistry components)
+        {
+            ProtoID = protoID;
+            Power = power;
+            CursePower = cursePower;
+            Randomize = randomize;
+            Components = components;
+        }
+
         [DataField(required: true)]
         public PrototypeId<EntityPrototype> ProtoID { get; }
 

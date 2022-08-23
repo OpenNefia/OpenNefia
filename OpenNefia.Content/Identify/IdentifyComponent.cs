@@ -1,6 +1,8 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects.Components;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 
 namespace OpenNefia.Content.Identify
 {

@@ -119,6 +119,16 @@ namespace OpenNefia.Content.Enchantments
         public const string Generated = "Generated";
 
         /// <summary>
+        /// Contributed by ego major generation.
+        /// </summary>
+        public const string EgoMajor = "EgoMajor";
+
+        /// <summary>
+        /// Contributed by ego minor generation.
+        /// </summary>
+        public const string EgoMinor = "EgoMinor";
+
+        /// <summary>
         /// Contributed by the item's <see cref="EnchantmentsComponent.InitialEnchantments"/>.
         /// </summary>
         public const string EntityPrototype = "EntityPrototype";

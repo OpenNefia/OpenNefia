@@ -22,7 +22,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems.Tag
         T? EntityWithTagInMap<T>(MapId mapId, PrototypeId<TagPrototype> tag)
             where T : IComponent;
 
-        IEnumerable<PrototypeId<TagPrototype>> EnumerateTags(EntityUid entity, TagComponent? tagComp = null);
+        ISet<PrototypeId<TagPrototype>> GetTags(EntityUid entity, TagComponent? tagComp = null);
     }
 
     public sealed class TagSystem : EntitySystem, ITagSystem
@@ -57,7 +57,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems.Tag
             where T : IComponent
             => EntitiesWithTagInMap<T>(mapId, tag).FirstOrDefault();
 
-        public IEnumerable<PrototypeId<TagPrototype>> EnumerateTags(EntityUid entity, TagComponent? tagComp = null)
+        public ISet<PrototypeId<TagPrototype>> GetTags(EntityUid entity, TagComponent? tagComp = null)
         {
             if (!Resolve(entity, ref tagComp))
                 return Enumerable.Empty<PrototypeId<TagPrototype>>();

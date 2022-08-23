@@ -322,7 +322,7 @@ namespace OpenNefia.Content.Enchantments
                 if (encSpellProto.ValidItemCategories == null)
                     return true;
 
-                foreach (var tag in _tags.EnumerateTags(item))
+                foreach (var tag in _tags.GetTags(item))
                 {
                     if (encSpellProto.ValidItemCategories.Contains(tag))
                         return true;
