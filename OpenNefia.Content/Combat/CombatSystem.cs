@@ -510,7 +510,7 @@ namespace OpenNefia.Content.Combat
             }
             name = Loc.GetString("Elona.Item.NameModifiers.Great", ("name", name));
 
-            _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.WieldsProudly", ("wielder", attacker), ("itemName", name)), UiColors.MesSkyBlue);
+            _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.WieldsProudly", ("wielder", attacker), ("itemName", name)), UiColors.MesSkyBlue, entity: attacker);
         }
 
         private void ShowMissText(EntityUid attacker, EntityUid target, int attackCount)

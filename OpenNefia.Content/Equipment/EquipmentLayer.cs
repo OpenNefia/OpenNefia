@@ -236,7 +236,6 @@ namespace OpenNefia.Content.Equipment
 
             OnKeyBindDown += HandleKeyBindDown;
             EventFilter = UIEventFilterMode.Stop;
-            CanControlFocus = true;
 
             List.PageTextElement = Window;
             List.OnActivated += HandleListOnActivate;

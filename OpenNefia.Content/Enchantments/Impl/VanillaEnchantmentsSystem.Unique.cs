@@ -83,17 +83,17 @@ namespace OpenNefia.Content.Enchantments
             SubscribeComponent<EncAbsorbManaComponent, ApplyEnchantmentPhysicalAttackEffectsEvent>(EncAbsorbMana_ApplyAfterPhysicalAttack);
             SubscribeComponent<EncAbsorbManaComponent, ApplyEnchantmentFoodEffectsEvent>(EncAbsorbMana_ApplyFoodEffects);
 
-            SubscribeComponent<EncAddPierceChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddPierceChance_CalcAdjustedPower);
-            SubscribeComponent<EncAddPierceChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddPierceChance_ApplyOnRefresh);
+            SubscribeComponent<EncPierceChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncPierceChance_CalcAdjustedPower);
+            SubscribeComponent<EncPierceChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncPierceChance_ApplyOnRefresh);
 
-            SubscribeComponent<EncAddCriticalChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddCriticalChance_CalcAdjustedPower);
-            SubscribeComponent<EncAddCriticalChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddCriticalChance_ApplyOnRefresh);
+            SubscribeComponent<EncCriticalChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncCriticalChance_CalcAdjustedPower);
+            SubscribeComponent<EncCriticalChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncCriticalChance_ApplyOnRefresh);
 
-            SubscribeComponent<EncAddExtraMeleeAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddExtraMeleeAttackChance_CalcAdjustedPower);
-            SubscribeComponent<EncAddExtraMeleeAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddExtraMeleeAttackChance_ApplyOnRefresh);
+            SubscribeComponent<EncExtraMeleeAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncExtraMeleeAttackChance_CalcAdjustedPower);
+            SubscribeComponent<EncExtraMeleeAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncExtraMeleeAttackChance_ApplyOnRefresh);
 
-            SubscribeComponent<EncAddExtraRangedAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncAddExtraRangedAttackChance_CalcAdjustedPower);
-            SubscribeComponent<EncAddExtraRangedAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncAddExtraRangedAttackChance_ApplyOnRefresh);
+            SubscribeComponent<EncExtraRangedAttackChanceComponent, CalcEnchantmentAdjustedPowerEvent>(EncExtraRangedAttackChance_CalcAdjustedPower);
+            SubscribeComponent<EncExtraRangedAttackChanceComponent, ApplyEnchantmentOnRefreshEvent>(EncExtraRangedAttackChance_ApplyOnRefresh);
 
             SubscribeComponent<EncFastTravelComponent, CalcEnchantmentAdjustedPowerEvent>(EncFastTravel_CalcAdjustedPower);
             SubscribeComponent<EncFastTravelComponent, ApplyEnchantmentOnRefreshEvent>(EncFastTravel_ApplyOnRefresh);
@@ -358,45 +358,45 @@ namespace OpenNefia.Content.Enchantments
         }
 
 
-        private void EncAddPierceChance_CalcAdjustedPower(EntityUid uid, EncAddPierceChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        private void EncPierceChance_CalcAdjustedPower(EntityUid uid, EncPierceChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
             args.OutPower /= 50;
         }
 
-        private void EncAddPierceChance_ApplyOnRefresh(EntityUid uid, EncAddPierceChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        private void EncPierceChance_ApplyOnRefresh(EntityUid uid, EncPierceChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             EnsureComp<EquipStatsComponent>(args.Equipper).PierceRate.Buffed += args.AdjustedPower;
         }
 
 
-        private void EncAddCriticalChance_CalcAdjustedPower(EntityUid uid, EncAddCriticalChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        private void EncCriticalChance_CalcAdjustedPower(EntityUid uid, EncCriticalChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
             args.OutPower /= 50;
         }
 
-        private void EncAddCriticalChance_ApplyOnRefresh(EntityUid uid, EncAddCriticalChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        private void EncCriticalChance_ApplyOnRefresh(EntityUid uid, EncCriticalChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             EnsureComp<EquipStatsComponent>(args.Equipper).CriticalRate.Buffed += args.AdjustedPower;
         }
 
 
-        private void EncAddExtraMeleeAttackChance_CalcAdjustedPower(EntityUid uid, EncAddExtraMeleeAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        private void EncExtraMeleeAttackChance_CalcAdjustedPower(EntityUid uid, EncExtraMeleeAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
             args.OutPower /= 50;
         }
 
-        private void EncAddExtraMeleeAttackChance_ApplyOnRefresh(EntityUid uid, EncAddExtraMeleeAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        private void EncExtraMeleeAttackChance_ApplyOnRefresh(EntityUid uid, EncExtraMeleeAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             EnsureComp<EquipStatsComponent>(args.Equipper).ExtraMeleeAttackRate.Buffed += args.AdjustedPower;
         }
 
 
-        private void EncAddExtraRangedAttackChance_CalcAdjustedPower(EntityUid uid, EncAddExtraRangedAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
+        private void EncExtraRangedAttackChance_CalcAdjustedPower(EntityUid uid, EncExtraRangedAttackChanceComponent component, ref CalcEnchantmentAdjustedPowerEvent args)
         {
             args.OutPower /= 50;
         }
 
-        private void EncAddExtraRangedAttackChance_ApplyOnRefresh(EntityUid uid, EncAddExtraRangedAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
+        private void EncExtraRangedAttackChance_ApplyOnRefresh(EntityUid uid, EncExtraRangedAttackChanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             EnsureComp<EquipStatsComponent>(args.Equipper).ExtraRangedAttackRate.Buffed += args.AdjustedPower;
         }

@@ -94,16 +94,16 @@ namespace OpenNefia.Content.Enchantments
             if (HasComp<FoodComponent>(args.Item))
             {
                 if (args.AdjustedPower < 0)
-                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Food.Decreases", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Food.Decreases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
                 else
-                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Food.Increases", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Food.Increases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
             }
             else
             {
                 if (args.AdjustedPower < 0)
-                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Equipment.Decreases", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Equipment.Decreases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
                 else
-                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Equipment.Increases", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                    args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyAttribute.Equipment.Increases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
             }
         }
 
@@ -158,9 +158,9 @@ namespace OpenNefia.Content.Enchantments
             var elementName = Loc.GetPrototypeString(component.ElementID, "Name");
 
             if (args.AdjustedPower < 0)
-                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyResistance.Decreases", ("item", args.Item), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
+                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyResistance.Decreases", ("item", args.Item), ("wielder", args.ItemOwner), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
             else
-                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyResistance.Increases", ("item", args.Item), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
+                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifyResistance.Increases", ("item", args.Item), ("wielder", args.ItemOwner), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
         }
 
         private void EncModifyResistance_Apply(EntityUid uid, EncModifyResistanceComponent component, ref ApplyEnchantmentOnRefreshEvent args)
@@ -201,11 +201,11 @@ namespace OpenNefia.Content.Enchantments
             var skillName = Loc.GetPrototypeString(component.SkillID, "Name");
             if (args.AdjustedPower < 0)
             {
-                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifySkill.Decreases", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ModifySkill.Decreases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
             }
             else
             {
-                if (!Loc.TryGetPrototypeString(component.SkillID, "EnchantmentDescription", out var desc, ("item", args.Item), ("power", args.AdjustedPower)))
+                if (!Loc.TryGetPrototypeString(component.SkillID, "EnchantmentDescription", out var desc, ("item", args.Item), ("wielder", args.ItemOwner), ("power", args.AdjustedPower)))
                     desc = Loc.GetString("Elona.Enchantment.Item.ModifySkill.Increases", ("skillName", skillName));
                 args.OutDescription = desc;
             }
@@ -247,10 +247,10 @@ namespace OpenNefia.Content.Enchantments
             if (HasComp<FoodComponent>(args.Item))
             {
                 args.OutShowPower = true;
-                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.SustainAttribute.Food", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.SustainAttribute.Food", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
             }
             else
-                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.SustainAttribute.Equipment", ("item", args.Item), ("skillName", skillName), ("power", args.AdjustedPower));
+                args.OutDescription = Loc.GetString("Elona.Enchantment.Item.SustainAttribute.Equipment", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("power", args.AdjustedPower));
         }
 
         private void EncSustainAttribute_ApplyAfterEaten(EntityUid uid, EncSustainAttributeComponent component, ref ApplyEnchantmentFoodEffectsEvent args)
@@ -286,7 +286,7 @@ namespace OpenNefia.Content.Enchantments
             args.OutShowPower = true;
 
             var elementName = Loc.GetPrototypeString(component.ElementID, "Name");
-            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ElementalDamage.Description", ("item", args.Item), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
+            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.ElementalDamage.Description", ("item", args.Item), ("wielder", args.ItemOwner), ("elementName", elementName), ("adjustedPower", args.AdjustedPower));
         }
 
         private void EncElementalDamage_ApplyPhysicalAttack(EntityUid uid, EncElementalDamageComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
@@ -361,7 +361,7 @@ namespace OpenNefia.Content.Enchantments
         {
             var encSpellProto = _protos.Index(component.EnchantmentSpellID);
             var spellName = Loc.GetPrototypeString(encSpellProto.SpellID, "Name");
-            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.InvokeSpell.Invokes", ("item", args.Item), ("spellName", spellName), ("adjustedPower", args.AdjustedPower));
+            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.InvokeSpell.Invokes", ("item", args.Item), ("wielder", args.ItemOwner), ("spellName", spellName), ("adjustedPower", args.AdjustedPower));
         }
 
         private void EncInvokeSpell_ApplyPhysicalAttack(EntityUid uid, EncInvokeSpellComponent component, ref ApplyEnchantmentPhysicalAttackEffectsEvent args)
@@ -414,7 +414,7 @@ namespace OpenNefia.Content.Enchantments
         private void EncAmmo_Localize(EntityUid uid, EncAmmoComponent component, GetEnchantmentDescriptionEventArgs args)
         {
             var ammoName = Loc.GetPrototypeString(component.AmmoEnchantmentID, "Name");
-            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.Ammo.Description", ("item", args.Item), ("ammoName", ammoName), ("maxAmmo", component.MaxAmmoAmount));
+            args.OutDescription = Loc.GetString("Elona.Enchantment.Item.Ammo.Description", ("item", args.Item), ("wielder", args.ItemOwner), ("ammoName", ammoName), ("maxAmmo", component.MaxAmmoAmount));
         }
 
         #endregion
