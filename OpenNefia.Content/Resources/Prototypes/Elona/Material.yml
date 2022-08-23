@@ -36,7 +36,12 @@
   diceY: 100
   color: '#FFFFAF'
   generateOnFurniture: false
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Mind
 - type: Elona.Material
   id: Elona.Cloth
   hspIds:
@@ -62,7 +67,12 @@
   pv: 11
   diceY: 120
   color: '#FFC3B9'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Fire
 - type: Elona.Material
   id: Elona.Glass
   hspIds:
@@ -75,7 +85,12 @@
   pv: 0
   diceY: 100
   color: '#AFAFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 150
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrSpeed
 - type: Elona.Material
   id: Elona.Mithril
   hspIds:
@@ -88,7 +103,12 @@
   pv: 17
   diceY: 190
   color: '#AFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifySkill
+    power: 100
+    components:
+    - type: EncModifySkill
+      skillID: Elona.Casting
 - type: Elona.Material
   id: Elona.Ether
   hspIds:
@@ -101,7 +121,12 @@
   pv: 8
   diceY: 250
   color: '#AFAFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 200
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrSpeed
 - type: Elona.Material
   id: Elona.Steel
   hspIds:
@@ -126,7 +151,12 @@
   pv: 14
   diceY: 130
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 25
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Fire
 - type: Elona.Material
   id: Elona.Crystal
   hspIds:
@@ -139,7 +169,12 @@
   pv: 19
   diceY: 150
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrMagic
 - type: Elona.Material
   id: Elona.Bronze
   hspIds:
@@ -152,7 +187,12 @@
   pv: 5
   diceY: 100
   color: '#FFD7AF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Lightning
 - type: Elona.Material
   id: Elona.Diamond
   hspIds:
@@ -165,7 +205,12 @@
   pv: 31
   diceY: 220
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Lightning
 - type: Elona.Material
   id: Elona.SpiritCloth
   hspIds:
@@ -178,7 +223,12 @@
   pv: 6
   diceY: 100
   color: '#AFAFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrSpeed
 - type: Elona.Material
   id: Elona.Rubynus
   hspIds:
@@ -191,7 +241,12 @@
   pv: 24
   diceY: 190
   color: '#FF9B9B'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 125
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrLife
 - type: Elona.Material
   id: Elona.Paper
   hspIds:
@@ -205,7 +260,12 @@
   diceY: 100
   color: '#FFFFFF'
   generateOnFurniture: false
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifySkill
+    power: 100
+    components:
+    - type: EncModifySkill
+      skillID: Elona.Evasion
 - type: Elona.Material
   id: Elona.DawnCloth
   hspIds:
@@ -218,7 +278,12 @@
   pv: 15
   diceY: 100
   color: '#AFAFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 200
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrMana
 - type: Elona.Material
   id: Elona.Bone
   hspIds:
@@ -231,7 +296,12 @@
   pv: 11
   diceY: 140
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Nether
 - type: Elona.Material
   id: Elona.Chain
   hspIds:
@@ -244,7 +314,12 @@
   pv: 14
   diceY: 100
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Darkness
 - type: Elona.Material
   id: Elona.Obsidian
   hspIds:
@@ -257,7 +332,12 @@
   pv: 14
   diceY: 130
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Chaos
 - type: Elona.Material
   id: Elona.Mica
   hspIds:
@@ -271,7 +351,12 @@
   diceY: 100
   color: '#FFFFFF'
   generateOnFurniture: false
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrLuck
 - type: Elona.Material
   id: Elona.Pearl
   hspIds:
@@ -284,7 +369,12 @@
   pv: 12
   diceY: 140
   color: '#FFC3B9'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrPerception
 - type: Elona.Material
   id: Elona.Emerald
   hspIds:
@@ -297,7 +387,12 @@
   pv: 28
   diceY: 190
   color: '#AFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Nerve
 - type: Elona.Material
   id: Elona.DragonScale
   hspIds:
@@ -310,7 +405,17 @@
   pv: 24
   diceY: 160
   color: '#AFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Fire
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Cold
 - type: Elona.Material
   id: Elona.Silver
   hspIds:
@@ -323,7 +428,12 @@
   pv: 11
   diceY: 130
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Darkness
 - type: Elona.Material
   id: Elona.Platinum
   hspIds:
@@ -336,7 +446,12 @@
   pv: 17
   diceY: 140
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Darkness
 - type: Elona.Material
   id: Elona.Zylon
   hspIds:
@@ -349,7 +464,12 @@
   pv: 16
   diceY: 100
   color: '#AFAFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 50
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Nether
 - type: Elona.Material
   id: Elona.GriffonScale
   hspIds:
@@ -362,7 +482,12 @@
   pv: 24
   diceY: 120
   color: '#AFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifySkill
+    power: 100
+    components:
+    - type: EncModifySkill
+      skillID: Elona.Evasion
 - type: Elona.Material
   id: Elona.Titanium
   hspIds:
@@ -375,7 +500,12 @@
   pv: 22
   diceY: 160
   color: '#FFFFFF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrStrength
 - type: Elona.Material
   id: Elona.Chrome
   hspIds:
@@ -400,7 +530,12 @@
   pv: 42
   diceY: 240
   color: '#FFC3B9'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrConstitution
 - type: Elona.Material
   id: Elona.Gold
   hspIds:
@@ -413,7 +548,12 @@
   pv: 22
   diceY: 140
   color: '#FFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyAttribute
+    power: 100
+    components:
+    - type: EncModifyAttribute
+      skillID: Elona.AttrStrength
 - type: Elona.Material
   id: Elona.Coral
   hspIds:
@@ -426,7 +566,12 @@
   pv: 7
   diceY: 120
   color: '#FFFFAF'
-  enchantments: TODO
+  enchantments:
+  - protoID: Elona.EncModifyResistance
+    power: 100
+    components:
+    - type: EncModifyResistance
+      elementID: Elona.Lightning
 - type: Elona.Material
   id: Elona.Lead
   hspIds:
@@ -463,6 +608,9 @@
   pv: -5
   diceY: 100
   color: '#FFFFFF'
+
+# The following two material types are only used for random generation; they
+# should never appear on fully generated items.
 - type: Elona.Material
   id: Elona.Metal
   hspIds:

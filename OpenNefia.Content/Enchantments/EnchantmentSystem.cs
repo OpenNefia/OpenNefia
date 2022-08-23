@@ -39,10 +39,16 @@ namespace OpenNefia.Content.Enchantments
     {
         EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, string source = "Generated", int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null);
 
-        bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, string source = "Generated", int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null);
-        bool TryAddEnchantment(EntityUid item, EntityUid enchantment, int power, [NotNullWhen(true)] out EntityUid? mergedEnchantment, string source = "Generated", EnchantmentsComponent? encs = null, EnchantmentComponent? enc = null);
+        bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, int cursePower = 0, bool randomize = true, EnchantmentsComponent? encs = null);
+        bool TryAddEnchantment(EntityUid item, EntityUid enchantment, int power, [NotNullWhen(true)] out EntityUid? mergedEnchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null, EnchantmentComponent? enc = null);
+        
+        void AddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
+        
+        bool TryAddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
 
         bool TryFindMergeableEnchantment(EntityUid item, EnchantmentComponent enchantment, [NotNullWhen(true)] out EnchantmentComponent? mergeable, EnchantmentsComponent? itemEncs = null);
+
+        void RemoveEnchantmentsWithSource(EntityUid item, string source, EnchantmentsComponent? encs = null);
 
         int CalcEnchantmentAdjustedPower(EntityUid enchantment, EntityUid item, EnchantmentComponent? enc = null);
         IEnumerable<EnchantmentComponent> EnumerateEnchantments(EntityUid item, EnchantmentsComponent? encs = null);
@@ -81,14 +87,32 @@ namespace OpenNefia.Content.Enchantments
         {
             foreach (var spec in encs.InitialEnchantments)
             {
-                if (TryAddEnchantment(uid, spec.ProtoID, spec.Power, out var enc, source: EnchantmentSources.EntityPrototype, cursePower: spec.CursePower, randomize: spec.Randomize, encs: encs))
-                {
-                    foreach (var (name, comp) in spec.Components)
-                    {
-                        AddComponent(enc.Value, _componentFactory, name, comp, null);
-                    }
-                }
+                AddEnchantmentFromSpecifier(uid, spec, EnchantmentSources.EntityPrototype, encs);
             }
+        }
+
+        public void AddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+            => TryAddEnchantmentFromSpecifier(uid, spec, out _, source, encs);
+            
+        public bool TryAddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec,[NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+        {
+            if (!Resolve(uid, ref encs))
+            {
+                enchantment = null;
+                return false;
+            }
+
+            if (!TryAddEnchantment(uid, spec.ProtoID, spec.Power, out enchantment, source: source, cursePower: spec.CursePower, randomize: spec.Randomize, encs: encs))
+            {
+                return false;
+            }
+
+            foreach (var (name, comp) in spec.Components)
+            {
+                AddComponent(enchantment.Value, _componentFactory, name, comp, null);
+            }
+
+            return true;
         }
 
         // TODO dedup from EntityFactory
@@ -430,6 +454,21 @@ namespace OpenNefia.Content.Enchantments
                     yield return encComp;
                 else
                     Logger.ErrorS("enchantments", $"Enchantment {enc} is missing an {nameof(EnchantmentComponent)}!");
+            }
+        }
+
+        public void RemoveEnchantmentsWithSource(EntityUid item, string source, EnchantmentsComponent? encs = null)
+        {
+            foreach (var enc in EnumerateEnchantments(item, encs).ToList())
+            {
+                foreach (var power in enc.PowerContributions.Where(p => p.Source == source).ToList())
+                {
+                    enc.TotalPower -= power.Power;
+                    enc.PowerContributions.Remove(power);
+                }
+
+                if (enc.PowerContributions.Count == 0)
+                    EntityManager.DeleteEntity(enc.Owner);
             }
         }
     }

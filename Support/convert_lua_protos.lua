@@ -710,9 +710,19 @@ handlers["base.item"] = function(from, to)
     c = comp(to, "Value")
     c.value = from.value
 
+    local is_furniture = table.set(from.categories or {})["elona.furniture"]
+    if is_furniture then
+        c = comp(to, "Furniture")
+    end
+
     if from.material then
         c = comp(to, "Material")
         c.materialID = dotted(from.material)
+        if from._ext and from._ext[IItemEquipment] then
+            if not (from.material == "elona.metal" or from.material == "elona.soft" or is_furniture) then
+                c.noMaterialEffects = true
+            end
+        end
     end
 
     c = comp(to, "Item")
@@ -1896,7 +1906,7 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.god", "God.yml")
 -- write("elona_sys.magic", "Magic.yml")
 -- write("base.effect", "StatusEffect.yml", "OpenNefia.Content.StatusEffect.StatusEffectPrototype")
-write("elona.item_material", "Material.yml", "OpenNefia.Content.Materials.MaterialPrototype")
+-- write("elona.item_material", "Material.yml", "OpenNefia.Content.Materials.MaterialPrototype")
 -- write("elona.food_type", "FoodType.yml", "OpenNefia.Content.Food.FoodTypePrototype")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")

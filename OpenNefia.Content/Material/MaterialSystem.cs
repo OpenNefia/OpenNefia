@@ -26,6 +26,8 @@ using OpenNefia.Content.Equipment;
 using YamlDotNet.Core.Tokens;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Enchantments;
+using System.Security.Cryptography;
 
 namespace OpenNefia.Content.Materials
 {
@@ -48,6 +50,7 @@ namespace OpenNefia.Content.Materials
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
 
         public override void Initialize()
         {
@@ -63,7 +66,7 @@ namespace OpenNefia.Content.Materials
             SubscribeComponent<AmmoComponent, EntityApplyMaterialEvent>(Ammo_ApplyMaterial);
         }
 
-        private bool ShouldRandomizeMaterial(EntityUid uid)
+        private bool ShouldApplyMaterial(EntityUid uid)
         {
             return HasComp<EquipmentComponent>(uid) || (HasComp<FurnitureComponent>(uid) && _rand.OneIn(5));
         }
@@ -77,22 +80,15 @@ namespace OpenNefia.Content.Materials
         {
             material.RandomSeed = _rand.Next();
 
-            if (ShouldRandomizeMaterial(uid))
+            if (ShouldApplyMaterial(uid))
             {
                 if (IsRandomizedMaterialType(material.MaterialID) || HasComp<FurnitureComponent>(uid))
                 {
-                    var matId = PickRandomMaterialID(uid);
-                    material.MaterialID = matId;
-                }
-                else if (material.MaterialID != null)
-                {
-                    // If an item is generated with a material already defined on it (like the Blood
-                    // Moon), then the stat bonuses from the material will *not* be applied, but the
-                    // enchantments will.
-                    // See shade2/item.hsp:531.
-                    ApplyMaterialEnchantments(uid, material);
+                    material.MaterialID = PickRandomMaterialID(uid, material.MaterialID);
                 }
             }
+
+            ApplyMaterialEnchantments(uid, material);
         }
 
         private void Material_GetItemDescription(EntityUid uid, MaterialComponent material, GetItemDescriptionEventArgs args)
@@ -111,7 +107,7 @@ namespace OpenNefia.Content.Materials
 
         private void Material_Refreshed(EntityUid uid, MaterialComponent component, ref EntityRefreshEvent args)
         {
-            if (component.MaterialID == null)
+            if (component.MaterialID == null || component.NoMaterialEffects)
                 return;
 
             var matProto = _protos.Index(component.MaterialID.Value);
@@ -342,15 +338,26 @@ namespace OpenNefia.Content.Materials
 
             materialComp.RandomSeed = _rand.Next();
             materialComp.MaterialID = materialID;
+            ApplyMaterialEnchantments(item, materialComp);
             _refresh.Refresh(item);
         }
 
-        private void ApplyMaterialEnchantments(EntityUid uid, MaterialComponent? material = null)
+        private void ApplyMaterialEnchantments(EntityUid item, MaterialComponent? material = null, EnchantmentsComponent? encs = null)
         {
-            if (!Resolve(uid, ref material))
+            if (!Resolve(item, ref material) || !Resolve(item, ref encs))
                 return;
 
-            // TODO enchantments
+            _enchantments.RemoveEnchantmentsWithSource(item, EnchantmentSources.Material);
+
+            if (material.MaterialID == null)
+                return;
+
+            var materialProto = _protos.Index(material.MaterialID.Value);
+
+            foreach (var encSpecifier in materialProto.Enchantments)
+            {
+                _enchantments.AddEnchantmentFromSpecifier(item, encSpecifier, EnchantmentSources.Material, encs);
+            }
         }
     }
 
