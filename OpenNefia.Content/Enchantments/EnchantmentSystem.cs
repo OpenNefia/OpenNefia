@@ -146,15 +146,22 @@ namespace OpenNefia.Content.Enchantments
         {
             if (args.Handled || !TryComp<TurnOrderComponent>(equipper, out var turnOrder))
                 return;
-            
-            if (turnOrder.TotalTurnsTaken % 25 == 0) // TODO: Make this configurable per enchantment?
+
+            foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))
             {
-                foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))
+                foreach (var enc in EnumerateEnchantments(item))
                 {
-                    foreach (var enc in EnumerateEnchantments(item))
+                    if (enc.TurnsPerEvent != null)
                     {
-                        var ev = new ApplyEnchantmentAfterPassTurnEvent(enc.TotalPower, equipper, item);
-                        RaiseEvent(enc.Owner, ref ev);
+                        if (enc.TurnsUntilNextEvent < 0)
+                        {
+                            var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
+                            var ev = new ApplyEnchantmentAfterPassTurnEvent(enc.TotalPower, adjustedPower, equipper, item);
+                            RaiseEvent(enc.Owner, ref ev);
+                            enc.TurnsUntilNextEvent = enc.TurnsPerEvent.Value;
+                        }
+
+                        enc.TurnsUntilNextEvent--;
                     }
                 }
             }
@@ -165,7 +172,7 @@ namespace OpenNefia.Content.Enchantments
             foreach (var enc in EnumerateEnchantments(item, component))
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
-                var ev = new ApplyEnchantmentFoodEffectsEvent(adjustedPower, args.Eater, item);
+                var ev = new ApplyEnchantmentFoodEffectsEvent(enc.TotalPower, adjustedPower, args.Eater, item);
                 RaiseEvent(enc.Owner, ref ev);
             }
         }
@@ -186,6 +193,8 @@ namespace OpenNefia.Content.Enchantments
                     .FirstOrDefault()
                     ?? string.Empty;
 
+                var hasProvidedDesc = !string.IsNullOrEmpty(desc);
+
                 var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower, item, desc);
                 RaiseEvent(enc.Owner, ev);
                 desc = ev.OutDescription;
@@ -193,7 +202,7 @@ namespace OpenNefia.Content.Enchantments
                 if (TryProtoID(enc.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("enchantment", enc.Owner), ("item", item), ("adjustedPower", adjustedPower)))
                     desc = desc2;
 
-                if (ev.OutShowPower)
+                if (ev.OutShowPower ?? hasProvidedDesc)
                     desc += " " + GetEnchantmentPowerText(ev.OutGrade);
 
                 var icon = enc.Icon;
@@ -250,7 +259,7 @@ namespace OpenNefia.Content.Enchantments
                 s.Insert(0, "[");
                 s.Append("]");
             }
-            
+
             return s.ToString();
         }
 
@@ -320,7 +329,7 @@ namespace OpenNefia.Content.Enchantments
                 mergedEnchantment = null;
                 return false;
             }
-            
+
             if (!encs.Container.Insert(enchantment))
             {
                 Logger.ErrorS("enchantment", $"Failed to insert enchantment {enchantment} into item {item}.");
@@ -330,7 +339,7 @@ namespace OpenNefia.Content.Enchantments
 
             return TryAddEnchantmentInternal(item, enchantment, power, out mergedEnchantment, source, encs, enc);
         }
-         
+
         /// <summary>
         /// Ignores containment checks, enchantment entity is assumed to be in the enchantments
         /// container by now.
@@ -476,7 +485,7 @@ namespace OpenNefia.Content.Enchantments
 
         public string OutDescription { get; set; }
         public int OutGrade { get; set; }
-        public bool OutShowPower { get; set; } = false;
+        public bool? OutShowPower { get; set; }
 
         public GetEnchantmentDescriptionEventArgs(int adjustedPower, EntityUid item, string description)
         {
@@ -504,13 +513,15 @@ namespace OpenNefia.Content.Enchantments
     [ByRefEvent]
     public struct ApplyEnchantmentAfterPassTurnEvent
     {
+        public int TotalPower { get; }
         public int AdjustedPower { get; }
         public EntityUid Equipper { get; }
         public EntityUid Item { get; }
 
-        public ApplyEnchantmentAfterPassTurnEvent(int power, EntityUid equipper, EntityUid item)
+        public ApplyEnchantmentAfterPassTurnEvent(int totalPower, int adjustedPower, EntityUid equipper, EntityUid item)
         {
-            AdjustedPower = power;
+            TotalPower = totalPower;
+            AdjustedPower = adjustedPower;
             Equipper = equipper;
             Item = item;
         }
@@ -519,13 +530,15 @@ namespace OpenNefia.Content.Enchantments
     [ByRefEvent]
     public struct ApplyEnchantmentFoodEffectsEvent
     {
+        public int TotalPower { get; }
         public int AdjustedPower { get; }
         public EntityUid Eater { get; }
         public EntityUid Item { get; }
 
-        public ApplyEnchantmentFoodEffectsEvent(int power, EntityUid eater, EntityUid item)
+        public ApplyEnchantmentFoodEffectsEvent(int totalPower, int adjustedPower, EntityUid eater, EntityUid item)
         {
-            AdjustedPower = power;
+            TotalPower = totalPower;
+            AdjustedPower = adjustedPower;
             Eater = eater;
             Item = item;
         }
