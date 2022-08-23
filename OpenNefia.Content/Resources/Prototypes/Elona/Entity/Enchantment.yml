@@ -52,19 +52,637 @@
     randomWeight: 4500
     icon: Waist
     color: '#006464'
+    alignmentType: Positive
   - type: EncSustainAttribute
 
 - type: Entity
   id: Elona.EncElementalDamage
   hspIds:
-    elona122: 6
+    elona122: 7
   parent: BaseEnchantment
   components:
   - type: Enchantment
     level: 1
     valueModifier: 1.2
     randomWeight: 300
+    alignmentType: Positive
     validItemCategories:
     - Elona.ItemCatEquipMelee
     - Elona.ItemCatEquipRanged
   - type: EncElementalDamage
+
+- type: Entity
+  id: Elona.EncInvokeSpell
+  hspIds:
+    elona122: 8
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 3.0
+    randomWeight: 15000
+    alignmentType: Positive
+  - type: EncInvokeSpell
+
+- type: Entity
+  id: Elona.EncAmmo
+  hspIds:
+    elona122: 9
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 50000
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipAmmo
+  - type: EncAmmo
+
+- type: Entity
+  id: Elona.EncRandomTeleport
+  hspIds:
+    elona122: 21
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: -1
+    valueModifier: 0.5
+    randomWeight: 75
+    alignmentType: Negative
+  - type: EncRandomTeleport
+
+- type: Entity
+  id: Elona.EncSuckBlood
+  hspIds:
+    elona122: 22
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: -1
+    valueModifier: 0.5
+    randomWeight: 100
+    alignmentType: Negative
+  - type: EncSuckBlood
+
+- type: Entity
+  id: Elona.EncSuckExperience
+  hspIds:
+    elona122: 23
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: -1
+    valueModifier: 0.5
+    randomWeight: 100
+    alignmentType: Negative
+  - type: EncSuckExperience
+
+- type: Entity
+  id: Elona.EncSummonCreature
+  hspIds:
+    elona122: 24
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: -1
+    valueModifier: 0.5
+    randomWeight: 50
+    alignmentType: Negative
+  - type: EncSummonCreature
+
+- type: Entity
+  id: Elona.EncPreventTeleport
+  hspIds:
+    elona122: 25
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.5
+    randomWeight: 150
+    alignmentType: Positive
+  - type: EncPreventTeleport
+
+- type: Entity
+  id: Elona.EncResistBlindness
+  hspIds:
+    elona122: 26
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 400
+    alignmentType: Positive
+  - type: EncResistBlindness
+
+- type: Entity
+  id: Elona.EncResistParalysis
+  hspIds:
+    elona122: 27
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.2
+    randomWeight: 300
+    alignmentType: Positive
+  - type: EncResistParalysis
+
+- type: Entity
+  id: Elona.EncResistConfusion
+  hspIds:
+    elona122: 28
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 400
+    alignmentType: Positive
+  - type: EncResistConfusion
+
+- type: Entity
+  id: Elona.EncResistFear
+  hspIds:
+    elona122: 29
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 600
+    alignmentType: Positive
+  - type: EncResistFear
+
+- type: Entity
+  id: Elona.EncResistSleep
+  hspIds:
+    elona122: 30
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 600
+    alignmentType: Positive
+  - type: EncResistSleep
+
+- type: Entity
+  id: Elona.EncResistPoison
+  hspIds:
+    elona122: 31
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.2
+    randomWeight: 500
+    alignmentType: Positive
+  - type: EncResistPoison
+
+- type: Entity
+  id: Elona.EncResistTheft
+  hspIds:
+    elona122: 32
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 3.0
+    randomWeight: 1500
+    alignmentType: Positive
+  - type: EncResistTheft
+
+- type: Entity
+  id: Elona.EncResistRottenFood
+  hspIds:
+    elona122: 33
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 3.0
+    randomWeight: 2000
+    alignmentType: Positive
+  - type: EncResistRottenFood
+
+- type: Entity
+  id: Elona.EncFastTravel
+  hspIds:
+    elona122: 34
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 2.0
+    randomWeight: 25
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipLeg
+  - type: EncFastTravel
+
+- type: Entity
+  id: Elona.EncResistEtherwind
+  hspIds:
+    elona122: 35
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 2.0
+    randomWeight: 25
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipBack
+  - type: EncResistEtherwind
+
+- type: Entity
+  id: Elona.EncResistBadWeather
+  hspIds:
+    elona122: 36
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 2.0
+    randomWeight: 40
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipRing
+  - type: EncResistBadWeather
+
+- type: Entity
+  id: Elona.EncResistPregnancy
+  hspIds:
+    elona122: 36
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.2
+    randomWeight: 300
+    alignmentType: Positive
+  - type: EncResistPregnancy
+
+- type: Entity
+  id: Elona.EncFloat
+  hspIds:
+    elona122: 38
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.3
+    randomWeight: 250
+    alignmentType: Positive
+  - type: EncFloat
+
+- type: Entity
+  id: Elona.EncResistMutation
+  hspIds:
+    elona122: 39
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 1.6
+    randomWeight: 200
+    alignmentType: Positive
+  - type: EncResistMutation
+
+- type: Entity
+  id: Elona.EncEnhanceSpells
+  hspIds:
+    elona122: 40
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 1.7
+    randomWeight: 250
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+  - type: EncEnhanceSpells
+
+- type: Entity
+  id: Elona.EncSeeInvisible
+  hspIds:
+    elona122: 41
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.7
+    randomWeight: 100
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipHead
+    - Elona.ItemCatEquipRing
+  - type: EncSeeInvisible
+
+- type: Entity
+  id: Elona.EncAbsorbStamina
+  hspIds:
+    elona122: 42
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 4.5
+    randomWeight: 1000
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncAbsorbStamina
+
+- type: Entity
+  id: Elona.EncRagnarok
+  hspIds:
+    elona122: 43
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 1.0
+    randomWeight: 1000
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncRagnarok
+
+- type: Entity
+  id: Elona.EncAbsorbMana
+  hspIds:
+    elona122: 44
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 4.5
+    randomWeight: 1000
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncAbsorbMana
+
+- type: Entity
+  id: Elona.EncAddPierceChance
+  hspIds:
+    elona122: 45
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 5.0
+    randomWeight: 500
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipWrist
+  - type: EncAddPierceChance
+
+- type: Entity
+  id: Elona.EncAddCriticalChance
+  hspIds:
+    elona122: 46
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 3.0
+    randomWeight: 10000
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipRing
+    - Elona.ItemCatEquipNeck
+  - type: EncAddCriticalChance
+
+- type: Entity
+  id: Elona.EncAddExtraMeleeAttackChance
+  hspIds:
+    elona122: 47
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 48
+    valueModifier: 1.8
+    randomWeight: 150
+    alignmentType: Positive
+  - type: EncAddExtraMeleeAttackChance
+
+- type: Entity
+  id: Elona.EncAddExtraRangedAttackChance
+  hspIds:
+    elona122: 48
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 1.8
+    randomWeight: 150
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipRing
+    - Elona.ItemCatEquipNeck
+  - type: EncAddExtraRangedAttackChance
+
+- type: Entity
+  id: Elona.EncTimeStop
+  hspIds:
+    elona122: 49
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 5.5
+    randomWeight: 500
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncTimeStop
+
+- type: Entity
+  id: Elona.EncResistCurse
+  hspIds:
+    elona122: 50
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 99
+    valueModifier: 1.5
+    randomWeight: 2000
+    alignmentType: Positive
+  - type: EncResistCurse
+
+- type: Entity
+  id: Elona.EncStradivarius
+  hspIds:
+    elona122: 51
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 100
+    valueModifier: 1.2
+    randomWeight: 300
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatFurniture
+  - type: EncStradivarius
+
+- type: Entity
+  id: Elona.EncDamageResistance
+  hspIds:
+    elona122: 52
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 1
+    valueModifier: 1.4
+    randomWeight: 750
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipShield
+  - type: EncDamageResistance
+
+- type: Entity
+  id: Elona.EncDamageImmunity
+  hspIds:
+    elona122: 53
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.6
+    randomWeight: 500
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipShield
+  - type: EncDamageImmunity
+
+- type: Entity
+  id: Elona.EncDamageReflection
+  hspIds:
+    elona122: 54
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 1.8
+    randomWeight: 250
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipShield
+    - Elona.ItemCatEquipBody
+  - type: EncDamageReflection
+
+- type: Entity
+  id: Elona.EncCuresBleedingQuickly
+  hspIds:
+    elona122: 55
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 3
+    valueModifier: 1.3
+    randomWeight: 40
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipCloak
+    - Elona.ItemCatEquipNeck
+  - type: EncCuresBleedingQuickly
+
+- type: Entity
+  id: Elona.EncCatchesGodSignals
+  hspIds:
+    elona122: 56
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 0
+    valueModifier: 2.0
+    randomWeight: 30
+    alignmentType: Positive
+  - type: EncCatchesGodSignals
+
+- type: Entity
+  id: Elona.EncDragonBane
+  hspIds:
+    elona122: 57
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.7
+    randomWeight: 200
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncDragonBane
+
+- type: Entity
+  id: Elona.EncUndeadBane
+  hspIds:
+    elona122: 58
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.7
+    randomWeight: 200
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncUndeadBane
+
+- type: Entity
+  id: Elona.EncDetectReligion
+  hspIds:
+    elona122: 59
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 0
+    valueModifier: 2.0
+    randomWeight: 30
+    alignmentType: Positive
+  - type: EncDetectReligion
+
+- type: Entity
+  id: Elona.EncGould
+  hspIds:
+    elona122: 60
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 100
+    valueModifier: 120
+    randomWeight: 300
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatFurniture
+  - type: EncGould
+
+- type: Entity
+  id: Elona.EncGodBane
+  hspIds:
+    elona122: 61
+  parent: BaseEnchantment
+  components:
+  - type: Enchantment
+    level: 2
+    valueModifier: 1.7
+    randomWeight: 150
+    alignmentType: Positive
+    validItemCategories:
+    - Elona.ItemCatEquipMelee
+    - Elona.ItemCatEquipRanged
+  - type: EncGodBane

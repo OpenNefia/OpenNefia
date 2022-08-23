@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Stats
         public TReadOnlySet Buffed => _buffed;
 
         // Needed for copying in de/serialization
-        public SetStat() : this(default!, default!) { }
+        public SetStat() : this(new(), new()) { }
 
         public SetStat(TSet baseValue)
         {

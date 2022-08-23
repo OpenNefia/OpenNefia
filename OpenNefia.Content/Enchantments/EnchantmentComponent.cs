@@ -81,8 +81,8 @@ namespace OpenNefia.Content.Enchantments
     public enum EnchantmentAlignmentType
     {
         BaseOnPower,
-        AlwaysPositive,
-        AlwaysNegative,
+        Positive,
+        Negative,
     }
 
     public enum EnchantmentAlignment

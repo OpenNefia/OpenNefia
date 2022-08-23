@@ -263,9 +263,9 @@ namespace OpenNefia.Content.Enchantments
                 case EnchantmentAlignmentType.BaseOnPower:
                 default:
                     return adjustedPower >= 0 ? EnchantmentAlignment.Positive : EnchantmentAlignment.Negative;
-                case EnchantmentAlignmentType.AlwaysPositive:
+                case EnchantmentAlignmentType.Positive:
                     return EnchantmentAlignment.Positive;
-                case EnchantmentAlignmentType.AlwaysNegative:
+                case EnchantmentAlignmentType.Negative:
                     return EnchantmentAlignment.Negative;
             }
         }
