@@ -51,7 +51,6 @@ namespace OpenNefia.Content.LivingWeapon
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
         [Dependency] private readonly IEnchantmentGenSystem _enchantmentGen = default!;
-        [Dependency] private readonly IContainerSystem _containers = default!;
 
         public override void Initialize()
         {
@@ -205,13 +204,10 @@ namespace OpenNefia.Content.LivingWeapon
                     var enc = _enchantments.AddEnchantment(weapon, Protos.Enchantment.SuckBlood, 50);
                     if (!IsAlive(enc))
                     {
-                        var toDelete = _enchantments.EnumerateEnchantments(weapon).FirstOrDefault();
+                        var toDelete = _enchantments.EnumerateEnchantments(weapon).LastOrDefault();
                         if (toDelete != null)
                         {
-                            var contrib = toDelete.PowerContributions.Pop();
-                            toDelete.TotalPower -= contrib.Power;
-                            if (toDelete.PowerContributions.Count == 0)
-                                EntityManager.DeleteEntity(toDelete.Owner);
+                            EntityManager.DeleteEntity(toDelete.Owner);
 
                             _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.RemovesAnEnchantment", ("item", weapon)));
                         }
