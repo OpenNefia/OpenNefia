@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Enchantments
         public bool CanMergeWith(IEnchantmentComponent other)
         {
             return other is EncAmmoComponent otherAmmo
-                && true; // TODO
+                && AmmoEnchantmentID == otherAmmo.AmmoEnchantmentID;
         }
     }
 }
