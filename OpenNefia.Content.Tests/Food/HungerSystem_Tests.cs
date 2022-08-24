@@ -56,25 +56,21 @@ namespace OpenNefia.Content.Tests.Food
                 var ev = new EntityRefreshSpeedEvent();
                 hunger.Nutrition = HungerLevels.Satisfied - 1;
                 entMan.EventBus.RaiseEvent(ent.Value, ref ev);
-                Assert.That(ev.OutSpeed, Is.EqualTo(200));
                 Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(1f));
 
                 ev = new EntityRefreshSpeedEvent();
                 hunger.Nutrition = HungerLevels.Hungry - 1;
                 entMan.EventBus.RaiseEvent(ent.Value, ref ev);
-                Assert.That(ev.OutSpeed, Is.EqualTo(200));
                 Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(0.9f));
 
                 ev = new EntityRefreshSpeedEvent();
                 hunger.Nutrition = HungerLevels.VeryHungry - 1;
                 entMan.EventBus.RaiseEvent(ent.Value, ref ev);
-                Assert.That(ev.OutSpeed, Is.EqualTo(200));
                 Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(0.6f));
 
                 ev = new EntityRefreshSpeedEvent();
                 gameSess.Player = EntityUid.Invalid;
                 entMan.EventBus.RaiseEvent(ent.Value, ref ev);
-                Assert.That(ev.OutSpeed, Is.EqualTo(200));
                 Assert.That(ev.OutSpeedModifier, new ApproxEqualityConstraint(1f));
             });
         }
