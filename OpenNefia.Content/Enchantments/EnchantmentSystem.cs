@@ -37,14 +37,19 @@ namespace OpenNefia.Content.Enchantments
 {
     public interface IEnchantmentSystem : IEntitySystem
     {
-        EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = "Generated", EnchantmentsComponent? encs = null);
+        EntityUid? SpawnEnchantment(IContainer container, PrototypeId<EntityPrototype> encID, EntityUid item, ref int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated);
+        
+        EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
+        EntityUid? AddEnchantment(EntityUid item, EntityUid enchantment, int power, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
 
         bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
         bool TryAddEnchantment(EntityUid item, EntityUid enchantment, int power, [NotNullWhen(true)] out EntityUid? mergedEnchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null, EnchantmentComponent? enc = null);
-        
+
         void AddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
-        
+
         bool TryAddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null);
+        
+        string GetEnchantmentDescription(EntityUid enchantment, EntityUid item, EntityUid? wielder = null, int? adjustedPower = null, bool noPowerText = false, EnchantmentComponent? encComp = null);
 
         bool TryFindMergeableEnchantment(EntityUid item, EnchantmentComponent enchantment, [NotNullWhen(true)] out EnchantmentComponent? mergeable, EnchantmentsComponent? itemEncs = null);
 
@@ -52,7 +57,7 @@ namespace OpenNefia.Content.Enchantments
 
         int CalcEnchantmentAdjustedPower(EntityUid enchantment, EntityUid item, EnchantmentComponent? enc = null);
         IEnumerable<EnchantmentComponent> EnumerateEnchantments(EntityUid item, EnchantmentsComponent? encs = null);
-        
+
         IEnumerable<T> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
     }
 
@@ -97,8 +102,8 @@ namespace OpenNefia.Content.Enchantments
 
         public void AddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
             => TryAddEnchantmentFromSpecifier(uid, spec, out _, source, encs);
-            
-        public bool TryAddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec,[NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+
+        public bool TryAddEnchantmentFromSpecifier(EntityUid uid, EnchantmentSpecifer spec, [NotNullWhen(true)] out EntityUid? enchantment, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
         {
             if (!Resolve(uid, ref encs))
             {
@@ -234,22 +239,7 @@ namespace OpenNefia.Content.Enchantments
             foreach (var enc in allEncs)
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
-
-                string? desc = string.Empty;
-                if (TryProtoID(enc.Owner, out var encID) && Loc.TryGetPrototypeString(encID.Value, "Enchantment.Description", out var encDesc))
-                    desc = encDesc;
-
-                var hasProvidedDesc = !string.IsNullOrEmpty(desc);
-
-                var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower, item, wielder, desc);
-                RaiseEvent(enc.Owner, ev);
-                desc = ev.OutDescription;
-
-                if (TryProtoID(enc.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("item", item), ("adjustedPower", adjustedPower), ("wielder", wielder)))
-                    desc = desc2;
-
-                if (ev.OutShowPower ?? hasProvidedDesc)
-                    desc += " " + GetEnchantmentPowerText(ev.OutGrade);
+                string desc = GetEnchantmentDescription(enc.Owner, item, wielder, adjustedPower, encComp: enc);
 
                 var icon = enc.Icon;
                 var color = enc.Color ?? UiColors.EnchantmentDefault;
@@ -269,6 +259,38 @@ namespace OpenNefia.Content.Enchantments
                     IsInheritable = enc.IsInheritable
                 });
             }
+        }
+
+        public string GetEnchantmentDescription(EntityUid enchantment, EntityUid item, EntityUid? wielder = null, int? adjustedPower = null, bool noPowerText = false, EnchantmentComponent? encComp = null)
+        {
+            if (!Resolve(enchantment, ref encComp))
+                return "???";
+
+            if (wielder == null)
+            {
+                wielder = _gameSession.Player;
+                if (_containers.TryGetContainingContainer(item, out var container))
+                    wielder = container.Owner;
+            }
+            adjustedPower ??= CalcEnchantmentAdjustedPower(enchantment, item, encComp);
+
+            string? desc = string.Empty;
+            if (TryProtoID(encComp.Owner, out var encID) && Loc.TryGetPrototypeString(encID.Value, "Enchantment.Description", out var encDesc))
+                desc = encDesc;
+
+            var hasProvidedDesc = !string.IsNullOrEmpty(desc);
+
+            var ev = new GetEnchantmentDescriptionEventArgs(adjustedPower.Value, item, wielder.Value, desc);
+            RaiseEvent(encComp.Owner, ev);
+            desc = ev.OutDescription;
+
+            if (TryProtoID(encComp.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("item", item), ("adjustedPower", adjustedPower.Value), ("wielder", wielder)))
+                desc = desc2;
+
+            if ((ev.OutShowPower ?? hasProvidedDesc) && !noPowerText)
+                desc += " " + GetEnchantmentPowerText(ev.OutGrade);
+            
+            return desc;
         }
 
         private void Enchantments_AfterPhysicalAttackHit(EntityUid attacker, AfterPhysicalAttackHitEventArgs args)
@@ -339,14 +361,11 @@ namespace OpenNefia.Content.Enchantments
             return ev.OutPower;
         }
 
-        public EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+        public EntityUid? SpawnEnchantment(IContainer container, PrototypeId<EntityPrototype> encID, EntityUid item, ref int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated)
         {
-            if (!Resolve(item, ref encs))
-                return null;
-
             var encArgs = new EnchantmentGenArgs(item, power, cursePower, source, randomize);
             var args = EntityGenArgSet.Make(encArgs);
-            var ent = _entityGen.SpawnEntity(encID, encs.Container, args: args);
+            var ent = _entityGen.SpawnEntity(encID, container, args: args);
 
             if (!IsAlive(ent))
                 return null;
@@ -362,10 +381,30 @@ namespace OpenNefia.Content.Enchantments
 
             power = encArgs.OutPower;
 
-            if (!TryAddEnchantmentInternal(item, ent.Value, power, out var realEnc, source, encs))
+            var enc = EnsureComp<EnchantmentComponent>(ent.Value);
+            enc.PowerContributions.Add(new EnchantmentPowerContrib(power, source));
+            enc.TotalPower += power;
+
+            return ent;
+        }
+
+        public EntityUid? AddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+        {
+            if (!Resolve(item, ref encs))
+                return null;
+
+            var ent = SpawnEnchantment(encs.Container, encID, item, ref power, cursePower, randomize, source);
+
+            if (!IsAlive(ent) || !TryAddEnchantmentInternal(item, ent.Value, power, out var realEnc, source, encs))
                 return null;
 
             return realEnc;
+        }
+
+        public EntityUid? AddEnchantment(EntityUid item, EntityUid enchantment, int power, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
+        {
+            TryAddEnchantment(item, enchantment, power, out var mergedEnchantment, source, encs);
+            return mergedEnchantment;
         }
 
         public bool TryAddEnchantment(EntityUid item, PrototypeId<EntityPrototype> encID, int power, [NotNullWhen(true)] out EntityUid? enchantment, int cursePower = 0, bool randomize = true, string source = EnchantmentSources.Generated, EnchantmentsComponent? encs = null)
@@ -409,14 +448,12 @@ namespace OpenNefia.Content.Enchantments
             {
                 Logger.DebugS("enchantment", $"Merge enchantment {enc.Owner} with {mergeable.Owner}");
                 mergeable.PowerContributions.Add(new EnchantmentPowerContrib(power, source));
-                mergeable.TotalPower += enc.TotalPower;
+                mergeable.TotalPower += power;
                 mergedEnchantment = mergeable.Owner;
                 EntityManager.DeleteEntity(enchantment);
                 return true;
             }
 
-            enc.PowerContributions.Add(new EnchantmentPowerContrib(power, source));
-            enc.TotalPower += power;
             mergedEnchantment = enchantment;
             return true;
         }

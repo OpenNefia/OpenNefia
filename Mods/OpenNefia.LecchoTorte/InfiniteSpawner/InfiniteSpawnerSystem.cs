@@ -5,6 +5,7 @@ using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
@@ -51,7 +52,7 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
             if (!Resolve(uid, ref component))
                 return;
 
-            var ent = _charaGen.GenerateChara(uid, component.EntityID);
+            var ent = _charaGen.GenerateChara(uid, component.EntityID, args: EntityGenArgSet.Make(new EntityGenCommonArgs() { LevelOverride = 100 }));
             if (IsAlive(ent))
                 EnsureComp<InfiniteSpawnedComponent>(ent.Value).Spawner = uid;
         }

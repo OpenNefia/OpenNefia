@@ -26,6 +26,10 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using PrettyPrompt;
 using System.Security.Cryptography;
+using OpenNefia.Content.Enchantments;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Containers;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.LivingWeapon
 {
@@ -45,6 +49,9 @@ namespace OpenNefia.Content.LivingWeapon
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly IEnchantmentGenSystem _enchantmentGen = default!;
+        [Dependency] private readonly IContainerSystem _containers = default!;
 
         public override void Initialize()
         {
@@ -93,7 +100,7 @@ namespace OpenNefia.Content.LivingWeapon
             {
                 Text = Loc.GetString("Elona.LivingWeapon.ItemDescription.ItIsAlive",
                                         ("item", uid),
-                                        ("level", component.Level.Base), 
+                                        ("level", component.Level.Base),
                                         ("levelBuffed", component.Level.Buffed),
                                         ("exp", component.Experience),
                                         ("expToNext", component.ExperienceToNext))
@@ -124,6 +131,8 @@ namespace OpenNefia.Content.LivingWeapon
             // <<<<<<<< elona122/shade2/calculation.hsp:14 	return lv*100 ...
         }
 
+        public const int LivingWeaponEnchantmentChoices = 3;
+
         private TurnResult GrowLivingWeapon(EntityUid source, EntityUid weapon, LivingWeaponComponent? livingWeapon = null)
         {
             // >>>>>>>> elona122/shade2/action.hsp:1739 	if iBit(iAlive,ci){ ...
@@ -138,49 +147,143 @@ namespace OpenNefia.Content.LivingWeapon
 
             _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ReadyToGrow", ("item", weapon)));
 
-            _rand.WithSeed(livingWeapon.RandomSeed, DoGrow);
+            bool powerIsBecomingAThreat = false;
 
-            void DoGrow()
+            _rand.WithSeed(livingWeapon.RandomSeed, () =>
             {
-                bool powerIsBecomingAThreat = livingWeapon.Level >= 4 + _rand.Next(12);
+                powerIsBecomingAThreat = livingWeapon.Level >= 4 + _rand.Next(12);
+            });
 
-                if (powerIsBecomingAThreat)
-                    _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ButYouSensedSomethingWeird", ("item", weapon)));
+            if (powerIsBecomingAThreat)
+                _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ButYouSensedSomethingWeird", ("item", weapon)));
 
-                _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.It", ("item", weapon)));
+            _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.It", ("item", weapon)));
 
-                var choices = new List<string>()
+            // TODO hack
+            // easier way of getting a temporary container? it requires an attached entity.
+            var tempContainer = EntityManager.SpawnEntity(null, MapCoordinates.Global);
+            var tempEncs = EnsureComp<EnchantmentsComponent>(tempContainer);
+            var choices = new List<ILivingWeaponUpgrade>();
+
+            for (var i = 0; i < LivingWeaponEnchantmentChoices; i++)
+            {
+                var seed = livingWeapon.RandomSeed + livingWeapon.Level.Base * 10 + i;
+
+                _rand.WithSeed(seed, () =>
                 {
-                    Loc.GetString("Elona.LivingWeapon.Grow.Choices.AddBonus"),
-                    "TODO",
-                    "TODO",
-                };
-                var args = new Prompt<string>.Args(choices);
-
-                var result = _uiManager.Query<Prompt<string>, Prompt<string>.Args, PromptChoice<string>>(args);
-
-                // TODO enchantments
-                if (true)
-                {
-                    _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.VibratesDispleased", ("item", weapon)));
-                }
-                else
-                {
-                    _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.VibratesPleased", ("item", weapon)));
-
-                    if (powerIsBecomingAThreat)
-                        _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ItsPowerIsBecomingAThreat", ("item", weapon)));
-
-                    livingWeapon.Level.Base++;
-                    livingWeapon.Experience = 0;
-                    livingWeapon.ExperienceToNext = CalcLivingWeaponExperienceToNext(livingWeapon.Level.Base);
-                }
+                    var encLevel = _enchantmentGen.CalcRandomEnchantmentLevel();
+                    var power = _enchantmentGen.CalcRandomEnchantmentPower();
+                    var encID = _enchantmentGen.PickRandomEnchantmentID(weapon, encLevel);
+                    if (encID != null)
+                    {
+                        var enc = _enchantments.SpawnEnchantment(tempEncs.Container, encID.Value, weapon, ref power);
+                        if (IsAlive(enc))
+                        {
+                            choices.Add(new LivingWeaponEnchantmentUpgrade(enc.Value, power, weapon));
+                        }
+                    }
+                });
             }
 
+            choices.Add(new LivingWeaponAddBonusUpgrade());
+
+            var args = new Prompt<ILivingWeaponUpgrade>.Args(choices);
+
+            var result = _uiManager.Query<Prompt<ILivingWeaponUpgrade>, Prompt<ILivingWeaponUpgrade>.Args, PromptChoice<ILivingWeaponUpgrade>>(args);
+
+            if (result.HasValue)
+            {
+                var upgrade = result.Value.ChoiceData;
+                upgrade.Apply(weapon);
+
+                _audio.Play(Protos.Sound.Ding3);
+                _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.VibratesPleased", ("item", weapon)), UiColors.MesGreen);
+
+                if (powerIsBecomingAThreat)
+                {
+                    _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ItsPowerIsBecomingAThreat", ("item", weapon)));
+                    var enc = _enchantments.AddEnchantment(weapon, Protos.Enchantment.SuckBlood, 50);
+                    if (!IsAlive(enc))
+                    {
+                        var toDelete = _enchantments.EnumerateEnchantments(weapon).FirstOrDefault();
+                        if (toDelete != null)
+                        {
+                            var contrib = toDelete.PowerContributions.Pop();
+                            toDelete.TotalPower -= contrib.Power;
+                            if (toDelete.PowerContributions.Count == 0)
+                                EntityManager.DeleteEntity(toDelete.Owner);
+
+                            _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.RemovesAnEnchantment", ("item", weapon)));
+                        }
+                    }
+                }
+
+                livingWeapon.Level.Base++;
+                livingWeapon.Experience = 0;
+                livingWeapon.ExperienceToNext = CalcLivingWeaponExperienceToNext(livingWeapon.Level.Base);
+            }
+            else
+            {
+                _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.VibratesDispleased", ("item", weapon)));
+            }
+
+            EntityManager.DeleteEntity(tempContainer);
             _refresh.Refresh(source);
 
             return TurnResult.Aborted;
             // <<<<<<<< elona122/shade2/action.hsp:1780 		} ...
+        }
+    }
+
+    public interface ILivingWeaponUpgrade : IPromptFormattable
+    {
+        void Apply(EntityUid livingWeapon);
+    }
+
+    public sealed class LivingWeaponAddBonusUpgrade : ILivingWeaponUpgrade
+    {
+        [Dependency] private readonly IEntityManager _entities = default!;
+
+        public LivingWeaponAddBonusUpgrade()
+        {
+            EntitySystem.InjectDependencies(this);
+        }
+
+        public string FormatForPrompt() => Loc.GetString("Elona.LivingWeapon.Grow.Choices.AddBonus");
+
+        public void Apply(EntityUid livingWeapon)
+        {
+            _entities.EnsureComponent<BonusComponent>(livingWeapon).Bonus++;
+        }
+    }
+
+    public sealed class LivingWeaponEnchantmentUpgrade : ILivingWeaponUpgrade
+    {
+        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+
+        public EntityUid EnchantmentUID { get; }
+        public int EnchantmentPower { get; }
+        public EntityUid Weapon { get; }
+
+        public LivingWeaponEnchantmentUpgrade(EntityUid encUID, int power, EntityUid weapon)
+        {
+            EntitySystem.InjectDependencies(this);
+
+            EnchantmentUID = encUID;
+            EnchantmentPower = power;
+            Weapon = weapon;
+        }
+
+        public string FormatForPrompt()
+        {
+            return _enchantments.GetEnchantmentDescription(EnchantmentUID, Weapon, noPowerText: true);
+        }
+
+        public void Apply(EntityUid livingWeapon)
+        {
+            EntitySystem.InjectDependencies(this);
+            _enchantments.AddEnchantment(livingWeapon, EnchantmentUID, _entities.GetComponent<EnchantmentComponent>(EnchantmentUID).TotalPower);
         }
     }
 }
