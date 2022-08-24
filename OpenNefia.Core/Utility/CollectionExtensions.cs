@@ -82,6 +82,23 @@ namespace OpenNefia.Core.Utility
 
             value = default!;
             return false;
+
+        }
+
+        public static int IndexOf<T>(this IEnumerable<T> source, T value)
+            where T : IEquatable<T>
+        {
+            var index = 0;
+            foreach (var item in source)
+            {
+                if (item.Equals(value))
+                {
+                    return index;
+                }
+                index++;
+            }
+
+            return -1;
         }
 
         public static int FindIndex<T>(this IList<T> list, Predicate<T> match)
@@ -110,6 +127,19 @@ namespace OpenNefia.Core.Utility
             for (int i = startIndex; i < endIndex; i++)
             {
                 if (match(list[i])) return i;
+            }
+            return -1;
+        }
+
+        public static int FindIndex<T>(this IEnumerable<T> enumerable, Predicate<T> match)
+        {
+            var i = 0;
+            foreach (var entry in enumerable)
+            {
+                if (match(entry)) 
+                    return i;
+
+                i++;
             }
             return -1;
         }

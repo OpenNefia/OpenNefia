@@ -101,6 +101,14 @@ namespace OpenNefia.Content.UI.Element.List
             return keyHints;
         }
 
+        public void SelectInAllPages(int index)
+        {
+            var page = index / ItemsPerPage;
+            index = index % ItemsPerPage;
+            SetPage(page);
+            Select(index);
+        }
+
         public bool SetPage(int page, bool playSound)
         {
             var changed = _pageModel.SetPage(page);

@@ -34,7 +34,7 @@ OpenNefia.Prototypes.Elona.EgoMajorEnchantment.Elona = {
             return ("癒し手の%s"):format(name)
         end,
     },
-    ResistParalyze = {
+    ResistParalysis = {
         NameModifier = function(name)
             return ("耐麻痺の%s"):format(name)
         end,

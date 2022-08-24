@@ -31,6 +31,7 @@ namespace OpenNefia.Content.Inventory
         public IInventoryBehavior Behavior { get; internal set; }
 
         public bool ShowInventoryWindow { get; set; } = true;
+        public IReadOnlyList<InventoryEntry> AllInventoryEntries { get; internal set; } = new List<InventoryEntry>();
 
         public InventoryContext(EntityUid user, EntityUid target, IInventoryBehavior behavior)
         {

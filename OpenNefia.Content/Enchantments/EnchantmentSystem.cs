@@ -70,6 +70,7 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IItemDescriptionSystem _itemDescriptions = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -223,7 +224,11 @@ namespace OpenNefia.Content.Enchantments
             if (_containers.TryGetContainingContainer(item, out var container))
                 wielder = container.Owner;
 
-            foreach (var enc in EnumerateEnchantments(item, encs))
+            var allEncs = EnumerateEnchantments(item, encs).ToList();
+            var comparer = _protos.GetComparator<EntityPrototype>();
+            allEncs.Sort((a, b) => comparer.Compare(ProtoIDOrNull(a.Owner), ProtoIDOrNull(b.Owner)));
+
+            foreach (var enc in allEncs)
             {
                 var adjustedPower = CalcEnchantmentAdjustedPower(enc.Owner, item, enc);
 

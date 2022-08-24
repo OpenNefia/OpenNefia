@@ -15,53 +15,123 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.Input;
 using System.Collections.Generic;
 using OpenNefia.Content.Items;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class ItemDescriptionLayer : UiLayerWithResult<EntityUid, UINone>
+    public class ItemDescriptionLayer : UiLayerWithResult<ItemDescriptionLayer.Args, ItemDescriptionLayer.Result>
     {
         [Dependency] private readonly ItemDescriptionSystem _itemDescSystem = default!;
-        [Dependency] private readonly DisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
-        private EntityUid _item;
+        public class Args
+        {
+            public Args() { }
+
+            public Args(int selectedIndex, IReadOnlyList<EntityUid> entities)
+            {
+                Entities = entities;
+                SelectedIndex = selectedIndex;
+            }
+
+            public Args(EntityUid ent, IReadOnlyList<EntityUid> entities)
+            {
+                Entities = entities;
+                SelectedIndex = entities.IndexOf(ent);
+            }
+
+            public Args(EntityUid ent)
+            {
+                Entities = new List<EntityUid>() { ent };
+                SelectedIndex = 0;
+            }
+
+            public IReadOnlyList<EntityUid> Entities { get; set; } = new List<EntityUid>();
+            public int SelectedIndex { get; set; } = 0;
+            public EntityUid? SelectedEntity => Entities.ElementAtOrDefault(SelectedIndex);
+        }
+
+        public class Result
+        {
+            public int SelectedIndexOnExit { get; set; }
+        }
+
+        private IReadOnlyList<EntityUid> _otherItems = default!;
+        private int _currentIndex;
+        private EntityUid _currentItem => _otherItems[_currentIndex];
 
         private IAssetInstance AssetEnchantmentIcons;
         private IAssetInstance AssetInheritanceIcon;
 
         [Child] private UiText TextTopicItemName = new UiTextTopic();
         [Child] private UiWindow Window = new();
+        [Child] private UiPageText PageText;
 
         private readonly List<ItemDescriptionEntry> _rawEntries = new();
-        private readonly List<ItemDescriptionEntry> _wrappedEntries = new();
+        private readonly UiPageModel<ItemDescriptionEntry> _wrappedEntries = new(15);
 
         public ItemDescriptionLayer()
         {
             AssetEnchantmentIcons = Assets.Get(Protos.Asset.EnchantmentIcons);
             AssetInheritanceIcon = Assets.Get(Protos.Asset.InheritanceIcon);
 
+            PageText = new UiPageText(Window);
+
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;
         }
 
-        public override void Initialize(EntityUid item)
+        public override void Initialize(Args args)
         {
-            _item = item;
-            TextTopicItemName.Text = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", _item));
+            _otherItems = args.Entities;
+            _currentIndex = args.SelectedIndex;
             Window.KeyHints = MakeKeyHints();
 
-            GetDescription();
+            UpdateDescription();
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
         {
             if (obj.Function == EngineKeyFunctions.UICancel)
             {
-                Cancel();
+                Finish(new Result() { SelectedIndexOnExit = _currentIndex });
             }
             else if (obj.Function == EngineKeyFunctions.UISelect)
             {
-                Finish(new UINone());
+                Finish(new Result() { SelectedIndexOnExit = _currentIndex });
             }
+            else if (obj.Function == EngineKeyFunctions.UIUp)
+            {
+                SelectItem(-1);
+            }
+            else if (obj.Function == EngineKeyFunctions.UIDown)
+            {
+                SelectItem(1);
+            }
+            else if (obj.Function == EngineKeyFunctions.UIPreviousPage)
+            {
+                if (_wrappedEntries.PageBackward())
+                    _audio.Play(Protos.Sound.Pop1);
+                PageText.UpdatePageText(_wrappedEntries.CurrentPage, _wrappedEntries.PageCount);
+            }
+            else if (obj.Function == EngineKeyFunctions.UINextPage)
+            {
+                if (_wrappedEntries.PageForward())
+                    _audio.Play(Protos.Sound.Pop1);
+                PageText.UpdatePageText(_wrappedEntries.CurrentPage, _wrappedEntries.PageCount);
+            }
+        }
+
+        private void SelectItem(int delta)
+        {
+            if (_otherItems.Count == 0)
+                return;
+
+            _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, _otherItems.Count - 1);
+            _audio.Play(Protos.Sound.Cursor1);
+
+            UpdateDescription();
+            WrapDescription();
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -70,20 +140,35 @@ namespace OpenNefia.Content.Inventory
 
             keyHints.Add(new(UiKeyHints.Close, new[] { EngineKeyFunctions.UISelect, EngineKeyFunctions.UICancel }));
 
+            if (_wrappedEntries.PageCount > 1)
+                keyHints.Add(new(UiKeyHints.Page, new[] { EngineKeyFunctions.UIPreviousPage, EngineKeyFunctions.UINextPage }));
+
+            if (_otherItems.Count > 1)
+                keyHints.Add(new(UiKeyHints.Page, new[] { EngineKeyFunctions.UIUp, EngineKeyFunctions.UIDown }));
+
             return keyHints;
         }
 
-        private void GetDescription()
+        private void UpdateDescription()
         {
-            Window.Title = Loc.GetString("Elona.Inventory.ItemDescriptionLayer.WindowTitle");
+            var title = Loc.GetString("Elona.Inventory.ItemDescriptionLayer.WindowTitle");
+
+            if (_otherItems.Count > 1)
+                Window.Title = $"{title} ({_currentIndex + 1}/{_otherItems.Count})";
+            else
+                Window.Title = title;
+
+            TextTopicItemName.Text = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", _currentItem));
 
             _rawEntries.Clear();
-            _itemDescSystem.GetItemDescription(_item, _rawEntries);
+            _itemDescSystem.GetItemDescription(_currentItem, _rawEntries);
         }
 
-        private void WrapDescription(float maxWidth)
+        private void WrapDescription()
         {
-            _wrappedEntries.Clear();
+            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidthV(UIScale, " ");
+
+            var wrappedEntries = new List<ItemDescriptionEntry>();
 
             foreach (var entry in _rawEntries)
             {
@@ -92,7 +177,7 @@ namespace OpenNefia.Content.Inventory
                     var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrapS(UIScale, entry.Text, maxWidth);
                     foreach (var text in wrapped)
                     {
-                        _wrappedEntries.Add(new ItemDescriptionEntry()
+                        wrappedEntries.Add(new ItemDescriptionEntry()
                         {
                             Text = text,
                             TextColor = entry.TextColor,
@@ -102,9 +187,13 @@ namespace OpenNefia.Content.Inventory
                 }
                 else
                 {
-                    _wrappedEntries.Add(entry);
+                    wrappedEntries.Add(entry);
                 }
             }
+
+            _wrappedEntries.SetElements(wrappedEntries);
+            PageText.UpdatePageText(_wrappedEntries.CurrentPage, _wrappedEntries.PageCount);
+            Window.KeyHints = MakeKeyHints();
         }
 
         public override void SetSize(float width, float height)
@@ -112,10 +201,9 @@ namespace OpenNefia.Content.Inventory
             base.SetSize(width, height);
 
             Window.SetSize(Width, Height);
+            PageText.SetPreferredSize();
             TextTopicItemName.SetPreferredSize();
-
-            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidthV(UIScale, " ");
-            WrapDescription(maxWidth);
+            WrapDescription();
         }
 
         public override void SetPosition(float x, float y)
@@ -123,6 +211,7 @@ namespace OpenNefia.Content.Inventory
             base.SetPosition(x, y);
 
             Window.SetPosition(X, Y);
+            PageText.SetPosition(X, Y);
             TextTopicItemName.SetPosition(X + 28, Y + 34);
         }
 
@@ -139,12 +228,14 @@ namespace OpenNefia.Content.Inventory
         public override void Update(float dt)
         {
             Window.Update(dt);
+            PageText.Update(dt);
             TextTopicItemName.Update(dt);
         }
 
         public override void Draw()
         {
             Window.Draw();
+            PageText.Draw();
 
             TextTopicItemName.Draw();
 
@@ -177,7 +268,7 @@ namespace OpenNefia.Content.Inventory
                 GraphicsS.PrintS(UIScale, entry.Text, x, y);
 
                 Love.Graphics.SetColor(Color.White);
-            
+
                 if (icon.HasValue)
                 {
                     AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);

@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Qualities
         public override void Initialize()
         {
             SubscribeComponent<QualityComponent, EntityBeingGeneratedEvent>(SetQualityFromGenArgs, EventPriorities.Highest);
-            SubscribeComponent<ItemComponent, EntityBeingGeneratedEvent>(FixQualityForNonEquipmentItem, EventPriorities.Lowest);
+            SubscribeComponent<ItemComponent, EntityBeingGeneratedEvent>(FixQualityForNonEquipmentItem, EventPriorities.VeryHigh);
             SubscribeComponent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
         }
 

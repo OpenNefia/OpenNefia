@@ -25,6 +25,7 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +103,7 @@ namespace OpenNefia.Content.Equipment
             // parented to layer and shared across all cells
             private readonly EntitySpriteBatch SpriteBatch;
 
-            public ListCell(CellData data, EntitySpriteBatch spriteBatch) 
+            public ListCell(CellData data, EntitySpriteBatch spriteBatch)
                 : base(data, new UiText())
             {
                 SpriteBatch = spriteBatch;
@@ -212,7 +213,7 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         [Child] protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
-        [Child] [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
+        [Child][Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
         public delegate void EquippedDelegate(GotEquippedInMenuEvent ev);
@@ -269,7 +270,22 @@ namespace OpenNefia.Content.Equipment
                     var item = List.SelectedCell.Data.ItemEntityUid;
 
                     if (_entityManager.IsAlive(item))
-                        UserInterfaceManager.Query<ItemDescriptionLayer, EntityUid>(item.Value);
+                    {
+                        var entities = List.Where(c => _entityManager.IsAlive(c.Data.ItemEntityUid))
+                            .Select(c => c.Data.ItemEntityUid!.Value)
+                            .ToList();
+
+                        var result = UserInterfaceManager.Query<ItemDescriptionLayer, ItemDescriptionLayer.Args, ItemDescriptionLayer.Result>(new(item.Value, entities));
+
+                        if (result.HasValue)
+                        {
+                            var entity = entities[result.Value.SelectedIndexOnExit];
+                            var index = List.FindIndex(c => c.Data.ItemEntityUid == entity);
+
+                            if (index != -1)
+                                List.SelectInAllPages(index);
+                        }
+                    }
                 }
             }
             else if (args.Function == ContentKeyFunctions.UIMode)

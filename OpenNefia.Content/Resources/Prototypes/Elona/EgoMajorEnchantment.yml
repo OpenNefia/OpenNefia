@@ -6,7 +6,7 @@
   - protoID: Elona.EncModifySkill
     power: 100
     components:
-    - type: Elona.EncModifySkill
+    - type: EncModifySkill
       skillID: Elona.Stealth
   - protoID: Elona.EncPreventTeleport
     power: 100
@@ -87,11 +87,11 @@
       skillID: Elona.Healing
 
 - type: Elona.EgoMajorEnchantment
-  id: Elona.ResistParalyze
+  id: Elona.ResistParalysis
   level: 2
   filter: !type:EgoMajorAccessoryFilter {}
   enchantments:
-  - protoID: Elona.EncResistParalyze
+  - protoID: Elona.EncResistParalysis
     power: 100
 
 - type: Elona.EgoMajorEnchantment
@@ -115,7 +115,7 @@
   level: 3
   filter: !type:EgoMajorItemCategoryFilter
     itemCategories:
-     - Elona.EquipMelee
+     - Elona.ItemCatEquipMelee
   enchantments:
   - protoID: Elona.EncModifyResistance
     power: 100

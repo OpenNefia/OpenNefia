@@ -1441,8 +1441,17 @@ namespace OpenNefia.Core.Prototypes
                 _indices = protos._sortedPrototypeIndices[typeof(T)];
             }
 
-            public int Compare(PrototypeId<T> x, PrototypeId<T> y)
+            public int Compare(PrototypeId<T>? x, PrototypeId<T>? y)
             {
+                if (x == null && y == null)
+                    return 0;
+
+                if (x == null)
+                    return -1;
+
+                if (y == null)
+                    return 1;
+
                 return _indices[(string)x].CompareTo(_indices[(string)y]);
             }
 
@@ -1546,7 +1555,7 @@ namespace OpenNefia.Core.Prototypes
         public sealed record PrototypeChangeSet(IReadOnlyDictionary<string, IPrototype> Modified);
     }
 
-    public interface IPrototypeComparer<T> : IComparer<PrototypeId<T>>, IComparer<T>
+    public interface IPrototypeComparer<T> : IComparer<PrototypeId<T>?>, IComparer<T?>
         where T : class, IPrototype
     {
     }

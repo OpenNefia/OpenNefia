@@ -167,8 +167,7 @@ namespace OpenNefia.Content.Enchantments
                 return false;
             }
 
-            if (power == null)
-                power = CalcRandomEnchantmentPower(power);
+            power ??= CalcRandomEnchantmentPower();
 
             return _enchantments.TryAddEnchantment(item, id.Value, power.Value, out enchantment, cursePower, source: source);
         }
