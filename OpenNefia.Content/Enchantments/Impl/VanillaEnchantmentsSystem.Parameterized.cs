@@ -206,7 +206,7 @@ namespace OpenNefia.Content.Enchantments
             else
             {
                 if (!Loc.TryGetPrototypeString(component.SkillID, "EnchantmentDescription", out var desc, ("item", args.Item), ("wielder", args.ItemOwner), ("power", args.AdjustedPower)))
-                    desc = Loc.GetString("Elona.Enchantment.Item.ModifySkill.Increases", ("skillName", skillName));
+                    desc = Loc.GetString("Elona.Enchantment.Item.ModifySkill.Increases", ("item", args.Item), ("wielder", args.ItemOwner), ("skillName", skillName), ("adjustedPower", args.AdjustedPower));
                 args.OutDescription = desc;
             }
         }

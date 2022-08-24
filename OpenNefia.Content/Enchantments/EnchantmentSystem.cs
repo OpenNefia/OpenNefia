@@ -268,9 +268,10 @@ namespace OpenNefia.Content.Enchantments
 
             if (wielder == null)
             {
-                wielder = _gameSession.Player;
                 if (_containers.TryGetContainingContainer(item, out var container))
                     wielder = container.Owner;
+                else
+                    wielder = _gameSession.Player;
             }
             adjustedPower ??= CalcEnchantmentAdjustedPower(enchantment, item, encComp);
 
