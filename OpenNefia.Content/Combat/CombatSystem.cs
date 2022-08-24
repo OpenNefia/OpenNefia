@@ -4,6 +4,7 @@ using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
@@ -44,12 +45,15 @@ namespace OpenNefia.Content.Combat
     {
         EquipState GetEquipState(EntityUid ent);
         TurnResult? MeleeAttack(EntityUid attacker, EntityUid target);
-        bool TryGetRangedWeaponAndAmmo(EntityUid attacker, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair, [NotNullWhen(false)] out string? errorReason);
-        bool TryGetAmmo(EntityUid entity, EntityUid? weapon, [NotNullWhen(true)] out EntityUid? ammo);
+        bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out EntityUid? rangedWeapon, [NotNullWhen(true)] out EntityUid? ammo);
+        bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out EntityUid? rangedWeapon, out EntityUid? ammo, [NotNullWhen(false)] out string? errorReason);
+        bool TryGetAmmoForWeapon(EntityUid entity, EntityUid weapon, [NotNullWhen(true)] out EntityUid? ammo);
         TurnResult? RangedAttack(EntityUid attacker, EntityUid target, EntityUid rangedWeapon);
-        bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair);
         void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, ref int attackCount, EntityUid? weapon = null, bool isRanged = false);
         void PhysicalAttack(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon = null, bool isRanged = false);
+        IMapDrawable? GetRangedAttackAnimation(MapCoordinates start, MapCoordinates end, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon);
+        IMapDrawable? GetRangedAttackAnimation(EntityUid start, EntityUid end, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon);
+        bool TryGetActiveAmmoEnchantment(EntityUid attacker, EntityUid rangedWeapon, [NotNullWhen(true)] out AmmoComponent? ammoComp, [NotNullWhen(true)] out EncAmmoComponent? ammoEncComp);
     }
 
     public sealed partial class CombatSystem : EntitySystem, ICombatSystem
@@ -156,7 +160,7 @@ namespace OpenNefia.Content.Combat
 
             // >>>>>>>> elona122/shade2/calculation.hsp:552 	if cAttackStyle(r1)&styleTwoWield:cExtraMelee(r1) ...
             var state = GetEquipState(uid);
-            
+
             if (state.IsDualWielding)
             {
                 equipStats.ExtraMeleeAttackRate.Buffed += (MathF.Sqrt(_skills.Level(uid, Protos.Skill.DualWield)) * 3f / 2f + 4f) / 100f;
@@ -184,26 +188,23 @@ namespace OpenNefia.Content.Combat
         public bool IsMeleeWeapon(EntityUid ent)
         {
             return HasComp<WeaponComponent>(ent)
-                && !_equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ranged)
-                && !_equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ammo);
+                && !HasComp<RangedWeaponComponent>(ent);
         }
 
         public bool IsRangedWeapon(EntityUid ent)
         {
             return HasComp<WeaponComponent>(ent)
-                && HasComp<RangedWeaponComponent>(ent)
-                && _equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ranged);
+                && HasComp<RangedWeaponComponent>(ent);
         }
 
         public bool IsAmmo(EntityUid ent)
         {
-            return HasComp<AmmoComponent>(ent)
-                && _equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ammo);
+            return HasComp<AmmoComponent>(ent);
         }
 
         public bool IsArmor(EntityUid ent)
         {
-            return !IsMeleeWeapon(ent) && !IsRangedWeapon(ent);
+            return HasComp<ArmorComponent>(ent);
         }
 
         public IList<EntityUid> GetMeleeWeapons(EntityUid ent)
@@ -211,16 +212,17 @@ namespace OpenNefia.Content.Combat
             return _equipSlots.EnumerateEquippedEntities(ent).Where(IsMeleeWeapon).ToList();
         }
 
-        public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair, [NotNullWhen(false)] out string? errorReason)
+        public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out EntityUid? rangedWeapon, out EntityUid? ammo, [NotNullWhen(false)] out string? errorReason)
         {
             // >>>>>>>> elona122/shade2/command.hsp:4284 *FindRangeWeapon ...
-            var rangedWeapon = _equipSlots.EnumerateEquippedEntities(entity)
+            rangedWeapon = _equipSlots.EnumerateEquippedEntities(entity)
                 .Where(IsRangedWeapon)
                 .FirstOrNull();
 
             if (!IsAlive(rangedWeapon))
             {
-                pair = null;
+                rangedWeapon = null;
+                ammo = null;
                 errorReason = RangedWeaponQueryErrors.NoRangedWeapon;
                 return false;
             }
@@ -231,14 +233,15 @@ namespace OpenNefia.Content.Combat
 
             if (!needsAmmo)
             {
-                pair = (rangedWeapon.Value, null);
+                ammo = null;
                 errorReason = null;
                 return true;
             }
 
-            if (!TryGetAmmo(entity, rangedWeapon.Value, out var ammo))
+            if (!TryGetAmmoForWeapon(entity, rangedWeapon.Value, out ammo))
             {
-                pair = null;
+                rangedWeapon = null;
+                ammo = null;
                 errorReason = RangedWeaponQueryErrors.NoAmmo;
                 return false;
             }
@@ -247,23 +250,23 @@ namespace OpenNefia.Content.Combat
 
             if (ammoComp.AmmoSkill != weaponComp.WeaponSkill)
             {
-                pair = null;
+                rangedWeapon = null;
+                ammo = null;
                 errorReason = RangedWeaponQueryErrors.WrongAmmoType;
                 return false;
             }
 
-            pair = (rangedWeapon.Value, ammo.Value);
             errorReason = null;
             return true;
             // <<<<<<<< elona122/shade2/command.hsp:4296 	return true ...
         }
 
-        public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out (EntityUid, EntityUid?)? pair)
-            => TryGetRangedWeaponAndAmmo(entity, out pair, out _);
+        public bool TryGetRangedWeaponAndAmmo(EntityUid entity, [NotNullWhen(true)] out EntityUid? rangedWeapon, [NotNullWhen(true)] out EntityUid? ammo)
+            => TryGetRangedWeaponAndAmmo(entity, out rangedWeapon, out ammo, out _);
 
-        public bool TryGetAmmo(EntityUid entity, EntityUid? weapon, [NotNullWhen(true)] out EntityUid? ammo)
+        public bool TryGetAmmoForWeapon(EntityUid entity, EntityUid weapon, [NotNullWhen(true)] out EntityUid? ammo)
         {
-            if (!IsAlive(weapon) || !IsRangedWeapon(weapon.Value))
+            if (!IsAlive(weapon) || !IsRangedWeapon(weapon))
             {
                 ammo = null;
                 return false;
@@ -310,11 +313,51 @@ namespace OpenNefia.Content.Combat
             return TurnResult.Succeeded;
         }
 
+        public bool TryGetActiveAmmoEnchantment(EntityUid attacker, EntityUid rangedWeapon, [NotNullWhen(true)] out AmmoComponent? ammoComp, [NotNullWhen(true)] out EncAmmoComponent? ammoEncComp)
+        {
+            if (TryGetAmmoForWeapon(attacker, rangedWeapon, out var ammo)
+                && TryComp<AmmoComponent>(ammo, out ammoComp)
+                && IsAlive(ammoComp.ActiveAmmoEnchantment)
+                && TryComp<EncAmmoComponent>(ammoComp.ActiveAmmoEnchantment, out ammoEncComp))
+            {
+                return true;
+            }
+
+            ammoComp = null;
+            ammoEncComp = null;
+            return false;
+        }
+
         public TurnResult? RangedAttack(EntityUid attacker, EntityUid target, EntityUid rangedWeapon)
         {
-            if (TryGetAmmo(attacker, rangedWeapon, out var ammo))
+            // >>>>>>>> shade2/action.hsp:1148 *act_fire ..
+            AmmoComponent? ammoComp = null;
+            EncAmmoComponent? ammoEncComp = null;
+
+            if (TryGetActiveAmmoEnchantment(attacker, rangedWeapon, out ammoComp, out ammoEncComp))
             {
-                // TODO ammo enchantments
+                if (ammoEncComp.CurrentAmmoAmount <= 0)
+                {
+                    _mes.Display(Loc.GetString("Elona.Combat.RangedAttack.LoadNormalAmmo", ("attacker", attacker)));
+                    ammoComp.ActiveAmmoEnchantment = null;
+                    ammoEncComp = null;
+                }
+                else
+                {
+                    var ammoEncProto = _protos.Index(ammoEncComp.AmmoEnchantmentID);
+
+                    if (_gameSession.IsPlayer(attacker) && TryComp<SkillsComponent>(attacker, out var skills))
+                    {
+                        if (skills.Stamina < FatigueThresholds.Light && skills.Stamina < _rand.Next((int)(FatigueThresholds.Light * 1.5f)))
+                        {
+                            _mes.Display(Loc.GetString("Elona.Common.TooExhausted"), entity: attacker);
+                            _damage.DamageStamina(attacker, ammoEncProto.StaminaCost / 2 + 1);
+                            return TurnResult.Failed;
+                        }
+                        _damage.DamageStamina(attacker, ammoEncProto.StaminaCost + 1);
+                        ammoEncComp.CurrentAmmoAmount -= 1;
+                    }
+                }
             }
 
             if (!TryComp<WeaponComponent>(rangedWeapon, out var weaponComp))
@@ -325,9 +368,19 @@ namespace OpenNefia.Content.Combat
 
             var weaponSkill = weaponComp.WeaponSkill;
 
-            // TODO ammo enchantments
+            if (ammoComp != null && ammoEncComp != null)
+            {
+                var ev = new P_AmmoEnchantmentBeforeRangedAttackEvent(attacker, target, rangedWeapon, ammoComp.Owner, ammoEncComp.Owner, weaponSkill);
+                _protos.EventBus.RaiseEvent(ammoEncComp.AmmoEnchantmentID, ev);
+
+                if (ev.Handled)
+                    return TurnResult.Succeeded;
+            }
+
             PhysicalAttack(attacker, target, weaponSkill, rangedWeapon, isRanged: true);
+
             return TurnResult.Succeeded;
+            // <<<<<<<< shade2/action.hsp:1195 	return ..
         }
 
         public PrototypeId<SkillPrototype> GetPhysicalAttackSkill(EntityUid? weapon, WeaponComponent? weaponComp = null)
@@ -338,6 +391,9 @@ namespace OpenNefia.Content.Combat
             }
             return Protos.Skill.MartialArts;
         }
+
+        public IMapDrawable? GetRangedAttackAnimation(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon)
+            => GetRangedAttackAnimation(Spatial(attacker).MapPosition, Spatial(target).MapPosition, attackSkill, weapon);
 
         public IMapDrawable? GetRangedAttackAnimation(MapCoordinates start, MapCoordinates end, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon)
         {
@@ -410,7 +466,7 @@ namespace OpenNefia.Content.Combat
             var attackCount = 0;
             PhysicalAttack(attacker, target, attackSkill, ref attackCount, weapon, isRanged);
         }
-        
+
         /// <summary>
         /// Does one or more physical attacks, taking into account the extra melee/ranged attack
         /// chances.
@@ -432,7 +488,6 @@ namespace OpenNefia.Content.Combat
                         if (TryComp<EquipStatsComponent>(attacker, out var stats) && _rand.Prob(stats.ExtraRangedAttackRate.Buffed))
                         {
                             attackCount++;
-                            // TODO ammo_enc = null;
                         }
                         else
                         {
@@ -743,7 +798,7 @@ namespace OpenNefia.Content.Combat
                      + CompOrNull<EquipStatsComponent>(attacker)?.HitBonus.Buffed ?? 0
                      + CompOrNull<EquipStatsComponent>(weapon.Value)?.HitBonus.Buffed ?? 0;
 
-                if (TryGetAmmo(attacker, weapon, out var ammo) && TryComp<EquipStatsComponent>(ammo.Value, out var ammoStats))
+                if (TryGetAmmoForWeapon(attacker, weapon.Value, out var ammo) && TryComp<EquipStatsComponent>(ammo.Value, out var ammoStats))
                     accuracy += ammoStats.HitBonus.Buffed;
             }
             else
@@ -814,7 +869,7 @@ namespace OpenNefia.Content.Combat
             var weaponSkill = weaponComp.WeaponSkill;
             float multiplier;
 
-            if (TryGetAmmo(attacker, weapon.Value, out var ammo))
+            if (TryGetAmmoForWeapon(attacker, weapon.Value, out var ammo))
             {
                 var ammoComp = Comp<AmmoComponent>(ammo.Value);
                 diceBonus += CompOrNull<EquipStatsComponent>(ammo.Value)?.DamageBonus.Buffed ?? 0
@@ -842,7 +897,7 @@ namespace OpenNefia.Content.Combat
         {
             var strength = CalcPhysicalAttackStrength(attacker, target, attackSkill, weapon, attackCount, isRanged, isCritical);
             var protection = CalcPhysicalAttackProtection(attacker, target, attackSkill, weapon, attackCount, isRanged, isCritical);
-            
+
             // >>>>>>>> elona122/shade2/calculation.hsp:297 	if dmgFix<-100:dmgFix=-100 ...
             strength.Dice.Bonus = Math.Max(strength.Dice.Bonus, -100);
             var damage = strength.Dice.Roll(_rand);
@@ -859,15 +914,18 @@ namespace OpenNefia.Content.Combat
                     protection = ev.OutProtection;
                     damage = ev.OutDamage;
                 }
-                else if (TryGetAmmo(attacker, weapon, out var ammo))
-                {
-                    var weight = CompOrNull<WeightComponent>(ammo.Value)?.Weight.Buffed ?? 0;
-                    strength.Multiplier *= Math.Clamp((float)weight / 100 + 100, 100, 150) / 100;
-                }
                 else if (weapon != null)
                 {
-                    var weight = CompOrNull<WeightComponent>(weapon.Value)?.Weight.Buffed ?? 0;
-                    strength.Multiplier *= Math.Clamp((float)weight / 200 + 100, 100, 150) / 100;
+                    if (TryGetAmmoForWeapon(attacker, weapon.Value, out var ammo))
+                    {
+                        var weight = CompOrNull<WeightComponent>(ammo.Value)?.Weight.Buffed ?? 0;
+                        strength.Multiplier *= Math.Clamp((float)weight / 100 + 100, 100, 150) / 100;
+                    }
+                    else
+                    {
+                        var weight = CompOrNull<WeightComponent>(weapon.Value)?.Weight.Buffed ?? 0;
+                        strength.Multiplier *= Math.Clamp((float)weight / 200 + 100, 100, 150) / 100;
+                    }
                 }
             }
 
@@ -880,7 +938,13 @@ namespace OpenNefia.Content.Combat
 
             if (isRanged)
             {
-                // TODO ammo enchantments
+                if (IsAlive(weapon) && TryGetActiveAmmoEnchantment(attacker, weapon.Value, out var ammoComp, out var ammoEncComp))
+                {
+                    var pev = new P_AmmoEnchantmentCalcAttackDamageEvent(attacker, target, weapon.Value, ammoComp.Owner, ammoEncComp.Owner, attackSkill, attackCount, isCritical, strength, damage);
+                    _protos.EventBus.RaiseEvent(ammoEncComp.AmmoEnchantmentID, ref pev);
+                    damage = pev.OutDamage;
+                    vorpal = pev.OutVorpal;
+                }
             }
             else
             {
@@ -888,7 +952,7 @@ namespace OpenNefia.Content.Combat
                 {
                     strength.PierceRate = 100;
                     vorpal = true;
-                    _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.Vorpal.Melee"), UiColors.MesYellow, entity: attacker);
+                    _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.Vorpal"), UiColors.MesYellow, entity: attacker);
                 }
             }
 

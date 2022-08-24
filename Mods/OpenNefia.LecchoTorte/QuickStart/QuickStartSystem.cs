@@ -26,6 +26,7 @@ using OpenNefia.Content.Materials;
 using OpenNefia.Content.LivingWeapon;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -153,6 +154,16 @@ namespace OpenNefia.LecchoTorte.QuickStart
                     _enchantments.AddEnchantment(putitoro.Value, enc.GetStrongID(), 600);
                 }
             }
+
+            foreach (var ammoEnc in _protos.EnumeratePrototypes<AmmoEnchantmentPrototype>())
+            {
+                var bullet = _itemGen.GenerateItem(map.AtPos(6, 3), Protos.Item.Bullet, quality: Quality.Great);
+                if (IsAlive(bullet) && _enchantments.TryAddEnchantment(bullet.Value, Protos.Enchantment.Ammo, 600, out var enc))
+                {
+                    Comp<EncAmmoComponent>(enc.Value).AmmoEnchantmentID = ammoEnc.GetStrongID();
+                }
+            }
+            _itemGen.GenerateItem(map.AtPos(6, 3), Protos.Item.MachineGun, quality: Quality.Great);
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {

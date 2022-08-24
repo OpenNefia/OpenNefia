@@ -140,6 +140,10 @@ binds:
   type: State
   key: F
   canRepeat: true
+- function: Elona.Ammo
+  type: State
+  key: A
+  mod1: Shift
 - function: Elona.Bash
   type: State
   key: B

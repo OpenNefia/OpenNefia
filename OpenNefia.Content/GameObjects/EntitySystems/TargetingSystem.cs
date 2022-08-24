@@ -30,7 +30,7 @@ namespace OpenNefia.Content.GameObjects
         List<SpatialComponent> FindTargets(EntityUid attacker);
 
         /// <hsp>*findTarget</hsp>
-        bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target);
+        bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false);
     }
 
     public sealed class TargetingSystem : EntitySystem, ITargetingSystem
@@ -102,7 +102,7 @@ namespace OpenNefia.Content.GameObjects
         }
 
         /// <inheritdoc/>
-        public bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target)
+        public bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false)
         {
             // >>>>>>>> shade2/command.hsp:4240 *findTarget ...
             if (!TryComp<VanillaAIComponent>(attacker, out var vai))
@@ -130,7 +130,7 @@ namespace OpenNefia.Content.GameObjects
             target = _vanillaAI.GetTarget(attacker, ai: vai);
             if (!IsAlive(target) || _effects.HasEffect(attacker, Protos.StatusEffect.Blindness))
             {
-                if (_gameSession.IsPlayer(attacker))
+                if (_gameSession.IsPlayer(attacker) && !silent)
                     _mes.Display(Loc.GetString("Elona.Targeting.NoTarget"));
                 
                 target = null;

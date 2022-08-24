@@ -407,7 +407,7 @@ namespace OpenNefia.Content.Enchantments
 
             var ammoEncProto = _protos.Index(component.AmmoEnchantmentID);
 
-            component.MaxAmmoAmount = Math.Clamp(encArgs.OutPower, 0, 500) * ammoEncProto.AmmoAmountFactor / 500;
+            component.MaxAmmoAmount = (Math.Clamp(encArgs.OutPower, 0, 500) * ammoEncProto.AmmoAmountFactor / 500) + ammoEncProto.ExtraAmmoAmount;
             component.CurrentAmmoAmount = component.MaxAmmoAmount;
         }
 

@@ -23,6 +23,9 @@ namespace OpenNefia.Content.GameObjects
         [DataField]
         public Stat<int> DiceY { get; set; } = new(0);
 
+        [DataField]
+        public EntityUid? ActiveAmmoEnchantment { get; set; }
+
         public void Refresh()
         {
             DiceX.Reset();

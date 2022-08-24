@@ -19,6 +19,11 @@ using OpenNefia.Content.Combat;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Mining;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core;
+using OpenNefia.Content.Enchantments;
+using OpenNefia.Content.EquipSlots;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -34,6 +39,9 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IActionInteractSystem _actionInteract = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IVerbSystem _verbs = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         public override void Initialize()
         {
@@ -41,6 +49,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(ContentKeyFunctions.Dig, InputCmdHandler.FromDelegate(CommandDig))
                 .Bind(ContentKeyFunctions.Bash, InputCmdHandler.FromDelegate(CommandBash))
                 .Bind(ContentKeyFunctions.Fire, InputCmdHandler.FromDelegate(CommandFire))
+                .Bind(ContentKeyFunctions.Ammo, InputCmdHandler.FromDelegate(CommandAmmo))
                 .Bind(ContentKeyFunctions.Rest, InputCmdHandler.FromDelegate(CommandRest))
                 .Bind(ContentKeyFunctions.Interact, InputCmdHandler.FromDelegate(CommandInteract))
                 .Register<ActionCommandsSystem>();
@@ -76,7 +85,7 @@ namespace OpenNefia.Content.GameObjects
                 _activities.StartActivity(session.Player, activity);
                 return TurnResult.Succeeded;
             }
-            
+
             return _actionDig.StartMining(session!.Player, dir.Value.Coords);
         }
 
@@ -107,13 +116,96 @@ namespace OpenNefia.Content.GameObjects
                 && !_targeting.PromptReallyAttack(session.Player, target.Value))
                 return TurnResult.Aborted;
 
-            if (!_combat.TryGetRangedWeaponAndAmmo(session.Player, out var pair, out var errorReason))
+            if (!_combat.TryGetRangedWeaponAndAmmo(session.Player, out var rangedWeapon, out _, out var errorReason))
             {
                 _mes.Display(Loc.GetString($"Elona.Combat.RangedAttack.Errors.{errorReason}"), combineDuplicates: true);
                 return TurnResult.Aborted;
             }
 
-            return _combat.RangedAttack(session.Player, target.Value, pair.Value.Item1);
+            return _combat.RangedAttack(session.Player, target.Value, rangedWeapon.Value);
+        }
+
+        private TurnResult? CommandAmmo(IGameSessionManager? session)
+        {
+            // >>>>>>>> elona122/shade2/command.hsp:4694 *com_ammo ..
+            var player = session!.Player;
+
+            var ammo = _equipSlots.EnumerateEquippedEntities(player)
+                .Select(e => CompOrNull<AmmoComponent>(e))
+                .WhereNotNull()
+                .FirstOrDefault();
+
+            if (ammo == null)
+            {
+                _mes.Display(Loc.GetString("Elona.Ammo.NeedToEquip"));
+                return TurnResult.Aborted;
+            }
+
+            var ammoEncs = _enchantments.QueryEnchantmentsOnItem<EncAmmoComponent>(ammo.Owner).ToList();
+            if (ammoEncs.Count == 0)
+            {
+                ammo.ActiveAmmoEnchantment = null;
+                _mes.Display(Loc.GetString("Elona.Ammo.IsNotCapableOfSwitching", ("item", ammo)));
+                return TurnResult.Aborted;
+            }
+
+            _audio.Play(Protos.Sound.Ammo);
+
+            var currentIndex = -1;
+            if (IsAlive(ammo.ActiveAmmoEnchantment))
+                currentIndex = ammoEncs.FindIndex(c => c.Owner == ammo.ActiveAmmoEnchantment.Value);
+
+            if (currentIndex == -1)
+                currentIndex = 0;
+            else
+            {
+                currentIndex++;
+                if (currentIndex >= ammoEncs.Count)
+                    currentIndex = -1;
+            }
+
+            if (currentIndex == -1)
+                ammo.ActiveAmmoEnchantment = null;
+            else
+                ammo.ActiveAmmoEnchantment = ammoEncs[currentIndex].Owner;
+
+            _mes.Display(Loc.GetString("Elona.Ammo.Current"));
+
+            for (var i = -1; i < ammoEncs.Count; i++)
+            {
+                string name, capacity;
+
+                if (i == -1)
+                {
+                    name = Loc.GetString("Elona.Ammo.Name.Normal");
+                    capacity = Loc.GetString("Elona.Ammo.Capacity.Unlimited");
+                }
+                else
+                {
+                    var ammoEnc = ammoEncs[i];
+                    name = Loc.GetPrototypeString(ammoEnc.AmmoEnchantmentID, "Name");
+                    capacity = $"{ammoEnc.CurrentAmmoAmount}/{ammoEnc.MaxAmmoAmount}";
+                }
+
+                string mes;
+                Color? color = null;
+
+                if (currentIndex == i)
+                {
+                    mes = $"[{name}:{capacity}]";
+                    color = UiColors.MesBlue;
+                }
+                else
+                {
+                    mes = $" {name}:{capacity} ";
+                }
+
+                // BUG: fix leading space not printed in message window
+                _mes.Display(" " + mes, color: color);
+            }
+
+            return TurnResult.Aborted;
+            // <<<<<<<< elona122/shade2/command.hsp:4739 	goto *pc_turn ..
         }
 
         private TurnResult? CommandRest(IGameSessionManager? session)

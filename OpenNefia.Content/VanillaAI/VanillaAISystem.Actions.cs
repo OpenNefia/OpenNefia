@@ -56,9 +56,9 @@ namespace OpenNefia.Content.VanillaAI
 
             if (dist < AIRangedAttackThreshold && _vis.HasLineOfSight(attacker, target))
             {
-                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var pair))
+                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var rangedWeapon, out _))
                 {
-                    return _combat.RangedAttack(attacker, target, pair.Value.Item1);
+                    return _combat.RangedAttack(attacker, target, rangedWeapon.Value);
                 }
             }
 
@@ -122,9 +122,9 @@ namespace OpenNefia.Content.VanillaAI
 
             if (dist < AIRangedAttackThreshold && _vis.HasLineOfSight(attacker, target))
             {
-                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var pair))
+                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var rangedWeapon, out _))
                 {
-                    return _combat.RangedAttack(attacker, target, pair.Value.Item1);
+                    return _combat.RangedAttack(attacker, target, rangedWeapon.Value);
                 }
             }
 

@@ -52,6 +52,8 @@ namespace OpenNefia.Content.Enchantments
 
         int CalcEnchantmentAdjustedPower(EntityUid enchantment, EntityUid item, EnchantmentComponent? enc = null);
         IEnumerable<EnchantmentComponent> EnumerateEnchantments(EntityUid item, EnchantmentsComponent? encs = null);
+        
+        IEnumerable<T> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
     }
 
     public sealed class EnchantmentSystem : EntitySystem, IEnchantmentSystem
@@ -71,6 +73,7 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IItemDescriptionSystem _itemDescriptions = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
 
         public override void Initialize()
         {
@@ -278,6 +281,12 @@ namespace OpenNefia.Content.Enchantments
                     var ev = new ApplyEnchantmentPhysicalAttackEffectsEvent(enc.TotalPower, adjustedPower, attacker, args);
                     RaiseEvent(enc.Owner, ref ev);
                 }
+
+                if (args.AttackCount == 0 && args.IsRanged && _combat.TryGetActiveAmmoEnchantment(attacker, args.Weapon.Value, out var ammoComp, out var ammoEncComp))
+                {
+                    var pev = new P_AmmoEnchantmentAfterRangedAttackHitEvent(attacker, args);
+                    _protos.EventBus.RaiseEvent(ammoEncComp.AmmoEnchantmentID, ref pev);
+                }
             }
         }
 
@@ -484,6 +493,15 @@ namespace OpenNefia.Content.Enchantments
 
                 if (enc.PowerContributions.Count == 0)
                     EntityManager.DeleteEntity(enc.Owner);
+            }
+        }
+
+        public IEnumerable<T> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent
+        {
+            foreach (var enc in EnumerateEnchantments(item, encs))
+            {
+                if (TryComp<T>(enc.Owner, out var encComp))
+                    yield return encComp;
             }
         }
     }
