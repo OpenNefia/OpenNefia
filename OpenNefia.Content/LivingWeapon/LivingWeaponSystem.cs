@@ -175,7 +175,7 @@ namespace OpenNefia.Content.LivingWeapon
                     var encID = _enchantmentGen.PickRandomEnchantmentID(weapon, encLevel);
                     if (encID != null)
                     {
-                        var enc = _enchantments.SpawnEnchantment(tempEncs.Container, encID.Value, weapon, ref power);
+                        var enc = _enchantments.SpawnEnchantment(tempEncs.Container, encID.Value, weapon, ref power, source: EnchantmentSources.LivingWeapon);
                         if (IsAlive(enc))
                         {
                             choices.Add(new LivingWeaponEnchantmentUpgrade(enc.Value, power, weapon));
@@ -201,7 +201,7 @@ namespace OpenNefia.Content.LivingWeapon
                 if (powerIsBecomingAThreat)
                 {
                     _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.ItsPowerIsBecomingAThreat", ("item", weapon)));
-                    var enc = _enchantments.AddEnchantment(weapon, Protos.Enchantment.SuckBlood, 50);
+                    var enc = _enchantments.AddEnchantment(weapon, Protos.Enchantment.SuckBlood, 50, source: EnchantmentSources.LivingWeapon);
                     if (!IsAlive(enc))
                     {
                         var toDelete = _enchantments.EnumerateEnchantments(weapon).LastOrDefault();
@@ -278,8 +278,9 @@ namespace OpenNefia.Content.LivingWeapon
 
         public void Apply(EntityUid livingWeapon)
         {
-            EntitySystem.InjectDependencies(this);
-            _enchantments.AddEnchantment(livingWeapon, EnchantmentUID, _entities.GetComponent<EnchantmentComponent>(EnchantmentUID).TotalPower);
+            var encPower = _entities.GetComponent<EnchantmentComponent>(EnchantmentUID).TotalPower;
+            
+            _enchantments.AddEnchantment(livingWeapon, EnchantmentUID, encPower, source: EnchantmentSources.LivingWeapon);
         }
     }
 }
