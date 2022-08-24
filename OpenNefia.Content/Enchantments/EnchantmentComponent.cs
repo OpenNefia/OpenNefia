@@ -137,5 +137,10 @@ namespace OpenNefia.Content.Enchantments
         /// Contributed by the item's material.
         /// </summary>
         public const string Material = "Material";
+
+        /// <summary>
+        /// Contributed by a living weapon upgrade.
+        /// </summary>
+        public const string LivingWeapon = "LivingWeapon";
     }
 }
