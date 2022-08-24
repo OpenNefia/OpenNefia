@@ -25,9 +25,15 @@ namespace OpenNefia.Content.Enchantments
         public HspIds<int>? HspIds { get; }
 
         [DataField(required: true)]
-        public int RandomWeight { get; set; }
+        public int RandomWeight { get; } = 1000;
 
-        [DataField(required: true)]
-        public int AmmoAmountFactor { get; set; }
+        [DataField]
+        public int AmmoAmountFactor { get; } = 1;
+
+        [DataField]
+        public int ExtraAmmoAmount { get; } = 0;
+
+        [DataField]
+        public int StaminaCost { get; } = 1;
     }
 }

@@ -80,6 +80,12 @@ Elona.Enchantment = {
             end,
         },
 
+        Ammo = {
+            Description = function(item, wielder, ammoName, maxAmmo)
+                return ("%s can be loaded with %s. [Max %s]"):format(_.he(item), ammoName, maxAmmo)
+            end,
+        },
+
         SuckBlood = {
             BloodSucked = function(entity)
                 return ("Something sucks %s blood."):format(_.possessive(entity))

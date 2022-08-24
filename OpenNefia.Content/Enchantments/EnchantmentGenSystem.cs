@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -241,7 +242,8 @@ namespace OpenNefia.Content.Enchantments
             if (objectQuality <= Quality.Normal)
                 return;
 
-            // TODO ammo enchantments
+            if (TryComp<AmmoComponent>(item, out var ammo))
+                ammo.ActiveAmmoEnchantment = null;
 
             var egoLevel = CalcRandomEnchantmentEgoLevel(item, objectLevel.Value);
 

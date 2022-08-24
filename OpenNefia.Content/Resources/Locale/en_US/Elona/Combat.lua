@@ -1,10 +1,7 @@
 Elona.Combat = {
     PhysicalAttack = {
         CriticalHit = "Critical Hit!",
-        Vorpal = {
-            Melee = "*vopal*",
-            Ranged = "*vopal*",
-        },
+        Vorpal = "*vopal*",
         Miss = {
             Ally = function(attacker, target)
                 return ("%s evade%s %s."):format(_.name(target), _.s(target), _.name(attacker))
@@ -25,7 +22,9 @@ Elona.Combat = {
             return ("%s wield%s %s proudly."):format(_.name(wielder), _.s(wielder), itemName)
         end,
     },
+
     RangedAttack = {
+        Ranged = "*vopal*",
         Errors = {
             Elona = {
                 NoRangedWeapon = "You need to equip ammos or arrows.",
@@ -33,5 +32,8 @@ Elona.Combat = {
                 WrongAmmoType = "You're equipped with wrong type of ammos.",
             },
         },
+        LoadNormalAmmo = function(attacker)
+            return ("%s load%s normal ammo."):format(_.name(attacker), _.s(attacker))
+        end,
     },
 }

@@ -1696,6 +1696,16 @@ handlers["base.loot_type"] = function(from, to)
     event(from, to, "on_drop_loot", "Loot", "VanillaLootTypesSystem", "OnGenerateLoot")
 end
 
+handlers["base.ammo_enchantment"] = function(from, to)
+    field(from, to, "ammo_amount", nil, "extraAmmoAmount")
+    field(from, to, "ammo_factor", nil, "ammoAmountFactor")
+    field(from, to, "stamina_cost")
+    to.randomWeight = 1000
+    event(from, to, "on_calc_damage", "Enchantments", "VanillaAmmoEnchantmentsSystem", "CalcAttackStrength")
+    event(from, to, "on_ranged_attack", "Enchantments", "VanillaAmmoEnchantmentsSystem", "AfterRangedAttack")
+    event(from, to, "on_attack_hit", "Enchantments", "VanillaAmmoEnchantmentsSystem", "AfterRangedAttackHit")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1993,6 +2003,7 @@ write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona.book", "Book.yml", "OpenNefia.Content.Book.BookPrototype")
 -- write("base.equipment_type", "EquipmentType.yml", "OpenNefia.Content.Equipment.EquipmentTypePrototype")
 -- write("base.loot_type", "LootType.yml", "OpenNefia.Content.Loot.LootTypePrototype")
+-- write("base.ammo_enchantment", "AmmoEnchantment.yml", "OpenNefia.Content.Enchantments.AmmoEnchantmentPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

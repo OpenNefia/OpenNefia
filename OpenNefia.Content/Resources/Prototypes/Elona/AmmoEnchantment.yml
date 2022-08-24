@@ -1,0 +1,71 @@
+---
+- type: Elona.AmmoEnchantment
+  id: Elona.Rapid
+  extraAmmoAmount: 30
+  ammoAmountFactor: 70
+  staminaCost: 1
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentCalcAttackDamageEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Rapid_CalcAttackDamage
+  - type: Enchantments.P_AmmoEnchantmentBeforeRangedAttackEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Rapid_BeforeRangedAttack
+- type: Elona.AmmoEnchantment
+  id: Elona.Vorpal
+  extraAmmoAmount: 15
+  ammoAmountFactor: 30
+  staminaCost: 2
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentCalcAttackDamageEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Vorpal_CalcAttackDamage
+- type: Elona.AmmoEnchantment
+  id: Elona.Time
+  extraAmmoAmount: 2
+  ammoAmountFactor: 5
+  staminaCost: 25
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentAfterRangedAttackHitEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Time_AfterRangedAttackHit
+- type: Elona.AmmoEnchantment
+  id: Elona.Magic
+  extraAmmoAmount: 20
+  ammoAmountFactor: 35
+  staminaCost: 2
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentCalcAttackDamageEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Magic_CalcAttackDamage
+  - type: Enchantments.P_AmmoEnchantmentAfterRangedAttackHitEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Magic_AfterRangedAttackHit
+- type: Elona.AmmoEnchantment
+  id: Elona.Bomb
+  extraAmmoAmount: 5
+  ammoAmountFactor: 15
+  staminaCost: 10
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentBeforeRangedAttackEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Bomb_BeforeRangedAttack
+- type: Elona.AmmoEnchantment
+  id: Elona.Burst
+  extraAmmoAmount: 2
+  ammoAmountFactor: 5
+  staminaCost: 15
+  randomWeight: 1000
+  events:
+  - type: Enchantments.P_AmmoEnchantmentCalcAttackDamageEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Burst_CalcAttackDamage
+  - type: Enchantments.P_AmmoEnchantmentBeforeRangedAttackEvent
+    system: Enchantments.VanillaAmmoEnchantmentsSystem
+    method: Burst_BeforeRangedAttack
+...

@@ -71,6 +71,12 @@ Elona.Enchantment = {
             end,
         },
 
+        Ammo = {
+            Description = function(item, wielder, ammoName, maxAmmo)
+                return ("%s%sを装填できる [最大%s発]"):format(_.kare_wa(item), ammoName, maxAmmo)
+            end,
+        },
+
         SuckBlood = {
             BloodSucked = function(entity)
                 return ("何かが%sの血を吸った。"):format(_.name(entity))

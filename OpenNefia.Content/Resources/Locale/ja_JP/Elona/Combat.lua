@@ -1,10 +1,7 @@
 Elona.Combat = {
     PhysicalAttack = {
         CriticalHit = "会心の一撃！ ",
-        Vorpal = {
-            Melee = " *シャキーン* ",
-            Ranged = " *ズバシュッ* ",
-        },
+        Vorpal = " *シャキーン* ",
         Miss = {
             Ally = function(attacker, target)
                 return ("%s%sの攻撃を華麗に避けた。"):format(_.sore_wa(target), _.name(attacker))
@@ -26,6 +23,7 @@ Elona.Combat = {
         end,
     },
     RangedAttack = {
+        Ranged = " *ズバシュッ* ",
         Errors = {
             Elona = {
                 NoRangedWeapon = "射撃用の道具を装備していない。",
@@ -33,5 +31,8 @@ Elona.Combat = {
                 WrongAmmoType = "矢/弾丸の種類が適していない。",
             },
         },
+        LoadNormalAmmo = function(attacker)
+            return ("%s通常弾を装填した。"):format(_.sore_wa(attacker))
+        end,
     },
 }
