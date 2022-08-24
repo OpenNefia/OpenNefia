@@ -28,6 +28,7 @@ namespace OpenNefia.Content.Enchantments
 
         public bool CanMergeWith(IEnchantmentComponent other)
         {
+            // TODO is max ammo affected by merge?
             return other is EncAmmoComponent otherAmmo
                 && AmmoEnchantmentID == otherAmmo.AmmoEnchantmentID;
         }

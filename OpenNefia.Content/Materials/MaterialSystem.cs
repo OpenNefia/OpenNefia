@@ -52,6 +52,7 @@ namespace OpenNefia.Content.Materials
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly IRandomItemSystem _randomItems = default!;
 
         public override void Initialize()
         {
@@ -367,6 +368,10 @@ namespace OpenNefia.Content.Materials
         {
             if (!Resolve(item, ref materialComp))
                 return;
+
+            // TODO make into Stat<PrototypeId<Color>>
+            if (TryComp<ChipComponent>(item, out var chip))
+                chip.Color = _randomItems.GetDefaultItemColor(item);
 
             materialComp.RandomSeed = _rand.Next();
             materialComp.MaterialID = materialID;

@@ -101,8 +101,8 @@ namespace OpenNefia.Content.Tests.Materials
                     var weight = entMan.GetComponent<WeightComponent>(entWeapon);
                     Assert.That(weight.Weight.Buffed, Is.EqualTo(80));
 
-                    var value = entMan.GetComponent<ValueComponent>(entWeapon);
-                    Assert.That(value.Value.Buffed, Is.EqualTo(1200));
+                    // var value = entMan.GetComponent<ValueComponent>(entWeapon);
+                    // Assert.That(value.Value.Buffed, Is.EqualTo(1200));
 
                     var chip = entMan.GetComponent<ChipComponent>(entWeapon);
                     Assert.That(chip.Color, Is.EqualTo(Color.FromHex("#AFAFFF")));
@@ -186,6 +186,8 @@ namespace OpenNefia.Content.Tests.Materials
             var map = sim.CreateMapAndSetActive(10, 10);
 
             var entLuckyDagger = entGen.SpawnEntity(Protos.Item.LuckyDagger, map.AtPos(0, 0))!.Value;
+            
+            entMan.GetComponent<MaterialComponent>(entLuckyDagger).RandomSeed = 0;
 
             Assert.Multiple(() =>
             {
@@ -203,20 +205,20 @@ namespace OpenNefia.Content.Tests.Materials
                 // However, there should be no stat bonuses as NoMaterialEffects is set to true in
                 // the prototype.
                 var equipStats = entMan.GetComponent<EquipStatsComponent>(entLuckyDagger);
-                Assert.That(equipStats.HitBonus.Base, Is.EqualTo(13));
-                Assert.That(equipStats.DamageBonus.Base, Is.EqualTo(18));
-                Assert.That(equipStats.DV.Base, Is.EqualTo(18));
-                Assert.That(equipStats.PV.Base, Is.EqualTo(13));
+                Assert.That(equipStats.HitBonus.Buffed, Is.EqualTo(13));
+                Assert.That(equipStats.DamageBonus.Buffed, Is.EqualTo(18));
+                Assert.That(equipStats.DV.Buffed, Is.EqualTo(18));
+                Assert.That(equipStats.PV.Buffed, Is.EqualTo(13));
 
                 // Now see what happens when we allow material effects again.
                 var material = entMan.GetComponent<MaterialComponent>(entLuckyDagger);
                 material.NoMaterialEffects = false;
                 refresh.Refresh(entLuckyDagger);
                 
-                Assert.That(equipStats.HitBonus.Base, Is.EqualTo(13));
-                Assert.That(equipStats.DamageBonus.Base, Is.EqualTo(18));
-                Assert.That(equipStats.DV.Base, Is.EqualTo(18));
-                Assert.That(equipStats.PV.Base, Is.EqualTo(13));
+                Assert.That(equipStats.HitBonus.Buffed, Is.EqualTo(15));
+                Assert.That(equipStats.DamageBonus.Buffed, Is.EqualTo(-2));
+                Assert.That(equipStats.DV.Buffed, Is.EqualTo(26));
+                Assert.That(equipStats.PV.Buffed, Is.EqualTo(0));
             });
         }
     }
