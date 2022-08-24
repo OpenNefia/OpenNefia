@@ -47,7 +47,7 @@ namespace OpenNefia.Tests.Core.Stats.Serialization
             node.Add("base", new SequenceDataNode(new List<string>() { "1", "2" }));
             node.Add("buffed", new SequenceDataNode(new List<string>() { "34", "56" }));
 
-            var deserializedStat = Serialization.ReadValue<Stat<int>>(node)!;
+            var deserializedStat = Serialization.ReadValue<HashSetStat<int>>(node)!;
 
             Assert.That(deserializedStat.Base, Is.EquivalentTo(stat.Base));
             Assert.That(deserializedStat.Buffed, Is.EquivalentTo(stat.Buffed));

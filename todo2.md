@@ -1,13 +1,14 @@
-- [ ] item material
-- [ ] item enchantments
+- [x] item material
+- [x] item enchantments
 - [ ] house board/house upgrading/respawning
 - [ ] scene playback
 - [ ] intro/first pet event
-- [ ] non-compiled mods
 - [ ] PCCs
+- [ ] mod API examples
 - [ ] magic/buffs/effects
   + [ ] timestop
 - [ ] magic items
+- [ ] non-compiled mods
 - [ ] AI actions
 - [ ] riding
 - [ ] living weapons
