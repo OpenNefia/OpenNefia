@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Enchantments
         PrototypeId<EntityPrototype>? PickRandomEnchantmentID(EntityUid item, int level = 0);
 
         /// <hsp>randomEncLv(int level)</hsp>
-        int CalcRandomEnchantmentLevel(int level);
+        int CalcRandomEnchantmentLevel(int level = EnchantmentGenSystem.MaxRandomEnchantmentLevel);
 
         /// <hsp>randomEncP(int level)</hsp>
         int CalcRandomEnchantmentPower(int level = 0);
@@ -106,17 +106,17 @@ namespace OpenNefia.Content.Enchantments
         public int CalcRandomEnchantmentEgoLevel(EntityUid item, int objectLevel)
         {
             if (_qualities.GetQuality(item) == Quality.Unique)
-                return MaxEnchantmentLevel;
+                return MaxRandomEnchantmentLevel;
 
-            return _rand.Next(Math.Clamp(_rand.Next(objectLevel / 10 + 3), 0, MaxEnchantmentLevel));
+            return _rand.Next(Math.Clamp(_rand.Next(objectLevel / 10 + 3), 0, MaxRandomEnchantmentLevel));
         }
 
-        public const int MaxEnchantmentLevel = 4;
+        public const int MaxRandomEnchantmentLevel = 4;
 
-        public int CalcRandomEnchantmentLevel(int level)
+        public int CalcRandomEnchantmentLevel(int level = MaxRandomEnchantmentLevel)
         {
             // >>>>>>>> shade2/item_data.hsp:483 	#defcfunc randomEncLv int refLv ...
-            level = Math.Clamp(level, 0, MaxEnchantmentLevel);
+            level = Math.Clamp(level, 0, MaxRandomEnchantmentLevel);
             return _rand.Next(level + 1);
             // <<<<<<<< shade2/item_data.hsp:486 	return encLv ..
         }
