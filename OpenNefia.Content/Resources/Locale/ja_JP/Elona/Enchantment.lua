@@ -40,10 +40,10 @@ Elona.Enchantment = {
 
         ModifySkill = {
             Increases = function(item, wielder, skillName, power)
-                return ("%s%sの技能を下げる"):format(_.kare_wa(item), skillName)
+                return ("%s%sの技能を上げる"):format(_.kare_wa(item), skillName)
             end,
             Decreases = function(item, wielder, skillName, power)
-                return ("%s%sの技能を上げる"):format(_.kare_wa(item), skillName)
+                return ("%s%sの技能を下げる"):format(_.kare_wa(item), skillName)
             end,
         },
 
