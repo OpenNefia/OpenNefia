@@ -28,6 +28,8 @@ using OpenNefia.Content.Cargo;
 using static OpenNefia.Content.Equipment.EquipmentLayer;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.Currency;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -51,14 +53,14 @@ namespace OpenNefia.Content.Inventory
         public InventoryEntry(EntityUid item, IInventorySource origin, string itemNameText, string itemDetailText, Color chipColor)
         {
             ItemEntityUid = item;
-            Origin = origin;
+            Source = origin;
             ItemNameText = itemNameText;
             ItemDetailText = itemDetailText;
             ChipColor = chipColor;
         }
 
         public EntityUid ItemEntityUid { get; set; }
-        public IInventorySource Origin { get; set; }
+        public IInventorySource Source { get; set; }
         public string ItemNameText { get; set; }
         public string ItemDetailText { get; set; }
         public Color ChipColor { get; set; }
@@ -120,7 +122,7 @@ namespace OpenNefia.Content.Inventory
                 AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
-                Data.Origin.OnDraw(UIScale, X, Y);
+                Data.Source.OnDraw(UIScale, X, Y);
 
                 UiText.Draw();
                 UiSubtext.Draw();
@@ -152,6 +154,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IInventorySystem _invSys = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public bool PlaySounds { get; set; } = false;
 
@@ -258,7 +261,16 @@ namespace OpenNefia.Content.Inventory
             if (selected == null)
                 return;
 
-            UserInterfaceManager.Query<ItemDescriptionLayer, EntityUid>(selected.Data.ItemEntityUid);
+            var entities = List.Where(c => _entityManager.IsAlive(c.Data.ItemEntityUid))
+                .Select(c => c.Data.ItemEntityUid)
+                .ToList();
+
+            var result = UserInterfaceManager.Query<ItemDescriptionLayer, ItemDescriptionLayer.Args, ItemDescriptionLayer.Result>(new(selected.Data.ItemEntityUid, entities));
+
+            if (result.HasValue)
+            {
+                List.SelectInAllPages(result.Value.SelectedIndexOnExit);
+            }
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)
@@ -271,7 +283,14 @@ namespace OpenNefia.Content.Inventory
                 case InventoryResult.Finished:
                     this.Finish(new(result, entry.ItemEntityUid));
                     break;
-                case InventoryResult.Continuing:
+                case InventoryResult.Continuing continuing:
+                    if (continuing.SelectedItem != null)
+                    {
+                        var index = List.FindIndex(c => c.Data.ItemEntityUid == continuing.SelectedItem.Value);
+                        if (index != -1)
+                            List.SelectInAllPages(index);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -310,7 +329,7 @@ namespace OpenNefia.Content.Inventory
             InventoryEntry ToEntry(EntityUid item, IInventorySource source)
             {
                 var itemName = Context.Behavior.GetItemName(Context, item);
-                
+
                 if (Context.Behavior.ApplyNameModifiers)
                     source.ModifyEntityName(ref itemName);
 
@@ -322,12 +341,37 @@ namespace OpenNefia.Content.Inventory
                 return new InventoryEntry(item, source, itemName, itemDetail, chipColor);
             };
 
+            var sourceIndices = new Dictionary<IInventorySource, int>();
+            var sourceIndex = 0;
             var entries = new List<InventoryEntry>();
 
             foreach (var (ent, source) in Context.GetFilteredEntities())
             {
                 entries.Add(ToEntry(ent, source));
+
+                if (!sourceIndices.ContainsKey(source))
+                {
+                    sourceIndices[source] = sourceIndex;
+                    sourceIndex++;
+                }
             }
+
+            // TODO sort by category
+            var comparer = _protos.GetComparator<EntityPrototype>();
+            entries.Sort((a, b) =>
+            {
+                if (a.Source != b.Source)
+                {
+                    var aIndex = sourceIndices[a.Source];
+                    var bIndex = sourceIndices[b.Source];
+                    return aIndex.CompareTo(bIndex);
+                }
+
+                var protoA = _entityManager.GetComponent<MetaDataComponent>(a.ItemEntityUid).EntityPrototype;
+                var protoB = _entityManager.GetComponent<MetaDataComponent>(b.ItemEntityUid).EntityPrototype;
+
+                return comparer.Compare(protoA, protoB);
+            });
 
             return entries;
         }
@@ -372,6 +416,8 @@ namespace OpenNefia.Content.Inventory
             {
                 TextGoldCount.Text = $"{money.Gold} gp";
             }
+
+            Context.AllInventoryEntries = filtered.ToList();
 
             RedisplayList();
         }

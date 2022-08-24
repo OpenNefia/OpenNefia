@@ -51,9 +51,13 @@ namespace OpenNefia.Content.Inventory
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
-            _uiManager.Query<ItemDescriptionLayer, EntityUid>(item);
+            var entities = context.AllInventoryEntries.Select(e => e.ItemEntityUid).ToList();
+            var result = _uiManager.Query<ItemDescriptionLayer, ItemDescriptionLayer.Args, ItemDescriptionLayer.Result>(new(item));
 
-            return new InventoryResult.Continuing();
+            int? selectedIndex = result.HasValue ? result.Value.SelectedIndexOnExit : null;
+            EntityUid? selectedItem = selectedIndex != null ? entities[selectedIndex.Value] : null;
+
+            return new InventoryResult.Continuing(SelectedItem: selectedItem);
         }
 
         private void ToggleNoDrop(IInventoryLayer layer, EntityUid item)

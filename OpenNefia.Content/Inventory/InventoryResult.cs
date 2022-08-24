@@ -8,7 +8,7 @@ namespace OpenNefia.Content.Inventory
         {
             public override string ToString() => $"{nameof(Finished)}({TurnResult})";
         }
-        public sealed record Continuing() : InventoryResult
+        public sealed record Continuing(EntityUid? SelectedItem = null) : InventoryResult
         {
             public override string ToString() => $"{nameof(Continuing)}()";
         }

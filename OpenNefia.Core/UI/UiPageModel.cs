@@ -3,6 +3,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,8 @@ namespace OpenNefia.Core.UI
     /// of equally-sized chunks.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class UiPageModel<T> : IUiPaged
+    // TODO implement a sane mutable interface like IList<T>
+    public class UiPageModel<T> : IUiPaged, IReadOnlyList<T>
     {
         private IEnumerable<T> PagedElements;
 
@@ -25,7 +27,7 @@ namespace OpenNefia.Core.UI
         public int CurrentPage { get; private set; } = 0;
 
         /// <inheritdoc/>
-        public int PageCount => PagedElements.Count() / Math.Max(1, ItemsPerPage);
+        public int PageCount => (int)Math.Ceiling(PagedElements.Count() / (float)Math.Max(1, ItemsPerPage));
         
         private List<T> _currentElements = new();
 
@@ -72,10 +74,24 @@ namespace OpenNefia.Core.UI
         public bool SetPage(int page)
         {
             var oldPage = CurrentPage;
-            CurrentPage = MathHelper.Wrap(page, 0, PageCount);
+            CurrentPage = MathHelper.Wrap(page, 0, PageCount - 1);
             UpdateCurrentElements();
             OnPageChanged?.Invoke(CurrentPage, PageCount);
             return oldPage != CurrentPage;
+        }
+
+        public T this[int index] => ((IReadOnlyList<T>)_currentElements)[index];
+
+        public int Count => ((IReadOnlyCollection<T>)_currentElements).Count;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return ((IEnumerable<T>)_currentElements).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)_currentElements).GetEnumerator();
         }
     }
 }
