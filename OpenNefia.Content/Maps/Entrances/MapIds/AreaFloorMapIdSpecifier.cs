@@ -44,14 +44,14 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
-            var mapId = _areaManager.GetOrGenerateMapForFloor(area.Id, startingFloor.Value);
-            if (mapId == null)
+            var map = _areaManager.GetOrGenerateMapForFloor(area.Id, startingFloor.Value);
+            if (map == null)
             {
                 Logger.ErrorS("area.mapIds", $"Area {AreaId} is missing floor {startingFloor.Value}!");
                 return null;
             }
 
-            return mapId;
+            return map.Id;
         }
     }
 }

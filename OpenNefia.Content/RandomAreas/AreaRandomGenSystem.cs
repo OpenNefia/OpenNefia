@@ -47,7 +47,6 @@ namespace OpenNefia.Content.RandomAreas
         // TODO: Make into a CVar.
         public const int RandomAreaMinCount = 25;
 
-
         public override void Initialize()
         {
             SubscribeComponent<MapRandomAreaManagerComponent, MapEnterEvent>(OnMapEnter, priority: EventPriorities.High);

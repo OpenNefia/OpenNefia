@@ -18,11 +18,14 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Content.Home
 {
     public interface IHomeSystem : IEntitySystem
     {
+        MapId ActiveHomeID { get; set; }
+
         int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
         int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
         IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
@@ -45,6 +48,10 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
         [Dependency] private readonly ITalkSystem _talk = default!;
         [Dependency] private readonly IRankSystem _ranks = default!;
+
+        // TODO save data requires non-nullable references...
+        [RegisterSaveData("Elona.HomeSystem.ActiveHomeID")]
+        public MapId ActiveHomeID { get; set; } = MapId.Nullspace;
 
         public override void Initialize()
         {

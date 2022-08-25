@@ -285,7 +285,7 @@ namespace OpenNefia.Content.Enchantments
             RaiseEvent(encComp.Owner, ev);
             desc = ev.OutDescription;
 
-            if (TryProtoID(encComp.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("item", item), ("adjustedPower", adjustedPower.Value), ("wielder", wielder)))
+            if (TryProtoID(encComp.Owner, out var protoID) && Loc.TryGetPrototypeString(protoID.Value, "Enchantment.Description", out var desc2, ("item", item), ("wielder", wielder), ("adjustedPower", adjustedPower.Value)))
                 desc = desc2;
 
             if ((ev.OutShowPower ?? hasProvidedDesc) && !noPowerText)

@@ -142,7 +142,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             foreach (var enc in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<EnchantmentComponent>()))
             {
-                var claymore = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Claymore, quality: Quality.Great);
+                var claymore = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Claymore, quality: Quality.Bad);
                 if (IsAlive(claymore))
                 {
                     _enchantments.AddEnchantment(claymore.Value, enc.GetStrongID(), 600);

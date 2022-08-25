@@ -4,5 +4,11 @@ Elona.Home = {
             return ("of %s"):format(home_name)
         end,
     },
-    Okaeri = { "Welcome home!", "Hey, dear.", "You're back!", "I was waiting for you.", "Nice to see you again." },
+    WelcomeHome = {
+        _.quote "Welcome home!",
+        _.quote "Hey, dear.",
+        _.quote "You're back!",
+        _.quote "I was waiting for you.",
+        _.quote "Nice to see you again.",
+    },
 }

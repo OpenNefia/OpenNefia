@@ -197,7 +197,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Faith = {
         Description = "Gets you closer to god.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s makes you pious."):format(_.he(item))
         end,
         Name = "Faith",
@@ -213,7 +213,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Fishing = {
         Description = "Displays your fishing skill.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s makes you a better fisher."):format(_.he(item))
         end,
         Name = "Fishing",
@@ -252,7 +252,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Literacy = {
         Description = "Allows you to read difficult books.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s makes you literate."):format(_.he(item))
         end,
         Name = "Literacy",
@@ -288,7 +288,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Meditation = {
         Description = "Gradually restores your magic points.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s enhances your meditation."):format(_.he(item))
         end,
         Name = "Meditation",
@@ -299,7 +299,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Memorization = {
         Description = "Helps you acquire additional spell stocks.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s enhances your memory."):format(_.he(item))
         end,
         Name = "Memorization",
@@ -378,7 +378,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Tailoring = {
         Description = "Skill to sew materials and manufucture products.",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s makes you a better tailor."):format(_.he(item))
         end,
         Name = "Tailoring",

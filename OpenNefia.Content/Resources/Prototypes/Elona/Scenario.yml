@@ -1,0 +1,6 @@
+- type: Elona.Scenario
+  id: Elona.Default
+  events:
+  - type: Scenarios.P_ScenarioOnGameStartEvent
+    system: Scenarios.VanillaScenariosSystem
+    method: Default_OnGameStart
