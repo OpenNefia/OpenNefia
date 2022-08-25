@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -86,11 +87,11 @@ namespace OpenNefia.Content.Dialog
     [DataDefinition]
     public sealed class DialogTextEntry
     {
-        public DialogTextEntry() {}
+        public DialogTextEntry() { }
 
-        public static DialogTextEntry FromString(string text)
+        public static DialogTextEntry FromString(string text, PrototypeId<TagPrototype>? speaker = null)
         {
-            return new() { Text = text };
+            return new() { Text = text, Speaker = speaker };
         }
 
         /// <summary>
@@ -102,16 +103,19 @@ namespace OpenNefia.Content.Dialog
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static DialogTextEntry FromLocaleKey(LocaleKey key)
+        public static DialogTextEntry FromLocaleKey(LocaleKey key, PrototypeId<TagPrototype>? speaker = null)
         {
-            return new() { Key = key };
+            return new() { Key = key, Speaker = speaker };
         }
 
         [DataField]
-        public string? Text { get; set; }
+        public string? Text { get; internal set; }
 
         [DataField]
-        public LocaleKey? Key { get; set; }
+        public LocaleKey? Key { get; internal set; }
+
+        [DataField]
+        public PrototypeId<TagPrototype>? Speaker { get; internal set; }
     }
 
     public sealed class DialogTextNode : IDialogNode

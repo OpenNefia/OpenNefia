@@ -22,9 +22,10 @@ namespace OpenNefia.Content.Maps
         /// <summary>
         /// Sets the map to travel to when exiting the destination map via the edges.
         /// </summary>
-        /// <param name="mapTravellingTo">Map that is being travelled to.</param>
+        /// <param name="targetMap">Map that is being travelled to.</param>
         /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
-        void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords);
+        void SetPreviousMap(IMap targetMap, MapCoordinates prevCoords);
+        void SetPreviousMap(MapId targetMap, MapCoordinates prevCoords);
 
         int GetFloorNumber(IMap map);
     }
@@ -121,9 +122,13 @@ namespace OpenNefia.Content.Maps
         }
 
         /// <inheritdoc/>
-        public void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords)
+        public void SetPreviousMap(MapId targetMap, MapCoordinates prevCoords)
+            => SetPreviousMap(_mapManager.GetMap(targetMap), prevCoords);
+
+        /// <inheritdoc/>
+        public void SetPreviousMap(IMap targetMap, MapCoordinates prevCoords)
         {
-            var mapEntityUid = _mapManager.GetMap(mapTravellingTo).MapEntityUid;
+            var mapEntityUid = targetMap.MapEntityUid;
             var mapMapEntrance = EntityManager.EnsureComponent<MapEdgesEntranceComponent>(mapEntityUid);
             mapMapEntrance.Entrance.MapIdSpecifier = new BasicMapIdSpecifier(prevCoords.MapId);
             mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);

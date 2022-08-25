@@ -159,9 +159,10 @@ namespace OpenNefia.Content.LivingWeapon
             _mes.Display(Loc.GetString("Elona.LivingWeapon.Grow.It", ("item", weapon)));
 
             // TODO hack
-            // easier way of getting a temporary container? it requires an attached entity.
+            // easier way of spawning a temporary container? it requires an attached entity.
             var tempContainer = EntityManager.SpawnEntity(null, MapCoordinates.Global);
             var tempEncs = EnsureComp<EnchantmentsComponent>(tempContainer);
+            
             var choices = new List<ILivingWeaponUpgrade>();
 
             for (var i = 0; i < LivingWeaponEnchantmentChoices; i++)

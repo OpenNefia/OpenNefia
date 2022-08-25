@@ -1,7 +1,7 @@
 OpenNefia.Prototypes.Entity.Elona = {
     EncRandomTeleport = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s causes random teleport."):format(_.he(item))
             end,
         },
@@ -9,7 +9,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncSuckBlood = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s sucks blood of the wielder."):format(_.he(item))
             end,
         },
@@ -17,7 +17,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncSuckExperience = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s disturbs %s growth."):format(_.he(item), _.possessive(wielder))
             end,
         },
@@ -25,7 +25,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncSummonCreature = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s attracts monsters."):format(_.he(item))
             end,
         },
@@ -33,7 +33,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncPreventTeleport = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s prevents %s from teleporting."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -41,7 +41,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistBlindness = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of blindness."):format(_.he(item))
             end,
         },
@@ -49,7 +49,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistParalysis = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of paralysis."):format(_.he(item))
             end,
         },
@@ -57,7 +57,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistConfusion = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of confusion."):format(_.he(item))
             end,
         },
@@ -65,7 +65,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistFear = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of fear."):format(_.he(item))
             end,
         },
@@ -73,7 +73,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistSleep = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of sleep."):format(_.he(item))
             end,
         },
@@ -81,7 +81,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistPoison = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of poison."):format(_.he(item))
             end,
         },
@@ -89,7 +89,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistTheft = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s protects %s from thieves."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -97,7 +97,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistRottenFood = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s allows %s to digest rotten food."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -105,7 +105,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncFastTravel = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s speeds up %s travel progress."):format(_.he(item), _.possessive(wielder))
             end,
         },
@@ -113,7 +113,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistEtherwind = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s protects %s from Etherwind."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -121,7 +121,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistBadWeather = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s negates the effect of being stranded by bad weather."):format(_.he(item))
             end,
         },
@@ -129,7 +129,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistPregnancy = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s prevents aliens from entering %s body."):format(_.he(item), _.possessive(wielder))
             end,
         },
@@ -137,7 +137,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncFloat = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s floats %s."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -145,7 +145,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistMutation = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s protects %s from mutation."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -153,7 +153,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncEnhanceSpells = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s enhances %s spells."):format(_.he(item), _.possessive(wielder))
             end,
         },
@@ -161,7 +161,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncSeeInvisible = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s allows %s to see invisible creatures."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -169,7 +169,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncAbsorbStamina = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s absorbs stamina from an enemy."):format(_.he(item))
             end,
         },
@@ -177,7 +177,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncRagnarok = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s brings an end."):format(_.he(item))
             end,
         },
@@ -185,7 +185,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncAbsorbMana = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s absorbs MP from an enemy."):format(_.he(item))
             end,
         },
@@ -193,7 +193,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncPierceChance = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s gives %s a chance to throw an absolute piercing attak."):format(
                     _.he(item),
                     _.name(wielder, true)
@@ -204,7 +204,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncCriticalChance = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s increases %s chance to deliver critical hits."):format(_.he(item), _.possessive(wielder))
             end,
         },
@@ -212,7 +212,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncExtraMeleeAttackChance = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s increases the chance of extra melee attack."):format(_.he(item))
             end,
         },
@@ -220,7 +220,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncExtraRangedAttackChance = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s increases the chance of extra ranged attack."):format(_.he(item))
             end,
         },
@@ -228,7 +228,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncTimeStop = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s occasionally stops time."):format(_.he(item))
             end,
         },
@@ -236,7 +236,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncResistCurse = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s protects %s from cursing words."):format(_.he(item), _.name(wielder, true))
             end,
         },
@@ -244,7 +244,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncStradivarius = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s increases the quality of reward."):format(_.he(item))
             end,
         },
@@ -252,7 +252,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncDamageResistance = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s decreases physical damage %s take%s."):format(
                     _.he(item),
                     _.name(wielder, true),
@@ -264,7 +264,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncDamageImmunity = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s sometimes nullifies damage %s take%s."):format(
                     _.he(item),
                     _.name(wielder, true),
@@ -276,7 +276,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncDamageReflection = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s deals cut damage to the attacker."):format(_.he(item))
             end,
         },
@@ -284,7 +284,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncCuresBleedingQuickly = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s diminishes bleeding."):format(_.he(item))
             end,
         },
@@ -292,7 +292,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncCatchesGodSignals = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s catches signals from God."):format(_.he(item))
             end,
         },
@@ -300,7 +300,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncDragonBane = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s inflicts massive damage to dragons."):format(_.he(item))
             end,
         },
@@ -308,7 +308,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncUndeadBane = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s inflicts massive damage to undeads."):format(_.he(item))
             end,
         },
@@ -316,7 +316,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncDetectReligion = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s reveals religion."):format(_.he(item))
             end,
         },
@@ -324,7 +324,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncGould = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s makes the audience drunk with haunting tones."):format(_.he(item))
             end,
         },
@@ -332,7 +332,7 @@ OpenNefia.Prototypes.Entity.Elona = {
 
     EncGodBane = {
         Enchantment = {
-            Description = function(item, power, wielder)
+            Description = function(item, wielder, power)
                 return ("%s inflicts massive damage to Gods."):format(_.he(item))
             end,
         },

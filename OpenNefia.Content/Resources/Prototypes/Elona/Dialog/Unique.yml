@@ -19,10 +19,20 @@
   id: Elona.Noel
 - type: Elona.Dialog
   id: Elona.Miches
+
 - type: Elona.Dialog
   id: Elona.Lomias
 - type: Elona.Dialog
-  id: Elona.LomiasGameBegin
+  id: Elona.LomiasNewGame
+  # TODO easter egg
+  startNode: NewGame
+  nodes:
+    NewGame: !type:DialogTextNode
+      beforeEnter: Content.Dialog.VanillaDialogSystem:LomiasNewGame_NewGame_Before
+      afterEnter: Content.Dialog.VanillaDialogSystem:LomiasNewGame_NewGame_After
+      texts:
+      - Elona.Dialog.Common.IsBusy
+
 - type: Elona.Dialog
   id: Elona.Miral
 - type: Elona.Dialog

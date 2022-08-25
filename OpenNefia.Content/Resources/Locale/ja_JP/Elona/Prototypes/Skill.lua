@@ -117,14 +117,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Alchemy = {
         Description = "様々な材料を調合し、ポーションを作り出す",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s錬金の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "錬金術",
     },
     Anatomy = {
         Description = "死体を残しやすくする",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s死体を残しやすくする"):format(_.kare_wa(item))
         end,
         Name = "解剖学",
@@ -158,7 +158,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Carpentry = {
         Description = "木を加工し、アイテムを作り出す",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s大工の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "大工",
@@ -173,7 +173,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Cooking = {
         Description = "料理の腕を上げる",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s料理の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "料理",
@@ -189,14 +189,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Detection = {
         Description = "隠された場所や罠を見つける",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s探知能力を強化する"):format(_.kare_wa(item))
         end,
         Name = "探知",
     },
     DisarmTrap = {
         Description = "複雑な罠の解体を可能にする",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s罠の解体を容易にする"):format(_.kare_wa(item))
         end,
         Name = "罠解体",
@@ -211,14 +211,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     EyeOfMind = {
         Description = "クリティカル率を高める",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s心眼の技術を上昇させる"):format(_.kare_wa(item))
         end,
         Name = "心眼",
     },
     Faith = {
         Description = "神との距離を近める",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s信仰を深める"):format(_.kare_wa(item))
         end,
         Name = "信仰",
@@ -234,42 +234,42 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Fishing = {
         Description = "釣りを可能にする",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s釣りの腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "釣り",
     },
     Gardening = {
         Description = "植物を育て、採取する",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s栽培の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "栽培",
     },
     GeneEngineer = {
         Description = "仲間合成の知識を高める",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s遺伝子学の知識を深める"):format(_.kare_wa(item))
         end,
         Name = "遺伝子学",
     },
     GreaterEvasion = {
         Description = "不正確な攻撃を確実に避ける",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s見切りの腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "見切り",
     },
     Healing = {
         Description = "怪我を自然に治癒する",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s体力回復を強化する"):format(_.kare_wa(item))
         end,
         Name = "治癒",
     },
     HeavyArmor = {
         Description = "重い装備を扱う技術",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s重装備の技術を上昇させる"):format(_.kare_wa(item))
         end,
         Name = "重装備",
@@ -280,28 +280,28 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Jeweler = {
         Description = "宝石を加工し、アイテムを作り出す",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s宝石細工の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "宝石細工",
     },
     LightArmor = {
         Description = "軽い装備を扱う技術",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s軽装備の技術を上昇させる"):format(_.kare_wa(item))
         end,
         Name = "軽装備",
     },
     Literacy = {
         Description = "難解な本の解読を可能にする",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s本の理解を深める"):format(_.kare_wa(item))
         end,
         Name = "読書",
     },
     LockPicking = {
         Description = "鍵を開ける",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s鍵開けの能力を強化する"):format(_.kare_wa(item))
         end,
         Name = "鍵開け",
@@ -317,21 +317,21 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     MagicCapacity = {
         Description = "マナの反動から身を守る",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%sマナの限界を上昇させる"):format(_.kare_wa(item))
         end,
         Name = "魔力の限界",
     },
     MagicDevice = {
         Description = "道具から魔力を効果的に引き出す",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s魔道具の効果を上げる"):format(_.kare_wa(item))
         end,
         Name = "魔道具",
     },
     Marksman = {
         Description = "射撃の威力を上げる",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s射撃の理解を深める"):format(_.kare_wa(item))
         end,
         Name = "射撃",
@@ -342,49 +342,49 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Meditation = {
         Description = "消耗したマナを回復させる",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%sマナ回復を強化する"):format(_.kare_wa(item))
         end,
         Name = "瞑想",
     },
     MediumArmor = {
         Description = "普通の装備を扱う技術",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s中装備の技術を上昇させる"):format(_.kare_wa(item))
         end,
         Name = "中装備",
     },
     Memorization = {
         Description = "書物から得た知識を記憶する",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s魔法の知識の忘却を防ぐ"):format(_.kare_wa(item))
         end,
         Name = "暗記",
     },
     Mining = {
         Description = "壁を掘る効率を上げる",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s採掘能力を強化する"):format(_.kare_wa(item))
         end,
         Name = "採掘",
     },
     Negotiation = {
         Description = "交渉や商談を有利に進める",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s交渉を有利に進めさせる"):format(_.kare_wa(item))
         end,
         Name = "交渉",
     },
     Performer = {
         Description = "質の高い演奏を可能にする",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s演奏の質を上げる"):format(_.kare_wa(item))
         end,
         Name = "演奏",
     },
     Pickpocket = {
         Description = "貴重な物品を盗む",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s窃盗の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "窃盗",
@@ -400,7 +400,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Riding = {
         Description = "上手に乗りこなす",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s乗馬の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "乗馬",
@@ -442,21 +442,21 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Stealth = {
         Description = "周囲に気づかれず行動する",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s隠密能力を強化する"):format(_.kare_wa(item))
         end,
         Name = "隠密",
     },
     Tactics = {
         Description = "近接攻撃の威力を上げる",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s戦術の理解を深める"):format(_.kare_wa(item))
         end,
         Name = "戦術",
     },
     Tailoring = {
         Description = "革や蔓を用い、アイテムを作り出す",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s裁縫の腕を上げる"):format(_.kare_wa(item))
         end,
         Name = "裁縫",
@@ -475,7 +475,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     Traveling = {
         Description = "旅の進行を早め経験を深める",
-        EnchantmentDescription = function(item, power)
+        EnchantmentDescription = function(item, wielder, power)
             return ("%s旅の熟練を上げる"):format(_.kare_wa(item))
         end,
         Name = "旅歩き",

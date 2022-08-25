@@ -35,7 +35,7 @@ Elona.Enchantment = {
 
         ModifyResistance = {
             Increases = function(item, wielder, elementName)
-                return ("%s grants %s resistance to %s."):format(_.he(item), _.posessive(wielder), elementName)
+                return ("%s grants %s resistance to %s."):format(_.he(item), _.possessive(wielder), elementName)
             end,
             Decreases = function(item, wielder, elementName)
                 return ("%s weakens %s resistance to %s."):format(_.he(item), _.possessive(wielder), elementName)

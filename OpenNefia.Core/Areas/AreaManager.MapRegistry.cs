@@ -86,8 +86,9 @@ namespace OpenNefia.Core.Areas
         {
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
-
-        public MapId? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
+        
+        /// <inheritdoc/>
+        public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
         {
             var area = GetArea(areaId);
 
@@ -100,7 +101,7 @@ namespace OpenNefia.Core.Areas
             if (floor.MapId != null)
             {
                 Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
-                return floor.MapId.Value;
+                return _mapManager.GetMap(floor.MapId.Value);
             }
 
             // TODO: Should this be passed as an argument?
@@ -110,7 +111,7 @@ namespace OpenNefia.Core.Areas
             var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
-            if (ev.ResultMapId == null)
+            if (ev.ResultMapId == null || !_mapManager.TryGetMap(ev.ResultMapId.Value, out var map))
             {
                 Logger.ErrorS("area", $"Failed to generate map for area/floor '{areaId}'/'{floorId}'!");
                 return null;
@@ -119,7 +120,7 @@ namespace OpenNefia.Core.Areas
             floor.MapId = ev.ResultMapId.Value;
             _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
 
-            return floor.MapId;
+            return map;
         }
     }
 
