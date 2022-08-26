@@ -16,15 +16,17 @@ namespace OpenNefia.Content.Combat
     {
         public override string Name => "Splittable";
 
+        // TODO merge the following two into Stat<float?>
         [DataField]
         public Stat<bool> SplitsOnHighDamage { get; set; } = new(false);
 
         [DataField]
-        public Stat<int> SplitOnHighDamageThreshold { get; set; } = new(20);
-
-        [DataField]
         public Stat<float> SplitOnHighDamageChance { get; set; } = new(0.1f);
 
+        [DataField]
+        public Stat<int> SplitOnHighDamageThreshold { get; set; } = new(20);
+
+        // TODO merge the following two into Stat<float?>
         [DataField]
         public Stat<bool> SplitsRandomlyWhenAttacked { get; set; } = new(false);
 
@@ -34,8 +36,8 @@ namespace OpenNefia.Content.Combat
         public void Refresh()
         {
             SplitsOnHighDamage.Reset();
-            SplitOnHighDamageThreshold.Reset();
             SplitOnHighDamageChance.Reset();
+            SplitOnHighDamageThreshold.Reset();
             SplitsRandomlyWhenAttacked.Reset();
             SplitRandomlyWhenAttackedChance.Reset();
         }

@@ -255,7 +255,7 @@ namespace OpenNefia.Content.Combat
                 }
                 else if (args.IsRanged)
                 {
-                    _skills.GainSkillExp(attacker, Protos.Skill.Tactics, 25 / expDivisor, 0, 4);
+                    _skills.GainSkillExp(attacker, Protos.Skill.Marksman, 25 / expDivisor, 0, 4);
                 }
                 else
                 {

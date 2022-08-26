@@ -99,7 +99,7 @@ namespace OpenNefia.Content.Combat
 
         private void HandleBeforeDropItems(EntityUid uid, SplittableComponent component, BeforeDropItemsOnDeathEvent args)
         {
-            if (args.Handled)
+            if (args.Handled || !component.SplitsOnHighDamage.Buffed || !component.SplitsRandomlyWhenAttacked.Buffed)
                 return;
 
             if (_rand.OneIn(6))
