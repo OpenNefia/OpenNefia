@@ -43,7 +43,6 @@ namespace OpenNefia.Content.Scenarios
 
         public void Default_OnGameStart(ScenarioPrototype proto, P_ScenarioOnGameStartEvent ev)
         {
-            /*
             // Major TODO for now. Just set up important things like the player's house.
 
             var northTyrisArea = _areaManager.GetGlobalArea(GlobalAreas.NorthTyris);
@@ -78,7 +77,6 @@ namespace OpenNefia.Content.Scenarios
 
                 return TurnResult.Aborted;
             });
-            */
         }
     }
 
