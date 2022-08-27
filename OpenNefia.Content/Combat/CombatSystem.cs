@@ -506,6 +506,10 @@ namespace OpenNefia.Content.Combat
                         }
                     }
                 }
+                else
+                {
+                    going = false;
+                }
                 // <<<<<<<< elona122/shade2/action.hsp:1389 	} ...
             }
         }

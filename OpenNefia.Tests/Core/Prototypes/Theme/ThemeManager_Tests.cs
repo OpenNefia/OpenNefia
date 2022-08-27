@@ -10,6 +10,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Themes;
 using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Tests.Core.Prototypes.Theme

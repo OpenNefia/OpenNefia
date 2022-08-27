@@ -39,6 +39,10 @@ namespace OpenNefia.Content.MapVisibility
         private ShadowBatch _batch = new();
         private float _frames = 0f;
 
+        public const int DefaultShadowStrength = 70;
+        
+        public int ShadowStrength { get; set; } = DefaultShadowStrength;
+
         public override void Initialize()
         {
             _batch.Initialize(_assetManager, _coords);
@@ -72,12 +76,12 @@ namespace OpenNefia.Content.MapVisibility
 
         public override void RedrawAll()
         {
-            var shadowStrength = 70;
+            var shadowStrength = ShadowStrength;
 
             var dungeonLight = _inv.EntityQueryInInventory<DungeonLightComponent>(_gameSession.Player).FirstOrDefault();
             if (dungeonLight != null && dungeonLight.IsLit && EntityManager.HasComponent<MapTypeDungeonComponent>(Map!.MapEntityUid))
             {
-                shadowStrength -= 50;
+                shadowStrength -= dungeonLight.LightPower;
             }
 
             var hour = _world.State.GameDate.Hour;
