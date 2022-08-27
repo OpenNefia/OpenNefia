@@ -1,0 +1,32 @@
+- type: Entity
+  id: LightenedTravels.ItemFueledTorch
+  parent: BaseItem
+  components:
+  - type: LightenedTravels.FueledLight
+    maxFuel: 10000
+    lightPower: 8
+  - type: LightSource
+    id: Elona.Torch
+  - type: DungeonLight
+    isLit: false
+    lightPower: 100
+  - type: Equipment
+    equipSlots:
+    - LightenedTravels.Light
+  - type: Chip
+    id: Elona.ItemTorch
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      item:
+        coefficient: 100
+        rarity: 1000000
+  - type: Tag
+    tags:
+    - Elona.ItemCatMiscItem
+  - type: Value
+    value: 200
+  - type: Item
+  - type: Weight
+    weight: 150

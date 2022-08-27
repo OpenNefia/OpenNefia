@@ -65,6 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{CC96BD69-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "Mods\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{832C413B-CB91-4401-BD5E-A4E187A97024}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LightenedTravels", "Mods\OpenNefia.LightenedTravels\OpenNefia.LightenedTravels.csproj", "{B836E8EF-F2DC-4ADE-9724-83FA590779D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,12 +219,21 @@ Global
 		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|Any CPU.Build.0 = Release|Any CPU
 		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|x86.ActiveCfg = Release|Any CPU
 		{832C413B-CB91-4401-BD5E-A4E187A97024}.Release|x86.Build.0 = Release|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Debug|x86.Build.0 = Debug|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Release|x86.ActiveCfg = Release|Any CPU
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{832C413B-CB91-4401-BD5E-A4E187A97024} = {CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}
+		{B836E8EF-F2DC-4ADE-9724-83FA590779D7} = {CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E63F4360-703A-44AA-9E69-995B78622EE9}
