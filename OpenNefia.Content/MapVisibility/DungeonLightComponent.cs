@@ -15,5 +15,8 @@ namespace OpenNefia.Content.MapVisibility
 
         [DataField]
         public bool IsLit { get; set; }
+
+        [DataField]
+        public int LightPower { get; set; } = 50;
     }
 }

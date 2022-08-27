@@ -175,8 +175,8 @@ namespace OpenNefia.Core.Locale
 
                 try
                 {
-                    var result = func.Call(rented)[0];
-                    str = $"{result}";
+                    var result = func.Call(rented).FirstOrDefault();
+                    str = $"{result ?? "null"}";
                 }
                 catch (Exception ex)
                 {
