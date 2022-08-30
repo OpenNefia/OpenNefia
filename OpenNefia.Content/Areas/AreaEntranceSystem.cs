@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Areas
         public WorldMapEntranceComponent CreateAreaEntrance(IArea area, MapCoordinates coords,
             AreaEntranceComponent? areaEntranceComp = null)
         {
-            PrototypeId<EntityPrototype>? protoId = null;
+            PrototypeId<EntityPrototype> protoId = Protos.MObj.MapEntrance;
             IMapStartLocation? startLocation = null;
             if (Resolve(area.AreaEntityUid, ref areaEntranceComp, logMissing: false))
             {
@@ -87,6 +87,9 @@ namespace OpenNefia.Content.Areas
             worldMapEntrance.Entrance.MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id);
             if (startLocation != null)
                 worldMapEntrance.Entrance.StartLocation = startLocation;
+
+            if (areaEntranceComp != null && areaEntranceComp.ChipID != null && TryComp<ChipComponent>(worldMapEntrance.Owner, out var chip))
+                chip.ChipID = areaEntranceComp.ChipID.Value;
 
             return worldMapEntrance;
         }

@@ -6,7 +6,7 @@ namespace OpenNefia.Content.Prototypes
     {
         public static class Area
         {
-            public static readonly EntityPrototypeId YourHome = new($"Elona.Area{nameof(YourHome)}");
+            public static readonly EntityPrototypeId HomeCave = new($"Elona.Area{nameof(HomeCave)}");
         }
     }
 }

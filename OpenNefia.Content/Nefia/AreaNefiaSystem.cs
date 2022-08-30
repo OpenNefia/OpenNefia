@@ -368,7 +368,7 @@ namespace OpenNefia.Content.Nefia
 
             if (ev.Handled)
             {
-                args.Handle(ev.ResultMapId!.Value);
+                args.Handle(ev.OutMap!);
             }
         }
 
@@ -512,7 +512,7 @@ namespace OpenNefia.Content.Nefia
         /// Map of the area's floor that was created. If this is left as <c>null</c>,
         /// then floor creation failed.
         /// </summary>
-        public MapId? ResultMapId { get; private set; }
+        public IMap? OutMap { get; private set; }
 
         public NefiaFloorGenerateEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)
         {
@@ -521,12 +521,10 @@ namespace OpenNefia.Content.Nefia
             PreviousCoords = previousCoords;
         }
 
-        public void Handle(IMap map) => Handle(map.Id);
-
-        public void Handle(MapId mapId)
+        public void Handle(IMap map)
         {
             Handled = true;
-            ResultMapId = mapId;
+            OutMap = map;
         }
     }
 }

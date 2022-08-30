@@ -13,7 +13,13 @@ namespace OpenNefia.Content.Home
     {
         public override string Name => "AreaHome";
 
-        [DataField(required: true)]
-        public PrototypeId<HomePrototype> HomeID { get; set; }
+        [DataField]
+        public int DeedValue { get; set; }
+
+        [DataField]
+        public int HomeScale { get; set; }
+
+        [DataField]
+        public int HomeRankPoints { get; set; }
     }
 }

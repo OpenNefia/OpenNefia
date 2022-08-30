@@ -32,6 +32,7 @@ namespace OpenNefia.Content.Tests.Areas
   components:
   - type: AreaEntrance
     entranceEntity: {TestEntranceEntityID}
+    chipID: {Protos.Chip.MObjAreaBorderTent}
     startLocation: !type:SpecificMapLocation
       pos: 1,1
     startingFloor: {TestAreaFloorID.ID}:{TestAreaFloorID.FloorNumber}
@@ -39,9 +40,6 @@ namespace OpenNefia.Content.Tests.Areas
 - type: Entity
   id: {TestEntranceEntityID}
   parent: {Protos.MObj.MapEntrance}
-  components:
-  - type: Chip
-    id: {Protos.Chip.MObjAreaBorderTent}
 ";
 
         [Test]

@@ -159,10 +159,6 @@ OpenNefia.Maps.Elona = {
     Arena = {
         Name = "Arena",
     },
-    YourHome = {
-        Name = "Your Home",
-        Description = "It's your sweet home.",
-    },
     TestGround = {
         Name = "Test Ground",
     },

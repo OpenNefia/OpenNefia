@@ -1,4 +1,8 @@
 Elona.Home = {
+    Map = {
+        Name = "Your Home",
+        Description = "It's your sweet home.",
+    },
     ItemName = {
         Deed = function(home_name)
             return ("of %s"):format(home_name)

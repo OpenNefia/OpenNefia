@@ -7,6 +7,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.World;
 using OpenNefia.Content.MaterialSpot;
 using OpenNefia.Core.Maths;
+using YamlDotNet.Core;
 
 namespace OpenNefia.Content.Maps
 {
@@ -65,5 +66,8 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public int? ExperienceDivisor { get; set; }
+
+        [DataField]
+        public int? MaxItemsOnGround { get; set; }
     }
 }

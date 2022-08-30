@@ -33,8 +33,7 @@ tilemap:
   e: Elona.DirtRocks
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapHomeCave
 - uid: 1
   protoId: Elona.ItemBrokenVase
   components:

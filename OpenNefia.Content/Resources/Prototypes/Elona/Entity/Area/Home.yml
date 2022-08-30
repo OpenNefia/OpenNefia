@@ -1,0 +1,147 @@
+- type: Entity
+  id: BaseHome
+  parent: BaseArea
+  abstract: true
+  components:
+  - type: AreaHome
+  - type: AreaEntrance
+    chipID: Elona.MObjAreaTown
+
+#
+# Cave
+#
+
+- type: Entity
+  id: Elona.AreaHomeCave
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 5000
+    homeScale: 0
+    homeRankPoints: 1000
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home0.yml
+  - type: AreaEntrance
+    chipID: Elona.MObjAreaYourDungeon
+  - type: AreaHomeTutorial
+
+- type: Entity
+  id: Elona.MapHomeCave
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 100
+
+#
+# Shack
+#
+
+- type: Entity
+  id: Elona.AreaHomeShack
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 29500
+    homeScale: 1
+    homeRankPoints: 3000
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home1.yml
+
+- type: Entity
+  id: Elona.MapHomeShack
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 150
+
+#
+# Cozy House
+#
+
+- type: Entity
+  id: Elona.AreaHomeCozyHouse
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 81000
+    homeScale: 2
+    homeRankPoints: 5000
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home2.yml
+
+- type: Entity
+  id: Elona.MapHomeCozyHouse
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 200
+
+#
+# Estate
+#
+
+- type: Entity
+  id: Elona.AreaHomeEstate
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 186500
+    homeScale: 3
+    homeRankPoints: 700
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home3.yml
+
+- type: Entity
+  id: Elona.MapHomeEstate
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 300
+
+#
+# Cyber House
+#
+
+- type: Entity
+  id: Elona.AreaHomeCyberHouse
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 373000
+    homeScale: 4
+    homeRankPoints: 800
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home4.yml
+  - type: AreaEntrance
+    chipID: Elona.MObjAreaTent
+
+- type: Entity
+  id: Elona.MapHomeCyberHouse
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 350
+
+#
+# Small Castle
+#
+
+- type: Entity
+  id: Elona.AreaHomeSmallCastle
+  parent: BaseHome
+  components:
+  - type: AreaHome
+    deedValue: 1335000
+    homeScale: 5
+    homeRankPoints: 1000
+  - type: AreaMapBlueprint
+    blueprintPath: /Maps/Elona/home5.yml
+  - type: AreaEntrance
+    chipID: Elona.MObjAreaCastle
+
+- type: Entity
+  id: Elona.MapHomeSmallCastle
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 400

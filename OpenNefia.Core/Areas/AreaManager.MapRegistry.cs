@@ -103,6 +103,9 @@ namespace OpenNefia.Core.Areas
             if (floor.MapId != null)
             {
                 Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
+
+                if (_mapManager.TryGetMap(floor.MapId.Value, out var map))
+                    return map;
                 return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
             }
 
@@ -113,16 +116,16 @@ namespace OpenNefia.Core.Areas
             var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
-            if (ev.ResultMapId == null || !_mapManager.TryGetMap(ev.ResultMapId.Value, out var map))
+            if (ev.OutMap == null)
             {
                 Logger.ErrorS("area", $"Failed to generate map for area/floor '{areaId}'/'{floorId}'!");
                 return null;
             }
 
-            floor.MapId = ev.ResultMapId.Value;
+            floor.MapId = ev.OutMap.Id;
             _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
 
-            return map;
+            return ev.OutMap;
         }
     }
 
@@ -154,7 +157,7 @@ namespace OpenNefia.Core.Areas
         /// Map of the area's floor that was created. If this is left as <c>null</c>,
         /// then floor creation failed.
         /// </summary>
-        public MapId? ResultMapId { get; private set; }
+        public IMap? OutMap { get; private set; }
 
         public AreaFloorGenerateEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)
         {
@@ -163,12 +166,10 @@ namespace OpenNefia.Core.Areas
             PreviousCoords = previousCoords;
         }
 
-        public void Handle(IMap map) => Handle(map.Id);
-
-        public void Handle(MapId mapId)
+        public void Handle(IMap map)
         {
             Handled = true;
-            ResultMapId = mapId;
+            OutMap = map;
         }
     }
 }

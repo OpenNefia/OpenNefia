@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Home
         HomeRank UpdateRank(IMap map);
     }
 
-    public sealed class HomeSystem : EntitySystem, IHomeSystem
+    public sealed partial class HomeSystem : EntitySystem, IHomeSystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
@@ -49,12 +49,15 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly ITalkSystem _talk = default!;
         [Dependency] private readonly IRankSystem _ranks = default!;
 
+        public static readonly AreaFloorId AreaFloorHome = new("Elona.Home:Floor", 0);
+
         // TODO save data requires non-nullable references...
         [RegisterSaveData("Elona.HomeSystem.ActiveHomeID")]
         public MapId ActiveHomeID { get; set; } = MapId.Nullspace;
 
         public override void Initialize()
         {
+            Initialize_Areas();
             SubscribeComponent<MapHomeComponent, MapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
         }
 
