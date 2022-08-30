@@ -10,7 +10,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 {
     [TestFixture]
     [TestOf(typeof(IntRangeSerializer))]
-    public class IntRangeSerializerTest : SerializationTest
+    public class IntRangeSerializer_Tests : SerializationTest
     {
         [Test]
         public void SerializationTest()

@@ -10,4 +10,8 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
+  
+  <Target Name="CleanAssemblies" AfterTargets="BeforeClean">
+    <RemoveDir Directories="$(OutDir)Resources\Assemblies" />
+  </Target>
 </Project>

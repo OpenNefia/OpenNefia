@@ -88,6 +88,11 @@ namespace OpenNefia.Content.Nefia
             SubscribeEntity<EntityKilledEvent>(CheckNefiaBossKilled);
         }
 
+        /// <summary>
+        /// Floor type used by Nefias.
+        /// </summary>
+        public static readonly AreaFloorId AreaFloorNefia = new AreaFloorId("Elona.Nefia:Floor", 0);
+
         private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)
         {
             if (areaNefia.State == NefiaState.Unvisited)
@@ -400,22 +405,7 @@ namespace OpenNefia.Content.Nefia
             areaDungeonComp.DeepestFloor = floorCount;
 
             var areaEntranceComp = EntityManager.EnsureComponent<AreaEntranceComponent>(areaEntity);
-            areaEntranceComp.StartingFloor = FloorNumberToAreaId(1);
-        }
-
-        public static int AreaIdToFloorNumber(AreaFloorId id)
-        {
-            var n = Regex.Replace((string)id, @"^Elona.Nefia:Floor:(\d+)", "$1");
-            if (int.TryParse(n, out int floorNumber))
-                return floorNumber;
-
-            Logger.ErrorS("nefia.gen", $"Failed to parse floor number: {id}");
-            return 1;
-        }
-
-        public static AreaFloorId FloorNumberToAreaId(int floorNumber)
-        {
-            return new AreaFloorId($"Elona.Nefia:Floor:{floorNumber}");
+            areaEntranceComp.StartingFloor = AreaFloorNefia.WithFloorNumber(0);
         }
 
         private PrototypeId<EntityPrototype> PickRandomNefiaEntityID()
@@ -456,10 +446,7 @@ namespace OpenNefia.Content.Nefia
         /// </summary>
         public static int NefiaFloorNumberToLevel(int floorNumber, int nefiaBaseLevel)
         {
-            // In OpenNefia, we start dungeons on floor 1. Nefia level is what used to be
-            // "starting floor", so a nefia of level 5 would start on the fifth floor.
-            // This means (nefia_level + floor) would be off by one, so subtract 1.
-            return nefiaBaseLevel + floorNumber - 1;
+            return nefiaBaseLevel + floorNumber;
         }
 
         private static IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)

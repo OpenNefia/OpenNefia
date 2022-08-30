@@ -9,12 +9,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Core.Areas
 {
     public sealed partial class AreaManager
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly ISaveGameManager _saveGame = default!;
 
         /// <inheritdoc/>
         public void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map)
@@ -101,7 +103,7 @@ namespace OpenNefia.Core.Areas
             if (floor.MapId != null)
             {
                 Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
-                return _mapManager.GetMap(floor.MapId.Value);
+                return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
             }
 
             // TODO: Should this be passed as an argument?

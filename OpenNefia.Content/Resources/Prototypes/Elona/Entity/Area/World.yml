@@ -6,7 +6,7 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorNorthTyris: Elona.NorthTyris
+      Elona.FloorNorthTyris:0: Elona.NorthTyris
   - type: AreaEntrance
-    startingFloor: Elona.FloorNorthTyris
+    startingFloor: Elona.FloorNorthTyris:0
     globalId: Elona.AreaNorthTyris
