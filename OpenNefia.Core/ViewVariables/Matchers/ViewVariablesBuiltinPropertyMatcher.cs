@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -141,6 +142,16 @@ namespace OpenNefia.Core.ViewVariables
             if (type == typeof(EntityUid))
             {
                 return new VVPropEditorEntityUid();
+            }
+
+            if (type == typeof(MapId))
+            {
+                return new VVPropEditorMapId();
+            }
+
+            if (type == typeof(AreaId))
+            {
+                return new VVPropEditorAreaId();
             }
 
             if (type == typeof(Color))
