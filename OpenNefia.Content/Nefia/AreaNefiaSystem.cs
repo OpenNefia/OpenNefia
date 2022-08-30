@@ -91,7 +91,7 @@ namespace OpenNefia.Content.Nefia
         /// <summary>
         /// Floor type used by Nefias.
         /// </summary>
-        public static readonly AreaFloorId AreaFloorNefia = new AreaFloorId("Elona.Nefia:Floor", 0);
+        public static readonly AreaFloorId AreaFloorNefia = new AreaFloorId("Elona.Nefia", 0);
 
         private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)
         {
