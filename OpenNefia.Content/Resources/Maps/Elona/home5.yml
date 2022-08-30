@@ -49,8 +49,7 @@ tilemap:
   s: Elona.AnimeWaterShallow
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapHomeSmallCastle
 - uid: 1
   protoId: Elona.MObjDoorWooden
   components:
@@ -75,4 +74,64 @@ entities:
   - type: Spatial
     pos: 6,12
     parent: 0
+
+# >>>>>>>> shade2/map.hsp:901 			if gHomeLevel=5{ ..
+- uid: 5
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 31,20
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GeneralVendor
+    shopRank: 10
+- uid: 6
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 9,20
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Blacksmith
+    shopRank: 12
+- uid: 7
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 4,20
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GoodsVendor
+    shopRank: 10
+- uid: 8
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 4,20
+    parent: 0
+  - type: RoleIdentifier
+- uid: 9
+  protoId: Elona.CharaBartender
+  components:
+  - type: Spatial
+    pos: 30,11
+    parent: 0
+  - type: RoleBartender
+- uid: 10
+  protoId: Elona.CharaHealer
+  components:
+  - type: Spatial
+    pos: 30,4
+    parent: 0
+  - type: RoleHealer
+- uid: 11
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 30,4
+    parent: 0
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.MagicVendor
+    shopRank: 11
+# <<<<<<<< shade2/map.hsp:909 				} ..
 ...

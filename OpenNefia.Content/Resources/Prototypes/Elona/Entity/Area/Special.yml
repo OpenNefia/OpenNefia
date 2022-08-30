@@ -1,8 +1,0 @@
-- type: Entity
-  id: Elona.AreaYourHome
-  parent: BaseArea
-  hspIds:
-    elona122: 7
-  components:
-  - type: AreaHome
-    homeID: Elona.Cave

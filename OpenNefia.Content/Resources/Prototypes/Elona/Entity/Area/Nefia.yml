@@ -15,18 +15,11 @@
 #
 
 - type: Entity
-  id: Elona.NefiaDungeonEntrance
-  parent: Elona.MObjMapEntrance
-  components:
-  - type: Chip
-    id: Elona.MObjAreaDungeon
-
-- type: Entity
   id: Elona.NefiaDungeon
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    entranceEntity: Elona.NefiaDungeonEntrance
+    chipID: Elona.MObjAreaDungeon
   - type: NefiaVanilla
     template: !type:NefiaTemplateDungeon
 
@@ -35,18 +28,11 @@
 #
 
 - type: Entity
-  id: Elona.NefiaForestEntrance
-  parent: Elona.MObjMapEntrance
-  components:
-  - type: Chip
-    id: Elona.MObjAreaForest
-
-- type: Entity
   id: Elona.NefiaForest
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    entranceEntity: Elona.NefiaForestEntrance
+    chipID: Elona.MObjAreaForest
   - type: NefiaVanilla
     template: !type:NefiaTemplateForest
 
@@ -66,7 +52,7 @@
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    entranceEntity: Elona.NefiaTowerEntrance
+    chipID: Elona.MObjAreaTower
   - type: NefiaVanilla
     template: !type:NefiaTemplateTower
 
@@ -75,17 +61,10 @@
 #
 
 - type: Entity
-  id: Elona.NefiaFortEntrance
-  parent: Elona.MObjMapEntrance
-  components:
-  - type: Chip
-    id: Elona.MObjAreaFort
-
-- type: Entity
   id: Elona.NefiaFort
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    entranceEntity: Elona.NefiaFortEntrance
+    chipID: Elona.MObjAreaFort
   - type: NefiaVanilla
     template: !type:NefiaTemplateFort

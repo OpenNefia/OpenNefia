@@ -9,6 +9,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.Areas
 {
@@ -44,7 +45,15 @@ namespace OpenNefia.Content.Areas
         /// Usually inherits from <see cref="Protos.MObj.MapEntrance"/>.
         /// </summary>
         [DataField]
-        public PrototypeId<EntityPrototype>? EntranceEntity { get; set; }
+        public PrototypeId<EntityPrototype> EntranceEntity { get; set; } = Protos.MObj.MapEntrance;
+
+        /// <summary>
+        /// Chip ID to set the entrance to.
+        /// Useful when you don't want to go through the effort of defining
+        /// an entirely new entity for the area entrance.
+        /// </summary>
+        [DataField]
+        public PrototypeId<ChipPrototype>? ChipID { get; set; }
 
         /// <summary>
         /// Message to display when the entrance to this area is stepped on.

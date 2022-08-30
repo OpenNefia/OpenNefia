@@ -1,6 +1,7 @@
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using System;
@@ -19,7 +20,7 @@ namespace OpenNefia.Content.Areas
 
         public override void Initialize()
         {
-            SubscribeComponent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate);
+            SubscribeComponent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate, priority: EventPriorities.VeryHigh);
         }
 
         private void OnAreaFloorGenerate(EntityUid areaEntity, AreaStaticFloorsComponent areaStaticFloors, AreaFloorGenerateEvent args)
@@ -28,12 +29,15 @@ namespace OpenNefia.Content.Areas
                 return;
 
             if (!areaStaticFloors.Floors.TryGetValue(args.FloorId, out var mapProtoId))
+            {
+                Logger.WarningS("area.gen", $"No static floor in area {args.Area} for floor {args.FloorId}.");
                 return;
+            }
 
             var proto = _protos.Index(mapProtoId);
-            var mapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
+            var map = _mapLoader.LoadBlueprint(proto.BlueprintPath);
 
-            args.Handle(mapId);
+            args.Handle(map);
         }
     }
 }

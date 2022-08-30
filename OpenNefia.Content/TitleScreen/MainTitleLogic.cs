@@ -25,6 +25,7 @@ using OpenNefia.Content.CustomName;
 using OpenNefia.Content.SaveLoad;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.RandomText;
+using OpenNefia.Content.Scenarios;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -44,7 +45,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
@@ -150,7 +151,7 @@ namespace OpenNefia.Content.TitleScreen
                 }
             }
 
-            StartNewGame(player);
+            StartNewGame(player, Protos.Scenario.Quickstart);
         }
 
         private void RunRestoreSave()
@@ -169,13 +170,14 @@ namespace OpenNefia.Content.TitleScreen
 
             if (result is CharaMakeLogicResult.NewPlayerIncarnated newPlayerResult)
             {
-                StartNewGame(newPlayerResult.NewPlayer);
+                // TODO configure scenario
+                StartNewGame(newPlayerResult.NewPlayer, Protos.Scenario.Default);
             }
         }
 
         private void ShowConfigMenu()
         {
-            ConfigMenuHelpers.QueryDefaultConfigMenu(_prototypeManager, _uiManager, _config);
+            ConfigMenuHelpers.QueryDefaultConfigMenu(_protos, _uiManager, _config);
         }
 
         /// <summary>
@@ -196,7 +198,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private IEnumerable<(EntityPrototype, GlobalAreaId)> EnumerateGlobalAreas()
         {
-            foreach (var proto in _prototypeManager.EnumeratePrototypes<EntityPrototype>())
+            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
             {
                 if (proto.Components.TryGetComponent<AreaEntranceComponent>(out var areaEntrance))
                 {
@@ -208,7 +210,7 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private void StartNewGame(EntityUid player)
+        private void StartNewGame(EntityUid player, PrototypeId<ScenarioPrototype> scenarioID)
         {
             var saveName = EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(player);
 
@@ -219,12 +221,15 @@ namespace OpenNefia.Content.TitleScreen
 
             InitializeGlobalAreas();
 
-            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
-            map.MemorizeAllTiles();
+            var pev = new P_ScenarioOnGameStartEvent(player);
+            _protos.EventBus.RaiseEvent(scenarioID, pev);
+            
+            if (pev.OutActiveMap == null)
+            {
+                throw new InvalidDataException($"Scenario {scenarioID} did not return an active map");
+            }
 
-            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
-            playerSpatial.Coordinates = map.AtPosEntity(2, 2);
-
+            var map = pev.OutActiveMap;
             _mapManager.SetActiveMap(map.Id);
 
             var ev = new NewGameStartedEventArgs();
