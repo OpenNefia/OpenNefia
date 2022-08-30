@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Tests.Areas
         private static readonly PrototypeId<EntityPrototype> TestAreaEntityID = new("TestAreaEntity");
         private static readonly PrototypeId<EntityPrototype> TestEntranceEntityID = new("TestEntranceEntity");
 
-        private static readonly AreaFloorId TestAreaFloorID = new("Test.AreaFloor");
+        private static readonly AreaFloorId TestAreaFloorID = new("Test.AreaFloor", 0);
 
         private static readonly string Prototypes = $@"
 - type: Entity
@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Tests.Areas
     entranceEntity: {TestEntranceEntityID}
     startLocation: !type:SpecificMapLocation
       pos: 1,1
-    startingFloor: {TestAreaFloorID}
+    startingFloor: {TestAreaFloorID.ID}:{TestAreaFloorID.FloorNumber}
 
 - type: Entity
   id: {TestEntranceEntityID}

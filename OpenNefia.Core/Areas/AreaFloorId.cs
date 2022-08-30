@@ -10,18 +10,23 @@ namespace OpenNefia.Core.Areas
     public readonly struct AreaFloorId : IEquatable<AreaFloorId>, IComparable<AreaFloorId>
     {
         readonly string _id;
+        readonly int _floorNumber;
+
+        public string ID => _id;
+        public int FloorNumber => _floorNumber;
 
         /// <summary>
         ///     An Invalid area floor ID you can compare against.
         /// </summary>
-        public static readonly AreaFloorId Invalid = new("");
+        public static readonly AreaFloorId Invalid = new("", 0);
 
         /// <summary>
         ///     Creates an instance of this structure.
         /// </summary>
-        public AreaFloorId(string id)
+        public AreaFloorId(string id, int floorNumber)
         {
             _id = id;
+            _floorNumber = floorNumber;
         }
 
         [Pure]
@@ -33,7 +38,7 @@ namespace OpenNefia.Core.Areas
         /// <inheritdoc />
         public bool Equals(AreaFloorId other)
         {
-            return _id == other._id;
+            return _id == other._id && _floorNumber == other._floorNumber;
         }
 
         /// <inheritdoc />
@@ -46,7 +51,7 @@ namespace OpenNefia.Core.Areas
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return string.GetHashCode(_id);
+            return HashCode.Combine(string.GetHashCode(_id), _floorNumber.GetHashCode());
         }
 
         /// <summary>
@@ -54,7 +59,7 @@ namespace OpenNefia.Core.Areas
         /// </summary>
         public static bool operator ==(AreaFloorId a, AreaFloorId b)
         {
-            return a._id == b._id;
+            return a._id == b._id && a._floorNumber == b._floorNumber;
         }
 
         /// <summary>
@@ -65,25 +70,23 @@ namespace OpenNefia.Core.Areas
             return !(a == b);
         }
 
-        /// <summary>
-        ///     Explicit conversion of <see cref="AreaFloorId"/> to string. This should only be used in special
-        ///     cases like serialization. Do NOT use this in content.
-        /// </summary>
-        public static explicit operator string(AreaFloorId self)
+        public AreaFloorId WithFloorNumber(int floorNumber)
         {
-            return self._id;
+            return new(ID, floorNumber);
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return _id.ToString();
+            return $"{nameof(AreaFloorId)}(id={_id}, floorNumber={_floorNumber})";
         }
 
         /// <inheritdoc />
         public int CompareTo(AreaFloorId other)
         {
-            return _id.CompareTo(other._id);
+            var comp1 = _id.CompareTo(other._id);
+            if (comp1 != 0) return comp1;
+            return _floorNumber.CompareTo(other._floorNumber);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace OpenNefia.Tests.Core.Areas
     public class AreaManager_Tests : OpenNefiaUnitTest
     {
         private static readonly PrototypeId<EntityPrototype> TestAreaID = new("TestArea");
-        private static readonly AreaFloorId TestMapFloor = new("Test.Map");
+        private static readonly AreaFloorId TestMapFloor = new("Test.Map", 0);
 
         private static readonly string Prototypes = @$"
 - type: Entity
@@ -187,7 +187,7 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId, map), "Attempting to reuse same area floor ID");
 
-            var floorId2 = new AreaFloorId("Test.Floor2");
+            var floorId2 = new AreaFloorId("Test.Floor2", 2);
             Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId2, map), "Attempting to register same map with two different floors");
 
             var area2 = areaMan.CreateArea(null);

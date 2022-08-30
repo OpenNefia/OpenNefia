@@ -6,9 +6,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorVernis: Elona.Vernis
+      Elona.FloorVernis:0: Elona.Vernis
   - type: AreaEntrance
-    startingFloor: Elona.FloorVernis
+    startingFloor: Elona.FloorVernis:0
     globalId: Elona.AreaVernis
 
 - type: Entity
@@ -19,9 +19,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorPortKapul: Elona.PortKapul
+      Elona.FloorPortKapul:0: Elona.PortKapul
   - type: AreaEntrance
-    startingFloor: Elona.FloorPortKapul
+    startingFloor: Elona.FloorPortKapul:0
     globalId: Elona.AreaPortKapul
 
 - type: Entity
@@ -32,9 +32,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorYowyn: Elona.Yowyn
+      Elona.FloorYowyn:0: Elona.Yowyn
   - type: AreaEntrance
-    startingFloor: Elona.FloorYowyn
+    startingFloor: Elona.FloorYowyn:0
     globalId: Elona.AreaYowyn
 
 - type: Entity
@@ -45,9 +45,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorDerphy: Elona.Derphy
+      Elona.FloorDerphy:0: Elona.Derphy
   - type: AreaEntrance
-    startingFloor: Elona.FloorDerphy
+    startingFloor: Elona.FloorDerphy:0
     globalId: Elona.AreaDerphy
 
 - type: Entity
@@ -58,9 +58,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorPalmia: Elona.Palmia
+      Elona.FloorPalmia:0: Elona.Palmia
   - type: AreaEntrance
-    startingFloor: Elona.FloorPalmia
+    startingFloor: Elona.FloorPalmia:0
     globalId: Elona.AreaPalmia
 
 - type: Entity
@@ -71,9 +71,9 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorNoyel: Elona.Noyel
+      Elona.FloorNoyel:0: Elona.Noyel
   - type: AreaEntrance
-    startingFloor: Elona.FloorNoyel
+    startingFloor: Elona.FloorNoyel:0
     globalId: Elona.AreaNoyel
 
 - type: Entity
@@ -84,7 +84,7 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorLumiest: Elona.Lumiest
+      Elona.FloorLumiest:0: Elona.Lumiest
   - type: AreaEntrance
-    startingFloor: Elona.FloorLumiest
+    startingFloor: Elona.FloorLumiest:0
     globalId: Elona.AreaLumiest

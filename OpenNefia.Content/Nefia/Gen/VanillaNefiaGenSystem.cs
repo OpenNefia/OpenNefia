@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Nefia
                 return;
 
             // TODO maybe not hide information inside string IDs
-            var floorNumber = AreaNefiaSystem.AreaIdToFloorNumber(args.FloorId);
+            var floorNumber = args.FloorId.FloorNumber;
             var mapId = _mapManager.GenerateMapId();
 
             var data = new Blackboard<NefiaGenParams>();
@@ -155,7 +155,7 @@ namespace OpenNefia.Content.Nefia
                 }
                 else
                 {
-                    var nextFloorId = AreaNefiaSystem.FloorNumberToAreaId(floorNumber + 1);
+                    var nextFloorId = AreaNefiaSystem.AreaFloorNefia.WithFloorNumber(floorNumber + 1);
                     var stairs = EntityManager.GetComponent<StairsComponent>(delving.Owner);
                     stairs.Entrance = new MapEntrance()
                     {
@@ -176,7 +176,7 @@ namespace OpenNefia.Content.Nefia
             {
                 var stairs = EntityManager.GetComponent<StairsComponent>(surfacing.Owner);
 
-                if (floorNumber <= 1)
+                if (floorNumber <= 0)
                 {
                     // TODO for better precision, the entity UID of the entrance needs to be passed here.
                     // but MapEntrance doesn't attach any entity information.
@@ -186,7 +186,7 @@ namespace OpenNefia.Content.Nefia
                 }
                 else
                 {
-                    var prevFloorId = AreaNefiaSystem.FloorNumberToAreaId(floorNumber - 1);
+                    var prevFloorId = AreaNefiaSystem.AreaFloorNefia.WithFloorNumber(floorNumber - 1);
                     stairs.Entrance = new MapEntrance()
                     {
                         MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id, prevFloorId),

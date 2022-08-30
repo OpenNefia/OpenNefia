@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Rendering
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
-        private MapCoordinates _startPos;
+        private MapCoordinates _startPos; // TODO remove as it is redundant with the position passed to IMapDrawablesManager.Enqueue()
         private MapCoordinates _endPos;
         private ChipPrototype _chip;
         private Color _color;
