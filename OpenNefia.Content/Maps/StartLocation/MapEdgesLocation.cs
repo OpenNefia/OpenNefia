@@ -16,9 +16,19 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
 
+        /// <summary>
+        /// Edge to place the player on. If null, it is based on the player's facing
+        /// direction/MapEdgesLocation entities in the map.
+        /// </summary>
+        [DataField]
+        public Direction? Edge { get; set; }
+
         public Vector2i GetStartPosition(EntityUid ent, IMap map)
         {
             EntitySystem.InjectDependencies(this);
+
+            if (Edge != null)
+                return GetDefaultTargetCoords(map, Edge.Value.GetOpposite());
 
             if (!_entityManager.TryGetComponent(ent, out SpatialComponent? spatial))
                 return new CenterMapLocation().GetStartPosition(ent, map);

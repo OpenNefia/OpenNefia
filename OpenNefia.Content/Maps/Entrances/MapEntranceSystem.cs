@@ -77,13 +77,13 @@ namespace OpenNefia.Content.Maps
                 return false;
             }
 
+            _audio.Play(Protos.Sound.Exitmap1);
+
             if (!TryMapLoad(mapId.Value, out var map))
                 return false;
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
                 .BoundWithin(map.Bounds);
-
-            _audio.Play(Protos.Sound.Exitmap1);
 
             _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
             
