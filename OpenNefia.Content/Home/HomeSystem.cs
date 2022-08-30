@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly ITalkSystem _talk = default!;
         [Dependency] private readonly IRankSystem _ranks = default!;
 
-        public static readonly AreaFloorId AreaFloorHome = new("Elona.Home:Floor", 0);
+        public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
 
         // TODO save data requires non-nullable references...
         [RegisterSaveData("Elona.HomeSystem.ActiveHomeID")]

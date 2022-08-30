@@ -6,6 +6,8 @@
   - type: AreaHome
   - type: AreaEntrance
     chipID: Elona.MObjAreaTown
+    startingFloor: Elona.Home:0
+    startLocation: !type:MapEdgesLocation {}
 
 #
 # Cave
