@@ -7,7 +7,18 @@
   - type: AreaEntrance
     chipID: Elona.MObjAreaTown
     startingFloor: Elona.Home:0
-    startLocation: !type:MapEdgesLocation {}
+    startLocation: !type:MapEdgesLocation
+      edge: South
+
+- type: Entity
+  id: BaseHomeMap
+  parent: BaseMap
+  abstract: true
+  components:
+  - type: MapCommon
+    maxItemsOnGround: 100
+    isTravelDestination: true
+  - type: MapTypePlayerOwned
 
 #
 # Cave
@@ -29,7 +40,7 @@
 
 - type: Entity
   id: Elona.MapHomeCave
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 100
@@ -51,7 +62,7 @@
 
 - type: Entity
   id: Elona.MapHomeShack
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 150
@@ -73,7 +84,7 @@
 
 - type: Entity
   id: Elona.MapHomeCozyHouse
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 200
@@ -95,7 +106,7 @@
 
 - type: Entity
   id: Elona.MapHomeEstate
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 300
@@ -119,7 +130,7 @@
 
 - type: Entity
   id: Elona.MapHomeCyberHouse
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 350
@@ -143,7 +154,7 @@
 
 - type: Entity
   id: Elona.MapHomeSmallCastle
-  parent: BaseMap
+  parent: BaseHomeMap
   components:
   - type: MapCommon
     maxItemsOnGround: 400
