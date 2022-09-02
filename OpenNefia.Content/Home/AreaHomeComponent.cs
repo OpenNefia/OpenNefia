@@ -21,5 +21,8 @@ namespace OpenNefia.Content.Home
 
         [DataField]
         public int HomeRankPoints { get; set; }
+
+        [DataField]
+        public int? MaxItemsOnGround { get; set; }
     }
 }

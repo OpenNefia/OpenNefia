@@ -9,7 +9,7 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Sanity;
 using OpenNefia.Content.VanillaAI;
-using OpenNefia.Content.Sidequest;
+using OpenNefia.Content.Sidequests;
 using OpenNefia.Content.Roles;
 using OpenNefia.Content.Karma;
 using OpenNefia.Content.Levels;

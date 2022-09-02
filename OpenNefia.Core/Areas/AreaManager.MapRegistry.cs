@@ -125,6 +125,9 @@ namespace OpenNefia.Core.Areas
             floor.MapId = ev.OutMap.Id;
             _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
 
+            var ev2 = new AfterAreaFloorGeneratedEvent(area, ev.OutMap, floorId, previousCoords);
+            _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev2);
+
             return ev.OutMap;
         }
     }
@@ -132,6 +135,10 @@ namespace OpenNefia.Core.Areas
     /// <summary>
     /// Raised when a new floor in an area needs to be generated.
     /// </summary>
+    /// <remarks>
+    /// This should only be handled by systems which initially generate the map; to modify the final
+    /// map *after* it's generated, <see cref="AfterAreaFloorGeneratedEvent"/> should be used.
+    /// </remarks>
     public sealed class AreaFloorGenerateEvent : HandledEntityEventArgs
     {
         /// <summary>
@@ -170,6 +177,44 @@ namespace OpenNefia.Core.Areas
         {
             Handled = true;
             OutMap = map;
+        }
+    }
+
+    /// <summary>
+    /// Raised when a new floor in an area needs to be generated.
+    /// </summary>
+    public sealed class AfterAreaFloorGeneratedEvent : EntityEventArgs
+    {
+        /// <summary>
+        /// Area a floor is being generated in.
+        /// </summary>
+        public IArea Area { get; }
+
+        /// <summary>
+        /// Map of the area's floor that was created.
+        /// </summary>
+        public IMap Map { get; private set; }
+
+        /// <summary>
+        /// ID of the floor.
+        /// </summary>
+        public AreaFloorId FloorId { get; }
+
+        /// <summary>
+        /// Map coordinates of the player at the time the floor is generated.
+        /// This can be used to generate a map based on the terrain the player
+        /// is standing on (fields, forest, desert, etc.)
+        /// </summary>
+        public MapCoordinates PreviousCoords { get; }
+
+        // TODO would be nice to have EntityCoordinates also
+
+        public AfterAreaFloorGeneratedEvent(IArea area, IMap map, AreaFloorId floorId, MapCoordinates previousCoords)
+        {
+            Area = area;
+            Map = map;
+            FloorId = floorId;
+            PreviousCoords = previousCoords;
         }
     }
 }

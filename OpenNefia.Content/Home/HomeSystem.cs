@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Home
         int CalcTotalHomeValue(IMap map);
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
-        HomeRank CalcRank(IMap map, MapHomeComponent? mapHome = null);
+        HomeRank CalcRank(IMap map, AreaHomeComponent? mapHome = null);
         HomeRank UpdateRank(IMap map);
     }
 
@@ -58,10 +58,23 @@ namespace OpenNefia.Content.Home
         public override void Initialize()
         {
             Initialize_Areas();
-            SubscribeComponent<MapHomeComponent, MapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
+            SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(UpdateMaxItemLimit, priority: EventPriorities.High);
+            SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
         }
 
-        private void WelcomeHome(EntityUid uid, MapHomeComponent component, MapEnterEvent args)
+        /// <summary>
+        /// Avoids the problem in vanilla Elona where if you build a second floor in your home and
+        /// then upgrade it, the max item count of the new home type is not applied to the existing
+        /// floor.
+        /// </summary>
+        private void UpdateMaxItemLimit(EntityUid uid, AreaHomeComponent areaHome, AreaMapEnterEvent args)
+        {
+            if (areaHome.MaxItemsOnGround != null
+                && TryComp<MapCommonComponent>(args.Map.MapEntityUid, out var mapCommon))
+                mapCommon.MaxItemsOnGround = areaHome.MaxItemsOnGround.Value;
+        }
+
+        private void WelcomeHome(EntityUid uid, AreaHomeComponent component, AreaMapEnterEvent args)
         {
             _deferredEvents.Enqueue(() => Event_WelcomeHome(args.Map));
         }
@@ -153,12 +166,12 @@ namespace OpenNefia.Content.Home
             return baseValue + furnitureValue + homeValue / 3;
         }
 
-        public HomeRank CalcRank(IMap map, MapHomeComponent? mapHome = null)
+        public HomeRank CalcRank(IMap map, AreaHomeComponent? areaHome = null)
         {
-            if (!Resolve(map.MapEntityUid, ref mapHome))
+            if (!TryArea(map, out var area) || !Resolve(area.AreaEntityUid, ref areaHome))
                 return new HomeRank(0, 0, 0, 0);
 
-            var baseValue = mapHome.HomeRankValue;
+            var baseValue = areaHome.HomeRankPoints;
             var homeValue = Math.Clamp(CalcTotalHomeValue(map), 0, 10000);
             var furnitureValue = Math.Clamp(CalcTotalFurnitureValue(map), 0, 10000);
             var homeRank = Math.Max(10000 - SumTotalValue(baseValue, homeValue, furnitureValue), 100);

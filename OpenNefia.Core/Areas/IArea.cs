@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Areas
 {
@@ -45,9 +47,6 @@ namespace OpenNefia.Core.Areas
         /// </summary>
         IReadOnlyDictionary<AreaFloorId, AreaFloor> ContainedMaps { get; }
 
-        /// <summary>
-        /// Initial floor to place the player in when generating area entrances.
-        /// </summary>
-        public AreaFloorId? StartingFloor { get; set; }
+        bool TryGetFloorOfContainedMap(MapId mapId, [NotNullWhen(true)] out AreaFloorId? floorId);
     }
 }

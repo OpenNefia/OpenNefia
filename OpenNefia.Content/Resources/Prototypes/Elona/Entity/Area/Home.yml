@@ -4,6 +4,7 @@
   abstract: true
   components:
   - type: AreaHome
+    maxItemsOnGround: 100
   - type: AreaEntrance
     chipID: Elona.MObjAreaTown
     startingFloor: Elona.Home:0
@@ -16,7 +17,6 @@
   abstract: true
   components:
   - type: MapCommon
-    maxItemsOnGround: 100
     isTravelDestination: true
   - type: MapTypePlayerOwned
 
@@ -32,6 +32,7 @@
     deedValue: 5000
     homeScale: 0
     homeRankPoints: 1000
+    maxItemsOnGround: 100
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home0.yml
   - type: AreaEntrance
@@ -41,9 +42,6 @@
 - type: Entity
   id: Elona.MapHomeCave
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 100
 
 #
 # Shack
@@ -57,15 +55,13 @@
     deedValue: 29500
     homeScale: 1
     homeRankPoints: 3000
+    maxItemsOnGround: 150
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home1.yml
 
 - type: Entity
   id: Elona.MapHomeShack
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 150
 
 #
 # Cozy House
@@ -79,15 +75,13 @@
     deedValue: 81000
     homeScale: 2
     homeRankPoints: 5000
+    maxItemsOnGround: 200
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home2.yml
 
 - type: Entity
   id: Elona.MapHomeCozyHouse
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 200
 
 #
 # Estate
@@ -101,15 +95,13 @@
     deedValue: 186500
     homeScale: 3
     homeRankPoints: 700
+    maxItemsOnGround: 300
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home3.yml
 
 - type: Entity
   id: Elona.MapHomeEstate
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 300
 
 #
 # Cyber House
@@ -123,6 +115,7 @@
     deedValue: 373000
     homeScale: 4
     homeRankPoints: 800
+    maxItemsOnGround: 350
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home4.yml
   - type: AreaEntrance
@@ -131,9 +124,6 @@
 - type: Entity
   id: Elona.MapHomeCyberHouse
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 350
 
 #
 # Small Castle
@@ -147,6 +137,7 @@
     deedValue: 1335000
     homeScale: 5
     homeRankPoints: 1000
+    maxItemsOnGround: 400
   - type: AreaMapBlueprint
     blueprintPath: /Maps/Elona/home5.yml
   - type: AreaEntrance
@@ -155,6 +146,3 @@
 - type: Entity
   id: Elona.MapHomeSmallCastle
   parent: BaseHomeMap
-  components:
-  - type: MapCommon
-    maxItemsOnGround: 400
