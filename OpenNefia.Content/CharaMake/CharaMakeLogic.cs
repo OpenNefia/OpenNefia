@@ -4,12 +4,14 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Scenarios;
 
 namespace OpenNefia.Content.CharaMake
 {
     public abstract record CharaMakeLogicResult
     {
-        public sealed record NewPlayerIncarnated(EntityUid NewPlayer) : CharaMakeLogicResult;
+        public sealed record NewPlayerIncarnated(EntityUid NewPlayer, PrototypeId<ScenarioPrototype> ScenarioID) : CharaMakeLogicResult;
         public sealed record Canceled() : CharaMakeLogicResult;
     }
 
@@ -30,6 +32,11 @@ namespace OpenNefia.Content.CharaMake
         {
             return new List<CharaMakeLayer>
             {
+                // This step should always be first; the plan is for character making steps like the
+                // scenario selection to have the ability to dynamically change what subsequent
+                // steps are available.
+                new CharaMakeScenarioSelectLayer(),
+
                 new CharaMakeRaceSelectLayer(),
                 new CharaMakeGenderSelectLayer(),
                 new CharaMakeClassSelectLayer(),
@@ -115,7 +122,7 @@ namespace OpenNefia.Content.CharaMake
                             break;
                         default:
                             if (result.Value.Added != null)
-                                data.AllResults.Add(currentStep, result.Value.Added);
+                                data.AllResults[currentStep] = result.Value.Added;
                             stepIndex++;
                             if (stepIndex == steps.Count)
                                 finished = true;
@@ -139,9 +146,15 @@ namespace OpenNefia.Content.CharaMake
                     return new CharaMakeLogicResult.Canceled();
                 }
 
+                if (!data.TryGet<CharaMakeScenarioSelectLayer, CharaMakeScenarioSelectLayer.ResultData>(out var scenarioData))
+                {
+                    Logger.ErrorS("charamake", $"Did not find a charamake result with type '{typeof(CharaMakeScenarioSelectLayer.ResultData).FullName}' containing the new player!");
+                    return new CharaMakeLogicResult.Canceled();
+                }
+
                 DebugTools.Assert(_entityManager.IsAlive(finalResult.PlayerEntity), "New charamake player was not alive!");
 
-                return new CharaMakeLogicResult.NewPlayerIncarnated(finalResult.PlayerEntity);
+                return new CharaMakeLogicResult.NewPlayerIncarnated(finalResult.PlayerEntity, scenarioData.ScenarioID);
             }
         }
     }

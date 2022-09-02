@@ -151,7 +151,8 @@ namespace OpenNefia.Content.TitleScreen
                 }
             }
 
-            StartNewGame(player, Protos.Scenario.Quickstart);
+            var scenarioId = _config.GetCVar(CCVars.DebugQuickstartScenario);
+            StartNewGame(player, new(scenarioId));
         }
 
         private void RunRestoreSave()
@@ -170,8 +171,7 @@ namespace OpenNefia.Content.TitleScreen
 
             if (result is CharaMakeLogicResult.NewPlayerIncarnated newPlayerResult)
             {
-                // TODO configure scenario
-                StartNewGame(newPlayerResult.NewPlayer, Protos.Scenario.Default);
+                StartNewGame(newPlayerResult.NewPlayer, newPlayerResult.ScenarioID);
             }
         }
 

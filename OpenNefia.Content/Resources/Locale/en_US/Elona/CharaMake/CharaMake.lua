@@ -7,6 +7,17 @@ Elona.CharaMake = {
         },
     },
 
+    ScenarioSelect = {
+        Window = {
+            Title = "Scenario Selection",
+        },
+
+        NameTopic = "Name",
+        DetailTopic = "Detail",
+
+        Caption = "Choose a scenario. It will change the start location and win conditions.",
+    },
+
     Skill = {
         Amount = {
             None = "None",

@@ -53,6 +53,7 @@ namespace OpenNefia.Content.CharaMake
             Finish(new CharaMakeUIResult(new ResultData(((RacePrototype)item.Data).GetStrongID())));
         }
     }
+
     [Localize("Elona.CharaMake.ClassSelect")]
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer<CharaMakeClassSelectLayer.ResultData>
     {
@@ -211,9 +212,9 @@ namespace OpenNefia.Content.CharaMake
                 }
             }
         }
+
         public class RaceClassCell : UiListCell<RaceClass>
         {
-
             public RaceClassCell(RaceClass wrapper)
                 : base(wrapper, new UiText(UiFonts.ListText))
             {
