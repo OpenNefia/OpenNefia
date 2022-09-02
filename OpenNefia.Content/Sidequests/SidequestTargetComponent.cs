@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Sidequest
+namespace OpenNefia.Content.Sidequests
 {
     [RegisterComponent]
     public sealed class SidequestTargetComponent : Component
