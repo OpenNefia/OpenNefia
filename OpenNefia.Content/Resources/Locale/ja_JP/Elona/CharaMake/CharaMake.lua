@@ -7,6 +7,17 @@ Elona.CharaMake = {
         },
     },
 
+    ScenarioSelect = {
+        Window = {
+            Title = "シナリオの選択",
+        },
+
+        NameTopic = "名前",
+        DetailTopic = "説明",
+
+        Caption = "シナリオを選んでください。出発地や勝敗条件に影響があるよ。",
+    },
+
     Skill = {
         Amount = {
             None = "皆無",

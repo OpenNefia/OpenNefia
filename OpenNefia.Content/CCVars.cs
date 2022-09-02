@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Scenarios;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content
 {   
@@ -178,6 +181,9 @@ namespace OpenNefia.Content
 
         public static readonly CVarDef<bool> DebugQuickstartOnStartup =
             CVarDef.Create("debug.quickstartOnStartup", true, CVar.Archive);
+
+        public static readonly CVarDef<string> DebugQuickstartScenario =
+            CVarDef.Create("debug.quickstartScenario", (string)Protos.Scenario.Quickstart, CVar.Archive);
 
         public static readonly CVarDef<bool> DebugShowDetailedSkillPower =
             CVarDef.Create("debug.showDetailedSkillPower", false, CVar.Archive);
