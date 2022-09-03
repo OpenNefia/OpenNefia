@@ -20,23 +20,17 @@ namespace OpenNefia.Content.Sidequests
 {
     public interface ISidequestSystem : IEntitySystem
     {
-        int GetFlag(PrototypeId<SidequestPrototype> sidequestID);
-        void SetFlag(PrototypeId<SidequestPrototype> sidequestID, int flag);
+        int GetState(PrototypeId<SidequestPrototype> sidequestID);
+        void SetState(PrototypeId<SidequestPrototype> sidequestID, int flag);
     }
 
     public sealed class SidequestSystem : EntitySystem, ISidequestSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-
         [DataDefinition]
         private sealed class SidequestInstance
         {
             [DataField(required: true)]
-            public int Flag { get; set; } = 0;
+            public int State { get; set; } = 0;
         }
 
         [RegisterSaveData("Elona.SidequestSystem.SidequestData")]
@@ -46,16 +40,16 @@ namespace OpenNefia.Content.Sidequests
         {
         }
 
-        public int GetFlag(PrototypeId<SidequestPrototype> sidequestID)
+        public int GetState(PrototypeId<SidequestPrototype> sidequestID)
         {
             var instance = _sidequestData.GetOrInsertNew(sidequestID);
-            return instance.Flag;
+            return instance.State;
         }
 
-        public void SetFlag(PrototypeId<SidequestPrototype> sidequestID, int flag)
+        public void SetState(PrototypeId<SidequestPrototype> sidequestID, int state)
         {
             var instance = _sidequestData.GetOrInsertNew(sidequestID);
-            instance.Flag = flag;
+            instance.State = state;
         }
     }
 }

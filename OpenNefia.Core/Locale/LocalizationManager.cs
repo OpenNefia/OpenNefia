@@ -30,6 +30,8 @@ namespace OpenNefia.Core.Locale
         bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
             where T : class, IPrototype;
         bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
+        bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args);
+        IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args);
         bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
     }
 
@@ -162,31 +164,32 @@ namespace OpenNefia.Core.Locale
             return (_stringStore.ContainsKey(key) || _functionStore.ContainsKey(key) || _listStore.ContainsKey(key));
         }
 
+        private static string CallFunction(LocaleKey key, LocaleArg[] args, LuaFunction func)
+        {
+            string? str;
+            var shared = ArrayPool<object?>.Shared;
+            var rented = shared.Rent(args.Length);
+
+            for (int i = 0; i < args.Length; i++)
+                rented[i] = args[i].Value;
+
+            try
+            {
+                var result = func.Call(rented).FirstOrDefault();
+                str = $"{result ?? "null"}";
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("loc", ex, $"Error in locale function: {ex}");
+                str = $"<exception: {ex.Message} ({key})>";
+            }
+
+            shared.Return(rented);
+            return str;
+        }
+
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            static string CallFunction(LocaleKey key, LocaleArg[] args, LuaFunction func)
-            {
-                string? str;
-                var shared = ArrayPool<object?>.Shared;
-                var rented = shared.Rent(args.Length);
-
-                for (int i = 0; i < args.Length; i++)
-                    rented[i] = args[i].Value;
-
-                try
-                {
-                    var result = func.Call(rented).FirstOrDefault();
-                    str = $"{result ?? "null"}";
-                }
-                catch (Exception ex)
-                {
-                    Logger.ErrorS("loc", ex, $"Error in locale function: {ex}");
-                    str = $"<exception: {ex.Message} ({key})>";
-                }
-
-                shared.Return(rented);
-                return str;
-            }
 
             if (_stringStore.TryGetValue(key, out str))
             {
@@ -260,6 +263,38 @@ namespace OpenNefia.Core.Locale
         {
             var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
             return TryGetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), out str, args);
+        }
+
+        public bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            if (_listStore.TryGetValue(key, out var foundList))
+            {
+                var result = new List<string>();
+                foreach (var obj in foundList)
+                {
+                    if (obj is LuaFunction func2)
+                    {
+                        result.Add(CallFunction(key, args, func2));
+                    }
+                    else
+                    {
+                        result.Add(obj.ToString()!);
+                    }
+                }
+                list = result;
+                return true;
+            }
+
+            list = null;
+            return false;
+        }
+
+        public IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args)
+        {
+            if (TryGetList(key, out var list, args))
+                return list;
+
+            return new List<string>() { $"<Missing key: {key}>" };
         }
 
         public bool IsFullwidth()

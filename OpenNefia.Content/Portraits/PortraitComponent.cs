@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Portraits
         /// <inheritdoc />
         public override string Name => "Portrait";
 
-        [DataField("id")]
+        [DataField]
         public PrototypeId<PortraitPrototype> PortraitID { get; set; } = Protos.Portrait.Default;
 
         [DataField]

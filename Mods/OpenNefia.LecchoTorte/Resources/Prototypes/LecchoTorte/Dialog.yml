@@ -1,7 +1,7 @@
 - type: Elona.Dialog
   id: LecchoTorte.PleaseMove
   scriptImports:
-  - OpenNefia.LecchoTorte.PleaseMove;
+  - OpenNefia.LecchoTorte.PleaseMove
   scriptDependencies:
     _pleaseMove: OpenNefia.LecchoTorte.PleaseMove.PleaseMoveSystem
   nodes:

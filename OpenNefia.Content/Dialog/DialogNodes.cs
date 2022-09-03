@@ -185,12 +185,35 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public LocaleKey ByeChoice { get; set; } = "Elona.Dialog.Common.Choices.Bye";
 
-        private string GetLocalizedText(DialogTextEntry text, IDialogEngine engine)
+        private IReadOnlyList<string> GetLocalizedText(DialogTextEntry text, IDialogEngine engine)
+        {
+            if (text.Text != null)
+                return new List<string>() { text.Text };
+
+            var args = new LocaleArg[]
+            {
+                ("speaker", engine.Speaker),
+                ("player", engine.Player)
+            };
+
+            // Check lists.
+            //
+            // Dialog.Text = { "Text 1.", "Text 2.", "Text 3" }
+            if (Loc.TryGetList(text.Key.Value, out var list, args))
+                return list;
+
+            // Check single strings.
+            //
+            // Dialog.Text = "Some text."
+            return new List<string>() { Loc.GetString(text.Key!.Value, args) };
+        }
+
+        private string GetSingleLocalizedText(DialogTextEntry text, IDialogEngine engine)
         {
             if (text.Text != null)
                 return text.Text;
 
-            return Loc.GetString($"{text.Key}", ("speaker", engine.Speaker), ("player", engine.Player));
+            return Loc.GetString(text.Key!.Value, ("speaker", engine.Speaker), ("player", engine.Player));
         }
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
@@ -217,61 +240,71 @@ namespace OpenNefia.Content.Dialog
 
             for (var i = 0; i < _texts.Count; i++)
             {
-                defaultChoiceIndex = -1;
-
                 var entry = entries[i];
+                var localizedTexts = GetLocalizedText(entry, engine);
 
-                List<DialogChoice> choices = new();
-                if (i == _texts.Count - 1)
+                for (var j = 0; j < localizedTexts.Count; j++)
                 {
-                    if (_choices.Count == 0)
+                    var localizedText = localizedTexts[j];
+                    defaultChoiceIndex = -1;
+
+                    List<DialogChoice> choices = new();
+                    if (i == _texts.Count - 1 && j == localizedTexts.Count - 1)
                     {
-                        choices.Add(new DialogChoice()
+                        if (_choices.Count == 0)
                         {
-                            Text = Loc.GetString(ByeChoice)
-                        });
-                        defaultChoiceIndex = 0;
+                            // "Bye bye."
+                            choices.Add(new DialogChoice()
+                            {
+                                Text = Loc.GetString(ByeChoice)
+                            });
+                            defaultChoiceIndex = 0;
+                        }
+                        else
+                        {
+                            // Standard list of choices after all text has been advanced.
+                            foreach (var choice in _choices)
+                            {
+                                choices.Add(new DialogChoice()
+                                {
+                                    Text = GetSingleLocalizedText(choice.Text, engine)
+                                });
+                            }
+                            
+                            // Canceling with only one choice is the same as selecting that choice.
+                            // Else, it's the first choice that's set as the default.
+                            if (_choices.Count == 1)
+                                defaultChoiceIndex = 0;
+                            else
+                                defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
+                        }
                     }
                     else
                     {
-                        foreach (var choice in _choices)
+                        // "(More)"
+                        choices.Add(new DialogChoice()
                         {
-                            choices.Add(new DialogChoice()
-                            {
-                                Text = GetLocalizedText(choice.Text, engine)
-                            });
-                        }
-
-                        if (_choices.Count == 1)
-                            defaultChoiceIndex = 0;
-                        else
-                            defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
+                            Text = Loc.GetString("Elona.Dialog.Common.Choices.More")
+                        });
+                        defaultChoiceIndex = 0;
                     }
-                }
-                else
-                {
-                    choices.Add(new DialogChoice()
+
+                    var speakerName = "";
+                    if (entityMan.IsAlive(engine.Speaker))
+                        speakerName = dialog.GetDefaultSpeakerName(engine.Speaker.Value);
+
+                    var step = new DialogStepData()
                     {
-                        Text = Loc.GetString("Elona.Dialog.Common.Choices.More")
-                    });
-                    defaultChoiceIndex = 0;
+                        Target = engine.Speaker,
+                        SpeakerName = speakerName,
+                        Text = localizedText,
+                        Choices = choices,
+                        CanCancel = defaultChoiceIndex != -1
+                    };
+
+                    engine.DialogLayer.UpdateFromStepData(step);
+                    result = uiMan.Query(engine.DialogLayer);
                 }
-
-                var speakerName = "";
-                if (entityMan.IsAlive(engine.Speaker))
-                    speakerName = dialog.GetDefaultSpeakerName(engine.Speaker.Value);
-
-                var step = new DialogStepData()
-                {
-                    Target = engine.Speaker,
-                    SpeakerName = speakerName,
-                    Text = GetLocalizedText(entry, engine),
-                    Choices = choices,
-                    CanCancel = defaultChoiceIndex != -1
-                };
-
-                engine.DialogLayer.UpdateFromStepData(step);
-                result = uiMan.Query(engine.DialogLayer);
             }
 
             AfterEnterCompiled?.Invoke(engine, this);
@@ -364,7 +397,7 @@ namespace OpenNefia.Content.Dialog
         int GetValue(IDialogEngine engine);
     }
 
-    public sealed class SidequestFlagCondition : IDialogCondition
+    public sealed class SidequestStateCondition : IDialogCondition
     {
         [Dependency] private readonly ISidequestSystem _sidequests = default!;
 
@@ -375,7 +408,7 @@ namespace OpenNefia.Content.Dialog
         {
             EntitySystem.InjectDependencies(this);
 
-            return _sidequests.GetFlag(SidequestID);
+            return _sidequests.GetState(SidequestID);
         }
     }
 
