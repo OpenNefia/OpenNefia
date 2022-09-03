@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Home
             if (args.FloorId.FloorNumber != 0)
                 return;
 
-            if (_sidequests.GetFlag(Protos.Sidequest.MainQuest) != 0)
+            if (_sidequests.GetState(Protos.Sidequest.MainQuest) != 0)
                 return;
 
             var ent = _charaGen.GenerateChara(args.Map.AtPos(18, 10), Protos.Chara.Larnneire);

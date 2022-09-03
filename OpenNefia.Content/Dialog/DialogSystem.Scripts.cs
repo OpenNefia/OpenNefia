@@ -49,11 +49,23 @@ namespace OpenNefia.Content.Dialog
                 var needsScript = false;
                 var script = new StringBuilder();
 
-                script.AppendLine(@"using OpenNefia.Core.GameObjects;
-using OpenNefia.Content.Dialog;");
+                var imports = new HashSet<string>()
+                {
+                    typeof(IoCManager).Namespace!,
+                    typeof(EntitySystem).Namespace!,
+                    typeof(DialogPrototype).Namespace!,
+                    typeof(Loc).Namespace!,
+                };
 
-                // Import the namespaces in the dialog's scriptImports list.
-                foreach (var ns in dialog.ScriptImports)
+                imports.AddRange(dialog.ScriptImports);
+
+                foreach (var type in dialog.ScriptDependencies.Values)
+                {
+                    if (type.Namespace != null)
+                        imports.Add(type.Namespace);
+                }
+
+                foreach (var ns in imports)
                 {
                     script.AppendLine($"using {ns};");
                 }

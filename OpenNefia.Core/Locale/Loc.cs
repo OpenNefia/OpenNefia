@@ -37,6 +37,16 @@ namespace OpenNefia.Core.Locale
             return _localization.GetString(key, args);
         }
 
+        public static bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            return _localization.TryGetList(key, out list, args);
+        }
+
+        public static IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args)
+        {
+            return _localization.GetList(key, args);
+        }
+
         public static bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table)
         {
             return _localization.TryGetLocalizationData(uid, out table);

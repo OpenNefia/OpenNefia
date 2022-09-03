@@ -100,5 +100,16 @@ namespace OpenNefia.Tests
             str = null;
             return false;
         }
+
+        public bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            list = null;
+            return false;
+        }
+
+        public IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args)
+        {
+            return new List<string>();
+        }
     }
 }

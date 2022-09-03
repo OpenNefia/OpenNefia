@@ -22,59 +22,116 @@
 
 - type: Elona.Dialog
   id: Elona.Lomias
+  scriptImports:
+  - OpenNefia.Content.Prototypes
+  - OpenNefia.Content.Items
+  - OpenNefia.Content.Identify
+  - OpenNefia.Content.CurseStates
+  scriptDependencies:
+    _gameSession: OpenNefia.Core.Game.IGameSessionManager
+    _entityManager: OpenNefia.Core.GameObjects.IEntityManager
+    _sidequests: OpenNefia.Content.Sidequests.ISidequestSystem
+    _charaGen: OpenNefia.Content.RandomGen.ICharaGen
+    _itemGen: OpenNefia.Content.RandomGen.IItemGen
+    _mes: OpenNefia.Content.Logic.IMessagesManager
   nodes:
     __start__: !type:DialogBranchNode
       conditions:
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 0
         node: Elona.Lomias:Tutorial0
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 1
         node: Elona.Lomias:Tutorial1
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 2
         node: Elona.Lomias:Tutorial2
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 3
         node: Elona.Lomias:Tutorial3
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 4
         node: Elona.Lomias:Tutorial4
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 5
         node: Elona.Lomias:Tutorial5
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 6
         node: Elona.Lomias:Tutorial6
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 7
         node: Elona.Lomias:Tutorial7
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 8
         node: Elona.Lomias:Tutorial8
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: 99
         node: Elona.Lomias:Tutorial99
-      - condition: !type:SidequestFlagCondition
+      - condition: !type:SidequestStateCondition
           sidequestID: Elona.Tutorial
         value: -1
         node: Elona.Lomias:TutorialAfter
+
     Tutorial0: !type:DialogTextNode
       texts:
-      - Elona.Dialog.Common.IsSleeping
+      - Elona.Dialog.Unique.Lomias.Tutorial0.Text
+      choices:
+      - text: Elona.Dialog.Unique.Lomias.Tutorial0.Choices.Yes
+        nextNode: Elona.Lomias:Tutorial0_Start
+      - text: Elona.Dialog.Unique.Lomias.Tutorial0.Choices.No
+        isDefault: true
+      - text: Elona.Dialog.Unique.Lomias.TutorialAfter.Choices.GetOut
+        nextNode: Elona.Lomias:GetOut
+    Tutorial0_Start: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Lomias.Tutorial0_Start.Text
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Lomias:__start__
+      afterEnter: |
+        var corpse = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Corpse);
+        if (_entityManager.IsAlive(corpse))
+        {
+            var protoSource = _entityManager.EnsureComponent<EntityProtoSourceComponent>(corpse.Value);
+            protoSource.EntityID = Protos.Chara.Beggar;
+            _entityManager.EnsureComponent<IdentifyComponent>(corpse.Value).IdentifyState = IdentifyState.Full;
+            _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
+        }
+        _sidequests.SetState(Protos.Sidequest.Tutorial, 1);
+
     Tutorial1: !type:DialogTextNode
       texts:
-      - Elona.Dialog.Common.IsSleeping
+      - Elona.Dialog.Unique.Lomias.Tutorial1.Text
+      choices:
+      - text: Elona.Dialog.Unique.Lomias.Tutorial1.Choices.Alright
+        isDefault: true
+      - text: Elona.Dialog.Unique.Lomias.Tutorial1.Choices.Ate
+        nextNode: Elona.Lomias:Tutorial1_Ate1
+    Tutorial1_Ate1: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Lomias.Tutorial1_Ate1.Text
+      choices:
+      - text: Elona.Dialog.Unique.Lomias.Tutorial1_Ate1.Choices.What
+        nextNode: Elona.Lomias:Tutorial1_Ate2
+    Tutorial1_Ate2: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Lomias.Tutorial1_Ate2.Text
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Lomias:__start__
+      afterEnter: |
+        _sidequests.SetState(Protos.Sidequest.Tutorial, 2);
+
     Tutorial2: !type:DialogTextNode
       texts:
       - Elona.Dialog.Common.IsSleeping
@@ -99,7 +156,12 @@
     Tutorial99: !type:DialogTextNode
       texts:
       - Elona.Dialog.Common.IsSleeping
+
     TutorialAfter: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+
+    GetOut: !type:DialogTextNode
       texts:
       - Elona.Dialog.Common.IsSleeping
 

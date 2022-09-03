@@ -1,5 +1,6 @@
 ﻿using NLua;
 using OpenNefia.Core.Prototypes;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Locale
@@ -85,6 +86,16 @@ namespace OpenNefia.Core.Locale
         {
             KeyPrefix = key.GetParent();
             IsLocalized = true;
+        }
+
+        public bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            return _localizationManager.TryGetList(KeyPrefix.With(key), out list, args);
+        }
+
+        public IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args)
+        {
+            return _localizationManager.GetList(KeyPrefix.With(key), args);
         }
     }
 }
