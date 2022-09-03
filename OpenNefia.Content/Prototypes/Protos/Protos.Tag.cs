@@ -11,6 +11,8 @@ namespace OpenNefia.Content.Prototypes
             public static readonly TagPrototypeId DungeonStairsDelving        = new($"Elona.{nameof(DungeonStairsDelving)}");
             public static readonly TagPrototypeId DungeonStairsSurfacing      = new($"Elona.{nameof(DungeonStairsSurfacing)}");
 
+            public static readonly TagPrototypeId TutorialPutit               = new($"Elona.{nameof(TutorialPutit)}");
+
             public static readonly TagPrototypeId NoGenerate                  = new($"Elona.{nameof(NoGenerate)}");
 
             public static readonly TagPrototypeId ItemElonaIsAcid             = new($"Elona.Tag{nameof(ItemElonaIsAcid)}");

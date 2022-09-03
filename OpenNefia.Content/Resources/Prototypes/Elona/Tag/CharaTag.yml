@@ -32,3 +32,6 @@
   id: Elona.TagCharaWild
 - type: Tag
   id: Elona.TagCharaYeek
+
+- type: Tag
+  id: Elona.TutorialPutit

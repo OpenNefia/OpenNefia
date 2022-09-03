@@ -23,7 +23,7 @@ using OpenNefia.Content.Inventory;
 using Microsoft.CodeAnalysis.Operations;
 using OpenNefia.Content.Lockpick;
 
-namespace OpenNefia.Content.Chest
+namespace OpenNefia.Content.Chests
 {
     public interface IChestSystem : IEntitySystem
     {

@@ -16,6 +16,7 @@ using OpenNefia.Content.GameObjects;
 using System.Diagnostics.Metrics;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Sidequests;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -199,7 +200,7 @@ namespace OpenNefia.Content.Dialog
             // Check lists.
             //
             // Dialog.Text = { "Text 1.", "Text 2.", "Text 3" }
-            if (Loc.TryGetList(text.Key.Value, out var list, args))
+            if (Loc.TryGetList(text.Key!.Value, out var list, args))
                 return list;
 
             // Check single strings.
@@ -412,6 +413,42 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    public sealed class FindEntitiesWithTagCondition : IDialogCondition
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
+
+        [DataField]
+        public PrototypeId<TagPrototype> Tag { get; set; }
+
+        public int GetValue(IDialogEngine engine)
+        {
+            EntitySystem.InjectDependencies(this);
+
+            var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
+            return _tags.EntitiesWithTagInMap(spatial.MapID, Tag).Count();
+        }
+    }
+
+    public sealed class FindEntitiesWithPrototypeCondition : IDialogCondition
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+
+        [DataField]
+        public PrototypeId<EntityPrototype> ProtoID { get; set; }
+
+        public int GetValue(IDialogEngine engine)
+        {
+            EntitySystem.InjectDependencies(this);
+
+            var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
+            return _lookup.EntityQueryInMap<MetaDataComponent>(spatial.MapID)
+                .Where(metadata => metadata.EntityPrototype?.GetStrongID() == ProtoID)
+                .Count();
+        }
+    }
+
     [DataDefinition]
     public sealed class DialogBranchCondition
     {
@@ -437,7 +474,7 @@ namespace OpenNefia.Content.Dialog
     public sealed class DialogBranchNode : IDialogNode
     {
         [DataField(required: true)]
-        public QualifiedDialogNodeID DefaultNode { get; } = QualifiedDialogNodeID.Empty;
+        public QualifiedDialogNodeID? DefaultNode { get; }
 
         [DataField("conditions")]
         private List<DialogBranchCondition> _conditions { get; set; } = new();
@@ -451,9 +488,9 @@ namespace OpenNefia.Content.Dialog
                     return engine.GetNodeByID(condition.Node);
             }
 
-            return engine.GetNodeByID(DefaultNode);
+            return GetDefaultNode(engine);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(DefaultNode);
+        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => DefaultNode != null ? engine.GetNodeByID(DefaultNode.Value) : null;
     }
 }

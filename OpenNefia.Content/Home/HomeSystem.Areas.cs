@@ -10,6 +10,9 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Roles;
 using OpenNefia.Content.Book;
+using OpenNefia.Content.Mining;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.CurseStates;
 
 namespace OpenNefia.Content.Home
 {
@@ -18,12 +21,15 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly ISidequestSystem _sidequests = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IMapPlacement _mapPlacement = default!;
 
         private void Initialize_Areas()
         {
             SubscribeEntity<GetAreaEntranceMessageEvent>(GetHomeEntranceMessage);
             SubscribeComponent<MapComponent, GetDisplayNameEventArgs>(AreaHome_GetDisplayName);
             SubscribeComponent<AreaHomeTutorialComponent, AfterAreaFloorGeneratedEvent>(AreaHomeTutorial_FloorGenerate);
+            SubscribeEntity<CheckMiningSuccessEvent>(AreaHomeTutorial_CheckMiningSuccess, priority: EventPriorities.VeryLow);
+            SubscribeEntity<EntityFinishedMiningWallEvent>(AreaHomeTutorial_FinishedMiningWall, priority: EventPriorities.VeryLow);
         }
 
         private void AreaHome_GetDisplayName(EntityUid uid, MapComponent component, ref GetDisplayNameEventArgs args)
@@ -88,6 +94,33 @@ namespace OpenNefia.Content.Home
                 book.BookID = Protos.Book.BeginnersGuide;
             }
             // <<<<<<<< shade2/map.hsp:884 				flt:item_create -1,idBook,18,19:iBookId(ci)=1 ..
+        }
+
+        private bool IsDiggingTutorialStep(EntityUid uid)
+        {
+            return TryArea(uid, out var area) && HasComp<AreaHomeTutorialComponent>(area.AreaEntityUid) && _sidequests.GetState(Protos.Sidequest.Tutorial) == 2;
+        }
+
+        private void AreaHomeTutorial_CheckMiningSuccess(EntityUid uid, CheckMiningSuccessEvent args)
+        {
+            if (IsDiggingTutorialStep(uid))
+            {
+                args.OutSuccess = true;
+            }
+        }
+
+        private void AreaHomeTutorial_FinishedMiningWall(EntityUid uid, EntityFinishedMiningWallEvent args)
+        {
+            if (IsDiggingTutorialStep(uid))
+            {
+                _mapPlacement.ForceClearPosition(args.TargetCoords);
+                var item = _itemGen.GenerateItem(args.TargetCoords, Protos.Item.WorthlessFakeGoldBar);
+                if (IsAlive(item))
+                {
+                    EnsureComp<CurseStateComponent>(item.Value).CurseState = CurseState.Cursed;
+                }
+                _sidequests.SetState(Protos.Sidequest.Tutorial, 3);
+            }
         }
     }
 }

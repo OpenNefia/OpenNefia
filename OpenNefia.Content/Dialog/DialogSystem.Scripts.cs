@@ -46,66 +46,8 @@ namespace OpenNefia.Content.Dialog
 
             foreach (var dialog in dialogs)
             {
-                var needsScript = false;
-                var script = new StringBuilder();
-
-                var imports = new HashSet<string>()
-                {
-                    typeof(IoCManager).Namespace!,
-                    typeof(EntitySystem).Namespace!,
-                    typeof(DialogPrototype).Namespace!,
-                    typeof(Loc).Namespace!,
-                };
-
-                imports.AddRange(dialog.ScriptImports);
-
-                foreach (var type in dialog.ScriptDependencies.Values)
-                {
-                    if (type.Namespace != null)
-                        imports.Add(type.Namespace);
-                }
-
-                foreach (var ns in imports)
-                {
-                    script.AppendLine($"using {ns};");
-                }
-
-                //
-                // Assign required dependencies to local variables at the top of the script.
-                //
-                // Example YAML:
-                //
-                //   scriptDependencies:
-                //     _rand: OpenNefia.Core.Random.IRandom
-                //     _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
-                //
-                // Result:
-                //
-                //   var _rand = IoCManager.Resolve<IRandom>();
-                //   var _vanillaDialog = EntitySystem.Get<VanillaDialogSystem>();
-                //
-                foreach (var (varName, type) in dialog.ScriptDependencies)
-                {
-                    if (typeof(IEntitySystem).IsAssignableFrom(type))
-                        script.AppendLine($"var {varName} = {nameof(EntitySystem)}.Get<{type.Name}>();");
-                    else
-                        script.AppendLine($"var {varName} = {nameof(IoCManager)}.Resolve<{type.Name}>();");
-                }
-
-                // Run extra user code at the start of the script.
-                if (dialog.ScriptHeader != null)
-                    script.AppendLine(dialog.ScriptHeader);
-
-                script.AppendLine("var callbacks = new Dictionary<string, Dictionary<string, Delegate>>();");
-                script.AppendLine("Dictionary<string, Delegate> nodeCallbacks;");
-
-                GenerateScriptCallbacks(ref scriptTargets, dialog, ref needsScript, script);
-
-                script.AppendLine($"return new {nameof(DialogScriptResult)}(callbacks);");
-
-                var scriptCode = script.ToString();
-
-                if (needsScript)
+                var scriptCode = BuildDialogScript(ref scriptTargets, dialog);
+                if (scriptCode != null)
                 {
                     try
                     {
@@ -160,6 +102,71 @@ namespace OpenNefia.Content.Dialog
             }
             message += $" in {sw.Elapsed}.";
             Logger.LogS(logLevel, "dialog", message);
+        }
+
+        private static string? BuildDialogScript(ref Dictionary<string, DialogScriptTarget> scriptTargets, DialogPrototype dialog)
+        {
+            var script = new StringBuilder();
+
+            var imports = new HashSet<string>()
+                {
+                    typeof(IoCManager).Namespace!,
+                    typeof(EntitySystem).Namespace!,
+                    typeof(DialogPrototype).Namespace!,
+                    typeof(Loc).Namespace!,
+                };
+
+            imports.AddRange(dialog.ScriptImports);
+
+            foreach (var type in dialog.ScriptDependencies.Values)
+            {
+                if (type.Namespace != null)
+                    imports.Add(type.Namespace);
+            }
+
+            foreach (var ns in imports)
+            {
+                script.AppendLine($"using {ns};");
+            }
+
+            //
+            // Assign required dependencies to local variables at the top of the script.
+            //
+            // Example YAML:
+            //
+            //   scriptDependencies:
+            //     _rand: OpenNefia.Core.Random.IRandom
+            //     _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
+            //
+            // Result:
+            //
+            //   var _rand = IoCManager.Resolve<IRandom>();
+            //   var _vanillaDialog = EntitySystem.Get<VanillaDialogSystem>();
+            //
+            foreach (var (varName, type) in dialog.ScriptDependencies)
+            {
+                if (typeof(IEntitySystem).IsAssignableFrom(type))
+                    script.AppendLine($"var {varName} = {nameof(EntitySystem)}.Get<{type.Name}>();");
+                else
+                    script.AppendLine($"var {varName} = {nameof(IoCManager)}.Resolve<{type.Name}>();");
+            }
+
+            // Run extra user code at the start of the script.
+            if (dialog.ScriptHeader != null)
+                script.AppendLine(dialog.ScriptHeader);
+
+            script.AppendLine("var callbacks = new Dictionary<string, Dictionary<string, Delegate>>();");
+            script.AppendLine("Dictionary<string, Delegate> nodeCallbacks;");
+
+            var needsScript = false;
+            GenerateScriptCallbacks(ref scriptTargets, dialog, ref needsScript, script);
+            if (!needsScript)
+                return null;
+
+            script.AppendLine($"return new {nameof(DialogScriptResult)}(callbacks);");
+
+            var scriptCode = script.ToString();
+            return scriptCode;
         }
 
         private static void GenerateScriptCallbacks(ref Dictionary<string, DialogScriptTarget> scriptTargets, DialogPrototype dialog, ref bool needsScript, StringBuilder script)

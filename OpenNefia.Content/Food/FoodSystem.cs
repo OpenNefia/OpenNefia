@@ -396,12 +396,11 @@ namespace OpenNefia.Content.Food
         public bool IsHumanFlesh(EntityUid entity, FoodComponent? food = null)
         {
             if (!Resolve(entity, ref food)
-                || !TryComp<EntityOriginComponent>(entity, out var entityOrigin)
-                || entityOrigin.Origin == null
+                || !TryComp<EntityProtoSourceComponent>(entity, out var protoSource)
                 || food.FoodType != Protos.FoodType.Meat)
                 return false;
 
-            var proto = _protos.Index(entityOrigin.Origin.Value);
+            var proto = _protos.Index(protoSource.EntityID);
 
             return proto.Components.TryGetComponent<TagComponent>(out var tags) && tags.Tags.Contains(Protos.Tag.CharaMan);
         }

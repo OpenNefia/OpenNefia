@@ -37,7 +37,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Ranks;
 using OpenNefia.Content.Fame;
-using OpenNefia.Content.Chest;
+using OpenNefia.Content.Chests;
 using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Nefia

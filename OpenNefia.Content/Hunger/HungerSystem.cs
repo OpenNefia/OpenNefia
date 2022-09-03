@@ -32,6 +32,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Hunger
 {
@@ -191,8 +192,8 @@ namespace OpenNefia.Content.Hunger
                     if (_gameSession.IsPlayer(entity) || _rand.OneIn((int)Math.Pow(addVomitChance, 3)))
                     {
                         var vomit = _entityGen.SpawnEntity(Protos.Item.Vomit, entity);
-                        if (IsAlive(vomit))
-                            EnsureComp<EntityOriginComponent>(vomit.Value).Origin = ProtoIDOrNull(entity);
+                        if (IsAlive(vomit) && TryProtoID(entity, out var id))
+                            EnsureComp<EntityProtoSourceComponent>(vomit.Value).EntityID = id.Value;
                     }
                 }
             }

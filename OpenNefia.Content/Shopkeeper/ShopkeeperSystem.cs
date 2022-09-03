@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.Cargo;
-using OpenNefia.Content.Chest;
+using OpenNefia.Content.Chests;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EntityGen;

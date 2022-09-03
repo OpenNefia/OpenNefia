@@ -14,7 +14,7 @@ using OpenNefia.Content.Fame;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.RandomGen;
 
-namespace OpenNefia.Content.Chest
+namespace OpenNefia.Content.Chests
 {
     public sealed partial class ChestSystem
     {
