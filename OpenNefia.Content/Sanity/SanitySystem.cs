@@ -12,6 +12,8 @@ namespace OpenNefia.Content.Sanity
     {
         /// <hsp>#deffunc healSAN int tc,int dmg</hsp>
         void HealInsanity(EntityUid uid, int healAmount, SanityComponent? sanity = null);
+
+        void DamageSanity(EntityUid uid, int damageAmount, SanityComponent? sanity = null);
     }
 
     public sealed class SanitySystem : EntitySystem, ISanitySystem
@@ -34,6 +36,11 @@ namespace OpenNefia.Content.Sanity
 
             healAmount = Math.Max(healAmount, 0);
             sanity.Insanity = Math.Max(sanity.Insanity - healAmount, 0);
+        }
+
+        public void DamageSanity(EntityUid uid, int damageAmount, SanityComponent? sanity = null)
+        {
+            // TODO
         }
     }
 }

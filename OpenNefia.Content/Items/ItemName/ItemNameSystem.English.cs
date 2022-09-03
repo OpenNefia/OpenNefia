@@ -17,7 +17,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.Charas;
-using OpenNefia.Content.Chest;
+using OpenNefia.Content.Chests;
 using System.Text.RegularExpressions;
 using OpenNefia.Content.Fishing;
 using OpenNefia.Content.Materials;

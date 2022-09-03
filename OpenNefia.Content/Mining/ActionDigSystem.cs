@@ -73,6 +73,10 @@ namespace OpenNefia.Content.Mining
             if (minTurns > 0 && turnsSpentMining <= minTurns)
                 success = false;
 
+            var ev = new CheckMiningSuccessEvent(digPos, turnsSpentMining, success);
+            RaiseEvent(digger, ev);
+            success = ev.OutSuccess;
+
             return success;
         }
 
@@ -181,6 +185,21 @@ namespace OpenNefia.Content.Mining
             _activities.StartActivity(player, activity);
             
             return TurnResult.Succeeded;
+        }
+    }
+
+    public sealed class CheckMiningSuccessEvent : EntityEventArgs
+    {
+        public MapCoordinates TargetCoords { get; }
+        public int TurnsSpentMining { get; }
+
+        public bool OutSuccess { get; set; }
+
+        public CheckMiningSuccessEvent(MapCoordinates digPos, int turnsSpentMining, bool success)
+        {
+            TargetCoords = digPos;
+            TurnsSpentMining = turnsSpentMining;
+            OutSuccess = success;
         }
     }
 

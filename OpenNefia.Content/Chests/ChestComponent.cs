@@ -6,7 +6,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Chest
+namespace OpenNefia.Content.Chests
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
