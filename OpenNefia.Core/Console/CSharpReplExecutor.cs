@@ -195,7 +195,6 @@ namespace OpenNefia.Core.Console
             switch (result)
             {
                 case EvaluationResult.Success success:
-
                     return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue), success.ReturnValue);
                 case EvaluationResult.Error err:
                     return new ReplExecutionResult.Error(err.Exception);

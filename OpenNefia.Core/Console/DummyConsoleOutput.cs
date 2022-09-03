@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Console
     {
         public void WriteLine(string text)
 {
-            Logger.InfoS("con.exec", text);
+            Logger.DebugS("con.exec", text);
         }
 
         public void WriteError(string text)

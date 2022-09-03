@@ -19,6 +19,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
+using OpenNefia.Core.Timing;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Console;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Dialog
 {

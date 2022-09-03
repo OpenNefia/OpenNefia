@@ -22,8 +22,92 @@
 
 - type: Elona.Dialog
   id: Elona.Lomias
+  nodes:
+    __start__: !type:DialogBranchNode
+      conditions:
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 0
+        node: Elona.Lomias:Tutorial0
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 1
+        node: Elona.Lomias:Tutorial1
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 2
+        node: Elona.Lomias:Tutorial2
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 3
+        node: Elona.Lomias:Tutorial3
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 4
+        node: Elona.Lomias:Tutorial4
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 5
+        node: Elona.Lomias:Tutorial5
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 6
+        node: Elona.Lomias:Tutorial6
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 7
+        node: Elona.Lomias:Tutorial7
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 8
+        node: Elona.Lomias:Tutorial8
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: 99
+        node: Elona.Lomias:Tutorial99
+      - condition: !type:SidequestFlagCondition
+          sidequestID: Elona.Tutorial
+        value: -1
+        node: Elona.Lomias:TutorialAfter
+    Tutorial0: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial1: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial2: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial3: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial4: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial5: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial6: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial7: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial8: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    Tutorial99: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+    TutorialAfter: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Common.IsSleeping
+
 - type: Elona.Dialog
   id: Elona.LomiasNewGame
+  nodes:
+    __start__: !type:DialogJumpNode
+      nextNode: Elona.Lomias:__start__
 
 - type: Elona.Dialog
   id: Elona.Miral

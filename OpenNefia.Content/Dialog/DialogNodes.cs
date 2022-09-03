@@ -14,6 +14,8 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
 using System.Diagnostics.Metrics;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.Sidequests;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -32,7 +34,15 @@ namespace OpenNefia.Content.Dialog
 
     public interface IScriptableDialogNode : IDialogNode
     {
+        /// <summary>
+        /// Asks the dialog node to give a set of script code/target delegate types for compilation.
+        /// </summary>
         void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets);
+
+        /// <summary>
+        /// Given the compiled code, asks the dialog node to update its delegate fields with the
+        /// results.
+        /// </summary>
         void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled);
     }
 
@@ -199,11 +209,7 @@ namespace OpenNefia.Content.Dialog
                 engine.Data.Remove<DialogTextOverride>();
             }
 
-            int defaultChoiceIndex;
-            if (_choices.Count == 1)
-                defaultChoiceIndex = 0;
-            else
-                defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
+            int defaultChoiceIndex = -1;
 
             BeforeEnterCompiled?.Invoke(engine, this);
 
@@ -211,6 +217,8 @@ namespace OpenNefia.Content.Dialog
 
             for (var i = 0; i < _texts.Count; i++)
             {
+                defaultChoiceIndex = -1;
+
                 var entry = entries[i];
 
                 List<DialogChoice> choices = new();
@@ -222,6 +230,7 @@ namespace OpenNefia.Content.Dialog
                         {
                             Text = Loc.GetString(ByeChoice)
                         });
+                        defaultChoiceIndex = 0;
                     }
                     else
                     {
@@ -232,6 +241,11 @@ namespace OpenNefia.Content.Dialog
                                 Text = GetLocalizedText(choice.Text, engine)
                             });
                         }
+
+                        if (_choices.Count == 1)
+                            defaultChoiceIndex = 0;
+                        else
+                            defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
                     }
                 }
                 else
@@ -240,6 +254,7 @@ namespace OpenNefia.Content.Dialog
                     {
                         Text = Loc.GetString("Elona.Dialog.Common.Choices.More")
                     });
+                    defaultChoiceIndex = 0;
                 }
 
                 var speakerName = "";
@@ -341,5 +356,71 @@ namespace OpenNefia.Content.Dialog
         {
             CallbackCompiled = (DialogNodeDelegate)compiled["Callback"];
         }
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface IDialogCondition
+    {
+        int GetValue(IDialogEngine engine);
+    }
+
+    public sealed class SidequestFlagCondition : IDialogCondition
+    {
+        [Dependency] private readonly ISidequestSystem _sidequests = default!;
+
+        [DataField]
+        public PrototypeId<SidequestPrototype> SidequestID { get; set; }
+
+        public int GetValue(IDialogEngine engine)
+        {
+            EntitySystem.InjectDependencies(this);
+
+            return _sidequests.GetFlag(SidequestID);
+        }
+    }
+
+    [DataDefinition]
+    public sealed class DialogBranchCondition
+    {
+        [DataField(required: true)]
+        public IDialogCondition Condition { get; set; } = default!;
+
+        [DataField]
+        public ComparisonType Comparison { get; set; } = ComparisonType.Equal;
+
+        [DataField(required: true)]
+        public int Value { get; set; } = 0;
+
+        [DataField(required: true)]
+        public QualifiedDialogNodeID Node { get; set; }
+
+        public bool Test(IDialogEngine engine)
+        {
+            var value = Condition.GetValue(engine);
+            return ComparisonUtils.EvaluateComparison(value, Value, Comparison);
+        }
+    }
+
+    public sealed class DialogBranchNode : IDialogNode
+    {
+        [DataField(required: true)]
+        public QualifiedDialogNodeID DefaultNode { get; } = QualifiedDialogNodeID.Empty;
+
+        [DataField("conditions")]
+        private List<DialogBranchCondition> _conditions { get; set; } = new();
+        public IReadOnlyList<DialogBranchCondition> Conditions => _conditions;
+
+        public QualifiedDialogNode? Invoke(IDialogEngine engine)
+        {
+            foreach (var condition in Conditions)
+            {
+                if (condition.Test(engine))
+                    return engine.GetNodeByID(condition.Node);
+            }
+
+            return engine.GetNodeByID(DefaultNode);
+        }
+
+        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(DefaultNode);
     }
 }
