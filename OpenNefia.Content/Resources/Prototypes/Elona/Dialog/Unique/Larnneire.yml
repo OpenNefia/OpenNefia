@@ -1,0 +1,36 @@
+- type: Elona.Dialog
+  id: Elona.Larnneire
+  nodes:
+    __start__: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Larnneire.Start.Text
+      choices:
+      - text: Elona.Dialog.Unique.Larnneire.Start.Choices.Mission
+        nextNode: Elona.Larnneire:Mission
+      - text: Elona.Dialog.Unique.Larnneire.Start.Choices.NorthTyris
+        nextNode: Elona.Larnneire:NorthTyris
+      - text: Elona.Dialog.Unique.Larnneire.Start.Choices.FairyTale
+        nextNode: Elona.Larnneire:FairyTale
+      - text: Elona.Dialog.Common.Choices.Bye
+        isDefault: true
+
+    Mission: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Larnneire.Mission.Text
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Larnneire:__start__
+
+    NorthTyris: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Larnneire.NorthTyris.Text
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Larnneire:__start__
+
+    FairyTale: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Larnneire.FairyTale.Text
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Larnneire:__start__
