@@ -1,2 +1,4 @@
 - type: Elona.Sidequest
   id: Elona.MainQuest
+- type: Elona.Sidequest
+  id: Elona.Tutorial

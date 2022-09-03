@@ -26,10 +26,9 @@ namespace OpenNefia.Content.RandomGen
 
             _protos.PrototypesReloaded += ev =>
             {
-                if (ev.ByType.ContainsKey(typeof(ChipPrototype)))
+                if (ev.ByType == null || ev.ByType.ContainsKey(typeof(ChipPrototype)))
                     RebuildHumanChipPrototypeCache();
             };
-            RebuildHumanChipPrototypeCache();
         }
 
         private readonly List<PrototypeId<ChipPrototype>> MaleHumanChips = new();

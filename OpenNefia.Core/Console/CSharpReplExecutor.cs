@@ -20,12 +20,14 @@ using CSharpReplConfig = CSharpRepl.Services.Configuration;
 
 namespace OpenNefia.Core.Console
 {
-    internal interface ICSharpReplExecutor : IReplExecutor
+    public interface ICSharpReplExecutor : IReplExecutor
     {
         RoslynServices RoslynServices { get; }
+
+        Task InitializeRoslynAsync();
     }
 
-    internal class CSharpReplExecutor : ICSharpReplExecutor
+    public class CSharpReplExecutor : ICSharpReplExecutor
     {
         public const string SawmillName = "repl.exec";
 
@@ -72,18 +74,9 @@ namespace OpenNefia.Core.Console
         {
             var references = new HashSet<string>();
 
-            // Modules might be located under Resources/Assemblies, so be
-            // sure to use an executable directory-relative path to reference
-            // them.
-            var exeDir = ResourcePath.FromRelativeSystemPath(AppDomain.CurrentDomain.BaseDirectory);
-
             foreach (var assembly in reflectionManager.Assemblies)
             {
-                var exeRelativePath = ResourcePath.FromRelativeSystemPath(assembly.Location)
-                    .RelativeTo(exeDir)
-                    .ToRelativeSystemPath();
-
-                references.Add(exeRelativePath);
+                references.Add(assembly.Location);
             }
 
             return new CSharpReplConfig(
@@ -109,6 +102,11 @@ namespace OpenNefia.Core.Console
 
         public void Initialize()
         {
+            _taskRunner.Run(InitializeRoslynAsync());
+        }
+
+        public async Task InitializeRoslynAsync()
+        {
             if (IsInitialized)
                 return;
 
@@ -120,9 +118,10 @@ namespace OpenNefia.Core.Console
                 _replConfig = BuildDefaultConfig(_reflectionManager);
                 _roslynServices = new RoslynServices(_console, _replConfig, logger);
 
-                _taskRunner.Run(_roslynServices.WarmUpAsync(_replConfig.LoadScriptArgs));
+                await _roslynServices.WarmUpAsync(_replConfig.LoadScriptArgs);
                 var loadReferenceScript = string.Join("\r\n", _replConfig.References.Select(reference => $@"#r ""{reference}"""));
-                var loadReferenceScriptResult = _taskRunner.Run(_roslynServices.EvaluateAsync(loadReferenceScript));
+                var loadReferenceScriptResult = await _roslynServices.EvaluateAsync(loadReferenceScript);
+                await PrintAsync(loadReferenceScriptResult, false);
 
                 var autoloadScriptPathString = _config.GetCVar(CVars.ReplAutoloadScript);
 
@@ -133,8 +132,8 @@ namespace OpenNefia.Core.Console
                     {
                         _console.WriteLine($"Loading startup script: {autoloadScriptPath}");
                         var autoloadScript = _resources.ContentFileReadAllText(autoloadScriptPath);
-                        var autoloadScriptResult = _taskRunner.Run(_roslynServices.EvaluateAsync(autoloadScript));
-                        _taskRunner.Run(PrintAsync(autoloadScriptResult, false));
+                        var autoloadScriptResult = await _roslynServices.EvaluateAsync(autoloadScript);
+                        await PrintAsync(autoloadScriptResult, false);
                     }
                     else
                     {
@@ -197,7 +196,7 @@ namespace OpenNefia.Core.Console
             {
                 case EvaluationResult.Success success:
 
-                    return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue));
+                    return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue), success.ReturnValue);
                 case EvaluationResult.Error err:
                     return new ReplExecutionResult.Error(err.Exception);
                 default:

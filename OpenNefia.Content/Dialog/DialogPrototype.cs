@@ -22,5 +22,18 @@ namespace OpenNefia.Content.Dialog
         private Dictionary<string, IDialogNode> _nodes = new();
 
         public IReadOnlyDictionary<string, IDialogNode> Nodes => _nodes;
+
+        [DataField("scriptImports")]
+        private List<string> _scriptImports { get; set; } = new();
+        public IReadOnlyList<string> ScriptImports => _scriptImports;
+
+        [DataField("scriptDependencies")]
+        private Dictionary<string, Type> _scriptDependencies { get; set; } = new();
+        public IReadOnlyDictionary<string, Type> ScriptDependencies => _scriptDependencies;
+
+        [DataField]
+        public string? ScriptHeader { get; }
+
+        internal object? ScriptObject { get; set; }
     }
 }

@@ -25,11 +25,9 @@ namespace OpenNefia.Content.Portraits
 
             _protos.PrototypesReloaded += ev =>
             {
-                if (ev.ByType.ContainsKey(typeof(PortraitPrototype)))
+                if (ev.ByType == null || ev.ByType.ContainsKey(typeof(PortraitPrototype)))
                     RegeneratePortraitCache();
             };
-
-            RegeneratePortraitCache();
         }
 
         private readonly Dictionary<Gender, List<PrototypeId<PortraitPrototype>>> RandomPortraits = new();

@@ -99,6 +99,17 @@ namespace OpenNefia.Core.Utility
             return type.Name;
         }
 
+        public static string PrintDelegateTypeSignature(this Type type, bool modifiers = false, bool arguments = true, bool returnType = true, bool name = true, string? nameOverride = null)
+        {
+            if (!typeof(Delegate).IsAssignableFrom(type))
+            {
+                throw new ArgumentException($"{type} is not a delegate type", nameof(type));
+            }
+
+            var invoke = type.GetMethod("Invoke", BindingFlags.Public | BindingFlags.Instance)!;
+            return PrintMethodSignature(invoke, modifiers, arguments, returnType, name, nameOverride);
+        }
+
         public static string PrintParameterSignature(this ParameterInfo parameter)
         {
             var builder = new StringBuilder();
@@ -132,7 +143,7 @@ namespace OpenNefia.Core.Utility
             return builder.ToString();
         }
 
-        public static string PrintMethodSignature(this MethodInfo method, bool modifiers = false, bool arguments = true, bool returnType = true, bool name = true)
+        public static string PrintMethodSignature(this MethodInfo method, bool modifiers = false, bool arguments = true, bool returnType = true, bool name = true, string? nameOverride = null)
         {
             var builder = new StringBuilder();
 
@@ -175,7 +186,7 @@ namespace OpenNefia.Core.Utility
                 builder.Append($"{method.ReturnType.PrintTypeSignature()} ");
 
             if (name)
-                builder.Append(method.Name);
+                builder.Append(nameOverride ?? method.Name);
 
             if (!arguments)
                 return builder.ToString();
