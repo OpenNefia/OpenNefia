@@ -30,8 +30,7 @@ namespace OpenNefia.Core.Rendering
 
         private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
         {
-            // TODO
-            if (args.ByType.ContainsKey(typeof(ChipPrototype)) || args.ByType.ContainsKey(typeof(TilePrototype)))
+            if (args.ByType != null && (args.ByType.ContainsKey(typeof(ChipPrototype)) || args.ByType.ContainsKey(typeof(TilePrototype))))
             {
                 Logger.InfoS(CommonSawmills.ResAtlas, "Detected atlas prototype reload.");
 

@@ -589,7 +589,7 @@ namespace OpenNefia.Core.Prototypes
                             Logger.ErrorS("Serv3", errorMessage);
                             continue;
                         }
-                        
+
                         try
                         {
                             var handler = methodDef.CreateDelegate(handlerTypeGeneric, target);
@@ -604,13 +604,16 @@ namespace OpenNefia.Core.Prototypes
                         {
                             // "Cannot bind to the target method because its signature is not compatible with that of the delegate type."
                             var errorMessage = $"Method {eventDef.EntitySystemType}.{eventDef.MethodName} is not compatible with delegate type.\nDelegate: {PrettyPrint.PrintMethodSignature(handlerMethod)}\nPassed method: {PrettyPrint.PrintMethodSignature(methodDef)}\nException:{ex}";
-                            Logger.ErrorS("Serv3", errorMessage); 
+                            Logger.ErrorS("Serv3", errorMessage);
                         }
                     }
                 }
             }
 
             Logger.InfoS("Serv3", $"Registered {registered} prototype events.");
+
+            // null means all prototypes have been reloaded.
+            PrototypesReloaded?.Invoke(new PrototypesReloadedEventArgs(null));
         }
 
         private void SortAllPrototypes()
@@ -1550,9 +1553,29 @@ namespace OpenNefia.Core.Prototypes
         }
     }
 
-    public sealed record PrototypesReloadedEventArgs(IReadOnlyDictionary<Type, PrototypesReloadedEventArgs.PrototypeChangeSet> ByType)
+    /// <param name="ByType"><c>null</c> means all prototypes were loaded for the first time.</param>
+    public sealed record PrototypesReloadedEventArgs(IReadOnlyDictionary<Type, PrototypesReloadedEventArgs.PrototypeChangeSet>? ByType)
     {
         public sealed record PrototypeChangeSet(IReadOnlyDictionary<string, IPrototype> Modified);
+
+        public bool TryGetModified<T>(IPrototypeManager protoMan, [NotNullWhen(true)] out IEnumerable<T>? result)
+            where T : class, IPrototype
+        {
+            if (ByType == null)
+            {
+                result = protoMan.EnumeratePrototypes<T>();
+                return true;
+            }
+
+            if (ByType.TryGetValue(typeof(T), out var changeSet))
+            {
+                result = changeSet.Modified.Values.Cast<T>();
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
     }
 
     public interface IPrototypeComparer<T> : IComparer<PrototypeId<T>?>, IComparer<T?>

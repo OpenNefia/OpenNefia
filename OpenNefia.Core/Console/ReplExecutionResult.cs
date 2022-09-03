@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Console
 {
     public abstract record ReplExecutionResult
     {
-        public sealed record Success(string Result) : ReplExecutionResult;
+        public sealed record Success(string Result, object? ReturnValue = null) : ReplExecutionResult;
         public sealed record Error(Exception Exception) : ReplExecutionResult;
     }
 }

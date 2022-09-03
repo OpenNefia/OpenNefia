@@ -1,5 +1,9 @@
 - type: Elona.Dialog
   id: LecchoTorte.PleaseMove
+  scriptImports:
+  - OpenNefia.LecchoTorte.PleaseMove;
+  scriptDependencies:
+    _pleaseMove: OpenNefia.LecchoTorte.PleaseMove.PleaseMoveSystem
   nodes:
     Execute: !type:DialogCallbackNode
-      callback: OpenNefia.LecchoTorte.PleaseMove.PleaseMoveSystem:PleaseMove_Execute
+      callback: return _pleaseMove.PleaseMove_Execute(engine, node);

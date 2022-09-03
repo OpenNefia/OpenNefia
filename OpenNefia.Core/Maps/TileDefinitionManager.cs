@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using static OpenNefia.Core.Prototypes.PrototypesReloadedEventArgs;
 
 namespace OpenNefia.Core.Maps
 {
@@ -18,9 +19,9 @@ namespace OpenNefia.Core.Maps
 
         private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
         {
-            if (args.ByType.TryGetValue(typeof(TilePrototype), out var tiles))
+            if (args.TryGetModified<TilePrototype>(_prototypeManager, out var tiles))
             {
-                foreach (var tileDef in tiles.Modified.Values.Cast<TilePrototype>())
+                foreach (var tileDef in tiles)
                 {
                     if (_tileIndices.TryGetValue(tileDef.GetStrongID(), out var index))
                     {

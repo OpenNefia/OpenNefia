@@ -9,6 +9,7 @@ namespace OpenNefia.Content.Prototypes
             #pragma warning disable format
 
             public static readonly SidequestPrototypeId MainQuest = new($"Elona.{nameof(MainQuest)}");
+            public static readonly SidequestPrototypeId Tutorial  = new($"Elona.{nameof(Tutorial)}");
 
             #pragma warning restore format
         }

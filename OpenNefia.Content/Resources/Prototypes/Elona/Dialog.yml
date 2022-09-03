@@ -1,5 +1,14 @@
 - type: Elona.Dialog
+  id: Elona.VanillaDialog
+  abstract: true
+  scriptDependencies: # TODO inheritance is buggy
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
+
+- type: Elona.Dialog
   id: Elona.IgnoresYou
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     __start__: !type:DialogTextNode
       texts:
@@ -7,6 +16,9 @@
 
 - type: Elona.Dialog
   id: Elona.IsBusy
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     __start__: !type:DialogTextNode
       texts:
@@ -14,6 +26,9 @@
 
 - type: Elona.Dialog
   id: Elona.IsSleeping
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     __start__: !type:DialogTextNode
       texts:
@@ -21,24 +36,27 @@
 
 - type: Elona.Dialog
   id: Elona.Ally
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     AskForMarriage: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Ally_AskForMarriage
+      callback: return _vanillaDialog.Ally_AskForMarriage(engine, node);
     MarriageRefuse: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Ally.Marriage.Refuses
       nextNode: Elona.Default:Talk
     MarriageAccept: !type:DialogTextNode
-      afterEnter: Content.Dialog.VanillaDialogSystem:Ally_MarriageAccept
+      afterEnter: _vanillaDialog.Ally_MarriageAccept(engine, node);
       texts:
       - Elona.Dialog.Ally.Marriage.Accepts
     SilenceStart: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Ally_SilenceStart
+      beforeEnter: _vanillaDialog.Ally_SilenceStart(engine, node);
       texts:
       - Elona.Dialog.Ally.Silence.Start
       nextNode: Elona.Default:Talk
     SilenceStop: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Ally_SilenceStop
+      beforeEnter: _vanillaDialog.Ally_SilenceStop(engine, node);
       texts:
       - Elona.Dialog.Ally.Silence.Stop
       nextNode: Elona.Default:Talk
@@ -51,20 +69,25 @@
       - text: Elona.Dialog.Ally.Abandon.Choices.No
         nextNode: Elona.Default:Talk
     Abandon: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Ally_Abandon
+      callback: return _vanillaDialog.Ally_Abandon(engine, node);
 
 - type: Elona.Dialog
   id: Elona.Sex
+  parent: Elona.VanillaDialog
 
 - type: Elona.Dialog
   id: Elona.QuestGiver
+  parent: Elona.VanillaDialog
 
 - type: Elona.Dialog
   id: Elona.Default
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   startNode: Talk
   nodes:
     Talk: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Default_Talk
+      callback: return _vanillaDialog.Default_Talk(engine, node);
     YouKidding: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Common.YouKidding
@@ -74,36 +97,42 @@
       - Elona.Dialog.Common.Thanks
       nextNode: Elona.Default:Talk
     Trade: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Default_Trade
+      callback: return _vanillaDialog.Default_Trade(engine, node);
 
 - type: Elona.Dialog
   id: Elona.Shopkeeper
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     Buy: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Shopkeeper_Buy
+      beforeEnter: _vanillaDialog.Shopkeeper_Buy(engine, node);
       nextNode: Elona.Default:Talk
     Sell: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Shopkeeper_Sell
+      beforeEnter: _vanillaDialog.Shopkeeper_Sell(engine, node);
       nextNode: Elona.Default:Talk
 
 - type: Elona.Dialog
   id: Elona.Trainer
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     Train: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Trainer_Train
+      callback: return _vanillaDialog.Trainer_Train(engine, node);
     TrainConfirm: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Trainer_TrainConfirm
+      callback: return _vanillaDialog.Trainer_TrainConfirm(engine, node);
     TrainExecute: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_TrainExecute
+      beforeEnter: _vanillaDialog.Trainer_TrainExecute(engine, node);
       texts:
       - Elona.Dialog.Trainer.Train.Finish
       nextNode: Elona.Default:Talk
     Learn: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Trainer_Learn
+      callback: return _vanillaDialog.Trainer_Learn(engine, node);
     LearnConfirm: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Trainer_LearnConfirm
+      callback: return _vanillaDialog.Trainer_LearnConfirm(engine, node);
     LearnExecute: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Trainer_LearnExecute
+      beforeEnter: _vanillaDialog.Trainer_LearnExecute(engine, node);
       texts:
       - Elona.Dialog.Trainer.Learn.Finish
       nextNode: Elona.Default:Talk
@@ -114,23 +143,29 @@
 
 - type: Elona.Dialog
   id: Elona.Prostitute
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     BuyInit: !type:DialogJumpNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyInit
+      beforeEnter: _vanillaDialog.Prostitute_BuyInit(engine, node);
       nextNode: Elona.Prostitute:BuyConfirm
     BuyConfirm: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Prostitute_BuyConfirm
+      callback: return _vanillaDialog.Prostitute_BuyConfirm(engine, node);
     BuyExecute: !type:DialogTextNode
-      beforeEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyExecute_Before
-      afterEnter: Content.Dialog.VanillaDialogSystem:Prostitute_BuyExecute_After
+      beforeEnter: _vanillaDialog.Prostitute_BuyExecute_Before(engine, node);
+      afterEnter: _vanillaDialog.Prostitute_BuyExecute_After(engine, node);
       texts:
       - Elona.Dialog.Common.Sex.Start
 
 - type: Elona.Dialog
   id: Elona.Innkeeper
+  parent: Elona.VanillaDialog
+  scriptDependencies:
+    _vanillaDialog: OpenNefia.Content.Dialog.VanillaDialogSystem
   nodes:
     BuyMeal: !type:DialogCallbackNode
-      callback: Content.Dialog.VanillaDialogSystem:Innkeeper_BuyMeal
+      callback: return _vanillaDialog.Innkeeper_BuyMeal(engine, node);
     BuyMealNotHungry: !type:DialogJumpNode
       texts:
       - Elona.Dialog.Innkeeper.BuyMeal.NotHungry
@@ -140,21 +175,27 @@
       - Elona.Dialog.Innkeeper.BuyMeal.HereYouAre
       nextNode: Elona.Default:Talk
     GoToShelter: !type:DialogTextNode
-      afterEnter: Content.Dialog.VanillaDialogSystem:Innkeeper_GoToShelter
+      afterEnter: _vanillaDialog.Innkeeper_GoToShelter(engine, node);
       texts:
       - Elona.Dialog.Innkeeper.GoToShelter
 
 - type: Elona.Dialog
   id: Elona.Informer
+  parent: Elona.VanillaDialog
 
 - type: Elona.Dialog
   id: Elona.SpellWriter
+  parent: Elona.VanillaDialog
 
 - type: Elona.Dialog
   id: Elona.Adventurer
+  parent: Elona.VanillaDialog
 - type: Elona.Dialog
   id: Elona.Maid
+  parent: Elona.VanillaDialog
 - type: Elona.Dialog
   id: Elona.Guard
+  parent: Elona.VanillaDialog
 - type: Elona.Dialog
   id: Elona.Servant
+  parent: Elona.VanillaDialog

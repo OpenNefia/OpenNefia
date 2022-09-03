@@ -13,17 +13,27 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
+using System.Diagnostics.Metrics;
 
 namespace OpenNefia.Content.Dialog
 {
-    public delegate void DialogActionDelegate(IDialogEngine engine, IDialogNode node);
-    public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IDialogNode node);
+    public delegate void DialogActionDelegate(IDialogEngine engine, IScriptableDialogNode node);
+    public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IScriptableDialogNode node);
 
     [ImplicitDataDefinitionForInheritors]
     public interface IDialogNode
     {
         QualifiedDialogNode? Invoke(IDialogEngine engine);
         QualifiedDialogNode? GetDefaultNode(IDialogEngine engine);
+    }
+
+    public sealed record DialogScriptTarget(Type DelegateType, string Code);
+    public sealed record DialogScriptResult(Dictionary<string, Dictionary<string, Delegate>> Callbacks);
+
+    public interface IScriptableDialogNode : IDialogNode
+    {
+        void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets);
+        void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled);
     }
 
     [DataDefinition]
@@ -57,7 +67,7 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
-    public sealed class DialogJumpNode : IDialogNode
+    public sealed class DialogJumpNode : IScriptableDialogNode
     {
         [DataField("texts", required: true)]
         private List<DialogTextEntry> _texts { get; } = new();
@@ -67,12 +77,16 @@ namespace OpenNefia.Content.Dialog
         [DataField(required: true)]
         public QualifiedDialogNodeID NextNode { get; } = QualifiedDialogNodeID.Empty;
 
+        /// <summary>
+        /// Code to execute before this node is entered.
+        /// </summary>
         [DataField]
-        public DialogActionDelegate? BeforeEnter { get; }
+        public string? BeforeEnter { get; }
+        internal DialogActionDelegate? BeforeEnterCompiled { get; set; }
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
-            BeforeEnter?.Invoke(engine, this);
+            BeforeEnterCompiled?.Invoke(engine, this);
 
             if (_texts.Count == 0)
                 return engine.GetNodeByID(NextNode);
@@ -82,6 +96,18 @@ namespace OpenNefia.Content.Dialog
         }
 
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(NextNode);
+
+        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
+        {
+            if (BeforeEnter != null)
+                targets["BeforeEnter"] = new(typeof(DialogActionDelegate), BeforeEnter);
+        }
+
+        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
+        {
+            if (compiled.TryGetValue("BeforeEnter", out var before))
+                BeforeEnterCompiled = (DialogActionDelegate)before;
+        }
     }
 
     [DataDefinition]
@@ -89,9 +115,9 @@ namespace OpenNefia.Content.Dialog
     {
         public DialogTextEntry() { }
 
-        public static DialogTextEntry FromString(string text, PrototypeId<TagPrototype>? speaker = null)
+        public static DialogTextEntry FromString(string text)
         {
-            return new() { Text = text, Speaker = speaker };
+            return new() { Text = text };
         }
 
         /// <summary>
@@ -103,9 +129,9 @@ namespace OpenNefia.Content.Dialog
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static DialogTextEntry FromLocaleKey(LocaleKey key, PrototypeId<TagPrototype>? speaker = null)
+        public static DialogTextEntry FromLocaleKey(LocaleKey key)
         {
-            return new() { Key = key, Speaker = speaker };
+            return new() { Key = key };
         }
 
         [DataField]
@@ -113,12 +139,9 @@ namespace OpenNefia.Content.Dialog
 
         [DataField]
         public LocaleKey? Key { get; internal set; }
-
-        [DataField]
-        public PrototypeId<TagPrototype>? Speaker { get; internal set; }
     }
 
-    public sealed class DialogTextNode : IDialogNode
+    public sealed class DialogTextNode : IScriptableDialogNode
     {
         public DialogTextNode() { }
 
@@ -127,8 +150,8 @@ namespace OpenNefia.Content.Dialog
         {
             _texts = texts;
             _choices = choices;
-            BeforeEnter = beforeEnter;
-            AfterEnter = afterEnter;
+            BeforeEnterCompiled = beforeEnter;
+            AfterEnterCompiled = afterEnter;
         }
 
         [DataField("texts", required: true)]
@@ -142,10 +165,12 @@ namespace OpenNefia.Content.Dialog
         public IReadOnlyList<DialogChoiceEntry> Choices => _choices;
 
         [DataField]
-        public DialogActionDelegate? BeforeEnter { get; }
+        public string? BeforeEnter { get; }
+        internal DialogActionDelegate? BeforeEnterCompiled { get; set; }
 
         [DataField]
-        public DialogActionDelegate? AfterEnter { get; }
+        public string? AfterEnter { get; }
+        internal DialogActionDelegate? AfterEnterCompiled { get; set; }
 
         [DataField]
         public LocaleKey ByeChoice { get; set; } = "Elona.Dialog.Common.Choices.Bye";
@@ -180,7 +205,7 @@ namespace OpenNefia.Content.Dialog
             else
                 defaultChoiceIndex = _choices.FindIndex(c => c.IsDefault);
 
-            BeforeEnter?.Invoke(engine, this);
+            BeforeEnterCompiled?.Invoke(engine, this);
 
             UiResult<DialogResult>? result = null;
 
@@ -234,7 +259,7 @@ namespace OpenNefia.Content.Dialog
                 result = uiMan.Query(engine.DialogLayer);
             }
 
-            AfterEnter?.Invoke(engine, this);
+            AfterEnterCompiled?.Invoke(engine, this);
 
             if (result == null)
                 return null;
@@ -276,18 +301,45 @@ namespace OpenNefia.Content.Dialog
 
             return engine.GetNodeByID(nextNodeID.Value);
         }
+
+        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
+        {
+            if (BeforeEnter != null)
+                targets["BeforeEnter"] = new(typeof(DialogActionDelegate), BeforeEnter);
+            if (AfterEnter != null)
+                targets["AfterEnter"] = new(typeof(DialogActionDelegate), AfterEnter);
+        }
+
+        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
+        {
+            if (compiled.TryGetValue("BeforeEnter", out var before))
+                BeforeEnterCompiled = (DialogActionDelegate)before;
+            if (compiled.TryGetValue("AfterEnter", out var after))
+                AfterEnterCompiled = (DialogActionDelegate)after;
+        }
     }
 
-    public sealed class DialogCallbackNode : IDialogNode
+    public sealed class DialogCallbackNode : IScriptableDialogNode
     {
         [DataField(required: true)]
-        public DialogNodeDelegate Callback { get; } = default!;
+        public string Callback { get; } = default!;
+        internal DialogNodeDelegate CallbackCompiled { get; set; } = default!;
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
-            return Callback(engine, this);
+            return CallbackCompiled(engine, this);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => Callback(engine, this);
+        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => CallbackCompiled(engine, this);
+
+        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
+        {
+            targets["Callback"] = new(typeof(DialogNodeDelegate), Callback);
+        }
+
+        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
+        {
+            CallbackCompiled = (DialogNodeDelegate)compiled["Callback"];
+        }
     }
 }
