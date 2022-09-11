@@ -37,6 +37,7 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
 
+        /// <inheritdoc/>
         public TurnResult TryToChatWith(EntityUid source, EntityUid target, bool force = false, PrototypeId<DialogPrototype>? dialogID = null)
         {
             if (_factions.IsPlayer(target))
@@ -62,7 +63,8 @@ namespace OpenNefia.Content.Dialog
 
             return StartDialog(source, target, dialogID.Value);
         }
-
+        
+        /// <inheritdoc/>
         public TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID)
         {
             if (!IsAlive(target))
@@ -83,19 +85,19 @@ namespace OpenNefia.Content.Dialog
         {
             var name = _displayNames.GetDisplayName(uid);
 
-            var gender = EntityManager.GetComponentOrNull<CharaComponent>(uid)?.Gender ?? Gender.Unknown;
+            var gender = CompOrNull<CharaComponent>(uid)?.Gender ?? Gender.Unknown;
             name += " " + Loc.GetString($"Elona.Gender.Names.{gender}.Polite");
 
-            if (EntityManager.TryGetComponent<FameComponent>(uid, out var fame))
+            if (TryComp<FameComponent>(uid, out var fame))
                 name += " " + Loc.GetString("Elona.Dialog.SpeakerName.Fame", ("fame", fame.Fame.Buffed));
 
-            if (EntityManager.TryGetComponent<RoleShopkeeperComponent>(uid, out var shopkeeper))
+            if (TryComp<RoleShopkeeperComponent>(uid, out var shopkeeper))
                 name += " " + Loc.GetString("Elona.Dialog.SpeakerName.ShopRank", ("shopRank", shopkeeper.ShopRank));
 
             if (CompOrNull<CommonProtectionsComponent>(_gameSession.Player)?.CanDetectReligion.Buffed ?? false)
                 name += $" ({_religion.GetGodName(uid)})";
 
-            if (_config.GetCVar(CCVars.DebugShowImpression) && EntityManager.TryGetComponent<DialogComponent>(uid, out var dialog))
+            if (_config.GetCVar(CCVars.DebugShowImpression) && TryComp<DialogComponent>(uid, out var dialog))
                 name += $" imp:{dialog.Impression}";
 
             return name;
