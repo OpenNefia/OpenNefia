@@ -105,6 +105,12 @@ namespace OpenNefia.Core.Audio
         }
 
         /// <inheritdoc />
+        public void Play(PrototypeId<SoundPrototype> soundId, EntityCoordinates coordinates, AudioParams? audioParams = null)
+        {
+            Play(soundId, coordinates.ToMap(_entityManager), audioParams);
+        }
+
+        /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> soundId, Vector2i screenPosition, AudioParams? audioParams = null)
         {
             if (!_enableSound)

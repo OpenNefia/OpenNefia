@@ -106,6 +106,7 @@
   relatedSkill: Elona.AttrPerception
   skillType: Spell
   difficulty: 800
+  effect: !type:EffectIdentify
 
 - type: Elona.Spell
   id: Elona.SpellUncurse
@@ -114,6 +115,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 700
+  effect: !type:EffectUncurse
 
 - type: Elona.Spell
   id: Elona.SpellOracle
@@ -857,6 +859,8 @@
   relatedSkill: Elona.AttrMagic
   skillType: Action
   difficulty: 100
+  effect: !type:EffectCurse
+    isAction: true
 
 - type: Elona.Spell
   id: Elona.BuffDeathWord
@@ -1051,6 +1055,7 @@
   hspIds:
     elona122: 1114
   skillType: Effect
+  effect: !type:EffectCurse
 
 - type: Elona.Spell
   id: Elona.EffectDeed

@@ -97,7 +97,7 @@ namespace OpenNefia.Content.Cargo
             if (!Resolve(ent, ref inv))
                 return 0;
 
-            return _invSys.EnumerateItems(ent, inv)
+            return _invSys.EnumerateInventory(ent, inv)
                 .Select(item => GetCargoItemWeight(item))
                 .Sum();
         }

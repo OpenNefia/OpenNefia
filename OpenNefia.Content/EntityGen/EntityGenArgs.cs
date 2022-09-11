@@ -91,7 +91,7 @@ namespace OpenNefia.Content.EntityGen
     public sealed class ItemGenArgs : EntityGenArgs
     {
         /// <summary>
-        /// If true, this item is being generated in a shopkeeper's inventory.
+        /// If true, this item should be treated as being generated in a shopkeeper's inventory.
         /// </summary>
         /// <remarks>
         /// Known effects in 1.22 when true:

@@ -141,7 +141,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            var ammoEncs = _enchantments.QueryEnchantmentsOnItem<EncAmmoComponent>(ammo.Owner).ToList();
+            var ammoEncs = _enchantments.QueryEnchantmentsOnItem<EncAmmoComponent>(ammo.Owner).Select(pair => pair.Item2).ToList();
             if (ammoEncs.Count == 0)
             {
                 ammo.ActiveAmmoEnchantment = null;

@@ -497,6 +497,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectIdentify {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfOracle
   parent: BaseItem
@@ -524,6 +527,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectOracle {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfTeleportation
   parent: BaseItem
@@ -552,6 +558,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectTeleport {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfIncognito
   parent: BaseItem
@@ -579,6 +588,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectBuffIncognito {}
+    effectPower: 300
 - type: Entity
   id: Elona.ItemRodOfIdentify
   parent: BaseItem
@@ -5914,6 +5926,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectUncurse {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemStone
   parent: BaseItem
@@ -6806,6 +6821,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectReturn {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemFigurineOfWarrior
   parent: BaseItem
@@ -6973,6 +6991,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectMagicMap {}
+    effectPower: 500
 - type: Entity
   id: Elona.ItemScrollOfGainAttribute
   parent: BaseItem
@@ -7001,6 +7022,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectGainSkill {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfWonder
   parent: BaseItem
@@ -7028,6 +7052,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectGainKnowledge {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfMinorTeleportation
   parent: BaseItem
@@ -7056,6 +7083,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectTeleport {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemSpellbookOfMagicMapping
   parent: BaseItem
@@ -8278,6 +8308,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectCurse {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemSpellbookOfWishing
   parent: BaseItem
@@ -10295,6 +10328,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectIdentify {}
+    effectPower: 2000
 - type: Entity
   id: Elona.ItemScrollOfVanishCurse
   parent: BaseItem
@@ -10322,6 +10358,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectUncurse {}
+    effectPower: 2500
 - type: Entity
   id: Elona.ItemPotionOfDefender
   parent: BaseItem
@@ -10942,6 +10981,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectBuffHolyVeil {}
+    effectPower: 250
 - type: Entity
   id: Elona.ItemRodOfHolyLight
   parent: BaseItem
@@ -11060,6 +11102,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectHolyLight {}
+    effectPower: 300
 - type: Entity
   id: Elona.ItemScrollOfHolyRain
   parent: BaseItem
@@ -11087,6 +11132,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectVanquishHex {}
+    effectPower: 300
 - type: Entity
   id: Elona.ItemScrollOfMana
   parent: BaseItem
@@ -11114,6 +11162,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectHarvestMana {}
+    effectPower: 250
 - type: Entity
   id: Elona.ItemRodOfMana
   parent: BaseItem
@@ -11241,6 +11292,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectCreateMaterial {}
+    effectPower: 250
 - type: Entity
   id: Elona.ItemSpellbookOfNightmare
   parent: BaseItem
@@ -11332,6 +11386,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectBuffDivineWisdom {}
+    effectPower: 250
 - type: Entity
   id: Elona.ItemCargoRagDoll
   parent: BaseItem
@@ -11622,6 +11679,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectSenseObject {}
+    effectPower: 500
 - type: Entity
   id: Elona.ItemRodOfUncurse
   parent: BaseItem
@@ -12232,6 +12292,9 @@
     weight: 20
   - type: MedalValue
     medalValue: 5
+  - type: Scroll
+    effect: !type:EffectGainSkillPotential {}
+    effectPower: 500
 - type: Entity
   id: Elona.ItemScrollOfFaith
   parent: BaseItem
@@ -12262,6 +12325,9 @@
     weight: 20
   - type: MedalValue
     medalValue: 8
+  - type: Scroll
+    effect: !type:EffectGainFaith {}
+    effectPower: 300
 - type: Entity
   id: Elona.ItemPotionOfMutation
   parent: BaseItem
@@ -13841,6 +13907,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectGainAlly {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemRodOfDomination
   parent: BaseItem
@@ -14474,6 +14543,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectChangeMaterial {}
+    effectPower: 10
 - type: Entity
   id: Elona.ItemScrollOfChangeMaterial
   parent: BaseItem
@@ -14501,6 +14573,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectChangeMaterial {}
+    effectPower: 180
 - type: Entity
   id: Elona.ItemScrollOfSuperiorMaterial
   parent: BaseItem
@@ -14531,6 +14606,9 @@
     weight: 20
   - type: MedalValue
     medalValue: 7
+  - type: Scroll
+    effect: !type:EffectChangeMaterial {}
+    effectPower: 350
 - type: Entity
   id: Elona.ItemFigurine
   parent: BaseItem
@@ -14602,6 +14680,9 @@
     weight: 380
   - type: MedalValue
     medalValue: 12
+  - type: Scroll
+    effect: !type:EffectGainYoungerSister {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemScrollOfEnchantWeapon
   parent: BaseItem
@@ -14629,6 +14710,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectEnchantWeapon {}
+    effectPower: 200
 - type: Entity
   id: Elona.ItemScrollOfGreaterEnchantWeapon
   parent: BaseItem
@@ -14656,6 +14740,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectEnchantWeapon {}
+    effectPower: 400
 - type: Entity
   id: Elona.ItemScrollOfEnchantArmor
   parent: BaseItem
@@ -14683,6 +14770,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectEnchantArmor {}
+    effectPower: 200
 - type: Entity
   id: Elona.ItemScrollOfGreaterEnchantArmor
   parent: BaseItem
@@ -14710,6 +14800,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectEnchantArmor {}
+    effectPower: 400
 - type: Entity
   id: Elona.ItemHeirTrunk
   parent: BaseItem
@@ -14928,6 +15021,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectRecharge {}
+    effectPower: 300
 - type: Entity
   id: Elona.ItemBottleOfWater
   parent: BaseItem
@@ -17628,6 +17724,10 @@
   - type: Weight
     weight: 20
   - type: TreasureMap
+  - type: Scroll
+    effect: !type:EffectTreasureMap {}
+    effectPower: 100
+    amountConsumedOnRead: 0
 - type: Entity
   id: Elona.ItemSmallMedal
   parent: BaseItem
@@ -17690,6 +17790,9 @@
     weight: 380
   - type: MedalValue
     medalValue: 85
+  - type: Scroll
+    effect: !type:EffectGainCatSister {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemGirlsDiary
   parent: BaseItem
@@ -17721,6 +17824,9 @@
     weight: 380
   - type: MedalValue
     medalValue: 25
+  - type: Scroll
+    effect: !type:EffectGainYoungLady {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemShrineGate
   parent: BaseItem
@@ -17954,6 +18060,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 5
+  - type: Scroll
+    effect: !type:EffectFlight {}
+    effectPower: 150
 - type: Entity
   id: Elona.ItemPanty
   parent: BaseItem
@@ -18130,6 +18239,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectEscape {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemHappyApple
   parent: BaseItem
@@ -20272,6 +20384,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 380
+  - type: Scroll
+    effect: !type:EffectResurrection {}
+    effectPower: 2500
 - type: Entity
   id: Elona.ItemScrollOfContingency
   parent: BaseItem
@@ -20300,6 +20415,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectBuffContingency {}
+    effectPower: 1500
 - type: Entity
   id: Elona.ItemSpellbookOfContingency
   parent: BaseItem
@@ -21327,6 +21445,9 @@
     randomColor: RandomItem
   - type: Weight
     weight: 20
+  - type: Scroll
+    effect: !type:EffectName {}
+    effectPower: 100
 - type: Entity
   id: Elona.ItemFortuneCookie
   parent: BaseItem

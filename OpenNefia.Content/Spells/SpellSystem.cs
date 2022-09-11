@@ -57,10 +57,17 @@ namespace OpenNefia.Content.Spells
 
         #endregion
 
-        EffectResult Cast(PrototypeId<SpellPrototype> spellId, int power, EntityUid target, EntityUid? source = null, EntityUid? item = null, CurseState curseState = CurseState.Normal);
+        #region Casting
+
+        TurnResult Cast(PrototypeId<SpellPrototype> spellID, EntityUid target, int power = 0,
+            EntityUid? source = null, EntityUid? item = null,
+            EntityCoordinates? coords = null, CurseState? curseState = null,
+            string effectSource = EffectSources.Default, EffectArgSet? args = null);
+
+        #endregion
     }
 
-    public sealed class SpellSystem : EntitySystem, ISpellSystem
+    public sealed partial class SpellSystem : EntitySystem, ISpellSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
@@ -226,11 +233,5 @@ namespace OpenNefia.Content.Spells
         }
 
         #endregion
-        
-        public EffectResult Cast(PrototypeId<SpellPrototype> spellId, int power, EntityUid target, EntityUid? source = null, EntityUid? item = null, CurseState curseState = CurseState.Normal)
-        {
-            IoCManager.Resolve<IMessagesManager>().Display($"TODO: Cast spell {spellId}", UiColors.MesYellow);
-            return EffectResult.Succeeded;
-        }
     }
 }

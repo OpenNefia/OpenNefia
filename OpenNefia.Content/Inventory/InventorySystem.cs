@@ -17,12 +17,14 @@ using OpenNefia.Core.Random;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.Content.Inventory
 {
     public interface IInventorySystem : IEntitySystem
     {
-        IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null);
+        IEnumerable<EntityUid> EnumerateInventory(EntityUid entity, InventoryComponent? inv = null);
+        IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null);
 
         IEnumerable<TComp> EntityQueryInInventory<TComp>(EntityUid entity, bool includeDead = false, InventoryComponent? inv = null)
             where TComp : IComponent;
@@ -182,13 +184,18 @@ namespace OpenNefia.Content.Inventory
                 _turnOrder.RefreshSpeed(uid);
         }
 
-        public IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null)
+        public IEnumerable<EntityUid> EnumerateInventory(EntityUid entity, InventoryComponent? inv = null)
         {
             if (!Resolve(entity, ref inv))
                 return Enumerable.Empty<EntityUid>();
 
             return inv.Container.ContainedEntities
                 .Where(x => EntityManager.IsAlive(x));
+        }
+
+        public  IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null)
+        {
+            return EnumerateInventory(entity, inv).Concat(_equipSlots.EnumerateEquippedEntities(entity, equipSlots));
         }
 
         public int GetItemWeight(EntityUid item, WeightComponent? weight = null)
@@ -206,7 +213,7 @@ namespace OpenNefia.Content.Inventory
             if (!Resolve(ent, ref inv))
                 return 0;
 
-            var baseWeight = EnumerateItems(ent, inv)
+            var baseWeight = EnumerateInventory(ent, inv)
                 .Concat(_equipSlots.EnumerateEquippedEntities(ent))
                 .Select(item => GetItemWeight(item))
                 .Sum();

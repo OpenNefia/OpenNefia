@@ -373,7 +373,7 @@ namespace OpenNefia.Content.Enchantments
 
             // TODO magic
             var spellPower = args.TotalPower + _skills.Level(args.Attacker, args.PhysicalAttackArgs.AttackSkill) * 10;
-            _spells.Cast(encSpellProto.SpellID, spellPower, args.Target, args.Attacker);
+            _spells.Cast(encSpellProto.SpellID, args.Target, spellPower, args.Attacker);
         }
 
         #endregion

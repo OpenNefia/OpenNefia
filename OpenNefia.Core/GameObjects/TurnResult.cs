@@ -8,8 +8,20 @@
         // in those cases.
         NoResult = 0,
         
+        /// <summary>
+        /// The action failed, and turns will pass.
+        /// </summary>
         Failed = 1,
+        
+        /// <summary>
+        /// The action failed, and turns should not pass (control is returned to the player).
+        /// Commonly used when a menu is canceled out of.
+        /// </summary>
         Aborted = 2,
+        
+        /// <summary>
+        /// The action Succeeded, and turns will pass.
+        /// </summary>
         Succeeded = 3
     }
 }

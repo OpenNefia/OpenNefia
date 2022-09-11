@@ -28,7 +28,7 @@ namespace OpenNefia.Content.GameObjects
 
             foreach (var steppedSpatial in _lookup.GetLiveEntitiesAtCoords(spatial.MapPosition).ToList())
             {
-                var ev = new EntitySteppedOnEvent(stepper, spatial.MapPosition);
+                var ev = new EntitySteppedOnEvent(stepper, spatial.Coordinates);
                 RaiseEvent(steppedSpatial.Owner, ev);
 
                 if (!EntityManager.IsAlive(stepper))
@@ -40,9 +40,9 @@ namespace OpenNefia.Content.GameObjects
     public class EntitySteppedOnEvent : HandledEntityEventArgs
     {
         public EntityUid Stepper;
-        public MapCoordinates Coords;
+        public EntityCoordinates Coords;
 
-        public EntitySteppedOnEvent(EntityUid stepper, MapCoordinates coords)
+        public EntitySteppedOnEvent(EntityUid stepper, EntityCoordinates coords)
         {
             Stepper = stepper;
             Coords = coords;

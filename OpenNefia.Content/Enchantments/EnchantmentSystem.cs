@@ -58,7 +58,9 @@ namespace OpenNefia.Content.Enchantments
         int CalcEnchantmentAdjustedPower(EntityUid enchantment, EntityUid item, EnchantmentComponent? enc = null);
         IEnumerable<EnchantmentComponent> EnumerateEnchantments(EntityUid item, EnchantmentsComponent? encs = null);
 
-        IEnumerable<T> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
+        IEnumerable<(EnchantmentComponent, T)> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
+        int GetEnchantmentPower<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
+        int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipmentComponent? equip = null) where T : class, IComponent;
     }
 
     public sealed class EnchantmentSystem : EntitySystem, IEnchantmentSystem
@@ -534,13 +536,25 @@ namespace OpenNefia.Content.Enchantments
             }
         }
 
-        public IEnumerable<T> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent
+        public IEnumerable<(EnchantmentComponent, T)> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent
         {
             foreach (var enc in EnumerateEnchantments(item, encs))
             {
                 if (TryComp<T>(enc.Owner, out var encComp))
-                    yield return encComp;
+                    yield return (enc, encComp);
             }
+        }
+
+        public int GetEnchantmentPower<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent
+        {
+            return QueryEnchantmentsOnItem<T>(item, encs)
+                .Sum(pair => pair.Item1.TotalPower);
+        }
+
+        public int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipmentComponent? equip = null) where T : class, IComponent
+        {
+            return _equipSlots.EnumerateEquippedEntities(equipper)
+                .Sum(item => GetEnchantmentPower<T>(item));
         }
     }
 

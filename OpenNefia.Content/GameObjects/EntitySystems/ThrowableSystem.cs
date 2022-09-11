@@ -134,7 +134,7 @@ namespace OpenNefia.Content.GameObjects
                 var ev = new HitByThrownEntityEventArgs(thrower, itemThrown, onMapSpatial.MapPosition);
                 if (!Raise(onMapSpatial.Owner, ev) && EntityManager.IsAlive(itemThrown) && ev.WasHit)
                 {
-                    var ev2 = new ThrownEntityImpactedOtherEvent(thrower, onMapSpatial.Owner, onMapSpatial.MapPosition);
+                    var ev2 = new ThrownEntityImpactedOtherEvent(thrower, onMapSpatial.Owner, onMapSpatial.Coordinates);
 
                     if (!Raise(itemThrown, ev2))
                     {
@@ -178,9 +178,9 @@ namespace OpenNefia.Content.GameObjects
     {
         public readonly EntityUid Thrower;
         public readonly EntityUid ImpactedWith;
-        public readonly MapCoordinates Coords;
+        public readonly EntityCoordinates Coords;
 
-        public ThrownEntityImpactedOtherEvent(EntityUid thrower, EntityUid impactedWith, MapCoordinates coords)
+        public ThrownEntityImpactedOtherEvent(EntityUid thrower, EntityUid impactedWith, EntityCoordinates coords)
         {
             this.Thrower = thrower;
             this.ImpactedWith = impactedWith;

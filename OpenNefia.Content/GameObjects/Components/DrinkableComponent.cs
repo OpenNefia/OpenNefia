@@ -10,10 +10,10 @@ namespace OpenNefia.Content.GameObjects
     {
         public override string Name => "Drinkable";
 
-        [DataField]
-        public EffectArgs Args = new();
-
         [DataField(required: true)]
-        public IEffect Effect = default!;
+        public IEffect Effect { get; set; } = new NullEffect();
+        
+        [DataField]
+        public int EffectPower { get; set; }
     }
 }
