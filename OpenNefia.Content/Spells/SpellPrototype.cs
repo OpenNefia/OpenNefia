@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenNefia.Content.Effects;
 
 namespace OpenNefia.Content.Spells
 {
@@ -37,12 +38,24 @@ namespace OpenNefia.Content.Spells
         /// Difficulty of casting this spell/using this action.
         /// </summary>
         [DataField]
-        public int Difficulty { get; set; }
+        public int Difficulty { get; }
 
         /// <summary>
         /// Range in tiles of this spell/action.
         /// </summary>
         [DataField]
-        public int Range { get; set; }
+        public int Range { get; } = 1;
+        
+        [DataField]
+        public SpellAlignment Alignment { get; } = SpellAlignment.Positive;
+        
+        [DataField(required: true)]
+        public IEffect Effect { get; } = default!;
+    }
+    
+    public enum SpellAlignment
+    {
+        Positive,
+        Negative
     }
 }

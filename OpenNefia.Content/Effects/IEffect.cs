@@ -1,58 +1,84 @@
 ﻿using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Effects
 {
     [ImplicitDataDefinitionForInheritors]
     public interface IEffect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args);
+        public TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args);
+    }
+    
+    public abstract class Effect : IEffect
+    {
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
+        
+        public abstract TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args);
+    }
+
+    public sealed class NullEffect : Effect
+    {
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
+        {
+            return TurnResult.Succeeded;
+        }
+    }
+    
+    [ImplicitDataDefinitionForInheritors]
+    public abstract class EffectArgs
+    {
     }
 
     [DataDefinition]
-    public class EffectArgs
+    public sealed class EffectArgSet : Blackboard<EffectArgs>
     {
-        public int Power = 1;
-        public CurseState CurseState;
+        public int Power { get; set; } = 1;
+        public CurseState CurseState { get; set; } = CurseState.Normal;
 
-        public override bool Equals(object? obj)
+        public static EffectArgSet Make(params EffectArgs[] rest)
         {
-            if (obj is not EffectArgs objArgs)
-                return false;
+            var result = new EffectArgSet();
 
-            return Power == objArgs.Power && CurseState == objArgs.CurseState;
-        }
+            foreach (var param in rest)
+                result.Add(param);
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Power, CurseState);
+            return result;
         }
     }
 
-    public enum EffectResult
+    public sealed class EffectCommonArgs : EffectArgs
     {
-        Succeeded = 0,
-        Aborted = 1,
-        Failed = 2
+        /// <summary>
+        /// How this effect was triggered initially (e.g. by casting a spell, drinking a potion, traps, etc.). This is mostly used for message display.
+        /// </summary>
+        public string EffectSource { get; set; } = EffectSources.Default;
+        
+        /// <summary>
+        /// How many tiles this spell can reach. Used by ball magic.
+        /// </summary>
+        public int TileRange { get; set; } = 1;
+
+        /// <summary>
+        /// If set to true after casting a spell, the thing holding the spell should be identified.
+        /// </summary>
+        public bool Obvious { get; set; } = true;
     }
 
-    public static class EffectResultExt
+    public static class EffectSources
     {
-        public static TurnResult ToTurnResult(this EffectResult result)
-        {
-            switch (result)
-            {
-                case EffectResult.Succeeded:
-                    return TurnResult.Succeeded;
-                case EffectResult.Aborted:
-                    return TurnResult.Aborted;
-                case EffectResult.Failed:
-                default:
-                    return TurnResult.Failed;
-            }
-        }
+        public const string Default = "Default";
+        public const string Spell = "Spell";
+        public const string Action = "Action";
+        public const string Scroll = "Scroll";
+        public const string Wand = "Wand";
+        public const string PotionDrunk = "PotionDrunk";
+        public const string PotionThrown = "PotionThrown";
+        public const string PotionSpilt = "PotionSpilt";
+        public const string Trap = "Trap";
     }
 }

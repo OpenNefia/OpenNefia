@@ -6,11 +6,11 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Religion
 {
-    public sealed class GodBlessingManiEffect : IEffect
+    public sealed class GodBlessingManiEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
-
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrDexterity, 400, 8);
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrPerception, 300, 14);
@@ -20,15 +20,15 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.LockPicking, 250, 16);
             _religion.ApplySkillBlessing(target, Protos.Skill.Carpentry, 300, 10);
             _religion.ApplySkillBlessing(target, Protos.Skill.Jeweler, 350, 12);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingLulwyEffect : IEffect
+    public sealed class GodBlessingLulwyEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
-
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrPerception, 450, 10);
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrSpeed, 350, 30);
@@ -36,30 +36,31 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.Crossbow, 450, 12);
             _religion.ApplySkillBlessing(target, Protos.Skill.Stealth, 450, 12);
             _religion.ApplySkillBlessing(target, Protos.Skill.MagicDevice, 550, 8);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingItzpaltEffect : IEffect
+    public sealed class GodBlessingItzpaltEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
 
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrMagic, 300, 18);
             _religion.ApplySkillBlessing(target, Protos.Skill.Meditation, 350, 15);
             _religion.ApplyResistBlessing(target, Protos.Element.Fire, 50, 200);
             _religion.ApplyResistBlessing(target, Protos.Element.Cold, 50, 200);
             _religion.ApplyResistBlessing(target, Protos.Element.Lightning, 50, 200);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingEhekatlEffect : IEffect
+    public sealed class GodBlessingEhekatlEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
+        
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
 
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrCharisma, 250, 20);
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrLuck, 100, 50);
@@ -67,15 +68,16 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.MagicCapacity, 350, 17);
             _religion.ApplySkillBlessing(target, Protos.Skill.Fishing, 300, 12);
             _religion.ApplySkillBlessing(target, Protos.Skill.LockPicking, 450, 8);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingOpatosEffect : IEffect
+    public sealed class GodBlessingOpatosEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
+        
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
 
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrStrength, 450, 11);
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrConstitution, 350, 16);
@@ -83,15 +85,15 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.WeightLifting, 300, 16);
             _religion.ApplySkillBlessing(target, Protos.Skill.Mining, 350, 12);
             _religion.ApplySkillBlessing(target, Protos.Skill.MagicDevice, 450, 8);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingJureEffect : IEffect
+    public sealed class GodBlessingJureEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
-
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrWill, 300, 16);
             _religion.ApplySkillBlessing(target, Protos.Skill.Healing, 250, 18);
@@ -100,15 +102,15 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.Cooking, 450, 8);
             _religion.ApplySkillBlessing(target, Protos.Skill.MagicDevice, 400, 10);
             _religion.ApplySkillBlessing(target, Protos.Skill.MagicCapacity, 400, 12);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 
-    public sealed class GodBlessingKumiromiEffect : IEffect
+    public sealed class GodBlessingKumiromiEffect : Effect
     {
         [Dependency] private readonly IReligionSystem _religion = default!;
 
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrPerception, 400, 8);
             _religion.ApplySkillBlessing(target, Protos.Skill.AttrDexterity, 350, 12);
@@ -117,7 +119,7 @@ namespace OpenNefia.Content.Religion
             _religion.ApplySkillBlessing(target, Protos.Skill.Alchemy, 350, 10);
             _religion.ApplySkillBlessing(target, Protos.Skill.Tailoring, 350, 9);
             _religion.ApplySkillBlessing(target, Protos.Skill.Literacy, 350, 8);
-            return EffectResult.Succeeded;
+            return TurnResult.Succeeded;
         }
     }
 }

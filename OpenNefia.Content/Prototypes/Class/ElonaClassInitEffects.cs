@@ -4,43 +4,43 @@ using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Prototypes
 {
-    public class InitWizardEffect : IEffect
+    public class InitWizardEffect : Effect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
-            return EffectResult.Succeeded;
+            throw new NotImplementedException();
         }
     }
 
-    public class InitFarmerEffect : IEffect
+    public class InitFarmerEffect : Effect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
-            return EffectResult.Succeeded;
+            throw new NotImplementedException();
         }
     }
 
-    public class InitWarmageEffect : IEffect
+    public class InitWarmageEffect : Effect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
-            return EffectResult.Succeeded;
+            throw new NotImplementedException();
         }
     }
 
-    public class InitPianistEffect : IEffect
+    public class InitPianistEffect : Effect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
-            return EffectResult.Succeeded;
+            throw new NotImplementedException();
         }
     }
 
-    public class InitPriestEffect : IEffect
+    public class InitPriestEffect : Effect
     {
-        public EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
-            return EffectResult.Succeeded;
+            throw new NotImplementedException();
         }
     }
 }

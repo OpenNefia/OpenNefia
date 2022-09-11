@@ -109,7 +109,10 @@ namespace OpenNefia.Content.Religion
 
             var godProto = _protos.Index(component.GodID.Value);
             var spatial = EntityManager.GetComponent<SpatialComponent>(uid);
-            godProto.Blessing?.Apply(source: uid, coords: spatial.MapPosition, target: uid, args: new());
+
+            if (godProto.Blessing != null)
+                EntitySystem.InjectDependencies(godProto.Blessing); // TODO remove
+            godProto.Blessing?.Apply(source: uid, coords: spatial.Coordinates, target: uid, verb: null, args: new());
         }
 
         private void OnJoinFaith(EntityUid uid, ReligionComponent component, OnJoinFaithEvent args)

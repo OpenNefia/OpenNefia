@@ -37,6 +37,14 @@ namespace OpenNefia.Core.Audio
         /// Plays an audio file at a static position.
         /// </summary>
         /// <param name="soundId">Prototype of the sound to play.</param>
+        /// <param name="coordinates">The coordinates at which to play the audio.</param>
+        /// <param name="audioParams">Audio parameters to apply when playing the sound.</param>
+        void Play(PrototypeId<SoundPrototype> soundId, EntityCoordinates coordinates, AudioParams? audioParams = null);
+        
+        /// <summary>
+        /// Plays an audio file at a static position.
+        /// </summary>
+        /// <param name="soundId">Prototype of the sound to play.</param>
         /// <param name="screenPosition">The coordinates at which to play the audio.</param>
         /// <param name="audioParams">Audio parameters to apply when playing the sound.</param>
         void Play(PrototypeId<SoundPrototype> soundId, Vector2i screenPosition, AudioParams? audioParams = null);

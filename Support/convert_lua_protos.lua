@@ -210,6 +210,18 @@ local function tuple(t)
     return table.concat(t, ",")
 end
 
+local write_effect
+
+local function effect(skill_id, t)
+    local effectTy = dataPart(skill_id)
+    if not effectTy:match "^Effect" then
+        effectTy = "Effect" .. effectTy
+    end
+    write_effect(effectTy)
+
+    return setmetatable(t or {}, { tag = "type:" .. effectTy, type = "mapping" })
+end
+
 local handlers = {}
 local allTags = {}
 
@@ -1133,6 +1145,15 @@ handlers["base.item"] = function(from, to)
     if has_any_category(from, ACCESSORY_CATEGORIES) then
         c = comp(to, "Accessory")
     end
+
+    if from.scroll_id then
+        c = comp(to, "Scroll")
+        c.effect = effect(from.scroll_id)
+        c.effectPower = from.spell_power
+        if from.spell_no_consume then
+            c.amountConsumedOnRead = 0
+        end
+    end
 end
 
 handlers["base.feat"] = function(from, to)
@@ -1909,6 +1930,59 @@ namespace %s
 
 %s
 }]]):format(namespace, short_system_type, event_handlers, events)
+
+    local file = io.open(filename, "w")
+    file:write(code)
+    file:close()
+end
+
+write_effect = function(ty)
+    local filename = ("%s/OpenNefia.Content/Spells/Impl/%s.cs"):format(rootDir, ty)
+    if fs.exists(filename) then
+        return
+    end
+
+    local namespace = "OpenNefia.Content.Spells"
+
+    local code = ([[
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.Effects;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.UI;
+
+namespace %s
+{
+    public sealed class %s : Effect
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityLookup _entityLookup = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+
+        public override TurnResult Apply(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
+        {
+            _mes.Display($"TODO: implement {nameof(%s)}", UiColors.MesYellow);
+            return TurnResult.Succeeded;
+        }
+    }
+}]]):format(namespace, ty, ty)
 
     local file = io.open(filename, "w")
     file:write(code)

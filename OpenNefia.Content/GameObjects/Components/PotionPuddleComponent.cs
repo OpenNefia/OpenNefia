@@ -11,9 +11,9 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "PotionPuddle";
 
         [DataField]
-        public EffectArgs Args = new();
-
+        public IEffect Effect { get; set; } = new NullEffect();
+        
         [DataField]
-        public IEffect? Effect;
+        public int EffectPower { get; set; }
     }
 }

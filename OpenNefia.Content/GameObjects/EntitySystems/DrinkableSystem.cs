@@ -33,28 +33,30 @@ namespace OpenNefia.Content.GameObjects
             args.OutVerbs.Add(new Verb(VerbTypeDrink, "Drink Item", () => Drink(args.Source, args.Target)));
         }
 
-        private TurnResult Drink(EntityUid drinker, EntityUid target,
+        private TurnResult Drink(EntityUid drinker, EntityUid item,
             DrinkableComponent? drinkable = null)
         {
-            if (!Resolve(target, ref drinkable))
+            if (!Resolve(item, ref drinkable))
                 return TurnResult.Failed;
 
             if (!EntityManager.TryGetComponent(drinker, out SpatialComponent sourceSpatial))
                 return TurnResult.Failed;
 
-            if (!_stackSystem.TrySplit(target, 1, out var split))
+            if (!_stackSystem.TrySplit(item, 1, out var split))
                 return TurnResult.Failed;
 
             _mes.Display(Loc.GetString("Elona.Drinkable.Drinks", ("entity", drinker), ("item", split)));
 
             _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 
-            var result = drinkable.Effect?.Apply(drinker, sourceSpatial.MapPosition, drinker, drinkable.Args)
-                ?? EffectResult.Succeeded;
+            var effectArgs = EffectArgSet.Make();
+            effectArgs.Power = drinkable.EffectPower;
+            EntitySystem.InjectDependencies(drinkable.Effect); // TODO remove
+            var result = drinkable.Effect.Apply(drinker, drinker, sourceSpatial.Coordinates, item, effectArgs);
 
             EntityManager.DeleteEntity(split);
 
-            return result.ToTurnResult();
+            return result;
         }
 
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
@@ -67,7 +69,10 @@ namespace OpenNefia.Content.GameObjects
             _mes.Display(Loc.GetString("Elona.Throw.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
-            potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);
+            var effectArgs = EffectArgSet.Make();
+            effectArgs.Power = potionComp.EffectPower;
+            EntitySystem.InjectDependencies(potionComp.Effect); // TODO remove
+            potionComp.Effect?.Apply(args.Thrower, args.ImpactedWith, args.Coords, thrown, effectArgs);
 
             EntityManager.DeleteEntity(thrown);
         }
@@ -95,7 +100,7 @@ namespace OpenNefia.Content.GameObjects
             if (EntityManager.TryGetComponent(puddle.Value, out PotionPuddleComponent puddleComp))
             {
                 puddleComp.Effect = potionComp.Effect;
-                puddleComp.Args = potionComp.Args;
+                puddleComp.EffectPower = potionComp.EffectPower;
             }
         
             EntityManager.DeleteEntity(thrown);
@@ -105,7 +110,10 @@ namespace OpenNefia.Content.GameObjects
         {
             _sounds.Play(Protos.Sound.Water, args.Coords);
 
-            potionComp.Effect?.Apply(source, args.Coords, args.Stepper, potionComp.Args);
+            var effectArgs = EffectArgSet.Make();
+            effectArgs.Power = potionComp.EffectPower;
+            EntitySystem.InjectDependencies(potionComp.Effect); // TODO remove
+            potionComp.Effect.Apply(source, args.Stepper, args.Coords, potionComp.Owner, effectArgs);
 
             EntityManager.DeleteEntity(source);
         }

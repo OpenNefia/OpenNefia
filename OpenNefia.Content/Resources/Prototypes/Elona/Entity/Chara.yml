@@ -61,8 +61,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -112,9 +112,8 @@
       Elona.SpellSummonMonsters: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Zeome
   - type: Portrait
     portraitID: Elona.Zeome
@@ -151,8 +150,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -181,8 +180,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -235,8 +234,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Snail
   - type: LootType
@@ -264,8 +263,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -293,8 +292,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -326,8 +325,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -416,8 +415,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -525,8 +524,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -717,9 +716,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Orphe
   - type: Portrait
     portraitID: Elona.Orphe
@@ -890,9 +888,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.WhomDwellInTheVanity
   - type: Portrait
     portraitID: Elona.Bethel
@@ -932,9 +929,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Loyter
   - type: Portrait
     portraitID: Elona.Loyter
@@ -969,9 +965,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Miches
   - type: Portrait
     portraitID: Elona.Miches
@@ -1006,9 +1001,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Shena
   - type: Portrait
     portraitID: Elona.Shena
@@ -1040,8 +1034,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.DungeonCleaner
   - type: LootType
@@ -1076,9 +1070,8 @@
       Elona.SpellNerveArrow: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Larnneire
   - type: Portrait
     portraitID: Elona.Larnneire
@@ -1121,9 +1114,8 @@
       Elona.BuffSlow: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Lomias
   - type: Portrait
     portraitID: Elona.Lomias
@@ -1174,8 +1166,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -1209,8 +1201,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -1246,8 +1238,8 @@
     gender: Male
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     portraitID: Elona.Zeome
   - type: Tone
@@ -1277,8 +1269,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -1316,8 +1308,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -1353,8 +1345,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2262,8 +2254,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2301,8 +2293,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2340,8 +2332,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2379,8 +2371,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     portraitID: Elona.Man45
   - type: Tone
@@ -2414,8 +2406,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2451,8 +2443,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: VanillaAI
@@ -2518,8 +2510,8 @@
     class: Elona.Archer
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2554,8 +2546,8 @@
     class: Elona.Archer
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -2623,9 +2615,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Stersha
   - type: Portrait
     portraitID: Elona.Stersha
@@ -2660,9 +2651,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Xabi
   - type: Portrait
     portraitID: Elona.Xabi
@@ -2772,8 +2762,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Titan
   - type: VanillaAI
@@ -3543,8 +3533,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.BrownBear
   - type: CharaNameGen
@@ -4071,8 +4061,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.8
   - type: LootType
@@ -4105,8 +4095,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
@@ -4143,8 +4133,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
@@ -4181,8 +4171,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
@@ -4219,8 +4209,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
@@ -4249,8 +4239,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4275,8 +4265,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4302,8 +4292,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4326,8 +4316,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4350,8 +4340,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4374,8 +4364,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4398,8 +4388,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -4429,9 +4419,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Slan
   - type: Portrait
     portraitID: Elona.Karam
@@ -4542,9 +4531,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Erystia
   - type: Portrait
     portraitID: Elona.Erystia
@@ -4687,9 +4675,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Karam
   - type: Portrait
     portraitID: Elona.Karam
@@ -4868,8 +4855,8 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.MissionaryOfDarkness
   - type: VanillaAI
@@ -5074,8 +5061,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Mercenary
   - type: VanillaAI
@@ -5110,8 +5097,8 @@
     class: Elona.Archer
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Mercenary
   - type: VanillaAI
@@ -5149,8 +5136,8 @@
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Mercenary
   - type: VanillaAI
@@ -5183,8 +5170,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YerlesMachineInfantry
   - type: VanillaAI
@@ -5249,8 +5236,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: CharaNameGen
     hasRandomName: true
   - type: LootType
@@ -5279,8 +5266,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Dog
   - type: CharaNameGen
@@ -5310,8 +5297,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.LittleGirl
   - type: CharaNameGen
@@ -5341,8 +5328,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5399,8 +5386,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5426,8 +5413,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.PublicPerformer
   - type: VanillaAI
@@ -5463,8 +5450,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5500,8 +5487,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5537,8 +5524,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5574,8 +5561,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5613,8 +5600,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Frisia
   - type: VanillaAI
@@ -5645,8 +5632,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YoungerSister
   - type: CharaNameGen
@@ -5682,8 +5669,8 @@
       Elona.BuffBoost: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Utima
   - type: VanillaAI
@@ -5739,8 +5726,8 @@
       Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Azzrssil
   - type: VanillaAI
@@ -5794,8 +5781,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Twintail
   - type: LootType
@@ -5824,8 +5811,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.SilverWolf
   - type: LootType
@@ -5856,8 +5843,8 @@
       Elona.SpellHealingTouch: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Nurse
   - type: VanillaAI
@@ -5889,8 +5876,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5932,8 +5919,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -5975,8 +5962,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -6275,8 +6262,8 @@
       Elona.SpellAcidGround: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.6
   - type: UnarmedDamage
@@ -6307,8 +6294,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Chicken
   - type: LootType
@@ -6542,8 +6529,8 @@
       Elona.ActionFireBreath: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Ebon
   - type: VanillaAI
@@ -6576,8 +6563,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -6609,8 +6596,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -6649,8 +6636,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Maid
   - type: CharaNameGen
@@ -6686,8 +6673,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: VanillaAI
@@ -6726,8 +6713,8 @@
       Elona.ActionFireBreath: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Ebon2
   - type: VanillaAI
@@ -6761,9 +6748,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Garokk
   - type: Tone
     id: Elona.Garokk
@@ -6796,9 +6782,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Miral
   - type: Tone
     id: Elona.Miral
@@ -6827,8 +6812,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YoungerCatSister
   - type: CharaNameGen
@@ -6864,8 +6849,8 @@
       Elona.SpellHealingRain: 1
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YoungLady
   - type: CharaNameGen
@@ -6932,8 +6917,8 @@
     gender: Female
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Gwen
   - type: VanillaAI
@@ -6966,8 +6951,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Thief
   - type: VanillaAI
@@ -7003,8 +6988,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Robber
   - type: VanillaAI
@@ -7067,8 +7052,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.MasterThief
   - type: VanillaAI
@@ -7197,9 +7182,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Pael
   - type: Portrait
     portraitID: Elona.Woman16
@@ -7236,9 +7220,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Lily
   - type: Portrait
     portraitID: Elona.Woman14
@@ -7275,9 +7258,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Raphael
   - type: Portrait
     portraitID: Elona.Man15
@@ -7314,9 +7296,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Ainc
   - type: Portrait
     portraitID: Elona.Man19
@@ -7352,9 +7333,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Poppy
   - type: Tone
     id: Elona.Poppy
@@ -7386,9 +7366,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Rilian
   - type: Portrait
     portraitID: Elona.Woman17
@@ -7425,9 +7404,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Tam
   - type: Portrait
     portraitID: Elona.Man17
@@ -7465,8 +7443,8 @@
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     moveChance: 0.7
   - type: LootType
@@ -7497,8 +7475,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Lion
   - type: LootType
@@ -7533,8 +7511,8 @@
       Elona.ActionSummonCats: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Cacy
   - type: VanillaAI
@@ -7569,9 +7547,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Gilbert
   - type: Portrait
     portraitID: Elona.Gilbert
@@ -7632,8 +7609,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.JuereInfantry
   - type: VanillaAI
@@ -7664,8 +7641,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YerlesMachineInfantry
   - type: VanillaAI
@@ -7697,8 +7674,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.JuereInfantry
   - type: LootType
@@ -7809,8 +7786,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -7923,8 +7900,8 @@
       Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Rodlob
   - type: VanillaAI
@@ -7958,9 +7935,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Arnord
   - type: Portrait
     portraitID: Elona.Arnord
@@ -7995,8 +7971,8 @@
       Elona.ActionSuicideAttack: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.KamikazeSamurai
   - type: LootType
@@ -8054,8 +8030,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: CharaNameGen
     hasRandomName: true
   - type: LootType
@@ -8087,9 +8063,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Mia
   - type: Portrait
     portraitID: Elona.Mia
@@ -8148,8 +8123,8 @@
       Elona.ActionSummonSister: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YoungerSister
   - type: CharaNameGen
@@ -8242,9 +8217,8 @@
       Elona.SpellRagingRoar: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Renton
   - type: Portrait
     portraitID: Elona.Man6
@@ -8285,9 +8259,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Marks
   - type: Portrait
     portraitID: Elona.Man2
@@ -8481,9 +8454,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Noel
   - type: Portrait
     portraitID: Elona.Woman16
@@ -8524,8 +8496,8 @@
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.BlackCat
   - type: VanillaAI
@@ -8565,8 +8537,8 @@
       Elona.SpellNetherArrow: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.CuteFairy
   - type: VanillaAI
@@ -8645,8 +8617,8 @@
       Elona.BuffSpeed: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.BlackAngel
   - type: VanillaAI
@@ -8789,8 +8761,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.LameHorse
   - type: CharaNameGen
@@ -8821,8 +8793,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.YowynHorse
   - type: CharaNameGen
@@ -8852,8 +8824,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -8887,8 +8859,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -8925,8 +8897,8 @@
       Elona.ActionSuspiciousHand: 1
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -8960,8 +8932,8 @@
     class: Elona.Wizard
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -8995,8 +8967,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -9030,8 +9002,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -9072,8 +9044,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.NoyelHorse
   - type: CharaNameGen
@@ -9104,8 +9076,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.WildHorse
   - type: CharaNameGen
@@ -9136,8 +9108,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.WildHorse2
   - type: CharaNameGen
@@ -9195,9 +9167,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Icolle
   - type: Portrait
     portraitID: Elona.Man18
@@ -9234,9 +9205,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Balzak
   - type: Portrait
     portraitID: Elona.Balzak
@@ -9387,8 +9357,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Splittable
     splitsOnHighDamage: true
   - type: LootType
@@ -9416,8 +9386,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Splittable
     splitsOnHighDamage: true
   - type: LootType
@@ -9484,8 +9454,8 @@
       Elona.SpellNetherArrow: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     portraitID: Elona.Man14
   - type: Tone
@@ -9523,8 +9493,8 @@
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -9572,9 +9542,8 @@
       Elona.SpellNetherArrow: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Lexus
   - type: Portrait
     portraitID: Elona.Man6
@@ -9675,8 +9644,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -9718,9 +9687,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Abyss
   - type: Portrait
     portraitID: Elona.Man6
@@ -9754,8 +9722,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -9830,9 +9798,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Doria
   - type: Portrait
     portraitID: Elona.Man6
@@ -9958,9 +9925,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.Conery
   - type: Portrait
     portraitID: Elona.Conery
@@ -10000,9 +9966,8 @@
       Elona.BuffBoost: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.RogueBoss
   - type: Portrait
     portraitID: Elona.Man47
@@ -10043,8 +10008,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.RogueParty
   - type: VanillaAI
@@ -10083,8 +10048,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.RogueParty
   - type: VanillaAI
@@ -10133,8 +10098,8 @@
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.RogueParty
   - type: VanillaAI
@@ -10550,8 +10515,8 @@
       Elona.ActionInsult: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.SilverEyedWitch
   - type: VanillaAI
@@ -10591,8 +10556,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.BigDaddy
   - type: VanillaAI
@@ -10635,8 +10600,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.LittleSister
   - type: VanillaAI
@@ -10668,8 +10633,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -10704,8 +10669,8 @@
       Elona.ActionSuicideAttack: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.HardGay
   - type: LootType
@@ -10737,9 +10702,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.StrangeScientist
   - type: Tone
     id: Elona.StrangeScientist
@@ -10857,8 +10821,8 @@
     class: Elona.Pianist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -10921,8 +10885,8 @@
       Elona.ActionVanish: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     targetDistance: 4
     moveChance: 0.3
@@ -10957,8 +10921,8 @@
       Elona.ActionVanish: 1
   - type: Faction
     relation: Enemy
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.3
@@ -11058,8 +11022,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.StrayCat
   - type: CharaNameGen
@@ -11089,8 +11053,8 @@
     class: Elona.Warrior
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -11132,8 +11096,8 @@
     gender: Male
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.MysteriousProducer
   - type: VanillaAI
@@ -11163,8 +11127,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -11244,8 +11208,8 @@
     class: Elona.Thief
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -11515,9 +11479,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.KanedaBike
   - type: Tone
     id: Elona.KanedaBike
@@ -11546,8 +11509,8 @@
     class: Elona.Predator
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Cub
   - type: VanillaAI
@@ -11581,8 +11544,8 @@
       Elona.SpellHealingRain: 1
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -11620,9 +11583,8 @@
     class: Elona.Pianist
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
   - type: Dialog
+    canTalk: true
     dialogID: Elona.PartTimeWorker
   - type: Tone
     id: Elona.PartTimeWorker
@@ -11654,8 +11616,8 @@
     class: Elona.Tourist
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.HolyBeast
   - type: QuickTempered
@@ -11683,8 +11645,8 @@
     class: Elona.Gunner
   - type: Faction
     relation: Dislike
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Portrait
     hasRandomPortrait: true
   - type: Tone
@@ -11727,8 +11689,8 @@
       Elona.BuffBoost: 1
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.TheLeopardWarrior
   - type: QuickTempered
@@ -11766,8 +11728,8 @@
     gender: Female
   - type: Faction
     relation: Neutral
-  - type: CustomName
-    nameIsProperNoun: true
+  - type: Dialog
+    canTalk: true
   - type: Tone
     id: Elona.Silvia
   - type: VanillaAI
