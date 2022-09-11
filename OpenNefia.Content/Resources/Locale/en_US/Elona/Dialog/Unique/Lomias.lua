@@ -1,3 +1,26 @@
+Elona.Dialog.Unique.LomiasNewGame = {
+    GameBegin = {
+        Text = {
+            T1_Lomias = {
+                "...you...you're awake already? Remarkable. I was beginning to worry that nursing a lowly adventurer would bring our urgent travel to a halt.",
+                "You were badly wounded, passing out on the bank of a river. It was fortunate that we found you before the dark mantle of night enveloped this whole valley, almost as if Ehekatl, the goddess of luck herself had her eyes upon you.",
+                "...stop your curious eyes. Yes, we are sons of Vindale whom they call the irreverent forest. Though we Eleas, noble but blameless heretics, aren't keen to spend idle time responding to every senseless question about our race, you should be more thankful for your fate. If it weren't the lady Larnneire who cured your mortal wound, you wouldn't be hearing my tirade. For the lady is no ordinary Elea and only she can...",
+            },
+            T2_Larnneire = {
+                "You talk too much Lomias, even though the one injured before you is still dazed.",
+            },
+            T3_Lomias = {
+                function(speaker, player)
+                    return ("...yes, it's a bad habit of mine. Well, %s..."):format(_.basename(player))
+                end,
+            },
+        },
+        RegainConsciousness = function(speaker, player)
+            return ("%s regain%s consciousness."):format(_.name(player), _.s(player))
+        end,
+    },
+}
+
 Elona.Dialog.Unique.Lomias = {
     Tutorial0 = {
         Text = "It looks like you aren't familiar with this land. Before we leave, I can spare a moment to teach you a few lessons.",
@@ -129,6 +152,25 @@ Elona.Dialog.Unique.Lomias = {
         Choices = {
             GetOut = "Get out of my house!",
             Nothing = "Nothing.",
+        },
+    },
+
+    GetOut_LarnneireDied = {
+        Text = "You...you scum!",
+    },
+    GetOut_Execute = {
+        Text = {
+            T1_Larnneire = {
+                function(speaker, player)
+                    return ("%s is right. The time left for us is scarce. We need to depart, Lomias."):format(
+                        _.basename(player)
+                    )
+                end,
+            },
+            T2_Lomias = {
+                "Yes. Palmia is still far away. Perhaps, It was fortunate that we could have a little rest before everything begins.",
+                "Farewell..until we meet again. May the blessing of Lulwy be with you.",
+            },
         },
     },
 }

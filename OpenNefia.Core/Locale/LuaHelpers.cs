@@ -61,5 +61,13 @@ namespace OpenNefia.Core.Locale
 
             return null;
         }
+
+        public static bool GetBoolean(this LuaTable table, string key, bool @default)
+        {
+            if (TryGetValue(table, key, out var obj) && obj is bool b)
+                return b;
+
+            return @default;
+        }
     }
 }

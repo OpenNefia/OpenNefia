@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Mining
 
         public override void Initialize()
         {
-            SubscribeEntity<EntityFinishedMiningWallEvent>(CreateItemFromMinedWall);
+            SubscribeEntity<EntityFinishedMiningWallEvent>(CreateItemFromMinedWall, priority: EventPriorities.VeryHigh);
         }
 
         public bool CheckMiningSuccess(EntityUid digger, MapCoordinates digPos, int turnsSpentMining)

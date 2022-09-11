@@ -14,22 +14,22 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
+            SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.VeryLow);
             SubscribeComponent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
         }
 
         private void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
         {
-            // CustomNameComponent is applied after this.
+            // CustomNameComponent is applied before this.
 
             // TODO
-            if (Loc.Language == LanguagePrototypeOf.English)
+            if (Loc.Language == LanguagePrototypeOf.English && args.OutAddArticle)
                 args.OutName = $"the {args.BaseName}";
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
         {
-            var ev = new GetItemNameEvent(noArticle: false);
+            var ev = new GetItemNameEvent(noArticle: !args.OutAddArticle);
             EntityManager.EventBus.RaiseEvent(uid, ref ev);
             args.OutName = ev.OutItemName;
         }

@@ -21,8 +21,16 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     The in-game name of this entity.
         /// </summary>
-        [Localize("Name")]
+        [Localize]
         public string? DisplayName { get; set; }
+
+        /// <summary>
+        /// If true, don't add an article before this entity's name.
+        /// <remarks>
+        /// Contrast "the putit" with "Lomias".
+        /// </remarks>
+        [Localize]
+        public bool NameIsProperNoun { get; private set; } = false;
 
         private EntityPrototype? _entityPrototype;
 
@@ -81,7 +89,8 @@ namespace OpenNefia.Core.GameObjects
 
         void IComponentLocalizable.LocalizeFromLua(LuaTable table)
         {
-            DisplayName = table.GetStringOrNull("Name");
+            DisplayName = table.GetStringOrNull(nameof(Name));
+            NameIsProperNoun = table.GetBoolean(nameof(NameIsProperNoun), false);
         }
     }
 

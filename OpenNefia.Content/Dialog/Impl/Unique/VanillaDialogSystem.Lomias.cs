@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Items;
@@ -15,6 +16,10 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Chests;
+using OpenNefia.Content.Maps;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -23,6 +28,23 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly ISidequestSystem _sidequests = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IMapCommonSystem _mapCommon = default!;
+        
+        /// <summary>
+        /// Elona.Lomias:Tutorial0_Start - AfterEnter
+        /// </summary>
+        /// <remarks>
+        /// "...yes, it's a bad habit of mine. Well, %s..."
+        /// </remarks>
+        [UsedImplicitly]
+        public void LomiasNewGame_GameBegin_AfterEnter(IDialogEngine engine, IDialogNode node)
+        {
+            if (TryMap(engine.Player, out var map) && TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon))
+            {
+                mapCommon.Music = Protos.Music.Home;
+                _mapCommon.PlayDefaultMapMusic(map);
+            }
+        }
 
         /// <summary>
         /// Elona.Lomias:Tutorial0_Start - AfterEnter
@@ -30,6 +52,7 @@ namespace OpenNefia.Content.Dialog
         /// <remarks>
         /// "A wise choice. I will start from the beginning."
         /// </remarks>
+        [UsedImplicitly]
         public void Lomias_Tutorial0_Start_AfterEnter(IDialogEngine engine, IDialogNode node)
         {
             var corpse = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Corpse);
@@ -49,6 +72,7 @@ namespace OpenNefia.Content.Dialog
         /// <remarks>
         /// "Looks like you found something."
         /// </remarks>
+        [UsedImplicitly]
         public void Lomias_Tutorial3_BeforeEnter(IDialogEngine engine, IDialogNode node)
         {
             var scroll = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.ScrollOfIdentify);
@@ -66,6 +90,7 @@ namespace OpenNefia.Content.Dialog
         /// "Okay, I will now tell you how to fight. Before the combat starts, you need to equip
         /// weapons. Take my old bow and arrows and equip them."
         /// </remarks>
+        [UsedImplicitly]
         public void Lomias_Tutorial4_AfterEnter(IDialogEngine engine, IDialogNode node)
         {
             var item = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.LongBow);
@@ -98,6 +123,7 @@ namespace OpenNefia.Content.Dialog
         /// to stay away from the enemies as bows aren't effective in close range. I've dropped a
         /// few potions in case you get hurt. You know how to use them right? Yes, use [x] key."
         /// </remarks>
+        [UsedImplicitly]
         public void Lomias_Tutorial5_EquipDone_AfterEnter(IDialogEngine engine, IDialogNode node)
         {
             _mes.Display(Loc.GetString("Elona.Dialog.Unique.Lomias.Tutorial5_EquipDone.LomiasReleasesPutits"), UiColors.MesSkyBlue);
@@ -125,6 +151,7 @@ namespace OpenNefia.Content.Dialog
         /// <remarks>
         /// "You might find chests containing loot in ruins. There's one nearby, open it."
         /// </remarks>
+        [UsedImplicitly]
         public void Lomias_Tutorial7_Chest_BeforeEnter(IDialogEngine engine, IDialogNode node)
         {
             var chest = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Chest);
@@ -135,6 +162,42 @@ namespace OpenNefia.Content.Dialog
             }
             _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Lockpick, amount: 2);
             _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
+        }
+
+        /// <summary>
+        /// Elona.Lomias:GetOut_Execute - AfterEnter
+        /// </summary>
+        /// <remarks>
+        /// "Farewell..until we meet again. May the blessing of Lulwy be with you."
+        /// </remarks>
+        [UsedImplicitly]
+        public void Lomias_GetOut_Execute_AfterEnter(IDialogEngine engine, IDialogNode node)
+        {
+            if (!TryMap(engine.Player, out var map))
+                return;
+
+            EntityUid? FindByPrototypeID(PrototypeId<EntityPrototype> protoID)
+            {
+                return _lookup.EntityQueryInMap<MetaDataComponent>(map)
+                    .Where(m => m.EntityPrototype?.GetStrongID() == protoID)
+                    .Select(m => m.Owner)
+                    .FirstOrNull();
+            }
+
+            var lomias = FindByPrototypeID(Protos.Chara.Lomias);
+            if (IsAlive(lomias))
+                EntityManager.DeleteEntity(lomias.Value);
+            var larnneire = FindByPrototypeID(Protos.Chara.Larnneire);
+            if (IsAlive(larnneire))
+                EntityManager.DeleteEntity(larnneire.Value);
+
+            _mes.Display(Loc.GetString("Elona.Quest.Completed"), UiColors.MesGreen);
+            _audio.Play(Protos.Sound.Complete1);
+            _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
+            for (var i = 0; i < 3; i++)
+            {
+                _itemGen.GenerateItem(engine.Player, tags: new[] { Protos.Tag.ItemCatFurniture });
+            }
         }
     }
 }

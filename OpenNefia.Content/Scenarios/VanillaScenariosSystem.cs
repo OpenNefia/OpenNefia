@@ -66,7 +66,8 @@ namespace OpenNefia.Content.Scenarios
 
             _deferredEvents.Enqueue(() =>
             {
-                var lomias = _charas.EnumerateNonAllies(yourHomeMap).FirstOrDefault(c => ProtoIDOrNull(c.Owner) == Protos.Chara.Lomias);
+                var lomias = _charas.EnumerateNonAllies(yourHomeMap)
+                    .FirstOrDefault(c => ProtoIDOrNull(c.Owner) == Protos.Chara.Lomias);
                 if (lomias != null)
                 {
                     _dialog.StartDialog(_gameSession.Player, lomias.Owner, Protos.Dialog.LomiasNewGame);

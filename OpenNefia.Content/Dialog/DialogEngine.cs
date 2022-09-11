@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Dialog
         /// <summary>
         /// Entity acting as the speaker. This can be null if there is no speaker.
         /// </summary>
-        EntityUid? Speaker { get; }
+        EntityUid? Speaker { get; set; }
 
         /// <summary>
         /// Dialog layer that will handle presenting text and choices.
@@ -131,7 +131,7 @@ namespace OpenNefia.Content.Dialog
         public EntityUid Player { get; private set; }
 
         /// <inheritdoc/>
-        public EntityUid? Speaker { get; private set; }
+        public EntityUid? Speaker { get; set; }
         
         /// <inheritdoc/>
         public IDialogLayer DialogLayer { get; }

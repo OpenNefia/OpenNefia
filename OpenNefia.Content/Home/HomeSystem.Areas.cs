@@ -113,7 +113,7 @@ namespace OpenNefia.Content.Home
         {
             if (IsDiggingTutorialStep(uid))
             {
-                _mapPlacement.ForceClearPosition(args.TargetCoords);
+                _mapPlacement.ForceClearPosition(args.TargetCoords, deleteNonSolid: true);
                 var item = _itemGen.GenerateItem(args.TargetCoords, Protos.Item.WorthlessFakeGoldBar);
                 if (IsAlive(item))
                 {

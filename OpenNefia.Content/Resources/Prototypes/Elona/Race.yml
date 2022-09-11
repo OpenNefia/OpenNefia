@@ -4,8 +4,6 @@
   isExtra: true
   maleRatio: 0.5
   baseHeight: 10
-  chipMale: Elona.CharaRaceSlime
-  chipFemale: Elona.CharaRaceSlime
   baseSkills:
     Elona.AttrCharisma: 100
     Elona.AttrConstitution: 100
