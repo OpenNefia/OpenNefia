@@ -54,9 +54,8 @@ namespace OpenNefia.Content.Items
                 fullName.Append(fishName);
             }
 
-            if (TryComp<EntityProtoSourceComponent>(uid, out var fromEntity) && CompOrNull<PickableComponent>(uid)?.OwnState != OwnState.Quest)
+            if (TryComp<EntityProtoSourceComponent>(uid, out var fromEntity) && CompOrNull<PickableComponent>(uid)?.OwnState != OwnState.Quest && Loc.TryGetPrototypeString(fromEntity.EntityID, "MetaData.Name", out var name))
             {
-                var name = Loc.GetPrototypeString(fromEntity.EntityID, "MetaData.Name");
                 fullName.Append(Loc.Space + Loc.GetString("Elona.Item.ItemName.FromEntity", ("name", name)));
             }
 
