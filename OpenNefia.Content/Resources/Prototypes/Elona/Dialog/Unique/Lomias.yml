@@ -1,20 +1,5 @@
 - type: Elona.Dialog
   id: Elona.Lomias
-  scriptImports:
-  - OpenNefia.Content.Prototypes
-  - OpenNefia.Content.Items
-  - OpenNefia.Content.Identify
-  - OpenNefia.Content.CurseStates
-  - OpenNefia.Content.UI
-  - OpenNefia.Content.VanillaAI
-  - OpenNefia.Content.Chests
-  scriptDependencies:
-    _gameSession: OpenNefia.Core.Game.IGameSessionManager
-    _entityManager: OpenNefia.Core.GameObjects.IEntityManager
-    _sidequests: OpenNefia.Content.Sidequests.ISidequestSystem
-    _charaGen: OpenNefia.Content.RandomGen.ICharaGen
-    _itemGen: OpenNefia.Content.RandomGen.IItemGen
-    _mes: OpenNefia.Content.Logic.IMessagesManager
   nodes:
     __start__: !type:DialogBranchNode
       conditions:
@@ -79,16 +64,11 @@
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        var corpse = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Corpse);
-        if (_entityManager.IsAlive(corpse))
-        {
-            var protoSource = _entityManager.EnsureComponent<EntityProtoSourceComponent>(corpse.Value);
-            protoSource.EntityID = Protos.Chara.Beggar;
-            _entityManager.EnsureComponent<IdentifyComponent>(corpse.Value).IdentifyState = IdentifyState.Full;
-            _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
-        }
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 1);
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_Tutorial0_Start_AfterEnter
 
     Tutorial1: !type:DialogTextNode
       texts:
@@ -110,8 +90,10 @@
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 2);
+      afterEnter: 
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 2
 
     Tutorial2: !type:DialogTextNode
       texts:
@@ -121,20 +103,20 @@
         isDefault: true
 
     Tutorial3: !type:DialogTextNode
-      beforeEnter: |
-        var scroll = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.ScrollOfIdentify);
-        if (_entityManager.IsAlive(scroll))
-        {
-            _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
-            _entityManager.EnsureComponent<IdentifyComponent>(scroll.Value).IdentifyState = IdentifyState.Full;
-        }
+      beforeEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_Tutorial3_BeforeEnter
       texts:
       - Elona.Dialog.Unique.Lomias.Tutorial3.Text
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 4);
+      afterEnter:
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 4
 
     Tutorial4: !type:DialogTextNode
       texts:
@@ -150,28 +132,14 @@
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        var item = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.LongBow);
-        if (_entityManager.IsAlive(item))
-        {
-            _entityManager.EnsureComponent<CurseStateComponent>(item.Value).CurseState = CurseState.Cursed;
-        }
-
-        item = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Arrow);
-        if (_entityManager.IsAlive(item))
-        {
-            _entityManager.EnsureComponent<CurseStateComponent>(item.Value).CurseState = CurseState.Normal;
-        }
-
-        item = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.ScrollOfVanishCurse);
-        if (_entityManager.IsAlive(item))
-        {
-            _entityManager.EnsureComponent<IdentifyComponent>(item.Value).IdentifyState = IdentifyState.Full;
-            _entityManager.EnsureComponent<CurseStateComponent>(item.Value).CurseState = CurseState.Blessed;
-        }
-
-        _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 5);
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_Tutorial4_AfterEnter
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 5
 
     Tutorial5: !type:DialogTextNode
       texts:
@@ -186,26 +154,14 @@
       - Elona.Dialog.Unique.Lomias.Tutorial5_EquipDone.Text
       choices:
       - text: Elona.Dialog.Common.Choices.More
-      afterEnter: |
-        _mes.Display(Loc.GetString("Elona.Dialog.Unique.Lomias.Tutorial5_EquipDone.LomiasReleasesPutits"), UiColors.MesSkyBlue);
-
-        for (var i = 0; i < 3; i++)
-        {
-            var putit = _charaGen.GenerateChara(_gameSession.Player, Protos.Chara.Putit);
-            if (_entityManager.IsAlive(putit))
-            {
-                _entityManager.EnsureComponent<AINoTargetComponent>(putit.Value);
-                _entityManager.EnsureComponent<TagComponent>(putit.Value).AddTag(Protos.Tag.TutorialPutit);
-            }
-        }
-
-        var item = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.PotionOfCureMinorWound);
-        if (_entityManager.IsAlive(item))
-        {
-            _entityManager.EnsureComponent<IdentifyComponent>(item.Value).IdentifyState = IdentifyState.Full;
-        }
-
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 6);
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_Tutorial5_EquipDone_AfterEnter
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 6
 
     Tutorial6: !type:DialogBranchNode
       conditions:
@@ -224,8 +180,10 @@
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 7);
+      afterEnter:
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 7
 
     Tutorial7: !type:DialogTextNode
       texts:
@@ -234,19 +192,17 @@
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:Tutorial7_Chest
     Tutorial7_Chest: !type:DialogTextNode
-      beforeEnter: |
-        var chest = _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Chest);
-        if (_entityManager.IsAlive(chest) && _entityManager.TryGetComponent<ChestComponent>(chest.Value, out var chestComp))
-        {
-            chestComp.ItemLevel = 35;
-            chestComp.LockpickDifficulty = 25;
-        }
-        _itemGen.GenerateItem(_gameSession.Player, Protos.Item.Lockpick, amount: 2);
-        _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
+      beforeEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_Tutorial7_Chest_BeforeEnter
       texts:
       - Elona.Dialog.Unique.Lomias.Tutorial7_Chest.Text
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 8);
+      afterEnter:
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 8
 
     Tutorial8: !type:DialogTextNode
       texts:
@@ -254,14 +210,18 @@
       choices:
       - text: Elona.Dialog.Common.Choices.More
         nextNode: Elona.Lomias:__start__
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, 99);
+      afterEnter:
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: 99
 
     Tutorial99: !type:DialogTextNode
       texts:
       - Elona.Dialog.Unique.Lomias.Tutorial99.Text
-      afterEnter: |
-        _sidequests.SetState(Protos.Sidequest.Tutorial, -1);
+      afterEnter:
+      - !type:SetSidequestStateDialogAction
+        sidequestID: Elona.Tutorial
+        state: -1
 
     TutorialAfter: !type:DialogTextNode
       texts:

@@ -94,7 +94,6 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(0));
-            Assert.That(area.StartingFloor, Is.Null);
 
             var areaComp = entMan.GetComponent<AreaComponent>(area.AreaEntityUid);
             Assert.That(areaComp.AreaId, Is.EqualTo(area.Id));

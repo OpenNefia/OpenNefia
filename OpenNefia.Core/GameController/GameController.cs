@@ -69,8 +69,6 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
         [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
-        [Dependency] private readonly ICSharpReplExecutor _csharpReplExecutor = default!;
-        [Dependency] private readonly ITaskRunner _taskRunner = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -112,8 +110,6 @@ namespace OpenNefia.Core.GameController
                 return false;
             }
 
-            var roslynStartup = _csharpReplExecutor.InitializeRoslynAsync();
-            
             ProgramShared.DoContentMounts(_resourceCache);
 
             foreach (var loadedModule in _modLoader.LoadedModules)
@@ -178,8 +174,6 @@ namespace OpenNefia.Core.GameController
 
             if (_config.GetCVar(CVars.ReplAutoloadOnStartup))
                 _replExecutor.Initialize();
-
-            _taskRunner.Run(roslynStartup);
 
             _prototypeManager.RegisterEvents();
 
