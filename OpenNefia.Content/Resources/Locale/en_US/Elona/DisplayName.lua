@@ -1,5 +1,5 @@
 Elona.DisplayName = {
-    WithBaseName = function(baseName, customName)
-        return ("%s the %s"):format(customName, baseName)
+    WithMetaDataName = function(metaDataName, customName)
+        return ("%s the %s"):format(customName, metaDataName)
     end,
 }

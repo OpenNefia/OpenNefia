@@ -19,7 +19,12 @@ using OpenNefia.Content.TitleScreen;
 
 namespace OpenNefia.Content.Maps
 {
-    public class MapCommonSystem : EntitySystem
+    public interface IMapCommonSystem : IEntitySystem
+    {
+        void PlayDefaultMapMusic(IMap map);
+    }
+    
+    public class MapCommonSystem : EntitySystem, IMapCommonSystem
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;

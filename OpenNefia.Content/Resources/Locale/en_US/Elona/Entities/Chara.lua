@@ -2,6 +2,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaAbyss = {
         MetaData = {
             Name = "<Abyss> the thief watchman",
+            NameIsProperNoun = true,
         },
     },
     CharaAcidSlime = {
@@ -17,6 +18,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaAinc = {
         MetaData = {
             Name = "<Ainc> the novice knight",
+            NameIsProperNoun = true,
         },
     },
     CharaAlien = {
@@ -42,6 +44,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaArnord = {
         MetaData = {
             Name = "<Arnord> the injured soldier",
+            NameIsProperNoun = true,
         },
     },
     CharaArtist = {
@@ -62,11 +65,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaAzzrssil = {
         MetaData = {
             Name = "<Azzrssil> the impure",
+            NameIsProperNoun = true,
         },
     },
     CharaBalzak = {
         MetaData = {
             Name = "<Balzak> the janitor",
+            NameIsProperNoun = true,
         },
     },
     CharaBard = {
@@ -97,11 +102,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaBigDaddy = {
         MetaData = {
             Name = "<Big daddy>",
+            NameIsProperNoun = true,
         },
     },
     CharaBishop = {
         MetaData = {
             Name = "<Bishop>",
+            NameIsProperNoun = true,
         },
     },
     CharaBlackAngel = {
@@ -172,6 +179,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaCacy = {
         MetaData = {
             Name = "<Cacy> the cat tamer",
+            NameIsProperNoun = true,
         },
     },
     CharaCaptain = {
@@ -277,11 +285,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaConery = {
         MetaData = {
             Name = "<Conery> Palmian major general",
+            NameIsProperNoun = true,
         },
     },
     CharaCorgon = {
         MetaData = {
             Name = "<Corgon> the steel dragon",
+            NameIsProperNoun = true,
         },
     },
     CharaCub = {
@@ -352,6 +362,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaDoria = {
         MetaData = {
             Name = "<Doria> the fighter watchman",
+            NameIsProperNoun = true,
         },
     },
     CharaDragonBat = {
@@ -362,21 +373,25 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaDungeonCleaner = {
         MetaData = {
             Name = "<Dungeon cleaner>",
+            NameIsProperNoun = true,
         },
     },
     CharaEbon = {
         MetaData = {
             Name = "<Ebon> the fire giant",
+            NameIsProperNoun = true,
         },
     },
     CharaEbon2 = {
         MetaData = {
             Name = "<Ebon> the fire giant",
+            NameIsProperNoun = true,
         },
     },
     CharaEhekatl = {
         MetaData = {
             Name = "<Ehekatl>",
+            NameIsProperNoun = true,
         },
     },
     CharaElder = {
@@ -397,6 +412,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaErystia = {
         MetaData = {
             Name = "<Erystia> the scholar of history",
+            NameIsProperNoun = true,
         },
     },
     CharaEuryale = {
@@ -482,11 +498,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaFray = {
         MetaData = {
             Name = "<Fray> the fighter guildmaster",
+            NameIsProperNoun = true,
         },
     },
     CharaFrisia = {
         MetaData = {
             Name = "<Frisia> the cat queen",
+            NameIsProperNoun = true,
         },
     },
     CharaGagu = {
@@ -502,6 +520,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaGarokk = {
         MetaData = {
             Name = "<Garokk> the legendary smith",
+            NameIsProperNoun = true,
         },
     },
     CharaGhost = {
@@ -517,6 +536,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaGilbert = {
         MetaData = {
             Name = "<Gilbert> the colonel",
+            NameIsProperNoun = true,
         },
     },
     CharaGoblin = {
@@ -542,11 +562,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaGodInsideEhekatl = {
         MetaData = {
             Name = "<God inside Ehekatl>",
+            NameIsProperNoun = true,
         },
     },
     CharaGoda = {
         MetaData = {
             Name = "<Goda> the captain of orc",
+            NameIsProperNoun = true,
         },
     },
     CharaGoldBell = {
@@ -617,6 +639,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaGwen = {
         MetaData = {
             Name = "<Gwen> the innocent",
+            NameIsProperNoun = true,
         },
     },
     CharaHalloweenNightmare = {
@@ -707,6 +730,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaIcolle = {
         MetaData = {
             Name = "<Icolle> the biologist",
+            NameIsProperNoun = true,
         },
     },
     CharaIllusionHound = {
@@ -737,11 +761,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaIsca = {
         MetaData = {
             Name = "<Isca> the fallen angel",
+            NameIsProperNoun = true,
         },
     },
     CharaIssizzle = {
         MetaData = {
             Name = "<Issizzle> the dark abomination",
+            NameIsProperNoun = true,
         },
     },
     CharaJuereInfantry = {
@@ -767,11 +793,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaKanedaBike = {
         MetaData = {
             Name = "<Kaneda Bike>",
+            NameIsProperNoun = true,
         },
     },
     CharaKaram = {
         MetaData = {
             Name = "<Karam> the lonely wolf of Karune",
+            NameIsProperNoun = true,
         },
     },
     CharaKillerSquirrel = {
@@ -782,6 +810,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaKing = {
         MetaData = {
             Name = "<King>",
+            NameIsProperNoun = true,
         },
     },
     CharaKingCobra = {
@@ -797,6 +826,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaKnight = {
         MetaData = {
             Name = "<Knight>",
+            NameIsProperNoun = true,
         },
     },
     CharaKobold = {
@@ -807,6 +837,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaKumiromi = {
         MetaData = {
             Name = "<Kumiromi>",
+            NameIsProperNoun = true,
         },
     },
     CharaLameHorse = {
@@ -817,6 +848,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaLarnneire = {
         MetaData = {
             Name = "<Larnneire> the listener of wind",
+            NameIsProperNoun = true,
         },
     },
     CharaLesserMummy = {
@@ -832,6 +864,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaLexus = {
         MetaData = {
             Name = "<Lexus> the guild watchman",
+            NameIsProperNoun = true,
         },
     },
     CharaLich = {
@@ -862,6 +895,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaLittleSister = {
         MetaData = {
             Name = "<Little sister>",
+            NameIsProperNoun = true,
         },
     },
     CharaLivingArmor = {
@@ -877,16 +911,19 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaLomias = {
         MetaData = {
             Name = "<Lomias> the messenger from Vindale",
+            NameIsProperNoun = true,
         },
     },
     CharaLoyter = {
         MetaData = {
             Name = "<Loyter> the crimson of Zanan",
+            NameIsProperNoun = true,
         },
     },
     CharaLulwy = {
         MetaData = {
             Name = "<Lulwy>",
+            NameIsProperNoun = true,
         },
     },
     CharaMadGaze = {
@@ -897,6 +934,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMadScientist = {
         MetaData = {
             Name = "<Mad scientist>",
+            NameIsProperNoun = true,
         },
     },
     CharaMageGuildMember = {
@@ -927,11 +965,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMani = {
         MetaData = {
             Name = "<Mani>",
+            NameIsProperNoun = true,
         },
     },
     CharaMarks = {
         MetaData = {
             Name = "<Marks> the great thief",
+            NameIsProperNoun = true,
         },
     },
     CharaMassMonster = {
@@ -992,11 +1032,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMia = {
         MetaData = {
             Name = "<Mia> the cat freak",
+            NameIsProperNoun = true,
         },
     },
     CharaMiches = {
         MetaData = {
             Name = "<Miches> the apprentice",
+            NameIsProperNoun = true,
         },
     },
     CharaMineDog = {
@@ -1032,6 +1074,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMiral = {
         MetaData = {
             Name = "<Miral> the legendary smith",
+            NameIsProperNoun = true,
         },
     },
     CharaMissionaryOfDarkness = {
@@ -1052,6 +1095,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMoyerTheCrooked = {
         MetaData = {
             Name = "<Moyer> the crooked",
+            NameIsProperNoun = true,
         },
     },
     CharaMummy = {
@@ -1072,6 +1116,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaMysteriousProducer = {
         MetaData = {
             Name = "<Mysterious Producer>",
+            NameIsProperNoun = true,
         },
     },
     CharaNerveHound = {
@@ -1107,6 +1152,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaNoel = {
         MetaData = {
             Name = "<Noel> the bomber",
+            NameIsProperNoun = true,
         },
     },
     CharaNoyelHorse = {
@@ -1137,6 +1183,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaOpatos = {
         MetaData = {
             Name = "<Opatos>",
+            NameIsProperNoun = true,
         },
     },
     CharaOrc = {
@@ -1152,6 +1199,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaOrphe = {
         MetaData = {
             Name = "<Orphe> the chaos child",
+            NameIsProperNoun = true,
         },
     },
     CharaPael = {
@@ -1177,6 +1225,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaPawn = {
         MetaData = {
             Name = "<Pawn>",
+            NameIsProperNoun = true,
         },
     },
     CharaPoisonHound = {
@@ -1187,6 +1236,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaPoppy = {
         MetaData = {
             Name = "<Poppy> the little dog",
+            NameIsProperNoun = true,
         },
     },
     CharaPrisoner = {
@@ -1232,6 +1282,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaQueen = {
         MetaData = {
             Name = "<Queen>",
+            NameIsProperNoun = true,
         },
     },
     CharaQuickling = {
@@ -1247,6 +1298,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaQuruiza = {
         MetaData = {
             Name = "<Quruiza> the red-eyed Deceiver",
+            NameIsProperNoun = true,
         },
     },
     CharaRabbit = {
@@ -1257,6 +1309,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaRaphael = {
         MetaData = {
             Name = "<Raphael> the womanizer",
+            NameIsProperNoun = true,
         },
     },
     CharaRat = {
@@ -1287,11 +1340,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaRenton = {
         MetaData = {
             Name = "<Renton> the suffering wizard",
+            NameIsProperNoun = true,
         },
     },
     CharaRevlus = {
         MetaData = {
             Name = "<Revlus> the mage guildmaster",
+            NameIsProperNoun = true,
         },
     },
     CharaRichPerson = {
@@ -1302,6 +1357,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaRilian = {
         MetaData = {
             Name = "<Rilian> the dog lover",
+            NameIsProperNoun = true,
         },
     },
     CharaRobber = {
@@ -1317,6 +1373,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaRodlob = {
         MetaData = {
             Name = "<Rodlob> the boss of yeeks",
+            NameIsProperNoun = true,
         },
     },
     CharaRogue = {
@@ -1347,6 +1404,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaRook = {
         MetaData = {
             Name = "<Rook>",
+            NameIsProperNoun = true,
         },
     },
     CharaSailor = {
@@ -1377,6 +1435,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaShena = {
         MetaData = {
             Name = "<Shena> the draw",
+            NameIsProperNoun = true,
         },
     },
     CharaShiningHedgehog = {
@@ -1417,11 +1476,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaSilvia = {
         MetaData = {
             Name = "<Silvia> The princess",
+            NameIsProperNoun = true,
         },
     },
     CharaSin = {
         MetaData = {
             Name = "<Sin> the thief guildmaster",
+            NameIsProperNoun = true,
         },
     },
     CharaSister = {
@@ -1447,6 +1508,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaSlan = {
         MetaData = {
             Name = "<Slan> the shadow of Palmia",
+            NameIsProperNoun = true,
         },
     },
     CharaSlime = {
@@ -1497,6 +1559,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaStersha = {
         MetaData = {
             Name = "<Stersha> the queen of Palmia",
+            NameIsProperNoun = true,
         },
     },
     CharaStheno = {
@@ -1512,6 +1575,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaStrangeScientist = {
         MetaData = {
             Name = "<Strange scientist>",
+            NameIsProperNoun = true,
         },
     },
     CharaStrayCat = {
@@ -1527,6 +1591,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaTam = {
         MetaData = {
             Name = "<Tam> the cat hater",
+            NameIsProperNoun = true,
         },
     },
     CharaTarantula = {
@@ -1537,11 +1602,13 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaTestSubject = {
         MetaData = {
             Name = "<Stersha> the queen of Palmia",
+            NameIsProperNoun = true,
         },
     },
     CharaTheLeopardWarrior = {
         MetaData = {
             Name = "<The leopard warrior>",
+            NameIsProperNoun = true,
         },
     },
     CharaThief = {
@@ -1582,6 +1649,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaTuwen = {
         MetaData = {
             Name = "<Tuwen> the master of the pyramid",
+            NameIsProperNoun = true,
         },
     },
     CharaTwintail = {
@@ -1597,6 +1665,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaUngaga = {
         MetaData = {
             Name = "<Ungaga> the minotaur king",
+            NameIsProperNoun = true,
         },
     },
     CharaUser = {
@@ -1607,6 +1676,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaUtima = {
         MetaData = {
             Name = "<Utima> the destroyer of Xeren",
+            NameIsProperNoun = true,
         },
     },
     CharaVampireBat = {
@@ -1622,6 +1692,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaVesda = {
         MetaData = {
             Name = "<Vesda> the fire dragon",
+            NameIsProperNoun = true,
         },
     },
     CharaWarrior = {
@@ -1647,6 +1718,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaWhomDwellInTheVanity = {
         MetaData = {
             Name = "<Whom dwell in the vanity>",
+            NameIsProperNoun = true,
         },
     },
     CharaWildHorse = {
@@ -1687,6 +1759,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaWynan = {
         MetaData = {
             Name = "<Wynan> the lord of the Ancient Castle",
+            NameIsProperNoun = true,
         },
     },
     CharaWyvern = {
@@ -1697,6 +1770,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaXabi = {
         MetaData = {
             Name = "<Xabi> the king of Palmia",
+            NameIsProperNoun = true,
         },
     },
     CharaYeek = {
@@ -1757,6 +1831,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     CharaZeome = {
         MetaData = {
             Name = "<Zeome> the false prophet",
+            NameIsProperNoun = true,
         },
     },
     CharaZombie = {

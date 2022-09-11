@@ -19,6 +19,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Home
 {
@@ -48,6 +49,7 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
         [Dependency] private readonly ITalkSystem _talk = default!;
         [Dependency] private readonly IRankSystem _ranks = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
 
@@ -82,8 +84,10 @@ namespace OpenNefia.Content.Home
         private bool CanWelcome(EntityUid ent, IMap map)
         {
             return EntityManager.IsAlive(ent)
+                && HasComp<CharaComponent>(ent)
                 && !HasComp<Roles.RoleSpecialComponent>(ent)
                 && !HasComp<Roles.RoleAdventurerComponent>(ent)
+                && !_parties.IsInPlayerParty(ent)
                 && (HasComp<ServantComponent>(ent)
                     || _factions.GetRelationToPlayer(ent) == Relation.Neutral
                     || _stayers.IsStayingInMapGlobal(ent, map));
@@ -107,7 +111,7 @@ namespace OpenNefia.Content.Home
             }
 
             for (var i = 0; i < extraTalks; i++)
-                _mes.Display(Loc.GetString("Elona.Home.Okaeri"), UiColors.MesSkyBlue);
+                _mes.Display(Loc.GetString("Elona.Home.WelcomeHome"), UiColors.MesSkyBlue);
 
             // TODO maid
 

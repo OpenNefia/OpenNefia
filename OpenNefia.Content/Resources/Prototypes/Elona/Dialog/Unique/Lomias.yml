@@ -1,4 +1,39 @@
 - type: Elona.Dialog
+  id: Elona.LomiasNewGame
+  nodes:
+    # TODO implement easter egg
+    __start__: !type:DialogJumpNode
+      nextNode: Elona.LomiasNewGame:GameBegin
+    GameBegin: !type:DialogTextNode
+      beforeEnter:
+      - !type:DisplayMessageAction
+        key: Elona.Dialog.Unique.LomiasNewGame.GameBegin.RegainConsciousness
+      texts:
+        - beforeEnter:
+          - !type:SetSpeakerAction
+            target: !type:ByPrototypeCriteria
+              prototypeID: Elona.CharaLomias
+          key: Elona.Dialog.Unique.LomiasNewGame.GameBegin.Text.T1_Lomias
+        - beforeEnter:
+          - !type:SetSpeakerAction
+            target: !type:ByPrototypeCriteria
+              prototypeID: Elona.CharaLarnneire
+          key: Elona.Dialog.Unique.LomiasNewGame.GameBegin.Text.T2_Larnneire
+        - beforeEnter:
+          - !type:SetSpeakerAction
+            target: !type:ByPrototypeCriteria
+              prototypeID: Elona.CharaLomias
+          key: Elona.Dialog.Unique.LomiasNewGame.GameBegin.Text.T3_Lomias
+      choices:
+      - text: Elona.Dialog.Common.Choices.More
+        nextNode: Elona.Lomias:__start__
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: LomiasNewGame_GameBegin_AfterEnter
+
+- type: Elona.Dialog
   id: Elona.Lomias
   nodes:
     __start__: !type:DialogBranchNode
@@ -232,22 +267,33 @@
       - text: Elona.Dialog.Unique.Lomias.TutorialAfter.Choices.GetOut
         nextNode: Elona.Lomias:GetOut
 
-    GetOut: !type:DialogTextNode
+    GetOut: !type:DialogBranchNode
+      conditions:
+        - condition: !type:FindEntitiesWithPrototypeCondition
+            protoID: Elona.CharaLarnneire
+          value: 0
+          node: Elona.Lomias:GetOut_LarnneireDied
+      defaultNode: Elona.Lomias:GetOut_Execute
+    GetOut_LarnneireDied: !type:DialogTextNode
+      beforeEnter:
+        - !type:TurnHostileAction
+          target: !type:CurrentSpeakerCriteria
       texts:
-      - Elona.Dialog.Common.IsSleeping
-
-    # GetOut: !type:DialogBranchNode
-    #   conditions:
-    #   - condition: !type:FindEntitiesWithPrototypeCondition
-    #       protoID: Elona.CharaLarnneire
-    #     value: 0
-    #     node: Elona.Lomias:GetOut_LarnneireDied
-    #   defaultNode: Elona.Lomias:GetOut_Execute
-    # GetOut_LarnneireDied: !type:DialogTextNode
-    # GetOut_Execute: !type:DialogTextNode
-
-- type: Elona.Dialog
-  id: Elona.LomiasNewGame
-  nodes:
-    __start__: !type:DialogJumpNode
-      nextNode: Elona.Lomias:__start__
+        - Elona.Dialog.Unique.Lomias.GetOut_LarnneireDied.Text
+    GetOut_Execute: !type:DialogTextNode
+      texts:
+        - beforeEnter:
+          - !type:SetSpeakerAction
+            target: !type:ByPrototypeCriteria
+              prototypeID: Elona.CharaLarnneire
+          key: Elona.Dialog.Unique.Lomias.GetOut_Execute.Text.T1_Larnneire
+        - beforeEnter:
+          - !type:SetSpeakerAction
+            target: !type:ByPrototypeCriteria
+              prototypeID: Elona.CharaLomias
+          key: Elona.Dialog.Unique.Lomias.GetOut_Execute.Text.T2_Lomias
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback:
+          system: OpenNefia.Content.Dialog.VanillaDialogSystem
+          method: Lomias_GetOut_Execute_AfterEnter

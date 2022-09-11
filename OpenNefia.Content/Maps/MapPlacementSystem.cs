@@ -72,7 +72,8 @@ namespace OpenNefia.Content.Maps
         /// Don't use this recklessly, as it will delete all solid entities on the tile.
         /// </remarks>
         /// <param name="coords"></param>
-        void ForceClearPosition(MapCoordinates coords);
+        /// <param name="deleteNonSolid">Also delete all non-solid entities on the tile.</param>
+        void ForceClearPosition(MapCoordinates coords, bool deleteNonSolid = false);
 
         /// <summary>
         /// Tries to place a character near a position, moving it somewhere close if it isn't available.
@@ -225,7 +226,7 @@ namespace OpenNefia.Content.Maps
             return null;
         }
 
-        public void ForceClearPosition(MapCoordinates coords)
+        public void ForceClearPosition(MapCoordinates coords, bool deleteNonSolid = false)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return;
@@ -239,7 +240,7 @@ namespace OpenNefia.Content.Maps
 
             foreach (var spatial in _lookup.GetLiveEntitiesAtCoords(coords).ToList())
             {
-                if (spatial.IsSolid)
+                if (spatial.IsSolid || deleteNonSolid)
                     EntityManager.DeleteEntity(spatial.Owner);
             }
         }

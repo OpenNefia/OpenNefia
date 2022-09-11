@@ -1,3 +1,28 @@
+Elona.Dialog.Unique.LomiasNewGame = {
+    GameBegin = {
+        Text = {
+            T1_Lomias = {
+                "…意識が…もう戻ったのか？ 驚いたな。君の回復を待つために、我々の急を要する旅がいつまで中断されるのか、気を揉んでいたのだが。",
+                "君は重傷を負い川辺に倒れていた。宵闇が辺りを覆う前に、癒し手の力を持つ我々に発見されたのは、全くよくできた偶然だ。",
+                " …そんな物珍しげな顔をするな。君の察する通り、我々は異形の森の民だ。エレアは…シエラ・テールの高潔なる異端者は、他種族の詮索に付き合う無駄な時間をあいにく持ち合わせていないが、君は、我々に拾われた幸運をもっと素直に喜ぶべきだな。瀕死の君を回復させることは、ここにいるラーネイレ以外の何者にも不可能だっただろう。なにせ彼女はエレアの…",
+            },
+            T2_Larnneire = {
+                "ロミアス、喋りすぎよ。たとえ意識の朦朧とした怪我人が相手だとしても。",
+            },
+            T3_Lomias = {
+                function(speaker, player)
+                    return (
+                        "…そうだな。私の悪い癖だ、わかってはいる。…さて、%sといったな、"
+                    ):format(_.basename(player))
+                end,
+            },
+        },
+        RegainConsciousness = function(speaker, player)
+            return ("%sは意識をとりもどした。"):format(_.name(player))
+        end,
+    },
+}
+
 Elona.Dialog.Unique.Lomias = {
     Tutorial0 = {
         Text = "見たところ君はノースティリスの人間ではないようだ。余計な世話でなければ、我々が旅を再開する前に、この土地での生活の知恵を授ける程度の時間は割けるのだが。",
@@ -129,6 +154,29 @@ Elona.Dialog.Unique.Lomias = {
         Choices = {
             GetOut = "わが家から出て行ってほしい",
             Nothing = "何も",
+        },
+    },
+
+    GetOut_LarnneireDied = {
+        Text = "ラーネイレ…？ どこにいったんだ？ まさか貴様！",
+    },
+    GetOut_Execute = {
+        Text = {
+            T1_Larnneire = {
+                function(speaker, player)
+                    return (
+                        "%sの言うとおり、私達に残されている時間は少ないわ。こうしている間にも、新王国のかの者の計画は着実に進んでいる… 出発しよう、ロミアス。"
+                    ):format(_.basename(player))
+                end,
+            },
+            T2_Lomias = {
+                "ああ、わかった。パルミアまでは長い旅路だ。一時であれ休息をとれて良かったのかも知れないな。",
+                function(speaker, player)
+                    return ("また巡り会う時まで、%s、あなたに風の加護のあらんことを。"):format(
+                        _.alias(player)
+                    )
+                end,
+            },
         },
     },
 }

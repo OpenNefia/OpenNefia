@@ -17,6 +17,7 @@ namespace OpenNefia.Content.DisplayName
             base.Initialize();
 
             SubscribeComponent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, priority: EventPriorities.Highest);
+            SubscribeComponent<MetaDataComponent, GetDisplayNameEventArgs>(GetDefaultDisplayName, priority: EventPriorities.Highest);
         }
 
         private string GetFallbackName(EntityUid uid)
@@ -26,9 +27,15 @@ namespace OpenNefia.Content.DisplayName
 
         private void GetDefaultBaseName(EntityUid uid, MetaDataComponent metaData, ref GetBaseNameEventArgs args)
         {
-            var baseName = metaData.DisplayName ?? GetFallbackName(uid); 
+            var baseName = metaData.DisplayName ?? GetFallbackName(uid);
 
             args.OutBaseName = baseName;
+        }
+
+        private void GetDefaultDisplayName(EntityUid uid, MetaDataComponent component, ref GetDisplayNameEventArgs args)
+        {
+            if (component.NameIsProperNoun)
+                args.OutAddArticle = false;
         }
 
         public string GetBaseName(EntityUid uid)
@@ -64,6 +71,7 @@ namespace OpenNefia.Content.DisplayName
         public string BaseName { get; }
         
         public string OutName { get; set; } = string.Empty;
+        public bool OutAddArticle { get; set; } = true;
 
         public GetDisplayNameEventArgs(string baseName)
         {

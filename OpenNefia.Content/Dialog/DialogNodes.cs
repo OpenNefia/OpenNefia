@@ -128,7 +128,7 @@ namespace OpenNefia.Content.Dialog
 
         public static DialogTextEntry FromString(string text)
         {
-            return new() { Text = text };
+            return new DialogTextEntry() { Text = text };
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace OpenNefia.Content.Dialog
         /// <returns></returns>
         public static DialogTextEntry FromLocaleKey(LocaleKey key)
         {
-            return new() { Key = key };
+            return new DialogTextEntry() { Key = key };
         }
 
         /// <summary>
@@ -164,6 +164,20 @@ namespace OpenNefia.Content.Dialog
         /// </remarks>
         [DataField]
         public LocaleKey? Key { get; internal set; }
+
+        /// <summary>
+        /// Actions to execute before this text is displayed.
+        /// </summary>
+        [DataField("beforeEnter")]
+        public List<IDialogAction> _beforeEnter { get; } = new();
+        public IReadOnlyList<IDialogAction> BeforeEnter => _beforeEnter;
+
+        /// <summary>
+        /// Actions to execute after this text is displayed.
+        /// </summary>
+        [DataField("afterEnter")]
+        public List<IDialogAction> _afterEnter { get; } = new();
+        public IReadOnlyList<IDialogAction> AfterEnter => _afterEnter;
     }
 
     /// <summary>
@@ -329,6 +343,9 @@ namespace OpenNefia.Content.Dialog
                 var entry = entries[i];
                 var localizedTexts = GetLocalizedText(entry, engine);
 
+                foreach (var action in entry.BeforeEnter)
+                    action.Invoke(engine, this);
+
                 for (var j = 0; j < localizedTexts.Count; j++)
                 {
                     var localizedText = localizedTexts[j];
@@ -399,6 +416,9 @@ namespace OpenNefia.Content.Dialog
                     // be used to determine the node to jump to.
                     result = uiMan.Query(engine.DialogLayer);
                 }
+
+                foreach (var action in entry.AfterEnter)
+                    action.Invoke(engine, this);
             }
             
             foreach (var action in AfterEnter)

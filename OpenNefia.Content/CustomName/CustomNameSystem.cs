@@ -36,6 +36,7 @@ namespace OpenNefia.Content.CustomName
         {
             SubscribeComponent<CharaNameGenComponent, EntityBeingGeneratedEvent>(GenerateRandomName, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CustomNameComponent, GetDisplayNameEventArgs>(GetCustomName, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<CustomNameComponent, GetBaseNameEventArgs>(GetCustomBaseName, priority: EventPriorities.VeryHigh);
         }
 
         public void PromptForNewName(EntityUid target)
@@ -64,20 +65,32 @@ namespace OpenNefia.Content.CustomName
 
             var customName = EnsureComp<CustomNameComponent>(uid);
             customName.CustomName = _randomNames.GenerateRandomName();
-            customName.ShowBaseName = true;
+            customName.ShowDisplayName = true;
         }
 
         private void GetCustomName(EntityUid uid, CustomNameComponent component, ref GetDisplayNameEventArgs args)
         {
-            if (component.ShowBaseName)
+            if (component.CustomName != null)
             {
-                // "Arnord the putit"
-                args.OutName = Loc.GetString("Elona.DisplayName.WithBaseName", ("baseName", args.BaseName), ("customName", component.CustomName));
+                if (component.ShowDisplayName && TryComp<MetaDataComponent>(uid, out var meta) && meta.DisplayName != null)
+                {
+                    // "Arnord the putit"
+                    args.OutName = Loc.GetString("Elona.DisplayName.WithMetaDataName", ("metaDataName", meta.DisplayName), ("customName", component.CustomName));
+                }
+                else
+                {
+                    // "Arnord"
+                    args.OutName = component.CustomName;
+                }
+                args.OutAddArticle = false;
             }
-            else
+        }
+
+        private void GetCustomBaseName(EntityUid uid, CustomNameComponent component, ref GetBaseNameEventArgs args)
+        {
+            if (component.CustomName != null)
             {
-                // "Arnord"
-                args.OutName = component.CustomName;
+                args.OutBaseName = component.CustomName;
             }
         }
     }

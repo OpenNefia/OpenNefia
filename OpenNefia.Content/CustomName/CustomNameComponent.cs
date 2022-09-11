@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using NLua;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.CustomName
@@ -14,15 +16,13 @@ namespace OpenNefia.Content.CustomName
         public override string Name => "CustomName";
 
         [DataField]
-        public string CustomName { get; set; } = string.Empty;
+        public string? CustomName { get; set; }
 
         /// <summary>
-        /// Display the name like "Orland the putit" instead of just "Orland".
+        /// Display the name like "Orland the putit" instead of just "Orland", where
+        /// "putit" is the <see cref="MetaDataComponent.DisplayName"/>.
         /// </summary>
         [DataField]
-        public bool ShowBaseName { get; set; } = false;
-
-        [DataField]
-        public string? Title { get; set; }
+        public bool ShowDisplayName { get; set; } = false;
     }
 }
