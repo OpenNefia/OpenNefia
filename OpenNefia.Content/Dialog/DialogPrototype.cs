@@ -28,18 +28,5 @@ namespace OpenNefia.Content.Dialog
         /// Set of all nodes in this dialog.
         /// </summary>
         public IReadOnlyDictionary<string, IDialogNode> Nodes => _nodes;
-
-        [DataField("scriptImports")]
-        private HashSet<string> _scriptImports { get; set; } = new();
-        public IReadOnlySet<string> ScriptImports => _scriptImports;
-
-        [DataField("scriptDependencies")]
-        private Dictionary<string, Type> _scriptDependencies { get; set; } = new();
-        public IReadOnlyDictionary<string, Type> ScriptDependencies => _scriptDependencies;
-
-        [DataField]
-        public string? ScriptHeader { get; }
-
-        internal object? ScriptObject { get; set; }
     }
 }

@@ -71,8 +71,6 @@ namespace OpenNefia.Content.Dialog
             SubscribeComponent<DialogComponent, EntityBeingGeneratedEvent>(InitializePersonality);
             SubscribeEntity<CheckKillEvent>(ProcImpressionChange);
             SubscribeComponent<DialogComponent, WasCollidedWithEventArgs>(HandledCollidedWith, priority: EventPriorities.Low + 1000);
-
-            _protos.PrototypesReloaded += CompileDialogs;
         }
 
         private void InitializePersonality(EntityUid uid, DialogComponent component, ref EntityBeingGeneratedEvent args)

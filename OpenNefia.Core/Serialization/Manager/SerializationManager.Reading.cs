@@ -174,20 +174,19 @@ namespace OpenNefia.Core.Serialization.Manager
                 }
                 else if (typeof(Delegate).IsAssignableFrom(value))
                 {
-                    if (node is not ValueDataNode)
+                    call = node switch
                     {
-                        throw new InvalidNodeTypeException(
-                            $"Cannot read {nameof(Delegate)} from node type {nodeType}. Expected {nameof(ValueDataNode)}");
-                    }
-
-                    call = value.IsValueType switch
-                    {
-                        true when nullable => call = Expression.Call(
+                        MappingDataNode => Expression.Call(
+                            instanceConst,
+                            nameof(ReadDelegateMapping),
+                            new[] { value },
+                            Expression.Convert(nodeParam, typeof(MappingDataNode))),
+                        ValueDataNode when nullable && value.IsValueType => Expression.Call(
                             instanceConst,
                             nameof(ReadDelegateNullableValue),
                             new[] { value },
                             Expression.Convert(nodeParam, typeof(ValueDataNode))),
-                        _ => call = Expression.Call(
+                        _ => Expression.Call(
                             instanceConst,
                             nameof(ReadDelegateValue),
                             new[] { value },
@@ -506,6 +505,21 @@ namespace OpenNefia.Core.Serialization.Manager
             var systemTypeName = split[0];
             var methodName = split[1];
 
+            return ReadDelegateValue<TDelegate>(systemTypeName, methodName);
+        }
+
+        private DeserializationResult ReadDelegateMapping<TDelegate>(MappingDataNode node)
+            where TDelegate : Delegate
+        {
+            var systemTypeName = node.Cast<ValueDataNode>("system").Value;
+            var methodName = node.Cast<ValueDataNode>("method").Value;
+
+            return ReadDelegateValue<TDelegate>(systemTypeName, methodName);
+        }
+
+        private DeserializationResult ReadDelegateValue<TDelegate>(string systemTypeName, string methodName)
+            where TDelegate : Delegate
+        {
             if (!_reflectionManager.TryLooseGetType(systemTypeName, out var systemType))
             {
                 throw new ArgumentException($"No type with loose typename '{systemTypeName}' found.");
@@ -520,7 +534,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 throw new ArgumentException($"Delegate target type {systemType} does not implement {nameof(IEntitySystem)}.");
             }
-            
+
             // End result should be equivalent to:
             // (...) => EntitySystem.Get<TSystem>().MethodName(...);
 
@@ -543,7 +557,7 @@ namespace OpenNefia.Core.Serialization.Manager
             }
 
             var call = Expression.Call(Expression.Call(entitySystemGet), method, parameters);
-            
+
             var value = Expression.Lambda<TDelegate>(call, parameters).Compile();
 
             return new DeserializedValue<TDelegate?>(value);

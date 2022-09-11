@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Dialog
     /// </summary>
     /// <param name="engine">Current dialog engine.</param>
     /// <param name="node">Current dialog node.</param>
-    public delegate void DialogActionDelegate(IDialogEngine engine, IScriptableDialogNode node);
+    public delegate void DialogActionDelegate(IDialogEngine engine, IDialogNode node);
 
     /// <summary>
     /// Represents code that can run in a dialog node that can influence its control flow.
@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Dialog
     /// <param name="engine">Current dialog engine.</param>
     /// <param name="node">Current dialog node.</param>
     /// <returns>The next node in a dialog to jump to.</returns>
-    public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IScriptableDialogNode node);
+    public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IDialogNode node);
 
     /// <summary>
     /// Represents a dialog node.
@@ -82,7 +82,7 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
-    public sealed class DialogJumpNode : IScriptableDialogNode
+    public sealed class DialogJumpNode : IDialogNode
     {
         [DataField("texts", required: true)]
         private List<DialogTextEntry> _texts { get; } = new();
@@ -96,15 +96,16 @@ namespace OpenNefia.Content.Dialog
         public QualifiedDialogNodeID NextNode { get; } = QualifiedDialogNodeID.Empty;
 
         /// <summary>
-        /// Code to execute before this node is entered.
+        /// Actions to execute before this node is entered.
         /// </summary>
-        [DataField]
-        public string? BeforeEnter { get; }
-        internal DialogActionDelegate? BeforeEnterCompiled { get; set; }
+        [DataField("beforeEnter")]
+        public List<IDialogAction> _beforeEnter { get; } = new();
+        public IReadOnlyList<IDialogAction> BeforeEnter => _beforeEnter;
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
-            BeforeEnterCompiled?.Invoke(engine, this);
+            foreach (var action in BeforeEnter)
+                action.Invoke(engine, this);
 
             if (_texts.Count == 0)
                 return engine.GetNodeByID(NextNode);
@@ -114,18 +115,6 @@ namespace OpenNefia.Content.Dialog
         }
 
         public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(NextNode);
-
-        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
-        {
-            if (BeforeEnter != null)
-                targets["BeforeEnter"] = new(typeof(DialogActionDelegate), BeforeEnter);
-        }
-
-        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
-        {
-            if (compiled.TryGetValue("BeforeEnter", out var before))
-                BeforeEnterCompiled = (DialogActionDelegate)before;
-        }
     }
 
     /// <summary>
@@ -218,17 +207,19 @@ namespace OpenNefia.Content.Dialog
     /// <summary>
     /// Dialog node for displaying text and choices. This is the usual node for scripting dialogs.
     /// </summary>
-    public sealed class DialogTextNode : IScriptableDialogNode
+    public sealed class DialogTextNode : IDialogNode
     {
         public DialogTextNode() { }
 
         public DialogTextNode(List<DialogTextEntry> texts, List<DialogChoiceEntry> choices,
-            DialogActionDelegate? beforeEnter = null, DialogActionDelegate? afterEnter = null)
+            List<IDialogAction>? beforeEnter = null, List<IDialogAction>? afterEnter = null)
         {
             _texts = texts;
             _choices = choices;
-            BeforeEnterCompiled = beforeEnter;
-            AfterEnterCompiled = afterEnter;
+            if (beforeEnter != null)
+                _beforeEnter.AddRange(beforeEnter);
+            if (afterEnter != null)
+                _afterEnter.AddRange(afterEnter);
         }
 
         [DataField("texts", required: true)]
@@ -248,18 +239,18 @@ namespace OpenNefia.Content.Dialog
         public IReadOnlyList<DialogChoiceEntry> Choices => _choices;
 
         /// <summary>
-        /// Code to run before this node is entered.
+        /// Actions to execute before this node is entered.
         /// </summary>
-        [DataField]
-        public string? BeforeEnter { get; }
-        internal DialogActionDelegate? BeforeEnterCompiled { get; set; }
+        [DataField("beforeEnter")]
+        public List<IDialogAction> _beforeEnter { get; } = new();
+        public IReadOnlyList<IDialogAction> BeforeEnter => _beforeEnter;
 
         /// <summary>
-        /// Code to run after this node is exited.
+        /// Actions to execute after this node is exited.
         /// </summary>
-        [DataField]
-        public string? AfterEnter { get; }
-        internal DialogActionDelegate? AfterEnterCompiled { get; set; }
+        [DataField("afterEnter")]
+        public List<IDialogAction> _afterEnter { get; } = new();
+        public IReadOnlyList<IDialogAction> AfterEnter => _afterEnter;
 
         [DataField]
         public LocaleKey ByeChoice { get; set; } = "Elona.Dialog.Common.Choices.Bye";
@@ -324,7 +315,8 @@ namespace OpenNefia.Content.Dialog
 
             int defaultChoiceIndex = -1;
 
-            BeforeEnterCompiled?.Invoke(engine, this);
+            foreach (var action in BeforeEnter)
+                action.Invoke(engine, this);
 
             UiResult<DialogResult>? result = null;
 
@@ -400,7 +392,7 @@ namespace OpenNefia.Content.Dialog
                         Choices = choices,
                         CanCancel = defaultChoiceIndex != -1
                     };
-                    
+
                     engine.DialogLayer.UpdateFromStepData(step);
 
                     // Intermediate results from the dialog layer are ignored; the final result will
@@ -408,8 +400,9 @@ namespace OpenNefia.Content.Dialog
                     result = uiMan.Query(engine.DialogLayer);
                 }
             }
-
-            AfterEnterCompiled?.Invoke(engine, this);
+            
+            foreach (var action in AfterEnter)
+                action.Invoke(engine, this);
 
             if (result == null)
                 return null;
@@ -451,52 +444,25 @@ namespace OpenNefia.Content.Dialog
 
             return engine.GetNodeByID(nextNodeID.Value);
         }
-
-        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
-        {
-            if (BeforeEnter != null)
-                targets["BeforeEnter"] = new(typeof(DialogActionDelegate), BeforeEnter);
-            if (AfterEnter != null)
-                targets["AfterEnter"] = new(typeof(DialogActionDelegate), AfterEnter);
-        }
-
-        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
-        {
-            if (compiled.TryGetValue("BeforeEnter", out var before))
-                BeforeEnterCompiled = (DialogActionDelegate)before;
-            if (compiled.TryGetValue("AfterEnter", out var after))
-                AfterEnterCompiled = (DialogActionDelegate)after;
-        }
     }
 
     /// <summary>
     /// Dialog node that runs custom code and returns the next node to jump to.
     /// </summary>
-    public sealed class DialogCallbackNode : IScriptableDialogNode
+    public sealed class DialogCallbackNode : IDialogNode
     {
         /// <summary>
         /// Code to run, which returns the next node.
         /// </summary>
         [DataField(required: true)]
-        public string Callback { get; } = default!;
-        internal DialogNodeDelegate CallbackCompiled { get; set; } = default!;
+        public DialogNodeDelegate Callback { get; } = default!;
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
-            return CallbackCompiled(engine, this);
+            return Callback(engine, this);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => CallbackCompiled(engine, this);
-
-        public void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets)
-        {
-            targets["Callback"] = new(typeof(DialogNodeDelegate), Callback);
-        }
-
-        public void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled)
-        {
-            CallbackCompiled = (DialogNodeDelegate)compiled["Callback"];
-        }
+        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => Callback(engine, this);
     }
 
     /// <summary>
@@ -579,7 +545,7 @@ namespace OpenNefia.Content.Dialog
                 {
                     if (condition.Node == null) // "end the dialog" case
                         return null;
-                    
+
                     return engine.GetNodeByID(condition.Node.Value);
                 }
             }
