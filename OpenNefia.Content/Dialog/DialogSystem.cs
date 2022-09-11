@@ -33,7 +33,25 @@ namespace OpenNefia.Content.Dialog
     {
         void ModifyImpression(EntityUid uid, int delta, DialogComponent? dialog = null);
         int GetImpressionLevel(int impression);
+
+        /// <summary>
+        /// Attempts to start a dialog with a character, taking into account things like the speaker
+        /// being asleep.
+        /// </summary>
+        /// <param name="source">Character initiating the chat.</param>
+        /// <param name="target">Character to chat with.</param>
+        /// <param name="force">Ignore the relation of the speaker to the target.</param>
+        /// <param name="dialogID">Dialog to display, overriding the one in the <see cref="DialogComponent"/>.</param>
+        /// <returns>Turn result to apply to the player when the dialog ends.</returns>
         TurnResult TryToChatWith(EntityUid source, EntityUid target, bool force = false, PrototypeId<DialogPrototype>? dialogID = null);
+
+        /// <summary>
+        /// Starts a dialog with a character.
+        /// </summary>
+        /// <param name="source">Character initiating the chat.</param>
+        /// <param name="target">Character to chat with.</param>
+        /// <param name="dialogID">Dialog to display, overriding the one in the <see cref="DialogComponent"/>.</param>
+        /// <returns>Turn result to apply to the player when the dialog ends.</returns>
         TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID);
         string GetDefaultSpeakerName(EntityUid uid);
     }

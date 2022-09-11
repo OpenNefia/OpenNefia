@@ -15,12 +15,18 @@ namespace OpenNefia.Content.Dialog
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
+        /// <summary>
+        /// Node to start on when the dialog is initiated.
+        /// </summary>
         [DataField(required: true)]
         public string StartNode { get; } = "__start__";
 
         [DataField("nodes", required: true)]
         private Dictionary<string, IDialogNode> _nodes = new();
 
+        /// <summary>
+        /// Set of all nodes in this dialog.
+        /// </summary>
         public IReadOnlyDictionary<string, IDialogNode> Nodes => _nodes;
 
         [DataField("scriptImports")]

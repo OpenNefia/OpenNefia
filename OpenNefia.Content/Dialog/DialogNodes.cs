@@ -20,44 +20,48 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.Content.Dialog
 {
+    /*
+     * Some designs for the node types here were inspired by Skyrim's dialogue editor.
+     */
+
+    /// <summary>
+    /// Represents code that can run before/after a dialog node, or similar, but does not change the
+    /// dialog's control flow.
+    /// </summary>
+    /// <param name="engine">Current dialog engine.</param>
+    /// <param name="node">Current dialog node.</param>
     public delegate void DialogActionDelegate(IDialogEngine engine, IScriptableDialogNode node);
+
+    /// <summary>
+    /// Represents code that can run in a dialog node that can influence its control flow.
+    /// </summary>
+    /// <param name="engine">Current dialog engine.</param>
+    /// <param name="node">Current dialog node.</param>
+    /// <returns>The next node in a dialog to jump to.</returns>
     public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IScriptableDialogNode node);
 
+    /// <summary>
+    /// Represents a dialog node.
+    /// </summary>
     [ImplicitDataDefinitionForInheritors]
     public interface IDialogNode
     {
+        /// <summary>
+        /// Runs this node's logic.
+        /// </summary>
+        /// <param name="engine">Current dialog engine.</param>
+        /// <returns>The next node to traverse to, or <c>null</c> to end the dialog.</returns>
         QualifiedDialogNode? Invoke(IDialogEngine engine);
+
+        /// <summary>
+        /// Gets the default node to traverse to.
+        /// </summary>
+        /// <remarks>
+        /// This would be used in non-interactive testing scenarios.
+        /// </remarks>
+        /// <param name="engine">Current dialog engine.</param>
+        /// <returns>The next node to traverse to, or <c>null</c> to end the dialog.</returns>
         QualifiedDialogNode? GetDefaultNode(IDialogEngine engine);
-    }
-
-    public sealed record DialogScriptTarget(Type DelegateType, string Code);
-    public sealed record DialogScriptResult(Dictionary<string, Dictionary<string, Delegate>> Callbacks);
-
-    public interface IScriptableDialogNode : IDialogNode
-    {
-        /// <summary>
-        /// Asks the dialog node to give a set of script code/target delegate types for compilation.
-        /// </summary>
-        void GetCodeToCompile(ref Dictionary<string, DialogScriptTarget> targets);
-
-        /// <summary>
-        /// Given the compiled code, asks the dialog node to update its delegate fields with the
-        /// results.
-        /// </summary>
-        void AddCompiledCode(IReadOnlyDictionary<string, Delegate> compiled);
-    }
-
-    [DataDefinition]
-    public sealed class DialogChoiceEntry
-    {
-        [DataField]
-        public QualifiedDialogNodeID? NextNode { get; set; }
-
-        [DataField]
-        public DialogTextEntry Text { get; set; } = DialogTextEntry.FromString("");
-
-        [DataField]
-        public bool IsDefault { get; set; } = false;
     }
 
     public sealed class DialogTextOverride : IDialogExtraData
@@ -85,6 +89,9 @@ namespace OpenNefia.Content.Dialog
 
         public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
+        /// <summary>
+        /// ID of the node to jump to.
+        /// </summary>
         [DataField(required: true)]
         public QualifiedDialogNodeID NextNode { get; } = QualifiedDialogNodeID.Empty;
 
@@ -121,6 +128,10 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    /// <summary>
+    /// Represents one text entry in a <see cref="DialogTextNode"/>. This can either contain a raw
+    /// string or a locale key referencing the text to display.
+    /// </summary>
     [DataDefinition]
     public sealed class DialogTextEntry
     {
@@ -145,13 +156,68 @@ namespace OpenNefia.Content.Dialog
             return new() { Key = key };
         }
 
+        /// <summary>
+        /// Raw text to display.
+        /// </summary>
+        /// <remarks>
+        /// Mutually exclusive with <see cref="Key"/>.
+        /// </remarks>
         [DataField]
         public string? Text { get; internal set; }
 
+        /// <summary>
+        /// Locale key referencing the text to display. This can either be a string or list in the
+        /// locale environment. In the list case, each entry in the list will be displayed one after
+        /// the other.
+        /// </summary>
+        /// <remarks>
+        /// Mutually exclusive with <see cref="Text"/>.
+        /// </remarks>
         [DataField]
         public LocaleKey? Key { get; internal set; }
     }
 
+    /// <summary>
+    /// Represents a single choice in a <see cref="DialogTextNode"/>.
+    /// </summary>
+    [DataDefinition]
+    public sealed class DialogChoiceEntry
+    {
+        /// <summary>
+        /// The node to jump to when this choice is picked.
+        /// </summary>
+        [DataField]
+        public QualifiedDialogNodeID? NextNode { get; set; }
+
+        /// <summary>
+        /// Text of this node.
+        /// </summary>
+        [DataField]
+        public DialogTextEntry Text { get; set; } = DialogTextEntry.FromString("");
+
+        /// <summary>
+        /// If true, this choice can be automatically chosen by pressing the Cancel key when it is
+        /// being displayed.
+        /// </summary>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>
+        /// Only one item in a list of <see cref="DialogChoiceEntry"/> should have this set to
+        /// <c>true</c>.
+        /// </item>
+        /// <item>
+        /// A list containing only one choice automatically treats that choice as having <see
+        /// cref="IsDefault"/> set to <c>true</c>.
+        /// </item>
+        /// </list>
+        /// </remarks>
+        [DataField]
+        public bool IsDefault { get; set; } = false;
+    }
+
+    /// <summary>
+    /// Dialog node for displaying text and choices. This is the usual node for scripting dialogs.
+    /// </summary>
     public sealed class DialogTextNode : IScriptableDialogNode
     {
         public DialogTextNode() { }
@@ -168,17 +234,29 @@ namespace OpenNefia.Content.Dialog
         [DataField("texts", required: true)]
         private List<DialogTextEntry> _texts { get; } = new();
 
+        /// <summary>
+        /// Texts to display.
+        /// </summary>
         public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
         [DataField("choices", required: true)]
         private List<DialogChoiceEntry> _choices { get; } = new();
 
+        /// <summary>
+        /// Choices to display for the last text entry.
+        /// </summary>
         public IReadOnlyList<DialogChoiceEntry> Choices => _choices;
 
+        /// <summary>
+        /// Code to run before this node is entered.
+        /// </summary>
         [DataField]
         public string? BeforeEnter { get; }
         internal DialogActionDelegate? BeforeEnterCompiled { get; set; }
 
+        /// <summary>
+        /// Code to run after this node is exited.
+        /// </summary>
         [DataField]
         public string? AfterEnter { get; }
         internal DialogActionDelegate? AfterEnterCompiled { get; set; }
@@ -188,27 +266,32 @@ namespace OpenNefia.Content.Dialog
 
         private IReadOnlyList<string> GetLocalizedText(DialogTextEntry text, IDialogEngine engine)
         {
+            // Use the raw string if it's available.
             if (text.Text != null)
                 return new List<string>() { text.Text };
 
+            // Pass default locale arguments.
             var args = new LocaleArg[]
             {
                 ("speaker", engine.Speaker),
                 ("player", engine.Player)
             };
 
-            // Check lists.
+            // Check lists. In Lua:
             //
             // Dialog.Text = { "Text 1.", "Text 2.", "Text 3" }
             if (Loc.TryGetList(text.Key!.Value, out var list, args))
                 return list;
 
-            // Check single strings.
+            // Check single strings. In Lua:
             //
             // Dialog.Text = "Some text."
             return new List<string>() { Loc.GetString(text.Key!.Value, args) };
         }
 
+        /// <summary>
+        /// Used for when only a single string is expected (choices).
+        /// </summary>
         private string GetSingleLocalizedText(DialogTextEntry text, IDialogEngine engine)
         {
             if (text.Text != null)
@@ -227,6 +310,12 @@ namespace OpenNefia.Content.Dialog
             var dialog = EntitySystem.Get<IDialogSystem>();
 
             IReadOnlyList<DialogTextEntry> entries = _texts;
+
+            // Check if a previous dialog node set any text overrides. This can happen if the dialog
+            // scriptor wants to inherit the choices of a specific node, but wants differing text.
+            //
+            // An example is showing "You kidding?" and returning the player to the list of default
+            // "villager talk" choices.
             if (engine.Data.TryGet<DialogTextOverride>(out var textOverride))
             {
                 entries = textOverride.Texts;
@@ -241,6 +330,10 @@ namespace OpenNefia.Content.Dialog
 
             for (var i = 0; i < _texts.Count; i++)
             {
+                // Each entry could either reference a single string or multiple. This is because
+                // the necessary amount of localized text could vary between languages, so it
+                // doesn't always make sense to have a 1:1 mapping. Hence, the "list" form of the
+                // localized text allows for the number of lines to vary.
                 var entry = entries[i];
                 var localizedTexts = GetLocalizedText(entry, engine);
 
@@ -249,12 +342,15 @@ namespace OpenNefia.Content.Dialog
                     var localizedText = localizedTexts[j];
                     defaultChoiceIndex = -1;
 
+                    var isAtEndOfAllTexts = i == _texts.Count - 1 && j == localizedTexts.Count - 1;
+
                     List<DialogChoice> choices = new();
-                    if (i == _texts.Count - 1 && j == localizedTexts.Count - 1)
+                    if (isAtEndOfAllTexts)
                     {
                         if (_choices.Count == 0)
                         {
-                            // "Bye bye."
+                            // No choices were specified, default to a "Bye bye" choice that ends
+                            // the dialog.
                             choices.Add(new DialogChoice()
                             {
                                 Text = Loc.GetString(ByeChoice)
@@ -263,7 +359,7 @@ namespace OpenNefia.Content.Dialog
                         }
                         else
                         {
-                            // Standard list of choices after all text has been advanced.
+                            // Show the standard list of choices after all text has been advanced.
                             foreach (var choice in _choices)
                             {
                                 choices.Add(new DialogChoice()
@@ -271,9 +367,9 @@ namespace OpenNefia.Content.Dialog
                                     Text = GetSingleLocalizedText(choice.Text, engine)
                                 });
                             }
-                            
+
                             // Canceling with only one choice is the same as selecting that choice.
-                            // Else, it's the first choice that's set as the default.
+                            // Else, the selected choice is the first choice that's set as the default.
                             if (_choices.Count == 1)
                                 defaultChoiceIndex = 0;
                             else
@@ -282,7 +378,7 @@ namespace OpenNefia.Content.Dialog
                     }
                     else
                     {
-                        // "(More)"
+                        // Still more text to show, so display "(More)".
                         choices.Add(new DialogChoice()
                         {
                             Text = Loc.GetString("Elona.Dialog.Common.Choices.More")
@@ -294,6 +390,8 @@ namespace OpenNefia.Content.Dialog
                     if (entityMan.IsAlive(engine.Speaker))
                         speakerName = dialog.GetDefaultSpeakerName(engine.Speaker.Value);
 
+                    // Now we will ask the provided IDialogLayer to update its state and present the
+                    // text/choices.
                     var step = new DialogStepData()
                     {
                         Target = engine.Speaker,
@@ -302,8 +400,11 @@ namespace OpenNefia.Content.Dialog
                         Choices = choices,
                         CanCancel = defaultChoiceIndex != -1
                     };
-
+                    
                     engine.DialogLayer.UpdateFromStepData(step);
+
+                    // Intermediate results from the dialog layer are ignored; the final result will
+                    // be used to determine the node to jump to.
                     result = uiMan.Query(engine.DialogLayer);
                 }
             }
@@ -368,8 +469,14 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    /// <summary>
+    /// Dialog node that runs custom code and returns the next node to jump to.
+    /// </summary>
     public sealed class DialogCallbackNode : IScriptableDialogNode
     {
+        /// <summary>
+        /// Code to run, which returns the next node.
+        /// </summary>
         [DataField(required: true)]
         public string Callback { get; } = default!;
         internal DialogNodeDelegate CallbackCompiled { get; set; } = default!;
@@ -392,77 +499,50 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    /// <summary>
+    /// A testable condition for a <see cref="DialogBranchNode"/>.
+    /// </summary>
     [ImplicitDataDefinitionForInheritors]
     public interface IDialogCondition
     {
+        /// <summary>
+        /// Gets the value of this condition. This can then be tested using a <see cref="ComparisonType"/>.
+        /// </summary>
+        /// <param name="engine"></param>
+        /// <returns></returns>
         int GetValue(IDialogEngine engine);
     }
 
-    public sealed class SidequestStateCondition : IDialogCondition
-    {
-        [Dependency] private readonly ISidequestSystem _sidequests = default!;
-
-        [DataField]
-        public PrototypeId<SidequestPrototype> SidequestID { get; set; }
-
-        public int GetValue(IDialogEngine engine)
-        {
-            EntitySystem.InjectDependencies(this);
-
-            return _sidequests.GetState(SidequestID);
-        }
-    }
-
-    public sealed class FindEntitiesWithTagCondition : IDialogCondition
-    {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly ITagSystem _tags = default!;
-
-        [DataField]
-        public PrototypeId<TagPrototype> Tag { get; set; }
-
-        public int GetValue(IDialogEngine engine)
-        {
-            EntitySystem.InjectDependencies(this);
-
-            var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
-            return _tags.EntitiesWithTagInMap(spatial.MapID, Tag).Count();
-        }
-    }
-
-    public sealed class FindEntitiesWithPrototypeCondition : IDialogCondition
-    {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-
-        [DataField]
-        public PrototypeId<EntityPrototype> ProtoID { get; set; }
-
-        public int GetValue(IDialogEngine engine)
-        {
-            EntitySystem.InjectDependencies(this);
-
-            var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
-            return _lookup.EntityQueryInMap<MetaDataComponent>(spatial.MapID)
-                .Where(metadata => metadata.EntityPrototype?.GetStrongID() == ProtoID)
-                .Count();
-        }
-    }
-
+    /// <summary>
+    /// Represents one branch arm of a <see cref="DialogBranchNode"/>.
+    /// </summary>
     [DataDefinition]
     public sealed class DialogBranchCondition
     {
+        /// <summary>
+        /// Condition that will provide an integer value to test.
+        /// </summary>
         [DataField(required: true)]
         public IDialogCondition Condition { get; set; } = default!;
 
+        /// <summary>
+        /// Comparison to be made on the condition's returned value.
+        /// </summary>
         [DataField]
         public ComparisonType Comparison { get; set; } = ComparisonType.Equal;
 
+        /// <summary>
+        /// Value to compare the condition's with. For true/false conditions, <c>1</c> is true and
+        /// <c>0</c> is false.
+        /// </summary>
         [DataField(required: true)]
         public int Value { get; set; } = 0;
 
+        /// <summary>
+        /// Node to jump to if the conditional test passes.
+        /// </summary>
         [DataField(required: true)]
-        public QualifiedDialogNodeID Node { get; set; }
+        public QualifiedDialogNodeID? Node { get; set; }
 
         public bool Test(IDialogEngine engine)
         {
@@ -471,13 +551,24 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    /// <summary>
+    /// Dialog node that tests one or more conditions and jumps to a node based on the result.
+    /// </summary>
     public sealed class DialogBranchNode : IDialogNode
     {
+        /// <summary>
+        /// Default node to jump to if no conditions match.
+        /// </summary>
         [DataField(required: true)]
         public QualifiedDialogNodeID? DefaultNode { get; }
 
         [DataField("conditions")]
         private List<DialogBranchCondition> _conditions { get; set; } = new();
+
+        /// <summary>
+        /// List of conditions. They will be evaluated in order, and the first one that matches will
+        /// be chosen, if any.
+        /// </summary>
         public IReadOnlyList<DialogBranchCondition> Conditions => _conditions;
 
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
@@ -485,7 +576,12 @@ namespace OpenNefia.Content.Dialog
             foreach (var condition in Conditions)
             {
                 if (condition.Test(engine))
-                    return engine.GetNodeByID(condition.Node);
+                {
+                    if (condition.Node == null) // "end the dialog" case
+                        return null;
+                    
+                    return engine.GetNodeByID(condition.Node.Value);
+                }
             }
 
             return GetDefaultNode(engine);
