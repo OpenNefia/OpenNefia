@@ -43,9 +43,11 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var node = new ValueDataNode("OpenNefia.Tests.Core.Serialization.TypeSerializers.TestSystem:TestCallback");
 
+            var sys = EntitySystem.Get<TestSystem>();
+            var invocations = sys.Invocations;
             var deserializedDelegate = Serialization.ReadValue<TestDelegate>(node);
             Assert.That(deserializedDelegate!.Invoke(42), Is.EqualTo("42"));
-            Assert.That(EntitySystem.Get<TestSystem>().Invocations, Is.EqualTo(1));
+            Assert.That(sys.Invocations, Is.EqualTo(invocations + 1));
         }
 
         [Test]
@@ -55,9 +57,11 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             node["system"] = new ValueDataNode("OpenNefia.Tests.Core.Serialization.TypeSerializers.TestSystem");
             node["method"] = new ValueDataNode("TestCallback");
 
+            var sys = EntitySystem.Get<TestSystem>();
+            var invocations = sys.Invocations;
             var deserializedDelegate = Serialization.ReadValue<TestDelegate>(node);
             Assert.That(deserializedDelegate!.Invoke(42), Is.EqualTo("42"));
-            Assert.That(EntitySystem.Get<TestSystem>().Invocations, Is.EqualTo(1));
+            Assert.That(sys.Invocations, Is.EqualTo(invocations + 1));
         }
     }
 }
