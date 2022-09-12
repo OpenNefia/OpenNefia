@@ -7,6 +7,26 @@ Elona.Effect = {
         Resists = function(target)
             return ("%s resist%s."):format(_.name(target), _.s(target))
         end,
+        CursedConsumable = function(target)
+            return ("%s feel%s grumpy."):format(_.name(target), _.s(target))
+        end,
+    },
+
+    Heal = {
+        Apply = {
+            slightly = function(target)
+                return ("%sの傷はふさがった。"):format(_.name(target))
+            end,
+            normal = function(target)
+                return ("%sは回復した。"):format(_.name(target))
+            end,
+            greatly = function(target)
+                return ("%sの身体に生命力がみなぎった。"):format(_.name(target))
+            end,
+            completely = function(target)
+                return ("%sは完全に回復した。"):format(_.name(target))
+            end,
+        },
     },
 
     Identify = {

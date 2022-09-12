@@ -46,6 +46,8 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.Effects;
+using OpenNefia.Content.CurseStates;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -64,15 +66,16 @@ var _uiMan = IoCManager.Resolve<IUserInterfaceManager>();
 var _loc = IoCManager.Resolve<ILocalizationManager>();
 var _inv = EntitySystem.Get<IInventorySystem>();
 var _mapEntrance = EntitySystem.Get<IMapEntranceSystem>();
-var _effects = EntitySystem.Get<IStatusEffectSystem>();
+var _statusEffects = EntitySystem.Get<IStatusEffectSystem>();
 var _tags = EntitySystem.Get<ITagSystem>();
 var _factions = EntitySystem.Get<IFactionSystem>();
 var _damage = EntitySystem.Get<IDamageSystem>();
 var _skills = EntitySystem.Get<ISkillsSystem>();
+var _spells = EntitySystem.Get<ISpellSystem>();
 var _config = IoCManager.Resolve<IConfigurationManager>();
 var _refresh = EntitySystem.Get<IRefreshSystem>();
-var _statusEffects = EntitySystem.Get<IStatusEffectSystem>();
 var _levels = EntitySystem.Get<ILevelSystem>();
+var _effects = EntitySystem.Get<IEffectSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -152,7 +155,7 @@ public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
 
 public void clearEffects()
 {
-    _effects.RemoveAll(player());
+    _statusEffects.RemoveAll(player());
 }
 
 public void gotoDownStairs()
@@ -222,4 +225,14 @@ public void setlog(LogLevel level)
 public void setlog(string sawmill, LogLevel level)
 {
     Logger.GetSawmill(sawmill).Level = level;
+}
+
+public void applyEffect<T>(int power, CurseState curseState = CurseState.Normal, EntityUid? target = null, EffectArgSet? args = null)
+    where T: class, IEffect, new()
+{
+    target ??= player();
+    args ??= new EffectArgSet();
+    args.Power = power;
+    args.CurseState = curseState;
+    _effects.Apply<T>(target.Value, target.Value, spatial(target.Value).Coordinates, null, args);
 }

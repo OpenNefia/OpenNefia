@@ -9,8 +9,8 @@
     value: 5
   - type: Chip
     id: Elona.ItemPotion
-  - type: Drinkable
-    args:
+  - type: Potion
+    effectArgs:
       power: 100
 
 - type: Entity

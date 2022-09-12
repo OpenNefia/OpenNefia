@@ -26,6 +26,7 @@ namespace OpenNefia.Content.Scroll
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
+        [Dependency] private readonly IEffectSystem _effects = default!;
         
         public override void Initialize()
         {
@@ -71,14 +72,12 @@ namespace OpenNefia.Content.Scroll
             }
             
             var coords = Spatial(reader).Coordinates;
-            var effectArgs = new EffectArgSet();
-            effectArgs.Power = scrollComp.EffectPower;
-            EntitySystem.InjectDependencies(scrollComp.Effect); // TODO remove
-            var result = scrollComp.Effect.Apply(reader, reader, coords, scroll, effectArgs);
+            var effectArgs = EffectArgSet.FromImmutable(scrollComp.EffectArgs);
+            var result = _effects.Apply(scrollComp.Effect, reader, reader, coords, scroll, effectArgs);
 
             if (_gameSession.IsPlayer(reader))
             {
-                if (effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) && commonArgs.Obvious && IsAlive(scroll))
+                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.EffectWasObvious) && IsAlive(scroll))
                 {
                     _identify.Identify(scroll, IdentifyState.Name);
                 }

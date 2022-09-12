@@ -27,7 +27,12 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// If true, don't add an article before this entity's name.
         /// <remarks>
+        /// <para>
         /// Contrast "the putit" with "Lomias".
+        /// </para>
+        /// <para>
+        /// In HSP, any character whose name started with a '<' had a proper noun as a name.
+        /// </para>
         /// </remarks>
         [Localize]
         public bool NameIsProperNoun { get; private set; } = false;

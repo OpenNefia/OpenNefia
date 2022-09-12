@@ -15,9 +15,14 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.Combat;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.Skills;
 using OpenNefia.Content.VanillaAI;
 
 namespace OpenNefia.Content.Effects
@@ -28,12 +33,29 @@ namespace OpenNefia.Content.Effects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
-        [Dependency] private readonly IStatusEffectSystem _effects = default!;
+        [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly ISanitySystem _sanity = default!;
+        
+        public void Heal(EntityUid chara, IDice dice)
+        {
+            // TODO riding
+            var amount = dice.Roll(_rand);
+            _damage.HealHP(chara, amount);
+            _statusEffects.HealFully(chara, Protos.StatusEffect.Fear);
+            _statusEffects.Heal(chara, Protos.StatusEffect.Poison, 50);
+            _statusEffects.Heal(chara, Protos.StatusEffect.Confusion, 50);
+            _statusEffects.Heal(chara, Protos.StatusEffect.Dimming, 30);
+            _statusEffects.Heal(chara, Protos.StatusEffect.Bleeding, 20);
+            _sanity.HealInsanity(chara, 1);
+        }
+        
 
         public void WakeUpEveryone(IMap map)
         {
@@ -42,11 +64,11 @@ namespace OpenNefia.Content.Effects
             {
                 foreach (var effects in _lookup.EntityQueryInMap<StatusEffectsComponent>(map.Id))
                 {
-                    if (_parties.IsUnderlingOfPlayer(effects.Owner) && _effects.HasEffect(effects.Owner, Protos.StatusEffect.Sleep))
+                    if (_parties.IsUnderlingOfPlayer(effects.Owner) && _statusEffects.HasEffect(effects.Owner, Protos.StatusEffect.Sleep))
                     {
                         if (_rand.OneIn(10))
                         {
-                            _effects.Remove(effects.Owner, Protos.StatusEffect.Sleep);
+                            _statusEffects.Remove(effects.Owner, Protos.StatusEffect.Sleep);
                         }
                     }
                 }
@@ -59,7 +81,7 @@ namespace OpenNefia.Content.Effects
             if (!Resolve(ent, ref statusEffects))
                 return;
 
-            _effects.Apply(ent, Protos.StatusEffect.Wet, amount, statusEffects: statusEffects);
+            _statusEffects.Apply(ent, Protos.StatusEffect.Wet, amount, statusEffects: statusEffects);
             _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.GetsWet", ("entity", ent)), entity: ent);
 
             if (TryComp<VisibilityComponent>(ent, out var vis) && vis.IsInvisible.Buffed)
@@ -91,9 +113,9 @@ namespace OpenNefia.Content.Effects
                 {
                     if (_rand.Prob(wakeChance))
                     {
-                        if (_effects.HasEffect(entity, Protos.StatusEffect.Sleep))
+                        if (_statusEffects.HasEffect(entity, Protos.StatusEffect.Sleep))
                         {
-                            _effects.Remove(entity, Protos.StatusEffect.Sleep);
+                            _statusEffects.Remove(entity, Protos.StatusEffect.Sleep);
                             _mes.Display(Loc.GetString("Elona.CommonEffects.Sound.Waken", ("entity", entity)));
                         }
 
@@ -114,6 +136,15 @@ namespace OpenNefia.Content.Effects
                     }
                 }
             }
+        }
+
+        public void MakeSickIfCursed(EntityUid target, CurseState curseState)
+        {
+            if (curseState == CurseState.Normal || curseState == CurseState.Blessed)
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Common.CursedConsumable", ("target", target)));
+            _statusEffects.Apply(target, Protos.StatusEffect.Sick, 200);
         }
     }
 }

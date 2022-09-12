@@ -7,7 +7,7 @@ namespace OpenNefia.Content.DisplayName
     public interface IDisplayNameSystem : IEntitySystem
     {
         string GetBaseName(EntityUid uid);
-        string GetDisplayName(EntityUid uid);
+        string GetDisplayName(EntityUid uid, bool noArticle = false, int? amount = null);
     }
 
     public class DisplayNameSystem : EntitySystem, IDisplayNameSystem
@@ -35,7 +35,7 @@ namespace OpenNefia.Content.DisplayName
         private void GetDefaultDisplayName(EntityUid uid, MetaDataComponent component, ref GetDisplayNameEventArgs args)
         {
             if (component.NameIsProperNoun)
-                args.OutAddArticle = false;
+                args.OutNoArticle = true;
         }
 
         public string GetBaseName(EntityUid uid)
@@ -45,10 +45,10 @@ namespace OpenNefia.Content.DisplayName
             return ev.OutBaseName;
         }
 
-        public string GetDisplayName(EntityUid uid)
+        public string GetDisplayName(EntityUid uid, bool noArticle = false, int? amount = null)
         {
             var baseName = GetBaseName(uid);
-            var ev = new GetDisplayNameEventArgs(baseName);
+            var ev = new GetDisplayNameEventArgs(baseName, amount, noArticle);
             RaiseEvent(uid, ref ev);
             return ev.OutName;
         }
@@ -69,14 +69,17 @@ namespace OpenNefia.Content.DisplayName
     public struct GetDisplayNameEventArgs
     {
         public string BaseName { get; }
-        
-        public string OutName { get; set; } = string.Empty;
-        public bool OutAddArticle { get; set; } = true;
+        public int? AmountOverride { get; }
 
-        public GetDisplayNameEventArgs(string baseName)
+        public string OutName { get; set; } = string.Empty;
+        public bool OutNoArticle { get; set; } = true;
+
+        public GetDisplayNameEventArgs(string baseName, int? amount, bool noArticle)
         {
             BaseName = baseName;
+            AmountOverride = amount;
             OutName = baseName;
+            OutNoArticle = noArticle;
         }
     }
 }

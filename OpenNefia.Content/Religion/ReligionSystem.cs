@@ -23,6 +23,7 @@ using OpenNefia.Content.Memory;
 using OpenNefia.Content.Activity;
 using OpenNefia.Core;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.Effects;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Sleep;
@@ -84,7 +85,8 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISleepSystem _sleep = default!;
-
+        [Dependency] private readonly IEffectSystem _effects = default!;
+        
         public override void Initialize()
         {
             SubscribeComponent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith, priority: EventPriorities.High);
@@ -111,8 +113,7 @@ namespace OpenNefia.Content.Religion
             var spatial = EntityManager.GetComponent<SpatialComponent>(uid);
 
             if (godProto.Blessing != null)
-                EntitySystem.InjectDependencies(godProto.Blessing); // TODO remove
-            godProto.Blessing?.Apply(source: uid, coords: spatial.Coordinates, target: uid, verb: null, args: new());
+                _effects.Apply(godProto.Blessing, source: uid, coords: spatial.Coordinates, target: uid, verb: null, args: new EffectArgSet());
         }
 
         private void OnJoinFaith(EntityUid uid, ReligionComponent component, OnJoinFaithEvent args)

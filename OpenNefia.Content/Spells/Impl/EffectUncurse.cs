@@ -108,7 +108,7 @@ namespace OpenNefia.Content.Spells
             if (totalUncursed == 0 && totalResisted == 0)
             {
                 _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Ensure<EffectCommonArgs>().Obvious = false;
+                args.Ensure<EffectCommonArgs>().EffectWasObvious = false;
             }
             else
             {

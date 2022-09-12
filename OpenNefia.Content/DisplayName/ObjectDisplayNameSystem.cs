@@ -23,13 +23,13 @@ namespace OpenNefia.Content.DisplayName
             // CustomNameComponent is applied before this.
 
             // TODO
-            if (Loc.Language == LanguagePrototypeOf.English && args.OutAddArticle)
+            if (Loc.Language == LanguagePrototypeOf.English && !args.OutNoArticle)
                 args.OutName = $"the {args.BaseName}";
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
         {
-            var ev = new GetItemNameEvent(noArticle: !args.OutAddArticle);
+            var ev = new GetItemNameEvent(amount: args.AmountOverride, noArticle: args.OutNoArticle);
             EntityManager.EventBus.RaiseEvent(uid, ref ev);
             args.OutName = ev.OutItemName;
         }

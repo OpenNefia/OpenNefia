@@ -3,17 +3,17 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Potion
 {
     [RegisterComponent]
-    public class DrinkableComponent : Component
+    public class PotionPuddleComponent : Component
     {
-        public override string Name => "Drinkable";
+        public override string Name => "PotionPuddle";
 
         [DataField(required: true)]
         public IEffect Effect { get; set; } = new NullEffect();
-        
+
         [DataField]
-        public int EffectPower { get; set; }
+        public ImmutableEffectArgSet EffectArgs { get; set; } = new();
     }
 }

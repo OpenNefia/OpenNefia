@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Spells
             if (!_gameSession.IsPlayer(source))
             {
                 _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Ensure<EffectCommonArgs>().Obvious = false;
+                args.Ensure<EffectCommonArgs>().EffectWasObvious = false;
                 
                 return TurnResult.Succeeded;
             }

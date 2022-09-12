@@ -62,19 +62,20 @@ namespace OpenNefia.Content.Items
             switch(Loc.Language)
             {
                 case var jp when jp == LanguagePrototypeOf.Japanese:
-                    args.OutItemName += ItemNameJP(uid, component);
+                    args.OutItemName += ItemNameJP(uid, args.AmountOverride, component);
                     break;
                 case var de when de == LanguagePrototypeOf.German:
-                    args.OutItemName += ItemNameDE(uid, component);
+                    args.OutItemName += ItemNameDE(uid, args.AmountOverride, component);
                     break;
                 case var en when en == LanguagePrototypeOf.English:
                 default:
-                    args.OutItemName += ItemNameEN(uid, args.NoArticle, component);
+                    args.OutItemName += ItemNameEN(uid, args.AmountOverride, args.NoArticle, component);
                     break;
             }
         }
 
         public string ItemNameDE(EntityUid uid,
+            int? amount = null,
             ItemComponent? item = null,
             MetaDataComponent? meta = null,
             StackComponent? stack = null)
@@ -89,12 +90,14 @@ namespace OpenNefia.Content.Items
     [ByRefEvent]
     public struct GetItemNameEvent
     {
+        public int? AmountOverride { get; }
         public bool NoArticle { get; }
 
         public string OutItemName { get; set; } = string.Empty;
 
-        public GetItemNameEvent(bool noArticle)
+        public GetItemNameEvent(int? amount, bool noArticle)
         {
+            AmountOverride = amount;
             NoArticle = noArticle;
         }
     }
