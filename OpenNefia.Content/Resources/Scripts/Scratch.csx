@@ -236,3 +236,9 @@ public void applyEffect<T>(int power, CurseState curseState = CurseState.Normal,
     args.CurseState = curseState;
     _effects.Apply<T>(target.Value, target.Value, spatial(target.Value).Coordinates, null, args);
 }
+
+public void sandbag(EntityUid? ent = null)
+{
+    ent ??= entityAt().Owner;
+    _entityMan.EnsureComponent<OpenNefia.Content.Combat.SandBaggedComponent>(ent.Value);
+}
