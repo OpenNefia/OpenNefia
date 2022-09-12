@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Locale.Funcs
         /// </summary>
         /// <hsp>#defcfunc name int tc</hsp>
         [LocaleFunction("name")]
-        public static string BuiltIn_name(object? obj, bool? ignoreSight = null, int quantity = -1)
+        public static string BuiltIn_name(object? obj, bool? ignoreSight = null, int? amount = null)
         {
             if (obj is string s)
                 return s;
@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Locale.Funcs
             }
 
             // TODO implement quantity!
-            return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity);
+            return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity, noArticle: false, amount: amount);
         }
 
         [LocaleFunction("basename")]

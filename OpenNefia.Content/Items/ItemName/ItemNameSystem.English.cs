@@ -27,7 +27,9 @@ namespace OpenNefia.Content.Items
 {
     public sealed partial class ItemNameSystem
     {
-        public string ItemNameEN(EntityUid uid, bool noArticle,
+        public string ItemNameEN(EntityUid uid,
+            int? amount = null, 
+            bool noArticle = false,
             ItemComponent? item = null,
             MetaDataComponent? meta = null,
             StackComponent? stack = null)
@@ -41,7 +43,7 @@ namespace OpenNefia.Content.Items
             var curse = CompOrNull<CurseStateComponent>(uid)?.CurseState ?? CurseState.Normal;
             var materialID = CompOrNull<MaterialComponent>(uid)?.MaterialID;
             var enchantments = CompOrNull<EnchantmentsComponent>(uid);
-            var amount = _stacks.GetCount(uid);
+            amount ??= _stacks.GetCount(uid);
 
             var food = CompOrNull<FoodComponent>(uid);
             var isCookedDish = _food.IsCooked(uid, food);

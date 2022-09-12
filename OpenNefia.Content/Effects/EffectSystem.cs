@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Serialization.Manager;
 
 namespace OpenNefia.Content.Effects
 {
@@ -18,6 +19,8 @@ namespace OpenNefia.Content.Effects
     {
         TurnResult Apply<T>(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
             where T: class, IEffect, new();
+        TurnResult Apply(IEffect effect, EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb,
+            EffectArgSet args);
     }
 
     public sealed class EffectSystem : EntitySystem, IEffectSystem
@@ -29,6 +32,15 @@ namespace OpenNefia.Content.Effects
         TurnResult IEffectSystem.Apply<T>(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args)
         {
             var effect = new T();
+            // TODO: hack until auto-injection is supported by serialization
+            EntitySystem.InjectDependencies(effect);
+            return effect.Apply(source, target, coords, verb, args);
+        }
+
+        public TurnResult Apply(IEffect effect, EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb,
+            EffectArgSet args)
+        {
+            // TODO: hack until auto-injection is supported by serialization
             EntitySystem.InjectDependencies(effect);
             return effect.Apply(source, target, coords, verb, args);
         }

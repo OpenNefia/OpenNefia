@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Random;
+﻿using System.Text;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Combat
@@ -51,6 +52,14 @@ namespace OpenNefia.Content.Combat
         public int MaxRoll()
         {
             return X * Y + Bonus;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder($"{X}d{Y}");
+            if (Bonus != 0)
+                sb.Append($"+{Bonus}");
+            return sb.ToString();
         }
     }
 }

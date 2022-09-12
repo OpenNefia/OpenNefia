@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Potion;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -16,6 +17,8 @@ namespace OpenNefia.Content.Inventory
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drink.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drink);
 
+        public const string VerbTypeDrink = "Elona.Drink";
+
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
             if (context.User == context.Target)
@@ -30,7 +33,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            return _verbSystem.CanUseVerbOn(context.User, item, DrinkableSystem.VerbTypeDrink);
+            return _verbSystem.CanUseVerbOn(context.User, item, VerbTypeDrink);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
@@ -38,7 +41,7 @@ namespace OpenNefia.Content.Inventory
             context.ShowInventoryWindow = false;
 
             var result = TurnResult.NoResult;
-            if (_verbSystem.TryGetVerb(context.User, item, DrinkableSystem.VerbTypeDrink, out var verb))
+            if (_verbSystem.TryGetVerb(context.User, item, VerbTypeDrink, out var verb))
                 result = verb.Act();
 
             if (result != TurnResult.NoResult)

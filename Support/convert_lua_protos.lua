@@ -21,6 +21,7 @@ local IItemFood = require "mod.elona.api.aspect.IItemFood"
 local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
+local IItemPotion = require "mod.elona.api.aspect.IItemPotion"
 
 local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
@@ -1149,10 +1150,18 @@ handlers["base.item"] = function(from, to)
     if from.scroll_id then
         c = comp(to, "Scroll")
         c.effect = effect(from.scroll_id)
-        c.effectPower = from.spell_power
+        c.effectArgs = { power = from.spell_power }
         if from.spell_no_consume then
             c.amountConsumedOnRead = 0
         end
+    end
+
+    local potion = from._ext and from._ext[IItemPotion]
+    if potion then
+        c = comp(to, "Potion")
+        assert(#potion.effects == 1)
+        c.effect = effect(potion.effects[1]._id)
+        c.effectArgs = { power = potion.effects[1].power }
     end
 end
 

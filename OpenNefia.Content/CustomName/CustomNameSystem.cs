@@ -82,7 +82,7 @@ namespace OpenNefia.Content.CustomName
                     // "Arnord"
                     args.OutName = component.CustomName;
                 }
-                args.OutAddArticle = false;
+                args.OutNoArticle = true;
             }
         }
 

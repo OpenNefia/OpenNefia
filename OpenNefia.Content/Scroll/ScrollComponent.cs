@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Scroll
         public IEffect Effect { get; } = new NullEffect();
 
         [DataField]
-        public int EffectPower { get; set; } = 0;
+        public ImmutableEffectArgSet EffectArgs { get; set; } = new();
         
         [DataField]
         public int AmountConsumedOnRead { get; set; } = 1;

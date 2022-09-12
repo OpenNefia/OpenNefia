@@ -11,6 +11,7 @@ namespace OpenNefia.Content.Spells
 {
     public sealed partial class SpellSystem
     {
+        [Dependency] private readonly IEffectSystem _effects = default!;
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         
         private int CalcAdjustedSpellPower(int power, PrototypeId<SpellPrototype> spellId, CurseState curseState)
@@ -65,15 +66,17 @@ namespace OpenNefia.Content.Spells
             power = CalcAdjustedSpellPower(power, spellID, curseState.Value);
             
             var spell = _protos.Index(spellID);
+            
             args ??= new EffectArgSet();
+            args.Power = power;
+            args.CurseState = curseState.Value;
+            
             var commonArgs = args.Ensure<EffectCommonArgs>();
             commonArgs.EffectSource = effectSource;
 
             source ??= target;
 
-            // TODO remove
-            EntitySystem.InjectDependencies(spell.Effect);
-            return spell.Effect.Apply(source.Value, target, coords.Value, item, args);
+            return _effects.Apply(spell.Effect, source.Value, target, coords.Value, item, args);
         }
     }
 }
