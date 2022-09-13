@@ -4,7 +4,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -32,17 +31,19 @@ namespace OpenNefia.Content.Audio
             return typeof(SoundPathSpecifier);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, MappingDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public SoundSpecifier Read(ISerializationManager serializationManager, MappingDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            SoundSpecifier? rawValue = null)
         {
             var type = GetType(node);
-            return serializationManager.Read(type, node, context, skipHook);
+            return (SoundSpecifier)serializationManager.Read(type, node, context, skipHook)!;
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public SoundSpecifier Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            SoundSpecifier? rawValue = null)
         {
-            return new DeserializedValue<SoundSpecifier>(new SoundPathSpecifier(new(node.Value)));
+            return new SoundPathSpecifier(new(node.Value));
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,

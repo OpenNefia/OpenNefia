@@ -41,7 +41,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 ";
 
             manager.LoadString(prototypes);
-            manager.Resync();
+            manager.ResolveResults();
 
             var eventBus = new PrototypeEventBus(manager);
 

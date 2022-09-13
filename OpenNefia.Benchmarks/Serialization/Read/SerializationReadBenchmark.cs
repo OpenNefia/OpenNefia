@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using BenchmarkDotNet.Attributes;
 using OpenNefia.Benchmarks.Serialization.Definitions;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
@@ -40,32 +39,32 @@ namespace OpenNefia.Benchmarks.Serialization.Read
         private ValueDataNode FlagThirtyOne { get; } = new("ThirtyOne");
 
         [Benchmark]
-        public string? ReadString()
+        public string ReadString()
         {
-            return SerializationManager.ReadValue<string>(StringNode);
+            return SerializationManager.Read<string>(StringNode);
         }
 
         [Benchmark]
-        public int? ReadInteger()
+        public int ReadInteger()
         {
-            return SerializationManager.ReadValue<int>(IntNode);
+            return SerializationManager.Read<int>(IntNode);
         }
 
         [Benchmark]
-        public DataDefinitionWithString? ReadDataDefinitionWithString()
+        public DataDefinitionWithString ReadDataDefinitionWithString()
         {
-            return SerializationManager.ReadValue<DataDefinitionWithString>(StringDataDefNode);
+            return SerializationManager.Read<DataDefinitionWithString>(StringDataDefNode);
         }
 
         [Benchmark]
-        public SeedDataDefinition? ReadSeedDataDefinition()
+        public SeedDataDefinition ReadSeedDataDefinition()
         {
-            return SerializationManager.ReadValue<SeedDataDefinition>(SeedNode);
+            return SerializationManager.Read<SeedDataDefinition>(SeedNode);
         }
 
         [Benchmark]
         [BenchmarkCategory("flag")]
-        public DeserializationResult ReadFlagZero()
+        public object? ReadFlagZero()
         {
             return SerializationManager.ReadWithTypeSerializer(
                 typeof(int),
@@ -75,7 +74,7 @@ namespace OpenNefia.Benchmarks.Serialization.Read
 
         [Benchmark]
         [BenchmarkCategory("flag")]
-        public DeserializationResult ReadThirtyOne()
+        public object? ReadThirtyOne()
         {
             return SerializationManager.ReadWithTypeSerializer(
                 typeof(int),
@@ -85,7 +84,7 @@ namespace OpenNefia.Benchmarks.Serialization.Read
 
         [Benchmark]
         [BenchmarkCategory("customTypeSerializer")]
-        public DeserializationResult ReadIntegerCustomSerializer()
+        public object? ReadIntegerCustomSerializer()
         {
             return SerializationManager.ReadWithTypeSerializer(
                 typeof(int),

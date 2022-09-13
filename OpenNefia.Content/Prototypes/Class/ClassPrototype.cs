@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Prototypes
     [Prototype("Elona.Class")]
     public class ClassPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField]

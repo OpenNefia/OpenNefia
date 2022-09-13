@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             node.Add("potential", "150");
             node.Add("experience", "500");
 
-            var deserializedLevel = Serialization.ReadValue<LevelAndPotential>(node);
+            var deserializedLevel = Serialization.Read<LevelAndPotential>(node);
 
             Assert.That(deserializedLevel, Is.EqualTo(level));
         }
@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             };
             var node = new ValueDataNode("42");
 
-            var deserializedLevel = Serialization.ReadValue<LevelAndPotential>(node);
+            var deserializedLevel = Serialization.Read<LevelAndPotential>(node);
 
             Assert.That(deserializedLevel, Is.EqualTo(version));
         }

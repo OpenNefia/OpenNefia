@@ -420,7 +420,7 @@ namespace OpenNefia.Core.SaveGames
 
                 Logger.DebugS(SawmillName, $"Loading global data: {key} ({reg.Type})");
 
-                var value = _serializationManager.ReadValue(reg.Type, rawNode, skipHook: true);
+                var value = _serializationManager.Read(reg.Type, rawNode, skipHook: true);
 
                 reg.SetValueOnParent(value);
             }

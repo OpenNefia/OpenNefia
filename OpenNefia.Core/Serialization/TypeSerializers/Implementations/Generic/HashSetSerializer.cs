@@ -4,9 +4,9 @@ using System.Collections.Immutable;
 using System.Linq;
 using JetBrains.Annotations;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -21,86 +21,77 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
         ITypeSerializer<SortedSet<T>, SequenceDataNode>,
         ITypeSerializer<ImmutableSortedSet<T>, SequenceDataNode>
     {
-        DeserializationResult ITypeReader<HashSet<T>, SequenceDataNode>.Read(ISerializationManager serializationManager,
+        HashSet<T> ITypeReader<HashSet<T>, SequenceDataNode>.Read(ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context)
+            ISerializationContext? context, HashSet<T>? set)
         {
-            var set = new HashSet<T>();
-            var mappings = new List<DeserializationResult>();
+            set ??= new HashSet<T>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-
-                set.Add(value);
-                mappings.Add(result);
+                set.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<HashSet<T>, T>(set, mappings, elements => new HashSet<T>(elements));
+            return set;
         }
 
-        DeserializationResult ITypeReader<ImmutableHashSet<T>, SequenceDataNode>.Read(
+        ImmutableHashSet<T> ITypeReader<ImmutableHashSet<T>, SequenceDataNode>.Read(
             ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context)
+            ISerializationContext? context, ImmutableHashSet<T>? rawValue)
         {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(ImmutableHashSet<T>)}. Ignoring...");
             var set = ImmutableHashSet.CreateBuilder<T>();
-            var mappings = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-
-                set.Add(value);
-                mappings.Add(result);
+                set.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<ImmutableHashSet<T>, T>(set.ToImmutable(), mappings, elements => ImmutableHashSet.Create(elements.ToArray()));
+            return set.ToImmutable();
         }
 
-        DeserializationResult ITypeReader<SortedSet<T>, SequenceDataNode>.Read(ISerializationManager serializationManager,
-            SequenceDataNode node,
-            IDependencyCollection dependencies,
-            bool skipHook,
-            ISerializationContext? context)
-        {
-            var set = new SortedSet<T>();
-            var mappings = new List<DeserializationResult>();
-
-            foreach (var dataNode in node.Sequence)
-            {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-
-                set.Add(value);
-                mappings.Add(result);
-            }
-
-            return new DeserializedCollection<SortedSet<T>, T>(set, mappings, elements => new SortedSet<T>(elements));
-        }
-
-        DeserializationResult ITypeReader<ImmutableSortedSet<T>, SequenceDataNode>.Read(
+        SortedSet<T> ITypeReader<SortedSet<T>, SequenceDataNode>.Read(
             ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context)
+            ISerializationContext? context, SortedSet<T>? rawValue)
         {
-            var set = ImmutableSortedSet.CreateBuilder<T>();
-            var mappings = new List<DeserializationResult>();
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(ImmutableHashSet<T>)}. Ignoring...");
+            var set = new SortedSet<T>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-
-                set.Add(value);
-                mappings.Add(result);
+                set.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<ImmutableSortedSet<T>, T>(set.ToImmutable(), mappings, elements => ImmutableSortedSet.Create(elements.ToArray()));
+            return set;
+        }
+
+        ImmutableSortedSet<T> ITypeReader<ImmutableSortedSet<T>, SequenceDataNode>.Read(
+            ISerializationManager serializationManager,
+            SequenceDataNode node,
+            IDependencyCollection dependencies,
+            bool skipHook,
+            ISerializationContext? context, ImmutableSortedSet<T>? rawValue)
+        {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(ImmutableHashSet<T>)}. Ignoring...");
+            var set = ImmutableSortedSet.CreateBuilder<T>();
+
+            foreach (var dataNode in node.Sequence)
+            {
+                set.Add(serializationManager.Read<T>(dataNode, context, skipHook));
+            }
+
+            return set.ToImmutable();
         }
 
         ValidationNode ITypeValidator<ImmutableHashSet<T>, SequenceDataNode>.Validate(

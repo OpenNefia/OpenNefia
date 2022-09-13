@@ -30,7 +30,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var version = new Version(1, 2, 3, 4);
             var node = new ValueDataNode("1.2.3.4");
 
-            var deserializedVersion = Serialization.ReadValue<Version>(node);
+            var deserializedVersion = Serialization.Read<Version>(node);
 
             Assert.That(deserializedVersion, Is.EqualTo(version));
         }

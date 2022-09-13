@@ -13,7 +13,6 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Utility;
 using System.Reflection;
 
@@ -216,7 +215,7 @@ namespace OpenNefia.Tests
             }
 
             _protoDelegate?.Invoke(protoMan);
-            protoMan.Resync();
+            protoMan.ResolveResults();
 
             entityMan.Startup();
 

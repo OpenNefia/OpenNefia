@@ -355,7 +355,7 @@ namespace OpenNefia.Tests
             protoMan.RegisterType<TilePrototype>();
             protoMan.LoadString(EmptyTile);
             _protoDelegate?.Invoke(protoMan);
-            protoMan.Resync();
+            protoMan.ResolveResults();
 
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
             tileMan.RegisterAll();

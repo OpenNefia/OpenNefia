@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -21,10 +20,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Primitive
                 : new ErrorNode(node, $"Failed parsing byte value: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public byte Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, byte value = default)
         {
-            return new DeserializedValue<byte>(byte.Parse(node.Value, CultureInfo.InvariantCulture));
+            return byte.Parse(node.Value, CultureInfo.InvariantCulture);
         }
 
         public DataNode Write(ISerializationManager serializationManager, byte value, bool alwaysWrite = false,

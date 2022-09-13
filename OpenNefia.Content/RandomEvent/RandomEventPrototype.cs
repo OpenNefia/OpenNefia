@@ -17,7 +17,7 @@ namespace OpenNefia.Content.RandomEvent
     [Prototype("Elona.RandomEvent")]
     public class RandomEventPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

@@ -49,7 +49,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 ";
 
             manager.LoadString(prototypes);
-            manager.Resync();
+            manager.ResolveResults();
 
             Assert.That(manager.HasExtendedData<EntityPrototype, TestExtendedData>(TestProto1ID), Is.True);
             Assert.That(manager.HasExtendedData<EntityPrototype, TestExtendedData>(TestProto2ID), Is.False);

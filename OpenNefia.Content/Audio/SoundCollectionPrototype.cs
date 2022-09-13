@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Audio
     [Prototype("SoundCollection")]
     public sealed class SoundCollectionPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField("pickIDs")]

@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -21,10 +20,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Primitive
                 : new ErrorNode(node, $"Failed parsing char value: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public char Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, char value = default)
         {
-            return new DeserializedValue<char>(char.Parse(node.Value));
+            return char.Parse(node.Value);
         }
 
         public DataNode Write(ISerializationManager serializationManager, char value, bool alwaysWrite = false,

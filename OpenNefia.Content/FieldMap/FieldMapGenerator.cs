@@ -37,7 +37,7 @@ namespace OpenNefia.Content.FieldMap
     public class FieldTypePrototype : IPrototype
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField]

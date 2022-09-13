@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Enchantments
     [Prototype("Elona.EnchantmentSpell")]
     public class EnchantmentSpellPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

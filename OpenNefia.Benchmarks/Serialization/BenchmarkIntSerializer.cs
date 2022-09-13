@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -19,10 +18,11 @@ namespace OpenNefia.Benchmarks.Serialization
                 : new ErrorNode(node, $"Failed parsing int value: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public int Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            int rawValue = default)
         {
-            return new DeserializedValue<int>(int.Parse(node.Value, CultureInfo.InvariantCulture));
+            return int.Parse(node.Value, CultureInfo.InvariantCulture);
         }
 
         public DataNode Write(ISerializationManager serializationManager, int value, bool alwaysWrite = false,

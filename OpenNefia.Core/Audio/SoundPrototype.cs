@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Audio
     [Prototype("Sound")]
     public class SoundPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField(required: true)]

@@ -11,7 +11,7 @@ namespace OpenNefia.Content.GameObjects
     [Prototype("Tag")]
     public class TagPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
     }
 }

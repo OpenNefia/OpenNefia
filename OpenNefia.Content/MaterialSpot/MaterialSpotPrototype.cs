@@ -13,7 +13,7 @@ namespace OpenNefia.Content.MaterialSpot
     [Prototype("Elona.MaterialSpot")]
     public class MaterialSpotPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField("materials", required: true)]

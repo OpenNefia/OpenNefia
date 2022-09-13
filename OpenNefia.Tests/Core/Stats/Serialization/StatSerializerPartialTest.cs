@@ -35,7 +35,7 @@ namespace OpenNefia.Tests.Core.Stats.Serialization
             var stat = new Stat<int>(1, 1);
             var node = new ValueDataNode("1");
 
-            var deserializedStat = Serialization.ReadValue<Stat<int>>(node)!;
+            var deserializedStat = Serialization.Read<Stat<int>>(node)!;
 
             Assert.That(deserializedStat.Base, Is.EqualTo(stat.Base));
             Assert.That(deserializedStat.Buffed, Is.EqualTo(stat.Buffed));
@@ -50,7 +50,7 @@ namespace OpenNefia.Tests.Core.Stats.Serialization
             node.Add("base", new ValueDataNode("1"));
             node.Add("buffed", new ValueDataNode("42"));
 
-            var deserializedStat = Serialization.ReadValue<Stat<int>>(node)!;
+            var deserializedStat = Serialization.Read<Stat<int>>(node)!;
 
             Assert.That(deserializedStat.Base, Is.EqualTo(stat.Base));
             Assert.That(deserializedStat.Buffed, Is.EqualTo(stat.Buffed));

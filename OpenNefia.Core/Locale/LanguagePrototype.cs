@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Locale
     [Prototype("Language", -1)]
     public class LanguagePrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
     }
 

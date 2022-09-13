@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Maps
     [Prototype("Elona.MapTileset")]
     public class MapTilesetPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

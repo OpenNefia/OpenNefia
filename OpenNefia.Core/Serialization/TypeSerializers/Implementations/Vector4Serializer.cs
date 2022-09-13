@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -15,10 +14,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class Vector4Serializer : ITypeSerializer<Vector4, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public Vector4 Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, Vector4 value = default)
         {
             if (!VectorSerializerUtility.TryParseArgs(node.Value, 4, out var args))
             {
@@ -29,9 +28,8 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             var y = float.Parse(args[1], CultureInfo.InvariantCulture);
             var z = float.Parse(args[2], CultureInfo.InvariantCulture);
             var w = float.Parse(args[3], CultureInfo.InvariantCulture);
-            var vector = new Vector4(x, y, z, w);
 
-            return new DeserializedValue<Vector4>(vector);
+            return new Vector4(x, y, z, w);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

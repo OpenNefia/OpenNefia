@@ -32,6 +32,7 @@ using NetVips;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -120,29 +121,35 @@ namespace OpenNefia.Content.Enchantments
 
             foreach (var (name, comp) in spec.Components)
             {
-                AddComponent(enchantment.Value, _componentFactory, name, comp, null);
+                AddComponent(enchantment.Value, _componentFactory, EntityManager, _serialization, name, comp.Mapping, null);
             }
 
             return true;
         }
 
         // TODO dedup from EntityFactory
-        private void AddComponent(EntityUid entity, IComponentFactory factory, string compName,
-            IComponent data, ISerializationContext? context)
+        private static void AddComponent(EntityUid entity,
+            IComponentFactory factory,
+            IEntityManager entityManager,
+            ISerializationManager serManager,
+            string compName,
+            MappingDataNode data,
+            ISerializationContext? context)
         {
-            var compType = factory.GetRegistration(compName).Type;
+            var compReg = factory.GetRegistration(compName);
 
-            if (!EntityManager.TryGetComponent(entity, compType, out var component))
+            if (!entityManager.TryGetComponent(entity, compReg.Type, out var component))
             {
                 var newComponent = (Component)factory.GetComponent(compName);
                 newComponent.Owner = entity;
-                EntityManager.AddComponent(entity, newComponent);
+                entityManager.AddComponent(entity, newComponent);
                 component = newComponent;
             }
 
             // TODO use this value to support struct components
-            _ = _serialization.Copy(data, component, context);
+            serManager.Read(compReg.Type, data, context, value: component);
         }
+
         private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
         {
             if (args.Container.Contains(args.EntityUid))

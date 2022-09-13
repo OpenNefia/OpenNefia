@@ -1,9 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Love;
+using NUnit.Framework;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +81,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var spatial = new SpatialComponent();
-            comps[spatial.Name] = spatial;
+            comps[spatial.Name] = new ComponentRegistryEntry(spatial, new MappingDataNode());
 
             var slotId = slotSys.AddSlot(ent, comps);
 
@@ -114,7 +116,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             {
                 Field = 42
             };
-            comps[slotTest.Name] = slotTest;
+            comps[slotTest.Name] = new ComponentRegistryEntry(slotTest, new MappingDataNode());
 
             var slotId = slotSys.AddSlot(ent, comps);
 
@@ -149,7 +151,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
-            comps[slotTest.Name] = slotTest;
+            comps[slotTest.Name] = new ComponentRegistryEntry(slotTest, new MappingDataNode());
 
             var slotId = slotSys.AddSlot(ent, comps);
             slotSys.RemoveSlot(ent, slotId);
@@ -175,7 +177,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
-            comps[slotTest.Name] = slotTest;
+            comps[slotTest.Name] = new ComponentRegistryEntry(slotTest, new MappingDataNode());
 
             var slotId1 = slotSys.AddSlot(ent, comps);
             var slotId2 = slotSys.AddSlot(ent, comps);
@@ -209,7 +211,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
-            comps[slotTest.Name] = slotTest;
+            comps[slotTest.Name] = new ComponentRegistryEntry(slotTest, new MappingDataNode());
 
             var slotId1 = slotSys.AddSlot(ent, comps);
 
@@ -239,7 +241,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
-            comps[slotTest.Name] = slotTest;
+            comps[slotTest.Name] = new ComponentRegistryEntry(slotTest, new MappingDataNode());
 
             var slotId = slotSys.AddSlot(ent, comps);
 

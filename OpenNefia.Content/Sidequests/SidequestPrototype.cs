@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Sidequests
     [Prototype("Elona.Sidequest")]
     public class SidequestPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

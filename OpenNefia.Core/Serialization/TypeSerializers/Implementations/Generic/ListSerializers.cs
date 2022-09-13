@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using JetBrains.Annotations;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -59,23 +59,20 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             return WriteInternal(serializationManager, value, alwaysWrite, context);
         }
 
-        DeserializationResult ITypeReader<List<T>, SequenceDataNode>.Read(ISerializationManager serializationManager,
+        List<T> ITypeReader<List<T>, SequenceDataNode>.Read(ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context)
+            ISerializationContext? context, List<T>? list)
         {
-            var list = new List<T>();
-            var results = new List<DeserializationResult>();
+            list ??= new List<T>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(typeof(T), dataNode, context, skipHook);
-                list.Add(value);
-                results.Add(result);
+                list.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<List<T>, T>(list, results, elements => elements);
+            return list;
         }
 
         ValidationNode ITypeValidator<ImmutableList<T>, SequenceDataNode>.Validate(
@@ -116,59 +113,58 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             return new ValidatedSequenceNode(list);
         }
 
-        DeserializationResult ITypeReader<IReadOnlyList<T>, SequenceDataNode>.Read(
+        IReadOnlyList<T> ITypeReader<IReadOnlyList<T>, SequenceDataNode>.Read(
             ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies,
-            bool skipHook, ISerializationContext? context)
+            bool skipHook, ISerializationContext? context, IReadOnlyList<T>? rawValue)
         {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(IReadOnlySet<T>)}. Ignoring...");
+
             var list = new List<T>();
-            var results = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-
-                list.Add(value);
-                results.Add(result);
+                list.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<IReadOnlyList<T>, T>(list, results, l => l);
+            return list;
         }
 
-        DeserializationResult ITypeReader<IReadOnlyCollection<T>, SequenceDataNode>.Read(
+        IReadOnlyCollection<T> ITypeReader<IReadOnlyCollection<T>, SequenceDataNode>.Read(
             ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies,
-            bool skipHook, ISerializationContext? context)
+            bool skipHook, ISerializationContext? context, IReadOnlyCollection<T>? rawValue)
         {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(IReadOnlyCollection<T>)}. Ignoring...");
+
             var list = new List<T>();
-            var results = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-                list.Add(value);
-                results.Add(result);
+                list.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<IReadOnlyCollection<T>, T>(list, results, l => l);
+            return list;
         }
 
-        DeserializationResult ITypeReader<ImmutableList<T>, SequenceDataNode>.Read(
+        ImmutableList<T> ITypeReader<ImmutableList<T>, SequenceDataNode>.Read(
             ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies,
-            bool skipHook, ISerializationContext? context)
+            bool skipHook, ISerializationContext? context, ImmutableList<T>? rawValue)
         {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(ImmutableList<T>)}. Ignoring...");
+
             var list = ImmutableList.CreateBuilder<T>();
-            var results = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
             {
-                var (value, result) = serializationManager.ReadWithValueOrThrow<T>(dataNode, context, skipHook);
-                list.Add(value);
-                results.Add(result);
+                list.Add(serializationManager.Read<T>(dataNode, context, skipHook));
             }
 
-            return new DeserializedCollection<ImmutableList<T>,T>(list.ToImmutable(), results, elements => ImmutableList.Create(elements.ToArray()));
+            return list.ToImmutable();
         }
 
         [MustUseReturnValue]

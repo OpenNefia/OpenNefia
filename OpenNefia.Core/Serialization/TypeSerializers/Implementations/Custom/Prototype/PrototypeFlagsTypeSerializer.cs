@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -15,7 +15,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype
 {
     [TypeSerializer]
-    public class PrototypeFlagsTypeSerializer<T>
+    public sealed class PrototypeFlagsTypeSerializer<T>
         : ITypeSerializer<PrototypeFlags<T>, SequenceDataNode>, ITypeSerializer<PrototypeFlags<T>, ValueDataNode>
         where T : class, IPrototype
     {
@@ -38,9 +38,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
             return new ValidatedSequenceNode(list);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public PrototypeFlags<T> Read(ISerializationManager serializationManager, SequenceDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            PrototypeFlags<T>? rawValue = null)
         {
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(PrototypeFlags<T>)}. Ignoring...");
+
             var flags = new List<PrototypeId<T>>(node.Sequence.Count);
 
             foreach (var dataNode in node.Sequence)
@@ -48,16 +52,16 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
                 if (dataNode is not ValueDataNode value)
                     continue;
 
-                flags.Add(new(value.Value));
+                flags.Add(new PrototypeId<T>(value.Value));
             }
 
-            return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(flags));
+            return new PrototypeFlags<T>(flags);
         }
 
         public DataNode Write(ISerializationManager serializationManager, PrototypeFlags<T> value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return new SequenceDataNode(value.Select(x => (string)x).ToArray());
+            return new SequenceDataNode(value.Select(id => (string)id).ToArray());
         }
 
         public PrototypeFlags<T> Copy(ISerializationManager serializationManager, PrototypeFlags<T> source, PrototypeFlags<T> target,
@@ -72,12 +76,16 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
             return serializationManager.ValidateNodeWith<PrototypeId<T>, PrototypeIdSerializer<T>, ValueDataNode>(node, context);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public PrototypeFlags<T> Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            PrototypeFlags<T>? rawValue = null)
         {
-            return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(new PrototypeId<T>(node.Value)));
-        }
+            if (rawValue != null)
+                Logger.Warning($"Provided value to a Read-call for a {nameof(PrototypeFlags<T>)}. Ignoring...");
 
+            return new PrototypeFlags<T>(new PrototypeId<T>(node.Value));
+        }
+        
         public bool Compare(ISerializationManager serializationManager, PrototypeFlags<T> left, PrototypeFlags<T> right,
             bool skipHook,
             ISerializationContext? context = null)

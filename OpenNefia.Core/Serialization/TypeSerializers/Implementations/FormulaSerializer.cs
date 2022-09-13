@@ -1,11 +1,8 @@
 using JetBrains.Annotations;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -16,12 +13,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class FormulaSerializer : ITypeSerializer<Formula, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public Formula Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            Formula rawValue = default)
         {
-            return new DeserializedValue<Formula>(new Formula(node.Value));
+            return new Formula(node.Value);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

@@ -4,6 +4,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using System.Globalization;
 using YamlDotNet.Core;
@@ -33,7 +34,7 @@ namespace OpenNefia.Core.Maps
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
 
         private readonly MapSerializeMode _mode;
-        private readonly YamlMappingNode _rootNode;
+        private readonly MappingDataNode _rootNode;
         private MapId _targetMapId;
         private readonly MapSerializationContext _context;
 
@@ -50,10 +51,10 @@ namespace OpenNefia.Core.Maps
 
             _targetMapId = targetMapId;
             _mode = mode;
-            _rootNode = new YamlMappingNode();
+            _rootNode = new MappingDataNode();
         }
 
-        public YamlNode Serialize()
+        public DataNode Serialize()
         {
             MapGrid = _mapManager.GetMap(_targetMapId);
 
@@ -78,7 +79,7 @@ namespace OpenNefia.Core.Maps
             var mapEntity = _mapManager.GetMap(_targetMapId).MapEntityUid;
             var mapComp = _entityManager.EnsureComponent<MapComponent>(mapEntity);
 
-            var meta = new YamlMappingNode();
+            var meta = new MappingDataNode();
             _rootNode.Add(MapLoadConstants.Meta, meta);
             meta.Add(MapLoadConstants.Meta_Format, MapLoadConstants.MapBlueprintFormatVersion.ToString(CultureInfo.InvariantCulture));
             meta.Add(MapLoadConstants.Meta_Name, mapComp.Metadata.Name);
@@ -89,7 +90,7 @@ namespace OpenNefia.Core.Maps
         {
             _tileMapInverse = YamlGridSerializer.BuildProtoToRuneTileMap(MapGrid!, _tileDefinitionManager);
 
-            var tileMap = new YamlMappingNode();
+            var tileMap = new MappingDataNode();
             _rootNode.Add(MapLoadConstants.Tilemap, tileMap);
 
             foreach (var pair in _tileMapInverse)
@@ -103,22 +104,22 @@ namespace OpenNefia.Core.Maps
 
         private void DoWriteGrid(string name, IMap map, Tile[,] tiles)
         {
-            var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
-            grid.Style = ScalarStyle.Literal;
+            var grid = new ValueDataNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
+            // grid.Style = ScalarStyle.Literal;
             _rootNode.Add(name, grid);
         }
 
         private void WriteGridInSightSections()
         {
-            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight(MapGrid!.InSight, MapGrid.Size));
+            var gridInSight = new ValueDataNode(YamlGridSerializer.SerializeInSight(MapGrid!.InSight, MapGrid.Size));
             _rootNode.Add(MapLoadConstants.GridInSight, gridInSight);
-            _rootNode.Add(MapLoadConstants.GridLastSightId, new YamlScalarNode(MapGrid.LastSightId.ToString()));
+            _rootNode.Add(MapLoadConstants.GridLastSightId, new ValueDataNode(MapGrid.LastSightId.ToString()));
         }
 
         private void WriteObjectMemorySection()
         {
             var objectMemory = _serializationManager.WriteValueAs<MappingDataNode>(MapGrid!.MapObjectMemory);
-            _rootNode.Add(MapLoadConstants.ObjectMemory, objectMemory.ToYamlNode());
+            _rootNode.Add(MapLoadConstants.ObjectMemory, objectMemory);
         }
 
         private IEnumerable<EntityUid> GetAllEntitiesInMap(MapId mapId)
@@ -223,7 +224,7 @@ namespace OpenNefia.Core.Maps
 
         private void WriteEntitySection()
         {
-            var entities = new YamlSequenceNode();
+            var entities = new SequenceDataNode();
             _rootNode.Add(MapLoadConstants.Entities, entities);
 
             var prototypeCompCache = new PrototypeCompCache();
@@ -234,9 +235,9 @@ namespace OpenNefia.Core.Maps
             }
         }
 
-        private YamlMappingNode SerializeEntity(EntityUid entity, PrototypeCompCache prototypeCompCache)
+        private MappingDataNode SerializeEntity(EntityUid entity, PrototypeCompCache prototypeCompCache)
         {
-            var mapping = new YamlMappingNode
+            var mapping = new MappingDataNode
             {
                 {MapLoadConstants.Entities_Uid, _context.EntityUidMap[entity].ToString(CultureInfo.InvariantCulture)}
             };
@@ -254,7 +255,7 @@ namespace OpenNefia.Core.Maps
                 }
             }
 
-            YamlSequenceNode components;
+            SequenceDataNode components;
 
             switch (_mode)
             {
@@ -267,7 +268,7 @@ namespace OpenNefia.Core.Maps
                     break;
             }
 
-            if (components.Children.Count != 0)
+            if (components.Count != 0)
             {
                 mapping.Add(MapLoadConstants.Entities_Components, components);
             }
@@ -280,9 +281,9 @@ namespace OpenNefia.Core.Maps
         /// components that differ from the prototype. There is no compression accounting for
         /// unchanged prototype fields with this method.
         /// </summary>
-        private YamlSequenceNode SerializeComponentsFull(EntityUid entity)
+        private SequenceDataNode SerializeComponentsFull(EntityUid entity)
         {
-            var components = new YamlSequenceNode();
+            var components = new SequenceDataNode();
 
             foreach (var component in _entityManager.GetComponents(entity))
             {
@@ -298,7 +299,7 @@ namespace OpenNefia.Core.Maps
                 }
 
                 compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(component.Name));
-                components.Add(compMapping.ToYamlNode());
+                components.Add(compMapping);
             }
 
             return components;
@@ -308,9 +309,9 @@ namespace OpenNefia.Core.Maps
         /// Saves the entity's components, omitting components that are completely the same
         /// as the prototype's.
         /// </summary>
-        private YamlSequenceNode SerializeComponentsPartial(EntityUid entity, PrototypeCompCache prototypeCompCache)
+        private SequenceDataNode SerializeComponentsPartial(EntityUid entity, PrototypeCompCache prototypeCompCache)
         {
-            var components = new YamlSequenceNode();
+            var components = new SequenceDataNode();
 
             foreach (var component in _entityManager.GetComponents(entity))
             {
@@ -336,7 +337,7 @@ namespace OpenNefia.Core.Maps
                 {
                     compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(component.Name));
                     // Something actually got written!
-                    components.Add(compMapping.ToYamlNode());
+                    components.Add(compMapping);
                 }
             }
 

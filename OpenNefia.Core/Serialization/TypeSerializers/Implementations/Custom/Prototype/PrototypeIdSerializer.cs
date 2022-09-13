@@ -2,7 +2,6 @@
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -21,10 +20,9 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
                 : new ErrorNode(node, $"PrototypeId<{typeof(TPrototype)}> for {node.Value} not found");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public PrototypeId<TPrototype> Read(ISerializationManager serializationManager, ValueDataNode node, IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, PrototypeId<TPrototype> value = default)
         {
-            return new DeserializedValue<PrototypeId<TPrototype>>(new(node.Value));
+            return new PrototypeId<TPrototype>(new(node.Value));
         }
 
         public DataNode Write(ISerializationManager serializationManager, PrototypeId<TPrototype> value, bool alwaysWrite = false,

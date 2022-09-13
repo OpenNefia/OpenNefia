@@ -45,7 +45,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 
             var sys = EntitySystem.Get<TestSystem>();
             var invocations = sys.Invocations;
-            var deserializedDelegate = Serialization.ReadValue<TestDelegate>(node);
+            var deserializedDelegate = Serialization.Read<TestDelegate>(node);
             Assert.That(deserializedDelegate!.Invoke(42), Is.EqualTo("42"));
             Assert.That(sys.Invocations, Is.EqualTo(invocations + 1));
         }
@@ -59,7 +59,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 
             var sys = EntitySystem.Get<TestSystem>();
             var invocations = sys.Invocations;
-            var deserializedDelegate = Serialization.ReadValue<TestDelegate>(node);
+            var deserializedDelegate = Serialization.Read<TestDelegate>(node);
             Assert.That(deserializedDelegate!.Invoke(42), Is.EqualTo("42"));
             Assert.That(sys.Invocations, Is.EqualTo(invocations + 1));
         }

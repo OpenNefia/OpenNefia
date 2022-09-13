@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Home
     [Prototype("Elona.Home")]
     public class HomePrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

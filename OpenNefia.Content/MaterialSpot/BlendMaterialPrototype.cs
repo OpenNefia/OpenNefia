@@ -13,7 +13,7 @@ namespace OpenNefia.Content.MaterialSpot
     [Prototype("Elona.BlendMaterial")]
     public class BlendMaterialPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

@@ -74,10 +74,21 @@ namespace OpenNefia.Core.Utility
         {
         }
 
+        public OrderedDictionary(int size) : this(size, EqualityComparer<TKey>.Default)
+        {
+        }
+
         public OrderedDictionary(IEqualityComparer<TKey> comparer)
         {
             list = new List<KeyValuePair<TKey, TValue>>();
             dictionary = new Dictionary<TKey, TValue>(comparer);
+            this.comparer = comparer;
+        }
+
+        public OrderedDictionary(int size, IEqualityComparer<TKey> comparer)
+        {
+            list = new List<KeyValuePair<TKey, TValue>>();
+            dictionary = new Dictionary<TKey, TValue>(size, comparer);
             this.comparer = comparer;
         }
 

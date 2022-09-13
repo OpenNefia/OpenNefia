@@ -4,7 +4,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -15,13 +14,14 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class EntityUidSerializer : ITypeSerializer<EntityUid, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public EntityUid Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            EntityUid rawValue = default)
         {
             var val = int.Parse(node.Value, CultureInfo.InvariantCulture);
-            return new DeserializedValue<EntityUid>(new EntityUid(val));
+            return new EntityUid(val);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

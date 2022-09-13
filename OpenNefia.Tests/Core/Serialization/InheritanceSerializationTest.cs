@@ -61,7 +61,7 @@ namespace OpenNefia.Tests.Core.Serialization
 
             prototypeManager.RegisterType<EntityPrototype>();
             prototypeManager.LoadString(Prototypes);
-            prototypeManager.Resync();
+            prototypeManager.ResolveResults();
 
             var entityManager = IoCManager.Resolve<IEntityManager>();
 

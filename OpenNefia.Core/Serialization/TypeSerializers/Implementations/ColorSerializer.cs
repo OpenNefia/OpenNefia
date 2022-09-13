@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -14,16 +13,16 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class ColorSerializer : ITypeSerializer<Color, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public Color Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, Color value = default)
         {
             var deserializedColor = Color.TryFromName(node.Value, out var color)
                 ? color :
                 Color.FromHex(node.Value);
 
-            return new DeserializedValue<Color>(deserializedColor);
+            return deserializedColor;
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

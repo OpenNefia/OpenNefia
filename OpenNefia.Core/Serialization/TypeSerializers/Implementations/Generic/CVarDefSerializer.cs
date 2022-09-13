@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -37,13 +36,14 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
                 : new ErrorNode(node, $"Could not find {nameof(CVarDef<T>)} registered with name: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node, 
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public CVarDef<T> Read(ISerializationManager serializationManager, ValueDataNode node, 
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            CVarDef<T>? value = null)
         {
             var configManager = dependencies.Resolve<IConfigurationManager>();
 
             configManager.TryGetCVarDef<T>(node.Value, out var cVarDef);
-            return new DeserializedValue<CVarDef<T>>(cVarDef!);
+            return cVarDef!;
         }
 
         public DataNode Write(ISerializationManager serializationManager, CVarDef<T> value,
@@ -81,13 +81,14 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
                 : new ErrorNode(node, $"Could not find {nameof(CVarDef)} registered with name: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public CVarDef Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            CVarDef? value = null)
         {
             var configManager = dependencies.Resolve<IConfigurationManager>();
 
             configManager.TryGetCVarDef(node.Value, out var cVarDef);
-            return new DeserializedValue<CVarDef>(cVarDef!);
+            return cVarDef!;
         }
 
         public DataNode Write(ISerializationManager serializationManager, CVarDef value,

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Loot
     [Prototype("Elona.LootType")]
     public class LootTypePrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

@@ -8,6 +8,7 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
@@ -27,7 +28,7 @@ namespace OpenNefia.Core.Maps
 
         private MapSerializeMode _mode;
         private MapId _targetMapId;
-        private readonly YamlMappingNode _rootNode;
+        private readonly MappingDataNode _rootNode;
         private MapSerializationContext _context;
 
         private MapMetadata _mapMetadata = new();
@@ -39,10 +40,10 @@ namespace OpenNefia.Core.Maps
 
         public Map? MapGrid { get; private set; }
 
-        private readonly List<(EntityUid, YamlMappingNode)> _entitiesToDeserialize = new();
+        private readonly List<(EntityUid, MappingDataNode)> _entitiesToDeserialize = new();
 
         public MapDeserializer(MapId targetMapId, MapSerializeMode mode,
-            YamlMappingNode node,
+            MappingDataNode node,
             BlueprintEntityStartupDelegate? onLoaded)
         {
             IoCManager.InjectDependencies(this);
@@ -98,13 +99,13 @@ namespace OpenNefia.Core.Maps
         private void VerifyEntitiesExist()
         {
             var fail = false;
-            var entities = _rootNode.GetNode<YamlSequenceNode>(MapLoadConstants.Entities);
+            var entities = _rootNode.Get<SequenceDataNode>(MapLoadConstants.Entities);
             var reportedError = new HashSet<PrototypeId<EntityPrototype>>();
-            foreach (var entityDef in entities.Cast<YamlMappingNode>())
+            foreach (var entityDef in entities.Cast<MappingDataNode>())
             {
-                if (entityDef.TryGetNode(MapLoadConstants.Entities_ProtoId, out var typeNode))
+                if (entityDef.TryGet<ValueDataNode>(MapLoadConstants.Entities_ProtoId, out var typeNode))
                 {
-                    var protoId = new PrototypeId<EntityPrototype>(typeNode.AsString());
+                    var protoId = new PrototypeId<EntityPrototype>(typeNode.Value);
                     if (!_prototypeManager.HasIndex(protoId) && !reportedError.Contains(protoId))
                     {
                         Logger.ErrorS(MapLoader.SawmillName, "Missing prototype for map: {0}", protoId);
@@ -123,15 +124,15 @@ namespace OpenNefia.Core.Maps
 
         private void ReadMetaSection()
         {
-            var meta = _rootNode.GetNode<YamlMappingNode>(MapLoadConstants.Meta);
-            var ver = meta.GetNode(MapLoadConstants.Meta_Format).AsInt();
+            var meta = _rootNode.Get<MappingDataNode>(MapLoadConstants.Meta);
+            var ver = meta.Get<ValueDataNode>(MapLoadConstants.Meta_Format).AsInt();
             if (ver != MapLoadConstants.MapBlueprintFormatVersion)
             {
                 throw new InvalidDataException("Cannot handle this map blueprint file version.");
             }
 
-            var name = meta.GetNode(MapLoadConstants.Meta_Name).AsString();
-            var author = meta.GetNode(MapLoadConstants.Meta_Author).AsString();
+            var name = meta.Get<ValueDataNode>(MapLoadConstants.Meta_Name).Value;
+            var author = meta.Get<ValueDataNode>(MapLoadConstants.Meta_Author).Value;
             _mapMetadata = new MapMetadata(name, author);
         }
 
@@ -140,22 +141,25 @@ namespace OpenNefia.Core.Maps
             // Load tile mapping so that we can map the stored tile IDs into the ones actually used at runtime.
             _tileMap = new Dictionary<string, PrototypeId<TilePrototype>>();
 
-            var tileMap = _rootNode.GetNode<YamlMappingNode>(MapLoadConstants.Tilemap);
+            var tileMap = _rootNode.Get<MappingDataNode>(MapLoadConstants.Tilemap);
             foreach (var (key, value) in tileMap)
             {
-                var tileRune = key.AsString(); // Something like '#' or '.' or '$'.
+                var keyNode = (ValueDataNode)key;
+                var valueNode = (ValueDataNode)value;
+
+                var tileRune = keyNode.Value; // Something like '#' or '.' or '$'.
                 if (tileRune.GetWideLength() != 1)
                 {
                     throw new InvalidDataException($"Tilemap runes must be a single character wide, got: {tileRune}");
                 }
-                var tileProtoId = new PrototypeId<TilePrototype>(value.AsString());
+                var tileProtoId = new PrototypeId<TilePrototype>(valueNode.Value);
                 _tileMap.Add(tileRune, tileProtoId);
             }
         }
 
         private void ReadGridSection()
         {
-            var gridString = _rootNode.GetNode(MapLoadConstants.Grid).AsString().Trim();
+            var gridString = _rootNode.Get<ValueDataNode>(MapLoadConstants.Grid).Value.Trim();
 
             var tiles = YamlGridSerializer.DeserializeGrid(gridString, _tileMap!, _tileDefinitionManager, out var tileMapSize);
 
@@ -170,7 +174,7 @@ namespace OpenNefia.Core.Maps
 
         private void ReadGridMemorySection()
         {
-            var gridMemoryString = _rootNode.GetNode(MapLoadConstants.GridMemory).AsString().Trim();
+            var gridMemoryString = _rootNode.Get<ValueDataNode>(MapLoadConstants.GridMemory).Value.Trim();
             var tileMemory = YamlGridSerializer.DeserializeGrid(gridMemoryString, _tileMap!, _tileDefinitionManager, out var tileMapMemorySize);
 
             if (tileMapMemorySize != MapGrid!.Size)
@@ -186,32 +190,32 @@ namespace OpenNefia.Core.Maps
 
         private void ReadGridInSightSections()
         {
-            var gridInSightStr = _rootNode.GetNode(MapLoadConstants.GridInSight).AsString();
+            var gridInSightStr = _rootNode.Get<ValueDataNode>(MapLoadConstants.GridInSight).Value;
             MapGrid!.InSight = YamlGridSerializer.DeserializeInSight(gridInSightStr, MapGrid.Size);
-            MapGrid!.LastSightId = _rootNode.GetNode(MapLoadConstants.GridLastSightId).AsUInt();
+            MapGrid!.LastSightId = uint.Parse(_rootNode.Get<ValueDataNode>(MapLoadConstants.GridLastSightId).Value);
         }
 
         private void ReadObjectMemorySection()
         {
-            var objectMemoryNode = _rootNode.GetNode(MapLoadConstants.ObjectMemory).ToDataNodeCast<MappingDataNode>();
+            var objectMemoryNode = _rootNode.Get<MappingDataNode>(MapLoadConstants.ObjectMemory);
             
             if (objectMemoryNode == null)
             {
                 throw new InvalidDataException($"Object memory section '{MapLoadConstants.ObjectMemory}' not found!");
             }
 
-            MapGrid!.MapObjectMemory = _serializationManager.ReadValueOrThrow<MapObjectMemoryStore>(objectMemoryNode);
+            MapGrid!.MapObjectMemory = _serializationManager.Read<MapObjectMemoryStore>(objectMemoryNode);
         }
 
         private void AllocEntities()
         {
-            var entities = _rootNode.GetNode<YamlSequenceNode>(MapLoadConstants.Entities);
-            foreach (var entityDef in entities.Cast<YamlMappingNode>())
+            var entities = _rootNode.Get<SequenceDataNode>(MapLoadConstants.Entities);
+            foreach (var entityDef in entities.Cast<MappingDataNode>())
             {
                 PrototypeId<EntityPrototype>? protoId = null;
-                if (entityDef.TryGetNode(MapLoadConstants.Entities_ProtoId, out var typeNode))
+                if (entityDef.TryGet<ValueDataNode>(MapLoadConstants.Entities_ProtoId, out var typeNode))
                 {
-                    protoId = new PrototypeId<EntityPrototype>(typeNode.AsString());
+                    protoId = new PrototypeId<EntityPrototype>(typeNode.Value);
                 }
 
                 int uid;
@@ -221,7 +225,7 @@ namespace OpenNefia.Core.Maps
                 {
                     case MapSerializeMode.Blueprint:
                         uid = _context.Entities.Count;
-                        if (entityDef.TryGetNode(MapLoadConstants.Entities_Uid, out var uidNode))
+                        if (entityDef.TryGet<ValueDataNode>(MapLoadConstants.Entities_Uid, out var uidNode))
                         {
                             uid = uidNode.AsInt();
                         }
@@ -229,7 +233,7 @@ namespace OpenNefia.Core.Maps
                         break;
                     case MapSerializeMode.Full:
                     default:
-                        uid = entityDef.GetNode(MapLoadConstants.Entities_Uid).AsInt();
+                        uid = int.Parse(entityDef.Get<ValueDataNode>(MapLoadConstants.Entities_Uid).Value);
                         realUid = new EntityUid(uid);
                         break;
                 }
@@ -262,14 +266,14 @@ namespace OpenNefia.Core.Maps
             {
                 _context.CurrentReadingEntityComponents = new Dictionary<string, MappingDataNode>();
                 _context.CurrentDeletedEntityComponents = new HashSet<string>();
-                if (data.TryGetNode(MapLoadConstants.Entities_Components, out YamlSequenceNode? componentList))
+                if (data.TryGet<SequenceDataNode>(MapLoadConstants.Entities_Components, out var componentList))
                 {
-                    foreach (var compData in componentList.Cast<YamlMappingNode>())
+                    foreach (var compData in componentList.Cast<MappingDataNode>())
                     {
-                        var mapping = compData.ToDataNodeCast<MappingDataNode>();
-                        var copy = mapping.Copy();
+                        var copy = compData.Copy();
                         copy.Remove(MapLoadConstants.Entities_Components_Type);
-                        _context.CurrentReadingEntityComponents[compData[MapLoadConstants.Entities_Components_Type].AsString()] = copy;
+                        var compType = compData.Get<ValueDataNode>(MapLoadConstants.Entities_Components_Type).Value;
+                        _context.CurrentReadingEntityComponents[compType] = copy;
                     }
                 }
 

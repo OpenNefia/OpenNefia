@@ -8,7 +8,7 @@ namespace OpenNefia.Content.BaseAnim
     [Prototype("Elona.BasicAnim", -1)]
     public class BasicAnimPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         /// <summary>

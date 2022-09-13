@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Equipment
     [Prototype("Elona.EquipmentType")]
     public class EquipmentTypePrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField(required: true)]

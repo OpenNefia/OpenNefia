@@ -4,6 +4,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,21 +98,14 @@ namespace OpenNefia.Core.GameObjects
 
             if (prototype != null)
             {
-                foreach (var (name, data) in prototype.Components)
+                foreach (var (name, entry) in prototype.Components)
                 {
-                    var fullData = data;
+                    var fullData = entry.Mapping;
 
                     if (context != null)
-                    {
-                        if (!context.ShouldLoadComponent(name))
-                        {
-                            continue;
-                        }
+                        fullData = context.GetComponentData(name, fullData);
 
-                        fullData = context.GetComponentData(name, data);
-                    }
-
-                    EnsureCompExistsAndDeserialize(entity, factory, name, fullData, context as ISerializationContext);
+                    EnsureCompExistsAndDeserialize(entity, factory, _entityManager, _serializationManager, name, fullData, context as ISerializationContext);
                 }
             }
 
@@ -129,26 +123,31 @@ namespace OpenNefia.Core.GameObjects
 
                     var ser = context.GetComponentData(name, null);
 
-                    EnsureCompExistsAndDeserialize(entity, factory, name, ser, context as ISerializationContext);
+                    EnsureCompExistsAndDeserialize(entity, factory, _entityManager, _serializationManager, name, ser, context as ISerializationContext);
                 }
             }
         }
 
-        private void EnsureCompExistsAndDeserialize(EntityUid entity, IComponentFactory factory, string compName,
-            IComponent data, ISerializationContext? context)
+        private static void EnsureCompExistsAndDeserialize(EntityUid entity,
+            IComponentFactory factory,
+            IEntityManager entityManager,
+            ISerializationManager serManager,
+            string compName,
+            MappingDataNode data,
+            ISerializationContext? context)
         {
-            var compType = factory.GetRegistration(compName).Type;
+            var compReg = factory.GetRegistration(compName);
 
-            if (!_entityManager.TryGetComponent(entity, compType, out var component))
+            if (!entityManager.TryGetComponent(entity, compReg.Type, out var component))
             {
                 var newComponent = (Component)factory.GetComponent(compName);
                 newComponent.Owner = entity;
-                _entityManager.AddComponent(entity, newComponent);
+                entityManager.AddComponent(entity, newComponent);
                 component = newComponent;
             }
 
             // TODO use this value to support struct components
-            _ = _serializationManager.Copy(data, component, context);
+            serManager.Read(compReg.Type, data, context, value: component);
         }
     }
 }

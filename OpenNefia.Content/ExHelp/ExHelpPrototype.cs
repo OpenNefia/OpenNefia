@@ -16,7 +16,7 @@ namespace OpenNefia.Content.ExHelp
     [Prototype("Elona.ExHelp")]
     public class ExHelpPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

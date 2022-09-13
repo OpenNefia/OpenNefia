@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Tests.World
             var time = new GameTimeSpan(hours, minutes, seconds);
             var node = new ValueDataNode(value);
 
-            var deserializedTime = Serialization.ReadValue<GameTimeSpan>(node);
+            var deserializedTime = Serialization.Read<GameTimeSpan>(node);
 
             Assert.That(deserializedTime, Is.EqualTo(time));
         }

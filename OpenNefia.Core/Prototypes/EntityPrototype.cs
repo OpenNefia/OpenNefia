@@ -8,7 +8,9 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using OpenNefia.Core.ViewVariables;
 
 namespace OpenNefia.Core.Prototypes
 {
@@ -21,7 +23,7 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         /// The "in code name" of the object. Must be unique.
         /// </summary>
-        [DataField("id")]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         /// <summary>
@@ -50,11 +52,18 @@ namespace OpenNefia.Core.Prototypes
         public IReadOnlyDictionary<string, HashSet<int>> HspCellObjIds => _hspCellObjIds;
 
         /// <summary>
+        ///     If true, this prototype should only be inherited from.
+        /// </summary>
+        [NeverPushInheritance]
+        [AbstractDataField]
+        public bool Abstract { get; }
+
+        /// <summary>
         ///     If true, this object should not show up in the entity spawn panel.
         /// </summary>
         [NeverPushInheritance]
-        [DataField]
-        public bool Abstract { get; private set; }
+        [DataField("noSpawn")]
+        public bool NoSpawn { get; private set; }
 
         /// True if this entity will be saved by the map loader.
         /// </summary>
@@ -64,7 +73,8 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>
-        [DataField(customTypeSerializer: typeof(PrototypeIdStringSerializer<EntityPrototype>))]
+        [ViewVariables]
+        [ParentDataFieldAttribute(typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>
@@ -77,8 +87,8 @@ namespace OpenNefia.Core.Prototypes
         public EntityPrototype()
         {
             // All entities come with a spatial and metadata component.
-            Components.Add("Spatial", new SpatialComponent());
-            Components.Add("MetaData", new MetaDataComponent());
+            Components.Add("Spatial", new ComponentRegistryEntry(new SpatialComponent(), new MappingDataNode()));
+            Components.Add("MetaData", new ComponentRegistryEntry(new MetaDataComponent(), new MappingDataNode()));
         }
 
         public override string ToString()
@@ -86,13 +96,13 @@ namespace OpenNefia.Core.Prototypes
             return $"EntityPrototype({ID})";
         }
 
-        public class ComponentRegistry : Dictionary<string, IComponent>
+        public class ComponentRegistry : Dictionary<string, ComponentRegistryEntry>
         {
             public ComponentRegistry()
             {
             }
 
-            public ComponentRegistry(Dictionary<string, IComponent> components) : base(components)
+            public ComponentRegistry(Dictionary<string, ComponentRegistryEntry> components) : base(components)
             {
             }
 
@@ -130,6 +140,19 @@ namespace OpenNefia.Core.Prototypes
                 // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
                 return (this[dummy.Name] as T)!;
+            }
+        }
+
+        public sealed class ComponentRegistryEntry
+        {
+            public readonly IComponent Component;
+            // Mapping is just a quick reference to speed up entity creation.
+            public readonly MappingDataNode Mapping;
+
+            public ComponentRegistryEntry(IComponent component, MappingDataNode mapping)
+            {
+                Component = component;
+                Mapping = mapping;
             }
         }
     }

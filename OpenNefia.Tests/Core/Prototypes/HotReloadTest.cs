@@ -11,21 +11,21 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 namespace OpenNefia.Tests.Core.Prototypes
 {
     [TestFixture]
-    public class HotReloadTest : OpenNefiaUnitTest
+    public sealed class HotReloadTest : OpenNefiaUnitTest
     {
         private const string DummyId = "Dummy";
         public const string HotReloadTestComponentOneId = "HotReloadTestOne";
         public const string HotReloadTestComponentTwoId = "HotReloadTestTwo";
 
         private static readonly string InitialPrototypes = $@"
-- type: Entity
+- type: entity
   id: {DummyId}
   components:
   - type: {HotReloadTestComponentOneId}
     value: 5";
 
         private static readonly string ReloadedPrototypes = $@"
-- type: Entity
+- type: entity
   id: {DummyId}
   components:
   - type: {HotReloadTestComponentOneId}
@@ -41,18 +41,17 @@ namespace OpenNefia.Tests.Core.Prototypes
         public void Setup()
         {
             _components = IoCManager.Resolve<IComponentFactory>();
-            _components.RegisterClass<HotReloadTestComponentOne>();
-            _components.RegisterClass<HotReloadTestComponentTwo>();
-            _components.FinishRegistration();
+            _components.RegisterClass<HotReloadTestOneComponent>();
+            _components.RegisterClass<HotReloadTestTwoComponent>();
 
             IoCManager.Resolve<ISerializationManager>().Initialize();
-            _prototypes = (PrototypeManager) IoCManager.Resolve<IPrototypeManager>();
-            _prototypes.RegisterType<EntityPrototype>();
+            _prototypes = (PrototypeManager)IoCManager.Resolve<IPrototypeManager>();
+            _prototypes.RegisterType(typeof(EntityPrototype));
             _prototypes.LoadString(InitialPrototypes);
-            _prototypes.Resync();
+            _prototypes.ResolveResults();
 
             _maps = IoCManager.Resolve<IMapManager>();
-            _entities = IoCManager.Resolve<IEntityManager>();
+            _entities = _entities;
         }
 
         [Test]
@@ -60,23 +59,24 @@ namespace OpenNefia.Tests.Core.Prototypes
         {
             var map = _maps.CreateMap(25, 25);
             var entity = _entities.SpawnEntity(new(DummyId), map.AtPos(Vector2i.Zero));
-            var entityComponent = _entities.GetComponent<HotReloadTestComponentOne>(entity);
+            var entityComponent = _entities.GetComponent<HotReloadTestOneComponent>(entity);
 
             Assert.That(entityComponent.Value, Is.EqualTo(5));
-            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
+            Assert.False(_entities.HasComponent<HotReloadTestTwoComponent>(entity));
 
             var reloaded = false;
             _prototypes.PrototypesReloaded += _ => reloaded = true;
 
-            _prototypes.ReloadPrototypes(new List<IPrototype>());
+            _prototypes.ReloadPrototypes(new Dictionary<Type, HashSet<string>>());
 
             Assert.True(reloaded);
             reloaded = false;
 
             Assert.That(entityComponent.Value, Is.EqualTo(5));
-            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
+            Assert.False(_entities.HasComponent<HotReloadTestTwoComponent>(entity));
 
-            var changedPrototypes = _prototypes.LoadString(ReloadedPrototypes, true);
+            var changedPrototypes = new Dictionary<Type, HashSet<string>>();
+            _prototypes.LoadString(ReloadedPrototypes, true, changedPrototypes);
             _prototypes.ReloadPrototypes(changedPrototypes);
 
             Assert.True(reloaded);
@@ -86,9 +86,10 @@ namespace OpenNefia.Tests.Core.Prototypes
             Assert.That(entityComponent.Value, Is.EqualTo(5));
 
             // New components are added
-            Assert.True(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
+            Assert.True(_entities.HasComponent<HotReloadTestTwoComponent>(entity));
 
-            changedPrototypes = _prototypes.LoadString(InitialPrototypes, true);
+            changedPrototypes = new Dictionary<Type, HashSet<string>>();
+            _prototypes.LoadString(InitialPrototypes, true, changedPrototypes);
             _prototypes.ReloadPrototypes(changedPrototypes);
 
             Assert.True(reloaded);
@@ -98,11 +99,11 @@ namespace OpenNefia.Tests.Core.Prototypes
             Assert.That(entityComponent.Value, Is.EqualTo(5));
 
             // Old components are removed
-            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
+            Assert.False(_entities.HasComponent<HotReloadTestTwoComponent>(entity));
         }
     }
 
-    public class HotReloadTestComponentOne : Component
+    public class HotReloadTestOneComponent : Component
     {
         public override string Name => HotReloadTest.HotReloadTestComponentOneId;
 
@@ -110,7 +111,7 @@ namespace OpenNefia.Tests.Core.Prototypes
         public int Value { get; }
     }
 
-    public class HotReloadTestComponentTwo : Component
+    public class HotReloadTestTwoComponent : Component
     {
         public override string Name => HotReloadTest.HotReloadTestComponentTwoId;
     }

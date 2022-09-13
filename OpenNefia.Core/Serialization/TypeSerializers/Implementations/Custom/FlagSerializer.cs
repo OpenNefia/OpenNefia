@@ -1,7 +1,6 @@
 ﻿using System;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -19,11 +18,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom
             return Enum.TryParse(flagType, node.Value, out _) ? new ValidatedValueNode(node) : new ErrorNode(node, "Failed parsing flag.", false);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public int Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, int value = default)
         {
             var flagType = serializationManager.GetFlagTypeFromTag(typeof(TTag));
-            return new DeserializedValue((int)Enum.Parse(flagType, node.Value));
+            return (int)Enum.Parse(flagType, node.Value);
         }
 
         public DataNode Write(ISerializationManager serializationManager, int value, bool alwaysWrite = false,
@@ -80,8 +79,8 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom
             return new ValidatedValueNode(node);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public int Read(ISerializationManager serializationManager, SequenceDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, int value = default)
         {
             var flagType = serializationManager.GetFlagTypeFromTag(typeof(TTag));
             var flags = 0;
@@ -89,10 +88,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom
             foreach (var elem in node.Sequence)
             {
                 if (elem is not ValueDataNode valueDataNode) throw new InvalidNodeTypeException();
-                flags |= (int) Enum.Parse(flagType, valueDataNode.Value);
+                flags |= (int)Enum.Parse(flagType, valueDataNode.Value);
             }
 
-            return new DeserializedValue(flags);
+            return flags;
         }
 
         public bool Compare(ISerializationManager serializationManager, int left, int right, 

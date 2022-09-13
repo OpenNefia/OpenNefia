@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
             prototypeManager.RegisterType<ChipPrototype>();
             prototypeManager.RegisterType<RacePrototype>();
             prototypeManager.RegisterType<ClassPrototype>();
-            prototypeManager.Resync();
+            prototypeManager.ResolveResults();
         }
 
         [Test]

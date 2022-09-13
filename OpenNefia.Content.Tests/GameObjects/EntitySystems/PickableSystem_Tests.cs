@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
             IoCManager.Resolve<ISerializationManager>().Initialize();
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             prototypeManager.RegisterType<EntityPrototype>();
-            prototypeManager.Resync();
+            prototypeManager.ResolveResults();
         }
 
         [Test]

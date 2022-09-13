@@ -35,7 +35,7 @@ namespace OpenNefia.Tests.Core.Areas
             protoMan.RegisterType<MapPrototype>();
             protoMan.RegisterType<EntityPrototype>();
             protoMan.LoadString(Prototypes);
-            protoMan.Resync();
+            protoMan.ResolveResults();
         }
 
         [SetUp]

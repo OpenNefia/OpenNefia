@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Portraits
     [Prototype("Elona.Portrait")]
     public class PortraitPrototype : IPrototype, IHspIds<int>, IAtlasRegionProvider
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>
