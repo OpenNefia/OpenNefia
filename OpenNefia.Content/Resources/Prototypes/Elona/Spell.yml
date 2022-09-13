@@ -18,6 +18,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 80
+  effect: !type:EffectHealLight
 
 - type: Elona.Spell
   id: Elona.SpellHealCritical
@@ -26,6 +27,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 350
+  effect: !type:EffectHealCritical
 
 - type: Elona.Spell
   id: Elona.SpellCureOfEris
@@ -34,6 +36,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 800
+  effect: !type:EffectCureOfEris
 
 - type: Elona.Spell
   id: Elona.SpellCureOfJure
@@ -42,6 +45,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 1300
+  effect: !type:EffectCureOfJure
 
 - type: Elona.Spell
   id: Elona.SpellHealingRain
@@ -58,6 +62,7 @@
   relatedSkill: Elona.AttrWill
   skillType: Spell
   difficulty: 400
+  effect: !type:EffectHealingTouch
 
 - type: Elona.Spell
   id: Elona.SpellHolyLight
