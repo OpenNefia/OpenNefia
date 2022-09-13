@@ -206,11 +206,6 @@ namespace OpenNefia.Content.Nefia
             "Elona.Nefia.NameModifiers.TypeB"
         };
 
-        /// <remarks>
-        /// TODO: Rewrite this in terms of <see cref="DisplayName.DisplayNameSystem"/>!
-        /// To support language switching, <see cref="MetaDataComponent.DisplayName"/> should never 
-        /// be set manually!
-        /// </remarks>
         private (string Type, int Rank) PickRandomNefiaNameArgs(int baseLevel)
         {
             var rankFactor = 5;

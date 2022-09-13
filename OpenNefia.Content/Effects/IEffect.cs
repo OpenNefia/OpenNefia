@@ -108,6 +108,9 @@ namespace OpenNefia.Content.Effects
         /// <summary>
         /// If set to true after casting a spell, the thing holding the spell should be identified.
         /// </summary>
+        /// <remarks>
+        /// The default is <c>true</c>, set to <c>false</c> to prevent identification.
+        /// </remarks>
         public bool EffectWasObvious { get; set; } = true;
     }
 

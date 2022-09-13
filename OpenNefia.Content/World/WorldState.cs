@@ -51,7 +51,7 @@ namespace OpenNefia.Content.World
         /// Random seed this save was initialized with.
         /// </summary>
         [DataField]
-        public int RandomSeed { get; set; }
+        public int RandomSeed { get; set; } = 1;
 
         /// <summary>
         /// The deepest dungeon level the player has traversed to.
