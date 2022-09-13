@@ -233,4 +233,9 @@ namespace OpenNefia.Core.Serialization.Manager
 
         #endregion
     }
+
+    internal interface ISerializationManagerInternal : ISerializationManager
+    {
+        bool IsValidatingOnly { get; set; }
+    }
 }

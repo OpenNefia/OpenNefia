@@ -7,6 +7,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
@@ -33,6 +34,8 @@ namespace OpenNefia.YAMLValidator
             IoCManager.BuildGraph();
 
             RegisterReflection();
+
+            IoCManager.Resolve<ISerializationManagerInternal>().IsValidatingOnly = true;
         }
 
         private static void RegisterReflection()

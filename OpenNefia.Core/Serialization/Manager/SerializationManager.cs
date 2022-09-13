@@ -24,11 +24,13 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Serialization.Manager
 {
-    public partial class SerializationManager : ISerializationManager
+    public partial class SerializationManager : ISerializationManagerInternal
     {
         [IoC.Dependency] private readonly IReflectionManager _reflectionManager = default!;
 
         public const string LogCategory = "serialization";
+
+        public bool IsValidatingOnly { get; set; }
 
         private bool _initializing;
         private bool _initialized;

@@ -74,7 +74,7 @@ namespace OpenNefia.Core.Prototypes
         /// The prototype we inherit from.
         /// </summary>
         [ViewVariables]
-        [ParentDataFieldAttribute(typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [ParentDataFieldAttribute(typeof(PrototypeIdStringSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>
