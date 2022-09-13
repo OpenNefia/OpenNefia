@@ -97,8 +97,11 @@ namespace OpenNefia.Tests
         private const string EmptyTile = @"
 - type: Tile
   id: Empty
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
   isSolid: false
   isOpaque: false
+
 ";
 
         private DiContainerDelegate? _diFactory;
@@ -269,6 +272,7 @@ namespace OpenNefia.Tests
             container.Register<IAreaManager, AreaManager>();
             container.Register<IAreaManagerInternal, AreaManager>();
             container.Register<ISerializationManager, SerializationManager>();
+            container.Register<ISerializationManagerInternal, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IPrototypeManagerInternal, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();

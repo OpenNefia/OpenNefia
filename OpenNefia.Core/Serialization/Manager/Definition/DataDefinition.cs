@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                 Copier = copier;
             }
         }
-        
+
         private readonly PopulateDelegateSignature _populate;
         private readonly SerializeDelegateSignature _serialize;
         private readonly CopyDelegateSignature _copy;
@@ -65,7 +65,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             var fieldAccessors = new AccessField<object, object?>[BaseFieldDefinitions.Length];
             var fieldAssigners = new AssignField<object, object?>[BaseFieldDefinitions.Length];
             var interfaceInfos = new FieldInterfaceInfo[BaseFieldDefinitions.Length];
-            
+
             for (var i = 0; i < BaseFieldDefinitions.Length; i++)
             {
                 var fieldDefinition = BaseFieldDefinitions[i];
@@ -90,7 +90,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             var reader = (false, false, false);
             var writer = false;
             var copier = false;
-            
+
             foreach (var @interface in fieldDefinition.Attribute.CustomTypeSerializer!.GetInterfaces())
             {
                 var genericTypedef = @interface.GetGenericTypeDefinition();
@@ -182,6 +182,21 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             ISerializationContext? context)
         {
             var validatedMapping = new Dictionary<ValidationNode, ValidationNode>();
+
+            for (var i = 0; i < BaseFieldDefinitions.Length; i++)
+            {
+                var fieldDefinition = BaseFieldDefinitions[i];
+
+                if (fieldDefinition.Attribute is DataFieldAttribute dfa)
+                {
+                    var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa);
+                    if (!mapping.Has(tag))
+                    {
+                        if (dfa.Required)
+                            return new ErrorNode(mapping, $"Required field {tag} of type {fieldDefinition.FieldType} wasn't mapped.");
+                    }
+                }
+            }
 
             foreach (var (key, val) in mapping.Children)
             {
