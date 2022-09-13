@@ -33,6 +33,7 @@ namespace OpenNefia.Content.UI.Layer
             public PrototypeId<AssetPrototype> Image = Protos.Asset.BgRe1;
             public IEnumerable<Choice> Choices = Enumerable.Empty<Choice>();
             public bool IsCancellable = false;
+            public int DefaultChoiceIndex = -1;
 
             public Args()
             {
@@ -94,6 +95,7 @@ namespace OpenNefia.Content.UI.Layer
         [Child] protected AssetDrawable AssetImage { get; private set; } = default!;
 
         public bool IsCancellable { get; private set; }
+        public int DefaultChoiceIndex { get; private set; }
 
         public RandomEventPrompt()
         {
@@ -115,6 +117,9 @@ namespace OpenNefia.Content.UI.Layer
             TextTitle.Text = Loc.GetString("Elona.RandomEvent.Title", ("title", args.Title));
             TextBody.WrappedText = args.Text;
             AssetImage = new AssetDrawable(args.Image);
+            DefaultChoiceIndex = args.DefaultChoiceIndex;
+            if (DefaultChoiceIndex == -1 && List.Count <= 1)
+                DefaultChoiceIndex = 0;
         }
 
         public override void GrabFocus()
@@ -130,7 +135,7 @@ namespace OpenNefia.Content.UI.Layer
                 if (IsCancellable)
                 {
                     Sounds.Play(Protos.Sound.Click1);
-                    Finish(new(List.ElementAtOrDefault(0)?.Data));
+                    Finish(new(List.ElementAtOrDefault(DefaultChoiceIndex)?.Data));
                     args.Handle();
                 }
             }

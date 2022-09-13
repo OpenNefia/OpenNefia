@@ -56,6 +56,7 @@
     amount: 25
   - type: MapRenewGeometry
     mapBlueprintPath: /Maps/Elona/vernis.yml
+  - type: MapVernis
 
 - type: Entity
   id: Elona.MapYowyn
