@@ -114,7 +114,7 @@ namespace OpenNefia.Core.Serialization.Manager
                     return;
                 }
 
-                DataDefinitions.GetValue(type, CreateDefinitionCallback);
+                DataDefinitions.GetValue(type, t => CreateDataDefinition(t, DependencyCollection));
             });
 
             var error = new StringBuilder();
@@ -168,12 +168,9 @@ namespace OpenNefia.Core.Serialization.Manager
             });
         }
 
-        private static readonly ConditionalWeakTable<Type, DataDefinition>.CreateValueCallback
-            CreateDefinitionCallback = CreateDataDefinition;
-
-        private static DataDefinition CreateDataDefinition(Type t)
+        private static DataDefinition CreateDataDefinition(Type t, IDependencyCollection collection)
         {
-            return new(t);
+            return new(t, collection);
         }
 
         public void Shutdown()
@@ -611,8 +608,7 @@ namespace OpenNefia.Core.Serialization.Manager
                     $"Source and target do not match. Source ({sourceType}) is array type? {sourceType.IsArray}. Target ({targetType}) is array type? {targetType.IsArray}");
             }
 
-            var commonType = TypeHelpers.SelectCommonType(sourceType, targetType);
-            if (commonType == null)
+            if (!TypeHelpers.TrySelectCommonType(sourceType, targetType, out var commonType))
             {
                 throw new InvalidOperationException("Could not find common type in Copy!");
             }

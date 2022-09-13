@@ -11,9 +11,12 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             ISerializationContext? context,
             bool skipHook);
 
-        private delegate DeserializationResult PopulateDelegateSignature(
+        private delegate object PopulateDelegateSignature(
             object target,
-            DeserializedFieldEntry[] deserializationResults,
+            MappingDataNode mappingDataNode,
+            ISerializationManager serializationManager,
+            ISerializationContext? context,
+            bool skipHook,
             object?[] defaultValues);
 
         private delegate MappingDataNode SerializeDelegateSignature(
@@ -41,6 +44,6 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
 
         private delegate TValue AccessField<TTarget, TValue>(ref TTarget target);
 
-        private delegate void AssignField<TTarget, TValue>(ref TTarget target, TValue? value);
+        internal delegate void AssignField<TTarget, TValue>(ref TTarget target, TValue? value);
     }
 }

@@ -51,7 +51,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 var call = Expression.Call(
                     instanceParam,
                     nameof(ReadWithSerializer),
-                    new[] {tuple.value, tuple.node, tuple.serializer},
+                    new[] { tuple.value, tuple.node, tuple.serializer },
                     Expression.Convert(nodeParam, tuple.node),
                     contextParam,
                     skipHookParam);
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 var call = Expression.Call(
                     instanceParam,
                     nameof(WriteWithSerializer),
-                    new[] {tuple.value, tuple.serializer},
+                    new[] { tuple.value, tuple.serializer },
                     Expression.Convert(valueParam, tuple.value),
                     contextParam,
                     alwaysWriteParam);
@@ -104,14 +104,14 @@ namespace OpenNefia.Core.Serialization.Manager
                 var call = Expression.Call(
                     instanceParam,
                     nameof(CopyWithSerializer),
-                    new[] {tuple.common, tuple.source, tuple.target, tuple.serializer},
+                    new[] { tuple.common, tuple.source, tuple.target, tuple.serializer },
                     Expression.Convert(sourceParam, tuple.source),
                     targetCastVariable,
                     skipHookParam,
                     contextParam);
 
                 var block = Expression.Block(
-                    new[] {targetCastVariable},
+                    new[] { targetCastVariable },
                     Expression.Assign(
                         targetCastVariable,
                         Expression.Convert(targetParam, tuple.target)),
@@ -143,7 +143,7 @@ namespace OpenNefia.Core.Serialization.Manager
             where TSerializer : ITypeReader<T, TNode>
             where TNode : DataNode
         {
-            var serializer = (ITypeReader<T, TNode>) GetTypeSerializer(typeof(TSerializer));
+            var serializer = (ITypeReader<T, TNode>)GetTypeSerializer(typeof(TSerializer));
             return serializer.Read(this, node, DependencyCollection, skipHook, context);
         }
 
@@ -163,7 +163,7 @@ namespace OpenNefia.Core.Serialization.Manager
             bool alwaysWrite = false)
             where TSerializer : ITypeWriter<T>
         {
-            var serializer = (ITypeWriter<T>) GetTypeSerializer(typeof(TSerializer));
+            var serializer = (ITypeWriter<T>)GetTypeSerializer(typeof(TSerializer));
             return serializer.Write(this, value, alwaysWrite, context);
         }
 
@@ -171,8 +171,9 @@ namespace OpenNefia.Core.Serialization.Manager
         {
             var sourceType = source.GetType();
             var targetType = target.GetType();
-            var commonType = TypeHelpers.SelectCommonType(sourceType, targetType) ??
-                             throw new ArgumentException($"No common type found between {sourceType} and {targetType}");
+
+            if (!TypeHelpers.TrySelectCommonType(sourceType, targetType, out var commonType))
+                throw new ArgumentException($"No common type found between {sourceType} and {targetType}");
 
             return GetOrCreateCopySerializerDelegate(commonType, sourceType, targetType, serializer)(source, ref target, skipHook, context);
         }
@@ -186,7 +187,7 @@ namespace OpenNefia.Core.Serialization.Manager
             where TTarget : TCommon
             where TSerializer : ITypeCopier<TCommon>
         {
-            var serializer = (ITypeCopier<TCommon>) GetTypeSerializer(typeof(TSerializer));
+            var serializer = (ITypeCopier<TCommon>)GetTypeSerializer(typeof(TSerializer));
             return serializer.Copy(this, source, target, skipHook, context);
         }
 
@@ -196,7 +197,7 @@ namespace OpenNefia.Core.Serialization.Manager
             where TNode : DataNode
             where TSerializer : ITypeValidator<T, TNode>
         {
-            var serializer = (ITypeValidator<T, TNode>) GetTypeSerializer(typeof(TSerializer));
+            var serializer = (ITypeValidator<T, TNode>)GetTypeSerializer(typeof(TSerializer));
             return serializer.Validate(this, node, DependencyCollection, context);
         }
     }

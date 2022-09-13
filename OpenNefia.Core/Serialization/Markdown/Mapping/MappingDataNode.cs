@@ -64,10 +64,16 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             return this;
         }
 
-        public MappingDataNode Insert(int index, DataNode key, DataNode node)
+        public void Insert(MappingDataNode otherMapping, bool skipDuplicates = false)
         {
-            _children.Insert(index, key, node);
-            return this;
+            foreach (var (key, val) in otherMapping.Children)
+            {
+                if (!skipDuplicates || !Has(key))
+                {
+                    // Intentionally raises an ArgumentException
+                    Add(key.Copy(), val.Copy());
+                }
+            }
         }
 
         public MappingDataNode RemoveAt(int index)

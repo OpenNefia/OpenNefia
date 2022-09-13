@@ -132,9 +132,9 @@ namespace OpenNefia.Core.Utility
             }
         }
 
-        public static Type? SelectCommonType(Type type1, Type type2)
+        public static bool TrySelectCommonType(Type type1, Type type2, [NotNullWhen(true)] out Type? commonType)
         {
-            Type? commonType = null;
+            commonType = null;
             if (type1.IsAssignableFrom(type2))
             {
                 commonType = type1;
@@ -144,7 +144,7 @@ namespace OpenNefia.Core.Utility
                 commonType = type2;
             }
 
-            return commonType;
+            return commonType != null;
         }
 
         internal static SpecificFieldInfo? GetBackingField(this Type type, string propertyName)

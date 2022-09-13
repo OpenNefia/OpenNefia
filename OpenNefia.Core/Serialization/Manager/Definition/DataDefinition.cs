@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 using OpenNefia.Core.Utility;
 using static OpenNefia.Core.Serialization.Manager.SerializationManager;
 
@@ -16,13 +19,27 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {
+        private readonly struct FieldInterfaceInfo
+        {
+            public readonly (bool Value, bool Sequence, bool Mapping) Reader;
+            public readonly bool Writer;
+            public readonly bool Copier;
+
+            public FieldInterfaceInfo((bool Value, bool Sequence, bool Mapping) reader, bool writer, bool copier)
+            {
+                Reader = reader;
+                Writer = writer;
+                Copier = copier;
+            }
+        }
+        
         private readonly DeserializeDelegate _deserialize;
         private readonly PopulateDelegateSignature _populate;
         private readonly SerializeDelegateSignature _serialize;
         private readonly CopyDelegateSignature _copy;
         private readonly CompareDelegateSignature _compare;
 
-        public DataDefinition(Type type)
+        public DataDefinition(Type type, IDependencyCollection collection)
         {
             Type = type;
 
@@ -43,24 +60,84 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             DefaultValues = fieldDefs.Select(f => f.DefaultValue).ToArray();
 
             _deserialize = EmitDeserializationDelegate();
-            _populate = EmitPopulateDelegate();
+            _populate = EmitPopulateDelegate(collection);
             _serialize = EmitSerializeDelegate();
             _copy = EmitCopyDelegate();
             _compare = EmitCompareDelegate();
 
             var fieldAccessors = new AccessField<object, object?>[BaseFieldDefinitions.Length];
             var fieldAssigners = new AssignField<object, object?>[BaseFieldDefinitions.Length];
-
+            var interfaceInfos = new FieldInterfaceInfo[BaseFieldDefinitions.Length];
+            
             for (var i = 0; i < BaseFieldDefinitions.Length; i++)
             {
                 var fieldDefinition = BaseFieldDefinitions[i];
 
                 fieldAccessors[i] = EmitFieldAccessor(fieldDefinition);
-                fieldAssigners[i] = EmitFieldAssigner(fieldDefinition);
+                fieldAssigners[i] = EmitFieldAssigner(fieldDefinition); 
+                
+                if (fieldDefinition.Attribute.CustomTypeSerializer != null)
+                {
+                    interfaceInfos[i] = CacheFieldInterfaceInfo(type, fieldDefinition);
+                }
             }
 
             FieldAccessors = fieldAccessors.ToImmutableArray();
             FieldAssigners = fieldAssigners.ToImmutableArray();
+            FieldInterfaceInfos = interfaceInfos.ToImmutableArray();
+        }
+
+        private FieldInterfaceInfo CacheFieldInterfaceInfo(Type type, FieldDefinition fieldDefinition)
+        {
+            //reader (value, sequence, mapping), writer, copier
+            var reader = (false, false, false);
+            var writer = false;
+            var copier = false;
+            
+            foreach (var @interface in fieldDefinition.Attribute.CustomTypeSerializer!.GetInterfaces())
+            {
+                var genericTypedef = @interface.GetGenericTypeDefinition();
+                if (genericTypedef == typeof(ITypeWriter<>))
+                {
+                    if (@interface.GenericTypeArguments[0].IsAssignableTo(fieldDefinition.FieldType))
+                    {
+                        writer = true;
+                    }
+                }
+                else if (genericTypedef == typeof(ITypeCopier<>))
+                {
+                    if (@interface.GenericTypeArguments[0].IsAssignableTo(fieldDefinition.FieldType))
+                    {
+                        copier = true;
+                    }
+                }
+                else if (genericTypedef == typeof(ITypeReader<,>))
+                {
+                    if (@interface.GenericTypeArguments[0].IsAssignableTo(fieldDefinition.FieldType))
+                    {
+                        if (@interface.GenericTypeArguments[1] == typeof(ValueDataNode))
+                        {
+                            reader.Item1 = true;
+                        }
+                        else if (@interface.GenericTypeArguments[1] == typeof(SequenceDataNode))
+                        {
+                            reader.Item2 = true;
+                        }
+                        else if (@interface.GenericTypeArguments[1] == typeof(MappingDataNode))
+                        {
+                            reader.Item3 = true;
+                        }
+                    }
+                }
+            }
+
+            if (!reader.Item1 && !reader.Item2 && !reader.Item3 && !writer && !copier)
+            {
+                throw new InvalidOperationException(
+                    $"Could not find any fitting implementation of ITypeReader, ITypeWriter or ITypeCopier for field {fieldDefinition.Attribute.Tag}({fieldDefinition.FieldType}) on type {type} on CustomTypeSerializer {fieldDefinition.Attribute.CustomTypeSerializer}");
+            }
+
+            return new FieldInterfaceInfo(reader, writer, copier);
         }
 
         public Type Type { get; }
@@ -72,7 +149,8 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
         private ImmutableArray<AssignField<object, object?>> FieldAssigners { get; }
 
         internal ImmutableArray<FieldDefinition> BaseFieldDefinitions { get; }
-
+        private ImmutableArray<FieldInterfaceInfo> FieldInterfaceInfos { get; }
+        
         public DeserializationResult Populate(object target, DeserializedFieldEntry[] fields)
         {
             return _populate(target, fields, DefaultValues);
@@ -163,6 +241,13 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             return duplicates.Length > 0;
         }
 
+        private string GetActualDataFieldTag(AbstractFieldInfo abstractFieldInfo, DataFieldAttribute dataField)
+        {
+            // Default to lowercased field name from C# if no tag name is provided.
+            // Tag names will be lowerCamelCase.
+            return dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.ToLowerCamelCase();
+        }
+
         private List<FieldDefinition> GetFieldDefinitions()
         {
             var dummyObject = Activator.CreateInstance(Type) ?? throw new NullReferenceException();
@@ -179,10 +264,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                 {
                     continue;
                 }
-
-                // Default to lowercased field name from C# if no tag name is provided.
-                // Tag names will be lowerCamelCase.
-                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.ToLowerCamelCase();
+                string tag = GetActualDataFieldTag(abstractFieldInfo, dataField);
 
                 var backingField = abstractFieldInfo;
 
