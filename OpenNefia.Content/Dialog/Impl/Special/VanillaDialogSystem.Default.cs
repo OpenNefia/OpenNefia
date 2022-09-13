@@ -93,7 +93,10 @@ namespace OpenNefia.Content.Dialog
             else if (_rand.OneIn(3) && area != null && TryProtoID(area.AreaEntityUid, out var areaProtoID))
                 key = $"OpenNefia.Prototypes.Entity.{areaProtoID}.VillagerTalk"; // TODO namespace component localizations separately to avoid name clashes
 
-            result.Add(DialogTextEntry.FromLocaleKey(key));
+            var textEntry = DialogTextEntry.FromLocaleKey(key);
+            textEntry.PickRandomly = true;
+
+            result.Add(textEntry);
             return result;
         }
 

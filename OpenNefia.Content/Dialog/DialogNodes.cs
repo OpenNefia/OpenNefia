@@ -17,6 +17,7 @@ using System.Diagnostics.Metrics;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Sidequests;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Core.Random;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -166,6 +167,13 @@ namespace OpenNefia.Content.Dialog
         public LocaleKey? Key { get; internal set; }
 
         /// <summary>
+        /// If true, pick one text randomly from the locale list referenced by <see cref="Key"/>.
+        /// Otherwise, treat the list as multiple sequental text entries.
+        /// </summary>
+        [DataField]
+        public bool PickRandomly { get; set; } = false;
+
+        /// <summary>
         /// Actions to execute before this text is displayed.
         /// </summary>
         [DataField("beforeEnter")]
@@ -286,7 +294,18 @@ namespace OpenNefia.Content.Dialog
             //
             // Dialog.Text = { "Text 1.", "Text 2.", "Text 3" }
             if (Loc.TryGetList(text.Key!.Value, out var list, args))
-                return list;
+            {
+                if (text.PickRandomly)
+                {
+                    // One line of text picked randomly.
+                    return new List<string>() { IoCManager.Resolve<IRandom>().Pick(list) };
+                }
+                else
+                {
+                    // Sequential text.
+                    return list;
+                }
+            }
 
             // Check single strings. In Lua:
             //
