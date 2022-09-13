@@ -65,8 +65,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             bool skipHook,
             ISerializationContext? context = null)
         {
-            return (serializationManager.Copy(source.Item1, target.Item1)!,
-                serializationManager.Copy(source.Item2, source.Item2)!);
+            var i1 = target.Item1;
+            var i2 = target.Item2;
+            serializationManager.Copy(source.Item1, ref i1, context, skipHook);
+            serializationManager.Copy(source.Item2, ref i2, context, skipHook);
+            return (i1, i2);
         }
 
         public bool Compare(ISerializationManager serializationManager, (T1, T2) left, (T1, T2) right,
