@@ -2,94 +2,87 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {
-        private DeserializeDelegate EmitDeserializationDelegate()
+        private PopulateDelegateSignature EmitPopulateDelegate(IDependencyCollection collection)
         {
-            DeserializedFieldEntry[] DeserializationDelegate(MappingDataNode mappingDataNode,
-                ISerializationManager serializationManager, ISerializationContext? serializationContext, bool skipHook)
-            {
-                var mappedInfo = new DeserializedFieldEntry[BaseFieldDefinitions.Length];
-
-                for (var i = 0; i < BaseFieldDefinitions.Length; i++)
-                {
-                    var fieldDefinition = BaseFieldDefinitions[i];
-
-                    var mapped = mappingDataNode.Has(fieldDefinition.Tag);
-
-                    if (!mapped)
-                    {
-                        mappedInfo[i] = new DeserializedFieldEntry(mapped, fieldDefinition.InheritanceBehavior);
-                        continue;
-                    }
-
-                    var type = fieldDefinition.FieldType;
-                    var node = mappingDataNode.Get(fieldDefinition.Tag);
-                    var result = fieldDefinition.Attribute.CustomTypeSerializer != null
-                        ? serializationManager.ReadWithTypeSerializer(type,
-                            fieldDefinition.Attribute.CustomTypeSerializer, node, serializationContext,
-                            skipHook)
-                        : serializationManager.Read(type, node, serializationContext, skipHook);
-
-                    var entry = new DeserializedFieldEntry(mapped, fieldDefinition.InheritanceBehavior, result);
-                    mappedInfo[i] = entry;
-                }
-
-                return mappedInfo;
-            }
-
-            return DeserializationDelegate;
-        }
-
-        private PopulateDelegateSignature EmitPopulateDelegate()
-        {
-            // TODO Serialization: validate mappings array count
-            var constructor =
-                typeof(DeserializedDefinition<>).MakeGenericType(Type).GetConstructor(new[] {Type, typeof(DeserializedFieldEntry[])}) ??
-                throw new NullReferenceException();
-
-            var valueParam = Expression.Parameter(typeof(object), "value");
-            var valueParamCast = Expression.Convert(valueParam, Type);
-
-            var mappingParam = Expression.Parameter(typeof(DeserializedFieldEntry[]), "mapping");
-
-            var newExp = Expression.New(constructor, valueParamCast, mappingParam);
-            var createDefinitionDelegate = Expression.Lambda<CreateDefinitionDelegate>(newExp, valueParam, mappingParam).Compile();
-
-            DeserializationResult PopulateDelegate(
+            object PopulateDelegate(
                 object target,
-                DeserializedFieldEntry[] deserializedFields,
+                MappingDataNode mappingDataNode,
+                ISerializationManager serializationManager,
+                ISerializationContext? serializationContext,
+                bool skipHook,
                 object?[] defaultValues)
             {
                 for (var i = 0; i < BaseFieldDefinitions.Length; i++)
                 {
-                    var res = deserializedFields[i];
-                    if (!res.Mapped) continue;
+                    var fieldDefinition = BaseFieldDefinitions[i];
+
+                    if (fieldDefinition.Attribute is DataFieldAttribute dfa)
+                    {
+                        var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa);
+                        if (!mappingDataNode.Has(tag))
+                        {
+                            if (dfa.Required)
+                                throw new InvalidOperationException($"Required field {dfa.Tag} of type {target.GetType()} wasn't mapped.");
+                            continue;
+                        }
+                    }
+
+                    var type = fieldDefinition.FieldType;
+                    DataNode node = mappingDataNode;
+                    if (fieldDefinition.Attribute is DataFieldAttribute dfa2)
+                    {
+                        var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa2);
+                        node = mappingDataNode.Get(tag);
+                    }
+
+                    object? result;
+                    if (fieldDefinition.Attribute.CustomTypeSerializer != null && node switch
+                    {
+                        ValueDataNode => FieldInterfaceInfos[i].Reader.Value,
+                        SequenceDataNode => FieldInterfaceInfos[i].Reader.Sequence,
+                        MappingDataNode => FieldInterfaceInfos[i].Reader.Mapping,
+                        _ => throw new InvalidOperationException()
+                    })
+                    {
+                        result = serializationManager.ReadWithTypeSerializer(type,
+                            fieldDefinition.Attribute.CustomTypeSerializer, node, serializationContext, skipHook);
+                    }
+                    else
+                    {
+                        result = serializationManager.Read(type, node, serializationContext, skipHook);
+                    }
 
                     var defValue = defaultValues[i];
 
-                    if (Equals(res.Result?.RawValue, defValue))
+                    if (Equals(result, defValue))
                     {
                         continue;
                     }
 
-                    FieldAssigners[i](ref target, res.Result?.RawValue);
+                    FieldAssigners[i](ref target, result);
                 }
 
-                return createDefinitionDelegate(target, deserializedFields);
+                return target;
             }
 
             return PopulateDelegate;
         }
 
-        private SerializeDelegateSignature EmitSerializeDelegate()
+        private SerializeDelegateSignature EmitSerializeDelegate(IDependencyCollection collection)
         {
             MappingDataNode SerializeDelegate(
                 object obj,
@@ -108,6 +101,15 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                     {
                         continue;
                     }
+                    
+                    if (fieldDefinition.Attribute is DataFieldAttribute dfa1)
+                    {
+                        var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa1);
+                        if (mapping.Has(tag))
+                        {
+                            continue; //this node was already written by a type higher up the includetree
+                        }
+                    }
 
                     var value = FieldAccessors[i](ref obj);
 
@@ -116,20 +118,42 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                         continue;
                     }
 
-                    if (!fieldDefinition.Attribute.Required &&
+                    if (fieldDefinition.Attribute is not DataFieldAttribute { Required: true } &&
                         !alwaysWrite &&
                         Equals(value, defaultValues[i]))
                     {
                         continue;
                     }
 
-                    var type = fieldDefinition.FieldType;
-                    var node = fieldDefinition.Attribute.CustomTypeSerializer != null
-                        ? manager.WriteWithTypeSerializer(type, fieldDefinition.Attribute.CustomTypeSerializer,
-                            value, alwaysWrite, context)
-                        : manager.WriteValue(type, value, alwaysWrite, context);
 
-                    mapping[fieldDefinition.Tag] = node;
+                    var type = fieldDefinition.FieldType;
+
+                    DataNode node;
+                    if (fieldDefinition.Attribute.CustomTypeSerializer != null && FieldInterfaceInfos[i].Writer)
+                    {
+                        node = manager.WriteWithTypeSerializer(type, fieldDefinition.Attribute.CustomTypeSerializer,
+                            value, alwaysWrite, context);
+                    }
+                    else
+                    {
+                        node = manager.WriteValue(type, value, alwaysWrite, context);
+                    }
+
+                    if (fieldDefinition.Attribute is not DataFieldAttribute dfa)
+                    {
+                        if (node is not MappingDataNode nodeMapping)
+                        {
+                            throw new InvalidOperationException(
+                                $"Writing field {fieldDefinition} for type {Type} did not return a {nameof(MappingDataNode)} but was annotated to be included.");
+                        }
+                        
+                        mapping.Insert(nodeMapping, skipDuplicates: true);
+                    }
+                    else
+                    {
+                        var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa);
+                        mapping[tag] = node;
+                    }
                 }
 
                 return mapping;
@@ -157,17 +181,23 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                     object? copy;
                     if (sourceValue != null &&
                         targetValue != null &&
-                        TypeHelpers.SelectCommonType(sourceValue.GetType(), targetValue.GetType()) == null)
+                        !TypeHelpers.TrySelectCommonType(sourceValue.GetType(), targetValue.GetType(), out _))
                     {
-                        copy = manager.CreateCopy(sourceValue, context);
+                        copy = manager.Copy(sourceValue, context);
                     }
                     else
                     {
-                        copy = field.Attribute.CustomTypeSerializer != null
-                            ? manager.CopyWithTypeSerializer(field.Attribute.CustomTypeSerializer, sourceValue,
+                        if (field.Attribute.CustomTypeSerializer != null && FieldInterfaceInfos[i].Copier)
+                        {
+                            copy = manager.CopyWithTypeSerializer(field.Attribute.CustomTypeSerializer, sourceValue,
                                 targetValue,
-                                context)
-                            : manager.Copy(sourceValue, targetValue, context);
+                                context);
+                        }
+                        else
+                        {
+                            copy = targetValue;
+                            manager.Copy(sourceValue, copy, context);
+                        }
                     }
 
                     FieldAssigners[i](ref target, copy);
@@ -179,58 +209,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             return CopyDelegate;
         }
 
-        // TODO Serialization: add skipHook
-        private CompareDelegateSignature EmitCompareDelegate()
-        {
-            bool CompareDelegate(
-                object objA,
-                object objB,
-                ISerializationManager manager,
-                ISerializationContext? context)
-            {
-                for (var i = 0; i < BaseFieldDefinitions.Length; i++)
-                {
-                    var field = BaseFieldDefinitions[i];
-
-                    if (field.Attribute.NoCompare)
-                    {
-                        continue;
-                    }
-
-                    var accessor = FieldAccessors[i];
-                    var objAValue = accessor(ref objA);
-                    var objBValue = accessor(ref objB);
-
-                    if (objAValue == null && objBValue == null)
-                    {
-                        continue;
-                    }
-
-                    if (objAValue == null || objBValue == null)
-                    {
-                        return false;
-                    }
-
-                    var commonType = TypeHelpers.SelectCommonType(objAValue.GetType(), objBValue.GetType());
-                    if (commonType == null)
-                    {
-                        return false;
-                    }
-
-                    var areSame = manager.Compare(objAValue, objBValue, context);
-                    if (!areSame)
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-
-            return CompareDelegate;
-        }
-
-        private void EmitSetField(RobustILGenerator rGenerator, AbstractFieldInfo info)
+        private static void EmitSetField(RobustILGenerator rGenerator, AbstractFieldInfo info)
         {
             switch (info)
             {
@@ -254,7 +233,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             var method = new DynamicMethod(
                 "AccessField",
                 typeof(object),
-                new[] {typeof(object).MakeByRefType()},
+                new[] { typeof(object).MakeByRefType() },
                 true);
 
             method.DefineParameter(1, ParameterAttributes.Out, "target");
@@ -300,12 +279,12 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             return method.CreateDelegate<AccessField<object, object?>>();
         }
 
-        private AssignField<object, object?> EmitFieldAssigner(FieldDefinition fieldDefinition)
+        internal static AssignField<T, object?> EmitFieldAssigner<T>(Type type, Type fieldType, AbstractFieldInfo backingField)
         {
             var method = new DynamicMethod(
                 "AssignField",
                 typeof(void),
-                new[] {typeof(object).MakeByRefType(), typeof(object)},
+                new[] { typeof(T).MakeByRefType(), typeof(object) },
                 true);
 
             method.DefineParameter(1, ParameterAttributes.Out, "target");
@@ -313,22 +292,22 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
 
             var generator = method.GetRobustGen();
 
-            if (Type.IsValueType)
+            if (type.IsValueType)
             {
-                generator.DeclareLocal(Type);
+                generator.DeclareLocal(type);
                 generator.Emit(OpCodes.Ldarg_0);
                 generator.Emit(OpCodes.Ldind_Ref);
-                generator.Emit(OpCodes.Unbox_Any, Type);
+                generator.Emit(OpCodes.Unbox_Any, type);
                 generator.Emit(OpCodes.Stloc_0);
                 generator.Emit(OpCodes.Ldloca, 0);
                 generator.Emit(OpCodes.Ldarg_1);
-                generator.Emit(OpCodes.Unbox_Any, fieldDefinition.FieldType);
+                generator.Emit(OpCodes.Unbox_Any, fieldType);
 
-                EmitSetField(generator, fieldDefinition.BackingField);
+                EmitSetField(generator, backingField);
 
                 generator.Emit(OpCodes.Ldarg_0);
                 generator.Emit(OpCodes.Ldloc_0);
-                generator.Emit(OpCodes.Box, Type);
+                generator.Emit(OpCodes.Box, type);
                 generator.Emit(OpCodes.Stind_Ref);
 
                 generator.Emit(OpCodes.Ret);
@@ -337,16 +316,16 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             {
                 generator.Emit(OpCodes.Ldarg_0);
                 generator.Emit(OpCodes.Ldind_Ref);
-                generator.Emit(OpCodes.Castclass, Type);
+                generator.Emit(OpCodes.Castclass, type);
                 generator.Emit(OpCodes.Ldarg_1);
-                generator.Emit(OpCodes.Unbox_Any, fieldDefinition.FieldType);
+                generator.Emit(OpCodes.Unbox_Any, fieldType);
 
-                EmitSetField(generator, fieldDefinition.BackingField);
+                EmitSetField(generator, backingField.GetBackingField() ?? backingField);
 
                 generator.Emit(OpCodes.Ret);
             }
 
-            return method.CreateDelegate<AssignField<object, object?>>();
+            return method.CreateDelegate<AssignField<T, object?>>();
         }
     }
 }
