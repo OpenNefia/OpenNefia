@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Spells
         public LocaleKey MessageKey { get; set; }
 
         [DataField]
-        public EffectDice Dice { get; set; } = new EffectDice();
+        public IEffectDice Dice { get; set; } = new EffectDice();
         
         public override void GetDice(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb, EffectArgSet args,
             ref Dictionary<string, IDice> result)

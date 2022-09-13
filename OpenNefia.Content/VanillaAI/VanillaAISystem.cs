@@ -55,6 +55,7 @@ namespace OpenNefia.Content.VanillaAI
         public override void Initialize()
         {
             SubscribeComponent<VanillaAIComponent, EntityTurnStartingEventArgs>(HandleTurnStarting);
+            SubscribeComponent<VanillaAIComponent, PlayerTurnStartedEvent>(HandlePlayerTurnStarted, priority: EventPriorities.VeryLow);
             SubscribeComponent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, priority: EventPriorities.VeryLow);
         }
 
@@ -64,6 +65,11 @@ namespace OpenNefia.Content.VanillaAI
             {
                 SetTarget(uid, null, ai: ai);
             }
+        }
+
+        private void HandlePlayerTurnStarted(EntityUid uid, VanillaAIComponent ai, ref PlayerTurnStartedEvent args)
+        {
+            ai.CurrentTargetLocation = null;
         }
 
         private void HandleNPCTurnStarted(EntityUid uid, VanillaAIComponent ai, ref NPCTurnStartedEvent args)

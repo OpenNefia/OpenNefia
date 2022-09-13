@@ -4,4 +4,14 @@ Elona.Targeting = {
     end,
     NoTarget = "ターゲットが見当たらない。",
     NoTargetInDirection = "その方向には、操作できる対象はない。",
+
+    Action = {
+        FindNothing = "視界内にターゲットは存在しない。",
+        YouTarget = function(onlooker, target)
+            return ("%s%sをターゲットにした。"):format(_.sore_wa(onlooker), _.name(target))
+        end,
+        YouTargetGround = function(onlooker)
+            return ("%s地面をターゲットにした。"):format(_.sore_wa(onlooker))
+        end,
+    },
 }

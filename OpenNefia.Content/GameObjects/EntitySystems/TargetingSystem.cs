@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -66,6 +67,9 @@ namespace OpenNefia.Content.GameObjects
             bool IsValidTarget(SpatialComponent otherSpatial)
             {
                 var other = otherSpatial.Owner;
+
+                if (!HasComp<CharaComponent>(other))
+                    return false;
 
                 if (attacker == other || !_vis.IsInWindowFov(other))
                     return false;

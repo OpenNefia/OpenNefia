@@ -13,7 +13,13 @@ using static OpenNefia.Content.Prototypes.Protos;
 namespace OpenNefia.Content.Effects
 {
     [ImplicitDataDefinitionForInheritors]
-    public sealed class EffectDice
+    public interface IEffectDice
+    {
+        IDice GetDice(EntityUid source, EntityUid target, EntityCoordinates coords, EntityUid? verb,
+            EffectArgSet args);
+    }
+    
+    public sealed class EffectDice : IEffectDice
     {
         public EffectDice() { }
 

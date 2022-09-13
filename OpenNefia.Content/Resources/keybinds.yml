@@ -160,6 +160,15 @@ binds:
 - function: Elona.Read
   type: State
   key: R
+- function: Elona.Target
+  type: State
+  key: NumpadMultiply
+- function: Elona.Target
+  type: State
+  key: Backslash
+- function: Elona.Look
+  type: State
+  key: L
 - function: Elona.Examine
   type: State
   key: X
