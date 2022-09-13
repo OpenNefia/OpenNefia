@@ -35,6 +35,8 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Interact = "Elona.Interact";
         public static readonly BoundKeyFunction Use = "Elona.Use";
         public static readonly BoundKeyFunction Read = "Elona.Read";
+        public static readonly BoundKeyFunction Target = "Elona.Target";
+        public static readonly BoundKeyFunction Look = "Elona.Look";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
         public static readonly BoundKeyFunction CharaInfo = "Elona.CharaInfo";
         public static readonly BoundKeyFunction Equipment = "Elona.Equipment";

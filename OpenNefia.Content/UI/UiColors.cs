@@ -30,6 +30,7 @@ namespace OpenNefia.Content.UI
 
         public static readonly Color PromptBackground = new(0, 0, 0, 127);
         public static readonly Color PromptTargetedTile = new(127, 127, 255, 50);
+        public static readonly Color PromptHighlightedTile = new Color(255, 255, 255, 25);
 
         public static readonly Color RandomEventPromptTitle = new(30, 20, 10);
         public static readonly Color RandomEventPromptBody = new(30, 30, 30);

@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Combat
             }
             // <<<<<<<< shade2/chara_func.hsp:1769 	if cBit(cSandBag,tc):if sync(tc):txt "("+dmg+")"+ ..
         }
-
+        
         private void HandleRecruited(EntityUid uid, SandBaggedComponent component, AfterRecruitedAsAllyEvent args)
         {
             ReleaseFromSandBag(uid);

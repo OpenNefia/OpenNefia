@@ -67,9 +67,14 @@ namespace OpenNefia.Content.UI.Layer
             _screenPos += (Vector2i)screenDPos;
         }
 
+        public Vector2 TileToVisibleScreen(Vector2i tilePos)
+        {
+            return _coords.TileToScreen(tilePos) + _screenPos;
+        }
+
         public Vector2 TileToVisibleScreen(MapCoordinates coords)
         {
-            return _coords.TileToScreen(coords.Position) + _screenPos;
+            return TileToVisibleScreen(coords.Position);
         }
 
         public Vector2 TileToVisibleScreen(EntityCoordinates coords)

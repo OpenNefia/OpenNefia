@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
@@ -22,6 +23,12 @@ namespace OpenNefia.Content.VanillaAI
         /// </summary>
         [DataField]
         public EntityUid? CurrentTarget { get; set; }
+
+        /// <summary>
+        /// Current target location.
+        /// </summary>
+        [DataField]
+        public MapCoordinates? CurrentTargetLocation { get; set; }
 
         /// <summary>
         /// How much aggro this entity carries towards its current target.

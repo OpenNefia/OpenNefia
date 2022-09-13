@@ -45,7 +45,7 @@ namespace OpenNefia.Content.GameObjects
                 RaiseEvent(spatial.Owner, ev);
                 foreach (var line in ev.TargetTexts)
                 {
-                    sb.AppendLine(line);
+                    sb.AppendLine(Loc.Capitalize(line));
                 }
             }
 

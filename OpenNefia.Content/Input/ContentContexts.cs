@@ -48,6 +48,8 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Interact);
             field.AddFunction(ContentKeyFunctions.Use);
             field.AddFunction(ContentKeyFunctions.Read);
+            field.AddFunction(ContentKeyFunctions.Target);
+            field.AddFunction(ContentKeyFunctions.Look);
             field.AddFunction(ContentKeyFunctions.Examine);
             field.AddFunction(ContentKeyFunctions.Dig);
 
