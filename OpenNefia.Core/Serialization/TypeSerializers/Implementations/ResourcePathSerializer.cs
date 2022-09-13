@@ -6,7 +6,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -18,12 +17,12 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class ResourcePathSerializer : ITypeSerializer<ResourcePath, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public ResourcePath Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, ResourcePath? value = default)
         {
-            return new DeserializedValue<ResourcePath>(new ResourcePath(node.Value));
+            return new ResourcePath(node.Value);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

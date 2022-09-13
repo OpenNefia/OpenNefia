@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -13,12 +12,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class Base64DataSerializer : ITypeSerializer<byte[], ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public byte[] Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            byte[]? rawValue = null)
         {
-            return new DeserializedValue<byte[]>(Convert.FromBase64String(node.Value));
+            return Convert.FromBase64String(node.Value);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

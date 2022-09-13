@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -14,11 +13,12 @@ namespace OpenNefia.Content.Skills
     [TypeSerializer]
     public class QualifiedDialogNodeIDSerializer : ITypeSerializer<QualifiedDialogNodeID, ValueDataNode>
     {
-        public DeserializationResult Read(
+        public QualifiedDialogNodeID Read(
             ISerializationManager serializationManager,
             ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            QualifiedDialogNodeID rawValue = default)
         {
             var split = node.Value.Split(':');
             if (split.Length != 2)
@@ -27,7 +27,7 @@ namespace OpenNefia.Content.Skills
             var dialogID = new PrototypeId<DialogPrototype>(split[0]);
             var nodeID = split[1];
 
-            return new DeserializedValue<QualifiedDialogNodeID>(new QualifiedDialogNodeID(dialogID, nodeID));
+            return new QualifiedDialogNodeID(dialogID, nodeID);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
@@ -54,8 +54,7 @@ namespace OpenNefia.Content.Skills
         public DataNode Write(ISerializationManager serializationManager, QualifiedDialogNodeID value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.GetDefinition<QualifiedDialogNodeID>()!
-                .Serialize(value, serializationManager, context, alwaysWrite);
+            return serializationManager.WriteValue(value, alwaysWrite, context);
         }
 
         public QualifiedDialogNodeID Copy(ISerializationManager serializationManager, QualifiedDialogNodeID source, QualifiedDialogNodeID target,

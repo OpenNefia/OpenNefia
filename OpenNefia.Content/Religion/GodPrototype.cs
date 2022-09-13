@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Religion
     public class GodPrototype : IPrototype, IHspIds<int>
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         /// <inheritdoc/>

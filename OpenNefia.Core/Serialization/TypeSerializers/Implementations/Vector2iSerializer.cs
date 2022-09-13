@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -15,10 +14,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class Vector2iSerializer : ITypeSerializer<Vector2i, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public Vector2i Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, Vector2i value = default)
         {
             if (!VectorSerializerUtility.TryParseArgs(node.Value, 2, out var args))
             {
@@ -27,9 +26,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             var x = int.Parse(args[0], CultureInfo.InvariantCulture);
             var y = int.Parse(args[1], CultureInfo.InvariantCulture);
-            var vector = new Vector2i(x, y);
-
-            return new DeserializedValue<Vector2i>(vector);
+            return new Vector2i(x, y);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

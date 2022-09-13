@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Maps
     [Prototype("Tile")]
     public class TilePrototype : IPrototype, ITileDefinition, IAtlasRegionProvider
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <summary>

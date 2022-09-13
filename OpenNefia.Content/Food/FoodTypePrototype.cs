@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Food
     [Prototype("Elona.FoodType")]
     public class FoodTypePrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

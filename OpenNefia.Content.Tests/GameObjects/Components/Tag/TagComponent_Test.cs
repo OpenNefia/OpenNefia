@@ -52,7 +52,7 @@ namespace Content.IntegrationTests.Tests.Tag
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             prototypeManager.RegisterType<EntityPrototype>();
             prototypeManager.RegisterType<TagPrototype>();
-            prototypeManager.Resync();
+            prototypeManager.ResolveResults();
         }
 
         [Test]

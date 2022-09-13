@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Maps
     public class MapPrototype : IPrototype
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         [DataField(required: true)]

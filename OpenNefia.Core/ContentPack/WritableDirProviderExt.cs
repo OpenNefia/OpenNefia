@@ -178,6 +178,27 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
+        /// Reads the entire contents of a path to as YAML.
+        /// </summary>
+        /// <param name="provider">The writable directory to look for the path in.</param>
+        /// <param name="path">The path to read the contents from.</param>
+        /// <param name="yaml">The content read from the path, or null if the path did not exist.</param>
+        /// <returns>true if path was successfully read; otherwise, false.</returns>
+        public static bool TryReadAllYaml(this IWritableDirProvider provider, ResourcePath path, [NotNullWhen(true)] out YamlStream? yaml)
+        {
+            try
+            {
+                yaml = provider.ReadAllYaml(path);
+                return true;
+            }
+            catch (FileNotFoundException)
+            {
+                yaml = null;
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Reads the entire contents of a path as LÖVE FileData.
         /// </summary>
         /// <param name="provider">The writable directory to look for the path in.</param>
@@ -206,7 +227,7 @@ namespace OpenNefia.Core.ContentPack
         {
             var yaml = provider.ReadAllYaml(path);
             var node = yaml.Documents[0].RootNode;
-            return serMan.ReadValue<T>(node.ToDataNode(), skipHook: skipHook);
+            return serMan.Read<T>(node.ToDataNode(), skipHook: skipHook);
         }
 
         /// <summary>

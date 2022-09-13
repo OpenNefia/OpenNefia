@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Feats
     [Prototype("Elona.Feat")]
     public class FeatPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField]

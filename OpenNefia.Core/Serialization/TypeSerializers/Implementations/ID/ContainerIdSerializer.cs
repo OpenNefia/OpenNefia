@@ -3,7 +3,6 @@ using OpenNefia.Core.Containers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -20,10 +19,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
             return new ValidatedValueNode(node);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public ContainerId Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            ContainerId rawValue = default)
         {
-            return new DeserializedValue<ContainerId>(new(node.Value));
+            return new(node.Value);
         }
 
         public DataNode Write(ISerializationManager serializationManager, ContainerId value, bool alwaysWrite = false,

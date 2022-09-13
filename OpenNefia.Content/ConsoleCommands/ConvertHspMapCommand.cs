@@ -14,6 +14,7 @@ using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
@@ -188,7 +189,7 @@ namespace OpenNefia.Content.ConsoleCommands
             return new HspMapIdx(width, height, atlasNum, regen, stairUpPos);
         }
 
-        private (string, YamlMappingNode) ReadHspMapMap(string mapFilePath, HspMapIdx idx)
+        private (string, MappingDataNode) ReadHspMapMap(string mapFilePath, HspMapIdx idx)
         {
             var map = _mapManager.CreateMap(idx.Width, idx.Height);
             var tileMap = BuildTileMap(idx.AtlasIndex);
@@ -216,7 +217,7 @@ namespace OpenNefia.Content.ConsoleCommands
             var protoToRune = YamlGridSerializer.BuildProtoToRuneTileMap(map, _tileDefinitionManager);
 
             var grid = YamlGridSerializer.SerializeGrid(map.Tiles, map.Size, protoToRune, _tileDefinitionManager);
-            var runeToProtoTileMap = new YamlMappingNode();
+            var runeToProtoTileMap = new MappingDataNode();
 
             foreach (var (rune, tileId) in protoToRune.Invert())
             {
@@ -231,18 +232,19 @@ namespace OpenNefia.Content.ConsoleCommands
             var proto = _prototypeManager.Index(protoId);
             var comps = new ComponentRegistry();
 
-            return _serializationManager.Copy(proto.Components, comps)!;
+            _serializationManager.Copy(proto.Components, ref comps);
+            return comps;
         }
 
-        private YamlMappingNode SerializeEntityNode(PrototypeId<EntityPrototype> protoId, ComponentRegistry comps, int x, int y)
+        private MappingDataNode SerializeEntityNode(PrototypeId<EntityPrototype> protoId, ComponentRegistry comps, int x, int y)
         {
             var prototype = _prototypeManager.Index(protoId);
 
-            var entityNode = new YamlMappingNode();
+            var entityNode = new MappingDataNode();
             entityNode.Add(MapLoadConstants.Entities_Uid, _maxEntityUid.ToString());
             entityNode.Add(MapLoadConstants.Entities_ProtoId, protoId.ToString());
 
-            var entityComps = new YamlSequenceNode();
+            var entityComps = new SequenceDataNode();
             entityNode.Add(MapLoadConstants.Entities_Components, entityComps);
 
             // Precompute YAML to diff against each entity instance.
@@ -257,8 +259,9 @@ namespace OpenNefia.Content.ConsoleCommands
                 }
             }
 
-            foreach (var (compType, comp) in comps)
+            foreach (var (compType, compEntry) in comps)
             {
+                var comp = compEntry.Component;
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
                 // This is necessary since no entities/maps are tracked by the EntityManager during
@@ -278,24 +281,29 @@ namespace OpenNefia.Content.ConsoleCommands
                 }
 
                 compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
-                entityComps.Add(compMapping.ToYamlNode());
+                entityComps.Add(compMapping);
             }
 
-            entityComps.Children.MoveElementWhere((i) => i[MapLoadConstants.Entities_Components_Type].AsString() == "Spatial", 0);
+            // Make sure the SpatialComponent is first in the components list.
+            entityComps.MoveElementWhere((i) =>
+            {
+                var mapping = (MappingDataNode)i;
+                return mapping.Get<ValueDataNode>(MapLoadConstants.Entities_Components_Type).Value == "Spatial";
+            }, 0);
 
             _maxEntityUid = new EntityUid((int)_maxEntityUid + 1);
 
             return entityNode;
         }
 
-        private YamlMappingNode ConvertItemObj(Obj obj, HspEntityPrototypeIndex index)
+        private MappingDataNode ConvertItemObj(Obj obj, HspEntityPrototypeIndex index)
         {
             var ownState = (OwnState)obj.Param;
 
             var protoId = index.GetValueOrThrow(HspEntityTypes.Item, obj.Id);
             var comps = MakeEntityComponentsBase(protoId);
 
-            foreach (var comp in comps.Values.WhereAssignable<IComponent, IFromHspItem>())
+            foreach (var comp in comps.Values.Select(e => e.Component).WhereAssignable<IComponent, IFromHspItem>())
             {
                 comp.FromHspItem(ownState);
             }
@@ -303,7 +311,7 @@ namespace OpenNefia.Content.ConsoleCommands
             return SerializeEntityNode(protoId, comps, obj.X, obj.Y);
         }
 
-        private YamlMappingNode ConvertCharaObj(Obj obj, HspEntityPrototypeIndex index)
+        private MappingDataNode ConvertCharaObj(Obj obj, HspEntityPrototypeIndex index)
         {
             var protoId = index.GetValueOrThrow(HspEntityTypes.Chara, obj.Id);
             var comps = MakeEntityComponentsBase(protoId);
@@ -311,7 +319,7 @@ namespace OpenNefia.Content.ConsoleCommands
             return SerializeEntityNode(protoId, comps, obj.X, obj.Y);
         }
 
-        private YamlMappingNode ConvertFeatObj(Obj obj, HspEntityPrototypeIndex index)
+        private MappingDataNode ConvertFeatObj(Obj obj, HspEntityPrototypeIndex index)
         {
             var cellObjId = obj.Id;
             var protoId = index.GetValueForCellObjOrThrow(cellObjId);
@@ -324,7 +332,7 @@ namespace OpenNefia.Content.ConsoleCommands
             if (obj.Param != 0)
                 Logger.Warning($"FEAT {param1} {param2} {protoId}");
 
-            foreach (var comp in comps.Values.WhereAssignable<IComponent, IFromHspFeat>())
+            foreach (var comp in comps.Values.Select(e => e.Component).WhereAssignable<IComponent, IFromHspFeat>())
             {
                 comp.FromHspFeat(cellObjId, param1, param2);
             }
@@ -332,18 +340,18 @@ namespace OpenNefia.Content.ConsoleCommands
             return SerializeEntityNode(protoId, comps, obj.X, obj.Y);
         }
 
-        private YamlMappingNode MakeMapEntity(HspMapIdx idx)
+        private MappingDataNode MakeMapEntity(HspMapIdx idx)
         {
-            var mapEntity = new YamlMappingNode();
+            var mapEntity = new MappingDataNode();
             mapEntity.Add(MapLoadConstants.Entities_Uid, MapEntityUid.ToString());
 
-            var mapEntityComps = new YamlSequenceNode();
+            var mapEntityComps = new SequenceDataNode();
             mapEntity.Add(MapLoadConstants.Entities_Components, mapEntityComps);
 
             var comps = new ComponentRegistry();
             var mapComp = new MapComponent();
 
-            comps.Add(mapComp.Name, mapComp);
+            comps.Add(mapComp.Name, new ComponentRegistryEntry(mapComp, new MappingDataNode()));
 
             if (idx.StairUpPos != 0)
             {
@@ -352,15 +360,16 @@ namespace OpenNefia.Content.ConsoleCommands
                 {
                     StartLocation = new SpecificMapLocation(pos)
                 };
-                comps.Add(mapStartComp.Name, mapStartComp);
+                comps.Add(mapStartComp.Name, new ComponentRegistryEntry(mapStartComp, new MappingDataNode()));
             }
 
-            foreach (var (_, comp) in comps)
+            foreach (var (_, compEntry) in comps)
             {
+                var comp = compEntry.Component;
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
                 compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
-                mapEntityComps.Add(compMapping.ToYamlNode());
+                mapEntityComps.Add(compMapping);
             }
 
             return mapEntity;
@@ -402,11 +411,11 @@ namespace OpenNefia.Content.ConsoleCommands
             return new Obj(id, x, y, param, type);
         }
 
-        private YamlSequenceNode ReadHspMapObj(string objFilePath, HspMapIdx idx)
+        private SequenceDataNode ReadHspMapObj(string objFilePath, HspMapIdx idx)
         {
             var index = new HspEntityPrototypeIndex(_prototypeManager, _reflectionManager);
 
-            var entities = new YamlSequenceNode();
+            var entities = new SequenceDataNode();
 
             var mapEntity = MakeMapEntity(idx);
             entities.Add(mapEntity);
@@ -452,14 +461,14 @@ namespace OpenNefia.Content.ConsoleCommands
             return new BinaryReader(zlibStream);
         }
 
-        private YamlMappingNode BuildMapMetadata(Args args)
+        private MappingDataNode BuildMapMetadata(Args args)
         {
             if (args.MapName == null)
             {
                 args.MapName = Path.GetFileNameWithoutExtension(args.MapFilePath);
             }
 
-            var meta = new YamlMappingNode();
+            var meta = new MappingDataNode();
             meta.Add(MapLoadConstants.Meta_Format, "1");
             meta.Add(MapLoadConstants.Meta_Name, args.MapName);
             meta.Add(MapLoadConstants.Meta_Author, args.MapAuthor);
@@ -494,13 +503,13 @@ namespace OpenNefia.Content.ConsoleCommands
             var entities = ReadHspMapObj(objFilePath, idx);
             var meta = BuildMapMetadata(args);
 
-            var root = new YamlMappingNode();
+            var root = new MappingDataNode();
             root.Add(MapLoadConstants.Meta, meta);
-            root.Add(MapLoadConstants.Grid, new YamlScalarNode(grid) { Style = ScalarStyle.Literal });
+            root.Add(MapLoadConstants.Grid, new ValueDataNode(grid) /* { Style = ScalarStyle.Literal } */);
             root.Add(MapLoadConstants.Tilemap, tileMap);
             root.Add(MapLoadConstants.Entities, entities);
 
-            var document = new YamlDocument(root);
+            var document = new YamlDocument(root.ToYamlNode());
             var outputPath = Path.Join(args.OutputDirectory, $"{fileBaseName}.yml");
 
             if (!Directory.Exists(args.OutputDirectory))

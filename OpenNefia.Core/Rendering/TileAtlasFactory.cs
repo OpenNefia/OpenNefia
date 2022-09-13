@@ -5,16 +5,26 @@ using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
 using System.Security.Cryptography;
 using System.Text;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 
 namespace OpenNefia.Core.Rendering
 {
+    public interface ITileAtlasFactory
+    {
+        void LoadTile(TileSpecifier tile);
+        TileAtlasFactory LoadTiles(IEnumerable<TileSpecifier> tiles);
+    }
+
     /// <summary>
     /// Dynamically generates tile atlases by aggregating a series of
     /// <see cref="TileSpecifier"/>s and packing them into a single image.
     /// </summary>
-    public sealed class TileAtlasFactory : IDisposable
+    public sealed class TileAtlasFactory : ITileAtlasFactory
     {
-        private readonly IResourceCache _resourceCache;
+         private readonly IResourceCache _resourceCache = default!;
+         private readonly ISerializationManager _serialization = default!;
 
         private static readonly ResourcePath _cachePath = new ResourcePath("/Cache/Atlas");
 
@@ -29,13 +39,16 @@ namespace OpenNefia.Core.Rendering
 
         private Love.Canvas _workCanvas;
 
-        public TileAtlasFactory(IResourceCache resourceCache, 
+        public TileAtlasFactory(
+            IResourceCache resourceCache,
+            ISerializationManager serialization,
             int tileWidth = OrthographicCoords.TILE_SIZE, 
             int tileHeight = OrthographicCoords.TILE_SIZE, 
             int tileCountX = 48, 
             int tileCountY = 48)
         {
             _resourceCache = resourceCache;
+            _serialization = serialization;
 
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
@@ -146,11 +159,11 @@ namespace OpenNefia.Core.Rendering
 
             var serializedFilepath = _cachePath / $"{hashString}.bin";
 
-            if (_resourceCache.UserData.Exists(serializedFilepath))
+            if (_resourceCache.UserData.TryReadAllYaml(serializedFilepath, out var yaml))
             {
                 Logger.LogS(LogLevel.Info, "tile_atlas", $"Cache hit! {hashString}");
 
-                return SerializationHelpers.Deserialize<TileAtlas>(serializedFilepath)!;
+                return _serialization.Read<TileAtlas>(yaml.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>());
             }
 
             return null;
@@ -205,7 +218,8 @@ namespace OpenNefia.Core.Rendering
             var serializedFilepath = _cachePath / $"{hashString}.bin";
             var fileData = imageData.Encode(Love.ImageFormat.PNG);
             _resourceCache.UserData.WriteAllBytes(imageFilepath, fileData.GetBytes());
-            SerializationHelpers.Serialize(serializedFilepath, tileAtlas);
+            var yaml = _serialization.WriteValue(tileAtlas);
+            _resourceCache.UserData.WriteAllYaml(serializedFilepath, yaml.ToYamlNode());
         }
 
         public void Dispose()

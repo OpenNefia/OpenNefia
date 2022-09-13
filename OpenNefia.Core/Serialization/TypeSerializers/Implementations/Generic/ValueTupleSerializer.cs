@@ -4,7 +4,6 @@ using System.Linq;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -15,19 +14,19 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
     [TypeSerializer]
     public class ValueTupleSerializer<T1, T2> : ITypeSerializer<ValueTuple<T1, T2>, MappingDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, MappingDataNode node,
+        public (T1, T2) Read(ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, (T1, T2) val = default)
         {
             if (node.Children.Count != 1)
                 throw new InvalidMappingException("Less than or more than 1 mappings provided to ValueTupleSerializer");
 
             var entry = node.Children.First();
-            var v1 = serializationManager.ReadValueOrThrow<T1>(entry.Key, context, skipHook);
-            var v2 = serializationManager.ReadValueOrThrow<T2>(entry.Value, context, skipHook);
+            var v1 = serializationManager.Read<T1>(entry.Key, context, skipHook, val.Item1);
+            var v2 = serializationManager.Read<T2>(entry.Value, context, skipHook, val.Item2);
 
-            return new DeserializedValue<ValueTuple<T1, T2>>(new ValueTuple<T1, T2>(v1, v2));
+            return (v1, v2);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,

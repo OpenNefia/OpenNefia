@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Talk
     {
         public override string Name => "Tone";
 
-        [DataField("id", required: true)]
+        [IdDataField]
         public PrototypeId<TonePrototype> ID;
 
         [DataField]

@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.Prototypes
+﻿using OpenNefia.Core.Serialization.Manager.Attributes;
+
+namespace OpenNefia.Core.Prototypes
 {
     /// <summary>
     ///     An IPrototype is a prototype that can be loaded from the global YAML prototypes.
@@ -21,5 +23,32 @@
         string? Parent { get; }
 
         bool Abstract { get; }
+    }
+
+    public sealed class IdDataFieldAttribute : DataFieldAttribute
+    {
+        public const string Name = "id";
+        public IdDataFieldAttribute(int priority = 1, Type? customTypeSerializer = null) :
+            base(Name, false, priority, true, customTypeSerializer)
+        {
+        }
+    }
+
+    public sealed class ParentDataFieldAttribute : DataFieldAttribute
+    {
+        public const string Name = "parent";
+        public ParentDataFieldAttribute(Type prototypeIdSerializer, int priority = 1) :
+            base(Name, false, priority, false, prototypeIdSerializer)
+        {
+        }
+    }
+
+    public sealed class AbstractDataFieldAttribute : DataFieldAttribute
+    {
+        public const string Name = "abstract";
+        public AbstractDataFieldAttribute(int priority = 1) :
+            base(Name, false, priority, false, null)
+        {
+        }
     }
 }

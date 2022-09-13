@@ -1,16 +1,9 @@
-﻿using OpenNefia.Core.Serialization.Manager.Result;
-using OpenNefia.Core.Serialization.Markdown.Mapping;
+﻿using OpenNefia.Core.Serialization.Markdown.Mapping;
 
 namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {
-        private delegate DeserializedFieldEntry[] DeserializeDelegate(
-            MappingDataNode mappingDataNode,
-            ISerializationManager serializationManager,
-            ISerializationContext? context,
-            bool skipHook);
-
         private delegate object PopulateDelegateSignature(
             object target,
             MappingDataNode mappingDataNode,
@@ -37,10 +30,6 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             object objB,
             ISerializationManager serializationManager,
             ISerializationContext? context);
-
-        private delegate DeserializationResult CreateDefinitionDelegate(
-            object value,
-            DeserializedFieldEntry[] mappings);
 
         private delegate TValue AccessField<TTarget, TValue>(ref TTarget target);
 

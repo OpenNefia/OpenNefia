@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Scenarios
     [Prototype("Elona.Scenario")]
     public class ScenarioPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
     }
 }

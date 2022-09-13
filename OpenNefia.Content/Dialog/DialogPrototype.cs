@@ -12,7 +12,7 @@ namespace OpenNefia.Content.Dialog
     [Prototype("Elona.Dialog")]
     public class DialogPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <summary>

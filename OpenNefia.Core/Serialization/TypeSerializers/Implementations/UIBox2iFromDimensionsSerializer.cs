@@ -4,7 +4,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -15,10 +14,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class UIBox2iFromDimensionsSerializer : ITypeSerializer<UIBox2i, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public UIBox2i Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            UIBox2i rawValue = default)
         {
             var args = node.Value.Split(',');
 
@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             var w = int.Parse(args[2], CultureInfo.InvariantCulture);
             var h = int.Parse(args[3], CultureInfo.InvariantCulture);
 
-            return new DeserializedValue<UIBox2i>(UIBox2i.FromDimensions(l, t, w, h));
+            return UIBox2i.FromDimensions(l, t, w, h);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

@@ -2,7 +2,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
@@ -16,30 +15,32 @@ namespace OpenNefia.Core.Stats.Serialization
         : ITypeSerializer<HashSetStat<T>, MappingDataNode>,
           ITypeSerializer<HashSetStat<T>, SequenceDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, MappingDataNode node,
+        public HashSetStat<T> Read(ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            HashSetStat<T>? rawValue = null)
         {
             if (!node.TryGet("base", out var baseNode))
                 throw new InvalidMappingException($"No 'base' mapping provided to {nameof(BaseHashSetStatSerializer<T>)}");
             if (!node.TryGet("buffed", out var buffedNode))
                 throw new InvalidMappingException($"No 'buffed' mapping provided to {nameof(BaseHashSetStatSerializer<T>)}");
 
-            var baseValue = serializationManager.ReadValueOrThrow<HashSet<T>>(baseNode, context, skipHook);
-            var buffedValue = serializationManager.ReadValueOrThrow<HashSet<T>>(buffedNode, context, skipHook);
+            var baseValue = serializationManager.Read<HashSet<T>>(baseNode, context, skipHook);
+            var buffedValue = serializationManager.Read<HashSet<T>>(buffedNode, context, skipHook);
 
-            return new DeserializedValue<HashSetStat<T>>(new(baseValue, buffedValue));
+            return new HashSetStat<T>(baseValue, buffedValue);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node,
+        public HashSetStat<T> Read(ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            HashSetStat<T>? rawValue = null)
         {
-            var baseValue = serializationManager.ReadValueOrThrow<HashSet<T>>(node, context, skipHook);
+            var baseValue = serializationManager.Read<HashSet<T>>(node, context, skipHook);
 
-            return new DeserializedValue<HashSetStat<T>>(new HashSetStat<T>(baseValue));
+            return new HashSetStat<T>(baseValue);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
@@ -76,8 +77,11 @@ namespace OpenNefia.Core.Stats.Serialization
             bool skipHook,
             ISerializationContext? context = null)
         {
-            return new(serializationManager.Copy(source.Base, target.Base)!,
-                       serializationManager.Copy(source.Buffed, source.Buffed)!);
+            var targetBase = target.Base;
+            var targetBuffed = target.Buffed;
+            serializationManager.Copy(source.Base, ref targetBase, context, skipHook);
+            serializationManager.Copy(source.Buffed, ref targetBuffed, context, skipHook);
+            return new(targetBase, targetBuffed);
         }
 
         public bool Compare(ISerializationManager serializationManager, HashSetStat<T> left, HashSetStat<T> right,

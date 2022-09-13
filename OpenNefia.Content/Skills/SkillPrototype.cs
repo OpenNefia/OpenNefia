@@ -87,7 +87,7 @@ namespace OpenNefia.Content.Skills
     [Prototype("Elona.Skill")]
     public class SkillPrototype : ISkillPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

@@ -14,7 +14,6 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Manager.Definition;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
@@ -334,52 +333,19 @@ namespace OpenNefia.Core.Serialization.Manager
             return ValidateNodeWith(typeof(TType), typeof(TSerializer), node, context);
         }
 
-        public DeserializationResult CreateDataDefinition<T>(DeserializedFieldEntry[] fields, bool skipHook = false)
-            where T : notnull, new()
-        {
-            var obj = new T();
-            return PopulateDataDefinition(obj, new DeserializedDefinition<T>(obj, fields), skipHook);
-        }
-
-        public DeserializationResult PopulateDataDefinition<T>(T obj, DeserializedDefinition<T> definition, bool skipHook = false)
-            where T : notnull, new()
-        {
-            return PopulateDataDefinition(obj, (IDeserializedDefinition)definition, skipHook);
-        }
-
-        public DeserializationResult PopulateDataDefinition(object obj, IDeserializedDefinition definition, bool skipHook = false)
-        {
-            if (!TryGetDefinition(obj.GetType(), out var dataDefinition))
-                throw new ArgumentException($"Provided Type is not a data definition ({obj.GetType()})");
-
-            if (obj is IPopulateDefaultValues populateDefaultValues)
-            {
-                populateDefaultValues.PopulateDefaultValues();
-            }
-
-            var res = dataDefinition.Populate(obj, definition.Mapping);
-
-            if (!skipHook && res.RawValue is ISerializationHooks serializationHooksAfter)
-            {
-                serializationHooksAfter.AfterDeserialization();
-            }
-
-            return res;
-        }
-
-        public DataDefinition? GetDefinition<T>()
+        internal DataDefinition? GetDefinition<T>()
         {
             return GetDefinition(typeof(T));
         }
 
-        public DataDefinition? GetDefinition(Type type)
+        internal DataDefinition? GetDefinition(Type type)
         {
             return DataDefinitions.TryGetValue(type, out var dataDefinition)
                 ? dataDefinition
                 : null;
         }
 
-        public bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
+        internal bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
         {
             dataDefinition = GetDefinition(type);
             return dataDefinition != null;

@@ -1,7 +1,6 @@
 ﻿using System;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -18,11 +17,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom
             return Enum.TryParse(constType, node.Value, out _) ? new ValidatedValueNode(node) : new ErrorNode(node, "Failed parsing constant.", false);
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public int Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, int value = default)
         {
             var constType = serializationManager.GetConstantTypeFromTag(typeof(TTag));
-            return new DeserializedValue((int) Enum.Parse(constType, node.Value));
+            return (int)Enum.Parse(constType, node.Value);
         }
 
         public DataNode Write(ISerializationManager serializationManager, int value, bool alwaysWrite = false,

@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -13,14 +12,14 @@ namespace OpenNefia.Content.Skills
     [TypeSerializer]
     public class DialogTextEntrySerializer : ITypeSerializer<DialogTextEntry, ValueDataNode>
     {
-        public DeserializationResult Read(
+        public DialogTextEntry Read(
             ISerializationManager serializationManager,
             ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            DialogTextEntry? rawValue = null)
         {
-            var result = DialogTextEntry.FromLocaleKey(node.Value);
-            return new DeserializedValue<DialogTextEntry>(result);
+            return DialogTextEntry.FromLocaleKey(node.Value);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
@@ -33,8 +32,7 @@ namespace OpenNefia.Content.Skills
         public DataNode Write(ISerializationManager serializationManager, DialogTextEntry value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.GetDefinition<DialogTextEntry>()!
-                .Serialize(value, serializationManager, context, alwaysWrite);
+            return serializationManager.WriteValue(value, alwaysWrite, context);
         }
 
         public DialogTextEntry Copy(ISerializationManager serializationManager, DialogTextEntry source, DialogTextEntry target,

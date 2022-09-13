@@ -58,7 +58,6 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IGlobalDrawablesManager _globalDrawables = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
-        [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IProfileManager _profileManager = default!;
@@ -138,13 +137,9 @@ namespace OpenNefia.Core.GameController
 
             _resourceCache.PreloadTextures();
 
-            _themeManager.Initialize();
-            _themeManager.LoadDirectory(Options.ThemeDirectory);
-            // _themeManager.SetActiveTheme("Beautify.Beautify");
-
             _prototypeManager.Initialize();
             _prototypeManager.LoadDirectory(Options.PrototypeDirectory);
-            _prototypeManager.Resync();
+            _prototypeManager.ResolveResults();
 
             _assetManager.PreloadAssets();
 
@@ -339,7 +334,6 @@ namespace OpenNefia.Core.GameController
             _audio.Shutdown();
             _music.Shutdown();
             _debugServer.Shutdown();
-            _themeManager.Shutdown();
             if (_logHandler != null)
             {
                 _log.RootSawmill.RemoveHandler(_logHandler);

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Ranks
     [Prototype("Elona.Rank")]
     public class RankPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

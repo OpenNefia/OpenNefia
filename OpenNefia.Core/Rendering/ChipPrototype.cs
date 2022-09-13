@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Rendering
     [Prototype("Chip", -1)]
     public class ChipPrototype : IPrototype, IAtlasRegionProvider
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField(required: true)]

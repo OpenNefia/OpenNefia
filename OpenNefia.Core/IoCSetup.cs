@@ -116,7 +116,6 @@ namespace OpenNefia
             IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<IMapLoader, MapLoader>();
-            IoCManager.Register<IThemeManager, ThemeManager>();
             IoCManager.Register<IProfileManager, ProfileManager>();
             IoCManager.Register<ISaveGameManager, SaveGameManager>();
             IoCManager.Register<ISaveGameManagerInternal, SaveGameManager>();

@@ -32,7 +32,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             prototypeManager.RegisterType<EntityPrototype>();
             prototypeManager.LoadFromStream(new StringReader(Prototypes));
-            prototypeManager.Resync();
+            prototypeManager.ResolveResults();
         }
 
         [Test]

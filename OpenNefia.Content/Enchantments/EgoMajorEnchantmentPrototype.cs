@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Enchantments
     [Prototype("Elona.EgoMajorEnchantment")]
     public class EgoMajorEnchantmentPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField(required: true)]

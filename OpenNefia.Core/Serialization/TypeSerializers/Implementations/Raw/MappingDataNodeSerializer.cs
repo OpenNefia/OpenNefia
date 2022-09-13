@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -15,12 +14,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class MappingDataNodeSerializer : ITypeSerializer<MappingDataNode, MappingDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, MappingDataNode node,
+        public MappingDataNode Read(ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            MappingDataNode? rawValue = null)
         {
-            return new DeserializedValue<MappingDataNode>(node);
+            return node;
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,

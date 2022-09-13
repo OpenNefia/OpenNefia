@@ -51,7 +51,7 @@ namespace OpenNefia.Core.Maps
         {
             var context = new MapSerializer(mapId, mode);
             var root = context.Serialize();
-            var document = new YamlDocument(root);
+            var document = new YamlDocument(root.ToYamlNode());
 
             var stream = new YamlStream();
             stream.Add(document);
@@ -103,7 +103,7 @@ namespace OpenNefia.Core.Maps
             var data = new MapData(reader);
 
             var deserializer = new MapDeserializer(mapId, mode,
-                (YamlMappingNode)data.RootNode, OnBlueprintEntityStartup);
+                data.RootNode.ToDataNodeCast<MappingDataNode>(), OnBlueprintEntityStartup);
             deserializer.Deserialize();
             var grid = deserializer.MapGrid!;
 

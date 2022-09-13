@@ -14,7 +14,7 @@ namespace OpenNefia.Content.EquipSlots
     public class EquipSlotPrototype : IPrototype
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         /// <summary>

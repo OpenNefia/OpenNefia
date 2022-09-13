@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
     [Prototype("Asset", -1)]
     public class AssetPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         /// <summary>

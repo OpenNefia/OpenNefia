@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             manager = IoCManager.Resolve<IPrototypeManager>();
             manager.RegisterType<EntityPrototype>();
             manager.LoadString(DOCUMENT);
-            manager.Resync();
+            manager.ResolveResults();
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace OpenNefia.Tests.Core.Prototypes
         {
             var prototype = manager.Index<EntityPrototype>(new("wrench"));
 
-            var mapping = prototype.Components["TestBasicPrototypeComponent"] as TestBasicPrototypeComponent;
+            var mapping = prototype.Components["TestBasicPrototypeComponent"].Component as TestBasicPrototypeComponent;
             Assert.That(mapping!.Foo, Is.EqualTo("bar!"));
         }
 
@@ -44,7 +44,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             var prototype = manager.Index<EntityPrototype>(new("yamltester"));
             Assert.That(prototype.Components, Contains.Key("TestBasicPrototypeComponent"));
 
-            var componentData = prototype.Components["TestBasicPrototypeComponent"] as TestBasicPrototypeComponent;
+            var componentData = prototype.Components["TestBasicPrototypeComponent"].Component as TestBasicPrototypeComponent;
 
             Assert.NotNull(componentData);
             Assert.That(componentData!.Str, Is.EqualTo("hi!"));
@@ -66,7 +66,7 @@ namespace OpenNefia.Tests.Core.Prototypes
         public void TestLoadString()
         {
             manager.LoadString(LoadStringDocument);
-            manager.Resync();
+            manager.ResolveResults();
 
             var prototype = manager.Index<EntityPrototype>(LoadStringTestDummyId);
 

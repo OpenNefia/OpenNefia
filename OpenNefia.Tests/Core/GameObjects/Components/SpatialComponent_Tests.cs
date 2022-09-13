@@ -54,7 +54,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var manager = IoCManager.Resolve<IPrototypeManager>();
             manager.RegisterType<EntityPrototype>();
             manager.LoadFromStream(new StringReader(PROTOTYPES));
-            manager.Resync();
+            manager.ResolveResults();
 
             MapA = MapManager.CreateMap(50, 50);
             MapEntityAId = MapManager.GetMap(MapA.Id).MapEntityUid;

@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Spells
     [Prototype("Elona.Spell")]
     public class SpellPrototype : ISkillPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

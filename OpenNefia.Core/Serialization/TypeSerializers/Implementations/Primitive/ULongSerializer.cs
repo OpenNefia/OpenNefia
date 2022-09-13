@@ -2,7 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -21,10 +20,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Primitive
                 : new ErrorNode(node, $"Failed parsing unsigned long value: {node.Value}");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public ulong Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null, ulong value = default)
         {
-            return new DeserializedValue<ulong>(ulong.Parse(node.ToString(), CultureInfo.InvariantCulture));
+            return ulong.Parse(node.ToString(), CultureInfo.InvariantCulture);
         }
 
         public DataNode Write(ISerializationManager serializationManager, ulong value, bool alwaysWrite = false,

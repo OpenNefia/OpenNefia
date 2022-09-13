@@ -3,7 +3,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -52,8 +51,8 @@ namespace OpenNefia.Core.Maps
         }
 
         // Create custom object serializers that will correctly allow data to be overriden by the map file.
-        IComponent IEntityLoadContext.GetComponentData(string componentName,
-            IComponent? protoData)
+        MappingDataNode IEntityLoadContext.GetComponentData(string componentName,
+            MappingDataNode? protoData)
         {
             if (CurrentReadingEntityComponents == null)
             {
@@ -61,21 +60,17 @@ namespace OpenNefia.Core.Maps
             }
 
             var factory = IoCManager.Resolve<IComponentFactory>();
-
-            IComponent data = protoData != null
-                ? _serializationManager.CreateCopy(protoData, this)!
-                : (IComponent)Activator.CreateInstance(factory.GetRegistration(componentName).Type)!;
+            var serializationManager = IoCManager.Resolve<ISerializationManager>();
 
             if (CurrentReadingEntityComponents.TryGetValue(componentName, out var mapping))
             {
-                var mapData = (IDeserializedDefinition)_serializationManager.Read(
-                    factory.GetRegistration(componentName).Type,
-                    mapping, this);
-                var newData = _serializationManager.PopulateDataDefinition(data, mapData);
-                data = (IComponent)newData.RawValue!;
+                if (protoData == null) return mapping.Copy();
+
+                return serializationManager.PushCompositionWithGenericNode(
+                    factory.GetRegistration(componentName).Type, new[] { protoData }, mapping, this);
             }
 
-            return data;
+            return protoData ?? new MappingDataNode();
         }
 
         IEnumerable<string> IEntityLoadContext.GetExtraComponentTypes()
@@ -127,15 +122,17 @@ namespace OpenNefia.Core.Maps
             return new ValueDataNode(entityUid.ToString(CultureInfo.InvariantCulture));
         }
 
-        DeserializationResult ITypeReader<EntityUid, ValueDataNode>.Read(ISerializationManager serializationManager,
+        EntityUid ITypeReader<EntityUid, ValueDataNode>.Read(ISerializationManager serializationManager,
             ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context)
+            ISerializationContext? context,
+            EntityUid rawValue = default)
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<EntityUid>(EntityUid.Invalid);
+                Logger.ErrorS(MapLoader.SawmillName, $"Found null {nameof(EntityUid)} in map file.");
+                return EntityUid.Invalid;
             }
 
             var val = int.Parse(node.Value);
@@ -147,16 +144,16 @@ namespace OpenNefia.Core.Maps
                 || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
                 {
                     Logger.ErrorS(MapLoader.SawmillName, $"Error in map blueprint file: found local entity UID '{val}' which does not exist.");
-                    return null!;
+                    return EntityUid.Invalid;
                 }
                 else
                 {
-                    return new DeserializedValue<EntityUid>(entity!.Value);
+                    return entity!.Value;
                 }
             }
             else
             {
-                return new DeserializedValue<EntityUid>(new EntityUid(val));
+                return new EntityUid(val);
             }
         }
 

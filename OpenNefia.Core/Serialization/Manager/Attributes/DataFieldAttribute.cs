@@ -10,22 +10,12 @@ namespace OpenNefia.Core.Serialization.Manager.Attributes
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [MeansImplicitAssignment]
     [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
-    public class DataFieldAttribute : Attribute
+    public class DataFieldAttribute : DataFieldBaseAttribute
     {
         /// <summary>
         /// Tag name to use. If none is provided, the serializer will use the lowercased C# field name.
         /// </summary>
         public readonly string? Tag;
-
-        /// <summary>
-        /// Numeric priority controlling the order of (de)serialization.
-        /// </summary>
-        public readonly int Priority;
-
-        /// <summary>
-        /// If true, this type can only be deserialized.
-        /// </summary>
-        public readonly bool ReadOnly;
 
         /// <summary>
         ///     Whether or not this field being mapped is required for the component to function.
@@ -35,24 +25,34 @@ namespace OpenNefia.Core.Serialization.Manager.Attributes
         public readonly bool Required;
 
         /// <summary>
-        /// Type of an <see cref="ITypeSerializer"/> to (de)serialize this field with.
-        /// </summary>
-        public readonly Type? CustomTypeSerializer;
-
-        /// <summary>
         /// Whether to exclude this field from being compared against during IsSameAs() calls.
         /// </summary>
         public readonly bool NoCompare;
 
-        public DataFieldAttribute(string? tag = null, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null,
-            bool noCompare = false)
+        public DataFieldAttribute(string? tag = null, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null, bool noCompare = false) : base(readOnly, priority, customTypeSerializer)
         {
             Tag = tag;
-            Priority = priority;
-            ReadOnly = readOnly;
             Required = required;
-            CustomTypeSerializer = customTypeSerializer;
             NoCompare = noCompare;
+        }
+
+        public override string ToString()
+        {
+            return $"{Tag}";
+        }
+    }
+
+    public abstract class DataFieldBaseAttribute : Attribute
+    {
+        public readonly int Priority;
+        public readonly Type? CustomTypeSerializer;
+        public readonly bool ReadOnly;
+
+        protected DataFieldBaseAttribute(bool readOnly = false, int priority = 1, Type? customTypeSerializer = null)
+        {
+            ReadOnly = readOnly;
+            Priority = priority;
+            CustomTypeSerializer = customTypeSerializer;
         }
     }
 }

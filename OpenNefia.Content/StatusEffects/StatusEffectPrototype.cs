@@ -15,7 +15,7 @@ namespace OpenNefia.Content.StatusEffects
     [Prototype("Elona.StatusEffect")]
     public sealed class StatusEffectPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

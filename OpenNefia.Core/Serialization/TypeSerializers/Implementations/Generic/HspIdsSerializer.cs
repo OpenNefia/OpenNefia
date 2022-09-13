@@ -8,7 +8,6 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -20,21 +19,20 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class HspIdsSerializer<T> : ITypeSerializer<HspIds<T>, MappingDataNode> where T: struct
     {
-        public DeserializationResult Read(ISerializationManager serializationManager,
+        public HspIds<T> Read(ISerializationManager serializationManager,
             MappingDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            HspIds<T>? rawValue = null)
         {
-            var mappedFields = new Dictionary<DeserializationResult, DeserializationResult>();
-
             string? origin = null;
 
             foreach (var (key, val) in node.Children)
             {
                 if (val.Tag == "!*" || node.Children.Count == 1)
                 {
-                    var (keyVal, keyResult) = serializationManager.ReadWithValueOrThrow<string>(key, context, skipHook);
+                    var keyVal = serializationManager.Read<string>(key, context, skipHook);
                     origin = keyVal!;
                 }
             }
@@ -43,14 +41,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             foreach (var (key, val) in node.Children)
             {
-                var (keyVal, keyResult) = serializationManager.ReadWithValueOrThrow<string>(key, context, skipHook);
-                var (valueVal, valueResult) = serializationManager.ReadWithValueOrThrow<T>(val, skipHook: skipHook);
+                var keyVal = serializationManager.Read<string>(key, context, skipHook);
+                var valueVal = serializationManager.Read<T>(val, skipHook: skipHook);
 
-                mappedFields.Add(keyResult, valueResult);
                 hspIds.Add(keyVal, valueVal);
             }
 
-            return new DeserializedHspIds<T>(hspIds, mappedFields);
+            return hspIds;
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager,
@@ -120,7 +117,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             foreach (var (variantId, hspId) in source)
             {
-                target.Add(variantId, serializationManager.CreateCopy(hspId, context)!);
+                target.Add(variantId, serializationManager.Copy(hspId, context)!);
             }
 
             return target;

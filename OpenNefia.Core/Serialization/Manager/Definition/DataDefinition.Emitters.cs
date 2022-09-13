@@ -5,7 +5,6 @@ using System.Reflection.Emit;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
@@ -36,7 +35,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                         if (!mappingDataNode.Has(tag))
                         {
                             if (dfa.Required)
-                                throw new InvalidOperationException($"Required field {dfa.Tag} of type {target.GetType()} wasn't mapped.");
+                                throw new InvalidOperationException($"Required field {tag} of type {target.GetType()} wasn't mapped.");
                             continue;
                         }
                     }
@@ -207,6 +206,55 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             }
 
             return CopyDelegate;
+        }
+
+        private CompareDelegateSignature EmitCompareDelegate()
+        {
+            bool CompareDelegate(
+                object objA,
+                object objB,
+                ISerializationManager manager,
+                ISerializationContext? context)
+            {
+                for (var i = 0; i < BaseFieldDefinitions.Length; i++)
+                {
+                    var field = BaseFieldDefinitions[i];
+
+                    if (field.Attribute.NoCompare)
+                    {
+                        continue;
+                    }
+
+                    var accessor = FieldAccessors[i];
+                    var objAValue = accessor(ref objA);
+                    var objBValue = accessor(ref objB);
+
+                    if (objAValue == null && objBValue == null)
+                    {
+                        continue;
+                    }
+
+                    if (objAValue == null || objBValue == null)
+                    {
+                        return false;
+                    }
+
+                    if (!TypeHelpers.TrySelectCommonType(objAValue.GetType(), objBValue.GetType(), out _))
+                    {
+                        return false;
+                    }
+
+                    var areSame = manager.Compare(objAValue, objBValue, context);
+                    if (!areSame)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return CompareDelegate;
         }
 
         private static void EmitSetField(RobustILGenerator rGenerator, AbstractFieldInfo info)

@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -15,12 +14,12 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class RegexSerializer : ITypeSerializer<Regex, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public Regex Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null, Regex? value = default)
         {
-            return new DeserializedValue<Regex>(new Regex(node.Value, RegexOptions.Compiled));
+            return new Regex(node.Value, RegexOptions.Compiled);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

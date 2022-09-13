@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Fishing
     [Prototype("Elona.Bait")]
     public class BaitPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

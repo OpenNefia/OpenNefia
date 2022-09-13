@@ -4,7 +4,6 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -27,14 +26,15 @@ namespace OpenNefia.Core.Areas
                 new ErrorNode(node, $"Could not parse {nameof(AreaFloorId)}: '{node.Value}'. Must be formatted like 'SomeId:123'.");
         }
 
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
-            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
+        public AreaFloorId Read(ISerializationManager serializationManager, ValueDataNode node,
+            IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
+            AreaFloorId rawValue = default)
         {
             var matches = AreaFloorIdRegex.Match(node.Value);
             if (!matches.Success)
                 throw new InvalidMappingException($"Could not parse {nameof(AreaFloorId)}: '{node.Value}'. Must be formatted like 'SomeId:123'.");
 
-            return new DeserializedValue<AreaFloorId>(new(matches.Groups[1].Value, int.Parse(matches.Groups[2].Value)));
+            return new AreaFloorId(matches.Groups[1].Value, int.Parse(matches.Groups[2].Value));
         }
 
         public DataNode Write(ISerializationManager serializationManager, AreaFloorId value, bool alwaysWrite = false,

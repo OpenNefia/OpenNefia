@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Buffs
     [Prototype("Elona.Buff")]
     public class BuffPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         ///<summary> 

@@ -6,7 +6,6 @@ using System.Linq;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -33,7 +32,6 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             }
         }
         
-        private readonly DeserializeDelegate _deserialize;
         private readonly PopulateDelegateSignature _populate;
         private readonly SerializeDelegateSignature _serialize;
         private readonly CopyDelegateSignature _copy;
@@ -59,9 +57,8 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             BaseFieldDefinitions = fields.ToImmutableArray();
             DefaultValues = fieldDefs.Select(f => f.DefaultValue).ToArray();
 
-            _deserialize = EmitDeserializationDelegate();
             _populate = EmitPopulateDelegate(collection);
-            _serialize = EmitSerializeDelegate();
+            _serialize = EmitSerializeDelegate(collection);
             _copy = EmitCopyDelegate();
             _compare = EmitCompareDelegate();
 
@@ -74,8 +71,8 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                 var fieldDefinition = BaseFieldDefinitions[i];
 
                 fieldAccessors[i] = EmitFieldAccessor(fieldDefinition);
-                fieldAssigners[i] = EmitFieldAssigner(fieldDefinition); 
-                
+                fieldAssigners[i] = EmitFieldAssigner<object>(Type, fieldDefinition.FieldType, fieldDefinition.BackingField);
+
                 if (fieldDefinition.Attribute.CustomTypeSerializer != null)
                 {
                     interfaceInfos[i] = CacheFieldInterfaceInfo(type, fieldDefinition);
@@ -150,21 +147,15 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
 
         internal ImmutableArray<FieldDefinition> BaseFieldDefinitions { get; }
         private ImmutableArray<FieldInterfaceInfo> FieldInterfaceInfos { get; }
-        
-        public DeserializationResult Populate(object target, DeserializedFieldEntry[] fields)
-        {
-            return _populate(target, fields, DefaultValues);
-        }
 
-        public DeserializationResult Populate(
+        public object Populate(
             object target,
             MappingDataNode mapping,
             ISerializationManager serialization,
             ISerializationContext? context,
             bool skipHook)
         {
-            var fields = _deserialize(mapping, serialization, context, skipHook);
-            return _populate(target, fields, DefaultValues);
+            return _populate(target, mapping, serialization, context, skipHook, DefaultValues);
         }
 
         public MappingDataNode Serialize(
@@ -241,7 +232,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             return duplicates.Length > 0;
         }
 
-        private string GetActualDataFieldTag(AbstractFieldInfo abstractFieldInfo, DataFieldAttribute dataField)
+        internal static string GetActualDataFieldTag(AbstractFieldInfo abstractFieldInfo, DataFieldAttribute dataField)
         {
             // Default to lowercased field name from C# if no tag name is provided.
             // Tag names will be lowerCamelCase.

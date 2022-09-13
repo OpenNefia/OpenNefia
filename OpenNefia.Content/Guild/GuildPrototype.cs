@@ -7,7 +7,7 @@ namespace OpenNefia.Content.Guild
     public class GuildPrototype : IPrototype
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
     }
 }

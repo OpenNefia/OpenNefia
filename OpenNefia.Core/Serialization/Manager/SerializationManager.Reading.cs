@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ICSharpCode.Decompiler.IL;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Definition;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
@@ -18,13 +18,36 @@ namespace OpenNefia.Core.Serialization.Manager
 {
     public partial class SerializationManager
     {
-        private delegate DeserializationResult ReadDelegate(
+        private delegate object? ReadDelegate(
             Type type,
             DataNode node,
             ISerializationContext? context = null,
-            bool skipHook = false);
+            bool skipHook = false,
+            object? value = null);
 
-        private readonly ConcurrentDictionary<(Type value, Type node), ReadDelegate> _readers = new();
+        private readonly ConcurrentDictionary<(Type value, Type node), ReadDelegate> _readers = new(); 
+        
+        public T Read<T>(DataNode node, ISerializationContext? context = null, bool skipHook = false, T? value = default) //todo paul this default should be null
+        {
+            return (T)Read(typeof(T), node, context, skipHook, value)!;
+        }
+
+        public object? Read(Type type, DataNode node, ISerializationContext? context = null, bool skipHook = false, object? value = null)
+        {
+            var val = GetOrCreateReader(type, node)(type, node, context, skipHook, value);
+            ReadNullCheck(type, val);
+            return val;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ReadNullCheck(Type type, object? val)
+        {
+            if (!type.IsNullable() && val == null)
+            {
+                throw new InvalidOperationException(
+                    $"{nameof(Read)}-Call returned a null value for non-nullable type {type}");
+            }
+        }
 
         private ReadDelegate GetOrCreateReader(Type value, DataNode node)
         {
@@ -46,8 +69,10 @@ namespace OpenNefia.Core.Serialization.Manager
 
                 var typeParam = Expression.Parameter(typeof(Type), "type");
                 var nodeParam = Expression.Parameter(typeof(DataNode), "node");
+                //todo paul serializers in the context should also override default serializers for array etc
                 var contextParam = Expression.Parameter(typeof(ISerializationContext), "context");
                 var skipHookParam = Expression.Parameter(typeof(bool), "skipHook");
+                var valueParam = Expression.Parameter(typeof(object), "value");
 
                 MethodCallExpression call;
 
@@ -60,12 +85,14 @@ namespace OpenNefia.Core.Serialization.Manager
                         // BUG: does this even work?
                         // typeof(T[]?) acts as typeof(T[]) at runtime.
                         // https://stackoverflow.com/a/62186551
-                        case ValueDataNode when nullable:
+                        case ValueDataNode:
                             call = Expression.Call(
                                 instanceConst,
                                 nameof(ReadArrayValue),
                                 new[] { elementType },
-                                Expression.Convert(nodeParam, typeof(ValueDataNode)));
+                                Expression.Convert(nodeParam, typeof(ValueDataNode)),
+                                contextParam,
+                                skipHookParam);
                             break;
                         case SequenceDataNode seqNode:
                             var isSealed = elementType.IsPrimitive || elementType.IsEnum ||
@@ -217,7 +244,7 @@ namespace OpenNefia.Core.Serialization.Manager
                             nameof(ReadSelfSerialize),
                             new[] { value },
                             Expression.Convert(nodeParam, typeof(ValueDataNode)),
-                            instantiatorConst)
+                            instantiatorConst, valueParam)
                     };
                 }
                 else if (instance.TryGetTypeReader(value, nodeType, out var reader))
@@ -237,20 +264,22 @@ namespace OpenNefia.Core.Serialization.Manager
                             skipHookParam),
                         ValueDataNode when nullable && !value.IsValueType => Expression.Call(
                             instanceConst,
-                            nameof(ReadWithTypeReaderNullable),
+                            nameof(ReadWithTypeReaderNullableClass),
                             new[] { value },
                             Expression.Convert(nodeParam, typeof(ValueDataNode)),
                             readerConst,
                             contextParam,
-                            skipHookParam),
+                            skipHookParam,
+                            valueParam),
                         _ => Expression.Call(
                             instanceConst,
                             nameof(ReadWithTypeReader),
                             new[] { value, nodeType },
                             Expression.Convert(nodeParam, nodeType),
                             readerConst,
-                            contextParam,
-                            skipHookParam)
+                            contextParam, 
+                            skipHookParam,
+                            valueParam)
                     };
                 }
                 else if (value.IsInterface || value.IsAbstract)
@@ -280,7 +309,8 @@ namespace OpenNefia.Core.Serialization.Manager
                             populateConst,
                             hooksConst,
                             contextParam,
-                            skipHookParam),
+                            skipHookParam,
+                            valueParam),
                         ValueDataNode => Expression.Call(
                             instanceConst,
                             nameof(ReadGenericValue),
@@ -291,7 +321,8 @@ namespace OpenNefia.Core.Serialization.Manager
                             populateConst,
                             hooksConst,
                             contextParam,
-                            skipHookParam),
+                            skipHookParam,
+                            valueParam),
                         MappingDataNode => Expression.Call(
                             instanceConst,
                             nameof(ReadGenericMapping),
@@ -302,53 +333,55 @@ namespace OpenNefia.Core.Serialization.Manager
                             populateConst,
                             hooksConst,
                             contextParam,
-                            skipHookParam),
+                            skipHookParam,
+                            valueParam),
                         SequenceDataNode => throw new ArgumentException($"No mapping node provided for type {value} at line: {node.Start.Line}"),
                         _ => throw new ArgumentException($"Unknown node type {nodeType} provided. Expected mapping node at line: {node.Start.Line}")
                     };
                 }
 
                 return Expression.Lambda<ReadDelegate>(
-                    call,
+                    Expression.Convert(call, typeof(object)),
                     typeParam,
                     nodeParam,
                     contextParam,
-                    skipHookParam).Compile();
+                    skipHookParam,
+                    valueParam).Compile();
             }, (node, this));
         }
 
-        private DeserializationResult ReadArrayValue<T>(ValueDataNode value)
+        private T[]? ReadArrayValue<T>(
+            ValueDataNode value,
+            ISerializationContext? context = null,
+            bool skipHook = false)
         {
             if (value.Value == "null")
             {
-                return new DeserializedValue<T[]?>(null);
+                return null;
             }
-
-            throw new InvalidNodeTypeException("Cannot read an array from a value data node that is not null.");
+            
+            var array = new T[1];
+            array[0] = Read<T>(value, context, skipHook);
+            return array;
         }
 
-        private DeserializationResult ReadArraySequence<T>(
+        private T[] ReadArraySequence<T>(
             SequenceDataNode node,
             ISerializationContext? context = null,
             bool skipHook = false)
         {
             var type = typeof(T);
             var array = new T[node.Sequence.Count];
-            var results = new DeserializationResult[node.Sequence.Count];
 
             for (var i = 0; i < node.Sequence.Count; i++)
             {
-                var subNode = node.Sequence[i];
-                var result = Read(type, subNode, context, skipHook);
-
-                results[i] = result;
-                array[i] = (T)result.RawValue!;
+                array[i] = Read<T>(node.Sequence[i], context, skipHook);
             }
 
-            return new DeserializedArray(array, results);
+            return array;
         }
 
-        private DeserializationResult ReadArraySequenceSealed<T>(
+        private T[] ReadArraySequenceSealed<T>(
             SequenceDataNode node,
             ReadDelegate elementReader,
             ISerializationContext? context = null,
@@ -356,35 +389,37 @@ namespace OpenNefia.Core.Serialization.Manager
         {
             var type = typeof(T);
             var array = new T[node.Sequence.Count];
-            var results = new DeserializationResult[node.Sequence.Count];
 
             for (var i = 0; i < node.Sequence.Count; i++)
             {
                 var subNode = node.Sequence[i];
                 var result = elementReader(type, subNode, context, skipHook);
-
-                results[i] = result;
-                array[i] = (T)result.RawValue!;
+                ReadNullCheck(type, result);
+                array[i] = (T)result!;
             }
 
-            return new DeserializedArray(array, results);
+            return array;
         }
 
-        private DeserializationResult ReadArrayValueMultiDim<T>(MappingDataNode mapping)
+        private Array? ReadArrayValueMultiDim<T>(
+            MappingDataNode mapping,
+            ISerializationContext? context = null,
+            bool skipHook = false)
         {
             var lengthsNode = (SequenceDataNode)mapping["lengths"];
             var rank = lengthsNode.Sequence.Count;
             var value = (ValueDataNode)mapping["elements"];
             if (value.Value == "null")
             {
-                var arrayType = typeof(T).MakeArrayType(rank).EnsureNullableType();
-                return (DeserializedValue)Activator.CreateInstance(arrayType, null)!;
+                return null;
             }
 
-            throw new InvalidNodeTypeException("Cannot read an array from a value data node that is not null.");
+            var array = Array.CreateInstance(typeof(T), 1);
+            array.SetValue(Read<T>(value, context, skipHook), 0);
+            return array;
         }
 
-        private DeserializationResult ReadArraySequenceMultiDim<T>(
+        private Array ReadArraySequenceMultiDim<T>(
             MappingDataNode mapping,
             ISerializationContext? context = null,
             bool skipHook = false)
@@ -399,7 +434,6 @@ namespace OpenNefia.Core.Serialization.Manager
             var node = (SequenceDataNode)mapping["elements"];
             var type = typeof(T);
             var array = Array.CreateInstance(type, lengths);
-            var results = new DeserializationResult[node.Sequence.Count];
 
             var indices = new long[array.Rank];
             var cumulativeLengths = array.GetCumulativeLengths();
@@ -407,21 +441,20 @@ namespace OpenNefia.Core.Serialization.Manager
             for (var i = 0; i < node.Sequence.Count; i++)
             {
                 var subNode = node.Sequence[i];
-                var result = Read(type, subNode, context, skipHook);
+                var result = Read<T>(subNode, context, skipHook);
 
                 for (int dim = array.Rank - 1; dim >= 0; dim--)
                 {
                     indices[dim] = i / cumulativeLengths[dim] % lengths[dim];
                 }
 
-                results[i] = result;
-                array.SetValue(result.RawValue!, indices);
+                array.SetValue(result!, indices);
             }
 
-            return new DeserializedArray(array, results);
+            return array;
         }
 
-        private DeserializationResult ReadArraySequenceSealedMultiDim<T>(
+        private Array ReadArraySequenceSealedMultiDim<T>(
             MappingDataNode mapping,
             ReadDelegate elementReader,
             ISerializationContext? context = null,
@@ -437,7 +470,6 @@ namespace OpenNefia.Core.Serialization.Manager
             var node = (SequenceDataNode)mapping["elements"];
             var type = typeof(T);
             var array = Array.CreateInstance(type, lengths);
-            var results = new DeserializationResult[node.Sequence.Count];
 
             var indices = new long[array.Rank];
             var cumulativeLengths = array.GetCumulativeLengths();
@@ -446,54 +478,51 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 var subNode = node.Sequence[i];
                 var result = elementReader(type, subNode, context, skipHook);
-
+                ReadNullCheck(type, result);
+                
                 for (int dim = array.Rank - 1; dim >= 0; dim--)
                 {
                     indices[dim] = i / cumulativeLengths[dim] % lengths[dim];
                 }
 
-                results[i] = result;
-                array.SetValue(result.RawValue!, indices);
+                array.SetValue((T)result!, indices);
             }
 
-            return new DeserializedArray(array, results);
+            return array;
         }
 
-        private DeserializationResult ReadEnumNullable<TEnum>(ValueDataNode node) where TEnum : struct
+        private TEnum? ReadEnumNullable<TEnum>(ValueDataNode node) where TEnum : struct
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TEnum?>(null);
+                return null;
             }
 
-            var value = Enum.Parse<TEnum>(node.Value, true);
-            return new DeserializedValue<TEnum?>(value);
+            return ReadEnumValue<TEnum>(node);
         }
 
-        private DeserializationResult ReadEnumValue<TEnum>(ValueDataNode node) where TEnum : struct
+        private TEnum ReadEnumValue<TEnum>(ValueDataNode node) where TEnum : struct
         {
-            var value = Enum.Parse<TEnum>(node.Value, true);
-            return new DeserializedValue<TEnum>(value);
+            return Enum.Parse<TEnum>(node.Value, true);
         }
 
-        private DeserializationResult ReadEnumSequence<TEnum>(SequenceDataNode node) where TEnum : struct
+        private TEnum ReadEnumSequence<TEnum>(SequenceDataNode node) where TEnum : struct
         {
-            var value = Enum.Parse<TEnum>(string.Join(", ", node.Sequence), true);
-            return new DeserializedValue<TEnum>(value);
+            return Enum.Parse<TEnum>(string.Join(", ", node.Sequence), true);
         }
 
-        private DeserializationResult ReadDelegateNullableValue<TDelegate>(ValueDataNode node)
+        private TDelegate? ReadDelegateNullableValue<TDelegate>(ValueDataNode node)
             where TDelegate : Delegate
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TDelegate?>(default);
+                return null;
             }
 
             return ReadDelegateValue<TDelegate>(node);
         }
 
-        private DeserializationResult ReadDelegateValue<TDelegate>(ValueDataNode node)
+        private TDelegate ReadDelegateValue<TDelegate>(ValueDataNode node)
             where TDelegate : Delegate
         {
             var split = node.Value.Split(':');
@@ -508,7 +537,7 @@ namespace OpenNefia.Core.Serialization.Manager
             return ReadDelegateValue<TDelegate>(systemTypeName, methodName);
         }
 
-        private DeserializationResult ReadDelegateMapping<TDelegate>(MappingDataNode node)
+        private TDelegate ReadDelegateMapping<TDelegate>(MappingDataNode node)
             where TDelegate : Delegate
         {
             var systemTypeName = node.Cast<ValueDataNode>("system").Value;
@@ -517,7 +546,7 @@ namespace OpenNefia.Core.Serialization.Manager
             return ReadDelegateValue<TDelegate>(systemTypeName, methodName);
         }
 
-        private DeserializationResult ReadDelegateValue<TDelegate>(string systemTypeName, string methodName)
+        private TDelegate ReadDelegateValue<TDelegate>(string systemTypeName, string methodName)
             where TDelegate : Delegate
         {
             if (!_reflectionManager.TryLooseGetType(systemTypeName, out var systemType))
@@ -558,58 +587,58 @@ namespace OpenNefia.Core.Serialization.Manager
 
             var call = Expression.Call(Expression.Call(entitySystemGet), method, parameters);
 
-            var value = Expression.Lambda<TDelegate>(call, parameters).Compile();
-
-            return new DeserializedValue<TDelegate?>(value);
+            return Expression.Lambda<TDelegate>(call, parameters).Compile();
         }
 
-        private DeserializationResult ReadSelfSerialize<TValue>(
+        private TValue? ReadSelfSerialize<TValue>(
             ValueDataNode node,
-            InstantiationDelegate<object> instantiator)
+            InstantiationDelegate<object> instantiator,
+            object? rawValue = null)
             where TValue : ISelfSerialize
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TValue?>(default);
+                return default; //todo paul this default should be null
             }
 
-            var value = (TValue)instantiator();
+            var value = (TValue)(rawValue ?? instantiator());
             value.Deserialize(node.Value);
 
-            return new DeserializedValue<TValue?>(value);
+            return value;
         }
 
-        private DeserializationResult ReadSelfSerializeNullableStruct<TValue>(
+        private TValue? ReadSelfSerializeNullableStruct<TValue>(
             ValueDataNode node,
             InstantiationDelegate<object> instantiator)
             where TValue : struct, ISelfSerialize
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TValue?>(null);
+                return null;
             }
 
             var value = (TValue)instantiator();
             value.Deserialize(node.Value);
-
-            return new DeserializedValue<TValue?>(value);
+            return value;
         }
 
-        private DeserializationResult ReadWithTypeReaderNullable<TValue>(
+        private TValue? ReadWithTypeReaderNullableClass<TValue>(
             ValueDataNode node,
             ITypeReader<TValue, ValueDataNode> reader,
             ISerializationContext? context = null,
-            bool skipHook = false)
+            bool skipHook = false,
+            object? value = null)
+        where TValue : class
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TValue?>(default);
+                return null;
             }
 
-            return ReadWithTypeReader(node, reader, context, skipHook);
+            return ReadWithTypeReader(node, reader, context, skipHook, value);
         }
 
-        private DeserializationResult ReadWithTypeReaderNullableStruct<TValue>(
+        private TValue? ReadWithTypeReaderNullableStruct<TValue>(
             ValueDataNode node,
             ITypeReader<TValue, ValueDataNode> reader,
             ISerializationContext? context = null,
@@ -618,17 +647,18 @@ namespace OpenNefia.Core.Serialization.Manager
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TValue?>(null);
+                return null;
             }
 
             return ReadWithTypeReader(node, reader, context, skipHook);
         }
 
-        private DeserializationResult ReadWithTypeReader<TValue, TNode>(
+        private TValue ReadWithTypeReader<TValue, TNode>(
             TNode node,
             ITypeReader<TValue, TNode> reader,
             ISerializationContext? context = null,
-            bool skipHook = false)
+            bool skipHook = false,
+            object? value = null)
             where TNode : DataNode
         {
             if (context != null &&
@@ -637,34 +667,36 @@ namespace OpenNefia.Core.Serialization.Manager
                 reader = (ITypeReader<TValue, TNode>)readerUnCast;
             }
 
-            return reader.Read(this, node, DependencyCollection, skipHook, context);
+            return reader.Read(this, node, DependencyCollection, skipHook, context, value == null ? default : (TValue)value);
         }
 
-        private DeserializationResult ReadGenericNullable<TValue>(
+        private TValue? ReadGenericNullable<TValue>(
             ValueDataNode node,
             InstantiationDelegate<object> instantiator,
             DataDefinition? definition,
             bool populate,
             bool hooks,
             ISerializationContext? context = null,
-            bool skipHook = false)
+            bool skipHook = false,
+            object? value = null)
         {
             if (node.Value == "null")
             {
-                return new DeserializedValue<TValue?>(default);
+                return default; //todo paul this default should be null
             }
 
-            return ReadGenericValue<TValue?>(node, instantiator, definition, populate, hooks, context, skipHook);
+            return ReadGenericValue<TValue>(node, instantiator, definition, populate, hooks, context, skipHook, value);
         }
 
-        private DeserializationResult ReadGenericValue<TValue>(
+        private TValue ReadGenericValue<TValue>(
             ValueDataNode node,
             InstantiationDelegate<object> instantiator,
             DataDefinition? definition,
             bool populate,
             bool hooks,
             ISerializationContext? context = null,
-            bool skipHook = false)
+            bool skipHook = false,
+            object? instance = null)
         {
             var type = typeof(TValue);
 
@@ -672,7 +704,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 context.TypeReaders.TryGetValue((typeof(TValue), typeof(ValueDataNode)), out var readerUnCast))
             {
                 var reader = (ITypeReader<TValue, ValueDataNode>)readerUnCast;
-                return reader.Read(this, node, DependencyCollection, skipHook, context);
+                return reader.Read(this, node, DependencyCollection, skipHook, context, instance == null ? default : (TValue)instance);
             }
 
             if (definition == null)
@@ -680,7 +712,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 throw new ArgumentException($"No data definition found for type {type} with node type {node.GetType()} when reading");
             }
 
-            var instance = instantiator();
+            instance ??= instantiator();
 
             if (populate)
             {
@@ -692,36 +724,32 @@ namespace OpenNefia.Core.Serialization.Manager
                 throw new ArgumentException($"No mapping node provided for type {type} at line: {node.Start.Line}");
             }
 
-            // If we get an empty ValueDataNode we just use an empty mapping
-            var mapping = new MappingDataNode();
-
-            var result = definition.Populate(instance, mapping, this, context, skipHook);
-
             if (!skipHook && hooks)
             {
-                ((ISerializationHooks)result.RawValue!).AfterDeserialization();
+                ((ISerializationHooks)instance).AfterDeserialization();
             }
 
-            return result;
+            return (TValue)instance;
         }
 
-        private DeserializationResult ReadGenericMapping<TValue>(
+        private TValue ReadGenericMapping<TValue>(
             MappingDataNode node,
             InstantiationDelegate<object> instantiator,
             DataDefinition? definition,
             bool populate,
             bool hooks,
             ISerializationContext? context = null,
-            bool skipHook = false)
+            bool skipHook = false,
+            object? instance = null)
         {
             var type = typeof(TValue);
-            var instance = instantiator();
+            instance ??= instantiator();
 
             if (context != null &&
                 context.TypeReaders.TryGetValue((type, typeof(MappingDataNode)), out var readerUnCast))
             {
                 var reader = (ITypeReader<TValue, MappingDataNode>)readerUnCast;
-                return reader.Read(this, node, DependencyCollection, skipHook, context);
+                return reader.Read(this, node, DependencyCollection, skipHook, context, (TValue?)instance);
             }
 
             if (definition == null)
@@ -734,47 +762,20 @@ namespace OpenNefia.Core.Serialization.Manager
                 ((IPopulateDefaultValues)instance).PopulateDefaultValues();
             }
 
-            var result = definition.Populate(instance, node, this, context, skipHook);
+            var result = (TValue)definition.Populate(instance, node, this, context, skipHook)!;
 
             if (!skipHook && hooks)
             {
-                ((ISerializationHooks)result.RawValue!).AfterDeserialization();
+                ((ISerializationHooks)result).AfterDeserialization();
             }
 
             return result;
         }
 
-        public DeserializationResult Read(Type type, DataNode node, ISerializationContext? context = null, bool skipHook = false)
+        public object? ReadWithTypeSerializer(Type type, Type serializer, DataNode node, ISerializationContext? context = null,
+            bool skipHook = false, object? value = null)
         {
-            return GetOrCreateReader(type, node)(type, node, context, skipHook);
-        }
-
-        public object? ReadValue(Type type, DataNode node, ISerializationContext? context = null, bool skipHook = false)
-        {
-            return Read(type, node, context, skipHook).RawValue;
-        }
-
-        public T? ReadValueCast<T>(Type type, DataNode node, ISerializationContext? context = null, bool skipHook = false)
-        {
-            var value = Read(type, node, context, skipHook);
-
-            if (value.RawValue == null)
-            {
-                return default;
-            }
-
-            return (T?)value.RawValue;
-        }
-
-        public T? ReadValue<T>(DataNode node, ISerializationContext? context = null, bool skipHook = false)
-        {
-            return ReadValueCast<T>(typeof(T), node, context, skipHook);
-        }
-
-        public DeserializationResult ReadWithTypeSerializer(Type value, Type serializer, DataNode node, ISerializationContext? context = null,
-            bool skipHook = false)
-        {
-            return ReadWithSerializerRaw(value, node, serializer, context, skipHook);
+            return ReadWithSerializerRaw(type, node, serializer, context, skipHook, value);
         }
     }
 }

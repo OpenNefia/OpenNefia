@@ -54,7 +54,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 ";
 
             manager.LoadString(prototypes);
-            manager.Resync();
+            manager.ResolveResults();
 
             var enumerator = manager.EnumeratePrototypes<EntityPrototype>()
                 .Select(p => p.GetStrongID());
@@ -76,7 +76,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 ";
 
             manager.LoadString(prototypes);
-            manager.Resync();
+            manager.ResolveResults();
 
             var enumerator = manager.EnumeratePrototypes<EntityPrototype>()
                 .Select(p => p.GetStrongID());
@@ -109,7 +109,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 
             manager.LoadString(prototypes1);
             manager.LoadString(prototypes2);
-            manager.Resync();
+            manager.ResolveResults();
 
             var enumerator = manager.EnumeratePrototypes<EntityPrototype>()
                 .Select(p => p.GetStrongID());

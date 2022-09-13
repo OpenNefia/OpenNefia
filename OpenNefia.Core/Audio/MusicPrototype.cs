@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Audio
     [Prototype("Music")]
     public class MusicPrototype : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
         
         /// <inheritdoc/>

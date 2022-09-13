@@ -21,7 +21,7 @@ namespace OpenNefia.Content.MapVisibility
     [Prototype("Elona.LightSource")]
     public class LightSourcePrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField]

@@ -7,7 +7,7 @@ namespace OpenNefia.Content.PCCs
     [Prototype("Elona.PCCPart")]
     public class MapTilesetPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField("pccPartType", required:true)]

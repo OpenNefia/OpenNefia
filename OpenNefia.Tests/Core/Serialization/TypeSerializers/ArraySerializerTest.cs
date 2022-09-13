@@ -28,7 +28,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var list = new[] { "A", "E" };
             var node = new SequenceDataNode("A", "E");
-            var deserializedList = Serialization.ReadValue<string[]>(node);
+            var deserializedList = Serialization.Read<string[]>(node);
 
             Assert.That(deserializedList, Is.EqualTo(list));
         }
@@ -58,12 +58,12 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var list = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             var elementsNode = new SequenceDataNode("A", "B", "C", "E", "F", "G");
             var lengthsNode = new SequenceDataNode("2", "3");
-            var node = new MappingDataNode(new Dictionary<DataNode, DataNode> ()
+            var node = new MappingDataNode(new Dictionary<DataNode, DataNode>()
             {
                 { new ValueDataNode("lengths"), lengthsNode },
                 { new ValueDataNode("elements"), elementsNode }
             });
-            var deserializedList = Serialization.ReadValue<string[,]>(node);
+            var deserializedList = Serialization.Read<string[,]>(node);
 
             Assert.That(deserializedList, Is.EqualTo(list));
         }
@@ -73,9 +73,9 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var list1 = new[] { "A", "B", "C" };
             var list2 = new[] { " ", " ", " " };
-            var result = Serialization.Copy(list1, list2);
+            Serialization.Copy(list1, ref list2);
             Assert.That(list1, Is.EqualTo(list1));
-            Assert.That(result, Is.EqualTo(list1));
+            Assert.That(list2, Is.EqualTo(list1));
         }
 
         [Test]
@@ -93,16 +93,13 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var list1 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             var list2 = new[,] { { " ", " ", " " }, { " ", " ", " " } };
-            var result = Serialization.Copy(list1, list2);
+            Serialization.Copy(list1, ref list2);
             Assert.That(list1, Is.EqualTo(list1));
-            Assert.That(result, Is.EqualTo(list1));
-            
-            var list3 = new[,] { { " ", " " }, { " ", " " } };
-            result = Serialization.Copy(list1, list3);
-            Assert.That(result, Is.EqualTo(list1));
+            Assert.That(list2, Is.EqualTo(list1));
 
-            var list4 = new[] { " ", " " };
-            Assert.Throws<InvalidOperationException>(() => Serialization.Copy(list1, list4));
+            var list3 = new[,] { { " ", " " }, { " ", " " } };
+            Serialization.Copy(list1, ref list3);
+            Assert.That(list3, Is.EqualTo(list1));
         }
 
         [Test]
@@ -111,10 +108,10 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var list1 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             var list2 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             Assert.That(Serialization.Compare(list1, list2), Is.True);
-            
+
             list1[0, 0] = " ";
             Assert.That(Serialization.Compare(list1, list2), Is.False);
-            
+
             var list3 = new[,] { { "A", "B" }, { "E", "F" } };
             var list4 = new[] { "A", "B" };
             Assert.That(Serialization.Compare(list1, list3), Is.False);

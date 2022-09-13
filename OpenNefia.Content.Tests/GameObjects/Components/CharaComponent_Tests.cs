@@ -32,7 +32,7 @@ public class CharaComponent_Tests : ContentUnitTest
         var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
         prototypeManager.RegisterType<EntityPrototype>();
         prototypeManager.LoadFromStream(new StringReader(Prototypes));
-        prototypeManager.Resync();
+        prototypeManager.ResolveResults();
     }
 
     [Test]

@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Equipment
     [Prototype("Elona.EquipmentSpec")]
     public class EquipmentSpecPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField("validEquipSlots")]

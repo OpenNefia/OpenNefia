@@ -2,7 +2,6 @@
 using OpenNefia.Content.Spells;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -25,11 +24,12 @@ namespace OpenNefia.Content.World
             @"(-)?(\d{2,}):(\d{2}):(\d{2})",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public DeserializationResult Read(
+        public GameTimeSpan Read(
             ISerializationManager serializationManager,
             ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            GameTimeSpan rawValue = default)
         {
             var match = GameTimeSpanRegex.Match(node.Value);
             if (!match.Success)
@@ -41,7 +41,7 @@ namespace OpenNefia.Content.World
                 (isNeg ? -1 : 1) * int.Parse(match.Groups[3].Value),
                 (isNeg ? -1 : 1) * int.Parse(match.Groups[4].Value));
 
-            return new DeserializedValue<GameTimeSpan>(result);
+            return result;
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

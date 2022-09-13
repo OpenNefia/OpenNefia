@@ -15,8 +15,9 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 {
     [TestFixture]
+    [TestFixture]
     [TestOf(typeof(ComponentRegistrySerializer))]
-    public class ComponentRegistrySerializerTest : SerializationTest
+    public sealed class ComponentRegistrySerializerTest : SerializationTest
     {
         [OneTimeSetUp]
         public new void OneTimeSetup()
@@ -29,7 +30,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         public void SerializationTest()
         {
             var component = new TestComponent();
-            var registry = new ComponentRegistry {{"Test", component}};
+            var registry = new ComponentRegistry { { "Test", new ComponentRegistryEntry(component, new MappingDataNode()) } };
             var node = Serialization.WriteValueAs<SequenceDataNode>(registry);
 
             Assert.That(node.Sequence.Count, Is.EqualTo(1));
@@ -48,7 +49,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 
             var mapping = yamlStream.Documents[0].RootNode.ToDataNodeCast<SequenceDataNode>();
 
-            var deserializedRegistry = Serialization.ReadValueOrThrow<ComponentRegistry>(mapping);
+            var deserializedRegistry = Serialization.Read<ComponentRegistry>(mapping);
 
             Assert.That(deserializedRegistry.Count, Is.EqualTo(1));
             Assert.That(deserializedRegistry.ContainsKey("Test"));
@@ -56,7 +57,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         }
     }
 
-    public class TestComponent : Component
+    public sealed class TestComponent : Component
     {
         public override string Name => "Test";
     }

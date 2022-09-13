@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Resists
     public class ElementPrototype : IPrototype
     {
         /// <inheritdoc />
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; private set; } = default!;
 
         [DataField]

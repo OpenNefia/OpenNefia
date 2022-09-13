@@ -1,3 +1,5 @@
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+
 namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
@@ -8,7 +10,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Gets the serializer used to ExposeData a specific component.
         /// </summary>
-        IComponent GetComponentData(string componentName, IComponent? protoData);
+        MappingDataNode GetComponentData(string componentName, MappingDataNode? protoData);
 
         /// <summary>
         ///     Gets extra component names that must also be instantiated on top of the ones defined in the prototype,

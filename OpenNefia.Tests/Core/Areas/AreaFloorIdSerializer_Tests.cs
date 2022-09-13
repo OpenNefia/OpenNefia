@@ -38,7 +38,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var floorId = new AreaFloorId("TestAreaFloor", 4567);
             var node = new ValueDataNode($"{floorId.ID}:{floorId.FloorNumber}");
-            var deserializedRange = Serialization.ReadValue<AreaFloorId>(node);
+            var deserializedRange = Serialization.Read<AreaFloorId>(node);
 
             Assert.That(deserializedRange, Is.EqualTo(floorId));
         }
@@ -48,7 +48,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         {
             var floorId = new AreaFloorId("TestAreaFloor:Dood", 4567);
             var node = new ValueDataNode($"{floorId.ID}:{floorId.FloorNumber}");
-            var deserializedRange = Serialization.ReadValue<AreaFloorId>(node);
+            var deserializedRange = Serialization.Read<AreaFloorId>(node);
 
             Assert.That(deserializedRange, Is.EqualTo(floorId));
         }

@@ -11,7 +11,7 @@ namespace OpenNefia.Content.ConfigMenu
     [Prototype("Elona.ConfigMenuItem")]
     public sealed class ConfigMenuItemPrototype : IPrototype
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         [DataField(required: true)]

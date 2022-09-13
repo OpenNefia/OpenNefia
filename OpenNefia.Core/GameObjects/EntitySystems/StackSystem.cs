@@ -415,7 +415,7 @@ namespace OpenNefia.Core.GameObjects
 
                     DebugTools.Assert(sourceComp.GetType() == targetComp.GetType());
 
-                    _serializationManager.Copy(sourceComp, targetComp);
+                    _serializationManager.Copy(sourceComp, ref targetComp);
                 }
             }
         }

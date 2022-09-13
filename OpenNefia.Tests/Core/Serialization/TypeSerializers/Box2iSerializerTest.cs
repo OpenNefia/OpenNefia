@@ -35,7 +35,7 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var height = 4;
             var str = $"{left},{top},{width},{height}";
             var node = new ValueDataNode(str);
-            var deserializedBox = Serialization.ReadValueOrThrow<UIBox2i>(node);
+            var deserializedBox = Serialization.Read<UIBox2i>(node);
             var box = UIBox2i.FromDimensions(left, top, width, height);
 
             Assert.That(deserializedBox, Is.EqualTo(box));

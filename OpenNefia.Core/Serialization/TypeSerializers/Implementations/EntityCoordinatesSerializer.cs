@@ -4,7 +4,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -16,10 +15,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
     [TypeSerializer]
     public class EntityCoordinatesSerializer : ITypeSerializer<EntityCoordinates, ValueDataNode>
     {
-        public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
+        public EntityCoordinates Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null,
+            EntityCoordinates rawValue = default)
         {
             if (!VectorSerializerUtility.TryParseArgs(node.Value, 3, out var args))
             {
@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             var y = int.Parse(args[2], CultureInfo.InvariantCulture);
             var coords = new EntityCoordinates(new EntityUid(uid), x, y);
 
-            return new DeserializedValue<EntityCoordinates>(coords);
+            return coords;
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,

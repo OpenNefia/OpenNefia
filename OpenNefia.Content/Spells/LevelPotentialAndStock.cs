@@ -18,6 +18,12 @@ namespace OpenNefia.Content.Spells
             SpellStock = spellStock;
         }
 
+        public LevelPotentialAndStock(LevelAndPotential stats, int spellStock = 0)
+        {
+            Stats = stats;
+            SpellStock = spellStock;
+        }
+
         /// <summary>
         /// The level, potential and experience associated with this spell.
         /// </summary>
