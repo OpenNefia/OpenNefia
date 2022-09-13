@@ -25,7 +25,7 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Scenarios
 {
-    public sealed class VanillaScenariosSystem : EntitySystem
+    public sealed partial class VanillaScenariosSystem : EntitySystem
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;

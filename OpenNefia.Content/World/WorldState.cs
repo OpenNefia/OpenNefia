@@ -77,5 +77,8 @@ namespace OpenNefia.Content.World
 
         [DataField]
         public bool IsFireGiantReleased { get; set; }
+
+        [DataField]
+        public bool HasMetFirstAlly { get; set; }
     }
 }
