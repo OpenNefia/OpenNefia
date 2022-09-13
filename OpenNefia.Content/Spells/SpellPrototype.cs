@@ -50,7 +50,7 @@ namespace OpenNefia.Content.Spells
         public SpellAlignment Alignment { get; } = SpellAlignment.Positive;
         
         [DataField(required: true)]
-        public IEffect Effect { get; } = default!;
+        public IEffect Effect { get; } = new NullEffect();
     }
     
     public enum SpellAlignment
