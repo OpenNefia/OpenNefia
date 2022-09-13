@@ -196,7 +196,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                         else
                         {
                             copy = targetValue;
-                            manager.Copy(sourceValue, copy, context);
+                            manager.Copy(sourceValue, ref copy, context);
                         }
                     }
 

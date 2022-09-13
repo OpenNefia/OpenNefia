@@ -178,7 +178,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             foreach (var element in source)
             {
-                var elementCopy = serializationManager.CreateCopy(element, context)!;
+                var elementCopy = serializationManager.Copy(element, context)!;
                 target.Add(elementCopy);
             }
 
@@ -206,7 +206,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             foreach (var element in source)
             {
-                var elementCopy = serializationManager.CreateCopy(element, context)!;
+                var elementCopy = serializationManager.Copy(element, context)!;
                 list.Add(elementCopy);
             }
 
@@ -226,7 +226,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             foreach (var element in source)
             {
-                var elementCopy = serializationManager.CreateCopy(element, context)!;
+                var elementCopy = serializationManager.Copy(element, context)!;
                 list.Add(elementCopy);
             }
 
@@ -241,7 +241,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             foreach (var element in source)
             {
-                var elementCopy = serializationManager.CreateCopy(element, context)!;
+                var elementCopy = serializationManager.Copy(element, context)!;
                 builder.Add(elementCopy);
             }
 
