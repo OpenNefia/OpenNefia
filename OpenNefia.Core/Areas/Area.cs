@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Areas
         public AreaId Id { get; internal set; }
 
         /// <inheritdoc/>
-        [DataField(required: true)]
+        [DataField]
         public GlobalAreaId? GlobalId { get; internal set; }
 
         /// <inheritdoc/>

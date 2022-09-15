@@ -11,27 +11,5 @@ namespace OpenNefia.Content.Equipment
     {
         [IdDataField]
         public string ID { get; } = default!;
-
-        [DataField(required: true)]
-        public IEquipmentTypeBehavior Behavior { get; } = default!;
-    }
-
-    public class EquipmentEntry
-    {
-        public string TargetPart = string.Empty;
-        public string ItemCategory = string.Empty;
-        public Quality ItemQuality;
-    }
-
-    public class LootEntry
-    {
-        public ItemFilter ItemFilter = new();
-    }
-
-    [ImplicitDataDefinitionForInheritors]
-    public interface IEquipmentTypeBehavior
-    {
-        void OnInitializeEquipment(EntityUid chara, List<EquipmentEntry> equipEntries, int genChance);
-        void OnDropLoot(EntityUid chara, List<LootEntry> lootEntries);
     }
 }

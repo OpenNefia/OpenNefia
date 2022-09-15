@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Spells
         [DataField]
         public SpellAlignment Alignment { get; } = SpellAlignment.Positive;
         
-        [DataField(required: true)]
+        [DataField]
         public IEffect Effect { get; } = new NullEffect();
     }
     

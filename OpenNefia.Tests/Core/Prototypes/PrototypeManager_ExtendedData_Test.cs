@@ -60,6 +60,7 @@ namespace OpenNefia.Tests.Core.Prototypes
         }
 
         [Test]
+        [Ignore("TODO ability to disable exception tolerance")]
         public void TestExtendedData_InvalidType()
         {
             var prototypes = @$"
@@ -69,7 +70,11 @@ namespace OpenNefia.Tests.Core.Prototypes
   - type: A.B.C.D
 ";
 
-            Assert.Throws<PrototypeLoadException>(() => manager.LoadString(prototypes), "Unable to find type ending with");
+            Assert.Throws<PrototypeLoadException>(() =>
+            {
+                manager.LoadString(prototypes);
+                manager.ResolveResults();
+            }, "Unable to find type ending with");
         }
 
         [Test]

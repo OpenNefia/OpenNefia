@@ -18,10 +18,10 @@ namespace OpenNefia.Content.Dialog
         /// <summary>
         /// Node to start on when the dialog is initiated.
         /// </summary>
-        [DataField(required: true)]
+        [DataField]
         public string StartNode { get; } = "__start__";
 
-        [DataField("nodes", required: true)]
+        [DataField("nodes")]
         private Dictionary<string, IDialogNode> _nodes = new();
 
         /// <summary>

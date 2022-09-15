@@ -18,14 +18,14 @@ namespace OpenNefia.Tests.Core.Prototypes
         public const string HotReloadTestComponentTwoId = "HotReloadTestTwo";
 
         private static readonly string InitialPrototypes = $@"
-- type: entity
+- type: Entity
   id: {DummyId}
   components:
   - type: {HotReloadTestComponentOneId}
     value: 5";
 
         private static readonly string ReloadedPrototypes = $@"
-- type: entity
+- type: Entity
   id: {DummyId}
   components:
   - type: {HotReloadTestComponentOneId}
@@ -51,7 +51,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             _prototypes.ResolveResults();
 
             _maps = IoCManager.Resolve<IMapManager>();
-            _entities = _entities;
+            _entities = IoCManager.Resolve<IEntityManager>();
         }
 
         [Test]

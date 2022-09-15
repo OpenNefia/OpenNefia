@@ -236,6 +236,10 @@ namespace OpenNefia.Core.Serialization.Manager
 
     internal interface ISerializationManagerInternal : ISerializationManager
     {
+        /// <summary>
+        /// If true, ignore errors caused by missing required fields in prototypes.
+        /// Used by the YAML validator.
+        /// </summary>
         bool IsValidatingOnly { get; set; }
     }
 }

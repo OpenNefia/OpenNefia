@@ -103,7 +103,14 @@ namespace OpenNefia.Core.GameObjects
                     var fullData = entry.Mapping;
 
                     if (context != null)
+                    {
+                        if (!context.ShouldLoadComponent(name))
+                        {
+                            continue;
+                        }
+                        
                         fullData = context.GetComponentData(name, fullData);
+                    }
 
                     EnsureCompExistsAndDeserialize(entity, factory, _entityManager, _serializationManager, name, fullData, context as ISerializationContext);
                 }

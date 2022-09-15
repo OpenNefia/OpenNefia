@@ -82,6 +82,7 @@
           sidequestID: Elona.Tutorial
         value: -1
         node: Elona.Lomias:TutorialAfter
+      defaultNode: Elona.Lomias:TutorialAfter
 
     Tutorial0: !type:DialogTextNode
       texts:

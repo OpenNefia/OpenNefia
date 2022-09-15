@@ -8,7 +8,7 @@ namespace OpenNefia.Content.Levels
     {
         public override string Name => "Level";
 
-        [DataField(required: true)]
+        [DataField]
         public int Level { get; set; } = 1;
 
         [DataField]
