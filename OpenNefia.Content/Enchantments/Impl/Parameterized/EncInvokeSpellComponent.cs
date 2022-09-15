@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Enchantments
     {
         public override string Name => "EncInvokeSpell";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<EnchantmentSpellPrototype> EnchantmentSpellID { get; set; }
 
         public bool CanMergeWith(IEnchantmentComponent other)

@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Enchantments
     {
         public override string Name => "EncAmmo";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<AmmoEnchantmentPrototype> AmmoEnchantmentID { get; set; }
 
         [DataField(required: true)]

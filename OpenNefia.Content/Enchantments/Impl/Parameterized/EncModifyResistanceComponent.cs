@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Enchantments
     {
         public override string Name => "EncModifyResistance";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<ElementPrototype> ElementID { get; set; }
 
         public bool CanMergeWith(IEnchantmentComponent other)

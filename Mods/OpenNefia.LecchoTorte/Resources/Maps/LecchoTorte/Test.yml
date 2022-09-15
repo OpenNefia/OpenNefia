@@ -201,6 +201,7 @@ entities:
     parent: 0
     pos: 3,3
   - type: Stairs
+    direction: Up
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaNorthTyris

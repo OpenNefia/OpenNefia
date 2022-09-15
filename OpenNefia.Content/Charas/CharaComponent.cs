@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Charas
         /// <remarks>
         /// NOTE: Do not set this manually, skills/stats/components won't be updated.
         /// </remarks>
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<RacePrototype> Race { get; set; } = Protos.Race.Juere;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Charas
         /// <remarks>
         /// NOTE: Do not set this manually, skills/stats/components won't be updated.
         /// </remarks>
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<ClassPrototype> Class { get; set; } = Protos.Class.Warrior;
 
         /// <summary>

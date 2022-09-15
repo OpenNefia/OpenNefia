@@ -43,8 +43,8 @@ namespace OpenNefia.Content.Spells
         
         // TODO dice
         
-        [DataField(required: true)]
-        public LocaleKey MessageKey { get; set; }
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Apply.Slightly";
 
         [DataField]
         public IEffectDice Dice { get; set; } = new EffectDice();

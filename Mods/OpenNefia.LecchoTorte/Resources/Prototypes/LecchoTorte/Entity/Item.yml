@@ -10,6 +10,7 @@
   - type: Chip
     id: Elona.ItemPotion
   - type: Potion
+    effect: !type:NullEffect
     effectArgs:
       power: 100
 
