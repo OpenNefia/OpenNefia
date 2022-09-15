@@ -42,7 +42,7 @@ namespace OpenNefia.Content.Dialog
     public delegate QualifiedDialogNode? DialogNodeDelegate(IDialogEngine engine, IDialogNode node);
 
     /// <summary>
-    /// Represents a dialog node.
+    /// Represents a node in the dialog graph.
     /// </summary>
     [ImplicitDataDefinitionForInheritors]
     public interface IDialogNode
@@ -85,7 +85,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogJumpNode : IDialogNode
     {
-        [DataField("texts", required: true)]
+        [DataField("texts")]
         private List<DialogTextEntry> _texts { get; } = new();
 
         public IReadOnlyList<DialogTextEntry> Texts => _texts;
@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Dialog
         /// </summary>
         public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
-        [DataField("choices", required: true)]
+        [DataField("choices")]
         private List<DialogChoiceEntry> _choices { get; } = new();
 
         /// <summary>

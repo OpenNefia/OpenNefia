@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Talk
@@ -9,8 +10,8 @@ namespace OpenNefia.Content.Talk
     {
         public override string Name => "Tone";
 
-        [IdDataField]
-        public PrototypeId<TonePrototype> ID;
+        [DataField]
+        public PrototypeId<TonePrototype> ToneID { get; set; }
 
         [DataField]
         public bool IsTalkSilenced { get; set; }

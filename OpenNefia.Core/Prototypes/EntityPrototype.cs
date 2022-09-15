@@ -69,12 +69,12 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         [DataField]
         public bool MapSavable { get; protected set; } = true;
-
+        
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>
         [ViewVariables]
-        [ParentDataFieldAttribute(typeof(PrototypeIdStringSerializer<EntityPrototype>))]
+        [ParentDataField(typeof(PrototypeIdStringSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>

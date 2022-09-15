@@ -120,18 +120,19 @@ namespace OpenNefia.Core.GameObjects
 
             var slots = EntityManager.EnsureComponent<SlotsComponent>(uid);
 
-            foreach (var (name, comp) in comps)
+            foreach (var (name, compEntry) in comps)
             {
+                var comp = compEntry.Component;
                 var compType = comp.GetType();
 
                 if (!EntityManager.HasComponent(uid, compType))
                 {
-                    addingComps.Add(name, comp);
+                    addingComps.Add(name, compEntry);
                 }
                 else if (overwrite)
                 {
-                    removingComps.Add(name, comp);
-                    addingComps.Add(name, comp);
+                    removingComps.Add(name, compEntry);
+                    addingComps.Add(name, compEntry);
                 }
 
                 // If the entity doesn't have the component, track it in the slot.
@@ -150,17 +151,19 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
 
-            foreach (var compProto in removingComps.Values)
+            foreach (var compEntry in removingComps.Values)
             {
+                var compProto = compEntry.Component;
                 EntityManager.RemoveComponent(uid, compProto.GetType());
             }
 
-            foreach (var compProto in addingComps.Values)
+            foreach (var compEntry in addingComps.Values)
             {
+                var compProto = compEntry.Component;
                 var compType = compProto.GetType();
 
                 var newCompInstance = (Component)_componentFactory.GetComponent(compType);
-                _serializationManager.Copy((Component)compProto.Component, ref newCompInstance);
+                _serializationManager.Copy((Component)compProto, ref newCompInstance);
 
                 newCompInstance.Owner = uid;
 

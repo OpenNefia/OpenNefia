@@ -352,7 +352,7 @@ namespace OpenNefia.Tests
             var mapManager = container.Resolve<IMapManagerInternal>();
             mapManager.CreateMap(1, 1, MapId.Global);
 
-            container.Resolve<ISerializationManager>().Initialize();
+            container.Resolve<ISerializationManagerInternal>().Initialize();
 
             var protoMan = container.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();

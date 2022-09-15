@@ -193,7 +193,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                     if (!mapping.Has(tag))
                     {
                         if (dfa.Required)
-                            return new ErrorNode(mapping, $"Required field {tag} of type {fieldDefinition.FieldType} wasn't mapped.");
+                            return new ErrorNode(mapping, $"Required field \"{tag}\" of type {fieldDefinition.FieldType} wasn't mapped.");
                     }
                 }
             }

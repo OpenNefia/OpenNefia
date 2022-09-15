@@ -248,8 +248,9 @@ namespace OpenNefia.Core.Maps
                 if (!prototypeCompCache.ContainsKey(prototype.ID))
                 {
                     prototypeCompCache[prototype.ID] = new Dictionary<string, MappingDataNode>();
-                    foreach (var (compType, comp) in prototype.Components)
+                    foreach (var (compType, compEntry) in prototype.Components)
                     {
+                        var comp = compEntry.Component;
                         prototypeCompCache[prototype.ID].Add(compType, _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp));
                     }
                 }

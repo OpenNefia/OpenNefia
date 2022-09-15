@@ -36,14 +36,11 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                         var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa);
                         if (!mappingDataNode.Has(tag))
                         {
-                            if (dfa.Required)
-                            {
-                                // If we're just trying to validate prototypes, ignore required
-                                // fields during the initial prototype load. All we care about is
-                                // the result of the validation later.
-                                if (!serialization.IsValidatingOnly)
-                                    throw new InvalidOperationException($"Required field {tag} of type {target.GetType()} wasn't mapped.");
-                            }
+                            // If we're just trying to validate prototypes, ignore required
+                            // fields during the initial prototype load. All we care about is
+                            // the result of the validation later.
+                            if (dfa.Required && !serialization.IsValidatingOnly)
+                                throw new InvalidOperationException($"Required field \"{tag}\" of type {target.GetType()} wasn't mapped.");
                             continue;
                         }
                     }

@@ -135,8 +135,9 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             ISerializationContext? context = null)
         {
             var compSequence = new SequenceDataNode();
-            foreach (var (type, component) in value)
+            foreach (var (type, componentEntry) in value)
             {
+                var component = componentEntry.Component;
                 var node = serializationManager.WriteValue(component.GetType(), component, alwaysWrite, context);
                 if (node is not MappingDataNode mapping) throw new InvalidNodeTypeException();
 

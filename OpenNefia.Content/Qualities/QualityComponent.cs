@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Qualities
     {
         public override string Name => "Quality";
 
-        [DataField(required: true)]
+        [DataField]
         public Stat<Quality> Quality { get; set; } = new(Qualities.Quality.Bad);
 
         public void Refresh()

@@ -4,6 +4,8 @@
   isExtra: true
   maleRatio: 0.5
   baseHeight: 10
+  chipMale: Elona.CharaSnail
+  chipFemale: Elona.CharaSnail
   baseSkills:
     Elona.AttrCharisma: 100
     Elona.AttrConstitution: 100
