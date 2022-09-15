@@ -22,7 +22,6 @@
   - type: Moveable
   - type: Level
   - type: Chara
-    race: Elona.Slug
   - type: Skills
   - type: SkillAdjusts
   - type: EquipStats

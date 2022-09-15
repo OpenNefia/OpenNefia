@@ -11,7 +11,7 @@ namespace OpenNefia.LecchoTorte.LivingWall
     {
         public override string Name => "LecchoTorte.LivingWall";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<TilePrototype> TileID { get; set; } = Protos.Tile.WallDirt;
 
         [DataField]

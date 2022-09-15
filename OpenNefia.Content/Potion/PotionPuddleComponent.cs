@@ -10,7 +10,7 @@ namespace OpenNefia.Content.Potion
     {
         public override string Name => "PotionPuddle";
 
-        [DataField(required: true)]
+        [DataField]
         public IEffect Effect { get; set; } = new NullEffect();
 
         [DataField]

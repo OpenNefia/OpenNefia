@@ -2579,6 +2579,7 @@
   isExtra: true
   breedPower: 5
   chipMale: Elona.CharaHumanFemale
+  chipFemale: Elona.CharaHumanFemale
   maleRatio: 0.52
   baseHeight: 165
   minAge: 100
