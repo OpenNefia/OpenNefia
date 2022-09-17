@@ -36,6 +36,10 @@ namespace OpenNefia.Core.Serialization.Manager
         /// <returns>True if it can be, false otherwise.</returns>
         bool CanSerializeType(Type type);
 
+        DataDefinition? GetDefinition<T>();
+        DataDefinition? GetDefinition(Type type);
+        bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition);
+
         #endregion
 
         #region Validation
@@ -232,14 +236,5 @@ namespace OpenNefia.Core.Serialization.Manager
         }
 
         #endregion
-    }
-
-    internal interface ISerializationManagerInternal : ISerializationManager
-    {
-        /// <summary>
-        /// If true, ignore errors caused by missing required fields in prototypes.
-        /// Used by the YAML validator.
-        /// </summary>
-        bool IsValidatingOnly { get; set; }
     }
 }

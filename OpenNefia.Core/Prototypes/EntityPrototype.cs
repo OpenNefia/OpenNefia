@@ -69,13 +69,13 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         [DataField]
         public bool MapSavable { get; protected set; } = true;
-        
+
         /// <summary>
-        /// The prototype we inherit from.
+        /// The prototypes we inherit from.
         /// </summary>
         [ViewVariables]
-        [ParentDataField(typeof(PrototypeIdStringSerializer<EntityPrototype>))]
-        public string? Parent { get; private set; }
+        [ParentDataField(typeof(PrototypeIdArraySerializer<EntityPrototype>))]
+        public string[]? Parents { get; }
 
         /// <summary>
         /// A dictionary mapping the component type list to the YAML mapping containing their settings.
@@ -112,10 +112,10 @@ namespace OpenNefia.Core.Prototypes
                 // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
 
-                if (!TryGetValue(dummy.Name, out var comp))
+                if (!TryGetValue(dummy.Name, out var compEntry))
                     return false;
 
-                return comp is T;
+                return compEntry.Component is T;
             }
 
             public bool TryGetComponent<T>([NotNullWhen(true)] out T? component)
@@ -124,9 +124,9 @@ namespace OpenNefia.Core.Prototypes
                 // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
 
-                if (TryGetValue(dummy.Name, out var comp) && comp is T)
+                if (TryGetValue(dummy.Name, out var compEntry) && compEntry.Component is T)
                 {
-                    component = (comp as T)!;
+                    component = (compEntry.Component as T)!;
                     return true;
                 }
 
@@ -139,7 +139,7 @@ namespace OpenNefia.Core.Prototypes
             {
                 // TODO cache this somewhere
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
-                return (this[dummy.Name] as T)!;
+                return (this[dummy.Name].Component as T)!;
             }
         }
 

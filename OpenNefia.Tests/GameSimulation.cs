@@ -101,7 +101,6 @@ namespace OpenNefia.Tests
     filepath: /Graphic/Core/Tile/Default.png
   isSolid: false
   isOpaque: false
-
 ";
 
         private DiContainerDelegate? _diFactory;
@@ -272,7 +271,6 @@ namespace OpenNefia.Tests
             container.Register<IAreaManager, AreaManager>();
             container.Register<IAreaManagerInternal, AreaManager>();
             container.Register<ISerializationManager, SerializationManager>();
-            container.Register<ISerializationManagerInternal, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IPrototypeManagerInternal, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();
@@ -352,7 +350,7 @@ namespace OpenNefia.Tests
             var mapManager = container.Resolve<IMapManagerInternal>();
             mapManager.CreateMap(1, 1, MapId.Global);
 
-            container.Resolve<ISerializationManagerInternal>().Initialize();
+            container.Resolve<ISerializationManager>().Initialize();
 
             var protoMan = container.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();

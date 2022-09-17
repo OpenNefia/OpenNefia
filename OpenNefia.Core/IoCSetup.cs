@@ -94,7 +94,6 @@ namespace OpenNefia
             IoCManager.Register<IComponentLocalizer, ComponentLocalizer>();
             IoCManager.Register<IComponentLocalizerInternal, ComponentLocalizer>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
-            IoCManager.Register<ISerializationManagerInternal, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<ITileAtlasManager, TileAtlasManager>();
             IoCManager.Register<IUserInterfaceManager, UserInterfaceManager>();

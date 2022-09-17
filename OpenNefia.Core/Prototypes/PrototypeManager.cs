@@ -56,6 +56,16 @@ namespace OpenNefia.Core.Prototypes
         IEnumerable<IPrototype> EnumeratePrototypes(string variant);
 
         /// <summary>
+        /// Returns an IEnumerable to iterate all parents of a prototype of a certain type.
+        /// </summary>
+        IEnumerable<T> EnumerateParents<T>(PrototypeId<T> id, bool includeSelf = false) where T : class, IPrototype, IInheritingPrototype;
+
+        /// <summary>
+        /// Returns an IEnumerable to iterate all parents of a prototype of a certain type.
+        /// </summary>
+        IEnumerable<IPrototype> EnumerateParents(Type type, string id, bool includeSelf = false);
+
+        /// <summary>
         /// Index for a <see cref="IPrototype"/> by ID.
         /// </summary>
         /// <exception cref="KeyNotFoundException">
@@ -79,7 +89,7 @@ namespace OpenNefia.Core.Prototypes
         bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype;
         bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype);
 
-        bool HasMapping<T>(string id);
+        bool HasMapping<T>(PrototypeId<T> id) where T : class, IPrototype;
         bool TryGetMapping(Type type, string id, [NotNullWhen(true)] out MappingDataNode? mappings);
 
         /// <summary>
@@ -306,12 +316,13 @@ namespace OpenNefia.Core.Prototypes
 
         private readonly Dictionary<Type, Dictionary<string, IPrototype>> _prototypes = new();
         private readonly Dictionary<Type, Dictionary<string, MappingDataNode>> _prototypeResults = new();
-        private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
+        private readonly Dictionary<Type, MultiRootInheritanceGraph<string>> _inheritanceTrees = new();
         private readonly Dictionary<Type, Dictionary<string, PrototypeOrderingData>> _prototypeOrdering = new();
         private readonly Dictionary<Type, List<IPrototype>> _sortedPrototypes = new();
         private readonly Dictionary<Type, Dictionary<string, int>> _sortedPrototypeIndices = new();
         private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>> _prototypeExtendedData = new();
         private readonly Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> _prototypeEventDefs = new();
+        private readonly Dictionary<Type, Dictionary<string, Exception>> _prototypeErrors = new();
 
         private static Dictionary<T1, Dictionary<T2, T3>> Deepcopy<T1, T2, T3>(Dictionary<T1, Dictionary<T2, T3>> dict)
             where T1 : class
@@ -376,6 +387,67 @@ namespace OpenNefia.Core.Prototypes
             return EnumeratePrototypes(GetVariantType(variant));
         }
 
+        public IEnumerable<T> EnumerateParents<T>(PrototypeId<T> id, bool includeSelf = false) where T : class, IPrototype, IInheritingPrototype
+        {
+            if (!_hasEverBeenReloaded)
+            {
+                throw new InvalidOperationException("No prototypes have been loaded yet.");
+            }
+
+            if (!TryIndex(id, out var prototype))
+                yield break;
+            if (includeSelf) yield return prototype;
+            if (prototype.Parents == null) yield break;
+
+            var queue = new Queue<string>(prototype.Parents);
+            while (queue.TryDequeue(out var prototypeId))
+            {
+                if (!TryIndex(new PrototypeId<T>(prototypeId), out var parent))
+                    yield break;
+                yield return parent;
+                if (parent.Parents == null) continue;
+
+                foreach (var parentId in parent.Parents)
+                {
+                    queue.Enqueue(parentId);
+                }
+            }
+        }
+
+        public IEnumerable<IPrototype> EnumerateParents(Type type, string id, bool includeSelf = false)
+        {
+            if (!_hasEverBeenReloaded)
+            {
+                throw new InvalidOperationException("No prototypes have been loaded yet.");
+            }
+
+            if (!type.IsAssignableTo(typeof(IInheritingPrototype)))
+            {
+                throw new InvalidOperationException("The provided prototype type is not an inheriting prototype");
+            }
+
+            if (!TryIndex(type, id, out var prototype))
+                yield break;
+            if (includeSelf) yield return prototype;
+            var iPrototype = (IInheritingPrototype)prototype;
+            if (iPrototype.Parents == null) yield break;
+
+            var queue = new Queue<string>(iPrototype.Parents);
+            while (queue.TryDequeue(out var prototypeId))
+            {
+                if (!TryIndex(type, id, out var parent))
+                    continue;
+                yield return parent;
+                iPrototype = (IInheritingPrototype)parent;
+                if (iPrototype.Parents == null) continue;
+
+                foreach (var parentId in iPrototype.Parents)
+                {
+                    queue.Enqueue(parentId);
+                }
+            }
+        }
+
         public T Index<T>(PrototypeId<T> id) where T : class, IPrototype
         {
             if (!_hasEverBeenReloaded)
@@ -389,7 +461,10 @@ namespace OpenNefia.Core.Prototypes
             }
             catch (KeyNotFoundException)
             {
-                throw new UnknownPrototypeException((string)id, typeof(T));
+                if (_prototypeErrors[typeof(T)].TryGetValue((string)id, out var error))
+                    throw new UnknownPrototypeException((string)id, typeof(T), error);
+                else
+                    throw new UnknownPrototypeException((string)id, typeof(T));
             }
         }
 
@@ -413,6 +488,7 @@ namespace OpenNefia.Core.Prototypes
             _inheritanceTrees.Clear();
             _prototypeExtendedData.Clear();
             _prototypeEventDefs.Clear();
+            _prototypeErrors.Clear();
             _eventBus?.ClearEventTables();
         }
 
@@ -452,23 +528,43 @@ namespace OpenNefia.Core.Prototypes
                     continue;
                 }
 
+                var tree = _inheritanceTrees[type];
+                var processQueue = new Queue<string>();
                 foreach (var id in prototypes[type])
                 {
-                    if (!pushed.ContainsKey(type))
-                        pushed[type] = new HashSet<string>();
-                    if (pushed[type].Contains(id))
+                    processQueue.Enqueue(id);
+                }
+
+                string? previousProtoID = null;
+                while (processQueue.TryDequeue(out var id))
+                {
+                    var pushedSet = pushed.GetOrInsertNew(type);
+
+                    if (tree.TryGetParents(id, out var parents))
                     {
-                        continue;
+                        var nonPushedParent = false;
+                        foreach (var parent in parents)
+                        {
+                            //our parent has been reloaded and has not been added to the pushedSet yet
+                            if (prototypes[type].Contains(parent) && !pushedSet.Contains(parent))
+                            {
+                                //we re-queue ourselves at the end of the queue
+                                processQueue.Enqueue(id);
+                                nonPushedParent = true;
+                                break;
+                            }
+                        }
+                        if (nonPushedParent) continue;
+
+                        foreach (var parent in parents)
+                        {
+                            PushInheritance(type, id, parent);
+                        }
                     }
 
-                    var set = new HashSet<string>();
-                    set.Add(id);
-                    PushInheritance(type, id, _inheritanceTrees[type].GetParent(id), set);
-                    foreach (var changedId in set)
-                    {
-                        TryReadPrototype(type, changedId, _prototypeResults[type][changedId]);
-                    }
-                    pushed[type].UnionWith(set);
+                    TryReadPrototype(type, id, _prototypeResults[type][id], ref previousProtoID);
+
+                    pushedSet.Add(id);
                 }
             }
 
@@ -513,17 +609,36 @@ namespace OpenNefia.Core.Prototypes
             {
                 if (_inheritanceTrees.TryGetValue(type, out var tree))
                 {
-                    foreach (var baseNode in tree.BaseNodes)
+                    var processed = new HashSet<string>();
+                    var workList = new Queue<string>(tree.RootNodes);
+
+                    while (workList.TryDequeue(out var id))
                     {
-                        PushInheritance(type, baseNode);
+                        processed.Add(id);
+                        if (tree.TryGetParents(id, out var parents))
+                        {
+                            foreach (var parent in parents)
+                            {
+                                PushInheritance(type, id, parent);
+                            }
+                        }
+
+                        if (tree.TryGetChildren(id, out var children))
+                        {
+                            foreach (var child in children)
+                            {
+                                var childParents = tree.GetParents(child)!;
+                                if (childParents.All(p => processed.Contains(p)))
+                                    workList.Enqueue(child);
+                            }
+                        }
                     }
                 }
 
                 string? previousProtoID = null;
-
                 foreach (var (id, mapping) in _prototypeResults[type])
                 {
-                    TryReadPrototypeFull(type, id, mapping, ref previousProtoID);
+                    TryReadPrototype(type, id, mapping, ref previousProtoID);
                 }
             }
         }
@@ -627,21 +742,7 @@ namespace OpenNefia.Core.Prototypes
             }
         }
 
-        private void TryReadPrototype(Type type, string id, MappingDataNode mapping)
-        {
-            if (mapping.TryGet<ValueDataNode>(AbstractDataFieldAttribute.Name, out var abstractNode) && abstractNode.AsBool())
-                return;
-            try
-            {
-                _prototypes[type][id] = (IPrototype)_serializationManager.Read(type, mapping)!;
-            }
-            catch (Exception e)
-            {
-                Logger.ErrorS("PROTO", $"Reading {type}({id}) threw the following exception: {e}");
-            }
-        }
-
-        private void TryReadPrototypeFull(Type type, string id, MappingDataNode mapping, ref string? previousProtoID)
+        private void TryReadPrototype(Type type, string id, MappingDataNode mapping, ref string? previousProtoID)
         {
             if (mapping.TryGet<ValueDataNode>(AbstractDataFieldAttribute.Name, out var abstractNode) && abstractNode.AsBool())
                 return;
@@ -653,6 +754,7 @@ namespace OpenNefia.Core.Prototypes
                 _prototypeOrdering[type].Remove(prototype.ID);
                 _prototypeExtendedData[type].Remove(prototype.ID);
                 _prototypeEventDefs[type].Remove(prototype.ID);
+                _prototypeErrors[type].Remove(prototype.ID);
 
                 // TODO!
                 var filename = "???";
@@ -677,30 +779,14 @@ namespace OpenNefia.Core.Prototypes
             catch (Exception e)
             {
                 Logger.ErrorS("PROTO", $"Reading {type}({id}) threw the following exception: {e}");
+                _prototypeErrors[type][id] = e;
             }
         }
 
-        private void PushInheritance(Type type, string id, string? parent = null, HashSet<string>? changed = null)
-        {
-            if (parent != null)
-            {
-                PushInheritanceWithoutRecursion(type, id, parent, changed);
-            }
-
-            if (!_inheritanceTrees[type].HasId(id)) return;
-
-            foreach (var child in _inheritanceTrees[type].Children(id))
-            {
-                PushInheritance(type, child, id, changed);
-            }
-        }
-
-        private void PushInheritanceWithoutRecursion(Type type, string id, string parent,
-            HashSet<string>? changed = null)
+        private void PushInheritance(Type type, string id, string parent)
         {
             _prototypeResults[type][id] = _serializationManager.PushCompositionWithGenericNode(type,
                 new[] { _prototypeResults[type][parent] }, _prototypeResults[type][id]);
-            changed?.Add(id);
         }
 
         /// <inheritdoc />
@@ -976,10 +1062,14 @@ namespace OpenNefia.Core.Prototypes
 
                     if (_inheritanceTrees.TryGetValue(type, out var tree))
                     {
-                        tree.RemoveId(id);
+                        tree.Remove(id, true);
                     }
 
-                    _prototypes[type].Remove(id);
+                    if (_prototypes.TryGetValue(type, out var prototypeIds))
+                    {
+                        prototypeIds.Remove(id);
+                        _prototypeResults[type].Remove(id);
+                    }
                 }
             }
         }
@@ -1024,8 +1114,15 @@ namespace OpenNefia.Core.Prototypes
                 _prototypeResults[prototypeType][idNode.Value] = datanode;
                 if (prototypeType.IsAssignableTo(typeof(IInheritingPrototype)))
                 {
-                    datanode.TryGet<ValueDataNode>(ParentDataFieldAttribute.Name, out var parentNode);
-                    _inheritanceTrees[prototypeType].AddId(idNode.Value, parentNode?.Value, true);
+                    if (datanode.TryGet(ParentDataFieldAttribute.Name, out var parentNode))
+                    {
+                        var parents = _serializationManager.Read<string[]>(parentNode);
+                        _inheritanceTrees[prototypeType].Add(idNode.Value, parents);
+                    }
+                    else
+                    {
+                        _inheritanceTrees[prototypeType].Add(idNode.Value);
+                    }
                 }
 
                 if (changed != null)
@@ -1099,15 +1196,18 @@ namespace OpenNefia.Core.Prototypes
         public void LoadFromCachedResults(PrototypeManagerCache cache)
         {
             _hasEverBeenReloaded = true;
+            _prototypeResults.Clear();
 
             foreach (var (prototypeType, protos) in cache.PrototypeResults)
             {
-                string? previousProtoID = null;
-                
-                foreach (var (prototypeId, res) in protos)
+                var dict = new Dictionary<string, MappingDataNode>();
+
+                foreach (var (protoID, mapping) in protos)
                 {
-                    TryReadPrototypeFull(prototypeType, prototypeId, res, ref previousProtoID);
+                    dict.Add(protoID, mapping);
                 }
+
+                _prototypeResults[prototypeType] = dict;
             }
         }
 
@@ -1132,7 +1232,10 @@ namespace OpenNefia.Core.Prototypes
 
             if (!_prototypes.TryGetValue(type, out var index))
             {
-                throw new UnknownPrototypeException(id, type);
+                if (_prototypeErrors[type].TryGetValue(id, out var error))
+                    throw new UnknownPrototypeException(id, type, error);
+                else
+                    throw new UnknownPrototypeException(id, type);
             }
 
             return index.ContainsKey(id);
@@ -1155,20 +1258,26 @@ namespace OpenNefia.Core.Prototypes
 
             if (!_prototypes.TryGetValue(type, out var index))
             {
-                throw new UnknownPrototypeException(id, type);
+                if (_prototypeErrors[type].TryGetValue(id, out var error))
+                    throw new UnknownPrototypeException(id, type, error);
+                else
+                    throw new UnknownPrototypeException(id, type);
             }
 
             return index.TryGetValue(id, out prototype);
         }
 
-        public bool HasMapping<T>(string id)
+        public bool HasMapping<T>(PrototypeId<T> id) where T: class, IPrototype
         {
             if (!_prototypeResults.TryGetValue(typeof(T), out var index))
             {
-                throw new UnknownPrototypeException(id, typeof(T));
+                if (_prototypeErrors[typeof(T)].TryGetValue((string)id, out var error))
+                    throw new UnknownPrototypeException((string)id, typeof(T), error);
+                else
+                    throw new UnknownPrototypeException((string)id, typeof(T));
             }
 
-            return index.ContainsKey(id);
+            return index.ContainsKey((string)id);
         }
 
         public bool TryGetMapping(Type type, string id, [NotNullWhen(true)] out MappingDataNode? mappings)
@@ -1364,6 +1473,8 @@ namespace OpenNefia.Core.Prototypes
                     $"Duplicate prototype type ID: {attribute.Type}. Current: {_prototypeTypes[attribute.Type]}");
             }
 
+            ValidatePrototypeTypeAttributes(type);
+
             _prototypeTypes[attribute.Type] = type;
             _prototypePriorities[type] = attribute.LoadPriority;
 
@@ -1372,11 +1483,68 @@ namespace OpenNefia.Core.Prototypes
                 _prototypes[type] = new Dictionary<string, IPrototype>();
                 _prototypeResults[type] = new Dictionary<string, MappingDataNode>();
                 if (typeof(IInheritingPrototype).IsAssignableFrom(type))
-                    _inheritanceTrees[type] = new PrototypeInheritanceTree();
+                    _inheritanceTrees[type] = new MultiRootInheritanceGraph<string>();
                 _prototypeOrdering[type] = new Dictionary<string, PrototypeOrderingData>();
                 _prototypeExtendedData[type] = new Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>();
                 _prototypeEventDefs[type] = new Dictionary<string, List<PrototypeEventHandlerDef>>();
+                _prototypeErrors[type] = new Dictionary<string, Exception>();
             }
+        }
+
+        private void ValidatePrototypeTypeAttributes(Type type)
+        {
+            var foundIdAttribute = false;
+            var foundParentAttribute = false;
+            var foundAbstractAttribute = false;
+            foreach (var info in type.GetAllPropertiesAndFields())
+            {
+                var hasId = info.HasAttribute<IdDataFieldAttribute>();
+                var hasParent = info.HasAttribute<ParentDataFieldAttribute>();
+                if (hasId)
+                {
+                    if (foundIdAttribute)
+                        throw new InvalidImplementationException(type,
+                            typeof(IPrototype),
+                            $"Found two {nameof(IdDataFieldAttribute)}");
+
+                    foundIdAttribute = true;
+                }
+
+                if (hasParent)
+                {
+                    if (foundParentAttribute)
+                        throw new InvalidImplementationException(type,
+                            typeof(IInheritingPrototype),
+                            $"Found two {nameof(ParentDataFieldAttribute)}");
+
+                    foundParentAttribute = true;
+                }
+
+                if (hasId && hasParent)
+                    throw new InvalidImplementationException(type,
+                        typeof(IPrototype),
+                        $"Prototype {type} has the Id- & ParentDatafield on single member {info.Name}");
+
+                if (info.HasAttribute<AbstractDataFieldAttribute>())
+                {
+                    if (foundAbstractAttribute)
+                        throw new InvalidImplementationException(type,
+                            typeof(IInheritingPrototype),
+                            $"Found two {nameof(AbstractDataFieldAttribute)}");
+
+                    foundAbstractAttribute = true;
+                }
+            }
+
+            if (!foundIdAttribute)
+                throw new InvalidImplementationException(type,
+                    typeof(IPrototype),
+                    $"Did not find any member annotated with the {nameof(IdDataFieldAttribute)}");
+
+            if (type.IsAssignableTo(typeof(IInheritingPrototype)) && (!foundParentAttribute || !foundAbstractAttribute))
+                throw new InvalidImplementationException(type,
+                    typeof(IInheritingPrototype),
+                    $"Did not find any member annotated with the {nameof(ParentDataFieldAttribute)} and/or {nameof(AbstractDataFieldAttribute)}");
         }
 
         public IPrototypeComparer<T> GetComparator<T>() where T : class, IPrototype
@@ -1494,6 +1662,12 @@ namespace OpenNefia.Core.Prototypes
         public readonly Type? Type;
 
         public UnknownPrototypeException(string? prototype, Type? type)
+        {
+            Prototype = prototype;
+            Type = type;
+        }
+
+        public UnknownPrototypeException(string? prototype, Type? type, Exception innerException) : base(null, innerException)
         {
             Prototype = prototype;
             Type = type;

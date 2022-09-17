@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                 bool skipHook,
                 object?[] defaultValues)
             {
-                var serialization = collection.Resolve<ISerializationManagerInternal>();
+                var requiredFieldErrors = new List<string>();
 
                 for (var i = 0; i < BaseFieldDefinitions.Length; i++)
                 {
@@ -36,11 +36,8 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                         var tag = GetActualDataFieldTag(fieldDefinition.FieldInfo, dfa);
                         if (!mappingDataNode.Has(tag))
                         {
-                            // If we're just trying to validate prototypes, ignore required
-                            // fields during the initial prototype load. All we care about is
-                            // the result of the validation later.
-                            if (dfa.Required && !serialization.IsValidatingOnly)
-                                throw new InvalidOperationException($"Required field \"{tag}\" of type {target.GetType()} wasn't mapped.");
+                            if (dfa.Required)
+                                requiredFieldErrors.Add(tag);
                             continue;
                         }
                     }
@@ -78,6 +75,11 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
                     }
 
                     FieldAssigners[i](ref target, result);
+                }
+
+                if (requiredFieldErrors.Count > 0)
+                {
+                    throw new InvalidOperationException($"Required field(s) of type {target.GetType()} weren't mapped: {string.Join(", ", requiredFieldErrors)}");
                 }
 
                 return target;

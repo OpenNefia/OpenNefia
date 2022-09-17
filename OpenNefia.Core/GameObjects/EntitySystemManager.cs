@@ -132,8 +132,6 @@ namespace OpenNefia.Core.GameObjects
             _systemTypes.Clear();
             foreach (var type in _reflectionManager.GetAllChildren<IEntitySystem>().Concat(_extraLoadedTypes))
             {
-                Logger.DebugS("go.sys", "Initializing entity system {0}", type);
-
                 _systemDependencyCollection.Register(type);
                 _systemTypes.Add(type);
 

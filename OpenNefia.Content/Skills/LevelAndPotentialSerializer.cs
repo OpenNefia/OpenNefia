@@ -2,6 +2,7 @@
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
@@ -36,7 +37,7 @@ namespace OpenNefia.Content.Skills
         public DataNode Write(ISerializationManager serializationManager, LevelAndPotential value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.WriteValue(value, alwaysWrite, context);
+            return serializationManager.GetDefinition<LevelAndPotential>()!.Serialize(value, serializationManager, alwaysWrite, context);
         }
 
         public LevelAndPotential Copy(ISerializationManager serializationManager, LevelAndPotential source, LevelAndPotential target,

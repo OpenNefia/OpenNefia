@@ -48,6 +48,7 @@ namespace OpenNefia.Content.Tests.Materials
   - type: Weapon
     diceX: 10
     diceY: 10
+    weaponSkill: Elona.ShortSword
   - type: Ammo
     diceX: 10
     diceY: 10

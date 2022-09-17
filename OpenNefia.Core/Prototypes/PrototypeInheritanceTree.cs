@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.Prototypes
 {
-    public class PrototypeInheritanceTree
+    public sealed class PrototypeInheritanceTree
     {
         private Dictionary<string, HashSet<string>> _nodes = new();
 

@@ -41,7 +41,17 @@ namespace OpenNefia.Tests
     /// </remarks>
     /// <seealso cref="GameSimulation"/>
     public class FullGameSimulation : ISimulation, IFullSimulationFactory
-    {
+    {       
+        // Required by the engine.
+        private const string EmptyTile = @"
+- type: Tile
+  id: Empty
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+";
+
         private static ThreadLocal<PrototypeManagerCache> _prototypeManagerCache = new();
 
         private AssemblyLoadDelegate? _assemblyLoadDelegate;
