@@ -161,8 +161,8 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
         public MappingDataNode Serialize(
             object obj,
             ISerializationManager serialization,
-            ISerializationContext? context,
-            bool alwaysWrite)
+            bool alwaysWrite,
+            ISerializationContext? context)
         {
             return _serialize(obj, serialization, context, alwaysWrite, DefaultValues);
         }

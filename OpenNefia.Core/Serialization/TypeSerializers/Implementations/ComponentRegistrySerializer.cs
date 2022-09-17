@@ -13,12 +13,13 @@ using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Utility;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
     [TypeSerializer]
-    public class ComponentRegistrySerializer : ITypeSerializer<ComponentRegistry, SequenceDataNode>
+    public class ComponentRegistrySerializer : ITypeSerializer<ComponentRegistry, SequenceDataNode>, ITypeInheritanceHandler<ComponentRegistry, SequenceDataNode>
     {
         public ComponentRegistry Read(ISerializationManager serializationManager,
             SequenceDataNode node,
@@ -179,6 +180,46 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             }
 
             return true;
+        }
+
+        public SequenceDataNode PushInheritance(ISerializationManager serializationManager, SequenceDataNode child,
+            SequenceDataNode parent,
+            IDependencyCollection dependencies, ISerializationContext context)
+        {
+            var componentFactory = dependencies.Resolve<IComponentFactory>();
+            var newCompReg = child.Copy();
+            var newCompRegDict = ToTypeIndexedDictionary(newCompReg, componentFactory);
+            var parentDict = ToTypeIndexedDictionary(parent, componentFactory);
+
+            foreach (var (reg, mapping) in parentDict)
+            {
+                if (newCompRegDict.TryFirstOrNull(childReg => reg.References.Any(x => childReg.Key.References.Contains(x)), out var entry))
+                {
+                    newCompReg[entry.Value.Value] = serializationManager.PushCompositionWithGenericNode(reg.Type,
+                        new[] { parent[mapping] }, newCompReg[entry.Value.Value], context);
+                }
+                else
+                {
+                    newCompReg.Add(parent[mapping]);
+                    newCompRegDict[reg] = newCompReg.Count - 1;
+                }
+            }
+
+            return newCompReg;
+        }
+
+        private Dictionary<IComponentRegistration, int> ToTypeIndexedDictionary(SequenceDataNode node, IComponentFactory componentFactory)
+        {
+            var dict = new Dictionary<IComponentRegistration, int>();
+            for (var i = 0; i < node.Count; i++)
+            {
+                var mapping = (MappingDataNode)node[i];
+                var type = mapping.Get<ValueDataNode>("type").Value;
+                if (!componentFactory.TryGetRegistration(type, out _)) continue; // TODO ComponentAvailability
+                dict.Add(componentFactory.GetRegistration(type), i);
+            }
+
+            return dict;
         }
     }
 }

@@ -20,10 +20,10 @@ namespace OpenNefia.Content.Enchantments
         [DataField]
         public PrototypeId<AmmoEnchantmentPrototype> AmmoEnchantmentID { get; set; }
 
-        [DataField(required: true)]
+        [DataField]
         public int CurrentAmmoAmount { get; set; }
 
-        [DataField(required: true)]
+        [DataField]
         public int MaxAmmoAmount { get; set; }
 
         public bool CanMergeWith(IEnchantmentComponent other)

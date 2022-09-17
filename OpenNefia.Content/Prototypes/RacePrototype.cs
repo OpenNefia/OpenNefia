@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Prototypes
         [DataField]
         public IEffect? OnInitPlayer { get; } = null;
 
-        [DataField("baseSkills", required: true)]
+        [DataField("baseSkills")]
         private Dictionary<PrototypeId<SkillPrototype>, int> _baseSkills = new();
 
         public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> BaseSkills => _baseSkills;

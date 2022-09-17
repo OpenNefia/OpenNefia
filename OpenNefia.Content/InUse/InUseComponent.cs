@@ -13,7 +13,7 @@ namespace OpenNefia.Content.InUse
     {
         public override string Name => "InUse";
 
-        [DataField(required: true)]
-        public EntityUid User { get; internal set; }
+        [DataField]
+        public EntityUid? User { get; set; }
     }
 }

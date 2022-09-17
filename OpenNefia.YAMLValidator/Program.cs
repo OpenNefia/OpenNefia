@@ -34,8 +34,6 @@ namespace OpenNefia.YAMLValidator
             IoCManager.BuildGraph();
 
             RegisterReflection();
-
-            IoCManager.Resolve<ISerializationManagerInternal>().IsValidatingOnly = true;
         }
 
         private static void RegisterReflection()

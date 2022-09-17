@@ -27,6 +27,33 @@ namespace OpenNefia.Content.Tests.RandomGen
 ";
 
         [Test]
+        public void TestItemGenSystem_Tags()
+        {
+            var sim = ContentFullGameSimulation
+    .NewSimulation()
+    .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+    .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var stacks = sim.GetEntitySystem<IStackSystem>();
+
+            var sys = sim.GetEntitySystem<IItemGen>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            Assert.Multiple(() =>
+            {
+                var id = sys.PickRandomItemIdRaw(tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
+                Assert.That(id, Is.Not.EqualTo(Protos.Item.Bug));
+
+                id = sys.PickRandomItemIdRaw(minLevel: 10, tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
+                Assert.That(id, Is.Not.EqualTo(Protos.Item.Bug));
+            });
+        }
+
+        [Test]
         public void TestItemGenSystem_GoldPiece()
         {
             var sim = ContentFullGameSimulation

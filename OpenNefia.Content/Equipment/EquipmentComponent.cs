@@ -12,7 +12,7 @@ namespace OpenNefia.Content.Equipment
     {
         public override string Name => "Equipment";
 
-        [DataField("equipSlots", required: true)]
+        [DataField("equipSlots")]
         private HashSet<PrototypeId<EquipSlotPrototype>> _equipSlots = new();
 
         public IReadOnlySet<PrototypeId<EquipSlotPrototype>> EquipSlots => _equipSlots;

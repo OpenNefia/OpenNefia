@@ -39,6 +39,8 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
   id: CharaTestRace
   chipMale: {ChipMaleId}
   chipFemale: {ChipFemaleId}
+  initialEquipSlots:
+  - {Protos.EquipSlot.Arm}
 
 - type: Elona.Class
   id: CharaTestClass

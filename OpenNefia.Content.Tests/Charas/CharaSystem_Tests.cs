@@ -38,6 +38,8 @@ namespace OpenNefia.Content.Tests.Charas
   - {TestSlot1ID}
   - {TestSlot2ID}
   - {TestSlot1ID}
+  chipMale: {Chip.CharaRaceSlime}
+  chipFemale: {Chip.CharaRaceSlime}
   components:
   - type: TestRace
 

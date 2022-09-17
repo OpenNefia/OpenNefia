@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Enchantments
     {
         public override string Name => "EncSustainAttribute";
 
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
 
         public bool CanMergeWith(IEnchantmentComponent other)

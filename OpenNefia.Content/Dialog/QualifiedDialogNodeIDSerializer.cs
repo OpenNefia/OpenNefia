@@ -54,7 +54,7 @@ namespace OpenNefia.Content.Skills
         public DataNode Write(ISerializationManager serializationManager, QualifiedDialogNodeID value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.WriteValue(value, alwaysWrite, context);
+            return serializationManager.WriteValue(value.ToString(), alwaysWrite, context);
         }
 
         public QualifiedDialogNodeID Copy(ISerializationManager serializationManager, QualifiedDialogNodeID source, QualifiedDialogNodeID target,

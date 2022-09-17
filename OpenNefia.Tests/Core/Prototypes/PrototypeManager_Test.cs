@@ -6,6 +6,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace OpenNefia.Tests.Core.Prototypes
 {
@@ -71,6 +72,42 @@ namespace OpenNefia.Tests.Core.Prototypes
             var prototype = manager.Index<EntityPrototype>(LoadStringTestDummyId);
 
             Assert.That(prototype.GetStrongID(), Is.EqualTo(LoadStringTestDummyId));
+        }
+
+        [Test]
+        public void TestCircleException()
+        {
+            string GenerateCircleTestPrototype(string id, string parent)
+            {
+                return $@"- type: circle
+  id: {id}
+  parent: {parent}";
+            }
+
+            manager.RegisterType(typeof(CircleTestPrototype));
+
+            var directCircle = $@"{GenerateCircleTestPrototype("1", "2")}
+{GenerateCircleTestPrototype("2", "1")}";
+
+            Assert.Throws<PrototypeLoadException>(() => manager.LoadString(directCircle));
+            manager.RemoveString(directCircle);
+
+            var indirectCircle = $@"{GenerateCircleTestPrototype("1", "2")}
+{GenerateCircleTestPrototype("2", "3")}
+{GenerateCircleTestPrototype("3", "1")}";
+
+            Assert.Throws<PrototypeLoadException>(() => manager.LoadString(indirectCircle));
+        }
+
+        [Prototype("circle")]
+        private sealed class CircleTestPrototype : IPrototype, IInheritingPrototype
+        {
+            [IdDataField()]
+            public string ID { get; } = default!;
+            [ParentDataField(typeof(PrototypeIdArraySerializer<CircleTestPrototype>))]
+            public string[]? Parents { get; }
+            [AbstractDataField]
+            public bool Abstract { get; }
         }
 
         public enum YamlTestEnum : byte

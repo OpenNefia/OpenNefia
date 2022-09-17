@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Skills
         public DataNode Write(ISerializationManager serializationManager, DialogTextEntry value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.WriteValue(value, alwaysWrite, context);
+            return serializationManager.WriteValue(value.Text ?? value.Key.ToString()!, alwaysWrite, context);
         }
 
         public DialogTextEntry Copy(ISerializationManager serializationManager, DialogTextEntry source, DialogTextEntry target,

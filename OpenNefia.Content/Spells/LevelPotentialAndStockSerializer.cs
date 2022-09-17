@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Spells
         public DataNode Write(ISerializationManager serializationManager, LevelPotentialAndStock value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return serializationManager.WriteValue(value, alwaysWrite, context);
+            return serializationManager.GetDefinition<LevelPotentialAndStock>()!.Serialize(value, serializationManager, alwaysWrite, context);
         }
 
         public LevelPotentialAndStock Copy(ISerializationManager serializationManager, LevelPotentialAndStock source, LevelPotentialAndStock target,

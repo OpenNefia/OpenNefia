@@ -24,7 +24,7 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Serialization.Manager
 {
-    public partial class SerializationManager : ISerializationManagerInternal
+    public partial class SerializationManager : ISerializationManager
     {
         [IoC.Dependency] private readonly IReflectionManager _reflectionManager = default!;
 
@@ -185,11 +185,13 @@ namespace OpenNefia.Core.Serialization.Manager
             _genericReaderTypes.Clear();
             _genericCopierTypes.Clear();
             _genericValidatorTypes.Clear();
+            _genericComparerTypes.Clear();
 
             _typeWriters.Clear();
             _typeReaders.Clear();
             _typeCopiers.Clear();
             _typeValidators.Clear();
+            _typeComparers.Clear();
 
             DataDefinitions.Clear();
 
@@ -335,19 +337,19 @@ namespace OpenNefia.Core.Serialization.Manager
             return ValidateNodeWith(typeof(TType), typeof(TSerializer), node, context);
         }
 
-        internal DataDefinition? GetDefinition<T>()
+        public DataDefinition? GetDefinition<T>()
         {
             return GetDefinition(typeof(T));
         }
 
-        internal DataDefinition? GetDefinition(Type type)
+        public DataDefinition? GetDefinition(Type type)
         {
             return DataDefinitions.TryGetValue(type, out var dataDefinition)
                 ? dataDefinition
                 : null;
         }
 
-        internal bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
+        public bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
         {
             dataDefinition = GetDefinition(type);
             return dataDefinition != null;
@@ -473,7 +475,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 throw new ArgumentException($"Supplied value does not fit with data definition of {type}.");
             }
 
-            var newMapping = dataDef.Serialize(value, this, context, alwaysWrite);
+            var newMapping = dataDef.Serialize(value, this, alwaysWrite, context);
             mapping = mapping.Merge(newMapping);
 
             return mapping;
