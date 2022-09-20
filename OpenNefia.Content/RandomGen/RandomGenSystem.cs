@@ -34,6 +34,8 @@ namespace OpenNefia.Content.RandomGen
         Quality CalcObjectQuality(Quality baseQuality = Quality.Bad);
 
         int GetRarity(EntityUid uid, string randomTableName, RandomGenComponent? randomGen = null);
+
+        PrototypeId<TagPrototype> PickTag(PrototypeId<TagSetPrototype> tagSetID);
     }
 
     // TODO no hardcoding
@@ -67,7 +69,7 @@ namespace OpenNefia.Content.RandomGen
                 if (randomGenTable.Rarity == 0)
                     return false;
 
-                if (!comps.TryGetComponent<LevelComponent>(out var level) || level.Level > minLevel)
+                if (comps.TryGetComponent<LevelComponent>(out var level) && level.Level > minLevel)
                     return false;
 
                 comps.TryGetComponent<TagComponent>(out var tagComp);
@@ -178,6 +180,21 @@ namespace OpenNefia.Content.RandomGen
                 return RandomGenTable.DefaultRarity;
 
             return randomGenTable.Rarity;
+        }
+
+        public PrototypeId<TagPrototype> PickTag(PrototypeId<TagSetPrototype> tagSetID)
+        {
+            var tagSet = _protos.Index(tagSetID);
+
+            // TODO extended prototype validation
+            if (tagSet.Tags.Count == 0)
+                throw new InvalidDataException($"Tag set {tagSetID} containss no tags.");
+
+            var sampler = new WeightedSampler<PrototypeId<TagPrototype>>();
+            foreach (var entry in tagSet.Tags)
+                sampler.Add(entry.Tag, Math.Max(entry.Weight, 1));
+
+            return sampler.Sample();
         }
     }
 }

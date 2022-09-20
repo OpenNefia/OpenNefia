@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Nefia
             // <<<<<<<< shade2/map_rand.hsp:246 		} ..
 
             // TODO
-            _itemGen.GenerateItem(map, tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) }, quality: Quality.Unique);
+            _itemGen.GenerateItem(map, tags: new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) }, quality: Quality.Unique);
         }
     }
 }

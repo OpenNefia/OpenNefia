@@ -19,6 +19,7 @@ namespace OpenNefia.Content.RandomGen
     {
         public const string Item = "item";
         public const string Chara = "chara";
+        public const string Quest = "quest";
     }
 
     [DataDefinition]

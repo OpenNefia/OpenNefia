@@ -37,6 +37,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This component should be used with enchantment entities.
         /// </summary>
-        Enchantment
+        Enchantment,
+
+        /// <summary>
+        /// This component should be used with quest entities.
+        /// </summary>
+        Quest
     }
 }

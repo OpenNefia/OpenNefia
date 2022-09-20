@@ -107,7 +107,7 @@ namespace OpenNefia.Content.Nefia
                         _itemGen.GenerateItem(map.AtPos(pos), 
                             minLevel: _randomGen.CalcObjectLevel(map), 
                             quality: _randomGen.CalcObjectQuality(Quality.Normal),
-                            tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand) });
+                            tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand, _randomGen) });
                     }
 
                     var charaPos = _rand.NextVec2iInBounds(bounds);
@@ -184,7 +184,7 @@ namespace OpenNefia.Content.Nefia
             {
                 _itemGen.GenerateItem(map, minLevel: _levels.GetLevel(map.MapEntityUid),
                     quality: Quality.Bad,
-                    tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand) });
+                    tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand, _randomGen) });
             }
 
             var trapDensity = _rand.Next(map.Width * map.Height / 80);

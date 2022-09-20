@@ -151,7 +151,7 @@ namespace OpenNefia.Content.Chests
 
         private void ChestFilter_TreasureBall(EntityUid uid, TreasureBallComponent component, BeforeGenerateChestItemEvent args)
         {
-            args.OutItemFilter.Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) };
+            args.OutItemFilter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) };
             args.OutItemFilter.Quality = component.ItemQuality;
             if (_rand.OneIn(30))
                 args.OutItemFilter.Id = Protos.Item.PotionOfCureCorruption;
