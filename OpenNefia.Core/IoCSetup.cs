@@ -75,7 +75,6 @@ namespace OpenNefia
             IoCManager.Register<IMapManagerInternal, MapManager>();
             IoCManager.Register<IAreaManager, AreaManager>();
             IoCManager.Register<IAreaManagerInternal, AreaManager>();
-            IoCManager.Register<IComponentDependencyManager, ComponentDependencyManager>();
             IoCManager.Register<IComponentFactory, ComponentFactory>();
             IoCManager.Register<IPrototypeManager, PrototypeManager>();
             IoCManager.Register<IPrototypeManagerInternal, PrototypeManager>();

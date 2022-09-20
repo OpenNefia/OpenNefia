@@ -274,7 +274,6 @@ namespace OpenNefia.Tests
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IPrototypeManagerInternal, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();
-            container.Register<IComponentDependencyManager, ComponentDependencyManager>();
             container.Register<IComponentLocalizer, ComponentLocalizer>();
             container.Register<IComponentLocalizerInternal, ComponentLocalizer>();
             container.Register<IEntitySystemManager, EntitySystemManager>();
