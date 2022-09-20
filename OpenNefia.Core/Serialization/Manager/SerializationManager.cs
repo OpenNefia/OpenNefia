@@ -433,7 +433,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 }
             }
 
-            if (value == null) return new MappingDataNode();
+            if (value == null) return new ValueDataNode("null");
 
             if (underlyingType.IsEnum)
             {
