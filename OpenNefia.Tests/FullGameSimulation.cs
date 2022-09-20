@@ -52,8 +52,6 @@ namespace OpenNefia.Tests
   isOpaque: false
 ";
 
-        private static ThreadLocal<PrototypeManagerCache> _prototypeManagerCache = new();
-
         private AssemblyLoadDelegate? _assemblyLoadDelegate;
         private DiContainerDelegate? _diFactory;
         private CompRegistrationDelegate? _regDelegate;
@@ -209,21 +207,7 @@ namespace OpenNefia.Tests
 
             container.Resolve<ISerializationManager>().Initialize();
 
-            // Don't reparse prototypes from disk every run.
-            if (_prototypeManagerCache.IsValueCreated)
-            {
-                protoMan.LoadFromCachedResults(_prototypeManagerCache.Value!);
-            }
-            else
-            {
-                lock (_prototypeManagerCache)
-                {
-                    protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
-
-                    _prototypeManagerCache.Value = protoMan.Cache;
-                }
-            }
-
+            protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
             _protoDelegate?.Invoke(protoMan);
             protoMan.ResolveResults();
 

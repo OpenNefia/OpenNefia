@@ -277,19 +277,9 @@ namespace OpenNefia.Core.Prototypes
 
     internal interface IPrototypeManagerInternal : IPrototypeManager
     {
-        // For avoiding reparsing in unit tests
-        PrototypeManagerCache Cache { get; }
-
-        /// <summary>
-        /// Loads from set of previously cached parsing results.
-        /// </summary>
-        void LoadFromCachedResults(PrototypeManagerCache cache);
     }
 
     public record PrototypeOrderingData(string[] Before, string[] After);
-
-    public sealed record PrototypeManagerCache(
-        Dictionary<Type, Dictionary<string, MappingDataNode>> PrototypeResults);
 
     public sealed partial class PrototypeManager : IPrototypeManagerInternal
     {
@@ -341,9 +331,6 @@ namespace OpenNefia.Core.Prototypes
             }
             return result;
         }
-
-        // For avoiding reparsing in unit tests
-        public PrototypeManagerCache Cache => new(Deepcopy(_prototypeResults));
 
         public void Initialize()
         {
@@ -1190,25 +1177,6 @@ namespace OpenNefia.Core.Prototypes
         private void ParseEvents(string filename, Type prototypeType, string prototypeID, SequenceDataNode eventsSequenceNode)
         {
             _prototypeEventDefs[prototypeType][prototypeID] = _serializationManager.Read<List<PrototypeEventHandlerDef>>(eventsSequenceNode);
-        }
-
-        /// <inheritdoc />
-        public void LoadFromCachedResults(PrototypeManagerCache cache)
-        {
-            _hasEverBeenReloaded = true;
-            _prototypeResults.Clear();
-
-            foreach (var (prototypeType, protos) in cache.PrototypeResults)
-            {
-                var dict = new Dictionary<string, MappingDataNode>();
-
-                foreach (var (protoID, mapping) in protos)
-                {
-                    dict.Add(protoID, mapping);
-                }
-
-                _prototypeResults[prototypeType] = dict;
-            }
         }
 
         private void BuildPrototypeIndices(Type prototypeType)

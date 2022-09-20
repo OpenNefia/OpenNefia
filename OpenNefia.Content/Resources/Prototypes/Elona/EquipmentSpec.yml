@@ -38,8 +38,7 @@
   - Elona.Hand
   blacklistedSpecs:
   - Elona.PrimaryWeapon
-  maxEquipSlotsToApplyTo: 999999 # fill all remaining slots
-  # maxEquipSlotsToApplyTo: null # needs RobustToolbox/2605, 3026, 3027
+  maxEquipSlotsToApplyTo: null
   events:
   - type: Equipment.P_EquipmentSpecOnGenerateEquipmentEvent
     system: Equipment.VanillaEquipmentSpecsSystem
