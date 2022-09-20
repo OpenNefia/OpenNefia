@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System.Security.Cryptography;
@@ -58,9 +59,6 @@ namespace OpenNefia.Content.Charas
         [DataField]
         public bool IsPrecious { get; set; }
 
-        [ComponentDependency]
-        private MetaDataComponent? _metaData;
-
         [DataField]
         private CharaLivenessState _liveness = CharaLivenessState.Alive;
         
@@ -70,7 +68,8 @@ namespace OpenNefia.Content.Charas
             set
             {
                 _liveness = value;
-                _metaData!.Liveness = GetGeneralLivenessState(value);
+                var metaData = IoCManager.Resolve<IEntityManager>().GetComponent<MetaDataComponent>(Owner);
+                metaData.Liveness = GetGeneralLivenessState(value);
             }
         }
 

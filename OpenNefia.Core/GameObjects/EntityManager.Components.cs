@@ -18,7 +18,6 @@ namespace OpenNefia.Core.GameObjects
     public partial class EntityManager
     {
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
-        [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;
 
 #if EXCEPTION_TOLERANCE
         [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
@@ -253,8 +252,6 @@ namespace OpenNefia.Core.GameObjects
 
             ComponentAdded?.Invoke(this, new AddedComponentEventArgs(component, uid));
 
-            _componentDependencyManager.OnComponentAdd(uid, component);
-
             component.LifeAddToEntity();
 
             var metadata = GetComponent<MetaDataComponent>(uid);
@@ -358,7 +355,6 @@ namespace OpenNefia.Core.GameObjects
 
             if (component.LifeStage != ComponentLifeStage.PreAdd)
                 component.LifeRemoveFromEntity();
-            _componentDependencyManager.OnComponentRemove(uid, component);
             ComponentRemoved?.Invoke(this, new RemovedComponentEventArgs(component, uid));
 #if EXCEPTION_TOLERANCE
             }
@@ -393,7 +389,6 @@ namespace OpenNefia.Core.GameObjects
                 if (component.LifeStage != ComponentLifeStage.PreAdd)
                     component.LifeRemoveFromEntity(); // Sets delete
 
-                _componentDependencyManager.OnComponentRemove(uid, component);
                 ComponentRemoved?.Invoke(this, new RemovedComponentEventArgs(component, uid));
             }
 #if EXCEPTION_TOLERANCE

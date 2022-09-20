@@ -28,7 +28,6 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
-        [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
 
@@ -77,7 +76,6 @@ namespace OpenNefia.Core.GameObjects
                 var data = prototype.Components[name];
                 var component = (Component)_componentFactory.GetComponent(name);
                 component.Owner = entity;
-                _componentDependencyManager.OnComponentAdd(entity, component);
                 _entityManager.AddComponent(entity, component);
             }
 

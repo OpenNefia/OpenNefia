@@ -12,9 +12,6 @@ namespace OpenNefia.Content.GameObjects
     {
         public override string Name => "Door";
 
-        [ComponentDependency] private ChipComponent? _chip = null;
-        [ComponentDependency] private SpatialComponent? _spatial = null;
-
         [DataField]
         public PrototypeId<ChipPrototype> ChipOpen { get; set; } = Protos.Chip.MObjDoorWoodenOpen;
 
