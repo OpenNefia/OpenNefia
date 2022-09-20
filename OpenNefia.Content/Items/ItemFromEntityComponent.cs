@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EntityProtoSourceComponent : Component
     {
-        public override string Name => "EntityProtoSource";
-
         /// <summary>
         /// Entity prototype ID of the entity that this item originated from.
         /// </summary>

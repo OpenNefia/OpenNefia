@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BillComponent : Component
     {
-        public override string Name => "Bill";
-
         [DataField]
         public int GoldOwed { get; set; }
     }

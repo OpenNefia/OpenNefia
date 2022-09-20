@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncAmmoComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncAmmo";
-
         [DataField]
         public PrototypeId<AmmoEnchantmentPrototype> AmmoEnchantmentID { get; set; }
 

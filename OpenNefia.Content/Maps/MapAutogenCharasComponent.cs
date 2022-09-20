@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapAutogenCharasComponent : Component
     {
-        public override string Name => "MapAutogenCharas";
-
         /// <summary>
         /// How many randomly generated characters to spawn when this map
         /// is first generated.
@@ -28,8 +26,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapAutogenEntitiesComponent : Component
     {
-        public override string Name => "MapAutogenEntities";
-
         /// <summary>
         /// Extra entity types to generate multiple of when this map
         /// is first generated.

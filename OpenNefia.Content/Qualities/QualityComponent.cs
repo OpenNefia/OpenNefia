@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Qualities
     [RegisterComponent]
     public class QualityComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Quality";
-
         [DataField]
         public Stat<Quality> Quality { get; set; } = new(Qualities.Quality.Bad);
 

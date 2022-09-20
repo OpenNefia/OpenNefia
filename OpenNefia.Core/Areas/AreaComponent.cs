@@ -10,9 +10,6 @@ namespace OpenNefia.Core.Areas
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "Area";
-
         [DataField("areaId")]
         private AreaId _areaId = Areas.AreaId.Nullspace;
 

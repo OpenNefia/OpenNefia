@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityEatingComponent : Component
     {
-        public override string Name => "ActivityEating";
-
         [DataField]
         public EntityUid? Food { get; set; }
 
@@ -28,8 +26,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityReadingSpellbookComponent : Component
     {
-        public override string Name => "ActivityReadingSpellbook";
-
         [DataField]
         public EntityUid Spellbook { get; set; }
     }
@@ -38,8 +34,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityReadingAncientBookComponent : Component
     {
-        public override string Name => "ActivityReadingAncientBook";
-
         [DataField]
         public EntityUid AncientBook { get; set; }
     }
@@ -48,8 +42,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityTravelingComponent : Component
     {
-        public override string Name => "ActivityTraveling";
-
         [DataField]
         public MapCoordinates Destination { get; set; }
     }
@@ -57,16 +49,12 @@ namespace OpenNefia.Content.Activity
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityRestingComponent : Component
-    {
-        public override string Name => "ActivityResting";
-    }
+    {    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityMiningComponent : Component
     {
-        public override string Name => "ActivityMining";
-
         [DataField]
         public MapCoordinates TargetTile { get; set; }
 
@@ -78,8 +66,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityPerformingComponent : Component
     {
-        public override string Name => "ActivityPerforming";
-
         [DataField]
         public EntityUid Instrument { get; set; }
 
@@ -97,8 +83,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityFishingComponent : Component
     {
-        public override string Name => "ActivityFishing";
-
         [DataField]
         public MapCoordinates TargetTile { get; set; }
 
@@ -113,8 +97,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityDiggingSpotComponent : Component
     {
-        public override string Name => "ActivityDiggingSpot";
-
         [DataField]
         public MapCoordinates TargetTile { get; set; }
     }
@@ -123,8 +105,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivitySexComponent : Component
     {
-        public override string Name => "ActivitySex";
-
         [DataField]
         public EntityUid Partner { get; set; }
 
@@ -136,8 +116,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityPreparingToSleepComponent : Component
     {
-        public override string Name => "ActivityPreparingToSleep";
-
         [DataField]
         public EntityUid? Bed { get; set; }
     }
@@ -146,8 +124,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityHarvestingComponent : Component
     {
-        public override string Name => "ActivityHarvesting";
-
         [DataField]
         public EntityUid? Item { get; set; }
     }
@@ -156,8 +132,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityTrainingComponent : Component
     {
-        public override string Name => "ActivityTraining";
-
         [DataField]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
 
@@ -169,8 +143,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityPickpocketComponent : Component
     {
-        public override string Name => "ActivityPickpocket";
-
         [DataField]
         public EntityUid? TargetItem { get; set; }
     }
@@ -179,8 +151,6 @@ namespace OpenNefia.Content.Activity
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivitySearchingComponent : Component
     {
-        public override string Name => "ActivitySearching";
-
         [DataField]
         public EntityUid? MaterialSpot { get; set; }
 

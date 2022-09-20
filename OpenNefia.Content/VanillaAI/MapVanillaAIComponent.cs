@@ -12,8 +12,6 @@ namespace OpenNefia.Content.VanillaAI
     [ComponentUsage(ComponentTarget.Map)]
     public class MapVanillaAIComponent : Component
     {
-        public override string Name => "MapVanillaAI";
-
         /// <summary>
         /// If true, automatically anchors characters generated in this map 
         /// that have the calm AI action <see cref="VanillaAICalmAction.Dull"/>.

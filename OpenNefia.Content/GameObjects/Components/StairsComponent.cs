@@ -12,9 +12,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     public class StairsComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "Stairs";
-
         [DataField(required: true)]
         public StairsDirection Direction { get; set; }
 

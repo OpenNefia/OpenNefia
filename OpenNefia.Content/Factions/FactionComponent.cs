@@ -6,8 +6,6 @@ namespace OpenNefia.Content.Factions
     [RegisterComponent]
     public class FactionComponent : Component
     {
-        public override string Name => "Faction";
-
         /// <summary>
         /// The hostility of this entity from the standpoint of the player.
         /// </summary>

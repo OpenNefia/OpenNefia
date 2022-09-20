@@ -12,8 +12,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class FastTravelComponent : Component
     {
-        public override string Name => "FastTravel";
-
         [DataField]
         public Stat<float> TravelSpeedModifier { get; set; } = new(0f);
     }

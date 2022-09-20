@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Materials
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialComponent : Component
     {
-        public override string Name => "Material";
-
         [DataField]
         public PrototypeId<MaterialPrototype>? MaterialID { get; set; }
 

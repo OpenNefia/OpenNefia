@@ -16,8 +16,6 @@ namespace OpenNefia.Core.GameObjects
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
-        public override string Name => "MetaData";
-
         /// <summary>
         ///     The in-game name of this entity.
         /// </summary>
@@ -94,7 +92,7 @@ namespace OpenNefia.Core.GameObjects
 
         void IComponentLocalizable.LocalizeFromLua(LuaTable table)
         {
-            DisplayName = table.GetStringOrNull(nameof(Name));
+            DisplayName = table.GetStringOrNull("Name");
             NameIsProperNoun = table.GetBoolean(nameof(NameIsProperNoun), false);
         }
     }

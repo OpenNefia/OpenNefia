@@ -48,6 +48,7 @@ namespace OpenNefia.Content.ConsoleCommands
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IComponentFactory _comFac = default!;
 
         private readonly EntityUid MapEntityUid = new EntityUid(0);
         private EntityUid _maxEntityUid;
@@ -280,7 +281,7 @@ namespace OpenNefia.Content.ConsoleCommands
                     if (compMapping == null) continue;
                 }
 
-                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
+                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(compType!));
                 entityComps.Add(compMapping);
             }
 
@@ -351,7 +352,7 @@ namespace OpenNefia.Content.ConsoleCommands
             var comps = new ComponentRegistry();
             var mapComp = new MapComponent();
 
-            comps.Add(mapComp.Name, new ComponentRegistryEntry(mapComp, new MappingDataNode()));
+            comps.Add(_comFac.GetComponentName(mapComp.GetType()), new ComponentRegistryEntry(mapComp, new MappingDataNode()));
 
             if (idx.StairUpPos != 0)
             {
@@ -360,15 +361,15 @@ namespace OpenNefia.Content.ConsoleCommands
                 {
                     StartLocation = new SpecificMapLocation(pos)
                 };
-                comps.Add(mapStartComp.Name, new ComponentRegistryEntry(mapStartComp, new MappingDataNode()));
+                comps.Add(_comFac.GetComponentName(mapStartComp.GetType()), new ComponentRegistryEntry(mapStartComp, new MappingDataNode()));
             }
 
-            foreach (var (_, compEntry) in comps)
+            foreach (var (compName, compEntry) in comps)
             {
                 var comp = compEntry.Component;
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
-                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
+                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(_comFac.GetComponentName(comp.GetType())));
                 mapEntityComps.Add(compMapping);
             }
 

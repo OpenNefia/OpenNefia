@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Karma
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class KarmaValueComponent : Component
     {
-        public override string Name => "KarmaValue";
-
         /// <summary>
         /// How much karma should be lost when this entity is killed.
         /// </summary>

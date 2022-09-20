@@ -10,8 +10,6 @@ namespace OpenNefia.Content.StatusEffects
     [RegisterComponent]
     public sealed class StatusEffectsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "StatusEffects";
-
         [DataField]
         public Dictionary<PrototypeId<StatusEffectPrototype>, StatusEffect> StatusEffects { get; } = new();
 

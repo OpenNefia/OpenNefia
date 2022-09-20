@@ -86,6 +86,26 @@ namespace OpenNefia.Core.GameObjects
         IComponent GetComponent(string componentName, bool ignoreCase = false);
 
         /// <summary>
+        ///     Gets the name of a component, throwing an exception if it does not exist.
+        /// </summary>
+        /// <param name="componentType">The type of the component</param>
+        /// <returns>The registered name of the component</returns>
+        /// <exception cref="UnknownComponentException">
+        ///     Thrown if no component exists with the given type <see cref="componentType"/>.
+        /// </exception>
+        string GetComponentName(Type componentType);
+
+        /// <summary>
+        ///     Gets the name of a component, throwing an exception if it does not exist.
+        /// </summary>
+        /// <param name="componentType">The type of the component</param>
+        /// <returns>The registered name of the component</returns>
+        /// <exception cref="UnknownComponentException">
+        ///     Thrown if no component exists with the given type <see cref="componentType"/>.
+        /// </exception>
+        string GetComponentName<T>() where T: IComponent;
+
+        /// <summary>
         ///     Gets the registration belonging to a component, throwing an exception if it does not exist.
         /// </summary>
         /// <param name="componentName">The name of the component.</param>

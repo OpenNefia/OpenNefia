@@ -11,7 +11,6 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class InfiniteSpawnedComponent : Component
     {
-        public override string Name => "InfiniteSpawned";
 
         [DataField]
         public EntityUid Spawner { get; set; }

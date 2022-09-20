@@ -16,9 +16,6 @@ namespace OpenNefia.Content.Nefia
     [ComponentUsage(ComponentTarget.Map)]
     public class NefiaCrowdDensityModifierComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "MapNefiaCrowdDensityModifier";
-
         [DataField(required: true)]
         public INefiaCrowdDensityModifier Modifier = new SimpleCrowdDensityModifier();
     }
@@ -59,9 +56,6 @@ namespace OpenNefia.Content.Nefia
     [ComponentUsage(ComponentTarget.Map)]
     public class NefiaRoomsComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "MapNefiaRooms";
-
         [DataField]
         public List<Room> Rooms { get; } = new();
     }

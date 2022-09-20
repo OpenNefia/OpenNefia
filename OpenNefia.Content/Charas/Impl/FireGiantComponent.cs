@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Charas.Impl
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class FireGiantComponent : Component
-    {
-        public override string Name => "FireGiant";
-    }
+    {    }
 }

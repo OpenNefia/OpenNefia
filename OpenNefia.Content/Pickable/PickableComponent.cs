@@ -8,8 +8,6 @@ namespace OpenNefia.Content.Pickable
     [RegisterComponent]
     public class PickableComponent : Component, IFromHspItem
     {
-        public override string Name => "Pickable";
-
         /// <summary>
         /// Ownership state of this entity. Determines if it's possible
         /// for the player to pick it up.

@@ -89,10 +89,10 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .NewSimulation()
                 .RegisterComponents(factory =>
                 {
-                    factory.RegisterClass<OrderComponentA>();
-                    factory.RegisterClass<OrderComponentB>();
-                    factory.RegisterClass<OrderComponentC>();
-                    factory.RegisterClass<OrderComponentC2>();
+                    factory.RegisterClass<OrderAComponent>();
+                    factory.RegisterClass<OrderBComponent>();
+                    factory.RegisterClass<OrderCComponent>();
+                    factory.RegisterClass<OrderC2Component>();
                 })
                 .RegisterEntitySystems(factory =>
                 {
@@ -106,10 +106,10 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var entMan = simulation.Resolve<IEntityManager>();
             var entity = simulation.SpawnEntity(null, map.AtPos(0, 0));
-            entMan.AddComponent<OrderComponentA>(entity);
-            entMan.AddComponent<OrderComponentB>(entity);
-            entMan.AddComponent<OrderComponentC>(entity);
-            entMan.AddComponent<OrderComponentC2>(entity);
+            entMan.AddComponent<OrderAComponent>(entity);
+            entMan.AddComponent<OrderBComponent>(entity);
+            entMan.AddComponent<OrderCComponent>(entity);
+            entMan.AddComponent<OrderC2Component>(entity);
 
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
@@ -127,10 +127,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeComponent<OrderComponentA, TestStructEvent>(OnA);
+                SubscribeComponent<OrderAComponent, TestStructEvent>(OnA);
             }
 
-            private void OnA(EntityUid uid, OrderComponentA component, ref TestStructEvent args)
+            private void OnA(EntityUid uid, OrderAComponent component, ref TestStructEvent args)
             {
                 // Third handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(15));
@@ -145,10 +145,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeComponent<OrderComponentB, TestStructEvent>(OnB, EventPriorities.Low);
+                SubscribeComponent<OrderBComponent, TestStructEvent>(OnB, EventPriorities.Low);
             }
 
-            private void OnB(EntityUid uid, OrderComponentB component, ref TestStructEvent args)
+            private void OnB(EntityUid uid, OrderBComponent component, ref TestStructEvent args)
             {
                 // Last handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(10));
@@ -163,18 +163,18 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeComponent<OrderComponentC, TestStructEvent>(OnC, EventPriorities.Highest);
-                SubscribeComponent<OrderComponentC2, TestStructEvent>(OnC2, EventPriorities.High);
+                SubscribeComponent<OrderCComponent, TestStructEvent>(OnC, EventPriorities.Highest);
+                SubscribeComponent<OrderC2Component, TestStructEvent>(OnC2, EventPriorities.High);
             }
 
-            private void OnC(EntityUid uid, OrderComponentC component, ref TestStructEvent args)
+            private void OnC(EntityUid uid, OrderCComponent component, ref TestStructEvent args)
             {
                 // First handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(5));
                 args.TestNumber = 0;
             }
 
-            private void OnC2(EntityUid uid, OrderComponentC2 component, ref TestStructEvent args)
+            private void OnC2(EntityUid uid, OrderC2Component component, ref TestStructEvent args)
             {
                 // Second handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(0));
@@ -183,9 +183,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         }
 
         private class DummyTwoComponent : Component
-        {
-            public override string Name => "DummyTwo";
-        }
+        {        }
 
         [ByRefEvent]
         private struct TestStructEvent

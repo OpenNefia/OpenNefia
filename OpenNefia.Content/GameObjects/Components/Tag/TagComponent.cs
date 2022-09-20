@@ -9,8 +9,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     public class TagComponent : Component, ISerializationHooks
     {
-        public override string Name => "Tag";
-
         [DataField("tags")]
         private readonly HashSet<PrototypeId<TagPrototype>> _tags = new();
 

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class InstrumentComponent : Component
     {
-        public override string Name => "Instrument";
-
         [DataField]
         public int PerformanceQuality { get; set; } = 0;
     }

@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Adventurer
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class HiredAdventurerComponent : Component
-    {
-        public override string Name => "HiredAdventurer";
-    }
+    {    }
 }

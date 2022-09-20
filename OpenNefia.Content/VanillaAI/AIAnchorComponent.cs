@@ -13,8 +13,6 @@ namespace OpenNefia.Content.VanillaAI
     [RegisterComponent]
     public class AIAnchorComponent : Component
     {
-        public override string Name => "AIAnchor";
-
         /// <summary>
         /// The initial position this entity was spawned at.
         /// </summary>

@@ -98,8 +98,6 @@ namespace OpenNefia.Tests.Core.GameObjects
         }
 
         private sealed class TestVerbComponent : Component
-        {
-            public override string Name => "TestVerb";
-        }
+        {        }
     }
 }

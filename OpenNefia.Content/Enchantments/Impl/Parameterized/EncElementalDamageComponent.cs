@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncElementalDamageComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncElementalDamage";
-
         [DataField]
         public PrototypeId<ElementPrototype> ElementID { get; set; }
 

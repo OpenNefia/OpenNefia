@@ -13,8 +13,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SpecialInstrumentsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "SpecialInstruments";
-
         [DataField]
         public Stat<bool> IsStradivarius { get; set; } = new(false);
 

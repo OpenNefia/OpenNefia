@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Mount
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MountRiderComponent : Component
     {
-        public override string Name => "MountRider";
-
         [DataField]
         public EntityUid Mount { get; set; }
     }

@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Religion
     [RegisterComponent]
     public sealed class AltarComponent : Component
     {
-        public override string Name => "Altar";
-
         [DataField]
         public PrototypeId<GodPrototype>? GodID { get; set; }
     }

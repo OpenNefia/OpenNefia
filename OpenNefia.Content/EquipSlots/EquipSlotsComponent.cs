@@ -13,8 +13,6 @@ namespace OpenNefia.Content.EquipSlots
     [RegisterComponent]
     public class EquipSlotsComponent : Component
     {
-        public override string Name => "EquipSlots";
-
         [DataField("initialEquipSlots")]
         private List<EquipSlotPrototypeId> _initialEquipSlots = new();
 

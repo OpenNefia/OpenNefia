@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Parties
     [RegisterComponent]
     public class PartyComponent : Component
     {
-        public override string Name => "Party";
-
         /// <summary>
         /// Party ID of this entity.
         /// </summary>

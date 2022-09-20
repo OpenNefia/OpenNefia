@@ -18,9 +18,6 @@ namespace OpenNefia.Content.Inventory
     {
         public static readonly ContainerId ContainerIdInventory = new("Elona.Inventory");
 
-        /// <inheritdoc />
-        public override string Name => "Inventory";
-
         public Container Container { get; private set; } = default!;
 
         /// <summary>

@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Food
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class CorpseComponent : Component
-    {
-        public override string Name => "Corpse";
-    }
+    {    }
 }

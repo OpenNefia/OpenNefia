@@ -14,8 +14,6 @@ namespace OpenNefia.Content.PCCs
     [RegisterComponent]
     public sealed class PCCComponent : Component
     {
-        public override string Name => "PCC";
-
         [DataField("usePCC")]
         public bool UsePCC { get; set; } = false;
 

@@ -13,8 +13,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ValueComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Value";
-
         [DataField]
         public Stat<int> Value { get; set; } = new(0);
 

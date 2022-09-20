@@ -17,9 +17,6 @@ namespace OpenNefia.Content.Areas
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaEntranceComponent : Component, IComponentLocalizable
     {
-        /// <inheritdoc />
-        public override string Name => "AreaEntrance";
-
         /// <summary>
         /// If non-null, create a global area with this ID when 
         /// starting a new save.

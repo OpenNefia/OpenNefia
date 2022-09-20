@@ -13,7 +13,5 @@ namespace OpenNefia.Content.Home
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AreaHomeTutorialComponent : Component
-    {
-        public override string Name => "AreaHomeTutorial";
-    }
+    {    }
 }

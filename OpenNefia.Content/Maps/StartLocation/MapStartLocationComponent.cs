@@ -7,8 +7,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapStartLocationComponent : Component
     {
-        public override string Name => "MapStartLocation";
-
         [DataField(required: true)]
         public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
     }

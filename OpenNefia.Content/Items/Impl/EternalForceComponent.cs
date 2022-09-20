@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EternalForceComponent : Component, IComponentRefreshable
     {
-        public override string Name => "EternalForce";
-
         [DataField]
         public Stat<bool> IsEternalForce { get; set; } = new(true);
 

@@ -8,7 +8,5 @@ namespace OpenNefia.Content.VanillaAI
     /// </summary>
     [RegisterComponent]
     public class AICanPassThroughComponent : Component
-    {
-        public override string Name => "AICanPassThrough";
-    }
+    {    }
 }

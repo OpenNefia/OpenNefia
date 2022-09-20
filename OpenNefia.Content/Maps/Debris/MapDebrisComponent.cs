@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapDebrisComponent : Component
     {
-        public override string Name => "MapDebris";
-
         [DataField]
         public MapDebris[,] DebrisState { get; set; } = new MapDebris[0, 0];
 

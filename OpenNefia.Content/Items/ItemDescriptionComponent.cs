@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     public class ItemDescriptionComponent : Component, IComponentLocalizable
     {
-        public override string Name => "ItemDescription";
-
         [Localize]
         public ItemDescriptionEntry? Primary { get; private set; }
 

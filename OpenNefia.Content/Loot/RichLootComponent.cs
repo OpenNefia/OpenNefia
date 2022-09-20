@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Loot
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class RichLootComponent : Component
     {
-        public override string Name => "RichLoot";
-
         [DataField]
         public int RichLootItemCount { get; set; } = 1;
     }

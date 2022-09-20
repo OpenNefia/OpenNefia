@@ -15,6 +15,7 @@ namespace OpenNefia.Core.Containers
     /// Holds data about a set of entity containers on this entity.
     /// </summary>
     [ComponentReference(typeof(IContainerManager))]
+    [ComponentProtoName("Containers")]
     public class ContainerManagerComponent : Component, IContainerManager, ISerializationHooks
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -23,9 +24,6 @@ namespace OpenNefia.Core.Containers
         internal readonly Dictionary<ContainerId, IContainer> _containers = new();
 
         public IReadOnlyDictionary<ContainerId, IContainer> Containers => _containers;
-
-        /// <inheritdoc />
-        public sealed override string Name => "Containers";
 
         void ISerializationHooks.AfterDeserialization()
         {

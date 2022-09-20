@@ -14,7 +14,5 @@ namespace OpenNefia.Core.GameObjects
     /// </remarks>
     [RegisterComponent]
     public class MoveableComponent : Component
-    {
-        public override string Name => "Moveable";
-    }
+    {    }
 }

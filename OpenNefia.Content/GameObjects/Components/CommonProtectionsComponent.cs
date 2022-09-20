@@ -13,8 +13,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class CommonProtectionsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "CommonProtections";
-
         // TODO figure out how traits and temporary flags will work
         // slots? refreshing?
 

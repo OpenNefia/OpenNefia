@@ -11,8 +11,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ChargedComponent : Component
     {
-        public override string Name => "Charged";
-
         [DataField]
         public int Charges { get; set; }
 

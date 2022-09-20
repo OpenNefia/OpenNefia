@@ -517,8 +517,6 @@ entities:
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {
-            public override string Name => "MapDeserializeTest";
-
             [DataField("foo")] public int Foo { get; set; } = -1;
             [DataField("bar")] public int Bar { get; set; } = -1;
             [DataField("baz")] public int Baz { get; set; } = -1;
@@ -526,21 +524,15 @@ entities:
 
         [DataDefinition]
         private sealed class MapDeserializeTestAddComponent : Component
-        {
-            public override string Name => "MapDeserializeTestAdd";
-        }
+        {}
 
         [DataDefinition]
         private sealed class MapDeserializeTestRemoveComponent : Component
-        {
-            public override string Name => "MapDeserializeTestRemove";
-        }
+        {}
 
         [DataDefinition]
         private sealed class MapDeserializeTestOverrideComponent : Component
         {
-            public override string Name => "MapDeserializeTestOverride";
-
             [DataField]
             public ITestData Foo { get; set; } = new TestDataCtor();
 
@@ -554,8 +546,6 @@ entities:
         [DataDefinition]
         private sealed class MapDeserializeTestEntityUidsComponent : Component
         {
-            public override string Name => "MapDeserializeTestEntityUids";
-
             [DataField]
             public List<EntityUid> Uids { get; set; } = new();
         }

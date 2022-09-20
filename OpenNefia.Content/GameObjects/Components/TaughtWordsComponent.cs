@@ -11,8 +11,6 @@ namespace OpenNefia.Content.GameObjects.Components
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TaughtWordsComponent : Component
     {
-        public override string Name => "TaughtWords";
-
         [DataField]
         public List<string> TaughtWords { get; set; } = new();
     }

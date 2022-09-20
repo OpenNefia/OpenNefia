@@ -12,9 +12,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Normal)]
     public class WorldMapEntranceComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "WorldMapEntrance";
-
         /// <summary>
         /// Entrance to use.
         /// </summary>

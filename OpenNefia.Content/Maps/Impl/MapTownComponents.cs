@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Maps
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapVernisComponent : Component
-    {
-        public override string Name => "MapVernis";
-    }
+    {    }
 }

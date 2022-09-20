@@ -11,8 +11,6 @@ namespace OpenNefia.Content.RandomGen
     [RegisterComponent]
     public class RandomGenComponent : Component
     {
-        public override string Name => "RandomGen";
-
         [DataField]
         public Dictionary<string, RandomGenTable> Tables = new();
     }

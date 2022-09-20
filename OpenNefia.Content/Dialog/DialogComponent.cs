@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Dialog
     [RegisterComponent]
     public class DialogComponent : Component
     {
-        public override string Name => "Dialog";
-
         [DataField]
         public PrototypeId<DialogPrototype>? DialogID { get; set; }
 

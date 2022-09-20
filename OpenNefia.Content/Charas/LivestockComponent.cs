@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Charas
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LivestockComponent : Component
-    {
-        public override string Name => "Livestock";
-    }
+    {    }
 }

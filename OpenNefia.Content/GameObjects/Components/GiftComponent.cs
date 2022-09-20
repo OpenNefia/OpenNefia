@@ -11,8 +11,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class GiftComponent : Component
     {
-        public override string Name => "Gift";
-
         [DataField]
         public int GiftRank { get; set; }
     }

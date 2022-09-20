@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Web
     [RegisterComponent]
     public sealed class WebComponent : Component
     {
-        public override string Name => "Web";
-
         [DataField]
         public int UntangleDifficulty { get; set; }
     }

@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ItemResistsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "ItemResists";
-
         [DataField]
         public Stat<bool> IsFireproof { get; set; } = new(false);
         

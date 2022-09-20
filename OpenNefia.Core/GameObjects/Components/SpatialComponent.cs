@@ -35,8 +35,6 @@ namespace OpenNefia.Core.GameObjects
 
         internal readonly SortedSet<EntityUid> _children = new();
 
-        public override string Name => "Spatial";
-
         /// <summary>
         ///     Returns the index of the map which this object is on
         /// </summary>

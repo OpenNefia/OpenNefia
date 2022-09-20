@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Equipment
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BonusComponent : Component
     {
-        public override string Name => "Bonus";
-
         [DataField]
         public int Bonus { get; set; } = 0;
     }

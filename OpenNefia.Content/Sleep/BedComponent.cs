@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Sleep
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BedComponent : Component
     {
-        public override string Name => "Bed";
-
         [DataField]
         public float BedQuality { get; set; }
     }

@@ -101,9 +101,9 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.True(componentFactory.TryGetRegistration(LowercaseTestComponentName, out _, true));
         }
 
+        [ComponentProtoName(TestComponentName)]
         private class TestComponent : Component
         {
-            public override string Name => TestComponentName;
         }
     }
 }

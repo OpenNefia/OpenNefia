@@ -91,24 +91,21 @@ namespace OpenNefia.Tests.Core.Serialization
         }
     }
 
+    [ComponentProtoName("TestBase")]
     public class BaseComponent : Component
     {
-        public override string Name => "TestBase";
-
         [DataField("baseField")] public string? BaseField;
     }
 
+    [ComponentProtoName("TestInheritor")]
     public class InheritorComponent : BaseComponent
     {
-        public override string Name => "TestInheritor";
-
         [DataField("inheritorField")] public string? InheritorField;
     }
 
+    [ComponentProtoName("TestFinal")]
     public class FinalComponent : InheritorComponent
     {
-        public override string Name => "TestFinal";
-
         [DataField("finalField")] public string? FinalField;
     }
 }

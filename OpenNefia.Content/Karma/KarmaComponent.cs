@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Karma
     [RegisterComponent]
     public sealed class KarmaComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Karma";
-
         [DataField]
         public Stat<int> Karma { get; set; } = new(0);
 

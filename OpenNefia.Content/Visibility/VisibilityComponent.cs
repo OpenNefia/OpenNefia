@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Visibility
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class VisibilityComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Visibility";
-
         [DataField]
         public Stat<bool> IsInvisible { get; set; } = new(false);
 

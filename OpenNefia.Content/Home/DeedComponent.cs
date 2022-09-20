@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Home
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class DeedComponent : Component
     {
-        public override string Name => "Deed";
-
         [DataField]
         public PrototypeId<HomePrototype> HomeID { get; set; }
     }

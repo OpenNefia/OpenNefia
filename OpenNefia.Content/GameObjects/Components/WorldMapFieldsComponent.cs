@@ -9,8 +9,5 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public class WorldMapFieldsComponent : Component
-    {
-        /// <inheritdoc />
-        public override string Name => "WorldMapFields";
-    }
+    {    }
 }

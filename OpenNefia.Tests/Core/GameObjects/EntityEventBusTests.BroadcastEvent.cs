@@ -58,8 +58,8 @@ namespace OpenNefia.Tests.Core.GameObjects
                 entManMock.Setup(m => m.GetComponent(entUid, typeof(T))).Returns(inst);
             }
 
-            Setup<OrderComponentA>(out var instA);
-            Setup<OrderComponentB>(out var instB);
+            Setup<OrderAComponent>(out var instA);
+            Setup<OrderBComponent>(out var instB);
 
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
             var bus = new EntityEventBus(entManMock.Object);
@@ -93,9 +93,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var subscriber = new DummyEventSubscriber();
 
-            bus.SubscribeComponentEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.High);
+            bus.SubscribeComponentEvent<OrderAComponent, TestEvent>(HandlerA, EventPriorities.High);
             bus.SubscribeBroadcastEvent<TestEvent>(subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
-            bus.SubscribeComponentEvent<OrderComponentB, TestEvent>(HandlerB, EventPriorities.VeryLow);
+            bus.SubscribeComponentEvent<OrderBComponent, TestEvent>(HandlerB, EventPriorities.VeryLow);
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);

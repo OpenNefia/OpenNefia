@@ -17,9 +17,7 @@ namespace OpenNefia.Content.Feats
     /// </summary>
     [RegisterComponent]
     public class FeatsComponent : Component, IComponentRefreshable
-    {
-        public override string Name => "Feats";
-        
+    {        
         /// <summary>
         /// Current amount of learnable Feats.
         /// </summary>

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Shopkeeper
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MedalValueComponent : Component
     {
-        public override string Name => "MedalValue";
-
         [DataField]
         public int MedalValue { get; set; } = 1;
     }

@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class QuickTemperedComponent : Component, IComponentRefreshable
     {
-        public override string Name => "QuickTempered";
-
         [DataField]
         public Stat<bool> IsQuickTempered { get; set; } = new(true);
 

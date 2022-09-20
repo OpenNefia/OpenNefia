@@ -8,8 +8,6 @@ namespace OpenNefia.Content.Activity
     [RegisterComponent]
     public sealed class ActivityComponent : Component
     {
-        public override string Name => "Activity";
-
         [DataField]
         public int DefaultTurns { get; set; } = 10;
 

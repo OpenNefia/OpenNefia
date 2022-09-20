@@ -12,9 +12,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapEdgesLocationComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "MapEdgesLocation";
-
         /// <summary>
         /// Direction the player should enter the map from in the world map
         /// for them to be placed on this location.

@@ -12,9 +12,6 @@ namespace OpenNefia.Content.CustomName
     [RegisterComponent]
     public class CustomNameComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "CustomName";
-
         [DataField]
         public string? CustomName { get; set; }
 

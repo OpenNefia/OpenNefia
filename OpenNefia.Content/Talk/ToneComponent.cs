@@ -8,8 +8,6 @@ namespace OpenNefia.Content.Talk
     [RegisterComponent]
     public class ToneComponent : Component
     {
-        public override string Name => "Tone";
-
         [DataField]
         public PrototypeId<TonePrototype> ToneID { get; set; }
 

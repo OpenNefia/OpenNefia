@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MetalComponent : Component
     {
-        public override string Name => "Metal";
-
         [DataField]
         public bool IsMetal { get; set; } = true;
     }

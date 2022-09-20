@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Fame
     [RegisterComponent]
     public sealed class FameComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Fame";
-
         [DataField]
         public Stat<int> Fame { get; set; } = new(0);
 

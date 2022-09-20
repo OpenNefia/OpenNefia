@@ -8,9 +8,6 @@ namespace OpenNefia.Content.Portraits
     [RegisterComponent]
     public class PortraitComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "Portrait";
-
         [DataField]
         public PrototypeId<PortraitPrototype> PortraitID { get; set; } = Protos.Portrait.Default;
 

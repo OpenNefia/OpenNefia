@@ -13,8 +13,6 @@ namespace OpenNefia.Content.EtherDisease
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EtherDiseaseComponent : Component, IComponentRefreshable
     {
-        public override string Name => "EtherDisease";
-
         [DataField]
         public int Corruption { get; set; } = 0;
 

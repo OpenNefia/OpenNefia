@@ -13,7 +13,5 @@ namespace OpenNefia.Content.World
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapNoSleepAdvancementComponent : Component
-    {
-        public override string Name => "MapNoSleepAdvancement";
-    }
+    {    }
 }

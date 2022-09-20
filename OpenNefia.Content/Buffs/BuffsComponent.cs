@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Buffs
     [RegisterComponent]
     public class BuffsComponent : Component
     {
-        public override string Name => "Buffs";
-
         [DataField]
         public List<BuffInstance> Buffs { get; } = new();
     }

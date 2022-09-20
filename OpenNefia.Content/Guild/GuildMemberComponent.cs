@@ -9,9 +9,6 @@ namespace OpenNefia.Content.Guild
     [RegisterComponent]
     public class GuildMemberComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "GuildMember";
-
         [DataField]
         public PrototypeId<GuildPrototype>? GuildID { get; set; }
     }

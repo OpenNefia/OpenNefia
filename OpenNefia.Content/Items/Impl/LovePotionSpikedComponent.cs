@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LovePotionSpikedComponent : Component
-    {
-        public override string Name => "LovePotionSpiked";
-    }
+    {    }
 }

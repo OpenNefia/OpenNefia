@@ -104,8 +104,6 @@ entities:
         [DataDefinition]
         private sealed class EntityGenTestComponent : Component
         {
-            public override string Name => "EntityGenTest";
-
             [DataField("foo")]
             public int Foo { get; set; } = -1;
         }

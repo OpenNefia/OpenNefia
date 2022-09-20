@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Items.Impl
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MoneyBoxComponent : Component
     {
-        public override string Name => "MoneyBox";
-
         [DataField]
         public int GoldDeposited { get; set; }
 

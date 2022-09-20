@@ -12,8 +12,6 @@ namespace OpenNefia.Content.TreasureMap
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TreasureMapComponent : Component
     {
-        public override string Name => "TreasureMap";
-
         /// <summary>
         /// Place the treasure is located.
         /// </summary>

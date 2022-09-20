@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EquipStatsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "EquipStats";
-
         /// <summary>
         /// Added Defense Value.
         /// </summary>

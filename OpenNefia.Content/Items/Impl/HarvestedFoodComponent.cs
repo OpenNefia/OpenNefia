@@ -10,9 +10,7 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class HarvestedFoodComponent : Component
-    {
-        public override string Name => "HarvestedFood";
-        
+    {        
         /// <summary>
         /// 0-9.
         /// </summary>

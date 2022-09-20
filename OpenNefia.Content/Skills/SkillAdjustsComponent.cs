@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Skills
     [RegisterComponent]
     public sealed class SkillAdjustsComponent : Component
     {
-        public override string Name => "SkillAdjusts";
-
         [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, int> SkillAdjusts { get; } = new();
     }

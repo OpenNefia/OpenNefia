@@ -11,8 +11,6 @@ namespace OpenNefia.Content.MapVisibility
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LightSourceComponent : Component
     {
-        public override string Name => "LightSource";
-
         [DataField]
         public PrototypeId<LightSourcePrototype> ID { get; set; }
     }

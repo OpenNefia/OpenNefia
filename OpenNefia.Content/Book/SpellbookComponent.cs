@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Book
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SpellbookComponent : Component
     {
-        public override string Name => "Spellbook";
-
         [DataField]
         public PrototypeId<SpellPrototype> SpellID { get; set; }
     }

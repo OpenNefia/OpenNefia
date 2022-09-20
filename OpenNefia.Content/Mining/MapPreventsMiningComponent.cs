@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Mining
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapMiningPreventionComponent : Component
     {
-        public override string Name => "MapMiningPrevention";
-
         [DataField]
         public MiningPreventionKind Kind { get; set; } = MiningPreventionKind.AllowMining;
     }

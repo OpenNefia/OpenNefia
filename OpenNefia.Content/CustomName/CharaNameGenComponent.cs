@@ -11,8 +11,6 @@ namespace OpenNefia.Content.CustomName
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class CharaNameGenComponent : Component
     {
-        public override string Name => "CharaNameGen";
-
         [DataField]
         public bool HasRandomName { get; set; } = false;
     }

@@ -58,7 +58,5 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
     }
 
     public sealed class TestComponent : Component
-    {
-        public override string Name => "Test";
-    }
+    {    }
 }

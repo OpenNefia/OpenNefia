@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Food
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class FoodComponent : Component
     {
-        public override string Name => "Food";
-
         [DataField]
         public PrototypeId<FoodTypePrototype>? FoodType { get; set; }
 

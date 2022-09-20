@@ -12,8 +12,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MarriageComponent : Component
     {
-        public override string Name => "Marriage";
-
         [DataField]
         public HashSet<EntityUid> MarriagePartners { get; set; } = new();
     }

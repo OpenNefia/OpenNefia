@@ -11,8 +11,6 @@ namespace OpenNefia.Core.GameObjects
     /// </remarks>
     public sealed class MapSaveIdComponent : Component
     {
-        public override string Name => "MapSaveId";
-
         [DataField(noCompare: true)]
         public int Uid { get; set; }
     }

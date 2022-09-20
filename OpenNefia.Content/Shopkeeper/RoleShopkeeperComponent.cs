@@ -16,9 +16,6 @@ namespace OpenNefia.Content.Shopkeeper
     {
         public static readonly ContainerId ContainerIdShopInventory = new("Elona.ShopInventory");
 
-        /// <inheritdoc />
-        public override string Name => "RoleShopkeeper";
-
         [DataField(required: true)]
         public PrototypeId<ShopInventoryPrototype> ShopInventoryId { get; set; }
 

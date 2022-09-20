@@ -15,8 +15,6 @@ namespace OpenNefia.Content.MaterialSpot
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialSpotComponent : Component
     {
-        public override string Name => "MaterialSpot";
-
         /// <summary>
         /// Must inherit from <see cref="BaseAutoTurnAnim"/>.
         /// </summary>
@@ -54,7 +52,5 @@ namespace OpenNefia.Content.MaterialSpot
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialSpotRemainsComponent : Component
-    {
-        public override string Name => "MaterialSpotRemains";
-    }
+    {    }
 }

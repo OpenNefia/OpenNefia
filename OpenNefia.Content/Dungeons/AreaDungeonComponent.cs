@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Dungeons
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaDungeonComponent : Component
     {
-        public override string Name => "AreaDungeon";
-
         public int DeepestFloor { get; set; } = 1;
     }
 }

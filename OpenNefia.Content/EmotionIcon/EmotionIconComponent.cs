@@ -12,8 +12,6 @@ namespace OpenNefia.Content.EmotionIcon
     [RegisterComponent]
     public sealed class EmotionIconComponent : Component
     {
-        public override string Name => "EmotionIcon";
-
         [DataField]
         public string? EmotionIconId { get; set; }
 

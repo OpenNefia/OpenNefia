@@ -14,8 +14,6 @@ namespace OpenNefia.Core.GameObjects
     [RegisterComponent]
     public class ChipComponent : Component
     {
-        public override string Name => "Chip";
-
         [DataField("id")]
         public PrototypeId<ChipPrototype> ChipID { get; set; } = new("Default");
 

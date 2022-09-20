@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     public class ItemComponent : Component, IComponentLocalizable
     {
-        public override string Name => "Item";
-
         [DataField]
         public bool IsPrecious { get; set; } = false;
 

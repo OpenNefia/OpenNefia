@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -86,11 +87,12 @@ namespace OpenNefia.Core.GameObjects
                 throw new InvalidOperationException($"Type is already registered: {type}");
             }
 
-            // Create a dummy to be able to fetch instance properties like name.
-            // Not clean but sadly C# doesn't have static virtual members.
-            var dummy = (IComponent)Activator.CreateInstance(type)!;
+            if (!type.IsSubclassOf(typeof(Component)))
+            {
+                throw new InvalidOperationException($"Type is not derived from component: {type}");
+            }
 
-            var name = dummy.Name;
+            var name = CalculateComponentName(type);
             var lowerCaseName = name.ToLowerInvariant();
 
             if (IgnoredComponentNames.Contains(name))
@@ -127,6 +129,25 @@ namespace OpenNefia.Core.GameObjects
             types[type] = registration;
 
             ComponentAdded?.Invoke(registration);
+        }
+
+        private static string CalculateComponentName(Type type)
+        {
+            // Attributes can use any name they want, they are for bypassing the automatic names
+            // If a parent class has this attribute, a child class will use the same name, unless it also uses this attribute
+            if (Attribute.GetCustomAttribute(type, typeof(ComponentProtoNameAttribute)) is ComponentProtoNameAttribute attribute)
+                return attribute.PrototypeName;
+
+            const string component = "Component";
+            var typeName = type.Name;
+            if (!typeName.EndsWith(component))
+            {
+                throw new InvalidComponentNameException($"Component {type} must end with the word Component");
+            }
+
+            string name = typeName[..^component.Length];
+            DebugTools.Assert(name != String.Empty, $"Component {type} has invalid name {type.Name}");
+            return name;
         }
 
         private void RegisterReference(Type target, Type @interface)
@@ -212,6 +233,21 @@ namespace OpenNefia.Core.GameObjects
             }
 
             return _typeFactory.CreateInstanceUnchecked<IComponent>(GetRegistration(componentName).Type);
+        }
+
+        public string GetComponentName(Type componentType)
+        {
+            return GetRegistration(componentType).Name;
+        }
+
+        public string GetComponentName(IComponent component)
+        {
+            return GetComponentName(component.GetType());
+        }
+
+        public string GetComponentName<T>() where T: IComponent
+        {
+            return GetComponentName(typeof(T));
         }
 
         public IComponentRegistration GetRegistration(string componentName, bool ignoreCase = false)
@@ -319,7 +355,7 @@ namespace OpenNefia.Core.GameObjects
 
             foreach (var attribute in Attribute.GetCustomAttributes(type, typeof(ComponentReferenceAttribute)))
             {
-                var cast = (ComponentReferenceAttribute) attribute;
+                var cast = (ComponentReferenceAttribute)attribute;
 
                 var refType = cast.ReferenceType;
 
@@ -367,4 +403,6 @@ namespace OpenNefia.Core.GameObjects
     }
 
     public class ComponentRegistrationLockException : Exception { }
+
+    public class InvalidComponentNameException : Exception { public InvalidComponentNameException(string message) : base(message) { } }
 }

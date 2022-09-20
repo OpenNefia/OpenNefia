@@ -45,8 +45,6 @@ namespace OpenNefia.Tests.Core.Serialization
 
     public class PriorityTestComponent : Component, ISerializationHooks
     {
-        public override string Name => "PriorityTest";
-
         public readonly List<string> Strings = new() {string.Empty, string.Empty, string.Empty};
 
         [DataField("first", priority: 3)]

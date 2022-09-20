@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Arena
     [ComponentUsage(ComponentTarget.Area)]
     public sealed class AreaArenaComponent : Component
     {
-        public override string Name => "AreaArena";
-
         [DataField]
         public GameDateTime SeedRenewDate { get; set; } = GameDateTime.Zero;
 
