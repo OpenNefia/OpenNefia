@@ -64,6 +64,22 @@ namespace OpenNefia.Tests.Core.Prototypes
         }
 
         [Test]
+        public void TestYamlHelpers2Prototype()
+        {
+            var prototype = manager.Index<EntityPrototype>(new("yamltester2"));
+            Assert.That(prototype.Components, Contains.Key("TestBasicPrototypeComponent"));
+
+            var componentData = prototype.Components["TestBasicPrototypeComponent"].Component as TestBasicPrototypeComponent;
+
+            Assert.NotNull(componentData);
+            Assert.That(componentData!.int_field, Is.Null);
+            Assert.That(componentData!.float_field, Is.Null);
+            Assert.That(componentData!.float2_field, Is.Null);
+            Assert.That(componentData!.boolt, Is.Null);
+            Assert.That(componentData!.boolf, Is.Null);
+        }
+
+        [Test]
         public void TestLoadString()
         {
             manager.LoadString(LoadStringDocument);
@@ -151,6 +167,16 @@ namespace OpenNefia.Tests.Core.Prototypes
     color: '#aabbcc'
     enumf: Foo
     enumb: Bar
+
+- type: Entity
+  id: yamltester2
+  components:
+  - type: TestBasicPrototypeComponent
+    int: null
+    float: null
+    float2: null
+    boolt: null
+    boolf: null
 ";
 
         private static readonly string LoadStringDocument = $@"
