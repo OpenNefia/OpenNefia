@@ -50,14 +50,16 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        public void PushLayer(UiLayer layer)
+        public void PushLayer(UiLayer layer, bool noHaltInput = false)
         {
             layer.LayerUIScale = _graphics.WindowScale;
             ResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
 
-            _inputManager.HaltInput();
+            if (!noHaltInput)
+                _inputManager.HaltInput();
+
             ControlFocused = null;
             KeyboardFocused = null;
             CurrentlyHovered = null;
@@ -65,12 +67,14 @@ namespace OpenNefia.Core.UserInterface
             CurrentLayer?.GrabFocus();
         }
 
-        public void PopLayer(UiLayer layer)
+        public void PopLayer(UiLayer layer, bool noHaltInput = false)
         {
             Layers.Remove(layer);
             SortLayers();
 
-            _inputManager.HaltInput();
+            if (!noHaltInput)
+                _inputManager.HaltInput();
+
             ControlFocused = null;
             KeyboardFocused = null;
             CurrentlyHovered = null;
@@ -150,35 +154,6 @@ namespace OpenNefia.Core.UserInterface
             elem.UIScaleChanged(ev);
         }
 
-        public UiResult<TResult> Query<TLayer, TResult>()
-            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
-            where TResult : class
-        {
-            return Query<TLayer, UINone, TResult>(new UINone());
-        }
-
-        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args)
-            where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
-        {
-            return Query<TLayer, TArgs, UINone>(args);
-        }
-
-        public UiResult<UINone> Query<TLayer>()
-            where TLayer : IUiLayerWithResult<UINone, UINone>, new()
-        {
-            return Query<TLayer, UINone, UINone>(new UINone());
-        }
-
-        public UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
-            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
-            where TResult : class
-        {
-            using (var layer = CreateLayer<TLayer, TArgs, TResult>(args))
-            {
-                return Query(layer);
-            }
-        }
-
         public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
@@ -228,15 +203,44 @@ namespace OpenNefia.Core.UserInterface
                 layer.Localize();
         }
 
-        public UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
+        public UiResult<TResult> Query<TLayer, TResult>(QueryLayerArgs? queryArgs = null)
+            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
+            where TResult : class
+        {
+            return Query<TLayer, UINone, TResult>(new UINone(), queryArgs);
+        }
+
+        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args, QueryLayerArgs? queryArgs = null)
+            where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
+        {
+            return Query<TLayer, TArgs, UINone>(args, queryArgs);
+        }
+
+        public UiResult<UINone> Query<TLayer>(QueryLayerArgs? queryArgs = null)
+            where TLayer : IUiLayerWithResult<UINone, UINone>, new()
+        {
+            return Query<TLayer, UINone, UINone>(new UINone(), queryArgs);
+        }
+
+        public UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args, QueryLayerArgs? queryArgs = null)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
+            where TResult : class
+        {
+            using (var layer = CreateLayer<TLayer, TArgs, TResult>(args))
+            {
+                return Query(layer, queryArgs);
+            }
+        }
+
+        public UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args, QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class
         {
             InitializeLayer<TLayer, TArgs, TResult>(layer, args);
-            return Query(layer);
+            return Query(layer, queryArgs);
         }
 
-        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer)
+        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer, QueryLayerArgs? queryArgs = null)
             where TResult : class
         {
             if (layer.DefaultZOrder != null)
@@ -253,7 +257,7 @@ namespace OpenNefia.Core.UserInterface
 
             var baseLayer = (UiLayer)layer;
 
-            PushLayer(baseLayer);
+            PushLayer(baseLayer, queryArgs?.NoHaltInput ?? false);
 
             UiResult<TResult>? result = null;
 
@@ -304,7 +308,7 @@ namespace OpenNefia.Core.UserInterface
                 }
             }
 
-            PopLayer((UiLayer)layer);
+            PopLayer((UiLayer)layer, queryArgs?.NoHaltInput ?? false);
 
             // layer.HaltInput();
             layer.OnQueryFinish();

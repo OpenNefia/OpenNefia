@@ -351,6 +351,7 @@ namespace OpenNefia.Content.Dialog
             foreach (var action in BeforeEnter)
                 action.Invoke(engine, this);
 
+            var queryLayerArgs = new QueryLayerArgs(/* NoHaltInput: true */); // BUG: reentrancy causes infinite loop
             UiResult<DialogResult>? result = null;
 
             for (var i = 0; i < _texts.Count; i++)
@@ -433,7 +434,7 @@ namespace OpenNefia.Content.Dialog
 
                     // Intermediate results from the dialog layer are ignored; the final result will
                     // be used to determine the node to jump to.
-                    result = uiMan.Query(engine.DialogLayer);
+                    result = uiMan.Query(engine.DialogLayer, queryLayerArgs);
                 }
 
                 foreach (var action in entry.AfterEnter)

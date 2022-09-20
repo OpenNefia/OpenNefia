@@ -45,8 +45,8 @@ namespace OpenNefia.Core.UserInterface
 
         void DrawLayers();
         bool IsQuerying(UiLayer layer);
-        void PopLayer(UiLayer layer);
-        void PushLayer(UiLayer layer);
+        void PushLayer(UiLayer layer, bool noHaltInput = false);
+        void PopLayer(UiLayer layer, bool noHaltInput = false);
         void FrameUpdate(FrameEventArgs frame);
         bool IsInActiveLayerList(UiLayer layer);
 
@@ -70,27 +70,29 @@ namespace OpenNefia.Core.UserInterface
 
         void InitializeLayer<TLayer>(TLayer layer) where TLayer : IUiLayer;
 
-        UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
+        UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args, QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class;
 
-        UiResult<TResult> Query<TLayer, TResult>()
+        UiResult<TResult> Query<TLayer, TResult>(QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class;
 
-        UiResult<UINone> Query<TLayer, TArgs>(TArgs args)
+        UiResult<UINone> Query<TLayer, TArgs>(TArgs args, QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new();
 
-        UiResult<UINone> Query<TLayer>()
+        UiResult<UINone> Query<TLayer>(QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<UINone, UINone>, new();
 
-        UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) where TResult : class;
+        UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer, QueryLayerArgs? queryArgs = null) where TResult : class;
 
-        UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
+        UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args, QueryLayerArgs? queryArgs = null)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class;
 
         // TODO remove after merging with WispManager
         event Action? OnHoveredElementChanged;
     }
+
+    public sealed record QueryLayerArgs(bool NoHaltInput = false);
 }
