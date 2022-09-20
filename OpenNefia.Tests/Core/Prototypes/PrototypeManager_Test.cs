@@ -132,7 +132,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 
 - type: Entity
   id: wallLightChild
-  parent: wallLight
+  parents: wallLight
 
 - type: Entity
   id: yamltester
