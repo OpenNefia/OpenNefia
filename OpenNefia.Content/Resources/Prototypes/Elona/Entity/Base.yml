@@ -101,7 +101,8 @@
 
 - type: Entity
   id: BaseMap
-  abstract: true
+  # for using this in map blueprints
+  # abstract: true
   components:
   - type: Map
   - type: MapEntityLookup
