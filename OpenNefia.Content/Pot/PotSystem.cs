@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Pot
             _itemGen.GenerateItem(spatial.MapPosition,
                 minLevel: level,
                 quality: _randomGen.CalcObjectQuality(Quality.Good),
-                tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Barrel) });
+                tags: new[] { _randomGen.PickTag(Protos.TagSet.ItemBarrel) });
 
             map.MemorizeTile(spatial.WorldPosition);
             _field.RefreshScreen();

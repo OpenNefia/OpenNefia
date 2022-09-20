@@ -1,0 +1,277 @@
+- type: TagSet
+  id: Elona.ItemArmor
+  tags:
+  - tag: Elona.ItemCatEquipHead
+    weight: 1000
+  - tag: Elona.ItemCatEquipBody
+    weight: 1000
+  - tag: Elona.ItemCatEquipBack
+    weight: 1000
+  - tag: Elona.ItemCatEquipCloak
+    weight: 1000
+  - tag: Elona.ItemCatEquipLeg
+    weight: 1000
+  - tag: Elona.ItemCatEquipWrist
+    weight: 1000
+  - tag: Elona.ItemCatEquipShield
+    weight: 1000
+
+# >>>>>>>> shade2/item.hsp:48 	fSetRemain=fltAmmo,fltFood,fltFood,fltOre,fltScro ...
+- type: TagSet
+  id: Elona.ItemRemain
+  tags:
+  - tag: Elona.ItemCatEquipAmmo
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatScroll
+    weight: 1000
+  - tag: Elona.ItemCatDrink
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+# <<<<<<<< shade2/item.hsp:48 	fSetRemain=fltAmmo,fltFood,fltFood,fltOre,fltScro ..
+
+- type: TagSet
+  id: Elona.ItemBarrel
+  tags:
+  - tag: Elona.ItemCatEquipAmmo
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+  - tag: Elona.ItemCatScroll
+    weight: 1000
+  - tag: Elona.ItemCatDrink
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatJunkInField
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemChest
+  tags:
+  - tag: Elona.ItemCatEquipMelee
+    weight: 1000
+  - tag: Elona.ItemCatEquipRanged
+    weight: 1000
+  - tag: Elona.ItemCatEquipHead
+    weight: 1000
+  - tag: Elona.ItemCatEquipBody
+    weight: 1000
+  - tag: Elona.ItemCatEquipBack
+    weight: 1000
+  - tag: Elona.ItemCatEquipCloak
+    weight: 1000
+  - tag: Elona.ItemCatEquipLeg
+    weight: 1000
+  - tag: Elona.ItemCatEquipWrist
+    weight: 1000
+  - tag: Elona.ItemCatEquipShield
+    weight: 1000
+  - tag: Elona.ItemCatEquipRing
+    weight: 1000
+  - tag: Elona.ItemCatEquipNeck
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatMiscItem
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemCollect
+  tags:
+  - tag: Elona.ItemCatJunkInField
+    weight: 1000
+  - tag: Elona.ItemCatFurniture
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemDeliver
+  tags:
+  - tag: Elona.ItemCatFurniture
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatJunk
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemIncome
+  tags:
+  - tag: Elona.ItemCatDrink
+    weight: 3000
+  - tag: Elona.ItemCatScroll
+    weight: 2000
+  - tag: Elona.ItemCatRod
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemItem
+  tags:
+  - tag: Elona.ItemCatDrink
+    weight: 2000
+  - tag: Elona.ItemCatScroll
+    weight: 2000
+  - tag: Elona.ItemCatRod
+    weight: 1000
+  - tag: Elona.ItemCatGold
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatJunkInField
+    weight: 1000
+  - tag: Elona.ItemCatMiscItem
+    weight: 1000
+  - tag: Elona.ItemCatBook
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemMagic
+  tags:
+  - tag: Elona.ItemCatScroll
+    weight: 1000
+  - tag: Elona.ItemCatRod
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemPerform
+  tags:
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 3000
+  - tag: Elona.ItemCatFurniture
+    weight: 1000
+  - tag: Elona.ItemCatEquipLeg
+    weight: 1000
+  - tag: Elona.ItemCatEquipBack
+    weight: 1000
+  - tag: Elona.ItemCatEquipRing
+    weight: 1000
+  - tag: Elona.ItemCatEquipNeck
+    weight: 1000
+  - tag: Elona.ItemCatDrink
+    weight: 1000
+  - tag: Elona.ItemCatJunkInField
+    weight: 2000
+
+- type: TagSet
+  id: Elona.ItemPlantArtifact
+  tags:
+  - tag: Elona.ItemCatEquipRing
+    weight: 1000
+  - tag: Elona.ItemCatEquipNeck
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemPlantUnknown
+  tags:
+  - tag: Elona.ItemCatFood
+    weight: 2000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatJunkInField
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemRare
+  tags:
+  - tag: Elona.ItemCatFurniture
+    weight: 1000
+  - tag: Elona.ItemCatContainer
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatBook
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemRewardSupply
+  tags:
+  - tag: Elona.ItemCatDrink
+    weight: 1000
+  - tag: Elona.ItemCatScroll
+    weight: 1000
+  - tag: Elona.ItemCatRod
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatFood
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemSupply
+  tags:
+  - tag: Elona.ItemCatFurniture
+    weight: 1000
+  - tag: Elona.ItemCatOre
+    weight: 1000
+  - tag: Elona.ItemCatRod
+    weight: 1000
+  - tag: Elona.ItemCatSpellbook
+    weight: 1000
+  - tag: Elona.ItemCatJunkInField
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemWeapon
+  tags:
+  - tag: Elona.ItemCatEquipMelee
+    weight: 1000
+  - tag: Elona.ItemCatEquipRanged
+    weight: 1000
+  - tag: Elona.ItemCatEquipAmmo
+    weight: 1000
+
+- type: TagSet
+  id: Elona.ItemWear
+  tags:
+  - tag: Elona.ItemCatEquipMelee
+    weight: 2000
+  - tag: Elona.ItemCatEquipRanged
+    weight: 2000
+  - tag: Elona.ItemCatEquipAmmo
+    weight: 1000
+  - tag: Elona.ItemCatEquipHead
+    weight: 1000
+  - tag: Elona.ItemCatEquipBody
+    weight: 1000
+  - tag: Elona.ItemCatEquipBack
+    weight: 1000
+  - tag: Elona.ItemCatEquipCloak
+    weight: 1000
+  - tag: Elona.ItemCatEquipLeg
+    weight: 1000
+  - tag: Elona.ItemCatEquipWrist
+    weight: 1000
+  - tag: Elona.ItemCatEquipShield
+    weight: 1000
+  - tag: Elona.ItemCatEquipRing
+    weight: 1000
+  - tag: Elona.ItemCatEquipNeck
+    weight: 1000

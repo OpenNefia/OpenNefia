@@ -170,7 +170,7 @@ namespace OpenNefia.Content.Activity
                 filter.Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Good);
             }
 
-            filter.Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Perform) };
+            filter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemPerform) };
 
             // TODO quest
             var isPartyQuest = false;

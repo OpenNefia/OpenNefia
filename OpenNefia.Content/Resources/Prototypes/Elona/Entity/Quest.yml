@@ -1,0 +1,16 @@
+- type: Entity
+  id: Elona.QuestSupply
+  parent: BaseQuest
+  abstract: true
+  components:
+  - type: Quest
+  - type: QuestSupply
+  - type: RandomGen
+    tables:
+      chara:
+        rarity: 5000
+  - type: QuestDeadlines
+    deadlineDays: 6~8
+    townBoardExpirationDays: 3~4
+  - type: QuestRewardGold
+    goldModifier: 65

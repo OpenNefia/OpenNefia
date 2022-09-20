@@ -77,7 +77,7 @@ namespace OpenNefia.Content.GameObjects
                 {
                     MinLevel = _randomGen.CalcObjectLevel(target),
                     Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Good),
-                    Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Chest) },
+                    Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemChest) },
                 };
                 _itemGen.GenerateItem(source, filter);
             }

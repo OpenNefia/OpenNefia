@@ -221,7 +221,7 @@ namespace OpenNefia.Content.Shopkeeper
         {
             var _rand = IoCManager.Resolve<IRandom>();
 
-            args.ItemFilter.Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) };
+            args.ItemFilter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) };
 
             return ShopInventoryResult.Continue;
         }

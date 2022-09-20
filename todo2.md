@@ -2,7 +2,7 @@
 - [x] item enchantments
 - [ ] house board/house upgrading/respawning
 - [ ] scene playback
-- [ ] intro/first pet event
+- [x] intro/first pet event
 - [ ] PCCs
 - [ ] mod API examples
 - [ ] magic/buffs/effects
@@ -11,7 +11,7 @@
 - [ ] non-compiled mods
 - [ ] AI actions
 - [ ] riding
-- [ ] living weapons
+- [x] living weapons
 - [ ] weather
 - [ ] random encounters
 - [ ] town quests

@@ -47,8 +47,9 @@ namespace OpenNefia.Content.Loot
 
         void DropLoot(EntityUid victim, EntityUid? attacker = null);
 
-        void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null);
+        void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagSetPrototype> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null);
         void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null);
+        void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null);
     }
 
     public sealed class LootSystem : EntitySystem, ILootSystem
@@ -353,6 +354,16 @@ namespace OpenNefia.Content.Loot
             };
         }
 
+        public ItemFilter MakeDefaultLootItemFilter(EntityUid chara, PrototypeId<TagSetPrototype> filterSet)
+        {
+            return new ItemFilter()
+            {
+                MinLevel = _randomGen.CalcObjectLevel(chara),
+                Quality = _randomGen.CalcObjectQuality(Quality.Normal),
+                Tags = new[] { _randomGen.PickTag(filterSet) },
+            };
+        }
+
         public void ModifyItemForRemains(EntityUid item, EntityUid chara, EntityUid? attacker = null)
         {
             if (TryProtoID(chara, out var id))
@@ -404,6 +415,12 @@ namespace OpenNefia.Content.Loot
 
         public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagPrototype> category, OnGenerateLootItemDelegate? onGenerateLoot = null)
             => AddLootToResultList(lootDrops, victim, new[] { category }, onGenerateLoot);
+
+        public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, PrototypeId<TagSetPrototype> categorySet, OnGenerateLootItemDelegate? onGenerateLoot = null)
+        {
+            var itemFilter = MakeDefaultLootItemFilter(victim, categorySet);
+            lootDrops!.Add(new LootDrop(itemFilter, onGenerateLoot));
+        }
 
         public void AddLootToResultList(IList<LootDrop> lootDrops, EntityUid victim, IReadOnlyCollection<PrototypeId<TagPrototype>> categoryChoices, OnGenerateLootItemDelegate? onGenerateLoot = null)
         {

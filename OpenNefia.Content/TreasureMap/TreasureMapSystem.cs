@@ -63,7 +63,7 @@ namespace OpenNefia.Content.TreasureMap
                 {
                     MinLevel = _randomGen.CalcObjectLevel(_levels.GetLevel(uid) + 10),
                     Quality = i == 0 ? Qualities.Quality.God : _randomGen.CalcObjectQuality(Qualities.Quality.Good),
-                    Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Chest) }
+                    Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemChest) }
                 };
                 _itemGen.GenerateItem(uid, filter);
             }
