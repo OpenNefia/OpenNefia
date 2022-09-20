@@ -245,6 +245,11 @@ namespace OpenNefia.Core.Serialization.Manager
 
         public ValidationNode ValidateNode(Type type, DataNode node, ISerializationContext? context = null)
         {
+            if (type.IsNullable() && node is ValueDataNode value && IsNull(value))
+            {
+                return new ValidatedValueNode(value);
+            }
+
             var underlyingType = type.EnsureNotNullableType();
 
             if (underlyingType.IsArray)

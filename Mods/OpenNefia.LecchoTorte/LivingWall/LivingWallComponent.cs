@@ -7,6 +7,7 @@ using OpenNefia.Content.Prototypes;
 namespace OpenNefia.LecchoTorte.LivingWall
 {
     [RegisterComponent]
+    [ComponentProtoName("LecchoTorte.LivingWall")]
     public class LivingWallComponent : Component
     {
         [DataField]

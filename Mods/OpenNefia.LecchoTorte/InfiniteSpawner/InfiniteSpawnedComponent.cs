@@ -8,10 +8,10 @@ using System.Collections.Generic;
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
     [RegisterComponent]
+    [ComponentProtoName("LecchoTorte.InfiniteSpawned")]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class InfiniteSpawnedComponent : Component
     {
-
         [DataField]
         public EntityUid Spawner { get; set; }
     }

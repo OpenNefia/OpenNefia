@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace OpenNefia.LecchoTorte.InfiniteSpawner
 {
     [RegisterComponent]
+    [ComponentProtoName("LecchoTorte.InfiniteSpawner")]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class InfiniteSpawnerComponent : Component
     {
