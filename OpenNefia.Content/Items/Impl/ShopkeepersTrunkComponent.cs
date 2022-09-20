@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TemporalComponent : Component
-    {
-        public override string Name => "Temporal";
-    }
+    {    }
 }

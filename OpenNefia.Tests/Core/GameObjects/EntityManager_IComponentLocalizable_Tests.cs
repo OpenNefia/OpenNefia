@@ -115,8 +115,6 @@ OpenNefia.Prototypes.Entity = {{
         [RegisterComponent]
         private class DummyLocalizableComponent : Component, IComponentLocalizable
         {
-            public override string Name => "DummyLocalizable";
-
             [Localize]
             public string? LocalizedText = null;
 

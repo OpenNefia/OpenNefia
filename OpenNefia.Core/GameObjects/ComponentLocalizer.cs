@@ -26,6 +26,7 @@ namespace OpenNefia.Core.GameObjects
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
+        [Dependency] private readonly IComponentFactory _componentFactory = default!;
         
         public void Initialize()
         {
@@ -66,7 +67,8 @@ namespace OpenNefia.Core.GameObjects
 
         private void LocalizeComponent(EntityUid entity, LuaTable locData, IComponentLocalizable compLocalizable)
         {
-            var obj = locData[compLocalizable.Name];
+            var compName = _componentFactory.GetComponentName(compLocalizable.GetType());
+            var obj = locData[compName];
             if (obj is not LuaTable compLocaleData)
                 return;
 
@@ -81,7 +83,7 @@ namespace OpenNefia.Core.GameObjects
                 {
                     protoId = metaData.EntityPrototype;
                 }
-                Logger.ErrorS("entity.localize", ex, $"Failed to localize component {compLocalizable.Name} ({protoId}): {ex}");
+                Logger.ErrorS("entity.localize", ex, $"Failed to localize component {compName} ({protoId}): {ex}");
             }
         }
     }

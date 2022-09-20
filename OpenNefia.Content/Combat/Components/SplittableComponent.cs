@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SplittableComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Splittable";
-
         // TODO merge the following two into Stat<float?>
         [DataField]
         public Stat<bool> SplitsOnHighDamage { get; set; } = new(false);

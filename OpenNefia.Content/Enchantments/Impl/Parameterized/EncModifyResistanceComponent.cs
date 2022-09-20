@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncModifyResistanceComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncModifyResistance";
-
         [DataField]
         public PrototypeId<ElementPrototype> ElementID { get; set; }
 

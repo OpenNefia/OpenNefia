@@ -14,9 +14,6 @@ namespace OpenNefia.Content.Nefia
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaNefiaComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "AreaNefia";
-
         /// <summary>
         /// Current state of this Nefia.
         /// </summary>

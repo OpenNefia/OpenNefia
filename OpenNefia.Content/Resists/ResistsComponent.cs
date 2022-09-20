@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Resists
     [RegisterComponent]
     public sealed class ResistsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Resists";
-
         /// <summary>
         /// Level, potential and experience for resistances.
         /// </summary>

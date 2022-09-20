@@ -10,7 +10,5 @@ namespace OpenNefia.Content.ShowHouse
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MapShowHouseComponent : Component
-    {
-        public override string Name => "MapShowHouse";
-    }
+    {    }
 }

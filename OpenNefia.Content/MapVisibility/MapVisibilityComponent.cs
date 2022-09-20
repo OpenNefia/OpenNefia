@@ -11,8 +11,6 @@ namespace OpenNefia.Content.MapVisibility
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapVisibilityComponent : Component
     {
-        public override string Name => "MapVisibility";
-
         /// <summary>
         /// Shadow map for rendering purposes. Not serialized.
         /// </summary>

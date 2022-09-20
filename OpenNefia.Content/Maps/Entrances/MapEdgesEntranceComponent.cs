@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapEdgesEntranceComponent : Component
     {
-        public override string Name => "MapEdgesEntrance";
-
         /// <summary>
         /// Entrance to use.
         /// </summary>

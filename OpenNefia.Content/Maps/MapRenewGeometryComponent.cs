@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MapRenewGeometryComponent : Component
     {
-        public override string Name => "MapRenewGeometry";
-
         [DataField(required: true)]
         public ResourcePath MapBlueprintPath { get; set; } = default!;
     }

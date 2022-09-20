@@ -9,7 +9,5 @@ namespace OpenNefia.Content.Pot
 {
     [RegisterComponent]
     public sealed class PotComponent : Component
-    {
-        public override string Name => "Pot";
-    }
+    {    }
 }

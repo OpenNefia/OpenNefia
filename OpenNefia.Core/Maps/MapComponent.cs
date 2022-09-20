@@ -10,9 +10,6 @@ namespace OpenNefia.Core.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "Map";
-
         [DataField("mapId")]
         private MapId _mapId = MapId.Nullspace;
 

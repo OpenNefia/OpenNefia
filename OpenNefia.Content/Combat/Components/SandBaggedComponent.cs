@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Combat
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SandBaggedComponent : Component
-    {
-        public override string Name => "SandBagged";
-    }
+    {    }
 }

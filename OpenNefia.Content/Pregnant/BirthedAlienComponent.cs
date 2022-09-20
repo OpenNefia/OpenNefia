@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Pregnant
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BirthedAlienComponent : Component
     {
-        public override string Name => "BirthedAlien";
-
         /// <summary>
         /// Name of the entity that gave birth to this alien.
         /// </summary>

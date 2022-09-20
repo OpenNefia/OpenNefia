@@ -14,8 +14,6 @@ namespace OpenNefia.Core.GameObjects
     [RegisterComponent]
     public class SlotsComponent : Component
     {
-        public override string Name => "Slots";
-
         /// <summary>
         /// Maximum free slot ID for adding new slots.
         /// </summary>

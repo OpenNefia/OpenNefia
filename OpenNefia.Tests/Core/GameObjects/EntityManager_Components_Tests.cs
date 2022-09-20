@@ -163,6 +163,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
+            var compFac = sim.Resolve<IComponentFactory>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entMan.AddComponent<DummyComponent>(entity);
 
@@ -170,7 +171,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var result = entMan.GetComponents(entity);
 
             // Assert
-            var list = result.Where(c => c.Name == "Dummy").ToList();
+            var list = result.Where(c => compFac.GetComponentName(c.GetType()) == "Dummy").ToList();
             Assert.That(list.Count, Is.EqualTo(1));
             Assert.That(list[0], Is.EqualTo(component));
         }
@@ -189,9 +190,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
         [RegisterComponent]
         private class DummyComponent : Component, ICompType1, ICompType2
-        {
-            public override string Name => "Dummy";
-        }
+        {        }
 
         private interface ICompType1 { }
 

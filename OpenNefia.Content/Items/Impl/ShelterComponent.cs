@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ShelterComponent : Component
     {
-        public override string Name => "Shelter";
-
         [DataField]
         public int SerialNumber { get; set; }
     }

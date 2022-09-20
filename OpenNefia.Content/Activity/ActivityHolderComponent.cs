@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Activity
     {
         public static readonly ContainerId ContainerIdActivityHolder = new("Elona.ActivityHolder");
         
-        public override string Name => "ActivityHolder";
-
         /// <summary>
         /// Container that holds the activity.
         /// </summary>

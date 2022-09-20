@@ -6,9 +6,7 @@ namespace OpenNefia.Content.Scroll
 {
     [RegisterComponent]
     public sealed class ScrollComponent : Component
-    {
-        public override string Name => "Scroll";
-        
+    {        
         [DataField(required: true)]
         public IEffect Effect { get; } = new NullEffect();
 

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Charas
     [RegisterComponent]
     public class CharaComponent : Component
     {
-        public override string Name => "Chara";
-
         /// <summary>
         /// Race of this character.
         /// </summary>

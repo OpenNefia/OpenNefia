@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Lockpick
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SkeletonKeyComponent : Component
-    {
-        public override string Name => "SkeletonKey";
-    }
+    {    }
 }

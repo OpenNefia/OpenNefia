@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class JapaneseCounterComponent : Component, IComponentLocalizable
     {
-        public override string Name => "JapaneseCounter";
-
         [Localize]
         public string? CounterText { get; set; }
 

@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Charas
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ChipFromGenderComponent : Component
     {
-        public override string Name => "ChipFromGender";
-
         [DataField("chips")]
         private Dictionary<Gender, PrototypeId<ChipPrototype>> _chips = new();
         public IReadOnlyDictionary<Gender, PrototypeId<ChipPrototype>> Chips => _chips;

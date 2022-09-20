@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Book
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AncientBookComponent : Component
     {
-        public override string Name => "AncientBook";
-
         [DataField]
         public int DecodeDifficulty { get; set; }
 

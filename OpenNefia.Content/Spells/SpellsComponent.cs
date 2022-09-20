@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Spells
     [RegisterComponent]
     public class SpellsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Spells";
-
         /// <summary>
         /// Level, potential, experience and spell stock for spells.
         /// </summary>

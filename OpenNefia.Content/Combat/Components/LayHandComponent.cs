@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LayHandComponent : Component
     {
-        public override string Name => "LayHand";
-
         [DataField]
         public bool HasLayHand { get; set; } = false;
     }

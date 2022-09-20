@@ -11,9 +11,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapTrainersComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "MapTrainers";
-
         [DataField]
         public HashSet<PrototypeId<SkillPrototype>> LearnableSkills { get; } = new();
     }

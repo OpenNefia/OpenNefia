@@ -95,8 +95,6 @@ namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
     [RegisterComponent]
     public class TestComponent : Component
     {
-        public override string Name => "Test";
-
         [DataField("testType")] public ITestType? TestType { get; set; }
     }
 }

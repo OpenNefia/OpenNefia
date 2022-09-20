@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class RangedWeaponComponent : Component
     {
-        public override string Name => "RangedWeapon";
-
         [DataField]
         public PrototypeId<ChipPrototype>? AnimChip { get; }
 

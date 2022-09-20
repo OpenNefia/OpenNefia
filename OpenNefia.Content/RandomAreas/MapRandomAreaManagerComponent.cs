@@ -16,8 +16,6 @@ namespace OpenNefia.Content.RandomAreas
     [ComponentUsage(ComponentTarget.Map)]
     public class MapRandomAreaManagerComponent : Component
     {
-        public override string Name => "MapRandomAreaManager";
-
         /// <summary>
         /// If true, the next time this map is entered all random areas will be removed
         /// and regenerated.

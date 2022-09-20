@@ -136,9 +136,7 @@ namespace OpenNefia.Content.Tests.Areas
 
         [ComponentUsage(ComponentTarget.Area)]
         private class TestRandomAreaComponent : Component
-        {
-            public override string Name => "TestRandomArea";
-        
+        {        
             [DataField]
             public bool IsActive { get; set; }
         }

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class NullifyDamageComponent : Component, IComponentRefreshable
     {
-        public override string Name => "NullifyDamage";
-
         [DataField]
         public Stat<float> NullifyDamageChance { get; set; } = new(0f);
 

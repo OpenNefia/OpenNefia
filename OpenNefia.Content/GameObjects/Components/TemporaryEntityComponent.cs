@@ -9,7 +9,5 @@ namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     public sealed class TemporaryEntityComponent : Component
-    {
-        public override string Name => "TemporaryEntity";
-    }
+    {    }
 }

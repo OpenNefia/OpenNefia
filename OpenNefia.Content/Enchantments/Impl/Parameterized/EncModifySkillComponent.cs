@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncModifySkillComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncModifySkill";
-
         [DataField]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
 

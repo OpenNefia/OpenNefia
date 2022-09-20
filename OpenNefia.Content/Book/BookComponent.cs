@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Book
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BookComponent : Component
     {
-        public override string Name => "Book";
-
         [DataField]
         public PrototypeId<BookPrototype> BookID { get; set; }
     }

@@ -9,7 +9,5 @@ namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     public sealed class SummonedEntityComponent : Component
-    {
-        public override string Name => "SummonedEntity";
-    }
+    {    }
 }

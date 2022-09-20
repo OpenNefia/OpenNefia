@@ -16,8 +16,6 @@ namespace OpenNefia.Content.VanillaAI
     [RegisterComponent]
     public class VanillaAIComponent : Component
     {
-        public override string Name => "VanillaAI";
-
         /// <summary>
         /// Current hostile target.
         /// </summary>

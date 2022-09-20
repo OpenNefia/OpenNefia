@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Hunger
     [RegisterComponent]
     public sealed class HungerComponent : Component
     {
-        public override string Name => "Hunger";
-
         [DataField]
         public int Nutrition { get; set; } = 0;
 

@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncInvokeSpellComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncInvokeSpell";
-
         [DataField]
         public PrototypeId<EnchantmentSpellPrototype> EnchantmentSpellID { get; set; }
 

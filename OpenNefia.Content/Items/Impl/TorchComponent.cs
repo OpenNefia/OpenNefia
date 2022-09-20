@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Items.Impl
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TorchComponent : Component
-    {
-        public override string Name => "Torch";
-    }
+    {    }
 }

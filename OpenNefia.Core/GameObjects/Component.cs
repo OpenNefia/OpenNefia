@@ -19,10 +19,6 @@ namespace OpenNefia.Core.GameObjects
         /// <inheritdoc />
         public ComponentLifeStage LifeStage { get; private set; } = ComponentLifeStage.PreAdd;
 
-        /// <inheritdoc />
-        [ViewVariables(VVAccess.ReadOnly)]
-        public abstract string Name { get; }
-
         /// <summary>
         /// Increases the life stage from <see cref="ComponentLifeStage.PreAdd" /> to <see cref="ComponentLifeStage.Added" />,
         /// calling <see cref="OnAdd" />.

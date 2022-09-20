@@ -7,8 +7,6 @@ namespace OpenNefia.Core.GameObjects
 {
     public class StackComponent : Component
     {
-        public override string Name => "Stack";
-
         /// <summary>
         /// Stack count of this entity. Should not be manually set to a quantity below zero.
         /// </summary>

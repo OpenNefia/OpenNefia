@@ -7,9 +7,6 @@ namespace OpenNefia.Content.Religion
     [RegisterComponent]
     public class ReligionComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "Religion";
-
         /// <summary>
         /// ID of the following god. Null means Eyth.
         /// </summary>

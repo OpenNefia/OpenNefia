@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SecretTreasureComponent : Component
     {
-        public override string Name => "SecretTreasure";
-
         [DataField(required: true)]
         public PrototypeId<FeatPrototype> FeatID { get; set; }
     }

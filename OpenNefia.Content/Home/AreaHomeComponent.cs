@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Home
     [ComponentUsage(ComponentTarget.Area)]
     public sealed class AreaHomeComponent : Component
     {
-        public override string Name => "AreaHome";
-
         [DataField]
         public int DeedValue { get; set; }
 

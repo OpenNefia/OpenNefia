@@ -13,8 +13,6 @@ namespace OpenNefia.Content.Nefia
     [ComponentUsage(ComponentTarget.Area)]
     public class NefiaVanillaComponent : Component
     {
-        public override string Name => "NefiaVanilla";
-
         [DataField]
         public IVanillaNefiaTemplate Template { get; set; } = new NefiaTemplateDungeon();
     }

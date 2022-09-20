@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Areas
     [ComponentUsage(ComponentTarget.Area)]
     public sealed class AreaStaticFloorsComponent : Component
     {
-        public override string Name => "AreaStaticFloors";
-
         [DataField("floors", required: true)]
         private readonly Dictionary<AreaFloorId, PrototypeId<MapPrototype>> _floors = new();
 

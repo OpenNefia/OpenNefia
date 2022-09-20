@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Home
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ServantComponent : Component
-    {
-        public override string Name => "Servant";
-    }
+    {    }
 }

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Fishing
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BaitComponent : Component
     {
-        public override string Name => "Bait";
-
         [DataField]
         public PrototypeId<BaitPrototype> BaitID { get; set; }
     }

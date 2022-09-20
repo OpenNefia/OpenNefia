@@ -343,8 +343,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
     public class StackTestComponent : Component
     {
-        public override string Name => "StackTest";
-
         [DataField("A")]
         public int A { get; set; }
 

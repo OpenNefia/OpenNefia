@@ -13,7 +13,5 @@ namespace OpenNefia.Content.Loot
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class GoldLootComponent : Component
-    {
-        public override string Name => "GoldLoot";
-    }
+    {    }
 }

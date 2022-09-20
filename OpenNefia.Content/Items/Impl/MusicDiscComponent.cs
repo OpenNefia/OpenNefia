@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Items.Impl
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MusicDiscComponent : Component
     {
-        public override string Name => "MusicDisc";
-
         [DataField]
         public PrototypeId<MusicPrototype> MusicID { get; set; }
     }

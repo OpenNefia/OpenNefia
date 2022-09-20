@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapCharaGenComponent : Component
     {
-        public override string Name => "MapCharaGen";
-
         /// <summary>
         /// The maximum number of entities with a <see cref="CharaComponent"/> that this map should
         /// contain. If this limit is reached, no new characters will be randomly generated.

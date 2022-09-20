@@ -8,8 +8,6 @@ namespace OpenNefia.Content.Potion
     [RegisterComponent]
     public class PotionPuddleComponent : Component
     {
-        public override string Name => "PotionPuddle";
-
         [DataField]
         public IEffect Effect { get; set; } = new NullEffect();
 

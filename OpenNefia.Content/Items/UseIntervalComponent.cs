@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class UseIntervalComponent : Component
     {
-        public override string Name => "UseInterval";
-
         [DataField]
         public GameTimeSpan UseInterval { get; set; }
 

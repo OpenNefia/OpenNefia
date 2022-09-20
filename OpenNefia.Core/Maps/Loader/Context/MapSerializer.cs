@@ -32,6 +32,7 @@ namespace OpenNefia.Core.Maps
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IEntityManagerInternal _entityManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IComponentFactory _componentFactory = default!;
 
         private readonly MapSerializeMode _mode;
         private readonly MappingDataNode _rootNode;
@@ -299,7 +300,8 @@ namespace OpenNefia.Core.Maps
                     compMapping = new MappingDataNode();
                 }
 
-                compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(component.Name));
+                var compName = _componentFactory.GetComponentName(component.GetType());
+                compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(compName));
                 components.Add(compMapping);
             }
 
@@ -321,8 +323,10 @@ namespace OpenNefia.Core.Maps
 
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(component.GetType(), component, context: _context);
 
+                var compName = _componentFactory.GetComponentName(component.GetType());
+
                 var md = _entityManager.GetComponent<MetaDataComponent>(entity);
-                if (md.EntityPrototype != null && prototypeCompCache[md.EntityPrototype.ID].TryGetValue(component.Name, out var protMapping))
+                if (md.EntityPrototype != null && prototypeCompCache[md.EntityPrototype.ID].TryGetValue(compName, out var protMapping))
                 {
                     // NOTE: I think this is buggy. Except() seems to not work well with complex mapping nodes
                     // and dynamically instantiated types. (Sometimes the the constructor default gets output instead of
@@ -336,7 +340,7 @@ namespace OpenNefia.Core.Maps
                 // Don't need to write it if nothing was written!
                 if (compMapping.Children.Count != 0)
                 {
-                    compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(component.Name));
+                    compMapping.Add(MapLoadConstants.Entities_Components_Type, new ValueDataNode(compName));
                     // Something actually got written!
                     components.Add(compMapping);
                 }

@@ -9,7 +9,5 @@ namespace OpenNefia.Content.Sidequests
 {
     [RegisterComponent]
     public sealed class SidequestTargetComponent : Component
-    {
-        public override string Name => "SidequestTarget";
-    }
+    {    }
 }

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ShieldBashComponent : Component
     {
-        public override string Name => "ShieldBash";
-
         [DataField]
         public bool HasShieldBash { get; set; } = true;
     }

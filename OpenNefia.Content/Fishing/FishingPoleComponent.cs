@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Fishing
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class FishingPoleComponent : Component
     {
-        public override string Name => "FishingPole";
-
         [DataField]
         public PrototypeId<BaitPrototype>? BaitID { get; set; }
 

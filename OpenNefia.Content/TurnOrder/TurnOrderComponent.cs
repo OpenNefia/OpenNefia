@@ -14,8 +14,6 @@ namespace OpenNefia.Content.TurnOrder
     [RegisterComponent]
     public class TurnOrderComponent : Component
     {
-        public override string Name => "TurnOrder";
-
         /// <summary>
         /// How much time this entity has stockpiled to take actions.
         /// </summary>

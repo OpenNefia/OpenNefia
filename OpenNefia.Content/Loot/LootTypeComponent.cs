@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Loot
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LootTypeComponent : Component
     {
-        public override string Name => "LootType";
-
         [DataField]
         public PrototypeId<LootTypePrototype>? LootType { get; set; }
 

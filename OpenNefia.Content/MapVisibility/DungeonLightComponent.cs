@@ -11,8 +11,6 @@ namespace OpenNefia.Content.MapVisibility
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class DungeonLightComponent : Component
     {
-        public override string Name => "DungeonLight";
-
         [DataField]
         public bool IsLit { get; set; }
 

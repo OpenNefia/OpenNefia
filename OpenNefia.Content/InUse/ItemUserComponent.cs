@@ -11,8 +11,6 @@ namespace OpenNefia.Content.InUse
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ItemUserComponent : Component
     {
-        public override string Name => "ItemUser";
-
         /// <summary>
         /// Entities that this entity is currently using.
         /// </summary>

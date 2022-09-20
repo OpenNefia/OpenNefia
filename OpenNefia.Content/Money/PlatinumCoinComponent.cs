@@ -10,7 +10,5 @@ namespace OpenNefia.Content.Money
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class PlatinumCoinComponent : Component
-    {
-        public override string Name => "PlatinumCoin";
-    }
+    {    }
 }

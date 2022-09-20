@@ -20,8 +20,6 @@ namespace OpenNefia.Content.Enchantments
 
         public static readonly ContainerId ContainerIdEnchantments = new("Elona.Enchantments");
 
-        public override string Name => "Enchantments";
-
         /// <summary>
         /// Contains the enchantment entities on this item.
         /// </summary>

@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Weight
     public sealed class WeightComponent : Component, IComponentRefreshable
     {
         /// <inheritdoc/>
-        public override string Name => "Weight";
-
         [DataField]
         public Stat<int> Weight { get; set; } = new(0);
 

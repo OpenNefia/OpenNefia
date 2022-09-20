@@ -14,7 +14,5 @@ namespace OpenNefia.Content.Cargo
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TravelersFoodComponent : Component
-    {
-        public override string Name => "TravelersFood";
-    }
+    {    }
 }

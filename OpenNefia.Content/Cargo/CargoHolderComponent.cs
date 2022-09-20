@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Cargo
     [RegisterComponent]
     public class CargoHolderComponent : Component
     {
-        public override string Name => "CargoHolder";
-
         [DataField]
         public int InitialMaxCargoWeight { get; set; } = 0;
 

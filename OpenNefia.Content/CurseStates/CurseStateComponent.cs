@@ -13,8 +13,6 @@ namespace OpenNefia.Content.CurseStates
     [RegisterComponent]
     public class CurseStateComponent : Component
     {
-        public override string Name => "CurseState";
-
         [DataField]
         public CurseState CurseState { get; set; } = CurseState.Normal;
 

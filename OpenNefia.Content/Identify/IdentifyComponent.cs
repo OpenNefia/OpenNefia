@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Identify
     [RegisterComponent]
     public class IdentifyComponent : Component, IComponentLocalizable
     {
-        public override string Name => "Identify";
-
         [DataField]
         public IdentifyState IdentifyState { get; set; } = IdentifyState.None;
 

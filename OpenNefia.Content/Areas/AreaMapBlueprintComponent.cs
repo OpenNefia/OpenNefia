@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Areas
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AreaMapBlueprintComponent : Component
     {
-        public override string Name => "AreaMapBlueprint";
-
         [DataField(required: true)]
         public ResourcePath BlueprintPath { get; set; } = default!;
     }

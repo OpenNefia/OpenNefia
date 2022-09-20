@@ -145,7 +145,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 if (!t.Initialized)
                 {
-                    DebugTools.Assert($"Component {t.Name} was not initialized at the end of {nameof(InitializeComponents)}.");
+                    DebugTools.Assert($"Component {t.GetType()} was not initialized at the end of {nameof(InitializeComponents)}.");
                 }
             }
 

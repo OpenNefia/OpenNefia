@@ -7,9 +7,6 @@ namespace OpenNefia.Core.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapEntityLookupComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "MapEntityLookup";
-
         /// <summary>
         /// Spatial lookup of entities on this map.
         /// </summary>

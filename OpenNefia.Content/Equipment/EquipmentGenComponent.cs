@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Equipment
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EquipmentGenComponent : Component
     {
-        public override string Name => "EquipmentGen";
-
         [DataField]
         public PrototypeId<EquipmentTypePrototype>? EquipmentType { get; set; }
 

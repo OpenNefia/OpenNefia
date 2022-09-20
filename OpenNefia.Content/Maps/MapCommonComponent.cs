@@ -19,8 +19,6 @@ namespace OpenNefia.Content.Maps
     [ComponentUsage(ComponentTarget.Map)]
     public class MapCommonComponent : Component, IHspIds<int>
     {
-        public override string Name => "MapCommon";
-
         /// <inheritdoc/>
         [DataField]
         public HspIds<int>? HspIds { get; }

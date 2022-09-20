@@ -13,8 +13,6 @@ namespace OpenNefia.Content.StatusEffects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class CuresBleedingQuicklyComponent : Component, IComponentRefreshable
     {
-        public override string Name => "CuresBleedingQuickly";
-
         [DataField]
         public Stat<bool> CuresBleedingQuickly { get; set; } = new(true);
 

@@ -106,25 +106,25 @@ namespace OpenNefia.Core.Prototypes
             {
             }
 
-            public bool HasComponent<T>()
+            public bool HasComponent<T>(IComponentFactory? compFac = null)
                 where T : class, IComponent
             {
-                // TODO cache this somewhere
-                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
+                IoCManager.Resolve(ref compFac);
+                var compName = compFac.GetComponentName<T>();
 
-                if (!TryGetValue(dummy.Name, out var compEntry))
+                if (!TryGetValue(compName, out var compEntry))
                     return false;
 
                 return compEntry.Component is T;
             }
 
-            public bool TryGetComponent<T>([NotNullWhen(true)] out T? component)
+            public bool TryGetComponent<T>([NotNullWhen(true)] out T? component, IComponentFactory? compFac = null)
                 where T : class, IComponent
             {
-                // TODO cache this somewhere
-                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
+                IoCManager.Resolve(ref compFac);
+                var compName = compFac.GetComponentName<T>();
 
-                if (TryGetValue(dummy.Name, out var compEntry) && compEntry.Component is T)
+                if (TryGetValue(compName, out var compEntry) && compEntry.Component is T)
                 {
                     component = (compEntry.Component as T)!;
                     return true;
@@ -134,12 +134,16 @@ namespace OpenNefia.Core.Prototypes
                 return false;
             }
 
-            public T GetComponent<T>()
+            public T GetComponent<T>(IComponentFactory? compFac = null)
                 where T : class, IComponent
             {
-                // TODO cache this somewhere
-                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
-                return (this[dummy.Name].Component as T)!;
+                IoCManager.Resolve(ref compFac);
+                var compName = compFac.GetComponentName<T>();
+
+                if (this[compName].Component is not T component)
+                    throw new InvalidDataException($"Component of type {compName} not found.");
+
+                return component;
             }
         }
 

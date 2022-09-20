@@ -11,8 +11,6 @@ namespace OpenNefia.Content.CustomName
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class CharaRandomChipComponent : Component
     {
-        public override string Name => "CharaRandomChip";
-
         [DataField]
         public bool HasRandomChip { get; set; } = false;
     }

@@ -10,7 +10,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AccessoryComponent : Component
-    {
-        public override string Name => "Accessory";
+    {  
     }
 }

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.InUse
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class InUseComponent : Component
     {
-        public override string Name => "InUse";
-
         [DataField]
         public EntityUid? User { get; set; }
     }

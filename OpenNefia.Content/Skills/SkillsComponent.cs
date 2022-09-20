@@ -19,8 +19,6 @@ namespace OpenNefia.Content.Skills
     [RegisterComponent]
     public sealed class SkillsComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Skills";
-
         /// <summary>
         /// Current hitpoints.
         /// </summary>

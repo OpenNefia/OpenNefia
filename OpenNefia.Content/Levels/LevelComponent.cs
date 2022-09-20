@@ -6,8 +6,6 @@ namespace OpenNefia.Content.Levels
     [RegisterComponent]
     public class LevelComponent : Component
     {
-        public override string Name => "Level";
-
         [DataField]
         public int Level { get; set; } = 1;
 

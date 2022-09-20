@@ -17,8 +17,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class RandomItemComponent : Component
     {
-        public override string Name => "RandomItem";
-
         /// <summary>
         /// Type of the entity in its unidentified name.
         /// This localizes as "spellbook" in "a mossy [spellbook]".
@@ -33,8 +31,6 @@ namespace OpenNefia.Content.Items
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class RandomColorComponent : Component
     {
-        public override string Name => "RandomColor";
-
         [DataField]
         public RandomColorType RandomColor { get; set; }
     }

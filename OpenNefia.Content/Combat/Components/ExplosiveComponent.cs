@@ -14,8 +14,6 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ExplosiveComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Explosive";
-
         [DataField]
         public Stat<bool> IsExplosive { get; set; } = new(true);
 

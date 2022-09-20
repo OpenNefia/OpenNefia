@@ -9,8 +9,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncSustainAttributeComponent : Component, IEnchantmentComponent
     {
-        public override string Name => "EncSustainAttribute";
-
         [DataField]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
 

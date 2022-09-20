@@ -158,10 +158,9 @@ namespace OpenNefia.Tests.Core.Prototypes
   id: {LoadStringTestDummyId}";
     }
 
+    [ComponentProtoName("TestBasicPrototypeComponent")]
     public class TestBasicPrototypeComponent : Component
     {
-        public override string Name => "TestBasicPrototypeComponent";
-
         [DataField("foo")] public string Foo = null!;
 
         [DataField("str")] public string Str = null!;

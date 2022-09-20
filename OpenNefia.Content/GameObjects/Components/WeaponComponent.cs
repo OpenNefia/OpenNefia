@@ -10,8 +10,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     public class WeaponComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Weapon";
-
         [DataField(required: true)]
         public PrototypeId<SkillPrototype> WeaponSkill { get; } = default!;
 

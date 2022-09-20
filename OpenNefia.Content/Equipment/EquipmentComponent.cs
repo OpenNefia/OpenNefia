@@ -10,8 +10,6 @@ namespace OpenNefia.Content.Equipment
     [RegisterComponent]
     public class EquipmentComponent : Component
     {
-        public override string Name => "Equipment";
-
         [DataField("equipSlots")]
         private HashSet<PrototypeId<EquipSlotPrototype>> _equipSlots = new();
 

@@ -11,8 +11,6 @@ namespace OpenNefia.Content.FruitTree
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class FruitTreeComponent : Component
     {
-        public override string Name => "FruitTree";
-
         [DataField]
         public int FruitAmount { get; set; }
 

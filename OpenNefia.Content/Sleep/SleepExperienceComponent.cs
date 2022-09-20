@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Sleep
     [RegisterComponent]
     public sealed class SleepExperienceComponent : Component
     {
-        public override string Name => "SleepExperience";
-
         [DataField]
         public int SleepExperience { get; set; } = 0;
     }

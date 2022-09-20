@@ -174,10 +174,10 @@ namespace OpenNefia.Tests.Core.GameObjects
                 entManMock.Setup(m => m.GetComponent(entUid, typeof(T))).Returns(inst);
             }
 
-            Setup<OrderComponentA>(out var instA);
-            Setup<OrderComponentB>(out var instB);
-            Setup<OrderComponentC>(out var instC);
-            Setup<OrderComponentC2>(out var instC2);
+            Setup<OrderAComponent>(out var instA);
+            Setup<OrderBComponent>(out var instB);
+            Setup<OrderCComponent>(out var instC);
+            Setup<OrderC2Component>(out var instC2);
 
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
             var bus = new EntityEventBus(entManMock.Object);
@@ -213,10 +213,10 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(EntityUid uid, Component comp, TestEvent ev) => c = true;
 
-            bus.SubscribeComponentEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.Highest);
-            bus.SubscribeComponentEvent<OrderComponentB, TestEvent>(HandlerB);
-            bus.SubscribeComponentEvent<OrderComponentC, TestEvent>(HandlerC, EventPriorities.High);
-            bus.SubscribeComponentEvent<OrderComponentC2, TestEvent>(HandlerC2, EventPriorities.Low);
+            bus.SubscribeComponentEvent<OrderAComponent, TestEvent>(HandlerA, EventPriorities.Highest);
+            bus.SubscribeComponentEvent<OrderBComponent, TestEvent>(HandlerB);
+            bus.SubscribeComponentEvent<OrderCComponent, TestEvent>(HandlerC, EventPriorities.High);
+            bus.SubscribeComponentEvent<OrderC2Component, TestEvent>(HandlerC2, EventPriorities.Low);
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
@@ -292,29 +292,19 @@ namespace OpenNefia.Tests.Core.GameObjects
         }
 
         private class DummyComponent : Component
-        {
-            public override string Name => "Dummy";
-        }
+        {        }
 
-        private class OrderComponentA : Component
-        {
-            public override string Name => "OrderComponentA";
-        }
+        private class OrderAComponent : Component
+        {        }
 
-        private class OrderComponentB : Component
-        {
-            public override string Name => "OrderComponentB";
-        }
+        private class OrderBComponent : Component
+        {        }
 
-        private class OrderComponentC : Component
-        {
-            public override string Name => "OrderComponentC";
-        }
+        private class OrderCComponent : Component
+        {        }
         
-        private class OrderComponentC2 : Component
-        {
-            public override string Name => "OrderComponentC2";
-        }
+        private class OrderC2Component : Component
+        {        }
 
         private class DummyEventSubscriber : IEntityEventSubscriber {}
 

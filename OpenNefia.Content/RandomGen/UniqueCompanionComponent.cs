@@ -12,7 +12,5 @@ namespace OpenNefia.Content.RandomGen
     /// </summary>
     [RegisterComponent]
     public sealed class UniqueCompanionComponent : Component
-    {
-        public override string Name => "UniqueCompanion";
-    }
+    {    }
 }

@@ -21,11 +21,6 @@ namespace OpenNefia.Core.GameObjects
         EntityUid Owner { get; }
 
         /// <summary>
-        /// Name of this component.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         /// Component has been properly initialized.
         /// </summary>
         bool Initialized { get; }

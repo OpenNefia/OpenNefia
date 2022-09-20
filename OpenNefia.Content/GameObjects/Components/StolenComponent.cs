@@ -10,7 +10,5 @@ namespace OpenNefia.Content.GameObjects.Components
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class StolenComponent : Component
-    {
-        public override string Name => "Stolen";
-    }
+    {    }
 }

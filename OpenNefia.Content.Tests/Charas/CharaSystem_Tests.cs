@@ -132,13 +132,9 @@ namespace OpenNefia.Content.Tests.Charas
         }
 
         private class TestRaceComponent : Component
-        {
-            public override string Name => "TestRace";
-        }
+        {        }
 
         private class TestClassComponent : Component
-        {
-            public override string Name => "TestClass";
-        }
+        {        }
     }
 }

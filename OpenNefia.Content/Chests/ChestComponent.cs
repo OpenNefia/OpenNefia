@@ -12,8 +12,6 @@ namespace OpenNefia.Content.Chests
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ChestComponent : Component
     {
-        public override string Name => "Chest";
-
         [DataField]
         public int LockpickDifficulty { get; set; }
 
@@ -47,37 +45,27 @@ namespace OpenNefia.Content.Chests
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SmallGambleChestComponent : Component
-    {
-        public override string Name => "SmallGambleChest";
-    }
+    {    }
     
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SafeComponent : Component
-    {
-        public override string Name => "Safe";
-    }
+    {    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class WalletComponent : Component
-    {
-        public override string Name => "Wallet";
-    }
+    {    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SuitcaseComponent : Component
-    {
-        public override string Name => "Suitcase";
-    }
+    {    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TreasureBallComponent : Component
     {
-        public override string Name => "TreasureBall";
-
         [DataField]
         public Quality ItemQuality { get; set; }
     }
@@ -85,9 +73,7 @@ namespace OpenNefia.Content.Chests
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BejeweledChestComponent : Component
-    {
-        public override string Name => "BejeweledChest";
-    }
+    {    }
     
     #endregion
 }

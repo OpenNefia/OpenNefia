@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Sanity
     [RegisterComponent]
     public sealed class SanityComponent : Component
     {
-        public override string Name => "Sanity";
-
         /// <summary>
         /// Denotes lack of sanity. Higher value means less sane.
         /// </summary>

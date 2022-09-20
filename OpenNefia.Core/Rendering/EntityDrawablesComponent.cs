@@ -20,8 +20,6 @@ namespace OpenNefia.Core.Rendering
     /// </summary>
     public sealed class EntityDrawablesComponent : Component
     {
-        public override string Name => "EntityDrawables";
-
         /// <summary>
         /// List of drawables. Not serialized; rebuilt when the entity is instantiated/deserialized. 
         /// Entity systems should modify this collection within <see cref="ComponentStartup"/> and 

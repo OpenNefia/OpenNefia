@@ -13,8 +13,6 @@ namespace OpenNefia.Content.LivingWeapon
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LivingWeaponComponent : Component, IComponentRefreshable
     {
-        public override string Name => "LivingWeapon";
-
         [DataField]
         public Stat<int> Level { get; set; } = new(1);
 

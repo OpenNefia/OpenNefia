@@ -103,16 +103,15 @@ namespace OpenNefia.Tests.Core.Prototypes
         }
     }
 
+    [ComponentProtoName(HotReloadTest.HotReloadTestComponentOneId)]
     public class HotReloadTestOneComponent : Component
     {
-        public override string Name => HotReloadTest.HotReloadTestComponentOneId;
-
         [DataField("value")]
         public int Value { get; }
     }
 
+    [ComponentProtoName(HotReloadTest.HotReloadTestComponentTwoId)]
     public class HotReloadTestTwoComponent : Component
     {
-        public override string Name => HotReloadTest.HotReloadTestComponentTwoId;
     }
 }

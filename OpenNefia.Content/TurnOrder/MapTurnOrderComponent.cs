@@ -7,8 +7,6 @@ namespace OpenNefia.Content.TurnOrder
     [ComponentUsage(ComponentTarget.Map)]
     public class MapTurnOrderComponent : Component
     {
-        public override string Name => "MapTurnOrder";
-
         /// <summary>
         /// How much time it takes for an entity to take a turn in this map.
         /// </summary>

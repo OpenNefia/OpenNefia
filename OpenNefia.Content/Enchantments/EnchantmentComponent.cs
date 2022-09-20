@@ -24,8 +24,6 @@ namespace OpenNefia.Content.Enchantments
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EnchantmentComponent : Component
     {
-        public override string Name => "Enchantment";
-
         /// <summary>
         /// Generic power level of this enchantment. The effects based on power should vary
         /// depending on what other enchantment components are on the entity.

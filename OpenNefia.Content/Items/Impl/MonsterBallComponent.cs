@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Items.Impl
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MonsterBallComponent : Component
     {
-        public override string Name => "MonsterBall";
-
         [DataField]
         public int MaxLevel { get; set; }
 

@@ -12,8 +12,6 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AmmoComponent : Component, IComponentRefreshable
     {
-        public override string Name => "Ammo";
-
         [DataField]
         public PrototypeId<SkillPrototype> AmmoSkill { get; set; }
 

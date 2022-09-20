@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Charas
     [RegisterComponent]
     public class CreaturePackComponent : Component
     {
-        public override string Name => "CreaturePack";
-
         [DataField("category", required: true)]
         public string Category { get; set; } = string.Empty;
     }

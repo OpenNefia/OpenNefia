@@ -10,8 +10,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     public class DoorComponent : Component, IFromHspFeat
     {
-        public override string Name => "Door";
-
         [DataField]
         public PrototypeId<ChipPrototype> ChipOpen { get; set; } = Protos.Chip.MObjDoorWoodenOpen;
 
