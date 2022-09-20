@@ -41,9 +41,5 @@ namespace OpenNefia.Core.UserInterface
         Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos);
 
         void ReleaseKeyboardFocus();
-
-        void PushLayer(UiLayer layer);
-
-        void PopLayer(UiLayer layer);
     }
 }

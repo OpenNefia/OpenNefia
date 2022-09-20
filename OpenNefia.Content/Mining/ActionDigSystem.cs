@@ -66,7 +66,8 @@ namespace OpenNefia.Content.Mining
                 minTurnsMining = 30;
             }
 
-            if (_rand.Next(difficulty) < _skills.Level(digger, Protos.Skill.AttrStrength) + _skills.Level(digger, Protos.Skill.Mining) * 10)
+            var skillLevel = _skills.Level(digger, Protos.Skill.AttrStrength) + _skills.Level(digger, Protos.Skill.Mining) * 10;
+            if (_rand.Next(difficulty) < skillLevel)
                 success = true;
 
             var minTurns = minTurnsMining - _skills.Level(digger, Protos.Skill.Mining) / 2;
