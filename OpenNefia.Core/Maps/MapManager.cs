@@ -240,7 +240,7 @@ namespace OpenNefia.Core.Maps
             UnloadEntitiesInMap(mapID);
 
             var mapEnt = _mapEntities[mapID];
-            _entityManager.DeleteEntity(mapEnt);
+            _entityManager.DeleteEntity(mapEnt, EntityDeleteType.Unload);
             _mapEntities.Remove(mapID);
         }
 
@@ -250,7 +250,7 @@ namespace OpenNefia.Core.Maps
             {
                 if (spatial.MapID == mapID)
                 {
-                    _entityManager.DeleteEntity(spatial.Owner);
+                    _entityManager.DeleteEntity(spatial.Owner, EntityDeleteType.Unload);
                 }
             }
         }

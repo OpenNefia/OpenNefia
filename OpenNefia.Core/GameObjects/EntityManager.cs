@@ -176,7 +176,7 @@ namespace OpenNefia.Core.GameObjects
         /// Shuts-down and removes given Entity. This is also broadcast to all clients.
         /// </summary>
         /// <param name="uid">Entity to remove</param>
-        public void DeleteEntity(EntityUid e)
+        public void DeleteEntity(EntityUid e, EntityDeleteType deleteType = EntityDeleteType.Delete)
         {
             // Networking blindly spams entities at this function, they can already be
             // deleted from being a child of a previously deleted entity
@@ -192,12 +192,13 @@ namespace OpenNefia.Core.GameObjects
                 return;
 #endif
 
-            RecursiveDeleteEntity(e);
+            RecursiveDeleteEntity(e, deleteType);
         }
 
         private EntityTerminatingEvent EntityTerminating = new();
+        private EntityUnloadingEvent EntityUnloading = new();
 
-        private void RecursiveDeleteEntity(EntityUid uid)
+        private void RecursiveDeleteEntity(EntityUid uid, EntityDeleteType deleteType)
         {
             if (Deleted(uid)) //TODO: Why was this still a child if it was already deleted?
                 return;
@@ -207,13 +208,22 @@ namespace OpenNefia.Core.GameObjects
             metadata.EntityLifeStage = EntityLifeStage.Terminating;
             metadata.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            EventBus.RaiseEvent(uid, ref EntityTerminating, false);
+            switch (deleteType)
+            {
+                case EntityDeleteType.Delete:
+                default:
+                    EventBus.RaiseEvent(uid, ref EntityTerminating, false);
+                    break;
+                case EntityDeleteType.Unload:
+                    EventBus.RaiseEvent(uid, ref EntityUnloading, false);
+                    break;
+            }
 
             // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
             foreach (var child in spatial._children.ToArray())
             {
                 // Recursion Alert
-                RecursiveDeleteEntity(child);
+                RecursiveDeleteEntity(child, deleteType);
             }
 
             // Shut down all components.
@@ -235,14 +245,17 @@ namespace OpenNefia.Core.GameObjects
 
             metadata.EntityLifeStage = EntityLifeStage.Deleted;
             EntityDeleted?.Invoke(this, uid);
-            EventBus.RaiseEvent(new EntityDeletedEvent(uid));
+            switch (deleteType)
+            {
+                case EntityDeleteType.Delete:
+                default:
+                    EventBus.RaiseEvent(new EntityDeletedEvent(uid));
+                    break;
+                case EntityDeleteType.Unload:
+                    EventBus.RaiseEvent(new EntityUnloadedEvent(uid));
+                    break;
+            }
             Entities.Remove(uid);
-        }
-
-        public void QueueDeleteEntity(EntityUid uid)
-        {
-            if(QueuedDeletionsSet.Add(uid))
-                QueuedDeletions.Enqueue(uid);
         }
 
         public bool EntityExists(EntityUid uid)
@@ -268,11 +281,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Disposes all entities and clears all lists.
         /// </summary>
-        public void FlushEntities()
+        public void FlushEntities(EntityDeleteType deleteType = EntityDeleteType.Delete)
         {
             foreach (var uid in GetEntityUids())
             {
-                DeleteEntity(uid);
+                DeleteEntity(uid, deleteType);
             }
 
             // I would like the new entity UID to start from 0 when

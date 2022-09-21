@@ -72,7 +72,7 @@ namespace OpenNefia.Core.GameObjects
         /// Shuts-down and removes the entity with the given <see cref="EntityUid"/>. This is also broadcast to all clients.
         /// </summary>
         /// <param name="uid">Uid of entity to remove.</param>
-        void DeleteEntity(EntityUid uid);
+        void DeleteEntity(EntityUid uid, EntityDeleteType deleteType = EntityDeleteType.Delete);
 
         /// <summary>
         /// Checks whether an entity with the specified ID exists.
@@ -95,5 +95,11 @@ namespace OpenNefia.Core.GameObjects
         EntityStringRepresentation ToPrettyString(EntityUid uid);
 
         #endregion Entity Management
+    }
+
+    public enum EntityDeleteType
+    {
+        Delete,
+        Unload
     }
 }
