@@ -18,6 +18,8 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -42,6 +44,8 @@ namespace OpenNefia.Content.Inventory
             where TComp3 : IComponent
             where TComp4 : IComponent;
 
+        bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null);
+
         int GetItemWeight(EntityUid item, WeightComponent? weight = null);
 
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
@@ -50,6 +54,9 @@ namespace OpenNefia.Content.Inventory
 
         int CalcMaxInventoryWeight(EntityUid uid);
         void RefreshInventoryWeight(EntityUid ent, bool refreshSpeed = true, InventoryComponent? inv = null);
+
+        /// <hsp>*chara_adjustInv</hsp>
+        void EnsureFreeItemSlot(EntityUid ent, InventoryComponent? inv = null);
     }
 
     /// <summary>
@@ -323,6 +330,25 @@ namespace OpenNefia.Content.Inventory
                     yield return ent;
                 }
             }
+        }
+
+        public bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null)
+        {
+            return EnumerateInventory(entity, inv)
+                .TryFirstOrNull(item => MetaData(item).EntityPrototype?.GetStrongID() == id, out item);
+        }
+
+        public void EnsureFreeItemSlot(EntityUid ent, InventoryComponent? inv = null)
+        {
+            if (!Resolve(ent, ref inv) || !IsInventoryFull(ent, inv))
+                return;
+
+            var items = EnumerateInventory(ent).ToList();
+            if (items.Count == 0)
+                return;
+
+            var item = _rand.Pick(items);
+            EntityManager.DeleteEntity(item);
         }
     }
 }

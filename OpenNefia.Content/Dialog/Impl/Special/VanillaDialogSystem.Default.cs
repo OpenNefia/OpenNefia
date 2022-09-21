@@ -100,14 +100,14 @@ namespace OpenNefia.Content.Dialog
             return result;
         }
 
-        private List<DialogChoiceEntry> GetDefaultTalkChoices(EntityUid source, EntityUid target)
+        private List<DialogChoiceEntry> GetDefaultTalkChoices(EntityUid player, EntityUid speaker)
         {
             var result = new List<DialogChoiceEntry>();
-            if (!IsAlive(target))
+            if (!IsAlive(speaker))
                 return result;
 
-            var ev = new GetDefaultDialogChoicesEvent(source, target);
-            RaiseEvent(target, ev);
+            var ev = new GetDefaultDialogChoicesEvent(player, speaker);
+            RaiseEvent(speaker, ev);
             result.AddRange(ev.OutChoices);
 
             result.Add(new() { 
@@ -143,15 +143,15 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class GetDefaultDialogChoicesEvent : EntityEventArgs
     {
-        public EntityUid Source { get; }
-        public EntityUid Target { get; }
+        public EntityUid Player { get; }
+        public EntityUid Speaker { get; }
 
         public List<DialogChoiceEntry> OutChoices { get; } = new();
 
-        public GetDefaultDialogChoicesEvent(EntityUid source, EntityUid target)
+        public GetDefaultDialogChoicesEvent(EntityUid player, EntityUid speaker)
         {
-            Source = source;
-            Target = target;
+            Player = player;
+            Speaker = speaker;
         }
     }
 }

@@ -62,11 +62,14 @@ namespace OpenNefia.Content.Dialog
         /// </remarks>
         /// <param name="engine">Current dialog engine.</param>
         /// <returns>The next node to traverse to, or <c>null</c> to end the dialog.</returns>
-        QualifiedDialogNode? GetDefaultNode(IDialogEngine engine);
+        QualifiedDialogNode? SelectDefaultNode(IDialogEngine engine);
     }
 
     public sealed class DialogTextOverride : IDialogExtraData
     {
+        [DataField("texts")]
+        private List<DialogTextEntry> _texts { get; } = new();
+
         /// <summary>
         /// List of texts to override the next text node with. This is used for allowing a node to
         /// inherit the behavior/choices of another node.
@@ -75,11 +78,13 @@ namespace OpenNefia.Content.Dialog
         /// See chat2.hsp:*chat_default in the HSP source, which checks if the chat buffer wasn't
         /// previously set. (buff="")
         /// </remarks>
-        public IReadOnlyList<DialogTextEntry> Texts { get; }
+        public IReadOnlyList<DialogTextEntry> Texts => _texts;
 
-        public DialogTextOverride(IReadOnlyList<DialogTextEntry> texts)
+        public DialogTextOverride() { }
+
+        public DialogTextOverride(IEnumerable<DialogTextEntry> texts)
         {
-            Texts = texts;
+            _texts = texts.ToList();
         }
     }
 
@@ -115,7 +120,7 @@ namespace OpenNefia.Content.Dialog
             return engine.GetNodeByID(NextNode);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => engine.GetNodeByID(NextNode);
+        public QualifiedDialogNode? SelectDefaultNode(IDialogEngine engine) => engine.GetNodeByID(NextNode);
     }
 
     /// <summary>
@@ -224,6 +229,12 @@ namespace OpenNefia.Content.Dialog
         /// </remarks>
         [DataField]
         public bool IsDefault { get; set; } = false;
+
+        /// <summary>
+        /// Extra data to set if this choice is selected.
+        /// </summary>
+        [DataField("extraData")]
+        public List<IDialogExtraData> ExtraData { get; set; } = new();
     }
 
     /// <summary>
@@ -440,7 +451,7 @@ namespace OpenNefia.Content.Dialog
                 foreach (var action in entry.AfterEnter)
                     action.Invoke(engine, this);
             }
-            
+
             foreach (var action in AfterEnter)
                 action.Invoke(engine, this);
 
@@ -463,26 +474,38 @@ namespace OpenNefia.Content.Dialog
                 choiceIndex = resultFinished.Value.SelectedChoiceIndex;
             }
 
-            var nextNodeID = _choices.ElementAtOrDefault(choiceIndex)?.NextNode;
-            if (nextNodeID == null)
-            {
+            var selectedChoice = _choices.ElementAtOrDefault(choiceIndex);
+            if (selectedChoice == null)
                 return null;
+
+            foreach (var extraData in selectedChoice.ExtraData)
+            {
+                engine.Data.Add(extraData);
             }
 
-            return engine.GetNodeByID(nextNodeID.Value);
+            if (selectedChoice.NextNode == null)
+                return null;
+
+            return engine.GetNodeByID(selectedChoice.NextNode.Value);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine)
+        public QualifiedDialogNode? SelectDefaultNode(IDialogEngine engine)
         {
             int defaultChoiceIndex = 0; // TODO
 
-            var nextNodeID = _choices.ElementAtOrDefault(defaultChoiceIndex)?.NextNode;
-            if (nextNodeID == null)
-            {
+            var choice = _choices.ElementAtOrDefault(defaultChoiceIndex);
+            if (choice == null)
                 return null;
+
+            foreach (var extraData in choice.ExtraData)
+            {
+                engine.Data.Add(extraData);
             }
 
-            return engine.GetNodeByID(nextNodeID.Value);
+            if (choice.NextNode == null)
+                return null;
+
+            return engine.GetNodeByID(choice.NextNode.Value);
         }
     }
 
@@ -502,7 +525,7 @@ namespace OpenNefia.Content.Dialog
             return Callback(engine, this);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => Callback(engine, this);
+        public QualifiedDialogNode? SelectDefaultNode(IDialogEngine engine) => Callback(engine, this);
     }
 
     /// <summary>
@@ -590,9 +613,9 @@ namespace OpenNefia.Content.Dialog
                 }
             }
 
-            return GetDefaultNode(engine);
+            return SelectDefaultNode(engine);
         }
 
-        public QualifiedDialogNode? GetDefaultNode(IDialogEngine engine) => DefaultNode != null ? engine.GetNodeByID(DefaultNode.Value) : null;
+        public QualifiedDialogNode? SelectDefaultNode(IDialogEngine engine) => DefaultNode != null ? engine.GetNodeByID(DefaultNode.Value) : null;
     }
 }

@@ -30,7 +30,17 @@ using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Items
 {
-    public sealed partial class ItemNameSystem : EntitySystem
+    public interface IItemNameSystem : IEntitySystem
+    {
+        /// <summary>
+        /// Formats an item's name like "scroll of ally" instead of just "ally".
+        /// </summary>
+        /// <param name="itemID">The prototype ID of the item.</param>
+        /// <returns>The formatted name.</returns>
+        string QualifyNameWithItemType(PrototypeId<EntityPrototype> itemID);
+    }
+
+    public sealed partial class ItemNameSystem : EntitySystem, IItemNameSystem
     {
         [Dependency] private readonly IEquipmentSystem _equipment = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
@@ -84,6 +94,16 @@ namespace OpenNefia.Content.Items
                 return $"<item {uid}>";
 
             return GermanBuiltins.GetDisplayData(uid, meta.DisplayName!).GetIndirectName(stack.Count);
+        }
+
+        public string QualifyNameWithItemType(PrototypeId<EntityPrototype> itemID)
+        {
+            var name = Loc.GetPrototypeString(itemID, "MetaData.Name");
+            var hasTypeName = Loc.TryGetPrototypeString(itemID, "Item.ItemTypeName", out var itemTypeName);
+            if (!hasTypeName)
+                return name;
+
+            return Loc.GetString("Elona.Common.QualifiedName", ("basename", name), ("itemTypeName", itemTypeName));
         }
     }
 

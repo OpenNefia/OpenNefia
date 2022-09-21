@@ -39,9 +39,18 @@ namespace OpenNefia.Content.Quests
         /// Name of the map associated with this quest hub data.
         /// </summary>
         /// <remarks>
-        /// "We have this client secretly heading to {<see cref="MapName"/>} for certain reasons. [...]"
+        /// $"We have this client secretly heading to {<see cref="MapName"/>} for certain reasons. [...]"
         /// </remarks>
         [DataField]
         public string MapName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// List of characters in this quest hub that can act as quest clients.
+        /// </summary>
+        /// <remarks>
+        /// Used by the delivery quest to find a delivery target in an unloaded map.
+        /// </remarks>
+        [DataField]
+        public HashSet<EntityUid> Clients { get; set; } = new();
     }
 }

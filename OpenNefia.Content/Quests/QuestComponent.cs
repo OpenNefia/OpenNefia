@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.World;
+using OpenNefia.Core;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
@@ -37,6 +39,19 @@ namespace OpenNefia.Content.Quests
         public GameDateTime TownBoardExpirationDate { get; set; } = GameDateTime.MaxValue;
 
         /// <summary>
+        /// Locale key root of the quest pointing to a list of tables. They should all have "Name"
+        /// and "Description" fields.
+        /// </summary>
+        [DataField]
+        public LocaleKey LocaleKeyRoot { get; set; }
+
+        /// <summary>
+        /// Random seed of this quest.
+        /// </summary>
+        [DataField]
+        public int RandomSeed { get; set; }
+
+        /// <summary>
         /// Date when this quest is automatically failed.
         /// </summary>
         [DataField]
@@ -66,7 +81,14 @@ namespace OpenNefia.Content.Quests
         [DataField]
         public string ClientOriginatingMapName { get; set; } = string.Empty;
     }
-    
+
+    public enum QuestState
+    {
+        NotAccepted,
+        Accepted,
+        Completed,
+    }
+
     /// <summary>
     /// Specifies a deadline for a quest.
     /// </summary>
@@ -129,10 +151,35 @@ namespace OpenNefia.Content.Quests
         public PrototypeId<TagPrototype> ItemCategory { get; set; }
     }
 
-    public enum QuestState
+    /// <summary>
+    /// Specifies that this quest is an "immediate quest", which takes place within a designated set
+    /// of maps. Leaving this set of maps causes the quest to be failed.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Quest)]
+    public sealed class QuestImmediateRegionsComponent : Component
     {
-        NotAccepted,
-        Accepted,
-        Completed
+        /// <summary>
+        /// Maps this quest takes place in.
+        /// </summary>
+        [DataField(required: true)]
+        public HashSet<MapId> QuestMaps { get; set; } = new();
+
+        /// <summary>
+        /// Areas this quest takes place in.
+        /// </summary>
+        [DataField(required: true)]
+        public HashSet<AreaId> QuestAreas { get; set; } = new();
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Quest)]
+    public sealed class QuestImmediateTimeLimitComponent : Component
+    {
+        [DataField(required: true)]
+        public GameDateTime ExpirationDate { get; set; } = GameDateTime.MaxValue;
+
+        [DataField]
+        public GameTimeSpan ExpirationNotifyInterval { get; set; } = GameTimeSpan.MaxValue;
     }
 }

@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Maps
 
         public AreaId? GetAreaId() => AreaId;
 
-        public MapId? GetMapId()
+        public MapId? GetOrGenerateMapId()
         {
             EntitySystem.InjectDependencies(this);
 
@@ -50,6 +50,27 @@ namespace OpenNefia.Content.Maps
                 Logger.ErrorS("area.mapIds", $"Area {AreaId} is missing floor {startingFloor.Value}!");
                 return null;
             }
+
+            return map.Id;
+        }
+
+        public MapId? GetMapId()
+        {
+            EntitySystem.InjectDependencies(this);
+
+            var area = _areaManager.GetArea(AreaId);
+
+            var startingFloor = _areaEntrances.GetStartingFloor(area, FloorId);
+
+            if (startingFloor == null)
+            {
+                Logger.ErrorS("area.mapIds", $"Area {AreaId} has no starting floor!");
+                return null;
+            }
+
+            var map = _areaManager.GetMapForFloor(area.Id, startingFloor.Value);
+            if (map == null)
+                return null;
 
             return map.Id;
         }

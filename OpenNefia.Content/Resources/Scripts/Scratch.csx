@@ -48,6 +48,8 @@ using OpenNefia.Core.Configuration;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.CurseStates;
+using OpenNefia.Core.ViewVariables;
+using OpenNefia.Content.DebugView;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -241,4 +243,13 @@ public void sandbag(EntityUid? ent = null)
 {
     ent ??= entityAt().Owner;
     _entityMan.EnsureComponent<OpenNefia.Content.Combat.SandBaggedComponent>(ent.Value);
+}
+
+public void vv(object obj)
+{
+    var debugView = IoCManager.Resolve<IDebugViewLayer>();
+    var vv = IoCManager.Resolve<IViewVariablesManager>();
+    vv.OpenVV(obj, debugView);
+
+    _uiMan.Query(debugView);
 }

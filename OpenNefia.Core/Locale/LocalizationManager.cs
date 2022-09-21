@@ -33,6 +33,8 @@ namespace OpenNefia.Core.Locale
         bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args);
         IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args);
         bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
+        LuaTable GetTable(LocaleKey key);
+        string FormatRaw(object? obj, LocaleArg[] args);
     }
 
     public delegate void LanguageSwitchedDelegate(PrototypeId<LanguagePrototype> newLanguage);
@@ -243,6 +245,25 @@ namespace OpenNefia.Core.Locale
         {
             table = _lua.GetTable($"_Collected." + key);
             return table != null;
+        }
+
+        public LuaTable GetTable(LocaleKey key)
+        {
+            if (TryGetTable(key, out var table))
+                return table;
+
+            throw new KeyNotFoundException(key);
+        }
+
+        public string FormatRaw(object? obj, LocaleArg[] args)
+        {
+            if (obj is string s)
+                return s;
+
+            if (obj is LuaFunction func)
+                return CallFunction("<???>", args, func);
+
+            return $"{obj}";
         }
 
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)

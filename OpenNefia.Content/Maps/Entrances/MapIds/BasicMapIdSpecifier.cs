@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Maps
 
         public AreaId? GetAreaId() => null;
 
+        public MapId? GetOrGenerateMapId() => MapId;
         public MapId? GetMapId() => MapId;
     }
 }

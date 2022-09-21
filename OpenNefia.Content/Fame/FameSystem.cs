@@ -7,6 +7,8 @@ namespace OpenNefia.Content.Fame
 {
     public interface IFameSystem : IEntitySystem
     {
+        int GetFame(EntityUid ent, FameComponent? fame = null);
+
         /// <hsp>#deffunc decFame int c, int per</hsp>
         int DecrementFame(EntityUid ent, int fraction, FameComponent? fame = null);
 
@@ -17,6 +19,14 @@ namespace OpenNefia.Content.Fame
     public sealed class FameSystem : EntitySystem, IFameSystem
     {
         [Dependency] private readonly IRandom _rand = default!;
+
+        public int GetFame(EntityUid ent, FameComponent? fame = null)
+        {
+            if (!Resolve(ent, ref fame))
+                return 0;
+
+            return fame.Fame.Buffed;
+        }
 
         /// <inheritdoc/>
         public int DecrementFame(EntityUid ent, int fraction, FameComponent? fame = null)

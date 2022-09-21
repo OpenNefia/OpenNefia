@@ -88,7 +88,27 @@ namespace OpenNefia.Core.Areas
         {
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
-        
+
+        /// <inheritdoc/>
+        public IMap? GetMapForFloor(AreaId areaId, AreaFloorId floorId)
+        {
+            var area = GetArea(areaId);
+
+            if (!area.ContainedMaps.TryGetValue(floorId, out var floor))
+                return null;
+
+            if (floor.MapId != null)
+            {
+                Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
+
+                if (_mapManager.TryGetMap(floor.MapId.Value, out var map))
+                    return map;
+                return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
+            }
+
+            return null;
+        }
+
         /// <inheritdoc/>
         public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId, MapCoordinates? previousCoords = null)
         {
@@ -100,14 +120,9 @@ namespace OpenNefia.Core.Areas
                 RegisterAreaFloor(area, floorId, floor);
             }
 
-            if (floor.MapId != null)
-            {
-                Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
-
-                if (_mapManager.TryGetMap(floor.MapId.Value, out var map))
-                    return map;
-                return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
-            }
+            var map = GetMapForFloor(areaId, floorId);
+            if (map != null)
+                return map;
 
             if (previousCoords == null)
             {

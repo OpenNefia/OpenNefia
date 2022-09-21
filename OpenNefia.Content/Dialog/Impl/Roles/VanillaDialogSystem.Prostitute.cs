@@ -112,6 +112,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogProstituteData : IDialogExtraData
     {
+        [DataField]
         public int GoldCost { get; set; }
     }
 }
