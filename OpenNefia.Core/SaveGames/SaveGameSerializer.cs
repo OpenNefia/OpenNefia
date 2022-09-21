@@ -429,7 +429,7 @@ namespace OpenNefia.Core.SaveGames
 
         public void ResetGameState()
         {
-            _entityManager.FlushEntities();
+            _entityManager.FlushEntities(EntityDeleteType.Unload);
             _mapManager.FlushMaps();
             _areaManager.FlushAreas();
             ResetGlobalSaveData();

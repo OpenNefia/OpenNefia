@@ -37,11 +37,29 @@ namespace OpenNefia.Core.GameObjects
     {
     }
 
+    /// <summary>
+    /// The children of this entity are about to be unloaded.
+    /// </summary>
+    [ByRefEvent]
+    public sealed class EntityUnloadingEvent : EntityEventArgs
+    {
+    }
+
     public sealed class EntityDeletedEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
 
         public EntityDeletedEvent(EntityUid entityUid)
+        {
+            EntityUid = entityUid;
+        }
+    }
+
+    public sealed class EntityUnloadedEvent : EntityEventArgs
+    {
+        public EntityUid EntityUid { get; }
+
+        public EntityUnloadedEvent(EntityUid entityUid)
         {
             EntityUid = entityUid;
         }

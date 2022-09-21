@@ -37,6 +37,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
 
         public IMap? Generate(IArea area, MapId mapId, int generationAttempt, int floorNumber, Blackboard<NefiaGenParams> data)
         {

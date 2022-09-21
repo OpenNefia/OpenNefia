@@ -90,7 +90,7 @@ namespace OpenNefia.Core.Areas
         }
         
         /// <inheritdoc/>
-        public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
+        public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId, MapCoordinates? previousCoords = null)
         {
             var area = GetArea(areaId);
 
@@ -109,11 +109,13 @@ namespace OpenNefia.Core.Areas
                 return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
             }
 
-            // TODO: Should this be passed as an argument?
-            var player = IoCManager.Resolve<IGameSessionManager>().Player;
-            var previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
+            if (previousCoords == null)
+            {
+                var player = IoCManager.Resolve<IGameSessionManager>().Player;
+                previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
+            }
 
-            var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
+            var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords.Value);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
             if (ev.OutMap == null)
@@ -125,7 +127,7 @@ namespace OpenNefia.Core.Areas
             floor.MapId = ev.OutMap.Id;
             _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
 
-            var ev2 = new AfterAreaFloorGeneratedEvent(area, ev.OutMap, floorId, previousCoords);
+            var ev2 = new AfterAreaFloorGeneratedEvent(area, ev.OutMap, floorId, previousCoords.Value);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev2);
 
             return ev.OutMap;

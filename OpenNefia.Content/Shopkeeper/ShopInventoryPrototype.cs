@@ -219,7 +219,7 @@ namespace OpenNefia.Content.Shopkeeper
     {
         public ShopInventoryResult Apply(IShopItemArgs args)
         {
-            var _rand = IoCManager.Resolve<IRandom>();
+            var _randomGen = EntitySystem.Get<IRandomGenSystem>();
 
             args.ItemFilter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) };
 

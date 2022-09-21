@@ -15,7 +15,7 @@ namespace OpenNefia.Core.GameObjects
 
         void FinishEntityStartup(EntityUid entity);
 
-        void FlushEntities();
+        void FlushEntities(EntityDeleteType deleteType = EntityDeleteType.Delete);
 
         /// <summary>
         /// The next valid entity UID to generate.
