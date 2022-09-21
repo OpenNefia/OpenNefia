@@ -214,7 +214,10 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogTrainerData : IDialogExtraData
     {
+        [DataField]
         public PrototypeId<SkillPrototype> SkillID { get; set; }
+
+        [DataField]
         public int PlatinumCost { get; set; }
     }
 }

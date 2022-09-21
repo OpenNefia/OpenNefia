@@ -36,6 +36,7 @@ namespace OpenNefia.Core.Areas
         bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId floorId);
 
         // TODO: This is probably going into an IMapGenerator interface later.
+        IMap? GetMapForFloor(AreaId areaId, AreaFloorId floorId);
         IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId, MapCoordinates? previousCoords = null);
 
         bool GlobalAreaExists(GlobalAreaId globalId);

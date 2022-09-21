@@ -35,6 +35,9 @@ namespace OpenNefia.Content.Logic
 
         public void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, bool combineDuplicates = false, EntityUid? entity = null)
         {
+            if (string.IsNullOrEmpty(text))
+                return;
+
             if (entity != null)
             {
                 var visibilitySys = EntitySystem.Get<IVisibilitySystem>();

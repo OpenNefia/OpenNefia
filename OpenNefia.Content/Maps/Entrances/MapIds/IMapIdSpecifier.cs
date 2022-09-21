@@ -22,6 +22,12 @@ namespace OpenNefia.Content.Maps
         public AreaId? GetAreaId();
 
         /// <summary>
+        /// Gets or generates the map to be used for the destination.
+        /// </summary>
+        /// <returns>The map ID, or null if something failed.</returns>
+        public MapId? GetOrGenerateMapId();
+
+        /// <summary>
         /// Gets the map to be used for the destination.
         /// </summary>
         /// <returns>The map ID, or null if something failed.</returns>

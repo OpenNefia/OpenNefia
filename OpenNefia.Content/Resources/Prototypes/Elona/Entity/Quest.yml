@@ -1,16 +1,21 @@
 - type: Entity
   id: Elona.QuestSupply
   parent: BaseQuest
-  abstract: true
+  hspIds:
+    elona122: 1004
   components:
   - type: Quest
-  - type: QuestSupply
+    localeKeyRoot: Elona.Quest.Types.Supply.Variants
   - type: RandomGen
     tables:
-      chara:
-        rarity: 5000
+      quest:
+        rarity: 200
   - type: QuestDeadlines
     deadlineDays: 6~8
     townBoardExpirationDays: 3~4
   - type: QuestRewardGold
     goldModifier: 65
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+    goldModifier: 65
+  - type: QuestTypeSupply

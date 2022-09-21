@@ -16,6 +16,9 @@ Elona.Dialog = {
         IsSleeping = function(speaker)
             return ("(%s is sleeping.)"):format(_.name(speaker))
         end,
+        YouHandOver = function(player, item)
+            return ("%s hand%s over %s."):format(_.name(player), _.s(player), _.name(item, nil, 1))
+        end,
     },
 
     Impression = {

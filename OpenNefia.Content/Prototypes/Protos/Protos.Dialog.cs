@@ -18,6 +18,9 @@ namespace OpenNefia.Content.Prototypes
             public static readonly DialogPrototypeId Innkeeper = new($"Elona.{nameof(Innkeeper)}");
             public static readonly DialogPrototypeId Shopkeeper = new($"Elona.{nameof(Shopkeeper)}");
 
+            public static readonly DialogPrototypeId QuestClient = new($"Elona.{nameof(QuestClient)}");
+            public static readonly DialogPrototypeId QuestSupply = new($"Elona.{nameof(QuestSupply)}");
+
             public static readonly DialogPrototypeId LomiasNewGame = new($"Elona.{nameof(LomiasNewGame)}");
         }
     }

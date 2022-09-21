@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
         {
             var mapIdSpec = new NullMapIdSpecifier();
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(null));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(null));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var mapIdSpec = new BasicMapIdSpecifier(map.Id);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map.Id));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(map.Id));
         }
 
         [Test]
@@ -67,11 +67,11 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var mapIdSpec = new AreaFloorMapIdSpecifier(area.Id);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map1.Id));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(map1.Id));
 
             mapIdSpec = new AreaFloorMapIdSpecifier(area.Id, areaFloorId2);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map2.Id));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(map2.Id));
         }
 
         [Test]
@@ -101,12 +101,12 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var mapIdSpec = new GlobalAreaMapIdSpecifier(globalId);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map1.Id));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(map1.Id));
             Assert.That(mapIdSpec.ResolvedAreaId, Is.EqualTo(area.Id));
 
             mapIdSpec = new GlobalAreaMapIdSpecifier(globalId, areaFloorId2);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map2.Id));
+            Assert.That(mapIdSpec.GetOrGenerateMapId(), Is.EqualTo(map2.Id));
             Assert.That(mapIdSpec.ResolvedAreaId, Is.EqualTo(area.Id));
         }
     }

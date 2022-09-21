@@ -55,6 +55,11 @@ namespace OpenNefia.Core.Locale
             return _localizationManager.TryGetString(KeyPrefix.With(key), out str, args);
         }
 
+        public string FormatRaw(object? obj, LocaleArg[] args)
+        {
+            return _localizationManager.FormatRaw(obj, args);
+        }
+
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T : class, IPrototype
         {
@@ -80,6 +85,11 @@ namespace OpenNefia.Core.Locale
         public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
         {
             return _localizationManager.TryGetTable(KeyPrefix.With(key), out table);
+        }
+
+        public LuaTable GetTable(LocaleKey key)
+        {
+            return _localizationManager.GetTable(KeyPrefix.With(key));
         }
 
         public void Localize(LocaleKey key)

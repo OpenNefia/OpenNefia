@@ -135,6 +135,7 @@
 
 - type: Entity
   id: BaseQuest
+  hspEntityType: quest
   abstract: true
   components:
   - type: Quest

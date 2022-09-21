@@ -87,7 +87,7 @@ namespace OpenNefia.Content.Areas
             }
 
             // Add new entrances.
-            foreach (var (spatial, entrance) in _lookup.EntityQueryInMap<SpatialComponent, WorldMapEntranceComponent>(map))
+            foreach (var (spatial, entrance) in _lookup.EntityQueryInMap<SpatialComponent, WorldMapEntranceComponent>(map).ToList())
             {
                 UpdateKnownEntrance(spatial, entrance);
             }

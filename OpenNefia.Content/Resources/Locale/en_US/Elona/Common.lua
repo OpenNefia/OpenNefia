@@ -13,4 +13,7 @@ Elona.Common = {
     NameWithDirectArticle = function(entity)
         return _.name(entity)
     end,
+    QualifiedName = function(basename, itemTypeName)
+        return ("%s of %s"):format(itemTypeName, basename)
+    end,
 }

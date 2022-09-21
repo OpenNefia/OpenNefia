@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Maps
             if (ev.Cancelled || !IsAlive(user))
                 return false;
 
-            mapId = entrance.MapIdSpecifier.GetMapId();
+            mapId = entrance.MapIdSpecifier.GetOrGenerateMapId();
             if (mapId == null)
             {
                 Logger.WarningS("map.entrance", $"Failed to get map ID for entrance {entrance}!");
