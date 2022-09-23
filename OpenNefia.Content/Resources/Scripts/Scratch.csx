@@ -50,6 +50,7 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Core.ViewVariables;
 using OpenNefia.Content.DebugView;
+using OpenNefia.Content.Spells;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -229,14 +230,21 @@ public void setlog(string sawmill, LogLevel level)
     Logger.GetSawmill(sawmill).Level = level;
 }
 
-public void applyEffect<T>(int power, CurseState curseState = CurseState.Normal, EntityUid? target = null, EffectArgSet? args = null)
+public void applyEffect<T>(int power = 100,
+                           CurseState curseState = CurseState.Normal,
+                           EntityUid? target = null,
+                           EntityUid? source = null,
+                           EntityCoordinates? coords = null,
+                           EffectArgSet? args = null)
     where T: class, IEffect, new()
 {
     target ??= player();
+    source ??= target.Value;
+    coords ??= spatial(target.Value).Coordinates;
     args ??= new EffectArgSet();
     args.Power = power;
     args.CurseState = curseState;
-    _effects.Apply<T>(target.Value, target.Value, spatial(target.Value).Coordinates, null, args);
+    _effects.Apply<T>(source.Value, target.Value, coords.Value, null, args);
 }
 
 public void sandbag(EntityUid? ent = null)

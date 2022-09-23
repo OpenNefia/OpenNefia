@@ -52,6 +52,12 @@ namespace OpenNefia.Content.Quests
         public int RandomSeed { get; set; }
 
         /// <summary>
+        /// Time from when the quest is accepted until its deadline.
+        /// </summary>
+        [DataField]
+        public GameTimeSpan? TimeUntilDeadline { get; set; }
+
+        /// <summary>
         /// Date when this quest is automatically failed.
         /// </summary>
         [DataField]

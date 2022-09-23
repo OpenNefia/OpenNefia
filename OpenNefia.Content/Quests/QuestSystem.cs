@@ -2,12 +2,7 @@
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
-using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using NLua;
@@ -18,7 +13,6 @@ using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.Logic;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.Maps;
@@ -28,10 +22,10 @@ using OpenNefia.Content.Roles;
 using OpenNefia.Content.World;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Levels;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Quests
 {
@@ -46,6 +40,7 @@ namespace OpenNefia.Content.Quests
         void UpdateInMap(IMap map);
 
         string FormatQuestObjective(string name);
+        string FormatDeadlineText(GameTimeSpan? deadlineSpan);
         LocalizedQuestData LocalizeQuestData(EntityUid quest, EntityUid client, EntityUid player, QuestComponent? questComp = null);
         Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid client, EntityUid player);
 
@@ -70,6 +65,7 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IRoleSystem _roles = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         [RegisterSaveData("Elona.QuestSystem.Quests")]
         private List<EntityUid> _quests { get; set; } = new();
@@ -78,9 +74,6 @@ namespace OpenNefia.Content.Quests
 
         public IEnumerable<QuestComponent> EnumerateQuestsForClient(EntityUid client)
         {
-            if (!HasComp<QuestClientComponent>(client))
-                return Enumerable.Empty<QuestComponent>();
-
             return EnumerateQuests().Where(q => q.ClientEntity == client);
         }
 
@@ -150,14 +143,20 @@ namespace OpenNefia.Content.Quests
             }
         }
 
-        private bool CanBeQuestClient(CharaComponent chara)
+        private bool CanBeQuestClient(EntityUid client)
         {
-            if (_qualities.GetQuality(chara.Owner) == Quality.Unique)
+            if (_parties.IsInPlayerParty(client))
                 return false;
 
-            if (!_roles.HasAnyRoles(chara.Owner)
-                || HasComp<RoleSpecialComponent>(chara.Owner)
-                || HasComp<RoleAdventurerComponent>(chara.Owner))
+            if (!HasComp<CharaComponent>(client))
+                return false;
+
+            if (_qualities.GetQuality(client) == Quality.Unique)
+                return false;
+
+            if (!_roles.HasAnyRoles(client)
+                || HasComp<RoleSpecialComponent>(client)
+                || HasComp<RoleAdventurerComponent>(client))
                 return false;
 
             return true;
@@ -176,20 +175,37 @@ namespace OpenNefia.Content.Quests
                 && areaQuests.QuestHubs.TryGetValue(map.Id, out var questHub))
             {
                 // Register all characters that can be quest targets.
-                foreach (var chara in _charas.EnumerateNonAllies(map).Where(CanBeQuestClient))
+                foreach (var chara in _charas.EnumerateNonAllies(map))
                 {
-                    Logger.DebugS("quest", $"Registering quest client {chara.Owner}");
-                    EnsureComp<QuestClientComponent>(chara.Owner);
-                    questHub.Clients.Add(chara.Owner);
+                    if (CanBeQuestClient(chara.Owner))
+                    {
+                        Logger.DebugS("quest", $"Registering quest client {chara.Owner}");
+                        EnsureComp<QuestClientComponent>(chara.Owner);
+                        questHub.Clients.Add(chara.Owner);
+                    }
+                    else
+                    {
+                        if (HasComp<QuestClientComponent>(chara.Owner))
+                            EntityManager.RemoveComponent<QuestClientComponent>(chara.Owner);
+                        questHub.Clients.Remove(chara.Owner);
+                        foreach (var quest in EnumerateQuestsForClient(chara.Owner).ToList())
+                        {
+                            DeleteQuest(quest);
+                        }
+                    }
                 }
 
                 // Remove clients that do not exist in this map any longer.
                 foreach (var client in questHub.Clients.ToList())
                 {
-                    if (!IsAlive(client) || !HasComp<QuestClientComponent>(client))
+                    if (!IsAlive(client))
                     {
                         Logger.DebugS("quest", $"Removing missing quest client {client}");
                         questHub.Clients.Remove(client);
+                        foreach (var quest in EnumerateQuestsForClient(client).ToList())
+                        {
+                            DeleteQuest(quest);
+                        }
                     }
                 }
 
@@ -212,7 +228,7 @@ namespace OpenNefia.Content.Quests
 
         private bool ShouldGenerateQuestsForClient(EntityUid client)
         {
-            return !EnumerateQuestsForClient(client).Any();
+            return CanBeQuestClient(client) && !EnumerateQuestsForClient(client).Any();
         }
 
         private bool IsDeadQuest(QuestComponent quest)
@@ -225,6 +241,8 @@ namespace OpenNefia.Content.Quests
 
         private void DeleteQuest(QuestComponent quest)
         {
+            Logger.DebugS("quest", $"Terminating quest {quest.Owner} for client {quest.ClientEntity} ({quest.ClientName} in map {quest.ClientOriginatingMap} ({quest.ClientOriginatingMapName})");
+
             var ev = new QuestTerminatingEvent(quest);
             RaiseEvent(quest.Owner, ev);
 
@@ -252,7 +270,7 @@ namespace OpenNefia.Content.Quests
             }
         }
 
-        public PrototypeId<EntityPrototype>? PickRandomQuestId()
+        public PrototypeId<EntityPrototype>? PickRandomQuestID()
         {
             int GetWeight(EntityPrototype proto, int minLevel)
             {
@@ -296,7 +314,7 @@ namespace OpenNefia.Content.Quests
 
             Logger.DebugS("quest", $"Attempting to generate quest for client {client}.");
 
-            var id = PickRandomQuestId();
+            var id = PickRandomQuestID();
             if (id == null)
             {
                 quest = null;
@@ -359,6 +377,14 @@ namespace OpenNefia.Content.Quests
                 return name;
 
             return $"[{name}]";
+        }
+
+        public string FormatDeadlineText(GameTimeSpan? deadlineSpan)
+        {
+            if (deadlineSpan == null)
+                return Loc.GetString("Elona.Quest.Deadline.NoDeadline");
+            else
+                return Loc.GetString("Elona.Quest.Deadline.Days", ("deadlineDays", deadlineSpan.Value.TotalDays));
         }
 
         private string LocalizeQuestRewardText(EntityUid quest, QuestComponent? questComp = null)

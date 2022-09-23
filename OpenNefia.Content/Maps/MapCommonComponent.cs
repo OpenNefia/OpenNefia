@@ -67,5 +67,8 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public int? MaxItemsOnGround { get; set; }
+
+        [DataField]
+        public bool PreventsTeleport { get; set; }
     }
 }

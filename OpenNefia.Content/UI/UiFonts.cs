@@ -64,5 +64,8 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec DialogSpeakerName = new(12, 12, style: FontStyle.Bold, color: UiColors.DialogText); // 12 + sizefix
         public static readonly FontSpec DialogImpressionText = new(13, 13, color: UiColors.DialogText);
         public static readonly FontSpec DialogBodyText = new(14, 14, color: UiColors.DialogText);
+
+        public static readonly FontSpec QuestBoardDifficultyNormal = new(14, 12);
+        public static readonly FontSpec QuestBoardDifficultySmall = new(10, 10);
     }
 }

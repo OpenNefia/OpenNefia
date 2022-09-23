@@ -7,6 +7,13 @@ Elona.Quest = {
         return ("%sから受けた依頼は失敗に終わった。"):format(clientName)
     end,
 
+    Deadline = {
+        NoDeadline = "即時",
+        Days = function(days)
+            return ("%s日"):format(days)
+        end,
+    },
+
     Rewards = {
         And = "と",
         Comma = "、",
@@ -44,6 +51,19 @@ Elona.Quest = {
                 return ("報酬の%sを受けとって%s"):format(rewardText, _.kure(speaker))
             end,
         },
+    },
+
+    Board = {
+        Title = "掲載されている依頼",
+        Difficulty = {
+            Difficulty = "★",
+            Counter = function(starCount)
+                return ("★×%s"):format(starCount)
+            end,
+        },
+
+        NoNewNotices = "新しい依頼は掲示されていないようだ。",
+        PromptMeetClient = "依頼主に会う？",
     },
 
     Types = {

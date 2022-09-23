@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Quests
             args.Quest.TownBoardExpirationDate = _world.State.GameDate + GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.TownBoardExpirationDays));
 
             if (questDeadlines.DeadlineDays != null)
-                args.Quest.Deadline = _world.State.GameDate + GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
+                args.Quest.TimeUntilDeadline =  GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
         }
 
         private void Quest_Completed(EntityUid uid, QuestComponent component, QuestCompletedEvent args)

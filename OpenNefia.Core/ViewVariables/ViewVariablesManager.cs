@@ -11,7 +11,6 @@ using OpenNefia.Core.ViewVariables.Editors;
 using OpenNefia.Core.ViewVariables.Instances;
 using OpenNefia.Core.ViewVariables.Traits;
 using System.Collections;
-using OpenNefia.Content.DebugView;
 
 namespace OpenNefia.Core.ViewVariables
 {
