@@ -74,4 +74,17 @@ Elona.Effect = {
         end,
         NoEffect = "Your prayer nullifies the curse.",
     },
+
+    Teleport = {
+        Prevented = "Magical field prevents teleportation.",
+        Execute = function(ent)
+            return ("Suddenly, %s disappear%s."):format(_.name(ent, true), _.s(ent))
+        end,
+        DrawShadow = function(ent)
+            return ("%s %s drawn."):format(_.name(ent, true), _.is(ent))
+        end,
+        ShadowStep = function(ent, source, target)
+            return ("%s teleport%s toward %s."):format(_.name(source, true), _.s(source), _.basename(target))
+        end,
+    },
 }

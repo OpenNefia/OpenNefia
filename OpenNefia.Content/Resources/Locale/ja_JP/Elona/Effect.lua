@@ -14,16 +14,16 @@ Elona.Effect = {
 
     Heal = {
         Apply = {
-            slightly = function(target)
+            Slightly = function(target)
                 return ("%sの傷はふさがった。"):format(_.name(target))
             end,
-            normal = function(target)
+            Normal = function(target)
                 return ("%sは回復した。"):format(_.name(target))
             end,
-            greatly = function(target)
+            Greatly = function(target)
                 return ("%sの身体に生命力がみなぎった。"):format(_.name(target))
             end,
-            completely = function(target)
+            Completely = function(target)
                 return ("%sは完全に回復した。"):format(_.name(target))
             end,
         },
@@ -64,5 +64,18 @@ Elona.Effect = {
             return ("%sの%sは黒く輝いた。"):format(_.name(target), _.name(item))
         end,
         NoEffect = "あなたは祈祷を捧げ呪いのつぶやきを無効にした。",
+    },
+
+    Teleport = {
+        Prevented = "魔法の力がテレポートを防いだ。",
+        Execute = function(ent)
+            return ("%sは突然消えた。"):format(_.name(ent, true))
+        end,
+        DrawShadow = function(ent)
+            return ("%sは引き寄せられた。"):format(_.name(ent, true))
+        end,
+        ShadowStep = function(ent, source, target)
+            return ("%sは%sの元に移動した。"):format(_.name(source, true), _.basename(target))
+        end,
     },
 }

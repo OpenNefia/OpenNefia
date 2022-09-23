@@ -87,6 +87,7 @@
   relatedSkill: Elona.AttrMagic
   skillType: Spell
   difficulty: 400
+  effect: !type:EffectTeleport
 
 - type: Elona.Spell
   id: Elona.SpellTeleportOther
@@ -95,6 +96,7 @@
   relatedSkill: Elona.AttrMagic
   skillType: Spell
   difficulty: 200
+  effect: !type:EffectTeleportOther
 
 - type: Elona.Spell
   id: Elona.SpellShortTeleport
@@ -103,6 +105,7 @@
   relatedSkill: Elona.AttrMagic
   skillType: Spell
   difficulty: 120
+  effect: !type:EffectShortTeleport
 
 - type: Elona.Spell
   id: Elona.SpellIdentify
@@ -670,11 +673,13 @@
     elona122: 619
   relatedSkill: Elona.AttrWill
   skillType: Spell
+  effect: !type:EffectShadowStep
 
 - type: Elona.Spell
   id: Elona.ActionDimensionalMove
   relatedSkill: Elona.AttrWill
   skillType: Action
+  effect: !type:EffectShortTeleport
 
 - type: Elona.Spell
   id: Elona.ActionDrawShadow
@@ -682,6 +687,7 @@
     elona122: 620
   relatedSkill: Elona.AttrWill
   skillType: Action
+  effect: !type:EffectDrawShadow
 
 - type: Elona.Spell
   id: Elona.ActionHarvestMana
