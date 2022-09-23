@@ -126,6 +126,7 @@
     isSolid: true
   - type: Chip
     id: Elona.MObjQuestBoard
+  - type: QuestBoard
 
 - type: Entity
   id: Elona.MObjPlant

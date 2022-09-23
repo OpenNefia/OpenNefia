@@ -19,6 +19,7 @@ namespace OpenNefia.Content.Visibility
         /// </summary>
         bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null);
         bool IsInWindowFov(MapCoordinates coords);
+        bool IsInWindowFov(EntityCoordinates coords);
 
         /// <summary>
         /// Returns true if the entity has line of sight to the position of the target.
@@ -84,6 +85,11 @@ namespace OpenNefia.Content.Visibility
                 return false;
 
             return map.IsInWindowFov(coords.Position);
+        }
+
+        public bool IsInWindowFov(EntityCoordinates coords)
+        {
+            return IsInWindowFov(coords.ToMap(EntityManager));
         }
 
         public bool HasLineOfSight(EntityUid onlooker, EntityUid target,

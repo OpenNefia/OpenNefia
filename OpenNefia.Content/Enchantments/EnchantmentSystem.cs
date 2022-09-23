@@ -60,8 +60,11 @@ namespace OpenNefia.Content.Enchantments
         IEnumerable<EnchantmentComponent> EnumerateEnchantments(EntityUid item, EnchantmentsComponent? encs = null);
 
         IEnumerable<(EnchantmentComponent, T)> QueryEnchantmentsOnItem<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
+        IEnumerable<(EnchantmentComponent, T)> QueryEnchantmentsOnEquipper<T>(EntityUid equipper, EquipSlotsComponent? equipSlots = null) where T : class, IComponent;
         int GetEnchantmentPower<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent;
-        int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipmentComponent? equip = null) where T : class, IComponent;
+        int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipSlotsComponent? equipSlots = null) where T : class, IComponent;
+        bool HasEnchantmentEquipped<T>(EntityUid equipper)
+          where T : class, IComponent;
     }
 
     public sealed class EnchantmentSystem : EntitySystem, IEnchantmentSystem
@@ -552,16 +555,30 @@ namespace OpenNefia.Content.Enchantments
             }
         }
 
+        public IEnumerable<(EnchantmentComponent, T)> QueryEnchantmentsOnEquipper<T>(EntityUid equipper, EquipSlotsComponent? equipSlots = null) where T : class, IComponent
+        {
+            foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper, equipSlots))
+            {
+                foreach (var pair in QueryEnchantmentsOnItem<T>(item))
+                    yield return pair;
+            }
+        }
+
         public int GetEnchantmentPower<T>(EntityUid item, EnchantmentsComponent? encs = null) where T : class, IComponent
         {
             return QueryEnchantmentsOnItem<T>(item, encs)
                 .Sum(pair => pair.Item1.TotalPower);
         }
 
-        public int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipmentComponent? equip = null) where T : class, IComponent
+        public int GetTotalEquippedEnchantmentPower<T>(EntityUid equipper, EquipSlotsComponent? equipSlots = null) where T : class, IComponent
         {
-            return _equipSlots.EnumerateEquippedEntities(equipper)
+            return _equipSlots.EnumerateEquippedEntities(equipper, equipSlots)
                 .Sum(item => GetEnchantmentPower<T>(item));
+        }
+
+        bool IEnchantmentSystem.HasEnchantmentEquipped<T>(EntityUid equipper)
+        {
+            return QueryEnchantmentsOnEquipper<T>(equipper).Any();
         }
     }
 

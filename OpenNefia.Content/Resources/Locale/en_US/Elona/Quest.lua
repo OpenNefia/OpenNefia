@@ -7,6 +7,13 @@ Elona.Quest = {
         return ("You have failed the quest taken from %s."):format(clientName)
     end,
 
+    Deadline = {
+        NoDeadline = "-",
+        Days = function(days)
+            return ("%sd"):format(days)
+        end,
+    },
+
     Rewards = {
         And = "and",
         Comma = ",",
@@ -33,6 +40,19 @@ Elona.Quest = {
             DoneWell = "You've done well. Thanks. Here's your reward.",
             TakeReward = "",
         },
+    },
+
+    Board = {
+        Title = "Notice Board",
+        Difficulty = {
+            Star = "$",
+            Counter = function(starCount)
+                return ("$ x %s"):format(starCount)
+            end,
+        },
+
+        NoNewNotices = "It seems there are no new notices.",
+        PromptMeetClient = "Do you want to meet the client?",
     },
 
     Types = {
