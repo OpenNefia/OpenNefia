@@ -2,6 +2,10 @@
 	path = Thirdparty/Love2dCS
 	url = https://github.com/Ruin0x11/Love2dCS.git
 	branch = opennefia-net
+[submodule "Thirdparty/love"]
+	path = Thirdparty/love
+	url = https://github.com/Ruin0x11/love.git
+	branch = opennefia-net
 [submodule "Thirdparty/CSharpRepl"]
 	path = Thirdparty/CSharpRepl
 	url = https://github.com/waf/CSharpRepl.git
