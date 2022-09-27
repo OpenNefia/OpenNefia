@@ -63,17 +63,37 @@ Elona.Quest = {
                     Description = function(player, speaker, params)
                         return (
                             "I want to give my kid %s as a birthday present. If you can send me this item, I'll pay you %s in exchange."
-                        ):format(params.objective, params.reward)
+                        ):format(params.itemName, params.reward)
                     end,
                 },
             },
             Detail = function(params)
-                return ("Give %s to the client."):format(params.objective)
+                return ("Give %s to the client."):format(params.itemName)
             end,
             Dialog = {
                 Give = function(item)
                     return ("Here is %s you asked."):format(_.name(item, nil, 1))
                 end,
+            },
+        },
+
+        Collect = {
+            TargetIn = function(mapName)
+                return ("the target in %s"):format(mapName)
+            end,
+            Detail = function(params)
+                return ("Acquire %s from %s for the client."):format(params.itemName, params.targetName)
+            end,
+
+            Variants = {
+                {
+                    Name = "I want it!",
+                    Description = function(player, speaker, params)
+                        return (
+                            "Have you seen %s's %s? I want it! I want it! Get it for me by fair means or foul! I'll give you %s."
+                        ):format(params.targetName, params.itemName, params.reward)
+                    end,
+                },
             },
         },
     },

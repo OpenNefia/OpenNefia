@@ -13,5 +13,6 @@ namespace OpenNefia.Content.Items
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LostPropertyComponent : Component
-    {    }
+    {   
+    }
 }

@@ -4,6 +4,14 @@ Elona.Dialog = {
             More = "(続く)",
             Bye = "さようなら",
         },
+
+        Thanks = function(speaker)
+            return _.thanks(speaker, 2)
+        end,
+        YouKidding = function(speaker)
+            return ("冷やかし%s"):format(_.ka(speaker, 1))
+        end,
+
         WillNotListen = function(entity)
             return ("%sは耳を貸さない。"):format(_.name(entity))
         end,

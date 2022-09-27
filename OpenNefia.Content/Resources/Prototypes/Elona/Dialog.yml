@@ -178,5 +178,51 @@
   id: Elona.Maid
 - type: Elona.Dialog
   id: Elona.Guard
+  nodes:
+    WhereIs: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Guard_WhereIs
+    LostProperty: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:Guard_LostProperty
+    LostProperty_Empty: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Guard.LostProperty.Empty.Dialog
+      choices:
+      - text: Elona.Dialog.Guard.LostProperty.Empty.Choice
+        nextNode: Elona.Default:Talk
+      afterEnter:
+      - !type:ModifyKarmaAction
+        amount: -5
+    LostProperty_TurnIn: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Guard.LostProperty.TurnIn.Dialog
+      choices:
+      - text: Elona.Dialog.Guard.LostProperty.TurnIn.Choice
+        nextNode: Elona.Guard:LostProperty_CheckFrequent
+      afterEnter:
+      - !type:ModifyKarmaAction
+        amount: 5
+      - !type:ModifyFlagAction
+        property: Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
+        operation: Add
+        value: 1
+    LostProperty_CheckFrequent: !type:DialogBranchNode
+      conditions:
+      - condition: !type:CheckFlagCondition
+          property: Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
+        comparison: GreaterThanOrEqual
+        value: 4
+        node: Elona.Guard:LostProperty_FoundOften
+      defaultNode: Elona.Default:Talk
+    LostProperty_FoundOften: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Guard.LostProperty.FoundOften.Dialog
+      choices:
+      - text: Elona.Dialog.Guard.LostProperty.FoundOften.Choice
+        nextNode: Elona.Default:Talk
+      afterEnter:
+      - !type:ModifyKarmaAction
+        amount: -10
+    
+
 - type: Elona.Dialog
   id: Elona.Servant

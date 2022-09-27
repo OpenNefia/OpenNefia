@@ -48,8 +48,6 @@ namespace OpenNefia.Content.Dialog
 
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            EntitySystem.InjectDependencies(this);
-            
             _sidequests.SetState(SidequestID, State);
         }
     }
@@ -89,8 +87,6 @@ namespace OpenNefia.Content.Dialog
 
         public IEnumerable<EntityUid> FindEntities(IDialogEngine engine)
         {
-            EntitySystem.InjectDependencies(this);
-
             var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
 
             return _entityLookup.EntityQueryInMap<MetaDataComponent>(spatial.MapID)
@@ -167,8 +163,6 @@ namespace OpenNefia.Content.Dialog
         
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            EntitySystem.InjectDependencies(this);
-
             EntityUid? entity = null;
             if (Entity != null)
                 entity = Entity.FindEntities(engine).FirstOrNull();

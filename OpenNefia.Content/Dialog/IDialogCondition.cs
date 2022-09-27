@@ -32,8 +32,6 @@ namespace OpenNefia.Content.Dialog
 
         public int GetValue(IDialogEngine engine)
         {
-            EntitySystem.InjectDependencies(this);
-
             return _sidequests.GetState(SidequestID);
         }
     }
@@ -51,8 +49,6 @@ namespace OpenNefia.Content.Dialog
 
         public int GetValue(IDialogEngine engine)
         {
-            EntitySystem.InjectDependencies(this);
-
             var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
             return _tags.EntitiesWithTagInMap(spatial.MapID, Tag).Count();
         }
@@ -71,8 +67,6 @@ namespace OpenNefia.Content.Dialog
 
         public int GetValue(IDialogEngine engine)
         {
-            EntitySystem.InjectDependencies(this);
-
             var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
             return _lookup.EntityQueryInMap<MetaDataComponent>(spatial.MapID)
                 .Where(metadata => metadata.EntityPrototype?.GetStrongID() == ProtoID)

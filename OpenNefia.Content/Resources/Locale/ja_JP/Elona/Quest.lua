@@ -26,6 +26,9 @@ Elona.Quest = {
     Dialog = {
         Choices = {
             About = "依頼について",
+            Give = function(item)
+                return ("%sを納入する"):format(_.name(item, nil, 1))
+            end,
         },
 
         About = {
@@ -77,7 +80,7 @@ Elona.Quest = {
                         ):format(
                             _.kana(speaker, 4),
                             params.reward,
-                            params.objective,
+                            params.itemName,
                             _.kure(speaker, 4)
                         )
                     end,
@@ -88,7 +91,7 @@ Elona.Quest = {
                         return (
                             "最近ちょっといいことがあったので、自分に%sをプレゼントしたい%s。報酬は、%sでどう%s？"
                         ):format(
-                            params.objective,
+                            params.itemName,
                             _.noda(speaker, 4),
                             params.reward,
                             _.kana(speaker, 4)
@@ -103,7 +106,7 @@ Elona.Quest = {
                         ):format(
                             params.reward,
                             _.kana(speaker, 4),
-                            params.objective,
+                            params.itemName,
                             _.noda(speaker, 4)
                         )
                     end,
@@ -114,7 +117,7 @@ Elona.Quest = {
                         return (
                             "%sの研究をしてい%s。研究用のストックが尽きたので、%sで調達して来てもらえない%s？"
                         ):format(
-                            params.objective,
+                            params.itemName,
                             _.ru(speaker, 4),
                             params.reward,
                             _.kana(speaker, 4)
@@ -128,7 +131,7 @@ Elona.Quest = {
                             "%sのコレクションに%sが必要%s。どうか%sの報酬で依頼を受けて%s！"
                         ):format(
                             _.ore(speaker, 4),
-                            params.objective,
+                            params.itemName,
                             _.da(speaker, 4),
                             params.reward,
                             _.kure(speaker, 4)
@@ -141,7 +144,7 @@ Elona.Quest = {
                         return (
                             "ちょっとした用事で、%sが必要になった%s。期限内に納入してくれれば%sを払%s。"
                         ):format(
-                            params.objective,
+                            params.itemName,
                             _.noda(speaker, 4),
                             params.reward,
                             _.u(speaker, 4)
@@ -150,12 +153,52 @@ Elona.Quest = {
                 },
             },
             Detail = function(params)
-                return ("%sの納入"):format(params.objective)
+                return ("%sの納入"):format(params.itemName)
             end,
-            Dialog = {
-                Give = function(item)
-                    return ("%sを納入する"):format(_.name(item, nil, 1))
-                end,
+        },
+
+        Collect = {
+            TargetIn = function(mapName)
+                return ("%sに住む人物"):format(mapName)
+            end,
+            Detail = function(params)
+                return ("依頼人のために%sから%sを調達"):format(params.targetName, params.itemName)
+            end,
+
+            Variants = {
+                {
+                    Name = "物凄く欲しい物",
+                    Description = function(player, speaker, params)
+                        return (
+                            "%sが、最近やたらと%sを見せびらかして自慢してくる%s。%sもたまらなく%sが欲しい%s！どうにかしてブツを手に入れてくれれば、%sを払%s。手段はもちろん問わない%s。"
+                        ):format(
+                            params.targetName,
+                            params.itemName,
+                            _.noda(speaker, 4),
+                            _.ore(speaker, 4),
+                            params.item_name,
+                            _.yo(speaker, 4),
+                            params.reward,
+                            _.u(speaker, 4),
+                            _.yo(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "狙った獲物",
+                    Description = function(player, speaker, params)
+                        return (
+                            "%sが%sを所持しているのは知っている%s？わけあって、どうしてもこの品物が必要なの%s。うまく取り合って入手してくれれば、%sを払%s。"
+                        ):format(
+                            params.targetName,
+                            params.itemName,
+                            _.kana(speaker, 4),
+                            _.da(speaker, 4),
+                            params.reward,
+                            _.u(speaker, 4)
+                        )
+                    end,
+                },
             },
         },
     },

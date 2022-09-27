@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Quests
 
         private void QuestSupply_Localize(EntityUid uid, QuestTypeSupplyComponent component, QuestLocalizeDataEvent args)
         {
-            args.OutParams["objective"] = _quests.FormatQuestObjective(_itemName.QualifyNameWithItemType(component.TargetItemID));
+            args.OutParams["itemName"] = _quests.FormatQuestObjective(_itemName.QualifyNameWithItemType(component.TargetItemID));
         }
 
         private void QuestSupply_CalcDifficulty(EntityUid uid, QuestTypeSupplyComponent component, QuestCalcDifficultyEvent args)
@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Quests
 
         private void QuestSupply_BeforeGenerate(EntityUid uid, QuestTypeSupplyComponent component, QuestBeforeGenerateEvent args)
         {
-            var category = _randomGen.PickTag(component.TargetItemCandidates);
+            var category = _randomGen.PickTag(Protos.TagSet.ItemSupply);
             var itemID = _itemGen.PickRandomItemIdRaw(tags: new[] { category });
             if (itemID == null)
             {
@@ -59,72 +59,19 @@ namespace OpenNefia.Content.Quests
         /// </summary>
         private void QuestSupply_AddGiveDialogChoices(EntityUid uid, QuestClientComponent component, GetDefaultDialogChoicesEvent args)
         {
-            foreach (var (quest, questSupply) in _quests.EnumerateQuestsForClient<QuestTypeSupplyComponent>(args.Speaker))
+            foreach (var (quest, questSupply) in _quests.EnumerateAllQuestsForClient<QuestTypeSupplyComponent>(args.Speaker))
             {
                 if (_inv.TryFindItemWithIDInInventory(args.Player, questSupply.TargetItemID, out var item))
                 {
-                    var choiceExtraData = new DialogQuestSupplyData(quest.Owner, item.Value);
+                    var choiceExtraData = new DialogQuestGiveItemData(quest.Owner, item.Value);
                     args.OutChoices.Add(new()
                     {
-                        Text = DialogTextEntry.FromString(Loc.GetString("Elona.Quest.Types.Supply.Dialog.Give", ("item", item.Value))),
-                        NextNode = new(Protos.Dialog.QuestSupply, "Give"),
+                        Text = DialogTextEntry.FromString(Loc.GetString("Elona.Quest.Dialog.Choices.Give", ("item", item.Value))),
+                        NextNode = new(Protos.Dialog.QuestCommon, "Give"),
                         ExtraData = new List<IDialogExtraData>() { choiceExtraData }
                     });
                 }
             }
         }
-
-        #region Dialog Callbacks
-
-        public sealed class DialogQuestSupplyData : IDialogExtraData
-        {
-            public DialogQuestSupplyData() {}
-
-            public DialogQuestSupplyData(EntityUid quest, EntityUid item)
-            {
-                Quest = quest;
-                Item = item;
-            }
-
-            [DataField]
-            public EntityUid Quest { get; }
-
-            [DataField]
-            public EntityUid Item { get; }
-        }
-
-        public QualifiedDialogNode? QuestSupply_Trade(IDialogEngine engine, IDialogNode node)
-        {
-            _mes.Display("TODO", UiColors.MesYellow);
-            return null;
-        }
-
-        public QualifiedDialogNode? QuestSupply_Give(IDialogEngine engine, IDialogNode node)
-        {
-            var data = engine.Data.Get<DialogQuestSupplyData>();
-
-            _mes.Display(Loc.GetString("Elona.Dialog.Common.YouHandOver", ("player", engine.Player), ("item", data.Item)));
-
-            // TODO AI item to use
-            if (_inv.TryGetInventoryContainer(engine.Speaker!.Value, out var inv)
-                && _stacks.TrySplit(data.Item, 1, out var split))
-            {
-                _inv.EnsureFreeItemSlot(engine.Speaker.Value);
-                if (!inv.Insert(split, EntityManager))
-                {
-                    Logger.ErrorS("quest", $"Failed to give quest item {split} to client {engine.Speaker.Value}");
-                    _stacks.Use(split, 1);
-                }
-            }
-            else
-            {
-                _stacks.Use(data.Item, 1);
-            }
-
-            var nextNodeID = _quests.TurnInQuest(data.Quest, engine.Speaker.Value);
-            return engine.GetNodeByID(nextNodeID);
-        }
-
-        #endregion
     }
 }

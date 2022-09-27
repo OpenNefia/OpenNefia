@@ -101,25 +101,26 @@ namespace OpenNefia.Content.Quests
                 base.SetPosition(x, y);
                 Window.SetPosition(X, Y);
                 AssetDecoBoardB.SetPosition(X + 20, Y + 8);
-                UiText.SetPosition(X + 76, y - 1);
-                TextDeadline.SetPosition(X + 324, Y + 2);
-                TextClientName.SetPosition(X + 372, Y + 2);
+                UiText.SetPosition(X + 76 + 20, Y + 1 + 20);
+                KeyNameText.SetPosition(X + 76, Y - 1 + 20);
+                TextDeadline.SetPosition(X + 324 + 20, Y + 2 + 20);
+                TextClientName.SetPosition(X + 372 + 20, Y + 2 + 20);
 
                 if (_starCount <= 5)
                 {
-                    TextStarsRow1.SetPosition(X + 250, Y + 2);
+                    TextStarsRow1.SetPosition(X + 250 + 20, Y + 2 + 20);
                 }
                 else if (_starCount < 11)
                 {
-                    TextStarsRow1.SetPosition(X + 250, Y - 1);
-                    TextStarsRow2.SetPosition(X + 250, Y + 7);
+                    TextStarsRow1.SetPosition(X + 250 + 20, Y - 1 + 20);
+                    TextStarsRow2.SetPosition(X + 250 + 20, Y + 7 + 20);
                 }
                 else
                 {
-                    TextStarsRow1.SetPosition(X + 250, Y + 2);
+                    TextStarsRow1.SetPosition(X + 250 + 20, Y + 2 + 20);
                 }
 
-                TextDescription.SetPosition(X, Y + 20);
+                TextDescription.SetPosition(X + 20, Y + 20 + 20);
             }
 
             public override void SetSize(float width, float height)
@@ -127,18 +128,20 @@ namespace OpenNefia.Content.Quests
                 base.SetSize(width, height);
                 Window.SetSize(Width, Height);
                 AssetDecoBoardB.SetPreferredSize();
+                KeyNameText.SetPreferredSize();
                 UiText.SetPreferredSize();
                 TextDeadline.SetPreferredSize();
                 TextClientName.SetPreferredSize();
                 TextStarsRow1.SetPreferredSize();
                 TextStarsRow2.SetPreferredSize();
-                TextDescription.SetSize(Width, Height);
+                TextDescription.SetSize(Width - 40, Height - 40);
             }
 
             public override void Update(float dt)
             {
                 Window.Update(dt);
                 AssetDecoBoardB.Update(dt);
+                KeyNameText.Update(dt);
                 UiText.Update(dt);
                 TextDeadline.Update(dt);
                 TextClientName.Update(dt);
@@ -151,7 +154,13 @@ namespace OpenNefia.Content.Quests
             {
                 Window.Draw();
                 AssetDecoBoardB.Draw();
-                AssetSelectKey.Draw(UIScale, X, Y - 1);
+                Love.Graphics.SetBlendMode(BlendMode.Subtract);
+                Love.Graphics.SetColor(new Color(12, 14, 16, 255));
+                Love.Graphics.Rectangle(DrawMode.Fill, X + 70 + 20, Y + 20, 460, 18);
+                Love.Graphics.SetBlendMode(BlendMode.Alpha);
+                Love.Graphics.SetColor(Color.White);
+                AssetSelectKey.Draw(UIScale, X + 70, Y + 17);
+                KeyNameText.Draw();
                 UiText.Draw();
                 TextDeadline.Draw();
                 TextClientName.Draw();
@@ -176,7 +185,7 @@ namespace OpenNefia.Content.Quests
             {
                 var cell = DisplayedCells[index];
 
-                cell.SetSize(Width, 120);
+                cell.SetSize(560, 140);
             }
         }
 
@@ -189,10 +198,8 @@ namespace OpenNefia.Content.Quests
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
-
-
-                cell.SetPosition(X, iy);
-                iy += cell.Height;
+                cell.SetPosition(X - 20, iy - 20);
+                iy += 120;
             }
         }
     }

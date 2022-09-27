@@ -17,5 +17,24 @@
     goldModifier: 65
   - type: QuestRewardRandomCategory
     itemCategories: Elona.ItemRewardSupply
-    goldModifier: 65
   - type: QuestTypeSupply
+
+- type: Entity
+  id: Elona.QuestCollect
+  parent: BaseQuest
+  hspIds:
+    elona122: 1011
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Collect.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 71 # 1000 / 14
+  - type: QuestDeadlines
+    deadlineDays: 3~5
+  - type: QuestRewardGold
+    goldModifier: 60
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeCollect

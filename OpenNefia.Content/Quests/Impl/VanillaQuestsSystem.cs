@@ -15,6 +15,15 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Containers;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Parties;
+using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Dialog;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
+using OpenNefia.Content.UI;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Quests
 {
@@ -33,10 +42,64 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IInventorySystem _inv = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
             Initialize_Supply();
+            Initialize_Collect();
+        }
+
+        public sealed class DialogQuestGiveItemData : IDialogExtraData
+        {
+            public DialogQuestGiveItemData() { }
+
+            public DialogQuestGiveItemData(EntityUid quest, EntityUid item)
+            {
+                Quest = quest;
+                Item = item;
+            }
+
+            [DataField]
+            public EntityUid Quest { get; }
+
+            [DataField]
+            public EntityUid Item { get; }
+        }
+
+        public QualifiedDialogNode? GiveQuestItemAndTurnIn(IDialogEngine engine, IDialogNode node)
+        {
+            var data = engine.Data.Get<DialogQuestGiveItemData>();
+
+            _mes.Display(Loc.GetString("Elona.Dialog.Common.YouHandOver", ("player", engine.Player), ("item", data.Item)));
+
+            // TODO AI item to use
+            if (_inv.TryGetInventoryContainer(engine.Speaker!.Value, out var inv)
+                && _stacks.TrySplit(data.Item, 1, out var split))
+            {
+                _inv.EnsureFreeItemSlot(engine.Speaker.Value);
+                if (!inv.Insert(split, EntityManager))
+                {
+                    Logger.ErrorS("quest", $"Failed to give quest item {split} to client {engine.Speaker.Value}");
+                    _stacks.Use(split, 1);
+                }
+            }
+            else
+            {
+                _stacks.Use(data.Item, 1);
+            }
+
+            var nextNodeID = _quests.TurnInQuest(data.Quest, engine.Speaker.Value);
+            return engine.GetNodeByID(nextNodeID);
+        }
+
+        public QualifiedDialogNode? OpenTradeMenu(IDialogEngine engine, IDialogNode node)
+        {
+            _mes.Display("TODO", UiColors.MesYellow);
+            return null;
         }
     }
 }

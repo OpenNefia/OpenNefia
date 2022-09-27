@@ -31,11 +31,15 @@ namespace OpenNefia.Content.Quests
 {
     public interface IQuestSystem : IEntitySystem
     {
-        IEnumerable<QuestComponent> EnumerateQuestsForClient(EntityUid client);
-        IEnumerable<(QuestComponent, T)> EnumerateQuestsForClient<T>(EntityUid client)
+        IEnumerable<QuestComponent> EnumerateAllQuestsForClient(EntityUid client);
+        IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAllQuestsForClient<T>(EntityUid client)
             where T : class, IComponent;
-        IEnumerable<QuestComponent> EnumerateQuests();
+        IEnumerable<QuestComponent> EnumerateAllQuests();
+        IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAllQuests<T>()
+            where T : class, IComponent;
         IEnumerable<QuestComponent> EnumerateAcceptedQuests();
+        IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAcceptedQuests<T>()
+            where T : class, IComponent;
 
         void UpdateInMap(IMap map);
 
@@ -43,6 +47,8 @@ namespace OpenNefia.Content.Quests
         string FormatDeadlineText(GameTimeSpan? deadlineSpan);
         LocalizedQuestData LocalizeQuestData(EntityUid quest, EntityUid client, EntityUid player, QuestComponent? questComp = null);
         Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid client, EntityUid player);
+        IEnumerable<EntityUid> EnumerateTargetCharasInMap(IMap map, EntityUid quest, QuestComponent? questComp = null);
+        IEnumerable<EntityUid> EnumerateTargetCharasInMap(MapId mapID, EntityUid quest, QuestComponent? questComp = null);
 
         QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker);
         void FailQuest(EntityUid quest);
@@ -72,22 +78,17 @@ namespace OpenNefia.Content.Quests
 
         #region API Methods
 
-        public IEnumerable<QuestComponent> EnumerateQuestsForClient(EntityUid client)
+        public IEnumerable<QuestComponent> EnumerateAllQuestsForClient(EntityUid client)
         {
-            return EnumerateQuests().Where(q => q.ClientEntity == client);
+            return EnumerateAllQuests().Where(q => q.ClientEntity == client);
         }
 
-        public IEnumerable<(QuestComponent, T)> EnumerateQuestsForClient<T>(EntityUid client) where T : class, IComponent
+        public IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAllQuestsForClient<T>(EntityUid client) where T : class, IComponent
         {
-            foreach (var quest in EnumerateQuestsForClient(client))
-            {
-                // TODO use EntityQuery<T> struct
-                if (TryComp<T>(quest.Owner, out var questType))
-                    yield return (quest, questType);
-            }
+            return EnumerateAllQuests<T>().Where(pair => pair.Quest.ClientEntity == client);
         }
 
-        public IEnumerable<QuestComponent> EnumerateQuests()
+        public IEnumerable<QuestComponent> EnumerateAllQuests()
         {
             foreach (var quest in _quests)
             {
@@ -98,9 +99,24 @@ namespace OpenNefia.Content.Quests
             }
         }
 
+        public IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAllQuests<T>() where T : class, IComponent
+        {
+            foreach (var quest in EnumerateAllQuests())
+            {
+                // TODO use EntityQuery<T> struct
+                if (TryComp<T>(quest.Owner, out var questType))
+                    yield return (quest, questType);
+            }
+        }
+
         public IEnumerable<QuestComponent> EnumerateAcceptedQuests()
         {
-            return EnumerateQuests().Where(q => q.State == QuestState.Accepted);
+            return EnumerateAllQuests().Where(q => q.State == QuestState.Accepted);
+        }
+
+        public IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAcceptedQuests<T>() where T : class, IComponent
+        {
+            return EnumerateAllQuests<T>().Where(pair => pair.Quest.State == QuestState.Accepted);
         }
 
         private bool IsValidQuestHub(IMap map, IArea area)
@@ -188,7 +204,7 @@ namespace OpenNefia.Content.Quests
                         if (HasComp<QuestClientComponent>(chara.Owner))
                             EntityManager.RemoveComponent<QuestClientComponent>(chara.Owner);
                         questHub.Clients.Remove(chara.Owner);
-                        foreach (var quest in EnumerateQuestsForClient(chara.Owner).ToList())
+                        foreach (var quest in EnumerateAllQuestsForClient(chara.Owner).ToList())
                         {
                             DeleteQuest(quest);
                         }
@@ -202,7 +218,7 @@ namespace OpenNefia.Content.Quests
                     {
                         Logger.DebugS("quest", $"Removing missing quest client {client}");
                         questHub.Clients.Remove(client);
-                        foreach (var quest in EnumerateQuestsForClient(client).ToList())
+                        foreach (var quest in EnumerateAllQuestsForClient(client).ToList())
                         {
                             DeleteQuest(quest);
                         }
@@ -228,7 +244,7 @@ namespace OpenNefia.Content.Quests
 
         private bool ShouldGenerateQuestsForClient(EntityUid client)
         {
-            return CanBeQuestClient(client) && !EnumerateQuestsForClient(client).Any();
+            return CanBeQuestClient(client) && !EnumerateAllQuestsForClient(client).Any();
         }
 
         private bool IsDeadQuest(QuestComponent quest)
@@ -252,7 +268,7 @@ namespace OpenNefia.Content.Quests
 
         private void CleanDeadQuests(EntityUid client)
         {
-            foreach (var quest in EnumerateQuestsForClient(client).Where(IsDeadQuest).ToList())
+            foreach (var quest in EnumerateAllQuestsForClient(client).Where(IsDeadQuest).ToList())
             {
                 DeleteQuest(quest);
             }
@@ -509,6 +525,24 @@ namespace OpenNefia.Content.Quests
             return new LocalizedQuestData(name, desc);
         }
 
+        public IEnumerable<EntityUid> EnumerateTargetCharasInMap(IMap map, EntityUid quest, QuestComponent? questComp = null)
+         => EnumerateTargetCharasInMap(map.Id, quest, questComp);
+
+        public IEnumerable<EntityUid> EnumerateTargetCharasInMap(MapId mapID, EntityUid quest, QuestComponent? questComp = null)
+        {
+            if (!Resolve(quest, ref questComp))
+                yield break;
+
+            var ev = new QuestGetTargetCharasEvent(questComp);
+            RaiseEvent(quest, ev);
+
+            foreach (var entity in ev.OutTargetCharas)
+            {
+                if (IsAlive(entity) && Spatial(entity).MapID == mapID)
+                    yield return entity;
+            }
+        }
+
         #endregion
     }
 
@@ -664,6 +698,23 @@ namespace OpenNefia.Content.Quests
             Gold = gold;
             Platinum = platinum;
             ItemCount = itemCount;
+        }
+    }
+
+    /// <summary>
+    /// Event for collecting the relevant target characters of this quest.
+    /// This is used to add ths "Where is [...]?" dialog options when speaking to guards.
+    /// </summary>
+    [EventUsage(EventTarget.Quest)]
+    public sealed class QuestGetTargetCharasEvent : CancellableEntityEventArgs
+    {
+        public QuestComponent Quest { get; }
+
+        public List<EntityUid> OutTargetCharas { get; } = new();
+
+        public QuestGetTargetCharasEvent(QuestComponent quest)
+        {
+            Quest = quest;
         }
     }
 }

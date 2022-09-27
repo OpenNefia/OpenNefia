@@ -239,3 +239,26 @@ entities:
   - type: TurnOrder
   - type: LecchoTorte.InfiniteSpawner
     entityID: Elona.CharaFireDrake
+- uid: 30
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,2
+  - type: RoleGuard
+- uid: 31
+  protoId: Elona.ItemWallet
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,4
+  - type: Stack
+    count: 99
+- uid: 32
+  protoId: Elona.ItemSuitcase
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,4
+  - type: Stack
+    count: 99

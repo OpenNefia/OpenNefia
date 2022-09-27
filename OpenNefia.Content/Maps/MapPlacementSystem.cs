@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Roles;
 
 namespace OpenNefia.Content.Maps
 {
@@ -104,6 +105,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _session = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
 
         public MapCoordinates? FindFreePosition(IMap map, bool allowStacking = false, bool mapOnly = false, bool forceClear = false)
         {
@@ -304,9 +306,7 @@ namespace OpenNefia.Content.Maps
                 _mes.Display(Loc.GetString("Elona.Chara.PlaceFailure.Other", ("target", entity)));
             }
 
-            // TODO villager
-            var isVillager = false;
-            if (isVillager)
+            if (_charas.IsVillager(entity))
             {
                 liveness = CharaLivenessState.VillagerDead;
             }

@@ -1,7 +1,4 @@
 Elona.Dialog.Common = {
-    Thanks = "Thanks!",
-    YouKidding = "You kidding?",
-
     Choices = {
         Sex = "Interested in a little tail t'night?",
     },

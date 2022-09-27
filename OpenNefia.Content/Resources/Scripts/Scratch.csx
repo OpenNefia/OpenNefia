@@ -261,3 +261,13 @@ public void vv(object obj)
 
     _uiMan.Query(debugView);
 }
+
+public bool warpTo(GlobalAreaId areaId, AreaFloorId? floorId = null)
+{
+    var entrance = new MapEntrance()
+    {
+        MapIdSpecifier = new GlobalAreaMapIdSpecifier(areaId, floorId)
+    };
+
+    return _mapEntrance.UseMapEntrance(player(), entrance);
+}

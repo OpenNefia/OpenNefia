@@ -51,7 +51,7 @@ namespace OpenNefia.Content.Quests
         private void QuestClient_GetDefaultDialogChoices(EntityUid uid, QuestClientComponent component, GetDefaultDialogChoicesEvent args)
         {
             // TODO multiple quests per client
-            foreach (var quest in EnumerateQuestsForClient(uid).Where(q => q.State == QuestState.NotAccepted))
+            foreach (var quest in EnumerateAllQuestsForClient(uid).Where(q => q.State == QuestState.NotAccepted))
             {
                 args.OutChoices.Add(new DialogChoiceEntry()
                 {
@@ -67,10 +67,11 @@ namespace OpenNefia.Content.Quests
 
         private void QuestDeadlines_BeforeGenerate(EntityUid uid, QuestDeadlinesComponent questDeadlines, QuestBeforeGenerateEvent args)
         {
-            args.Quest.TownBoardExpirationDate = _world.State.GameDate + GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.TownBoardExpirationDays));
+            if (questDeadlines.TownBoardExpirationDays != null)
+                args.Quest.TownBoardExpirationDate = _world.State.GameDate + GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.TownBoardExpirationDays.Value));
 
             if (questDeadlines.DeadlineDays != null)
-                args.Quest.TimeUntilDeadline =  GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
+                args.Quest.TimeUntilDeadline = GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
         }
 
         private void Quest_Completed(EntityUid uid, QuestComponent component, QuestCompletedEvent args)
