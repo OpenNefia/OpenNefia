@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "EntryPoint",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.EntryPoint.dll",
+            "args": [],
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+        },
+        {
+            "name": "YAML Validator",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-yaml-validator",
+            "program": "${workspaceFolder}/OpenNefia.YAMLValidator/bin/Debug/net6.0/OpenNefia.YAMLValidator.dll",
+            "cwd": "${workspaceFolder}/OpenNefia.YAMLValidator",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}
