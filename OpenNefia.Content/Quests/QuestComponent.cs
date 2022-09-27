@@ -103,7 +103,7 @@ namespace OpenNefia.Content.Quests
     public sealed class QuestDeadlinesComponent : Component
     {
         [DataField]
-        public IntRange TownBoardExpirationDays { get; set; } = new IntRange(3, 4);
+        public IntRange? TownBoardExpirationDays { get; set; } = new IntRange(3, 4);
 
         [DataField]
         public IntRange? DeadlineDays { get; set; }

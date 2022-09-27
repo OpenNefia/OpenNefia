@@ -23,10 +23,15 @@
 #
 
 - type: Elona.Dialog
-  id: Elona.QuestSupply
+  id: Elona.QuestCommon
   nodes:
     Give: !type:DialogCallbackNode
-      callback: Content.Quests.VanillaQuestsSystem:QuestSupply_Give
+      callback: Content.Quests.VanillaQuestsSystem:GiveQuestItemAndTurnIn
+    Trade: !type:DialogCallbackNode
+      callback: Content.Quests.VanillaQuestsSystem:OpenTradeMenu
+
+- type: Elona.Dialog
+  id: Elona.QuestSupply
 
 - type: Elona.Dialog
   id: Elona.QuestHarvest
@@ -42,7 +47,9 @@
   id: Elona.QuestHunt
 - type: Elona.Dialog
   id: Elona.QuestCook
+
 - type: Elona.Dialog
   id: Elona.QuestCollect
+
 - type: Elona.Dialog
   id: Elona.QuestConquer

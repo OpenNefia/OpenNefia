@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Inventory;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -38,6 +39,8 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IInventorySystem _inv = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
 
         public override void Initialize()
         {
@@ -48,6 +51,7 @@ namespace OpenNefia.Content.Dialog
             Trainer_Initialize();
             Prostitute_Initialize();
             Innkeeper_Initialize();
+            Guard_Initialize();
         }
     }
 }

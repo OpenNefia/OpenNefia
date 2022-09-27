@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Quests
             if (!TryMap(uid, out var map))
                 return;
 
-            var questsHere = _quests.EnumerateQuests()
+            var questsHere = _quests.EnumerateAllQuests()
                 .Where(q => q.ClientOriginatingMap == map.Id && q.State == QuestState.NotAccepted)
                 .ToList();
 

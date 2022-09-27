@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Currency;
+using OpenNefia.Content.Dialog;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Prototypes;

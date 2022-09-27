@@ -26,6 +26,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.Roles;
 
 namespace OpenNefia.Content.Charas
 {
@@ -38,6 +39,7 @@ namespace OpenNefia.Content.Charas
         bool RenewStatus(EntityUid entity, CharaComponent? chara);
         bool Revive(EntityUid uid, bool force = false, CharaComponent? chara = null);
         IEnumerable<CharaComponent> EnumerateNonAllies(IMap map);
+        bool IsVillager(EntityUid target, CharaComponent? chara = null);
     }
 
     public sealed partial class CharaSystem : EntitySystem, ICharaSystem
@@ -46,6 +48,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IRoleSystem _roles = default!;
 
         public bool Revive(EntityUid entity, bool force = false, CharaComponent? chara = null)
         {
@@ -110,6 +113,15 @@ namespace OpenNefia.Content.Charas
         {
             return _lookup.EntityQueryInMap<CharaComponent>(map.Id)
                 .Where(c => !_parties.IsInPlayerParty(c.Owner));
+        }
+
+        public bool IsVillager(EntityUid target, CharaComponent? chara = null)
+        {
+            if (!Resolve(target, ref chara))
+                return false;
+
+            return _roles.HasAnyRoles(target)
+                && !HasComp<RoleAdventurerComponent>(target);
         }
     }
 }

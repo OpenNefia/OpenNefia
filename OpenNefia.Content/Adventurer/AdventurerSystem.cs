@@ -1,6 +1,8 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Loot;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Roles;
 using OpenNefia.Content.World;
@@ -31,12 +33,14 @@ namespace OpenNefia.Content.Adventurer
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
 
         public override void Initialize()
         {
             SubscribeEntity<MapOnTimePassedEvent>(ProcUpdateAdventurers);
             SubscribeComponent<HiredAdventurerComponent, BeforeDropItemsOnDeathEvent>(HandleBeforeDropItems);
             SubscribeComponent<RoleAdventurerComponent, AfterDroppedItemsOnDeathEvent>(HandleAfterDroppedLoot);
+            SubscribeComponent<RoleAdventurerComponent, CharaPlaceFailureEvent>(Adventurer_CharaPlaceFailure);
         }
 
         private void HandleBeforeDropItems(EntityUid uid, HiredAdventurerComponent component, BeforeDropItemsOnDeathEvent args)
@@ -65,6 +69,15 @@ namespace OpenNefia.Content.Adventurer
         private void HandleAfterDroppedLoot(EntityUid uid, RoleAdventurerComponent component, AfterDroppedItemsOnDeathEvent args)
         {
             // TODO regenerate equipment
+        }
+
+        private void Adventurer_CharaPlaceFailure(EntityUid uid, RoleAdventurerComponent component, CharaPlaceFailureEvent args)
+        {
+            if (!TryComp<CharaComponent>(uid, out var chara))
+                return;
+
+            chara.Liveness = CharaLivenessState.AdventurerHospital;
+            chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(24 + _rand.Next(24 / 2));
         }
     }
 }

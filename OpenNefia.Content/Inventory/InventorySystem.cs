@@ -136,7 +136,8 @@ namespace OpenNefia.Content.Inventory
 
             if (inv.BurdenType >= BurdenType.Max)
             {
-                _mes.Display(Loc.GetString("Elona.Inventory.Burden.CarryTooMuch"), combineDuplicates: true);
+                if (_gameSession.IsPlayer(uid))
+                    _mes.Display(Loc.GetString("Elona.Inventory.Burden.CarryTooMuch"), combineDuplicates: true);
                 args.Handle(TurnResult.Failed);
                 return;
             }
@@ -200,7 +201,7 @@ namespace OpenNefia.Content.Inventory
                 .Where(x => EntityManager.IsAlive(x));
         }
 
-        public  IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null)
+        public IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null)
         {
             return EnumerateInventory(entity, inv).Concat(_equipSlots.EnumerateEquippedEntities(entity, equipSlots));
         }

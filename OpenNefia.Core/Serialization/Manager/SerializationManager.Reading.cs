@@ -462,7 +462,7 @@ namespace OpenNefia.Core.Serialization.Manager
             var split = node.Value.Split(':');
             if (split.Length != 2)
             {
-                throw new ArgumentException($"Could not parse delegate name from string '{split}', it should have the value 'Namespace.Of.Type:MethodName'");
+                throw new ArgumentException($"Could not parse delegate name from string '{split}', it should have a value like 'Namespace.Of.Type:MethodName'");
             }
 
             var systemTypeName = split[0];

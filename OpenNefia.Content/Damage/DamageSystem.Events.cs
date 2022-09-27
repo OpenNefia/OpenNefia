@@ -41,6 +41,7 @@ namespace OpenNefia.Content.Damage
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
         [Dependency] private readonly IDialogSystem _dialog = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
 
         public override void Initialize()
         {
@@ -261,18 +262,15 @@ namespace OpenNefia.Content.Damage
             {
                 chara.Liveness = CharaLivenessState.PetDead;
             }
-            else if (_roles.HasAnyRoles(target))
+            else if (HasComp<RoleAdventurerComponent>(target))
             {
-                if (HasComp<RoleAdventurerComponent>(target))
-                {
-                    chara.Liveness = CharaLivenessState.AdventurerHospital;
-                    chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(AdventurerRespawnPeriodHours + _rand.Next(AdventurerRespawnPeriodHours / 2));
-                }
-                else
-                {
-                    chara.Liveness = CharaLivenessState.VillagerDead;
-                    chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
-                }
+                chara.Liveness = CharaLivenessState.AdventurerHospital;
+                chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(AdventurerRespawnPeriodHours + _rand.Next(AdventurerRespawnPeriodHours / 2));
+            }
+            else if (_charas.IsVillager(target))
+            {
+                chara.Liveness = CharaLivenessState.VillagerDead;
+                chara.RevivalDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
             }
             else
             {

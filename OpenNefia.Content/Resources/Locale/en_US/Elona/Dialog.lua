@@ -4,6 +4,10 @@ Elona.Dialog = {
             More = "(More)",
             Bye = "Bye bye.",
         },
+
+        Thanks = "Thanks!",
+        YouKidding = "You kidding?",
+
         WillNotListen = function(entity)
             return ("%s won't listen."):format(_.name(entity))
         end,

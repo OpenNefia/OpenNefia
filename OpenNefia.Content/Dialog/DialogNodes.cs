@@ -90,6 +90,15 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogJumpNode : IDialogNode
     {
+        public DialogJumpNode() { }
+
+        public DialogJumpNode(List<DialogTextEntry> texts, QualifiedDialogNodeID nextNode, List<IDialogAction>? beforeEnter = null)
+        {
+            _texts = texts;
+            NextNode = nextNode;
+            _beforeEnter = beforeEnter ?? new();
+        }
+
         [DataField("texts")]
         private List<DialogTextEntry> _texts { get; } = new();
 
@@ -111,7 +120,10 @@ namespace OpenNefia.Content.Dialog
         public QualifiedDialogNode? Invoke(IDialogEngine engine)
         {
             foreach (var action in BeforeEnter)
+            {
+                EntitySystem.InjectDependencies(action); // TODO auto-injection
                 action.Invoke(engine, this);
+            }
 
             if (_texts.Count == 0)
                 return engine.GetNodeByID(NextNode);
@@ -360,7 +372,10 @@ namespace OpenNefia.Content.Dialog
             int defaultChoiceIndex = -1;
 
             foreach (var action in BeforeEnter)
+            {
+                EntitySystem.InjectDependencies(action); // TODO auto-injection
                 action.Invoke(engine, this);
+            }
 
             var queryLayerArgs = new QueryLayerArgs(/* NoHaltInput: true */); // BUG: reentrancy causes infinite loop
             UiResult<DialogResult>? result = null;
@@ -375,7 +390,10 @@ namespace OpenNefia.Content.Dialog
                 var localizedTexts = GetLocalizedText(entry, engine);
 
                 foreach (var action in entry.BeforeEnter)
+                {
+                    EntitySystem.InjectDependencies(action); // TODO auto-injection
                     action.Invoke(engine, this);
+                }
 
                 for (var j = 0; j < localizedTexts.Count; j++)
                 {
@@ -449,11 +467,17 @@ namespace OpenNefia.Content.Dialog
                 }
 
                 foreach (var action in entry.AfterEnter)
+                {
+                    EntitySystem.InjectDependencies(action); // TODO auto-injection
                     action.Invoke(engine, this);
+                }
             }
 
             foreach (var action in AfterEnter)
+            {
+                EntitySystem.InjectDependencies(action); // TODO auto-injection
                 action.Invoke(engine, this);
+            }
 
             if (result == null)
                 return null;
@@ -575,6 +599,7 @@ namespace OpenNefia.Content.Dialog
 
         public bool Test(IDialogEngine engine)
         {
+            EntitySystem.InjectDependencies(Condition); // TODO auto-injection
             var value = Condition.GetValue(engine);
             return ComparisonUtils.EvaluateComparison(value, Value, Comparison);
         }
