@@ -95,11 +95,5 @@ namespace OpenNefia.Content.Quests
             var nextNodeID = _quests.TurnInQuest(data.Quest, engine.Speaker.Value);
             return engine.GetNodeByID(nextNodeID);
         }
-
-        public QualifiedDialogNode? OpenTradeMenu(IDialogEngine engine, IDialogNode node)
-        {
-            _mes.Display("TODO", UiColors.MesYellow);
-            return null;
-        }
     }
 }

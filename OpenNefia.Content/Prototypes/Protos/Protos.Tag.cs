@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly TagPrototypeId ItemNoshop                  = new($"Elona.Tag{nameof(ItemNoshop)}");
             public static readonly TagPrototypeId ItemSf                      = new($"Elona.Tag{nameof(ItemSf)}");
             public static readonly TagPrototypeId ItemSpshop                  = new($"Elona.Tag{nameof(ItemSpshop)}");
+            public static readonly TagPrototypeId ItemNotrade                 = new($"Elona.Tag{nameof(ItemNotrade)}");
 
             public static readonly TagPrototypeId CharaCat                    = new($"Elona.Tag{nameof(CharaCat)}");
             public static readonly TagPrototypeId CharaDragon                 = new($"Elona.Tag{nameof(CharaDragon)}");

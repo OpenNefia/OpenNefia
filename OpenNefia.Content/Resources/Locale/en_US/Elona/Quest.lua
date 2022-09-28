@@ -26,6 +26,9 @@ Elona.Quest = {
     Dialog = {
         Choices = {
             About = "About the work.",
+            Give = function(item)
+                return ("Here is %s you asked."):format(_.name(item, nil, 1))
+            end,
         },
 
         About = {
@@ -70,11 +73,6 @@ Elona.Quest = {
             Detail = function(params)
                 return ("Give %s to the client."):format(params.itemName)
             end,
-            Dialog = {
-                Give = function(item)
-                    return ("Here is %s you asked."):format(_.name(item, nil, 1))
-                end,
-            },
         },
 
         Collect = {

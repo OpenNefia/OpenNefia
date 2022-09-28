@@ -69,9 +69,9 @@ namespace OpenNefia.Content.Inventory
         bool ApplyNameModifiers { get; }
 
         /// <summary>
-        /// If true, automatically exit the inventory menu if there are no more filtered items. Used by the get/drop actions.
+        /// If non-null, automatically exit the inventory menu if there are no more filtered items. Used by the get/drop actions.
         /// </summary>
-        bool ExitAfterSelectionIfEmpty { get; }
+        TurnResult? TurnResultAfterSelectionIfEmpty { get; }
 
         /// <summary>
         /// Allocates the icon that this behavior will display in the icon bar.
@@ -90,9 +90,11 @@ namespace OpenNefia.Content.Inventory
 
         void OnQuery(InventoryContext inventoryContext);
 
+        int? OnQueryAmount(InventoryContext context, EntityUid item);
+
         InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount);
 
-        InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<EntityUid> filteredItems);
+        InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<InventoryEntry> filteredItems);
 
         void OnKeyBindDown(IInventoryLayer layer, GUIBoundKeyEventArgs args);
 

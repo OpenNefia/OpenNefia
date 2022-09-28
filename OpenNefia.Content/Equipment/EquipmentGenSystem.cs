@@ -81,14 +81,17 @@ namespace OpenNefia.Content.Equipment
 
             for (var i = 0; i < 100; i++)
             {
-                var deleteCandidates = _inv.EnumerateInventory(chara, inv)
-                    .Where(i => !HasComp<AlwaysDropOnDeathComponent>(i))
-                    .ToList();
-
-                if (deleteCandidates.Any())
+                if (_inv.IsInventoryFull(chara))
                 {
-                    var toDelete = _rand.PickAndTake(deleteCandidates);
-                    EntityManager.DeleteEntity(toDelete);
+                    var deleteCandidates = _inv.EnumerateInventory(chara, inv)
+                        .Where(i => !HasComp<AlwaysDropOnDeathComponent>(i))
+                        .ToList();
+
+                    if (deleteCandidates.Any())
+                    {
+                        var toDelete = _rand.PickAndTake(deleteCandidates);
+                        EntityManager.DeleteEntity(toDelete);
+                    }
                 }
 
                 var filter = new ItemFilter()

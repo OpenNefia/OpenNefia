@@ -28,7 +28,7 @@
     Give: !type:DialogCallbackNode
       callback: Content.Quests.VanillaQuestsSystem:GiveQuestItemAndTurnIn
     Trade: !type:DialogCallbackNode
-      callback: Content.Quests.VanillaQuestsSystem:OpenTradeMenu
+      callback: Content.Dialog.VanillaDialogSystem:OpenTradeMenu
 
 - type: Elona.Dialog
   id: Elona.QuestSupply

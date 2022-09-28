@@ -97,25 +97,14 @@ namespace OpenNefia.Content.Inventory
             {
                 if (Behavior.QueryAmount && stack.Count > 1)
                 {
-                    var min = 1;
-                    var max = stack.Count;
-
-                    LocaleKey promptKey;
-                    if (Behavior.QueryAmountPrompt != null && Loc.HasString(Behavior.QueryAmountPrompt.Value))
-                        promptKey = Behavior.QueryAmountPrompt.Value;
-                    else
-                        promptKey = "Elona.Inventory.Common.HowMany";
-
-                    var prompt = Loc.GetString(promptKey, ("min", min), ("max", max), ("entity", item));
-
-                    var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(new(max, min, isCancellable: true, prompt: prompt));
+                    var result = Behavior.OnQueryAmount(this, item);
 
                     if (!result.HasValue)
                     {
                         return new InventoryResult.Continuing();
                     }
 
-                    amount = result.Value.Value;
+                    amount = result.Value;
                 }
                 else
                 {

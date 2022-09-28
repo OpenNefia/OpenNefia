@@ -1582,6 +1582,7 @@
   - type: Tag
     tags:
     - Elona.ItemCatGold
+    - Elona.TagItemNotrade
   - type: Value
     value: 1
   - type: Item
@@ -1610,6 +1611,7 @@
     tags:
     - Elona.ItemCatPlatinum
     - Elona.TagItemNoshop
+    - Elona.TagItemNotrade
   - type: Value
     value: 1
   - type: Item

@@ -252,14 +252,13 @@ namespace OpenNefia.Core.UserInterface
                 layer.ZOrder = (CurrentLayer?.ZOrder ?? 0) + 1000;
             }
 
-            layer.Result = null;
             layer.WasCancelled = false;
 
             var baseLayer = (UiLayer)layer;
 
             PushLayer(baseLayer, queryArgs?.NoHaltInput ?? false);
 
-            UiResult<TResult>? result = null;
+            UiResult<TResult>? result = layer.GetResult();
 
             layer.OnQuery();
 
@@ -312,6 +311,8 @@ namespace OpenNefia.Core.UserInterface
 
             // layer.HaltInput();
             layer.OnQueryFinish();
+
+            layer.Result = null;
 
             return result;
         }

@@ -28,6 +28,7 @@ namespace OpenNefia.Content.Quests
 
             var questsHere = _quests.EnumerateAllQuests()
                 .Where(q => q.ClientOriginatingMap == map.Id && q.State == QuestState.NotAccepted)
+                .OrderBy(q => q.Difficulty)
                 .ToList();
 
             var layerArgs = new QuestBoardLayer.Args(questsHere);

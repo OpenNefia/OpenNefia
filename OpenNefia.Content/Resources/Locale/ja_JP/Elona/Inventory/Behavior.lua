@@ -143,14 +143,42 @@ Elona.Inventory.Behavior = {
 
     Trade = {
         WindowTitle = "交換する",
-        QueryTargetText = "何を交換する？ ",
-        QueryExchangingForText = "何と交換する？",
+        QueryText = "何を交換する？",
+    },
+
+    TradeTarget = {
+        WindowTitle = "交換する",
+        QueryText = "何と交換する？",
     },
 
     Present = {
         WindowTitle = "提示する",
-        QueryText = function(item)
-            return ("%sの代わりに何を提示する？ "):format(item)
+        PromptConfirm = function(item, itemAmount, targetItem, targetAmount)
+            return ("本当に%sの代わりに%sを提示する？"):format(
+                _.name(targetItem, true, targetAmount),
+                _.name(item, true, itemAmount)
+            )
+        end,
+        QueryText = function(item, itemAmount)
+            return ("%sの代わりに何を提示する？ "):format(_.name(item, true, itemAmount))
+        end,
+        TooLowValue = function(targetItem, targetAmount)
+            return ("%sに見合う物を所持していない。"):format(_.name(targetItem, true, targetAmount))
+        end,
+        TooLowValueAmount = function(offerItem, offerAmount, targetItem, targetAmount)
+            return ("%sは%sに見合えない。"):format(
+                _.name(offerItem, true, offerAmount),
+                _.name(targetItem, true, targetAmount)
+            )
+        end,
+        CannotUnequip = function(owner, item)
+            return ("%sは%sを外せない."):format(_.name(owner, true), _.name(item, true))
+        end,
+        YouReceive = function(offerItem, offerAmount, targetItem, targetAmount)
+            return ("%sを%sと交換した。"):format(
+                _.name(targetItem, true, targetAmount),
+                _.name(offerItem, true, offerAmount)
+            )
         end,
     },
 
