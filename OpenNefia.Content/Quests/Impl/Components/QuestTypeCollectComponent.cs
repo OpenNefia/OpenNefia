@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace OpenNefia.Content.Quests.Impl
+namespace OpenNefia.Content.Quests
 {
     /// <summary>
     /// Quest in which the player must give the client a specific item, which

@@ -82,6 +82,7 @@ namespace OpenNefia.Content.Inventory
             SubscribeComponent<InventoryComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntityTurnEndingEventArgs>(HandleTurnEnding);
             SubscribeComponent<InventoryComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<InventoryComponent, ContainerIsInsertingAttemptEvent>(HandleAboutToInsert, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntInsertedIntoContainerEventArgs>(HandleInserted, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntRemovedFromContainerEventArgs>(HandleRemoved, priority: EventPriorities.VeryHigh);
         }
@@ -147,6 +148,15 @@ namespace OpenNefia.Content.Inventory
         {
             // Speed is refreshed by TurnOrderSystem later, no need to calculate it twice.
             RefreshInventoryWeight(uid, refreshSpeed: false, component);
+        }
+
+        private void HandleAboutToInsert(EntityUid uid, InventoryComponent component, ContainerIsInsertingAttemptEvent args)
+        {
+            if (IsInventoryFull(uid, component))
+            {
+                args.Cancel();
+                return;
+            }    
         }
 
         private void HandleInserted(EntityUid uid, InventoryComponent component, EntInsertedIntoContainerEventArgs args)

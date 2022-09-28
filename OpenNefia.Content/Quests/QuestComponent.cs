@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Quests
         /// Map containing the client who gave this quest.
         /// </summary>
         [DataField]
-        public MapId ClientOriginatingMap { get; set; }
+        public MapId ClientOriginatingMapID { get; set; }
 
         /// <summary>
         /// Name of the map containing the client who gave this quest.
@@ -187,5 +187,14 @@ namespace OpenNefia.Content.Quests
 
         [DataField]
         public GameTimeSpan ExpirationNotifyInterval { get; set; } = GameTimeSpan.MaxValue;
+    }
+
+    /// <summary>
+    /// Returning while taking this quest will fail it.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Quest)]
+    public sealed class QuestPreventsReturnComponent : Component
+    {
     }
 }

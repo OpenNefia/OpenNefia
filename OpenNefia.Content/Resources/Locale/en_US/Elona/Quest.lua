@@ -29,6 +29,7 @@ Elona.Quest = {
             Give = function(item)
                 return ("Here is %s you asked."):format(_.name(item, nil, 1))
             end,
+            Deliver = "Here's your delivery.",
         },
 
         About = {
@@ -59,6 +60,92 @@ Elona.Quest = {
     },
 
     Types = {
+        Deliver = {
+            Dialog = {
+                BackpackIsFull = "It seems your backpack is already full. Come see me again when you're ready.",
+                Accept = "Here's the package. Be aware of the deadline. I don't want to report you to the guards.",
+            },
+            Detail = function(params)
+                return ("Deliver %s to %s who lives in %s."):format(
+                    params.itemName,
+                    params.targetCharaName,
+                    params.targetMapName
+                )
+            end,
+
+            Categories = {
+                Elona = {
+                    ItemCatSpellbook = {
+                        Variants = {
+                            {
+                                Name = "Book delivery.",
+                                Description = function(player, speaker, params)
+                                    return ("Can you take %s to a person named %s who lives in %s? I'll pay you %s."):format(
+                                        params.itemName,
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.reward
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatFurniture = {
+                        Variants = {
+                            {
+                                Name = "A present.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "My uncle %s has built a house in %s and I'm planning to send %s as a gift. I have %s in reward."
+                                    ):format(
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.itemName,
+                                        params.reward
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatJunk = {
+                        Variants = {
+                            {
+                                Name = "Ecologist.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "My friend in %s is collecting waste materials. The name is %s. If you plan to visit %s, could you hand him %s? I'll pay you %s."
+                                    ):format(
+                                        params.targetMapName,
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.itemName,
+                                        params.reward
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatOre = {
+                        Variants = {
+                            {
+                                Name = "A small token.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "As a token of our long lasting friendship, I decided to give %s to %s who lives in %s. I'll arrange %s for your reward."
+                                    ):format(
+                                        params.itemName,
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.reward
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
         Supply = {
             Variants = {
                 {

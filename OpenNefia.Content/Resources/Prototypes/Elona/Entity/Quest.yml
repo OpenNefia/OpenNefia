@@ -1,4 +1,23 @@
 - type: Entity
+  id: Elona.QuestDeliver
+  parent: BaseQuest
+  hspIds:
+    elona122: 1002
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Deliver.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 167 # 1000 / 6
+  - type: QuestDeadlines
+    deadlineDays: 12~15
+    townBoardExpirationDays: 6~8
+  - type: QuestRewardGold
+    goldModifier: 70
+  - type: QuestTypeDeliver
+
+- type: Entity
   id: Elona.QuestSupply
   parent: BaseQuest
   hspIds:

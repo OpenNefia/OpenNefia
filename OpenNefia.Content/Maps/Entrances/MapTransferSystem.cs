@@ -14,6 +14,7 @@ namespace OpenNefia.Content.Maps
     public interface IMapTransferSystem : IEntitySystem
     {
         void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false);
+        void RunMapInitializeEvents(IMap map, MapLoadType loadType);
     }
 
     public partial class MapTransferSystem : EntitySystem, IMapTransferSystem

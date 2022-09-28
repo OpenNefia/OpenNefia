@@ -1,7 +1,6 @@
 ﻿using OpenNefia.Content.Dialog;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Quests.Impl;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;

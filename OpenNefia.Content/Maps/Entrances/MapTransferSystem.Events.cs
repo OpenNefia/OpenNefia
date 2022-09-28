@@ -145,7 +145,7 @@ namespace OpenNefia.Content.Maps
             RunMapInitializeEvents(args.NewMap, args.LoadType);
         }
 
-        private void RunMapInitializeEvents(IMap map, MapLoadType loadType)
+        public void RunMapInitializeEvents(IMap map, MapLoadType loadType)
         {
             OnMapInitialize(map, loadType);
 

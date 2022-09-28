@@ -51,6 +51,24 @@ namespace OpenNefia.Content.Quests
         /// Used by the delivery quest to find a delivery target in an unloaded map.
         /// </remarks>
         [DataField]
-        public HashSet<EntityUid> Clients { get; set; } = new();
+        public Dictionary<EntityUid, QuestClient> Clients { get; set; } = new();
+    }
+
+    [DataDefinition]
+    public sealed class QuestClient
+    {
+        public QuestClient() { }
+
+        public QuestClient(EntityUid clientEntity, string clientName)
+        {
+            ClientEntityUid = clientEntity;
+            ClientName = clientName;
+        }
+
+        [DataField]
+        public EntityUid ClientEntityUid { get; set; }
+
+        [DataField]
+        public string ClientName { get; set; } = string.Empty;
     }
 }
