@@ -131,20 +131,13 @@ namespace OpenNefia.Content.Dialog
 
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            if (Target == null)
+            foreach (var aggressor in Aggressor.FindEntities(engine))
             {
-                engine.Speaker = null;
-                return;
+                foreach (var target in Target.FindEntities(engine))
+                {
+                    _factions.ActHostileTowards(aggressor, target);
+                }
             }
-
-            var newSpeaker = Target.FindEntities(engine).FirstOrNull();
-            if (newSpeaker == null)
-            {
-                Logger.ErrorS("dialog.action", $"Could not find next speaker based on lookup criteria {Target}!");
-                return;
-            }
-
-            engine.Speaker = newSpeaker;
         }
     }
 
