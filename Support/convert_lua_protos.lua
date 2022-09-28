@@ -955,10 +955,14 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.gold_piece" then
         c = comp(to, "GoldPiece")
+        c = comp(to, "Tag")
+        c.tags[#c.tags + 1] = "Elona.TagItemNotrade"
     end
 
     if from._id == "elona.platinum_coin" then
         c = comp(to, "PlatinumCoin")
+        c = comp(to, "Tag")
+        c.tags[#c.tags + 1] = "Elona.TagItemNotrade"
     end
 
     if
@@ -2055,8 +2059,8 @@ end
 
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
-write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")
-write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
+-- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")
+-- write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona_sys.dialog", "Dialog.yml")
 -- write("base.tone", "Tone.yml")
 -- write("base.portrait", "Portrait.yml")

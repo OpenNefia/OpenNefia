@@ -146,8 +146,34 @@ Elona.Inventory.Behavior = {
 
     Present = {
         WindowTitle = "Present",
-        QueryText = function(item)
-            return ("What do you offer for %s?"):format(item)
+        PromptConfirm = function(item, itemAmount, targetItem, targetAmount)
+            return ("Really offer %s for %s?"):format(
+                _.name(item, true, itemAmount),
+                _.name(targetItem, true, targetAmount)
+            )
+        end,
+        QueryText = function(item, itemAmount)
+            return ("What do you offer for %s?"):format(_.name(item, true, itemAmount))
+        end,
+        TooLowValue = function(targetItem, targetAmount)
+            return ("You don't have stuff that match %s."):format(_.name(targetItem, true, targetAmount))
+        end,
+        TooLowValueAmount = function(offerItem, offerAmount, targetItem, targetAmount)
+            return ("%s can't match %s in value."):format(
+                _.name(offerItem, true, offerAmount),
+                _.name(targetItem, true, targetAmount)
+            )
+        end,
+        CannotUnequip = function(owner, item)
+            return ("%s can't unequip %s."):format(_.name(owner, true), _.name(item, true))
+        end,
+        YouReceive = function(player, offerItem, offerAmount, targetItem, targetAmount)
+            return ("%s receive%s %s in exchange for %s."):format(
+                _.name(player),
+                _.s(player),
+                _.name(targetItem, true, targetAmount),
+                _.name(offerItem, true, offerAmount)
+            )
         end,
     },
 

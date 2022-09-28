@@ -178,7 +178,7 @@ namespace OpenNefia.Content.Equipment
             {
                 if (_equipSlots.TryGetEmptyEquipSlot(npc, slotType, out var slotInstance))
                 {
-                    _equipSlots.TryEquip(npc, item, slotInstance);
+                    _equipSlots.TryEquip(npc, item, slotInstance, silent: true);
                     return;
                 }
                 foreach (var slot in _equipSlots.GetEquipSlots(npc))

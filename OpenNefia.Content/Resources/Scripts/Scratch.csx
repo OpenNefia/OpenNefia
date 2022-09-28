@@ -51,6 +51,7 @@ using OpenNefia.Content.CurseStates;
 using OpenNefia.Core.ViewVariables;
 using OpenNefia.Content.DebugView;
 using OpenNefia.Content.Spells;
+using OpenNefia.Content.Identify;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -153,7 +154,12 @@ public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
     if (!_inv.TryGetInventoryContainer(player(), out var inv))
         return null;
 
-    return _itemGen.GenerateItem(inv, id, amount: amount);
+    var item = _itemGen.GenerateItem(inv, id, amount: amount);
+    if (!_entityMan.IsAlive(item))
+        return null;
+
+    _entityMan.EnsureComponent<IdentifyComponent>(item.Value).IdentifyState = IdentifyState.Full;
+    return item;
 }
 
 public void clearEffects()

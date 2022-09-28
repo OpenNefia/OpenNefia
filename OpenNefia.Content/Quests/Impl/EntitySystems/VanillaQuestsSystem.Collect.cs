@@ -133,17 +133,9 @@ namespace OpenNefia.Content.Quests
         /// </summary>
         private void QuestCollect_AddTradeDialogChoice(EntityUid questUid, QuestClientComponent collectQuest, GetDefaultDialogChoicesEvent args)
         {
-            bool found = false;
-
-            foreach (var (quest, questCollect) in _quests.EnumerateAcceptedQuests<QuestTypeCollectComponent>()
-                .Where(pair => pair.QuestType.TargetChara == args.Speaker))
-            {
-                if (_inv.TryFindItemWithIDInInventory(args.Speaker, questCollect.TargetItemID, out _))
-                {
-                    found = true;
-                    break;
-                }
-            }
+            bool found = _quests.EnumerateAcceptedQuests<QuestTypeCollectComponent>()
+                .Where(pair => pair.QuestType.TargetChara == args.Speaker)
+                .Any(pair => _inv.TryFindItemWithIDInInventory(args.Speaker, pair.QuestType.TargetItemID, out _));
 
             if (found)
             {

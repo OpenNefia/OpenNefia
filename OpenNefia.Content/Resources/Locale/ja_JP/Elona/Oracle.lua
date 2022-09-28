@@ -16,4 +16,8 @@ Elona.Oracle = {
         NoArtifacts = "まだ特殊なアイテムは生成されていない。",
         Cursed = "何かがあなたの耳元でささやいたが、あなたは聞き取ることができなかった。",
     },
+
+    ConvertArtifact = function(oldItemName, item)
+        return ("%sは%sに形を変えた。"):format(oldItemName, _.name(item, true))
+    end,
 }

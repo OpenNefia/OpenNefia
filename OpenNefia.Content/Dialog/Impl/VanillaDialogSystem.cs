@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Identify;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -52,6 +53,25 @@ namespace OpenNefia.Content.Dialog
             Prostitute_Initialize();
             Innkeeper_Initialize();
             Guard_Initialize();
+        }
+
+        public QualifiedDialogNode? OpenTradeMenu(IDialogEngine engine, IDialogNode node)
+        {
+            foreach (var item in _inv.EnumerateInventoryAndEquipment(engine.Speaker!.Value))
+            {
+                if (TryComp<IdentifyComponent>(item, out var identify))
+                    identify.IdentifyState = IdentifyState.Full;
+            }
+
+            var context = new InventoryContext(engine.Player, engine.Speaker.Value, new TradeInventoryBehavior());
+            var result = _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
+
+            if (!result.HasValue || result.Value.Data is not InventoryResult.Finished invResult || invResult.TurnResult != TurnResult.Succeeded)
+            {
+                return engine.GetNodeByID(Protos.Dialog.Default, "YouKidding");
+            }
+
+            return engine.GetNodeByID(Protos.Dialog.Default, "Thanks");
         }
     }
 }
