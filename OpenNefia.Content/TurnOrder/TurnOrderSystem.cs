@@ -536,6 +536,7 @@ namespace OpenNefia.Content.TurnOrder
             var player = _gameSession.Player;
             DebugTools.Assert(_charas.Revive(player, force: true), "Failed to revive player!");
 
+            // TODO home respawn
             if (_mapManager.TryGetMap(new MapId(1), out var map))
             {
                 var pos = new CenterMapLocation().GetStartPosition(player, map);
