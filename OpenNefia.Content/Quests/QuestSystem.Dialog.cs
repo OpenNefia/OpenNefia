@@ -59,9 +59,12 @@ namespace OpenNefia.Content.Quests
             var ev = new QuestBeforeAcceptEvent(questComp, nextNodeID);
             RaiseEvent(quest.Quest, ev);
 
-            questComp.State = QuestState.Accepted;
-            if (questComp.TimeUntilDeadline != null)
-                questComp.Deadline = _world.State.GameDate + questComp.TimeUntilDeadline.Value;
+            if (!ev.Cancelled)
+            {
+                questComp.State = QuestState.Accepted;
+                if (questComp.TimeUntilDeadline != null)
+                    questComp.Deadline = _world.State.GameDate + questComp.TimeUntilDeadline.Value;
+            }
 
             return engine.GetNodeByID(ev.OutNextDialogNodeID);
         }

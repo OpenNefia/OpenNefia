@@ -41,6 +41,8 @@ namespace OpenNefia.Content.Quests
         IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAcceptedQuests<T>()
             where T : class, IComponent;
 
+        IEnumerable<(IArea Area, MapId MapId, QuestHubData QuestHub)> EnumerateQuestHubs();
+
         void UpdateInMap(IMap map);
 
         string FormatQuestObjective(string name);
@@ -119,6 +121,17 @@ namespace OpenNefia.Content.Quests
             return EnumerateAllQuests<T>().Where(pair => pair.Quest.State == QuestState.Accepted);
         }
 
+        public IEnumerable<(IArea Area, MapId MapId, QuestHubData QuestHub)> EnumerateQuestHubs()
+        {
+            return _areaManager.LoadedAreas.Values.SelectMany(area =>
+                {
+                    if (!TryComp<AreaQuestsComponent>(area.AreaEntityUid, out var areaQuests))
+                        return Enumerable.Empty<(IArea, MapId, QuestHubData)>();
+
+                    return areaQuests.QuestHubs.Select(pair => (area, pair.Key, pair.Value));
+                });
+        }
+
         private bool IsValidQuestHub(IMap map, IArea area)
         {
             if (!HasComp<MapQuestHubComponent>(map.MapEntityUid))
@@ -195,9 +208,12 @@ namespace OpenNefia.Content.Quests
                 {
                     if (CanBeQuestClient(chara.Owner))
                     {
-                        Logger.DebugS("quest", $"Registering quest client {chara.Owner}");
-                        EnsureComp<QuestClientComponent>(chara.Owner);
-                        questHub.Clients.Add(chara.Owner);
+                        if (!questHub.Clients.ContainsKey(chara.Owner))
+                        {
+                            Logger.DebugS("quest", $"Registering quest client {chara.Owner}");
+                            EnsureComp<QuestClientComponent>(chara.Owner);
+                            questHub.Clients.Add(chara.Owner, new QuestClient(chara.Owner, _displayNames.GetDisplayName(chara.Owner)));
+                        }
                     }
                     else
                     {
@@ -212,7 +228,7 @@ namespace OpenNefia.Content.Quests
                 }
 
                 // Remove clients that do not exist in this map any longer.
-                foreach (var client in questHub.Clients.ToList())
+                foreach (var client in questHub.Clients.Keys.ToList())
                 {
                     if (!IsAlive(client))
                     {
@@ -226,7 +242,7 @@ namespace OpenNefia.Content.Quests
                 }
 
                 // Generate quests for characters that need them.
-                foreach (var client in questHub.Clients)
+                foreach (var client in questHub.Clients.Keys)
                 {
                     CleanDeadQuests(client);
 
@@ -257,7 +273,7 @@ namespace OpenNefia.Content.Quests
 
         private void DeleteQuest(QuestComponent quest)
         {
-            Logger.DebugS("quest", $"Terminating quest {quest.Owner} for client {quest.ClientEntity} ({quest.ClientName} in map {quest.ClientOriginatingMap} ({quest.ClientOriginatingMapName})");
+            Logger.DebugS("quest", $"Terminating quest {quest.Owner} for client {quest.ClientEntity} ({quest.ClientName} in map {quest.ClientOriginatingMapID} ({quest.ClientOriginatingMapName})");
 
             var ev = new QuestTerminatingEvent(quest);
             RaiseEvent(quest.Owner, ev);
@@ -351,7 +367,7 @@ namespace OpenNefia.Content.Quests
                 return false;
             }
 
-            if (!TryMap(client, out var map))
+            if (!TryMap(client, out var map) || !TryGetQuestHub(map, out var questHub))
             {
                 quest = null;
                 return false;
@@ -362,7 +378,7 @@ namespace OpenNefia.Content.Quests
 
             quest.ClientEntity = client;
             quest.ClientName = _displayNames.GetDisplayName(client);
-            quest.ClientOriginatingMap = map.Id;
+            quest.ClientOriginatingMapID = map.Id;
             quest.ClientOriginatingMapName = _displayNames.GetDisplayName(map.MapEntityUid);
             quest.State = QuestState.NotAccepted;
             quest.RandomSeed = _rand.Next();
@@ -372,7 +388,7 @@ namespace OpenNefia.Content.Quests
             RaiseEvent(quest.Owner, evDifficulty);
             quest.Difficulty = evDifficulty.OutDifficulty;
 
-            var ev = new QuestBeforeGenerateEvent(quest);
+            var ev = new QuestBeforeGenerateEvent(quest, questHub, map);
             RaiseEvent(quest.Owner, ev);
             if (ev.Cancelled)
             {
@@ -596,15 +612,19 @@ namespace OpenNefia.Content.Quests
     public sealed class QuestBeforeGenerateEvent : CancellableEntityEventArgs
     {
         public QuestComponent Quest { get; }
+        public QuestHubData QuestHub { get; }
+        public IMap Map { get; }
 
-        public QuestBeforeGenerateEvent(QuestComponent quest)
+        public QuestBeforeGenerateEvent(QuestComponent quest, QuestHubData questHub, IMap map)
         {
             Quest = quest;
+            QuestHub = questHub;
+            Map = map;
         }
     }
 
     [EventUsage(EventTarget.Quest)]
-    public sealed class QuestBeforeAcceptEvent : EntityEventArgs
+    public sealed class QuestBeforeAcceptEvent : CancellableEntityEventArgs
     {
         public QuestComponent Quest { get; }
 

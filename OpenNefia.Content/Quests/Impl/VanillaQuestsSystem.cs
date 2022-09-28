@@ -24,6 +24,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.Quests
 {
@@ -46,9 +47,11 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         public override void Initialize()
         {
+            Initialize_Deliver();
             Initialize_Supply();
             Initialize_Collect();
         }

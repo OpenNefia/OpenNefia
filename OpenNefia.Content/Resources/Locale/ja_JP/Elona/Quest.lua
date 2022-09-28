@@ -29,6 +29,7 @@ Elona.Quest = {
             Give = function(item)
                 return ("%sを納入する"):format(_.name(item, nil, 1))
             end,
+            Deliver = "配達物を渡す",
         },
 
         About = {
@@ -57,7 +58,7 @@ Elona.Quest = {
     },
 
     Board = {
-        Title = "掲載されている依頼",
+        Name = "掲載されている依頼",
         Difficulty = {
             Difficulty = "★",
             Counter = function(starCount)
@@ -70,6 +71,203 @@ Elona.Quest = {
     },
 
     Types = {
+        Deliver = {
+            Dialog = {
+                BackpackIsFull = function(speaker)
+                    return ("どうやらバックパックが一杯のよう%s持ち物を整理してまた来て%s"):format(
+                        _.da(speaker),
+                        _.kure(speaker)
+                    )
+                end,
+                Accept = function(speaker)
+                    return ("これが依頼の品物%s期限には十分気をつけて%s"):format(
+                        _.da(speaker),
+                        _.kure(speaker)
+                    )
+                end,
+            },
+            Detail = function(params)
+                return ("%sに住む%sに%sを配達"):format(
+                    params.targetMapName,
+                    params.targetCharaName,
+                    params.itemName
+                )
+            end,
+
+            Categories = {
+                Elona = {
+                    ItemCatSpellbook = {
+                        Variants = {
+                            {
+                                Name = "見習い魔術師の要望",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sの%sという者が、魔法を勉強しているそう%s。%sを無事届けてくれれば、報酬として%sを払%s。"
+                                    ):format(
+                                        params.targetMapName,
+                                        params.targetCharaName,
+                                        _.da(speaker, 4),
+                                        params.itemName,
+                                        params.reward,
+                                        _.u(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "本の返却",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sという%sに住む知り合いに、借りていた%sを届けてくれない%s。報酬は%s%s。"
+                                    ):format(
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.itemName,
+                                        _.kana(speaker, 4),
+                                        params.reward,
+                                        _.da(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "珍しい本の配送",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sという本が最近手に入ったので、前から欲しがっていた%sにプレゼントしたい。%sを手間賃として払うので、%sまで行って届けてくれない%s？"
+                                    ):format(
+                                        params.itemName,
+                                        params.targetCharaName,
+                                        params.reward,
+                                        params.targetMapName,
+                                        _.kana(speaker, 4)
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatFurniture = {
+                        Variants = {
+                            {
+                                Name = "家具の配達",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sを配達して%s。期限内に無事に届ければ、配達先で報酬の%sを払%s。"
+                                    ):format(
+                                        params.itemName,
+                                        _.kure(speaker, 4),
+                                        params.reward,
+                                        _.u(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "お祝いの品",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "友達の%sが%sに家を建てたので、お祝いに%sをプレゼントしようと思%s。%sで届けてくれない%s？"
+                                    ):format(
+                                        params.targetCharaName,
+                                        params.targetMapName,
+                                        params.itemName,
+                                        _.u(speaker, 4),
+                                        params.reward,
+                                        _.kana(speaker, 4)
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatJunk = {
+                        Variants = {
+                            {
+                                Name = "珍品の配達",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "配達の依頼%s。なんに使うのか知らない%s、%sが%sを買い取りたいそう%s。%sまで配達すれば%sを払%s。"
+                                    ):format(
+                                        _.da(speaker, 4),
+                                        ga(speaker, 4),
+                                        params.targetCharaName,
+                                        params.itemName,
+                                        _.da(speaker, 4),
+                                        params.targetMapName,
+                                        params.reward,
+                                        _.u(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "廃品回収",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "知っていた%s。%sに住む%sが廃品を回収しているらしい%s。%sを送ろうと思うが、面倒なので%sの手間賃で代わりに持っていって%s。"
+                                    ):format(
+                                        _.kana(speaker, 4),
+                                        params.targetMapName,
+                                        params.targetCharaName,
+                                        _.yo(speaker, 4),
+                                        params.itemName,
+                                        params.reward,
+                                        _.kure(speaker, 4)
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                    ItemCatOre = {
+                        Variants = {
+                            {
+                                Name = "鉱石収集家に届け物",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sに%sという鉱石収集家がいる%s。この%sを届けてもらえない%s。報酬は%s%s。"
+                                    ):format(
+                                        params.targetMapName,
+                                        params.targetCharaName,
+                                        _.noda(speaker, 4),
+                                        params.itemName,
+                                        _.kana(speaker, 4),
+                                        params.reward,
+                                        _.da(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "石材の配送",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "%sで、%sを素材に、彫刻コンテストが開かれるそう%s。責任者の%sまで、材料を届けてくれる人を探している%s。お礼には%sを用意してい%s。"
+                                    ):format(
+                                        params.targetMapName,
+                                        params.itemName,
+                                        _.da(speaker, 4),
+                                        params.targetCharaName,
+                                        _.noda(speaker, 4),
+                                        params.reward,
+                                        _.ru(speaker, 4)
+                                    )
+                                end,
+                            },
+                            {
+                                Name = "鉱石のプレゼント",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "長年の友好の証として、%sに%sを送ろうと思ってい%s。%sで%sまで運んでもらえない%s？"
+                                    ):format(
+                                        params.targetCharaName,
+                                        params.itemName,
+                                        _.ru(speaker, 4),
+                                        params.reward,
+                                        params.targetMapName,
+                                        _.kana(speaker, 4)
+                                    )
+                                end,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
         Supply = {
             Variants = {
                 {
@@ -86,7 +284,7 @@ Elona.Quest = {
                     end,
                 },
                 {
-                    Title = "自分へのプレゼント",
+                    Name = "自分へのプレゼント",
                     Description = function(player, speaker, params)
                         return (
                             "最近ちょっといいことがあったので、自分に%sをプレゼントしたい%s。報酬は、%sでどう%s？"
@@ -99,7 +297,7 @@ Elona.Quest = {
                     end,
                 },
                 {
-                    Title = "子供の誕生日",
+                    Name = "子供の誕生日",
                     Description = function(player, speaker, params)
                         return (
                             "報酬は%sぐらいが妥当%s。子供の誕生日プレゼントに%sがいる%s。"
@@ -112,7 +310,7 @@ Elona.Quest = {
                     end,
                 },
                 {
-                    Title = "研究の素材",
+                    Name = "研究の素材",
                     Description = function(player, speaker, params)
                         return (
                             "%sの研究をしてい%s。研究用のストックが尽きたので、%sで調達して来てもらえない%s？"
@@ -125,7 +323,7 @@ Elona.Quest = {
                     end,
                 },
                 {
-                    Title = "コレクターの要望",
+                    Name = "コレクターの要望",
                     Description = function(player, speaker, params)
                         return (
                             "%sのコレクションに%sが必要%s。どうか%sの報酬で依頼を受けて%s！"
@@ -139,7 +337,7 @@ Elona.Quest = {
                     end,
                 },
                 {
-                    Title = "アイテムの納入",
+                    Name = "アイテムの納入",
                     Description = function(player, speaker, params)
                         return (
                             "ちょっとした用事で、%sが必要になった%s。期限内に納入してくれれば%sを払%s。"
@@ -176,7 +374,7 @@ Elona.Quest = {
                             params.itemName,
                             _.noda(speaker, 4),
                             _.ore(speaker, 4),
-                            params.item_name,
+                            params.itemName,
                             _.yo(speaker, 4),
                             params.reward,
                             _.u(speaker, 4),

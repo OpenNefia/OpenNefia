@@ -27,7 +27,7 @@ namespace OpenNefia.Content.Quests
                 return;
 
             var questsHere = _quests.EnumerateAllQuests()
-                .Where(q => q.ClientOriginatingMap == map.Id && q.State == QuestState.NotAccepted)
+                .Where(q => q.ClientOriginatingMapID == map.Id && q.State == QuestState.NotAccepted)
                 .OrderBy(q => q.Difficulty)
                 .ToList();
 
