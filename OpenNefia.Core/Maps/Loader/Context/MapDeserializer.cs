@@ -58,11 +58,17 @@ namespace OpenNefia.Core.Maps
 
         public void Deserialize()
         {
-            // Verify that prototypes for all the entities exist and throw if they don't.
-            VerifyEntitiesExist();
-
             // First we load map meta data like version.
             ReadMetaSection();
+
+            // Check save migrations.
+            if (_mode == MapSerializeMode.Full)
+            {
+                ApplySaveMigrations();
+            }
+
+            // Verify that prototypes for all the entities exist and throw if they don't.
+            VerifyEntitiesExist();
 
             // Load grids.
             ReadTileMapSection();
@@ -92,8 +98,12 @@ namespace OpenNefia.Core.Maps
             // Run MapInit on all entities.
             RunMapInitEventsOnMapAndEntities();
 
-            // Recalculate solidity/opacity for all tiles, taking entity spatials in to account.
+            // Recalculate solidity/opacity for all tiles, taking entity spatials into account.
             RecalculateTileTangibility();
+        }
+
+        private void ApplySaveMigrations()
+        {
         }
 
         private void VerifyEntitiesExist()
@@ -133,7 +143,17 @@ namespace OpenNefia.Core.Maps
 
             var name = meta.Get<ValueDataNode>(MapLoadConstants.Meta_Name).Value;
             var author = meta.Get<ValueDataNode>(MapLoadConstants.Meta_Author).Value;
-            _mapMetadata = new MapMetadata(name, author);
+            var migrations = new Dictionary<string, string>();
+            if (meta.TryGet<MappingDataNode>(MapLoadConstants.Meta_Migrations, out var migrationsNode))
+            {
+                foreach (var (modIdNode, migrationNode) in migrationsNode.Children)
+                {
+                    var modId = ((ValueDataNode)modIdNode).Value;
+                    var migration = ((ValueDataNode)migrationNode).Value;
+                    migrations[modId] = migration;
+                }
+            }
+            _mapMetadata = new MapMetadata(name, author, migrations);
         }
 
         private void ReadTileMapSection()

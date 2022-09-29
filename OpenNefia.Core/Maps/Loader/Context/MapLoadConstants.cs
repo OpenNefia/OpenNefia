@@ -8,6 +8,7 @@
         public const string Meta_Format = "format";
         public const string Meta_Name = "name";
         public const string Meta_Author = "author";
+        public const string Meta_Migrations = "migrations";
 
         public const string Tilemap = "tilemap";
 

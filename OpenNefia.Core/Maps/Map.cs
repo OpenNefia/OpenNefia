@@ -20,6 +20,8 @@ namespace OpenNefia.Core.Maps
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
+        internal List<string> AppliedMigrations { get; } = new();
+
         public MapId Id { get; internal set; }
         public EntityUid MapEntityUid { get; internal set; }
 

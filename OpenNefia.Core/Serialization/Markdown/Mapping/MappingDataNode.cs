@@ -120,6 +120,24 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             return Get<T>(GetFetchNode(key));
         }
 
+        public T? GetOrNull<T>(DataNode key) where T : DataNode
+        {
+            TryGet<T>(key, out var node);
+            return node;
+        }
+
+        public DataNode? GetOrNull(string key)
+        {
+            TryGet(key, out var node);
+            return node;
+        }
+
+        public T? GetOrNull<T>(string key) where T : DataNode
+        {
+            TryGet<T>(key, out var node);
+            return node;
+        }
+
         public bool TryGet(DataNode key, [NotNullWhen(true)] out DataNode? node)
         {
             if (_children.TryGetValue(key, out node))

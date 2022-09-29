@@ -27,10 +27,16 @@ namespace OpenNefia.Core.Maps
         public readonly string Name;
         public readonly string Author;
 
-        public MapMetadata(string name = "", string author = "")
+        /// <summary>
+        /// ModId -> LatestMigrationFilename
+        /// </summary>
+        public readonly Dictionary<string, string> Migrations;
+
+        public MapMetadata(string name = "", string author = "", Dictionary<string, string>? migrations = null)
         {
             Name = name;
             Author = author;
+            Migrations = migrations ?? new();
         }
     }
 }
