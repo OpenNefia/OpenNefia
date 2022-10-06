@@ -103,13 +103,13 @@ namespace OpenNefia.Core.GameController
             _audio.Initialize();
             _music.Initialize();
 
+            ProgramShared.DoContentMounts(_resourceCache);
+
             if (!_modLoader.TryLoadModulesFrom(Options.AssemblyDirectory, string.Empty))
             {
                 Logger.Fatal("Errors while loading content assemblies.");
                 return false;
             }
-
-            ProgramShared.DoContentMounts(_resourceCache);
 
             foreach (var loadedModule in _modLoader.LoadedModules)
             {

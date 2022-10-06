@@ -13,12 +13,7 @@
   </PropertyGroup>
 
   <Target Name="EmbedLocalResourcesPath" BeforeTargets="PrepareForBuild" Condition=" '$(EmbedLocalReferences)' == 'True' AND '$(FullRelease)' != 'True'">
-    <WriteLinesToFile File="$(IntermediateOutputPath)\LocalResourcesPath.txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
-    <ItemGroup>
-      <EmbeddedResource Include="$(IntermediateOutputPath)\LocalResourcesPath.txt">
-        <LogicalName>LocalResourcesPath.txt</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
+    <WriteLinesToFile File="$(OpenNefiaEntryPointPath)Resources\References\$(MSBuildProjectName).txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
     <Message Text="Dev resources path: $(MSBuildProjectDirectory)\Resources" Importance="high" />
   </Target>
 

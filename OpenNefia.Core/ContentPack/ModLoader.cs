@@ -65,6 +65,11 @@ namespace OpenNefia.Core.ContentPack
 
         public bool TryLoadModulesFrom(ResourcePath mountPath, string filterPrefix)
         {
+            foreach (var root in _res.GetContentRoots())
+            {
+                Logger.Info(root.ToRelativeSystemPath());
+            }
+
             var sw = Stopwatch.StartNew();
             Logger.DebugS("res.mod", "LOADING modules");
             var files = new Dictionary<string, (ResourcePath Path, string[] references)>();
