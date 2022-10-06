@@ -12,9 +12,10 @@ namespace OpenNefia.Tests
 
         public bool TryLoadModulesFrom(ResourcePath mountPath, string filterPrefix)
         {
+            var rootID = 0;
             foreach (var assembly in Assemblies)
             {
-                var manifest = new ModManifest(assembly.GetName()!.Name!, assembly.GetName()!.Version!, new List<ModDependency>()); // TODO
+                var manifest = new ModManifest(new ContentRootID(rootID++), assembly.GetName()!.Name!, assembly.GetName()!.Version!, new List<ModDependency>()); // TODO
                 InitMod(manifest, assembly);
             }
 
