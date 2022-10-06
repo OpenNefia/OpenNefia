@@ -111,7 +111,7 @@ namespace OpenNefia.Core.GameController
                 return false;
             }
 
-            foreach (var loadedModule in _modLoader.LoadedModules)
+            foreach (var loadedModule in _modLoader.LoadedModAssemblies)
             {
                 _config.LoadCVarsFromAssembly(loadedModule);
             }

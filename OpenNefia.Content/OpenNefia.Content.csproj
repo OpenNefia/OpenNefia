@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\MSBuild\OpenNefia.Mod.props" />
+
+  <PropertyGroup>
+    <ModID>OpenNefia.Content</ModID>
+    <ModVersion>0.1.0.0</ModVersion>
+  </PropertyGroup>
 	
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
@@ -9,9 +14,5 @@
 	  <None Update="Resources\Scripts\Scratch.csx">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Refresh\" />
 	</ItemGroup>
 </Project>

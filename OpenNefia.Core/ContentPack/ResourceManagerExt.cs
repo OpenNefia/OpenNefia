@@ -17,9 +17,9 @@ namespace OpenNefia.Core.ContentPack
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
         /// <seealso cref="IResourceManager.ContentFileRead(ResourcePath)"/>
         /// <seealso cref="IResourceManager.TryContentFileRead(ResourcePath, out Stream)"/>
-        public static Stream? ContentFileReadOrNull(this IResourceManager res, ResourcePath path)
+        public static Stream? ContentFileReadOrNull(this IResourceManager res, ResourcePath path, ContentRootID? rootID = null)
         {
-            if (res.TryContentFileRead(path, out var stream))
+            if (res.TryContentFileRead(path, out var stream, rootID))
             {
                 return stream;
             }

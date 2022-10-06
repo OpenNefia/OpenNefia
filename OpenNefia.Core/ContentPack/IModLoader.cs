@@ -13,9 +13,14 @@ namespace OpenNefia.Core.ContentPack
     public interface IModLoader
     {
         /// <summary>
+        ///     All directly loaded mods.
+        /// </summary>
+        IEnumerable<ModInfo> LoadedMods { get; }
+
+        /// <summary>
         ///     All directly loaded content assemblies.
         /// </summary>
-        IEnumerable<Assembly> LoadedModules { get; }
+        IEnumerable<Assembly> LoadedModAssemblies { get; }
 
         Assembly GetAssembly(string name);
 
@@ -45,12 +50,12 @@ namespace OpenNefia.Core.ContentPack
         /// <param name="assembly">Byte array of the assembly.</param>
         /// <param name="symbols">Optional byte array of the debug symbols.</param>
         /// <param name="skipVerify">Whether to skip checking the loaded assembly for sandboxing.</param>
-        void LoadGameAssembly(Stream assembly, Stream? symbols = null, bool skipVerify = false);
+        void LoadGameAssembly(ModManifest manifest, Stream assembly, Stream? symbols = null, bool skipVerify = false);
 
         /// <summary>
         ///     Loads an assembly into the current AppDomain.
         /// </summary>
-        void LoadGameAssembly(string diskPath, bool skipVerify = false);
+        void LoadGameAssembly(ModManifest manifest, string diskPath, bool skipVerify = false);
 
         /// <summary>
         ///     Broadcasts a run level change to all loaded entry point.
@@ -59,13 +64,6 @@ namespace OpenNefia.Core.ContentPack
         void BroadcastRunLevel(ModRunLevel level);
 
         void BroadcastUpdate(ModUpdateLevel level, FrameEventArgs frameEventArgs);
-
-        /// <summary>
-        ///     Tries to load an assembly from a resource manager into the current appdomain.
-        /// </summary>
-        /// <param name="assemblyName">File name of the assembly inside of the ./Assemblies folder in the resource manager.</param>
-        /// <returns>If the assembly was successfully located and loaded.</returns>
-        bool TryLoadAssembly(string assemblyName);
 
         void SetUseLoadContext(bool useLoadContext);
 

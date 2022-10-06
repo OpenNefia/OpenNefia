@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Timing;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.ContentPack
 {
@@ -20,25 +21,38 @@ namespace OpenNefia.Core.ContentPack
         /// </summary>
         protected readonly List<ModInfo> Mods = new();
 
-        public IEnumerable<Assembly> LoadedModules => Mods.Select(p => p.GameAssembly);
+        public IEnumerable<ModInfo> LoadedMods => Mods;
+        public IEnumerable<Assembly> LoadedModAssemblies => Mods.Select(p => p.GameAssembly).WhereNotNull();
 
         public Assembly GetAssembly(string name)
         {
-            return Mods.Select(p => p.GameAssembly).Single(p => p.GetName().Name == name);
+            return LoadedModAssemblies.Single(p => p.GetName().Name == name);
         }
 
-        protected void InitMod(Assembly assembly)
+        protected void InitMod(ModManifest manifest)
         {
-            if (assembly.GetName()?.Version == null)
+            var mod = new ModInfo(manifest, null);
+            Mods.Add(mod);
+        }
+
+        protected void InitMod(ModManifest manifest, Assembly assembly)
+        {
+            var assemblyVersion = assembly.GetName()?.Version;
+            if (assemblyVersion == null)
             {
                 throw new ArgumentException($"Content assembly {assembly} must have a version declared.", nameof(assembly));
             }
 
-            var mod = new ModInfo(assembly);
+            if (manifest.Version != assemblyVersion)
+            {
+                throw new ArgumentException($"Content assembly {assembly} version {assemblyVersion} must match mod manifest version {manifest.Version}", nameof(assembly));
+            }
 
-            ReflectionManager.LoadAssemblies(mod.GameAssembly);
+            var mod = new ModInfo(manifest, assembly);
 
-            var entryPoints = mod.GameAssembly.GetTypes().Where(t => typeof(ModEntryPoint).IsAssignableFrom(t));
+            ReflectionManager.LoadAssemblies(mod.GameAssembly!);
+
+            var entryPoints = mod.GameAssembly!.GetTypes().Where(t => typeof(ModEntryPoint).IsAssignableFrom(t));
 
             foreach (var entryPoint in entryPoints)
             {
@@ -118,20 +132,24 @@ namespace OpenNefia.Core.ContentPack
                 }
             }
         }
+    }
 
-        /// <summary>
-        ///     Holds info about a loaded assembly.
-        /// </summary>
-        protected sealed class ModInfo
+    /// <summary>
+    ///     Holds info about a loaded mod.
+    /// </summary>
+    public sealed class ModInfo
+    {
+        public ModInfo(ModManifest manifest, Assembly? gameAssembly)
         {
-            public ModInfo(Assembly gameAssembly)
-            {
-                GameAssembly = gameAssembly;
-                EntryPoints = new List<ModEntryPoint>();
-            }
-
-            public Assembly GameAssembly { get; }
-            public List<ModEntryPoint> EntryPoints { get; }
+            Manifest = manifest;
+            GameAssembly = gameAssembly;
+            EntryPoints = new List<ModEntryPoint>();
+            ExtraAssemblies = new List<Assembly>();
         }
+
+        public ModManifest Manifest { get; }
+        public Assembly? GameAssembly { get; }
+        internal List<Assembly> ExtraAssemblies { get; }
+        internal List<ModEntryPoint> EntryPoints { get; }
     }
 }

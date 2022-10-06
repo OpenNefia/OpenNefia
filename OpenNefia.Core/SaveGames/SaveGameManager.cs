@@ -66,47 +66,13 @@ namespace OpenNefia.Core.SaveGames
     }
 
     [DataDefinition]
-    public sealed class AssemblyMetaData
+    public sealed class ModMetadata
     {
-        /// <summary>
-        /// Full name the assembly from <see cref="AssemblyName.FullName"/>.
-        /// </summary>
         [DataField]
-        public string FullName { get; set; } = string.Empty;
+        public string ID { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Version of the assembly from <see cref="AssemblyName.Version"/>.
-        /// </summary>
         [DataField]
         public Version Version { get; set; } = new();
-
-        /// <summary>
-        /// Assembly informational version, which would include the Git commit hash.
-        /// </summary>
-        [DataField]
-        public string? InformationalVersion { get; set; } = null;
-
-        public static AssemblyMetaData FromAssembly(Assembly assembly)
-        {
-            var name = assembly.GetName();
-
-            if (name == null)
-                throw new InvalidOperationException($"Assembly {assembly} lacks a name!");
-
-            if (name.Version == null)
-                throw new InvalidOperationException($"Assembly {assembly} lacks a version!");
-
-            var infoVersion = assembly
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                ?.InformationalVersion;
-
-            return new()
-            {
-                FullName = name.FullName,
-                Version = name.Version,
-                InformationalVersion = infoVersion
-            };
-        }
     }
 
     [DataDefinition]
@@ -119,12 +85,12 @@ namespace OpenNefia.Core.SaveGames
         public string Name { get; } = default!;
 
         [DataField("assemblyMetaData", required: true)]
-        private readonly List<AssemblyMetaData> _assemblyMetaData = new();
+        private readonly List<ModMetadata> _assemblyMetaData = new();
 
         /// <summary>
         /// Versions of loaded content assemblies. 
         /// </summary>
-        public IReadOnlyList<AssemblyMetaData> AssemblyMetaData => _assemblyMetaData;
+        public IReadOnlyList<ModMetadata> AssemblyMetaData => _assemblyMetaData;
 
         public SaveGameHeader()
         {
@@ -135,7 +101,7 @@ namespace OpenNefia.Core.SaveGames
             Name = name;
         }
 
-        public SaveGameHeader(string name, List<AssemblyMetaData> assemblyVersions)
+        public SaveGameHeader(string name, List<ModMetadata> assemblyVersions)
         {
             Name = name;
             _assemblyMetaData = assemblyVersions;

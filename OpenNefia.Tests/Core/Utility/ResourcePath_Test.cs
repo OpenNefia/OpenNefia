@@ -43,6 +43,7 @@ namespace OpenNefia.Tests.Core.Utility
             ("foo", ""),
             ("foo.png", "png"),
             ("test/foo.png", "png"),
+            ("test/bar.baz/foo", ""),
             (".bashrc", ""),
             ("..png", "png"),
             ("x.y.z", "z")
@@ -76,6 +77,7 @@ namespace OpenNefia.Tests.Core.Utility
             ("foo", "foo"),
             ("foo.png", "foo"),
             ("test/foo.png", "foo"),
+            ("test/foo.bar/baz", "baz"),
             ("derp/.bashrc", ".bashrc"),
             ("..png", "."),
             ("x.y.z", "x.y")

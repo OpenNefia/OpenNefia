@@ -27,7 +27,7 @@ namespace OpenNefia.Core.ContentPack
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
         /// <seealso cref="ResourceManagerExt.ContentFileReadOrNull"/>
-        Stream ContentFileRead(ResourcePath path);
+        Stream ContentFileRead(ResourcePath path, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Read a file from the mounted content roots.
@@ -37,7 +37,7 @@ namespace OpenNefia.Core.ContentPack
         /// <exception cref="FileNotFoundException">Thrown if <paramref name="path"/> does not exist in the VFS.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        Stream ContentFileRead(string path);
+        Stream ContentFileRead(string path, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Check if a file exists in any of the mounted content roots.
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.ContentPack
         /// <returns>True if the file exists, false otherwise.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        bool ContentFileExists(ResourcePath path);
+        bool ContentFileExists(ResourcePath path, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Check if a file exists in any of the mounted content roots.
@@ -55,7 +55,7 @@ namespace OpenNefia.Core.ContentPack
         /// <returns>True if the file exists, false otherwise.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        bool ContentFileExists(string path);
+        bool ContentFileExists(string path, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Try to read a file from the mounted content roots.
@@ -66,7 +66,7 @@ namespace OpenNefia.Core.ContentPack
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
         /// <seealso cref="ResourceManagerExt.ContentFileReadOrNull"/>
-        bool TryContentFileRead(ResourcePath path, [NotNullWhen(true)] out Stream? fileStream);
+        bool TryContentFileRead(ResourcePath path, [NotNullWhen(true)] out Stream? fileStream, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Try to read a file from the mounted content roots.
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.ContentPack
         /// <returns>True if the file could be loaded, false otherwise.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        bool TryContentFileRead(string path, [NotNullWhen(true)] out Stream? fileStream);
+        bool TryContentFileRead(string path, [NotNullWhen(true)] out Stream? fileStream, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Recursively finds all files in a directory and all sub directories.
@@ -88,11 +88,11 @@ namespace OpenNefia.Core.ContentPack
         /// <returns>Enumeration of all absolute file paths of the files found.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        IEnumerable<ResourcePath> ContentFindFiles(ResourcePath path);
+        IEnumerable<ResourcePath> ContentFindFiles(ResourcePath path, ContentRootID? rootID = null);
 
-        IEnumerable<ResourcePath> ContentFindRelativeFiles(ResourcePath path)
+        IEnumerable<ResourcePath> ContentFindRelativeFiles(ResourcePath path, ContentRootID? rootID = null)
         {
-            foreach (var absPath in ContentFindFiles(path))
+            foreach (var absPath in ContentFindFiles(path, rootID))
             {
                 if (!absPath.TryRelativeTo(path, out var rel))
                 {
@@ -114,7 +114,7 @@ namespace OpenNefia.Core.ContentPack
         /// <returns>Enumeration of all absolute file paths of the files found.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="path"/> is not rooted.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="path"/> is null.</exception>
-        IEnumerable<ResourcePath> ContentFindFiles(string path);
+        IEnumerable<ResourcePath> ContentFindFiles(string path, ContentRootID? rootID = null);
 
         /// <summary>
         ///     Returns a list of paths to all top-level content directories
@@ -123,21 +123,27 @@ namespace OpenNefia.Core.ContentPack
         IEnumerable<ResourcePath> GetContentRoots();
 
         /// <summary>
+        ///     Returns a list of paths to all top-level content directories
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<(ContentRootID, ResourcePath)> GetContentRootsAndIDs();
+
+        /// <summary>
         ///     Read a file from the mounted content paths to a string.
         /// </summary>
         /// <param name="path">Path of the file to read.</param>
-        string ContentFileReadAllText(string path)
+        string ContentFileReadAllText(string path, ContentRootID? rootID = null)
         {
-            return ContentFileReadAllText(new ResourcePath(path));
+            return ContentFileReadAllText(new ResourcePath(path), rootID);
         }
 
         /// <summary>
         ///     Read a file from the mounted content paths to a string.
         /// </summary>
         /// <param name="path">Path of the file to read.</param>
-        string ContentFileReadAllText(ResourcePath path)
+        string ContentFileReadAllText(ResourcePath path, ContentRootID? rootID = null)
         {
-            return ContentFileReadAllText(path, EncodingHelpers.UTF8);
+            return ContentFileReadAllText(path, EncodingHelpers.UTF8, rootID);
         }
 
         /// <summary>
@@ -145,17 +151,17 @@ namespace OpenNefia.Core.ContentPack
         /// </summary>
         /// <param name="path">Path of the file to read.</param>
         /// <param name="encoding">Text encoding to use when reading.</param>
-        string ContentFileReadAllText(ResourcePath path, Encoding encoding)
+        string ContentFileReadAllText(ResourcePath path, Encoding encoding, ContentRootID? rootID = null)
         {
-            using var stream = ContentFileRead(path);
+            using var stream = ContentFileRead(path, rootID);
             using var reader = new StreamReader(stream, encoding);
 
             return reader.ReadToEnd();
         }
 
-        public YamlStream ContentFileReadYaml(ResourcePath path)
+        public YamlStream ContentFileReadYaml(ResourcePath path, ContentRootID? rootID = null)
         {
-            using var reader = ContentFileReadText(path);
+            using var reader = ContentFileReadText(path, rootID);
 
             var yamlStream = new YamlStream();
             yamlStream.Load(reader);
@@ -163,15 +169,25 @@ namespace OpenNefia.Core.ContentPack
             return yamlStream;
         }
 
-        public StreamReader ContentFileReadText(ResourcePath path)
+        public StreamReader ContentFileReadText(ResourcePath path, ContentRootID? rootID = null)
         {
-            return ContentFileReadText(path, EncodingHelpers.UTF8);
+            return ContentFileReadText(path, EncodingHelpers.UTF8, rootID);
         }
 
-        public StreamReader ContentFileReadText(ResourcePath path, Encoding encoding)
+        public StreamReader ContentFileReadText(ResourcePath path, Encoding encoding, ContentRootID? rootID = null)
         {
-            var stream = ContentFileRead(path);
+            var stream = ContentFileRead(path, rootID);
             return new StreamReader(stream, encoding);
         }
+    }
+
+    public struct ContentRootID
+    {
+        internal ContentRootID(int id)
+        {
+            ID = id;
+        }
+
+        private int ID { get; }
     }
 }
