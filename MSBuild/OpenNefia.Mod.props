@@ -18,7 +18,6 @@
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(OpenNefiaEntryPointPath)Resources\Assemblies" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(OpenNefiaYamlValidatorPath)Resources\Assemblies" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Resources\Assemblies\" />
   </Target>
 </Project>
