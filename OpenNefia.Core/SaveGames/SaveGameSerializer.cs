@@ -234,14 +234,15 @@ namespace OpenNefia.Core.SaveGames
 
         private SaveGameHeader MakeSaveGameHeader(string name)
         {
-            var assemblyVersions = new List<AssemblyMetaData>();
+            var assemblyVersions = new List<ModMetadata>();
 
-            foreach (var assembly in _modLoader.LoadedModules)
+            foreach (var mod in _modLoader.LoadedMods)
             {
-                if (assembly == typeof(Core.Engine).Assembly)
-                    continue;
-
-                var meta = AssemblyMetaData.FromAssembly(assembly);
+                var meta = new ModMetadata()
+                {
+                    ID = mod.Manifest.ID,
+                    Version = mod.Manifest.Version
+                };
                 assemblyVersions.Add(meta);
             }
 

@@ -167,7 +167,8 @@ namespace OpenNefia.Core.Utility
                 }
 
                 var index = filename.LastIndexOf('.');
-                if (index == 0 || index == -1 || index == filename.Length - 1)
+                var sepIndex = filename.LastIndexOf(Separator);
+                if (index == 0 || index == -1 || index == filename.Length - 1 || index < sepIndex)
                 {
                     // The path is a dotfile (like .bashrc),
                     // or there's no period at all,
@@ -210,7 +211,8 @@ namespace OpenNefia.Core.Utility
                 }
 
                 var index = filename.LastIndexOf('.');
-                if (index == 0 || index == -1 || index == filename.Length - 1)
+                var sepIndex = filename.LastIndexOf(Separator);
+                if (index == 0 || index == -1 || index == filename.Length - 1 || index < sepIndex)
                 {
                     return filename;
                 }

@@ -17,9 +17,11 @@ namespace OpenNefia.Core.ContentPack
     {
         // TODO [Dependency] private readonly IConfigurationManager _config = default!;
 
+        private int _nextContentRootID = 0;
+
         private readonly ReaderWriterLockSlim _contentRootsLock = new(LockRecursionPolicy.SupportsRecursion);
 
-        private readonly List<(ResourcePath prefix, IContentRoot root)> _contentRoots =
+        private readonly OrderedDictionary<ContentRootID, (ResourcePath prefix, IContentRoot root)> _contentRoots =
             new();
 
         // Special file names on Windows like serial ports.
@@ -80,7 +82,7 @@ namespace OpenNefia.Core.ContentPack
             _contentRootsLock.EnterWriteLock();
             try
             {
-                _contentRoots.Add((prefix, loader));
+                _contentRoots.Add(new(_nextContentRootID++), (prefix, loader));
             }
             finally
             {
@@ -121,15 +123,15 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <inheritdoc />
-        public Stream ContentFileRead(string path)
+        public Stream ContentFileRead(string path, ContentRootID? rootID = null)
         {
-            return ContentFileRead(new ResourcePath(path));
+            return ContentFileRead(new ResourcePath(path), rootID);
         }
 
         /// <inheritdoc />
-        public Stream ContentFileRead(ResourcePath path)
+        public Stream ContentFileRead(ResourcePath path, ContentRootID? rootID = null)
         {
-            if (TryContentFileRead(path, out var fileStream))
+            if (TryContentFileRead(path, out var fileStream, rootID))
             {
                 return fileStream;
             }
@@ -138,13 +140,13 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <inheritdoc />
-        public bool TryContentFileRead(string path, [NotNullWhen(true)] out Stream? fileStream)
+        public bool TryContentFileRead(string path, [NotNullWhen(true)] out Stream? fileStream, ContentRootID? rootID = null)
         {
-            return TryContentFileRead(new ResourcePath(path), out fileStream);
+            return TryContentFileRead(new ResourcePath(path), out fileStream, rootID);
         }
 
         /// <inheritdoc />
-        public bool TryContentFileRead(ResourcePath path, [NotNullWhen(true)] out Stream? fileStream)
+        public bool TryContentFileRead(ResourcePath path, [NotNullWhen(true)] out Stream? fileStream, ContentRootID? rootID = null)
         {
             if (path == null)
             {
@@ -153,7 +155,7 @@ namespace OpenNefia.Core.ContentPack
 
             if (!path.IsRooted)
             {
-                throw new ArgumentException("Path must be rooted", nameof(path));
+                throw new ArgumentException($"Path must be rooted: {path}", nameof(path));
             }
 #if DEBUG
             if (!IsPathValid(path))
@@ -165,16 +167,33 @@ namespace OpenNefia.Core.ContentPack
 
             try
             {
-                foreach (var (prefix, root) in _contentRoots)
+                if (rootID != null)
                 {
+                    var (prefix, root) = _contentRoots[rootID.Value];
                     if (!path.TryRelativeTo(prefix, out var relative))
                     {
-                        continue;
+                        fileStream = null;
+                        return false;
                     }
 
                     if (root.TryGetFile(relative, out fileStream))
                     {
                         return true;
+                    }
+                }
+                else
+                {
+                    foreach (var (prefix, root) in _contentRoots.Values)
+                    {
+                        if (!path.TryRelativeTo(prefix, out var relative))
+                        {
+                            continue;
+                        }
+
+                        if (root.TryGetFile(relative, out fileStream))
+                        {
+                            return true;
+                        }
                     }
                 }
 
@@ -188,15 +207,15 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <inheritdoc />
-        public bool ContentFileExists(string path)
+        public bool ContentFileExists(string path, ContentRootID? rootID = null)
         {
-            return ContentFileExists(new ResourcePath(path));
+            return ContentFileExists(new ResourcePath(path), rootID);
         }
 
         /// <inheritdoc />
-        public bool ContentFileExists(ResourcePath path)
+        public bool ContentFileExists(ResourcePath path, ContentRootID? rootID = null)
         {
-            if (TryContentFileRead(path, out var stream))
+            if (TryContentFileRead(path, out var stream, rootID))
             {
                 stream.Dispose();
                 return true;
@@ -206,13 +225,13 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <inheritdoc />
-        public IEnumerable<ResourcePath> ContentFindFiles(string path)
+        public IEnumerable<ResourcePath> ContentFindFiles(string path, ContentRootID? rootID = null)
         {
-            return ContentFindFiles(new ResourcePath(path));
+            return ContentFindFiles(new ResourcePath(path), rootID);
         }
 
         /// <inheritdoc />
-        public IEnumerable<ResourcePath> ContentFindFiles(ResourcePath path)
+        public IEnumerable<ResourcePath> ContentFindFiles(ResourcePath path, ContentRootID? rootID = null)
         {
             if (path == null)
             {
@@ -229,20 +248,41 @@ namespace OpenNefia.Core.ContentPack
             _contentRootsLock.EnterReadLock();
             try
             {
-                foreach (var (prefix, root) in _contentRoots)
+                if (rootID != null)
                 {
+                    var (prefix, contentRoot) = _contentRoots[rootID.Value];
                     if (!path.TryRelativeTo(prefix, out var relative))
                     {
-                        continue;
+                        yield break;
                     }
 
-                    foreach (var filename in root.FindFiles(relative))
+                    foreach (var filename in contentRoot.FindFiles(relative))
                     {
                         var newPath = prefix / filename;
                         if (!alreadyReturnedFiles.Contains(newPath))
                         {
                             alreadyReturnedFiles.Add(newPath);
                             yield return newPath;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var (prefix, contentRoot) in _contentRoots.Values)
+                    {
+                        if (!path.TryRelativeTo(prefix, out var relative))
+                        {
+                            continue;
+                        }
+
+                        foreach (var filename in contentRoot.FindFiles(relative))
+                        {
+                            var newPath = prefix / filename;
+                            if (!alreadyReturnedFiles.Contains(newPath))
+                            {
+                                alreadyReturnedFiles.Add(newPath);
+                                yield return newPath;
+                            }
                         }
                     }
                 }
@@ -253,22 +293,39 @@ namespace OpenNefia.Core.ContentPack
             }
         }
 
-        public bool TryGetDiskFilePath(ResourcePath path, [NotNullWhen(true)] out string? diskPath)
+        public bool TryGetDiskFilePath(ResourcePath path, [NotNullWhen(true)] out string? diskPath, ContentRootID? rootID = null)
         {
             // loop over each root trying to get the file
             _contentRootsLock.EnterReadLock();
             try
             {
-                foreach (var (prefix, root) in _contentRoots)
+                if (rootID != null)
                 {
+                    var (prefix, root) = _contentRoots[rootID.Value];
+
                     if (root is not DirLoader dirLoader || !path.TryRelativeTo(prefix, out var tempPath))
                     {
-                        continue;
+                        diskPath = null;
+                        return false;
                     }
 
                     diskPath = dirLoader.GetPath(tempPath);
                     if (File.Exists(diskPath))
                         return true;
+                }
+                else
+                {
+                    foreach (var (prefix, root) in _contentRoots.Values)
+                    {
+                        if (root is not DirLoader dirLoader || !path.TryRelativeTo(prefix, out var tempPath))
+                        {
+                            continue;
+                        }
+
+                        diskPath = dirLoader.GetPath(tempPath);
+                        if (File.Exists(diskPath))
+                            return true;
+                    }
                 }
 
                 diskPath = null;
@@ -288,11 +345,22 @@ namespace OpenNefia.Core.ContentPack
 
         public IEnumerable<ResourcePath> GetContentRoots()
         {
-            foreach (var (_, root) in _contentRoots)
+            foreach (var (id, (_, root)) in _contentRoots)
             {
                 if (root is DirLoader loader)
                 {
-                    yield return new ResourcePath(loader.GetPath(new ResourcePath(@"/")));
+                    yield return loader.GetResourcePath(new ResourcePath(@"/"));
+                }
+            }
+        }
+
+        public IEnumerable<(ContentRootID, ResourcePath)> GetContentRootsAndIDs()
+        {
+            foreach (var (id, (_, root)) in _contentRoots)
+            {
+                if (root is DirLoader loader)
+                {
+                    yield return (id, loader.GetResourcePath(new ResourcePath(@"/")));
                 }
             }
         }
