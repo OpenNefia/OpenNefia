@@ -52,5 +52,6 @@ namespace OpenNefia.Content.MaterialSpot
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialSpotRemainsComponent : Component
-    {    }
+    {
+    }
 }

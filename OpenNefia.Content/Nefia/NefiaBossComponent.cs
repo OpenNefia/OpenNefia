@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Nefia
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class NefiaBossComponent : Component
-    {    }
+    {
+    }
 }

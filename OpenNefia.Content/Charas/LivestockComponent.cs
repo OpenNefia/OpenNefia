@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Charas
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LivestockComponent : Component
-    {    }
+    {
+    }
 }

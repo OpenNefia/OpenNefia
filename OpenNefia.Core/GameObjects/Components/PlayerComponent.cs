@@ -12,5 +12,6 @@ namespace OpenNefia.Core.GameObjects
     [Obsolete("Replace this with IGameSession.IsPlayer()")]
     [RegisterComponent]
     public class PlayerComponent : Component
-    {    }
+    {
+    }
 }

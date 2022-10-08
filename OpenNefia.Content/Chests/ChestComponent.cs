@@ -45,22 +45,26 @@ namespace OpenNefia.Content.Chests
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SmallGambleChestComponent : Component
-    {    }
+    {
+    }
     
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SafeComponent : Component
-    {    }
+    {
+    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class WalletComponent : Component
-    {    }
+    {
+    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SuitcaseComponent : Component
-    {    }
+    {
+    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
@@ -73,7 +77,8 @@ namespace OpenNefia.Content.Chests
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class BejeweledChestComponent : Component
-    {    }
+    {
+    }
     
     #endregion
 }

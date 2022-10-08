@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Combat
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SandBaggedComponent : Component
-    {    }
+    {
+    }
 }

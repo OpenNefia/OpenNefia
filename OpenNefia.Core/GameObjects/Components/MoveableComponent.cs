@@ -14,5 +14,6 @@ namespace OpenNefia.Core.GameObjects
     /// </remarks>
     [RegisterComponent]
     public class MoveableComponent : Component
-    {    }
+    {
+    }
 }
