@@ -34,6 +34,7 @@ using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.ViewVariables;
+using OpenNefia.Core.Patches;
 
 namespace OpenNefia
 {
@@ -128,6 +129,8 @@ namespace OpenNefia
             IoCManager.Register<IViewVariablesManager, ViewVariablesManager>();
             IoCManager.Register<IViewVariablesManagerInternal, ViewVariablesManager>();
             IoCManager.Register<IFormulaEngine, FormulaEngine>();
+            IoCManager.Register<IPatchManager, PatchManager>();
+            IoCManager.Register<IPatchManagerInternal, PatchManager>();
         }
     }
 }

@@ -75,7 +75,7 @@ namespace OpenNefia.Content.WorldMap
 
             var playerPos = _entityMan.GetComponent<SpatialComponent>(player).WorldPosition;
 
-            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             for (int i = 0; i < _clouds.Count; i++)
             {
                 var cloud = _clouds[i];
