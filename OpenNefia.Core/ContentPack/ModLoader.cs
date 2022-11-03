@@ -13,6 +13,12 @@ using System.Threading.Tasks;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core.Serialization.Manager;
+using YamlDotNet.RepresentationModel;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 
 namespace OpenNefia.Core.ContentPack
 {
@@ -23,6 +29,8 @@ namespace OpenNefia.Core.ContentPack
     {
         [Dependency] private readonly IResourceManagerInternal _res = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
+
+        private static readonly ResourcePath ModManifestPath = new("/About/Mod.yml");
 
         // List of extra assemblies side-loaded from the /Assemblies/ mounted path.
         private readonly List<Assembly> _sideModules = new();
@@ -63,60 +71,127 @@ namespace OpenNefia.Core.ContentPack
 
         public Func<string, Stream?>? VerifierExtraLoadHandler { get; set; }
 
+        /// <summary>
+        /// Serialization can only be initialized after mods have been loaded, so the manual
+        /// deserialization is necessary.
+        /// </summary>
+        private ModManifest LoadModManifest(ContentRootID rootID, YamlStream yaml)
+        {
+            var rootNode = yaml.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
+            var modNode = (MappingDataNode)rootNode["mod"];
+
+            if (!modNode.TryGet<ValueDataNode>("id", out var idNode))
+                throw new InvalidDataException("Missing 'id' node in mod manifest");
+            var id = idNode.Value;
+
+            if (!modNode.TryGet<ValueDataNode>("version", out var versionNode))
+                throw new InvalidDataException("Missing 'version' node in mod manifest");
+            if (!Version.TryParse(versionNode.Value, out var version))
+                throw new InvalidDataException($"Version '{versionNode.Value}' is invalid.");
+
+            var dependencies = new List<ModDependency>();
+            if (modNode.TryGet<SequenceDataNode>("dependencies", out var dependenciesNode))
+            {
+                foreach (var dependencyNode in dependenciesNode.Cast<MappingDataNode>())
+                {
+                    if (!dependencyNode.TryGet<ValueDataNode>("id", out var depIdNode))
+                        throw new InvalidDataException("Missing 'id' node in mod dependency");
+                    dependencies.Add(new ModDependency(depIdNode.Value));
+                }
+            }
+
+            return new ModManifest(rootID, id, version, dependencies);
+        }
+
         public bool TryLoadModulesFrom(ResourcePath mountPath, string filterPrefix)
         {
             var sw = Stopwatch.StartNew();
             Logger.DebugS("res.mod", "LOADING modules");
-            var files = new Dictionary<string, (ResourcePath Path, string[] references)>();
+            var files = new Dictionary<string, (ModManifest Manifest, ResourcePath? MainAssemblyPath, string[] Dependencies)>();
 
-            // Find all modules we want to load.
-            foreach (var filePath in _res.ContentFindRelativeFiles(mountPath)
-                .Where(p => !p.ToString().Contains('/') && p.Filename.StartsWith(filterPrefix) && p.Extension == "dll"))
+            foreach (var (rootID, root) in _res.GetContentRootsAndIDs())
             {
-                var fullPath = mountPath / filePath;
-                Logger.DebugS("res.mod", $"Found module '{fullPath}'");
-
-                using var asmFile = _res.ContentFileRead(fullPath);
-                var (asmRefs, asmName) = GetAssemblyReferenceData(asmFile);
-
-                if (!files.TryAdd(asmName, (fullPath, asmRefs)))
+                // Get the Mod.yml at the root of this content directory.
+                if (_res.ContentFileExists(ModManifestPath, rootID))
                 {
-                    Logger.ErrorS("res.mod", "Found multiple modules with the same assembly name " +
-                                             $"'{asmName}', A: {files[asmName].Path}, B: {fullPath}.");
-                    return false;
+                    var yamlStream = _res.ContentFileReadYaml(ModManifestPath, rootID);
+                    var manifest = LoadModManifest(rootID, yamlStream);
+                    Logger.InfoS("res.mod", $"Loaded manifest for mod '{manifest.ID}'");
+
+                    // Get only the assemblies that are under this content root so they can be
+                    // associated with the correct mod manifest.
+                    var assemblies = _res.ContentFindRelativeFiles(mountPath, rootID)
+                                         .Where(p => !p.ToString().Contains('/') 
+                                            && p.Filename.StartsWith(filterPrefix) 
+                                            && p.Extension == "dll")
+                                         .ToList();
+
+                    // There should be a single "main assembly" that acts as the code for this mod.
+                    // Extra assemblies needed by the main assembly will also be sideloaded (eventually)
+                    var mainAssemblyPaths = assemblies.Where(a => a.FilenameWithoutExtension == manifest.ID).ToList();
+
+                    // If there are no assemblies to load, this is a non-code mod
+                    // (manifest and prototypes/locale data only)
+                    ResourcePath? mainAssemblyPath = null;
+
+                    if (mainAssemblyPaths.Count > 0)
+                    {
+                        mainAssemblyPath = mountPath / mainAssemblyPaths.First();
+
+                        // TODO implement extra assembly loading
+
+                        Logger.Info("res.mod", $"Load assembly for module {manifest.ID}: {mainAssemblyPath}");
+                    }
+
+                    // TODO handle versions/constraints
+                    var deps = manifest.Dependencies.Select(d => d.ID).ToArray();
+
+                    if (!files.TryAdd(manifest.ID, (manifest, mainAssemblyPath, deps)))
+                    {
+                        Logger.ErrorS("res.mod", "Found multiple modules with the same ID " +
+                                                 $"'{manifest.ID}', A: {files[manifest.ID].MainAssemblyPath}, B: {mainAssemblyPath}.");
+                        return false;
+                    }
                 }
             }
 
             var nodes = TopologicalSort.FromBeforeAfter(
                 files,
                 kv => kv.Key,
-                kv => kv.Value.Path,
+                kv => kv.Value,
                 _ => Array.Empty<string>(),
-                kv => kv.Value.references,
+                kv => kv.Value.Dependencies,
                 allowMissing: true); // missing refs would be non-content assemblies so allow that.
 
             // Actually load them in the order they depend on each other.
-            foreach (var path in TopologicalSort.Sort(nodes))
+            foreach (var (manifest, asmPath, _) in TopologicalSort.Sort(nodes))
             {
-                Logger.DebugS("res.mod", $"Loading module: '{path}'");
+                Logger.DebugS("res.mod", $"Loading module: {manifest.ID} (assembly: {asmPath})");
                 try
                 {
-                    // If possible, load from disk path instead.
-                    // This probably improves performance or something and makes debugging etc more reliable.
-                    if (_res.TryGetDiskFilePath(path, out var diskPath))
+                    if (asmPath == null)
                     {
-                        LoadGameAssembly(diskPath, skipVerify: true);
+                        InitMod(manifest);
                     }
                     else
                     {
-                        using var assemblyStream = _res.ContentFileRead(path);
-                        using var symbolsStream = _res.ContentFileReadOrNull(path.WithExtension("pdb"));
-                        LoadGameAssembly(assemblyStream, symbolsStream, skipVerify: true);
+                        // If possible, load from disk path instead.
+                        // This probably improves performance or something and makes debugging etc more reliable.
+                        if (_res.TryGetDiskFilePath(asmPath, out var diskPath, manifest.ContentRootID))
+                        {
+                            LoadGameAssembly(manifest, diskPath, skipVerify: true);
+                        }
+                        else
+                        {
+                            using var assemblyStream = _res.ContentFileRead(asmPath, manifest.ContentRootID);
+                            using var symbolsStream = _res.ContentFileReadOrNull(asmPath.WithExtension("pdb"), manifest.ContentRootID);
+                            LoadGameAssembly(manifest, assemblyStream, symbolsStream, skipVerify: true);
+                        }
                     }
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorS("srv", $"Exception loading module '{path}':\n{e.ToStringWithLoaderExceptions()}");
+                    Logger.ErrorS("srv", $"Exception loading module '{manifest.ID}' ({asmPath}):\n{e.ToStringWithLoaderExceptions()}");
                     return false;
                 }
             }
@@ -125,19 +200,7 @@ namespace OpenNefia.Core.ContentPack
             return true;
         }
 
-        private static (string[] refs, string name) GetAssemblyReferenceData(Stream stream)
-        {
-            using var reader = new PEReader(stream);
-            var metaReader = reader.GetMetadataReader();
-
-            var name = metaReader.GetString(metaReader.GetAssemblyDefinition().Name);
-
-            return (metaReader.AssemblyReferences
-                .Select(a => metaReader.GetAssemblyReference(a))
-                .Select(a => metaReader.GetString(a.Name)).ToArray(), name);
-        }
-
-        public void LoadGameAssembly(Stream assembly, Stream? symbols = null, bool skipVerify = false)
+        public void LoadGameAssembly(ModManifest manifest, Stream assembly, Stream? symbols = null, bool skipVerify = false)
         {
             assembly.Position = 0;
 
@@ -151,10 +214,10 @@ namespace OpenNefia.Core.ContentPack
                 gameAssembly = Assembly.Load(assembly.CopyToArray(), symbols?.CopyToArray());
             }
 
-            InitMod(gameAssembly);
+            InitMod(manifest, gameAssembly);
         }
 
-        public void LoadGameAssembly(string diskPath, bool skipVerify = false)
+        public void LoadGameAssembly(ModManifest manifest, string diskPath, bool skipVerify = false)
         {
             Assembly assembly;
             if (_useLoadContext)
@@ -166,70 +229,7 @@ namespace OpenNefia.Core.ContentPack
                 assembly = Assembly.LoadFrom(diskPath);
             }
 
-            InitMod(assembly);
-        }
-
-        public bool TryLoadAssembly(string assemblyName)
-        {
-            var dllPath = new ResourcePath($@"/Assemblies/{assemblyName}.dll");
-            // To prevent breaking debugging on Rider, try to load from disk if possible.
-            if (_res.TryGetDiskFilePath(dllPath, out var path))
-            {
-                Logger.DebugS("srv", $"Loading {assemblyName} DLL");
-                try
-                {
-                    LoadGameAssembly(path, skipVerify: false);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Logger.ErrorS("srv", $"Exception loading DLL {assemblyName}.dll: {e.ToStringWithLoaderExceptions()}");
-                    return false;
-                }
-            }
-
-            if (_res.TryContentFileRead(dllPath, out var gameDll))
-            {
-                using (gameDll)
-                {
-                    Logger.DebugS("srv", $"Loading {assemblyName} DLL");
-
-                    // see if debug info is present
-                    if (_res.TryContentFileRead(new ResourcePath($@"/Assemblies/{assemblyName}.pdb"),
-                        out var gamePdb))
-                    {
-                        using (gamePdb)
-                        {
-                            try
-                            {
-                                // load the assembly into the process, and bootstrap the GameServer entry point.
-                                LoadGameAssembly(gameDll, gamePdb);
-                                return true;
-                            }
-                            catch (Exception e)
-                            {
-                                Logger.ErrorS("srv", $"Exception loading DLL {assemblyName}.dll: {e.ToStringWithLoaderExceptions()}");
-                                return false;
-                            }
-                        }
-                    }
-
-                    try
-                    {
-                        // load the assembly into the process, and bootstrap the GameServer entry point.
-                        LoadGameAssembly(gameDll);
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.ErrorS("srv", $"Exception loading DLL {assemblyName}.dll: {e.ToStringWithLoaderExceptions()}");
-                        return false;
-                    }
-                }
-            }
-
-            Logger.WarningS("eng", $"Could not load {assemblyName} DLL: {dllPath} does not exist in the VFS.");
-            return false;
+            InitMod(manifest, assembly);
         }
 
         private Assembly? ResolvingAssembly(AssemblyLoadContext context, AssemblyName name)
@@ -241,11 +241,11 @@ namespace OpenNefia.Core.ContentPack
                     _logManager.GetSawmill("res").Debug("ResolvingAssembly {0}", name);
 
                     // Try main modules.
-                    foreach (var mod in Mods)
+                    foreach (var assembly in LoadedModAssemblies)
                     {
-                        if (mod.GameAssembly.FullName == name.FullName)
+                        if (assembly.FullName == name.FullName)
                         {
-                            return mod.GameAssembly;
+                            return assembly;
                         }
                     }
 
@@ -258,13 +258,6 @@ namespace OpenNefia.Core.ContentPack
                         {
                             return assembly;
                         }
-                    }
-
-                    if (_res.TryContentFileRead($"/Assemblies/{name.Name}.dll", out var dll))
-                    {
-                        var assembly = _loadContext.LoadFromStream(dll);
-                        _sideModules.Add(assembly);
-                        return assembly;
                     }
 
                     return null;
@@ -291,7 +284,7 @@ namespace OpenNefia.Core.ContentPack
             if (_useLoadContext)
             {
                 _logManager.GetSawmill("res.mod").Debug($"RESOLVING DEFAULT: {name}");
-                foreach (var module in LoadedModules)
+                foreach (var module in LoadedModAssemblies)
                 {
                     if (module.GetName().Name == name.Name)
                     {

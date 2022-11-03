@@ -66,6 +66,6 @@ namespace OpenNefia.Core.ContentPack
         ///     This can be used for optimizations such as assembly loading, where an on-disk path is better.
         /// </para>
         /// </remarks>
-        bool TryGetDiskFilePath(ResourcePath path, [NotNullWhen(true)] out string? diskPath);
+        bool TryGetDiskFilePath(ResourcePath path, [NotNullWhen(true)] out string? diskPath, ContentRootID? rootID = null);
     }
 }

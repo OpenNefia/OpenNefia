@@ -61,6 +61,11 @@ namespace OpenNefia.Core.ContentPack
                 return Path.GetFullPath(Path.Combine(_directory.FullName, relPath.ToRelativeSystemPath()));
             }
 
+            internal ResourcePath GetResourcePath(ResourcePath relPath)
+            {
+                return new ResourcePath(GetPath(relPath), ResourcePath.SYSTEM_SEPARATOR).ChangeSeparator("/");
+            }
+
             /// <inheritdoc />
             public IEnumerable<ResourcePath> FindFiles(ResourcePath path)
             {
@@ -131,6 +136,7 @@ namespace OpenNefia.Core.ContentPack
                     }
                 });
             }
+
             public IEnumerable<string> GetRelativeFilePaths()
             {
                 return GetRelativeFilePaths(_directory);

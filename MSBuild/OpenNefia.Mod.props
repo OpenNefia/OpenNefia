@@ -7,23 +7,33 @@
   
   <PropertyGroup>
     <EmbedLocalReferences Condition=" '$(EmbedLocalReferences)' == '' ">True</EmbedLocalReferences>
+    <GenerateModManifest Condition=" '$(GenerateModManifest)' == '' ">True</GenerateModManifest>
     <!-- TODO: Cleaner way of detecting this in a ProjectReference or similar? -->
-    <OpenNefiaEntryPointPath Condition=" '$(OpenNefiaEntryPointPath)' == '' ">$(SolutionDir)OpenNefia.EntryPoint\bin\$(Configuration)\$(TargetFramework)\</OpenNefiaEntryPointPath>
+    <OpenNefiaCorePath Condition=" '$(OpenNefiaCorePath)' == '' ">$(SolutionDir)OpenNefia.Core\</OpenNefiaCorePath>
     <OpenNefiaYamlValidatorPath Condition=" '$(OpenNefiaYamlValidatorPath)' == '' ">$(SolutionDir)OpenNefia.YAMLValidator\bin\$(Configuration)\$(TargetFramework)\</OpenNefiaYamlValidatorPath>
   </PropertyGroup>
 
   <Target Name="EmbedLocalResourcesPath" BeforeTargets="PrepareForBuild" Condition=" '$(EmbedLocalReferences)' == 'True' AND '$(FullRelease)' != 'True'">
-    <WriteLinesToFile File="$(IntermediateOutputPath)\LocalResourcesPath.txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
-    <ItemGroup>
-      <EmbeddedResource Include="$(IntermediateOutputPath)\LocalResourcesPath.txt">
-        <LogicalName>LocalResourcesPath.txt</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
+    <WriteLinesToFile File="$(OpenNefiaCorePath)Resources\References\$(MSBuildProjectName).txt" Overwrite="true" Lines="$(MSBuildProjectDirectory)\Resources" />
     <Message Text="Dev resources path: $(MSBuildProjectDirectory)\Resources" Importance="high" />
   </Target>
 
+  <Target Name="GenerateModManifest" BeforeTargets="PrepareForBuild" Condition=" '$(GenerateModManifest)' == 'True'">
+    <Error Text="The ModID property is empty." Condition="'$(ModID)' == ''" />
+    <Error Text="The ModVersion property is empty." Condition="'$(ModVersion)' == ''" />
+    <PropertyGroup>
+      <ModManifestContents>
+mod:
+  id: $(ModID)
+  version: $(ModVersion)  
+      </ModManifestContents>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)\Resources\About\Mod.yml" Overwrite="true" Lines="$(ModManifestContents)" />
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)\Resources\About\Mod.yml" Overwrite="false" Condition="'@(ModDependency)' != ''" Lines="%20%20dependencies:" />
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)\Resources\About\Mod.yml" Overwrite="false" Condition="'@(ModDependency)' != ''" Lines="@(ModDependency->'  - id: %(Identity)')" />
+  </Target>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(OpenNefiaEntryPointPath)Resources\Assemblies" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(OpenNefiaYamlValidatorPath)Resources\Assemblies" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Resources\Assemblies\" />
   </Target>
 </Project>
