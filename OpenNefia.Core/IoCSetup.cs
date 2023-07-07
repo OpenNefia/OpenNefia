@@ -34,6 +34,7 @@ using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.ViewVariables;
+using CSharpRepl.Services;
 
 namespace OpenNefia
 {
@@ -109,9 +110,8 @@ namespace OpenNefia
             IoCManager.Register<IGlobalDrawablesManager, GlobalDrawablesManager>();
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IDebugServer, DebugServer>();
-            IoCManager.Register<IConsole, DummyConsole>();
+            IoCManager.Register<IConsoleEx, SystemConsoleEx>();
             IoCManager.Register<IConsoleHost, ConsoleHost>();
-            IoCManager.Register<IConsoleOutput, DummyConsoleOutput>();
             IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<IMapLoader, MapLoader>();

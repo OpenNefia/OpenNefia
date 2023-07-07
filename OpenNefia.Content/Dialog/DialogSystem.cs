@@ -67,7 +67,6 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly ICSharpReplExecutor _compiler = default!;
 
         public override void Initialize()
         {

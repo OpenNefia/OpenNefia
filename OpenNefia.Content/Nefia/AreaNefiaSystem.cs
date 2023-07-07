@@ -8,37 +8,23 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.Dungeons;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core;
-using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Areas;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maths;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Core.Log;
-using OpenNefia.Content.GameObjects.EntitySystems.Tag;
-using System.Text.RegularExpressions;
-using System.Reflection.Metadata;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.DeferredEvents;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.RandomGen;
-using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Damage;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Ranks;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Chests;
-using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Nefia
 {

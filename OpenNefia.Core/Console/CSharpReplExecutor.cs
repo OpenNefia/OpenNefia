@@ -1,7 +1,11 @@
-﻿using CSharpRepl.Services.Completion;
+﻿using CSharpRepl.Services;
+using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
+using CSharpRepl.Services.Roslyn.Formatting;
 using CSharpRepl.Services.Roslyn.Scripting;
+using CSharpRepl.Services.Theming;
+using HarmonyLib;
 using Microsoft.CodeAnalysis.CSharp;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Configuration;
@@ -13,6 +17,8 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
 using PrettyPrompt.Highlighting;
+using Spectre.Console;
+using Spectre.Console.Rendering;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
@@ -32,7 +38,7 @@ namespace OpenNefia.Core.Console
         public const string SawmillName = "repl.exec";
 
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-        [Dependency] private readonly IConsole _console = default!;
+        [Dependency] private readonly IConsoleEx _console = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly ITaskRunner _taskRunner = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
@@ -40,7 +46,7 @@ namespace OpenNefia.Core.Console
 
         private CSharpReplConfig _replConfig = default!;
         private RoslynServices _roslynServices = default!;
-        private bool _showDetails = true;
+        private Level _detailLevel = Level.FirstDetailed;
         private bool IsInitialized = false;
 
         public RoslynServices RoslynServices => _roslynServices;
@@ -121,7 +127,7 @@ namespace OpenNefia.Core.Console
                 await _roslynServices.WarmUpAsync(_replConfig.LoadScriptArgs);
                 var loadReferenceScript = string.Join("\r\n", _replConfig.References.Select(reference => $@"#r ""{reference}"""));
                 var loadReferenceScriptResult = await _roslynServices.EvaluateAsync(loadReferenceScript);
-                await PrintAsync(loadReferenceScriptResult, false);
+                await PrintAsync(loadReferenceScriptResult, Level.FirstSimple);
 
                 var autoloadScriptPathString = _config.GetCVar(CVars.ReplAutoloadScript);
 
@@ -133,7 +139,7 @@ namespace OpenNefia.Core.Console
                         _console.WriteLine($"Loading startup script: {autoloadScriptPath}");
                         var autoloadScript = _resources.ContentFileReadAllText(autoloadScriptPath);
                         var autoloadScriptResult = await _roslynServices.EvaluateAsync(autoloadScript);
-                        await PrintAsync(autoloadScriptResult, false);
+                        await PrintAsync(autoloadScriptResult, Level.FirstSimple);
                     }
                     else
                     {
@@ -150,17 +156,17 @@ namespace OpenNefia.Core.Console
             return _roslynServices.CompleteAsync(text, caret).GetAwaiter().GetResult();
         }
 
-        private async Task PrintAsync(EvaluationResult result, bool displayDetails)
+        private async Task PrintAsync(EvaluationResult result, Level level)
         {
             switch (result)
             {
                 case EvaluationResult.Success ok:
-                    var formatted = await _roslynServices.PrettyPrintAsync(ok?.ReturnValue, displayDetails);
-                    _console.WriteLine(FormatResultObject(formatted));
+                    var formatted = await FormatResultObject(ok?.ReturnValue, level);
+                    _console.Write(formatted);
                     break;
                 case EvaluationResult.Error err:
-                    var formattedError = await _roslynServices.PrettyPrintAsync(err.Exception, displayDetails);
-                    _console.WriteErrorLine(AnsiColor.Red.GetEscapeSequence() + formattedError + AnsiEscapeCodes.Reset);
+                    var formattedError = await _roslynServices.PrettyPrintAsync(err.Exception, level);
+                    _console.WriteErrorLine(AnsiColor.Red.GetEscapeSequence() + formattedError.ToString() + AnsiEscapeCodes.Reset);
                     break;
                 case EvaluationResult.Cancelled:
                     _console.WriteErrorLine(
@@ -170,7 +176,7 @@ namespace OpenNefia.Core.Console
             }
         }
 
-        private string FormatResultObject(object? returnValue)
+        private async Task<string> FormatResultObject(object? returnValue, Level level = Level.FirstSimple)
         {
             if (returnValue == null)
                 return "null";
@@ -180,9 +186,10 @@ namespace OpenNefia.Core.Console
             // Use ToString() if it's overridden on the type, else do property dumping.
             var strValue = returnValue.ToString() ?? "<???>";
             var toString = returnValue.GetType().GetMethod("ToString", Type.EmptyTypes);
-            if (toString == null || toString.DeclaringType != returnValue.GetType())
-                return _roslynServices.PrettyPrintAsync(returnValue, _showDetails).GetAwaiter().GetResult() ?? strValue;
-
+            if (toString == null || toString.DeclaringType != returnValue.GetType()) {
+                var pretty = await _roslynServices.PrettyPrintAsync(returnValue, level);
+                return pretty.GetSegments(_console).Join(null, ""); // TODO use Spectre.Console API
+            }
             return strValue;
         }
 
@@ -190,12 +197,12 @@ namespace OpenNefia.Core.Console
         {
             var result = _roslynServices.EvaluateAsync(code, _replConfig.LoadScriptArgs, new CancellationToken()).GetAwaiter().GetResult();
 
-            PrintAsync(result, true).GetAwaiter().GetResult();
+            PrintAsync(result, Level.FirstDetailed).GetAwaiter().GetResult();
 
             switch (result)
             {
                 case EvaluationResult.Success success:
-                    return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue), success.ReturnValue);
+                    return new ReplExecutionResult.Success(FormatResultObject(success.ReturnValue).GetAwaiter().GetResult(), success.ReturnValue);
                 case EvaluationResult.Error err:
                     return new ReplExecutionResult.Error(err.Exception);
                 default:

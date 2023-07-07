@@ -6,6 +6,7 @@ using OpenNefia.Core.Utility;
 using CommandLine;
 using OpenNefia.Core.GameObjects;
 using CommandLine.Text;
+using CSharpRepl.Services;
 
 namespace OpenNefia.Core.Console
 {
@@ -14,7 +15,7 @@ namespace OpenNefia.Core.Console
     {
         public const string SawmillName = "con";
 
-        [Dependency] private readonly IConsoleOutput _output = default!;
+        [Dependency] private readonly IConsoleEx _output = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
 

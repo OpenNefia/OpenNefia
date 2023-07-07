@@ -1,10 +1,10 @@
 - [x] item material
 - [x] item enchantments
 - [ ] house board/house upgrading/respawning
+- [ ] town quests
 - [ ] scene playback
 - [x] intro/first pet event
 - [ ] PCCs
-- [ ] mod API examples
 - [ ] magic/buffs/effects
   + [ ] timestop
 - [ ] magic items
@@ -14,7 +14,6 @@
 - [x] living weapons
 - [ ] weather
 - [ ] random encounters
-- [ ] town quests
 - [ ] cargo
 - [ ] all unique areas
 - [ ] journal
@@ -28,13 +27,14 @@
 - [ ] buildings/zones
 - [ ] staying charas
 - [ ] arena/pet arena
+- [ ] nefia generation refactor
 - [ ] the void
 - [ ] noyel festival
 - [ ] blackjack
 - [ ] deck/tcg
 - [ ] theming
 - [ ] Qy@
-- [ ] nefia generation refactor
+- [ ] mod API examples
 - [ ] robust upstream commits
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading

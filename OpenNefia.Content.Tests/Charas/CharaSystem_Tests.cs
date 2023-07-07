@@ -132,9 +132,11 @@ namespace OpenNefia.Content.Tests.Charas
         }
 
         private class TestRaceComponent : Component
-        {        }
+        {      
+        }
 
         private class TestClassComponent : Component
-        {        }
+        {      
+        }
     }
 }

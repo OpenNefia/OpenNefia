@@ -9,9 +9,9 @@ namespace OpenNefia.Core
     {
         internal static void DoCoreMounts(IResourceManagerInternal res)
         {
+#if FULL_RELEASE
             res.MountContentDirectory("Resources");
-
-#if !FULL_RELEASE
+#else
             // Assets directory in OpenNefia.Core.
             res.MountContentDirectory("../../../../OpenNefia.Core/Resources");
 #endif
