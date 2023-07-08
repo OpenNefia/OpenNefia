@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
@@ -9,13 +10,25 @@ namespace OpenNefia.Core.Rendering
     {
         private ICoords _coords = default!;
         private IMap _map = default!;
+        private IConfigurationManager _config = default!;
+
+        private float _scale;
 
         private HashSet<Vector2i> TopShadows = new();
         private HashSet<Vector2i> BottomShadows = new();
 
-        public void Initialize(ICoords coords)
+        public void Initialize(ICoords coords, IConfigurationManager config)
         {
             _coords = coords;
+            _config = config;
+
+            _scale = config.GetCVar(CVars.DisplayTileScale);
+            config.OnValueChanged(CVars.DisplayTileScale, OnTileScaleChanged);
+        }
+
+        private void OnTileScaleChanged(float scale)
+        {
+            _scale = scale;
         }
 
         public void SetMap(IMap map)
@@ -79,7 +92,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            var (tileW, tileH) = _coords.TileSize;
+            var (tileW, tileH) = (Vector2i)(_coords.TileSize * _scale);
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, 20);

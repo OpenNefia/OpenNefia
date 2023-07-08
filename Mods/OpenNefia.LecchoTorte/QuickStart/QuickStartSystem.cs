@@ -85,6 +85,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             var map = _mapMan.ActiveMap!;
 
+            var inv = EntityManager.GetComponent<InventoryComponent>(player);
+            _itemGen.GenerateItem(inv.Container, Protos.Item.Stomafillia, amount: 99);
+
             foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
             {
                 if (proto.Components.HasComponent<FoodComponent>())

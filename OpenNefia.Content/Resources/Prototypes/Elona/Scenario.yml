@@ -7,6 +7,7 @@
 
 - type: Elona.Scenario
   id: Elona.Quickstart
+  loadGlobalAreas: false
   events:
   - type: Scenarios.P_ScenarioOnGameStartEvent
     system: Scenarios.VanillaScenariosSystem

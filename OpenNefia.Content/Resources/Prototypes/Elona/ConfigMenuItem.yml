@@ -8,14 +8,14 @@
   node: !type:ConfigSubmenuMenuNode
     menuSize: 370,270
     items:
-    - Elona.MenuGame
-    - Elona.MenuScreen
-    - Elona.MenuNet
-    - Elona.MenuAnime
-    - Elona.MenuInput
-    - Elona.MenuKeybindings
-    - Elona.MenuMessage
-    - Elona.MenuLanguage
+      - Elona.MenuGame
+      - Elona.MenuScreen
+      - Elona.MenuNet
+      - Elona.MenuAnime
+      - Elona.MenuInput
+      - Elona.MenuKeybindings
+      - Elona.MenuMessage
+      - Elona.MenuLanguage
 
 #
 # Game
@@ -24,23 +24,25 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuGame
   node: !type:ConfigSubmenuMenuNode
+    #
+    # Screen
+    #
 
-#
-# Screen
-#
 
 - type: Elona.ConfigMenuItem
   id: Elona.MenuScreen
   node: !type:ConfigSubmenuMenuNode
     items:
-    - Elona.ScreenSound
-    - Elona.ScreenMusic
-    - Elona.ScreenMidiDevice
-    - Elona.ScreenPositionalAudio
-    - Elona.ScreenWindowMode
-    - Elona.ScreenScreenResolution
-    - Elona.ScreenDisplayNumber
-    - Elona.ScreenUIScale
+      - Elona.ScreenSound
+      - Elona.ScreenMusic
+      - Elona.ScreenMidiDevice
+      - Elona.ScreenPositionalAudio
+      - Elona.ScreenWindowMode
+      - Elona.ScreenScreenResolution
+      - Elona.ScreenDisplayNumber
+      - Elona.ScreenUIScale
+      - Elona.ScreenTileScale
+      - Elona.ScreenTileFilterMode
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenSound
@@ -87,6 +89,20 @@
     max: 4.0
     step: 0.1
 
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenTileScale
+  node: !type:ConfigFloatMenuNode
+    cvar: display.tileScale
+    min: 1.0
+    max: 4.0
+    step: 0.1
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenTileFilterMode
+  node: !type:ConfigEnumMenuNode
+    cvar: display.tileFilterMode
+    enumType: OpenNefia.Core.Graphics.FilterMode
+
 #
 # Net
 #
@@ -94,17 +110,17 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuNet
   node: !type:ConfigSubmenuMenuNode
+    #
+    # Anime
+    #
 
-#
-# Anime
-#
 
 - type: Elona.ConfigMenuItem
   id: Elona.MenuAnime
   node: !type:ConfigSubmenuMenuNode
     items:
-    - Elona.AnimeAlertWait
-    - Elona.AnimeAnimationWait
+      - Elona.AnimeAlertWait
+      - Elona.AnimeAnimationWait
 
 - type: Elona.ConfigMenuItem
   id: Elona.AnimeAlertWait
@@ -137,25 +153,25 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuInput
   node: !type:ConfigSubmenuMenuNode
+    #
+    # Keybindings
+    #
 
-#
-# Keybindings
-#
 
 - type: Elona.ConfigMenuItem
   id: Elona.MenuKeybindings
   node: !type:ConfigSubmenuMenuNode
+    #
+    # Message
+    #
 
-#
-# Message
-#
 
 - type: Elona.ConfigMenuItem
   id: Elona.MenuMessage
   node: !type:ConfigSubmenuMenuNode
     items:
-    - Elona.MessageFade
-    
+      - Elona.MessageFade
+
 - type: Elona.ConfigMenuItem
   id: Elona.MessageFade
   node: !type:ConfigIntMenuNode
@@ -163,7 +179,6 @@
     min: 0
     max: 50
     step: 10
-
 
 #
 # Language
@@ -173,7 +188,7 @@
   id: Elona.MenuLanguage
   node: !type:ConfigSubmenuMenuNode
     items:
-    - Elona.LanguageLanguage
+      - Elona.LanguageLanguage
 
 - type: Elona.ConfigMenuItem
   id: Elona.LanguageLanguage

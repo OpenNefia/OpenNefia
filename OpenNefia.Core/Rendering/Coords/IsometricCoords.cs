@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,13 @@ namespace OpenNefia.Core.Rendering
 {
     public class IsometricCoords : ICoords
     {
+        [Dependency] private IConfigurationManager _config = default!;
+
         public const int TILE_SIZE = 64;
 
         private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
         public Vector2i TileSize => _tileSize;
+        public float TileScale => _config.GetCVar(CVars.DisplayTileScale);
 
         public Vector2i GetTiledSize(Vector2i screenSize)
         {
@@ -33,7 +38,7 @@ namespace OpenNefia.Core.Rendering
 
         public Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize)
         {
-            return screenPos;
+            return (Vector2i)(screenPos * TileScale);
         }
     }
 }

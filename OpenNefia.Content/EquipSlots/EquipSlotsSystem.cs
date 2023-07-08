@@ -1,4 +1,4 @@
-﻿using Content.Shared.Inventory.Events;
+﻿using OpenNefia.Content.Shared.Inventory.Events;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots.Events;

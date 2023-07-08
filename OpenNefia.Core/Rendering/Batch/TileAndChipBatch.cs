@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
@@ -20,6 +21,7 @@ namespace OpenNefia.Core.Rendering
     {
         private ITileAtlasManager _atlasManager = default!;
         private ICoords _coords = default!;
+        private IConfigurationManager _config = default!;
 
         private TileAtlas _tileAtlas = default!;
         private TileAtlas _chipAtlas = default!;
@@ -39,15 +41,31 @@ namespace OpenNefia.Core.Rendering
         /// </summary>
         public Color TileShadow { get; set; } = Color.Black;
 
-        public void Initialize(ITileAtlasManager atlasManager, ICoords coords)
+        public void Initialize(ITileAtlasManager atlasManager, ICoords coords, IConfigurationManager config)
         {
             _atlasManager = atlasManager;
             _coords = coords;
+            _config = config;
 
             _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
             _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
             _shadowChip = IoCManager.Resolve<IPrototypeManager>().Index(new PrototypeId<ChipPrototype>("Elona.EntityShadow")); // TODO move
             _shadowTile = _chipAtlas.GetTile(_shadowChip.Image.AtlasIndex);
+
+            _config.OnValueChanged(CVars.DisplayTileScale, OnTileScaleChanged);
+        }
+
+        private void OnTileScaleChanged(float scale)
+        {
+            foreach (var row in _rows)
+            {
+                row.SetScale(scale);
+            }
+        }
+
+        private float GetScale()
+        {
+            return _config.GetCVar(CVars.DisplayTileScale);
         }
 
         public void OnThemeSwitched()
@@ -55,16 +73,18 @@ namespace OpenNefia.Core.Rendering
             _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
             _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
             _shadowTile = _chipAtlas.GetTile(_shadowChip.Image.AtlasIndex);
+            var scale = GetScale();
 
             for (int tileY = 0; tileY < _tiledSize.Y; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY, scale);
             }
         }
 
         public void SetMapSize(Vector2i size)
         {
             var (width, height) = size;
+            var scale = GetScale();
 
             _tiledSize = size;
             _tiles = new string[width, height];
@@ -77,7 +97,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int tileY = 0; tileY < height; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY, scale);
             }
         }
 
@@ -98,6 +118,7 @@ namespace OpenNefia.Core.Rendering
             if (memory.IsVisible)
             {
                 var screenPos = _coords.TileToScreen(memory.Coords.Position);
+                var scale = GetScale();
                 switch (memory.ShadowType)
                 {
                     case ShadowType.None:
@@ -191,6 +212,7 @@ namespace OpenNefia.Core.Rendering
         private int RowYIndex;
         private int ScreenWidth;
         private int ScreenHeight;
+        private float Scale;
         private bool HasOverhang = false;
         private ICoords Coords;
 
@@ -198,11 +220,12 @@ namespace OpenNefia.Core.Rendering
         private TileAtlas ChipAtlas;
         public Color TileShadow { get; set; }
 
-        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int rowYIndex)
+        public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int rowYIndex, float scale)
         {
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
             Coords = coords;
+            Scale = scale;
 
             TileBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             ChipBatch = new ChipBatch(chipAtlas, coords);
@@ -212,6 +235,11 @@ namespace OpenNefia.Core.Rendering
             TileWidth = Coords.TileSize.Y;
             RowYIndex = rowYIndex;
             ScreenWidth = widthInTiles * TileWidth;
+        }
+
+        public void SetScale(float scale)
+        {
+            Scale = scale;
         }
 
         public void OnThemeSwitched()
@@ -272,19 +300,19 @@ namespace OpenNefia.Core.Rendering
             if (HasOverhang)
             {
                 var overhangHeight = Coords.TileSize.Y / 4;
-                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, ScreenWidth, overhangHeight);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight);
+                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, (int)(ScreenWidth * Scale), (int)(overhangHeight * Scale));
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, Scale, Scale);
 
                 Love.Graphics.SetBlendMode(BlendMode.Subtract);
                 Love.Graphics.SetColor(TileShadow);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, Scale, Scale);
                 Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
                 Love.Graphics.SetScissor();
             }
 
             Love.Graphics.SetColor(Color.White);
-            Love.Graphics.Draw(TileBatch, screenX, screenY);
+            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, Scale, Scale);
 
             // TODO: The original HSP code uses the gfdec2 function. gfdec2
             // decrements colors but prevents them from reaching a 0 value, so
@@ -292,14 +320,14 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             Love.Graphics.SetColor(TileShadow);
             //Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
-            Love.Graphics.Draw(TileBatch, screenX, screenY);
+            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, Scale, Scale);
 
             Love.Graphics.SetColor(Color.White.WithAlphaB(110));
-            Love.Graphics.Draw(ShadowBatch, screenX, screenY);
+            Love.Graphics.Draw(ShadowBatch, screenX, screenY, 0, Scale, Scale);
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
             Love.Graphics.SetColor(Color.White);
-            ChipBatch.Draw(screenX, screenY);
+            ChipBatch.Draw(screenX, screenY, Scale);
         }
     }
 }

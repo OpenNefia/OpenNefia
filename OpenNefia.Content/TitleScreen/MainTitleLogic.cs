@@ -183,13 +183,14 @@ namespace OpenNefia.Content.TitleScreen
         private void StartNewGame(EntityUid player, PrototypeId<ScenarioPrototype> scenarioID)
         {
             var saveName = EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(player);
+            var scenarioProto = _protos.Index(scenarioID);
 
             var save = _saveGameSerializer.InitializeSaveGame(saveName);
             _saveGameManager.CurrentSave = save;
 
             _gameSessionManager.Player = player;
 
-            EntitySystem.Get<IGlobalAreaSystem>().InitializeGlobalAreas();
+            EntitySystem.Get<IGlobalAreaSystem>().InitializeGlobalAreas(scenarioProto.LoadGlobalAreas);
 
             var pev = new P_ScenarioOnGameStartEvent(player);
             _protos.EventBus.RaiseEvent(scenarioID, pev);

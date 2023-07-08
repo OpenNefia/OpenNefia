@@ -106,13 +106,15 @@ namespace OpenNefia.Content.Maps.Debris
 
         public override void Draw()
         {
+            var scale = _coords.TileScale;
+
             Love.Graphics.SetColor(Color.White);
 
             if (_bloodBatch != null)
-                Love.Graphics.Draw(_bloodBatch, PixelX, PixelY);
+                Love.Graphics.Draw(_bloodBatch, PixelX, PixelY, 0, scale, scale);
 
             if (_fragmentBatch != null)
-                Love.Graphics.Draw(_fragmentBatch, PixelX, PixelY);
+                Love.Graphics.Draw(_fragmentBatch, PixelX, PixelY, 0, scale, scale);
         }
     }
 }

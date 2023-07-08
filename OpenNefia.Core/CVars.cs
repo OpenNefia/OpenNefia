@@ -57,8 +57,14 @@ namespace OpenNefia.Core
         public static readonly CVarDef<float> DisplayUIScale =
             CVarDef.Create("display.uiScale", 1.0f, CVar.Archive);
 
+        public static readonly CVarDef<float> DisplayTileScale =
+            CVarDef.Create("display.tileScale", 1.0f, CVar.Archive);
+
+        public static readonly CVarDef<FilterMode> DisplayTileFilterMode =
+            CVarDef.Create("display.tileFilterMode", FilterMode.Nearest, CVar.Archive);
+
         public static readonly CVarDef<bool> DisplayHighDPI =
-            CVarDef.Create("display.hidpi", false, CVar.Archive);
+            CVarDef.Create("display.hidpi", true, CVar.Archive);
 
         // TODO: make into distrib config
         // that means a separate YAML thing that uses the serialization manager format

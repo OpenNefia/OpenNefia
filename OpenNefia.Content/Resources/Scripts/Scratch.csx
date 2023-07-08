@@ -209,7 +209,10 @@ public void refresh(EntityUid? uid = null)
 }
 
 public void setcvar<T>(CVarDef<T> cvar, T val) where T: notnull
-    => _config.SetCVar(cvar, val);
+{
+    _config.SetCVar(cvar, val);
+    _config.SaveToFile();
+}
 
 public T getcvar<T>(CVarDef<T> cvar) where T: notnull
     => _config.GetCVar(cvar);

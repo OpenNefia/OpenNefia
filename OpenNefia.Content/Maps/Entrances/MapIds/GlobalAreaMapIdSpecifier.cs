@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Maps
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
+        [Dependency] private readonly IGlobalAreaSystem _globalAreas = default!;
 
         [DataField(required: true)]
         public GlobalAreaId GlobalAreaId { get; set; }
@@ -50,11 +51,7 @@ namespace OpenNefia.Content.Maps
 
             if (ResolvedAreaId == null)
             {
-                if (!_areaManager.TryGetGlobalArea(GlobalAreaId, out var globalArea))
-                {
-                    Logger.ErrorS("area.mapIds", $"Global area {GlobalAreaId} does not exist!");
-                    return null;
-                }
+                var globalArea = _globalAreas.GetOrCreateGlobalArea(GlobalAreaId);
                 ResolvedAreaId = globalArea.Id;
             }
 

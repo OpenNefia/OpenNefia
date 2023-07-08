@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -20,6 +21,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public event Action? ThemeSwitched = null;
 
@@ -68,7 +70,7 @@ namespace OpenNefia.Core.Rendering
                         region.spec.HasOverhang = region.hasOverhang;
                     }
 
-                    var atlas = new TileAtlasFactory(_resourceCache, _serialization)
+                    var atlas = new TileAtlasFactory(_resourceCache, _serialization, _config)
                         .LoadTiles(group.Select(x => x.spec))
                         .Build();
 

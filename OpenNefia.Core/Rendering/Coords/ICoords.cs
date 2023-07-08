@@ -11,6 +11,7 @@ namespace OpenNefia.Core.Rendering
     public interface ICoords
     {
         public Vector2i TileSize { get; }
+        public float TileScale { get; }
 
         // TODO: Screen positions need to be float vectors. The reason is high-DPI rendering.
 

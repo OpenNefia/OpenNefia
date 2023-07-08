@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.UI.Hud;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -16,6 +17,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private Vector2i _mapSize;
         private IDrawable _parent;
@@ -39,7 +41,8 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            var size = _coords.TileToScreen(_mapSize) + (0, _graphics.WindowPixelSize.Y - (int)(_hud.GameBounds.Bottom * _parent.UIScale));
+            var scale = _config.GetCVar(CCVars.DisplayTileScale);
+            var size = (Vector2i)(_coords.TileToScreen(_mapSize) * scale) + (0, (int)(_graphics.WindowPixelSize.Y) - (int)(_hud.GameBounds.Bottom * _parent.UIScale));
             _screenPos = _coords.BoundDrawPosition(screenPos, size, _parent.PixelSize);
         }
 
@@ -58,7 +61,8 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnTilePos(MapCoordinates coords)
         {
-            var screenPos = _coords.TileToScreen(coords.Position);
+            var scale = _config.GetCVar(CCVars.DisplayTileScale);
+            var screenPos = (Vector2i)(_coords.TileToScreen(coords.Position) * scale);
             CenterOnScreenPos(screenPos);
         }
 
