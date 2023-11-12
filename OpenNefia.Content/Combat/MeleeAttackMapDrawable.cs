@@ -67,7 +67,7 @@ namespace OpenNefia.Content.Combat
             var frame2 = _counter.Frame * 2f;
 
             if (_isCritical && _counter.FrameInt < (int)_assetCritical.CountX)
-                _assetCritical.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - 24 * _coords.TileScale - ScreenOffset.X, PixelY - 32 * _coords.TileScale - ScreenOffset.Y, 96 * _coords.TileScale, 96 * _coords.TileScale); // TODO fix...
+                _assetCritical.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), X - 24, Y - 32);
 
             for (var i = 0; i < _points.Count; i++)
             {
@@ -89,23 +89,23 @@ namespace OpenNefia.Content.Combat
                 }
 
                 var dy = point.Y + frame2 * (frame2 / 3);
-                _assetParticle.DrawUnscaled(PixelX - ScreenOffset.X + dx * _coords.TileScale, PixelY - ScreenOffset.Y + dy * _coords.TileScale, 6 * _coords.TileScale, 6 * _coords.TileScale, centered: true, rotationRads: 0.4f * _counter.Frame);
+                _assetParticle.Draw(_coords.TileScale, X + dx, Y + dy, 6, 6, centered: true, rotationRads: 0.4f * _counter.Frame);
             }
 
             if (_counter.FrameInt < _assetAttackAnim.CountX)
             {
                 if (_hasAttackAnim)
                 {
-                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - ScreenOffset.X, PixelY - ScreenOffset.Y, _coords.TileSizeScaled.X, _coords.TileSizeScaled.Y);
+                    _assetAttackAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), X, Y, _coords.TileSize.X, _coords.TileSize.Y);
                 }
                 else
                 {
                     var firstPoint = _points.FirstOrDefault();
-                    var size = (_counter.FrameInt * 10 + _points.Count) * _coords.TileScale;
-                    _assetAttackAnim.DrawRegionUnscaled(
+                    var size = _counter.FrameInt * 10 + _points.Count;
+                    _assetAttackAnim.DrawRegion(_coords.TileScale,
                         _counter.FrameInt.ToString(),
-                        PixelX - ScreenOffset.X + firstPoint.X * _coords.TileScale + _coords.TileSizeScaled.X / 2,
-                        PixelY - ScreenOffset.Y + firstPoint.Y * _coords.TileScale + 10, 
+                        X + firstPoint.X + _coords.TileSize.X / 2,
+                        Y + firstPoint.Y + 10, 
                         size,
                         size,
                         centered: true,

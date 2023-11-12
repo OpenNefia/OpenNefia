@@ -117,7 +117,7 @@ namespace OpenNefia.Content.Rendering
                     centering: BatchCentering.Centered,
                     rotationRads: angle);
                 _chipBatch.Flush();
-                _chipBatch.Draw(1f, this.ScreenOffset.X, this.ScreenOffset.Y);
+                _chipBatch.Draw(_coords.TileScale, this.ScreenOffset.X, this.ScreenOffset.Y);
             }
         }
 
