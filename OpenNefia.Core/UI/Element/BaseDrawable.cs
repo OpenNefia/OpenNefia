@@ -24,16 +24,28 @@ namespace OpenNefia.Core.UI.Element
         public Vector2i PixelPosition => (Vector2i)(Position * UIScale);
 
         /// <inheritdoc/>
+        public Vector2i TileSize => (Vector2i)(Size * TileScale);
+
+        /// <inheritdoc/>
+        public Vector2i TilePosition => (Vector2i)(Position * TileScale);
+
+        /// <inheritdoc/>
         public UIBox2 Rect => UIBox2.FromDimensions(Position, Size);
 
         /// <inheritdoc/>
         public UIBox2i PixelRect => UIBox2i.FromDimensions(PixelPosition, PixelSize);
 
         /// <inheritdoc/>
+        public UIBox2i TileRect => UIBox2i.FromDimensions(TilePosition, TileSize);
+
+        /// <inheritdoc/>
         public UIBox2 SizeBox => new(Vector2.Zero, Size);
 
         /// <inheritdoc/>
         public UIBox2i PixelSizeBox => new(Vector2i.Zero, PixelSize);
+
+        /// <inheritdoc/>
+        public UIBox2i TileSizeBox => new(Vector2i.Zero, TileSize);
 
         /// <inheritdoc/>
         public float Width => Size.X;
@@ -48,6 +60,12 @@ namespace OpenNefia.Core.UI.Element
         public int PixelHeight => PixelSize.Y;
 
         /// <inheritdoc/>
+        public int TileWidth => TileSize.X;
+
+        /// <inheritdoc/>
+        public int TileHeight => TileSize.Y;
+
+        /// <inheritdoc/>
         public float X => Position.X;
 
         /// <inheritdoc/>
@@ -60,7 +78,16 @@ namespace OpenNefia.Core.UI.Element
         public int PixelY => PixelPosition.Y;
 
         /// <inheritdoc/>
+        public int TileX => TilePosition.X;
+
+        /// <inheritdoc/>
+        public int TileY => TilePosition.Y;
+
+        /// <inheritdoc/>
         public virtual float UIScale => 1f;
+
+        /// <inheritdoc/>
+        public virtual float TileScale => 1f;
 
         /// <inheritdoc/>
         public virtual void SetSize(float width, float height)

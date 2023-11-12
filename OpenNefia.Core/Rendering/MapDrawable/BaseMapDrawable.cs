@@ -9,6 +9,7 @@ namespace OpenNefia.Core.Rendering
     {
         public bool IsFinished { get; protected set; }
         public IMap Map { get => GameSession.ActiveMap!; }
+        public Vector2 ScreenOffset { get; set; }
         public Vector2i ScreenLocalPos { get; set; }
 
         public virtual void OnEnqueue()

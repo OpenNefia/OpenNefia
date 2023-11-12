@@ -68,7 +68,7 @@ namespace OpenNefia.Content.Damage
             var frame2 = _counter.FrameInt * 2;
 
             if (_elementAnim != null && _counter.FrameInt < _elementAnim.CountX)
-                _elementAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - _coords.TileSize.X / 2, PixelY - (3 * _coords.TileSize.Y / 4) + _elementAnimDy);
+                _elementAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), PixelX - _coords.TileSize.X / 2, PixelY - (3 * _coords.TileSize.Y / 4) + _elementAnimDy);
 
             if (_counter.FrameInt >= _fragmentsAnim.CountX)
                 return;
@@ -93,7 +93,7 @@ namespace OpenNefia.Content.Damage
                     }
                 }
 
-                _fragmentsAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(),
+                _fragmentsAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(),
                    PixelX + _coords.TileSize.X / 2 + point.X + dx,
                    PixelY + frame2 * frame2 / 2 - 12 + i + point.Y,
                    (_coords.TileSize.X / 2) - frame2 * 2,

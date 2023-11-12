@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<Tasks xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <item>
+    <text>house board</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>house upgrading</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>respawning</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>town quests</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>scene playback</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>PCCs</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>magic/buffs/effects</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>timestop</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>magic items</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>no-code mods</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>AI actions</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>riding</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>weather</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>random encounters</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>living weapons [test]</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>cargo</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>all unique areas</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>journal</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>main quest</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>sidequests</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>all item events/properties</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>corpses</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>card/figure/sandbag drawables</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>all chara events/properties</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>custom talk</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>religion</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>buildings/zones</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>staying charas</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>arena/pet arena</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>nefia generation refactor</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>the void</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>noyel festival</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>blackjack</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>deck/tcg</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>theming</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>Qy@</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>mod API examples</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>robust upstream commits</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>"start engine with this mod" compile targets</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>autodetect dependent mods during debugging</text>
+    <finished>false</finished>
+  </item>
+  <item>
+    <text>a</text>
+    <finished>true</finished>
+  </item>
+</Tasks>

@@ -199,5 +199,10 @@ namespace OpenNefia.Core.Utility
 
             return a.ToString();
         }
+
+        public static void ReplaceWith(this StringBuilder sb, string str)
+        {
+            sb.Clear().Append(str);
+        }
     }
 }

@@ -41,8 +41,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            var scale = _config.GetCVar(CCVars.DisplayTileScale);
-            var size = (Vector2i)(_coords.TileToScreen(_mapSize) * scale) + (0, (int)(_graphics.WindowPixelSize.Y) - (int)(_hud.GameBounds.Bottom * _parent.UIScale));
+            var size = _coords.TileToScreen(_mapSize) + (0, (int)(_graphics.WindowPixelSize.Y) - (int)(_hud.GameBounds.Bottom * _parent.UIScale));
             _screenPos = _coords.BoundDrawPosition(screenPos, size, _parent.PixelSize);
         }
 
@@ -61,8 +60,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnTilePos(MapCoordinates coords)
         {
-            var scale = _config.GetCVar(CCVars.DisplayTileScale);
-            var screenPos = (Vector2i)(_coords.TileToScreen(coords.Position) * scale);
+            var screenPos = _coords.TileToScreenScaled(coords.Position);
             CenterOnScreenPos(screenPos);
         }
 
@@ -73,7 +71,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public Vector2 TileToVisibleScreen(Vector2i tilePos)
         {
-            return _coords.TileToScreen(tilePos) + _screenPos;
+            return _coords.TileToScreenScaled(tilePos) + _screenPos;
         }
 
         public Vector2 TileToVisibleScreen(MapCoordinates coords)

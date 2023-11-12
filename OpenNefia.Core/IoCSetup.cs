@@ -106,6 +106,7 @@ namespace OpenNefia
             IoCManager.Register<IGameController, GameController>();
             IoCManager.Register<ICoords, OrthographicCoords>();
             IoCManager.Register<IMapRenderer, MapRenderer>();
+            IoCManager.Register<IMapTileRowRenderer, MapTileRowRenderer>();
             IoCManager.Register<IMapDrawablesManager, MapDrawablesManager>();
             IoCManager.Register<IGlobalDrawablesManager, GlobalDrawablesManager>();
             IoCManager.Register<ITimerManager, TimerManager>();

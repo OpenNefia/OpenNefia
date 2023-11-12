@@ -19,6 +19,7 @@ namespace OpenNefia.Core.UserInterface
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
         [Dependency] private readonly IHotReloadWatcher _hotReload = default!;
 
@@ -56,6 +57,7 @@ namespace OpenNefia.Core.UserInterface
             _graphics.OnWindowResized += HandleWindowResized;
             _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
             _hotReload.OnUpdateApplication += HandleUpdateApplication;
+            _config.OnValueChanged(CVars.DisplayTileScale, HandleTileScaleChanged);
         }
 
         public void InitializeTesting()

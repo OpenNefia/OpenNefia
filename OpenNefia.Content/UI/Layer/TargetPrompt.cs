@@ -62,7 +62,11 @@ namespace OpenNefia.Content.UI.Layer
             {
                 var cell = DisplayedCells[index];
 
-                var pos = _field.Camera.TileToVisibleScreen(cell.Data.TilePosition);
+                // One of the few cases where tile scaling instead of UI scaling should be used for laying out the list cells.
+                // TileToVisibleScreen uses TileScale internally.
+                // But UiListCell.SetPosition uses UIScale.
+                // So, remove UIScale part first.
+                var pos = _field.Camera.TileToVisibleScreen(cell.Data.TilePosition) / UIScale;
                 cell.SetPosition(pos.X, pos.Y);
             }
         }
@@ -80,7 +84,7 @@ namespace OpenNefia.Content.UI.Layer
             {
                 var cell = DisplayedCells[index];
                 
-                cell.SetSize(_coords.TileSize.X, _coords.TileSize.Y);
+                cell.SetSize(_coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
             }
         }
 
@@ -89,13 +93,13 @@ namespace OpenNefia.Content.UI.Layer
             var targetScreenPos = _field.Camera.TileToVisibleScreen(targetTilePos);
             Love.Graphics.SetBlendMode(BlendMode.Add);
             Love.Graphics.SetColor(UiColors.PromptTargetedTile);
-            Love.Graphics.Rectangle(DrawMode.Fill, targetScreenPos.X, targetScreenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
+            Love.Graphics.Rectangle(DrawMode.Fill, targetScreenPos.X, targetScreenPos.Y, _coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
             
             Love.Graphics.SetColor(UiColors.PromptHighlightedTile);
             foreach (var pos in PosHelpers.EnumerateLine(TileOrigin.Position, targetTilePos))
             {
                 var screenPos = _field.Camera.TileToVisibleScreen(pos);
-                Love.Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
+                Love.Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, _coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
             }
             
             Love.Graphics.SetBlendMode(BlendMode.Alpha);

@@ -70,7 +70,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             _popups.Enqueue(new DamagePopupInstance()
             {
                 DamagePopup = popup,
-                ScreenPosition = _coords.TileToScreen(coords.Position),
+                ScreenPosition = (_coords.TileToScreen(coords.Position) - (0, _coords.TileSize.Y / 2)) * _coords.TileScale,
                 Frame = 0f,
                 UiText = new UiTextShadowed(popup.Font, popup.Text)
             });
@@ -87,10 +87,15 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             if (_popups.Count > MaxDamagePopups)
                 _popups.Dequeue();
 
+            foreach (var popupInst in _popups)
+            {
+                popupInst.ScreenPosition = (popupInst.ScreenPosition.X, popupInst.ScreenPosition.Y - popupInst.DamagePopup.Font.Size * UIScale);
+            }
+
             var popupInstance = new DamagePopupInstance()
             {
                 DamagePopup = popup,
-                ScreenPosition = _coords.TileToScreen(coords.Position),
+                ScreenPosition = (_coords.TileToScreen(coords.Position) - (0, _coords.TileSize.Y / 2)) * _coords.TileScale,
                 Frame = 0f,
                 UiText = new UiTextShadowed(popup.Font, popup.Text),
                 Entity = uid
@@ -149,7 +154,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                 {
                     var spatial = _entityMan.GetComponent<SpatialComponent>(popup.Entity.Value);
                     // TODO support fractional positions
-                    popup.ScreenPosition = _coords.TileToScreen(spatial.MapPosition.Position);
+                    popup.ScreenPosition = _coords.TileToScreen(spatial.MapPosition.Position) * _coords.TileScale;
 
                     if (_popupsPerEntity.TryGetValue(popup.Entity.Value, out var perEntity))
                     {
@@ -164,7 +169,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
                 popup.UiText.SetPreferredSize();
 
-                pos += new Vector2(X - (popup.UiText.TextWidth / 2) + _coords.TileSize.X / 2f, Y - (popup.UiText.Height / 2f) - (popup.Frame) - (yOffset * popup.UiText.Height) + _coords.TileSize.Y / 2f);
+                pos += new Vector2(X - (popup.UiText.TextWidth / 2) + (_coords.TileSize.X * _coords.TileScale) / 2f, Y - (popup.UiText.Height / 2f) - (popup.Frame) - (yOffset * popup.UiText.Height) + (_coords.TileSize.Y * _coords.TileScale) / 2f);
 
                 popup.UiText.SetPosition(pos.X, pos.Y);
                 popup.UiText.Draw();

@@ -114,7 +114,7 @@ namespace OpenNefia.Content.MapVisibility
                 {
                     GlobalScreenPosition = _coords.TileToScreen(spatial.MapPosition.Position),
                     Brightness = lightProto.Brightness,
-                    Offset = (Vector2i)(lightProto.Offset * _coords.TileScale),
+                    Offset = lightProto.Offset,
                     Power = power,
                     Flicker = lightProto.Flicker,
                     Color = Color.White,
@@ -183,11 +183,11 @@ namespace OpenNefia.Content.MapVisibility
                 Love.Graphics.SetColor(light.Color);
                 if (light.Asset.CountX == 0)
                 {
-                    light.Asset.Draw(_coords.TileScale, PixelX + light.GlobalScreenPosition.X + light.Offset.X, PixelY + light.GlobalScreenPosition.Y + light.Offset.Y);
+                    light.Asset.Draw(_coords.TileScale, X + light.GlobalScreenPosition.X + light.Offset.X, Y + light.GlobalScreenPosition.Y + light.Offset.Y);
                 }
                 else
                 {
-                    light.Asset.DrawRegion(_coords.TileScale, light.Frame.ToString(), PixelX + light.GlobalScreenPosition.X + light.Offset.X, PixelY + light.GlobalScreenPosition.Y + light.Offset.Y);
+                    light.Asset.DrawRegion(_coords.TileScale, light.Frame.ToString(), X + light.GlobalScreenPosition.X + light.Offset.X, Y + light.GlobalScreenPosition.Y + light.Offset.Y);
                 }
             }
 

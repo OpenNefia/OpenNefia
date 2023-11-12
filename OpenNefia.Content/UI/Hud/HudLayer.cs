@@ -28,6 +28,8 @@ using OpenNefia.Content.Hud;
 using System.Diagnostics.CodeAnalysis;
 using static OpenNefia.Content.Hud.HudAttributeWidget;
 using ICSharpCode.Decompiler.Semantics;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.UI.Hud
 {
@@ -70,6 +72,7 @@ namespace OpenNefia.Content.UI.Hud
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private List<WidgetInstance> Widgets = new();
 
@@ -192,6 +195,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             // TODO remove
             LayerUIScale = _graphics.WindowScale;
+            LayerTileScale = _config.GetCVar(CVars.DisplayTileScale);
 
             base.SetSize(width, height);
 

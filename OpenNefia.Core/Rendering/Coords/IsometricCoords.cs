@@ -17,6 +17,7 @@ namespace OpenNefia.Core.Rendering
 
         private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
         public Vector2i TileSize => _tileSize;
+        public Vector2i TileSizeScaled => (Vector2i)(TileSize * TileScale);
         public float TileScale => _config.GetCVar(CVars.DisplayTileScale);
 
         public Vector2i GetTiledSize(Vector2i screenSize)

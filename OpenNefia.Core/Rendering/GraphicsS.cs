@@ -32,6 +32,15 @@ namespace OpenNefia.Core.Rendering
         /// Scale-aware version of <see cref="Love.Graphics.Rectangle(Love.DrawMode, float, float, float, float)"/>.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static void RectangleS(float uiScale, Love.DrawMode drawMode, Vector2 pos, Vector2 size)
+        {
+            Love.Graphics.Rectangle(drawMode, pos.X * uiScale, pos.Y * uiScale, size.X * uiScale, size.Y * uiScale);
+        }
+
+        /// <summary>
+        /// Scale-aware version of <see cref="Love.Graphics.Rectangle(Love.DrawMode, float, float, float, float)"/>.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static void RectangleS(float uiScale, Love.DrawMode drawMode, UIBox2 box)
         {
             Love.Graphics.Rectangle(drawMode, box.Left * uiScale, box.Top * uiScale, box.Width * uiScale, box.Height * uiScale);

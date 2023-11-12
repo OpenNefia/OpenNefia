@@ -24,7 +24,8 @@ namespace OpenNefia.Content.Rendering
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
-        private MapCoordinates _startPos; // TODO remove as it is redundant with the position passed to IMapDrawablesManager.Enqueue()
+        [Obsolete("TODO remove as it is redundant with the position passed to IMapDrawablesManager.Enqueue()")]
+        private MapCoordinates _startPos;
         private MapCoordinates _endPos;
         private ChipPrototype _chip;
         private Color _color;
@@ -95,24 +96,28 @@ namespace OpenNefia.Content.Rendering
 
         public override void Draw()
         {
-            var screenPos = _coords.TileToScreen(_endPos.Position - _startPos.Position);
-            var cx = (int)(_counter.Frame * (screenPos.X) / _counter.MaxFrames);
-            var cy = (int)(_counter.Frame * (screenPos.Y) / _counter.MaxFrames);
+            var angle = -(float)Angle.BetweenPoints(_endPos.Position, _startPos.Position).Theta;
+            var startPos = _coords.TileToScreen(_startPos.Position) + _coords.TileSize / 2;
+            var endPos = _coords.TileToScreen(_endPos.Position) + _coords.TileSize / 2;
+            var percent = _counter.Frame / _counter.MaxFrames;
 
-            if (_graphics.IsPointInVisibleScreen(PixelPosition + new Vector2i(cx, cy)))
+            var cx = (int)MathHelper.Lerp(startPos.X, endPos.X, percent);
+            var cy = (int)MathHelper.Lerp(startPos.Y, endPos.Y, percent);
+
+            if (_graphics.IsPointInVisibleScreen(PixelPosition + new Vector2i(cx, cy)) || true)
             {
                 _chipBatch.Clear();
-                _chipBatch.Add(_graphics.WindowScale, 
-                    _chip.Image.AtlasIndex, 
-                    cx + _coords.TileSize.X / 2, 
-                    cy + _coords.TileSize.Y / 2, 
+                _chipBatch.Add(_coords.TileScale,
+                    _chip.Image.AtlasIndex,
+                    cx,
+                    cy,
                     _coords.TileSize.X,
                     _coords.TileSize.Y,
-                    color: _color, 
-                    centering: BatchCentering.Centered, 
-                    rotationRads: -(float)Angle.BetweenPoints(_endPos.Position, _startPos.Position).Theta);
+                    color: _color,
+                    centering: BatchCentering.Centered,
+                    rotationRads: angle);
                 _chipBatch.Flush();
-                _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);
+                _chipBatch.Draw(1f, this.ScreenOffset.X, this.ScreenOffset.Y);
             }
         }
 

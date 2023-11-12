@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     {
         [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly IMapTileRowRenderer _tileRowRenderer = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
         private TileAndChipBatch _tileAndChipBatch = new();
@@ -23,7 +24,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
         public override void Initialize()
         {
-            _tileAndChipBatch.Initialize(_atlasManager, _coords, _config);
+            _tileAndChipBatch.Initialize(_atlasManager, _coords, _tileRowRenderer, _config);
             _wallShadows.Initialize(_coords, _config);
         }
 

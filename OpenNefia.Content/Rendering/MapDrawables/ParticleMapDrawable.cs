@@ -23,6 +23,8 @@ namespace OpenNefia.Content.Rendering
             }
         }
 
+        private readonly ICoords _coords;
+
         private IAssetInstance AssetParticle;
         private PrototypeId<SoundPrototype>? Sound;
         private float RotationVariance;
@@ -39,9 +41,9 @@ namespace OpenNefia.Content.Rendering
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
-            var coords = GameSession.Coords;
+            _coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
-                .Select(_ => new Particle(new Vector2i(rand.Next(coords.TileSize.X), rand.Next(coords.TileSize.Y)),
+                .Select(_ => new Particle(new Vector2i(rand.Next(_coords.TileSize.X), rand.Next(_coords.TileSize.Y)),
                                           rand.Next(4) + 1 * rotationVariance))
                 .ToArray();
             this.Counter = new FrameCounter(waitSecs.Value, 10);
@@ -70,7 +72,7 @@ namespace OpenNefia.Content.Rendering
             Love.Graphics.SetColor(Love.Color.White);
             foreach (var p in this.Particles)
             {
-                this.AssetParticle.DrawUnscaled(PixelX + p.Pos.X, 
+                this.AssetParticle.Draw(_coords.TileScale, PixelX + p.Pos.X, 
                     PixelY + p.Pos.Y + frame2 / p.Rotation, 
                     GameSession.Coords.TileSize.X - frame2 * 2,
                     GameSession.Coords.TileSize.Y - frame2 * 2,

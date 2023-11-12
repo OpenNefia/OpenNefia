@@ -34,6 +34,11 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         /// TODO remove after merge with wisp
         /// </summary>
+        public virtual Vector2i GlobalTilePosition => TilePosition;
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
 
         /// <summary>
         /// TODO remove after merge with wisp
@@ -44,6 +49,11 @@ namespace OpenNefia.Core.UI.Element
         /// TODO remove after merge with wisp
         /// </summary>
         public UIBox2i GlobalPixelRect => UIBox2i.FromDimensions(GlobalPixelPosition, PixelSize);
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+        public UIBox2i GlobalTileRect => UIBox2i.FromDimensions(GlobalTilePosition, TileSize);
 
         /// <summary>
         /// A settable minimum size for this control.
@@ -93,6 +103,9 @@ namespace OpenNefia.Core.UI.Element
 
         /// <inheritdoc/>
         public override float UIScale => Root?.UIScale ?? 1;
+
+        /// <inheritdoc/>
+        public override float TileScale => Root?.TileScale ?? 1;
 
         private readonly List<UiElement> _orderedChildren = new();
 

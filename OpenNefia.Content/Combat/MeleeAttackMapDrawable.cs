@@ -64,15 +64,15 @@ namespace OpenNefia.Content.Combat
             // >>>>>>>> shade2 / screen.hsp:701   case aniNormalAttack...
             Love.Graphics.SetColor(Color.White);
 
-            var frame2 = _counter.FrameInt * 2;
+            var frame2 = _counter.Frame * 2f;
 
             if (_isCritical && _counter.FrameInt < (int)_assetCritical.CountX)
-                _assetCritical.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - 24, PixelY - 32);
+                _assetCritical.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), PixelX - 24, PixelY - 32);
 
             for (var i = 0; i < _points.Count; i++)
             {
                 var point = _points[i];
-                var dx = point.X + _coords.TileSize.X / 2;
+                var dx = (float)(point.X + _coords.TileSize.X / 2);
                 if (point.X < 4)
                 {
                     dx -= frame2;
@@ -89,20 +89,21 @@ namespace OpenNefia.Content.Combat
                 }
 
                 var dy = point.Y + frame2 * (frame2 / 3);
-                _assetParticle.DrawUnscaled(PixelX + dx, PixelY + dy, 6, 6, centered: true, rotationRads: 0.4f * _counter.Frame);
+                _assetParticle.Draw(_coords.TileScale, PixelX + dx, PixelY + dy, 6 * _coords.TileScale, 6 * _coords.TileScale, centered: true, rotationRads: 0.4f * _counter.Frame);
             }
 
             if (_counter.FrameInt < _assetAttackAnim.CountX)
             {
                 if (_hasAttackAnim)
                 {
-                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX, PixelY);
+                    _assetAttackAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), PixelX, PixelY);
                 }
                 else
                 {
                     var firstPoint = _points.FirstOrDefault();
-                    var size = _counter.FrameInt * 10 + _points.Count;
-                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), 
+                    var size = (_counter.FrameInt * 10 + _points.Count) * _coords.TileScale;
+                    _assetAttackAnim.DrawRegion(_coords.TileScale,
+                        _counter.FrameInt.ToString(), 
                         PixelX + firstPoint.X + _coords.TileSize.X / 2,
                         PixelY + firstPoint.Y + 10, 
                         size,

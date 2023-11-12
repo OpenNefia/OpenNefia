@@ -85,8 +85,8 @@ namespace OpenNefia.Core.Rendering
             switch (centering)
             {
                 case BatchCentering.Centered:
-                    ox = ((float)ttw) / 2;
-                    oy = ((float)tth) / 2;
+                    ox = ((float)ttw) / 4;
+                    oy = ((float)tth) / 4;
                     break;
                 case BatchCentering.AlignBottom:
                     oy = tth - _coords.TileSize.Y;

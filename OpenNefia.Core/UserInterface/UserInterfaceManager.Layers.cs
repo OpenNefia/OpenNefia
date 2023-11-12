@@ -53,6 +53,7 @@ namespace OpenNefia.Core.UserInterface
         public void PushLayer(UiLayer layer, bool noHaltInput = false)
         {
             layer.LayerUIScale = _graphics.WindowScale;
+            layer.LayerTileScale = _config.GetCVar(CVars.DisplayTileScale);
             ResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
@@ -152,6 +153,30 @@ namespace OpenNefia.Core.UserInterface
             }
 
             elem.UIScaleChanged(ev);
+        }
+
+        private void HandleTileScaleChanged(float scale)
+        {
+            foreach (var layer in this.Layers)
+            {
+                layer.LayerTileScale = scale;
+
+                NotifyTileScaleChanged(layer, scale);
+
+                layer.GetPreferredBounds(out var bounds);
+                layer.SetSize(bounds.Width, bounds.Height);
+                layer.SetPosition(bounds.Left, bounds.Top);
+            }
+        }
+
+        private void NotifyTileScaleChanged(UiElement elem, float scale)
+        {
+            foreach (var child in elem.Children)
+            {
+                NotifyTileScaleChanged(child, scale);
+            }
+
+            // elem.TileScaleChanged(ev);
         }
 
         public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)

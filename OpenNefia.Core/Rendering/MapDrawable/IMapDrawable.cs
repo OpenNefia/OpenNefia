@@ -13,7 +13,13 @@ namespace OpenNefia.Core.Rendering
         public IMap Map { get; }
 
         /// <summary>
+        /// Offset of the animation in worldspace.
+        /// </summary>
+        public Vector2 ScreenOffset { get; set; }
+
+        /// <summary>
         /// Position of the animation in worldspace.
+        /// TODO make into Vector2
         /// </summary>
         public Vector2i ScreenLocalPos { get; set; }
 
