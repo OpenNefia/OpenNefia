@@ -23,7 +23,9 @@ namespace OpenNefia.Content.Rendering
             }
         }
 
-        private readonly ICoords _coords;
+        [Dependency] protected readonly IRandom _rand = default!;
+        [Dependency] protected readonly ICoords _coords = default!;
+        [Dependency] protected readonly IConfigurationManager _config = default!;
 
         private IAssetInstance AssetParticle;
         private PrototypeId<SoundPrototype>? Sound;
@@ -33,18 +35,18 @@ namespace OpenNefia.Content.Rendering
 
         public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound = null, float rotationVariance = -1f, float? waitSecs = null)
         {
-            var rand = IoCManager.Resolve<IRandom>();
+            // TODO
+            IoCManager.InjectDependencies(this);
 
             if (waitSecs == null)
-                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait);
+                waitSecs = _config.GetCVar(CCVars.AnimeAnimationWait);
 
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
-            _coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
-                .Select(_ => new Particle(new Vector2i(rand.Next(_coords.TileSize.X), rand.Next(_coords.TileSize.Y)),
-                                          rand.Next(4) + 1 * rotationVariance))
+                .Select(_ => new Particle(new Vector2i(_rand.Next(_coords.TileSize.X), _rand.Next(_coords.TileSize.Y)),
+                                          _rand.Next(4) + 1 * rotationVariance))
                 .ToArray();
             this.Counter = new FrameCounter(waitSecs.Value, 10);
         }
@@ -72,10 +74,10 @@ namespace OpenNefia.Content.Rendering
             Love.Graphics.SetColor(Love.Color.White);
             foreach (var p in this.Particles)
             {
-                this.AssetParticle.Draw(_coords.TileScale, PixelX + p.Pos.X, 
-                    PixelY + p.Pos.Y + frame2 / p.Rotation, 
-                    GameSession.Coords.TileSize.X - frame2 * 2,
-                    GameSession.Coords.TileSize.Y - frame2 * 2,
+                this.AssetParticle.Draw(_coords.TileScale, X + p.Pos.X, 
+                    Y + p.Pos.Y + frame2 / p.Rotation, 
+                    _coords.TileSize.X - frame2 * 2,
+                    _coords.TileSize.Y - frame2 * 2,
                     true,
                     frame2 * p.Rotation);
             }
