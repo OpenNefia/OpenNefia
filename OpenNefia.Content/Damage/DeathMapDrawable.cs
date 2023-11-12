@@ -13,6 +13,7 @@ namespace OpenNefia.Content.Damage
         [Dependency] protected readonly IRandom _rand = default!;
         [Dependency] protected readonly ICoords _coords = default!;
         [Dependency] protected readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private bool _isCritical;
         private bool _hasAttackAnim;
@@ -43,14 +44,14 @@ namespace OpenNefia.Content.Damage
             var pointCount = 20;
             for (int i = 0; i < pointCount; i++)
             {
-                _points.Add(new Vector2i(_rand.Next(_coords.TileSize.X) - (_coords.TileSize.X / 2), _coords.TileSize.Y / 2));
+                _points.Add(new Vector2i(_rand.Next(_coords.TileSizeScaled.X) - (_coords.TileSizeScaled.X / 2), _coords.TileSizeScaled.Y / 2));
             }
 
             var waitSecs = 0.15f;
             if (_elementAnim != null)
                 waitSecs += 0.20f;
 
-            _counter = new FrameCounter(waitSecs, 6);
+            _counter = new FrameCounter(waitSecs * _config.GetCVar(CCVars.AnimeAnimationWait), 6);
         }
 
         public override void Update(float dt)
@@ -68,7 +69,7 @@ namespace OpenNefia.Content.Damage
             var frame2 = _counter.FrameInt * 2;
 
             if (_elementAnim != null && _counter.FrameInt < _elementAnim.CountX)
-                _elementAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), PixelX - _coords.TileSize.X / 2, PixelY - (3 * _coords.TileSize.Y / 4) + _elementAnimDy);
+                _elementAnim.DrawRegionUnscaled( _counter.FrameInt.ToString(), PixelX - ScreenOffset.X - _coords.TileSizeScaled.X / 2, PixelY - ScreenOffset.Y - (3 * _coords.TileSizeScaled.Y / 4) + _elementAnimDy);
 
             if (_counter.FrameInt >= _fragmentsAnim.CountX)
                 return;
@@ -93,11 +94,11 @@ namespace OpenNefia.Content.Damage
                     }
                 }
 
-                _fragmentsAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(),
-                   PixelX + _coords.TileSize.X / 2 + point.X + dx,
-                   PixelY + frame2 * frame2 / 2 - 12 + i + point.Y,
-                   (_coords.TileSize.X / 2) - frame2 * 2,
-                   (_coords.TileSize.Y / 2) - frame2 * 2,
+                _fragmentsAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(),
+                   PixelX - ScreenOffset.X + _coords.TileSizeScaled.X / 2 + point.X + dx,
+                   PixelY - ScreenOffset.Y + frame2 * frame2 / 2 - 12 + i + point.Y,
+                   ((_coords.TileSize.X / 2) - frame2 * 2) * _coords.TileScale,
+                   ((_coords.TileSize.Y / 2) - frame2 * 2) * _coords.TileScale,
                    true,
                    0.2f * i);
             }

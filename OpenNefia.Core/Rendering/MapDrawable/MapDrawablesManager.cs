@@ -100,6 +100,7 @@ namespace OpenNefia.Core.Rendering
                 var drawable = entry.Drawable;
                 drawable.Update(dt);
                 drawable.ScreenOffset = this.Position;
+                // TODO very bad idea. should not scale drawable position by TileScale. makes use of Draw(_coords.TileScale) and DrawRegion(_coords.TileScale) impossible
                 drawable.SetPosition((drawable.ScreenOffset.X + drawable.ScreenLocalPos.X) * _coords.TileScale, (drawable.ScreenOffset.Y + drawable.ScreenLocalPos.Y) * _coords.TileScale);
             }
 

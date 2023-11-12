@@ -66,6 +66,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             skills.Ensure(Protos.Skill.Mining).Level.Base = 2000;
+            skills.Ensure(Protos.Skill.EyeOfMind).Level.Base = 2000;
             _refresh.Refresh(player);
             _damage.HealToMax(player);
 
