@@ -66,6 +66,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             skills.Ensure(Protos.Skill.Mining).Level.Base = 2000;
+            skills.Ensure(Protos.Skill.EyeOfMind).Level.Base = 2000;
             _refresh.Refresh(player);
             _damage.HealToMax(player);
 
@@ -84,6 +85,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _protos.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
 
             var map = _mapMan.ActiveMap!;
+
+            var inv = EntityManager.GetComponent<InventoryComponent>(player);
+            _itemGen.GenerateItem(inv.Container, Protos.Item.Stomafillia, amount: 99);
 
             foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
             {
@@ -119,52 +123,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.Lockpick, amount: 999);
             _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.SkeletonKey, amount: 999);
-
-            var inv = Comp<InventoryComponent>(player).Container;
-
-            var bow = _itemGen.GenerateItem(inv, Protos.Item.LongBow);
-            if (IsAlive(bow) && _equipSlots.TryGetEmptyEquipSlot(player, Protos.EquipSlot.Ranged, out var slot))
-                _equipSlots.TryEquip(player, bow.Value, slot, silent: true);
-
-            var ammo = _itemGen.GenerateItem(inv, Protos.Item.Arrow);
-            if (IsAlive(ammo) && _equipSlots.TryGetEmptyEquipSlot(player, Protos.EquipSlot.Ammo, out slot))
-                _equipSlots.TryEquip(player, ammo.Value, slot, silent: true);
-
-            _itemGen.GenerateItem(inv, Protos.Item.CargoTravelersFood, amount: 999);
-
-            foreach (var material in _protos.EnumeratePrototypes<MaterialPrototype>())
-            {
-                var claymore = _itemGen.GenerateItem(map.AtPos(5, 2), Protos.Item.Claymore, quality: Quality.God);
-                if (IsAlive(claymore))
-                {
-                    _materials.ChangeItemMaterial(claymore.Value, material.GetStrongID());
-                }
-            }
-
-            foreach (var enc in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<EnchantmentComponent>()))
-            {
-                var claymore = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Claymore, quality: Quality.Bad);
-                if (IsAlive(claymore))
-                {
-                    _enchantments.AddEnchantment(claymore.Value, enc.GetStrongID(), 600);
-                }
-
-                var putitoro = _itemGen.GenerateItem(map.AtPos(6, 2), Protos.Item.Putitoro, quality: Quality.Great);
-                if (IsAlive(putitoro))
-                {
-                    _enchantments.AddEnchantment(putitoro.Value, enc.GetStrongID(), 600);
-                }
-            }
-
-            foreach (var ammoEnc in _protos.EnumeratePrototypes<AmmoEnchantmentPrototype>())
-            {
-                var bullet = _itemGen.GenerateItem(map.AtPos(6, 3), Protos.Item.Bullet, quality: Quality.Great);
-                if (IsAlive(bullet) && _enchantments.TryAddEnchantment(bullet.Value, Protos.Enchantment.Ammo, 600, out var enc))
-                {
-                    Comp<EncAmmoComponent>(enc.Value).AmmoEnchantmentID = ammoEnc.GetStrongID();
-                }
-            }
-            _itemGen.GenerateItem(map.AtPos(6, 3), Protos.Item.MachineGun, quality: Quality.Great);
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {

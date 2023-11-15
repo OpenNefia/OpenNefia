@@ -46,9 +46,9 @@ namespace OpenNefia.Content.Loot
             if (_rand.OneIn(40))
                 _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatScroll);
             if (_rand.OneIn(40))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWear);
             if (_rand.OneIn(40))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWeapon);
             if (_rand.OneIn(40))
                 _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatGold);
             // <<<<<<<< shade2/item.hsp:242 	swbreak ..
@@ -62,9 +62,9 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:263 	case lootDrake ...
             if (_rand.OneIn(5))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWear);
             if (_rand.OneIn(5))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWeapon);
             if (_rand.OneIn(20))
                 _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatContainer);
             if (_rand.OneIn(4))
@@ -80,9 +80,9 @@ namespace OpenNefia.Content.Loot
         {
             // >>>>>>>> shade2/item.hsp:270 	case lootDragon ...
             if (_rand.OneIn(5))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Wear);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWear);
             if (_rand.OneIn(5))
-                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, RandomGenConsts.FilterSets.Weapon);
+                _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.TagSet.ItemWeapon);
             if (_rand.OneIn(15))
                 _loot.AddLootToResultList(ev.OutLootDrops, ev.Victim, Protos.Tag.ItemCatSpellbook);
             if (_rand.OneIn(5))

@@ -124,11 +124,11 @@ namespace OpenNefia.Core.Rendering
             // TODO chip animations
         }
 
-        public void Draw(int screenX, int screenY)
+        public void Draw(int screenX, int screenY, float scale)
         {
             foreach (var drawable in ToDraw)
             {
-                Love.Graphics.Draw(drawable, screenX, screenY);
+                Love.Graphics.Draw(drawable, screenX, screenY, 0, scale, scale);
             }
         }
     }

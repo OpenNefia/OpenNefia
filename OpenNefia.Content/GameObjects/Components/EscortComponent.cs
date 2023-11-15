@@ -14,5 +14,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class EscortComponent : Component
-    {    }
+    {
+    }
 }

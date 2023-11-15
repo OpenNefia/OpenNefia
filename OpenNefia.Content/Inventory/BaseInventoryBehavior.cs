@@ -3,6 +3,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Weight;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -13,6 +14,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
         public abstract string WindowTitle { get; }
@@ -39,7 +42,7 @@ namespace OpenNefia.Content.Inventory
         public virtual bool AllowSpecialOwned => false;
         public virtual LocaleKey? QueryAmountPrompt => null;
         public virtual bool ApplyNameModifiers => true;
-        public virtual bool ExitAfterSelectionIfEmpty => false;
+        public virtual TurnResult? TurnResultAfterSelectionIfEmpty => null;
 
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);
@@ -90,12 +93,42 @@ namespace OpenNefia.Content.Inventory
         {
         }
 
+        public virtual int? OnQueryAmount(InventoryContext context, EntityUid item)
+        {
+            if (!EntityManager.TryGetComponent<StackComponent>(item, out var stack))
+                return null;
+
+            var min = 1;
+            var max = stack.Count;
+
+            return OnQueryAmount(context, item, min, max);
+        }
+
+        protected int? OnQueryAmount(InventoryContext context, EntityUid item, int min, int max, int? initialValue = null)
+        {
+            LocaleKey promptKey;
+            if (QueryAmountPrompt != null && Loc.HasString(QueryAmountPrompt.Value))
+                promptKey = QueryAmountPrompt.Value;
+            else
+                promptKey = "Elona.Inventory.Common.HowMany";
+
+            var prompt = Loc.GetString(promptKey, ("min", min), ("max", max), ("entity", item));
+
+            var args = new NumberPrompt.Args(max, min, initialValue, isCancellable: true, prompt: prompt);
+            var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(args);
+
+            if (!result.HasValue)
+                return null;
+
+            return result.Value.Value;
+        }
+
         public virtual InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
             return new InventoryResult.Finished(TurnResult.Succeeded);
         }
 
-        public virtual InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<EntityUid> filteredItems)
+        public virtual InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<InventoryEntry> filteredItems)
         {
             return new InventoryResult.Continuing();
         }

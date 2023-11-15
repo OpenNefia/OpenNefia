@@ -18,6 +18,8 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -42,6 +44,8 @@ namespace OpenNefia.Content.Inventory
             where TComp3 : IComponent
             where TComp4 : IComponent;
 
+        bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null);
+
         int GetItemWeight(EntityUid item, WeightComponent? weight = null);
 
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
@@ -50,6 +54,9 @@ namespace OpenNefia.Content.Inventory
 
         int CalcMaxInventoryWeight(EntityUid uid);
         void RefreshInventoryWeight(EntityUid ent, bool refreshSpeed = true, InventoryComponent? inv = null);
+
+        /// <hsp>*chara_adjustInv</hsp>
+        void EnsureFreeItemSlot(EntityUid ent, InventoryComponent? inv = null);
     }
 
     /// <summary>
@@ -75,6 +82,7 @@ namespace OpenNefia.Content.Inventory
             SubscribeComponent<InventoryComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntityTurnEndingEventArgs>(HandleTurnEnding);
             SubscribeComponent<InventoryComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<InventoryComponent, ContainerIsInsertingAttemptEvent>(HandleAboutToInsert, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntInsertedIntoContainerEventArgs>(HandleInserted, priority: EventPriorities.VeryHigh);
             SubscribeComponent<InventoryComponent, EntRemovedFromContainerEventArgs>(HandleRemoved, priority: EventPriorities.VeryHigh);
         }
@@ -129,7 +137,8 @@ namespace OpenNefia.Content.Inventory
 
             if (inv.BurdenType >= BurdenType.Max)
             {
-                _mes.Display(Loc.GetString("Elona.Inventory.Burden.CarryTooMuch"), combineDuplicates: true);
+                if (_gameSession.IsPlayer(uid))
+                    _mes.Display(Loc.GetString("Elona.Inventory.Burden.CarryTooMuch"), combineDuplicates: true);
                 args.Handle(TurnResult.Failed);
                 return;
             }
@@ -139,6 +148,15 @@ namespace OpenNefia.Content.Inventory
         {
             // Speed is refreshed by TurnOrderSystem later, no need to calculate it twice.
             RefreshInventoryWeight(uid, refreshSpeed: false, component);
+        }
+
+        private void HandleAboutToInsert(EntityUid uid, InventoryComponent component, ContainerIsInsertingAttemptEvent args)
+        {
+            if (IsInventoryFull(uid, component))
+            {
+                args.Cancel();
+                return;
+            }    
         }
 
         private void HandleInserted(EntityUid uid, InventoryComponent component, EntInsertedIntoContainerEventArgs args)
@@ -193,7 +211,7 @@ namespace OpenNefia.Content.Inventory
                 .Where(x => EntityManager.IsAlive(x));
         }
 
-        public  IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null)
+        public IEnumerable<EntityUid> EnumerateInventoryAndEquipment(EntityUid entity, InventoryComponent? inv = null, EquipSlotsComponent? equipSlots = null)
         {
             return EnumerateInventory(entity, inv).Concat(_equipSlots.EnumerateEquippedEntities(entity, equipSlots));
         }
@@ -323,6 +341,25 @@ namespace OpenNefia.Content.Inventory
                     yield return ent;
                 }
             }
+        }
+
+        public bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null)
+        {
+            return EnumerateInventory(entity, inv)
+                .TryFirstOrNull(item => MetaData(item).EntityPrototype?.GetStrongID() == id, out item);
+        }
+
+        public void EnsureFreeItemSlot(EntityUid ent, InventoryComponent? inv = null)
+        {
+            if (!Resolve(ent, ref inv) || !IsInventoryFull(ent, inv))
+                return;
+
+            var items = EnumerateInventory(ent).ToList();
+            if (items.Count == 0)
+                return;
+
+            var item = _rand.Pick(items);
+            EntityManager.DeleteEntity(item);
         }
     }
 }

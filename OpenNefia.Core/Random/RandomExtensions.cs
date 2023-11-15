@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 
@@ -37,6 +38,19 @@ namespace OpenNefia.Core.Random
 
             var index = random.Next(list.Count);
             return list[index];
+        }
+
+        public static bool TryPickOrDefault<T>(this IRandom random, IReadOnlyList<T> list, [NotNullWhen(true)] out T? value)
+        {
+            if (list.Count == 0)
+            {
+                value = default;
+                return false;
+            }
+
+            var index = random.Next(list.Count);
+            value = list[index]!;
+            return true;
         }
 
         /// <summary>Picks a random element from a collection.</summary>

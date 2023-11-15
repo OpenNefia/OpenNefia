@@ -68,6 +68,8 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
         [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
+        [Dependency] private readonly ICSharpReplExecutor _csharpReplExecutor = default!;
+        [Dependency] private readonly ITaskRunner _taskRunner = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -115,6 +117,10 @@ namespace OpenNefia.Core.GameController
             {
                 _config.LoadCVarsFromAssembly(loadedModule);
             }
+
+            Task? roslynStartup = null;
+            if (_config.GetCVar(CVars.ReplAutoloadOnStartup))
+                roslynStartup = _csharpReplExecutor.InitializeRoslynAsync();
 
             _serialization.Initialize();
             _uiManager.Initialize();
@@ -167,10 +173,10 @@ namespace OpenNefia.Core.GameController
             _xamlHotReload.Initialize();
             _debugServer.Startup();
 
-            if (_config.GetCVar(CVars.ReplAutoloadOnStartup))
-                _replExecutor.Initialize();
-
             _prototypeManager.RegisterEvents();
+
+            if (roslynStartup != null)
+                _taskRunner.Run(roslynStartup);
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 

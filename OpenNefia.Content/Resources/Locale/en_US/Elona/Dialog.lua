@@ -4,6 +4,10 @@ Elona.Dialog = {
             More = "(More)",
             Bye = "Bye bye.",
         },
+
+        Thanks = "Thanks!",
+        YouKidding = "You kidding?",
+
         WillNotListen = function(entity)
             return ("%s won't listen."):format(_.name(entity))
         end,
@@ -15,6 +19,9 @@ Elona.Dialog = {
         end,
         IsSleeping = function(speaker)
             return ("(%s is sleeping.)"):format(_.name(speaker))
+        end,
+        YouHandOver = function(player, item)
+            return ("%s hand%s over %s."):format(_.name(player), _.s(player), _.name(item, nil, 1))
         end,
     },
 

@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Equipment
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class GenTwoHandedWeaponComponent : Component
-    {    }
+    {
+    }
 }

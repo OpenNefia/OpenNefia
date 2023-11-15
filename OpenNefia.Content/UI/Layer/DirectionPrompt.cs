@@ -156,13 +156,14 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void Draw()
         {
-            var screenPos = _field.Camera.TileToVisibleScreen(_centerCoords) / UIScale;
-            var (tileWidth, tileHeight) = _coords.TileSize / UIScale;
+            var screenPos = (_field.Camera.TileToVisibleScreen(_centerCoords)) / UIScale;
+            var tileSize = (_coords.TileSizeScaled) / UIScale;
+            var (tileWidth, tileHeight) = tileSize;
 
             var frame = _dt * 50;
             var alpha = (byte)Math.Max(200 - Math.Pow(frame / 2 % 20, 2), 0);
 
-            var pos = Position + screenPos + (_coords.TileSize / UIScale) / 2;
+            var pos = Position + screenPos + tileSize / 2;
 
             Love.Graphics.SetColor(Color.White.WithAlphaB(alpha));
 

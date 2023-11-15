@@ -4,6 +4,14 @@ Elona.Dialog = {
             More = "(続く)",
             Bye = "さようなら",
         },
+
+        Thanks = function(speaker)
+            return _.thanks(speaker, 2)
+        end,
+        YouKidding = function(speaker)
+            return ("冷やかし%s"):format(_.ka(speaker, 1))
+        end,
+
         WillNotListen = function(entity)
             return ("%sは耳を貸さない。"):format(_.name(entity))
         end,
@@ -13,6 +21,9 @@ Elona.Dialog = {
         end,
         IsSleeping = function(speaker)
             return ("(%sはぐっすり眠っている…)"):format(_.name(speaker))
+        end,
+        YouHandOver = function(player, item)
+            return ("%s%sを手渡した。"):format(_.sore_wa(player), _.name(item, nil, 1))
         end,
     },
 

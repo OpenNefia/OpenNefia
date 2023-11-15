@@ -97,6 +97,7 @@ namespace OpenNefia.Content.UI
 
             // TODO: remove
             SelectedLayer.LayerUIScale = LayerUIScale;
+            SelectedLayer.LayerTileScale = LayerTileScale;
 
             SelectedLayer.GrabFocus();
         }

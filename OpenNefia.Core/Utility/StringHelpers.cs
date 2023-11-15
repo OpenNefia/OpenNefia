@@ -189,5 +189,20 @@ namespace OpenNefia.Core.Utility
             var hashed = hasher.ComputeHash(Encoding.UTF8.GetBytes(str));
             return BitConverter.ToUInt32(hashed, 0);
         }
+
+        public static string Repeat(this string str, int times)
+        {
+            var a = new StringBuilder();
+
+            for (var i = 0; i < times; i++)
+                a.Append(str);
+
+            return a.ToString();
+        }
+
+        public static void ReplaceWith(this StringBuilder sb, string str)
+        {
+            sb.Clear().Append(str);
+        }
     }
 }

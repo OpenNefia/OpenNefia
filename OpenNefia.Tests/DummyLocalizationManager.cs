@@ -60,6 +60,11 @@ namespace OpenNefia.Tests
             return false;
         }
 
+        public LuaTable GetTable(LocaleKey key)
+        {
+            return null!;
+        }
+
         public bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table)
         {
             table = null;
@@ -75,6 +80,11 @@ namespace OpenNefia.Tests
         {
             str = null;
             return false;
+        }
+
+        public string FormatRaw(object? obj, LocaleArg[] args)
+        {
+            return string.Empty;
         }
 
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)

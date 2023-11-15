@@ -121,7 +121,7 @@ namespace OpenNefia.Content.EffectMap
                 if (Map!.IsInWindowFov(entry.TilePosition))
                 {
                     Love.Graphics.SetColor(Color.White.WithAlphaB(entry.Alpha));
-                    entry.Asset.DrawRegionUnscaled(entry.AssetFrame.ToString(), PixelX + entry.ScreenPosition.X, PixelY + entry.ScreenPosition.Y, centered: true, rotationRads: entry.Rotation);
+                    entry.Asset.DrawRegion(_coords.TileScale, entry.AssetFrame.ToString(), PixelX + entry.ScreenPosition.X, PixelY + entry.ScreenPosition.Y, centered: true, rotationRads: entry.Rotation);
                 }
             }
         }

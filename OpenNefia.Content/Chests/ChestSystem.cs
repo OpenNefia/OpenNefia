@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Chests
                     {
                         MinLevel = _randomGen.CalcObjectLevel(itemLevel),
                         Quality = _randomGen.CalcObjectQuality(quality),
-                        Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Chest) }
+                        Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemChest) }
                     };
 
                     if (i > 0 && !_rand.OneIn(3))

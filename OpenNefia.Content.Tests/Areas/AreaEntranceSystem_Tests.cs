@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Tests.Areas
 
             var worldMapEntComp = areaEntranceSys.CreateAreaEntrance(area, map.AtPos(new Vector2i(5, 5)));
 
-            Assert.That(worldMapEntComp.Entrance.MapIdSpecifier.GetMapId(), Is.EqualTo(map.Id));
+            Assert.That(worldMapEntComp.Entrance.MapIdSpecifier.GetOrGenerateMapId(), Is.EqualTo(map.Id));
             Assert.That(worldMapEntComp.Entrance.MapIdSpecifier.GetAreaId(), Is.EqualTo(area.Id));
             Assert.That(worldMapEntComp.Entrance.StartLocation, Is.TypeOf(typeof(SpecificMapLocation)));
 

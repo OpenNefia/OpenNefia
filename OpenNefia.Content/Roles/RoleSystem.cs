@@ -1,10 +1,17 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Dialog;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Logic;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Quests;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Locale;
+using static OpenNefia.Content.Quests.VanillaQuestsSystem;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Roles
 {
@@ -17,6 +24,8 @@ namespace OpenNefia.Content.Roles
 
     public sealed class RoleSystem : EntitySystem, IRoleSystem
     {
+        [Dependency] private readonly IQuestSystem _quests = default!;
+
         public IEnumerable<IRoleComponent> EnumerateRoles(EntityUid uid)
         {
             return EntityManager.GetComponents(uid).WhereAssignable<IComponent, IRoleComponent>();

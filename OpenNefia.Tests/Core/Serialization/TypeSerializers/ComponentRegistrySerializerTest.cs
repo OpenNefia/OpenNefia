@@ -58,5 +58,6 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
     }
 
     public sealed class TestComponent : Component
-    {    }
+    {
+    }
 }

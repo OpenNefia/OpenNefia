@@ -11,12 +11,16 @@ namespace OpenNefia.Core.Rendering
     public interface ICoords
     {
         public Vector2i TileSize { get; }
+        public Vector2i TileSizeScaled { get; }
+        public float TileScale { get; }
 
         // TODO: Screen positions need to be float vectors. The reason is high-DPI rendering.
 
         Vector2i GetTiledSize(Vector2i screenSize);
         Vector2i TileToScreen(Vector2i tilePos);
+        Vector2i TileToScreenScaled(Vector2i tilePos) { return (Vector2i)(TileToScreen(tilePos) * TileScale); }
         Vector2i ScreenToTile(Vector2i screenPos);
+        Vector2i ScreenToTileScaled(Vector2i screenPos) { return ScreenToTile((Vector2i)(screenPos / TileScale));  }
         Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize);
     }
 }

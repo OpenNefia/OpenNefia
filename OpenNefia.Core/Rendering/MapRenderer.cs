@@ -4,6 +4,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering.TileDrawLayers;
+using OpenNefia.Core.Rendering.TileRowDrawLayers;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System.Reflection;
@@ -18,8 +19,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
         [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-
-        private DependencyCollection _layerDependencyCollection = default!;
+        [Dependency] private readonly IMapTileRowRenderer _tileRowRenderer = default!;
 
         private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
 
@@ -37,6 +37,7 @@ namespace OpenNefia.Core.Rendering
         private readonly List<ITileLayer> _allTileLayers = new();
         private readonly Dictionary<ITileLayer, TileLayerMetaData> _tileLayerMetaData = new();
         private List<ITileLayer> _enabledTileLayers = new();
+        private DependencyCollection _layerDependencyCollection = default!;
 
         private IMap? _map;
 
@@ -56,12 +57,12 @@ namespace OpenNefia.Core.Rendering
 
             foreach (var type in _reflectionManager.FindTypesWithAttribute<RegisterTileLayerAttribute>())
             {
-                RegisterTileLayer(type);
+                RegisterTileLayer(type, _types, _layerDependencyCollection);
             }
 
             _layerDependencyCollection.BuildGraph();
 
-            foreach (var type in GetSortedLayers())
+            foreach (var type in GetSortedLayers(_types))
             {
                 var attr = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
                 var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
@@ -79,6 +80,8 @@ namespace OpenNefia.Core.Rendering
             }
 
             RebuildEnabledTileLayers();
+
+            _tileRowRenderer.RegisterTileLayers();
         }
 
         private void RebuildEnabledTileLayers()
@@ -104,23 +107,23 @@ namespace OpenNefia.Core.Rendering
             RebuildEnabledTileLayers();
         }
 
-        private void RegisterTileLayer(Type type)
+        private void RegisterTileLayer(Type type, Dictionary<Type, OrderingData> types, DependencyCollection dependencyCollection)
         {
             Logger.InfoS(Sawmill, "Registering tile layer {0}", type);
 
             if (!typeof(ITileLayer).IsAssignableFrom(type))
             {
-                Logger.ErrorS(Sawmill, "Type {0} has RegisterComponentAttribute but does not implement IComponent.", type);
+                Logger.ErrorS(Sawmill, $"Type {type} has {nameof(RegisterTileLayerAttribute)} but does not implement {nameof(ITileLayer)}.");
             }
 
-            if (_types.ContainsKey(type))
+            if (types.ContainsKey(type))
             {
                 throw new InvalidOperationException($"Type is already registered: {type}");
             }
 
             var attribute = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
-            _types.Add(type, new OrderingData(type, attribute.RenderBefore, attribute.RenderAfter));
-            _layerDependencyCollection.Register(type);
+            types.Add(type, new OrderingData(type, attribute.RenderBefore, attribute.RenderAfter));
+            dependencyCollection.Register(type);
         }
 
         public T GetTileLayer<T>() where T : ITileLayer
@@ -128,10 +131,10 @@ namespace OpenNefia.Core.Rendering
             return (T)_allTileLayers.Single(layer => layer is T);
         }
 
-        private IEnumerable<Type> GetSortedLayers()
+        private IEnumerable<Type> GetSortedLayers(Dictionary<Type, OrderingData> types)
         {
             var nodes = TopologicalSort.FromBeforeAfter(
-                _types.Values,
+                types.Values,
                 n => n.OrderType,
                 n => n,
                 n => n.Before ?? Array.Empty<Type>(),
@@ -150,6 +153,8 @@ namespace OpenNefia.Core.Rendering
             {
                 layer.SetMap(map);
             }
+
+            _tileRowRenderer.SetMap(map);
 
             map.RedrawAllThisTurn = true;
             RefreshAllLayers();
@@ -170,6 +175,8 @@ namespace OpenNefia.Core.Rendering
             {
                 layer.RedrawAll();
             }
+
+            _tileRowRenderer.OnThemeSwitched();
         }
 
         public void RefreshAllLayers()
@@ -191,6 +198,8 @@ namespace OpenNefia.Core.Rendering
                     layer.RedrawDirtyTiles(_map.DirtyTilesThisTurn);
                 }
             }
+
+            _tileRowRenderer.RefreshAllLayers();
 
             _map.RedrawAllThisTurn = false;
             _map.DirtyTilesThisTurn.Clear();

@@ -56,6 +56,8 @@ namespace OpenNefia.Core.Maps
         bool CanSeeThrough(Vector2i position);
         bool CanAccess(MapCoordinates newPos);
         bool CanSeeThrough(MapCoordinates position);
+        bool CanAccess(EntityCoordinates coords, IEntityManager? entityManager = null);
+        bool CanSeeThrough(EntityCoordinates coords, IEntityManager? entityManager = null);
 
         bool HasLineOfSight(Vector2i worldPosition, Vector2i pos);
     }

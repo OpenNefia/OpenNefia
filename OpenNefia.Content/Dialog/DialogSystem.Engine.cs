@@ -38,7 +38,14 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IActivitySystem _activities = default!;
 
         /// <inheritdoc/>
-        public TurnResult TryToChatWith(EntityUid source, EntityUid target, bool force = false, PrototypeId<DialogPrototype>? dialogID = null)
+        public TurnResult TryToChatWith(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID, Blackboard<IDialogExtraData>? extraData = null, bool force = false)
+        {
+            var proto = _protos.Index(dialogID);
+            return TryToChatWith(source, target, new QualifiedDialogNodeID(dialogID, proto.StartNode), extraData, force);
+        }
+
+        /// <inheritdoc/>
+        public TurnResult TryToChatWith(EntityUid source, EntityUid target, QualifiedDialogNodeID? dialogNodeID = null, Blackboard<IDialogExtraData>? extraData = null, bool force = false)
         {
             if (_factions.IsPlayer(target))
                 return TurnResult.Failed;
@@ -50,7 +57,19 @@ namespace OpenNefia.Content.Dialog
                 return TurnResult.Failed;
             }
 
-            dialogID ??= dialog.DialogID ?? Protos.Dialog.Default;
+            if (dialogNodeID == null)
+            {
+                PrototypeId<DialogPrototype> dialogID;
+                if (dialog.DialogID != null)
+                {
+                    dialogID = dialog.DialogID.Value;
+                }
+                else
+                {
+                    dialogID = Protos.Dialog.Default;
+                }
+                dialogNodeID = new QualifiedDialogNodeID(dialogID, _protos.Index(dialogID).StartNode);
+            }
 
             if (_world.State.GameDate >= dialog.InterestRenewDate)
                 dialog.Interest = 100;
@@ -61,11 +80,18 @@ namespace OpenNefia.Content.Dialog
             if (_activities.HasAnyActivity(target))
                 return StartDialog(source, target, Protos.Dialog.IsBusy);
 
-            return StartDialog(source, target, dialogID.Value);
+            return StartDialog(source, target, dialogNodeID.Value, extraData);
         }
-        
+
         /// <inheritdoc/>
-        public TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID)
+        public TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID, Blackboard<IDialogExtraData>? extraData = null)
+        {
+            var proto = _protos.Index(dialogID);
+            return StartDialog(source, target, new QualifiedDialogNodeID(dialogID, proto.StartNode), extraData);
+        }
+
+        /// <inheritdoc/>
+        public TurnResult StartDialog(EntityUid source, EntityUid target, QualifiedDialogNodeID dialogNodeID, Blackboard<IDialogExtraData>? extraData = null)
         {
             if (!IsAlive(target))
                 return TurnResult.Aborted;
@@ -75,10 +101,9 @@ namespace OpenNefia.Content.Dialog
             };
             IDialogLayer dialogLayer = _uiManager.CreateLayer<DialogLayer, DialogArgs, DialogResult>(args);
 
-            var dialogProto = _protos.Index(dialogID);
-            var engine = new DialogEngine(source, target, dialogProto, dialogLayer);
+            var engine = new DialogEngine(source, target, dialogLayer, extraData);
 
-            return engine.StartDialog();
+            return engine.StartDialog(dialogNodeID);
         }
 
         public string GetDefaultSpeakerName(EntityUid uid)

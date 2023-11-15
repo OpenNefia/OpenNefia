@@ -19,6 +19,7 @@ namespace OpenNefia.Content.Visibility
         /// </summary>
         bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null);
         bool IsInWindowFov(MapCoordinates coords);
+        bool IsInWindowFov(EntityCoordinates coords);
 
         /// <summary>
         /// Returns true if the entity has line of sight to the position of the target.
@@ -37,7 +38,7 @@ namespace OpenNefia.Content.Visibility
         /// <summary>
         /// Returns true if the onlooker can see the entity, including visibility checks.
         /// </summary>
-        bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool noLos = false);
+        bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool ignoreLos = false);
 
         bool TryToPercieve(EntityUid perceiver, EntityUid target);
     }
@@ -86,6 +87,11 @@ namespace OpenNefia.Content.Visibility
             return map.IsInWindowFov(coords.Position);
         }
 
+        public bool IsInWindowFov(EntityCoordinates coords)
+        {
+            return IsInWindowFov(coords.ToMap(EntityManager));
+        }
+
         public bool HasLineOfSight(EntityUid onlooker, EntityUid target,
             SpatialComponent? onlookerSpatial = null,
             SpatialComponent? targetSpatial = null)
@@ -119,7 +125,7 @@ namespace OpenNefia.Content.Visibility
             return true;
         }
 
-        public bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool noLos = false)
+        public bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool ignoreLos = false)
         {
             if (!EntityManager.TryGetComponent(target, out SpatialComponent targetSpatial))
                 return false;
@@ -143,7 +149,7 @@ namespace OpenNefia.Content.Visibility
                     return false;
             }
 
-            return noLos || HasLineOfSight(onlooker, targetSpatial.MapPosition);
+            return ignoreLos || HasLineOfSight(onlooker, targetSpatial.MapPosition);
         }
 
         private bool IsInSquare(MapCoordinates from, MapCoordinates to, int radius)

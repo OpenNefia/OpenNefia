@@ -1,18 +1,22 @@
 - type: Tag
-  id: Elona.NoGenerate
-- type: Tag
   id: Elona.ItemCatBook
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Books
 - type: Tag
   id: Elona.ItemCatBug
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatCargo
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 200
@@ -24,23 +28,34 @@
 - type: Tag
   id: Elona.ItemCatCargoFood
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatContainer
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatCropHerb
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatCropSeed
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
   - type: Shopkeeper.ExtShopExclusion
     isExcludedFromShops: true
 - type: Tag
   id: Elona.ItemCatDrink
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
@@ -48,127 +63,280 @@
     counterKey: Elona.Item.Japanese.Counters.Doses
 - type: Tag
   id: Elona.ItemCatDrinkAlcohol
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatDrinkPotion
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipAmmo
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipAmmoArrow
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipAmmoBolt
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipAmmoBullet
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipAmmoEnergyCell
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipBack
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipBackCloak
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipBackGirdle
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipBody
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Clothing
 - type: Tag
   id: Elona.ItemCatEquipBodyMail
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipBodyRobe
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipCloak
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipHead
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipHeadHat
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipHeadHelm
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipLeg
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Pairs
 - type: Tag
   id: Elona.ItemCatEquipLegHeavyBoots
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipLegShoes
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMelee
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Rods
 - type: Tag
   id: Elona.ItemCatEquipMeleeAxe
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeBroadsword
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeClub
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeHalberd
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeHammer
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeHandAxe
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeLance
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeLongSword
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeScythe
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeShortSword
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipMeleeStaff
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipNeck
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipNeckArmor
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRanged
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipRangedBow
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRangedCrossbow
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRangedGun
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRangedLaserGun
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRangedThrown
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipRing
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipRingRing
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipShield
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatEquipShieldShield
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipWrist
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Pairs
 - type: Tag
   id: Elona.ItemCatEquipWristGauntlet
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatEquipWristGlove
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFood
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:ConstantShopAmountAdjustment
       amount: 1
 - type: Tag
   id: Elona.ItemCatFoodFlour
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFoodFruit
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFoodNoodle
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFoodVegetable
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFurniture
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 200
@@ -177,20 +345,32 @@
 - type: Tag
   id: Elona.ItemCatFurnitureAltar
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatFurnitureBed
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFurnitureInstrument
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatFurnitureWell
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatGold
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
   - type: Items.ExtTagJapaneseCounter
@@ -198,6 +378,8 @@
 - type: Tag
   id: Elona.ItemCatJunk
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 80
@@ -205,16 +387,27 @@
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatJunkInField
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatJunkTown
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatMiscItem
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 500
 - type: Tag
   id: Elona.ItemCatMiscItemCrafting
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatOfferingFish
 - type: Tag
@@ -226,13 +419,20 @@
 - type: Tag
   id: Elona.ItemCatOre
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatOreValuable
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatPlatinum
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
   - type: Items.ExtTagJapaneseCounter
@@ -240,13 +440,20 @@
 - type: Tag
   id: Elona.ItemCatRemains
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
 - type: Tag
   id: Elona.ItemCatRod
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
 - type: Tag
   id: Elona.ItemCatScroll
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
@@ -254,21 +461,31 @@
     counterKey: Elona.Item.Japanese.Counters.Scrolls
 - type: Tag
   id: Elona.ItemCatScrollDeed
-- type: Tag
-  id: Elona.ItemCatSnowTree
+  extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Minor
 - type: Tag
   id: Elona.ItemCatSpellbook
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Books
 - type: Tag
   id: Elona.ItemCatTree
   extendedData:
+  - type: Items.ExtTagItemCategory
+    categoryType: Major
   - type: Shopkeeper.ExtShopAmountAdjustment
     adjustment: !type:RarityShopAmountAdjustment
       coefficient: 100
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
+
+- type: Tag
+  id: Elona.NoGenerate
+- type: Tag
+  id: Elona.ItemCatSnowTree
 - type: Tag
   id: Elona.ItemCatUniqueItem
 - type: Tag

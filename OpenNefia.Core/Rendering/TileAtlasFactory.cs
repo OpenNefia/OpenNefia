@@ -8,6 +8,8 @@ using System.Text;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Graphics;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -25,6 +27,7 @@ namespace OpenNefia.Core.Rendering
     {
          private readonly IResourceCache _resourceCache = default!;
          private readonly ISerializationManager _serialization = default!;
+         private readonly IConfigurationManager _config = default!;
 
         private static readonly ResourcePath _cachePath = new ResourcePath("/Cache/Atlas");
 
@@ -42,6 +45,7 @@ namespace OpenNefia.Core.Rendering
         public TileAtlasFactory(
             IResourceCache resourceCache,
             ISerializationManager serialization,
+            IConfigurationManager config,
             int tileWidth = OrthographicCoords.TILE_SIZE, 
             int tileHeight = OrthographicCoords.TILE_SIZE, 
             int tileCountX = 48, 
@@ -49,6 +53,7 @@ namespace OpenNefia.Core.Rendering
         {
             _resourceCache = resourceCache;
             _serialization = serialization;
+            _config = config;
 
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
@@ -199,9 +204,11 @@ namespace OpenNefia.Core.Rendering
 
             Love.Graphics.SetCanvas(canvas);
 
+            var filterMode = _config.GetCVar(CVars.DisplayTileFilterMode) == FilterMode.Linear ? Love.FilterMode.Linear : Love.FilterMode.Nearest;
+
             var imageData = _workCanvas.NewImageData();
             var image = Love.Graphics.NewImage(imageData);
-            image.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
+            image.SetFilter(filterMode, filterMode, 1);
 
             var tileAtlas = new TileAtlas(image, _atlasTiles);
 

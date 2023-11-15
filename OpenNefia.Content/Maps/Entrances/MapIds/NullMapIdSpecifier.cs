@@ -8,6 +8,12 @@ namespace OpenNefia.Content.Maps
     {
         public AreaId? GetAreaId() => null;
 
+        public MapId? GetOrGenerateMapId()
+        {
+            Logger.WarningS("area.mapIds", "No map ID specifier provided.");
+            return null;
+        }
+
         public MapId? GetMapId()
         {
             Logger.WarningS("area.mapIds", "No map ID specifier provided.");

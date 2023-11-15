@@ -2,7 +2,7 @@
 #r "System.Runtime"
 #r "System.Collections"
 #r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
-#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
+#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net7.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.Content/Resources/Assemblies/OpenNefia.Content.dll"
 
 using NLua;
@@ -48,6 +48,10 @@ using OpenNefia.Core.Configuration;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.CurseStates;
+using OpenNefia.Core.ViewVariables;
+using OpenNefia.Content.DebugView;
+using OpenNefia.Content.Spells;
+using OpenNefia.Content.Identify;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -150,7 +154,12 @@ public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)
     if (!_inv.TryGetInventoryContainer(player(), out var inv))
         return null;
 
-    return _itemGen.GenerateItem(inv, id, amount: amount);
+    var item = _itemGen.GenerateItem(inv, id, amount: amount);
+    if (!_entityMan.IsAlive(item))
+        return null;
+
+    _entityMan.EnsureComponent<IdentifyComponent>(item.Value).IdentifyState = IdentifyState.Full;
+    return item;
 }
 
 public void clearEffects()
@@ -200,7 +209,10 @@ public void refresh(EntityUid? uid = null)
 }
 
 public void setcvar<T>(CVarDef<T> cvar, T val) where T: notnull
-    => _config.SetCVar(cvar, val);
+{
+    _config.SetCVar(cvar, val);
+    _config.SaveToFile();
+}
 
 public T getcvar<T>(CVarDef<T> cvar) where T: notnull
     => _config.GetCVar(cvar);
@@ -227,18 +239,44 @@ public void setlog(string sawmill, LogLevel level)
     Logger.GetSawmill(sawmill).Level = level;
 }
 
-public void applyEffect<T>(int power, CurseState curseState = CurseState.Normal, EntityUid? target = null, EffectArgSet? args = null)
+public void applyEffect<T>(int power = 100,
+                           CurseState curseState = CurseState.Normal,
+                           EntityUid? target = null,
+                           EntityUid? source = null,
+                           EntityCoordinates? coords = null,
+                           EffectArgSet? args = null)
     where T: class, IEffect, new()
 {
     target ??= player();
+    source ??= target.Value;
+    coords ??= spatial(target.Value).Coordinates;
     args ??= new EffectArgSet();
     args.Power = power;
     args.CurseState = curseState;
-    _effects.Apply<T>(target.Value, target.Value, spatial(target.Value).Coordinates, null, args);
+    _effects.Apply<T>(source.Value, target.Value, coords.Value, null, args);
 }
 
 public void sandbag(EntityUid? ent = null)
 {
     ent ??= entityAt().Owner;
     _entityMan.EnsureComponent<OpenNefia.Content.Combat.SandBaggedComponent>(ent.Value);
+}
+
+public void vv(object obj)
+{
+    var debugView = IoCManager.Resolve<IDebugViewLayer>();
+    var vv = IoCManager.Resolve<IViewVariablesManager>();
+    vv.OpenVV(obj, debugView);
+
+    _uiMan.Query(debugView);
+}
+
+public bool warpTo(GlobalAreaId areaId, AreaFloorId? floorId = null)
+{
+    var entrance = new MapEntrance()
+    {
+        MapIdSpecifier = new GlobalAreaMapIdSpecifier(areaId, floorId)
+    };
+
+    return _mapEntrance.UseMapEntrance(player(), entrance);
 }

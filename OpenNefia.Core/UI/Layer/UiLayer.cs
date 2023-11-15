@@ -13,7 +13,9 @@ namespace OpenNefia.Core.UI.Layer
         private readonly IInputManager _inputManager = default!;
 
         public float? LayerUIScale { get; set; } = null;
+        public float? LayerTileScale { get; set; } = null;
         public override float UIScale => Parent?.UIScale ?? LayerUIScale ?? 1f;
+        public override float TileScale => Parent?.TileScale ?? LayerTileScale ?? 1f;
         public virtual bool ExceptionTolerance => true;
 
         public virtual int? DefaultZOrder => null;

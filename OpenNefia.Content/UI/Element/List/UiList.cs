@@ -231,7 +231,9 @@ namespace OpenNefia.Content.UI.Element.List
                 return;
 
             SelectedIndex = index;
-            HandleSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
+            var cell = DisplayedCells[index];
+            var indexOverall = AllCells.IndexOf(cell);
+            HandleSelect(new UiListEventArgs<T>(cell, indexOverall));
         }
 
         public virtual bool CanActivate(int index)
@@ -249,7 +251,9 @@ namespace OpenNefia.Content.UI.Element.List
             if (SelectOnActivate)
                 Select(index);
 
-            HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
+            var cell = DisplayedCells[index];
+            var indexOverall = AllCells.IndexOf(cell);
+            HandleActivate(new UiListEventArgs<T>(cell, indexOverall));
         }
 
         public virtual void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true)

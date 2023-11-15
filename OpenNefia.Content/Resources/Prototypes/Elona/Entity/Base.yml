@@ -132,3 +132,10 @@
     isSolid: false
     isOpaque: false
   - type: Enchantment
+
+- type: Entity
+  id: BaseQuest
+  hspEntityType: quest
+  abstract: true
+  components:
+  - type: Quest

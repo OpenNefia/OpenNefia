@@ -48,8 +48,6 @@ namespace OpenNefia.Content.Dialog
 
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            EntitySystem.InjectDependencies(this);
-            
             _sidequests.SetState(SidequestID, State);
         }
     }
@@ -89,8 +87,6 @@ namespace OpenNefia.Content.Dialog
 
         public IEnumerable<EntityUid> FindEntities(IDialogEngine engine)
         {
-            EntitySystem.InjectDependencies(this);
-
             var spatial = _entityManager.GetComponent<SpatialComponent>(engine.Player);
 
             return _entityLookup.EntityQueryInMap<MetaDataComponent>(spatial.MapID)
@@ -135,20 +131,13 @@ namespace OpenNefia.Content.Dialog
 
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            if (Target == null)
+            foreach (var aggressor in Aggressor.FindEntities(engine))
             {
-                engine.Speaker = null;
-                return;
+                foreach (var target in Target.FindEntities(engine))
+                {
+                    _factions.ActHostileTowards(aggressor, target);
+                }
             }
-
-            var newSpeaker = Target.FindEntities(engine).FirstOrNull();
-            if (newSpeaker == null)
-            {
-                Logger.ErrorS("dialog.action", $"Could not find next speaker based on lookup criteria {Target}!");
-                return;
-            }
-
-            engine.Speaker = newSpeaker;
         }
     }
 
@@ -167,8 +156,6 @@ namespace OpenNefia.Content.Dialog
         
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            EntitySystem.InjectDependencies(this);
-
             EntityUid? entity = null;
             if (Entity != null)
                 entity = Entity.FindEntities(engine).FirstOrNull();

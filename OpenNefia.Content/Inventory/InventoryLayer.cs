@@ -298,10 +298,11 @@ namespace OpenNefia.Content.Inventory
             // TODO smarter list rebuilding
             UpdateFiltering();
             _field.RefreshScreen();
-
-            if (List.Count == 0 && Context.Behavior.ExitAfterSelectionIfEmpty)
+            
+            // TODO merge with AfterFilter?
+            if (List.Count == 0 && Context.Behavior.TurnResultAfterSelectionIfEmpty != null && !HasResult)
             {
-                this.Finish(new(new InventoryResult.Finished(TurnResult.Succeeded), null));
+                Finish(new(new InventoryResult.Finished(Context.Behavior.TurnResultAfterSelectionIfEmpty.Value), null));
             }
 
             Context.ShowInventoryWindow = true;
@@ -309,6 +310,11 @@ namespace OpenNefia.Content.Inventory
 
         public override void OnQuery()
         {
+            // Filtering before the layer is queried can pre-emptively set the result before any
+            // interaction takes place. (see the call to Context.Behavior.AfterFilter())
+            if (HasResult)
+                return;
+
             Sounds.Play(Protos.Sound.Inv);
             ShowQueryText();
             Context.OnQuery();
@@ -418,6 +424,13 @@ namespace OpenNefia.Content.Inventory
             }
 
             Context.AllInventoryEntries = filtered.ToList();
+
+            var filteredItems = List.Select(i => i.Data.ItemEntityUid);
+            var afterFilterResult = Context.Behavior.AfterFilter(Context, Context.AllInventoryEntries);
+            if (afterFilterResult is not InventoryResult.Continuing)
+            {
+                Finish(new(afterFilterResult, null));
+            }
 
             RedisplayList();
         }

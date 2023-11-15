@@ -186,7 +186,7 @@ namespace OpenNefia.Content.RandomEvent
                 case 0:
                     for (var i = 0; i < 1 + _rand.Next(4); i++)
                     {
-                        _itemGen.GenerateItem(ev.Target, tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Remain) });
+                        _itemGen.GenerateItem(ev.Target, tags: new[] { _randomGen.PickTag(Protos.TagSet.ItemRemain) });
                     }
                     _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
                     break;
@@ -212,9 +212,9 @@ namespace OpenNefia.Content.RandomEvent
                         };
 
                         if (_rand.OneIn(3))
-                            filter.Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) };
+                            filter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) };
                         else
-                            filter.Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Remain) };
+                            filter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemRemain) };
 
                         _itemGen.GenerateItem(ev.Target, filter);
                     }

@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Home
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ServantComponent : Component
-    {    }
+    {
+    }
 }

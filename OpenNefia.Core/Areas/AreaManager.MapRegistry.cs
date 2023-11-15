@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Areas
 {
@@ -88,17 +89,14 @@ namespace OpenNefia.Core.Areas
         {
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
-        
+
         /// <inheritdoc/>
-        public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
+        public IMap? GetMapForFloor(AreaId areaId, AreaFloorId floorId)
         {
             var area = GetArea(areaId);
 
             if (!area.ContainedMaps.TryGetValue(floorId, out var floor))
-            {
-                floor = new AreaFloor();
-                RegisterAreaFloor(area, floorId, floor);
-            }
+                return null;
 
             if (floor.MapId != null)
             {
@@ -109,11 +107,35 @@ namespace OpenNefia.Core.Areas
                 return _mapLoader.LoadMap(floor.MapId.Value, _saveGame.CurrentSave!);
             }
 
-            // TODO: Should this be passed as an argument?
-            var player = IoCManager.Resolve<IGameSessionManager>().Player;
-            var previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
+            return null;
+        }
 
-            var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
+        /// <inheritdoc/>
+        public IMap? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId, MapCoordinates? previousCoords = null)
+        {
+            var area = GetArea(areaId);
+
+            if (!area.ContainedMaps.TryGetValue(floorId, out var floor))
+            {
+                floor = new AreaFloor();
+                RegisterAreaFloor(area, floorId, floor);
+            }
+
+            var map = GetMapForFloor(areaId, floorId);
+            if (map != null)
+                return map;
+
+            if (previousCoords == null)
+            {
+                var player = IoCManager.Resolve<IGameSessionManager>().Player;
+
+                if (_entityManager.TryGetComponent<SpatialComponent>(player, out var spatial))
+                    previousCoords = spatial.MapPosition;
+                else
+                    previousCoords = MapCoordinates.Nullspace; // happens in tests
+            }
+
+            var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords.Value);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
             if (ev.OutMap == null)
@@ -125,7 +147,7 @@ namespace OpenNefia.Core.Areas
             floor.MapId = ev.OutMap.Id;
             _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
 
-            var ev2 = new AfterAreaFloorGeneratedEvent(area, ev.OutMap, floorId, previousCoords);
+            var ev2 = new AfterAreaFloorGeneratedEvent(area, ev.OutMap, floorId, previousCoords.Value);
             _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev2);
 
             return ev.OutMap;

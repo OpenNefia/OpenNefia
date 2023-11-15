@@ -1,11 +1,4 @@
 Elona.Dialog.Common = {
-    Thanks = function(speaker)
-        return ("%s"):format(_.thanks(speaker, 2))
-    end,
-    YouKidding = function(speaker)
-        return ("冷やかし%s"):format(_.ka(speaker, 1))
-    end,
-
     Choices = {
         Sex = "気持ちいいことしない？",
     },

@@ -22,6 +22,7 @@ namespace OpenNefia.Content.InUse
         void RemoveItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
         void ClearItemsInUse(EntityUid user, ItemUserComponent? initemUserUse = null);
         bool TryGetUser(EntityUid item, [NotNullWhen(true)] out EntityUid? user, InUseComponent? inUse = null);
+        void RemoveUserOfItem(EntityUid item);
     }
 
     public sealed class InUseSystem : EntitySystem, IInUseSystem
@@ -82,6 +83,12 @@ namespace OpenNefia.Content.InUse
 
             user = inUse.User;
             return IsAlive(inUse.User);
+        }
+
+        public void RemoveUserOfItem(EntityUid item)
+        {
+            if (TryGetUser(item, out var user))
+                RemoveItemInUse(user.Value, item);
         }
     }
 }

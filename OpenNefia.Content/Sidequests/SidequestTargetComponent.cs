@@ -9,5 +9,6 @@ namespace OpenNefia.Content.Sidequests
 {
     [RegisterComponent]
     public sealed class SidequestTargetComponent : Component
-    {    }
+    {
+    }
 }

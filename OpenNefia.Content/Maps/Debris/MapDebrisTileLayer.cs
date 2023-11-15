@@ -1,23 +1,24 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.Rendering.TileDrawLayers;
-using System;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
 using static OpenNefia.Core.Rendering.AssetInstance;
+using OpenNefia.Core.Rendering.TileRowDrawLayers;
+using OpenNefia.Core.Maps;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Maps.Debris
 {
-    [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) })]
-    public sealed class MapDebrisTileLayer : BaseTileLayer
+    [RegisterTileRowLayer(TileRowLayerType.Tile)]
+    public sealed class MapDebrisTileLayer : BaseTileRowLayer
     {
         [Dependency] private readonly ICoords _coords = default!;
 
         private IAssetInstance _bloodAsset = default!;
         private IAssetInstance _fragmentAsset = default!;
 
-        private Love.SpriteBatch? _bloodBatch = null;
-        private Love.SpriteBatch? _fragmentBatch = null;
+        private Love.SpriteBatch[] _bloodBatches = new Love.SpriteBatch[0];
+        private Love.SpriteBatch[] _fragmentBatches = new Love.SpriteBatch[0];
 
         public override void Initialize()
         {
@@ -27,6 +28,13 @@ namespace OpenNefia.Content.Maps.Debris
 
         public override void OnThemeSwitched()
         {
+        }
+
+        public override void SetMap(IMap map)
+        {
+            base.SetMap(map);
+            _bloodBatches = new Love.SpriteBatch[map.Height];
+            _fragmentBatches = new Love.SpriteBatch[map.Height];
         }
 
         public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
@@ -67,52 +75,63 @@ namespace OpenNefia.Content.Maps.Debris
 
         private void RebuildBatches()
         {
-            _bloodBatch?.Dispose();
-            _bloodBatch = null;
-            _fragmentBatch?.Dispose();
-            _fragmentBatch = null;
-
             if (Map == null || !EntityManager.TryGetComponent<MapDebrisComponent>(Map.MapEntityUid, out var mapDebris))
                 return;
+
+            foreach (var batch in _bloodBatches)
+            {
+                if (batch != null)
+                    batch.Dispose();
+            }
+            foreach (var batch in _fragmentBatches)
+            {
+                if (batch != null)
+                    batch.Dispose();
+            }
+
+            _bloodBatches = new Love.SpriteBatch[Map.Height];
+            _fragmentBatches = new Love.SpriteBatch[Map.Height];
 
             var bloodParts = new List<AssetBatchPart>();
             var fragmentParts = new List<AssetBatchPart>();
 
-            for (var x = 0; x < Map.Width; x++)
+            for (var y = 0; y < Map.Height; y++)
             {
-                for (var y = 0; y < Map.Height; y++)
+                for (var x = 0; x < Map.Width; x++)
                 {
                     var debris = mapDebris.DebrisMemory[x, y];
                     var screenPos = _coords.TileToScreen((x, y));
 
                     if (debris.Blood > 0)
                     {
-                        bloodParts.Add(new AssetBatchPart((debris.Blood - 1).ToString(), screenPos.X, screenPos.Y));
+                        bloodParts.Add(new AssetBatchPart((debris.Blood - 1).ToString(), screenPos.X, 0));
                     }
                     if (debris.Fragments > 0)
                     {
-                        fragmentParts.Add(new AssetBatchPart((debris.Fragments - 1).ToString(), screenPos.X, screenPos.Y));
+                        fragmentParts.Add(new AssetBatchPart((debris.Fragments - 1).ToString(), screenPos.X, 0));
                     }
                 }
-            }
 
-            _bloodBatch = _bloodAsset.MakeBatch(bloodParts);
-            _fragmentBatch = _fragmentAsset.MakeBatch(fragmentParts);
+                _bloodBatches[y] = _bloodAsset.MakeBatch(bloodParts);
+                _fragmentBatches[y] = _fragmentAsset.MakeBatch(fragmentParts);
+            }
         }
 
         public override void Update(float dt)
         {
         }
 
-        public override void Draw()
+        public override void DrawRow(int y, int screenX, int screenY)
         {
+            if (y < 0 || y >= Map!.Height)
+                return;
+
+            var scale = _coords.TileScale;
+
             Love.Graphics.SetColor(Color.White);
 
-            if (_bloodBatch != null)
-                Love.Graphics.Draw(_bloodBatch, PixelX, PixelY);
-
-            if (_fragmentBatch != null)
-                Love.Graphics.Draw(_fragmentBatch, PixelX, PixelY);
+            Love.Graphics.Draw(_bloodBatches[y], screenX, screenY, 0, scale, scale);
+            Love.Graphics.Draw(_fragmentBatches[y], screenX, screenY, 0, scale, scale);
         }
     }
 }

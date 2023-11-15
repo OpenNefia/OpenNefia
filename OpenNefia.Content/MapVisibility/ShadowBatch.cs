@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Content.MapVisibility;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
@@ -56,6 +57,7 @@ namespace OpenNefia.Content.Rendering
         private SpriteBatch _batchShadow = default!;
         private SpriteBatch _batchShadowEdges = default!;
         private ICoords _coords = default!;
+        private IConfigurationManager _config = default!;
 
         public Vector2i ScreenSize { get => _sizeInTiles * _coords.TileSize; }
         public int ShadowStrength { get; set; } = 70;
@@ -67,17 +69,22 @@ namespace OpenNefia.Content.Rendering
         private Vector2i _sizeInTiles;
         private ShadowTile[,] _tiles = new ShadowTile[0, 0];
         private UIBox2i _shadowPixelBounds;
+        private float _scale;
 
-        public void Initialize(IAssetManager assetManager, ICoords coords)
+        public void Initialize(IAssetManager assetManager, ICoords coords, IConfigurationManager config)
         {
             _assetManager = assetManager;
             _coords = coords;
+            _config = config;
 
             _assetShadow = _assetManager.GetAsset(Asset.Shadow);
             _assetShadowEdges = _assetManager.GetAsset(Asset.ShadowEdges);
 
             _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
             _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
+
+            _scale = _config.GetCVar(CCVars.DisplayTileScale);
+            _config.OnValueChanged(CCVars.DisplayTileScale, OnTileScaleChanged);
 
             var iw = _assetShadow.PixelWidth;
             var ih = _assetShadow.PixelHeight;
@@ -104,6 +111,11 @@ namespace OpenNefia.Content.Rendering
             {
                 _edgeQuads[i] = Graphics.NewQuad(i * 48, 0, 48, 48, iw, ih);
             }
+        }
+
+        private void OnTileScaleChanged(float scale)
+        {
+            _scale = scale;
         }
 
         public void OnThemeSwitched()
@@ -357,21 +369,12 @@ namespace OpenNefia.Content.Rendering
             Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            Graphics.SetScissor(PixelX + _shadowPixelBounds.Left, PixelY + _shadowPixelBounds.Top, _shadowPixelBounds.Width, _shadowPixelBounds.Height);
-            Graphics.Draw(_batchShadow, PixelX, PixelY);
-            Graphics.Draw(_batchShadowEdges, PixelX, PixelY);
+            //Graphics.SetScissor(PixelX + _shadowPixelBounds.Left, PixelY + _shadowPixelBounds.Top, (int)(_shadowPixelBounds.Width * _scale), (int)(_shadowPixelBounds.Height * _scale));
+            Graphics.Draw(_batchShadow, PixelX, PixelY, 0, _scale, _scale);
+            Graphics.Draw(_batchShadowEdges, PixelX, PixelY, 0, _scale, _scale);
             Graphics.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));
-
-            //// Left
-            //Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, ShadowBounds.Top, ScreenSize.Y);
-            //// Right
-            //Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y, ShadowBounds.Width, ScreenSize.Y);
-            //// Up
-            //Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y, ShadowBounds.Width, ShadowBounds.Top);
-            //// Down
-            //Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y + ShadowBounds.Bottom, ShadowBounds.Width, ShadowBounds.Height);
 
             Graphics.SetBlendMode(BlendMode.Alpha);
         }

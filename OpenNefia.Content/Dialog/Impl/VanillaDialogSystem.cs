@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Identify;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -38,6 +40,8 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IInventorySystem _inv = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
 
         public override void Initialize()
         {
@@ -48,6 +52,26 @@ namespace OpenNefia.Content.Dialog
             Trainer_Initialize();
             Prostitute_Initialize();
             Innkeeper_Initialize();
+            Guard_Initialize();
+        }
+
+        public QualifiedDialogNode? OpenTradeMenu(IDialogEngine engine, IDialogNode node)
+        {
+            foreach (var item in _inv.EnumerateInventoryAndEquipment(engine.Speaker!.Value))
+            {
+                if (TryComp<IdentifyComponent>(item, out var identify))
+                    identify.IdentifyState = IdentifyState.Full;
+            }
+
+            var context = new InventoryContext(engine.Player, engine.Speaker.Value, new TradeInventoryBehavior());
+            var result = _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
+
+            if (!result.HasValue || result.Value.Data is not InventoryResult.Finished invResult || invResult.TurnResult != TurnResult.Succeeded)
+            {
+                return engine.GetNodeByID(Protos.Dialog.Default, "YouKidding");
+            }
+
+            return engine.GetNodeByID(Protos.Dialog.Default, "Thanks");
         }
     }
 }

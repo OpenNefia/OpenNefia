@@ -4,6 +4,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ namespace OpenNefia.Content.Dialog
         /// could be returned instead.
         /// </para>
         /// </returns>
-        TurnResult StartDialog();
+        TurnResult StartDialog(QualifiedDialogNodeID nodeID);
 
         /// <summary>
         /// Retrieves a node in this dialog with the given ID. This query is global across *all*
@@ -98,6 +99,7 @@ namespace OpenNefia.Content.Dialog
     /// An example of this would be the selected skill ID when speaking to a trainer. This is
     /// persisted for when the training is applied in a later dialog node.
     /// </remarks>
+    [ImplicitDataDefinitionForInheritors]
     public interface IDialogExtraData
     {
     }
@@ -125,7 +127,7 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         /// <inheritdoc/>
-        public DialogPrototype Dialog { get; private set; }
+        public DialogPrototype Dialog { get; private set; } = default!;
         
         /// <inheritdoc/>
         public EntityUid Player { get; private set; }
@@ -139,15 +141,14 @@ namespace OpenNefia.Content.Dialog
         /// <inheritdoc/>
         public Blackboard<IDialogExtraData> Data { get; }
 
-        public DialogEngine(EntityUid player, EntityUid? target, DialogPrototype proto, IDialogLayer dialogLayer)
+        public DialogEngine(EntityUid player, EntityUid? target, IDialogLayer dialogLayer, Blackboard<IDialogExtraData>? extraData = null)
         {
             EntitySystem.InjectDependencies(this);
 
             Player = player;
             Speaker = target;
-            Dialog = proto;
             DialogLayer = dialogLayer;
-            Data = new();
+            Data = extraData ?? new();
         }
 
         /// <inheritdoc/>
@@ -157,7 +158,7 @@ namespace OpenNefia.Content.Dialog
                 throw new InvalidDataException($"Dialog with ID {nodeID.DialogID} not found.");
 
             if (!dialog.Nodes.TryGetValue(nodeID.NodeID, out var node))
-                throw new InvalidDataException($"Dialog node {nodeID} not found in dialog {dialog.ID}.");
+                throw new InvalidDataException($"Dialog node {nodeID.NodeID} not found in dialog {dialog.ID}.");
 
             return new(dialog.GetStrongID(), node);
         }
@@ -174,9 +175,10 @@ namespace OpenNefia.Content.Dialog
         }
 
         /// <inheritdoc/>
-        public TurnResult StartDialog()
+        public TurnResult StartDialog(QualifiedDialogNodeID nodeID)
         {
-            QualifiedDialogNode? next = GetNodeByID(Dialog.GetStrongID(), Dialog.StartNode);
+            Dialog = _protos.Index(nodeID.DialogID);
+            QualifiedDialogNode? next = GetNodeByID(nodeID);
 
             while (next != null)
             {

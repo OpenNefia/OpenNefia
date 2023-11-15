@@ -34,37 +34,17 @@
 - type: Elona.Dialog
   id: Elona.Stersha
 - type: Elona.Dialog
-  id: Elona.QuestHarvest
-- type: Elona.Dialog
-  id: Elona.QuestEscort
-- type: Elona.Dialog
-  id: Elona.QuestDeliver
-- type: Elona.Dialog
-  id: Elona.QuestHuntex
-- type: Elona.Dialog
-  id: Elona.QuestParty
-- type: Elona.Dialog
-  id: Elona.QuestHunt
-- type: Elona.Dialog
   id: Elona.Slan
-- type: Elona.Dialog
-  id: Elona.QuestCook
-- type: Elona.Dialog
-  id: Elona.QuestCollect
 - type: Elona.Dialog
   id: Elona.Tam
 - type: Elona.Dialog
   id: Elona.StrangeScientist
-- type: Elona.Dialog
-  id: Elona.QuestConquer
 - type: Elona.Dialog
   id: Elona.WhomDwellInTheVanity
 - type: Elona.Dialog
   id: Elona.Zeome
 - type: Elona.Dialog
   id: Elona.Xabi
-- type: Elona.Dialog
-  id: Elona.QuestSupply
 - type: Elona.Dialog
   id: Elona.Lexus
 - type: Elona.Dialog

@@ -310,6 +310,18 @@ namespace OpenNefia.Core.Maps
             return CanSeeThrough(coords.Position);
         }
 
+        public bool CanAccess(EntityCoordinates coords, IEntityManager? entityManager = null)
+        {
+            IoCManager.Resolve(ref entityManager);
+            return CanAccess(coords.ToMap(entityManager));
+        }
+
+        public bool CanSeeThrough(EntityCoordinates coords, IEntityManager? entityManager = null)
+        {
+            IoCManager.Resolve(ref entityManager);
+            return CanSeeThrough(coords.ToMap(entityManager));
+        }
+
         public bool HasLineOfSight(Vector2i from, Vector2i to)
         {
             if (!IsInBounds(from) || !IsInBounds(to))

@@ -12,6 +12,7 @@
   - type: MapVanillaAI
     anchorCitizens: true
   - type: MapTypeTown
+  - type: MapQuestHub
 
 - type: Entity
   id: Elona.MapVernis

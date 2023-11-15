@@ -56,7 +56,8 @@ namespace OpenNefia.Content.BaseAnim
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.White);
-            AssetDrawable.DrawRegionUnscaled(Counter.FrameInt.ToString(),
+            AssetDrawable.DrawRegion(_coords.TileScale, 
+                Counter.FrameInt.ToString(),
                 X + _coords.TileSize.X / 2,
                 Y + _coords.TileSize.Y / 6,
                 centered: true,

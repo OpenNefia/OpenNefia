@@ -1,4 +1,5 @@
 ﻿using Love;
+using NativeLibraryLoader;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -11,6 +12,7 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 using System.Text.Unicode;
+using static Love.NativeLibraryUtil;
 using static OpenNefia.Core.Input.Mouse;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
@@ -91,6 +93,9 @@ namespace OpenNefia.Core.Graphics
             Love.Boot.Init(bootConfig);
             Love.Timer.Step();
 
+            if (_config.GetCVar(CVars.DisplayHighDPI))
+                InitializeWindowsHighDPIHack();
+
             var data = _resourceCache.GetResource<LoveFileDataResource>("/Icon/Core/icon.png");
             var iconData = Love.Image.NewImageData(data);
             Love.Window.SetIcon(iconData);
@@ -139,7 +144,7 @@ namespace OpenNefia.Core.Graphics
             var settings = GetWindowSettings();
 
             settings.Display = displaynumber;
-            
+
             SetWindowSettings(_lastFullscreenMode, settings);
         }
 
@@ -272,6 +277,52 @@ namespace OpenNefia.Core.Graphics
             Love.Graphics.SetLineWidth(1);
             Love.Graphics.SetDefaultFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
             Love.Graphics.SetBackgroundColor(0f, 0f, 0f, 1f);
+        }
+
+        private delegate bool SetProcessDPIAwareDelegate();
+        private delegate bool SetProcessDpiAwarenessContextDelegate(long value);
+        private delegate int SetProcessDpiAwarenessDelegate(long value);
+
+        // TODO: Remove this when newer love supports Windows HighDPI
+        private void InitializeWindowsHighDPIHack()
+        {
+            if (NativeLibrary.Platform != Platform.Windows)
+                return;
+
+            try
+            {
+                // DPI-aware per monitor
+                // Windows 10.1607+
+                NativeLibrary user32 = NativeLibrary.Load("user32");
+                if (user32.HasFunction("SetProcessDpiAwarenessContext"))
+                {
+                    // -1 unaware, -2 aware, -3 per monitor aware, -4 per monitor aware v2 (?), -5 unaware gdi scaled (?)
+                    bool ret = user32.GetFunction<SetProcessDpiAwarenessContextDelegate>("SetProcessDpiAwarenessContext").Invoke(-4);
+                    return;
+                }
+
+                // DPI-aware per monitor
+                // Windows 8.1+
+                NativeLibrary shcore = NativeLibrary.Load("shcore");
+                if (shcore.HasFunction("SetProcessDpiAwareness"))
+                {
+                    // 0 unaware, 1 aware, 2 per monitor aware
+                    int ret = shcore.GetFunction<SetProcessDpiAwarenessDelegate>("SetProcessDpiAwareness").Invoke(2);
+                }
+
+                // Global DPI awareness
+                // Windows Vista+
+                if (user32.HasFunction("SetProcessDPIAware"))
+                {
+                    // Fully aware; not per monitor.
+                    bool ret = user32.GetFunction<SetProcessDPIAwareDelegate>("SetProcessDPIAware").Invoke();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("graphics.löve", ex, "Could not set DPI awareness");
+                return;
+            }
         }
 
         private void LoadGamepadMappings()

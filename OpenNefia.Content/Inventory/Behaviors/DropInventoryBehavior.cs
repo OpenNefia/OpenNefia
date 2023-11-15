@@ -18,14 +18,14 @@ namespace OpenNefia.Content.Inventory
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drop);
-        public override bool ExitAfterSelectionIfEmpty => true;
+        public override TurnResult? TurnResultAfterSelectionIfEmpty => TurnResult.Aborted;
 
         public override bool QueryAmount => true;
         public override LocaleKey? QueryAmountPrompt => "Elona.Inventory.Behavior.Drop.HowMany";
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new EntityInvSource(context.User);
+            yield return new EntityInventorySource(context.User);
         }
 
         public override string GetQueryText(InventoryContext context)

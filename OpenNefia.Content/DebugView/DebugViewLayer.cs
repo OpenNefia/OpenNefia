@@ -34,6 +34,7 @@ namespace OpenNefia.Content.DebugView
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IViewVariablesManager _viewVariables = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly ICoords _coords = default!;
         private bool _initialized = false;
 
         public DebugViewLayer()
@@ -126,8 +127,7 @@ namespace OpenNefia.Content.DebugView
             _selectedTile = args.TilePrototype;
             _selectedEntity = null;
             _tileBatch.Clear();
-            // TODO separate scaling for tile viewport/UI
-            _tileBatch.Add(1, _selectedTile.Image.AtlasIndex, 0, 0);
+            _tileBatch.Add(_coords.TileScale, _selectedTile.Image.AtlasIndex, 0, 0);
             _tileBatch.Flush();
         }
 
@@ -136,8 +136,7 @@ namespace OpenNefia.Content.DebugView
             _selectedTile = null;
             _selectedEntity = args.EntityPrototype;
             _chipBatch.Clear();
-            // TODO separate scaling for tile viewport/UI
-            _chipBatch.Add(1, args.ChipPrototype.Image.AtlasIndex, 0, 0, centering: BatchCentering.AlignBottom);
+            _chipBatch.Add(_coords.TileScale, args.ChipPrototype.Image.AtlasIndex, 0, 0, centering: BatchCentering.AlignBottom);
             _chipBatch.Flush();
         }
 
@@ -155,7 +154,6 @@ namespace OpenNefia.Content.DebugView
                 {
                     var tilePos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
                     var screenPos = _field.Camera.TileToVisibleScreen(_mapManager.ActiveMap.AtPos(tilePos));
-                    // TODO separate scaling for tile viewport/UI
                     _tileBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1f, 1f, 1f, 0.25f));
 
                 }
@@ -167,7 +165,6 @@ namespace OpenNefia.Content.DebugView
                 {
                     var tilePos = _field.Camera.VisibleScreenToTile(UserInterfaceManager.MousePositionScaled.Position);
                     var screenPos = _field.Camera.TileToVisibleScreen(_mapManager.ActiveMap.AtPos(tilePos));
-                    // TODO separate scaling for tile viewport/UI
                     _chipBatch.Draw(1, screenPos.X, screenPos.Y, color: new(1f, 1f, 1f, 0.25f));
 
                 }

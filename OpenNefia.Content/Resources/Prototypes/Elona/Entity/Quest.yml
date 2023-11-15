@@ -1,0 +1,59 @@
+- type: Entity
+  id: Elona.QuestDeliver
+  parent: BaseQuest
+  hspIds:
+    elona122: 1002
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Deliver.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 167 # 1000 / 6
+  - type: QuestDeadlines
+    deadlineDays: 12~15
+    townBoardExpirationDays: 6~8
+  - type: QuestRewardGold
+    goldModifier: 70
+  - type: QuestTypeDeliver
+
+- type: Entity
+  id: Elona.QuestSupply
+  parent: BaseQuest
+  hspIds:
+    elona122: 1004
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Supply.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 200
+  - type: QuestDeadlines
+    deadlineDays: 6~8
+    townBoardExpirationDays: 3~4
+  - type: QuestRewardGold
+    goldModifier: 65
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeSupply
+
+- type: Entity
+  id: Elona.QuestCollect
+  parent: BaseQuest
+  hspIds:
+    elona122: 1011
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Collect.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 71 # 1000 / 14
+  - type: QuestDeadlines
+    deadlineDays: 3~5
+  - type: QuestRewardGold
+    goldModifier: 60
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeCollect

@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Inventory
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.PickUp.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.PickUp);
         public override bool ApplyNameModifiers => false;
-        public override bool ExitAfterSelectionIfEmpty => true;
+        public override TurnResult? TurnResultAfterSelectionIfEmpty => TurnResult.Aborted;
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -52,16 +52,6 @@ namespace OpenNefia.Content.Inventory
             // TODO harvest quest
             if (result == TurnResult.Failed || result == TurnResult.Aborted)
                 return new InventoryResult.Finished(result);
-
-            return new InventoryResult.Continuing();
-        }
-
-        public override InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<EntityUid> filteredItems)
-        {
-            if (filteredItems.Count == 0)
-            {
-                return new InventoryResult.Finished(TurnResult.Aborted);
-            }
 
             return new InventoryResult.Continuing();
         }

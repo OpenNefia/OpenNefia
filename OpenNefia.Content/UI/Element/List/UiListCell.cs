@@ -86,7 +86,7 @@ namespace OpenNefia.Content.UI.Element.List
         public Color ColorSelectedSub = UiColors.ListSelectedSub;
 
         protected IAssetInstance AssetListBullet;
-        public IAssetInstance AssetSelectKey;
+        protected IAssetInstance AssetSelectKey;
 
         public UiListCell(UiText text, UiListChoiceKey? key = null)
         {

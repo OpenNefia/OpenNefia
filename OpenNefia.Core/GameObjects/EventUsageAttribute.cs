@@ -31,6 +31,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This event should be used with area entities.
         /// </summary>
-        Area
+        Area,
+
+        /// <summary>
+        /// This event should be used with quest entities.
+        /// </summary>
+        Quest
     }
 }

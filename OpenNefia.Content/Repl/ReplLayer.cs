@@ -31,6 +31,7 @@ namespace OpenNefia.Content.Repl
         int ScrollbackSize { get; }
         FontSpec FontReplText { get; }
         int MaxLines { get; }
+        int CaretPos { get; set; }
 
         void Initialize();
         void Clear();
@@ -543,6 +544,7 @@ namespace OpenNefia.Content.Repl
             _field.RefreshScreen();
         }
 
+        // TODO use Spectre.Console API
         public void PrintText(string text, Color? color = null)
         {
             if (color == null)

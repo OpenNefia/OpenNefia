@@ -10,5 +10,6 @@ namespace OpenNefia.Content.Money
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class GoldPieceComponent : Component
-    {    }
+    {
+    }
 }

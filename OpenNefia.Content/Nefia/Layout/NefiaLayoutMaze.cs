@@ -37,6 +37,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
 
         public IMap? Generate(IArea area, MapId mapId, int generationAttempt, int floorNumber, Blackboard<NefiaGenParams> data)
         {
@@ -69,7 +70,7 @@ namespace OpenNefia.Content.Nefia
             // <<<<<<<< shade2/map_rand.hsp:246 		} ..
 
             // TODO
-            _itemGen.GenerateItem(map, tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) }, quality: Quality.Unique);
+            _itemGen.GenerateItem(map, tags: new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) }, quality: Quality.Unique);
         }
     }
 }

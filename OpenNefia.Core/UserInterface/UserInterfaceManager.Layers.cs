@@ -53,6 +53,7 @@ namespace OpenNefia.Core.UserInterface
         public void PushLayer(UiLayer layer, bool noHaltInput = false)
         {
             layer.LayerUIScale = _graphics.WindowScale;
+            layer.LayerTileScale = _config.GetCVar(CVars.DisplayTileScale);
             ResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
@@ -154,6 +155,30 @@ namespace OpenNefia.Core.UserInterface
             elem.UIScaleChanged(ev);
         }
 
+        private void HandleTileScaleChanged(float scale)
+        {
+            foreach (var layer in this.Layers)
+            {
+                layer.LayerTileScale = scale;
+
+                NotifyTileScaleChanged(layer, scale);
+
+                layer.GetPreferredBounds(out var bounds);
+                layer.SetSize(bounds.Width, bounds.Height);
+                layer.SetPosition(bounds.Left, bounds.Top);
+            }
+        }
+
+        private void NotifyTileScaleChanged(UiElement elem, float scale)
+        {
+            foreach (var child in elem.Children)
+            {
+                NotifyTileScaleChanged(child, scale);
+            }
+
+            // elem.TileScaleChanged(ev);
+        }
+
         public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
@@ -252,14 +277,13 @@ namespace OpenNefia.Core.UserInterface
                 layer.ZOrder = (CurrentLayer?.ZOrder ?? 0) + 1000;
             }
 
-            layer.Result = null;
             layer.WasCancelled = false;
 
             var baseLayer = (UiLayer)layer;
 
             PushLayer(baseLayer, queryArgs?.NoHaltInput ?? false);
 
-            UiResult<TResult>? result = null;
+            UiResult<TResult>? result = layer.GetResult();
 
             layer.OnQuery();
 
@@ -312,6 +336,8 @@ namespace OpenNefia.Core.UserInterface
 
             // layer.HaltInput();
             layer.OnQueryFinish();
+
+            layer.Result = null;
 
             return result;
         }

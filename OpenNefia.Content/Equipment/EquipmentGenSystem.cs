@@ -375,7 +375,7 @@ namespace OpenNefia.Content.Equipment
     [DataDefinition]
     public sealed class EquipmentTemplate
     {
-        public EquipmentTemplate() {}
+        public EquipmentTemplate() { }
 
         public EquipmentTemplate(float itemGenProb)
         {

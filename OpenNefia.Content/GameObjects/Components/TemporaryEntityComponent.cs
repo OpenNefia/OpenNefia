@@ -9,5 +9,6 @@ namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
     public sealed class TemporaryEntityComponent : Component
-    {    }
+    {
+    }
 }

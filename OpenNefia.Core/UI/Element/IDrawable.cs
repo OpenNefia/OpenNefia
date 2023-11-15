@@ -27,6 +27,12 @@ namespace OpenNefia.Core.UI.Element
         public Vector2i PixelPosition { get; }
 
         /// <summary>
+        ///     Absolute position of the drawable element in tilemap coordinates.
+        ///     Unlike Robust, this is relative to the global viewport.
+        /// </summary>
+        public Vector2i TilePosition { get; }
+
+        /// <summary>
         ///     Represents the "rectangle" of the control relative to the global viewport, in virtual pixels.
         /// </summary>
         /// <seealso cref="PixelRect"/>
@@ -39,6 +45,12 @@ namespace OpenNefia.Core.UI.Element
         public UIBox2i PixelRect { get; }
 
         /// <summary>
+        ///     Represents the "rectangle" of the control relative to the global viewport, in tilemap pixels.
+        /// </summary>
+        /// <seealso cref="Rect"/>
+        public UIBox2i TileRect { get; }
+
+        /// <summary>
         ///     A <see cref="UIBox2"/> with the top left at 0,0 and the size equal to <see cref="Size"/>.
         /// </summary>
         /// <seealso cref="PixelSizeBox"/>
@@ -49,6 +61,12 @@ namespace OpenNefia.Core.UI.Element
         /// </summary>
         /// <seealso cref="SizeBox"/>
         public UIBox2i PixelSizeBox { get; }
+
+        /// <summary>
+        ///     A <see cref="UIBox2i"/> with the top left at 0,0 and the size equal to <see cref="TileSize"/>.
+        /// </summary>
+        /// <seealso cref="SizeBox"/>
+        public UIBox2i TileSizeBox { get; }
 
         /// <summary>
         ///     The width of the control, in virtual pixels.
@@ -75,6 +93,18 @@ namespace OpenNefia.Core.UI.Element
         public int PixelHeight { get; }
 
         /// <summary>
+        ///     The width of the control, in tilemap pixels.
+        /// </summary>
+        /// <seealso cref="Width"/>
+        public int TileWidth { get; }
+
+        /// <summary>
+        ///     The height of the control, in tilemap pixels.
+        /// </summary>
+        /// <seealso cref="Height"/>
+        public int TileHeight { get; }
+
+        /// <summary>
         ///     The X coordinate of the control, in virtual pixels.
         /// </summary>
         public float X { get; }
@@ -95,6 +125,16 @@ namespace OpenNefia.Core.UI.Element
         public int PixelY { get; }
 
         /// <summary>
+        ///     The Y coordinate of the control, in tilemap pixels.
+        /// </summary>
+        public int TileX { get; }
+
+        /// <summary>
+        ///     The Y coordinate of the control, in tilemap pixels.
+        /// </summary>
+        public int TileY { get; }
+
+        /// <summary>
         ///     The amount of "real" pixels a virtual pixel takes up.
         ///     The higher the number, the bigger the interface.
         ///     I.e. UIScale units are real pixels (rp) / virtual pixels (vp),
@@ -102,6 +142,13 @@ namespace OpenNefia.Core.UI.Element
         ///     And vp * UIScale = rp, and rp / UIScale = vp
         /// </summary>
         public float UIScale { get; }
+
+        /// <summary>
+        ///     The amount of tilemap pixels a virtual pixel takes up.
+        ///     The higher the number, the bigger the interface.
+        /// </summary>
+        /// <see cref="UIScale" />
+        public float TileScale { get; }
 
         /// <summary>
         /// Sets the size of this component, in virtual pixels.

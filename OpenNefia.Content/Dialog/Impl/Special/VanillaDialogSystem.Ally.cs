@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Dialog
             if (!_parties.IsUnderlingOfPlayer(uid))
                 return;
 
-            if (TryComp<MarriageComponent>(uid, out var marriage) && !marriage.MarriagePartners.Contains(args.Source))
+            if (TryComp<MarriageComponent>(uid, out var marriage) && !marriage.MarriagePartners.Contains(args.Player))
             {
                 args.OutChoices.Add(new()
                 {
@@ -64,6 +64,7 @@ namespace OpenNefia.Content.Dialog
             });
         }
 
+        DialogActionDelegate _Ally_SilenceStart => Ally_SilenceStart;
         public void Ally_SilenceStart(IDialogEngine engine, IDialogNode node)
         {
             Comp<ToneComponent>(engine.Speaker!.Value).IsTalkSilenced = true;

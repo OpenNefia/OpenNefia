@@ -180,46 +180,17 @@ namespace OpenNefia.Content.TitleScreen
             ConfigMenuHelpers.QueryDefaultConfigMenu(_protos, _uiManager, _config);
         }
 
-        /// <summary>
-        /// Does one-time setup of global areas. This is for setting up areas like towns to
-        /// be able to generate escort/other quests between them when a new save is being 
-        /// initialized.
-        /// </summary>
-        public void InitializeGlobalAreas()
-        {
-            DebugTools.Assert(_areaManager.LoadedAreas.Count == 0, "Areas were already initialized!");
-
-            foreach (var (areaEntityProto, globalAreaId) in EnumerateGlobalAreas())
-            {
-                var areaId = areaEntityProto.GetStrongID();
-                _areaManager.CreateArea(areaId, globalAreaId);
-            }
-        }
-
-        private IEnumerable<(EntityPrototype, GlobalAreaId)> EnumerateGlobalAreas()
-        {
-            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
-            {
-                if (proto.Components.TryGetComponent<AreaEntranceComponent>(out var areaEntrance))
-                {
-                    if (areaEntrance.GlobalId != null)
-                    {
-                        yield return (proto, areaEntrance.GlobalId.Value);
-                    }
-                }
-            }
-        }
-
         private void StartNewGame(EntityUid player, PrototypeId<ScenarioPrototype> scenarioID)
         {
             var saveName = EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(player);
+            var scenarioProto = _protos.Index(scenarioID);
 
             var save = _saveGameSerializer.InitializeSaveGame(saveName);
             _saveGameManager.CurrentSave = save;
 
             _gameSessionManager.Player = player;
 
-            InitializeGlobalAreas();
+            EntitySystem.Get<IGlobalAreaSystem>().InitializeGlobalAreas(scenarioProto.LoadGlobalAreas);
 
             var pev = new P_ScenarioOnGameStartEvent(player);
             _protos.EventBus.RaiseEvent(scenarioID, pev);

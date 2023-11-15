@@ -13,6 +13,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.Input;
 using OpenNefia.Core.HotReload;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -26,6 +27,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
         [Dependency] private readonly IHotReloadWatcher _hotReloadWatcher = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public override int? DefaultZOrder => 100000;
 
@@ -52,8 +54,15 @@ namespace OpenNefia.Content.UI.Layer
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _graphics.OnWindowResized += (_) => RefreshScreen();
             _hotReloadWatcher.OnUpdateApplication += (_) => RefreshScreen();
+            _config.OnValueChanged(CCVars.DisplayTileScale, OnTileOrUIScaleChanged);
+            _config.OnValueChanged(CCVars.DisplayUIScale, OnTileOrUIScaleChanged);
 
             Camera.Initialize();
+        }
+
+        private void OnTileOrUIScaleChanged(float scale)
+        {
+            RefreshScreen();
         }
 
         public override void GrabFocus()

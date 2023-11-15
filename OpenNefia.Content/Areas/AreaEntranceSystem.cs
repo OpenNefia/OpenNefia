@@ -8,6 +8,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.Areas
 {
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.Areas
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
 
         public override void Initialize()
         {
@@ -78,15 +80,18 @@ namespace OpenNefia.Content.Areas
                 startLocation = areaEntranceComp.StartLocation;
             }
 
-            var entranceEnt = EntityManager.SpawnEntity(protoId, coords);
+            var entranceEnt = _entityGen.SpawnEntity(protoId, coords)!;
 
-            var worldMapEntrance = EntityManager.EnsureComponent<WorldMapEntranceComponent>(entranceEnt);
+            var worldMapEntrance = EntityManager.EnsureComponent<WorldMapEntranceComponent>(entranceEnt.Value);
             worldMapEntrance.Entrance.MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id);
             if (startLocation != null)
                 worldMapEntrance.Entrance.StartLocation = startLocation;
 
             if (areaEntranceComp != null && areaEntranceComp.ChipID != null && TryComp<ChipComponent>(worldMapEntrance.Owner, out var chip))
                 chip.ChipID = areaEntranceComp.ChipID.Value;
+
+            var ev = new AreaEntranceCreatedEvent(area, coords);
+            RaiseEvent(entranceEnt.Value, ev);
 
             return worldMapEntrance;
         }
@@ -98,6 +103,18 @@ namespace OpenNefia.Content.Areas
 
         public GetAreaEntranceMessageEvent()
         {
+        }
+    }
+
+    public sealed class AreaEntranceCreatedEvent : EntityEventArgs
+    {
+        public IArea Area { get; }
+        public MapCoordinates MapCoordinates { get; }
+
+        public AreaEntranceCreatedEvent(IArea area, MapCoordinates mapCoordinates)
+        {
+            Area = area;
+            MapCoordinates = mapCoordinates;
         }
     }
 }

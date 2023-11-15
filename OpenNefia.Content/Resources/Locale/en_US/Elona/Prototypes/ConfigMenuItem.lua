@@ -64,6 +64,18 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "UI Scaling",
     },
 
+    ScreenTileScale = {
+        Name = "Tile Scaling",
+    },
+
+    ScreenTileFilterMode = {
+        Name = "Tile Filter Mode",
+        Choices = {
+            Linear = "Linear",
+            Nearest = "Nearest",
+        },
+    },
+
     --
     -- Menu: Net
     --

@@ -360,7 +360,7 @@ namespace OpenNefia.Core.Serialization.Manager
             return array;
         }
 
-        private Array? ReadArrayValueMultiDim<T>(
+        private Array ReadArrayValueMultiDim<T>(
             MappingDataNode mapping,
             ISerializationContext? context = null,
             bool skipHook = false)
@@ -368,10 +368,6 @@ namespace OpenNefia.Core.Serialization.Manager
             var lengthsNode = (SequenceDataNode)mapping["lengths"];
             var rank = lengthsNode.Sequence.Count;
             var value = (ValueDataNode)mapping["elements"];
-            if (value.Value == "null")
-            {
-                return null;
-            }
 
             var array = Array.CreateInstance(typeof(T), 1);
             array.SetValue(Read<T>(value, context, skipHook), 0);
@@ -466,7 +462,7 @@ namespace OpenNefia.Core.Serialization.Manager
             var split = node.Value.Split(':');
             if (split.Length != 2)
             {
-                throw new ArgumentException($"Could not parse delegate name from string '{split}', it should have the value 'Namespace.Of.Type:MethodName'");
+                throw new ArgumentException($"Could not parse delegate name from string '{split}', it should have a value like 'Namespace.Of.Type:MethodName'");
             }
 
             var systemTypeName = split[0];
@@ -534,11 +530,6 @@ namespace OpenNefia.Core.Serialization.Manager
             object? rawValue = null)
             where TValue : ISelfSerialize
         {
-            if (node.Value == "null")
-            {
-                return default; //todo paul this default should be null
-            }
-
             var value = (TValue)(rawValue ?? instantiator());
             value.Deserialize(node.Value);
 

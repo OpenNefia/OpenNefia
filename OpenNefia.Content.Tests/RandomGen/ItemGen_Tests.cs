@@ -30,9 +30,9 @@ namespace OpenNefia.Content.Tests.RandomGen
         public void TestItemGenSystem_Tags()
         {
             var sim = ContentFullGameSimulation
-    .NewSimulation()
-    .RegisterPrototypes(protos => protos.LoadString(Prototypes))
-    .InitializeInstance();
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
 
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();

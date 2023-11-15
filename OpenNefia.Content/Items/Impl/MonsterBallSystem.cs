@@ -2,17 +2,10 @@
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Configuration;
@@ -23,15 +16,14 @@ using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Skills;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.RandomGen;
-using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.BaseAnim;
 using OpenNefia.Content.UI;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Items.Impl
 {
@@ -71,14 +63,14 @@ namespace OpenNefia.Content.Items.Impl
                 var s = Loc.GetString("Elona.MonsterBall.ItemName.Full",
                     ("name", args.OutFullName.ToString()),
                     ("charaName", Loc.GetPrototypeString(component.CapturedEntityID.Value, "MetaData.Name")));
-                args.OutFullName.Clear().Append(s);
+                args.OutFullName.ReplaceWith(s);
             }
             else
             {
                 var s = Loc.GetString("Elona.MonsterBall.ItemName.Empty",
                     ("name", args.OutFullName.ToString()),
                     ("lv", component.MaxLevel));
-                args.OutFullName.Clear().Append(s);
+                args.OutFullName.ReplaceWith(s);
             }
         }
 
@@ -222,6 +214,7 @@ namespace OpenNefia.Content.Items.Impl
             {
                 // Don't apply Void level modifiers.
                 NoRandomModify = true,
+                NoLevelScaling = true,
                 LevelOverride = monsterBallComp.CapturedEntityLevel,
             });
 

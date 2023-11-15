@@ -2,6 +2,8 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.Maps
 {
@@ -31,6 +33,20 @@ namespace OpenNefia.Content.Maps
                 MapIdSpecifier = new BasicMapIdSpecifier(coords.MapId),
                 StartLocation = new SpecificMapLocation(coords.Position)
             };
+        }
+
+        public bool TryGetMapCoordinates(EntityUid ent, IMap map, [NotNullWhen(true)]out MapCoordinates? result)
+        {
+            var mapID = MapIdSpecifier.GetMapId();
+            if (mapID == null)
+            {
+                result = null;
+                return false;
+            }
+
+            var position = StartLocation.GetStartPosition(ent, map);
+            result = new MapCoordinates(mapID.Value, position);
+            return true;
         }
 
         public override string ToString()

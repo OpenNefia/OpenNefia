@@ -101,6 +101,20 @@ namespace OpenNefia.Content.UI.Element.List
             return keyHints;
         }
 
+        public override void GetPreferredSize(out Vector2 size)
+        {
+            size = Vector2.Zero;
+            var cellCount = Math.Clamp(AllCells.Count, 0, ItemsPerPage);
+
+            for (int index = 0; index < cellCount; index++)
+            {
+                var cell = AllCells[index];
+                cell.GetPreferredSize(out var cellSize);
+                size.X = MathF.Max(size.X, cellSize.X);
+                size.Y += MathF.Max(cellSize.Y, ItemHeight);
+            }
+        }
+
         public void SelectInAllPages(int index)
         {
             var page = index / ItemsPerPage;

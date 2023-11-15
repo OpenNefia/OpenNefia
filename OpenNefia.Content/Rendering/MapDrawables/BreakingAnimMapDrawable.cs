@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Rendering
             var y = pixelPos.Y - _coords.TileSize.Y / 4 + particlePixelPos.Y + frame * frame / 3;
 
             var size = AssetParticle.PixelSize / 2;
-            AssetParticle.DrawUnscaled(x, y, size.X, size.Y, centered: true, rotationRads: (float)Angle.FromDegrees(particleIndex * 23f).Theta);
+            AssetParticle.Draw(_coords.TileScale, x, y, size.X, size.Y, centered: true, rotationRads: (float)Angle.FromDegrees(particleIndex * 23f).Theta);
         }
     }
 }

@@ -1,0 +1,64 @@
+- type: Elona.Dialog
+  id: Elona.QuestClient
+  nodes:
+    About: !type:DialogCallbackNode
+      callback: Content.Quests.QuestSystem:QuestClient_About
+    BeforeAccept: !type:DialogCallbackNode
+      callback: Content.Quests.QuestSystem:QuestClient_BeforeAccept
+    TooManyUnfinished: !type:DialogJumpNode
+      texts:
+      - Elona.Quest.Dialog.TooManyUnfinished
+      nextNode: Elona.Default:Talk
+    Accept: !type:DialogJumpNode
+      texts:
+      - Elona.Quest.Dialog.Accept
+      nextNode: Elona.Default:Talk
+    Complete: !type:DialogJumpNode
+      texts:
+      - Elona.Quest.Dialog.Complete.DoneWell
+      nextNode: Elona.Default:Talk
+
+#
+# Quest Types
+#
+
+- type: Elona.Dialog
+  id: Elona.QuestCommon
+  nodes:
+    Give: !type:DialogCallbackNode
+      callback: Content.Quests.VanillaQuestsSystem:GiveQuestItemAndTurnIn
+    Trade: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:OpenTradeMenu
+
+- type: Elona.Dialog
+  id: Elona.QuestSupply
+
+- type: Elona.Dialog
+  id: Elona.QuestHarvest
+- type: Elona.Dialog
+  id: Elona.QuestEscort
+- type: Elona.Dialog
+  id: Elona.QuestDeliver
+  nodes:
+    Accept: !type:DialogJumpNode
+      texts:
+      - Elona.Quest.Types.Deliver.Dialog.Accept
+      nextNode: Elona.Default:Talk
+    Accept_BackpackIsFull: !type:DialogJumpNode
+      texts:
+      - Elona.Quest.Types.Deliver.Dialog.BackpackIsFull
+      nextNode: Elona.Default:Talk
+- type: Elona.Dialog
+  id: Elona.QuestHuntex
+- type: Elona.Dialog
+  id: Elona.QuestParty
+- type: Elona.Dialog
+  id: Elona.QuestHunt
+- type: Elona.Dialog
+  id: Elona.QuestCook
+
+- type: Elona.Dialog
+  id: Elona.QuestCollect
+
+- type: Elona.Dialog
+  id: Elona.QuestConquer

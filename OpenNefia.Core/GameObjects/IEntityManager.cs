@@ -72,7 +72,7 @@ namespace OpenNefia.Core.GameObjects
         /// Shuts-down and removes the entity with the given <see cref="EntityUid"/>. This is also broadcast to all clients.
         /// </summary>
         /// <param name="uid">Uid of entity to remove.</param>
-        void DeleteEntity(EntityUid uid);
+        void DeleteEntity(EntityUid uid, EntityDeleteType deleteType = EntityDeleteType.Delete);
 
         /// <summary>
         /// Checks whether an entity with the specified ID exists.
@@ -95,5 +95,25 @@ namespace OpenNefia.Core.GameObjects
         EntityStringRepresentation ToPrettyString(EntityUid uid);
 
         #endregion Entity Management
+    }
+
+    /// <summary>
+    /// What kind of behavior to use when deleting an entity from the world.
+    /// There is an important distinction between "unloading" an entity, where the entity is meant to be kept in the save file,
+    /// and "deleting" an entity, where the entity is permanently deleted from the world *and* save file.
+    /// </summary>
+    public enum EntityDeleteType
+    {
+        /// <summary>
+        /// The entity is going to be permanently removed.
+        /// Raises <see cref="EntityTerminatingEvent"/>.
+        /// </summary>
+        Delete,
+
+        /// <summary>
+        /// The entity is going to be unloaded and kept in a save file
+        /// Raises <see cref="EntityUnloadingEvent"/>.
+        /// </summary>
+        Unload
     }
 }

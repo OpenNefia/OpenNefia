@@ -26,5 +26,12 @@ namespace OpenNefia.Content.Scenarios
     {
         [IdDataField]
         public string ID { get; } = default!;
+
+        /// <summary>
+        /// If false, don't load global areas (towns)
+        /// Quickstart disables this to save on compile-debug-restart time
+        /// </summary>
+        [DataField]
+        public bool LoadGlobalAreas { get; } = true;
     }
 }

@@ -39,14 +39,14 @@ namespace OpenNefia.Content.WorldMap
 
         private sealed class Cloud
         {
-            public Cloud(IAssetInstance asset, Vector2i tilePosition)
+            public Cloud(IAssetInstance asset, Vector2 tilePosition)
             {
                 Asset = asset;
-                TilePosition = tilePosition;
+                ScreenPosition = tilePosition;
             }
 
             public IAssetInstance Asset { get; set; }
-            public Vector2i TilePosition { get; set; } = Vector2i.Zero;
+            public Vector2 ScreenPosition { get; set; } = Vector2.Zero;
         }
 
         public override void Initialize()
@@ -57,7 +57,7 @@ namespace OpenNefia.Content.WorldMap
                 var cloudAsset = _rand.Pick(CloudAssets);
                 var x = _rand.Next(100) + i * 200 + 100000;
                 var y = _rand.Next(100) + (i / 5) * 200 + 100000;
-                var pos = new Vector2i(x, y);
+                var pos = new Vector2(x, y);
                 _clouds.Add(new Cloud(Assets.GetAsset(cloudAsset), pos));
             }
         }
@@ -74,6 +74,7 @@ namespace OpenNefia.Content.WorldMap
                 return;
 
             var playerPos = _entityMan.GetComponent<SpatialComponent>(player).WorldPosition;
+            var scale = _coords.TileScale;
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             for (int i = 0; i < _clouds.Count; i++)
@@ -82,16 +83,19 @@ namespace OpenNefia.Content.WorldMap
 
                 var color = Color.White.WithAlphaB((byte)(7 + i * 2));
                 Love.Graphics.SetColor(color);
-                var pos = _coords.TileToScreen(cloud.TilePosition - playerPos);
-                var x = ((float)pos.X * 100 / (40 + i * 5)) + (_frame * _speed) * 100 / (50 + i * 20);
-                var y = (float)pos.Y * 100 / (40 + i * 5);
+                var pos = cloud.ScreenPosition - _coords.TileToScreen(playerPos) * _coords.TileScale;
+                var x = (pos.X * 100 / (40 + i * 5)) + (_frame * _speed) * 100 / (50 + i * 20);
+                var y = pos.Y * 100 / (40 + i * 5);
+
+                x *= scale;
+                y *= scale;
 
                 var asset = cloud.Asset;
                 x = (x % (_graphics.WindowPixelSize.X + asset.PixelWidth)) - asset.PixelWidth;
                 y = (y % (_graphics.WindowPixelSize.Y - Constants.INF_VERH + asset.PixelHeight)) - asset.PixelHeight;
 
                 if (y < _graphics.WindowPixelSize.Y - Constants.INF_VERH)
-                    asset.DrawUnscaled(x, y);
+                    asset.Draw(scale, x, y);
 
             }
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);

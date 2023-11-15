@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Maps
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
+        [Dependency] private readonly IGlobalAreaSystem _globalAreas = default!;
 
         [DataField(required: true)]
         public GlobalAreaId GlobalAreaId { get; set; }
@@ -50,18 +51,14 @@ namespace OpenNefia.Content.Maps
 
             if (ResolvedAreaId == null)
             {
-                if (!_areaManager.TryGetGlobalArea(GlobalAreaId, out var globalArea))
-                {
-                    Logger.ErrorS("area.mapIds", $"Global area {GlobalAreaId} does not exist!");
-                    return null;
-                }
+                var globalArea = _globalAreas.GetOrCreateGlobalArea(GlobalAreaId);
                 ResolvedAreaId = globalArea.Id;
             }
 
             return ResolvedAreaId;
         }
 
-        public MapId? GetMapId()
+        public MapId? GetOrGenerateMapId()
         {
             EntitySystem.InjectDependencies(this);
 
@@ -80,6 +77,26 @@ namespace OpenNefia.Content.Maps
                 Logger.ErrorS("area.mapIds", $"Area {area.Id} is missing floor {startingFloor.Value}!");
                 return null;
             }
+
+            return map.Id;
+        }
+
+        public MapId? GetMapId()
+        {
+            EntitySystem.InjectDependencies(this);
+
+            var area = _areaManager.GetArea(GetAreaId()!.Value);
+            var startingFloor = _areaEntrances.GetStartingFloor(area, FloorId);
+
+            if (startingFloor == null)
+            {
+                Logger.ErrorS("area.mapIds", $"Area {GlobalAreaId} has no starting floor!");
+                return null;
+            }
+
+            var map = _areaManager.GetMapForFloor(area.Id, startingFloor.Value);
+            if (map == null)
+                return null;
 
             return map.Id;
         }

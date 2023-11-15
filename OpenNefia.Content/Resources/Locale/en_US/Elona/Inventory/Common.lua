@@ -11,6 +11,13 @@ Elona.Inventory.Common = {
         return ("Invalid Item Id found. Item No:%s, Id:%s has been removed from your inventory."):format(entity, id)
     end,
 
+    SomethingFalls = {
+        FromBackpack = function(item, owner)
+            return ("%s falls down from %s backpack."):format(_.name(item), _.possessive(owner))
+        end,
+        AndDisappears = "Something falls on the ground and disappears...",
+    },
+
     NameModifiers = {
         Ground = "(Ground)",
     },

@@ -49,7 +49,8 @@ namespace OpenNefia.Content.Activity
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityRestingComponent : Component
-    {    }
+    {
+    }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]

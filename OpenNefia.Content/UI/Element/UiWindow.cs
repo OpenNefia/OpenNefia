@@ -38,6 +38,8 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
+        public bool ShowDecorations { get; set; } = true;
+
         private Color ColorBottomLine1 = UiColors.WindowBottomLine1;
         private Color ColorBottomLine2 = UiColors.WindowBottomLine2;
         private FontSpec FontWindowTitle = UiFonts.WindowTitle;
@@ -136,6 +138,9 @@ namespace OpenNefia.Content.UI.Element
 
             GraphicsEx.SetColor(Color.White);
             Window.Draw();
+
+            if (!ShowDecorations)
+                return;
 
             AssetTipIcons.DrawRegion(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
 

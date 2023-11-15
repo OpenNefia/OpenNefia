@@ -236,7 +236,7 @@ namespace OpenNefia.Content.Maps
                     {
                         MinLevel = _randomGen.CalcObjectLevel(_rand.Next(_levels.GetLevel(_gameSession.Player))),
                         Quality = _randomGen.CalcObjectQuality(Quality.Good),
-                        Tags = new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) },
+                        Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemWear) },
                     };
                     _itemGen.GenerateItem(coords, filter);
                     return true;

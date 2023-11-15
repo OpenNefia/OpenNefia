@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Factions;
+﻿using Love;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.HealthBar;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
@@ -91,15 +92,17 @@ namespace OpenNefia.Content.VanillaAI
         public override void Draw()
         {
             var size = _coords.TileSize;
+            var barHeight = 3;
 
-            Love.Graphics.SetColor(Color.White);
+            Love.Graphics.SetColor(Love.Color.White);
 
             foreach (var entry in _entries)
             {
                 UiHelpers.DrawPercentageBar(1f, 
                     entry,
-                    Position + entry.ScreenPos + (9, size.Y),
-                    entry.HPRatio * BarWidthPixels);
+                    Position + (entry.ScreenPos + (9, size.Y)) * _coords.TileScale,
+                    entry.HPRatio * BarWidthPixels * _coords.TileScale,
+                    (0, barHeight * _coords.TileScale));
             }
         }
     }

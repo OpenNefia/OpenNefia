@@ -3,7 +3,7 @@
 namespace OpenNefia.Content.World
 {
     [DataDefinition]
-    public class WorldState
+    public sealed class WorldState
     {
         /// <summary>
         /// The date the game starts on when creating a new character.

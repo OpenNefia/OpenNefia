@@ -10,5 +10,6 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ArmorComponent : Component
-    {    }
+    {
+    }
 }

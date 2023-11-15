@@ -14,5 +14,6 @@ namespace OpenNefia.Content.RandomAreas
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaRandomGenComponent : Component
-    {    }
+    {
+    }
 }

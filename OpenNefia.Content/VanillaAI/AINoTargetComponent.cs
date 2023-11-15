@@ -11,5 +11,6 @@ namespace OpenNefia.Content.VanillaAI
     /// </remarks>
     [RegisterComponent]
     public class AINoTargetComponent : Component
-    {    }
+    {
+    }
 }

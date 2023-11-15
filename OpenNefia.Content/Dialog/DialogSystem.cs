@@ -43,7 +43,8 @@ namespace OpenNefia.Content.Dialog
         /// <param name="force">Ignore the relation of the speaker to the target.</param>
         /// <param name="dialogID">Dialog to display, overriding the one in the <see cref="DialogComponent"/>.</param>
         /// <returns>Turn result to apply to the player when the dialog ends.</returns>
-        TurnResult TryToChatWith(EntityUid source, EntityUid target, bool force = false, PrototypeId<DialogPrototype>? dialogID = null);
+        TurnResult TryToChatWith(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID, Blackboard<IDialogExtraData>? extraData = null, bool force = false);
+        TurnResult TryToChatWith(EntityUid source, EntityUid target, QualifiedDialogNodeID? dialogNodeID = null, Blackboard<IDialogExtraData>? extraData = null, bool force = false);
 
         /// <summary>
         /// Starts a dialog with a character.
@@ -52,7 +53,9 @@ namespace OpenNefia.Content.Dialog
         /// <param name="target">Character to chat with.</param>
         /// <param name="dialogID">Dialog to display, overriding the one in the <see cref="DialogComponent"/>.</param>
         /// <returns>Turn result to apply to the player when the dialog ends.</returns>
-        TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID);
+        TurnResult StartDialog(EntityUid source, EntityUid target, PrototypeId<DialogPrototype> dialogID, Blackboard<IDialogExtraData>? extraData = null);
+        TurnResult StartDialog(EntityUid source, EntityUid target, QualifiedDialogNodeID dialogNodeID, Blackboard<IDialogExtraData>? extraData = null);
+
         string GetDefaultSpeakerName(EntityUid uid);
     }
 
@@ -64,7 +67,6 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly ICSharpReplExecutor _compiler = default!;
 
         public override void Initialize()
         {

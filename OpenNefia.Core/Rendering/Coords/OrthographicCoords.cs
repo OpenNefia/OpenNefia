@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,14 @@ namespace OpenNefia.Core.Rendering
 {
     internal class OrthographicCoords : ICoords
     {
+        [Dependency] private IConfigurationManager _config = default!;
+
         public const int TILE_SIZE = 48;
 
         private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
         public Vector2i TileSize => _tileSize;
+        public Vector2i TileSizeScaled => (Vector2i)(TileSize * TileScale);
+        public float TileScale => _config.GetCVar(CVars.DisplayTileScale);
 
         public Vector2i GetTiledSize(Vector2i screenSize)
         {
@@ -32,6 +38,8 @@ namespace OpenNefia.Core.Rendering
 
         public Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize)
         {
+            tiledSize = (Vector2i)(tiledSize * TileScale);
+
             var maxX = Math.Max(tiledSize.X - viewportSize.X, 0);
             var maxY = Math.Max(tiledSize.Y - viewportSize.Y, 0);
 

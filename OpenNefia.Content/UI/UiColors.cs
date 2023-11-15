@@ -95,5 +95,10 @@ namespace OpenNefia.Content.UI
         public static readonly Color SleepIndicatorHeavy = new Color(255, 0, 0, 255);
 
         public static readonly Color DialogText = new Color(20, 10, 5, 255);
+
+        public static readonly Color QuestDifficultyVeryHigh = new Color(205, 0, 0);
+        public static readonly Color QuestDifficultyHigh = new Color(140, 80, 0);
+        public static readonly Color QuestDifficultyModerate = new Color(0, 0, 205);
+        public static readonly Color QuestDifficultyEasy = new Color(0, 155, 0);
     }
 }
