@@ -23,6 +23,7 @@ jobs:
       run: |
         dotnet nuget remove source nuget.org
         dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+        dotnet nuget list source
     - name: Clean
       run: dotnet clean && dotnet nuget locals all --clear
 
