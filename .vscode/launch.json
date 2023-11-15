@@ -5,20 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "EntryPoint",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/OpenNefia.EntryPoint/bin/Debug/net7.0/OpenNefia.EntryPoint.dll",
+            "program": "${workspaceFolder}/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.EntryPoint.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/OpenNefia.EntryPoint",
-            "console": "internalConsole",
-            "stopAtEntry": false
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
         },
         {
-            "name": ".NET Core Attach",
+            "name": "YAML Validator",
             "type": "coreclr",
-            "request": "attach"
+            "request": "launch",
+            "preLaunchTask": "build-yaml-validator",
+            "program": "${workspaceFolder}/OpenNefia.YAMLValidator/bin/Debug/net6.0/OpenNefia.YAMLValidator.dll",
+            "cwd": "${workspaceFolder}/OpenNefia.YAMLValidator",
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ]
 }
