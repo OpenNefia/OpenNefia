@@ -55,6 +55,11 @@ namespace OpenNefia.Content.Repl
             return sb.ToString();
         }
 
+        public string? ReadLine()
+        {
+            return null;
+        }
+
         private class ReplLayerConsole : IConsole
         {
             private ReplLayerConsoleEx replLayerConsoleEx;
