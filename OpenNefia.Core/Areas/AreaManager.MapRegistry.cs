@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Areas
 {
@@ -127,7 +128,11 @@ namespace OpenNefia.Core.Areas
             if (previousCoords == null)
             {
                 var player = IoCManager.Resolve<IGameSessionManager>().Player;
-                previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
+
+                if (_entityManager.TryGetComponent<SpatialComponent>(player, out var spatial))
+                    previousCoords = spatial.MapPosition;
+                else
+                    previousCoords = MapCoordinates.Nullspace; // happens in tests
             }
 
             var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords.Value);

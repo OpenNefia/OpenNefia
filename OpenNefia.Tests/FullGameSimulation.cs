@@ -12,6 +12,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
 using System.Reflection;
@@ -226,6 +227,10 @@ namespace OpenNefia.Tests
             compLoc.Initialize();
 
             protoMan.RegisterEvents();
+
+            var saveGameMan = container.Resolve<ISaveGameManager>();
+            var save = new TempSaveGameHandle();
+            saveGameMan.CurrentSave = save;
 
             return this;
         }

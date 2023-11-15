@@ -8,7 +8,7 @@ namespace OpenNefia.Tests
         public UIBox2i PixelRect => UIBox2i.FromDimensions(PixelPosition, PixelSize);
         public Vector2i PixelPosition => Vector2i.Zero;
         public Vector2i PixelSize => (Vector2i)(Size * UIScale);
-    {
+    
         public UIBox2i TileRect => UIBox2i.FromDimensions(TilePosition, TileSize);
         public Vector2i TilePosition => Vector2i.Zero;
         public Vector2i TileSize => (Vector2i)(Size * UIScale);
