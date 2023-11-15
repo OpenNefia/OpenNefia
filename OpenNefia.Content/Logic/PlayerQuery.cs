@@ -18,10 +18,43 @@ namespace OpenNefia.Content.Logic
 
     public interface IPlayerQuery
     {
+        /// <summary>
+        /// Prompts the player to choose "Yes" or "No".
+        /// If the prompt is cancelled, then <c>false</c> is returned.
+        /// </summary>
+        /// <param name="queryText"></param>
+        /// <returns>True if "Yes" was chosen.</returns>
         bool YesOrNo(string queryText);
+
+        /// <summary>
+        /// Prompts the player to choose "Yes" or "No".
+        /// If the prompt is cancelled, then <c>false</c> is returned.
+        /// </summary>
+        /// <param name="queryText"></param>
+        /// <returns>True if "Yes" was chosen.</returns>
         bool YesOrNo(YesOrNoOptions opts);
+
+        /// <summary>
+        /// Prompts the player to choose "Yes" or "No".
+        /// If the prompt is cancelled, then <c>null</c> is returned.
+        /// </summary>
+        /// <param name="queryText"></param>
+        /// <returns>True if "Yes" was chosen.</returns>
         bool? YesOrNoOrCancel(string queryText);
+
+
+        /// <summary>
+        /// Prompts the player to choose "Yes" or "No".
+        /// If the prompt is cancelled, then <c>null</c> is returned.
+        /// </summary>
+        /// <param name="queryText"></param>
+        /// <returns>True if "Yes" was chosen.</returns>
         bool? YesOrNoOrCancel(YesOrNoOptions opts);
+
+        T? PickOrNone<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null) where T: class;
+        T? PickOrNone<T>(IEnumerable<PromptChoice<T>> choices, Prompt<T>.Args? opts = null) where T: class;
+        T? PickOrNoneS<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null) where T : struct;
+        T? PickOrNoneS<T>(IEnumerable<PromptChoice<T>> choices, Prompt<T>.Args? opts = null) where T : struct;
 
         /// <summary>
         /// Shows a "More..." prompt and waits for the player to press a key.
@@ -69,6 +102,52 @@ namespace OpenNefia.Content.Logic
             if (result.HasValue)
             {
                 return result.Value.ChoiceData == YesNo.Yes;
+            }
+
+            return null;
+        }
+
+        public T? PickOrNone<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null)
+            where T: class
+        {
+            var items = choices.Select(c => new PromptChoice<T>(c, $"{c}"));
+            return PickOrNone(items, opts);
+        }
+
+        public T? PickOrNone<T>(IEnumerable<PromptChoice<T>> choices, Prompt<T>.Args? opts = null)
+            where T : class
+        {
+            opts ??= new Prompt<T>.Args();
+            opts.Choices = choices;
+
+            var result = _uiManager.Query<Prompt<T>, Prompt<T>.Args, PromptChoice<T>>(opts);
+
+            if (result.HasValue)
+            {
+                return result.Value.ChoiceData;
+            }
+
+            return null;
+        }
+
+        public T? PickOrNoneS<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null)
+            where T : struct
+        {
+            var items = choices.Select(c => new PromptChoice<T>(c, $"{c}"));
+            return PickOrNoneS(items, opts);
+        }
+
+        public T? PickOrNoneS<T>(IEnumerable<PromptChoice<T>> choices, Prompt<T>.Args? opts = null)
+            where T : struct
+        {
+            opts ??= new Prompt<T>.Args();
+            opts.Choices = choices;
+
+            var result = _uiManager.Query<Prompt<T>, Prompt<T>.Args, PromptChoice<T>>(opts);
+
+            if (result.HasValue)
+            {
+                return result.Value.ChoiceData;
             }
 
             return null;

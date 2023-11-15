@@ -27,10 +27,13 @@ using OpenNefia.Content.LivingWeapon;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Scenarios;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Home;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
-    public sealed class QuickStartSystem : EntitySystem
+    public sealed class QuickStartScenariosSystem : EntitySystem
     {
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
@@ -44,15 +47,22 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
         [Dependency] private readonly IMaterialSystem _materials = default!;
+        [Dependency] private readonly IHomeSystem _homes = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
 
-        public override void Initialize()
+        public void Quickstart_OnGameStart(ScenarioPrototype _proto, P_ScenarioOnGameStartEvent ev)
         {
-            SubscribeBroadcast<NewGameStartedEventArgs>(HandleNewGame);
-        }
+            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            map.MemorizeAllTiles();
 
-        private void HandleNewGame(NewGameStartedEventArgs ev)
-        {
-            var player = _gameSession.Player;
+            _homes.ActiveHomeID = map.Id;
+
+            var playerSpatial = Spatial(ev.Player);
+            playerSpatial.Coordinates = map.AtPosEntity(2, 2);
+
+            ev.OutActiveMap = map;
+
+            var player = ev.Player;
 
             var coords = EntityManager.GetComponent<SpatialComponent>(player).MapPosition;
             var ally = _charaGen.GenerateChara(coords, Protos.Chara.GoldenKnight);
@@ -80,11 +90,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
             var wallet = EntityManager.GetComponent<MoneyComponent>(player);
             wallet.Gold = 1000000;
             wallet.Platinum = 1000;
-
-            var testEv = new P_ElementKillCharaEvent(null, player);
-            _protos.EventBus.RaiseEvent(Protos.Element.Fire, testEv);
-
-            var map = _mapMan.ActiveMap!;
 
             var inv = EntityManager.GetComponent<InventoryComponent>(player);
             _itemGen.GenerateItem(inv.Container, Protos.Item.Stomafillia, amount: 99);

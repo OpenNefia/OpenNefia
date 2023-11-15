@@ -2,6 +2,7 @@
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.EngineVariables;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.HotReload;
@@ -58,6 +59,7 @@ namespace OpenNefia.Tests
         private CompRegistrationDelegate? _regDelegate;
         private EntitySystemRegistrationDelegate? _systemDelegate;
         private PrototypeRegistrationDelegate? _protoDelegate;
+        private EngineVariableRegistrationDelegate? _varDelegate;
         private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
 
         public IDependencyCollection Collection { get; private set; } = default!;
@@ -131,6 +133,12 @@ namespace OpenNefia.Tests
         public IFullSimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory)
         {
             _protoDelegate += factory;
+            return this;
+        }
+
+        public IFullSimulationFactory RegisterEngineVariables(EngineVariableRegistrationDelegate factory)
+        {
+            _varDelegate += factory;
             return this;
         }
 
@@ -211,6 +219,11 @@ namespace OpenNefia.Tests
             protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
             _protoDelegate?.Invoke(protoMan);
             protoMan.ResolveResults();
+
+            var varMan = container.Resolve<IEngineVariablesManagerInternal>();
+            varMan.Initialize();
+            varMan.LoadDirectory(ResourcePath.Root / "Variables");
+            _varDelegate?.Invoke(varMan);
 
             entityMan.Startup();
 

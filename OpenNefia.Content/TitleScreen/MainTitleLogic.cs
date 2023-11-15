@@ -26,6 +26,7 @@ using OpenNefia.Content.SaveLoad;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Scenarios;
+using OpenNefia.Core.EngineVariables;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -51,6 +52,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IRandomAliasGenerator _randomAlias = default!;
+        [Dependency] private readonly IPlayerQuery _playerQuery = default!;
 
         private void Startup()
         {
@@ -67,7 +69,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 try
                 {
-                    RunQuickStart();
+                    RunQuickStart(new(_config.GetCVar(CCVars.DebugQuickstartScenario)));
                 }
                 catch (Exception ex)
                 {
@@ -129,8 +131,29 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private void RunQuickStart()
+        [EngineVariable("Elona.QuickstartScenarios")]
+        private List<PrototypeId<ScenarioPrototype>> _varQuickstartScenarios { get; } = new();
+
+        private void RunQuickStart(PrototypeId<ScenarioPrototype>? scenarioId = null)
         {
+            if (scenarioId == null)
+            {
+                if (_varQuickstartScenarios.Count == 0)
+                {
+                    return;
+                }
+                else if (_varQuickstartScenarios.Count == 1)
+                {
+                    scenarioId = _varQuickstartScenarios.First();
+                }
+                else
+                {
+                    scenarioId = _playerQuery.PickOrNoneS(_varQuickstartScenarios);
+                    if (scenarioId == null)
+                        return;
+                }
+            }
+
             _saveGameSerializer.ResetGameState();
             var layer = _uiManager.CreateLayer<CharaMakeCharaSheetLayer>();
             var player = layer.CreatePlayerEntity(new List<ICharaMakeResult>()
@@ -150,9 +173,7 @@ namespace OpenNefia.Content.TitleScreen
                     _saveGameManager.DeleteSave(save);
                 }
             }
-
-            var scenarioId = _config.GetCVar(CCVars.DebugQuickstartScenario);
-            StartNewGame(player, new(scenarioId));
+            StartNewGame(player, scenarioId.Value);
         }
 
         private void RunRestoreSave()

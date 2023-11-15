@@ -1568,6 +1568,7 @@ namespace OpenNefia.Core.Prototypes
         }
     }
 
+    // TODO dedup yaml-related exceptions
     [Serializable]
     public class PrototypeLoadException : Exception
     {

@@ -78,19 +78,6 @@ namespace OpenNefia.Content.Scenarios
             
             ev.OutActiveMap = yourHomeMap;
         }
-
-        public void Quickstart_OnGameStart(ScenarioPrototype proto, P_ScenarioOnGameStartEvent ev)
-        {
-            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
-            map.MemorizeAllTiles();
-
-            _homes.ActiveHomeID = map.Id;
-
-            var playerSpatial = Spatial(ev.Player);
-            playerSpatial.Coordinates = map.AtPosEntity(2, 2);
-
-            ev.OutActiveMap = map;
-        }
     }
 
     [PrototypeEvent(typeof(ScenarioPrototype))]

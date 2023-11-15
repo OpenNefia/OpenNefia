@@ -7,6 +7,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.EngineVariables;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -81,6 +82,8 @@ namespace OpenNefia.Tests
 
     public delegate void PrototypeRegistrationDelegate(IPrototypeManager protoMan);
 
+    public delegate void EngineVariableRegistrationDelegate(IEngineVariablesManager varMan);
+
     public delegate void DataDefinitionTypesRegistrationDelegate(List<Type> types);
 
     public delegate void LoadAssembliesDelegate(List<Assembly> assemblies);
@@ -107,6 +110,7 @@ namespace OpenNefia.Tests
         private CompRegistrationDelegate? _regDelegate;
         private EntitySystemRegistrationDelegate? _systemDelegate;
         private PrototypeRegistrationDelegate? _protoDelegate;
+        private EngineVariableRegistrationDelegate? _varDelegate;
         private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
         private LoadAssembliesDelegate? _assembliesLoadDelegate;
         private LocalizationLoadDelegate? _localizationLoadDelegate;
@@ -176,6 +180,12 @@ namespace OpenNefia.Tests
         public ISimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory)
         {
             _protoDelegate += factory;
+            return this;
+        }
+
+        public ISimulationFactory RegisterEngineVariables(EngineVariableRegistrationDelegate factory)
+        {
+            _varDelegate += factory;
             return this;
         }
 
@@ -357,6 +367,9 @@ namespace OpenNefia.Tests
             protoMan.LoadString(EmptyTile);
             _protoDelegate?.Invoke(protoMan);
             protoMan.ResolveResults();
+
+            var varMan = container.Resolve<IEngineVariablesManager>();
+            _varDelegate?.Invoke(varMan);
 
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
             tileMan.RegisterAll();
