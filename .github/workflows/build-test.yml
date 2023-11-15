@@ -23,6 +23,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 7.0.400
+    - name: Add NuGet source
+      run: |
+        dotnet nuget remove source nuget.org
+        dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
     - name: Clean
       run: dotnet clean && dotnet nuget locals all --clear
     - name: Install dependencies
