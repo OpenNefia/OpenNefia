@@ -85,6 +85,26 @@ namespace OpenNefia.Tests.Core.EngineVariables
         }
 
         [Test]
+        public void Test_SystemInjectionInvalid()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var sim = GameSimulation
+                    .NewSimulation()
+                    .RegisterEntitySystems(factory =>
+                    {
+                        factory.LoadExtraSystemType<EngineVariableInvalidTestSystem>();
+                    })
+                    .RegisterPrototypes(factory =>
+                    {
+                        factory.RegisterType<EngineVariablePrototype>();
+                        factory.LoadString(DOCUMENT);
+                    })
+                    .InitializeInstance();
+            });
+        }
+
+        [Test]
         public void Test_OverrideVariables()
         {
             var variables = @"
@@ -131,5 +151,12 @@ Test:
 
         [EngineVariable("Test.TestMap")]
         public Dictionary<string, int> TestMap { get; } = new();
+    }
+
+    [Reflect(false)]
+    public class EngineVariableInvalidTestSystem : EntitySystem
+    {
+        [EngineVariable("Foo")]
+        public int Foo { get; } = -1;
     }
 }
