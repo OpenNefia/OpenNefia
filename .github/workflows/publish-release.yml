@@ -19,6 +19,9 @@ jobs:
       with:
         dotnet-version: 7.0.400
 
+    - name: Clean
+      run: dotnet clean && dotnet nuget locals all --clear
+
     - name: Package release
       run: ./build.ps1 -t PackageFullRelease -- --runtime win-x64
 
