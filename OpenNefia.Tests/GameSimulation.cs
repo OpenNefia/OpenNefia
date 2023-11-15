@@ -43,6 +43,7 @@ namespace OpenNefia.Tests
         ISimulationFactory RegisterDependencies(DiContainerDelegate factory);
         ISimulationFactory RegisterEntitySystems(EntitySystemRegistrationDelegate factory);
         ISimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory);
+        ISimulationFactory RegisterEngineVariables(EngineVariableRegistrationDelegate factory);
         ISimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory);
         ISimulationFactory LoadAssemblies(LoadAssembliesDelegate factory);
         ISimulationFactory LoadLocalizations(LocalizationLoadDelegate factory);
@@ -283,6 +284,8 @@ namespace OpenNefia.Tests
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IPrototypeManagerInternal, PrototypeManager>();
+            container.Register<IEngineVariablesManager, EngineVariablesManager>();
+            container.Register<IEngineVariablesManagerInternal, EngineVariablesManager>();
             container.Register<IComponentFactory, ComponentFactory>();
             container.Register<IComponentLocalizer, ComponentLocalizer>();
             container.Register<IComponentLocalizerInternal, ComponentLocalizer>();
@@ -368,7 +371,8 @@ namespace OpenNefia.Tests
             _protoDelegate?.Invoke(protoMan);
             protoMan.ResolveResults();
 
-            var varMan = container.Resolve<IEngineVariablesManager>();
+            var varMan = container.Resolve<IEngineVariablesManagerInternal>();
+            varMan.Initialize();
             _varDelegate?.Invoke(varMan);
 
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();

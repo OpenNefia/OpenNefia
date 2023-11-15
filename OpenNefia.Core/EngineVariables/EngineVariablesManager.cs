@@ -42,9 +42,13 @@ namespace OpenNefia.Core.EngineVariables
     /// </remarks>
     public interface IEngineVariablesManager
     {
+        void LoadFromStream(TextReader stream);
+        void LoadDirectory(ResourcePath path);
+        void LoadString(string str);
+        void LoadFile(ResourcePath file);
+
         T Get<T>(EngineVariableId id);
         void Set(EngineVariableId id, DataNode value);
-        void LoadDirectory(ResourcePath path);
     }
 
     internal interface IEngineVariablesManagerInternal : IEngineVariablesManager
@@ -212,13 +216,39 @@ namespace OpenNefia.Core.EngineVariables
 
         public void LoadDirectory(ResourcePath path)
         {
-            var streams = _resourceCache.ContentFindFiles(path).ToList().AsParallel()
+            var streams = _resources.ContentFindFiles(path).ToList().AsParallel()
                 .Where(filePath => filePath.Extension == "yml" && !filePath.Filename.StartsWith("."));
 
             foreach (var resourcePath in streams)
             {
                 LoadFile(resourcePath.ToRootedPath());
             }
+        }
+
+        public void LoadFromStream(TextReader stream)
+        {
+            var yaml = new YamlStream();
+            yaml.Load(stream);
+
+            for (var i = 0; i < yaml.Documents.Count; i++)
+            {
+                var document = yaml.Documents[i];
+                try
+                {
+                    LoadFromDocument(document);
+                }
+                catch (Exception e)
+                {
+                    throw new PrototypeLoadException($"Failed to load engine variables from document#{i}", e, "[anonymous]");
+                }
+            }
+
+            // LoadedData?.Invoke(yaml, "anonymous engine variables YAML stream");
+        }
+
+        public void LoadString(string str)
+        {
+            LoadFromStream(new StringReader(str));
         }
 
         public void LoadFile(ResourcePath file)
@@ -319,7 +349,7 @@ namespace OpenNefia.Core.EngineVariables
             {
                 try
                 {
-                    var reader = new StreamReader(_resourceCache.ContentFileRead(file), EncodingHelpers.UTF8);
+                    var reader = new StreamReader(_resources.ContentFileRead(file), EncodingHelpers.UTF8);
                     return reader;
                 }
                 catch (IOException e)

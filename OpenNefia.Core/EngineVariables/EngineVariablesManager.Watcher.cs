@@ -12,7 +12,7 @@ namespace OpenNefia.Core.EngineVariables
 {
     public sealed partial class EngineVariablesManager
     {
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IResourceManager _resources = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
         private readonly List<FileSystemWatcher> _watchers = new();
@@ -51,7 +51,7 @@ namespace OpenNefia.Core.EngineVariables
         public void WatchResources()
         {
 #if !FULL_RELEASE
-            foreach (var path in _resourceCache.GetContentRoots().Select(r => r.ToString())
+            foreach (var path in _resources.GetContentRoots().Select(r => r.ToString())
                 .Where(r => Directory.Exists(r + "/Variables")).Select(p => p + "/Variables"))
             {
                 var watcher = new FileSystemWatcher(path, "*.yml")
