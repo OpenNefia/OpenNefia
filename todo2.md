@@ -1,3 +1,4 @@
+## main
 - [x] item material
 - [x] item enchantments
 - [ ] house board/house upgrading/respawning
@@ -38,3 +39,6 @@
 - [ ] robust upstream commits
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
+
+## debug
+- [ ] edit game save data in one debug view

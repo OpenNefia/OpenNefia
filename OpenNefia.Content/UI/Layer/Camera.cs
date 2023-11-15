@@ -86,7 +86,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public Vector2i VisibleScreenToTile(Vector2 screenPos)
         {
-            return _coords.ScreenToTile((Vector2i)(screenPos - _screenPos));
+            return _coords.ScreenToTileScaled((Vector2i)(screenPos - _screenPos));
         }
     }
 }

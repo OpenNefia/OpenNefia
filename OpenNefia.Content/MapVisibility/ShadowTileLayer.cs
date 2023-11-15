@@ -181,13 +181,15 @@ namespace OpenNefia.Content.MapVisibility
                     continue;
 
                 Love.Graphics.SetColor(light.Color);
+                
+                // TODO Position/X/Y are already scaled by TileScale so this forces an unnecessary division, instead use TileX/TileY and update TileScale inside MapRenderer
                 if (light.Asset.CountX == 0)
                 {
-                    light.Asset.Draw(_coords.TileScale, X + light.GlobalScreenPosition.X + light.Offset.X, Y + light.GlobalScreenPosition.Y + light.Offset.Y);
+                    light.Asset.Draw(_coords.TileScale, X / _coords.TileScale + light.GlobalScreenPosition.X + light.Offset.X, Y / _coords.TileScale + light.GlobalScreenPosition.Y + light.Offset.Y);
                 }
                 else
                 {
-                    light.Asset.DrawRegion(_coords.TileScale, light.Frame.ToString(), X + light.GlobalScreenPosition.X + light.Offset.X, Y + light.GlobalScreenPosition.Y + light.Offset.Y);
+                    light.Asset.DrawRegion(_coords.TileScale, light.Frame.ToString(), X / _coords.TileScale + light.GlobalScreenPosition.X + light.Offset.X, Y / _coords.TileScale + light.GlobalScreenPosition.Y + light.Offset.Y);
                 }
             }
 

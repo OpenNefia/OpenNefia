@@ -20,6 +20,7 @@ namespace OpenNefia.Core.Rendering
         Vector2i TileToScreen(Vector2i tilePos);
         Vector2i TileToScreenScaled(Vector2i tilePos) { return (Vector2i)(TileToScreen(tilePos) * TileScale); }
         Vector2i ScreenToTile(Vector2i screenPos);
+        Vector2i ScreenToTileScaled(Vector2i screenPos) { return ScreenToTile((Vector2i)(screenPos / TileScale));  }
         Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize);
     }
 }

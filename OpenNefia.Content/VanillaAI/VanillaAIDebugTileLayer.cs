@@ -89,7 +89,7 @@ namespace OpenNefia.Content.VanillaAI
                 var desiredOutline = GetTileOutline(entry.DesiredPos);
 
                 Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
-                                   desiredOutline[0] + (Love.Vector2)_coords.TileSize / 2);
+                                   desiredOutline[0] + (Love.Vector2)_coords.TileSizeScaled / 2);
 
                 DrawTileOutline(desiredOutline, ColorLineAlly);
 
@@ -99,7 +99,7 @@ namespace OpenNefia.Content.VanillaAI
                     var targetOutline = GetTileOutline(entry.TargetPos.Value);
 
                     Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
-                                       targetOutline[0] + (Love.Vector2)_coords.TileSize / 2);
+                                       targetOutline[0] + (Love.Vector2)_coords.TileSizeScaled / 2);
 
                     DrawTileOutline(targetOutline, ColorLineEnemy);
                 }
@@ -110,7 +110,7 @@ namespace OpenNefia.Content.VanillaAI
                     var targetOutline = GetTileOutline(entry.AnchorPos.Value);
 
                     Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
-                                       targetOutline[0] + (Love.Vector2)_coords.TileSize / 2);
+                                       targetOutline[0] + (Love.Vector2)_coords.TileSizeScaled / 2);
 
                     DrawTileOutline(targetOutline, ColorLineAnchor);
                 }
