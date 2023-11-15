@@ -30,7 +30,7 @@ namespace OpenNefia.Core.GameObjects
     }
 
     /// <summary>
-    /// The children of this entity are about to be deleted.
+    /// The children of this entity are about to be deleted permanently, and will not be saved.
     /// </summary>
     [ByRefEvent]
     public sealed class EntityTerminatingEvent : EntityEventArgs 
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.GameObjects
     }
 
     /// <summary>
-    /// The children of this entity are about to be unloaded.
+    /// The children of this entity are about to be unloaded, and will be kept in the save file.
     /// </summary>
     [ByRefEvent]
     public sealed class EntityUnloadingEvent : EntityEventArgs

@@ -97,9 +97,23 @@ namespace OpenNefia.Core.GameObjects
         #endregion Entity Management
     }
 
+    /// <summary>
+    /// What kind of behavior to use when deleting an entity from the world.
+    /// There is an important distinction between "unloading" an entity, where the entity is meant to be kept in the save file,
+    /// and "deleting" an entity, where the entity is permanently deleted from the world *and* save file.
+    /// </summary>
     public enum EntityDeleteType
     {
+        /// <summary>
+        /// The entity is going to be permanently removed.
+        /// Raises <see cref="EntityTerminatingEvent"/>.
+        /// </summary>
         Delete,
+
+        /// <summary>
+        /// The entity is going to be unloaded and kept in a save file
+        /// Raises <see cref="EntityUnloadingEvent"/>.
+        /// </summary>
         Unload
     }
 }

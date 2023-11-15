@@ -8,6 +8,15 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Areas
 {
+    /*
+     * Keeps track of entrances into maps from other maps.
+     * 
+     * This is used to calculate distances between major towns for suitability when generating delivery quests.
+     * In vanilla, every global area had a single map and (X, Y) coordinate the entrance was located at.
+     * In OpenNefia, there is no such restriction and there can be any number of entrances into a global area.
+     * 
+     * I think there is a better way of doing this but I haven't figured it out yet.
+     */
     public interface IAreaKnownEntrancesSystem : IEntitySystem
     {
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IMap map);
