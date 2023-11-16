@@ -23,13 +23,15 @@ using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Home
 {
+    public sealed record class HomeRankItem(ValueComponent Item, int Value);
+
     public interface IHomeSystem : IEntitySystem
     {
         MapId ActiveHomeID { get; set; }
 
         int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
         int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
-        IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
+        IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10);
         int CalcTotalHomeValue(IMap map);
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
@@ -145,17 +147,17 @@ namespace OpenNefia.Content.Home
             return Math.Clamp(valueComp.Value.Buffed / 50, 50, 500);
         }
 
-        public IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)
+        public IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10)
         {
             return _lookup.EntityQueryInMap<ValueComponent>(map)
-                .Select(value => (value, CalcItemValue(value.Owner, value)))
-                .OrderByDescending(tuple => tuple.Item2)
+                .Select(value => new HomeRankItem(value, CalcItemValue(value.Owner, value)))
+                .OrderByDescending(tuple => tuple.Value)
                 .Take(amount);
         }
 
         public int CalcTotalHomeValue(IMap map)
         {
-            return CalcMostValuableItems(map).Select(tuple => tuple.value).Sum();
+            return CalcMostValuableItems(map).Select(tuple => tuple.Value).Sum();
         }
 
         public int CalcTotalFurnitureValue(IMap map)
@@ -172,15 +174,19 @@ namespace OpenNefia.Content.Home
 
         public HomeRank CalcRank(IMap map, AreaHomeComponent? areaHome = null)
         {
-            if (!TryArea(map, out var area) || !Resolve(area.AreaEntityUid, ref areaHome))
-                return new HomeRank(0, 0, 0, 0);
+            if (!TryArea(map, out var area))
+                return new HomeRank(10000, 0, 0, 0, 0);
 
-            var baseValue = areaHome.HomeRankPoints;
+            var baseValue = 0;
+            if (Resolve(area.AreaEntityUid, ref areaHome))
+                baseValue = areaHome.HomeRankPoints;
+
             var homeValue = Math.Clamp(CalcTotalHomeValue(map), 0, 10000);
             var furnitureValue = Math.Clamp(CalcTotalFurnitureValue(map), 0, 10000);
-            var homeRank = Math.Max(10000 - SumTotalValue(baseValue, homeValue, furnitureValue), 100);
+            var totalValue = SumTotalValue(baseValue, homeValue, furnitureValue);
+            var homeRank = Math.Max(10000 - totalValue, 100);
 
-            return new HomeRank(homeRank, baseValue, homeValue, furnitureValue);
+            return new HomeRank(homeRank, baseValue, homeValue, furnitureValue, totalValue);
         }
 
         public HomeRank UpdateRank(IMap map)
@@ -211,7 +217,7 @@ namespace OpenNefia.Content.Home
         }
     }
 
-    public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue)
+    public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue, int TotalValue)
     {
         public int RankPlace => RankExperience / Rank.ExpPerRankPlace;
     }

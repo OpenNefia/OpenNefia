@@ -7,6 +7,7 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -138,5 +139,12 @@ namespace OpenNefia.Content.UI
 
             return dir != null;
         }
+
+        public static readonly IReadOnlyList<PrototypeId<AssetPrototype>> CMBGs = new List<PrototypeId<AssetPrototype>>() {
+            Prototypes.Protos.Asset.G1,
+            Prototypes.Protos.Asset.G2,
+            Prototypes.Protos.Asset.G3,
+            Prototypes.Protos.Asset.G4
+        };
     }
 }

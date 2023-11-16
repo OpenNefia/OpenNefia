@@ -33,6 +33,7 @@ using OpenNefia.Content.Home;
 using OpenNefia.Core.EngineVariables;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Core.Areas;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -54,6 +55,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
+        [Dependency] private readonly IAreaManager _areas = default!;
 
         [EngineVariable("LecchoTorte.QuickstartPlayer")]
         private QuickstartChara _quickstartPlayer { get; } = new();
@@ -137,6 +139,13 @@ namespace OpenNefia.LecchoTorte.QuickStart
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
             ev.OutActiveMap = map;
+
+            PrototypeId<EntityPrototype> areaId = new("LecchoTorte.QuickstartArea");
+            GlobalAreaId globalAreaId = new("LecchoTorte.Quickstart");
+            AreaFloorId floorId = new("Default", 1);
+
+            var area = _areas.CreateArea(areaId, globalAreaId);
+            _areas.RegisterAreaFloor(area, floorId, map);
 
             var player = ev.Player;
 

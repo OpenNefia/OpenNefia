@@ -1,0 +1,7 @@
+- type: Entity
+  id: LecchoTorte.QuickstartArea
+  parent: BaseArea
+  components:
+  - type: AreaHome
+    maxItemsOnGround: 100
+    homeRankPoints: 1200

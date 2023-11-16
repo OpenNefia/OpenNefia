@@ -25,7 +25,11 @@ namespace OpenNefia.Content.Home
 
         private void HouseBoard_ViewHomeRank(EntityUid user)
         {
-            _mes.Display("TODO", UiColors.MesYellow);
+            var map = GetMap(user);
+            var mostValuable = _homes.CalcMostValuableItems(map);
+            var homeRank = _homes.UpdateRank(map);
+            var args = new HomeRankLayer.Args(mostValuable, homeRank);
+            _uiManager.Query<HomeRankLayer, HomeRankLayer.Args>(args);
         }
 
         private void HouseBoard_AlliesInYourHome(EntityUid user)
