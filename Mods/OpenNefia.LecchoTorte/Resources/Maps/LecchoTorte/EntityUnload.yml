@@ -1,0 +1,23 @@
+meta:
+  format: 1
+  name: test
+  author: ruin
+grid: |
+  @@@@@@@@@@@@@@@@@
+  @...............@
+  @...............@
+  @...............@
+  @...............@
+  @...............@
+  @...............@
+  @...............@
+  @@@@@@@@@@@@@@@@@
+tilemap:
+  '@': Elona.WallBrick
+  '.': Elona.Tile1
+entities:
+- uid: 0
+  protoId: BaseMap
+  components:
+  - type: MapCommon
+    isIndoors: true

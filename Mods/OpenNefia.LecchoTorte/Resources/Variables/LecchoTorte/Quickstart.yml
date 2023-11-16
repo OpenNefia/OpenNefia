@@ -1,6 +1,7 @@
 Elona:
   QuickstartScenarios:
   - LecchoTorte.Quickstart
+  - LecchoTorte.EntityUnload
 
 LecchoTorte:
   QuickstartPlayer:
@@ -11,9 +12,18 @@ LecchoTorte:
       Elona.AttrLife: 2000
       Elona.Mining: 2000
     items:
+      - id: Elona.ItemDagger
+        location: Equipment
+      - id: Elona.ItemLongBow
+        location: Equipment
+      - id: Elona.ItemArrow
+        location: Equipment
       - id: Elona.ItemKittyBank
       - id: Elona.ItemTextbook
       - id: Elona.ItemBook
+      - id: Elona.ItemHouseBoard
+      - id: Elona.ItemStomafillia
+        amount: 99
       - id: Elona.ItemMonsterBall
         amount: 99
         components:

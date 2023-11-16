@@ -15,4 +15,7 @@ Elona.Home = {
         _.quote "I was waiting for you.",
         _.quote "Nice to see you again.",
     },
+    Design = {
+        Help = "Left click to place the tile, right click to pick the tile under your mouse cursor, movement keys to move current position, hit the enter key to show the list of tiles, hit the cancel key to exit.",
+    },
 }

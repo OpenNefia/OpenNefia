@@ -1,5 +1,29 @@
 ---
 - type: Tile
+  id: Elona.MapgenDefault
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: true
+  isOpaque: false
+- type: Tile
+  id: Elona.MapgenRoom
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+- type: Tile
+  id: Elona.MapgenTunnel
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+- type: Tile
+  id: Elona.MapgenWall
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: true
+  isOpaque: false
+- type: Tile
   id: Elona.Grass
   hspIds:
     elona122: 1,0
@@ -8,9 +32,15 @@
     region: 0, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
+- type: Tile
+  id: Elona.MapgenFog
+  image:
+    filepath: /Graphic/Core/Tile/Default.png
+  isSolid: true
+  isOpaque: false
 - type: Tile
   id: Elona.WorldGrass
   hspIds:
@@ -20,9 +50,6 @@
     region: 0, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSmallTrees1
   hspIds:
@@ -32,9 +59,6 @@
     region: 48, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSmallTrees2
   hspIds:
@@ -44,9 +68,6 @@
     region: 96, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSmallTrees3
   hspIds:
@@ -56,9 +77,6 @@
     region: 144, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees1
   hspIds:
@@ -68,9 +86,6 @@
     region: 192, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees2
   hspIds:
@@ -80,9 +95,6 @@
     region: 240, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees3
   hspIds:
@@ -92,9 +104,6 @@
     region: 288, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees4
   hspIds:
@@ -104,9 +113,6 @@
     region: 336, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees5
   hspIds:
@@ -116,9 +122,6 @@
     region: 384, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldTrees6
   hspIds:
@@ -128,9 +131,6 @@
     region: 432, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldPlants1
   hspIds:
@@ -140,9 +140,6 @@
     region: 480, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldPlants2
   hspIds:
@@ -152,9 +149,6 @@
     region: 528, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldPlants3
   hspIds:
@@ -164,9 +158,6 @@
     region: 576, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirt1
   hspIds:
@@ -176,9 +167,6 @@
     region: 624, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirt2
   hspIds:
@@ -188,9 +176,6 @@
     region: 672, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirt3
   hspIds:
@@ -200,9 +185,6 @@
     region: 720, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirt4
   hspIds:
@@ -212,9 +194,6 @@
     region: 768, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowCross
   hspIds:
@@ -225,8 +204,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnow
   hspIds:
@@ -237,8 +214,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowTrees1
   hspIds:
@@ -249,8 +224,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowTrees2
   hspIds:
@@ -261,8 +234,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowCrater
   hspIds:
@@ -273,8 +244,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowMounds
   hspIds:
@@ -285,8 +254,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNs
   hspIds:
@@ -296,9 +263,6 @@
     region: 48, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadWe
   hspIds:
@@ -308,9 +272,6 @@
     region: 96, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadSw
   hspIds:
@@ -320,9 +281,6 @@
     region: 144, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadSe
   hspIds:
@@ -332,9 +290,6 @@
     region: 192, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNw
   hspIds:
@@ -344,9 +299,6 @@
     region: 240, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNe
   hspIds:
@@ -356,9 +308,6 @@
     region: 288, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadSwe
   hspIds:
@@ -368,9 +317,6 @@
     region: 336, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNsw
   hspIds:
@@ -380,9 +326,6 @@
     region: 384, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNwe
   hspIds:
@@ -392,9 +335,6 @@
     region: 432, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldRoadNse
   hspIds:
@@ -404,9 +344,6 @@
     region: 480, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower1
   hspIds:
@@ -416,9 +353,6 @@
     region: 0, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower2
   hspIds:
@@ -428,9 +362,6 @@
     region: 48, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower3
   hspIds:
@@ -440,9 +371,6 @@
     region: 96, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower4
   hspIds:
@@ -452,9 +380,6 @@
     region: 144, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower5
   hspIds:
@@ -464,9 +389,6 @@
     region: 192, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower6
   hspIds:
@@ -476,9 +398,6 @@
     region: 240, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldFlower7
   hspIds:
@@ -488,9 +407,6 @@
     region: 288, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldMounds1
   hspIds:
@@ -500,9 +416,6 @@
     region: 336, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldMounds2
   hspIds:
@@ -512,9 +425,6 @@
     region: 384, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldBridgeLeft
   hspIds:
@@ -524,9 +434,6 @@
     region: 528, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldBridgeMiddle
   hspIds:
@@ -536,9 +443,6 @@
     region: 576, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldBridgeRight
   hspIds:
@@ -548,9 +452,6 @@
     region: 624, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesert
   hspIds:
@@ -561,8 +462,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertTrees1
   hspIds:
@@ -573,8 +472,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertTrees2
   hspIds:
@@ -585,8 +482,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertTrees3
   hspIds:
@@ -597,8 +492,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertTrees4
   hspIds:
@@ -609,8 +502,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertDeadTrees1
   hspIds:
@@ -621,8 +512,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertDeadTrees2
   hspIds:
@@ -633,8 +522,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertDeadTrees3
   hspIds:
@@ -645,8 +532,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertBorderW
   hspIds:
@@ -658,7 +543,6 @@
   isOpaque: false
   kind: Sand
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDesertBorderS
   hspIds:
@@ -670,7 +554,6 @@
   isOpaque: false
   kind: Sand
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDesertBorderSw
   hspIds:
@@ -682,7 +565,6 @@
   isOpaque: false
   kind: Sand
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDesertBorderCornerNe
   hspIds:
@@ -694,7 +576,6 @@
   isOpaque: false
   kind: Sand
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDesertBones
   hspIds:
@@ -705,8 +586,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertRocks1
   hspIds:
@@ -717,8 +596,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertRocks2
   hspIds:
@@ -729,8 +606,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertRocks3
   hspIds:
@@ -741,8 +616,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertRocks4
   hspIds:
@@ -753,8 +626,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertPlants1
   hspIds:
@@ -765,8 +636,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertPlants2
   hspIds:
@@ -777,8 +646,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertPlants3
   hspIds:
@@ -789,8 +656,6 @@
   isSolid: false
   isOpaque: false
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirt
   hspIds:
@@ -801,8 +666,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtCrater
   hspIds:
@@ -813,8 +676,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtRocks1
   hspIds:
@@ -825,8 +686,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtRocks2
   hspIds:
@@ -837,8 +696,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtDeadTrees1
   hspIds:
@@ -849,8 +706,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtDeadTrees2
   hspIds:
@@ -861,8 +716,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtDeadTrees3
   hspIds:
@@ -873,8 +726,6 @@
   isSolid: false
   isOpaque: false
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtBorderW
   hspIds:
@@ -886,7 +737,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderE
   hspIds:
@@ -898,7 +748,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderN
   hspIds:
@@ -910,7 +759,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderS
   hspIds:
@@ -922,7 +770,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderCornerNe
   hspIds:
@@ -934,7 +781,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderCornerNw
   hspIds:
@@ -946,7 +792,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderCornerSe
   hspIds:
@@ -958,7 +803,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderCornerSw
   hspIds:
@@ -970,7 +814,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderNe
   hspIds:
@@ -982,7 +825,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderNw
   hspIds:
@@ -994,7 +836,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderSe
   hspIds:
@@ -1006,7 +847,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldDirtBorderSw
   hspIds:
@@ -1018,7 +858,6 @@
   isOpaque: false
   kind: SandHard
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowDeadTree
   hspIds:
@@ -1029,8 +868,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowTrees3
   hspIds:
@@ -1041,8 +878,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowTrees4
   hspIds:
@@ -1053,8 +888,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowTrees5
   hspIds:
@@ -1065,8 +898,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowBorderW
   hspIds:
@@ -1078,7 +909,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderE
   hspIds:
@@ -1090,7 +920,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderN
   hspIds:
@@ -1102,7 +931,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderS
   hspIds:
@@ -1114,7 +942,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderCornerNe
   hspIds:
@@ -1126,7 +953,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderCornerNw
   hspIds:
@@ -1138,7 +964,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderCornerSe
   hspIds:
@@ -1150,7 +975,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderCornerSw
   hspIds:
@@ -1162,7 +986,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderNe
   hspIds:
@@ -1174,7 +997,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderNw
   hspIds:
@@ -1186,7 +1008,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderSe
   hspIds:
@@ -1198,7 +1019,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldSnowBorderSw
   hspIds:
@@ -1210,7 +1030,6 @@
   isOpaque: false
   kind: Snow
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldWater
   hspIds:
@@ -1220,9 +1039,6 @@
     region: 0, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWaterRocks
   hspIds:
@@ -1232,9 +1048,6 @@
     region: 48, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWater2
   hspIds:
@@ -1244,9 +1057,6 @@
     region: 96, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWaterPole
   hspIds:
@@ -1256,9 +1066,6 @@
     region: 144, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWaterIceberg
   hspIds:
@@ -1268,9 +1075,6 @@
     region: 192, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWaterRock
   hspIds:
@@ -1280,9 +1084,6 @@
     region: 240, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldWaterShadow
   hspIds:
@@ -1292,9 +1093,6 @@
     region: 288, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderW
   hspIds:
@@ -1304,9 +1102,6 @@
     region: 1008, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderE
   hspIds:
@@ -1316,9 +1111,6 @@
     region: 1056, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderN
   hspIds:
@@ -1328,9 +1120,6 @@
     region: 1104, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderS
   hspIds:
@@ -1340,9 +1129,6 @@
     region: 1152, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderCornerNe
   hspIds:
@@ -1352,9 +1138,6 @@
     region: 1200, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderCornerNw
   hspIds:
@@ -1364,9 +1147,6 @@
     region: 1248, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderCornerSe
   hspIds:
@@ -1376,9 +1156,6 @@
     region: 1296, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderCornerSw
   hspIds:
@@ -1388,9 +1165,6 @@
     region: 1344, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderNe
   hspIds:
@@ -1400,9 +1174,6 @@
     region: 1392, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderNw
   hspIds:
@@ -1412,9 +1183,6 @@
     region: 1440, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderSe
   hspIds:
@@ -1424,9 +1192,6 @@
     region: 1488, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassWaterBorderSw
   hspIds:
@@ -1436,9 +1201,6 @@
     region: 1536, 384, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderW
   hspIds:
@@ -1448,9 +1210,6 @@
     region: 0, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderE
   hspIds:
@@ -1460,9 +1219,6 @@
     region: 48, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderN
   hspIds:
@@ -1472,9 +1228,6 @@
     region: 96, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderS
   hspIds:
@@ -1484,9 +1237,6 @@
     region: 144, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderCornerNe
   hspIds:
@@ -1496,9 +1246,6 @@
     region: 192, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderCornerNw
   hspIds:
@@ -1508,9 +1255,6 @@
     region: 240, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderCornerSe
   hspIds:
@@ -1520,9 +1264,6 @@
     region: 288, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderCornerSw
   hspIds:
@@ -1532,9 +1273,6 @@
     region: 336, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderNe
   hspIds:
@@ -1544,9 +1282,6 @@
     region: 384, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderNw
   hspIds:
@@ -1556,9 +1291,6 @@
     region: 432, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderSe
   hspIds:
@@ -1568,9 +1300,6 @@
     region: 480, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowWaterBorderSw
   hspIds:
@@ -1580,9 +1309,6 @@
     region: 528, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderW
   hspIds:
@@ -1592,9 +1318,6 @@
     region: 576, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderE
   hspIds:
@@ -1604,9 +1327,6 @@
     region: 624, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderN
   hspIds:
@@ -1616,9 +1336,6 @@
     region: 672, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderS
   hspIds:
@@ -1628,9 +1345,6 @@
     region: 720, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderCornerNe
   hspIds:
@@ -1640,9 +1354,6 @@
     region: 768, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderCornerNw
   hspIds:
@@ -1652,9 +1363,6 @@
     region: 816, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderCornerSe
   hspIds:
@@ -1664,9 +1372,6 @@
     region: 864, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderCornerSw
   hspIds:
@@ -1676,9 +1381,6 @@
     region: 912, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderNe
   hspIds:
@@ -1688,9 +1390,6 @@
     region: 960, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderNw
   hspIds:
@@ -1700,9 +1399,6 @@
     region: 1008, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderSe
   hspIds:
@@ -1712,9 +1408,6 @@
     region: 1056, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertWaterBorderSw
   hspIds:
@@ -1724,9 +1417,6 @@
     region: 1104, 432, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffNw
   hspIds:
@@ -1736,9 +1426,6 @@
     region: 0, 672, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffN
   hspIds:
@@ -1748,9 +1435,6 @@
     region: 48, 672, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffNe
   hspIds:
@@ -1760,9 +1444,6 @@
     region: 96, 672, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffW
   hspIds:
@@ -1772,9 +1453,6 @@
     region: 0, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffE
   hspIds:
@@ -1784,9 +1462,6 @@
     region: 96, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffInnerSw
   hspIds:
@@ -1796,9 +1471,6 @@
     region: 144, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffInnerSe
   hspIds:
@@ -1808,9 +1480,6 @@
     region: 240, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldBlank
   hspIds:
@@ -1820,9 +1489,6 @@
     region: 0, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffSw
   hspIds:
@@ -1832,9 +1498,6 @@
     region: 48, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffS
   hspIds:
@@ -1844,9 +1507,6 @@
     region: 96, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffSe
   hspIds:
@@ -1856,9 +1516,6 @@
     region: 144, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldCliffTop5
   hspIds:
@@ -1868,9 +1525,6 @@
     region: 240, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain1
   hspIds:
@@ -1880,9 +1534,6 @@
     region: 0, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain2
   hspIds:
@@ -1892,9 +1543,6 @@
     region: 48, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain3
   hspIds:
@@ -1904,9 +1552,6 @@
     region: 144, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain4
   hspIds:
@@ -1916,9 +1561,6 @@
     region: 192, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain5
   hspIds:
@@ -1928,9 +1570,6 @@
     region: 240, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldGrassMountain6
   hspIds:
@@ -1940,9 +1579,6 @@
     region: 288, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowMountain1
   hspIds:
@@ -1953,8 +1589,6 @@
   isSolid: true
   isOpaque: true
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowMountain2
   hspIds:
@@ -1965,8 +1599,6 @@
   isSolid: true
   isOpaque: true
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldSnowMountain3
   hspIds:
@@ -1977,8 +1609,6 @@
   isSolid: true
   isOpaque: true
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertMountain1
   hspIds:
@@ -1989,8 +1619,6 @@
   isSolid: true
   isOpaque: true
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertMountain2
   hspIds:
@@ -2001,8 +1629,6 @@
   isSolid: true
   isOpaque: true
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertMountain3
   hspIds:
@@ -2013,8 +1639,6 @@
   isSolid: true
   isOpaque: true
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertMountain4
   hspIds:
@@ -2025,8 +1649,6 @@
   isSolid: true
   isOpaque: true
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDesertMountain5
   hspIds:
@@ -2037,8 +1659,6 @@
   isSolid: true
   isOpaque: true
   kind: Sand
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtMountain1
   hspIds:
@@ -2049,8 +1669,6 @@
   isSolid: true
   isOpaque: true
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldDirtMountain2
   hspIds:
@@ -2061,8 +1679,6 @@
   isSolid: true
   isOpaque: true
   kind: SandHard
-  kind2: None
-
 - type: Tile
   id: Elona.WorldOasisC
   hspIds:
@@ -2073,8 +1689,6 @@
   isSolid: true
   isOpaque: true
   kind: SandWater
-  kind2: None
-
 - type: Tile
   id: Elona.WorldOasisE
   hspIds:
@@ -2086,7 +1700,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisW
   hspIds:
@@ -2098,7 +1711,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisS
   hspIds:
@@ -2110,7 +1722,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisN
   hspIds:
@@ -2122,7 +1733,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisCornerSw
   hspIds:
@@ -2134,7 +1744,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisCornerSe
   hspIds:
@@ -2146,7 +1755,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisCornerNe
   hspIds:
@@ -2158,7 +1766,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisCornerNw
   hspIds:
@@ -2170,7 +1777,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisNe
   hspIds:
@@ -2182,7 +1788,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisNw
   hspIds:
@@ -2194,7 +1799,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisSe
   hspIds:
@@ -2206,7 +1810,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.WorldOasisSw
   hspIds:
@@ -2218,7 +1821,6 @@
   isOpaque: true
   kind: SandWater
   kind2: Coast
-
 - type: Tile
   id: Elona.GrassViolets
   hspIds:
@@ -2228,9 +1830,9 @@
     region: 48, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassRocks
   hspIds:
@@ -2240,9 +1842,9 @@
     region: 96, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassTall1
   hspIds:
@@ -2252,9 +1854,9 @@
     region: 144, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassTall2
   hspIds:
@@ -2264,9 +1866,9 @@
     region: 192, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassPatch1
   hspIds:
@@ -2276,9 +1878,9 @@
     region: 240, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassPatch2
   hspIds:
@@ -2288,9 +1890,9 @@
     region: 288, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassBush1
   hspIds:
@@ -2300,9 +1902,9 @@
     region: 336, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassBush2
   hspIds:
@@ -2312,9 +1914,9 @@
     region: 384, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassBush3
   hspIds:
@@ -2324,9 +1926,9 @@
     region: 432, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassPatch3
   hspIds:
@@ -2336,9 +1938,9 @@
     region: 480, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassRocks2
   hspIds:
@@ -2348,9 +1950,9 @@
     region: 528, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CrackedDirt1
   hspIds:
@@ -2360,9 +1962,9 @@
     region: 576, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CrackedDirt2
   hspIds:
@@ -2372,9 +1974,9 @@
     region: 624, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.RoomDefault
   hspIds:
@@ -2384,9 +1986,9 @@
     region: 672, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DesertRocks1
   hspIds:
@@ -2396,9 +1998,9 @@
     region: 768, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DesertRocks2
   hspIds:
@@ -2408,9 +2010,9 @@
     region: 816, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DesertRocks3
   hspIds:
@@ -2420,9 +2022,9 @@
     region: 864, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Desert
   hspIds:
@@ -2432,9 +2034,9 @@
     region: 912, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DesertFlowers1
   hspIds:
@@ -2444,9 +2046,9 @@
     region: 960, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DesertFlowers2
   hspIds:
@@ -2456,9 +2058,9 @@
     region: 1008, 0, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Dryground
   hspIds:
@@ -2469,8 +2071,9 @@
   isSolid: false
   isOpaque: false
   kind: Dryground
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Field1
   hspIds:
@@ -2481,8 +2084,9 @@
   isSolid: false
   isOpaque: false
   kind: Crop
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Field2
   hspIds:
@@ -2493,8 +2097,9 @@
   isSolid: false
   isOpaque: false
   kind: Crop
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DarkDirt1
   hspIds:
@@ -2504,9 +2109,9 @@
     region: 0, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DarkDirt2
   hspIds:
@@ -2516,9 +2121,9 @@
     region: 48, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DarkDirt3
   hspIds:
@@ -2528,9 +2133,9 @@
     region: 96, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DarkDirt4
   hspIds:
@@ -2540,9 +2145,9 @@
     region: 144, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Destroyed
   hspIds:
@@ -2552,9 +2157,9 @@
     region: 192, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DirtPatch
   hspIds:
@@ -2564,9 +2169,9 @@
     region: 240, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DirtGrass
   hspIds:
@@ -2576,9 +2181,9 @@
     region: 288, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.DirtRocks
   hspIds:
@@ -2588,9 +2193,9 @@
     region: 336, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Dirt
   hspIds:
@@ -2600,9 +2205,9 @@
     region: 384, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Snow
   hspIds:
@@ -2613,8 +2218,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowMound
   hspIds:
@@ -2625,8 +2231,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowPlants
   hspIds:
@@ -2637,8 +2244,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowRock
   hspIds:
@@ -2649,8 +2257,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowStump
   hspIds:
@@ -2661,8 +2270,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers1
   hspIds:
@@ -2673,8 +2283,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers2
   hspIds:
@@ -2685,8 +2296,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers3
   hspIds:
@@ -2697,8 +2309,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowField1
   hspIds:
@@ -2709,8 +2322,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowField2
   hspIds:
@@ -2721,8 +2335,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowIce
   hspIds:
@@ -2733,8 +2348,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowClumps1
   hspIds:
@@ -2745,8 +2361,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowClumps2
   hspIds:
@@ -2757,8 +2374,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowStalks
   hspIds:
@@ -2769,8 +2387,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowGrass
   hspIds:
@@ -2781,8 +2400,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBlueTile
   hspIds:
@@ -2793,8 +2413,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowCobble1
   hspIds:
@@ -2804,9 +2425,9 @@
     region: 1344, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowCobble2
   hspIds:
@@ -2816,9 +2437,9 @@
     region: 1392, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowCobble3
   hspIds:
@@ -2828,9 +2449,9 @@
     region: 1440, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowCobble4
   hspIds:
@@ -2840,9 +2461,9 @@
     region: 1488, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowStairs
   hspIds:
@@ -2852,9 +2473,9 @@
     region: 1536, 48, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.TowerOfFireTile1
   hspIds:
@@ -2864,9 +2485,9 @@
     region: 0, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.TowerOfFireTile2
   hspIds:
@@ -2876,9 +2497,9 @@
     region: 48, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.TowerOfFireTile3
   hspIds:
@@ -2888,9 +2509,9 @@
     region: 96, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BallroomRoomFloor
   hspIds:
@@ -2900,9 +2521,9 @@
     region: 144, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor1
   hspIds:
@@ -2912,9 +2533,9 @@
     region: 192, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor2
   hspIds:
@@ -2924,9 +2545,9 @@
     region: 240, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor3
   hspIds:
@@ -2936,9 +2557,9 @@
     region: 288, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor4
   hspIds:
@@ -2948,9 +2569,9 @@
     region: 336, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor5
   hspIds:
@@ -2960,9 +2581,9 @@
     region: 384, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor6
   hspIds:
@@ -2972,9 +2593,9 @@
     region: 432, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.MetalPlatingRusted
   hspIds:
@@ -2984,9 +2605,9 @@
     region: 480, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Thatching
   hspIds:
@@ -2996,9 +2617,9 @@
     region: 528, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble
   hspIds:
@@ -3008,9 +2629,9 @@
     region: 576, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble2
   hspIds:
@@ -3020,9 +2641,9 @@
     region: 720, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers4
   hspIds:
@@ -3033,8 +2654,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers5
   hspIds:
@@ -3045,8 +2667,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowFlowers6
   hspIds:
@@ -3057,8 +2680,9 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBushes1
   hspIds:
@@ -3068,9 +2692,9 @@
     region: 912, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBushes2
   hspIds:
@@ -3080,9 +2704,9 @@
     region: 960, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBushes3
   hspIds:
@@ -3092,9 +2716,9 @@
     region: 1008, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBush
   hspIds:
@@ -3104,9 +2728,9 @@
     region: 1056, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowBoulder
   hspIds:
@@ -3116,9 +2740,9 @@
     region: 1104, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowPillar
   hspIds:
@@ -3128,9 +2752,9 @@
     region: 1536, 96, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble3
   hspIds:
@@ -3140,9 +2764,9 @@
     region: 0, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Concrete2
   hspIds:
@@ -3152,9 +2776,9 @@
     region: 48, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Flooring1
   hspIds:
@@ -3164,9 +2788,9 @@
     region: 96, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Flooring2
   hspIds:
@@ -3176,9 +2800,9 @@
     region: 144, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble4
   hspIds:
@@ -3188,9 +2812,9 @@
     region: 192, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble6
   hspIds:
@@ -3200,9 +2824,9 @@
     region: 288, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble9
   hspIds:
@@ -3212,9 +2836,9 @@
     region: 480, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble10
   hspIds:
@@ -3224,9 +2848,9 @@
     region: 528, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble11
   hspIds:
@@ -3236,9 +2860,9 @@
     region: 576, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cobble12
   hspIds:
@@ -3248,9 +2872,9 @@
     region: 624, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonal
   hspIds:
@@ -3260,9 +2884,9 @@
     region: 672, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonalRound
   hspIds:
@@ -3272,9 +2896,9 @@
     region: 720, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonalRaised
   hspIds:
@@ -3284,9 +2908,9 @@
     region: 768, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodFloor7
   hspIds:
@@ -3296,9 +2920,9 @@
     region: 912, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDark1
   hspIds:
@@ -3308,9 +2932,9 @@
     region: 960, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDark2
   hspIds:
@@ -3320,9 +2944,9 @@
     region: 1008, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDark3
   hspIds:
@@ -3332,9 +2956,9 @@
     region: 1056, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDark4
   hspIds:
@@ -3344,9 +2968,9 @@
     region: 1104, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough1
   hspIds:
@@ -3356,9 +2980,9 @@
     region: 1152, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough4
   hspIds:
@@ -3368,9 +2992,9 @@
     region: 1296, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough6
   hspIds:
@@ -3380,9 +3004,9 @@
     region: 1392, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough7
   hspIds:
@@ -3392,9 +3016,9 @@
     region: 1440, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough8
   hspIds:
@@ -3404,9 +3028,9 @@
     region: 1488, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough9
   hspIds:
@@ -3416,9 +3040,9 @@
     region: 1536, 144, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tile1
   hspIds:
@@ -3428,9 +3052,9 @@
     region: 0, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tile2
   hspIds:
@@ -3440,9 +3064,9 @@
     region: 48, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tile3
   hspIds:
@@ -3452,9 +3076,9 @@
     region: 96, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Brick1
   hspIds:
@@ -3464,9 +3088,9 @@
     region: 144, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Brick2
   hspIds:
@@ -3476,9 +3100,9 @@
     region: 192, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleCaution
   hspIds:
@@ -3488,9 +3112,9 @@
     region: 240, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Concrete4
   hspIds:
@@ -3500,9 +3124,9 @@
     region: 288, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.ConcreteTiled
   hspIds:
@@ -3512,9 +3136,9 @@
     region: 336, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.ShopPlatform
   hspIds:
@@ -3524,9 +3148,9 @@
     region: 384, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.MetalDark
   hspIds:
@@ -3536,9 +3160,9 @@
     region: 432, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleWallRoof
   hspIds:
@@ -3548,9 +3172,9 @@
     region: 576, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Carpet1
   hspIds:
@@ -3560,9 +3184,9 @@
     region: 672, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HardwoodBordered
   hspIds:
@@ -3572,9 +3196,9 @@
     region: 720, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tatami1
   hspIds:
@@ -3584,9 +3208,9 @@
     region: 768, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tatami2
   hspIds:
@@ -3596,9 +3220,9 @@
     region: 816, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cyber1
   hspIds:
@@ -3608,9 +3232,9 @@
     region: 864, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cyber2
   hspIds:
@@ -3620,9 +3244,9 @@
     region: 912, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cyber3
   hspIds:
@@ -3632,9 +3256,9 @@
     region: 960, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Cyber4
   hspIds:
@@ -3644,9 +3268,9 @@
     region: 1008, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetNw
   hspIds:
@@ -3656,9 +3280,9 @@
     region: 1152, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetN
   hspIds:
@@ -3668,9 +3292,9 @@
     region: 1200, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetNe
   hspIds:
@@ -3680,9 +3304,9 @@
     region: 1248, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetSw
   hspIds:
@@ -3692,9 +3316,9 @@
     region: 1296, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetS
   hspIds:
@@ -3704,9 +3328,9 @@
     region: 1344, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetSe
   hspIds:
@@ -3716,9 +3340,9 @@
     region: 1392, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough11
   hspIds:
@@ -3728,9 +3352,9 @@
     region: 1488, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Rough12
   hspIds:
@@ -3740,9 +3364,9 @@
     region: 1536, 192, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.AnimeWaterShallow
   hspIds:
@@ -3753,8 +3377,9 @@
   isSolid: false
   isOpaque: false
   kind: Water
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.AnimeWaterSea
   hspIds:
@@ -3765,8 +3390,9 @@
   isSolid: false
   isOpaque: false
   kind: Water
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.AnimeWaterHotSpring
   hspIds:
@@ -3778,7 +3404,9 @@
   isOpaque: false
   kind: Water
   kind2: MountainWater
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleWallTop
   hspIds:
@@ -3788,9 +3416,9 @@
     region: 576, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.IceTiled1
   hspIds:
@@ -3800,9 +3428,9 @@
     region: 672, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.IceTiled2
   hspIds:
@@ -3812,9 +3440,9 @@
     region: 720, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.IceTiled4
   hspIds:
@@ -3824,9 +3452,9 @@
     region: 864, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.IceStairs2
   hspIds:
@@ -3836,9 +3464,9 @@
     region: 1008, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BridgeWe
   hspIds:
@@ -3848,9 +3476,9 @@
     region: 1104, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.RedStairs
   hspIds:
@@ -3860,9 +3488,9 @@
     region: 1152, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleStairs
   hspIds:
@@ -3872,9 +3500,9 @@
     region: 1200, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BridgeNs
   hspIds:
@@ -3884,9 +3512,9 @@
     region: 1296, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleRaised2
   hspIds:
@@ -3896,9 +3524,9 @@
     region: 1344, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleRaised3
   hspIds:
@@ -3908,9 +3536,9 @@
     region: 1488, 240, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.ChurchFloor
   hspIds:
@@ -3920,9 +3548,9 @@
     region: 0, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.ChurchSymbol
   hspIds:
@@ -3932,9 +3560,9 @@
     region: 48, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetRed
   hspIds:
@@ -3944,9 +3572,9 @@
     region: 144, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tiled
   hspIds:
@@ -3956,9 +3584,9 @@
     region: 192, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetGreen
   hspIds:
@@ -3968,9 +3596,9 @@
     region: 240, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CarpetBlue
   hspIds:
@@ -3980,9 +3608,9 @@
     region: 288, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor1
   hspIds:
@@ -3992,9 +3620,9 @@
     region: 336, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor2
   hspIds:
@@ -4004,9 +3632,9 @@
     region: 384, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor4
   hspIds:
@@ -4016,9 +3644,9 @@
     region: 480, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodStair
   hspIds:
@@ -4028,9 +3656,9 @@
     region: 528, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleWallBottom
   hspIds:
@@ -4040,9 +3668,9 @@
     region: 576, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Marble
   hspIds:
@@ -4052,9 +3680,9 @@
     region: 624, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Tiled2
   hspIds:
@@ -4064,9 +3692,9 @@
     region: 672, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GreyFloor
   hspIds:
@@ -4076,9 +3704,9 @@
     region: 720, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Stair
   hspIds:
@@ -4088,9 +3716,9 @@
     region: 768, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleStairs2
   hspIds:
@@ -4100,9 +3728,9 @@
     region: 864, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor5
   hspIds:
@@ -4112,9 +3740,9 @@
     region: 960, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor6
   hspIds:
@@ -4124,9 +3752,9 @@
     region: 1008, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor8
   hspIds:
@@ -4136,9 +3764,9 @@
     region: 1104, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.RedFloor
   hspIds:
@@ -4148,9 +3776,9 @@
     region: 1152, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BlackFloor
   hspIds:
@@ -4160,9 +3788,9 @@
     region: 1200, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WoodFloor9
   hspIds:
@@ -4172,9 +3800,9 @@
     region: 1248, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Carpet2
   hspIds:
@@ -4184,9 +3812,9 @@
     region: 1296, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Carpet4
   hspIds:
@@ -4196,9 +3824,9 @@
     region: 1440, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Carpet5
   hspIds:
@@ -4208,9 +3836,9 @@
     region: 1488, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GreenFloor
   hspIds:
@@ -4220,9 +3848,9 @@
     region: 1536, 288, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrass1
   hspIds:
@@ -4232,9 +3860,6 @@
     region: 0, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrass2
   hspIds:
@@ -4244,9 +3869,6 @@
     region: 48, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrass3
   hspIds:
@@ -4256,9 +3878,6 @@
     region: 96, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassBush1
   hspIds:
@@ -4268,9 +3887,6 @@
     region: 144, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassBush2
   hspIds:
@@ -4280,9 +3896,6 @@
     region: 192, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassPlants
   hspIds:
@@ -4292,9 +3905,6 @@
     region: 240, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassPatch
   hspIds:
@@ -4304,9 +3914,6 @@
     region: 288, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassShrubs
   hspIds:
@@ -4316,9 +3923,6 @@
     region: 336, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassBushes
   hspIds:
@@ -4328,9 +3932,6 @@
     region: 384, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCliffSw
   hspIds:
@@ -4340,9 +3941,6 @@
     region: 432, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCliffS
   hspIds:
@@ -4352,9 +3950,6 @@
     region: 480, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCliffSe
   hspIds:
@@ -4364,9 +3959,6 @@
     region: 528, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassFlowers
   hspIds:
@@ -4376,9 +3968,6 @@
     region: 576, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassDirt
   hspIds:
@@ -4388,9 +3977,6 @@
     region: 624, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCobble1
   hspIds:
@@ -4400,9 +3986,6 @@
     region: 768, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCobble2
   hspIds:
@@ -4412,9 +3995,6 @@
     region: 816, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCobble3
   hspIds:
@@ -4424,9 +4004,6 @@
     region: 864, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCobble4
   hspIds:
@@ -4436,9 +4013,6 @@
     region: 912, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassWheel
   hspIds:
@@ -4448,9 +4022,6 @@
     region: 1392, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassRailroadTracksNs
   hspIds:
@@ -4460,9 +4031,6 @@
     region: 1440, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassRailroadTracksWe
   hspIds:
@@ -4472,9 +4040,6 @@
     region: 1488, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassBoulder
   hspIds:
@@ -4484,9 +4049,6 @@
     region: 1536, 480, 48, 48
   isSolid: false
   isOpaque: false
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallOriental
   hspIds:
@@ -4499,9 +4061,9 @@
     region: 0, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallBrick
   hspIds:
@@ -4514,9 +4076,9 @@
     region: 48, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallRegal
   hspIds:
@@ -4529,9 +4091,9 @@
     region: 96, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPillar
   hspIds:
@@ -4544,9 +4106,9 @@
     region: 144, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallLog
   hspIds:
@@ -4559,9 +4121,9 @@
     region: 192, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallWood
   hspIds:
@@ -4574,9 +4136,9 @@
     region: 240, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPlank
   hspIds:
@@ -4589,9 +4151,9 @@
     region: 288, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallShingle
   hspIds:
@@ -4604,9 +4166,9 @@
     region: 336, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallSmooth
   hspIds:
@@ -4619,9 +4181,9 @@
     region: 384, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallCurtain
   hspIds:
@@ -4634,9 +4196,9 @@
     region: 432, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallMoss
   hspIds:
@@ -4649,9 +4211,9 @@
     region: 480, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallCrypt
   hspIds:
@@ -4664,9 +4226,9 @@
     region: 528, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallIce1
   hspIds:
@@ -4679,9 +4241,9 @@
     region: 576, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallIce2
   hspIds:
@@ -4694,9 +4256,9 @@
     region: 624, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallIce3
   hspIds:
@@ -4709,9 +4271,9 @@
     region: 672, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallSnow1
   hspIds:
@@ -4724,9 +4286,9 @@
     region: 720, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallSnow2
   hspIds:
@@ -4739,9 +4301,9 @@
     region: 768, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallSnow3
   hspIds:
@@ -4754,9 +4316,9 @@
     region: 816, 624, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone1
   hspIds:
@@ -4769,9 +4331,9 @@
     region: 0, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone2
   hspIds:
@@ -4784,9 +4346,9 @@
     region: 48, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone3
   hspIds:
@@ -4800,8 +4362,9 @@
   isSolid: true
   isOpaque: true
   kind: HardWall
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone4
   hspIds:
@@ -4814,9 +4377,9 @@
     region: 144, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone5
   hspIds:
@@ -4829,9 +4392,9 @@
     region: 192, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallWooden
   hspIds:
@@ -4844,9 +4407,9 @@
     region: 240, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallDirt
   hspIds:
@@ -4859,9 +4422,9 @@
     region: 288, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallDirtDark
   hspIds:
@@ -4874,9 +4437,9 @@
     region: 336, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPyramid
   hspIds:
@@ -4889,9 +4452,9 @@
     region: 384, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallShingled
   hspIds:
@@ -4904,9 +4467,9 @@
     region: 432, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcrete
   hspIds:
@@ -4919,9 +4482,9 @@
     region: 480, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcreteLight
   hspIds:
@@ -4934,9 +4497,9 @@
     region: 528, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallTowerOfFire
   hspIds:
@@ -4949,9 +4512,9 @@
     region: 576, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallForest
   hspIds:
@@ -4964,9 +4527,9 @@
     region: 624, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone6
   hspIds:
@@ -4979,9 +4542,9 @@
     region: 672, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone7
   hspIds:
@@ -4994,9 +4557,9 @@
     region: 720, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone8
   hspIds:
@@ -5009,9 +4572,9 @@
     region: 768, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone9
   hspIds:
@@ -5024,9 +4587,9 @@
     region: 816, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone10
   hspIds:
@@ -5039,9 +4602,9 @@
     region: 864, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallHay
   hspIds:
@@ -5054,9 +4617,9 @@
     region: 912, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallDecor
   hspIds:
@@ -5069,9 +4632,9 @@
     region: 960, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPalace1
   hspIds:
@@ -5084,9 +4647,9 @@
     region: 1008, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPalace2
   hspIds:
@@ -5099,9 +4662,9 @@
     region: 1056, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallPalace3
   hspIds:
@@ -5114,9 +4677,9 @@
     region: 1104, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone11
   hspIds:
@@ -5129,9 +4692,9 @@
     region: 1152, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallCyber
   hspIds:
@@ -5144,9 +4707,9 @@
     region: 1200, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone12
   hspIds:
@@ -5159,9 +4722,9 @@
     region: 1248, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallWhite
   hspIds:
@@ -5174,9 +4737,9 @@
     region: 1296, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallDecor2
   hspIds:
@@ -5189,9 +4752,9 @@
     region: 1344, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcrete2
   hspIds:
@@ -5204,9 +4767,9 @@
     region: 1392, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcrete3
   hspIds:
@@ -5219,9 +4782,9 @@
     region: 1440, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcreteDark1
   hspIds:
@@ -5234,9 +4797,9 @@
     region: 1488, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallConcreteDark2
   hspIds:
@@ -5249,9 +4812,9 @@
     region: 1536, 720, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WallStone1Fog
   hspIds:
@@ -5261,9 +4824,6 @@
     region: 0, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone2Fog
   hspIds:
@@ -5273,9 +4833,6 @@
     region: 48, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone3Fog
   hspIds:
@@ -5285,9 +4842,6 @@
     region: 96, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone4Fog
   hspIds:
@@ -5297,9 +4851,6 @@
     region: 144, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone5Fog
   hspIds:
@@ -5309,9 +4860,6 @@
     region: 192, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallWoodenFog
   hspIds:
@@ -5321,9 +4869,6 @@
     region: 240, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallDirtFog
   hspIds:
@@ -5333,9 +4878,6 @@
     region: 288, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallDirtDarkFog
   hspIds:
@@ -5345,9 +4887,6 @@
     region: 336, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallPyramidFog
   hspIds:
@@ -5357,9 +4896,6 @@
     region: 384, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallShingledFog
   hspIds:
@@ -5369,9 +4905,6 @@
     region: 432, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallConcreteFog
   hspIds:
@@ -5381,9 +4914,6 @@
     region: 480, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallConcreteLightFog
   hspIds:
@@ -5393,9 +4923,6 @@
     region: 528, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallTowerOfFireFog
   hspIds:
@@ -5405,9 +4932,6 @@
     region: 576, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallForestFog
   hspIds:
@@ -5417,9 +4941,6 @@
     region: 624, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone6Fog
   hspIds:
@@ -5429,9 +4950,6 @@
     region: 672, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone7Fog
   hspIds:
@@ -5441,9 +4959,6 @@
     region: 720, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.WallStone8Fog
   hspIds:
@@ -5453,9 +4968,6 @@
     region: 768, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.StableTop
   hspIds:
@@ -5465,9 +4977,6 @@
     region: 816, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.PalaceFountain
   hspIds:
@@ -5477,9 +4986,6 @@
     region: 1056, 768, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
 - type: Tile
   id: Elona.LightGrassCarts
   hspIds:
@@ -5489,9 +4995,9 @@
     region: 144, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassCartsGold
   hspIds:
@@ -5501,9 +5007,9 @@
     region: 192, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassCartsJewels
   hspIds:
@@ -5513,9 +5019,9 @@
     region: 240, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassCartsRocks
   hspIds:
@@ -5525,9 +5031,9 @@
     region: 288, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassRocks
   hspIds:
@@ -5537,9 +5043,9 @@
     region: 336, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassFencingNs
   hspIds:
@@ -5549,9 +5055,9 @@
     region: 528, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassFencingWe
   hspIds:
@@ -5561,9 +5067,9 @@
     region: 576, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassFencingNs
   hspIds:
@@ -5573,9 +5079,9 @@
     region: 624, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.GrassFencingWe
   hspIds:
@@ -5585,9 +5091,9 @@
     region: 672, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.StableBottom
   hspIds:
@@ -5597,9 +5103,9 @@
     region: 720, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.HorseBottom
   hspIds:
@@ -5609,9 +5115,9 @@
     region: 768, 816, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Water
   hspIds:
@@ -5622,8 +5128,9 @@
   isSolid: true
   isOpaque: false
   kind: Water
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.LightGrassBox
   hspIds:
@@ -5633,9 +5140,9 @@
     region: 0, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WaterWallEdge
   hspIds:
@@ -5645,9 +5152,9 @@
     region: 48, 912, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonalFish
   hspIds:
@@ -5657,9 +5164,9 @@
     region: 96, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonalPosts
   hspIds:
@@ -5669,9 +5176,9 @@
     region: 144, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CratesOpen
   hspIds:
@@ -5681,9 +5188,9 @@
     region: 192, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Crates
   hspIds:
@@ -5693,9 +5200,9 @@
     region: 240, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WharfCrates1
   hspIds:
@@ -5705,9 +5212,9 @@
     region: 288, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WharfCrates2
   hspIds:
@@ -5717,9 +5224,9 @@
     region: 336, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleDiagonalNet
   hspIds:
@@ -5729,9 +5236,9 @@
     region: 384, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleStatue
   hspIds:
@@ -5741,9 +5248,9 @@
     region: 432, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.WaterWallEdgeGrass
   hspIds:
@@ -5753,9 +5260,9 @@
     region: 480, 912, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobblePillar
   hspIds:
@@ -5765,9 +5272,9 @@
     region: 528, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Carpet3FishBoards
   hspIds:
@@ -5777,9 +5284,9 @@
     region: 576, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleFence
   hspIds:
@@ -5789,9 +5296,9 @@
     region: 672, 912, 48, 48
   isSolid: true
   isOpaque: false
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignMagic
   hspIds:
@@ -5801,9 +5308,9 @@
     region: 912, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignInn
   hspIds:
@@ -5813,9 +5320,9 @@
     region: 960, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignEquip
   hspIds:
@@ -5825,9 +5332,9 @@
     region: 1008, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignBlacksmith
   hspIds:
@@ -5837,9 +5344,9 @@
     region: 1152, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignGeneralVendor
   hspIds:
@@ -5849,9 +5356,9 @@
     region: 1200, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignShield
   hspIds:
@@ -5861,9 +5368,9 @@
     region: 1296, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignPotion
   hspIds:
@@ -5873,9 +5380,9 @@
     region: 1344, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignLamp
   hspIds:
@@ -5885,9 +5392,9 @@
     region: 1392, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignBakery
   hspIds:
@@ -5897,9 +5404,9 @@
     region: 1440, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignPub
   hspIds:
@@ -5909,9 +5416,9 @@
     region: 1488, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SignCasino
   hspIds:
@@ -5921,9 +5428,9 @@
     region: 1536, 912, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.StackedWood
   hspIds:
@@ -5933,9 +5440,9 @@
     region: 96, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.StackedSacks
   hspIds:
@@ -5945,9 +5452,9 @@
     region: 144, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.StackedCratesGreen
   hspIds:
@@ -5957,9 +5464,9 @@
     region: 192, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.StackedCrates
   hspIds:
@@ -5969,9 +5476,9 @@
     region: 240, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowLargeMound
   hspIds:
@@ -5981,9 +5488,9 @@
     region: 288, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.CobbleRaised4
   hspIds:
@@ -5993,9 +5500,9 @@
     region: 336, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.SnowLog
   hspIds:
@@ -6005,9 +5512,9 @@
     region: 384, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.IceWallEdge
   hspIds:
@@ -6017,9 +5524,9 @@
     region: 432, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BoatLeft
   hspIds:
@@ -6029,9 +5536,9 @@
     region: 1440, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.BoatRight
   hspIds:
@@ -6041,9 +5548,9 @@
     region: 1488, 960, 48, 48
   isSolid: true
   isOpaque: true
-  kind: None
-  kind2: None
-
+  extendedData:
+  - type: ExtUsableInHomeDesigner
+    usableInHomeDesigner: true
 - type: Tile
   id: Elona.Onii1
   hspIds:
@@ -6054,8 +5561,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii2
   hspIds:
@@ -6066,8 +5571,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii3
   hspIds:
@@ -6078,8 +5581,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii4
   hspIds:
@@ -6090,8 +5591,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii5
   hspIds:
@@ -6102,8 +5601,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii6
   hspIds:
@@ -6114,8 +5611,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii7
   hspIds:
@@ -6126,8 +5621,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii8
   hspIds:
@@ -6138,8 +5631,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii9
   hspIds:
@@ -6150,8 +5641,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.SnowCracksAtlas2
   hspIds:
@@ -6162,8 +5651,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.SnowGrassAtlas2
   hspIds:
@@ -6174,8 +5661,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.SnowPillarAtlas2
   hspIds:
@@ -6186,8 +5671,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.SnowPlantsAtlas2
   hspIds:
@@ -6198,8 +5681,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii10
   hspIds:
@@ -6210,8 +5691,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii11
   hspIds:
@@ -6222,8 +5701,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii12
   hspIds:
@@ -6234,8 +5711,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii13
   hspIds:
@@ -6246,8 +5721,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii14
   hspIds:
@@ -6258,8 +5731,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii15
   hspIds:
@@ -6270,8 +5741,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii16
   hspIds:
@@ -6282,8 +5751,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii17
   hspIds:
@@ -6294,8 +5761,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii18
   hspIds:
@@ -6306,8 +5771,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii19
   hspIds:
@@ -6318,8 +5781,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii20
   hspIds:
@@ -6330,8 +5791,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii21
   hspIds:
@@ -6342,8 +5801,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii22
   hspIds:
@@ -6354,8 +5811,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii23
   hspIds:
@@ -6366,8 +5821,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii24
   hspIds:
@@ -6378,8 +5831,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii25
   hspIds:
@@ -6390,8 +5841,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii26
   hspIds:
@@ -6402,8 +5851,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii27
   hspIds:
@@ -6414,8 +5861,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii28
   hspIds:
@@ -6426,8 +5871,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii29
   hspIds:
@@ -6438,8 +5881,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii30
   hspIds:
@@ -6450,8 +5891,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii31
   hspIds:
@@ -6462,8 +5901,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii32
   hspIds:
@@ -6474,8 +5911,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii33
   hspIds:
@@ -6486,8 +5921,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii34
   hspIds:
@@ -6498,8 +5931,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii35
   hspIds:
@@ -6510,8 +5941,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii36
   hspIds:
@@ -6522,8 +5951,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii37
   hspIds:
@@ -6534,8 +5961,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii38
   hspIds:
@@ -6546,8 +5971,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii39
   hspIds:
@@ -6558,8 +5981,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii40
   hspIds:
@@ -6570,8 +5991,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii41
   hspIds:
@@ -6582,8 +6001,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii42
   hspIds:
@@ -6594,8 +6011,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii43
   hspIds:
@@ -6606,8 +6021,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii44
   hspIds:
@@ -6618,8 +6031,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii45
   hspIds:
@@ -6630,8 +6041,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii46
   hspIds:
@@ -6642,8 +6051,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii47
   hspIds:
@@ -6654,8 +6061,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii48
   hspIds:
@@ -6666,8 +6071,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii49
   hspIds:
@@ -6678,8 +6081,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii50
   hspIds:
@@ -6690,8 +6091,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii51
   hspIds:
@@ -6702,8 +6101,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii52
   hspIds:
@@ -6714,8 +6111,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii53
   hspIds:
@@ -6726,8 +6121,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii54
   hspIds:
@@ -6738,8 +6131,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii55
   hspIds:
@@ -6750,8 +6141,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii56
   hspIds:
@@ -6762,8 +6151,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii57
   hspIds:
@@ -6774,8 +6161,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii58
   hspIds:
@@ -6786,8 +6171,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii59
   hspIds:
@@ -6798,8 +6181,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii60
   hspIds:
@@ -6810,8 +6191,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii61
   hspIds:
@@ -6822,8 +6201,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii62
   hspIds:
@@ -6834,8 +6211,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii63
   hspIds:
@@ -6846,8 +6221,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii64
   hspIds:
@@ -6858,8 +6231,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii65
   hspIds:
@@ -6870,8 +6241,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii66
   hspIds:
@@ -6882,8 +6251,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii67
   hspIds:
@@ -6894,8 +6261,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii68
   hspIds:
@@ -6906,8 +6271,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii69
   hspIds:
@@ -6918,8 +6281,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii70
   hspIds:
@@ -6930,8 +6291,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii71
   hspIds:
@@ -6942,8 +6301,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii72
   hspIds:
@@ -6954,8 +6311,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii73
   hspIds:
@@ -6966,8 +6321,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii74
   hspIds:
@@ -6978,8 +6331,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii75
   hspIds:
@@ -6990,8 +6341,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii76
   hspIds:
@@ -7002,8 +6351,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii77
   hspIds:
@@ -7014,8 +6361,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii78
   hspIds:
@@ -7026,8 +6371,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii79
   hspIds:
@@ -7038,8 +6381,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii80
   hspIds:
@@ -7050,8 +6391,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii81
   hspIds:
@@ -7062,8 +6401,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii82
   hspIds:
@@ -7074,8 +6411,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii83
   hspIds:
@@ -7086,8 +6421,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii84
   hspIds:
@@ -7098,8 +6431,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii85
   hspIds:
@@ -7110,8 +6441,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii86
   hspIds:
@@ -7122,8 +6451,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii87
   hspIds:
@@ -7134,8 +6461,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii88
   hspIds:
@@ -7146,8 +6471,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii89
   hspIds:
@@ -7158,8 +6481,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii90
   hspIds:
@@ -7170,8 +6491,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii91
   hspIds:
@@ -7182,8 +6501,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii92
   hspIds:
@@ -7194,8 +6511,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii93
   hspIds:
@@ -7206,8 +6521,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii94
   hspIds:
@@ -7218,8 +6531,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii95
   hspIds:
@@ -7230,8 +6541,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii96
   hspIds:
@@ -7242,8 +6551,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii97
   hspIds:
@@ -7254,8 +6561,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii98
   hspIds:
@@ -7266,8 +6571,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii99
   hspIds:
@@ -7278,8 +6581,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii100
   hspIds:
@@ -7290,8 +6591,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii101
   hspIds:
@@ -7302,8 +6601,6 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
 - type: Tile
   id: Elona.Onii102
   hspIds:
@@ -7314,40 +6611,4 @@
   isSolid: false
   isOpaque: false
   kind: Snow
-  kind2: None
-
-- type: Tile
-  id: Elona.MapgenDefault
-  image:
-    filepath: /Graphic/Core/Tile/Default.png
-  isSolid: true
-  isOpaque: false
-
-- type: Tile
-  id: Elona.MapgenFog
-  image:
-    filepath: /Graphic/Core/Tile/Default.png
-  isSolid: true
-  isOpaque: false
-
-- type: Tile
-  id: Elona.MapgenTunnel
-  image:
-    filepath: /Graphic/Core/Tile/Default.png
-  isSolid: false
-  isOpaque: false
-
-- type: Tile
-  id: Elona.MapgenWall
-  image:
-    filepath: /Graphic/Core/Tile/Default.png
-  isSolid: true
-  isOpaque: false
-
-- type: Tile
-  id: Elona.MapgenRoom
-  image:
-    filepath: /Graphic/Core/Tile/Default.png
-  isSolid: false
-  isOpaque: false
 ...

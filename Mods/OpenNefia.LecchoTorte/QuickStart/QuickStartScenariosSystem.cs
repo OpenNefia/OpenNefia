@@ -89,6 +89,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         {
             var inv = EntityManager.GetComponent<InventoryComponent>(chara);
             var pos = Spatial(chara).MapPosition;
+
             foreach (var def in data.Items)
             {
                 switch (def.Location)
@@ -152,7 +153,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
         public void Quickstart_OnGameStart(ScenarioPrototype _proto, P_ScenarioOnGameStartEvent ev)
         {
-            MapInitializer(new("/Maps/LecchoTorte/Test.yml"), ev, (player, map) =>
+            MapInitializer(new("/Maps/LecchoTorte/Quickstart.yml"), ev, (player, map) =>
             {
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
                 {
@@ -170,6 +171,23 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
                 {
                     _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);
+                }
+            });
+        }
+
+        private const int UnloadEntityCount = 2500;
+
+        public void EntityUnload_OnGameStart(ScenarioPrototype _proto, P_ScenarioOnGameStartEvent ev)
+        {
+            MapInitializer(new("/Maps/LecchoTorte/EntityUnload.yml"), ev, (player, map) =>
+            {
+                for (var i = 0; i < UnloadEntityCount; i++)
+                {
+                    var chara = _charaGen.GenerateChara(map.AtPos(5, 5), Protos.Chara.FireDrake);
+                    if (IsAlive(chara))
+                    {
+                        _damage.Kill(chara.Value);
+                    }
                 }
             });
         }

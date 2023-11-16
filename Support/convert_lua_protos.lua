@@ -1107,6 +1107,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "TravelersFood")
     end
 
+    if from._id == "elona.house_board" or from._id == "elona.register" then
+        c = comp(to, "HouseBoard")
+    end
+
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")
@@ -1321,6 +1325,11 @@ handlers["base.map_tile"] = function(from, to)
     end
     if from.kind2 and from.kind2 ~= Enum.TileRole.None then
         to.kind2 = Enum.TileRole:to_string(from.kind2)
+    end
+
+    if not (from.disable_in_map_edit or from.elona_atlas ~= 1) then
+        local e = extData(to, "ExtUsableInHomeDesigner")
+        e.usableInHomeDesigner = true
     end
 end
 

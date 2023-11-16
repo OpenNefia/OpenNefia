@@ -22,6 +22,7 @@ entities:
   components:
   - type: MapCommon
     isIndoors: true
+  - type: MapTypePlayerOwned
 # - uid: 1
 #   protoId: Elona.CharaYeek
 #   components:
@@ -262,3 +263,9 @@ entities:
     pos: 4,4
   - type: Stack
     count: 99
+- uid: 33
+  protoId: Elona.ItemHouseBoard
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,3

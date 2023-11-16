@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.UI.Hud;
+﻿using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
