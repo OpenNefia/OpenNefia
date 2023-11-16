@@ -149,14 +149,17 @@ namespace OpenNefia.Content.Home
         {
             _placingTile = false;
             _updateCursor = false;
-
+            var result = UserInterfaceManager.Query<TilePickerLayer, TilePickerLayer.Args, TilePickerLayer.Result>(new());
             _updateCursor = true;
+
+            if (result.HasValue)
+                SetSelectedTile(_protos.Index(result.Value.TileID));
         }
 
-        private bool IsTileSelectable(TilePrototype proto)
+        public static bool IsTileSelectable(TilePrototype proto, IPrototypeManager protos)
         {
             var id = proto.GetStrongID();
-            if (!_protos.TryGetExtendedData(id, out ExtUsableInHomeDesigner? ext) || !ext.UsableInHomeDesigner)
+            if (!protos.TryGetExtendedData(id, out ExtUsableInHomeDesigner? ext) || !ext.UsableInHomeDesigner)
             {
                 return false;
             }
@@ -172,7 +175,7 @@ namespace OpenNefia.Content.Home
         private void CopyTile(Vector2i pos)
         {
             var tile = _map.GetTilePrototype(pos);
-            if (tile != null && IsTileSelectable(tile))
+            if (tile != null && IsTileSelectable(tile, _protos))
             {
                 _audio.Play(Protos.Sound.Cursor1);
                 SetSelectedTile(tile);

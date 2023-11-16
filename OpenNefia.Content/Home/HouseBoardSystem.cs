@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Home
 
             // <<<<<<<< shade2 / action.hsp:1811   swbreak..
 
-            _mes.Display(Loc.GetString("Elona.Item.HouseBoard.MaxItems", 
+            _mes.Display(Loc.GetString("Elona.Item.HouseBoard.ItemCount", 
                 ("mapEntity", map.MapEntityUid),
                 ("itemCount", itemCount),
                 ("furnitureCount", furnitureCount),

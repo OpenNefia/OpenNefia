@@ -2,7 +2,7 @@ Elona.Item.HouseBoard = {
     CannotUseItHere = "それはここでは使えない。",
     WhatDo = "何をする？",
 
-    Unlimited = "(無限)",
+    Unlimited = "無限",
     ItemCount = function(mapEntity, itemCount, furnitureCount, maxItems)
         return ("%sには%s個のアイテムと%s個の家具がある(アイテム最大%s個) "):format(
             _.name(mapEntity),

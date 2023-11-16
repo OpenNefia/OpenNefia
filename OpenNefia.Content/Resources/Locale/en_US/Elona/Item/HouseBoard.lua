@@ -2,9 +2,9 @@ Elona.Item.HouseBoard = {
     CannotUseItHere = "You can't use it here.",
     WhatDo = "What do you want to do?",
 
-    Unlimited = "(Unlimited)",
+    Unlimited = "Unlimited",
     ItemCount = function(mapEntity, itemCount, furnitureCount, maxItems)
-        return ("There are %s items and %s furniture in %s.(Max:%s) "):format(
+        return ("There are %s items and %s furniture in %s. (Max: %s) "):format(
             itemCount,
             furnitureCount,
             _.name(mapEntity),

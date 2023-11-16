@@ -25,19 +25,22 @@ namespace OpenNefia.Content.Home
 
         private void HouseBoard_ViewHomeRank(EntityUid user)
         {
+            _mes.Display("TODO", UiColors.MesYellow);
         }
 
         private void HouseBoard_AlliesInYourHome(EntityUid user)
         {
+            _mes.Display("TODO", UiColors.MesYellow);
         }
 
         private void HouseBoard_RecruitServant(EntityUid user)
         {
+            _mes.Display("TODO", UiColors.MesYellow);
         }
 
         private void HouseBoard_MoveAStayer(EntityUid user)
         {
-            _mes.Display(Loc.GetString("TODO"), UiColors.MesYellow);
+            _mes.Display("TODO", UiColors.MesYellow);
         }
 
         private void GetDefaultHouseBoardActions(EntityUid houseBoard, HouseBoardComponent component, HouseBoardGetActionsEvent args)
