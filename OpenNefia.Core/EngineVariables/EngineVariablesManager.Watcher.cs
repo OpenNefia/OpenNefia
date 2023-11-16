@@ -44,7 +44,7 @@ namespace OpenNefia.Core.EngineVariables
 
             _reloadQueue.Clear();
 
-            Logger.Info($"Reloaded prototypes in {sw.ElapsedMilliseconds} ms");
+            Logger.Info($"Reloaded engine variables in {sw.ElapsedMilliseconds} ms");
 #endif
         }
 

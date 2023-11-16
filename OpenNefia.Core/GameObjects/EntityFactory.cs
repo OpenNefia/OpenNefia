@@ -10,12 +10,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Core.GameObjects
 {
     public interface IEntityFactory
     {
         void UpdateEntity(MetaDataComponent metaData, EntityPrototype prototype);
+
+        /// <summary>
+        /// Given a set of components, adds and updates the components on the given entity.
+        /// - If the component is not in the entity, it will be added.
+        /// - If the component exists, all of its fields will be replaced with those from the registry's component definition.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="registry"></param>
+        void UpdateEntityComponents(EntityUid entity, ComponentRegistry registry);
     }
 
     internal interface IEntityFactoryInternal : IEntityFactory
@@ -130,6 +140,15 @@ namespace OpenNefia.Core.GameObjects
 
                     EnsureCompExistsAndDeserialize(entity, factory, _entityManager, _serializationManager, name, ser, context as ISerializationContext);
                 }
+            }
+        }
+
+        /// <inheritdoc />
+        public void UpdateEntityComponents(EntityUid entity, ComponentRegistry registry)
+        {
+            foreach (var (name, comp) in registry)
+            {
+                EnsureCompExistsAndDeserialize(entity, _componentFactory, _entityManager, _serializationManager, name, comp.Mapping, null);
             }
         }
 

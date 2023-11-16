@@ -122,6 +122,8 @@ namespace OpenNefia.Core.EngineVariables
             }
 
             _graphics.OnWindowFocused += WindowFocusedChanged;
+
+            WatchResources();
         }
 
         private void LoadVariableDefinitions()
@@ -303,9 +305,17 @@ namespace OpenNefia.Core.EngineVariables
 
                     var id = new EngineVariableId($"{ns.Value}.{key}");
 
-                    Set(id, value);
+                    try
+                    {
+                        Set(id, value);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.ErrorS(SawmillName, $"Exception whilst loading engine variable '{id}' from {filename}:\n{e}");
+                    }
 
                     Logger.InfoS(SawmillName, $"Loaded engine variable override: {id}");
+                    Logger.DebugS(SawmillName, $"{value}");
                 }
             }
         }

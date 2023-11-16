@@ -19,6 +19,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         public override void Initialize()
         {
@@ -43,36 +44,10 @@ namespace OpenNefia.Content.Maps
                     var chara = _charaGen.GenerateChara(args.Map, spec.ProtoId);
                     if (IsAlive(chara))
                     {
-                        foreach (var (name, comp) in spec.Components)
-                        {
-                            AddComponent(chara.Value, _componentFactory, EntityManager, _serialization, name, comp.Mapping, null);
-                        }
+                        _entityFactory.UpdateEntityComponents(chara.Value, spec.Components);
                     }
                 }
             }
-        }
-
-        // TODO dedup from EntityFactory
-        private static void AddComponent(EntityUid entity,
-            IComponentFactory factory,
-            IEntityManager entityManager,
-            ISerializationManager serManager,
-            string compName,
-            MappingDataNode data,
-            ISerializationContext? context)
-        {
-            var compReg = factory.GetRegistration(compName);
-
-            if (!entityManager.TryGetComponent(entity, compReg.Type, out var component))
-            {
-                var newComponent = (Component)factory.GetComponent(compName);
-                newComponent.Owner = entity;
-                entityManager.AddComponent(entity, newComponent);
-                component = newComponent;
-            }
-
-            // TODO use this value to support struct components
-            serManager.Read(compReg.Type, data, context, value: component);
         }
     }
 }

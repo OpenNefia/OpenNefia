@@ -1,0 +1,18 @@
+# Status of the quickstart player.
+- type: EngineVariable
+  id: LecchoTorte.QuickstartPlayer
+  default:
+    skills: {}
+    resists: {}
+    items: []
+    components: []
+
+# Status of the quickstart allies.
+- type: EngineVariable
+  id: LecchoTorte.QuickstartAllies
+  default:
+    - id: Elona.GoldenKnight
+      skills: {}
+      resists: {}
+      items: []
+      components: []

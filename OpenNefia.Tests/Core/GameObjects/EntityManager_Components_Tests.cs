@@ -190,7 +190,8 @@ namespace OpenNefia.Tests.Core.GameObjects
 
         [RegisterComponent]
         private class DummyComponent : Component, ICompType1, ICompType2
-        {        }
+        {       
+        }
 
         private interface ICompType1 { }
 

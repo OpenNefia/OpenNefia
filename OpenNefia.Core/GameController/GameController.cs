@@ -149,9 +149,6 @@ namespace OpenNefia.Core.GameController
             _prototypeManager.LoadDirectory(Options.PrototypeDirectory);
             _prototypeManager.ResolveResults();
 
-            _varManager.Initialize();
-            _varManager.LoadDirectory(new(@"/Variables/"));
-
             _assetManager.PreloadAssets();
 
             _stylesheetManager.Initialize();
@@ -171,6 +168,9 @@ namespace OpenNefia.Core.GameController
             _areaManager.Initialize();
 
             _saveGameSerializer.Initialize();
+
+            _varManager.Initialize();
+            _varManager.LoadDirectory(new ResourcePath(@"/Variables/"));
 
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();

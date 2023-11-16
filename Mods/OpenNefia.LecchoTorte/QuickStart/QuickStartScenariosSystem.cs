@@ -30,6 +30,9 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Scenarios;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Home;
+using OpenNefia.Core.EngineVariables;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
+using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -46,13 +49,85 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly IEquipmentSystem _equip = default!;
         [Dependency] private readonly IMaterialSystem _materials = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
-        public void Quickstart_OnGameStart(ScenarioPrototype _proto, P_ScenarioOnGameStartEvent ev)
+        [EngineVariable("LecchoTorte.QuickstartPlayer")]
+        private QuickstartChara _quickstartPlayer { get; } = new();
+
+        [EngineVariable("LecchoTorte.QuickstartAllies")]
+        private List<QuickstartChara> _quickstartAllies { get; } = new();
+
+        private void UpdateQuickstartChara(EntityUid chara, QuickstartChara data)
         {
-            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            _entityFactory.UpdateEntityComponents(chara, data.Components);
+
+            GenerateQuickstartItems(chara, data);
+
+            var skills = EnsureComp<SkillsComponent>(chara);
+
+            foreach (var entry in data.Skills)
+            {
+                skills.Skills[entry.Key] = entry.Value;
+            }
+
+            var resists = EnsureComp<ResistsComponent>(chara);
+
+            foreach (var entry in data.Resists)
+            {
+                resists.Resists[entry.Key] = entry.Value;
+            }
+
+            _refresh.Refresh(chara);
+            _damage.HealToMax(chara);
+        }
+
+        private void GenerateQuickstartItems(EntityUid chara, QuickstartChara data)
+        {
+            var inv = EntityManager.GetComponent<InventoryComponent>(chara);
+            var pos = Spatial(chara).MapPosition;
+            foreach (var def in data.Items)
+            {
+                switch (def.Location)
+                {
+                    case QuickstartEntityLocation.Inventory:
+                        _itemGen.GenerateItem(inv.Container, def.ID, amount: def.Amount);
+                        break;
+                    case QuickstartEntityLocation.Equipment:
+                        var item = _itemGen.GenerateItem(pos, def.ID, amount: def.Amount);
+                        if (IsAlive(item))
+                        {
+                            _equip.EquipIfHigherValueInSlotForNPC(chara, item.Value);
+                        }
+                        break;
+                    case QuickstartEntityLocation.Ground:
+                        _itemGen.GenerateItem(pos, def.ID, amount: def.Amount);
+                        break;
+                }
+            }
+        }
+
+        private void GenerateAllies(EntityUid player)
+        {
+            var coords = EntityManager.GetComponent<SpatialComponent>(player).MapPosition;
+
+            foreach (var allyDef in _quickstartAllies)
+            {
+                var ally = _charaGen.GenerateChara(coords, allyDef.ID);
+                if (ally != null)
+                {
+                    _parties.RecruitAsAlly(player, ally.Value);
+                    UpdateQuickstartChara(ally.Value, allyDef);
+                }
+            }
+        }
+
+        private void MapInitializer(ResourcePath mapFile, P_ScenarioOnGameStartEvent ev, Action<EntityUid, IMap> cb)
+        {
+            var map = _mapLoader.LoadBlueprint(mapFile);
             map.MemorizeAllTiles();
 
             _homes.ActiveHomeID = map.Id;
@@ -64,75 +139,39 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             var player = ev.Player;
 
-            var coords = EntityManager.GetComponent<SpatialComponent>(player).MapPosition;
-            var ally = _charaGen.GenerateChara(coords, Protos.Chara.GoldenKnight);
-            if (ally != null)
-            {
-                _parties.RecruitAsAlly(player, ally.Value);
-            } 
-            
-            var skills = EntityManager.GetComponent<SkillsComponent>(player);
-            skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.Mining).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.EyeOfMind).Level.Base = 2000;
-            _refresh.Refresh(player);
-            _damage.HealToMax(player);
+            UpdateQuickstartChara(player, _quickstartPlayer);
+            GenerateAllies(player);
 
-            skills = EntityManager.GetComponent<SkillsComponent>(ally!.Value);
-            skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
-            skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
-            _refresh.Refresh(ally.Value);
-            _damage.HealToMax(ally.Value);
-
-            var wallet = EntityManager.GetComponent<MoneyComponent>(player);
-            wallet.Gold = 1000000;
-            wallet.Platinum = 1000;
-
-            var inv = EntityManager.GetComponent<InventoryComponent>(player);
-            _itemGen.GenerateItem(inv.Container, Protos.Item.Stomafillia, amount: 99);
-
-            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
-            {
-                if (proto.Components.HasComponent<FoodComponent>())
-                    _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
-            }
-
-            foreach (var proto in _protos.EnumeratePrototypes<MusicPrototype>())
-            {
-                var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
-                if (IsAlive(item))
-                    Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
-            }
-
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.KittyBank);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Textbook);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Book);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.MonsterBall, minLevel: 100, amount: 99);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Wallet, amount: 99);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Suitcase, amount: 99);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.BookOfRachel);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.Bill);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.AncientBook);
-            _itemGen.GenerateItem(map.AtPos(2, 4), Protos.Item.SpellbookOfAcidGround);
-
-            _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.GoldPiece, amount: 1000);
-            _itemGen.GenerateItem(map.AtPos(3, 4), Protos.Item.PlatinumCoin, amount: 50);
-
-            foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
-            {
-                _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);
-            }
-
-            _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.Lockpick, amount: 999);
-            _itemGen.GenerateItem(map.AtPos(3, 2), Protos.Item.SkeletonKey, amount: 999);
+            cb(player, map);
 
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {
                 identify.IdentifyState = IdentifyState.Full;
             }
+        }
+
+        public void Quickstart_OnGameStart(ScenarioPrototype _proto, P_ScenarioOnGameStartEvent ev)
+        {
+            MapInitializer(new("/Maps/LecchoTorte/Test.yml"), ev, (player, map) =>
+            {
+                foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
+                {
+                    if (proto.Components.HasComponent<FoodComponent>())
+                        _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
+                }
+
+                foreach (var proto in _protos.EnumeratePrototypes<MusicPrototype>())
+                {
+                    var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
+                    if (IsAlive(item))
+                        Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
+                }
+
+                foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
+                {
+                    _itemGen.GenerateItem(map.AtPos(3, 2), proto.GetStrongID(), amount: 99);
+                }
+            });
         }
     }
 }

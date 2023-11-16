@@ -367,6 +367,7 @@ namespace OpenNefia.Tests
             var protoMan = container.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();
             protoMan.RegisterType<TilePrototype>();
+            protoMan.RegisterType<EngineVariablePrototype>();
             protoMan.LoadString(EmptyTile);
             _protoDelegate?.Invoke(protoMan);
             protoMan.ResolveResults();

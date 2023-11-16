@@ -43,7 +43,6 @@ namespace OpenNefia.Tests.Core.EngineVariables
                 .NewSimulation()
                 .RegisterPrototypes(factory =>
                 {
-                    factory.RegisterType<EngineVariablePrototype>();
                     factory.LoadString(DOCUMENT);
                 })
                 .InitializeInstance();
@@ -69,7 +68,6 @@ namespace OpenNefia.Tests.Core.EngineVariables
                 })
                 .RegisterPrototypes(factory =>
                 {
-                    factory.RegisterType<EngineVariablePrototype>();
                     factory.LoadString(DOCUMENT);
                 })
                 .InitializeInstance();
@@ -97,7 +95,6 @@ namespace OpenNefia.Tests.Core.EngineVariables
                     })
                     .RegisterPrototypes(factory =>
                     {
-                        factory.RegisterType<EngineVariablePrototype>();
                         factory.LoadString(DOCUMENT);
                     })
                     .InitializeInstance();
@@ -120,7 +117,6 @@ Test:
                 .NewSimulation()
                 .RegisterPrototypes(factory =>
                 {
-                    factory.RegisterType<EngineVariablePrototype>();
                     factory.LoadString(DOCUMENT);
                 })
                 .RegisterEngineVariables(factory =>
@@ -136,6 +132,44 @@ Test:
                 Assert.That(engineVars.Get<int>(new("Test.TestInt")), Is.EqualTo(400));
                 Assert.That(engineVars.Get<List<int>>(new("Test.TestList")), Is.EquivalentTo(new int[] { 400, 401, 402 }));
                 Assert.That(engineVars.Get<Dictionary<string, int>>(new("Test.TestMap")), Is.EquivalentTo(new Dictionary<string, int>() { { "foo", 100 }, { "bar", 101 }, { "baz", 102 } }));
+            });
+        }
+
+        [Test]
+        public void Test_SystemInjectionOverrideVariables()
+        {
+            var variables = @"
+Test:
+   TestInt: 400
+   TestList:
+   - 400
+   - 401
+   - 402
+";
+
+            var sim = GameSimulation
+                .NewSimulation()
+                .RegisterEntitySystems(factory =>
+                {
+                    factory.LoadExtraSystemType<EngineVariableTestSystem>();
+                })
+                .RegisterPrototypes(factory =>
+                {
+                    factory.LoadString(DOCUMENT);
+                })
+                .RegisterEngineVariables(factory =>
+                {
+                    factory.LoadString(variables);
+                })
+                .InitializeInstance();
+
+            var sys = sim.GetEntitySystem<EngineVariableTestSystem>();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(sys.TestInt, Is.EqualTo(400));
+                Assert.That(sys.TestList, Is.EquivalentTo(new int[] { 400, 401, 402 }));
+                Assert.That(sys.TestMap, Is.EquivalentTo(new Dictionary<string, int>() { { "foo", 100 }, { "bar", 101 }, { "baz", 102 } }));
             });
         }
     }
