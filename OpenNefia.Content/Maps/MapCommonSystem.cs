@@ -145,7 +145,7 @@ namespace OpenNefia.Content.Maps
             {
                 for (var i = 0; i < 20; i++)
                 {
-                    var newPos = new Vector2i(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+                    var newPos = new Vector2i(_rand.Next(Math.Max(map.Width - 5, 1)) + 2, _rand.Next(Math.Max(map.Height - 5, 1)) + 2);
 
                     if (map.CanAccess(newPos)
                         && _lookup.GetLiveEntitiesAtCoords(map.AtPos(newPos)).Count() == 0)

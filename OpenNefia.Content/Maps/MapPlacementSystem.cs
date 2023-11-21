@@ -270,7 +270,7 @@ namespace OpenNefia.Content.Maps
                 ForceClearPosition(result.Value);
             }
 
-            var spatial = EntityManager.GetComponent<SpatialComponent>(entity);
+            var spatial = Spatial(entity);
 
             if (result != null)
             {
@@ -311,8 +311,8 @@ namespace OpenNefia.Content.Maps
                 liveness = CharaLivenessState.VillagerDead;
             }
 
-            var charaComp = EntityManager.GetComponent<CharaComponent>(entity);
-            charaComp.Liveness = liveness;
+            if (EntityManager.TryGetComponent<CharaComponent>(entity, out var charaComp))
+                charaComp.Liveness = liveness;
 
             var ev = new CharaPlaceFailureEvent(entity);
             RaiseEvent(entity, ev);

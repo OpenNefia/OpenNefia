@@ -86,6 +86,13 @@ namespace OpenNefia.Content.EntityGen
         /// </remarks>
         [DataField]
         public bool NoLevelScaling { get; set; }
+
+        /// <summary>
+        /// Overrides the position searching type for the generated entity.
+        /// This allows you to e.g. spawn characters on top of each other.
+        /// </summary>
+        [DataField]
+        public PositionSearchType? PositionSearchType { get; set; }
     }
 
     public sealed class ItemGenArgs : EntityGenArgs

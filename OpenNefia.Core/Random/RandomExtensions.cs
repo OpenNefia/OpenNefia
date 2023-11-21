@@ -190,5 +190,18 @@ namespace OpenNefia.Core.Random
                 random.PopSeed();
             }
         }
+
+        public static T WithSeed<T>(this IRandom random, int seed, Func<T> action)
+        {
+            random.PushSeed(seed);
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                random.PopSeed();
+            }
+        }
     }
 }

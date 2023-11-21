@@ -430,6 +430,18 @@ namespace OpenNefia.Core.Utility
             }
         }
 
+        /// <summary>
+        /// Selects the nonnull elements of the given enumerable.
+        /// </summary>
+        public static IEnumerable<T> WhereNotNullS<T>(this IEnumerable<T?> iterator) where T: struct
+        {
+            foreach (var item in iterator)
+            {
+                if (item != null)
+                    yield return item.Value;
+            }
+        }
+
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
             foreach (T item in items)

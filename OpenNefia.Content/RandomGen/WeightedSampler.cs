@@ -46,5 +46,23 @@ namespace OpenNefia.Content.RandomGen
 
             return default(T);
         }
+
+        public T EnsureSample(IRandom? random = null)
+        {
+            IoCManager.Resolve(ref random);
+
+            if (_sum == 0 || _candidates.Count == 0)
+                throw new InvalidOperationException("Invalid candidates list");
+
+            var n = random.Next(_sum);
+
+            foreach (var candidate in _candidates)
+            {
+                if (candidate.Sum > n)
+                    return candidate.Value;
+            }
+
+            throw new InvalidOperationException("Invalid candidates list"); ;
+        }
     }
 }

@@ -17,6 +17,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.EntityGen
 {
+    public enum PositionSearchType
+    {
+        General,
+        Chara
+    }
+
     /// <summary>
     /// Wraps <see cref="IEntityManager"/>'s spawning functionality with additional event
     /// hooks for initializing entities.
@@ -111,7 +117,7 @@ namespace OpenNefia.Content.EntityGen
             else if (count != null)
                 Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
 
-            var searchType = GetSearchType(protoId);
+            var searchType = commonArgs?.PositionSearchType ?? GetSearchType(protoId);
             var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
             var actualCoordinates = coordinates;
 
@@ -128,7 +134,7 @@ namespace OpenNefia.Content.EntityGen
 
             FireGeneratingEvents(ent, coordinates, actualCoordinates, originalCount, args, container);
 
-            if (!EntityManager.IsAlive(ent))
+            if (EntitySpawnFailed(ent))
             {
                 EntityManager.DeleteEntity(ent);
 
@@ -144,10 +150,15 @@ namespace OpenNefia.Content.EntityGen
             return ent;
         }
 
-        private enum PositionSearchType
+        private bool EntitySpawnFailed(EntityUid ent)
         {
-            General,
-            Chara
+            // In the case of characters, those with temporary death states (pet, villager)
+            // should still be returned. If they are merely dead with no intent to revive then
+            // they can be cleaned up immediately.
+            if (TryComp<CharaComponent>(ent, out var chara))
+                return chara.Liveness == CharaLivenessState.Dead;
+
+            return EntityManager.IsAlive(ent);
         }
 
         private PositionSearchType GetSearchType(PrototypeId<EntityPrototype>? protoId)
