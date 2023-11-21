@@ -207,12 +207,12 @@ namespace OpenNefia.Core.Locale
 
                 foreach (var inheritance in _protos.EnumerateInheritanceTree(type))
                 {
-                    if (!TryGetTable($"OpenNefia.Prototypes.{attr.Type}.{inheritance.Parent}", out var table))
-                        continue;
-
                     // Don't overwrite if the child table exists already
                     // TODO merge table keys in a sane manner?
-                    if (TryGetTable($"OpenNefia.Prototypes.{attr.Type}.{inheritance.ID}", out _))
+                    if (TryGetTable($"OpenNefia.Prototypes.{attr.Type}.{inheritance.ID}", out var exist) && exist.Keys.Count > 0)
+                        continue;
+
+                    if (!TryGetTable($"OpenNefia.Prototypes.{attr.Type}.{inheritance.Parent}", out var table))
                         continue;
 
                     _lua.SetObjectToPath("_Collected." + $"OpenNefia.Prototypes.{attr.Type}.{inheritance.ID}", table);

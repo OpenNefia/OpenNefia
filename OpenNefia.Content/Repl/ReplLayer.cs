@@ -101,7 +101,7 @@ namespace OpenNefia.Content.Repl
         public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
-        public float CursorDisplayX { get => X + TextCaret.Width + CursorX + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " "); }
+        public float CursorDisplayX { get => X + TextCaret.Width + CursorX; }
         public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;

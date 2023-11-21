@@ -29,11 +29,11 @@
   default:
     # >>>>>>>> shade2/item.hsp:56 	iSetHire=205,70,74,41,69,76,idShopKeeper,idShopKe ...
     - id: Elona.Blacksmith
-      wage: 4000
     - id: Elona.GeneralVendor
     - id: Elona.MagicVendor
     - id: Elona.GoodsVendor
     - id: Elona.Blackmarket
+      wage: 4000
     # <<<<<<<< shade2/item.hsp:61 	iSetHireRole=cRoleMaid,cRoleBarten,cRoleHealer,cR ..
 
 #

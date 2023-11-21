@@ -174,7 +174,7 @@ namespace OpenNefia.Content.Home
             EntityUid? Generate(int index)
             {
                 var seed = (int)_world.State.GameDate.TotalDays + index;
-                return _rand.WithSeed(seed, () =>
+                var candidate = _rand.WithSeed(seed, () =>
                 {
                     if (_rand.OneIn(2))
                         return null;
@@ -189,23 +189,27 @@ namespace OpenNefia.Content.Home
                             sampler.Add(cand, cand.Weight);
                         candidate = sampler.EnsureSample(_rand);
                     }
+                    return candidate;
+                });
 
-                    return _rand.WithSeed(seed, () =>
+                if (candidate == null)
+                    return null;
+
+                return _rand.WithSeed(seed, () =>
+                {
+                    var chara = _charaGen.GenerateChara(MapCoordinates.Global, candidate.ID, args: EntityGenArgSet.Make(new EntityGenCommonArgs() { IsMapSavable = false }));
+                    if (!IsAlive(chara))
+                        return null;
+
+                    EnsureComp<ServantComponent>(chara.Value);
+
+                    if (ServantTypeExistsHere(chara.Value, map))
                     {
-                        var chara = _charaGen.GenerateChara(MapCoordinates.Global, candidate.ID, args: EntityGenArgSet.Make(new EntityGenCommonArgs() { IsMapSavable = false }));
-                        if (!IsAlive(chara))
-                            return null;
+                        EntityManager.DeleteEntity(chara.Value);
+                        return null;
+                    }
 
-                        EnsureComp<ServantComponent>(chara.Value);
-
-                        if (ServantTypeExistsHere(chara.Value, map))
-                        {
-                            EntityManager.DeleteEntity(chara.Value);
-                            return null;
-                        }
-
-                        return chara;
-                    });
+                    return chara;
                 });
             }
 

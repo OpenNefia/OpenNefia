@@ -16,6 +16,7 @@ using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
+using Spectre.Console;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -637,9 +638,32 @@ namespace OpenNefia.Core.Prototypes
             types.Sort(SortPrototypesByPriority);
             foreach (var type in types)
             {
-                foreach (var inheritance in EnumerateInheritanceTree(type))
+                if (_inheritanceTrees.TryGetValue(type, out var tree))
                 {
-                    PushInheritance(inheritance.Type, inheritance.ID, inheritance.Parent);
+                    var processed = new HashSet<string>();
+                    var workList = new Queue<string>(tree.RootNodes);
+
+                    while (workList.TryDequeue(out var id))
+                    {
+                        processed.Add(id);
+                        if (tree.TryGetParents(id, out var parents))
+                        {
+                            foreach (var parent in parents)
+                            {
+                                PushInheritance(type, id, parent);
+                            }
+                        }
+
+                        if (tree.TryGetChildren(id, out var children))
+                        {
+                            foreach (var child in children)
+                            {
+                                var childParents = tree.GetParents(child)!;
+                                if (childParents.All(p => processed.Contains(p)))
+                                    workList.Enqueue(child);
+                            }
+                        }
+                    }
                 }
 
                 string? previousProtoID = null;

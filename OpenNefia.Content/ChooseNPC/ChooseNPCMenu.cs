@@ -80,6 +80,7 @@ namespace OpenNefia.Content.ChooseNPC
 
             public override void Update(float dt)
             {
+                base.Update(dt);
                 UiText.Update(dt);
                 Info1Text.Update(dt);
                 Info2Text.Update(dt);
@@ -87,7 +88,8 @@ namespace OpenNefia.Content.ChooseNPC
 
             public override void Draw()
             {
-                _batch.Add(_entity, X - 32, Y - 16, centering: BatchCentering.AlignBottom);
+                base.Draw();
+                _batch.Add(_entity, X - 44, Y - 7, centering: BatchCentering.AlignBottom);
                 UiText.Draw();
                 Info1Text.Draw();
                 Info2Text.Draw();

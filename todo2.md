@@ -2,6 +2,7 @@
 - [x] item material
 - [x] item enchantments
 - [ ] house board/house upgrading/respawning
+- [ ] all villager roles
 - [ ] town quests
 - [ ] scene playback
 - [x] intro/first pet event

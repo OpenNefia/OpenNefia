@@ -146,6 +146,9 @@ namespace OpenNefia.Content.Shopkeeper
         [DataField]
         public int? MinLevel { get; set; }
 
+        /// <summary>
+        /// Replaces the generating item's tags with this set.
+        /// </summary>
         [DataField]
         public PrototypeId<TagPrototype>[]? Tags { get; set; }
 

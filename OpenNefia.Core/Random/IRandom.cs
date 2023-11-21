@@ -18,6 +18,5 @@ namespace OpenNefia.Core.Random
         void RandomizeSeed();
         void PushSeed(int seed);
         void PopSeed();
-        void ClearPushedSeeds();
     }
 }
