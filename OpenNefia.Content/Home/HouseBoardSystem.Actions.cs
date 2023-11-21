@@ -14,6 +14,7 @@ namespace OpenNefia.Content.Home
     public sealed partial class HouseBoardSystem
     {
         [Dependency] private readonly IHomeSystem _homes = default!;
+        [Dependency] private readonly IServantSystem _servants = default!;
 
         private void HouseBoard_Design(EntityUid user)
         {
@@ -39,7 +40,7 @@ namespace OpenNefia.Content.Home
 
         private void HouseBoard_RecruitServant(EntityUid user)
         {
-            _mes.Display("TODO", UiColors.MesYellow);
+            _servants.QueryHire();
         }
 
         private void HouseBoard_MoveAStayer(EntityUid user)
@@ -57,11 +58,14 @@ namespace OpenNefia.Content.Home
 
             args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.Design"), HouseBoard_Design));
 
-            if (_homes.ActiveHomeID == map.Id)
+            if (_homes.ActiveHomeIDs.Contains(map.Id))
             {
                 args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.HomeRank"), HouseBoard_ViewHomeRank));
                 args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.AlliesInYourHome"), HouseBoard_AlliesInYourHome));
-                args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.RecruitAServant"), HouseBoard_RecruitServant));
+                if (_areaManager.TryGetFloorOfMap(map.Id, out var floor) && floor.Value.FloorNumber == 1)
+                {
+                    args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.RecruitAServant"), HouseBoard_RecruitServant));
+                }
                 args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.MoveAStayer"), HouseBoard_MoveAStayer));
             }
             // <<<<<<<< shade2 / map_user.hsp:240      } ..

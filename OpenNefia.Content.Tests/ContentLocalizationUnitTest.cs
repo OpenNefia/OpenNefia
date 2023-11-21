@@ -78,7 +78,10 @@ OpenNefia.Prototypes.Entity =
         {
             return ContentFullGameSimulation
                .NewSimulation()
-               .RegisterDependencies(factory => factory.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true))
+               .RegisterDependencies(factory =>
+               {
+                   factory.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true);
+                })
                .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes));
         }
 

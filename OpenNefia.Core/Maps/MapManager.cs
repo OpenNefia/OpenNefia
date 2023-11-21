@@ -250,7 +250,10 @@ namespace OpenNefia.Core.Maps
             {
                 if (spatial.MapID == mapID)
                 {
-                    _entityManager.DeleteEntity(spatial.Owner, EntityDeleteType.Unload);
+                    var meta = _entityManager.GetComponent<MetaDataComponent>(spatial.Owner);
+                    var deleteType = meta.IsMapSavable ? EntityDeleteType.Delete : EntityDeleteType.Unload;
+
+                    _entityManager.DeleteEntity(spatial.Owner, deleteType);
                 }
             }
         }

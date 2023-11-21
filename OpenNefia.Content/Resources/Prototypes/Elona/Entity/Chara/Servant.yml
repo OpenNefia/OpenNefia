@@ -1,0 +1,57 @@
+# I prefer defining new prototypes to injecting the servant-specific data into
+# EntityGenCommonArgs or similar. There would be no reason to do the latter
+# unless the prototype ID was important for comparisons, but in OpenNefia the
+# entity prototype ID should *almost never* be used to check the property of an
+# entity. That would be better served by defining a new component.
+#
+# (...except in the case of locale data...)
+#
+# Random servant choices are defined in engine variable Elona.ServantChoices.
+
+- type: Entity
+  id: Elona.CharaServantMaid
+  parent: Elona.CharaMaid
+  components:
+  - type: RoleMaid
+  - type: Servant
+    wage: 450
+
+- type: Entity
+  id: Elona.CharaServantBartender
+  parent: Elona.CharaBartender
+  components:
+  - type: RoleBartender
+  - type: Servant
+    wage: 350
+
+- type: Entity
+  id: Elona.CharaServantHealer
+  parent: Elona.CharaHealer
+  components:
+  - type: RoleHealer
+  - type: Servant
+    wage: 500
+
+- type: Entity
+  id: Elona.CharaServantIdentifier
+  parent: Elona.CharaWizard
+  components:
+  - type: RoleIdentifier
+  - type: Servant
+    wage: 750
+
+- type: Entity
+  id: Elona.CharaServantInformer
+  parent: Elona.CharaInformer
+  components:
+  - type: RoleInformer
+  - type: Servant
+    wage: 250
+
+- type: Entity
+  id: Elona.CharaServantShopkeeper
+  parent: Elona.CharaShopkeeper
+  components:
+  - type: ServantShopkeeper # randomly generates shop ID per Elona.ServantShopkeeperChoices
+  - type: Servant
+    wage: 1000

@@ -53,6 +53,7 @@ namespace OpenNefia.Content.EntityGen
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
         [Dependency] private readonly IContainerSystem _containers = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         public override void Initialize()
         {
@@ -106,10 +107,13 @@ namespace OpenNefia.Content.EntityGen
 
             var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
 
-            EntityGenCommonArgs? commonArgs = null;
-            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out commonArgs))
-                count = commonArgs.Amount;
-            
+            EntityGenCommonArgs? commonArgs = args?.GetOrNull<EntityGenCommonArgs>();
+            if (commonArgs != null)
+            {
+                if (count == null)
+                    count = commonArgs.Amount;
+            }
+
             var originalCount = count;
 
             if (EntityManager.HasComponent<StackComponent>(ent))
@@ -117,14 +121,22 @@ namespace OpenNefia.Content.EntityGen
             else if (count != null)
                 Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
 
+            var mapCoords = coordinates.ToMap(EntityManager);
             var searchType = commonArgs?.PositionSearchType ?? GetSearchType(protoId);
             var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
             var actualCoordinates = coordinates;
 
+            // If spawning in the global map, assume searching for a free space is unnecessary
+            // (since the global map is never intended to be explorable by the player; it's only
+            // meant for storage). That way you can spawn a large stack of temporary characters in the
+            // global map without worrying about getting back an invalid entity.
+            if (mapCoords.MapId == MapId.Global)
+                searchType = PositionSearchType.General;
+
             switch (searchType)
             {
                 case PositionSearchType.Chara:
-                    _placement.TryPlaceChara(ent, coordinates.ToMap(EntityManager), out actualCoordinates);
+                    _placement.TryPlaceChara(ent, mapCoords, out actualCoordinates);
                     break;
                 case PositionSearchType.General:
                 default:
@@ -142,9 +154,16 @@ namespace OpenNefia.Content.EntityGen
                 return null;
             }
 
-            if (commonArgs != null && !commonArgs.NoStack)
+            if (commonArgs != null)
             {
-                _stacks.TryStackAtSamePos(ent, showMessage: false);
+                if (!commonArgs.NoStack)
+                {
+                    _stacks.TryStackAtSamePos(ent, showMessage: false);
+                }
+                if (!commonArgs.IsMapSavable)
+                {
+                    EntityManager.GetComponent<MetaDataComponent>(ent).IsMapSavable = false;
+                }
             }
 
             return ent;
@@ -158,7 +177,7 @@ namespace OpenNefia.Content.EntityGen
             if (TryComp<CharaComponent>(ent, out var chara))
                 return chara.Liveness == CharaLivenessState.Dead;
 
-            return EntityManager.IsAlive(ent);
+            return !EntityManager.IsAlive(ent);
         }
 
         private PositionSearchType GetSearchType(PrototypeId<EntityPrototype>? protoId)

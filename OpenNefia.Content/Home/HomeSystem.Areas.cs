@@ -37,7 +37,7 @@ namespace OpenNefia.Content.Home
             if (!TryArea(uid, out var area) || !HasComp<AreaHomeComponent>(area.AreaEntityUid) || !area.TryGetFloorOfContainedMap(component.MapId, out var floorId))
                 return;
 
-            if (ActiveHomeID == component.MapId)
+            if (ActiveHomeIDs.Contains(component.MapId))
                 args.OutName = Loc.GetString("Elona.Home.Map.Name");
 
             var floorNo = floorId.Value.FloorNumber;
@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Home
 
             foreach (var floor in area.ContainedMaps.Values)
             {
-                if (floor.MapId == ActiveHomeID)
+                if (floor.MapId != null && ActiveHomeIDs.Contains(floor.MapId.Value))
                 {
                     args.OutMessage = Loc.GetString("Elona.Home.Map.Description");
                     return;

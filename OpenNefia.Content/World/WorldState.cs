@@ -80,5 +80,8 @@ namespace OpenNefia.Content.World
 
         [DataField]
         public bool HasMetFirstAlly { get; set; }
+
+        [DataField]
+        public int LaborExpenses { get; set; }
     }
 }

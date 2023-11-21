@@ -27,8 +27,11 @@ namespace OpenNefia.Content.Home
 
     public interface IHomeSystem : IEntitySystem
     {
-        MapId ActiveHomeID { get; set; }
+        IReadOnlySet<MapId> ActiveHomeIDs { get; }
 
+        void SetHome(IMap map);
+        void AddHome(IMap map);
+        void RemoveHome(IMap map);
         int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
         int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
         IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10);
@@ -55,15 +58,31 @@ namespace OpenNefia.Content.Home
 
         public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
 
-        // TODO save data requires non-nullable references...
-        [RegisterSaveData("Elona.HomeSystem.ActiveHomeID")]
-        public MapId ActiveHomeID { get; set; } = MapId.Nullspace;
+        [RegisterSaveData("Elona.HomeSystem.ActiveHomeIDs")]
+        private HashSet<MapId> _activeHomeIDs { get; } = new HashSet<MapId>();
+        public IReadOnlySet<MapId> ActiveHomeIDs =>_activeHomeIDs;
 
         public override void Initialize()
         {
             Initialize_Areas();
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(UpdateMaxItemLimit, priority: EventPriorities.High);
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
+        }
+
+        public void SetHome(IMap map)
+        {
+            _activeHomeIDs.Clear();
+            _activeHomeIDs.Add(map.Id);
+        }
+
+        public void AddHome(IMap map)
+        {
+            _activeHomeIDs.Add(map.Id);
+        }
+
+        public void RemoveHome(IMap map)
+        {
+            _activeHomeIDs.Remove(map.Id);
         }
 
         /// <summary>

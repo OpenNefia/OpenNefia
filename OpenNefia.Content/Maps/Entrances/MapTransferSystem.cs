@@ -8,6 +8,7 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Areas;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.Maps
 {
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly ITemporaryEntitySystem _tempEntities = default!;
 
         public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false)
         {
@@ -84,6 +86,8 @@ namespace OpenNefia.Content.Maps
                     _mapLoader.DeleteMap(oldMap.Id, save);
                 }
             }
+
+            _tempEntities.ClearGlobalTemporaryEntities();
 
             GC.Collect();
         }

@@ -117,10 +117,10 @@ namespace OpenNefia.Content.Home
 
         private static string[] Headers = new[]
         {
-            "Elona.Home.Rank.Type.Base",
-            "Elona.Home.Rank.Type.Deco",
-            "Elona.Home.Rank.Type.Heir",
-            "Elona.Home.Rank.Type.Total",
+            "Elona.Home.Rank.Window.Type.Base",
+            "Elona.Home.Rank.Window.Type.Deco",
+            "Elona.Home.Rank.Window.Type.Heir",
+            "Elona.Home.Rank.Window.Type.Total",
         };
 
         public HomeRankLayer()

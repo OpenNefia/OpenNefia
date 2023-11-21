@@ -1,0 +1,44 @@
+#
+# Quickstart scenarios that can be accessed via pressing F3 at the main menu.
+#
+- type: EngineVariable
+  id: Elona.QuickstartScenarios
+  default: []
+
+#
+# Types of servants that can be generated through the house board
+#
+- type: EngineVariable
+  id: Elona.ServantChoices
+  default:
+    # >>>>>>>> shade2/item.hsp:56 	iSetHire=205,70,74,41,69,76,idShopKeeper,idShopKe ...
+    - id: Elona.CharaServantMaid
+    - id: Elona.CharaServantBartender
+    - id: Elona.CharaServantHealer
+    - id: Elona.CharaServantIdentifier
+    - id: Elona.CharaServantInformer
+    - id: Elona.CharaServantShopkeeper
+      weight: 3
+    # <<<<<<<< shade2/item.hsp:61 	iSetHireRole=cRoleMaid,cRoleBarten,cRoleHealer,cR ..
+
+#
+# Shopkeeper roles that are generatable via ServantShopkeeper components.
+#
+- type: EngineVariable
+  id: Elona.ServantShopkeeperChoices
+  default:
+    # >>>>>>>> shade2/item.hsp:56 	iSetHire=205,70,74,41,69,76,idShopKeeper,idShopKe ...
+    - id: Elona.Blacksmith
+      wage: 4000
+    - id: Elona.GeneralVendor
+    - id: Elona.MagicVendor
+    - id: Elona.GoodsVendor
+    - id: Elona.Blackmarket
+    # <<<<<<<< shade2/item.hsp:61 	iSetHireRole=cRoleMaid,cRoleBarten,cRoleHealer,cR ..
+
+#
+# Number of servant hiring candidates.
+#
+- type: EngineVariable
+  id: Elona.ServantHiringCandidatesCount
+  default: 10

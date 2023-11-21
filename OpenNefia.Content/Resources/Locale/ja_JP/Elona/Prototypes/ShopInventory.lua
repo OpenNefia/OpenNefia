@@ -13,6 +13,9 @@ OpenNefia.Prototypes.Elona.ShopInventory.Elona = {
         Title = function(name)
             return ("武具店の%s"):format(name)
         end,
+        ServantTitle = function(entity)
+            return ("武具店の%s"):format(_.basename(entity))
+        end,
     },
     DyeVendor = {
         Title = function(name)
@@ -38,10 +41,16 @@ OpenNefia.Prototypes.Elona.ShopInventory.Elona = {
         Title = function(name)
             return ("雑貨屋の%s"):format(name)
         end,
+        ServantTitle = function(entity)
+            return ("雑貨屋の%s"):format(_.basename(entity))
+        end,
     },
     GoodsVendor = {
         Title = function(name)
             return ("何でも屋の%s"):format(name)
+        end,
+        ServantTitle = function(entity)
+            return ("何でも屋の%s"):format(_.basename(entity))
         end,
     },
     HorseMaster = {
@@ -57,6 +66,9 @@ OpenNefia.Prototypes.Elona.ShopInventory.Elona = {
     MagicVendor = {
         Title = function(name)
             return ("魔法店の%s"):format(name)
+        end,
+        ServantTitle = function(entity)
+            return ("魔法店の%s"):format(_.basename(entity))
         end,
     },
     SlaveMaster = {

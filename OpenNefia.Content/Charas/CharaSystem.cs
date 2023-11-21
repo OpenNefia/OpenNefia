@@ -27,6 +27,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Roles;
+using OpenNefia.Content.Home;
 
 namespace OpenNefia.Content.Charas
 {
@@ -120,7 +121,7 @@ namespace OpenNefia.Content.Charas
             if (!Resolve(target, ref chara))
                 return false;
 
-            return _roles.HasAnyRoles(target)
+            return (_roles.HasAnyRoles(target) || HasComp<ServantComponent>(target))
                 && !HasComp<RoleAdventurerComponent>(target);
         }
     }

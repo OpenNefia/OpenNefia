@@ -144,6 +144,26 @@ entities:
         }
 
         [Test]
+        public void EntityGenPositioningTest_Global()
+        {
+            var sim = SimulationFactory();
+            var map = sim.CreateMapAndSetActive(1, 1);
+            var entMan = sim.Resolve<IEntityManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var entityA = entGen.SpawnEntity(IdEntityGenTestChara, MapCoordinates.Global);
+
+            // Entities in the global map should always be placed on top of each other,
+            // even if they're characters
+            var entityB = entGen.SpawnEntity(IdEntityGenTestVillager, MapCoordinates.Global);
+
+            Assert.That(entMan.IsAlive(entityA), Is.True);
+            Assert.That(entMan.IsAlive(entityB), Is.True);
+            Assert.That(entityB, Is.Not.Null);
+            Assert.That(entMan.GetComponent<CharaComponent>(entityB!.Value).Liveness, Is.EqualTo(CharaLivenessState.Alive));
+            Assert.That(entMan.GetComponent<SpatialComponent>(entityA!.Value).Coordinates, Is.EqualTo(entMan.GetComponent<SpatialComponent>(entityB.Value).Coordinates));
+        }
+
+        [Test]
         public void EntityGenPositioningTest_Villager_Override()
         {
             var sim = SimulationFactory();

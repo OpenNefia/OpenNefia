@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Content.EntityGen
 {
@@ -93,6 +94,12 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         [DataField]
         public PositionSearchType? PositionSearchType { get; set; }
+
+        /// <summary>
+        /// Convenience field for setting the <see cref="MetaDataComponent.IsMapSavable"/> flag on entity generation.
+        /// </summary>
+        [DataField]
+        public bool IsMapSavable { get; set; } = true;
     }
 
     public sealed class ItemGenArgs : EntityGenArgs

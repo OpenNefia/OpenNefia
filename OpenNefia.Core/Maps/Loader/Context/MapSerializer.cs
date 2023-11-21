@@ -351,7 +351,7 @@ namespace OpenNefia.Core.Maps
 
         private bool IsMapSavable(EntityUid entity)
         {
-            if (_entityManager.GetComponent<MetaDataComponent>(entity).EntityPrototype?.MapSavable == false)
+            if (_entityManager.GetComponent<MetaDataComponent>(entity).IsMapSavable == false)
             {
                 return false;
             }
@@ -360,7 +360,7 @@ namespace OpenNefia.Core.Maps
             var current = _entityManager.GetComponent<SpatialComponent>(entity);
             foreach (var parent in current.Parents)
             {
-                if (_entityManager.GetComponent<MetaDataComponent>(parent.Owner).EntityPrototype?.MapSavable == false)
+                if (_entityManager.GetComponent<MetaDataComponent>(parent.Owner).IsMapSavable == false)
                 {
                     return false;
                 }

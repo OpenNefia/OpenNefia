@@ -133,7 +133,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             var map = _mapLoader.LoadBlueprint(mapFile);
             map.MemorizeAllTiles();
 
-            _homes.ActiveHomeID = map.Id;
+            _homes.SetHome(map);
 
             var playerSpatial = Spatial(ev.Player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
