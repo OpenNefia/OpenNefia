@@ -9,11 +9,13 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.EntityGen;
+using static NetVips.Enums;
 
 namespace OpenNefia.Content.Maps
 {
     public interface IMapTransferSystem : IEntitySystem
     {
+        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, IMapStartLocation location, MapLoadType loadType, bool noUnloadPrevious = false);
         void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false);
         void RunMapInitializeEvents(IMap map, MapLoadType loadType);
     }
@@ -29,6 +31,9 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapPlacement _placement = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly ITemporaryEntitySystem _tempEntities = default!;
+
+        public void DoMapTransfer(SpatialComponent spatial, IMap map, IMapStartLocation location, MapLoadType loadType, bool noUnloadPrevious = false)
+            => DoMapTransfer(spatial, map, map.AtPosEntity(location.GetStartPosition(spatial.Owner, map)), MapLoadType.Traveled);
 
         public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false)
         {

@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Maps
 
             _audio.Play(Protos.Sound.Exitmap1);
 
-            if (!TryMapLoad(mapId.Value, out var map))
+            if (!_mapLoader.TryGetOrLoadMap(mapId.Value, _saveGameManager.CurrentSave!, out var map))
                 return false;
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
@@ -87,37 +87,6 @@ namespace OpenNefia.Content.Maps
 
             _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
             
-            return true;
-        }
-
-        /// <summary>
-        /// Loads the map from memory or disk. This will ensure that there is a map entity for the
-        /// travelling entity to be parented to.
-        /// </summary>
-        private bool TryMapLoad(MapId mapToLoad, [NotNullWhen(true)] out IMap? map)
-        {
-            // See if this map is still in memory and hasn't been flushed yet.
-            if (_mapManager.TryGetMap(mapToLoad, out map))
-            {
-                Logger.WarningS("map.entrance", $"Traveling to cached map {map.Id}");
-                return true;
-            }
-
-            // Let's try to load the map from disk, using the current save.
-            var save = _saveGameManager.CurrentSave;
-            if (save == null)
-            {
-                Logger.ErrorS("map.entrance", "No active save game!");
-                return false;
-            }
-
-            if (!_mapLoader.TryLoadMap(mapToLoad, save, out map))
-            {
-                Logger.ErrorS("map.entrance", $"Failed to load map {mapToLoad} from disk!");
-                return false;
-            }
-
-            Logger.InfoS("map.entrance", $"Loaded map {mapToLoad} from disk.");
             return true;
         }
 

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -14,6 +15,8 @@ namespace OpenNefia.Core.Maps
 {
     public sealed partial class MapLoader
     {
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+
         public event MapDeletedDelegate? OnMapDeleted;
         
         /// <inheritdoc/>
@@ -22,6 +25,38 @@ namespace OpenNefia.Core.Maps
             var mapFile = GetMapFilePath(id);
 
             return save.Files.Exists(mapFile);
+        }
+
+
+        public bool TryGetOrLoadMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
+        {
+            if (_saveGameManager.CurrentSave == null)
+            {
+                Logger.WarningS("map.load", "No active save!");
+                map = null;
+                return false;
+            }
+
+            return TryGetOrLoadMap(mapId, _saveGameManager.CurrentSave, out map);
+        }
+
+        public bool TryGetOrLoadMap(MapId mapId, ISaveGameHandle save, [NotNullWhen(true)] out IMap? map)
+        {
+            // See if this map is still in memory and hasn't been flushed yet.
+            if (_mapManager.TryGetMap(mapId, out map))
+            {
+                Logger.WarningS("map.load", $"Traveling to cached map {map.Id}");
+                return true;
+            }
+
+            if (!TryLoadMap(mapId, save, out map))
+            {
+                Logger.ErrorS("map.load", $"Failed to load map {mapId} from disk!");
+                return false;
+            }
+
+            Logger.InfoS("map.load", $"Loaded map {mapId} from disk.");
+            return true;
         }
 
         /// <inheritdoc/>

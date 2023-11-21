@@ -19,20 +19,20 @@ namespace OpenNefia.Core.GameObjects
         /// Raises an event.
         /// </summary>
         /// <returns>True if something handled the event, or the target entity is dead after the event was fired.</returns>
-        protected bool Raise<T>(EntityUid uid, T args, bool broadcast = true)
+        protected bool Raise<T>(EntityUid uid, T args, bool broadcast = true, bool ignoreLiveness = false)
             where T : HandledEntityEventArgs
         {
             RaiseEvent(uid, args, broadcast);
-            return args.Handled || !EntityManager.IsAlive(uid);
+            return args.Handled || (!EntityManager.IsAlive(uid) && !ignoreLiveness);
         }
 
-        protected bool Raise<T1, T2>(EntityUid uid, T1 args, T2 propagateTo)
+        protected bool Raise<T1, T2>(EntityUid uid, T1 args, T2 propagateTo, bool ignoreLiveness = false)
             where T1 : TurnResultEntityEventArgs
             where T2 : TurnResultEntityEventArgs
         {
             RaiseEvent(uid, args);
 
-            if (args.Handled || !EntityManager.IsAlive(uid))
+            if (args.Handled || (!EntityManager.IsAlive(uid) && !ignoreLiveness))
             {
                 propagateTo.Handled = true;
                 propagateTo.TurnResult = args.TurnResult;

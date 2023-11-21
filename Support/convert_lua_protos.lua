@@ -1025,6 +1025,10 @@ handlers["base.item"] = function(from, to)
         c.splitAmount = 1
     end
 
+    if from._id == "elona.tight_rope" then
+        c = comp(to, "TightRope")
+    end
+
     if from.cooldown_hours then
         c = comp(to, "UseInterval")
         c.useInterval = timeSpan(from.cooldown_hours)
@@ -1958,9 +1962,14 @@ namespace %s
     file:close()
 end
 
+-- effects already defined in a different .cs file
+local effectsBlacklist = table.set {
+    "EffectTeleport",
+}
+
 write_effect = function(ty)
     local filename = ("%s/OpenNefia.Content/Spells/Impl/%s.cs"):format(rootDir, ty)
-    if fs.exists(filename) then
+    if fs.exists(filename) or effectsBlacklist[ty] then
         return
     end
 

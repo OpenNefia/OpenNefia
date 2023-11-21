@@ -71,6 +71,23 @@ namespace OpenNefia.Core.Maps
         bool TryLoadMap(MapId mapId, ISaveGameHandle save, [NotNullWhen(true)] out IMap? map);
 
         /// <summary>
+        /// Tries to get a loaded map, or load it from the save file.
+        /// </summary>
+        /// <param name="mapId">ID of the map to load.</param>
+        /// <param name="save">The save file to load from.</param>
+        /// <param name="map">The map, if it exists.</param>
+        /// <returns>True if the map was loaded.</returns>
+        bool TryGetOrLoadMap(MapId mapId, ISaveGameHandle save, [NotNullWhen(true)] out IMap? map);
+
+        /// <summary>
+        /// Tries to get a loaded map, or load it from the save file.
+        /// </summary>
+        /// <param name="mapId">ID of the map to load.</param>
+        /// <param name="map">The map, if it exists.</param>
+        /// <returns>True if the map was loaded.</returns>
+        bool TryGetOrLoadMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
+
+        /// <summary>
         /// Deletes a map in the save. The map must be unloaded first.
         /// </summary>
         /// <param name="mapId">ID of the map to delete.</param>

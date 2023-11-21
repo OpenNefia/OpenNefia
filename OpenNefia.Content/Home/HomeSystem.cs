@@ -20,6 +20,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Home
 {
@@ -27,11 +28,26 @@ namespace OpenNefia.Content.Home
 
     public interface IHomeSystem : IEntitySystem
     {
-        IReadOnlySet<MapId> ActiveHomeIDs { get; }
+        IReadOnlyList<MapId> ActiveHomeIDs { get; }
 
+        /// <summary>
+        /// Sets the player's home and clears all other homes.
+        /// </summary>
+        /// <param name="map"></param>
         void SetHome(IMap map);
+
+        /// <summary>
+        /// Adds a map to the list of the player's homes.
+        /// </summary>
+        /// <param name="map"></param>
         void AddHome(IMap map);
+
+        /// <summary>
+        /// Removes a map from the list of the player's homes.
+        /// </summary>
+        /// <param name="map"></param>
         void RemoveHome(IMap map);
+
         int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
         int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
         IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10);
@@ -59,8 +75,8 @@ namespace OpenNefia.Content.Home
         public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
 
         [RegisterSaveData("Elona.HomeSystem.ActiveHomeIDs")]
-        private HashSet<MapId> _activeHomeIDs { get; } = new HashSet<MapId>();
-        public IReadOnlySet<MapId> ActiveHomeIDs =>_activeHomeIDs;
+        private List<MapId> _activeHomeIDs { get; } = new List<MapId>();
+        public IReadOnlyList<MapId> ActiveHomeIDs =>_activeHomeIDs;
 
         public override void Initialize()
         {
@@ -77,7 +93,8 @@ namespace OpenNefia.Content.Home
 
         public void AddHome(IMap map)
         {
-            _activeHomeIDs.Add(map.Id);
+            if (!_activeHomeIDs.Contains(map.Id))
+                _activeHomeIDs.Add(map.Id);
         }
 
         public void RemoveHome(IMap map)

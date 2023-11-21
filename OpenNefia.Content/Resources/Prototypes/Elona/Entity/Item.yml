@@ -6311,6 +6311,7 @@
     randomColor: Furniture
   - type: Weight
     weight: 340
+  - type: TightRope
 - type: Entity
   id: Elona.ItemDeadFish
   parent: BaseItem

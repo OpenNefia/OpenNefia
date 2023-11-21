@@ -21,7 +21,7 @@ LecchoTorte:
       - id: Elona.ItemKittyBank
       - id: Elona.ItemTextbook
       - id: Elona.ItemBook
-      - id: Elona.ItemHouseBoard
+      - id: Elona.ItemTightRope
       - id: Elona.ItemStomafillia
         amount: 99
       - id: Elona.ItemMonsterBall
