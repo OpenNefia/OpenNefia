@@ -133,8 +133,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
             var map = _mapLoader.LoadBlueprint(mapFile);
             map.MemorizeAllTiles();
 
-            _homes.SetHome(map);
-
             var playerSpatial = Spatial(ev.Player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
@@ -146,6 +144,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             var area = _areas.CreateArea(areaId, globalAreaId);
             _areas.RegisterAreaFloor(area, floorId, map);
+
+            _homes.SetHome(map);
 
             var player = ev.Player;
 

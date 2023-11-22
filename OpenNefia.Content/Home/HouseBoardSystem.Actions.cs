@@ -10,6 +10,11 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Stayers;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.ChooseNPC;
+using OpenNefia.Content.Maps;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Home
 {
@@ -19,6 +24,8 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IServantSystem _servants = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IStayersSystem _stayers = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IMapPlacement _mapPlacement = default!;
 
         private void HouseBoard_Design(EntityUid user)
         {
@@ -39,14 +46,44 @@ namespace OpenNefia.Content.Home
 
         private void HouseBoard_AlliesInYourHome(EntityUid user)
         {
-            var candidates = _parties.EnumerateUnderlings(user).Concat(_stayers.EnumerateStayers(StayingTags.Ally).Select(s => s.Owner));
-            
-            //var args = new ChooseAllyMenu.Args(candidates)
-            //{
-            //    WindowTitle = Loc.GetString("Elona.Item.HouseBoard.Stayers.Window.Title"),
-            //    Prompt = Loc.GetString("Elona.Item.HouseBoard.Stayers.Prompt"),
-            //    XOffset = 20
-            //};
+            var map = GetMap(user);
+            var candidates = _parties.EnumerateUnderlings(user).Where(e => Spatial(e).MapID == map.Id);
+
+            var args = new ChooseAllyMenu.Args(candidates)
+            {
+                WindowTitle = Loc.GetString("Elona.Stayers.Manage.Window.Title"),
+                Prompt = Loc.GetString("Elona.Stayers.Manage.Prompt"),
+                XOffset = 20
+            };
+
+            var cancelled = false;
+
+            while (!cancelled)
+            {
+                var result = _uiManager.Query<ChooseAllyMenu, ChooseAllyMenu.Args, ChooseAllyMenu.Result>(args);
+                if (result.HasValue)
+                {
+                    _audio.Play(Protos.Sound.Ok1);
+
+                    _mes.Newline();
+                    var ally = result.Value.Selected;
+
+                    if (_stayers.IsStaying(ally))
+                    {
+                        _stayers.UnregisterStayer(ally);
+                        _mes.Display(Loc.GetString("Elona.Stayers.Manage.Remove.Ally", ("entity", ally)));
+                    }
+                    else
+                    {
+                        _stayers.RegisterStayer(ally, map, StayingTags.Ally);
+                        _mes.Display(Loc.GetString("Elona.Stayers.Manage.Add.Ally", ("entity", ally)));
+                    }
+                }
+                else
+                {
+                    cancelled = true;
+                }
+            }
         }
 
         private void HouseBoard_RecruitServant(EntityUid user)

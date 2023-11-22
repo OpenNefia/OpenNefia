@@ -66,20 +66,19 @@ namespace OpenNefia.Content.Home
                 var maxItems = mapCommon.MaxItemsOnGround;
                 maxItemCount = maxItems != null ? maxItems.Value.ToString() : Loc.GetString("Elona.Item.HouseBoard.Unlimited");
             }
-
             // <<<<<<<< shade2 / action.hsp:1811   swbreak..
-
-            _mes.Display(Loc.GetString("Elona.Item.HouseBoard.ItemCount", 
-                ("mapEntity", map.MapEntityUid),
-                ("itemCount", itemCount),
-                ("furnitureCount", furnitureCount),
-                ("maxItems", maxItemCount)));
-
-            var ev = new HouseBoardQueriedEvent(user);
-            RaiseEvent(houseBoard, ev);
 
             while (true)
             {
+                _mes.Display(Loc.GetString("Elona.Item.HouseBoard.ItemCount",
+                    ("mapEntity", map.MapEntityUid),
+                    ("itemCount", itemCount),
+                    ("furnitureCount", furnitureCount),
+                    ("maxItems", maxItemCount)));
+
+                var ev = new HouseBoardQueriedEvent(user);
+                RaiseEvent(houseBoard, ev);
+
                 var ev2 = new HouseBoardGetActionsEvent(user);
                 RaiseEvent(houseBoard, ev2);
 

@@ -38,6 +38,8 @@ using OpenNefia.Content.GameController;
 using System.Drawing;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.ChooseNPC;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Home;
 
 namespace OpenNefia.Content.Home
 {
@@ -80,7 +82,14 @@ namespace OpenNefia.Content.Home
 
         int CalcHireCost(EntityUid chara, ServantComponent? servant = null);
         int CalcWageCost(EntityUid chara, ServantComponent? servant = null);
+
+        /// <summary>
+        /// Calculates the maximum number of servants for a house *per floor*.
+        /// </summary>
+        /// <param name="map"></param>
+        /// <returns></returns>
         int CalcMaxServantLimit(IMap map);
+
         int CalcTotalLaborExpenses(IMap map);
         void QueryHire();
     }
@@ -100,11 +109,14 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly ITemporaryEntitySystem _tempEntities = default!;
+        [Dependency] private readonly IHomeSystem _homes = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<ServantShopkeeperComponent, EntityBeingGeneratedEvent>(InitServantShopkeeper, priority: EventPriorities.VeryHigh);
             SubscribeComponent<ServantShopkeeperComponent, GetDisplayNameEventArgs>(HandleGetDisplayName_ServantShopkeeper, priority: EventPriorities.Low - 5000);
+
+            SubscribeEntity<HouseBoardQueriedEvent>(ShowServantInfo);
         }
 
         [EngineVariable("Elona.ServantChoices")]
@@ -115,6 +127,20 @@ namespace OpenNefia.Content.Home
 
         [EngineVariable("Elona.ServantHiringCandidatesCount")]
         public int ServantHiringCandidatesCount { get; } = 10;
+
+        private void ShowServantInfo(EntityUid uid, HouseBoardQueriedEvent args)
+        {
+            // >>>>>>>> elona122/shade2/map_user.hsp:212 	if gArea=areaHome{ ...
+            var map = GetMap(uid);
+            if (!_homes.ActiveHomeIDs.Contains(map.Id))
+                return;
+
+            var servantCount = _lookup.EntityQueryInMap<ServantComponent>(map).Count();
+            var maxServants = CalcMaxServantLimit(map);
+
+            _mes.Display(Loc.GetString("Elona.Servant.Count", ("curServants", servantCount), ("maxServants", maxServants)));
+            // <<<<<<<< elona122/shade2/map_user.hsp:218 		} ...
+        }
 
         private void InitServantShopkeeper(EntityUid uid, ServantShopkeeperComponent component, ref EntityBeingGeneratedEvent args)
         {
@@ -252,6 +278,25 @@ namespace OpenNefia.Content.Home
             return _commonFeats.CalcAdjustedExpenseGold(totalExpense);
         }
 
+        private class ServantHireBehavior : DefaultChooseNPCBehavior
+        {
+            private readonly IServantSystem _servants;
+
+            public ServantHireBehavior(IServantSystem servants)
+            {
+                _servants = servants;
+            }
+
+            public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.InitCost");
+
+            public override string FormatDetail(EntityUid entity)
+            {
+                var hireCost = _servants.CalcHireCost(entity);
+                var wage = _servants.CalcWageCost(entity);
+                return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", $"{hireCost}({wage})"));
+            }
+        }
+
         public void QueryHire()
         {
             // <<<<<<<< elona122/shade2/map_user.hsp:432 	calcCostHire ...
@@ -272,17 +317,9 @@ namespace OpenNefia.Content.Home
             _tempEntities.ClearGlobalTemporaryEntities();
             var candidates = GenerateHiringCandidates(map);
 
-            string FormatHireCostAndWage(EntityUid chara)
-            {
-                var hireCost = CalcHireCost(chara);
-                var wage = CalcWageCost(chara);
-                return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", $"{hireCost}({wage})"));
-            }
-
             var args = new ChooseNPCMenu.Args(candidates)
             {
-                Topic = Loc.GetString("Elona.Servant.Hire.Topic.InitCost"),
-                DetailFormatter = FormatHireCostAndWage,
+                Behavior = new ServantHireBehavior(this),
                 Prompt = Loc.GetString("Elona.Servant.Hire.Who")
             };
             var result = _uiMan.Query<ChooseNPCMenu, ChooseNPCMenu.Args, ChooseNPCMenu.Result>(args);

@@ -1,4 +1,8 @@
 Elona.Servant = {
+    Count = function(curServants, maxServants)
+        return ("現在%s人の滞在者がいる(最大%s人) "):format(curServants, maxServants)
+    end,
+
     Hire = {
         TooManyGuests = "家はすでに人であふれかえっている。",
         Who = "誰を雇用する？",

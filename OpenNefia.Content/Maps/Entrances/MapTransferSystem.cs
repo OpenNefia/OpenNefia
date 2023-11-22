@@ -67,7 +67,7 @@ namespace OpenNefia.Content.Maps
                 RaiseEvent(oldMap.MapEntityUid, evLeave);
             }
 
-            TransferPlayerParty(playerSpatial, newCoords);
+            TransferPlayerParty(playerSpatial, newCoords, oldMap?.Id);
 
             _mapManager.SetActiveMap(map.Id, loadType);
 
@@ -101,7 +101,7 @@ namespace OpenNefia.Content.Maps
             GC.Collect();
         }
 
-        private void TransferPlayerParty(SpatialComponent playerSpatial, EntityCoordinates newCoords)
+        private void TransferPlayerParty(SpatialComponent playerSpatial, EntityCoordinates newCoords, MapId? oldMapID)
         {
             var mapCoords = newCoords.ToMap(EntityManager);
 
@@ -110,7 +110,10 @@ namespace OpenNefia.Content.Maps
 
             foreach (var ally in _parties.EnumerateUnderlings(_gameSession.Player))
             {
-                _placement.TryPlaceChara(ally, mapCoords);
+                // Account for allies that might have been moved out of the old map already by BeforeMapLeaveEvent,
+                // such as through StayersSystem
+                if (oldMapID != null && Spatial(ally).MapID == oldMapID)
+                    _placement.TryPlaceChara(ally, mapCoords);
             }
         }
     }

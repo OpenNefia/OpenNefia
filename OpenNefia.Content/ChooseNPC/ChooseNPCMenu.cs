@@ -32,9 +32,53 @@ using OpenNefia.Content.Levels;
 using System.Collections.Generic;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Logic;
+using CSharpRepl.Services.Roslyn.Formatting;
 
 namespace OpenNefia.Content.ChooseNPC
 {
+    public interface IChooseNPCBehavior
+    {
+        public string WindowTitle { get; }
+        public string TopicName { get; }
+        public string TopicInfo { get; }
+        public string? TopicCustom { get; }
+
+        string FormatName(EntityUid entity);
+        string FormatDetail(EntityUid entity);
+        int GetOrdering(EntityUid entity);
+    }
+
+    public class DefaultChooseNPCBehavior : IChooseNPCBehavior
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+
+        public virtual string WindowTitle => Loc.GetString("Elona.UI.ChooseNPC.Window.Title");
+        public virtual string TopicName => Loc.GetString("Elona.UI.ChooseNPC.Topic.Name");
+        public virtual string TopicInfo => Loc.GetString("Elona.UI.ChooseNPC.Topic.Status");
+        public virtual string? TopicCustom => null;
+
+        public virtual string FormatName(EntityUid entity)
+        {
+            var chara = _entityManager.GetComponent<CharaComponent>(entity);
+            var age = _entityManager.GetComponentOrNull<WeightComponent>(entity)?.Age ?? 0;
+            var genderText = Loc.Capitalize(Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Polite"));
+            var ageText = Loc.GetString("Elona.UI.ChooseNPC.AgeCounter", ("age", age));
+            var level = _levels.GetLevel(entity);
+            return $"Lv.{level} {genderText}{ageText}";
+        }
+
+        public virtual string FormatDetail(EntityUid entity)
+        {
+            return string.Empty;
+        }
+
+        public virtual int GetOrdering(EntityUid entity)
+        {
+            return _levels.GetLevel(entity);
+        }
+    }
+
     public sealed class ChooseNPCMenu : UiLayerWithResult<ChooseNPCMenu.Args, ChooseNPCMenu.Result>
     {
         public sealed class ChooseNPCListItem
@@ -101,7 +145,6 @@ namespace OpenNefia.Content.ChooseNPC
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override int? DefaultZOrder => HudLayer.HudZOrder + 10000;
@@ -117,9 +160,6 @@ namespace OpenNefia.Content.ChooseNPC
 
         public ChooseNPCMenu()
         {
-            _win.Title = Loc.GetString("Elona.UI.ChooseNPC.Window.Title");
-            _textTopicName.Text = Loc.GetString("Elona.UI.ChooseNPC.Topic.Name");
-            _textTopicInfo.Text = Loc.GetString("Elona.UI.ChooseNPC.Topic.Info");
             _list.PageTextElement = _win;
 
             CanControlFocus = true;
@@ -137,8 +177,7 @@ namespace OpenNefia.Content.ChooseNPC
 
             public IList<EntityUid> Candidates { get; } = new List<EntityUid>();
 
-            public string? Topic { get; set; }
-            public Func<EntityUid, string>? DetailFormatter { get; set; }
+            public IChooseNPCBehavior Behavior { get; set; } = new DefaultChooseNPCBehavior();
             public string? Prompt { get; set; }
         }
 
@@ -154,7 +193,7 @@ namespace OpenNefia.Content.ChooseNPC
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            if (args.Function == EngineKeyFunctions.UICancel || args.Function == EngineKeyFunctions.UISelect)
+            if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Cancel();
                 args.Handle();
@@ -164,6 +203,12 @@ namespace OpenNefia.Content.ChooseNPC
         private void HandleListOnActivate(object? sender, UiListEventArgs<ChooseNPCListItem> e)
         {
             Finish(new(e.SelectedCell.Data.Entity));
+        }
+
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
+            _list.GrabFocus();
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -193,16 +238,9 @@ namespace OpenNefia.Content.ChooseNPC
 
             ChooseNPCListItem Transform(EntityUid entity)
             {
-                var chara = _entityManager.GetComponent<CharaComponent>(entity);
-                var age = _entityManager.GetComponentOrNull<WeightComponent>(entity)?.Age ?? 0;
-                var genderText = Loc.Capitalize(Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Polite"));
-                var ageText = Loc.GetString("Elona.UI.ChooseNPC.AgeCounter", ("age", age));
-                var level = _levels.GetLevel(entity);
-
-                var info1 = $"Lv.{level} {genderText}{ageText}";
-                var info2 = "";
-                if (args.DetailFormatter != null)
-                    info2 = args.DetailFormatter(entity);
+                var info1 = args.Behavior.FormatDetail(entity);
+                var info2 = args.Behavior.FormatDetail(entity);
+                var ordering = args.Behavior.GetOrdering(entity);
 
                 return new ChooseNPCListItem()
                 {
@@ -210,7 +248,7 @@ namespace OpenNefia.Content.ChooseNPC
                     Info1 = info1,
                     Info2 = info2,
                     Entity = entity,
-                    Ordering = level
+                    Ordering = ordering
                 };
             }
 
@@ -219,12 +257,18 @@ namespace OpenNefia.Content.ChooseNPC
 
         public override void Initialize(Args args)
         {
+            EntitySystem.InjectDependencies(args.Behavior);
+
             _win.KeyHints = MakeKeyHints();
 
-            if (args.Topic != null)
+            _win.Title = args.Behavior.WindowTitle;
+            _textTopicName.Text = args.Behavior.TopicName;
+            _textTopicInfo.Text = args.Behavior.TopicInfo;
+
+            if (args.Behavior.TopicCustom != null)
             {
                 _textTopicCustom.Visible = true;
-                _textTopicCustom.Text = args.Topic;
+                _textTopicCustom.Text = args.Behavior.TopicCustom;
             }
             else
             {

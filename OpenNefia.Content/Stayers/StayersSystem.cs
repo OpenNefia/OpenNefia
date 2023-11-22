@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Stayers
 {
     public interface IStayersSystem : IEntitySystem
     {
-        IEnumerable<StayingComponent> EnumerateStayers(string tag);
+        IEnumerable<StayingComponent> EnumerateAllStayers(string tag);
 
         bool IsStaying(EntityUid ent, string? tag = null, StayingComponent? staying = null);
         void RegisterStayer(EntityUid ent, IMap map, string tag, Vector2i? pos = null, StayingComponent? staying = null);
@@ -58,7 +58,7 @@ namespace OpenNefia.Content.Stayers
 
         public bool IsStaying(EntityUid ent, string? tag = null, StayingComponent? staying = null)
         {
-            if (!Resolve(ent, ref staying))
+            if (!Resolve(ent, ref staying, logMissing: false))
                 return false;
 
             if (staying.StayingLocation == null)
@@ -86,7 +86,7 @@ namespace OpenNefia.Content.Stayers
             }
         }
 
-        public IEnumerable<StayingComponent> EnumerateStayers(string tag)
+        public IEnumerable<StayingComponent> EnumerateAllStayers(string tag)
         {
             return _lookup.EntityQueryDirectlyIn<StayingComponent>(_stayersEntity)
                 .Where(staying => staying.StayingLocation != null && staying.StayingLocation.Tag == tag);
@@ -94,15 +94,12 @@ namespace OpenNefia.Content.Stayers
 
         private string GetAreaName(IMap map)
         {
-            if (TryArea(map.MapEntityUid, out var area))
-                return _displayNames.GetBaseName(area.AreaEntityUid);
-            else
-                return _displayNames.GetBaseName(map.MapEntityUid);
+            return _displayNames.GetDisplayName(map.MapEntityUid);
         }
 
         public void RegisterStayer(EntityUid ent, IMap map, string tag, Vector2i? pos = null, StayingComponent? staying = null)
         {
-            if (!Resolve(ent, ref staying))
+            if (!Resolve(ent, ref staying, logMissing: false))
                 staying = EnsureComp<StayingComponent>(ent);
 
             string areaName = GetAreaName(map);
@@ -112,7 +109,7 @@ namespace OpenNefia.Content.Stayers
 
         public void RegisterStayer(EntityUid ent, MapCoordinates mapCoords, string areaName, string tag, StayingComponent? staying = null)
         {
-            if (!Resolve(ent, ref staying))
+            if (!Resolve(ent, ref staying, logMissing: false))
                 staying = EnsureComp<StayingComponent>(ent);
 
             staying.StayingLocation = new StayingLocation(new MapIdStayerCriteria(mapCoords.MapId), new SpecificMapLocation(mapCoords.Position), areaName, tag);
@@ -120,7 +117,7 @@ namespace OpenNefia.Content.Stayers
 
         public void UnregisterStayer(EntityUid ent, StayingComponent? staying = null)
         {
-            if (!Resolve(ent, ref staying))
+            if (!Resolve(ent, ref staying, logMissing: false))
                 staying = EnsureComp<StayingComponent>(ent);
 
             staying.StayingLocation = null;
@@ -140,7 +137,14 @@ namespace OpenNefia.Content.Stayers
             foreach (var staying in _lookup.EntityQueryInMap<StayingComponent>(ev.OldMap).Where(staying => staying.StayingLocation != null && !staying.StayingLocation.Criteria.CanAppear(staying.Owner, ev.NewMap)).ToList())
             {
                 if (IsValidStayer(staying.Owner))
+                {
+                    Logger.DebugS("stayers", $"Moving stayer into stayers container: {staying.Owner}");
                     container.Insert(staying.Owner);
+                }
+                else
+                {
+                    Logger.ErrorS("stayers", $"Invalid stayer! {staying.Owner}");
+                }
             }
         }
 
@@ -164,6 +168,7 @@ namespace OpenNefia.Content.Stayers
                 }
 
                 var pos = startLoc.GetStartPosition(staying.Owner, ev.NewMap);
+                Logger.DebugS("stayers", $"Moving stayer to map: {staying.Owner} -> {pos}");
 
                 if (!_mapPlacement.TryPlaceChara(spatial.Owner, ev.NewMap.AtPos(pos)))
                     Logger.WarningS("stayers", $"Could not restore stayer! {spatial}");

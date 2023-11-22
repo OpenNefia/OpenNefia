@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Tests.Stayers
             {
                 Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
                 Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
-                Assert.That(stayers.EnumerateStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
                 Assert.That(entMan.IsAlive(ally), Is.True);
                 Assert.That(allySpatial.MapPosition, Is.EqualTo(map1.AtPos(1, 1)));
             });
@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Tests.Stayers
             {
                 Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
                 Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
-                Assert.That(stayers.EnumerateStayers(StayingTags.Ally).Count(), Is.EqualTo(1));
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(1));
                 Assert.That(entMan.IsAlive(ally), Is.True);
                 Assert.That(allySpatial.MapPosition, Is.EqualTo(MapCoordinates.Global));
             });
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Tests.Stayers
             {
                 Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
                 Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
-                Assert.That(stayers.EnumerateStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
                 Assert.That(entMan.IsAlive(ally), Is.True);
                 Assert.That(allySpatial.MapPosition, Is.EqualTo(expectedPos));
             });

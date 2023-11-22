@@ -24,11 +24,4 @@ Elona.Item.HouseBoard = {
         MoveAStayer = "Move a stayer",
         RecruitAServant = "Recruit a servant",
     },
-
-    Stayers = {
-        Window = {
-            Title = "Ally List",
-        },
-        Prompt = "Who stays in your home?",
-    },
 }

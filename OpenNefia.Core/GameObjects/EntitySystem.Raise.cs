@@ -189,6 +189,13 @@ namespace OpenNefia.Core.GameObjects
             return area;
         }
 
+        protected IArea GetArea(EntityUid uid, IMapManager? mapMan = null, IAreaManager? areaMan = null)
+        {
+            if (!TryArea(uid, out var area, mapMan, areaMan))
+                throw new InvalidOperationException($"No area for entity {uid}");
+            return area;
+        }
+
         protected bool TryArea(EntityUid uid, [NotNullWhen(true)] out IArea? area, IMapManager? mapMan = null, IAreaManager? areaMan = null)
         {
             IoCManager.Resolve(ref areaMan);
