@@ -24,4 +24,11 @@ Elona.Item.HouseBoard = {
         MoveAStayer = "滞在者の移動",
         RecruitAServant = "使用人を募集する",
     },
+
+    Stayers = {
+        Window = {
+            Title = "滞在状態の変更",
+        },
+        Prompt = "誰を滞在させる？",
+    },
 }

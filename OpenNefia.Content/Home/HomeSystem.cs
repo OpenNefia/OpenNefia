@@ -119,7 +119,7 @@ namespace OpenNefia.Content.Home
             _deferredEvents.Enqueue(() => Event_WelcomeHome(args.Map));
         }
 
-        private bool CanWelcome(EntityUid ent, IMap map)
+        private bool CanWelcome(EntityUid ent)
         {
             return EntityManager.IsAlive(ent)
                 && HasComp<CharaComponent>(ent)
@@ -128,7 +128,7 @@ namespace OpenNefia.Content.Home
                 && !_parties.IsInPlayerParty(ent)
                 && (HasComp<ServantComponent>(ent)
                     || _factions.GetRelationToPlayer(ent) == Relation.Neutral
-                    || _stayers.IsStayingInMapGlobal(ent, map));
+                    || _stayers.IsStaying(ent, StayingTags.Ally));
         }
 
         private TurnResult Event_WelcomeHome(IMap map)
@@ -143,7 +143,7 @@ namespace OpenNefia.Content.Home
             }
 
             foreach (var spatial in _lookup.GetEntitiesDirectlyIn(map.Id)
-                .Where(spatial => CanWelcome(spatial.Owner, map)))
+                .Where(spatial => CanWelcome(spatial.Owner)))
             {
                 Welcome(spatial.Owner);
             }

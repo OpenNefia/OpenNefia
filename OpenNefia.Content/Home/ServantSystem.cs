@@ -279,12 +279,11 @@ namespace OpenNefia.Content.Home
                 return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", $"{hireCost}({wage})"));
             }
 
-            _mes.Display(Loc.GetString("Elona.Servant.Hire.Who"));
-
             var args = new ChooseNPCMenu.Args(candidates)
             {
                 Topic = Loc.GetString("Elona.Servant.Hire.Topic.InitCost"),
-                DetailFormatter = FormatHireCostAndWage
+                DetailFormatter = FormatHireCostAndWage,
+                Prompt = Loc.GetString("Elona.Servant.Hire.Who")
             };
             var result = _uiMan.Query<ChooseNPCMenu, ChooseNPCMenu.Args, ChooseNPCMenu.Result>(args);
 

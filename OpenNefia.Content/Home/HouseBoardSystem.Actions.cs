@@ -8,6 +8,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.Home;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.Parties;
+using OpenNefia.Content.Stayers;
 
 namespace OpenNefia.Content.Home
 {
@@ -15,6 +17,8 @@ namespace OpenNefia.Content.Home
     {
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IServantSystem _servants = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IStayersSystem _stayers = default!;
 
         private void HouseBoard_Design(EntityUid user)
         {
@@ -35,7 +39,14 @@ namespace OpenNefia.Content.Home
 
         private void HouseBoard_AlliesInYourHome(EntityUid user)
         {
-            _mes.Display("TODO", UiColors.MesYellow);
+            var candidates = _parties.EnumerateUnderlings(user).Concat(_stayers.EnumerateStayers(StayingTags.Ally).Select(s => s.Owner));
+            
+            //var args = new ChooseAllyMenu.Args(candidates)
+            //{
+            //    WindowTitle = Loc.GetString("Elona.Item.HouseBoard.Stayers.Window.Title"),
+            //    Prompt = Loc.GetString("Elona.Item.HouseBoard.Stayers.Prompt"),
+            //    XOffset = 20
+            //};
         }
 
         private void HouseBoard_RecruitServant(EntityUid user)

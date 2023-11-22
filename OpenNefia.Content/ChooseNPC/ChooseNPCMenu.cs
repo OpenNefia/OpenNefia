@@ -31,6 +31,7 @@ using OpenNefia.Content.Weight;
 using OpenNefia.Content.Levels;
 using System.Collections.Generic;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Content.Logic;
 
 namespace OpenNefia.Content.ChooseNPC
 {
@@ -101,6 +102,7 @@ namespace OpenNefia.Content.ChooseNPC
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override int? DefaultZOrder => HudLayer.HudZOrder + 10000;
 
@@ -110,6 +112,8 @@ namespace OpenNefia.Content.ChooseNPC
         [Child] private UiText _textTopicName = new UiTextTopic();
         [Child] private UiText _textTopicInfo = new UiTextTopic();
         [Child] private UiText _textTopicCustom = new UiTextTopic();
+
+        private string? _prompt;
 
         public ChooseNPCMenu()
         {
@@ -132,9 +136,10 @@ namespace OpenNefia.Content.ChooseNPC
             }
 
             public IList<EntityUid> Candidates { get; } = new List<EntityUid>();
-        
+
             public string? Topic { get; set; }
             public Func<EntityUid, string>? DetailFormatter { get; set; }
+            public string? Prompt { get; set; }
         }
 
         public class Result
@@ -228,6 +233,7 @@ namespace OpenNefia.Content.ChooseNPC
 
             var data = GenerateList(args);
             _list.SetCells(data.Select(c => new ChooseNPCListCell(c, _batch)));
+            _prompt = args.Prompt;
         }
 
         public override void SetSize(float width, float height)
@@ -252,6 +258,8 @@ namespace OpenNefia.Content.ChooseNPC
 
         public override void OnQuery()
         {
+            if (_prompt != null)
+                _mes.Display(_prompt);
             _audio.Play(Protos.Sound.Pop2);
         }
 

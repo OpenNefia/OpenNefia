@@ -4,7 +4,8 @@ using System.Diagnostics.Contracts;
 namespace OpenNefia.Core.Areas
 {
     /// <summary>
-    /// Strong type wrapper around a string identifier for a container instance.
+    /// Strong type wrapper around a string identifier for an area floor instance.
+    /// TODO: Maybe combine with <see cref="AreaId"/> into an "AreaAndFloorId" location?
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public readonly struct AreaFloorId : IEquatable<AreaFloorId>, IComparable<AreaFloorId>

@@ -68,7 +68,7 @@ namespace OpenNefia.Content.Nefia
             SubscribeComponent<AreaNefiaComponent, GetDisplayNameEventArgs>(GetNefiaAreaName, priority: EventPriorities.High);
 
             SubscribeComponent<NefiaBossComponent, GetDisplayNameEventArgs>(AppendBossLevelToName, priority: EventPriorities.High);
-            SubscribeEntity<MapLeaveEventArgs>(RemoveNefiaBossOnMapLeave);
+            SubscribeEntity<BeforeMapLeaveEventArgs>(RemoveNefiaBossOnMapLeave);
             SubscribeEntity<BeforeUseMapEntranceEvent>(CheckNefiaBossBeforeUseEntrance);
 
             SubscribeEntity<EntityKilledEvent>(CheckNefiaBossKilled);
@@ -134,7 +134,7 @@ namespace OpenNefia.Content.Nefia
             return TurnResult.NoResult;
         }
 
-        private void RemoveNefiaBossOnMapLeave(EntityUid uid, MapLeaveEventArgs args)
+        private void RemoveNefiaBossOnMapLeave(EntityUid uid, BeforeMapLeaveEventArgs args)
         {
             if (!TryArea(args.OldMap, out var area)
                 || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)

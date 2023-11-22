@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Maps
         {
             SubscribeComponent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, priority: EventPriorities.Low);
             SubscribeEntity<ActiveMapChangedEvent>(HandleActiveMapChanged, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MapComponent, BeforeMapLeaveEventArgs>(HandleLeaveMap, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleExitMapFromEdges(EntityUid playerUid, PlayerComponent component, ExitingMapFromEdgesEventArgs args)
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Maps
             args.Handle(turnResult);
         }
 
-        private void HandleLeaveMap(EntityUid uid, MapComponent component, MapLeaveEventArgs args)
+        private void HandleLeaveMap(EntityUid uid, MapComponent component, BeforeMapLeaveEventArgs args)
         {
             // >>>>>>>> shade2/map.hsp:202 	if gArea ! gAreaPrev{ ..
             if (!_areaManager.TryGetAreaOfMap(args.OldMap, out var oldArea)
