@@ -183,7 +183,7 @@ namespace OpenNefia.Content.Home
                 && HasComp<CharaComponent>(ent)
                 && !HasComp<Roles.RoleSpecialComponent>(ent)
                 && !HasComp<Roles.RoleAdventurerComponent>(ent)
-                && !_parties.IsInPlayerParty(ent)
+                && (!_parties.IsInPlayerParty(ent) || _stayers.IsStaying(ent, StayingTags.Ally))
                 && (HasComp<ServantComponent>(ent)
                     || _factions.GetRelationToPlayer(ent) == Relation.Neutral
                     || _stayers.IsStaying(ent, StayingTags.Ally));
@@ -319,6 +319,6 @@ namespace OpenNefia.Content.Home
     {
         public HomeRank() : this(10000, 0, 0, 0, 0) { }
 
-        public int RankPlace => RankExperience / Rank.ExpPerRankPlace;
+        public int RankPlace => RankExperience / Ranks.Rank.ExpPerRankPlace;
     }
 }

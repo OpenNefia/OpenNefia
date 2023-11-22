@@ -192,7 +192,7 @@ namespace OpenNefia.Content.ChooseNPC
             {
                 base.Draw();
                 if (_entity != null)
-                    _batch.Add(_entity.Value, X - 44, Y + 8, centering: BatchCentering.Centered);
+                    _batch.Add(_entity.Value, X - 44, Y - 7, centering: BatchCentering.AlignBottom);
                 UiText.Draw();
                 InfoText.Draw();
             }

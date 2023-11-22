@@ -257,6 +257,7 @@ namespace OpenNefia.Content.TurnOrder
                 TurnOrderState.TurnEnd => DoTurnEnd(),
                 TurnOrderState.PlayerDied => DoPlayerDied(),
                 TurnOrderState.PassTurns => DoPassTurns(),
+                TurnOrderState.PlayerTurnQuery when !IsAlive(_gameSession.Player) => TurnOrderState.PlayerDied,
                 TurnOrderState.PlayerTurnQuery => TurnOrderState.PlayerTurnQuery,
                 TurnOrderState.TitleScreen => TurnOrderState.PlayerTurnQuery,
                 _ => TurnOrderState.PlayerTurnQuery

@@ -3,7 +3,7 @@
 - [x] item enchantments
 - [x] house board
 - [x] respawning
-- [ ] all villager roles
+- [ ] all villager roles/dialog options
 - [ ] town quests
 - [ ] scene playback
 - [x] intro/first pet event
