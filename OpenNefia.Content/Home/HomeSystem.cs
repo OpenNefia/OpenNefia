@@ -24,6 +24,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Loot;
 using OpenNefia.Content.Pickable;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Home
 {
@@ -32,6 +33,11 @@ namespace OpenNefia.Content.Home
     public interface IHomeSystem : IEntitySystem
     {
         IReadOnlyList<MapId> ActiveHomeIDs { get; }
+
+        /// <summary>
+        /// House to use for things like house rank.
+        /// </summary>
+        MapId? PrimaryHomeID { get; }
 
         /// <summary>
         /// Sets the player's home and clears all other homes.
@@ -58,6 +64,15 @@ namespace OpenNefia.Content.Home
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
         HomeRank CalcRank(IMap map, AreaHomeComponent? mapHome = null);
+
+        /// <summary>
+        /// Updates the house rank according to this map
+        /// </summary>
+        /// <remarks>
+        /// NOTE: In vanilla, only the first house level counts for house rank; extra floors are ignored.
+        /// </remarks>
+        /// <param name="map"></param>
+        /// <returns></returns>
         HomeRank UpdateRank(IMap map);
     }
 
@@ -79,7 +94,8 @@ namespace OpenNefia.Content.Home
 
         [RegisterSaveData("Elona.HomeSystem.ActiveHomeIDs")]
         private List<MapId> _activeHomeIDs { get; } = new List<MapId>();
-        public IReadOnlyList<MapId> ActiveHomeIDs =>_activeHomeIDs;
+        public IReadOnlyList<MapId> ActiveHomeIDs => _activeHomeIDs;
+        public MapId? PrimaryHomeID => ActiveHomeIDs.FirstOrNull();
 
         public override void Initialize()
         {
@@ -113,7 +129,7 @@ namespace OpenNefia.Content.Home
         {
             // >>>>>>>> elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
             var map = GetMap(mapUid);
-            if (_activeHomeIDs.Contains(map.Id))
+            if (PrimaryHomeID == map.Id)
                 UpdateRank(map);
             // <<<<<<<< elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
         }
@@ -121,7 +137,7 @@ namespace OpenNefia.Content.Home
         private void UpdateHomeOnMapEntered(EntityUid uid, MapEnterEvent args)
         {
             // >>>>>>>> elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
-            if (_activeHomeIDs.Contains(args.Map.Id))
+            if (PrimaryHomeID == args.Map.Id)
                 UpdateRank(args.Map);
             // <<<<<<<< elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
         }
@@ -130,7 +146,7 @@ namespace OpenNefia.Content.Home
         {
             // >>>>>>>> elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
             var map = GetMap(ev.Picker);
-            if (_activeHomeIDs.Contains(map.Id))
+            if (PrimaryHomeID == map.Id)
                 UpdateRank(map);
             // <<<<<<<< elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
         }
@@ -139,7 +155,7 @@ namespace OpenNefia.Content.Home
         {
             // >>>>>>>> elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
             var map = GetMap(ev.Picker);
-            if (_activeHomeIDs.Contains(map.Id))
+            if (PrimaryHomeID == map.Id)
                 UpdateRank(map);
             // <<<<<<<< elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
         }
@@ -253,7 +269,7 @@ namespace OpenNefia.Content.Home
         public HomeRank CalcRank(IMap map, AreaHomeComponent? areaHome = null)
         {
             if (!TryArea(map, out var area))
-                return new HomeRank(10000, 0, 0, 0, 0);
+                return new HomeRank();
 
             var baseValue = 0;
             if (Resolve(area.AreaEntityUid, ref areaHome))
@@ -269,6 +285,10 @@ namespace OpenNefia.Content.Home
 
         public HomeRank UpdateRank(IMap map)
         {
+            // Ignore floors besides ground level/primary home
+            if (map.Id != PrimaryHomeID)
+                return new HomeRank();
+
             var newRank = CalcRank(map);
             var oldRank = _ranks.GetRank(Protos.Rank.Home);
 
@@ -297,6 +317,8 @@ namespace OpenNefia.Content.Home
 
     public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue, int TotalValue)
     {
+        public HomeRank() : this(10000, 0, 0, 0, 0) { }
+
         public int RankPlace => RankExperience / Rank.ExpPerRankPlace;
     }
 }
