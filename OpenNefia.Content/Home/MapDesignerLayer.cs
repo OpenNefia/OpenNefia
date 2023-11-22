@@ -216,6 +216,7 @@ namespace OpenNefia.Content.Home
             {
                 _tileBatch.Draw(1, _tileScreenPos.X, _tileScreenPos.Y, color: new(1f, 1f, 1f, 0.25f));
             }
+            _tileBatch.Draw(1, _graphics.WindowPixelSize.X - _coords.TileSizeScaled.X - 32 * UIScale, 20 * UIScale);
         }
     }
 
