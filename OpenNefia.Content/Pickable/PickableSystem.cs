@@ -11,6 +11,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Pickable
 {
@@ -123,6 +124,9 @@ namespace OpenNefia.Content.Pickable
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
 
+                var ev = new AfterItemPickedUpEvent(picker);
+                EntityManager.EventBus.RaiseEvent(item, ev);
+
                 var showMessage = _gameSession.IsPlayer(picker);
                 _stackSystem.TryStackAtSamePos(item, showMessage: showMessage);
 
@@ -151,6 +155,9 @@ namespace OpenNefia.Content.Pickable
 
                 _sounds.Play(Protos.Sound.Drop1, picker);
 
+                var ev = new AfterItemDroppedEvent(picker);
+                EntityManager.EventBus.RaiseEvent(item, ev);
+
                 return TurnResult.Succeeded;
             }
             else
@@ -159,5 +166,25 @@ namespace OpenNefia.Content.Pickable
                 return TurnResult.Failed;
             }
         }
+    }
+
+    public sealed class AfterItemPickedUpEvent : EntityEventArgs
+    {
+        public AfterItemPickedUpEvent(EntityUid picker)
+        {
+            Picker = picker;
+        }
+
+        public EntityUid Picker { get; }
+    }
+
+    public sealed class AfterItemDroppedEvent : EntityEventArgs
+    {
+        public AfterItemDroppedEvent(EntityUid picker)
+        {
+            Picker = picker;
+        }
+
+        public EntityUid Picker { get; }
     }
 }

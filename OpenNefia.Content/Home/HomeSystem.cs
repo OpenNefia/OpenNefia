@@ -21,6 +21,9 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Loot;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Home
 {
@@ -83,6 +86,10 @@ namespace OpenNefia.Content.Home
             Initialize_Areas();
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(UpdateMaxItemLimit, priority: EventPriorities.High);
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
+            SubscribeEntity<MapOnTimePassedEvent>(UpdateHomeOnTimePassed);
+            SubscribeEntity<MapEnterEvent>(UpdateHomeOnMapEntered);
+            SubscribeEntity<AfterItemPickedUpEvent>(UpdateHomeOnItemPickedUp);
+            SubscribeEntity<AfterItemDroppedEvent>(UpdateHomeOnItemDropped);
         }
 
         public void SetHome(IMap map)
@@ -100,6 +107,41 @@ namespace OpenNefia.Content.Home
         public void RemoveHome(IMap map)
         {
             _activeHomeIDs.Remove(map.Id);
+        }
+
+        private void UpdateHomeOnTimePassed(EntityUid mapUid, ref MapOnTimePassedEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
+            var map = GetMap(mapUid);
+            if (_activeHomeIDs.Contains(map.Id))
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
+        }
+
+        private void UpdateHomeOnMapEntered(EntityUid uid, MapEnterEvent args)
+        {
+            // >>>>>>>> elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
+            if (_activeHomeIDs.Contains(args.Map.Id))
+                UpdateRank(args.Map);
+            // <<<<<<<< elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
+        }
+
+        private void UpdateHomeOnItemPickedUp(EntityUid uid, AfterItemPickedUpEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
+            var map = GetMap(ev.Picker);
+            if (_activeHomeIDs.Contains(map.Id))
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
+        }
+
+        private void UpdateHomeOnItemDropped(EntityUid uid, AfterItemDroppedEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
+            var map = GetMap(ev.Picker);
+            if (_activeHomeIDs.Contains(map.Id))
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
         }
 
         /// <summary>
