@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Maps
         public Vector2i GetStartPosition(EntityUid ent, IMap map)
         {
             if (IoCManager.Resolve<IEntityManager>().TryGetComponent<AIAnchorComponent>(ent, out var anchor))
-                return anchor.InitialPosition;
+                return anchor.Anchor;
             return new CenterMapLocation().GetStartPosition(ent, map);
         }
     }

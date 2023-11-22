@@ -94,6 +94,43 @@ namespace OpenNefia.Content.Home
         void QueryHire();
     }
 
+    public class ServantHireBehavior : DefaultChooseNPCBehavior
+    {
+        private readonly IServantSystem _servants;
+
+        public ServantHireBehavior(IServantSystem servants)
+        {
+            _servants = servants;
+        }
+
+        public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.InitCost");
+
+        public override string FormatDetail(EntityUid entity)
+        {
+            var hireCost = _servants.CalcHireCost(entity);
+            var wage = _servants.CalcWageCost(entity);
+            return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", $"{hireCost}({wage})"));
+        }
+    }
+
+    public class ServantInfoBehavior : DefaultChooseNPCBehavior
+    {
+        private readonly IServantSystem _servants;
+
+        public ServantInfoBehavior(IServantSystem servants)
+        {
+            _servants = servants;
+        }
+
+        public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.Wage");
+
+        public override string FormatDetail(EntityUid entity)
+        {
+            var wage = _servants.CalcWageCost(entity);
+            return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", wage));
+        }
+    }
+
     public sealed class ServantSystem : EntitySystem, IServantSystem
     {
         [Dependency] private readonly IRandom _rand = default!;
@@ -278,25 +315,6 @@ namespace OpenNefia.Content.Home
             return _commonFeats.CalcAdjustedExpenseGold(totalExpense);
         }
 
-        private class ServantHireBehavior : DefaultChooseNPCBehavior
-        {
-            private readonly IServantSystem _servants;
-
-            public ServantHireBehavior(IServantSystem servants)
-            {
-                _servants = servants;
-            }
-
-            public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.InitCost");
-
-            public override string FormatDetail(EntityUid entity)
-            {
-                var hireCost = _servants.CalcHireCost(entity);
-                var wage = _servants.CalcWageCost(entity);
-                return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", $"{hireCost}({wage})"));
-            }
-        }
-
         public void QueryHire()
         {
             // <<<<<<<< elona122/shade2/map_user.hsp:432 	calcCostHire ...
@@ -320,7 +338,7 @@ namespace OpenNefia.Content.Home
             var args = new ChooseNPCMenu.Args(candidates)
             {
                 Behavior = new ServantHireBehavior(this),
-                Prompt = Loc.GetString("Elona.Servant.Hire.Who")
+                Prompt = Loc.GetString("Elona.Servant.Hire.Prompt")
             };
             var result = _uiMan.Query<ChooseNPCMenu, ChooseNPCMenu.Args, ChooseNPCMenu.Result>(args);
 

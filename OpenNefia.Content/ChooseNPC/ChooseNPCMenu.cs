@@ -55,7 +55,7 @@ namespace OpenNefia.Content.ChooseNPC
 
         public virtual string WindowTitle => Loc.GetString("Elona.UI.ChooseNPC.Window.Title");
         public virtual string TopicName => Loc.GetString("Elona.UI.ChooseNPC.Topic.Name");
-        public virtual string TopicInfo => Loc.GetString("Elona.UI.ChooseNPC.Topic.Status");
+        public virtual string TopicInfo => Loc.GetString("Elona.UI.ChooseNPC.Topic.Info");
         public virtual string? TopicCustom => null;
 
         public virtual string FormatName(EntityUid entity)

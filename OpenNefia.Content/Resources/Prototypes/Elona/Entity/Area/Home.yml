@@ -17,8 +17,11 @@
   abstract: true
   components:
   - type: MapCommon
+    isIndoors: true
     isTravelDestination: true
   - type: MapTypePlayerOwned
+  - type: MapVanillaAI
+    anchorCitizens: true
 
 #
 # Cave

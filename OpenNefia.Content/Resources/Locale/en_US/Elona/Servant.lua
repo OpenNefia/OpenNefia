@@ -5,7 +5,7 @@ Elona.Servant = {
 
     Hire = {
         TooManyGuests = "You already have too many guests in your home.",
-        Who = "Who do you want to hire?",
+        Prompt = "Who do you want to hire?",
         NotEnoughMoney = "You don't have enough money...",
         YouHire = function(entity)
             return ("You hire %s."):format(_.basename(entity))
@@ -13,6 +13,23 @@ Elona.Servant = {
 
         Topic = {
             InitCost = "Init. Cost(Wage)",
+            Wage = "Wage",
         },
+    },
+
+    Move = {
+        Prompt = {
+            Who = "Move who?",
+            Where = function(entity)
+                return ("Where do you want to move %s?"):format(_.basename(entity))
+            end,
+        },
+        Invalid = "The location is invalid.",
+        DontTouchMe = function(entity)
+            return ("%s\"Don't touch me!\""):format(_.basename(entity))
+        end,
+        IsMoved = function(entity)
+            return ("%s %s moved to the location."):format(_.basename(entity), _.is(entity))
+        end,
     },
 }

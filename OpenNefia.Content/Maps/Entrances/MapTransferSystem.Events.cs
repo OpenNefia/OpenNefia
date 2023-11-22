@@ -366,10 +366,21 @@ namespace OpenNefia.Content.Maps
                 {
                     if (!_parties.IsInPlayerParty(ent))
                     {
+                        // TODO make into events
+
                         if (TryComp<SkillsComponent>(ent, out var skills))
                         {
                             skills.HP = skills.MaxHP;
                             skills.MP = skills.MaxMP;
+                        }
+
+                        if (TryComp<MapVanillaAIComponent>(map.MapEntityUid, out var mapAi) && mapAi.AnchorCitizens)
+                        {
+                            if (TryComp<AIAnchorComponent>(ent, out var aiAnchor))
+                            {
+                                var spatial = Spatial(ent);
+                                spatial.Coordinates = new EntityCoordinates(spatial.ParentUid, aiAnchor.InitialPosition);
+                            }
                         }
 
                         if (TryComp<SanityComponent>(ent, out var sanity))

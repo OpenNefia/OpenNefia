@@ -161,10 +161,7 @@ namespace OpenNefia.Content.Stayers
                 }
                 else
                 {
-                    if (TryComp<AIAnchorComponent>(spatial.Owner, out var anchor))
-                        startLoc = new SpecificMapLocation(anchor.InitialPosition);
-                    else
-                        startLoc = new CenterMapLocation();
+                    startLoc = new CenterMapLocation();
                 }
 
                 var pos = startLoc.GetStartPosition(staying.Owner, ev.NewMap);

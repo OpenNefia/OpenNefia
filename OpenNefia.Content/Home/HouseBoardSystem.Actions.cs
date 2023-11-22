@@ -15,6 +15,13 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.ChooseNPC;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Log;
+using Love;
+using OpenNefia.Content.Currency;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.VanillaAI;
+using OpenNefia.Content.Activity;
 
 namespace OpenNefia.Content.Home
 {
@@ -25,7 +32,9 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IStayersSystem _stayers = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
-        [Dependency] private readonly IMapPlacement _mapPlacement = default!;
+        [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
 
         private void HouseBoard_Design(EntityUid user)
         {
@@ -75,7 +84,7 @@ namespace OpenNefia.Content.Home
                     }
                     else
                     {
-                        _stayers.RegisterStayer(ally, map, StayingTags.Ally);
+                        _stayers.RegisterStayer(ally, map, StayingTags.Ally, Spatial(ally).LocalPosition);
                         _mes.Display(Loc.GetString("Elona.Stayers.Manage.Add.Ally", ("entity", ally)));
                     }
                 }
@@ -91,9 +100,58 @@ namespace OpenNefia.Content.Home
             _servants.QueryHire();
         }
 
-        private void HouseBoard_MoveAStayer(EntityUid user)
+        private void HouseBoard_MoveServant(EntityUid user)
         {
-            _mes.Display("TODO", UiColors.MesYellow);
+            var map = GetMap(user);
+            var candidates = _lookup.EntityQueryInMap<ServantComponent>(map).Select(s => s.Owner);
+            var args = new ChooseNPCMenu.Args(candidates)
+            {
+                Behavior = new ServantInfoBehavior(_servants),
+                Prompt = Loc.GetString("Elona.Servant.Move.Prompt.Who")
+            };
+            var result = _uiManager.Query<ChooseNPCMenu, ChooseNPCMenu.Args, ChooseNPCMenu.Result>(args);
+
+            if (result.HasValue)
+            {
+                var chara = result.Value.Selected;
+                if (_factions.GetRelationToPlayer(chara) <= Relation.Enemy)
+                {
+                    _mes.Display(Loc.GetString("Elona.Servant.Move.DontTouchMe", ("entity", chara)));
+                }
+                else
+                {
+                    _audio.Play(Protos.Sound.Ok1);
+                    var spatial = Spatial(chara);
+                    var origPos = spatial.MapPosition;
+                    while (true)
+                    {
+                        _mes.Newline();
+                        _mes.Display(Loc.GetString("Elona.Servant.Move.Prompt.Where", ("entity", chara)));
+                        var posArgs = new PositionPrompt.Args(origPos);
+                        var newPos = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(posArgs);
+                        if (!newPos.HasValue)
+                            break;
+                        if (!map.CanAccess(newPos.Value.Coords) || !newPos.Value.Coords.TryToEntity(_mapManager, out var entityCoords))
+                        {
+                            _mes.Display(Loc.GetString("Elona.Servant.Move.Invalid"));
+                        }
+                        else
+                        {
+                            spatial.Coordinates = entityCoords;
+                            var aiAnchor = EnsureComp<AIAnchorComponent>(chara);
+                            aiAnchor.InitialPosition = entityCoords.Position;
+                            aiAnchor.Anchor = aiAnchor.InitialPosition;
+                            _activities.RemoveActivity(chara);
+                            _mes.Newline();
+                            _mes.Display(Loc.GetString("Elona.Servant.Move.IsMoved", ("entity", chara)));
+                            _audio.Play(Protos.Sound.Foot, entityCoords);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            _field.RefreshScreen();
         }
 
         private void GetDefaultHouseBoardActions(EntityUid houseBoard, HouseBoardComponent component, HouseBoardGetActionsEvent args)
@@ -114,7 +172,7 @@ namespace OpenNefia.Content.Home
                 {
                     args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.RecruitAServant"), HouseBoard_RecruitServant));
                 }
-                args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.MoveAStayer"), HouseBoard_MoveAStayer));
+                args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.MoveAStayer"), HouseBoard_MoveServant));
             }
             // <<<<<<<< shade2 / map_user.hsp:240      } ..
         }
