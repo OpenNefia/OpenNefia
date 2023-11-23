@@ -190,6 +190,14 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public bool PickRandomly { get; set; } = false;
 
+        [DataField("args")]
+        private List<EntitySystemPropertyRef> _args { get; set; } = new();
+
+        /// <summary>
+        /// List of entity system properties to inject into the locale fetching.
+        /// </summary>
+        public IReadOnlyList<EntitySystemPropertyRef> Args => _args;
+
         /// <summary>
         /// Actions to execute before this text is displayed.
         /// </summary>
@@ -307,16 +315,40 @@ namespace OpenNefia.Content.Dialog
                 return new List<string>() { text.Text };
 
             // Pass default locale arguments.
-            var args = new LocaleArg[]
+            var args = new List<LocaleArg>()
             {
                 ("speaker", engine.Speaker),
                 ("player", engine.Player)
             };
 
+            // Inject extra locale arguments
+            if (text.Args.Count > 0)
+            {
+                var props = IoCManager.Resolve<IEntitySystemPropertiesManager>();
+                object value;
+                foreach (var (arg, i) in text.Args.WithIndex())
+                {
+                    try
+                    {
+                        var prop = props.GetProperty(arg);
+                        value = prop.GetValue();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.ErrorS("dialog.node", ex, "Error fetching locale argument");
+                        value = "(error fetching locale argument)";
+                    }
+
+                    args.Add(($"arg{i}", value));
+                }
+            }
+
+            var argsArray = args.ToArray();
+
             // Check lists. In Lua:
             //
             // Dialog.Text = { "Text 1.", "Text 2.", "Text 3" }
-            if (Loc.TryGetList(text.Key!.Value, out var list, args))
+            if (Loc.TryGetList(text.Key!.Value, out var list, argsArray))
             {
                 if (text.PickRandomly)
                 {
@@ -333,7 +365,7 @@ namespace OpenNefia.Content.Dialog
             // Check single strings. In Lua:
             //
             // Dialog.Text = "Some text."
-            return new List<string>() { Loc.GetString(text.Key!.Value, args) };
+            return new List<string>() { Loc.GetString(text.Key!.Value, argsArray) };
         }
 
         /// <summary>

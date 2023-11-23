@@ -53,6 +53,7 @@ namespace OpenNefia.Content.Dialog
             Prostitute_Initialize();
             Innkeeper_Initialize();
             Guard_Initialize();
+            Maid_Initialize();
         }
 
         public QualifiedDialogNode? OpenTradeMenu(IDialogEngine engine, IDialogNode node)

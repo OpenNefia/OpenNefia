@@ -2,6 +2,7 @@
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.DebugView;
+using OpenNefia.Content.Dialog;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Repl;
@@ -31,6 +32,7 @@ namespace OpenNefia.Content
             IoCManager.Register<IConfigMenuUICellFactory, ConfigMenuUICellFactory>();
             IoCManager.Register<IPlayTimeManager, PlayTimeManager>();
             IoCManager.Register<IDebugViewLayer, DebugViewLayer>();
+            IoCManager.Register<IEntitySystemPropertiesManager, EntitySystemPropertiesManager>();
         }
     }
 }

@@ -174,8 +174,10 @@
 
 - type: Elona.Dialog
   id: Elona.Adventurer
+
 - type: Elona.Dialog
   id: Elona.Maid
+
 - type: Elona.Dialog
   id: Elona.Guard
   nodes:
@@ -202,13 +204,13 @@
       - !type:ModifyKarmaAction
         amount: 5
       - !type:ModifyFlagAction
-        property: Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
+        property: EntitySystem@Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
         operation: Add
         value: 1
     LostProperty_CheckFrequent: !type:DialogBranchNode
       conditions:
       - condition: !type:CheckFlagCondition
-          property: Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
+          property: EntitySystem@Content.Dialog.VanillaDialogSystem:LostItemsTurnedIn
         comparison: GreaterThanOrEqual
         value: 4
         node: Elona.Guard:LostProperty_FoundOften
@@ -223,6 +225,5 @@
       - !type:ModifyKarmaAction
         amount: -10
     
-
 - type: Elona.Dialog
   id: Elona.Servant

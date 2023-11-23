@@ -174,8 +174,8 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class ModifyFlagAction : IDialogAction
     {
-        [DataField("property", required: true)]
-        public string QualifiedPropertyName { get; } = string.Empty;
+        [DataField(required: true)]
+        public EntitySystemPropertyRef Property { get; }
 
         [DataField(required: true)]
         public ModifyFlagOperation Operation { get; }
@@ -183,38 +183,11 @@ namespace OpenNefia.Content.Dialog
         [DataField(required: true)]
         public int Value { get; }
 
-        internal static (IEntitySystem System, PropertyInfo Property) GetSystemFlagProperty(string qualifiedFieldName)
-        {
-            // TODO ser3 validation
-            var split = qualifiedFieldName.Split(':');
-            if (split.Length != 2)
-                throw new ArgumentException($"Could not parse field name from string '{split}', it should have a value like 'Namespace.Of.Type:FieldName'");
-
-            var systemTypeName = split[0];
-            var fieldName = split[1];
-
-            var reflectionManager = IoCManager.Resolve<IReflectionManager>();
-            if (!reflectionManager.TryLooseGetType(systemTypeName, out var systemType))
-                throw new ArgumentException($"No type with loose typename '{systemTypeName}' found.");
-
-            if (!typeof(IEntitySystem).IsAssignableFrom(systemType))
-                throw new InvalidDataException($"{systemType} does not implement {nameof(IEntitySystem)}.");
-
-            var system = EntitySystem.Get(systemType);
-            var property = systemType.GetProperty(fieldName, BindingFlags.Instance | BindingFlags.Public);
-            if (property == null)
-                throw new InvalidDataException($"{systemType} does not have a public instance field named {fieldName}.");
-
-            if (property.PropertyType != typeof(int))
-                throw new InvalidDataException($"{systemType}.{fieldName} is not of type int.");
-
-            return (system, property);
-        }
-
         public void Invoke(IDialogEngine engine, IDialogNode node)
         {
-            var (system, property) = GetSystemFlagProperty(QualifiedPropertyName);
-            var value = (int)property.GetValue(system)!;
+            var props = IoCManager.Resolve<IEntitySystemPropertiesManager>();
+            var property = props.GetProperty(Property);
+            var value = property.GetValue<int>();
 
             switch (Operation)
             {
@@ -227,20 +200,20 @@ namespace OpenNefia.Content.Dialog
                     break;
             }
             
-            property.SetValue(system, value);
+            property.SetValue(value);
         }
     }
 
     public sealed class CheckFlagCondition : IDialogCondition
     {
-        [DataField("property", required: true)]
-        public string QualifiedPropertyName { get; } = string.Empty;
+        [DataField(required: true)]
+        public EntitySystemPropertyRef Property { get; }
 
         public int GetValue(IDialogEngine engine)
         {
-            var (system, property) = ModifyFlagAction.GetSystemFlagProperty(QualifiedPropertyName);
+            var props = IoCManager.Resolve<IEntitySystemPropertiesManager>();
 
-            return (int)property.GetValue(system)!;
+            return props.GetProperty(Property).GetValue<int>();
         }
     }
 

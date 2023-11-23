@@ -21,6 +21,7 @@
 - [ ] all unique areas
 - [ ] journal
 - [ ] main quest/sidequests
+- [ ] house guests
 - [ ] house upgrading
 - [ ] all item events/properties
   + [ ] corpses

@@ -35,6 +35,11 @@ namespace OpenNefia.Content.Home
         IReadOnlyList<MapId> ActiveHomeIDs { get; }
 
         /// <summary>
+        /// Number of guests waiting to visit the player.
+        /// </summary>
+        int GuestsWaiting { get; set; }
+
+        /// <summary>
         /// House to use for things like house rank.
         /// </summary>
         MapId? PrimaryHomeID { get; }
@@ -96,6 +101,10 @@ namespace OpenNefia.Content.Home
         private List<MapId> _activeHomeIDs { get; } = new List<MapId>();
         public IReadOnlyList<MapId> ActiveHomeIDs => _activeHomeIDs;
         public MapId? PrimaryHomeID => ActiveHomeIDs.FirstOrNull();
+
+        /// <inheritdoc/>
+        [RegisterSaveData("Elona.HomeSystem.GuestsWaiting")]
+        public int GuestsWaiting { get; set; } = 0;
 
         public override void Initialize()
         {
