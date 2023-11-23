@@ -4,11 +4,14 @@ using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.UI
 {
@@ -96,5 +99,52 @@ namespace OpenNefia.Content.UI
             return new(bounds.Right - text.Width - 140 - xOffset,
                        bounds.Bottom - 65 - bounds.Height % 8);
         }
+
+        public static bool TryGetDirectionFromKeyFunction(BoundKeyFunction func, [NotNullWhen(true)] out Direction? dir)
+        {
+            dir = null;
+
+            if (func == EngineKeyFunctions.North)
+            {
+                dir = Direction.North;
+            }
+            else if (func == EngineKeyFunctions.South)
+            {
+                dir = Direction.South;
+            }
+            else if (func == EngineKeyFunctions.West)
+            {
+                dir = Direction.West;
+            }
+            else if (func == EngineKeyFunctions.East)
+            {
+                dir = Direction.East;
+            }
+            else if (func == EngineKeyFunctions.Northeast)
+            {
+                dir = Direction.NorthEast;
+            }
+            else if (func == EngineKeyFunctions.Northwest)
+            {
+                dir = Direction.NorthWest;
+            }
+            else if (func == EngineKeyFunctions.Southeast)
+            {
+                dir = Direction.SouthEast;
+            }
+            else if (func == EngineKeyFunctions.Southwest)
+            {
+                dir = Direction.SouthWest;
+            }
+
+            return dir != null;
+        }
+
+        public static readonly IReadOnlyList<PrototypeId<AssetPrototype>> CMBGs = new List<PrototypeId<AssetPrototype>>() {
+            Prototypes.Protos.Asset.G1,
+            Prototypes.Protos.Asset.G2,
+            Prototypes.Protos.Asset.G3,
+            Prototypes.Protos.Asset.G4
+        };
     }
 }

@@ -226,14 +226,14 @@ namespace OpenNefia.Content.UI.Layer
             var screenPixelPos = _field.Camera.TileToVisibleScreen(_targetPos);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorTargetedTile);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSizeScaled.X, _coords.TileSizeScaled.Y);
 
             if (ShouldDrawLine())
             {
                 foreach (var coords in PosHelpers.EnumerateLine(_originPos, _targetPos))
                 {
                     screenPixelPos = _field.Camera.TileToVisibleScreen(coords);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSizeScaled.X, _coords.TileSizeScaled.Y);
                 }
             }
 

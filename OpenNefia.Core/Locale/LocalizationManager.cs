@@ -16,6 +16,8 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.Configuration;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
+using Microsoft.CodeAnalysis;
+using Spectre.Console;
 
 namespace OpenNefia.Core.Locale
 {
@@ -100,6 +102,7 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IComponentLocalizer _componentLocalizer = default!;
+        [Dependency] private readonly IPrototypeManagerInternal _protos = default!;
 
         public event LanguageSwitchedDelegate? OnLanguageSwitched;
 

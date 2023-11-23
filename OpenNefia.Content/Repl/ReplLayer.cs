@@ -23,6 +23,9 @@ using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.UI.Hud;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.Repl
 {
@@ -101,7 +104,7 @@ namespace OpenNefia.Content.Repl
         public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
-        public float CursorDisplayX { get => X + TextCaret.Width + CursorX + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " "); }
+        public float CursorDisplayX { get => X + TextCaret.Width + CursorX; }
         public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;
@@ -214,6 +217,14 @@ namespace OpenNefia.Content.Repl
             var uiManager = IoCManager.Resolve<IUserInterfaceManager>();
             uiManager.InitializeLayer<ReplLayer, UINone, UINone>(this, new());
             uiManager.Query(this);
+
+            var entityManager = IoCManager.Resolve<IEntityManager>();
+            var gameSession = IoCManager.Resolve<IGameSessionManager>();
+
+            // Since this is an out-of-simulation keybind handler (because it's a global keybind), advance the state
+            // manually if the player died inside the REPL session
+            if (!entityManager.IsAlive(gameSession.Player))
+                EntitySystem.Get<ITurnOrderSystem>().AdvanceState();
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)

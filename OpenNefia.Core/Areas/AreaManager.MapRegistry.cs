@@ -67,7 +67,7 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
-        public bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId floorId)
+        public bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId? floorId)
         {
             area = null;
             floorId = default;
@@ -89,6 +89,9 @@ namespace OpenNefia.Core.Areas
         {
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
+        /// <inheritdoc/>
+        public bool TryGetFloorOfMap(MapId map, [NotNullWhen(true)] out AreaFloorId? floorId)
+            => TryGetAreaAndFloorOfMap(map, out _, out floorId);
 
         /// <inheritdoc/>
         public IMap? GetMapForFloor(AreaId areaId, AreaFloorId floorId)

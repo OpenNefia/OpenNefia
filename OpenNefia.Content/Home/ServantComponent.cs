@@ -11,5 +11,7 @@ namespace OpenNefia.Content.Home
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ServantComponent : Component
     {
+        [DataField]
+        public int Wage { get; set; } = 0;
     }
 }

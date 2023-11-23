@@ -1,7 +1,9 @@
 ## main
 - [x] item material
 - [x] item enchantments
-- [ ] house board/house upgrading/respawning
+- [x] house board
+- [x] respawning
+- [ ] all villager roles/dialog options
 - [ ] town quests
 - [ ] scene playback
 - [x] intro/first pet event
@@ -19,6 +21,7 @@
 - [ ] all unique areas
 - [ ] journal
 - [ ] main quest/sidequests
+- [ ] house upgrading
 - [ ] all item events/properties
   + [ ] corpses
   + [ ] card/figure/sandbag drawables

@@ -4,11 +4,3 @@
   - type: Scenarios.P_ScenarioOnGameStartEvent
     system: Scenarios.VanillaScenariosSystem
     method: Default_OnGameStart
-
-- type: Elona.Scenario
-  id: Elona.Quickstart
-  loadGlobalAreas: false
-  events:
-  - type: Scenarios.P_ScenarioOnGameStartEvent
-    system: Scenarios.VanillaScenariosSystem
-    method: Quickstart_OnGameStart

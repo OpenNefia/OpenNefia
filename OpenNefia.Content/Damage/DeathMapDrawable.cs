@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Damage
             var frame2 = _counter.FrameInt * 2;
 
             if (_elementAnim != null && _counter.FrameInt < _elementAnim.CountX)
-                _elementAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), X - ScreenOffset.X - _coords.TileSize.X / 2, Y - ScreenOffset.Y - (3 * _coords.TileSize.Y / 4) + _elementAnimDy);
+                _elementAnim.DrawRegion(_coords.TileScale, _counter.FrameInt.ToString(), X - _coords.TileSize.X / 2, Y - (3 * _coords.TileSize.Y / 4) + _elementAnimDy);
 
             if (_counter.FrameInt >= _fragmentsAnim.CountX)
                 return;

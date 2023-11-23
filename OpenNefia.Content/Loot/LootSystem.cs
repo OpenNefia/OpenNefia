@@ -127,7 +127,7 @@ namespace OpenNefia.Content.Loot
                     return false;
                 }
             }
-            else if (_rand.OneIn(3))
+            else if (_rand.OneIn(5))
             {
                 return false;
             }
@@ -236,6 +236,7 @@ namespace OpenNefia.Content.Loot
 
         private IList<DroppedItem> CalcDroppedPlayerItems(EntityUid player)
         {
+            // >>>>>>>> elona122/shade2/item.hsp:94 	if rc=pc{ ...
             if (!TryMap(player, out var map))
                 return new List<DroppedItem>();
 
@@ -280,6 +281,7 @@ namespace OpenNefia.Content.Loot
             }
 
             return result;
+            // <<<<<<<< elona122/shade2/item.hsp:149 	}else{ ...
         }
 
         private IList<DroppedItem> CalcDroppedNPCItems(EntityUid npc)
@@ -296,7 +298,7 @@ namespace OpenNefia.Content.Loot
         public IList<DroppedItem> CalcDroppedItemsOnDeath(EntityUid uid)
         {
             var ev = new BeforeDropItemsOnDeathEvent();
-            if (Raise(uid, ev))
+            if (Raise(uid, ev, ignoreLiveness: true))
                 return ev.OutDroppedItems;
 
             if (_gameSession.IsPlayer(uid))

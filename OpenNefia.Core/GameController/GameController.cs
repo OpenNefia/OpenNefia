@@ -7,6 +7,7 @@ using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
+using OpenNefia.Core.EngineVariables;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -46,6 +47,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IComponentLocalizerInternal _componentLocalizer = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IEngineVariablesManagerInternal _varManager = default!;
         [Dependency] private readonly ILogManager _log = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IAreaManagerInternal _areaManager = default!;
@@ -166,6 +168,9 @@ namespace OpenNefia.Core.GameController
             _areaManager.Initialize();
 
             _saveGameSerializer.Initialize();
+
+            _varManager.Initialize();
+            _varManager.LoadDirectory(new ResourcePath(@"/Variables/"));
 
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();

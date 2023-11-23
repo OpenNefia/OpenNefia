@@ -1025,6 +1025,10 @@ handlers["base.item"] = function(from, to)
         c.splitAmount = 1
     end
 
+    if from._id == "elona.tight_rope" then
+        c = comp(to, "TightRope")
+    end
+
     if from.cooldown_hours then
         c = comp(to, "UseInterval")
         c.useInterval = timeSpan(from.cooldown_hours)
@@ -1105,6 +1109,10 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.cargo_travelers_food" then
         c = comp(to, "TravelersFood")
+    end
+
+    if from._id == "elona.house_board" or from._id == "elona.register" then
+        c = comp(to, "HouseBoard")
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]
@@ -1321,6 +1329,11 @@ handlers["base.map_tile"] = function(from, to)
     end
     if from.kind2 and from.kind2 ~= Enum.TileRole.None then
         to.kind2 = Enum.TileRole:to_string(from.kind2)
+    end
+
+    if not (from.disable_in_map_edit or from.elona_atlas ~= 1) then
+        local e = extData(to, "ExtUsableInHomeDesigner")
+        e.usableInHomeDesigner = true
     end
 end
 
@@ -1949,9 +1962,14 @@ namespace %s
     file:close()
 end
 
+-- effects already defined in a different .cs file
+local effectsBlacklist = table.set {
+    "EffectTeleport",
+}
+
 write_effect = function(ty)
     local filename = ("%s/OpenNefia.Content/Spells/Impl/%s.cs"):format(rootDir, ty)
-    if fs.exists(filename) then
+    if fs.exists(filename) or effectsBlacklist[ty] then
         return
     end
 

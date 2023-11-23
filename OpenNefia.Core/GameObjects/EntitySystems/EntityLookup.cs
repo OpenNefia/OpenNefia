@@ -1,13 +1,16 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.Containers;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Dependency = OpenNefia.Core.IoC.DependencyAttribute;
+using IContainer = OpenNefia.Core.Containers.IContainer;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -153,14 +156,28 @@ namespace OpenNefia.Core.GameObjects
 
         IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(EntityUid ent)
             where TComp : IComponent;
+        IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(IContainer container)
+            where TComp : IComponent;
         IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent;
+        IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(IContainer container)
             where TComp1 : IComponent
             where TComp2 : IComponent;
         IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(EntityUid ent)
             where TComp1 : IComponent
             where TComp2 : IComponent
             where TComp3 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(IContainer container)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent;
         IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(IContainer container)
             where TComp1 : IComponent
             where TComp2 : IComponent
             where TComp3 : IComponent
@@ -472,5 +489,26 @@ namespace OpenNefia.Core.GameObjects
                     yield return (comp1, comp2, comp3, comp4);
             }
         }
+
+        public IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(IContainer container) where TComp : IComponent
+           => EntityQueryDirectlyIn<TComp>(container.Owner);
+
+        public IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(IContainer container)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+          => EntityQueryDirectlyIn<TComp1, TComp2>(container.Owner);
+
+        public IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(IContainer container)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+          => EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(container.Owner);
+
+        public IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(IContainer container)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent
+          => EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(container.Owner);
     }
 }

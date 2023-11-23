@@ -85,6 +85,7 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IContainerSystem _containers = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ICombatSystem _combat = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         public override void Initialize()
         {
@@ -122,35 +123,9 @@ namespace OpenNefia.Content.Enchantments
                 return false;
             }
 
-            foreach (var (name, comp) in spec.Components)
-            {
-                AddComponent(enchantment.Value, _componentFactory, EntityManager, _serialization, name, comp.Mapping, null);
-            }
+            _entityFactory.UpdateEntityComponents(enchantment.Value, spec.Components);
 
             return true;
-        }
-
-        // TODO dedup from EntityFactory
-        private static void AddComponent(EntityUid entity,
-            IComponentFactory factory,
-            IEntityManager entityManager,
-            ISerializationManager serManager,
-            string compName,
-            MappingDataNode data,
-            ISerializationContext? context)
-        {
-            var compReg = factory.GetRegistration(compName);
-
-            if (!entityManager.TryGetComponent(entity, compReg.Type, out var component))
-            {
-                var newComponent = (Component)factory.GetComponent(compName);
-                newComponent.Owner = entity;
-                entityManager.AddComponent(entity, newComponent);
-                component = newComponent;
-            }
-
-            // TODO use this value to support struct components
-            serManager.Read(compReg.Type, data, context, value: component);
         }
 
         private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)

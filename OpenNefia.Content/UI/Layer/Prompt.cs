@@ -67,6 +67,10 @@ namespace OpenNefia.Content.UI.Layer
             public bool IsCancellable = true;
             public string? QueryText = null;
 
+            public Args()
+            {
+            }
+
             public Args(IEnumerable<PromptChoice<T>> choices)
             {
                 Choices = choices;

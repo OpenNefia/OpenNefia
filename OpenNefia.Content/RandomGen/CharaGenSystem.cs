@@ -6,6 +6,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Qualities;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -28,10 +29,16 @@ namespace OpenNefia.Content.RandomGen
         EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
+        EntityUid? GenerateChara(EntityCoordinates coords, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(IMap map, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
+        EntityUid? GenerateChara(IContainer container, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(MapCoordinates coords, CharaFilter filter);
@@ -133,7 +140,7 @@ namespace OpenNefia.Content.RandomGen
             // <<<<<<<< shade2/item.hsp:609 		} ..
         }
 
-        public EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
+        public EntityUid? GenerateChara(EntityCoordinates coords, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null)
         {
             args ??= EntityGenArgSet.Make();
@@ -147,6 +154,15 @@ namespace OpenNefia.Content.RandomGen
                 commonArgs.Quality = quality.Value;
 
             return _entityGen.SpawnEntity(id, coords, args: args);
+        }
+
+        public EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null)
+        {
+            if (!coords.TryToEntity(_mapManager, out var entityCoords))
+                return null;
+
+            return GenerateChara(entityCoords, id, minLevel, tags, fltselect, raceFilter, quality, args);
         }
 
         public EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
@@ -166,6 +182,24 @@ namespace OpenNefia.Content.RandomGen
                 return null;
 
             return GenerateChara(pos.Value, id, minLevel, tags, fltselect, raceFilter, quality, args);
+        }
+
+
+       public EntityUid? GenerateChara(IContainer container, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null)
+        {
+            args ??= EntityGenArgSet.Make();
+
+            if (id == null)
+                id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
+
+            var commonArgs = args.Get<EntityGenCommonArgs>();
+            commonArgs.MinLevel = minLevel;
+            if (quality != null)
+                commonArgs.Quality = quality.Value;
+
+            return _entityGen.SpawnEntity(id, container, args: args);
         }
 
         public EntityUid? GenerateChara(MapCoordinates coords, CharaFilter filter)

@@ -33,7 +33,8 @@ namespace OpenNefia.Core.Areas
 
         bool TryGetAreaOfMap(MapId map, [NotNullWhen(true)] out IArea? area);
         bool TryGetAreaOfMap(IMap map, [NotNullWhen(true)] out IArea? area);
-        bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId floorId);
+        bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId? floorId);
+        bool TryGetFloorOfMap(MapId map, [NotNullWhen(true)] out AreaFloorId? floorId);
 
         // TODO: This is probably going into an IMapGenerator interface later.
         IMap? GetMapForFloor(AreaId areaId, AreaFloorId floorId);

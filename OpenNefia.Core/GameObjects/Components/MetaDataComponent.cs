@@ -90,6 +90,19 @@ namespace OpenNefia.Core.GameObjects
         public bool IsAlive => (Liveness == EntityGameLiveness.Alive) && !EntityTerminating;
         public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityTerminating;
 
+        /// <summary>
+        /// If false, this entity will not be serialized when its map is unloaded.
+        /// Useful for generating lists of temporary entities that might not all
+        /// need saving.
+        /// </summary>
+        [DataField]
+        private bool _isMapSavable { get; set; } = true;
+
+        public bool IsMapSavable {
+            get => _isMapSavable && (EntityPrototype?.MapSavable ?? true);
+            set => _isMapSavable = value; 
+        }
+
         void IComponentLocalizable.LocalizeFromLua(LuaTable table)
         {
             DisplayName = table.GetStringOrNull("Name");

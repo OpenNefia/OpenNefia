@@ -17,6 +17,9 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Home;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.SaveLoad;
 
 namespace OpenNefia.Content.TurnOrder
 {
@@ -85,6 +88,10 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly ICharaSystem _charas = default!;
+        [Dependency] private readonly IHomeSystem _homes = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 
@@ -250,6 +257,7 @@ namespace OpenNefia.Content.TurnOrder
                 TurnOrderState.TurnEnd => DoTurnEnd(),
                 TurnOrderState.PlayerDied => DoPlayerDied(),
                 TurnOrderState.PassTurns => DoPassTurns(),
+                TurnOrderState.PlayerTurnQuery when !IsAlive(_gameSession.Player) => TurnOrderState.PlayerDied,
                 TurnOrderState.PlayerTurnQuery => TurnOrderState.PlayerTurnQuery,
                 TurnOrderState.TitleScreen => TurnOrderState.PlayerTurnQuery,
                 _ => TurnOrderState.PlayerTurnQuery
@@ -500,6 +508,7 @@ namespace OpenNefia.Content.TurnOrder
 
             Logger.Info($"Player death: {lastWords}");
 
+            // TODO respawn screen
             if (_playerQuery.YesOrNo("Revive?"))
             {
                 RevivePlayer();
@@ -536,15 +545,25 @@ namespace OpenNefia.Content.TurnOrder
             var player = _gameSession.Player;
             DebugTools.Assert(_charas.Revive(player, force: true), "Failed to revive player!");
 
-            // TODO home respawn
-            if (_mapManager.TryGetMap(new MapId(1), out var map))
+            bool foundHome = false;
+            foreach (var home in _homes.ActiveHomeIDs)
             {
-                var pos = new CenterMapLocation().GetStartPosition(player, map);
-                _mapTransfer.DoMapTransfer(Spatial(player), map, map.AtPosEntity(pos), MapLoadType.Traveled);
+                if (_mapLoader.TryGetOrLoadMap(home, out var map))
+                {
+                    _mapTransfer.DoMapTransfer(Spatial(player), map, new CenterMapLocation(), MapLoadType.Traveled);
+                    foundHome = true;
+                    break;
+                }
             }
+
+            if (!foundHome)
+                Logger.Error("Player had no valid home set!");
 
             var ev = new PlayerRevivingEvent();
             RaiseEvent(player, ev);
+
+            _refresh.Refresh(player);
+            _saveLoad.QueueAutosave();
         }
 
         #endregion

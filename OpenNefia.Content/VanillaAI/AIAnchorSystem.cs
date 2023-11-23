@@ -4,6 +4,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace OpenNefia.Content.VanillaAI
         public override void Initialize()
         {
             SubscribeComponent<VanillaAIComponent, EntityGeneratedEvent>(HandleGenerated);
-            SubscribeComponent<AIAnchorComponent, ComponentStartup>(HandleStartup);
         }
 
         private void HandleGenerated(EntityUid uid, VanillaAIComponent ai, ref EntityGeneratedEvent args)
@@ -33,17 +33,10 @@ namespace OpenNefia.Content.VanillaAI
 
             if (mapAi.AnchorCitizens)
             {
-                EntityManager.EnsureComponent<AIAnchorComponent>(uid);
+                var aiAnchor = EntityManager.EnsureComponent<AIAnchorComponent>(uid);
+                aiAnchor.InitialPosition = spatial.WorldPosition;
+                aiAnchor.Anchor = aiAnchor.InitialPosition;
             }
-        }
-
-        private void HandleStartup(EntityUid uid, AIAnchorComponent component, ComponentStartup args)
-        {
-            if (!EntityManager.TryGetComponent(uid, out SpatialComponent spatial))
-                return;
-
-            component.InitialPosition = spatial.WorldPosition;
-            component.Anchor = component.InitialPosition;
         }
     }
 }

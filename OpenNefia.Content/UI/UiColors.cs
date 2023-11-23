@@ -100,5 +100,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color QuestDifficultyHigh = new Color(140, 80, 0);
         public static readonly Color QuestDifficultyModerate = new Color(0, 0, 205);
         public static readonly Color QuestDifficultyEasy = new Color(0, 155, 0);
+
+        public static readonly Color HouseBoardRankStar = new Color(255, 255, 50);
     }
 }

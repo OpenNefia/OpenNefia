@@ -13,6 +13,23 @@ namespace OpenNefia.Core.Maps
         Traveled,
         Full
     }
+    
+    /// <summary>
+    /// What behavior to run when a map is unloaded. This will control which events are
+    /// fired on the map entity to indicate resource cleanup.
+    /// </summary>
+    public enum MapUnloadType
+    {
+        /// <summary>
+        /// The map can be loaded at a later date.
+        /// </summary>
+        Unload,
+
+        /// <summary>
+        /// The map will be deleted and never loaded again.
+        /// </summary>
+        Delete
+    }
 
     public delegate void ActiveMapChangedDelegate(IMap newMap, IMap? oldMap, MapLoadType loadType);
 
@@ -47,7 +64,7 @@ namespace OpenNefia.Core.Maps
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
         bool TryGetMapOfEntity(EntityUid entity, [NotNullWhen(true)] out IMap? map);
 
-        void UnloadMap(MapId mapId);
+        void UnloadMap(MapId mapId, MapUnloadType unloadType = MapUnloadType.Unload);
 
         void RefreshVisibility(IMap map);
 

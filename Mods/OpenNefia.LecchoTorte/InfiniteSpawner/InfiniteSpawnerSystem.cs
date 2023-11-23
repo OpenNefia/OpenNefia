@@ -20,7 +20,7 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
             SubscribeBroadcast<MapEnterEvent>(HandleMapEntered);
             SubscribeComponent<InfiniteSpawnerComponent, NPCTurnStartedEvent>(HandleTurnStarted);
             SubscribeComponent<InfiniteSpawnerComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
-            SubscribeComponent<InfiniteSpawnedComponent, EntityDeletedEvent>(HandleDeleted);
+            SubscribeComponent<InfiniteSpawnedComponent, EntityBeingDeletedEvent>(HandleBeingDeleted);
             SubscribeComponent<InfiniteSpawnedComponent, EntityKilledEvent>(HandleKilled);
         }
 
@@ -66,7 +66,7 @@ namespace OpenNefia.LecchoTorte.InfiniteSpawner
             args.OutSpeedModifier = playerTurnOrder.CurrentSpeedModifier;
         }
 
-        private void HandleDeleted(EntityUid uid, InfiniteSpawnedComponent component, EntityDeletedEvent args)
+        private void HandleBeingDeleted(EntityUid uid, InfiniteSpawnedComponent component, ref EntityBeingDeletedEvent args)
         {
             if (IsAlive(component.Spawner))
                 SpawnEntity(component.Spawner);

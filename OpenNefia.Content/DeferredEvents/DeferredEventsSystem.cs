@@ -26,7 +26,7 @@ namespace OpenNefia.Content.DeferredEvents
         public override void Initialize()
         {
             SubscribeBroadcast<MapBeforeTurnBeginEventArgs>(RunDeferredEvents);
-            SubscribeBroadcast<MapLeaveEventArgs>(ClearDeferredEvents);
+            SubscribeBroadcast<BeforeMapLeaveEventArgs>(ClearDeferredEvents);
         }
 
         private void RunDeferredEvents(MapBeforeTurnBeginEventArgs ev)
@@ -52,7 +52,7 @@ namespace OpenNefia.Content.DeferredEvents
             }
         }
 
-        private void ClearDeferredEvents(MapLeaveEventArgs ev)
+        private void ClearDeferredEvents(BeforeMapLeaveEventArgs ev)
         {
             _deferredEvents.Clear();
         }

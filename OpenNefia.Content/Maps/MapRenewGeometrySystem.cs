@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Maps
                     spatial.Coordinates = destCoords;
             }
 
-            _mapManager.UnloadMap(newMap.Id);
+            _mapManager.UnloadMap(newMap.Id, MapUnloadType.Delete);
 
             args.Handled = true;
             // <<<<<<<< elona122/shade2/map_func.hsp:303 	return ...

@@ -20,20 +20,59 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Loot;
+using OpenNefia.Content.Pickable;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Home
 {
+    public sealed record class HomeRankItem(ValueComponent Item, int Value);
+
     public interface IHomeSystem : IEntitySystem
     {
-        MapId ActiveHomeID { get; set; }
+        IReadOnlyList<MapId> ActiveHomeIDs { get; }
+
+        /// <summary>
+        /// House to use for things like house rank.
+        /// </summary>
+        MapId? PrimaryHomeID { get; }
+
+        /// <summary>
+        /// Sets the player's home and clears all other homes.
+        /// </summary>
+        /// <param name="map"></param>
+        void SetHome(IMap map);
+
+        /// <summary>
+        /// Adds a map to the list of the player's homes.
+        /// </summary>
+        /// <param name="map"></param>
+        void AddHome(IMap map);
+
+        /// <summary>
+        /// Removes a map from the list of the player's homes.
+        /// </summary>
+        /// <param name="map"></param>
+        void RemoveHome(IMap map);
 
         int CalcItemValue(EntityUid entity, ValueComponent? valueComp = null);
         int CalcFurnitureValue(EntityUid entity, ValueComponent? valueComp = null);
-        IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
+        IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10);
         int CalcTotalHomeValue(IMap map);
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
         HomeRank CalcRank(IMap map, AreaHomeComponent? mapHome = null);
+
+        /// <summary>
+        /// Updates the house rank according to this map
+        /// </summary>
+        /// <remarks>
+        /// NOTE: In vanilla, only the first house level counts for house rank; extra floors are ignored.
+        /// </remarks>
+        /// <param name="map"></param>
+        /// <returns></returns>
         HomeRank UpdateRank(IMap map);
     }
 
@@ -53,15 +92,72 @@ namespace OpenNefia.Content.Home
 
         public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
 
-        // TODO save data requires non-nullable references...
-        [RegisterSaveData("Elona.HomeSystem.ActiveHomeID")]
-        public MapId ActiveHomeID { get; set; } = MapId.Nullspace;
+        [RegisterSaveData("Elona.HomeSystem.ActiveHomeIDs")]
+        private List<MapId> _activeHomeIDs { get; } = new List<MapId>();
+        public IReadOnlyList<MapId> ActiveHomeIDs => _activeHomeIDs;
+        public MapId? PrimaryHomeID => ActiveHomeIDs.FirstOrNull();
 
         public override void Initialize()
         {
             Initialize_Areas();
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(UpdateMaxItemLimit, priority: EventPriorities.High);
             SubscribeComponent<AreaHomeComponent, AreaMapEnterEvent>(WelcomeHome, priority: EventPriorities.Low);
+            SubscribeEntity<MapOnTimePassedEvent>(UpdateHomeOnTimePassed);
+            SubscribeEntity<MapEnterEvent>(UpdateHomeOnMapEntered);
+            SubscribeEntity<AfterItemPickedUpEvent>(UpdateHomeOnItemPickedUp);
+            SubscribeEntity<AfterItemDroppedEvent>(UpdateHomeOnItemDropped);
+        }
+
+        public void SetHome(IMap map)
+        {
+            _activeHomeIDs.Clear();
+            _activeHomeIDs.Add(map.Id);
+        }
+
+        public void AddHome(IMap map)
+        {
+            if (!_activeHomeIDs.Contains(map.Id))
+                _activeHomeIDs.Add(map.Id);
+        }
+
+        public void RemoveHome(IMap map)
+        {
+            _activeHomeIDs.Remove(map.Id);
+        }
+
+        private void UpdateHomeOnTimePassed(EntityUid mapUid, ref MapOnTimePassedEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
+            var map = GetMap(mapUid);
+            if (PrimaryHomeID == map.Id)
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
+        }
+
+        private void UpdateHomeOnMapEntered(EntityUid uid, MapEnterEvent args)
+        {
+            // >>>>>>>> elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
+            if (PrimaryHomeID == args.Map.Id)
+                UpdateRank(args.Map);
+            // <<<<<<<< elona122/shade2/map.hsp:2127 	if gArea=areaHome		: gosub *house_update ...
+        }
+
+        private void UpdateHomeOnItemPickedUp(EntityUid uid, AfterItemPickedUpEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
+            var map = GetMap(ev.Picker);
+            if (PrimaryHomeID == map.Id)
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/action.hsp:277 		if gArea=areaHome		:if mode=mode_main:gosub *hou ...
+        }
+
+        private void UpdateHomeOnItemDropped(EntityUid uid, AfterItemDroppedEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
+            var map = GetMap(ev.Picker);
+            if (PrimaryHomeID == map.Id)
+                UpdateRank(map);
+            // <<<<<<<< elona122/shade2/action.hsp:304 	if gArea=areaHome		: if mode=mode_main:gosub *hou ...
         }
 
         /// <summary>
@@ -81,16 +177,16 @@ namespace OpenNefia.Content.Home
             _deferredEvents.Enqueue(() => Event_WelcomeHome(args.Map));
         }
 
-        private bool CanWelcome(EntityUid ent, IMap map)
+        private bool CanWelcome(EntityUid ent)
         {
             return EntityManager.IsAlive(ent)
                 && HasComp<CharaComponent>(ent)
                 && !HasComp<Roles.RoleSpecialComponent>(ent)
                 && !HasComp<Roles.RoleAdventurerComponent>(ent)
-                && !_parties.IsInPlayerParty(ent)
+                && (!_parties.IsInPlayerParty(ent) || _stayers.IsStaying(ent, StayingTags.Ally))
                 && (HasComp<ServantComponent>(ent)
                     || _factions.GetRelationToPlayer(ent) == Relation.Neutral
-                    || _stayers.IsStayingInMapGlobal(ent, map));
+                    || _stayers.IsStaying(ent, StayingTags.Ally));
         }
 
         private TurnResult Event_WelcomeHome(IMap map)
@@ -105,7 +201,7 @@ namespace OpenNefia.Content.Home
             }
 
             foreach (var spatial in _lookup.GetEntitiesDirectlyIn(map.Id)
-                .Where(spatial => CanWelcome(spatial.Owner, map)))
+                .Where(spatial => CanWelcome(spatial.Owner)))
             {
                 Welcome(spatial.Owner);
             }
@@ -145,17 +241,17 @@ namespace OpenNefia.Content.Home
             return Math.Clamp(valueComp.Value.Buffed / 50, 50, 500);
         }
 
-        public IEnumerable<(ValueComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)
+        public IEnumerable<HomeRankItem> CalcMostValuableItems(IMap map, int amount = 10)
         {
             return _lookup.EntityQueryInMap<ValueComponent>(map)
-                .Select(value => (value, CalcItemValue(value.Owner, value)))
-                .OrderByDescending(tuple => tuple.Item2)
+                .Select(value => new HomeRankItem(value, CalcItemValue(value.Owner, value)))
+                .OrderByDescending(tuple => tuple.Value)
                 .Take(amount);
         }
 
         public int CalcTotalHomeValue(IMap map)
         {
-            return CalcMostValuableItems(map).Select(tuple => tuple.value).Sum();
+            return CalcMostValuableItems(map).Select(tuple => tuple.Value).Sum();
         }
 
         public int CalcTotalFurnitureValue(IMap map)
@@ -172,19 +268,27 @@ namespace OpenNefia.Content.Home
 
         public HomeRank CalcRank(IMap map, AreaHomeComponent? areaHome = null)
         {
-            if (!TryArea(map, out var area) || !Resolve(area.AreaEntityUid, ref areaHome))
-                return new HomeRank(0, 0, 0, 0);
+            if (!TryArea(map, out var area))
+                return new HomeRank();
 
-            var baseValue = areaHome.HomeRankPoints;
+            var baseValue = 0;
+            if (Resolve(area.AreaEntityUid, ref areaHome))
+                baseValue = areaHome.HomeRankPoints;
+
             var homeValue = Math.Clamp(CalcTotalHomeValue(map), 0, 10000);
             var furnitureValue = Math.Clamp(CalcTotalFurnitureValue(map), 0, 10000);
-            var homeRank = Math.Max(10000 - SumTotalValue(baseValue, homeValue, furnitureValue), 100);
+            var totalValue = SumTotalValue(baseValue, homeValue, furnitureValue);
+            var homeRank = Math.Max(10000 - totalValue, 100);
 
-            return new HomeRank(homeRank, baseValue, homeValue, furnitureValue);
+            return new HomeRank(homeRank, baseValue, homeValue, furnitureValue, totalValue);
         }
 
         public HomeRank UpdateRank(IMap map)
         {
+            // Ignore floors besides ground level/primary home
+            if (map.Id != PrimaryHomeID)
+                return new HomeRank();
+
             var newRank = CalcRank(map);
             var oldRank = _ranks.GetRank(Protos.Rank.Home);
 
@@ -211,8 +315,10 @@ namespace OpenNefia.Content.Home
         }
     }
 
-    public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue)
+    public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue, int TotalValue)
     {
-        public int RankPlace => RankExperience / Rank.ExpPerRankPlace;
+        public HomeRank() : this(10000, 0, 0, 0, 0) { }
+
+        public int RankPlace => RankExperience / Ranks.Rank.ExpPerRankPlace;
     }
 }

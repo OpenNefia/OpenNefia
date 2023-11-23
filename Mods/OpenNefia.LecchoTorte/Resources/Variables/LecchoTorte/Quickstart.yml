@@ -1,0 +1,60 @@
+Elona:
+  QuickstartScenarios:
+  - LecchoTorte.Quickstart
+  - LecchoTorte.EntityUnload
+
+LecchoTorte:
+  QuickstartPlayer:
+    skills:
+      Elona.AttrStrength: 2000
+      Elona.AttrConstitution: 2000
+      Elona.AttrCharisma: 2000
+      Elona.AttrLife: 2000
+      Elona.Mining: 2000
+    items:
+      - id: Elona.ItemDagger
+        location: Equipment
+      - id: Elona.ItemLongBow
+        location: Equipment
+      - id: Elona.ItemArrow
+        location: Equipment
+      - id: Elona.ItemKittyBank
+      - id: Elona.ItemTextbook
+      - id: Elona.ItemBook
+      - id: Elona.ItemTightRope
+      - id: Elona.ItemStomafillia
+        amount: 99
+      - id: Elona.ItemMonsterBall
+        amount: 99
+        components:
+        - type: MonsterBall
+          maxLevel: 999
+      - id: Elona.ItemWallet
+        amount: 99
+      - id: Elona.ItemSuitcase
+        amount: 99
+      - id: Elona.ItemBookOfRachel
+      - id: Elona.ItemBill
+      - id: Elona.ItemAncientBook
+      - id: Elona.ItemSpellbookOfAcidGround
+      - id: Elona.ItemLockpick
+        amount: 999
+      - id: Elona.ItemSkeletonKey
+        amount: 999
+      - id: Elona.ItemGoldPiece
+        location: Ground
+        amount: 1000
+      - id: Elona.ItemPlatinumCoin
+        location: Ground
+        amount: 50
+
+    components:
+      - type: Money
+        gold: 1000000
+        platinum: 1000
+
+  QuickstartAllies:
+    - id: Elona.CharaGoldenKnight
+    - id: Elona.CharaRogueWarrior
+    - id: Elona.CharaRogueWizard
+    - id: Elona.CharaRogueArcher

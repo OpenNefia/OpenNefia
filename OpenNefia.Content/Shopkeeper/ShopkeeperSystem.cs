@@ -154,12 +154,7 @@ namespace OpenNefia.Content.Shopkeeper
             if (modifier.MinLevel != null)
                 itemFilter.MinLevel = modifier.MinLevel.Value;
             if (modifier.Tags != null)
-            {
-                itemFilter.Tags ??= new PrototypeId<TagPrototype>[] { };
-                var tags = itemFilter.Tags.ToList();
-                tags.AddRange(modifier.Tags);
-                itemFilter.Tags = tags.ToArray();
-            }
+                itemFilter.Tags = modifier.Tags.ToArray();
             if (modifier.Fltselect != null)
                 itemFilter.Fltselect = modifier.Fltselect;
             if (modifier.Amount != null)

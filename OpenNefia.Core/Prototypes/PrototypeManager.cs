@@ -5,6 +5,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.IoC.Exceptions;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
@@ -15,6 +16,7 @@ using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
+using Spectre.Console;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -277,9 +279,13 @@ namespace OpenNefia.Core.Prototypes
 
     internal interface IPrototypeManagerInternal : IPrototypeManager
     {
+        IEnumerable<Type> EnumeratePrototypeTypes();
+        IEnumerable<PrototypeInheritance> EnumerateInheritanceTree(Type type);
     }
 
-    public record PrototypeOrderingData(string[] Before, string[] After);
+    public sealed record class PrototypeInheritance(Type Type, string ID, string Parent);
+
+    public sealed record PrototypeOrderingData(string[] Before, string[] After);
 
     public sealed partial class PrototypeManager : IPrototypeManagerInternal
     {
@@ -586,6 +592,44 @@ namespace OpenNefia.Core.Prototypes
             SortAllPrototypes();
 
             _hasEverBeenReloaded = true;
+        }
+
+        public IEnumerable<Type> EnumeratePrototypeTypes()
+        {
+            var types = _prototypeResults.Keys.ToList();
+            types.Sort(SortPrototypesByPriority);
+            return types;
+        }
+
+        public IEnumerable<PrototypeInheritance> EnumerateInheritanceTree(Type type)
+        {
+            if (_inheritanceTrees.TryGetValue(type, out var tree))
+            {
+                var processed = new HashSet<string>();
+                var workList = new Queue<string>(tree.RootNodes);
+
+                while (workList.TryDequeue(out var id))
+                {
+                    processed.Add(id);
+                    if (tree.TryGetParents(id, out var parents))
+                    {
+                        foreach (var parent in parents)
+                        {
+                            yield return new PrototypeInheritance(type, id, parent);
+                        }
+                    }
+
+                    if (tree.TryGetChildren(id, out var children))
+                    {
+                        foreach (var child in children)
+                        {
+                            var childParents = tree.GetParents(child)!;
+                            if (childParents.All(p => processed.Contains(p)))
+                                workList.Enqueue(child);
+                        }
+                    }
+                }
+            }
         }
 
         private void ResyncInheritance()
@@ -1235,7 +1279,7 @@ namespace OpenNefia.Core.Prototypes
             return index.TryGetValue(id, out prototype);
         }
 
-        public bool HasMapping<T>(PrototypeId<T> id) where T: class, IPrototype
+        public bool HasMapping<T>(PrototypeId<T> id) where T : class, IPrototype
         {
             if (!_prototypeResults.TryGetValue(typeof(T), out var index))
             {
@@ -1568,6 +1612,7 @@ namespace OpenNefia.Core.Prototypes
         }
     }
 
+    // TODO dedup yaml-related exceptions
     [Serializable]
     public class PrototypeLoadException : Exception
     {

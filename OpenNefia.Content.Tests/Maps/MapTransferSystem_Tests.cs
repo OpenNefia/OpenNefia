@@ -110,7 +110,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             });
 
             entChara = entMan.GetComponent<CharaComponent>(ent);
-            Assert.Multiple(() =>                                                                                                              
+            Assert.Multiple(() =>
             {
                 Assert.That(entMan.IsAlive(ent), Is.False);
                 Assert.That(entMan.IsDeadAndBuried(ent), Is.False);
@@ -124,6 +124,46 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             entChara = entMan.GetComponent<CharaComponent>(ent);
             Assert.That(entChara.Liveness, Is.EqualTo(CharaLivenessState.Alive));
+        }
+
+        [Test]
+        public void TestMapTransfer_GlobalTempEntities()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var gameSess = sim.Resolve<IGameSessionManager>();
+            var saveGameMan = sim.Resolve<ISaveGameManager>();
+            var mapLoader = sim.Resolve<IMapLoader>();
+            var mapTransfer = sim.GetEntitySystem<IMapTransferSystem>();
+
+            var map1 = sim.CreateMapAndSetActive(10, 10);
+            var map2 = mapMan.CreateMap(10, 10);
+
+            using var save = new TempSaveGameHandle();
+            saveGameMan.CurrentSave = save;
+
+            var player = entMan.SpawnEntity(null, map1.AtPos(Vector2i.One));
+            gameSess.Player = player;
+            entMan.EnsureComponent<PlayerComponent>(player);
+            var playerSpatial = entMan.GetComponent<SpatialComponent>(player);
+
+            var tempEntity = entMan.SpawnEntity(null, MapCoordinates.Global);
+            var nonTempEntity = entMan.SpawnEntity(null, MapCoordinates.Global);
+
+            entMan.GetComponent<MetaDataComponent>(tempEntity).IsMapSavable = false;
+
+            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(3, 4), MapLoadType.Full);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entMan.IsAlive(tempEntity), Is.False, "Global temp entity deleted");
+                Assert.That(entMan.IsAlive(nonTempEntity), Is.True, "Global entity preserved");
+                Assert.That(entMan.GetComponent<MetaDataComponent>(nonTempEntity).IsMapSavable, Is.True, "IsMapSavable");
+            });
         }
     }
 }

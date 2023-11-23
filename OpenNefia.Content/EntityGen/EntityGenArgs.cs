@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Content.EntityGen
 {
@@ -86,6 +87,19 @@ namespace OpenNefia.Content.EntityGen
         /// </remarks>
         [DataField]
         public bool NoLevelScaling { get; set; }
+
+        /// <summary>
+        /// Overrides the position searching type for the generated entity.
+        /// This allows you to e.g. spawn characters on top of each other.
+        /// </summary>
+        [DataField]
+        public PositionSearchType? PositionSearchType { get; set; }
+
+        /// <summary>
+        /// Convenience field for setting the <see cref="MetaDataComponent.IsMapSavable"/> flag on entity generation.
+        /// </summary>
+        [DataField]
+        public bool IsMapSavable { get; set; } = true;
     }
 
     public sealed class ItemGenArgs : EntityGenArgs

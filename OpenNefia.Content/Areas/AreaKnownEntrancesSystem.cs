@@ -36,8 +36,8 @@ namespace OpenNefia.Content.Areas
             SubscribeBroadcast<MapInitializeEvent>(HandleMapInitialize);
             SubscribeComponent<WorldMapEntranceComponent, AreaEntranceCreatedEvent>(WorldMapEntrance_Generated);
             SubscribeComponent<WorldMapEntranceComponent, EntityPositionChangedEvent>(WorldMapEntrance_PositionChanged);
-            SubscribeComponent<WorldMapEntranceComponent, EntityTerminatingEvent>(WorldMapEntrance_Terminating);
-            SubscribeComponent<MapComponent, EntityTerminatingEvent>(Map_Terminating);
+            SubscribeComponent<WorldMapEntranceComponent, BeforeEntityDeletedEvent>(WorldMapEntrance_BeforeDeleted);
+            SubscribeEntity<BeforeMapDeletedEvent>(Map_Deleted);
         }
 
         private void HandleMapLoadedFromSave(MapLoadedFromSaveEvent args)
@@ -65,16 +65,16 @@ namespace OpenNefia.Content.Areas
             UpdateKnownEntrance(Spatial(uid), entrance);
         }
 
-        private void WorldMapEntrance_Terminating(EntityUid uid, WorldMapEntranceComponent component, ref EntityTerminatingEvent args)
+        private void WorldMapEntrance_BeforeDeleted(EntityUid uid, WorldMapEntranceComponent component, ref BeforeEntityDeletedEvent args)
         {
             DeleteKnownEntrance(component);
         }
 
-        private void Map_Terminating(EntityUid uid, MapComponent component, ref EntityTerminatingEvent args)
+        private void Map_Deleted(EntityUid uid, BeforeMapDeletedEvent args)
         {
-            if (_areaManager.TryGetAreaOfMap(component.MapId, out var area) && TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp))
+            if (_areaManager.TryGetAreaOfMap(args.Map.Id, out var area) && TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp))
             {
-                knownComp.KnownEntrances.Remove(component.MapId);
+                knownComp.KnownEntrances.Remove(args.Map.Id);
             }
         }
 

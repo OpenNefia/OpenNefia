@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Scenarios
             var yourHomeArea = _areaManager.CreateArea(Protos.Area.HomeCave, parent: northTyrisArea.Id);
             IMap yourHomeMap = _areaManager.GetOrGenerateMapForFloor(yourHomeArea.Id, HomeSystem.AreaFloorHome.WithFloorNumber(0))!;
 
-            _homes.ActiveHomeID = yourHomeMap.Id;
+            _homes.SetHome(yourHomeMap);
 
             // Make sure when the player steps outside of their home for the first time that they
             // will end up at the right location.
@@ -77,19 +77,6 @@ namespace OpenNefia.Content.Scenarios
             });
             
             ev.OutActiveMap = yourHomeMap;
-        }
-
-        public void Quickstart_OnGameStart(ScenarioPrototype proto, P_ScenarioOnGameStartEvent ev)
-        {
-            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
-            map.MemorizeAllTiles();
-
-            _homes.ActiveHomeID = map.Id;
-
-            var playerSpatial = Spatial(ev.Player);
-            playerSpatial.Coordinates = map.AtPosEntity(2, 2);
-
-            ev.OutActiveMap = map;
         }
     }
 

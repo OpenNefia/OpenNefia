@@ -183,7 +183,7 @@ namespace OpenNefia.Content
             CVarDef.Create("debug.quickstartOnStartup", true, CVar.Archive);
 
         public static readonly CVarDef<string> DebugQuickstartScenario =
-            CVarDef.Create("debug.quickstartScenario", (string)Protos.Scenario.Quickstart, CVar.Archive);
+            CVarDef.Create("debug.quickstartScenario", "LecchoTorte.Quickstart", CVar.Archive);
 
         public static readonly CVarDef<bool> DebugShowDetailedSkillPower =
             CVarDef.Create("debug.showDetailedSkillPower", false, CVar.Archive);

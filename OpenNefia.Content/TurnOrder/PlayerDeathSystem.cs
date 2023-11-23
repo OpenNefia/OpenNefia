@@ -45,7 +45,7 @@ namespace OpenNefia.Content.TurnOrder
         private void HandlePlayerReviving(EntityUid player, PlayerRevivingEvent args)
         {
             // >>>>>>>> shade2/main.hsp:1789  ...
-            if (_levels.GetLevel(player) > 5)
+            if (ShouldApplyDeathPenalty(player))
             {
                 ApplyDeathPenalty(player);
             }
@@ -67,10 +67,12 @@ namespace OpenNefia.Content.TurnOrder
             }
 
             _fame.DecrementFame(player, 10);
-
-            _refresh.Refresh(player);
-            _saveLoad.QueueAutosave();
             // <<<<<<<< shade2/main.hsp:1816 	swbreak ..
+        }
+
+        private bool ShouldApplyDeathPenalty(EntityUid player)
+        {
+            return _levels.GetLevel(player) > 5;
         }
 
         private void ApplyDeathPenalty(EntityUid player)

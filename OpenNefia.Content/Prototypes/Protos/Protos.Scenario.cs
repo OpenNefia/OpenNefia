@@ -9,7 +9,6 @@ namespace OpenNefia.Content.Prototypes
             #pragma warning disable format
 
             public static readonly ScenarioPrototypeId Default    = new($"Elona.{nameof(Default)}");
-            public static readonly ScenarioPrototypeId Quickstart = new($"Elona.{nameof(Quickstart)}");
 
             #pragma warning restore format
         }

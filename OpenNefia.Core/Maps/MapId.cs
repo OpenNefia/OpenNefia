@@ -6,7 +6,7 @@ namespace OpenNefia.Core.Maps
     public readonly struct MapId : IEquatable<MapId>
     {
         /// <summary>
-        /// Global entity storage. This is used for things like areas are not attached 
+        /// Global entity storage. This is used for things like areas that are not attached 
         /// to any map, but should be available no matter which map the player is in.
         /// </summary>
         /// <remarks>
@@ -16,6 +16,9 @@ namespace OpenNefia.Core.Maps
         /// </remarks>
         public static readonly MapId Global = new(-1);
 
+        /// <summary>
+        /// An invalid map. This map is never loaded and entities cannot be spawned there.
+        /// </summary>
         public static readonly MapId Nullspace = new(0);
 
         public static readonly MapId FirstId = new(1);

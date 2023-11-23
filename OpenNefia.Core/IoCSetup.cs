@@ -35,6 +35,7 @@ using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.ViewVariables;
 using CSharpRepl.Services;
+using OpenNefia.Core.EngineVariables;
 
 namespace OpenNefia
 {
@@ -79,6 +80,8 @@ namespace OpenNefia
             IoCManager.Register<IComponentFactory, ComponentFactory>();
             IoCManager.Register<IPrototypeManager, PrototypeManager>();
             IoCManager.Register<IPrototypeManagerInternal, PrototypeManager>();
+            IoCManager.Register<IEngineVariablesManager, EngineVariablesManager>();
+            IoCManager.Register<IEngineVariablesManagerInternal, EngineVariablesManager>();
             IoCManager.Register<IResourceManager, ResourceCache>();
             IoCManager.Register<IResourceManagerInternal, ResourceCache>();
             IoCManager.Register<IResourceCache, ResourceCache>();
