@@ -86,7 +86,7 @@ namespace OpenNefia.Core.Areas
                 {
                     _mapTransfer.RunMapInitializeEvents(map, MapLoadType.InitializeOnly);
                     _mapLoader.SaveMap(map.Id, _saveGameManager.CurrentSave!);
-                    _mapManager.UnloadMap(map.Id);
+                    _mapManager.UnloadMap(map.Id, MapUnloadType.Unload);
                 }
             }
 

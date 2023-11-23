@@ -11,6 +11,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using OpenNefia.Tests;
 
@@ -165,6 +166,9 @@ namespace OpenNefia.Content.Tests.Areas
             var area1 = areaMan.GetGlobalArea(TestArea1ID);
             var area1Map = areaMan.GetOrGenerateMapForFloor(area1.Id, new("Test", 0), worldMap.AtPos(0, 0))!;
 
+            var known = sys.EnumerateKnownEntrancesTo(area1Map);
+            Assert.That(known.Count, Is.EqualTo(0));
+
             var entrance1Pos = worldMap.AtPos(1, 1);
             var entrance1 = entranceSys.CreateAreaEntrance(area1, entrance1Pos);
             var entrance1Spatial = entMan.GetComponent<SpatialComponent>(entrance1.Owner);
@@ -209,9 +213,39 @@ namespace OpenNefia.Content.Tests.Areas
 
             Assert.That(sys.EnumerateKnownEntrancesTo(area1MapId).Count, Is.EqualTo(1));
 
-            mapMan.UnloadMap(area1MapId);
+            mapMan.UnloadMap(area1MapId, MapUnloadType.Unload);
 
             Assert.That(sys.EnumerateKnownEntrancesTo(area1MapId).Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestAreaKnownEntrancesSystem_DeleteMap()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var areaMan = sim.Resolve<IAreaManager>();
+            var saveGameMan = sim.Resolve<ISaveGameManager>();
+
+            var entranceSys = sim.GetEntitySystem<IAreaEntranceSystem>();
+            var sys = sim.GetEntitySystem<IAreaKnownEntrancesSystem>();
+
+            var worldMap = sim.CreateMapAndSetActive(10, 10);
+
+            var area1 = areaMan.GetGlobalArea(TestArea1ID);
+            var area1Map = areaMan.GetOrGenerateMapForFloor(area1.Id, new("Test", 0), worldMap.AtPos(0, 0))!;
+            var area1MapId = area1Map.Id;
+
+            var entrance1Pos = worldMap.AtPos(1, 1);
+            var entrance1 = entranceSys.CreateAreaEntrance(area1, entrance1Pos);
+            var entrance1Spatial = entMan.GetComponent<SpatialComponent>(entrance1.Owner);
+
+            Assert.That(sys.EnumerateKnownEntrancesTo(area1MapId).Count, Is.EqualTo(1));
+
+            mapMan.UnloadMap(area1MapId, MapUnloadType.Delete);
+
+            Assert.That(sys.EnumerateKnownEntrancesTo(area1MapId).Count, Is.EqualTo(0));
         }
     }
 }

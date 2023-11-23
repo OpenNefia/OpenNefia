@@ -81,13 +81,14 @@ namespace OpenNefia.Content.Maps
 
                 var mapCommon = EntityManager.GetComponent<MapCommonComponent>(oldMap.MapEntityUid);
                 var isTemporary = mapCommon.IsTemporary;
+                var unloadType = isTemporary ? MapUnloadType.Delete : MapUnloadType.Unload;
 
                 if (!isTemporary)
                 {
                     _mapLoader.SaveMap(oldMap.Id, save);
                 }
 
-                _mapManager.UnloadMap(oldMap.Id);
+                _mapManager.UnloadMap(oldMap.Id, unloadType);
 
                 if (isTemporary)
                 {

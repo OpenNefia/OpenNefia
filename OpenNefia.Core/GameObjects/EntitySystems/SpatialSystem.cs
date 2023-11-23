@@ -20,7 +20,7 @@ namespace OpenNefia.Core.GameObjects
             SubscribeComponent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged);
             SubscribeComponent<SpatialComponent, EntityMapInitEvent>(HandleMapInit);
             SubscribeComponent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged);
-            SubscribeComponent<SpatialComponent, EntityTerminatingEvent>(HandleEntityTerminating);
+            SubscribeComponent<SpatialComponent, EntityBeingDeletedEvent>(HandleEntityTerminating);
             SubscribeComponent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged);
         }
 
@@ -109,7 +109,7 @@ namespace OpenNefia.Core.GameObjects
             RefreshTileOfEntity(uid, spatial);
         }
 
-        private void HandleEntityTerminating(EntityUid uid, SpatialComponent spatial, ref EntityTerminatingEvent args)
+        private void HandleEntityTerminating(EntityUid uid, SpatialComponent spatial, ref EntityBeingDeletedEvent args)
         {
             RemoveEntityIndex(uid, spatial.MapPosition, spatial);
             RefreshTileOfEntity(uid, spatial);

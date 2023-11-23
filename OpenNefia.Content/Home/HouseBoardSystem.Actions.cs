@@ -144,7 +144,7 @@ namespace OpenNefia.Content.Home
                             _activities.RemoveActivity(chara);
                             _mes.Newline();
                             _mes.Display(Loc.GetString("Elona.Servant.Move.IsMoved", ("entity", chara)));
-                            _audio.Play(Protos.Sound.Foot, entityCoords);
+                            _audio.Play(Protos.Sound.Foot, chara);
                             break;
                         }
                     }

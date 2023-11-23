@@ -106,13 +106,13 @@ namespace OpenNefia.Core.GameObjects
     {
         /// <summary>
         /// The entity is going to be permanently removed.
-        /// Raises <see cref="EntityTerminatingEvent"/>.
+        /// Raises <see cref="BeforeEntityDeletedEvent"/>.
         /// </summary>
         Delete,
 
         /// <summary>
         /// The entity is going to be unloaded and kept in a save file
-        /// Raises <see cref="EntityUnloadingEvent"/>.
+        /// Raises <see cref="BeforeEntityUnloadedEvent"/>.
         /// </summary>
         Unload
     }

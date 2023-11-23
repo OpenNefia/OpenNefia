@@ -27,11 +27,31 @@ using static NetVips.Enums;
 
 namespace OpenNefia.Content.Stayers
 {
+    /// <summary>
+    /// Manages characters that stay behind in player-owned locations.
+    /// The player is able to assign one or more allies to stay in their home location
+    /// without following them. This system manages loading and unloading the staying entities
+    /// in a persistent global location when maps are changed so that the components of the
+    /// entities remain available for querying.
+    /// </summary>
     public interface IStayersSystem : IEntitySystem
     {
+        /// <summary>
+        /// Enumerates all *unloaded* stayers (moved into global container, no longer in map).
+        /// </summary>
+        /// <param name="tag">Tag to query for.</param>
+        /// <returns></returns>
         IEnumerable<StayingComponent> EnumerateAllStayers(string tag);
 
+        /// <summary>
+        /// Returns true if the entity is marked for staying, regardless of loaded status.
+        /// </summary>
+        /// <param name="ent"></param>
+        /// <param name="tag"></param>
+        /// <param name="staying"></param>
+        /// <returns></returns>
         bool IsStaying(EntityUid ent, string? tag = null, StayingComponent? staying = null);
+
         void RegisterStayer(EntityUid ent, IMap map, string tag, Vector2i? pos = null, StayingComponent? staying = null);
         void RegisterStayer(EntityUid ent, MapCoordinates mapCoords, string areaName, string tag, StayingComponent? staying = null);
         void UnregisterStayer(EntityUid ent, StayingComponent? staying = null);

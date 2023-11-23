@@ -37,7 +37,7 @@ namespace OpenNefia.Content.Maps
             SubscribeComponent<MapCharaGenComponent, MapOnTimePassedEvent>(RespawnMobs);
             SubscribeComponent<CharaComponent, EntityGeneratedEvent>(HandleEntityGenerated, priority: EventPriorities.VeryHigh);
             SubscribeComponent<CharaComponent, EntityKilledEvent>(HandleEntityKilled, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<CharaComponent, EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<CharaComponent, EntityBeingDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleEntityGenerated(EntityUid uid, CharaComponent component, ref EntityGeneratedEvent args)
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Maps
             mapCharaGen.CurrentCharaCount = Math.Max(mapCharaGen.CurrentCharaCount - 1, 0);
         }
 
-        private void HandleEntityDeleted(EntityUid uid, CharaComponent component, EntityDeletedEvent args)
+        private void HandleEntityDeleted(EntityUid uid, CharaComponent component, ref EntityBeingDeletedEvent args)
         {
             if (!TryMap(uid, out var map) || !TryComp<MapCharaGenComponent>(map.MapEntityUid, out var mapCharaGen))
                 return;

@@ -195,8 +195,11 @@ namespace OpenNefia.Core.GameObjects
             RecursiveDeleteEntity(e, deleteType);
         }
 
-        private EntityTerminatingEvent EntityTerminating = new();
-        private EntityUnloadingEvent EntityUnloading = new();
+        private BeforeEntityDeletedEvent BeforeEntityDeletedEvent = new();
+        private BeforeEntityUnloadedEvent BeforeEntityUnloadedEvent = new();
+
+        private EntityBeingDeletedEvent EntityBeingDeletedEvent = new();
+        private EntityBeingUnloadedEvent EntityBeingUnloadedEvent = new();
 
         private void RecursiveDeleteEntity(EntityUid uid, EntityDeleteType deleteType)
         {
@@ -212,10 +215,10 @@ namespace OpenNefia.Core.GameObjects
             {
                 case EntityDeleteType.Delete:
                 default:
-                    EventBus.RaiseEvent(uid, ref EntityTerminating, false);
+                    EventBus.RaiseEvent(uid, ref BeforeEntityDeletedEvent, broadcast: false);
                     break;
                 case EntityDeleteType.Unload:
-                    EventBus.RaiseEvent(uid, ref EntityUnloading, false);
+                    EventBus.RaiseEvent(uid, ref BeforeEntityUnloadedEvent, broadcast: false);
                     break;
             }
 
@@ -240,21 +243,22 @@ namespace OpenNefia.Core.GameObjects
                 spatial.DetachParentToNull();
             }
 
+            switch (deleteType)
+            {
+                case EntityDeleteType.Delete:
+                default:
+                    EventBus.RaiseEvent(uid, ref EntityBeingDeletedEvent);
+                    break;
+                case EntityDeleteType.Unload:
+                    EventBus.RaiseEvent(uid, ref EntityBeingUnloadedEvent);
+                    break;
+            }
+
             // Dispose all my components, in a safe order so transform is available
             DisposeComponents(uid);
 
             metadata.EntityLifeStage = EntityLifeStage.Deleted;
             EntityDeleted?.Invoke(this, uid);
-            switch (deleteType)
-            {
-                case EntityDeleteType.Delete:
-                default:
-                    EventBus.RaiseEvent(new EntityDeletedEvent(uid));
-                    break;
-                case EntityDeleteType.Unload:
-                    EventBus.RaiseEvent(new EntityUnloadedEvent(uid));
-                    break;
-            }
             Entities.Remove(uid);
         }
 

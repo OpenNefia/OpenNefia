@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Nefia
         {
             for (var i = 0; i < MAX_GENERATION_ATTEMPTS; i++)
             {
-                _mapManager.UnloadMap(mapId);
+                _mapManager.UnloadMap(mapId, MapUnloadType.Delete);
                 _rand.RandomizeSeed();
 
                 var width = 34 + _rand.Next(15);

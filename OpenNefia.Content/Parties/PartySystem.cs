@@ -231,14 +231,14 @@ namespace OpenNefia.Content.Parties
 
         public override void Initialize()
         {
-            SubscribeBroadcast<EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<EntityBeingDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
         }
 
-        private void HandleEntityDeleted(EntityDeletedEvent ev)
+        private void HandleEntityDeleted(EntityUid uid, ref EntityBeingDeletedEvent ev)
         {
-            if (Parties.TryGetPartyId(ev.EntityUid, out var partyId))
+            if (Parties.TryGetPartyId(uid, out var partyId))
             {
-                Parties.RemoveMember(partyId, ev.EntityUid);
+                Parties.RemoveMember(partyId, uid);
             }
         }
 

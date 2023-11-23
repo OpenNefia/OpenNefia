@@ -248,7 +248,7 @@ namespace OpenNefia.Content.TitleScreen
 
             QueryFieldLayer();
 
-            _mapManager.UnloadMap(map.Id);
+            _mapManager.UnloadMap(map.Id, MapUnloadType.Unload);
 
             _saveGameManager.CurrentSave = null;
         }

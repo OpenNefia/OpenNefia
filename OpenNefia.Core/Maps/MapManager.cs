@@ -221,14 +221,14 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public void UnloadMap(MapId mapID)
+        public void UnloadMap(MapId mapID, MapUnloadType unloadType = MapUnloadType.Unload)
         {
             if (mapID == ActiveMap?.Id)
             {
                 ActiveMap = null;
             }
 
-            if (!_maps.ContainsKey(mapID))
+            if (!_maps.TryGetValue(mapID, out var map))
             {
                 Logger.DebugS("map", $"Attempted to unload nonexistent map '{mapID}'");
                 return;
@@ -236,11 +236,26 @@ namespace OpenNefia.Core.Maps
 
             Logger.InfoS("map", $"Unloading map {mapID}.");
 
+            EntityDeleteType entityDeleteType;
+
+            if (unloadType == MapUnloadType.Unload)
+            {
+                var ev = new BeforeMapUnloadedEvent(map);
+                entityDeleteType = EntityDeleteType.Unload;
+                _entityManager.EventBus.RaiseEvent(map.MapEntityUid, ev);
+            }
+            else
+            {
+                var ev = new BeforeMapDeletedEvent(map);
+                entityDeleteType = EntityDeleteType.Delete;
+                _entityManager.EventBus.RaiseEvent(map.MapEntityUid, ev);
+            }
+
             _maps.Remove(mapID);
             UnloadEntitiesInMap(mapID);
 
             var mapEnt = _mapEntities[mapID];
-            _entityManager.DeleteEntity(mapEnt, EntityDeleteType.Unload);
+            _entityManager.DeleteEntity(mapEnt, entityDeleteType);
             _mapEntities.Remove(mapID);
         }
 
@@ -338,6 +353,7 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised when a map is created from scratch.
     /// </summary>
+    [EventUsage(EventTarget.Map)]
     public sealed class MapCreatedEvent : EntityEventArgs
     {
         public IMap Map { get; }
@@ -357,11 +373,34 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised when a map is loaded from save data.
     /// </summary>
+    [EventUsage(EventTarget.Map)]
     public sealed class MapLoadedFromSaveEvent : EntityEventArgs
     {
         public IMap Map { get; }
 
         public MapLoadedFromSaveEvent(IMap map)
+        {
+            Map = map;
+        }
+    }
+
+    [EventUsage(EventTarget.Map)]
+    public sealed class BeforeMapUnloadedEvent : EntityEventArgs
+    {
+        public IMap Map { get; }
+
+        public BeforeMapUnloadedEvent(IMap map)
+        {
+            Map = map;
+        }
+    }
+
+    [EventUsage(EventTarget.Map)]
+    public sealed class BeforeMapDeletedEvent : EntityEventArgs
+    {
+        public IMap Map { get; }
+
+        public BeforeMapDeletedEvent(IMap map)
         {
             Map = map;
         }
