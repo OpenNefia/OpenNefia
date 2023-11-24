@@ -7,7 +7,6 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface.XAML;

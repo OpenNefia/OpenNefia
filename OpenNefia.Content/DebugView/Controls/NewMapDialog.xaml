@@ -1,0 +1,13 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="OpenNefia.Content.DebugView.NewMapDialog"
+               Title="New Map"
+               MinSize="300 300">
+    <ScrollContainer VerticalExpand="False">
+        <BoxContainer Orientation="Vertical">
+          <LineEdit Name="WidthLineEdit" Text="20" PlaceHolder="Width" HorizontalExpand="True" />
+          <LineEdit Name="HeightLineEdit" Text="20" PlaceHolder="Height" HorizontalExpand="True" />
+          <Button Name="OKButton" Text="OK" HorizontalAlignment="Left" Margin ="0 4" />
+          <Button Name="CancelButton" Text="Cancel" HorizontalAlignment="Right" Margin ="0 4" />
+        </BoxContainer>
+    </ScrollContainer>
+</DefaultWindow>
