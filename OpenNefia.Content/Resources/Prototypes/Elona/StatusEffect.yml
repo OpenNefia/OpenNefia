@@ -14,9 +14,9 @@
   - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Sick_CalcAdditivePower
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Sick_OnPassTurn
+    method: Sick_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Fury
@@ -70,9 +70,9 @@
   - type: StatusEffects.P_StatusEffectCalcAdjustedPowerEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Bleeding_CalcAdjustedPower
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Bleeding_OnPassTurn
+    method: Bleeding_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Drunk
@@ -109,9 +109,9 @@
   - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Insanity_CalcAdditivePower
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Insanity_OnPassTurn
+    method: Insanity_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Wet
@@ -149,9 +149,9 @@
   - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Choking_BeforeTurnStart
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Choking_OnPassTurn
+    method: Choking_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Poison
@@ -173,9 +173,9 @@
   - type: StatusEffects.P_StatusEffectCalcAdditivePowerEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Poison_CalcAdditivePower
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Poison_OnPassTurn
+    method: Poison_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Confusion
@@ -220,9 +220,9 @@
   - type: StatusEffects.P_StatusEffectBeforeTurnStartEvent
     system: StatusEffects.VanillaStatusEffectsSystem
     method: Sleep_BeforeTurnStart
-  - type: StatusEffects.P_StatusEffectOnPassTurnEvent
+  - type: StatusEffects.P_StatusEffectOnTurnEndEvent
     system: StatusEffects.VanillaStatusEffectsSystem
-    method: Sleep_OnPassTurn
+    method: Sleep_OnTurnEnd
 
 - type: Elona.StatusEffect
   id: Elona.Paralysis

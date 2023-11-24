@@ -84,7 +84,7 @@ namespace OpenNefia.Content.EmotionIcon
         public override void Draw()
         {
             Love.Graphics.SetColor(Color.White);
-            GraphicsS.DrawS(_coords.TileScale, _batch!, PixelX, PixelY);
+            GraphicsS.DrawS(_coords.TileScale, _batch!, PixelX / _coords.TileScale, PixelY / _coords.TileScale);
         }
     }
 }

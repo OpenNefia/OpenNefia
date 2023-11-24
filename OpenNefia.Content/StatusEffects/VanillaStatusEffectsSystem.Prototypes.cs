@@ -1,4 +1,5 @@
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Enchantments;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.GameObjects;
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.StatusEffects
             ev.OutPower = ev.OutPower / 10 + 1;
         }
 
-        public void Sick_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Sick_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             if (_rand.OneIn(80))
             {
@@ -115,7 +116,7 @@ namespace OpenNefia.Content.StatusEffects
                 ev.OutPower /= 2;
         }
 
-        public void Bleeding_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Bleeding_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             var turns = _statusEffects.GetTurns(ev.Entity, Protos.StatusEffect.Bleeding);
             var hp = CompOrNull<SkillsComponent>(ev.Entity)?.HP ?? 1;
@@ -151,7 +152,7 @@ namespace OpenNefia.Content.StatusEffects
             ev.OutPower = ev.OutPower / 3 + 1;
         }
 
-        public void Insanity_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Insanity_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             if (_rand.OneIn(3))
                 _mes.Display(Loc.GetPrototypeString(Protos.StatusEffect.Insanity, "Dialog", ("entity", ev.Entity)), entity: ev.Entity);
@@ -186,7 +187,7 @@ namespace OpenNefia.Content.StatusEffects
             ev.Handle(TurnResult.Failed);
         }
 
-        public void Choking_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Choking_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             if (_statusEffects.GetTurns(ev.Entity, Protos.StatusEffect.Choking) % 3 == 0)
             {
@@ -216,7 +217,7 @@ namespace OpenNefia.Content.StatusEffects
             ev.OutPower = ev.OutPower / 3 + 3;
         }
 
-        public void Poison_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Poison_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             if (TryComp<SkillsComponent>(ev.Entity, out var skills))
                 skills.CanRegenerateThisTurn = false;
@@ -258,7 +259,7 @@ namespace OpenNefia.Content.StatusEffects
             ev.Handle(TurnResult.Failed);
         }
 
-        public void Sleep_OnPassTurn(StatusEffectPrototype proto, P_StatusEffectOnPassTurnEvent ev)
+        public void Sleep_OnTurnEnd(StatusEffectPrototype proto, P_StatusEffectOnTurnEndEvent ev)
         {
             _damage.HealHP(ev.Entity, 1, showMessage: false);
             _damage.HealMP(ev.Entity, 1, showMessage: false);
@@ -386,11 +387,11 @@ namespace OpenNefia.Content.StatusEffects
     }
 
     [PrototypeEvent(typeof(StatusEffectPrototype))]
-    public sealed class P_StatusEffectOnPassTurnEvent : TurnResultPrototypeEventArgs
+    public sealed class P_StatusEffectOnTurnEndEvent : PrototypeEventArgs
     {
         public EntityUid Entity { get; }
 
-        public P_StatusEffectOnPassTurnEvent(EntityUid entity)
+        public P_StatusEffectOnTurnEndEvent(EntityUid entity)
         {
             Entity = entity;
         }

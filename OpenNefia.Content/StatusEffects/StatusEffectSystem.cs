@@ -4,6 +4,7 @@ using OpenNefia.Content.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Sleep;
+using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
@@ -60,7 +61,6 @@ namespace OpenNefia.Content.StatusEffects
             SubscribeComponent<StatusEffectsComponent, GetStatusIndicatorsEvent>(AddStatusIndicators, priority: EventPriorities.VeryHigh);
             SubscribeComponent<StatusEffectsComponent, OnCharaSleepEvent>(HandleCharaSleep);
             SubscribeComponent<StatusEffectsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.High);
-            SubscribeComponent<StatusEffectsComponent, EntityPassTurnEventArgs>(HandlePassTurn, priority: EventPriorities.High);
             SubscribeComponent<StatusEffectsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.High);
         }
 
@@ -118,7 +118,8 @@ namespace OpenNefia.Content.StatusEffects
             }
         }
 
-        private void HandlePassTurn(EntityUid uid, StatusEffectsComponent component, EntityPassTurnEventArgs args)
+
+        private void HandleTurnEnding(EntityUid uid, StatusEffectsComponent component, EntityTurnEndingEventArgs args)
         {
             if (args.Handled)
                 return;
@@ -131,24 +132,9 @@ namespace OpenNefia.Content.StatusEffects
                     _emotionIcons.SetEmotionIcon(uid, proto.EmotionIconId);
                 }
 
-                var pev = new P_StatusEffectOnPassTurnEvent(uid);
+                var pev = new P_StatusEffectOnTurnEndEvent(uid);
                 _protos.EventBus.RaiseEvent(proto, pev);
-                if (pev.Handled)
-                {
-                    args.Handle(pev.TurnResult);
-                    return;
-                }
-            }
-        }
 
-        private void HandleTurnEnding(EntityUid uid, StatusEffectsComponent component, EntityTurnEndingEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            foreach (var (id, effect) in EnumerateStatusEffects(uid).ToList())
-            {
-                var proto = _protos.Index(id);
                 if (proto.AutoHeal)
                 {
                     Heal(uid, id, 1);
