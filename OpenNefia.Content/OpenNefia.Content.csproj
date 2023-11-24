@@ -5,7 +5,7 @@
     <ModID>OpenNefia.Content</ModID>
     <ModVersion>0.1.0.0</ModVersion>
   </PropertyGroup>
-	
+
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>

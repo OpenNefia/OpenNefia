@@ -1,5 +1,6 @@
 using System.Globalization;
 using JetBrains.Annotations;
+using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Core.Serialization.Markdown.Value
@@ -8,19 +9,23 @@ namespace OpenNefia.Core.Serialization.Markdown.Value
     {
         public ValueDataNode() : this(string.Empty) { }
 
-        public ValueDataNode(string value, string? tag = null) : base(NodeMark.Invalid, NodeMark.Invalid)
+        public ValueDataNode(string value, string? tag = null, ScalarStyle style = ScalarStyle.Any) : base(NodeMark.Invalid, NodeMark.Invalid)
         {
             Value = value;
             Tag = tag;
+            Style = style;
         }
 
         public ValueDataNode(YamlScalarNode node) : base(node.Start, node.End)
         {
             Value = node.Value ?? string.Empty;
             Tag = node.Tag.IsEmpty ? null : node.Tag.Value;
+            Style = node.Style;
         }
 
         public string Value { get; set; }
+
+        public ScalarStyle Style { get; set; } = ScalarStyle.Any;
 
         public override bool IsEmpty => Value == string.Empty;
 

@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Serialization.Markdown
         {
             return node switch
             {
-                ValueDataNode valueDataNode => new YamlScalarNode(valueDataNode.Value){Tag = valueDataNode.Tag},
+                ValueDataNode valueDataNode => new YamlScalarNode(valueDataNode.Value){Tag = valueDataNode.Tag, Style = valueDataNode.Style},
                 MappingDataNode mappingDataNode => mappingDataNode.ToYaml(),
                 SequenceDataNode sequenceNode => sequenceNode.ToSequenceNode(),
                 _ => throw new ArgumentOutOfRangeException(nameof(node))

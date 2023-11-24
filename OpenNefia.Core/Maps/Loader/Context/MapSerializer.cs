@@ -6,6 +6,7 @@ using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Utility;
 using System.Globalization;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
@@ -106,7 +107,7 @@ namespace OpenNefia.Core.Maps
         private void DoWriteGrid(string name, IMap map, Tile[,] tiles)
         {
             var grid = new ValueDataNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
-            // grid.Style = ScalarStyle.Literal;
+            grid.Style = ScalarStyle.Literal;
             _rootNode.Add(name, grid);
         }
 
@@ -153,7 +154,16 @@ namespace OpenNefia.Core.Maps
             var withoutUid = new List<EntityUid>();
             var takenIds = new HashSet<int>();
 
-            foreach (var entityUid in GetAllEntitiesInMap(_targetMapId))
+            var entities = GetAllEntitiesInMap(_targetMapId).ToList();
+
+            // Ensure map component always shows up first in entities list
+            entities.MoveElementWhere((uid) => _entityManager.HasComponent<MapComponent>(uid), 0);
+            if (entities.TryGetValue(0, out var ent) && _entityManager.HasComponent<MapComponent>(ent))
+            {
+                _entityManager.EnsureComponent<MapSaveIdComponent>(ent).Uid = 0;
+            }
+
+            foreach (var entityUid in entities)
             {
                 if (IsMapSavable(entityUid))
                 {
