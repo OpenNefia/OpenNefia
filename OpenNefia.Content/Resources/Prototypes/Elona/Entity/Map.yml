@@ -4,6 +4,8 @@
   components:
   - type: MapTypeWorldMap
   - type: MapRandomAreaManager
+    randomAreaGenerateCount: 40
+    randomAreaMinCount: 25
   - type: WorldMapFields
 
 - type: Entity

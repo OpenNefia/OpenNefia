@@ -22,5 +22,19 @@ namespace OpenNefia.Content.RandomAreas
         /// </summary>
         [DataField]
         public bool RegenerateRandomAreas { get; set; } = false;
+
+        /// <summary>
+        /// Number of random areas generated when this world is refreshed.
+        /// </summary>
+        [DataField]
+        public int RandomAreaGenerateCount { get; set; } = 40;
+
+        /// <summary>
+        /// The number of active random areas that should exist in this world map at any given time.
+        /// If the live number drops below this amount, then enough new random areas will be generated
+        /// to fill the needed amount.
+        /// </summary>
+        [DataField]
+        public int RandomAreaMinCount { get; set; } = 25;
     }
 }

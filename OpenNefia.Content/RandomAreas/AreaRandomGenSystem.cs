@@ -33,20 +33,6 @@ namespace OpenNefia.Content.RandomAreas
         [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
-        /// <summary>
-        /// Number of random areas generated when the world is refreshed.
-        /// </summary>
-        // TODO: Make into a CVar.
-        public const int RandomAreaGenerateCount = 40;
-
-        /// <summary>
-        /// The number of active random areas that should exist in the world map at any given time.
-        /// If the live number drops below this amount, then enough new random areas will be generated
-        /// to fill the needed amount.
-        /// </summary>
-        // TODO: Make into a CVar.
-        public const int RandomAreaMinCount = 25;
-
         public override void Initialize()
         {
             SubscribeComponent<MapRandomAreaManagerComponent, MapEnterEvent>(OnMapEnter, priority: EventPriorities.High);
@@ -66,7 +52,7 @@ namespace OpenNefia.Content.RandomAreas
                 return true;
 
             var totalActiveAreas = GetTotalActiveRandomAreasInMap(mapId);
-            if (totalActiveAreas < RandomAreaMinCount)
+            if (totalActiveAreas < mapRandomAreas.RandomAreaMinCount)
                 return true;
 
             if (_random.OneIn(150))
@@ -81,14 +67,14 @@ namespace OpenNefia.Content.RandomAreas
 
             _mes.Display(Loc.GetString("Elona.RandomArea.SuddenDiastrophism"));
             DeleteRandomAreasAndEntrancesInMap(mapId);
-            GenerateRandomAreas(mapId);
+            GenerateRandomAreas(mapId, mapRandomAreas);
         }
 
-        private void GenerateRandomAreas(MapId mapId)
+        private void GenerateRandomAreas(MapId mapId, MapRandomAreaManagerComponent mapRandomAreas)
         {
             var map = _mapManager.GetMap(mapId);
             var activeAreaCount = GetTotalActiveRandomAreasInMap(mapId);
-            var numberToGenerate = Math.Max(0, RandomAreaGenerateCount - activeAreaCount);
+            var numberToGenerate = Math.Max(0, mapRandomAreas.RandomAreaGenerateCount - activeAreaCount);
 
             for (int i = 0; i < numberToGenerate; i++)
             {
@@ -230,8 +216,8 @@ namespace OpenNefia.Content.RandomAreas
         {
             foreach (var (entrance, area) in EnumerateRandomMapEntrancesIn(mapId).ToList())
             {
-                _areaManager.DeleteArea(area.Id);
                 EntityManager.DeleteEntity(entrance.Owner);
+                _areaManager.DeleteArea(area.Id);
             }
         }
 
