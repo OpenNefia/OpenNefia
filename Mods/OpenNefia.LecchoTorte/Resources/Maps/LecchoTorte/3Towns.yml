@@ -1,0 +1,101 @@
+meta:
+  format: 1
+  name: ''
+  author: ''
+tilemap:
+  a: Elona.WorldWater
+  b: Elona.WorldGrassWaterBorderNw
+  c: Elona.WorldGrassWaterBorderE
+  d: Elona.WorldGrassWaterBorderSw
+  e: Elona.WorldGrassWaterBorderCornerSe
+  f: Elona.WorldGrass
+  g: Elona.WorldDirt3
+  h: Elona.WorldDirt4
+  i: Elona.WorldGrassWaterBorderCornerNe
+  j: Elona.WorldSmallTrees1
+  k: Elona.WorldGrassWaterBorderS
+  l: Elona.WorldSmallTrees2
+  m: Elona.WorldFlower3
+  n: Elona.WorldMounds1
+  o: Elona.WorldRoadWe
+  p: Elona.WorldGrassWaterBorderN
+  q: Elona.WorldSmallTrees3
+  r: Elona.WorldFlower4
+  s: Elona.WorldFlower6
+  t: Elona.WorldRoadSe
+  u: Elona.WorldRoadNw
+  v: Elona.WorldFlower5
+  w: Elona.WorldRoadNs
+  x: Elona.WorldTrees1
+  y: Elona.WorldTrees2
+  z: Elona.WorldTrees5
+  A: Elona.WorldGrassWaterBorderNe
+  B: Elona.WorldGrassWaterBorderCornerSw
+  C: Elona.WorldGrassWaterBorderCornerNw
+  D: Elona.WorldGrassWaterBorderSe
+  E: Elona.WorldTrees3
+  F: Elona.WorldGrassWaterBorderW
+grid: |
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaabkkkkkkkkkkAaaaa
+  aaabejjffffffffBAaaa
+  aabejjjjlfffffgfBAaa
+  aacfjlqqlljsvfwffFaa
+  aacfjlqqqqlfsfwffFaa
+  aacffllllllfnfwffFaa
+  aacfffrfllfnftuffFaa
+  aacffmmrfffffwffyFaa
+  aacggnnmrfftouxyEFaa
+  aachgooofooufxyzzFaa
+  aadifnnmrrfffyzzCDaa
+  aaadimmrrfffffzCDaaa
+  aaaadppppppppppDaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+entities:
+- uid: 0
+  protoId: LecchoTorte.Map3Towns
+- uid: 1
+  protoId: Elona.MObjMapEntrance
+  components:
+  - pos: 4,11
+    parent: 0
+    type: Spatial
+  - type: Chip
+    id: Elona.MObjAreaVillage
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: LecchoTorte.TownA
+      startLocation: !type:MapEdgesLocation {}
+- uid: 2
+  protoId: Elona.MObjMapEntrance
+  components:
+  - pos: 8,11
+    parent: 0
+    type: Spatial
+  - type: Chip
+    id: Elona.MObjAreaVillage
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: LecchoTorte.TownB
+      startLocation: !type:MapEdgesLocation {}
+- uid: 3
+  protoId: Elona.MObjMapEntrance
+  components:
+  - pos: 14,4
+    parent: 0
+    type: Spatial
+  - type: Chip
+    id: Elona.MObjAreaVillage
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: LecchoTorte.TownC
+      startLocation: !type:MapEdgesLocation {}
+...

@@ -1,0 +1,118 @@
+- type: Map
+  id: LecchoTorte.3Towns
+  blueprintPath: /Maps/LecchoTorte/3Towns.yml
+
+- type: Entity
+  id: LecchoTorte.Map3Towns
+  parent: Elona.MapWorld
+  components:
+  - type: MapRandomAreaManager
+    randomAreaGenerateCount: 6
+    randomAreaMinCount: 3
+
+- type: Entity
+  id: LecchoTorte.BaseTown
+  parent: BaseTown
+  abstract: true
+  components:
+  - type: MapCommon
+  - type: MapCharaGen
+    maxCharaCount: 40
+  - type: MapTypeTown
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 4
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 4
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaGuard
+      amount: 4
+      components:
+      - type: RoleGuard
+  - type: MapAutogenCharas
+    amount: 10
+  - type: MapEdgesEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: LecchoTorte.3Towns
+      startLocation: !type:WorldMapEntranceLocation {}
+
+- type: Map
+  id: LecchoTorte.TownA
+  blueprintPath: /Maps/LecchoTorte/TownA.yml
+
+- type: Entity
+  id: LecchoTorte.MapTownA
+  parent: LecchoTorte.BaseTown
+  components:
+  - type: MapCommon
+    music: Elona.Town1
+  - type: MapTypeTown
+    townId: 1
+  - type: MapTrainers
+    trainableSkills:
+      - Elona.Alchemy
+      - Elona.Healing
+      - Elona.Cooking
+      - Elona.Mining
+      - Elona.Traveling
+      - Elona.Fishing
+      - Elona.LockPicking
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/LecchoTorte/TownA.yml
+
+- type: Map
+  id: LecchoTorte.TownB
+  blueprintPath: /Maps/LecchoTorte/TownB.yml
+
+- type: Entity
+  id: LecchoTorte.MapTownB
+  parent: LecchoTorte.BaseTown
+  components:
+  - type: MapCommon
+    music: Elona.Town2
+  - type: MapTypeTown
+    townId: 2
+  - type: MapTrainers
+    trainableSkills:
+      - Elona.Healing
+      - Elona.SenseQuality
+      - Elona.Cooking
+      - Elona.Carpentry
+      - Elona.Tailoring
+      - Elona.Gardening
+      - Elona.Riding
+      - Elona.TwoHand
+      - Elona.WeightLifting
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/LecchoTorte/TownB.yml
+
+- type: Map
+  id: LecchoTorte.TownC
+  blueprintPath: /Maps/LecchoTorte/TownC.yml
+
+- type: Entity
+  id: LecchoTorte.MapTownC
+  parent: LecchoTorte.BaseTown
+  components:
+  - type: MapCommon
+    music: Elona.Town3
+  - type: MapTypeTown
+    townId: 3
+  - type: MapTrainers
+    trainableSkills:
+      - Elona.GeneEngineer
+      - Elona.Literacy
+      - Elona.Anatomy
+      - Elona.Jeweler
+      - Elona.Riding
+      - Elona.Negotiation
+      - Elona.Investing
+      - Elona.Casting
+      - Elona.Alchemy
+  - type: MapRenewGeometry
+    mapBlueprintPath: /Maps/LecchoTorte/TownC.yml

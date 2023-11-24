@@ -34,7 +34,11 @@ namespace OpenNefia.Content.Maps
         {
             EntitySystem.InjectDependencies(this);
 
-            var area = _areaManager.GetArea(AreaId);
+            if (!_areaManager.TryGetArea(AreaId, out var area))
+            {
+                Logger.ErrorS("area.mapIds", $"Area {AreaId} does not exist!");
+                return null;
+            }
 
             var startingFloor = _areaEntrances.GetStartingFloor(area, FloorId);
 
@@ -58,7 +62,11 @@ namespace OpenNefia.Content.Maps
         {
             EntitySystem.InjectDependencies(this);
 
-            var area = _areaManager.GetArea(AreaId);
+            if (!_areaManager.TryGetArea(AreaId, out var area))
+            {
+                Logger.ErrorS("area.mapIds", $"Area {AreaId} does not exist!");
+                return null;
+            }
 
             var startingFloor = _areaEntrances.GetStartingFloor(area, FloorId);
 

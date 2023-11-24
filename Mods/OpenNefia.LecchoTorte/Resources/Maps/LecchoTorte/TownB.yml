@@ -1,0 +1,119 @@
+meta:
+  format: 1
+  name: 'TownB'
+  author: 'ruin'
+tilemap:
+  a: Elona.Brick1
+  b: Elona.Brick2
+  c: Elona.WallStone2
+  d: Elona.Concrete4
+grid: |
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaabbbbbaaaaaaaa
+  aaaaaaabbbbbbbaaaaaaa
+  aaaaaabbcdddcbbaaaaaa
+  bbbbbbbbdddddbbbbbbbb
+  bbbbbbbbdddddbbbbbbbb
+  bbbbbbbbdddddbbbbbbbb
+  aaaaaabbcdddcbbaaaaaa
+  aaaaaaabbbbbbbaaaaaaa
+  aaaaaaaabbbbbaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaa
+entities:
+- uid: 0
+  protoId: LecchoTorte.MapTownB
+- uid: 64
+  protoId: Elona.CharaShopkeeper
+  components:
+  - pos: 16,6
+    parent: 0
+    type: Spatial
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.GeneralVendor
+    shopRank: 12
+- uid: 72
+  protoId: Elona.CharaShopkeeper
+  components:
+  - pos: 15,6
+    parent: 0
+    type: Spatial
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Blackmarket
+    shopRank: 30
+- uid: 73
+  protoId: Elona.CharaShopkeeper
+  components:
+  - pos: 15,6
+    parent: 0
+    type: Spatial
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Innkeeper
+    shopRank: 8
+- uid: 79
+  protoId: Elona.CharaInformer
+  components:
+  - pos: 2,6
+    parent: 0
+    type: Spatial
+  - id: Elona.CharaInformerFemale
+    type: Chip
+  - gender: Female
+    classSlot: 2
+    type: Chara
+  - type: RoleInformer
+- uid: 89
+  protoId: Elona.CharaBartender
+  components:
+  - pos: 3,6
+    parent: 0
+    type: Spatial
+  - id: Elona.CharaBartenderMale
+    type: Chip
+  - gender: Male
+    classSlot: 2
+    type: Chara
+  - type: RoleBartender
+- uid: 94
+  protoId: Elona.CharaHealer
+  components:
+  - pos: 4,6
+    parent: 0
+    type: Spatial
+  - classSlot: 2
+    type: Chara
+  - type: RoleHealer
+- uid: 101
+  protoId: Elona.CharaTrainer
+  components:
+  - pos: 5,6
+    parent: 0
+    type: Spatial
+  - id: Elona.CharaTrainerMale
+    type: Chip
+  - gender: Male
+    classSlot: 2
+    type: Chara
+  - type: RoleTrainer
+- uid: 102
+  protoId: Elona.MObjQuestBoard
+  components:
+  - pos: 10,10
+    parent: 0
+    type: Spatial
+- uid: 103
+  protoId: Elona.MObjVotingBox
+  components:
+  - pos: 12,13
+    parent: 0
+    type: Spatial
+...

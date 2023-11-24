@@ -201,7 +201,9 @@ entities:
     direction: Up
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.AreaNorthTyris
+        globalAreaId: LecchoTorte.TownA
+      startLocation: !type:SpecificMapLocation
+        pos: 11,11
 - uid: 26
   protoId: Elona.ItemLuxuryBed
   components:

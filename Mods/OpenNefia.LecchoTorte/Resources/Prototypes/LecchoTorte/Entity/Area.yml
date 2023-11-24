@@ -1,0 +1,54 @@
+- type: Entity
+  id: LecchoTorte.QuickstartArea
+  parent: BaseArea
+  components:
+  - type: AreaHome
+    maxItemsOnGround: 100
+    homeRankPoints: 1200
+  - type: AreaEntrance
+    startingFloor: LecchoTorte.QuickstartArea:0
+    globalId: LecchoTorte.QuickstartArea
+
+- type: Entity
+  id: LecchoTorte.Area3Towns
+  parent: BaseArea
+  components:
+  - type: AreaStaticFloors
+    floors:
+      LecchoTorte.Floor3Towns:0: LecchoTorte.3Towns
+  - type: AreaEntrance
+    startingFloor: LecchoTorte.Floor3Towns:0
+    globalId: LecchoTorte.3Towns
+
+- type: Entity
+  id: LecchoTorte.AreaTownA
+  parent: BaseArea
+  components:
+  - type: AreaStaticFloors
+    floors:
+      LecchoTorte.TownA:0: LecchoTorte.TownA
+  - type: AreaEntrance
+    startingFloor: LecchoTorte.TownA:0
+    globalId: LecchoTorte.TownA
+
+- type: Entity
+  id: LecchoTorte.AreaTownB
+  parent: BaseArea
+  components:
+  - type: AreaStaticFloors
+    floors:
+      LecchoTorte.TownB:0: LecchoTorte.TownB
+  - type: AreaEntrance
+    startingFloor: LecchoTorte.TownB:0
+    globalId: LecchoTorte.TownB
+
+- type: Entity
+  id: LecchoTorte.AreaTownC
+  parent: BaseArea
+  components:
+  - type: AreaStaticFloors
+    floors:
+      LecchoTorte.TownC:0: LecchoTorte.TownC
+  - type: AreaEntrance
+    startingFloor: LecchoTorte.TownC:0
+    globalId: LecchoTorte.TownC
