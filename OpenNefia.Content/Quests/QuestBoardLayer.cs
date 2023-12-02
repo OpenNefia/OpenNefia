@@ -156,7 +156,7 @@ namespace OpenNefia.Content.Quests
                 AssetDecoBoardB.Draw();
                 Love.Graphics.SetBlendMode(BlendMode.Subtract);
                 Love.Graphics.SetColor(new Color(12, 14, 16, 255));
-                Love.Graphics.Rectangle(DrawMode.Fill, X + 70 + 20, Y + 20, 460, 18);
+                GraphicsS.RectangleS(UIScale, DrawMode.Fill, X + 70 + 20, Y + 20, 460, 18);
                 Love.Graphics.SetBlendMode(BlendMode.Alpha);
                 Love.Graphics.SetColor(Color.White);
                 AssetSelectKey.Draw(UIScale, X + 70, Y + 17);

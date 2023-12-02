@@ -117,6 +117,7 @@ namespace OpenNefia.Content.Quests
                 if (_inv.TryFindItemWithIDInInventory(args.Player, questCollect.TargetItemID, out var item))
                 {
                     var choiceExtraData = new DialogQuestGiveItemData(quest.Owner, item.Value);
+                    choiceExtraData.CheckPoison = true;
                     args.OutChoices.Add(new()
                     {
                         Text = DialogTextEntry.FromString(Loc.GetString("Elona.Quest.Dialog.Choices.Give", ("item", item.Value))),

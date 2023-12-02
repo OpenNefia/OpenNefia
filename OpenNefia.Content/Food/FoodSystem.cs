@@ -538,7 +538,7 @@ namespace OpenNefia.Content.Food
             else
             {
                 if (food.IsRotten)
-                    _mes.Display(Loc.GetString("Elona.Food.Message.RawGlum"));
+                    _mes.Display(Loc.GetString("Elona.Food.Message.RawGlum", ("entity", eater)));
             }
 
             expGains.AddRange(food.ExperienceGains);

@@ -1,2 +1,3 @@
 Elona:
   DebugForceMapRenewal: All
+  DebugRegenQuestsEveryTime: true

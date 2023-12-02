@@ -18,6 +18,7 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.Talk;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Food;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -50,6 +51,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IInventorySystem _inventories = default!;
         [Dependency] private readonly IVerbSystem _verbs = default!;
         [Dependency] private readonly IFoodSystem _foods = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
 
         public override void Initialize()
         {
@@ -129,15 +131,29 @@ namespace OpenNefia.Content.VanillaAI
                 ai.ItemAboutToUse = null;
 
             var verbs = _verbs.GetLocalVerbs(entity, item);
-            foreach (var verbType in AIValidItemVerbs)
+
+            var verb = verbs.FirstOrDefault(v => v.VerbType == FoodSystem.VerbTypeEat);
+            if (verb != null)
             {
-                var verb = verbs.FirstOrDefault(v => v.VerbType == verbType);
-                if (verb != null)
-                {
-                    var result = verb.Act();
-                    if (result != TurnResult.Aborted)
-                        return true;
-                }
+                var result = verb.Act();
+                if (result != TurnResult.Aborted)
+                    return true;
+            }
+
+            verb = verbs.FirstOrDefault(v => v.VerbType == DrinkInventoryBehavior.VerbTypeDrink);
+            if (verb != null)
+            {
+                var result = verb.Act();
+                if (result != TurnResult.Aborted)
+                    return true;
+            }
+
+            verb = verbs.FirstOrDefault(v => v.VerbType == ReadInventoryBehavior.VerbTypeRead);
+            if (verb != null && _tags.HasTag(item, Protos.Tag.ItemCatScroll))
+            {
+                var result = verb.Act();
+                if (result != TurnResult.Aborted)
+                    return true;
             }
 
             ai.ItemAboutToUse = null;

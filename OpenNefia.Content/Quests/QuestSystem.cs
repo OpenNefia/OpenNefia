@@ -55,6 +55,7 @@ namespace OpenNefia.Content.Quests
 
         QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker, IDialogEngine? engine = null);
         void FailQuest(EntityUid quest, QuestComponent? questComp = null);
+        void DeleteQuest(QuestComponent quest);
     }
 
     public sealed partial class QuestSystem : EntitySystem, IQuestSystem
@@ -278,7 +279,7 @@ namespace OpenNefia.Content.Quests
             return false;
         }
 
-        private void DeleteQuest(QuestComponent quest)
+        public void DeleteQuest(QuestComponent quest)
         {
             Logger.DebugS("quest", $"Terminating quest {quest.Owner} for client {quest.ClientEntity} ({quest.ClientName} in map {quest.ClientOriginatingMapID} ({quest.ClientOriginatingMapName})");
 

@@ -4,3 +4,10 @@
 - type: EngineVariable
   id: Elona.DebugForceMapRenewal
   default: Disabled
+
+#
+# Force the regeneration of all quests every time a map is entered.
+#
+- type: EngineVariable
+  id: Elona.DebugRegenQuestsEveryTime
+  default: false

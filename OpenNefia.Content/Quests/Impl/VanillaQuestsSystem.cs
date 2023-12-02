@@ -89,6 +89,16 @@ namespace OpenNefia.Content.Quests
 
             [DataField]
             public EntityUid Item { get; }
+
+            /// <summary>
+            /// If true, the client will check if the item is poisoned. If so,
+            /// karma loss will be applied.
+            /// </summary>
+            /// <remarks>
+            /// Only Delivery quests don't check for poison (in vanilla)
+            /// </remarks>
+            [DataField]
+            public bool CheckPoison { get; set; } = false;
         }
 
         public QualifiedDialogNode? GiveQuestItemAndTurnIn(IDialogEngine engine, IDialogNode node)
@@ -112,9 +122,12 @@ namespace OpenNefia.Content.Quests
                     {
                         ai.ItemAboutToUse = split;
                     }
-                    if (TryComp<QuestClientComponent>(engine.Speaker.Value, out var questClient))
+                    if (data.CheckPoison)
                     {
-                        questClient.WasPassedQuestItem = true;
+                        if (TryComp<QuestClientComponent>(engine.Speaker.Value, out var questClient))
+                        {
+                            questClient.WasPassedQuestItem = true;
+                        }
                     }
                 }
             }

@@ -7,6 +7,8 @@ using OpenNefia.Content.Dialog;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Spells;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.EngineVariables;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Quests
 {
@@ -22,10 +24,21 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestBoardComponent, WasCollidedWithEventArgs>(QuestBoard_HandleCollidedWith);
         }
 
+        [EngineVariable("Elona.DebugRegenQuestsEveryTime")]
+        public bool DebugRegenQuestsEveryTime { get; set; } = false;
+
         private void QuestBoard_HandleCollidedWith(EntityUid uid, QuestBoardComponent component, WasCollidedWithEventArgs args)
         {
             if (!TryMap(uid, out var map))
                 return;
+
+            if (DebugRegenQuestsEveryTime)
+            {
+                Logger.WarningS("questBoard", $"DEBUG: Regenerating quests on {map.Id}");
+                foreach (var quest in _quests.EnumerateAllQuests().Where(q => q.State == QuestState.NotAccepted).ToList())
+                    _quests.DeleteQuest(quest);
+                _quests.UpdateInMap(map);
+            }
 
             var questsHere = _quests.EnumerateAllQuests()
                 .Where(q => q.ClientOriginatingMapID == map.Id && q.State == QuestState.NotAccepted)

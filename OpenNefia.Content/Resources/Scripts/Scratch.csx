@@ -53,6 +53,8 @@ using OpenNefia.Content.DebugView;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Quests;
+using OpenNefia.Content.Food;
+using OpenNefia.Content.Hunger;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
