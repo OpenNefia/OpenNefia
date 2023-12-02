@@ -216,7 +216,7 @@ namespace OpenNefia.Content.Parties
 
         bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
 
-        bool TryLeaveParty(EntityUid ally, PartyComponent? party = null);
+        bool RemoveFromCurrentParty(EntityUid ally, PartyComponent? party = null);
     }
 
     public class PartySystem : EntitySystem, IPartySystem
@@ -424,7 +424,7 @@ namespace OpenNefia.Content.Parties
             return true;
         }
 
-        public bool TryLeaveParty(EntityUid ally, PartyComponent? party = null)
+        public bool RemoveFromCurrentParty(EntityUid ally, PartyComponent? party = null)
         {
             if (!Resolve(ally, ref party) || party.PartyID == null)
                 return false;

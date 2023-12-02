@@ -10,6 +10,7 @@ using OpenNefia.Content.Parties;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.EntityGen;
 using static NetVips.Enums;
+using ICSharpCode.Decompiler.IL;
 
 namespace OpenNefia.Content.Maps
 {
@@ -65,6 +66,9 @@ namespace OpenNefia.Content.Maps
             {
                 var evLeave = new BeforeMapLeaveEventArgs(map, oldMap);
                 RaiseEvent(oldMap.MapEntityUid, evLeave);
+
+                foreach (var chara in _parties.EnumerateMembers(playerSpatial.Owner))
+                    RaiseEvent(chara, evLeave);
             }
 
             TransferPlayerParty(playerSpatial, newCoords, oldMap?.Id);
@@ -73,6 +77,9 @@ namespace OpenNefia.Content.Maps
 
             var evEnter = new AfterMapEnterEventArgs(map, oldMap);
             RaiseEvent(map.MapEntityUid, evEnter);
+
+            foreach (var chara in _parties.EnumerateMembers(playerSpatial.Owner))
+                RaiseEvent(chara, evEnter);
 
             // Unload the old map.
             if (oldMap != null && !noUnloadPrevious)
@@ -98,6 +105,7 @@ namespace OpenNefia.Content.Maps
             }
 
             _tempEntities.ClearGlobalTemporaryEntities();
+            _turnOrder.AdvanceState();
 
             GC.Collect();
         }
@@ -120,10 +128,10 @@ namespace OpenNefia.Content.Maps
     }
 
     /// <summary>
-    /// Raised before a map is left. Event is raised on the *old map*. Player and party
+    /// Raised before a map is left. Event is raised on the *old map* and party entities. Player and party
     /// will still be located in the old map.
     /// </summary>
-    [EventUsage(EventTarget.Map)]
+    [EventUsage(EventTarget.Normal | EventTarget.Map)]
     public sealed class BeforeMapLeaveEventArgs : EntityEventArgs
     {
         /// <summary>
@@ -144,10 +152,10 @@ namespace OpenNefia.Content.Maps
     }
 
     /// <summary>
-    /// Raised after a map is entered. Event is raised on the *new map*. Player and party
-    /// will be moved to the new map.
+    /// Raised after a map is entered. Event is raised on the *new map* and party entities. Player and party
+    /// will have been moved to the new map.
     /// </summary>
-    [EventUsage(EventTarget.Map)]
+    [EventUsage(EventTarget.Normal | EventTarget.Map)]
     public sealed class AfterMapEnterEventArgs : EntityEventArgs
     {
         /// <summary>

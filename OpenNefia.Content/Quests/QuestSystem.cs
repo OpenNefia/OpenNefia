@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Quests
         IEnumerable<EntityUid> EnumerateTargetCharasInMap(MapId mapID, EntityUid quest, QuestComponent? questComp = null);
 
         QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker);
-        void FailQuest(EntityUid quest);
+        void FailQuest(EntityUid quest, QuestComponent? questComp = null);
     }
 
     public sealed partial class QuestSystem : EntitySystem, IQuestSystem
@@ -172,6 +172,7 @@ namespace OpenNefia.Content.Quests
             }
         }
 
+        // XXX: I don't like this but inserting QuestClientComponent into every prototype sounds tedious
         private bool CanBeQuestClient(EntityUid client)
         {
             if (_parties.IsInPlayerParty(client))
@@ -476,9 +477,9 @@ namespace OpenNefia.Content.Quests
             return ev.OutNextDialogNodeID;
         }
 
-        public void FailQuest(EntityUid quest)
+        public void FailQuest(EntityUid quest, QuestComponent? questComp = null)
         {
-            if (!TryComp<QuestComponent>(quest, out var questComp))
+            if (!Resolve(quest, ref questComp))
                 return;
 
             _mes.Display(Loc.GetString("Elona.Quest.FailedTakenFrom", ("clientName", questComp.ClientName)));
@@ -488,7 +489,7 @@ namespace OpenNefia.Content.Quests
 
             if (TryComp<FameComponent>(_gameSession.Player, out var fame))
             {
-                var fameLost = _fame.DecrementFame(_gameSession.Player, 40);
+                var fameLost = _fame.DecrementFame(_gameSession.Player, 40, fame);
                 _mes.Display(Loc.GetString("Elona.Fame.Lose", ("fameLost", fameLost)), UiColors.MesRed);
             }
 

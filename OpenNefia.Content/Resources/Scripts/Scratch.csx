@@ -280,3 +280,8 @@ public bool warpTo(GlobalAreaId areaId, AreaFloorId? floorId = null)
 
     return _mapEntrance.UseMapEntrance(player(), entrance);
 }
+
+public void passDays(int days)
+{
+    _world.PassTime(GameTimeSpan.FromDays(days));
+}

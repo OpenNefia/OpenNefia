@@ -26,6 +26,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Fame;
 
 namespace OpenNefia.Content.Quests
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.Quests
     {
         [Dependency] private readonly IAreaKnownEntrancesSystem _areaKnownEntrances = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IKarmaSystem _karma = default!;
 
         private void Initialize_Deliver()
         {
@@ -41,6 +43,8 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestTypeDeliverComponent, QuestCalcRewardsEvent>(QuestDeliver_CalcRewards);
             SubscribeComponent<QuestTypeDeliverComponent, QuestBeforeGenerateEvent>(QuestDeliver_BeforeGenerate);
             SubscribeComponent<QuestTypeDeliverComponent, QuestBeforeAcceptEvent>(QuestDeliver_BeforeAccept);
+            SubscribeComponent<QuestTypeDeliverComponent, QuestGetTargetCharasEvent>(QuestDeliver_GetTargetCharas);
+            SubscribeComponent<QuestTypeDeliverComponent, QuestFailedEvent>(QuestDeliver_OnFailed);
 
             SubscribeComponent<QuestClientComponent, GetDefaultDialogChoicesEvent>(QuestDeliver_AddGiveDialogChoices);
         }
@@ -66,31 +70,11 @@ namespace OpenNefia.Content.Quests
             // <<<<<<<< shade2/quest.hsp:458 	if qExist(rq)=qDeliver : p=rnd(2)+1:else:p=1 ..
         }
 
-        private bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result)
-        {
-            if (!TryArea(destMapID, out var area) || area.GlobalId == null)
-            {
-                result = null;
-                return false;
-            }    
+        private record class GenericQuestTarget(IArea DestArea, MapId DestMapID, QuestHubData DestQuestHub, QuestClient DestClient);
 
-            result = _areaKnownEntrances.EnumerateKnownEntrancesTo(area.GlobalId.Value)
-                .Where(e => e.MapCoordinates.MapId == parentMapCoords.MapId)
-                .MinBy(e =>
-                {
-                    if (!parentMapCoords.TryDistanceFractional(e.MapCoordinates, out var dist))
-                        return float.MaxValue;
+        private record class GenericQuestTargetAndDist(GenericQuestTarget Target, int DistanceTiled);
 
-                    return dist;
-                });
-            return result != null;
-        }
-
-        private record class DeliverQuestTarget(IArea DestArea, MapId DestMapID, QuestHubData DestQuestHub, QuestClient DestClient);
-
-        private record class DeliverQuestTargetAndDist(DeliverQuestTarget Target, int DistanceTiled);
-
-        private bool FindDeliveryTarget(GlobalAreaId sourceAreaID, IList<DeliverQuestTarget> candidates, [NotNullWhen(true)] out DeliverQuestTargetAndDist? target)
+        private bool FindDeliveryTarget(GlobalAreaId sourceAreaID, IList<GenericQuestTarget> candidates, [NotNullWhen(true)] out GenericQuestTargetAndDist? target)
         {
             var knownEntrances = _areaKnownEntrances.EnumerateKnownEntrancesTo(sourceAreaID).ToList();
             _rand.Shuffle(knownEntrances);
@@ -99,10 +83,12 @@ namespace OpenNefia.Content.Quests
             {
                 foreach (var entrance in knownEntrances)
                 {
-                    if (TryGetClosestEntranceInMap(entrance.MapCoordinates, cand.DestMapID, out var destEntrance)
-                        && entrance.MapCoordinates.TryDistanceTiled(destEntrance.MapCoordinates, out var distance))
+                    if (cand.DestArea.GlobalId == null || cand.DestArea.GlobalId == sourceAreaID)
+                        continue;
+
+                    if (_areaKnownEntrances.TryDistanceTiled(entrance.MapCoordinates, cand.DestMapID, out var distance))
                     {
-                        target = new DeliverQuestTargetAndDist(cand, distance);
+                        target = new GenericQuestTargetAndDist(cand, distance);
                         return true;
                     }
                 }
@@ -112,7 +98,7 @@ namespace OpenNefia.Content.Quests
             return false;
         }
 
-        private IList<DeliverQuestTarget> GetDeliverQuestTargets(GlobalAreaId sourceAreaId)
+        private IList<GenericQuestTarget> GetDeliverQuestTargets(GlobalAreaId sourceAreaId)
         {
             bool IsAlreadyDeliverQuestTarget(EntityUid client)
             {
@@ -132,7 +118,7 @@ namespace OpenNefia.Content.Quests
             }
 
             var candidates = _quests.EnumerateQuestHubs()
-               .SelectMany(t => t.QuestHub.Clients.Values.Select(c => new DeliverQuestTarget(t.Area, t.MapId, t.QuestHub, c)))
+               .SelectMany(t => t.QuestHub.Clients.Values.Select(c => new GenericQuestTarget(t.Area, t.MapId, t.QuestHub, c)))
                .Where(p => CanBeDeliverQuestTarget(p.DestMapID, p.DestClient.ClientEntityUid))
                .ToList();
             _rand.Shuffle(candidates);
@@ -254,6 +240,19 @@ namespace OpenNefia.Content.Quests
                     });
                 }
             }
+        }
+
+        private void QuestDeliver_GetTargetCharas(EntityUid questUid, QuestTypeDeliverComponent deliverQuest, QuestGetTargetCharasEvent args)
+        {
+            args.OutTargetCharas.Add(deliverQuest.TargetChara);
+        }
+
+        private void QuestDeliver_OnFailed(EntityUid uid, QuestTypeDeliverComponent component, QuestFailedEvent args)
+        {
+            // >>>>>>>> elona122/shade2/quest.hsp:350 		if qExist(rq)=qDeliver{ ...
+            _mes.Display(Loc.GetString("Elona.Quest.Types.Deliver.Fail"), color: UiColors.MesPurple);
+            _karma.ModifyKarma(_gameSession.Player, -20);
+            // <<<<<<<< elona122/shade2/quest.hsp:354 			} ...
         }
     }
 

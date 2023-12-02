@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 if (type.IsAbstract || type.IsInterface || type.IsGenericTypeDefinition)
                 {
-                    sawmill.Debug(
+                    sawmill.Error(
                         $"Skipping registering data definition for type {type} since it is abstract or an interface");
                     return;
                 }
@@ -110,7 +110,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 if (!type.IsValueType && type.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
                     .FirstOrDefault(m => m.GetParameters().Length == 0) == null)
                 {
-                    sawmill.Debug(
+                    sawmill.Error(
                         $"Skipping registering data definition for type {type} since it has no parameterless ctor");
                     return;
                 }

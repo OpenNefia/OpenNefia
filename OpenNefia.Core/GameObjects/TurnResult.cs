@@ -6,6 +6,7 @@
         // There are some cases where a turn result is required,
         // so it would not make sense to be able to pass NoResult
         // in those cases.
+        [Obsolete("Replace with TurnResult.Aborted")]
         NoResult = 0,
         
         /// <summary>

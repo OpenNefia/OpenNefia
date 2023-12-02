@@ -214,8 +214,8 @@ namespace OpenNefia.Content.Tests.Parties
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.TryLeaveParty(entLeader), Is.False);
-                Assert.That(parties.TryLeaveParty(entAlly), Is.False);
+                Assert.That(parties.RemoveFromCurrentParty(entLeader), Is.False);
+                Assert.That(parties.RemoveFromCurrentParty(entAlly), Is.False);
 
                 Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
 
@@ -223,7 +223,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
 
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.True);
-                Assert.That(parties.TryLeaveParty(entAlly), Is.True);
+                Assert.That(parties.RemoveFromCurrentParty(entAlly), Is.True);
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.False);
 
                 Assert.That(partyLeader.PartyID, Is.EqualTo(0));
@@ -255,8 +255,8 @@ namespace OpenNefia.Content.Tests.Parties
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.TryLeaveParty(entLeader), Is.False);
-                Assert.That(parties.TryLeaveParty(entAlly), Is.False);
+                Assert.That(parties.RemoveFromCurrentParty(entLeader), Is.False);
+                Assert.That(parties.RemoveFromCurrentParty(entAlly), Is.False);
 
                 Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
 
@@ -264,7 +264,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
 
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.True);
-                Assert.That(parties.TryLeaveParty(entLeader), Is.True);
+                Assert.That(parties.RemoveFromCurrentParty(entLeader), Is.True);
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.False);
 
                 Assert.That(partyLeader.PartyID, Is.Null);

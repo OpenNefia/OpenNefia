@@ -93,6 +93,7 @@ Elona.Quest = {
                     params.itemName
                 )
             end,
+            Fail = "あなたは重大な罪を犯した!",
 
             Categories = {
                 Elona = {
@@ -185,7 +186,7 @@ Elona.Quest = {
                                         "配達の依頼%s。なんに使うのか知らない%s、%sが%sを買い取りたいそう%s。%sまで配達すれば%sを払%s。"
                                     ):format(
                                         _.da(speaker, 4),
-                                        ga(speaker, 4),
+                                        _.ga(speaker, 4),
                                         params.targetCharaName,
                                         params.itemName,
                                         _.da(speaker, 4),
@@ -396,6 +397,179 @@ Elona.Quest = {
                             _.u(speaker, 4)
                         )
                     end,
+                },
+            },
+        },
+
+        Escort = {
+            Detail = function(params)
+                return ("クライアントを%sまで護衛"):format(params.targetMapName)
+            end,
+            Complete = {
+                Message = "あなたは無事に護衛の任務を終えた。",
+                Dialog = function(entity)
+                    return ("無事に到着できてほっとした%s%s"):format(_.yo(entity), _.thanks(entity, 2))
+                end,
+            },
+            Fail = {
+                Reason = {
+                    FailedToProtect = "あなたは護衛の任務を果たせなかった。",
+                    LeftYourClient = "あなたはクライアントを置き去りにした。",
+                },
+                Dialog = {
+                    Protect = _.quote "おい、暗殺者が私の後ろにいるぞ",
+                    Deadline = function(entity)
+                        return ("「時間切れだ。こうなったら…」%sは火をかぶった。"):format(
+                            _.name(entity)
+                        )
+                    end,
+                    Poison = _.quote "毒が、毒がー！",
+                },
+            },
+
+            Type = {
+                Protect = {
+                    {
+                        Name = "使者の護衛",
+                        Description = function(player, speaker, params)
+                            return (
+                                "あまり大きな声ではいえない%s、重要な使者を%sまで無事届ける必要が%s。報酬は%s%s。%sの首がかかってい%s。絶対にしくじらないで%s！"
+                            ):format(
+                                _.ga(speaker, 4),
+                                params.targetMapName,
+                                _.aru(speaker, 4),
+                                params.reward,
+                                _.da(speaker, 4),
+                                _.ore(speaker, 4),
+                                _.ru(speaker, 4),
+                                _.kure(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "美しすぎる人",
+                        Description = function(player, speaker, params)
+                            return (
+                                "美しすぎるのも罪なもの%s。%sの恋人が、以前交際を断った変質者に狙われて困っている%s。危険な旅になるだろう%s、%sと引き換えに、%sまで無事に護衛して%s。"
+                            ):format(
+                                _.dana(speaker, 4),
+                                _.ore(speaker, 4),
+                                _.noda(speaker, 4),
+                                _.ga(speaker, 4),
+                                params.reward,
+                                params.targetMapName,
+                                _.kure(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "暗殺を防げ",
+                        Description = function(player, speaker, params)
+                            return (
+                                "あの方が、命を狙われているのは知っている%s？これは危険な依頼%s。%sに到着するまで護衛を全うしてくれれば、報酬に%sを出す%s。"
+                            ):format(
+                                _.daro(speaker, 4),
+                                _.da(speaker, 4),
+                                params.targetMapName,
+                                params.reward,
+                                _.yo(speaker, 4)
+                            )
+                        end,
+                    },
+                },
+                Poison = {
+                    {
+                        Name = "急ぎの護衛",
+                        Description = function(player, speaker, params)
+                            return (
+                                "とにかく大至急%sまで送ってもらいたい人がいる%s。報酬は%s。くれぐれも期限を過ぎないよう注意して%s。"
+                            ):format(
+                                params.targetMapName,
+                                _.noda(speaker, 4),
+                                params.reward,
+                                _.kure(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "死ぬ前に一度だけ",
+                        Description = function(player, speaker, params)
+                            return (
+                                "言わなくてもわかっているん%s？そう、%sの最愛の人がもうすぐ病気で死んでしまう%s。%sに、最後に思い出の街%sに連れて行ってやりたい%s！%sで引き受けて%s。"
+                            ):format(
+                                _.daro(speaker, 4),
+                                _.ore(speaker, 4),
+                                _.noda(speaker, 4),
+                                params.targetMapName,
+                                params.targetMapName,
+                                _.noda(speaker, 4),
+                                params.reward,
+                                _.kure(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "手遅れにならないうちに",
+                        Description = function(player, speaker, params)
+                            return (
+                                "大変%s！%sの親父がもの凄い猛毒に犯されてしまった%s！%s、%sに住むといわれる名医まで、大至急連れて行って%s！%sの全財産ともいうべき%sを謝礼に用意して%s！"
+                            ):format(
+                                _.da(speaker, 4),
+                                _.ore(speaker, 4),
+                                _.noda(speaker, 4),
+                                _.tanomu(speaker, 4),
+                                params.targetMapName,
+                                _.kure(speaker, 4),
+                                _.ore(speaker, 4),
+                                params.reward,
+                                _.aru(speaker, 4)
+                            )
+                        end,
+                    },
+                },
+                Deadline = {
+                    {
+                        Name = "護衛求む！",
+                        Description = function(player, speaker, params)
+                            return (
+                                "わけあって%sまで護衛して欲しいという方がいる%s。特に狙われるようなこともないと思う%s、成功すれば%sを払う%s。冒険者にとっては、簡単な依頼%s？"
+                            ):format(
+                                params.targetMapName,
+                                _.noda(speaker, 4),
+                                _.ga(speaker, 4),
+                                params.reward,
+                                _.yo(speaker, 4),
+                                _.dana(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "観光客の案内",
+                        Description = function(player, speaker, params)
+                            return (
+                                "何だか変な観光客に付きまとわれて、困っている%s！手間賃として%sを払うから、やっこさんを%sあたりまで案内してやって%s。"
+                            ):format(
+                                _.noda(speaker, 4),
+                                params.reward,
+                                params.targetMapName,
+                                _.kure(speaker, 4)
+                            )
+                        end,
+                    },
+                    {
+                        Name = "簡単な護衛",
+                        Description = function(player, speaker, params)
+                            return (
+                                "%sの大の仲良しの親戚が%sに行きたがってい%s。生憎今は手を離せないので、期限内に無事送ってもらえれば、お礼に%sを払う%s。"
+                            ):format(
+                                _.ore(speaker, 4),
+                                params.targetMapName,
+                                _.ru(speaker, 4),
+                                params.reward,
+                                _.yo(speaker, 4)
+                            )
+                        end,
+                    },
                 },
             },
         },

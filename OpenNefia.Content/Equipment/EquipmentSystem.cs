@@ -169,7 +169,7 @@ namespace OpenNefia.Content.Equipment
 
         public void EquipIfHigherValueInSlotForNPC(EntityUid npc, EntityUid item, EquipmentComponent? itemEquip = null)
         {
-            if (!Resolve(item, ref itemEquip))
+            if (!Resolve(item, ref itemEquip, logMissing: false))
                 return;
 
             var itemValue = CompOrNull<ValueComponent>(item)?.Value.Buffed ?? 0;

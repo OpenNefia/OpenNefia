@@ -1,4 +1,10 @@
 Elona.Dialog.Common = {
+    PartyIsFull = function(speaker, player)
+        return ("これ以上仲間を連れて行けないよう%s人数を調整してまた来て%s"):format(
+            _.da(speaker),
+            _.kure(speaker)
+        )
+    end,
     Choices = {
         Sex = "気持ちいいことしない？",
     },

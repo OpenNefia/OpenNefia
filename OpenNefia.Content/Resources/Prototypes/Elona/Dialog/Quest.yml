@@ -37,6 +37,14 @@
   id: Elona.QuestHarvest
 - type: Elona.Dialog
   id: Elona.QuestEscort
+  nodes:
+    Accept_PartyIsFull: !type:DialogJumpNode
+      texts:
+      - Elona.Dialog.Common.PartyIsFull
+      nextNode: Elona.Default:Talk
+    Complete: !type:DialogTextNode
+      texts:
+      - Elona.Quest.Types.Escort.Complete.Dialog
 - type: Elona.Dialog
   id: Elona.QuestDeliver
   nodes:

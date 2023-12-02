@@ -72,6 +72,7 @@ Elona.Quest = {
                     params.targetMapName
                 )
             end,
+            Fail = "You commit a serious crime!",
 
             Categories = {
                 Elona = {
@@ -178,6 +179,64 @@ Elona.Quest = {
                             "Have you seen %s's %s? I want it! I want it! Get it for me by fair means or foul! I'll give you %s."
                         ):format(params.targetName, params.itemName, params.reward)
                     end,
+                },
+            },
+        },
+
+        Escort = {
+            Detail = function(params)
+                return ("Escort the client to %s."):format(params.targetMapName)
+            end,
+            Complete = {
+                Message = "You complete the escort.",
+                Dialog = "We made it! Thank you!",
+            },
+            Fail = {
+                Reason = {
+                    FailedToProtect = "You have failed to protect the client.",
+                    LeftYourClient = "You left your client.",
+                },
+                Dialog = {
+                    Protect = _.quote "Hey, the assassins are killing me.",
+                    Deadline = function(entity)
+                        return (
+                            "\"I missed the deadline. I don't have a right to live anymore.\" %s pours a bottole of molotov cocktail over %s."
+                        ):format(_.name(entity), _.himself(entity))
+                    end,
+                    Poison = _.quote "Poison! P-P-Poison in my vein!!",
+                },
+            },
+
+            Variants = {
+                Protect = {
+                    {
+                        Name = "Beauty and the beast",
+                        Description = function(player, speaker, params)
+                            return (
+                                "Such great beauty is a sin...My girl friend is followed by her ex-lover and needs an escort. If you safely bring her to %s, I'll give you %s. Please, protect her from the beast."
+                            ):format(params.targetMapName, params.reward)
+                        end,
+                    },
+                },
+                Poison = {
+                    {
+                        Name = "Before it's too late.",
+                        Description = function(player, speaker, params)
+                            return (
+                                "Terrible thing happened! My dad is affected by a deadly poison. Hurry! Please take him to his doctor in %s. I'll let you have %s if you sucssed!"
+                            ):format(params.targetMapName, params.reward)
+                        end,
+                    },
+                },
+                Deadline = {
+                    {
+                        Name = "Escort needed.",
+                        Description = function(player, speaker, params)
+                            return (
+                                "We have this client secretly heading to %s for certain reasons. We offer you %s if you succeed in escorting this person."
+                            ):format(params.targetMapName, params.reward)
+                        end,
+                    },
                 },
             },
         },

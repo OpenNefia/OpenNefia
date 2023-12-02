@@ -58,11 +58,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleBeforeMove(EntityUid uid, MoveableComponent moveable, BeforeMoveEventArgs args)
         {
-            // Only the player should collide with things (as in *act_movePC)
-            if (_gameSession.IsPlayer(uid))
-            {
-                CollideWithEntities(uid, args, moveable);
-            }
+            CollideWithEntities(uid, args, moveable);
         }
 
         public void CollideWithEntities(EntityUid source, BeforeMoveEventArgs args,
@@ -72,9 +68,18 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             var entities = _lookup.GetLiveEntitiesAtCoords(args.DesiredPosition)
-                .Where(spatial => spatial.IsSolid);
+                .Where(spatial => spatial.IsSolid)
+                .ToList();
 
-            foreach (var collidedSpatial in entities.ToList())
+            // Per vanilla logic, NPCs should not trigger collision events, but they should
+            // still be blocked from moving onto the tile.
+            if (!_gameSession.IsPlayer(source) && entities.Count > 0)
+            {
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+
+            foreach (var collidedSpatial in entities)
             {
                 var ev = new CollideWithEventArgs(collidedSpatial.Owner);
                 if (!Raise(source, ev, args))

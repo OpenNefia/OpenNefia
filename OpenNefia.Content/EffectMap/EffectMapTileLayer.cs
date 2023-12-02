@@ -80,7 +80,7 @@ namespace OpenNefia.Content.EffectMap
         private void StepAll(float dt)
         {
             var i = 0;
-            while (i < _entries.Count - 1)
+            while (i < _entries.Count)
             {
                 var entry = _entries[i];
 

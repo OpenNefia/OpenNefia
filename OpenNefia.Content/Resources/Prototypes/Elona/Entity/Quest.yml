@@ -39,6 +39,26 @@
   - type: QuestTypeSupply
 
 - type: Entity
+  id: Elona.QuestEscort
+  parent: BaseQuest
+  hspIds:
+    elona122: 1007
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Escort.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 91 # 1000 / 11
+  - type: QuestDeadlines
+    deadlineDays: 2~8
+  - type: QuestRewardGold
+    goldModifier: 140
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeEscort
+
+- type: Entity
   id: Elona.QuestCollect
   parent: BaseQuest
   hspIds:

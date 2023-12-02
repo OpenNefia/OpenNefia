@@ -205,7 +205,8 @@ namespace OpenNefia.Content.TurnOrder
                 return;
             }
 
-            while (true)
+            var finished = false;
+            while (!finished)
             {
                 _state = RunStateChange(_state);
 
@@ -222,7 +223,8 @@ namespace OpenNefia.Content.TurnOrder
                         QuitToTitleScreen();
                         return;
                     case TurnOrderState.PlayerTurnQuery:
-                        return;
+                        finished = true;
+                        break;
                 }
             }
         }

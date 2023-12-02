@@ -15,6 +15,10 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Audio;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Maps;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.EmotionIcon;
 
 namespace OpenNefia.Content.Quests
 {
@@ -22,6 +26,7 @@ namespace OpenNefia.Content.Quests
     {
         [Dependency] private readonly IKarmaSystem _karma = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IEmotionIconSystem _emotionIcons = default!;
 
         public override void Initialize()
         {
@@ -41,6 +46,79 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestRewardGoldComponent, QuestLocalizeRewardsEvent>(QuestRewardGold_LocalizeRewards, priority: EventPriorities.Highest);
             SubscribeComponent<QuestRewardRandomCategoryComponent, QuestLocalizeRewardsEvent>(QuestRewardRandomCategory_LocalizeRewards);
             SubscribeComponent<QuestRewardSingleCategoryComponent, QuestLocalizeRewardsEvent>(QuestRewardSingleCategory_LocalizeRewards);
+
+            SubscribeBroadcast<QuestBeforeAcceptEvent>(QuestBeforeAccept_UpdateQuestTargets);
+            SubscribeBroadcast<AfterMapEnterEventArgs>(AfterMapEnter_UpdateQuestTargets);
+            SubscribeBroadcast<MapOnTimePassedEvent>(TimePassed_CheckQuestDeadlines);
+            SubscribeEntity<MapBeforeTurnBeginEventArgs>(BeforeTurnBegin_SetQuestEmoicons);
+        }
+
+        private void QuestBeforeAccept_UpdateQuestTargets(QuestBeforeAcceptEvent ev)
+        {
+            UpdateQuestTargets();
+        }
+
+        private void AfterMapEnter_UpdateQuestTargets(AfterMapEnterEventArgs ev)
+        {
+            UpdateQuestTargets();
+        }
+
+        private void TimePassed_CheckQuestDeadlines(ref MapOnTimePassedEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/main.hsp:682 		evAdd evQuestCheck ...
+            if (ev.DaysPassed <= 0)
+                return;
+            // <<<<<<<< elona122/shade2/main.hsp:682 		evAdd evQuestCheck ...
+
+            // >>>>>>>> elona122/shade2/quest.hsp:298 *quest_check ...
+            foreach (var quest in EnumerateAcceptedQuests().ToList())
+            {
+                if (quest.Deadline != null && _world.State.GameDate >= quest.Deadline.Value)
+                {
+                    FailQuest(quest.Owner);
+                }
+            }
+            // <<<<<<<< elona122/shade2/quest.hsp:311 	return ...
+        }
+
+        public void UpdateQuestTargets()
+        {
+            foreach (var quest in EnumerateAcceptedQuests())
+            {
+                quest.TargetEntities.Clear();
+                var ev = new QuestGetTargetCharasEvent(quest);
+                RaiseEvent(quest.Owner, ev);
+                quest.TargetEntities.AddRange(ev.OutTargetCharas);
+            }
+        }
+
+        private void BeforeTurnBegin_SetQuestEmoicons(EntityUid uid, MapBeforeTurnBeginEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:1284 		if cQuestNpc(r1)!0{ ...
+            if (!TryMap(uid, out var map))
+                return;
+            
+            var quests = EnumerateAcceptedQuests().ToList();
+            foreach (var quest in quests)
+            {
+                foreach (var entity in quest.TargetEntities)
+                {
+                    if (EntityManager.EntityExists(entity) && Spatial(entity).MapID == map.Id)
+                    {
+                        _emotionIcons.SetEmotionIcon(entity, EmotionIcons.QuestTarget);
+                    }
+                }
+
+                if (EntityManager.EntityExists(quest.ClientEntity) && Spatial(quest.ClientEntity).MapID == map.Id)
+                {
+                    if (quest.State == QuestState.Completed)
+                    {
+                        _emotionIcons.SetEmotionIcon(quest.ClientEntity, EmotionIcons.QuestClient);
+                    }
+                }
+            }
+            
+            // <<<<<<<< elona122/shade2/calculation.hsp:1288 			} ...
         }
 
         private void HandleAddQuestHub(EntityUid areaEntityUid, AfterAreaFloorGeneratedEvent ev)
@@ -71,7 +149,7 @@ namespace OpenNefia.Content.Quests
                 args.Quest.TownBoardExpirationDate = _world.State.GameDate + GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.TownBoardExpirationDays.Value));
 
             if (questDeadlines.DeadlineDays != null)
-                args.Quest.TimeUntilDeadline = GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
+                args.Quest.TimeAllotted = GameTimeSpan.FromDays(_rand.NextIntInRange(questDeadlines.DeadlineDays.Value));
         }
 
         private void Quest_Completed(EntityUid uid, QuestComponent component, QuestCompletedEvent args)

@@ -26,12 +26,14 @@ namespace OpenNefia.Content.Areas
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(AreaId areaID);
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IArea area);
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID);
+
+        bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result);
+        bool TryDistanceTiled(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out int result);
     }
 
     public sealed class AreaKnownEntrancesSystem : EntitySystem, IAreaKnownEntrancesSystem
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
@@ -114,9 +116,41 @@ namespace OpenNefia.Content.Areas
             }
         }
 
+        public bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result)
+        {
+            if (!TryArea(destMapID, out var area) || area.GlobalId == null)
+            {
+                result = null;
+                return false;
+            }
+
+            result = EnumerateKnownEntrancesTo(area.GlobalId.Value)
+                .Where(e => e.MapCoordinates.MapId == parentMapCoords.MapId)
+                .MinBy(e =>
+                {
+                    if (!parentMapCoords.TryDistanceFractional(e.MapCoordinates, out var dist))
+                        return float.MaxValue;
+
+                    return dist;
+                });
+            return result != null;
+        }
+
+        public bool TryDistanceTiled(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out int result)
+        {
+            if (TryGetClosestEntranceInMap(parentMapCoords, destMapID, out var entrance) && entrance.MapCoordinates.TryDistanceTiled(parentMapCoords, out var resultDist))
+            {
+                result = resultDist;
+                return true;
+            }
+
+            result = 0;
+            return false;
+        }
+
         private bool TryGetGlobalAreaIdOfArea(AreaId areaID, [NotNullWhen(true)] out GlobalAreaId? globalAreaId)
         {
-            if(_areaManager.TryGetArea(areaID, out var area) && area.GlobalId != null)
+            if (_areaManager.TryGetArea(areaID, out var area) && area.GlobalId != null)
             {
                 globalAreaId = area.GlobalId;
                 return true;
@@ -197,7 +231,7 @@ namespace OpenNefia.Content.Areas
 
         public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID)
         {
-            if (!_areaManager.TryGetGlobalArea(globalAreaID, out var area) 
+            if (!_areaManager.TryGetGlobalArea(globalAreaID, out var area)
                 || !TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp)
                 || !knownComp.KnownEntrances.TryGetValue(globalAreaID, out var entrances))
                 return Enumerable.Empty<AreaEntranceMetadata>();

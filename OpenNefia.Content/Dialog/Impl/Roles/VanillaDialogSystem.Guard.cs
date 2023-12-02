@@ -225,6 +225,7 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public EntityUid Chara { get; set; }
 
+        public DialogRoleGuardLocateCharaData() { }
         public DialogRoleGuardLocateCharaData(EntityUid chara)
         {
             Chara = chara;
@@ -239,6 +240,7 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public EntityUid Item { get; set; }
 
+        public DialogRoleGuardLostPropertyData() { }
         public DialogRoleGuardLostPropertyData(EntityUid item)
         {
             Item = item;

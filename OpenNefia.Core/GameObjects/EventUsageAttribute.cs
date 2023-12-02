@@ -21,21 +21,21 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This event should be used with non-map/non-area entities.
         /// </summary>
-        Normal,
+        Normal = 0x1,
 
         /// <summary>
         /// This event should be used with map entities.
         /// </summary>
-        Map,
+        Map = 0x2,
 
         /// <summary>
         /// This event should be used with area entities.
         /// </summary>
-        Area,
+        Area = 0x4,
 
         /// <summary>
         /// This event should be used with quest entities.
         /// </summary>
-        Quest
+        Quest = 0x8
     }
 }

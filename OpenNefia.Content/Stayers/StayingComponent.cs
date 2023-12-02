@@ -15,6 +15,8 @@ namespace OpenNefia.Content.Stayers
     [DataDefinition]
     public sealed class StayingLocation
     {
+        public StayingLocation() {}
+
         public StayingLocation(IStayerCriteria criteria, IMapStartLocation location, string areaName, string tag)
         {
             Criteria = criteria;
@@ -27,7 +29,7 @@ namespace OpenNefia.Content.Stayers
         /// Criteria for the entity to show up again.
         /// </summary>
         [DataField]
-        public IStayerCriteria Criteria { get; set; }
+        public IStayerCriteria Criteria { get; set; } = default!;
 
         /// <summary>
         /// Position to respawn the entity at when the map is entered.
@@ -39,7 +41,7 @@ namespace OpenNefia.Content.Stayers
         /// Name of the area this entity is staying in.
         /// </summary>
         [DataField]
-        public string AreaName { get; set; }
+        public string AreaName { get; set; } = string.Empty;
 
         /// <summary>
         /// Tag indicating which staying "group" this character belongs to,
@@ -92,6 +94,8 @@ namespace OpenNefia.Content.Stayers
 
     public sealed class MapIdStayerCriteria : IStayerCriteria
     {
+        public MapIdStayerCriteria() {}
+
         public MapIdStayerCriteria(MapId mapID)
         {
             MapID = mapID;
@@ -108,6 +112,8 @@ namespace OpenNefia.Content.Stayers
 
     public sealed class AreaFloorStayerCriteria : IStayerCriteria
     {
+        public AreaFloorStayerCriteria() { }
+
         public AreaFloorStayerCriteria(AreaId areaID, AreaFloorId areaFloorID)
         {
             AreaID = areaID;

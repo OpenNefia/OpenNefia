@@ -62,8 +62,8 @@ namespace OpenNefia.Content.Quests
             if (!ev.Cancelled)
             {
                 questComp.State = QuestState.Accepted;
-                if (questComp.TimeUntilDeadline != null)
-                    questComp.Deadline = _world.State.GameDate + questComp.TimeUntilDeadline.Value;
+                if (questComp.TimeAllotted != null)
+                    questComp.Deadline = _world.State.GameDate + questComp.TimeAllotted.Value;
             }
 
             return engine.GetNodeByID(ev.OutNextDialogNodeID);

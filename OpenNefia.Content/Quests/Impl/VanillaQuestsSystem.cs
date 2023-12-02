@@ -25,6 +25,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Audio;
+using OpenNefia.Content.Fame;
 
 namespace OpenNefia.Content.Quests
 {
@@ -48,12 +49,14 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IFameSystem _fame = default!;
 
         public override void Initialize()
         {
             Initialize_Deliver();
             Initialize_Supply();
             Initialize_Collect();
+            Initialize_Escort();
         }
 
         public sealed class DialogQuestGiveItemData : IDialogExtraData

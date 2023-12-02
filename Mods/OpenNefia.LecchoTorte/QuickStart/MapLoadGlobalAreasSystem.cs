@@ -21,7 +21,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
         public override void Initialize()
         {
-            SubscribeComponent<MapLoadGlobalAreasComponent, AfterMapEnterEventArgs>(LoadGlobalAreasOnEnter);
+            SubscribeComponent<MapLoadGlobalAreasComponent, AfterMapEnterEventArgs>(LoadGlobalAreasOnEnter, priority: EventPriorities.VeryLow);
         }
 
         private void LoadGlobalAreasOnEnter(EntityUid uid, MapLoadGlobalAreasComponent component, AfterMapEnterEventArgs args)

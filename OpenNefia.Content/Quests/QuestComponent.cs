@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Quests
         /// Time from when the quest is accepted until its deadline.
         /// </summary>
         [DataField]
-        public GameTimeSpan? TimeUntilDeadline { get; set; }
+        public GameTimeSpan? TimeAllotted { get; set; }
 
         /// <summary>
         /// Date when this quest is automatically failed.
@@ -86,6 +86,11 @@ namespace OpenNefia.Content.Quests
         /// </summary>
         [DataField]
         public string ClientOriginatingMapName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// List of current quest targets, like delivery quest targets (not serialized; rebuilt on map enter)
+        /// </summary>
+        public HashSet<EntityUid> TargetEntities { get; } = new();
     }
 
     public enum QuestState

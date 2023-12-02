@@ -288,7 +288,7 @@ namespace OpenNefia.Content.Quests
             List.SetCells(args.Quests.Select(quest =>
             {
                 var localized = _quests.LocalizeQuestData(quest.Owner, quest.ClientEntity, _gameSession.Player, quest);
-                var deadlineText = _quests.FormatDeadlineText(quest.TimeUntilDeadline);
+                var deadlineText = _quests.FormatDeadlineText(quest.TimeAllotted);
                 var difficultyColor = GetQuestDifficultyColor(playerLevel, quest.Difficulty);
                 var item = new QuestBoardList.Item(quest, localized.Name, localized.Description, deadlineText, difficultyColor);
                 return new QuestBoardList.QuestBoardListCell(item);
