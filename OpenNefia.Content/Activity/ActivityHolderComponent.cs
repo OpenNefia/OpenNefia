@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.Activity
 {
+    /// <summary>
+    /// Defines something that can have an activity.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class ActivityHolderComponent : Component

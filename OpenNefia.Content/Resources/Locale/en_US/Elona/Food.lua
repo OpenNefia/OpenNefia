@@ -63,15 +63,15 @@ Elona.Food = {
         Rotten = "Ugh! Rotten food!",
         Ability = {
             Deteriorates = function(_1, _2)
-                return ("%s%s %s deteriorates."):format(_.name(_1), _.his_named(_1), _2)
+                return ("%s%s %s deteriorates."):format(_.name(_1), _.possessive(_1), _2)
             end,
             Develops = function(_1, _2)
-                return ("%s%s %s develops."):format(_.name(_1), _.his_named(_1), _2)
+                return ("%s%s %s develops."):format(_.name(_1), _.possessive(_1), _2)
             end,
         },
     },
     NotAffectedByRotten = function(_1)
-        return ("But %s%s stomach isn't affected."):format(_.name(_1), _.his_named(_1))
+        return ("But %s%s stomach isn't affected."):format(_.name(_1), _.possessive(_1))
     end,
     PassedRotten = {
         _.quote "Yuck!!",

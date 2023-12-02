@@ -107,6 +107,9 @@ namespace OpenNefia.Content.Quests
 
         private void BeforeTurnBegin_SetQuestEmoicons(EntityUid uid, MapBeforeTurnBeginEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             // >>>>>>>> elona122/shade2/calculation.hsp:1284 		if cQuestNpc(r1)!0{ ...
             if (!TryMap(uid, out var map))
                 return;

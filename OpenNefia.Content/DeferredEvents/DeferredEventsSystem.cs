@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.DeferredEvents
 {
-    public delegate TurnResult DeferredEventDelegate();
+    public delegate TurnResult DeferredEventDelegate(); // TODO change type to 'TurnResult?'
 
     public interface IDeferredEventsSystem : IEntitySystem
     {

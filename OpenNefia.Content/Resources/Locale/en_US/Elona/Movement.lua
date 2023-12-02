@@ -5,7 +5,7 @@ Elona.Movement = {
         end,
         Dialog = { "Oops, sorry.", "Watch it." },
         InterruptActivity = function(source, target)
-            return ("%s stares in %s face."):format(_.name(target), _.his_named(source))
+            return ("%s stares in %s face."):format(_.name(target), _.possessive(source))
         end,
     },
 }

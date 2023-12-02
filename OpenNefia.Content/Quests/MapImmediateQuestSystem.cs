@@ -16,6 +16,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.DeferredEvents;
 
 namespace OpenNefia.Content.Quests
 {
@@ -37,6 +38,7 @@ namespace OpenNefia.Content.Quests
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMapTimersSystem _mapTimers = default!;
+        [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
 
         public const string MapTimerID = "Elona.ImmediateQuest";
 
@@ -60,11 +62,13 @@ namespace OpenNefia.Content.Quests
         private void UpdateMapImmediateQuest(EntityUid uid, MapImmediateQuestComponent component, ref MapOnTimePassedEvent args)
         {
             // >>>>>>>> elona122/shade2/main.hsp:577 		if gTimeLimit>0{ ...
-            var timer = _mapTimers.GetTimer(args.Map, MapTimerID);
+            if (!_mapTimers.TryGetTimer(args.Map, MapTimerID, out var timer))
+                return;
+
             component.TimeToNextNotify -= args.TotalTimePassed;
             if (component.TimeToNextNotify <= GameTimeSpan.Zero)
             {
-                _mes.Display(Loc.GetString("Elona.Quest.MinutesLeft", ("minutesLeft", timer.TimeRemaining.TotalMinutes)), color: UiColors.MesSkyBlue);
+                _mes.Display(Loc.GetString("Elona.Quest.MinutesLeft", ("minutesLeft", timer.TimeRemaining.TotalMinutes + 1)), color: UiColors.MesSkyBlue);
                 component.TimeToNextNotify = GameTimeSpan.FromMinutes(10);
             }
             // <<<<<<<< elona122/shade2/main.hsp:581 			} ...
@@ -84,8 +88,12 @@ namespace OpenNefia.Content.Quests
             Logger.InfoS("quest.immediate", $"Immediate quest finished.");
 
             var map = GetMap(component.Owner);
-            var ev = new QuestTimerExpiredEvent(map, quest, component);
-            RaiseEvent(component.QuestUid, ev);
+            _deferredEvents.Enqueue(() =>
+            {
+                var ev = new QuestTimerExpiredEvent(map, quest, component);
+                RaiseEvent(component.QuestUid, ev);
+                return TurnResult.Aborted;
+            });
         }
 
         public bool TryGetImmediateQuest(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest)

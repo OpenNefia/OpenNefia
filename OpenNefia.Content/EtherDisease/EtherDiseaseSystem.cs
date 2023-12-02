@@ -35,6 +35,9 @@ namespace OpenNefia.Content.EtherDisease
 
         private void ProcEtherDiseaseDeath(EntityUid uid, EtherDiseaseComponent etherDisease, MapBeforeTurnBeginEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             if (!EntityManager.IsAlive(uid))
                 return;
 

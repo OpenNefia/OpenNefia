@@ -137,7 +137,8 @@ namespace OpenNefia.Content.Home
         private void UpdateHomeOnTimePassed(EntityUid mapUid, ref MapOnTimePassedEvent ev)
         {
             // >>>>>>>> elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...
-            var map = GetMap(mapUid);
+            if (!TryMap(mapUid, out var map))
+                return;
             if (PrimaryHomeID == map.Id)
                 UpdateRank(map);
             // <<<<<<<< elona122/shade2/main.hsp:600 	if gArea=areaHome		: gosub *house_update ...

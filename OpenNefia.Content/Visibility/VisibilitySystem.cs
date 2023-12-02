@@ -58,6 +58,9 @@ namespace OpenNefia.Content.Visibility
 
         private void BeforeTurnBegin(EntityUid uid, VisibilityComponent component, MapBeforeTurnBeginEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             if (TryComp<VanillaAIComponent>(uid, out var vai))
             {
                 var target = vai.CurrentTarget;

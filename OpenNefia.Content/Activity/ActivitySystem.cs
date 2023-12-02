@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameController;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
@@ -51,6 +52,14 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityComponent, OnActivityStartEvent>(UpdateAutoTurnWidget, priority: EventPriorities.Lowest);
             SubscribeComponent<ActivityComponent, OnActivityInterruptedEvent>(HandleActivityInterruptAction, priority: EventPriorities.Low);
             SubscribeComponent<ActivityHolderComponent, EntityPassTurnEventArgs>(UpdateActivity, priority: EventPriorities.High);
+            SubscribeComponent<ActivityHolderComponent, BeforePartyMemberLeavesMapEventArgs>(BeforeLeave_ClearActivity);
+        }
+
+        private void BeforeLeave_ClearActivity(EntityUid uid, ActivityHolderComponent component, BeforePartyMemberLeavesMapEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/map.hsp:225 	cAiAggro(cnt)=0:cTarget(cnt)=0:rowActEnd cnt ...
+            RemoveActivity(uid);
+            // <<<<<<<< elona122/shade2/map.hsp:225 	cAiAggro(cnt)=0:cTarget(cnt)=0:rowActEnd cnt ...
         }
 
         private void UpdateActivity(EntityUid uid, ActivityHolderComponent component, EntityPassTurnEventArgs args)

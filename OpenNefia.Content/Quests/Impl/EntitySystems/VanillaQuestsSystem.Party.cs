@@ -205,6 +205,9 @@ namespace OpenNefia.Content.Quests
 
         private void BeforeTurnBegin_SetPartyQuestEmoicons(EntityUid uid, MapBeforeTurnBeginEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             // >>>>>>>> elona122/shade2/calculation.hsp:1291 	if gQuest=qPerform{ ...
             var map = GetMap(uid);
             if (!_immediateQuests.HasImmediateQuest<QuestTypePartyComponent>(map))

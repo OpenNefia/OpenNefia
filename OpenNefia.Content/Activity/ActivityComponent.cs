@@ -5,6 +5,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Activity
 {
+    /// <summary>
+    /// Defines an activity entity that is held by a character.
+    /// </summary>
     [RegisterComponent]
     public sealed class ActivityComponent : Component
     {

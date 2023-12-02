@@ -11,13 +11,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.UI;
@@ -62,6 +56,7 @@ namespace OpenNefia.Content.VanillaAI
             SubscribeComponent<VanillaAIComponent, EntityTurnStartingEventArgs>(HandleTurnStarting);
             SubscribeComponent<VanillaAIComponent, PlayerTurnStartedEvent>(HandlePlayerTurnStarted, priority: EventPriorities.VeryLow);
             SubscribeComponent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, priority: EventPriorities.VeryLow);
+            SubscribeComponent<VanillaAIComponent, BeforePartyMemberLeavesMapEventArgs>(BeforeLeave_ResetAI);
         }
 
         private void HandleTurnStarting(EntityUid uid, VanillaAIComponent ai, EntityTurnStartingEventArgs args)
@@ -83,6 +78,13 @@ namespace OpenNefia.Content.VanillaAI
                 return;
 
             args.Handle(RunVanillaAI(uid, ai));
+        }
+
+        private void BeforeLeave_ResetAI(EntityUid uid, VanillaAIComponent component, BeforePartyMemberLeavesMapEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/map.hsp:225 	cAiAggro(cnt)=0:cTarget(cnt)=0:rowActEnd cnt ...
+            ResetAI(uid, component);
+            // <<<<<<<< elona122/shade2/map.hsp:225 	cAiAggro(cnt)=0:cTarget(cnt)=0:rowActEnd cnt ...
         }
 
         private bool HelpWithChoking(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
