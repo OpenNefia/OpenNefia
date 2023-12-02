@@ -31,6 +31,7 @@ namespace OpenNefia.Content.Inventory
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Sell.WindowTitle");
         public override bool QueryAmount => true;
         public override bool ShowMoney => true;
+        public override bool RestorePreviousListIndex => false;
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

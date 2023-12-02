@@ -42,6 +42,7 @@ namespace OpenNefia.Content.Inventory
         public virtual bool AllowSpecialOwned => false;
         public virtual LocaleKey? QueryAmountPrompt => null;
         public virtual bool ApplyNameModifiers => true;
+        public virtual bool RestorePreviousListIndex => true;
         public virtual TurnResult? TurnResultAfterSelectionIfEmpty => null;
 
         /// <inheritdoc/>

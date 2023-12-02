@@ -202,6 +202,8 @@ namespace OpenNefia.Content.Inventory
             EventFilter = UIEventFilterMode.Pass;
         }
 
+        private static readonly Dictionary<Type, int> PreviousSelectedItemIndices = new();
+
         public override void Initialize(InventoryContext context)
         {
             Context = context;
@@ -211,6 +213,10 @@ namespace OpenNefia.Content.Inventory
                 AddChild(CurrentIcon);
 
             UpdateFiltering();
+
+            var behaviorType = context.Behavior.GetType();
+            if (context.Behavior.RestorePreviousListIndex && PreviousSelectedItemIndices.TryGetValue(behaviorType, out var index))
+                List.Select(index);
         }
 
         public override void GrabFocus()
@@ -231,6 +237,9 @@ namespace OpenNefia.Content.Inventory
             }
             else
             {
+                var behaviorType = Context.Behavior.GetType();
+                PreviousSelectedItemIndices[behaviorType] = List.SelectedIndex;
+
                 Context.Behavior.OnKeyBindDown(this, args);
             }
         }

@@ -69,6 +69,14 @@ namespace OpenNefia.Content.Inventory
         bool ApplyNameModifiers { get; }
 
         /// <summary>
+        /// If true, restore list position when reopening this inventory screen.
+        /// </summary>
+        /// <remarks>
+        /// In vanilla: disabled by the shop buying and selling screens.
+        /// </remarks>
+        bool RestorePreviousListIndex { get; }
+
+        /// <summary>
         /// If non-null, automatically exit the inventory menu if there are no more filtered items. Used by the get/drop actions.
         /// </summary>
         TurnResult? TurnResultAfterSelectionIfEmpty { get; }
