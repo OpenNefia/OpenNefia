@@ -6,6 +6,7 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Dialog;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Spells;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Quests
 {

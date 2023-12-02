@@ -21,7 +21,7 @@ namespace OpenNefia.Content.RandomAreas
         /// and regenerated.
         /// </summary>
         [DataField]
-        public bool RegenerateRandomAreas { get; set; } = false;
+        public bool AboutToRegenerateRandomAreas { get; set; } = false;
 
         /// <summary>
         /// Number of random areas generated when this world is refreshed.

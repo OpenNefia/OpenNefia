@@ -8,6 +8,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using System.Text;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -19,6 +20,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
         [Dependency] private readonly TargetTextSystem _targetText = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -56,7 +58,11 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleBeforeMove(EntityUid uid, MoveableComponent moveable, BeforeMoveEventArgs args)
         {
-            CollideWithEntities(uid, args, moveable);
+            // Only the player should collide with things (as in *act_movePC)
+            if (_gameSession.IsPlayer(uid))
+            {
+                CollideWithEntities(uid, args, moveable);
+            }
         }
 
         public void CollideWithEntities(EntityUid source, BeforeMoveEventArgs args,
@@ -106,6 +112,10 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
+    /// <summary>
+    /// Raised when the player tries to exit the current map from the edges.
+    /// </summary>
+    [EventUsage(EventTarget.Normal)]
     public class ExitingMapFromEdgesEventArgs : TurnResultEntityEventArgs
     {
         public readonly IMap Map;
@@ -118,8 +128,12 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
+    [EventUsage(EventTarget.Normal)]
     public class CollideWithEventArgs : TurnResultEntityEventArgs
     {
+        /// <summary>
+        /// Entity collided with.
+        /// </summary>
         public readonly EntityUid Target;
 
         public CollideWithEventArgs(EntityUid target)
@@ -128,8 +142,15 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
+    [EventUsage(EventTarget.Normal)]
     public class WasCollidedWithEventArgs : TurnResultEntityEventArgs
     {
+        /// <summary>
+        /// Entity (character) doing the colliding.
+        /// </summary>
+        /// <remarks>
+        /// As this is based on vanilla's logic, this will always be the player entity.
+        /// </remarks>
         public readonly EntityUid Source;
 
         public WasCollidedWithEventArgs(EntityUid source)

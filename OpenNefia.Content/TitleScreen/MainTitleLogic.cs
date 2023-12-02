@@ -211,7 +211,8 @@ namespace OpenNefia.Content.TitleScreen
 
             _gameSessionManager.Player = player;
 
-            EntitySystem.Get<IGlobalAreaSystem>().InitializeGlobalAreas(scenarioProto.LoadGlobalAreas);
+            var ev1 = new BeforeNewGameStartedEventArgs(scenarioProto); // TODO broadcast prototype events?
+            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev1);
 
             var pev = new P_ScenarioOnGameStartEvent(player);
             _protos.EventBus.RaiseEvent(scenarioID, pev);
@@ -224,8 +225,8 @@ namespace OpenNefia.Content.TitleScreen
             var map = pev.OutActiveMap;
             _mapManager.SetActiveMap(map.Id);
 
-            var ev = new NewGameStartedEventArgs();
-            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev);
+            var ev2 = new NewGameStartedEventArgs();
+            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev2);
 
             _mapManager.RefreshVisibility(map);
 
@@ -294,6 +295,19 @@ namespace OpenNefia.Content.TitleScreen
         public GameQuickLoadedEventArgs()
         {
         }
+    }
+
+    /// <summary>
+    /// Raised when a new save file is created and the game is about to start, before any maps are created and scenario logic is run.
+    /// </summary>
+    public sealed class BeforeNewGameStartedEventArgs : EntityEventArgs
+    {
+        public BeforeNewGameStartedEventArgs(ScenarioPrototype scenario)
+        {
+            Scenario = scenario;
+        }
+
+        public ScenarioPrototype Scenario { get; }
     }
 
     /// <summary>

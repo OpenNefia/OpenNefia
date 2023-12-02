@@ -71,31 +71,32 @@ namespace OpenNefia.Content.Tests.Areas
             var otherMap = mapMan.CreateMap(10, 10);
             var mapWithAreas = mapMan.CreateMap(100, 100);
             var mapRandomAreaMan = entMan.EnsureComponent<MapRandomAreaManagerComponent>(mapWithAreas.MapEntityUid);
-            mapRandomAreaMan.RegenerateRandomAreas = false;
+            mapRandomAreaMan.AboutToRegenerateRandomAreas = false;
+            mapRandomAreaMan.RandomAreaGenerateCount = 22;
 
             mapMan.SetActiveMap(mapWithAreas.Id);
 
             Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(0));
 
             // First check that no areas are generated on ungeneratable tiles.
-            mapRandomAreaMan.RegenerateRandomAreas = true;
+            mapRandomAreaMan.AboutToRegenerateRandomAreas = true;
             mapWithAreas.Clear(Protos.Tile.Empty);
 
             mapMan.SetActiveMap(otherMap.Id);
             mapMan.SetActiveMap(mapWithAreas.Id);
 
-            Assert.That(mapRandomAreaMan.RegenerateRandomAreas, Is.False);
+            Assert.That(mapRandomAreaMan.AboutToRegenerateRandomAreas, Is.False);
             Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(0));
 
             // Now make all the tiles possible candidates to generate on.
-            mapRandomAreaMan.RegenerateRandomAreas = true;
+            mapRandomAreaMan.AboutToRegenerateRandomAreas = true;
             mapWithAreas.Clear(AreaRandomGenSystem.RandomAreaSpawnableTiles.First());
 
             mapMan.SetActiveMap(otherMap.Id);
             mapMan.SetActiveMap(mapWithAreas.Id);
 
-            Assert.That(mapRandomAreaMan.RegenerateRandomAreas, Is.False);
-            Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(AreaRandomGenSystem.RandomAreaGenerateCount));
+            Assert.That(mapRandomAreaMan.AboutToRegenerateRandomAreas, Is.False);
+            Assert.That(areaRandomGen.GetTotalActiveRandomAreasInMap(mapWithAreas.Id), Is.EqualTo(mapRandomAreaMan.RandomAreaGenerateCount));
         }
 
         private class TestRandomAreaSystem : EntitySystem

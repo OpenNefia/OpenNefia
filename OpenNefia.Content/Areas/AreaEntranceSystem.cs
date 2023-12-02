@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Areas
             if (!_gameSession.IsPlayer(args.Stepper))
                 return;
 
-            var areaId = component.Entrance.MapIdSpecifier.GetAreaId();
+            var areaId = component.Entrance.MapIdSpecifier.GetOrGenerateAreaId();
             if (areaId == null || !TryArea(areaId.Value, out var area))
                 return;
 
@@ -50,9 +50,6 @@ namespace OpenNefia.Content.Areas
 
         private void GetDefaultEntranceMessage(EntityUid uid, GetAreaEntranceMessageEvent args)
         {
-            if (!TryComp<WorldMapEntranceComponent>(uid, out var worldMapEntrance))
-                return;
-
             if (!TryComp<AreaEntranceComponent>(uid, out var areaEntrance)
                 || areaEntrance.EntranceMessage == null)
                 return;

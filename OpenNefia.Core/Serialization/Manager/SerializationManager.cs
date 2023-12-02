@@ -228,6 +228,9 @@ namespace OpenNefia.Core.Serialization.Manager
             if (type.IsArray)
                 return CanSerializeType(type.GetElementType()!);
 
+            if (type.IsEnum)
+                return true;
+
             var hasTypeSerializer =
                 _typeWriters.ContainsKey(type)
                     && _typeReaders.Keys.Select(v => v.Type).Contains(type)

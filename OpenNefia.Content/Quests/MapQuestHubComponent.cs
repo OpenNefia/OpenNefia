@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;

@@ -200,9 +200,6 @@ namespace OpenNefia.Content
         public static readonly CVarDef<bool> DebugSkipRandomEvents =
             CVarDef.Create("debug.skipRandomEvents", false, CVar.Archive | CVar.Cheat);
 
-        public static readonly CVarDef<ForceMapRenewalType> DebugForceMapRenewal =
-            CVarDef.Create("debug.forceMapRenewal", ForceMapRenewalType.Disabled, CVar.Archive);
-
         public static readonly CVarDef<bool> DebugLivingWeapon =
             CVarDef.Create("debug.livingWeapon", false, CVar.Archive);
 
@@ -275,7 +272,8 @@ namespace OpenNefia.Content
     {
         Disabled,
         Minor,
-        Major
+        Major,
+        All
     }
 
     public enum ShowDamageNumbersType

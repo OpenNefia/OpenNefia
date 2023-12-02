@@ -1,6 +1,5 @@
 - type: Elona.Scenario
   id: LecchoTorte.Quickstart
-  loadGlobalAreas: false
   events:
   - type: Scenarios.P_ScenarioOnGameStartEvent
     system: OpenNefia.LecchoTorte.QuickStart.QuickStartScenariosSystem
@@ -8,7 +7,6 @@
 
 - type: Elona.Scenario
   id: LecchoTorte.EntityUnload
-  loadGlobalAreas: false
   events:
   - type: Scenarios.P_ScenarioOnGameStartEvent
     system: OpenNefia.LecchoTorte.QuickStart.QuickStartScenariosSystem

@@ -1,0 +1,6 @@
+#
+# Force the renewal of every map that is entered.
+#
+- type: EngineVariable
+  id: Elona.DebugForceMapRenewal
+  default: Disabled

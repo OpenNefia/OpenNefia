@@ -100,7 +100,7 @@ namespace OpenNefia.Content.Shopkeeper
 
         private void HandleGetDisplayName(EntityUid uid, RoleShopkeeperComponent component, ref GetDisplayNameEventArgs args)
         {
-            if (component.ShowTitleInName && Loc.TryGetPrototypeString(component.ShopInventoryId, "Title", out var name, ("name", args.OutName)))
+            if (component.ShowTitleInName && Loc.TryGetPrototypeString(component.ShopInventoryId, "Title", out var name, ("name", args.BaseName)))
             {
                 args.OutName = name;
             }

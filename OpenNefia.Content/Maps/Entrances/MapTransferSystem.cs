@@ -119,6 +119,11 @@ namespace OpenNefia.Content.Maps
         }
     }
 
+    /// <summary>
+    /// Raised before a map is left. Event is raised on the *old map*. Player and party
+    /// will still be located in the old map.
+    /// </summary>
+    [EventUsage(EventTarget.Map)]
     public sealed class BeforeMapLeaveEventArgs : EntityEventArgs
     {
         /// <summary>
@@ -138,6 +143,11 @@ namespace OpenNefia.Content.Maps
         }
     }
 
+    /// <summary>
+    /// Raised after a map is entered. Event is raised on the *new map*. Player and party
+    /// will be moved to the new map.
+    /// </summary>
+    [EventUsage(EventTarget.Map)]
     public sealed class AfterMapEnterEventArgs : EntityEventArgs
     {
         /// <summary>

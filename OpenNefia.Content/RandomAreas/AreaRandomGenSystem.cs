@@ -48,7 +48,7 @@ namespace OpenNefia.Content.RandomAreas
 
         public bool ShouldRegenerateRandomAreas(MapId mapId, MapRandomAreaManagerComponent mapRandomAreas)
         {
-            if (mapRandomAreas.RegenerateRandomAreas)
+            if (mapRandomAreas.AboutToRegenerateRandomAreas)
                 return true;
 
             var totalActiveAreas = GetTotalActiveRandomAreasInMap(mapId);
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.RandomAreas
 
         private void RegenerateRandomAreas(MapId mapId, MapRandomAreaManagerComponent mapRandomAreas)
         {
-            mapRandomAreas.RegenerateRandomAreas = false;
+            mapRandomAreas.AboutToRegenerateRandomAreas = false;
 
             _mes.Display(Loc.GetString("Elona.RandomArea.SuddenDiastrophism"));
             DeleteRandomAreasAndEntrancesInMap(mapId);

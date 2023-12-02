@@ -30,6 +30,7 @@ using OpenNefia.Content.Cargo;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.TitleScreen;
+using OpenNefia.Core.EngineVariables;
 
 namespace OpenNefia.Content.Maps
 {
@@ -193,19 +194,24 @@ namespace OpenNefia.Content.Maps
             }
         }
 
+        [EngineVariable("Elona.DebugForceMapRenewal")]
+        public ForceMapRenewalType DebugForceMapRenewal { get; set; }
+
         private void CheckMapRenew(IMap map)
         {
             // >>>>>>>> shade2/map.hsp:2173 *check_renew ..
             var common = EntityManager.GetComponent<MapCommonComponent>(map.MapEntityUid);
 
-            var forceRenewal = _config.GetCVar(CCVars.DebugForceMapRenewal);
-
-            if (_world.State.GameDate > common.RenewMajorDate || forceRenewal == ForceMapRenewalType.Major)
+            if (_world.State.GameDate > common.RenewMajorDate 
+                || DebugForceMapRenewal == ForceMapRenewalType.Major
+                || DebugForceMapRenewal == ForceMapRenewalType.All)
             {
                 RenewMajor(map, common);
                 common.RenewMajorDate = _world.State.GameDate + GameTimeSpan.FromHours(MapRenewMajorIntervalHours);
             }
-            if (_world.State.GameDate > common.RenewMinorDate || forceRenewal == ForceMapRenewalType.Minor)
+            if (_world.State.GameDate > common.RenewMinorDate 
+                || DebugForceMapRenewal == ForceMapRenewalType.Minor
+                || DebugForceMapRenewal == ForceMapRenewalType.All)
             {
                 RenewMinor(map, common);
                 common.RenewMinorDate = _world.State.GameDate + GameTimeSpan.FromHours(MapRenewMinorIntervalHours);
@@ -333,7 +339,8 @@ namespace OpenNefia.Content.Maps
             if (!common.IsTemporary && common.IsRenewable)
             {
                 if ((_world.State.GameDate > common.RenewMajorDate
-                    || _config.GetCVar(CCVars.DebugForceMapRenewal) == ForceMapRenewalType.Major) 
+                    || DebugForceMapRenewal == ForceMapRenewalType.Major
+                    || DebugForceMapRenewal == ForceMapRenewalType.All) 
                     && !isFirstRenewal)
                 {
                     var ev = new MapRenewGeometryEvent();

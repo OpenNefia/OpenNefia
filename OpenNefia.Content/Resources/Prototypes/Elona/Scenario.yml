@@ -1,5 +1,14 @@
 - type: Elona.Scenario
   id: Elona.Default
+  initGlobalAreas:
+  - Elona.AreaNorthTyris
+  - Elona.AreaVernis
+  - Elona.AreaPortKapul
+  - Elona.AreaYowyn
+  - Elona.AreaDerphy
+  - Elona.AreaPalmia
+  - Elona.AreaNoyel
+  - Elona.AreaLumiest
   events:
   - type: Scenarios.P_ScenarioOnGameStartEvent
     system: Scenarios.VanillaScenariosSystem

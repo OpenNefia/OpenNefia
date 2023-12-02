@@ -205,6 +205,19 @@ entities:
       startLocation: !type:SpecificMapLocation
         pos: 11,11
 - uid: 26
+  protoId: Elona.MObjStairsUp
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,4
+  - type: Stairs
+    direction: Up
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: LecchoTorte.3Towns
+      startLocation: !type:SpecificMapLocation
+        pos: 4,11
+- uid: 27
   protoId: Elona.ItemLuxuryBed
   components:
   - type: Spatial

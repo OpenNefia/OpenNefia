@@ -91,7 +91,11 @@ namespace OpenNefia.Content.Dialog
             else if (_rand.OneIn(2) && dialog != null)
                 key = $"Elona.Dialog.Villager.Talk.Personality.{dialog.Personality}";
             else if (_rand.OneIn(3) && area != null && TryProtoID(area.AreaEntityUid, out var areaProtoID))
-                key = $"OpenNefia.Prototypes.Entity.{areaProtoID}.VillagerTalk"; // TODO namespace component localizations separately to avoid name clashes
+            {
+                var areaKey = $"OpenNefia.Prototypes.Entity.{areaProtoID}.VillagerTalk"; // TODO namespace component localizations separately to avoid name clashes
+                if (Loc.KeyExists(areaKey))
+                    key = areaKey;
+            }
 
             var textEntry = DialogTextEntry.FromLocaleKey(key);
             textEntry.PickRandomly = true;

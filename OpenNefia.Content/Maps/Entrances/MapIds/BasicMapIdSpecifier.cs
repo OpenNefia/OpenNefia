@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Maps
             MapId = mapId;
         }
 
-        public AreaId? GetAreaId() => null;
+        public AreaId? GetOrGenerateAreaId() => null;
 
         public MapId? GetOrGenerateMapId() => MapId;
         public MapId? GetMapId() => MapId;

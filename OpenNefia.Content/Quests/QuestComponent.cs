@@ -141,6 +141,13 @@ namespace OpenNefia.Content.Quests
         public bool ModifyGoldBasedOnPlayerLevel { get; set; } = true;
     }
 
+    /// <summary>
+    /// Picks a reward type from a tag category out of a <see cref="TagSetPrototype"/>.
+    /// </summary>
+    /// <remarks>
+    /// NOTE: This is *not* redunant with <see cref="QuestRewardSingleCategoryComponent"/>
+    /// because the two components have different methods of localization.
+    /// </remarks>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Quest)]
     public sealed class QuestRewardRandomCategoryComponent : Component
@@ -149,6 +156,13 @@ namespace OpenNefia.Content.Quests
         public PrototypeId<TagSetPrototype> ItemCategories { get; set; }
     }
 
+    /// <summary>
+    /// Picks a reward type from a <see cref="TagPrototype"/> category.
+    /// </summary>
+    /// <remarks>
+    /// NOTE: This is *not* redunant with <see cref="QuestRewardRandomCategoryComponent"/>
+    /// because the two components have different methods of localization.
+    /// </remarks>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Quest)]
     public sealed class QuestRewardSingleCategoryComponent : Component

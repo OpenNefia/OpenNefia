@@ -22,7 +22,10 @@ namespace OpenNefia.Core.Locale
 
         public static PrototypeId<LanguagePrototype> Language => _localization.Language;
 
-        public static bool HasString(LocaleKey key)
+        /// <summary>
+        /// Returns true if this key exists in any form in the localization environment (string, list, function, etc.)
+        /// </summary>
+        public static bool KeyExists(LocaleKey key)
         {
             return _localization.HasString(key);
         }

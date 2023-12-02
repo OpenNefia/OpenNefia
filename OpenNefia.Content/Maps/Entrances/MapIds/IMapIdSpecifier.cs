@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Maps
         /// <summary>
         /// Gets the area relevant to this destination, if any.
         /// </summary>
-        public AreaId? GetAreaId();
+        public AreaId? GetOrGenerateAreaId();
 
         /// <summary>
         /// Gets or generates the map to be used for the destination.

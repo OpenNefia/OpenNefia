@@ -42,7 +42,7 @@ namespace OpenNefia.Content.Maps
 
         public bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area)
         {
-            var entranceAreaId = entrance.MapIdSpecifier.GetAreaId();
+            var entranceAreaId = entrance.MapIdSpecifier.GetOrGenerateAreaId();
             if (entranceAreaId == null)
             {
                 area = null;

@@ -148,7 +148,7 @@ namespace OpenNefia.Content.DebugView
         private bool _placingTile = false;
         private Vector2i? _lastPlacedPos;
 
-        private NewMapDialog _newMapDialog;
+        private NewMapDialog _newMapDialog = default!;
 
         private void OpenTilePicker()
         {

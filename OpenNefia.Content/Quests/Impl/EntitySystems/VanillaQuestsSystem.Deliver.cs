@@ -22,12 +22,17 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Maths;
+using OpenNefia.Content.Skills;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.Quests
 {
     public sealed partial class VanillaQuestsSystem
     {
         [Dependency] private readonly IAreaKnownEntrancesSystem _areaKnownEntrances = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         private void Initialize_Deliver()
         {
@@ -63,7 +68,13 @@ namespace OpenNefia.Content.Quests
 
         private bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result)
         {
-            result = _areaKnownEntrances.EnumerateKnownEntrancesTo(destMapID)
+            if (!TryArea(destMapID, out var area) || area.GlobalId == null)
+            {
+                result = null;
+                return false;
+            }    
+
+            result = _areaKnownEntrances.EnumerateKnownEntrancesTo(area.GlobalId.Value)
                 .Where(e => e.MapCoordinates.MapId == parentMapCoords.MapId)
                 .MinBy(e =>
                 {
@@ -75,7 +86,33 @@ namespace OpenNefia.Content.Quests
             return result != null;
         }
 
-        private void QuestDeliver_BeforeGenerate(EntityUid uid, QuestTypeDeliverComponent questDeliver, QuestBeforeGenerateEvent args)
+        private record class DeliverQuestTarget(IArea DestArea, MapId DestMapID, QuestHubData DestQuestHub, QuestClient DestClient);
+
+        private record class DeliverQuestTargetAndDist(DeliverQuestTarget Target, int DistanceTiled);
+
+        private bool FindDeliveryTarget(GlobalAreaId sourceAreaID, IList<DeliverQuestTarget> candidates, [NotNullWhen(true)] out DeliverQuestTargetAndDist? target)
+        {
+            var knownEntrances = _areaKnownEntrances.EnumerateKnownEntrancesTo(sourceAreaID).ToList();
+            _rand.Shuffle(knownEntrances);
+
+            foreach (var cand in candidates)
+            {
+                foreach (var entrance in knownEntrances)
+                {
+                    if (TryGetClosestEntranceInMap(entrance.MapCoordinates, cand.DestMapID, out var destEntrance)
+                        && entrance.MapCoordinates.TryDistanceTiled(destEntrance.MapCoordinates, out var distance))
+                    {
+                        target = new DeliverQuestTargetAndDist(cand, distance);
+                        return true;
+                    }
+                }
+            }
+
+            target = null;
+            return false;
+        }
+
+        private IList<DeliverQuestTarget> GetDeliverQuestTargets(GlobalAreaId sourceAreaId)
         {
             bool IsAlreadyDeliverQuestTarget(EntityUid client)
             {
@@ -85,7 +122,7 @@ namespace OpenNefia.Content.Quests
 
             bool CanBeDeliverQuestTarget(MapId mapID, EntityUid client)
             {
-                if (mapID == args.Quest.ClientOriginatingMapID)
+                if (!TryArea(mapID, out var area) || area.GlobalId == null)
                     return false;
 
                 if (IsAlreadyDeliverQuestTarget(client))
@@ -95,93 +132,79 @@ namespace OpenNefia.Content.Quests
             }
 
             var candidates = _quests.EnumerateQuestHubs()
-                .SelectMany(t => t.QuestHub.Clients.Values.Select(c => (t.Area, t.MapId, t.QuestHub, c)))
-                .Where(p => CanBeDeliverQuestTarget(p.MapId, p.c.ClientEntityUid))
-                .ToList();
+               .SelectMany(t => t.QuestHub.Clients.Values.Select(c => new DeliverQuestTarget(t.Area, t.MapId, t.QuestHub, c)))
+               .Where(p => CanBeDeliverQuestTarget(p.DestMapID, p.DestClient.ClientEntityUid))
+               .ToList();
             _rand.Shuffle(candidates);
+            return candidates;
+        }
 
-            IArea? sourceArea = null;
-            MapCoordinates? sourceCoords = null;
-            IArea? destArea = null;
-            AreaEntranceMetadata? destEntrance = null;
-            MapId destMapId;
-            QuestHubData destQuestHub;
-            QuestClient destClient;
-
-            var found = false;
-            foreach (var cand in candidates)
+        private void QuestDeliver_BeforeGenerate(EntityUid uid, QuestTypeDeliverComponent questDeliver, QuestBeforeGenerateEvent args)
+        {
+            if (!_areaManager.TryGetAreaOfMap(args.Map, out var sourceArea))
             {
-                (destArea, destMapId, destQuestHub, destClient) = cand;
-
-                if (!TryComp<MapEdgesEntranceComponent>(args.Map.MapEntityUid, out var mapEdges))
-                {
-                    Logger.WarningS("quest.deliver", $"Can't find parent entrance location in map {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
-                    args.Cancel();
-                    return;
-                }
-
-                if (!mapEdges.Entrance.TryGetMapCoordinates(_gameSession.Player, args.Map, out sourceCoords)
-                    || !TryGetClosestEntranceInMap(sourceCoords.Value, destMapId, out destEntrance))
-                {
-                    Logger.WarningS("quest.deliver", $"Can't find entrance to map {destMapId} from map {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
-                    args.Cancel();
-                    return;
-                }
-
-                questDeliver.TargetMapID = destMapId;
-                questDeliver.TargetMapName = destQuestHub.MapName;
-                questDeliver.TargetChara = destClient.ClientEntityUid;
-                questDeliver.TargetCharaName = destClient.ClientName;
-                found = true;
-                break;
-            }
-
-            if (!found)
-            {
-                Logger.WarningS("quest.deliver", $"No deliver client found outside map {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
+                Logger.WarningS("quest.deliver", $"No area in map {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
                 args.Cancel();
                 return;
             }
 
-            var itemCategory = _randomGen.PickTag(Protos.TagSet.ItemDeliver);
+            if (sourceArea.GlobalId == null)
+            {
+                Logger.ErrorS("quest.deliver", $"Area {sourceArea} {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName}) is not global");
+                args.Cancel();
+                return;
+            }
+
+            var candidates = GetDeliverQuestTargets(sourceArea.GlobalId.Value);
+
+            if (!FindDeliveryTarget(sourceArea.GlobalId.Value, candidates, out var targetAndDist))
+            {
+                Logger.ErrorS("quest.deliver", $"No deliver clients found outside map {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
+                args.Cancel();
+                return;
+            }
+
+            var target = targetAndDist.Target;
+            questDeliver.TargetMapID = target.DestMapID;
+            questDeliver.TargetMapName = target.DestQuestHub.MapName;
+            questDeliver.TargetChara = target.DestClient.ClientEntityUid;
+            questDeliver.TargetCharaName = target.DestClient.ClientName;
+
+            Logger.DebugS("quest.deliver", $"FOUND deliver client: {target.DestMapID} ({target.DestQuestHub.MapName}) {target.DestClient.ClientName}");
+
+            questDeliver.TargetItemCategory = _randomGen.PickTag(Protos.TagSet.ItemDeliver);
             var itemID = _itemGen.PickRandomItemIdRaw(tags: new[] { questDeliver.TargetItemCategory });
             if (itemID == null)
             {
-                Logger.WarningS("quest.deliver", $"No valid item ID found for category {questDeliver.TargetItemCategory} - {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
+                Logger.ErrorS("quest.deliver", $"No valid item ID found for category {questDeliver.TargetItemCategory} - {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");
                 args.Cancel();
                 return;
             }
 
-            questDeliver.TargetItemCategory = itemCategory;
             questDeliver.TargetItemID = itemID.Value;
-            args.Quest.LocaleKeyRoot = new LocaleKey($"Elona.Quest.Types.Deliver.Categories.{itemCategory}.Variants");
-
-            var distance = 0f;
-            if (sourceCoords!.Value.TryDistanceTiled(destEntrance!.MapCoordinates, out var entranceDist))
-                distance = entranceDist;
+            args.Quest.LocaleKeyRoot = new LocaleKey($"Elona.Quest.Types.Deliver.Categories.{questDeliver.TargetItemCategory}.Variants");
 
             var rewardGold = EnsureComp<QuestRewardGoldComponent>(uid);
-            rewardGold.GoldModifier = 70 + entranceDist * 2;
-            if (AreaIsNoyel(sourceArea!) || AreaIsNoyel(destArea!)) 
+            rewardGold.GoldModifier = 70 + targetAndDist.DistanceTiled * 2;
+            if (AreaIsNoyel(sourceArea) || AreaIsNoyel(target.DestArea))
             {
                 rewardGold.GoldModifier = (int)(rewardGold.GoldModifier * 1.75f);
             }
 
-            if (itemCategory == Protos.Tag.ItemCatSpellbook)
+            if (_protos.TryGetExtendedData(questDeliver.TargetItemCategory, out ExtDeliveryQuestRewardType? extRewardType))
             {
-                EnsureComp<QuestRewardRandomCategoryComponent>(uid).ItemCategories = Protos.TagSet.ItemMagic;
+                if (extRewardType.RandomCategory != null)
+                {
+                    EnsureComp<QuestRewardRandomCategoryComponent>(uid).ItemCategories = extRewardType.RandomCategory.Value;
+                }
+                if (extRewardType.SingleCategory != null)
+                {
+                    EnsureComp<QuestRewardSingleCategoryComponent>(uid).ItemCategory = extRewardType.SingleCategory.Value;
+                }
             }
-            else if (itemCategory == Protos.Tag.ItemCatOre)
+            else
             {
-                EnsureComp<QuestRewardRandomCategoryComponent>(uid).ItemCategories = Protos.TagSet.ItemArmor;
-            }
-            else if (itemCategory == Protos.Tag.ItemCatJunk)
-            {
-                EnsureComp<QuestRewardSingleCategoryComponent>(uid).ItemCategory = Protos.Tag.ItemCatOre;
-            }
-            else if (itemCategory == Protos.Tag.ItemCatFurniture)
-            {
-                EnsureComp<QuestRewardSingleCategoryComponent>(uid).ItemCategory = Protos.Tag.ItemCatFurniture;
+                Logger.ErrorS("quest.deliver", $"No delivery reward found for item type: {questDeliver.TargetItemCategory}");
             }
         }
 
@@ -232,5 +255,26 @@ namespace OpenNefia.Content.Quests
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// If an item with this major type is generated as the delivery quest item,
+    /// set the type of quest reward to one of these categories.
+    /// </summary>
+    public sealed class ExtDeliveryQuestRewardType : IPrototypeExtendedData<TagPrototype>
+    {
+        /// <summary>
+        /// If non-null, the reward type will be picked from an item category.
+        /// </summary>
+        [DataField]
+        public PrototypeId<TagPrototype>? SingleCategory { get; set; }
+
+        /// <summary>
+        /// If non-null, the reward type will be picked from a set of item categories.
+        /// </summary>
+        [DataField]
+        public PrototypeId<TagSetPrototype>? RandomCategory { get; set; }
+    
+        // TODO validate Either-ish type
     }
 }

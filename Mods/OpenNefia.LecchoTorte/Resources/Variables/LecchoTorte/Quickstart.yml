@@ -2,6 +2,7 @@ Elona:
   QuickstartScenarios:
   - LecchoTorte.Quickstart
   - LecchoTorte.EntityUnload
+  - Elona.Default
 
 LecchoTorte:
   QuickstartPlayer:

@@ -169,6 +169,12 @@ namespace OpenNefia.Core.GameObjects
             return map;
         }
 
+        protected bool TryMap(MapId mapId, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            return mapMan.TryGetMap(mapId, out map);
+        }
+
         protected bool TryMap(MapCoordinates coords, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)
         {
             IoCManager.Resolve(ref mapMan);
@@ -213,6 +219,12 @@ namespace OpenNefia.Core.GameObjects
             }
 
             return areaMan.TryGetAreaOfMap(map, out area);
+        }
+
+        protected bool TryArea(MapId mapID, [NotNullWhen(true)] out IArea? area, IMapManager? mapMan = null, IAreaManager? areaMan = null)
+        {
+            IoCManager.Resolve(ref areaMan);
+            return areaMan.TryGetAreaOfMap(mapID, out area);
         }
 
         protected bool TryArea(IMap map, [NotNullWhen(true)] out IArea? area, IAreaManager? areaMan = null)

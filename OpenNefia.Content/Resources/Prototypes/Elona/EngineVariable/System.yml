@@ -1,0 +1,6 @@
+#
+# Quickstart scenarios that can be accessed via pressing F3 at the main menu.
+#
+- type: EngineVariable
+  id: Elona.QuickstartScenarios
+  default: []

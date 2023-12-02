@@ -21,8 +21,8 @@ namespace OpenNefia.Content.Areas
         /// If non-null, create a global area with this ID when 
         /// starting a new save.
         /// </summary>
-        [DataField]
-        public GlobalAreaId? GlobalId { get; set; }
+        [DataField("globalId")]
+        public GlobalAreaId? InitialGlobalId { get; }
 
         /// <summary>
         /// Starting floor of this area.

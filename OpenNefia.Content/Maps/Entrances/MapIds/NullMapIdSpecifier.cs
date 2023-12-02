@@ -6,7 +6,7 @@ namespace OpenNefia.Content.Maps
 {
     public class NullMapIdSpecifier : IMapIdSpecifier
     {
-        public AreaId? GetAreaId() => null;
+        public AreaId? GetOrGenerateAreaId() => null;
 
         public MapId? GetOrGenerateMapId()
         {

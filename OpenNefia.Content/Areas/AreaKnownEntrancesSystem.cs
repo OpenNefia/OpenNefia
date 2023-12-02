@@ -3,13 +3,15 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Areas
 {
     /*
-     * Keeps track of entrances into maps from other maps.
+     * Keeps track of entrances into global areas from other maps.
      * 
      * This is used to calculate distances between major towns for suitability when generating delivery quests.
      * In vanilla, every global area had a single map and (X, Y) coordinate the entrance was located at.
@@ -19,8 +21,11 @@ namespace OpenNefia.Content.Areas
      */
     public interface IAreaKnownEntrancesSystem : IEntitySystem
     {
-        IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IMap map);
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(MapId mapID);
+        IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IMap map);
+        IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(AreaId areaID);
+        IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IArea area);
+        IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID);
     }
 
     public sealed class AreaKnownEntrancesSystem : EntitySystem, IAreaKnownEntrancesSystem
@@ -33,16 +38,11 @@ namespace OpenNefia.Content.Areas
         {
             SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated);
             SubscribeBroadcast<MapLoadedFromSaveEvent>(HandleMapLoadedFromSave);
-            SubscribeBroadcast<MapInitializeEvent>(HandleMapInitialize);
+            SubscribeBroadcast<AfterMapEnterEventArgs>(HandleMapEnter, priority: EventPriorities.VeryHigh);
             SubscribeComponent<WorldMapEntranceComponent, AreaEntranceCreatedEvent>(WorldMapEntrance_Generated);
             SubscribeComponent<WorldMapEntranceComponent, EntityPositionChangedEvent>(WorldMapEntrance_PositionChanged);
             SubscribeComponent<WorldMapEntranceComponent, BeforeEntityDeletedEvent>(WorldMapEntrance_BeforeDeleted);
             SubscribeEntity<BeforeMapDeletedEvent>(Map_Deleted);
-        }
-
-        private void HandleMapLoadedFromSave(MapLoadedFromSaveEvent args)
-        {
-            UpdateKnownEntrances(args.Map);
         }
 
         private void HandleMapCreated(MapCreatedEvent args)
@@ -50,9 +50,14 @@ namespace OpenNefia.Content.Areas
             UpdateKnownEntrances(args.Map);
         }
 
-        private void HandleMapInitialize(MapInitializeEvent ev)
+        private void HandleMapLoadedFromSave(MapLoadedFromSaveEvent args)
         {
-            UpdateKnownEntrances(ev.Map);
+            UpdateKnownEntrances(args.Map);
+        }
+
+        private void HandleMapEnter(AfterMapEnterEventArgs ev)
+        {
+            UpdateKnownEntrances(ev.NewMap);
         }
 
         private void WorldMapEntrance_Generated(EntityUid uid, WorldMapEntranceComponent component, AreaEntranceCreatedEvent args)
@@ -74,19 +79,26 @@ namespace OpenNefia.Content.Areas
         {
             if (_areaManager.TryGetAreaOfMap(args.Map.Id, out var area) && TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp))
             {
-                knownComp.KnownEntrances.Remove(args.Map.Id);
+                foreach (var (globalAreaId, entrances) in knownComp.KnownEntrances)
+                {
+                    foreach (var (entranceEntity, metadata) in entrances.ToList())
+                    {
+                        if (metadata.MapCoordinates.MapId == args.Map.Id)
+                        {
+                            entrances.Remove(entranceEntity);
+                        }
+                    }
+                }
             }
         }
 
         private void UpdateKnownEntrances(IMap map)
         {
             // Remove missing entrances.
-            if (_areaManager.TryGetAreaOfMap(map.Id, out var area))
+            if (_areaManager.TryGetAreaOfMap(map.Id, out var area) && area.GlobalId != null)
             {
-                DebugTools.Assert(_mapManager.MapIsLoaded(map.Id), "Map was not loaded!");
-
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(area.AreaEntityUid);
-                var known = knownComp.KnownEntrances.GetOrInsertNew(map.Id);
+                var known = knownComp.KnownEntrances.GetOrInsertNew(area.GlobalId.Value);
 
                 foreach (var existingEntity in known.Keys.ToList())
                 {
@@ -102,16 +114,27 @@ namespace OpenNefia.Content.Areas
             }
         }
 
+        private bool TryGetGlobalAreaIdOfArea(AreaId areaID, [NotNullWhen(true)] out GlobalAreaId? globalAreaId)
+        {
+            if(_areaManager.TryGetArea(areaID, out var area) && area.GlobalId != null)
+            {
+                globalAreaId = area.GlobalId;
+                return true;
+            }
+
+            globalAreaId = null;
+            return false;
+        }
+
         private void UpdateKnownEntrance(SpatialComponent spatial, WorldMapEntranceComponent entrance)
         {
-            var destMapId = entrance.Entrance.MapIdSpecifier.GetMapId();
-            var destAreaId = entrance.Entrance.MapIdSpecifier.GetAreaId();
+            var destAreaId = entrance.Entrance.MapIdSpecifier.GetOrGenerateAreaId();
 
-            if (destMapId != null && destAreaId != null)
+            if (destAreaId != null && TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId))
             {
                 var destArea = _areaManager.GetArea(destAreaId.Value);
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(destArea.AreaEntityUid);
-                var known = knownComp.KnownEntrances.GetOrInsertNew(destMapId.Value);
+                var known = knownComp.KnownEntrances.GetOrInsertNew(globalAreaId.Value);
 
                 if (known.TryGetValue(spatial.Owner, out var meta))
                 {
@@ -122,31 +145,61 @@ namespace OpenNefia.Content.Areas
                 {
                     known.Add(spatial.Owner, new AreaEntranceMetadata(spatial.MapPosition, spatial.Owner));
                 }
+
+                Logger.DebugS("sys.knownEntrances", $"Found area entrance: {globalAreaId} ({destAreaId}) <- {spatial.MapPosition}");
             }
         }
 
         private void DeleteKnownEntrance(WorldMapEntranceComponent entrance)
         {
-            var destMapId = entrance.Entrance.MapIdSpecifier.GetMapId();
-            var destAreaId = entrance.Entrance.MapIdSpecifier.GetAreaId();
+            var destAreaId = entrance.Entrance.MapIdSpecifier.GetOrGenerateAreaId();
 
-            if (destMapId != null && destAreaId != null)
+            if (destAreaId != null && TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId))
             {
                 var destArea = _areaManager.GetArea(destAreaId.Value);
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(destArea.AreaEntityUid);
-                if (knownComp.KnownEntrances.TryGetValue(destMapId.Value, out var known))
+                if (knownComp.KnownEntrances.TryGetValue(globalAreaId.Value, out var known))
                     known.Remove(entrance.Owner);
             }
         }
 
-        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IMap map)
-            => EnumerateKnownEntrancesTo(map.Id);
-
-        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(MapId mapID)
+        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(MapId mapId)
         {
-            if (!_areaManager.TryGetAreaOfMap(mapID, out var area) 
+            if (!TryArea(mapId, out var map))
+                return Enumerable.Empty<AreaEntranceMetadata>();
+
+            return EnumerateKnownEntrancesTo(map);
+        }
+
+        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IMap map)
+        {
+            if (!TryArea(map, out var area))
+                return Enumerable.Empty<AreaEntranceMetadata>();
+
+            return EnumerateKnownEntrancesTo(area);
+        }
+
+        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(AreaId areaId)
+        {
+            if (!TryArea(areaId, out var area))
+                return Enumerable.Empty<AreaEntranceMetadata>();
+
+            return EnumerateKnownEntrancesTo(area);
+        }
+
+        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IArea area)
+        {
+            if (area.GlobalId == null)
+                return Enumerable.Empty<AreaEntranceMetadata>();
+
+            return EnumerateKnownEntrancesTo(area.GlobalId.Value);
+        }
+
+        public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID)
+        {
+            if (!_areaManager.TryGetGlobalArea(globalAreaID, out var area) 
                 || !TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp)
-                || !knownComp.KnownEntrances.TryGetValue(mapID, out var entrances))
+                || !knownComp.KnownEntrances.TryGetValue(globalAreaID, out var entrances))
                 return Enumerable.Empty<AreaEntranceMetadata>();
 
             return entrances.Values;

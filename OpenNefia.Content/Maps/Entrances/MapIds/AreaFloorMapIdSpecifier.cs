@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Maps
             FloorId = floorId;
         }
 
-        public AreaId? GetAreaId() => AreaId;
+        public AreaId? GetOrGenerateAreaId() => AreaId;
 
         public MapId? GetOrGenerateMapId()
         {

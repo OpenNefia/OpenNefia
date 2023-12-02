@@ -9,6 +9,11 @@
   - type: MapRandomAreaManager
     randomAreaGenerateCount: 6
     randomAreaMinCount: 3
+  - type: LecchoTorte.MapLoadGlobalAreas
+    initGlobalAreas:
+    - LecchoTorte.TownA
+    - LecchoTorte.TownB
+    - LecchoTorte.TownC
 
 - type: Entity
   id: LecchoTorte.BaseTown

@@ -107,7 +107,7 @@ namespace OpenNefia.Content.Inventory
         protected int? OnQueryAmount(InventoryContext context, EntityUid item, int min, int max, int? initialValue = null)
         {
             LocaleKey promptKey;
-            if (QueryAmountPrompt != null && Loc.HasString(QueryAmountPrompt.Value))
+            if (QueryAmountPrompt != null && Loc.KeyExists(QueryAmountPrompt.Value))
                 promptKey = QueryAmountPrompt.Value;
             else
                 promptKey = "Elona.Inventory.Common.HowMany";

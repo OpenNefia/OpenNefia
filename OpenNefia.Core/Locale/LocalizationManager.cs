@@ -23,6 +23,9 @@ namespace OpenNefia.Core.Locale
 {
     public interface ILocalizationFetcher
     {
+        /// <summary>
+        /// Returns true if this key exists in any form in the localization environment (string, list, function, etc.)
+        /// </summary>
         bool HasString(LocaleKey key);
         bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         string GetString(LocaleKey key, params LocaleArg[] args);
@@ -164,6 +167,7 @@ namespace OpenNefia.Core.Locale
             OnLanguageSwitched?.Invoke(language);
         }
 
+        /// <inheritdoc//>
         public bool HasString(LocaleKey key)
         {
             return (_stringStore.ContainsKey(key) || _functionStore.ContainsKey(key) || _listStore.ContainsKey(key));

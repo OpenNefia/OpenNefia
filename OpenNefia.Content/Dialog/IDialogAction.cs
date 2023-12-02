@@ -108,6 +108,7 @@ namespace OpenNefia.Content.Dialog
                 return;
             }
 
+            EntitySystem.InjectDependencies(Target); // TODO autoinject?
             var newSpeaker = Target.FindEntities(engine).FirstOrNull();
             if (newSpeaker == null)
             {

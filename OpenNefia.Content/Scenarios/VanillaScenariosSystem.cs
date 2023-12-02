@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Scenarios
             Spatial(ev.Player).Coordinates = yourHomeMap.AtPosEntity(yourHomeMap.Width / 2, yourHomeMap.Height / 2);
 
             if (TryComp<MapRandomAreaManagerComponent>(northTyrisMap.MapEntityUid, out var randomAreas))
-                randomAreas.RegenerateRandomAreas = true;
+                randomAreas.AboutToRegenerateRandomAreas = true;
 
             _deferredEvents.Enqueue(() =>
             {

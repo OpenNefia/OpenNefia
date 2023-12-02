@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
@@ -16,10 +17,10 @@ namespace OpenNefia.Content.Areas
     public sealed class AreaKnownEntrancesComponent : Component
     {
         /// <summary>
-        /// { TargetMap -> { EntrancesLeadingToMap } }
+        /// { TargetGlobalArea -> { EntrancesLeadingToArea } }
         /// </summary>
         [DataField]
-        public Dictionary<MapId, Dictionary<EntityUid, AreaEntranceMetadata>> KnownEntrances { get; set; } = new();
+        public Dictionary<GlobalAreaId, Dictionary<EntityUid, AreaEntranceMetadata>> KnownEntrances { get; set; } = new();
     }
 
     [DataDefinition]

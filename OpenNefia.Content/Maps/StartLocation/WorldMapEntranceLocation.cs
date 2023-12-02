@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Maps
 
             var lookup = EntitySystem.Get<IEntityLookup>();
             var entrance = lookup.EntityQueryInMap<WorldMapEntranceComponent>(map)
-                .Where(e => e.Entrance.MapIdSpecifier.GetAreaId() == prevArea.Id)
+                .Where(e => e.Entrance.MapIdSpecifier.GetOrGenerateAreaId() == prevArea.Id)
                 .FirstOrDefault();
 
             if (entrance == null)

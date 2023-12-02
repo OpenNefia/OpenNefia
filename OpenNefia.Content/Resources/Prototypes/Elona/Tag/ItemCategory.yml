@@ -342,6 +342,8 @@
       coefficient: 200
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
+  - type: Quests.ExtDeliveryQuestRewardType
+    singleCategory: Elona.ItemCatFurniture
 - type: Tag
   id: Elona.ItemCatFurnitureAltar
   extendedData:
@@ -385,6 +387,8 @@
       coefficient: 80
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
+  - type: Quests.ExtDeliveryQuestRewardType
+    singleCategory: Elona.ItemCatOre
 - type: Tag
   id: Elona.ItemCatJunkInField
   extendedData:
@@ -423,6 +427,8 @@
     categoryType: Major
   - type: CurseStates.ExtDefaultCurseState
     curseState: Normal
+  - type: Quests.ExtDeliveryQuestRewardType
+    randomCategory: Elona.ItemArmor
 - type: Tag
   id: Elona.ItemCatOreValuable
   extendedData:
@@ -471,6 +477,8 @@
     categoryType: Major
   - type: Items.ExtTagJapaneseCounter
     counterKey: Elona.Item.Japanese.Counters.Books
+  - type: Quests.ExtDeliveryQuestRewardType
+    randomCategory: Elona.ItemMagic
 - type: Tag
   id: Elona.ItemCatTree
   extendedData:

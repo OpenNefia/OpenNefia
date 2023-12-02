@@ -1,54 +1,47 @@
 ﻿using OpenNefia.Content.Areas;
-using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Random;
-using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.SaveGames;
-using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.TitleScreen;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Core.Areas
 {
-    internal interface IGlobalAreaSystem : IEntitySystem
+    public interface IGlobalAreaSystem : IEntitySystem
     {
         IReadOnlyDictionary<GlobalAreaId, PrototypeId<EntityPrototype>> GlobalAreaPrototypes { get; }
 
-        void InitializeGlobalAreas(bool load);
+        void InitializeGlobalAreas(IEnumerable<GlobalAreaId> globalAreaIds);
         IArea GetOrCreateGlobalArea(GlobalAreaId globalAreaId);
     }
 
-    internal sealed class GlobalAreaSystem : EntitySystem, IGlobalAreaSystem
+    public sealed class GlobalAreaSystem : EntitySystem, IGlobalAreaSystem
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         private Dictionary<GlobalAreaId, PrototypeId<EntityPrototype>> _globalAreaPrototypes = new();
         public IReadOnlyDictionary<GlobalAreaId, PrototypeId<EntityPrototype>> GlobalAreaPrototypes => _globalAreaPrototypes;
 
-        /// <summary>
-        /// Does one-time setup of global areas. This is for setting up areas like towns to
-        /// be able to generate escort/other quests between them when a new save is being 
-        /// initialized.
-        /// </summary>
-        public void InitializeGlobalAreas(bool load)
+        public override void Initialize()
+        {
+            SubscribeBroadcast<BeforeNewGameStartedEventArgs>(InitializeGlobalAreas);
+
+            InitializeGlobalAreaPrototypes();
+        }
+
+        private void InitializeGlobalAreaPrototypes()
         {
             _globalAreaPrototypes.Clear();
 
-            foreach (var (globalAreaId, areaEntityProto) in EnumerateGlobalAreas())
+            foreach (var (globalAreaId, areaEntityProto) in EnumerateGlobalAreaPrototypes())
             {
                 if (_globalAreaPrototypes.TryGetValue(globalAreaId, out var proto))
                 {
@@ -57,13 +50,62 @@ namespace OpenNefia.Core.Areas
 
                 _globalAreaPrototypes[globalAreaId] = areaEntityProto.GetStrongID();
             }
+        }
 
-            if (!load)
-                return;
+        private void InitializeGlobalAreas(BeforeNewGameStartedEventArgs ev)
+        {
+            InitializeGlobalAreas(ev.Scenario.InitGlobalAreas);
+        }
 
-            foreach (var globalAreaId in GlobalAreaPrototypes.Keys)
+        /// <summary>
+        /// Initializes a list of global areas and loads/saves their starting floors. For use with
+        /// town/economy initialization when starting a new game.
+        /// </summary>
+        /// <remarks>
+        /// This replicates some code called by *renew_economy in HSP
+        /// </remarks>
+        public void InitializeGlobalAreas(IEnumerable<GlobalAreaId> globalAreaIds)
+        {
+            var list = globalAreaIds.ToList();
+
+            if (list.Count > 0)
             {
-                GetOrCreateGlobalArea(globalAreaId);
+                Logger.DebugS("sys.globalAreas", "Initializing these global areas:");
+                foreach (var globalAreaId in list)
+                {
+                    Logger.DebugS("sys.globalAreas", $"  - {globalAreaId}");
+                }
+            }
+
+            foreach (var globalAreaId in list)
+            {
+                if (!_areaManager.TryGetGlobalArea(globalAreaId, out var area))
+                {
+                    area = GetOrCreateGlobalArea(globalAreaId);
+                }
+                if (area.ContainedMaps.Count == 0)
+                {
+                    // TODO might want to make this behavior configurable
+                    InitializeStartingFloorOfArea(area); 
+                }
+            }
+        }
+
+        /// <summary>
+        /// Do an initialize-only load of a map to generate initial quests, etc.
+        /// </summary>
+        /// <param name="area"></param>
+        private void InitializeStartingFloorOfArea(IArea area)
+        {
+            if (TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance) && areaEntrance.StartingFloor != null)
+            {
+                var map = _areaManager.GetOrGenerateMapForFloor(area.Id, areaEntrance.StartingFloor.Value)!;
+                if (map != null && TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon) && !mapCommon.IsTemporary)
+                {
+                    _mapTransfer.RunMapInitializeEvents(map, MapLoadType.InitializeOnly);
+                    _mapLoader.SaveMap(map.Id, _saveGameManager.CurrentSave!);
+                    _mapManager.UnloadMap(map.Id);
+                }
             }
         }
 
@@ -77,31 +119,18 @@ namespace OpenNefia.Core.Areas
 
             area = _areaManager.CreateArea(areaId, globalAreaId);
 
-            // Initialize towns such that quests are generated between them.
-            // TODO generalize this
-            if (TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance) && areaEntrance.StartingFloor != null)
-            {
-                var map = _areaManager.GetOrGenerateMapForFloor(area.Id, areaEntrance.StartingFloor.Value)!;
-                if (map != null && TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon) && !mapCommon.IsTemporary)
-                {
-                    _mapTransfer.RunMapInitializeEvents(map, MapLoadType.InitializeOnly);
-                    _mapLoader.SaveMap(map.Id, _saveGameManager.CurrentSave!);
-                    _mapManager.UnloadMap(map.Id, MapUnloadType.Unload);
-                }
-            }
-
             return area;
         }
 
-        private IEnumerable<(GlobalAreaId, EntityPrototype)> EnumerateGlobalAreas()
+        private IEnumerable<(GlobalAreaId, EntityPrototype)> EnumerateGlobalAreaPrototypes()
         {
             foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>())
             {
                 if (proto.Components.TryGetComponent<AreaEntranceComponent>(out var areaEntrance))
                 {
-                    if (areaEntrance.GlobalId != null)
+                    if (areaEntrance.InitialGlobalId != null)
                     {
-                        yield return (areaEntrance.GlobalId.Value, proto);
+                        yield return (areaEntrance.InitialGlobalId.Value, proto);
                     }
                 }
             }
