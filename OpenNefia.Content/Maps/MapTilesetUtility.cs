@@ -24,6 +24,7 @@ namespace OpenNefia.Content.Maps
     {
         PrototypeId<MapTilesetPrototype> GetTileset(IMap map);
         PrototypeId<TilePrototype>? GetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, bool noFallback = false);
+        void ApplyTileset(IMap map);
         void ApplyTileset(IMap map, PrototypeId<MapTilesetPrototype> protoId);
     }
 
@@ -43,18 +44,26 @@ namespace OpenNefia.Content.Maps
         public PrototypeId<TilePrototype>? GetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, bool noFallback = false)
         {
             var tileset = _protos.Index(tilesetId);
-        
+
             if (tileset.Tiles.TryGetValue(tileId, out var tilePicker))
             {
                 return tilePicker.GetTile();
             }
-            
+
             if (!noFallback)
             {
                 return GetTile(tileId, Protos.MapTileset.Default, noFallback: true);
             }
 
             return null;
+        }
+
+        public void ApplyTileset(IMap map)
+        {
+            if (!TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon))
+                return;
+
+            ApplyTileset(map, mapCommon.Tileset);
         }
 
         public void ApplyTileset(IMap map, PrototypeId<MapTilesetPrototype> protoId)

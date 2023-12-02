@@ -8,9 +8,25 @@ namespace OpenNefia.Core.Maps
 {
     public enum MapLoadType
     {
+        /// <summary>
+        /// This map is being initialized but will not be entered. Used when a new game is started.
+        /// </summary>
         InitializeOnly,
+
+        /// <summary>
+        /// This map was loaded as part of a save game, so do not run all initialization events
+        /// (geometry renewal, etc.).
+        /// </summary>
         GameLoaded,
+
+        /// <summary>
+        /// The same as <see cref="Full"/>, but does not clear the message window when the map is entered.
+        /// </summary>
         Traveled,
+
+        /// <summary>
+        /// Run all initialization events.
+        /// </summary>
         Full
     }
     

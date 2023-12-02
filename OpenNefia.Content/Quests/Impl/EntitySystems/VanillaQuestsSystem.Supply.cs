@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Quests
         private void QuestSupply_BeforeGenerate(EntityUid uid, QuestTypeSupplyComponent component, QuestBeforeGenerateEvent args)
         {
             var category = _randomGen.PickTag(Protos.TagSet.ItemSupply);
-            var itemID = _itemGen.PickRandomItemIdRaw(tags: new[] { category });
+            var itemID = _itemGen.PickRandomItemIdRaw(args.Map, tags: new[] { category });
             if (itemID == null)
             {
                 Logger.ErrorS("quest.supply", $"Failed to generate target quest item with category {category}!");

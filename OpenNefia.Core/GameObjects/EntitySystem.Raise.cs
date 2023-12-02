@@ -150,6 +150,12 @@ namespace OpenNefia.Core.GameObjects
             return EntityManager.EnsureComponent<T>(ent);
         }
 
+        protected IMap GetMap(MapId mapId, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            return mapMan.GetMap(mapId);
+        }
+
         protected IMap GetMap(MapCoordinates coords, IMapManager? mapMan = null)
         {
             IoCManager.Resolve(ref mapMan);
@@ -179,6 +185,12 @@ namespace OpenNefia.Core.GameObjects
         {
             IoCManager.Resolve(ref mapMan);
             return mapMan.TryGetMap(coords.MapId, out map);
+        }
+
+        protected bool TryMap(EntityCoordinates coords, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            return mapMan.TryGetMapOfEntity(coords.EntityId, out map);
         }
 
         protected bool TryMap(EntityUid uid, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null)

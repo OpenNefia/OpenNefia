@@ -40,6 +40,7 @@ namespace OpenNefia.Content.Quests
         IEnumerable<QuestComponent> EnumerateAcceptedQuests();
         IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAcceptedQuests<T>()
             where T : class, IComponent;
+        IEnumerable<QuestComponent> EnumerateAcceptedOrCompletedQuests();
 
         IEnumerable<(IArea Area, MapId MapId, QuestHubData QuestHub)> EnumerateQuestHubs();
 
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.Quests
         IEnumerable<EntityUid> EnumerateTargetCharasInMap(IMap map, EntityUid quest, QuestComponent? questComp = null);
         IEnumerable<EntityUid> EnumerateTargetCharasInMap(MapId mapID, EntityUid quest, QuestComponent? questComp = null);
 
-        QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker);
+        QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker, IDialogEngine? engine = null);
         void FailQuest(EntityUid quest, QuestComponent? questComp = null);
     }
 
@@ -119,6 +120,11 @@ namespace OpenNefia.Content.Quests
         public IEnumerable<(QuestComponent Quest, T QuestType)> EnumerateAcceptedQuests<T>() where T : class, IComponent
         {
             return EnumerateAllQuests<T>().Where(pair => pair.Quest.State == QuestState.Accepted);
+        }
+
+        public IEnumerable<QuestComponent> EnumerateAcceptedOrCompletedQuests()
+        {
+            return EnumerateAllQuests().Where(q => q.State == QuestState.Accepted || q.State == QuestState.Completed);
         }
 
         public IEnumerable<(IArea Area, MapId MapId, QuestHubData QuestHub)> EnumerateQuestHubs()
@@ -303,14 +309,12 @@ namespace OpenNefia.Content.Quests
             }
         }
 
-        public PrototypeId<EntityPrototype>? PickRandomQuestID()
+        public PrototypeId<EntityPrototype>? PickRandomQuestID(IMap map)
         {
             int GetWeight(EntityPrototype proto, int minLevel)
             {
-                var comps = proto.Components;
-                var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Quest];
-
-                return table.Rarity / 1000 + 1;
+                // Higher weight = greater chance
+                return _randomGen.GetBaseRarity(proto, RandomGenTables.Quest, map).Rarity;
             }
 
             bool ExtraFilter(EntityPrototype proto)
@@ -339,7 +343,7 @@ namespace OpenNefia.Content.Quests
 
         public bool TryGenerateQuest(EntityUid client, [NotNullWhen(true)] out QuestComponent? quest)
         {
-            if (!HasComp<QuestClientComponent>(client))
+            if (!TryMap(client, out var map) || !HasComp<QuestClientComponent>(client))
             {
                 quest = null;
                 return false;
@@ -347,7 +351,7 @@ namespace OpenNefia.Content.Quests
 
             Logger.DebugS("quest", $"Attempting to generate quest for client {client}.");
 
-            var id = PickRandomQuestID();
+            var id = PickRandomQuestID(map);
             if (id == null)
             {
                 quest = null;
@@ -458,7 +462,7 @@ namespace OpenNefia.Content.Quests
             return sb.ToString();
         }
 
-        public QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker)
+        public QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker, IDialogEngine? engine = null)
         {
             var nextNodeID = new QualifiedDialogNodeID(Protos.Dialog.QuestClient, "Complete");
             if (!TryComp<QuestComponent>(quest, out var questComp))
@@ -467,7 +471,7 @@ namespace OpenNefia.Content.Quests
             var rewardText = LocalizeQuestRewardText(quest);
             _mes.Display(Loc.GetString("Elona.Quest.Dialog.Complete.TakeReward", ("client", speaker), ("rewardText", rewardText)));
 
-            var ev = new QuestCompletedEvent(questComp, nextNodeID);
+            var ev = new QuestCompletedEvent(questComp, nextNodeID, engine);
             RaiseEvent(quest, ev);
 
             DeleteQuest(questComp);
@@ -597,6 +601,19 @@ namespace OpenNefia.Content.Quests
     }
 
     [EventUsage(EventTarget.Quest)]
+    public sealed class QuestCalcGenRarityEvent : EntityEventArgs
+    {
+        public QuestComponent Quest { get; }
+
+        public int OutRarity { get; set; }
+
+        public QuestCalcGenRarityEvent(QuestComponent quest)
+        {
+            Quest = quest;
+        }
+    }
+
+    [EventUsage(EventTarget.Quest)]
     public sealed class QuestCanGenerateEvent : EntityEventArgs
     {
         public EntityPrototype QuestPrototype { get; }
@@ -645,10 +662,13 @@ namespace OpenNefia.Content.Quests
 
         public QualifiedDialogNodeID OutNextDialogNodeID { get; set; }
 
-        public QuestCompletedEvent(QuestComponent quest, QualifiedDialogNodeID outNextNode)
+        public IDialogEngine? DialogEngine { get; }
+
+        public QuestCompletedEvent(QuestComponent quest, QualifiedDialogNodeID outNextNode, IDialogEngine? dialogEngine)
         {
             Quest = quest;
             OutNextDialogNodeID = outNextNode;
+            DialogEngine = dialogEngine;
         }
     }
 

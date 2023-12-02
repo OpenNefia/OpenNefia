@@ -78,6 +78,12 @@ namespace OpenNefia.Content.VanillaAI
         // TODO make this support ECS
         [DataField]
         public VanillaAICalmAction CalmAction { get; set; } = VanillaAICalmAction.Roam;
+
+        /// <summary>
+        /// Item the entity will use next turn if it's in their inventory.
+        /// </summary>
+        [DataField]
+        public EntityUid? ItemAboutToUse { get; set; }
     }
 
     public enum VanillaAICalmAction

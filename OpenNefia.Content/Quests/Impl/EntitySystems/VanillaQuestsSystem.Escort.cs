@@ -50,11 +50,11 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestTypeEscortComponent, QuestBeforeAcceptEvent>(QuestEscort_BeforeAccept);
             SubscribeComponent<QuestTypeEscortComponent, QuestFailedEvent>(QuestEscort_OnFailed);
 
-            SubscribeComponent<QuestEscortComponent, AfterMapEnterEventArgs>(QuestEscort_CheckDestinationReached);
+            SubscribeComponent<QuestEscortComponent, AfterPartyMemberEntersMapEventArgs>(QuestEscort_CheckDestinationReached);
             SubscribeComponent<QuestEscortComponent, EntityKilledEvent>(QuestEscort_CheckKilled);
         }
 
-        private void QuestEscort_CheckDestinationReached(EntityUid uid, QuestEscortComponent comp, AfterMapEnterEventArgs args)
+        private void QuestEscort_CheckDestinationReached(EntityUid uid, QuestEscortComponent comp, AfterPartyMemberEntersMapEventArgs args)
         {
             // >>>>>>>> shade2/main.hsp:1776 	case evClientReached ..
             if (!IsAlive(comp.QuestUid))
@@ -75,8 +75,12 @@ namespace OpenNefia.Content.Quests
                 }
                 else
                 {
-                    _quests.FailQuest(comp.QuestUid);
-                    EntityManager.DeleteEntity(questEscort.EscortingChara);
+                    _deferredEvents.Enqueue(() =>
+                    {
+                        _quests.FailQuest(comp.QuestUid);
+                        EntityManager.DeleteEntity(questEscort.EscortingChara);
+                        return TurnResult.Aborted;
+                    });
                 }
             }
             // <<<<<<<< shade2/main.hsp:1780 	swbreak ..
@@ -149,7 +153,7 @@ namespace OpenNefia.Content.Quests
 
             var playerLevel = _levels.GetLevel(_gameSession.Player);
             var playerFame = _fame.GetFame(_gameSession.Player);
-            var quest = EntityManager.GetComponent<QuestComponent>(uid);
+            var quest = args.Quest;
             int rewardGold = 0;
 
             var escortType = _rand.Pick(EnumHelpers.EnumerateValues<EscortType>().ToList());
@@ -198,6 +202,7 @@ namespace OpenNefia.Content.Quests
 
             var playerLevel = _levels.GetLevel(_gameSession.Player);
             var playerSpatial = Spatial(_gameSession.Player);
+            var map = GetMap(playerSpatial.MapID);
             for (var i = 0; i <= 99; i++)
             {
                 EntityUid? chara;
@@ -207,7 +212,7 @@ namespace OpenNefia.Content.Quests
                 if (i == 99)
                     id = Protos.Chara.TownChild;
                 else
-                    id = _charaGen.PickRandomCharaId(genArgs, minLevel: playerLevel + 1, tags: new[] { Protos.Tag.CharaMan });
+                    id = _charaGen.PickRandomCharaId(map, genArgs, minLevel: playerLevel + 1, tags: new[] { Protos.Tag.CharaMan });
                 chara = _charaGen.GenerateChara(MapCoordinates.Global, id, args: genArgs);
 
                 if (!IsAlive(chara) || !_mapPlacements.TryPlaceChara(chara.Value, playerSpatial.MapPosition) || !_parties.RecruitAsAlly(_gameSession.Player, chara.Value))

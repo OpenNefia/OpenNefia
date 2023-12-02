@@ -45,10 +45,10 @@ namespace OpenNefia.Content.Tests.RandomGen
 
             Assert.Multiple(() =>
             {
-                var id = sys.PickRandomItemIdRaw(tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
+                var id = sys.PickRandomItemIdRaw(map, tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
                 Assert.That(id, Is.Not.EqualTo(Protos.Item.Bug));
 
-                id = sys.PickRandomItemIdRaw(minLevel: 10, tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
+                id = sys.PickRandomItemIdRaw(map, minLevel: 10, tags: new[] { Protos.Tag.ItemCatEquipAmmoArrow });
                 Assert.That(id, Is.Not.EqualTo(Protos.Item.Bug));
             });
         }

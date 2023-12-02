@@ -16,8 +16,8 @@ namespace OpenNefia.Content.Maps
     public interface IMapEntranceSystem : IEntitySystem
     {
         bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area);
-        bool UseMapEntrance(EntityUid user, MapEntrance entrance, SpatialComponent? spatial = null);
-        bool UseMapEntrance(EntityUid user, MapEntrance entrance, [NotNullWhen(true)] out MapId? mapId, SpatialComponent? spatial = null);
+        bool UseMapEntrance(EntityUid user, MapEntrance entrance, bool silent = false, SpatialComponent? spatial = null);
+        bool UseMapEntrance(EntityUid user, MapEntrance entrance, [NotNullWhen(true)] out MapId? mapId, bool silent = false, SpatialComponent? spatial = null);
 
         /// <summary>
         /// Sets the map to travel to when exiting the destination map via the edges.
@@ -52,12 +52,12 @@ namespace OpenNefia.Content.Maps
             return _areaManager.TryGetArea(entranceAreaId.Value, out area);
         }
 
-        public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
+        public bool UseMapEntrance(EntityUid user, MapEntrance entrance, bool silent = false,
             SpatialComponent? spatial = null)
-            => UseMapEntrance(user, entrance, out _, spatial);
+            => UseMapEntrance(user, entrance, out _, silent, spatial);
 
         public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
-            [NotNullWhen(true)] out MapId? mapId,
+            [NotNullWhen(true)] out MapId? mapId, bool silent = false,
             SpatialComponent? spatial = null)
         {
             mapId = null;
@@ -77,7 +77,8 @@ namespace OpenNefia.Content.Maps
                 return false;
             }
 
-            _audio.Play(Protos.Sound.Exitmap1);
+            if (!silent)
+                _audio.Play(Protos.Sound.Exitmap1);
 
             if (!_mapLoader.TryGetOrLoadMap(mapId.Value, _saveGameManager.CurrentSave!, out var map))
                 return false;
@@ -86,7 +87,7 @@ namespace OpenNefia.Content.Maps
                 .BoundWithin(map.Bounds);
 
             _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
-            
+
             return true;
         }
 

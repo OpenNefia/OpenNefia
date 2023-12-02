@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Quests
 
             var dialogNodeID = new QualifiedDialogNodeID(Protos.Dialog.QuestClient, "About");
             var extraData = new Blackboard<IDialogExtraData>();
-            extraData.Add(new DialogQuestData(selectedQuest.Owner));
+            extraData.Add(new DialogQuestData(selectedQuest));
 
             _spells.Cast(Protos.Spell.ActionShadowStep, target: selectedQuest.ClientEntity, source: source);
             return _dialogs.TryToChatWith(source, selectedQuest.ClientEntity, dialogNodeID, extraData: extraData);

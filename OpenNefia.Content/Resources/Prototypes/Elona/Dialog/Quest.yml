@@ -60,6 +60,15 @@
   id: Elona.QuestHuntex
 - type: Elona.Dialog
   id: Elona.QuestParty
+  nodes:
+    Accept: !type:DialogTextNode
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: Content.Quests.VanillaQuestsSystem:QuestParty_TravelToMap
+      texts:
+      - Elona.Quest.Types.Party.Dialog.Accept
+    Complete: !type:DialogCallbackNode
+      callback: Content.Quests.VanillaQuestsSystem:QuestParty_Complete
 - type: Elona.Dialog
   id: Elona.QuestHunt
 - type: Elona.Dialog

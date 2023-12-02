@@ -3,23 +3,21 @@
 - [x] item enchantments
 - [x] house board
 - [x] respawning
-- [ ] all villager roles/dialog options
 - [ ] town quests
+- [ ] random encounters
+- [ ] journal
 - [ ] scene playback
 - [x] intro/first pet event
 - [ ] PCCs
 - [ ] magic/buffs/effects
   + [ ] timestop
 - [ ] magic items
-- [ ] non-compiled mods
-- [ ] AI actions
+- [ ] AI/calm actions
 - [ ] riding
 - [x] living weapons
 - [ ] weather
-- [ ] random encounters
 - [ ] cargo
 - [ ] all unique areas
-- [ ] journal
 - [ ] main quest/sidequests
 - [ ] house guests
 - [ ] house upgrading
@@ -29,8 +27,9 @@
 - [ ] all chara events/properties
   + [ ] custom talk
 - [ ] religion
+- [ ] all villager roles/dialog options
 - [ ] buildings/zones
-- [ ] staying charas
+- [x] staying charas
 - [ ] arena/pet arena
 - [ ] nefia generation refactor
 - [ ] the void
@@ -38,6 +37,7 @@
 - [ ] blackjack
 - [ ] deck/tcg
 - [ ] theming
+- [ ] non-compiled mods
 - [ ] Qy@
 - [ ] mod API examples
 - [ ] robust upstream commits

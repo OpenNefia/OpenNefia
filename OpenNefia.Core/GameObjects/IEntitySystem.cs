@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Core.GameObjects
 {

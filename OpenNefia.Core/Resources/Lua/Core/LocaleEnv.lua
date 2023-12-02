@@ -102,7 +102,7 @@ local function resolveRefs()
     -- Place the resolved refs back into _Collected in case something like TryGetLocalizationData
     -- wants the actual Lua table.
     for _, ref in ipairs(_PendingRefs) do
-        log("debug", "SETREF " .. ref.parentKey .. " " .. _FinalizedKeys[ref.targetKey])
+        log("verbose", "SETREF " .. ref.parentKey .. " " .. _FinalizedKeys[ref.targetKey])
         ref.parent[ref.parentKey] = _FinalizedKeys[ref.targetKey]
     end
 

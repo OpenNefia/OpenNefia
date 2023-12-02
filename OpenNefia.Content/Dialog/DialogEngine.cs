@@ -3,6 +3,7 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -141,6 +142,8 @@ namespace OpenNefia.Content.Dialog
         /// <inheritdoc/>
         public Blackboard<IDialogExtraData> Data { get; }
 
+        private bool _dialogActive = false;
+
         public DialogEngine(EntityUid player, EntityUid? target, IDialogLayer dialogLayer, Blackboard<IDialogExtraData>? extraData = null)
         {
             EntitySystem.InjectDependencies(this);
@@ -177,13 +180,32 @@ namespace OpenNefia.Content.Dialog
         /// <inheritdoc/>
         public TurnResult StartDialog(QualifiedDialogNodeID nodeID)
         {
-            Dialog = _protos.Index(nodeID.DialogID);
-            QualifiedDialogNode? next = GetNodeByID(nodeID);
-
-            while (next != null)
+            if (_dialogActive)
             {
-                Dialog = _protos.Index(next.DialogID);
-                next = StepDialog(next.Node);
+                Logger.ErrorS("dialog", $"Dialog is already active! {Dialog.ID}");
+                return TurnResult.Succeeded;
+            }
+
+            try
+            {
+                _dialogActive = true;
+
+                Dialog = _protos.Index(nodeID.DialogID);
+                QualifiedDialogNode? next = GetNodeByID(nodeID);
+
+                while (next != null)
+                {
+                    Dialog = _protos.Index(next.DialogID);
+                    next = StepDialog(next.Node);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("dialog", ex, "Exception during dialog");
+            }
+            finally
+            {
+                _dialogActive = false;
             }
 
             return TurnResult.Succeeded;

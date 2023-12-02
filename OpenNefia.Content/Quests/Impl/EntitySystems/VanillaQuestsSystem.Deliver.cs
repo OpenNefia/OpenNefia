@@ -159,7 +159,7 @@ namespace OpenNefia.Content.Quests
             Logger.DebugS("quest.deliver", $"FOUND deliver client: {target.DestMapID} ({target.DestQuestHub.MapName}) {target.DestClient.ClientName}");
 
             questDeliver.TargetItemCategory = _randomGen.PickTag(Protos.TagSet.ItemDeliver);
-            var itemID = _itemGen.PickRandomItemIdRaw(tags: new[] { questDeliver.TargetItemCategory });
+            var itemID = _itemGen.PickRandomItemIdRaw(args.Map, tags: new[] { questDeliver.TargetItemCategory });
             if (itemID == null)
             {
                 Logger.ErrorS("quest.deliver", $"No valid item ID found for category {questDeliver.TargetItemCategory} - {args.Quest.ClientOriginatingMapID} ({args.Quest.ClientOriginatingMapName})");

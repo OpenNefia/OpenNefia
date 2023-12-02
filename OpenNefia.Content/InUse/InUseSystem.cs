@@ -17,6 +17,7 @@ namespace OpenNefia.Content.InUse
 {
     public interface IInUseSystem : IEntitySystem
     {
+        bool IsUsingAnything(EntityUid user, ItemUserComponent? itemUser = null);
         bool IsUsing(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
         void SetItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
         void RemoveItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
@@ -27,6 +28,14 @@ namespace OpenNefia.Content.InUse
 
     public sealed class InUseSystem : EntitySystem, IInUseSystem
     {
+        public bool IsUsingAnything(EntityUid user, ItemUserComponent? itemUser = null)
+        {
+            if (!Resolve(user, ref itemUser))
+                return false;
+
+            return itemUser.InUse.Any(i => IsAlive(i));
+        }
+
         public bool IsUsing(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null)
         {
             if (!Resolve(user, ref itemUser) || !IsAlive(item))

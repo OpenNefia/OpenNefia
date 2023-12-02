@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.RandomGen
 {
@@ -33,15 +34,30 @@ namespace OpenNefia.Content.RandomGen
         int CalcObjectLevel(int level);
         Quality CalcObjectQuality(Quality baseQuality = Quality.Bad);
 
-        int GetRarity(EntityUid uid, string randomTableName, RandomGenComponent? randomGen = null);
+        /// <summary>
+        /// Gets the rarity of this entity according to one of its random generation tables.
+        /// </summary>
+        AdjustedRarity GetRarity(EntityUid uid, string randomTableName, IMap? map, RandomGenComponent? randomGen = null);
+
+        /// <summary>
+        /// Gets the rarity of this entity prototype according to one of its random generation tables.
+        /// </summary>
+        AdjustedRarity GetBaseRarity(EntityPrototype proto, string randomTableName, IMap? map);
+
+        /// <summary>
+        /// Gets the rarity of this entity prototype according to one of its random generation tables.
+        /// </summary>
+        AdjustedRarity GetBaseRarity(PrototypeId<EntityPrototype> protoId, string randomTableName, IMap? map);
 
         PrototypeId<TagPrototype> PickTag(PrototypeId<TagSetPrototype> tagSetID);
     }
 
     // TODO no hardcoding
-    /// <summary>
-    /// Entities with these tags will not be generated unless the
-    /// </summary>
+
+    public record struct AdjustedRarity(int Rarity, int Coefficient)
+    {
+        public static readonly AdjustedRarity Default = new(RandomGenTable.DefaultRarity, 100);
+    }
 
     public sealed class RandomGenSystem : EntitySystem, IRandomGenSystem
     {
@@ -116,6 +132,8 @@ namespace OpenNefia.Content.RandomGen
             foreach (var cand in candidates)
             {
                 var weight = weightFunc(cand, minLevel);
+                if (weight <= 0)
+                    continue;
                 sampler.Add(cand, weight);
             }
 
@@ -171,15 +189,55 @@ namespace OpenNefia.Content.RandomGen
             return EnumHelpers.Clamp(quality, Quality.Bad, Quality.God);
         }
 
-        public int GetRarity(EntityUid uid, string randomTableName, RandomGenComponent? randomGen = null)
+        public AdjustedRarity GetRarity(EntityUid uid, string randomTableName, IMap? map, RandomGenComponent? randomGen = null)
         {
             if (!Resolve(uid, ref randomGen))
-                return RandomGenTable.DefaultRarity;
+                return AdjustedRarity.Default;
 
             if (!randomGen.Tables.TryGetValue(randomTableName, out var randomGenTable))
-                return RandomGenTable.DefaultRarity;
+                return AdjustedRarity.Default;
 
-            return randomGenTable.Rarity;
+            var proto = MetaData(uid).EntityPrototype;
+            if (proto != null)
+                return AdjustRarityFromMap(randomGenTable, randomTableName, proto, map);
+            else
+                return new(randomGenTable.Rarity, randomGenTable.Coefficient);
+        }
+
+        public AdjustedRarity GetBaseRarity(PrototypeId<EntityPrototype> protoId, string randomTableName, IMap? map)
+        {
+            if (!_protos.TryIndex(protoId, out var proto))
+                return AdjustedRarity.Default;
+
+            return GetBaseRarity(proto, randomTableName, map);
+        }
+
+        public AdjustedRarity GetBaseRarity(EntityPrototype proto, string randomTableName, IMap? map)
+        {
+            if (!proto.Components.TryGetComponent<RandomGenComponent>(out var randomGen))
+                return AdjustedRarity.Default;
+
+            if (!randomGen.Tables.TryGetValue(randomTableName, out var randomGenTable))
+                return AdjustedRarity.Default;
+
+            return AdjustRarityFromMap(randomGenTable, randomTableName, proto, map);
+        }
+
+        private AdjustedRarity AdjustRarityFromMap(RandomGenTable curTable, string randomTableName, EntityPrototype proto, IMap? map)
+        {
+            // Probably one of the few instances in which associating data with EntityPrototype IDs makes sense.
+            // These are prototypes, not entities, so can't iterate RandomGenComponents in the world.
+            if (map != null && TryArea(map, out var area) && TryComp<AreaRandomGenTablesComponent>(area.AreaEntityUid, out var areaRandomGen))
+            {
+                if (areaRandomGen.Tables.TryGetValue(randomTableName, out var tables)
+                    && tables.TryGetValue(proto.GetStrongID(), out var table))
+                {
+                    Logger.DebugS("randomGen", $"Area overrides generation chance for {proto.ID}: {curTable.Rarity} -> {table.Rarity}");
+                    return new(table.Rarity, table.Coefficient);
+                }
+            }
+
+            return new(curTable.Rarity, curTable.Coefficient);
         }
 
         public PrototypeId<TagPrototype> PickTag(PrototypeId<TagSetPrototype> tagSetID)

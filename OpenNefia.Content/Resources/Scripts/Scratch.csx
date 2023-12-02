@@ -52,6 +52,7 @@ using OpenNefia.Core.ViewVariables;
 using OpenNefia.Content.DebugView;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Quests;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -80,6 +81,7 @@ var _config = IoCManager.Resolve<IConfigurationManager>();
 var _refresh = EntitySystem.Get<IRefreshSystem>();
 var _levels = EntitySystem.Get<ILevelSystem>();
 var _effects = EntitySystem.Get<IEffectSystem>();
+var _quests = EntitySystem.Get<IQuestSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);

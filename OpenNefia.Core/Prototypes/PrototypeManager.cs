@@ -568,7 +568,9 @@ namespace OpenNefia.Core.Prototypes
                         .ToDictionary(
                             g => g.Key,
                             g => new PrototypesReloadedEventArgs.PrototypeChangeSet(
-                                g.Value.ToDictionary(a => a, a => _prototypes[g.Key][a])))));
+                                g.Value
+                                .Where(a => _prototypes[g.Key].ContainsKey(a)) // exclude abstract prototypes
+                                .ToDictionary(a => a, a => _prototypes[g.Key][a])))));
 
             // TODO filter by entity prototypes changed
             if (!pushed.ContainsKey(typeof(EntityPrototype))) return;

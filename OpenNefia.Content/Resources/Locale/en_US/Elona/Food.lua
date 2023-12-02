@@ -73,7 +73,13 @@ Elona.Food = {
     NotAffectedByRotten = function(_1)
         return ("But %s%s stomach isn't affected."):format(_.name(_1), _.his_named(_1))
     end,
-    PassedRotten = { "Yuck!!", "....!!", "W-What...", "Are you teasing me?", "You fool!" },
+    PassedRotten = {
+        _.quote "Yuck!!",
+        _.quote "....!!",
+        _.quote "W-What...",
+        _.quote "Are you teasing me?",
+        _.quote "You fool!",
+    },
 
     Harvesting = {
         ItemName = {

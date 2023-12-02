@@ -16,10 +16,12 @@ using OpenNefia.Content.Materials;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Quests;
 using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.World;
 using OpenNefia.Core;
@@ -39,6 +41,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Fame;
+using OpenNefia.Content.Dialog;
 
 namespace OpenNefia.Content.Food
 {
@@ -80,6 +86,10 @@ namespace OpenNefia.Content.Food
         [Dependency] private readonly IIdentifySystem _identify = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IKarmaSystem _karmas = default!;
+        [Dependency] private readonly IDialogSystem _dialogs = default!;
 
         public override void Initialize()
         {
@@ -169,6 +179,7 @@ namespace OpenNefia.Content.Food
 
         public void ApplyFoodEffects(EntityUid eater, EntityUid food, HungerComponent? hungerComp = null, FoodComponent? foodComp = null)
         {
+            // >>>>>>>> elona122/shade2/proc.hsp:1136 	if cc=pc{ ...
             if (!Resolve(eater, ref hungerComp) || !Resolve(food, ref foodComp))
                 return;
 
@@ -181,13 +192,38 @@ namespace OpenNefia.Content.Food
             }
             else
             {
-                // TODO eating traded item
+                ProcNPCRottenFood(eater, food, hungerComp, foodComp);
             }
 
             _hunger.VomitIfAnorexic(eater);
 
             var ev = new AfterFinishedEatingEvent(eater);
             RaiseEvent(food, ev);
+            // <<<<<<<< elona122/shade2/proc.hsp:1154 	} ...
+        }
+
+        private void ProcNPCRottenFood(EntityUid eater, EntityUid food, HungerComponent hungerComp, FoodComponent foodComp)
+        {
+            if (!TryComp<QuestClientComponent>(eater, out var questClient) || !TryComp<VanillaAIComponent>(eater, out var ai))
+                return;
+
+            var isEatingTradedItem = ai.ItemAboutToUse == food && questClient.WasPassedQuestItem;
+            if (!isEatingTradedItem)
+                return;
+
+            questClient.WasPassedQuestItem = false;
+
+            if (foodComp.IsRotten)
+            {
+                _mes.Display(Loc.GetString("Elona.Food.PassedRotten", ("speaker", eater), ("food", food)));
+                _damages.DamageHP(eater, 999, damageType: new GenericDamageType("Elona.DamageType.FoodPoisoning"));
+                if (!IsAlive(eater) && _factions.GetRelationToPlayer(eater) > Relation.Neutral)
+                    _karmas.ModifyKarma(_gameSession.Player, -5);
+                else
+                    _karmas.ModifyKarma(_gameSession.Player, -1);
+                _dialogs.ModifyImpression(eater, -25);
+                return;
+            }
         }
 
         private void HandlePurchaseItem(EntityUid uid, FoodComponent component, AfterItemPurchasedEvent args)

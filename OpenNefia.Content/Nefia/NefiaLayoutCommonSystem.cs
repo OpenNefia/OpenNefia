@@ -36,11 +36,11 @@ namespace OpenNefia.Content.Nefia.Layout
         EntityUid? PlaceStairsSurfacing(MapCoordinates coords);
         EntityUid? PlaceStairsDelving(MapCoordinates coords);
 
-        bool TryDigRoom(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
-        bool TryDigRoomIfBelowMax(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
-        bool TryConnectRooms(IMap map, List<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams);
+        bool TryDigRoom(IMap map, IList<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
+        bool TryDigRoomIfBelowMax(IMap map, IList<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
+        bool TryConnectRooms(IMap map, IList<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams);
 
-        void DigMaze(IMap map, List<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold);
+        void DigMaze(IMap map, IList<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold);
         bool PlaceStairsInMaze(IMap map);
 
         int CalculateDoorDifficulty(IMap map);
@@ -199,7 +199,7 @@ namespace OpenNefia.Content.Nefia.Layout
             return new Room(UIBox2i.FromDimensions(x, y, w, h), dir);
         }
 
-        private Room? CalcValidRoom(IMap map, List<Room> rooms, RoomType roomType, int minSize, int maxSize)
+        private Room? CalcValidRoom(IMap map, IList<Room> rooms, RoomType roomType, int minSize, int maxSize)
         {
             for (var i = 0; i < 100; i++)
             {
@@ -267,7 +267,7 @@ namespace OpenNefia.Content.Nefia.Layout
                 Protos.Item.GreenPlant
             };
 
-        public bool TryDigRoom(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
+        public bool TryDigRoom(IMap map, IList<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
         {
             var template = RoomTemplates[kind];
 
@@ -456,7 +456,7 @@ namespace OpenNefia.Content.Nefia.Layout
             return false;
         }
 
-        public bool TryDigRoomIfBelowMax(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
+        public bool TryDigRoomIfBelowMax(IMap map, IList<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
         {
             if (rooms.Count > MAX_ROOMS)
             {
@@ -811,7 +811,7 @@ namespace OpenNefia.Content.Nefia.Layout
             return success;
         }
 
-        public bool TryConnectRooms(IMap map, List<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams)
+        public bool TryConnectRooms(IMap map, IList<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams)
         {
             for (int roomIdx = 0; roomIdx < rooms.Count - 1; roomIdx++)
             {
@@ -852,7 +852,7 @@ namespace OpenNefia.Content.Nefia.Layout
             return true;
         }
 
-        public void DigMaze(IMap map, List<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold)
+        public void DigMaze(IMap map, IList<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold)
         {
             var ind = 0;
             var prevInd = 0;

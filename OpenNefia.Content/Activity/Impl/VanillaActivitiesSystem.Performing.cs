@@ -14,11 +14,17 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Shopkeeper;
+using OpenNefia.Content.Quests;
+using OpenNefia.Core.IoC;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
+        [Dependency] private readonly IMapImmediateQuestSystem _mapImmediateQuests = default!;
+        [Dependency] private readonly IVanillaQuestsSystem _vanillaQuests = default!;
+
         private void Initialize_Performing()
         {
             SubscribeComponent<ActivityPerformingComponent, OnActivityStartEvent>(Performing_OnStart);
@@ -35,6 +41,12 @@ namespace OpenNefia.Content.Activity
             }
 
             _mes.Display(Loc.GetString("Elona.Activity.Performing.Start", ("actor", args.Activity.Actor), ("instrument", component.Instrument)), entity: args.Activity.Actor);
+        }
+
+        private bool IsPartyQuestActive(EntityUid uid)
+        {
+            var map = GetMap(uid);
+            return _mapImmediateQuests.TryGetImmediateQuest<QuestTypePartyComponent>(map, out var quest, out _, out _);
         }
 
         private int ApplyPerformance(EntityUid actor, ActivityPerformingComponent component, EntityUid audience)
@@ -172,8 +184,7 @@ namespace OpenNefia.Content.Activity
 
             filter.Tags = new[] { _randomGen.PickTag(Protos.TagSet.ItemPerform) };
 
-            // TODO quest
-            var isPartyQuest = false;
+            var isPartyQuest = IsPartyQuestActive(actor);
             if (isPartyQuest)
             {
                 if (_rand.OneIn(150))
@@ -230,9 +241,28 @@ namespace OpenNefia.Content.Activity
             }
         }
 
+        // TODO move into vanilla quests system?
         private void UpdateQuestScore(EntityUid audience)
         {
-            // TODO
+            var map = GetMap(audience);
+            if (!_mapImmediateQuests.TryGetImmediateQuest<QuestTypePartyComponent>(map, out _, out _, out var questParty))
+                return;
+
+            if (_parties.IsInPlayerParty(audience))
+                return;
+
+            var dialog = EnsureComp<DialogComponent>(audience);
+            dialog.Impression += _rand.Next(3);
+
+            // >>>>>>>> shade2/calculation.hsp:1346 	if p>qParam2(gQuestRef) : txtEf coBlue: txt "(+"+ ..
+            var score = _vanillaQuests.CalcPartyScore(map);
+            var diff = score - questParty.CurrentPoints;
+            if (diff > 0)
+                _mes.Display($"(+{diff}) ", color: UiColors.MesBlue);
+            else if (diff < 0)
+                _mes.Display($"({diff}) ", color: UiColors.MesRed);
+            questParty.CurrentPoints = score;
+            // <<<<<<<< shade2/calculation.hsp:1349 	return  ..
         }
 
         private void ApplyPerformanceGood(EntityUid actor, ActivityPerformingComponent component, EntityUid audience)

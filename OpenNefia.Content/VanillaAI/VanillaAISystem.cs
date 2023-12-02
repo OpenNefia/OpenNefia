@@ -22,6 +22,8 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Talk;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Food;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -51,6 +53,9 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly IActionBashSystem _actionBash = default!;
+        [Dependency] private readonly IInventorySystem _inventories = default!;
+        [Dependency] private readonly IVerbSystem _verbs = default!;
+        [Dependency] private readonly IFoodSystem _foods = default!;
 
         public override void Initialize()
         {
@@ -103,9 +108,37 @@ namespace OpenNefia.Content.VanillaAI
             return false;
         }
 
+        private static readonly string[] AIValidItemVerbs = new string[]
+        {
+            FoodSystem.VerbTypeEat, // TODO move
+            DrinkInventoryBehavior.VerbTypeDrink,
+            ReadInventoryBehavior.VerbTypeRead,
+        };
+
         private bool TryToUseItem(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
-            // TODO
+            if (!IsAlive(ai.ItemAboutToUse)
+                || !TryComp<InventoryComponent>(entity, out var inv)
+                || !inv.Container.ContainedEntities.Contains(ai.ItemAboutToUse.Value))
+            return false;
+
+            var item = ai.ItemAboutToUse.Value;
+            if (_factions.GetRelationToPlayer(entity) != Relation.Neutral)
+                ai.ItemAboutToUse = null;
+
+            var verbs = _verbs.GetLocalVerbs(entity, item);
+            foreach (var verbType in AIValidItemVerbs)
+            {
+                var verb = verbs.FirstOrDefault(v => v.VerbType == verbType);
+                if (verb != null)
+                {
+                    var result = verb.Act();
+                    if (result != TurnResult.Aborted)
+                        return true;
+                }
+            }
+
+            ai.ItemAboutToUse = null;
             return false;
         }
 

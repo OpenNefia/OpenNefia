@@ -429,43 +429,6 @@ namespace OpenNefia.Content.Nefia
         {
             return nefiaBaseLevel + floorNumber;
         }
-
-        private static IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)
-        {
-            var start = bounds.TopLeft;
-            var end = bounds.BottomRight;
-            var pos = start;
-
-            while (pos.Y <= end.Y)
-            {
-                yield return pos;
-
-                if (pos.Y == start.Y || pos.Y == end.Y - 1)
-                {
-                    if (pos.X == end.X - 1)
-                    {
-                        pos.X = start.X;
-                        pos.Y++;
-                    }
-                    else
-                    {
-                        pos.X++;
-                    }
-                }
-                else
-                {
-                    if (pos.X == start.X)
-                    {
-                        pos.X = end.X - 1;
-                    }
-                    else
-                    {
-                        pos.X = start.X;
-                        pos.Y++;
-                    }
-                }
-            }
-        }
     }
 
     public sealed class NefiaFloorGenerateEvent : HandledEntityEventArgs

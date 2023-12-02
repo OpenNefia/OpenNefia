@@ -368,6 +368,8 @@ namespace OpenNefia.Content.Loot
 
         public void ModifyItemForRemains(EntityUid item, EntityUid chara, EntityUid? attacker = null)
         {
+            var map = GetMap(chara);
+
             if (TryProtoID(chara, out var id))
                 EnsureComp<EntityProtoSourceComponent>(item).EntityID = id.Value;
 
@@ -392,7 +394,7 @@ namespace OpenNefia.Content.Loot
                 {
                     itemWeight.Weight.Base = 20 * (itemWeight.Weight.Base + 500) / 500;
                     itemValue.Value.Base = _levels.GetLevel(chara) * 40 + 600;
-                    var rarity = _randomGen.GetRarity(chara, RandomGenTables.Chara) / 1000;
+                    var rarity = _randomGen.GetRarity(chara, RandomGenTables.Chara, map).Rarity / 1000;
                     if (rarity < 20 && _factions.GetRelationToPlayer(chara) < Relation.Dislike)
                     {
                         itemValue.Value.Base *= Math.Clamp(4 - rarity / 5, 1, 5);

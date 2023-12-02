@@ -6,6 +6,9 @@ Elona.Quest = {
     FailedTakenFrom = function(clientName)
         return ("%sから受けた依頼は失敗に終わった。"):format(clientName)
     end,
+    MinutesLeft = function(minutesLeft)
+        return ("クエスト[残り%s分]"):format(minutesLeft)
+    end,
 
     Deadline = {
         NoDeadline = "即時",
@@ -570,6 +573,105 @@ Elona.Quest = {
                             )
                         end,
                     },
+                },
+            },
+        },
+
+        Party = {
+            Detail = function(params)
+                return ("%sの獲得"):format(params.requiredPoints)
+            end,
+            Points = function(points)
+                return ("%sポイント"):format(points)
+            end,
+
+            Dialog = {
+                Accept = function(speaker)
+                    return ("ついて来て%sパーティー会場まで案内する%s"):format(
+                        _.kure(speaker),
+                        _.yo(speaker)
+                    )
+                end,
+                GiveMusicTickets = function(entity)
+                    return ("予想以上の盛り上がりだったから、おまけをあげる%s"):format(
+                        _.yo(entity)
+                    )
+                end,
+            },
+
+            Event = {
+                OnMapEnter = function(minutes, points)
+                    return ("%s分間の間にパーティーを盛り上げよう。目標は%sポイント。"):format(
+                        minutes,
+                        points
+                    )
+                end,
+
+                Points = "ポイント",
+                IsSatisfied = function(entity)
+                    return ("%sは満足した。"):format(_.basename(entity))
+                end,
+                IsOver = "パーティーは終了した。",
+                Complete = "パーティーは大盛況だった！",
+                Fail = "パーティーはぐだぐだになった…",
+                FinalScore = function(points)
+                    return ("最終得点は%sポイントだった！"):format(points)
+                end,
+                TotalBonus = function(percent)
+                    return ("(合計ボーナス:%s%%) "):format(percent)
+                end,
+            },
+
+            Variants = {
+                {
+                    Name = "ベイベー！",
+                    Description = function(player, speaker, params)
+                        return (
+                            "ベイベーのってる%s！イェーイ、%sは凄くハイテンション%s！%sも%sのパーティーに来て%s。報酬？そんな野暮なものはない%s！%s！芸で%s記録すればプラチナコインをプレゼントする%s！イェーイ！"
+                        ):format(
+                            _.kana(speaker, 4),
+                            _.ore(speaker, 4),
+                            _.da(speaker, 4),
+                            _.kimi(speaker, 4),
+                            _.ore(speaker, 4),
+                            _.kure(speaker, 4),
+                            _.yo(speaker, 4),
+                            _.ga(speaker, 4),
+                            params.requiredPoints,
+                            _.yo(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "セレブパーティー",
+                    Description = function(player, speaker, params)
+                        return (
+                            "%sの名前を知らない？世間知らずの人間もいるもの%s。%sは泣く子も黙るトップセレブなの%s。近く開くパーティーの席で客を楽しませてくれる芸人を募集中%s。%sのパフォーマンスを出せたら、プラチナコインを払%s。"
+                        ):format(
+                            _.ore(speaker, 4),
+                            _.da(speaker, 4),
+                            _.ore(speaker, 4),
+                            _.da(speaker, 4),
+                            _.da(speaker, 4),
+                            params.requiredPoints,
+                            _.u(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "代替芸人募集",
+                    Description = function(player, speaker, params)
+                        return (
+                            "ああ、だれか%s、%sの代わりにパーティーで芸を披露して%s。聴衆の反応が怖くてとても舞台にあがれない%s！どうにか%s得点を稼いでくれれば、お礼にプラチナコインをあげ%s。"
+                        ):format(
+                            _.tanomu(speaker, 4),
+                            _.ore(speaker, 4),
+                            _.kure(speaker, 4),
+                            _.noda(speaker, 4),
+                            params.requiredPoints,
+                            _.ru(speaker, 4)
+                        )
+                    end,
                 },
             },
         },

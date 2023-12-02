@@ -177,38 +177,6 @@ namespace OpenNefia.Content.Quests
     }
 
     /// <summary>
-    /// Specifies that this quest is an "immediate quest", which takes place within a designated set
-    /// of maps. Leaving this set of maps causes the quest to be failed.
-    /// </summary>
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Quest)]
-    public sealed class QuestImmediateRegionsComponent : Component
-    {
-        /// <summary>
-        /// Maps this quest takes place in.
-        /// </summary>
-        [DataField(required: true)]
-        public HashSet<MapId> QuestMaps { get; set; } = new();
-
-        /// <summary>
-        /// Areas this quest takes place in.
-        /// </summary>
-        [DataField(required: true)]
-        public HashSet<AreaId> QuestAreas { get; set; } = new();
-    }
-
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Quest)]
-    public sealed class QuestImmediateTimeLimitComponent : Component
-    {
-        [DataField(required: true)]
-        public GameDateTime ExpirationDate { get; set; } = GameDateTime.MaxValue;
-
-        [DataField]
-        public GameTimeSpan ExpirationNotifyInterval { get; set; } = GameTimeSpan.MaxValue;
-    }
-
-    /// <summary>
     /// Returning while taking this quest will fail it.
     /// </summary>
     [RegisterComponent]

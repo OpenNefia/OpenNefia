@@ -15,7 +15,6 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Containers;
-using OpenNefia.Content.Charas;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.DisplayName;
@@ -26,10 +25,22 @@ using OpenNefia.Content.UI;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Fame;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Maps;
+using OpenNefia.Core.Maps;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.VanillaAI;
 
 namespace OpenNefia.Content.Quests
 {
-    public sealed partial class VanillaQuestsSystem : EntitySystem
+    public interface IVanillaQuestsSystem
+    {
+        int CalcPartyScore(IMap map);
+        int CalcPartyScoreBonus(IMap map, bool silent = false);
+        bool WasPartyGreatSuccess(QuestTypePartyComponent component);
+    }
+
+    public sealed partial class VanillaQuestsSystem : EntitySystem, IVanillaQuestsSystem
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
@@ -42,7 +53,6 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
-        [Dependency] private readonly IContainerSystem _containers = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly ICharaSystem _charas = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
@@ -50,13 +60,18 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IFameSystem _fame = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IMapImmediateQuestSystem _immediateQuests = default!;
+        [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         public override void Initialize()
         {
             Initialize_Deliver();
             Initialize_Supply();
-            Initialize_Collect();
             Initialize_Escort();
+            Initialize_Party();
+            Initialize_Collect();
         }
 
         public sealed class DialogQuestGiveItemData : IDialogExtraData
@@ -82,7 +97,6 @@ namespace OpenNefia.Content.Quests
 
             _mes.Display(Loc.GetString("Elona.Dialog.Common.YouHandOver", ("player", engine.Player), ("item", data.Item)));
 
-            // TODO AI item to use
             if (_inv.TryGetInventoryContainer(engine.Speaker!.Value, out var inv)
                 && _stacks.TrySplit(data.Item, 1, out var split))
             {
@@ -92,13 +106,24 @@ namespace OpenNefia.Content.Quests
                     Logger.ErrorS("quest", $"Failed to give quest item {split} to client {engine.Speaker.Value}");
                     _stacks.Use(split, 1);
                 }
+                else
+                {
+                    if (TryComp<VanillaAIComponent>(engine.Speaker.Value, out var ai))
+                    {
+                        ai.ItemAboutToUse = split;
+                    }
+                    if (TryComp<QuestClientComponent>(engine.Speaker.Value, out var questClient))
+                    {
+                        questClient.WasPassedQuestItem = true;
+                    }
+                }
             }
             else
             {
                 _stacks.Use(data.Item, 1);
             }
 
-            var nextNodeID = _quests.TurnInQuest(data.Quest, engine.Speaker.Value);
+            var nextNodeID = _quests.TurnInQuest(data.Quest, engine.Speaker.Value, engine);
             return engine.GetNodeByID(nextNodeID);
         }
     }

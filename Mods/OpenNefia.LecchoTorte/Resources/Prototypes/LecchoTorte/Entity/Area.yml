@@ -41,6 +41,11 @@
   - type: AreaEntrance
     startingFloor: LecchoTorte.TownB:0
     globalId: LecchoTorte.TownB
+  - type: AreaRandomGenTables
+    tables:
+      quest:
+        Elona.QuestParty:
+          rarity: 200
 
 - type: Entity
   id: LecchoTorte.AreaTownC

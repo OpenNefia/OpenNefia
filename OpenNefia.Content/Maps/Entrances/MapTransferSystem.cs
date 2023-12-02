@@ -16,8 +16,8 @@ namespace OpenNefia.Content.Maps
 {
     public interface IMapTransferSystem : IEntitySystem
     {
-        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, IMapStartLocation location, MapLoadType loadType, bool noUnloadPrevious = false);
-        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false);
+        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, IMapStartLocation location, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false);
+        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false);
         void RunMapInitializeEvents(IMap map, MapLoadType loadType);
     }
 
@@ -33,10 +33,10 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly ITemporaryEntitySystem _tempEntities = default!;
 
-        public void DoMapTransfer(SpatialComponent spatial, IMap map, IMapStartLocation location, MapLoadType loadType, bool noUnloadPrevious = false)
+        public void DoMapTransfer(SpatialComponent spatial, IMap map, IMapStartLocation location, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false)
             => DoMapTransfer(spatial, map, map.AtPosEntity(location.GetStartPosition(spatial.Owner, map)), loadType, noUnloadPrevious);
 
-        public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType, bool noUnloadPrevious = false)
+        public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false)
         {
             var newMapId = newCoords.GetMapId(EntityManager);
             if (newMapId != map.Id)
@@ -67,8 +67,9 @@ namespace OpenNefia.Content.Maps
                 var evLeave = new BeforeMapLeaveEventArgs(map, oldMap);
                 RaiseEvent(oldMap.MapEntityUid, evLeave);
 
+                var evLeave2 = new BeforePartyMemberLeavesMapEventArgs(map, oldMap);
                 foreach (var chara in _parties.EnumerateMembers(playerSpatial.Owner))
-                    RaiseEvent(chara, evLeave);
+                    RaiseEvent(chara, evLeave2);
             }
 
             TransferPlayerParty(playerSpatial, newCoords, oldMap?.Id);
@@ -78,8 +79,9 @@ namespace OpenNefia.Content.Maps
             var evEnter = new AfterMapEnterEventArgs(map, oldMap);
             RaiseEvent(map.MapEntityUid, evEnter);
 
+            var evEnter2 = new AfterPartyMemberEntersMapEventArgs(map, oldMap);
             foreach (var chara in _parties.EnumerateMembers(playerSpatial.Owner))
-                RaiseEvent(chara, evEnter);
+                RaiseEvent(chara, evEnter2);
 
             // Unload the old map.
             if (oldMap != null && !noUnloadPrevious)
@@ -128,10 +130,10 @@ namespace OpenNefia.Content.Maps
     }
 
     /// <summary>
-    /// Raised before a map is left. Event is raised on the *old map* and party entities. Player and party
+    /// Raised before a map is left. Event is raised on the *old map*. Player and party
     /// will still be located in the old map.
     /// </summary>
-    [EventUsage(EventTarget.Normal | EventTarget.Map)]
+    [EventUsage(EventTarget.Map)]
     public sealed class BeforeMapLeaveEventArgs : EntityEventArgs
     {
         /// <summary>
@@ -151,11 +153,31 @@ namespace OpenNefia.Content.Maps
         }
     }
 
+    [EventUsage(EventTarget.Normal)]
+    public sealed class BeforePartyMemberLeavesMapEventArgs : EntityEventArgs
+    {
+        /// <summary>
+        /// Map being entered.
+        /// </summary>
+        public IMap NewMap { get; }
+
+        /// <summary>
+        /// Map being left. The player and party will be located in this map.
+        /// </summary>
+        public IMap OldMap { get; }
+
+        public BeforePartyMemberLeavesMapEventArgs(IMap newMap, IMap oldMap)
+        {
+            NewMap = newMap;
+            OldMap = oldMap;
+        }
+    }
+
     /// <summary>
-    /// Raised after a map is entered. Event is raised on the *new map* and party entities. Player and party
+    /// Raised after a map is entered. Event is raised on the *new map*s. Player and party
     /// will have been moved to the new map.
     /// </summary>
-    [EventUsage(EventTarget.Normal | EventTarget.Map)]
+    [EventUsage(EventTarget.Map)]
     public sealed class AfterMapEnterEventArgs : EntityEventArgs
     {
         /// <summary>
@@ -169,6 +191,26 @@ namespace OpenNefia.Content.Maps
         public IMap? OldMap { get; }
 
         public AfterMapEnterEventArgs(IMap newMap, IMap? oldMap)
+        {
+            NewMap = newMap;
+            OldMap = oldMap;
+        }
+    }
+
+    [EventUsage(EventTarget.Normal)]
+    public sealed class AfterPartyMemberEntersMapEventArgs : EntityEventArgs
+    {
+        /// <summary>
+        /// Map that was entered. The player and party will be located in this map.
+        /// </summary>
+        public IMap NewMap { get; }
+
+        /// <summary>
+        /// Map that was left. This can be <c>null</c> if a save is being loaded.
+        /// </summary>
+        public IMap? OldMap { get; }
+
+        public AfterPartyMemberEntersMapEventArgs(IMap newMap, IMap? oldMap)
         {
             NewMap = newMap;
             OldMap = oldMap;

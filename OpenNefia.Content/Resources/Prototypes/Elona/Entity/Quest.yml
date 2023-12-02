@@ -59,6 +59,20 @@
   - type: QuestTypeEscort
 
 - type: Entity
+  id: Elona.QuestParty
+  parent: BaseQuest
+  hspIds:
+    elona122: 1009
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Party.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 43 # 1000 / 23
+  - type: QuestTypeParty
+
+- type: Entity
   id: Elona.QuestCollect
   parent: BaseQuest
   hspIds:

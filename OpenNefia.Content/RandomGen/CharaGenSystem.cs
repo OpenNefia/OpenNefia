@@ -20,9 +20,9 @@ namespace OpenNefia.Content.RandomGen
 {
     public interface ICharaGen : IEntitySystem
     {
-        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+        PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(IMap? map, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
-        PrototypeId<EntityPrototype> PickRandomCharaId(EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+        PrototypeId<EntityPrototype> PickRandomCharaId(IMap? map, EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
 
         // TODO TryGenerateChara
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.RandomGen
         [Dependency] private readonly IEntityGenMemorySystem _memory = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
 
-        public PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
+        public PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(IMap? map, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
         {
             var extraFilter = (EntityPrototype proto) =>
             {
@@ -84,6 +84,15 @@ namespace OpenNefia.Content.RandomGen
                 return true;
             };
 
+            int GetWeight(EntityPrototype proto, int minLevel)
+            {
+                var comps = proto.Components;
+                var baseRarity = _randomGen.GetBaseRarity(proto, RandomGenTables.Chara, map);
+                var level = comps.GetComponent<LevelComponent>().Level;
+
+                return baseRarity.Rarity / (500 + Math.Abs(minLevel - level) * baseRarity.Coefficient) + 1;
+            }
+
             var id = _randomGen.PickRandomEntityId(RandomGenTables.Chara, GetWeight, extraFilter, minLevel, tags, fltselect);
 
             if (Logger.GetSawmill("randomgen.chara").Level <= LogLevel.Debug)
@@ -95,16 +104,7 @@ namespace OpenNefia.Content.RandomGen
             return id;
         }
 
-        private int GetWeight(EntityPrototype proto, int minLevel)
-        {
-            var comps = proto.Components;
-            var level = comps.GetComponent<LevelComponent>().Level;
-            var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Chara];
-
-            return table.Rarity / (500 + Math.Abs(minLevel - level) * table.Coefficient) + 1;
-        }
-
-        public PrototypeId<EntityPrototype> PickRandomCharaId(EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
+        public PrototypeId<EntityPrototype> PickRandomCharaId(IMap? map, EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
         {
             var commonArgs = args.Ensure<EntityGenCommonArgs>();
 
@@ -116,7 +116,7 @@ namespace OpenNefia.Content.RandomGen
                     commonArgs.Quality = Quality.Unique;
             }
 
-            var raw = PickRandomCharaIdRaw(minLevel, tags, fltselect, raceFilter, category);
+            var raw = PickRandomCharaIdRaw(map, minLevel, tags, fltselect, raceFilter, category);
 
             if (raw == null)
             {
@@ -126,7 +126,7 @@ namespace OpenNefia.Content.RandomGen
                     fltselect = null;
                 }
                 minLevel += 10;
-                raw = PickRandomCharaIdRaw(minLevel, tags, fltselect, raceFilter, category);
+                raw = PickRandomCharaIdRaw(map, minLevel, tags, fltselect, raceFilter, category);
             }
 
             if (raw == null)
@@ -146,7 +146,10 @@ namespace OpenNefia.Content.RandomGen
             args ??= EntityGenArgSet.Make();
 
             if (id == null)
-                id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
+            {
+                TryMap(coords, out var map);
+                id = PickRandomCharaId(map, args, minLevel, tags, fltselect, raceFilter);
+            }
 
             var commonArgs = args.Get<EntityGenCommonArgs>();
             commonArgs.MinLevel = minLevel;
@@ -192,7 +195,10 @@ namespace OpenNefia.Content.RandomGen
             args ??= EntityGenArgSet.Make();
 
             if (id == null)
-                id = PickRandomCharaId(args, minLevel, tags, fltselect, raceFilter);
+            {
+                TryMap(container.Owner, out var map); // TODO should this be configurable?
+                id = PickRandomCharaId(map, args, minLevel, tags, fltselect, raceFilter);
+            }
 
             var commonArgs = args.Get<EntityGenCommonArgs>();
             commonArgs.MinLevel = minLevel;

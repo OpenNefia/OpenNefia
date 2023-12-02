@@ -19,8 +19,8 @@ namespace OpenNefia.Content.RandomGen
 {
     public interface IItemGen : IEntitySystem
     {
-        PrototypeId<EntityPrototype>? PickRandomItemIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
-        PrototypeId<EntityPrototype> PickRandomItemId(EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
+        PrototypeId<EntityPrototype>? PickRandomItemIdRaw(IMap? map, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
+        PrototypeId<EntityPrototype> PickRandomItemId(IMap? map, EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
 
         EntityUid? GenerateItem(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             int? amount = null, Quality? quality = null, EntityGenArgSet? args = null);
@@ -46,8 +46,16 @@ namespace OpenNefia.Content.RandomGen
         [Dependency] private readonly IEntityGen _entityGen = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
 
-        public PrototypeId<EntityPrototype>? PickRandomItemIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
+        public PrototypeId<EntityPrototype>? PickRandomItemIdRaw(IMap? map, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
         {
+            int GetWeight(EntityPrototype proto, int minLevel)
+            {
+                var baseRarity = _randomGen.GetBaseRarity(proto, RandomGenTables.Item, map);
+                var level = proto.Components.GetComponent<LevelComponent>().Level;
+
+                return baseRarity.Rarity / (1000 + Math.Abs(minLevel - level) * baseRarity.Coefficient) + 1;
+            }
+
             var id = _randomGen.PickRandomEntityId(RandomGenTables.Item, GetWeight, null, minLevel, tags, fltselect);
 
             if (Logger.GetSawmill("randomgen.item").Level <= LogLevel.Debug)
@@ -59,16 +67,7 @@ namespace OpenNefia.Content.RandomGen
             return id;
         }
 
-        private int GetWeight(EntityPrototype proto, int minLevel)
-        {
-            var comps = proto.Components;
-            var level = comps.GetComponent<LevelComponent>().Level;
-            var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Item];
-
-            return table.Rarity / (1000 + Math.Abs(minLevel - level) * table.Coefficient) + 1;
-        }
-
-        public PrototypeId<EntityPrototype> PickRandomItemId(EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
+        public PrototypeId<EntityPrototype> PickRandomItemId(IMap? map, EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)
         {
             var isShop = false;
             var commonArgs = argSet.Ensure<EntityGenCommonArgs>();
@@ -84,7 +83,7 @@ namespace OpenNefia.Content.RandomGen
                     fltselect = FltSelects.SpUnique;
             }
 
-            var raw = PickRandomItemIdRaw(minLevel, tags, fltselect);
+            var raw = PickRandomItemIdRaw(map, minLevel, tags, fltselect);
 
             if (raw == null)
             {
@@ -92,7 +91,7 @@ namespace OpenNefia.Content.RandomGen
                     commonArgs.Quality = Quality.Great;
                 minLevel += 10;
                 fltselect = null;
-                raw = PickRandomItemIdRaw(minLevel, tags, fltselect);
+                raw = PickRandomItemIdRaw(map, minLevel, tags, fltselect);
             }
 
             if (raw == null && (tags?.Contains(Protos.Tag.ItemCatFurnitureAltar) ?? false))
@@ -125,7 +124,10 @@ namespace OpenNefia.Content.RandomGen
             }
 
             if (id == null)
-                id = PickRandomItemId(args, minLevel, tags, fltselect);
+            {
+                var map = GetMap(coords);
+                id = PickRandomItemId(map, args, minLevel, tags, fltselect);
+            }
 
             if (amount != null)
                 commonArgs.Amount = amount.Value;
@@ -168,7 +170,10 @@ namespace OpenNefia.Content.RandomGen
             }
 
             if (id == null)
-                id = PickRandomItemId(args, minLevel, tags, fltselect);
+            {
+                var map = GetMap(container.Owner); // TODO should this be configurable?
+                id = PickRandomItemId(map, args, minLevel, tags, fltselect);
+            }
 
             commonArgs.MinLevel = minLevel;
             if (amount != null)

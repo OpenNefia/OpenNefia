@@ -363,6 +363,9 @@ namespace OpenNefia.Content.Maps
             {
                 var ent = chara.Owner;
 
+                if (TryComp<QuestClientComponent>(chara.Owner, out var questClient))
+                    questClient.WasPassedQuestItem = false;
+
                 if (chara.Liveness == CharaLivenessState.VillagerDead
                     && _world.State.GameDate >= chara.RevivalDate)
                 {
@@ -458,6 +461,7 @@ namespace OpenNefia.Content.Maps
 
         private bool RevealsFog(IMap map)
         {
+            // >>>>>>>> elona122/shade2/map.hsp:1804 	if (gArea=areaPetArena)or(dbg_revealMap)or(gArea= ...
             var mapEnt = map.MapEntityUid;
 
             var revealsFog = Comp<MapCommonComponent>(mapEnt).RevealsFog;
@@ -468,17 +472,19 @@ namespace OpenNefia.Content.Maps
                 || HasComp<MapTypeWorldMapComponent>(mapEnt)
                 || HasComp<MapTypePlayerOwnedComponent>(mapEnt)
                 || HasComp<MapTypeGuildComponent>(mapEnt);
+            // <<<<<<<< elona122/shade2/map.hsp:1804 	if (gArea=areaPetArena)or(dbg_revealMap)or(gArea= ...
         }
 
         private void RevealFog(IMap map)
         {
             if (!RevealsFog(map))
                 return;
-
+            // >>>>>>>> elona122/shade2/map.hsp:1805 		repeat mHeight ...
             foreach (var tile in map.AllTiles)
             {
                 map.MemorizeTile(tile.Position);
             }
+            // <<<<<<<< elona122/shade2/map.hsp:1810 		loop ...
         }
 
         private void UpdateDeepestFloor(IMap map)
@@ -605,6 +611,7 @@ namespace OpenNefia.Content.Maps
         }
     }
 
+    [EventUsage(EventTarget.Map)]
     public sealed class MapRenewGeometryEvent : HandledEntityEventArgs
     {
     }

@@ -12,6 +12,7 @@ LecchoTorte:
       Elona.AttrCharisma: 2000
       Elona.AttrLife: 2000
       Elona.Mining: 2000
+      Elona.Performer: 100
     items:
       - id: Elona.ItemDagger
         location: Equipment
@@ -48,6 +49,7 @@ LecchoTorte:
       - id: Elona.ItemPlatinumCoin
         location: Ground
         amount: 50
+      - id: Elona.ItemHarmonica
 
     components:
       - type: Money

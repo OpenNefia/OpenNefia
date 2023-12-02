@@ -6,6 +6,9 @@ Elona.Quest = {
     FailedTakenFrom = function(clientName)
         return ("You have failed the quest taken from %s."):format(clientName)
     end,
+    MinutesLeft = function(minutesLeft)
+        return ("%s min left for the quest."):format(minutesLeft)
+    end,
 
     Deadline = {
         NoDeadline = "-",
@@ -237,6 +240,54 @@ Elona.Quest = {
                             ):format(params.targetMapName, params.reward)
                         end,
                     },
+                },
+            },
+        },
+
+        Party = {
+            Detail = function(params)
+                return ("Gather %s."):format(params.requiredPoints)
+            end,
+            Points = function(points)
+                return ("%s points"):format(points)
+            end,
+
+            Dialog = {
+                Accept = "Alright, I'll take you to the party now.",
+                GiveMusicTickets = "The party was terrific! I'll give you these tickets as an extra bonus.",
+            },
+
+            Event = {
+                OnMapEnter = function(minutes, points)
+                    return ("You have to warm up the party within %s minutes. Your target score is %s points."):format(
+                        minutes,
+                        points
+                    )
+                end,
+
+                Points = "points",
+                IsSatisfied = function(entity)
+                    return ("%s %s satisfied."):format(_.basename(entity), _.is(entity))
+                end,
+                IsOver = "The party is over.",
+                Complete = "People had a hell of a good time!",
+                Fail = "The party turned out to be a big flop...",
+                FinalScore = function(points)
+                    return ("Your final score is %s points!"):format(points)
+                end,
+                TotalBonus = function(percent)
+                    return ("(Total Bonus:%s%%)"):format(percent)
+                end,
+            },
+
+            Variants = {
+                {
+                    Name = "Party time!",
+                    Description = function(player, speaker, params)
+                        return (
+                            "I'm throwing a big party today. Many celebrities are going to attend the party so I need someone to keep them entertained. If you successfully gather %s, I'll give you a platinum coin. You'll surely be earning tons of tips while you work, too."
+                        ):format(params.requiredPoints)
+                    end,
                 },
             },
         },

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Quests
         {
             var quest = engine.Data.Get<DialogQuestData>();
 
-            var localized = LocalizeQuestData(quest.Quest, engine.Speaker!.Value, engine.Player);
+            var localized = LocalizeQuestData(quest.Quest.Owner, engine.Speaker!.Value, engine.Player);
 
             var texts = new List<DialogTextEntry>()
             {
@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Quests
         public QualifiedDialogNode? QuestClient_BeforeAccept(IDialogEngine engine, IDialogNode node)
         {
             var quest = engine.Data.Get<DialogQuestData>();
-            var questComp = Comp<QuestComponent>(quest.Quest);
+            var questComp = quest.Quest;
 
             if (EnumerateAcceptedQuests().Count() >= MaxAcceptedQuests)
             {
@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Quests
 
             var nextNodeID = new QualifiedDialogNodeID(Protos.Dialog.QuestClient, "Accept");
             var ev = new QuestBeforeAcceptEvent(questComp, nextNodeID);
-            RaiseEvent(quest.Quest, ev);
+            RaiseEvent(questComp.Owner, ev);
 
             if (!ev.Cancelled)
             {
@@ -74,12 +74,12 @@ namespace OpenNefia.Content.Quests
     {
         public DialogQuestData() { }
 
-        public DialogQuestData(EntityUid quest)
+        public DialogQuestData(QuestComponent quest)
         {
             Quest = quest;
         }
 
         [DataField]
-        public EntityUid Quest { get; }
+        public QuestComponent Quest { get; } = default!;
     }
 }

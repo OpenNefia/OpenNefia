@@ -33,6 +33,7 @@ namespace OpenNefia.Content.Quests
             SubscribeEntity<AfterAreaFloorGeneratedEvent>(HandleAddQuestHub);
 
             SubscribeComponent<QuestClientComponent, GetDefaultDialogChoicesEvent>(QuestClient_GetDefaultDialogChoices);
+            SubscribeComponent<QuestClientComponent, BeforeStepDialogEvent>(BeforeStepDialog_TurnInQuest);
             SubscribeBroadcast<QuestCanGenerateEvent>(FilterQuestsByPlayerFame);
 
             SubscribeComponent<QuestDeadlinesComponent, QuestBeforeGenerateEvent>(QuestDeadlines_BeforeGenerate, priority: EventPriorities.VeryHigh);
@@ -51,6 +52,18 @@ namespace OpenNefia.Content.Quests
             SubscribeBroadcast<AfterMapEnterEventArgs>(AfterMapEnter_UpdateQuestTargets);
             SubscribeBroadcast<MapOnTimePassedEvent>(TimePassed_CheckQuestDeadlines);
             SubscribeEntity<MapBeforeTurnBeginEventArgs>(BeforeTurnBegin_SetQuestEmoicons);
+        }
+
+        private void BeforeStepDialog_TurnInQuest(EntityUid uid, QuestClientComponent component, BeforeStepDialogEvent args)
+        {
+            // >>>>>>>> elona122/shade2/chat.hsp:2315 	if gLevel=1{ ...
+            var completedQuest = EnumerateAllQuestsForClient(uid).FirstOrDefault(q => q.State == QuestState.Completed);
+            if (completedQuest != null)
+            {
+                var nextNodeId = TurnInQuest(completedQuest.Owner, uid, args.DialogEngine);
+                args.OutCurrentNode = args.DialogEngine.GetNodeByID(nextNodeId).Node;
+            }
+            // <<<<<<<< elona122/shade2/chat.hsp:2356 		} ...
         }
 
         private void QuestBeforeAccept_UpdateQuestTargets(QuestBeforeAcceptEvent ev)
@@ -83,7 +96,7 @@ namespace OpenNefia.Content.Quests
 
         public void UpdateQuestTargets()
         {
-            foreach (var quest in EnumerateAcceptedQuests())
+            foreach (var quest in EnumerateAcceptedOrCompletedQuests())
             {
                 quest.TargetEntities.Clear();
                 var ev = new QuestGetTargetCharasEvent(quest);
@@ -98,7 +111,7 @@ namespace OpenNefia.Content.Quests
             if (!TryMap(uid, out var map))
                 return;
             
-            var quests = EnumerateAcceptedQuests().ToList();
+            var quests = EnumerateAcceptedOrCompletedQuests().ToList();
             foreach (var quest in quests)
             {
                 foreach (var entity in quest.TargetEntities)
@@ -137,7 +150,7 @@ namespace OpenNefia.Content.Quests
                     NextNode = new(Protos.Dialog.QuestClient, "About"),
                     ExtraData = new List<IDialogExtraData>()
                     {
-                        new DialogQuestData(quest.Owner)
+                        new DialogQuestData(quest)
                     }
                 });
             }

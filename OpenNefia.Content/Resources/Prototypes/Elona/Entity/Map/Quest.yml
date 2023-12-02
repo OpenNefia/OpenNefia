@@ -1,0 +1,23 @@
+- type: Entity
+  id: Elona.MapQuest
+  abstract: true
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    # hspIds:
+    #   elona122: 13
+    tileset: Elona.Tower1
+    isIndoors: false
+    isTemporary: true
+  - type: MapTypeQuest
+  - type: MapPreventsShelters
+
+- type: Entity
+  id: Elona.MapQuestParty
+  parent: Elona.MapQuest
+  components:
+  - type: MapCommon
+    tileset: Elona.Castle
+    isIndoors: true
+    revealsFog: true
+    music: Elona.Casino

@@ -18,5 +18,11 @@ namespace OpenNefia.Content.Quests
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class QuestClientComponent : Component
     {
+        /// <summary>
+        /// True if this character was passed a quest item and a karma penalty
+        /// should be applied if the item kills the character.
+        /// </summary>
+        [DataField]
+        public bool WasPassedQuestItem { get; set; } = false;
     }
 }

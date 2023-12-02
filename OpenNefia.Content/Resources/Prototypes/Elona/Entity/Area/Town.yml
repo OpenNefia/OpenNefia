@@ -36,6 +36,13 @@
   - type: AreaEntrance
     startingFloor: Elona.FloorYowyn:0
     globalId: Elona.AreaYowyn
+#   - type: AreaRandomGenTables
+#     tables:
+#       quest:
+# # >>>>>>>> elona122/shade2/quest.hsp:206 	if (rnd(30)=0)or((gArea=areaYowyn)&(rnd(2)=0)){ ...
+#         Elona.QuestHarvest:
+#           rarity: 500 # 1000 / 2
+# # <<<<<<<< elona122/shade2/quest.hsp:206 	if (rnd(30)=0)or((gArea=areaYowyn)&(rnd(2)=0)){ ..
 
 - type: Entity
   id: Elona.AreaDerphy
@@ -62,6 +69,13 @@
   - type: AreaEntrance
     startingFloor: Elona.FloorPalmia:0
     globalId: Elona.AreaPalmia
+  - type: AreaRandomGenTables
+    tables:
+      quest:
+# >>>>>>>> elona122/shade2/quest.hsp:191 	if (rnd(23)=0)or((gArea=areaPalmia)&(rnd(8)=0)){ ...
+        Elona.QuestParty:
+          rarity: 125 # 1000 / 8
+# <<<<<<<< elona122/shade2/quest.hsp:191 	if (rnd(23)=0)or((gArea=areaPalmia)&(rnd(8)=0)){ ..
 
 - type: Entity
   id: Elona.AreaNoyel
