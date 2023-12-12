@@ -16,6 +16,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Sleep;
 using System.Security.Cryptography;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Levels
 {
@@ -37,12 +38,19 @@ namespace OpenNefia.Content.Levels
         public override void Initialize()
         {
             SubscribeComponent<LevelComponent, EntityBeingGeneratedEvent>(SetInitialRequiredExperience, priority: EventPriorities.High);
+            SubscribeComponent<LevelComponent, GetDisplayNameEventArgs>(GetDisplayName_ShowLevel, priority: EventPriorities.VeryLow);
             SubscribeComponent<LevelComponent, EntityTurnStartingEventArgs>(ProcLevelGain, priority: EventPriorities.VeryLow);
         }
 
         private void SetInitialRequiredExperience(EntityUid uid, LevelComponent component, ref EntityBeingGeneratedEvent args)
         {
             component.ExperienceToNext = CalcExperienceToNext(uid, component);
+        }
+
+        private void GetDisplayName_ShowLevel(EntityUid uid, LevelComponent component, ref GetDisplayNameEventArgs args)
+        {
+            if (component.ShowLevelInName)
+                args.OutName = $"{args.OutName} Lv{component.Level}";
         }
 
         private void ProcLevelGain(EntityUid uid, LevelComponent level, EntityTurnStartingEventArgs args)

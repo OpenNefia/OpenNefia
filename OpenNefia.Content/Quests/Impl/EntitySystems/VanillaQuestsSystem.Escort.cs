@@ -32,6 +32,7 @@ using OpenNefia.Core;
 using OpenNefia.Content.Damage;
 using ICSharpCode.Decompiler.IL;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Encounters;
 
 namespace OpenNefia.Content.Quests
 {
@@ -41,6 +42,7 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
         [Dependency] private readonly IDialogSystem _dialog = default!;
         [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IEncounterSystem _encounters = default!;
 
         private void Initialize_Escort()
         {
@@ -52,6 +54,7 @@ namespace OpenNefia.Content.Quests
 
             SubscribeComponent<QuestEscortComponent, AfterPartyMemberEntersMapEventArgs>(QuestEscort_CheckDestinationReached);
             SubscribeComponent<QuestEscortComponent, EntityKilledEvent>(QuestEscort_CheckKilled);
+            SubscribeBroadcast<MapCalcRandomEncounterIDEvent>(QuestEscort_GenerateEncounter);
         }
 
         private void QuestEscort_CheckDestinationReached(EntityUid uid, QuestEscortComponent comp, AfterPartyMemberEntersMapEventArgs args)
@@ -249,15 +252,15 @@ namespace OpenNefia.Content.Quests
                 switch (questEscort.EscortType)
                 {
                     case EscortType.Protect:
-                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Protect", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue);
+                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Protect", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue, entity: questEscort.EscortingChara);
                         key = new LocaleKey("Elona.DamageType.UnseenHand");
                         break;
                     case EscortType.Poison:
-                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Poison", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue);
+                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Poison", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue, entity: questEscort.EscortingChara);
                         key = new LocaleKey("Elona.DamageType.Poison");
                         break;
                     case EscortType.Deadline:
-                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Deadline", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue);
+                        _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.Fail.Dialog.Deadline", ("entity", questEscort.EscortingChara)), color: UiColors.MesSkyBlue, entity: questEscort.EscortingChara);
                         key = new LocaleKey("Elona.DamageType.Burning");
                         break;
                 }
@@ -268,7 +271,22 @@ namespace OpenNefia.Content.Quests
             _karma.ModifyKarma(_gameSession.Player, -10);
             // <<<<<<<< shade2/quest.hsp:371 			} ..
         }
-    }
 
-    // TODO random encounters
+        private void QuestEscort_GenerateEncounter(MapCalcRandomEncounterIDEvent ev)
+        {
+            // >>>>>>>> shade2/action.hsp:664 			if rnd(20)=0{ ...
+            if (!_rand.OneIn(20))
+                return;
+
+            var anyQuests = _quests.EnumerateAcceptedQuests<QuestTypeEscortComponent>()
+                .Where(q => q.QuestType.EscortType == EscortType.Protect && q.QuestType.EncountersSeen < 2)
+                .Any();
+
+            if (!anyQuests)
+                return;
+
+            ev.OutEncounterId = Protos.Encounter.Assassin;
+            // <<<<<<<< shade2/action.hsp:670 			} ..
+        }
+    }
 }

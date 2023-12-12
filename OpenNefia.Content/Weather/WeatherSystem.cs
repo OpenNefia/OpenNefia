@@ -4,6 +4,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace OpenNefia.Content.Weather
     {
         void ChangeFromWorldMap(IMap newMap);
         bool IsBadWeather();
+        bool IsWeatherActive(PrototypeId<WeatherPrototype> id);
     }
 
     public sealed class WeatherSystem : EntitySystem, IWeatherSystem
@@ -37,6 +39,12 @@ namespace OpenNefia.Content.Weather
         }
 
         public bool IsBadWeather()
+        {
+            // TODO
+            return false;
+        }
+
+        public bool IsWeatherActive(PrototypeId<WeatherPrototype> id)
         {
             // TODO
             return false;

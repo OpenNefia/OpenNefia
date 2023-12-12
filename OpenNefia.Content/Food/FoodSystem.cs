@@ -215,7 +215,7 @@ namespace OpenNefia.Content.Food
 
             if (foodComp.IsRotten)
             {
-                _mes.Display(Loc.GetString("Elona.Food.PassedRotten", ("speaker", eater), ("food", food)));
+                _mes.Display(Loc.GetString("Elona.Food.PassedRotten", ("speaker", eater), ("food", food)), entity: eater);
                 _damages.DamageHP(eater, 999, damageType: new GenericDamageType("Elona.DamageType.FoodPoisoning"));
                 if (!IsAlive(eater) && _factions.GetRelationToPlayer(eater) > Relation.Neutral)
                     _karmas.ModifyKarma(_gameSession.Player, -5);

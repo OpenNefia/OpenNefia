@@ -28,7 +28,10 @@ namespace OpenNefia.Content.CharaMake
             public ScenarioCell(ScenarioData data)
                 : base(data, new UiText(UiFonts.ListText))
             {
-                Text = Loc.GetPrototypeString(Data.ScenarioID, "Name");
+                if (Loc.TryGetPrototypeString(Data.ScenarioID, "Name", out var name))
+                    Text = name;
+                else
+                    Text = $"<{Data.ScenarioID}>";
             }
         }
 
@@ -88,7 +91,9 @@ namespace OpenNefia.Content.CharaMake
 
         private void HandleSelect(ScenarioData data)
         {
-            DetailText.WrappedText = Loc.GetPrototypeString(data.ScenarioID, "Description");
+            DetailText.WrappedText = string.Empty;
+            if (Loc.TryGetPrototypeString(data.ScenarioID, "Description", out var desc))
+                DetailText.WrappedText = desc;
             DetailContainer.Relayout();
         }
 

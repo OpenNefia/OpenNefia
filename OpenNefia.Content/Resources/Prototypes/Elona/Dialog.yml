@@ -97,6 +97,20 @@
       nextNode: Elona.Default:Talk
 
 - type: Elona.Dialog
+  id: Elona.WanderingMerchant
+  nodes:
+    AttackConfirm: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Shopkeeper.Attack.Dialog
+      choices:
+      - text: Elona.Dialog.Shopkeeper.Attack.Choices.Attack
+        nextNode: Elona.WanderingMerchant:Attack
+      - text: Elona.Dialog.Shopkeeper.Attack.Choices.GoBack
+        nextNode: Elona.Default:YouKidding
+    Attack: !type:DialogCallbackNode
+      callback: Content.Encounters.VanillaEncountersSystem:WanderingMerchant_Attack
+
+- type: Elona.Dialog
   id: Elona.Trainer
   nodes:
     Train: !type:DialogCallbackNode

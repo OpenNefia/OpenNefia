@@ -190,6 +190,7 @@ Elona.Quest = {
             Detail = function(params)
                 return ("Escort the client to %s."):format(params.targetMapName)
             end,
+            CaughtByAssassins = "You are caught by assassins. You have to protect your client.",
             Complete = {
                 Message = "You complete the escort.",
                 Dialog = "We made it! Thank you!",

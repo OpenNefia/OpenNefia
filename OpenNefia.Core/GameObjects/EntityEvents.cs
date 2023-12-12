@@ -7,6 +7,7 @@ namespace OpenNefia.Core.GameObjects
     public delegate void BroadcastEventHandler<in T>(T ev);
     public delegate void BroadcastEventRefHandler<T>(ref T ev);
 
+    // TODO: Add a virtual boolean IsHandled property, default to false in EntityEventArgs
     [Serializable]
     public abstract class EntityEventArgs { }
 

@@ -21,6 +21,7 @@ using System.Reflection;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Content.Items;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -214,6 +215,30 @@ namespace OpenNefia.Content.Dialog
             var props = IoCManager.Resolve<IEntitySystemPropertiesManager>();
 
             return props.GetProperty(Property).GetValue<int>();
+        }
+    }
+
+    public sealed class CheckGoldCondition : IDialogCondition
+    {
+        public int GetValue(IDialogEngine engine)
+        {
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var session = IoCManager.Resolve<IGameSessionManager>();
+            if (!entMan.TryGetComponent<MoneyComponent>(session.Player, out var money))
+                return 0;
+            return money.Gold;
+        }
+    }
+
+    public sealed class CheckPlatinumCondition : IDialogCondition
+    {
+        public int GetValue(IDialogEngine engine)
+        {
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var session = IoCManager.Resolve<IGameSessionManager>();
+            if (!entMan.TryGetComponent<MoneyComponent>(session.Player, out var money))
+                return 0;
+            return money.Platinum;
         }
     }
 

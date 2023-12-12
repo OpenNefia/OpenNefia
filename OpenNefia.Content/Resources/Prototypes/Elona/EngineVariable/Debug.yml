@@ -11,3 +11,10 @@
 - type: EngineVariable
   id: Elona.DebugRegenQuestsEveryTime
   default: false
+
+#
+# ID of the encounter entity to spawn when traveling in the world map. null to disable.
+#
+- type: EngineVariable
+  id: Elona.DebugForceEncounter
+  default: null

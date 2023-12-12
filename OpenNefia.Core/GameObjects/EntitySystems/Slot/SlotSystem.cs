@@ -65,6 +65,7 @@ namespace OpenNefia.Core.GameObjects
     /// for Roguelikes" by Thomas Biskup. (https://www.youtube.com/watch?v=fGLJC5UY2o4)
     /// </para>
     /// </remarks>
+    // TODO: Can *all* usages of this system simply be replaced with a container component?
     public interface ISlotSystem : IEntitySystem
     {
         /// <summary>

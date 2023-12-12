@@ -1,6 +1,6 @@
 - type: Entity
   id: Elona.AreaVernis
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 5
   components:
@@ -13,7 +13,7 @@
 
 - type: Entity
   id: Elona.AreaPortKapul
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 11
   components:
@@ -26,7 +26,7 @@
 
 - type: Entity
   id: Elona.AreaYowyn
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 12
   components:
@@ -46,7 +46,7 @@
 
 - type: Entity
   id: Elona.AreaDerphy
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 14
   components:
@@ -59,7 +59,7 @@
 
 - type: Entity
   id: Elona.AreaPalmia
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 15
   components:
@@ -79,7 +79,7 @@
 
 - type: Entity
   id: Elona.AreaNoyel
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 33
   components:
@@ -92,7 +92,7 @@
 
 - type: Entity
   id: Elona.AreaLumiest
-  parent: BaseArea
+  parent: BaseAreaTown
   hspIds:
     elona122: 36
   components:

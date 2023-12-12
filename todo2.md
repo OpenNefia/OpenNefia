@@ -3,8 +3,9 @@
 - [x] item enchantments
 - [x] house board
 - [x] respawning
-- [ ] town quests
 - [ ] random encounters
+- [ ] weather
+- [ ] town quests
 - [ ] journal
 - [ ] scene playback
 - [x] intro/first pet event
@@ -15,7 +16,6 @@
 - [ ] AI/calm actions
 - [ ] riding
 - [x] living weapons
-- [ ] weather
 - [ ] cargo
 - [ ] all unique areas
 - [ ] main quest/sidequests
@@ -27,6 +27,7 @@
 - [ ] all chara events/properties
   + [ ] custom talk
 - [ ] religion
+- [ ] effect protoevents -> ECS
 - [ ] all villager roles/dialog options
 - [ ] buildings/zones
 - [x] staying charas

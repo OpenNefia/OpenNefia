@@ -220,14 +220,12 @@ namespace OpenNefia.Content.Items
                         }
                         else
                         {
+                            fullName.Append(basename);
+
                             if (HasComp<EquipmentComponent>(uid) && enchantments != null && enchantments.EgoMajorEnchantment != null)
                             {
                                 var s = Loc.GetPrototypeString(enchantments.EgoMajorEnchantment.Value, "NameModifier", ("name", fullName.ToString()));
                                 fullName = new StringBuilder(s);
-                            }
-                            else
-                            {
-                                fullName.Append(basename);
                             }
 
                             if (TryComp<AliasComponent>(uid, out var alias) && !string.IsNullOrWhiteSpace(alias.Alias))

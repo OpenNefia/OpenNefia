@@ -17,6 +17,10 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 
+/*
+ * TODO I think status effects should be entities. There are already a lot of prototype callbacks.
+ */
+
 namespace OpenNefia.Content.StatusEffects
 {
     public sealed partial class VanillaStatusEffectsSystem : EntitySystem

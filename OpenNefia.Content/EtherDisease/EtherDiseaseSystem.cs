@@ -38,7 +38,7 @@ namespace OpenNefia.Content.EtherDisease
             if (args.Handled)
                 return;
 
-            if (!EntityManager.IsAlive(uid))
+            if (!IsAlive(uid))
                 return;
 
             if (etherDisease.Corruption >= EtherDiseaseDeathThreshold)

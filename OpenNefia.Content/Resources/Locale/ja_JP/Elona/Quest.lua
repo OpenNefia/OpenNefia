@@ -408,6 +408,7 @@ Elona.Quest = {
             Detail = function(params)
                 return ("クライアントを%sまで護衛"):format(params.targetMapName)
             end,
+            CaughtByAssassins = "暗殺者につかまった。あなたはクライアントを守らなければならない。",
             Complete = {
                 Message = "あなたは無事に護衛の任務を終えた。",
                 Dialog = function(entity)

@@ -230,11 +230,15 @@ namespace OpenNefia.Content.GameObjects
             if (!HasComp<MapTypeWorldMapComponent>(map.MapEntityUid) || _lookup.QueryLiveEntitiesAtCoords<MObjComponent>(spatial.MapPosition).Any())
                 return;
 
-            var id = _encounters.PickRandomEncounterID();
+            var id = _encounters.PickRandomEncounterID(spatial.MapPosition);
             if (id != null)
             {
-                _encounters.StartEncounter(id);
-                args.Handled = true;
+                var encounter = EntityManager.SpawnEntity(id.Value, MapCoordinates.Global);
+                if (IsAlive(encounter))
+                {
+                    _encounters.StartEncounter(encounter, spatial.MapPosition);
+                    args.Handled = true;
+                }
             }
         }
     }

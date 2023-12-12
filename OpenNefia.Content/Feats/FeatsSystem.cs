@@ -98,5 +98,4 @@ namespace OpenNefia.Content.Feats
             Entity = entity;
         }
     }
-
 }

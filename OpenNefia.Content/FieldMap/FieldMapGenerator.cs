@@ -24,7 +24,7 @@ namespace OpenNefia.Content.FieldMap
     [ImplicitDataDefinitionForInheritors]
     public interface IMapGenerator
     {
-        IMap? Generate(MapGeneratorOptions opts);
+        IMap Generate(MapGeneratorOptions opts);
     }
 
     public class MapGeneratorOptions
@@ -191,7 +191,7 @@ namespace OpenNefia.Content.FieldMap
         [DataField]
         public PrototypeId<FieldTypePrototype> FieldMap { get; set; } = Protos.FieldMap.Plains;
 
-        public IMap? Generate(MapGeneratorOptions opts)
+        public IMap Generate(MapGeneratorOptions opts)
         {
             var proto = _prototypeManager.Index(FieldMap);
 
@@ -235,11 +235,9 @@ namespace OpenNefia.Content.FieldMap
             return map;
         }
 
-        public IMap? GenerateAndPopulate(MapGeneratorOptions opts)
+        public IMap GenerateAndPopulate(MapGeneratorOptions opts)
         {
             var map = Generate(opts);
-            if (map == null)
-                return null;
 
             for (var i = 0; i < _charaGen.GetMaxCrowdDensity(map); i++)
             {

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.MapVisibility
 {
+    /// <summary>
+    /// Indicates that this item emits light.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class LightSourceComponent : Component

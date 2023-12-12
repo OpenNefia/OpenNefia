@@ -108,8 +108,10 @@ namespace OpenNefia.Content.VanillaAI
 
         private bool TryToHeal(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:112 	if cActHeal(cc)!0{			;heal ...
             // TODO
             return false;
+            // <<<<<<<< elona122/shade2/ai.hsp:125 		} ..
         }
 
         private static readonly string[] AIValidItemVerbs = new string[]
@@ -121,6 +123,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private bool TryToUseItem(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:128 *ai_item ...
             if (!IsAlive(ai.ItemAboutToUse)
                 || !TryComp<InventoryComponent>(entity, out var inv)
                 || !inv.Container.ContainedEntities.Contains(ai.ItemAboutToUse.Value))
@@ -158,10 +161,12 @@ namespace OpenNefia.Content.VanillaAI
 
             ai.ItemAboutToUse = null;
             return false;
+            // <<<<<<<< elona122/shade2/ai.hsp:139 	cAiItem(cc)=0 ..
         }
 
         private void DoAiTalk(EntityUid entity)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:101 	if (cTxt(cc)!0)or(cBit(cMsgFile,cc)):if cBit(cShu ...
             if (TryComp<TaughtWordsComponent>(entity, out var taughtWords))
             {
                 if (_rand.OneIn(30))
@@ -175,6 +180,7 @@ namespace OpenNefia.Content.VanillaAI
             {
                 // TODO ai talk
             }
+            // <<<<<<<< elona122/shade2/ai.hsp:106 		} ..
         }
 
         public TurnResult RunVanillaAI(EntityUid entity, VanillaAIComponent? ai = null,
@@ -186,6 +192,7 @@ namespace OpenNefia.Content.VanillaAI
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return TurnResult.Failed;
 
+            // >>>>>>>> elona122/shade2/ai.hsp:45 	if cRelation(cc)>=cAlly{ ...
             if (IsAlliedWithPlayer(entity))
                 DecideAllyTarget(entity, ai, spatial);
 
@@ -230,6 +237,7 @@ namespace OpenNefia.Content.VanillaAI
             DoIdleAction(entity, ai);
 
             return TurnResult.Succeeded;
+            // <<<<<<<< elona122/shade2/ai.hsp:201 	goto *ai_calmMove ..
         }
 
         private bool SearchForTarget(EntityUid entity,
@@ -237,6 +245,7 @@ namespace OpenNefia.Content.VanillaAI
             VanillaAIComponent ai, SpatialComponent spatial,
             int searchRadius = 5)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:176 	if cTurn(cc)\10=1{ ...
             if (EntityManager.HasComponent<AINoTargetComponent>(entity))
                 return true;
 
@@ -272,6 +281,7 @@ namespace OpenNefia.Content.VanillaAI
             // TODO stealth
 
             return false;
+            // <<<<<<<< elona122/shade2/ai.hsp:199 		} ..
         }
 
         private EntityUid GetDefaultTarget(EntityUid entity)
@@ -320,6 +330,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DoTargetedAction(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:141 *ai_action ...
             if (EntityManager.HasComponent<StatusBlindnessComponent>(entity))
             {
                 if (_rand.Next(10) > 2)
@@ -370,6 +381,7 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             DoBasicAction(entity, ai);
+            // <<<<<<<< elona122/shade2/ai.hsp:172 		} ..
         }
 
         private bool FollowPlayer(EntityUid entity, VanillaAIComponent ai)
@@ -433,6 +445,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DecideAllyTarget(EntityUid ally, VanillaAIComponent ai, SpatialComponent spatial)
         {
+            // >>>>>>>> elona122/shade2/ai.hsp:45 	if cRelation(cc)>=cAlly{ ...
             DecrementAggro(ai);
 
             var currentTarget = ai.CurrentTarget;
@@ -500,6 +513,7 @@ namespace OpenNefia.Content.VanillaAI
             {
                 ai.CurrentTarget = leader;
             }
+            // <<<<<<<< elona122/shade2/ai.hsp:53 		} ..
         }
 
         public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null)

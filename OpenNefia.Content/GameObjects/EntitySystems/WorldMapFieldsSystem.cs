@@ -11,7 +11,12 @@ using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class WorldMapFieldsSystem : EntitySystem
+    public interface IWorldMapFieldsSystem
+    {
+        PrototypeId<FieldTypePrototype> GetFieldMapFromStoodTile(PrototypeId<TilePrototype> stoodTile);
+    }
+
+    public class WorldMapFieldsSystem : EntitySystem, IWorldMapFieldsSystem
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;

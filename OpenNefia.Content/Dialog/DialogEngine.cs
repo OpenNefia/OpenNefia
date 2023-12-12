@@ -119,8 +119,14 @@ namespace OpenNefia.Content.Dialog
     /// A complete dialog node that is qualified with the ID of the dialog that contains it.
     /// </summary>
     /// <param name="DialogID">Containing dialog.</param>
-    /// <param name="NodeID">Full node in the dialog.</param>
-    public sealed record QualifiedDialogNode(PrototypeId<DialogPrototype> DialogID, IDialogNode Node);
+    /// <param name="NodeID">Full node in the dialog. If <c>null</c>, this is a dynamically created node.</param>
+    /// <param name="Node">The dialog node itself.</param>
+    public sealed record QualifiedDialogNode(PrototypeId<DialogPrototype> DialogID, string? NodeID, IDialogNode Node)
+    {
+        public QualifiedDialogNode(PrototypeId<DialogPrototype> dialogID, IDialogNode node) : this(dialogID, null, node)
+        {
+        }
+    }
 
     public sealed class DialogEngine : IDialogEngine
     {
@@ -129,16 +135,16 @@ namespace OpenNefia.Content.Dialog
 
         /// <inheritdoc/>
         public DialogPrototype Dialog { get; private set; } = default!;
-        
+
         /// <inheritdoc/>
         public EntityUid Player { get; private set; }
 
         /// <inheritdoc/>
         public EntityUid? Speaker { get; set; }
-        
+
         /// <inheritdoc/>
         public IDialogLayer DialogLayer { get; }
-        
+
         /// <inheritdoc/>
         public Blackboard<IDialogExtraData> Data { get; }
 
@@ -163,7 +169,7 @@ namespace OpenNefia.Content.Dialog
             if (!dialog.Nodes.TryGetValue(nodeID.NodeID, out var node))
                 throw new InvalidDataException($"Dialog node {nodeID.NodeID} not found in dialog {dialog.ID}.");
 
-            return new(dialog.GetStrongID(), node);
+            return new(dialog.GetStrongID(), nodeID.NodeID, node);
         }
 
         /// <inheritdoc/>
@@ -174,7 +180,7 @@ namespace OpenNefia.Content.Dialog
             if (!dialog.Nodes.TryGetValue(nodeID, out var node))
                 throw new InvalidDataException($"Dialog node {nodeID} not found in dialog {dialog.ID}.");
 
-            return new(protoID, node);
+            return new(protoID, nodeID, node);
         }
 
         /// <inheritdoc/>
@@ -192,12 +198,20 @@ namespace OpenNefia.Content.Dialog
 
                 Dialog = _protos.Index(nodeID.DialogID);
                 QualifiedDialogNode? next = GetNodeByID(nodeID);
+                QualifiedDialogNode? last = null;
 
                 while (next != null)
                 {
+                    last = next;
                     Dialog = _protos.Index(next.DialogID);
                     next = StepDialog(next.Node);
                 }
+
+                var ev = new AfterDialogEndedEvent(last);
+                if (_entityManager.IsAlive(Speaker))
+                    _entityManager.EventBus.RaiseEvent(Speaker.Value, ev);
+                else
+                    _entityManager.EventBus.RaiseEvent(ev);
             }
             catch (Exception ex)
             {
@@ -214,7 +228,7 @@ namespace OpenNefia.Content.Dialog
         private QualifiedDialogNode? StepDialog(IDialogNode? node)
         {
             var evStepDialog = new BeforeStepDialogEvent(this, node);
-            
+
             // If there is a speaker, raise the "step dialog" event on them as well as broadcast it.
             // If there is no speaker, then just broadcast it.
             if (_entityManager.IsAlive(Speaker))
@@ -253,5 +267,18 @@ namespace OpenNefia.Content.Dialog
             DialogEngine = engine;
             OutCurrentNode = node;
         }
+    }
+
+    public sealed class AfterDialogEndedEvent : EntityEventArgs
+    {
+        public AfterDialogEndedEvent(QualifiedDialogNode last)
+        {
+            NodeEndedOn = last;
+        }
+
+        /// <summary>
+        /// Node that the dialog ended on.
+        /// </summary>
+        public QualifiedDialogNode NodeEndedOn { get; }
     }
 }

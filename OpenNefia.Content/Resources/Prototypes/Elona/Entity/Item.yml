@@ -10395,6 +10395,7 @@
   - type: Weight
     weight: 1200
   - type: Temporal
+  - type: Trunk
 - type: Entity
   id: Elona.ItemScrollOfGreaterIdentify
   parent: BaseItem

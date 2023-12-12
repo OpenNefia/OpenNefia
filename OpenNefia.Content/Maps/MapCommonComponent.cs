@@ -29,9 +29,16 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public int? FloorNumber { get; set; } = null;
 
+        /// <summary>
+        /// If true, this map is treated as an indoor map. Weather and day-night cycle effects will not render if the map is indoors.
+        /// </summary>
         [DataField]
         public bool IsIndoors { get; set; } = false;
 
+        /// <summary>
+        /// If true, this map will be deleted after it has been moved out of using the <see cref="IMapTransferSystem"/>.
+        /// If false, the map will be automatically saved to the current save game when it is left.
+        /// /// </summary>
         [DataField]
         public bool IsTemporary { get; set; } = false;
 
@@ -59,6 +66,9 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public bool IsTravelDestination { get; set; } = false;
 
+        /// <summary>
+        /// If true, all tiles in the map will be memorized each time the map is entered.
+        /// </summary>
         [DataField]
         public bool? RevealsFog { get; set; }
 

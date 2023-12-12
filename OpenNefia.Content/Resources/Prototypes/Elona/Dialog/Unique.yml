@@ -13,8 +13,21 @@
   id: Elona.Raphael
 - type: Elona.Dialog
   id: Elona.Rilian
+
 - type: Elona.Dialog
   id: Elona.RogueBoss
+  nodes:
+    __start__: !type:DialogBranchNode
+      conditions:
+      - condition: !type:CheckGoldCondition {}
+        comparison: LessThanOrEqual
+        value: 10
+        node: Elona.RogueBoss:TooPoor
+      defaultNode: Elona.Default:Talk
+    TooPoor: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.Lomias.Tutorial6_PutitsRemaining.Text
+
 - type: Elona.Dialog
   id: Elona.Noel
 - type: Elona.Dialog

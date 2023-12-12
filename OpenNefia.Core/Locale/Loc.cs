@@ -70,6 +70,9 @@ namespace OpenNefia.Core.Locale
             return _localization.IsFullwidth();
         }
 
+        /// <summary>
+        /// Returns the localized whitespace character for the current language.
+        /// </summary>
         public static string Space 
         {
             get

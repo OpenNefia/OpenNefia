@@ -7,13 +7,23 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.Materials
 {
+    /// <summary>
+    /// Indicates this item can be made out of a material, such as rubynus or mica.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialComponent : Component
     {
+        /// <summary>
+        /// Material the item is made out of. If <c>null</c>, the item is not made out of a material.
+        /// </summary>
         [DataField]
         public PrototypeId<MaterialPrototype>? MaterialID { get; set; }
 
+        /// <summary>
+        /// Random seed used for recalculating randomized material bonuses by the
+        /// <see cref="EntityApplyMaterialEvent"/>.
+        /// </summary>
         [DataField]
         public int RandomSeed { get; set; }
 

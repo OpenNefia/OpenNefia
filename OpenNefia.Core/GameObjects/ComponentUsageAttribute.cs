@@ -43,5 +43,10 @@ namespace OpenNefia.Core.GameObjects
         /// This component should be used with quest entities.
         /// </summary>
         Quest = 0x10,
+
+        /// <summary>
+        /// This component should be used with encounter entities.
+        /// </summary>
+        Encounter = 0x20,
     }
 }

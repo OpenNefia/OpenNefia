@@ -9,6 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace OpenNefia.Content.MapVisibility
 {
+    /// <summary>
+    /// This system handles player FOV recalculation and shadow map generation.
+    /// </summary>
     public sealed class MapVisibilitySystem : EntitySystem
     {
         [Core.IoC.Dependency] private readonly ICoords _coords = default!;

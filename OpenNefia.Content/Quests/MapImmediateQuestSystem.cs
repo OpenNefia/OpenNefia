@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Quests
         /// <summary>
         /// Sets an immediate quest for this map and begins the timer.
         /// </summary>
-        void SetImmediateQuest(IMap map, QuestComponent quest, GameTimeSpan duration, MapEntrance prevLocation, MapImmediateQuestComponent? comp = null);
+        void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? duration = null, MapImmediateQuestComponent? comp = null);
 
         bool TryGetImmediateQuest(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest);
         bool TryGetImmediateQuest<T>(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest, [NotNullWhen(true)] out T? questComp) where T : class, IComponent;
@@ -48,15 +48,19 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<MapImmediateQuestComponent, MapTimerExpiredEvent>(FinishMapImmediateQuest);
         }
 
-        public void SetImmediateQuest(IMap map, QuestComponent quest, GameTimeSpan duration, MapEntrance prevLocation, MapImmediateQuestComponent? comp = null)
+        public void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? duration, MapImmediateQuestComponent? comp = null)
         {
             if (!Resolve(map.MapEntityUid, ref comp, logMissing: false))
                 comp = EnsureComp<MapImmediateQuestComponent>(map.MapEntityUid);
 
             comp.QuestUid = quest.Owner;
             comp.PreviousLocation = prevLocation;
-            comp.TimeToNextNotify = GameTimeSpan.FromMinutes(10);
-            _mapTimers.AddOrUpdateTimer(map, MapTimerID, duration);
+
+            if (duration != null)
+            {
+                comp.TimeToNextNotify = GameTimeSpan.FromMinutes(10);
+                _mapTimers.AddOrUpdateTimer(map, MapTimerID, duration.Value);
+            }
         }
 
         private void UpdateMapImmediateQuest(EntityUid uid, MapImmediateQuestComponent component, ref MapOnTimePassedEvent args)

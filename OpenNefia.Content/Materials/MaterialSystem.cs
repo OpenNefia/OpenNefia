@@ -42,6 +42,10 @@ namespace OpenNefia.Content.Materials
         void ChangeItemMaterial(EntityUid item, MaterialPrototypeId materialID, MaterialComponent? materialComp = null);
     }
 
+    /// <summary>
+    /// Materials are a way to add variety to items. They are generated randomly on certain item types
+    /// and add randomized bonuses.
+    /// </summary>
     public sealed class MaterialSystem : EntitySystem, IMaterialSystem
     {
         [Dependency] private readonly IRandom _rand = default!;

@@ -1,6 +1,6 @@
 - type: Entity
   id: LecchoTorte.QuickstartArea
-  parent: BaseArea
+  parent: BaseAreaTown
   components:
   - type: AreaHome
     maxItemsOnGround: 100
@@ -11,7 +11,7 @@
 
 - type: Entity
   id: LecchoTorte.Area3Towns
-  parent: BaseArea
+  parent: BaseAreaTown
   components:
   - type: AreaStaticFloors
     floors:
@@ -22,7 +22,7 @@
 
 - type: Entity
   id: LecchoTorte.AreaTownA
-  parent: BaseArea
+  parent: BaseAreaTown
   components:
   - type: AreaStaticFloors
     floors:
@@ -33,7 +33,7 @@
 
 - type: Entity
   id: LecchoTorte.AreaTownB
-  parent: BaseArea
+  parent: BaseAreaTown
   components:
   - type: AreaStaticFloors
     floors:
@@ -49,7 +49,7 @@
 
 - type: Entity
   id: LecchoTorte.AreaTownC
-  parent: BaseArea
+  parent: BaseAreaTown
   components:
   - type: AreaStaticFloors
     floors:

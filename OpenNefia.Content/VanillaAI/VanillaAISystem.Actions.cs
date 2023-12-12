@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.Combat;
+﻿using CSharpRepl.Services.Theming;
+using OpenNefia.Content.Combat;
+using OpenNefia.Content.Factions;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Random;

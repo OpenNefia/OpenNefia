@@ -146,8 +146,8 @@ namespace OpenNefia.Core.EngineVariables
                 if (info.TryGetAttribute(out EngineVariableAttribute? attr))
                 {
                     var value = info.GetValue(instance);
-                    if (value == null)
-                        throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
+                    // if (value == null)
+                    //    throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
 
                     RegisterEngineVariable(attr.Key, info, instance);
                 }

@@ -288,7 +288,7 @@ namespace OpenNefia.Content.Activity
                 return false;
             }
 
-            var activity = EntityManager.SpawnEntity(activityId, new MapCoordinates(MapId.Global, Vector2i.Zero));
+            var activity = EntityManager.SpawnEntity(activityId, MapCoordinates.Global);
             if (!activity.IsValid())
             {
                 Logger.ErrorS("activity", $"Failed to create entity {activityId}!");

@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stats
 {
+    /// <summary>
+    /// Represents a value that can be temporarily buffed and reset later.
+    /// Only the base value is serialized, *not* the buffed value. The latter
+    /// should be recalculated within a Refresh()-type method.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Stat<T> : IEquatable<Stat<T>>
     {
         private T _base;

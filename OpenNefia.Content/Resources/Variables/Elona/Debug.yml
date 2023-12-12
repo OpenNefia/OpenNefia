@@ -1,3 +1,4 @@
 Elona:
   DebugForceMapRenewal: All
   DebugRegenQuestsEveryTime: true
+  DebugForceEncounter: Elona.EncounterMerchant

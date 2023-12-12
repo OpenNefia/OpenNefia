@@ -225,6 +225,9 @@ namespace OpenNefia.Core.Serialization.Manager
 
         public bool CanSerializeType(Type type)
         {
+            if (type.IsNullable())
+                return CanSerializeType(Nullable.GetUnderlyingType(type)!);
+
             if (type.IsArray)
                 return CanSerializeType(type.GetElementType()!);
 

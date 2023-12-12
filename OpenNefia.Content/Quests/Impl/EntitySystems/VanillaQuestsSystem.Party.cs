@@ -98,7 +98,7 @@ namespace OpenNefia.Content.Quests
             var spatial = Spatial(_gameSession.Player);
             var prevLocation = MapEntrance.FromMapCoordinates(spatial.MapPosition);
 
-            _immediateQuests.SetImmediateQuest(partyMap, quest.Quest, GameTimeSpan.FromMinutes(60), prevLocation);
+            _immediateQuests.SetImmediateQuest(partyMap, quest.Quest, prevLocation, GameTimeSpan.FromMinutes(60));
 
             _mapTransfer.DoMapTransfer(spatial, partyMap, new CenterMapLocation());
         }

@@ -48,7 +48,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
         private void DamagePopup_AfterHeal(EntityUid uid, ref AfterHealEvent args)
         {
-            if (!args.ShowMessage)
+            if (!args.ShowMessage || !_vis.IsInWindowFov(uid))
                 return;
 
             var color = args.Type switch

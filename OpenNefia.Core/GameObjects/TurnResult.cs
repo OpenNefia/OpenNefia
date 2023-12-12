@@ -2,7 +2,7 @@
 {
     public enum TurnResult
     {
-        // TODO remove this and replace with TurnResult?
+        // TODO remove this and replace with 'TurnResult?'.
         // There are some cases where a turn result is required,
         // so it would not make sense to be able to pass NoResult
         // in those cases.
@@ -21,7 +21,7 @@
         Aborted = 2,
         
         /// <summary>
-        /// The action Succeeded, and turns will pass.
+        /// The action succeeded, and turns will pass.
         /// </summary>
         Succeeded = 3
     }

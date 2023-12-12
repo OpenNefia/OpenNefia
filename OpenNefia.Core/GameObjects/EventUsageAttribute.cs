@@ -36,6 +36,16 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This event should be used with quest entities.
         /// </summary>
-        Quest = 0x8
+        Quest = 0x8,
+
+        /// <summary>
+        /// This event should be used with activity entities.
+        /// </summary>
+        Activity = 0x10,
+
+        /// <summary>
+        /// This event should be used with encounter entities.
+        /// </summary>
+        Encounter = 0x20
     }
 }

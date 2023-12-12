@@ -100,8 +100,7 @@ namespace OpenNefia.Content.Maps
         {
             var mapEntityUid = targetMap.MapEntityUid;
             var mapMapEntrance = EntityManager.EnsureComponent<MapEdgesEntranceComponent>(mapEntityUid);
-            mapMapEntrance.Entrance.MapIdSpecifier = new BasicMapIdSpecifier(prevCoords.MapId);
-            mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
+            mapMapEntrance.Entrance = MapEntrance.FromMapCoordinates(prevCoords);
         }
 
         public int GetFloorNumber(IMap map)

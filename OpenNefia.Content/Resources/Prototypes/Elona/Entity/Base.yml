@@ -116,6 +116,14 @@
   - type: Area
 
 - type: Entity
+  id: BaseAreaTown
+  hspEntityType: area
+  abstract: true
+  parent: BaseArea
+  components:
+  - type: AreaTypeTown
+
+- type: Entity
   id: BaseActivity
   hspEntityType: activity
   abstract: true
@@ -139,3 +147,10 @@
   abstract: true
   components:
   - type: Quest
+
+- type: Entity
+  id: BaseEncounter
+  hspEntityType: encounter
+  abstract: true
+  components:
+  - type: Encounter

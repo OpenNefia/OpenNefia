@@ -40,10 +40,10 @@ namespace OpenNefia.Core.Maps
         MapCoordinates AtPos(int x, int y);
         EntityCoordinates AtPosEntity(Vector2i pos);
         EntityCoordinates AtPosEntity(int x, int y);
-        public TileRef? GetTile(Vector2i pos);
-        public TileRef? GetTileMemory(Vector2i pos);
-        public TileRef? GetTile(MapCoordinates coords);
-        public TileRef? GetTileMemory(MapCoordinates coords);
+        TileRef? GetTile(Vector2i pos);
+        TileRef? GetTileMemory(Vector2i pos);
+        TileRef? GetTile(MapCoordinates coords);
+        TileRef? GetTileMemory(MapCoordinates coords);
 
         bool IsInWindowFov(Vector2i pos);
         bool IsMemorized(Vector2i pos);

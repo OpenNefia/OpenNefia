@@ -618,6 +618,8 @@ namespace OpenNefia.Content.Shopkeeper
     /// <summary>
     /// Allows excluding an item category or prototype from shops.
     /// </summary>
+    // TODO: remove this for entity prototype and use a tag instead
+    //       in fact maybe just use a tag for all of these exclusions?
     public sealed class ExtShopExclusion
         : IPrototypeExtendedData<TagPrototype>,
           IPrototypeExtendedData<EntityPrototype>

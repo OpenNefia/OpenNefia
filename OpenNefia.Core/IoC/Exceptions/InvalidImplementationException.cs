@@ -1,7 +1,7 @@
 namespace OpenNefia.Core.IoC.Exceptions
 {
     /// <summary>
-    /// An exception for when a type doesn't correctly implement an interface, but is still IoC or reflection accessible..
+    /// An exception for when a type doesn't correctly implement an interface, but is still IoC or reflection accessible.
     /// Such as missing an attribute.
     /// </summary>
     /// <seealso cref="IoCManager" />

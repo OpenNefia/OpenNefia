@@ -33,6 +33,7 @@ using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -215,9 +216,7 @@ namespace OpenNefia.Content.Enchantments
             if (_identify.GetIdentifyState(item) < IdentifyState.Full)
                 return;
 
-            var wielder = _gameSession.Player;
-            if (_containers.TryGetContainingContainer(item, out var container))
-                wielder = container.Owner;
+            var wielder = GetItemWielder(item);
 
             var allEncs = EnumerateEnchantments(item, encs).ToList();
             var comparer = _protos.GetComparator<EntityPrototype>();
@@ -248,18 +247,21 @@ namespace OpenNefia.Content.Enchantments
             }
         }
 
+        private EntityUid? GetItemWielder(EntityUid item)
+        {
+            if (_containers.TryGetContainingContainer(item, out var container) && HasComp<CharaComponent>(container.Owner))
+                return container.Owner;
+            else
+                return _gameSession.Player;
+        }
+
         public string GetEnchantmentDescription(EntityUid enchantment, EntityUid item, EntityUid? wielder = null, int? adjustedPower = null, bool noPowerText = false, EnchantmentComponent? encComp = null)
         {
             if (!Resolve(enchantment, ref encComp))
                 return "???";
 
-            if (wielder == null)
-            {
-                if (_containers.TryGetContainingContainer(item, out var container))
-                    wielder = container.Owner;
-                else
-                    wielder = _gameSession.Player;
-            }
+            wielder ??= GetItemWielder(item);
+
             adjustedPower ??= CalcEnchantmentAdjustedPower(enchantment, item, encComp);
 
             string? desc = string.Empty;

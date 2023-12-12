@@ -994,6 +994,7 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.shopkeepers_trunk" then
         c = comp(to, "Temporal")
+        c = comp(to, "Trunk")
     end
 
     if from._id == "elona.shelter" then
@@ -1753,6 +1754,22 @@ handlers["base.ammo_enchantment"] = function(from, to)
     event(from, to, "on_attack_hit", "Enchantments", "VanillaAmmoEnchantmentsSystem", "AfterRangedAttackHit")
 end
 
+handlers["elona.encounter"] = function(from, to)
+    event(from, to, "encounter_level", "Encounters", "VanillaEncountersSystem", "CalcLevel")
+    event(from, to, "before_encounter_start", "Encounters", "VanillaEncountersSystem", "BeforeStart")
+    event(from, to, "on_map_entered", "Encounters", "VanillaEncountersSystem", "OnMapEntered")
+end
+
+handlers["elona.weather"] = function(from, to)
+    field(from, to, "is_bad_weather")
+    field(from, to, "ambient_sound", dotted)
+    event(from, to, "travel_speed_modifier", "Weather", "VanillaWeatherSystem", "CalcTravelSpeedModifier")
+    event(from, to, "on_travel", "Weather", "VanillaWeatherSystem", "OnTravel")
+    event(from, to, "on_weather_change", "Weather", "VanillaWeatherSystem", "OnWeatherChange")
+    event(from, to, "outdoor_shadow", "Weather", "VanillaWeatherSystem", "CalcOutdoorShadow")
+    event(from, to, "on_turn_start", "Weather", "VanillaWeatherSystem", "OnTurnStart")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2077,6 +2094,8 @@ end
 
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
+-- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
+-- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")
 -- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")
 -- write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona_sys.dialog", "Dialog.yml")

@@ -21,6 +21,7 @@ using OpenNefia.Content.Shopkeeper;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Dialog;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Encounters;
 
 namespace OpenNefia.Content.Fame
 {
@@ -108,22 +109,16 @@ namespace OpenNefia.Content.Fame
                 && !_parties.IsInPlayerParty(entity)
                 && (HasComp<RoleGuardComponent>(entity)
                     || HasComp<RoleShopGuardComponent>(entity)
-                    || IsWanderingMerchant(entity));
+                    || HasComp<WanderingMerchantComponent>(entity));
         }
 
         public bool CanBeFooledByIncognito(EntityUid entity, EntityUid target)
         {
             return EntityManager.IsAlive(entity)
                 && entity != target
-                && !IsWanderingMerchant(entity)
+                && !HasComp<WanderingMerchantComponent>(entity)
                 && !HasComp<RoleShopGuardComponent>(entity)
                 && _factions.GetRelationTowards(entity, target) <= Relation.Hate;
-        }
-
-        private bool IsWanderingMerchant(EntityUid entity)
-        {
-            return TryComp<RoleShopkeeperComponent>(entity, out var shopkeeper)
-                && shopkeeper.ShopInventoryId == Protos.ShopInventory.WanderingMerchant;
         }
 
         private void ApplyAggro(EntityUid criminal, EntityUid guard, VanillaAIComponent? vai = null)
@@ -203,7 +198,7 @@ namespace OpenNefia.Content.Fame
                     karmaLoss = -10;
 
                 if (karmaLoss != 0)
-                    ModifyKarma(args.Attacker, karmaLoss);
+                    ModifyKarma(leader.Value, karmaLoss);
             }
         }
     }

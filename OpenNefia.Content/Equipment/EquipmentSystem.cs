@@ -35,6 +35,12 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         /// <param name="npc"></param>
         void EquipAllHighestValueItemsForNPC(EntityUid npc, InventoryComponent? inv = null);
+
+        /// <summary>
+        /// Equips an item in the character's inventory if it has a higher
+        /// value. Ignores curse state, intended to be used by the AI.
+        /// </summary>
+        /// <param name="npc"></param>
         void EquipIfHigherValueInSlotForNPC(EntityUid npc, EntityUid item, EquipmentComponent? itemEquip = null);
     }
 
@@ -153,6 +159,7 @@ namespace OpenNefia.Content.Equipment
             }
         }
 
+        /// <inheritdoc />
         public void EquipAllHighestValueItemsForNPC(EntityUid npc, InventoryComponent? inv = null)
         {
             if (!Resolve(npc, ref inv))
@@ -167,6 +174,7 @@ namespace OpenNefia.Content.Equipment
             }
         }
 
+        /// <inheritdoc />
         public void EquipIfHigherValueInSlotForNPC(EntityUid npc, EntityUid item, EquipmentComponent? itemEquip = null)
         {
             if (!Resolve(item, ref itemEquip, logMissing: false))
