@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Currency;
+﻿using OpenNefia.Content.Cargo;
+using OpenNefia.Content.Currency;
 using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Logic;
@@ -46,6 +47,8 @@ namespace OpenNefia.Content.Inventory
         public override string GetItemName(InventoryContext context, EntityUid item)
         {
             var weight = EntityManager.GetComponentOrNull<WeightComponent>(item)?.Weight.Buffed ?? 0;
+            if (EntityManager.TryGetComponent<CargoComponent>(item, out var cargo))
+                weight = cargo.Weight;
             return base.GetItemName(context, item) + " " + UiUtils.DisplayWeight(weight);
         }
 
