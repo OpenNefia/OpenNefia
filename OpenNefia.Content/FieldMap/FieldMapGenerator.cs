@@ -70,7 +70,8 @@ namespace OpenNefia.Content.FieldMap
 
         public void OnGenerate(IMap map)
         {
-            for (var i = 0; i < 20 + _rand.Next(20); i++)
+            var count = 20 + _rand.Next(20);
+            for (var i = 0; i < count; i++)
             {
                 var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
@@ -91,7 +92,8 @@ namespace OpenNefia.Content.FieldMap
 
         public void OnGenerate(IMap map)
         {
-            for (var i = 0; i < 10 + _rand.Next(10); i++)
+            var count = 10 + _rand.Next(10);
+            for (var i = 0; i < count; i++)
             {
                 var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
@@ -112,7 +114,8 @@ namespace OpenNefia.Content.FieldMap
 
         public void OnGenerate(IMap map)
         {
-            for (var i = 0; i < 10 + _rand.Next(10); i++)
+            var count = 10 + _rand.Next(10);
+            for (var i = 0; i < count; i++)
             {
                 var entity = _itemGen.GenerateItem(map, id: Protos.Item.DeadTree);
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
@@ -133,7 +136,8 @@ namespace OpenNefia.Content.FieldMap
 
         public void OnGenerate(IMap map)
         {
-            for (var i = 0; i < 3 + _rand.Next(5); i++)
+            var count = 3 + _rand.Next(5);
+            for (var i = 0; i < count; i++)
             {
                 var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree }, fltselect: FltSelects.Snow);
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
@@ -154,7 +158,8 @@ namespace OpenNefia.Content.FieldMap
 
         public void OnGenerate(IMap map)
         {
-            for (var i = 0; i < 5 + _rand.Next(5); i++)
+            var count = 5 + _rand.Next(5);
+            for (var i = 0; i < count; i++)
             {
                 var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
@@ -249,7 +254,8 @@ namespace OpenNefia.Content.FieldMap
 
         public static void CreateJunkItems(IMap map, IItemGen _itemGen, IRandom _random)
         {
-            for (int i = 0; i < 4 + _random.Next(5); i++)
+            var count = 4 + _random.Next(5);
+            for (int i = 0; i < count; i++)
             {
                 _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
             }

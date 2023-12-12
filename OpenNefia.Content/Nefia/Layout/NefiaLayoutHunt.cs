@@ -61,7 +61,8 @@ namespace OpenNefia.Content.Nefia
 
         void IVanillaNefiaLayout.AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data)
         {
-            for (var i = 0; i < 10 + _rand.Next(6); i++)
+            var count = 10 + _rand.Next(6);
+            for (var i = 0; i < count; i++)
             {
                 var chara = _charaGen.GenerateCharaFromMapFilter(map);
                 if (chara != null && _entityManager.TryGetComponent<FactionComponent>(chara.Value, out var faction))
@@ -70,7 +71,8 @@ namespace OpenNefia.Content.Nefia
                 }
             }
 
-            for (var i = 0; i < 10 + _rand.Next(6); i++)
+            count = 10 + _rand.Next(6);
+            for (var i = 0; i < count; i++)
             {
                 var item = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (item != null && _entityManager.TryGetComponent<PickableComponent>(item.Value, out var pickable))

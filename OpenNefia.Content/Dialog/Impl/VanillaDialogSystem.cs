@@ -21,6 +21,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.DeferredEvents;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -42,6 +44,8 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
+        [Dependency] private readonly IMapTransferSystem _mapTransfers = default!;
 
         public override void Initialize()
         {

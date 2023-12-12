@@ -52,12 +52,12 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestTypeEscortComponent, QuestBeforeAcceptEvent>(QuestEscort_BeforeAccept);
             SubscribeComponent<QuestTypeEscortComponent, QuestFailedEvent>(QuestEscort_OnFailed);
 
-            SubscribeComponent<QuestEscortComponent, AfterPartyMemberEntersMapEventArgs>(QuestEscort_CheckDestinationReached);
-            SubscribeComponent<QuestEscortComponent, EntityKilledEvent>(QuestEscort_CheckKilled);
+            SubscribeComponent<EscortedInQuestComponent, AfterPartyMemberEntersMapEventArgs>(QuestEscort_CheckDestinationReached);
+            SubscribeComponent<EscortedInQuestComponent, EntityKilledEvent>(QuestEscort_CheckKilled);
             SubscribeBroadcast<MapCalcRandomEncounterIDEvent>(QuestEscort_GenerateEncounter);
         }
 
-        private void QuestEscort_CheckDestinationReached(EntityUid uid, QuestEscortComponent comp, AfterPartyMemberEntersMapEventArgs args)
+        private void QuestEscort_CheckDestinationReached(EntityUid uid, EscortedInQuestComponent comp, AfterPartyMemberEntersMapEventArgs args)
         {
             // >>>>>>>> shade2/main.hsp:1776 	case evClientReached ..
             if (!IsAlive(comp.QuestUid))
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Quests
             // <<<<<<<< shade2/main.hsp:1780 	swbreak ..
         }
 
-        private void QuestEscort_CheckKilled(EntityUid uid, QuestEscortComponent component, ref EntityKilledEvent args)
+        private void QuestEscort_CheckKilled(EntityUid uid, EscortedInQuestComponent component, ref EntityKilledEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1674 		if tc!pc :if tc<maxFollower { ..
             if (IsAlive(component.QuestUid))
@@ -152,7 +152,7 @@ namespace OpenNefia.Content.Quests
 
             if (distance <= 0)
             {
-                Logger.ErrorS("quest.es cort", $"Failed to generate escort quest: no destination maps found in range");
+                Logger.ErrorS("quest.escort", $"Failed to generate escort quest: no destination maps found in range");
                 args.Cancel();
                 return;
             }
@@ -229,7 +229,7 @@ namespace OpenNefia.Content.Quests
                 }
 
                 EnsureComp<TemporaryAllyComponent>(chara.Value);
-                EnsureComp<QuestEscortComponent>(chara.Value).QuestUid = questEscort.Owner;
+                EnsureComp<EscortedInQuestComponent>(chara.Value).QuestUid = questEscort.Owner;
                 questEscort.EscortingChara = chara.Value;
                 break;
             }

@@ -9983,6 +9983,7 @@
     - itemFilter:
         id: Elona.ItemBlueCapsuleDrug
       oneIn: 90
+  - type: RogueBossLoot
 - type: Entity
   id: Elona.CharaRogueWarrior
   parent: BaseChara

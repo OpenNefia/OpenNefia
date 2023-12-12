@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Inventory
             }
             if (EntityManager.TryGetComponent(item, out CargoComponent? cargoComp))
             {
-                weight = cargoComp.CargoWeight;
+                weight = cargoComp.Weight;
             }
 
             if (weight != null)

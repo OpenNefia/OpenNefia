@@ -22,6 +22,7 @@ local IItemSpellbook = require "mod.elona.api.aspect.IItemSpellbook"
 local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 local IItemPotion = require "mod.elona.api.aspect.IItemPotion"
+local IItemCargo = require "mod.elona.api.aspect.IItemCargo"
 
 local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
@@ -616,6 +617,10 @@ handlers["base.chara"] = function(from, to)
         }
     end
 
+    if from._id == "elona.rogue_boss" then
+        c = comp(to, "RogueBossLoot")
+    end
+
     if from._id == "elona.mine_dog" then
         c = comp(to, "LootType")
         c.lootDrops = {
@@ -1106,6 +1111,13 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.corpse" then
         c = comp(to, "Corpse")
+    end
+
+    local cargo = from._ext and from._ext[IItemCargo]
+    if table.set(from.categories or {})["elona.cargo"] then
+        c = comp(to, "Cargo")
+        c.weight = cargo.cargo_weight
+        c.quality = cargo.cargo_quality
     end
 
     if from._id == "elona.cargo_travelers_food" then

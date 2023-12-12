@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Cargo
 
             // TODO sum container item weights here too.
 
-            return cargo.CargoWeight;
+            return cargo.Weight;
         }
 
         public int GetTotalCargoWeight(EntityUid ent, InventoryComponent? inv = null)

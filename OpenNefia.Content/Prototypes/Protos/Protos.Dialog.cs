@@ -30,6 +30,8 @@ namespace OpenNefia.Content.Prototypes
             public static readonly DialogPrototypeId QuestParty = new($"Elona.{nameof(QuestParty)}");
 
             public static readonly DialogPrototypeId LomiasNewGame = new($"Elona.{nameof(LomiasNewGame)}");
+            public static readonly DialogPrototypeId Lomias = new($"Elona.{nameof(Lomias)}");
+            public static readonly DialogPrototypeId RogueBoss = new($"Elona.{nameof(RogueBoss)}");
         }
     }
 }

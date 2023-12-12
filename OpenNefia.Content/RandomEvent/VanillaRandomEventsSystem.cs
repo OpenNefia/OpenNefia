@@ -184,7 +184,8 @@ namespace OpenNefia.Content.RandomEvent
             switch (ev.ChoiceIndex)
             {
                 case 0:
-                    for (var i = 0; i < 1 + _rand.Next(4); i++)
+                    var count = 1 + _rand.Next(4);
+                    for (var i = 0; i < count; i++)
                     {
                         _itemGen.GenerateItem(ev.Target, tags: new[] { _randomGen.PickTag(Protos.TagSet.ItemRemain) });
                     }
@@ -204,7 +205,8 @@ namespace OpenNefia.Content.RandomEvent
                 case 0:
                     _mes.Display(Loc.GetPrototypeString(Protos.RandomEvent.Corpse, "Loot"));
                     _karma.ModifyKarma(ev.Target, -2);
-                    for (var i = 0; i < 1 + _rand.Next(3); i++)
+                    var count = 1 + _rand.Next(3);
+                    for (var i = 0; i < count; i++)
                     {
                         var filter = new ItemFilter()
                         {

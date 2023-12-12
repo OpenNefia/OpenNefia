@@ -91,6 +91,21 @@ namespace OpenNefia.Content.Encounters
             SubscribeComponent<EncounterRogueComponent, EncounterAfterMapEnteredEvent>(Rogue_OnMapEntered);
         }
 
+        public void ReturnToPreviousMap(IDialogEngine engine, IDialogNode node)
+        {
+            var map = GetMap(engine.Speaker!.Value);
+            _deferredEvents.Enqueue(() =>
+            {
+                if (TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter)
+                    && IsAlive(mapEncounter.EncounterContainer.ContainedEntity)
+                    && TryComp<EncounterComponent>(mapEncounter.EncounterContainer.ContainedEntity, out var encounter))
+                {
+                    _mapEntrances.UseMapEntrance(_gameSession.Player, encounter.PreviousLocation);
+                }
+                return TurnResult.Aborted;
+            });
+        }
+
         #region Elona.Enemy
 
         private void Enemy_CalcLevel(EntityUid uid, EncounterEnemyComponent comp, EncounterCalcLevelEvent args)
@@ -447,7 +462,7 @@ namespace OpenNefia.Content.Encounters
             _deferredEvents.Enqueue(() =>
             {
                 if (IsAlive(rogueBoss))
-                    _dialogs.TryToChatWith(_gameSession.Player, rogueBoss.Value);
+                    _dialogs.TryToChatWith(_gameSession.Player, rogueBoss.Value, force: true);
                 return TurnResult.Aborted;
             });
         }

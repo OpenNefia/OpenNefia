@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Quests
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class QuestEscortComponent : Component
+    public sealed class EscortedInQuestComponent : Component
     {
         [DataField]
         public EntityUid QuestUid { get; set; }

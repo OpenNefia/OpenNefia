@@ -155,7 +155,8 @@ namespace OpenNefia.Content.Nefia
 
                             if (!baseParams.CanHaveMultipleMonsterHouses)
                             {
-                                for (var j = 0; j < _rand.Next(3); j++)
+                                var count = _rand.Next(3);
+                                for (var j = 0; j < count; j++)
                                 {
                                     var pos = _rand.NextVec2iInBounds(bounds);
                                     _itemGen.GenerateItem(map.AtPos(pos), tags: new[] { Protos.Tag.ItemCatContainer });

@@ -29,6 +29,7 @@ using OpenNefia.Content.Areas;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.EngineVariables;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.Currency;
 
 namespace OpenNefia.Content.Encounters
 {
@@ -65,6 +66,8 @@ namespace OpenNefia.Content.Encounters
         /// <param name="player">Current player.</param>
         /// <returns>Chance as a percentage.</returns>
         float CalcRogueAppearanceChance(EntityUid player);
+
+        int CalcRogueSurrenderCostGold(EntityUid player);
 
         bool IsEncounterActive(IMap map);
         bool TryGetEncounter(IMap map, [NotNullWhen(true)] out EncounterComponent? encounter);
@@ -186,6 +189,16 @@ namespace OpenNefia.Content.Encounters
             oneInChance += level * 10 - Math.Clamp(cargoWeight * 150 / (cargoHolder.InitialMaxCargoWeight + 1), 0, 210 + level * 10);
             return 1.0f / oneInChance;
             // <<<<<<<< shade2/action.hsp:662 			if rnd(220+cLevel(pc)*10-limit(gCargoWeight*150 ..
+        }
+
+        public int CalcRogueSurrenderCostGold(EntityUid player)
+        {
+            // >>>>>>>> shade2/chat.hsp:1973 		snd sePayGold ...
+            if (!TryComp<MoneyComponent>(player, out var money))
+                return 0;
+
+            return money.Gold / 5;
+            // <<<<<<<< shade2/chat.hsp:1980 		call calcBurdenPc ..
         }
 
         private IMap GenerateDefaultEncounterMap(EntityUid encounterUid)

@@ -23,10 +23,27 @@
         comparison: LessThanOrEqual
         value: 10
         node: Elona.RogueBoss:TooPoor
-      defaultNode: Elona.Default:Talk
+      defaultNode: Elona.RogueBoss:Ambush
     TooPoor: !type:DialogTextNode
       texts:
-      - Elona.Dialog.Unique.Lomias.Tutorial6_PutitsRemaining.Text
+      - Elona.Dialog.Unique.RogueBoss.TooPoor.Text
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: OpenNefia.Content.Encounters.VanillaEncountersSystem:ReturnToPreviousMap
+    Ambush: !type:DialogCallbackNode
+      callback: Content.Dialog.VanillaDialogSystem:RogueBoss_Ambush
+    TryMe: !type:DialogTextNode
+      texts:
+      - Elona.Dialog.Unique.RogueBoss.TryMe.Text
+    Surrender: !type:DialogTextNode
+      beforeEnter:
+      - !type:DialogCallbackAction
+        callback: Content.Dialog.VanillaDialogSystem:RogueBoss_Surrender_BeforeEnter
+      texts:
+      - Elona.Dialog.Unique.RogueBoss.Surrender.Text
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: OpenNefia.Content.Encounters.VanillaEncountersSystem:ReturnToPreviousMap
 
 - type: Elona.Dialog
   id: Elona.Noel

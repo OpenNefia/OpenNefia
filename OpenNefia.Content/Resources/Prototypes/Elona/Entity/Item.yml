@@ -11549,6 +11549,9 @@
   - type: Value
     value: 700
   - type: Item
+  - type: Cargo
+    weight: 6500
+    quality: 1
 - type: Entity
   id: Elona.ItemCargoBarrel
   parent: BaseItem
@@ -11570,6 +11573,9 @@
   - type: Value
     value: 420
   - type: Item
+  - type: Cargo
+    weight: 10000
+    quality: 2
 - type: Entity
   id: Elona.ItemCargoPiano
   parent: BaseItem
@@ -11591,6 +11597,9 @@
   - type: Value
     value: 4000
   - type: Item
+  - type: Cargo
+    weight: 50000
+    quality: 4
 - type: Entity
   id: Elona.ItemCargoRope
   parent: BaseItem
@@ -11612,6 +11621,9 @@
   - type: Value
     value: 550
   - type: Item
+  - type: Cargo
+    weight: 4800
+    quality: 5
 - type: Entity
   id: Elona.ItemCargoCoffin
   parent: BaseItem
@@ -11633,6 +11645,9 @@
   - type: Value
     value: 2200
   - type: Item
+  - type: Cargo
+    weight: 12000
+    quality: 3
 - type: Entity
   id: Elona.ItemCargoManboo
   parent: BaseItem
@@ -11654,6 +11669,9 @@
   - type: Value
     value: 800
   - type: Item
+  - type: Cargo
+    weight: 10000
+    quality: 0
 - type: Entity
   id: Elona.ItemCargoGrave
   parent: BaseItem
@@ -11675,6 +11693,9 @@
   - type: Value
     value: 2800
   - type: Item
+  - type: Cargo
+    weight: 48000
+    quality: 3
 - type: Entity
   id: Elona.ItemCargoTunaFish
   parent: BaseItem
@@ -11696,6 +11717,9 @@
   - type: Value
     value: 350
   - type: Item
+  - type: Cargo
+    weight: 7500
+    quality: 0
 - type: Entity
   id: Elona.ItemCargoWhisky
   parent: BaseItem
@@ -11717,6 +11741,9 @@
   - type: Value
     value: 1400
   - type: Item
+  - type: Cargo
+    weight: 16000
+    quality: 2
 - type: Entity
   id: Elona.ItemCargoNobleToy
   parent: BaseItem
@@ -11738,6 +11765,9 @@
   - type: Value
     value: 1200
   - type: Item
+  - type: Cargo
+    weight: 32000
+    quality: 1
 - type: Entity
   id: Elona.ItemCargoInnerTube
   parent: BaseItem
@@ -11759,6 +11789,9 @@
   - type: Value
     value: 340
   - type: Item
+  - type: Cargo
+    weight: 1500
+    quality: 5
 - type: Entity
   id: Elona.ItemSpellbookOfDetectObjects
   parent: BaseItem
@@ -17331,6 +17364,9 @@
   - type: Value
     value: 3500
   - type: Item
+  - type: Cargo
+    weight: 60000
+    quality: 6
   - type: LightSource
     id: Elona.CrystalHigh
 - type: Entity
@@ -17354,6 +17390,9 @@
   - type: Value
     value: 1200
   - type: Item
+  - type: Cargo
+    weight: 11000
+    quality: 6
   - type: LightSource
     id: Elona.Item
 - type: Entity
@@ -19302,6 +19341,9 @@
   - type: Value
     value: 3800
   - type: Item
+  - type: Cargo
+    weight: 35000
+    quality: 7
 - type: Entity
   id: Elona.ItemCargoCanvas
   parent: BaseItem
@@ -19323,6 +19365,9 @@
   - type: Value
     value: 750
   - type: Item
+  - type: Cargo
+    weight: 7000
+    quality: 7
 - type: Entity
   id: Elona.ItemNuclearBomb
   parent: BaseItem
