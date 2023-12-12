@@ -11,7 +11,7 @@ Elona.Common = {
     end,
     CannotDoInGlobal = "You can't do that while you're in a global area.",
     NameWithDirectArticle = function(entity)
-        return _.name(entity)
+        return _.name(entity, true)
     end,
     QualifiedName = function(basename, itemTypeName)
         return ("%s of %s"):format(itemTypeName, basename)

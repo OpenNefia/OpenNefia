@@ -40,7 +40,7 @@ Elona.Dialog.Villager = {
 
         Ally = {
             function(npc)
-                return ("(%s fixedly looks at you.)"):format(_.name(npc))
+                return ("(%s fixedly looks at you.)"):format(_.name(npc, true))
             end,
             "...?",
             "Did you need something?",
@@ -56,10 +56,10 @@ Elona.Dialog.Villager = {
 
         Bored = {
             function(npc)
-                return ("(%s is bored. )"):format(_.name(npc))
+                return ("(%s is bored. )"):format(_.name(npc, true))
             end,
             function(npc)
-                return ("(%s glances at you and steps back.)"):format(_.name(npc))
+                return ("(%s glances at you and steps back.)"):format(_.name(npc, true))
             end,
         },
 

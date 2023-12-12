@@ -45,7 +45,7 @@ Elona.Dialog.Villager = {
         Bored = {
             "(退屈そうにあなたを見ている)",
             function(npc)
-                return ("(%sはあなたを一瞥すると、そっぽを向いた。)"):format(_.name(npc))
+                return ("(%sはあなたを一瞥すると、そっぽを向いた。)"):format(_.name(npc, true))
             end,
         },
 

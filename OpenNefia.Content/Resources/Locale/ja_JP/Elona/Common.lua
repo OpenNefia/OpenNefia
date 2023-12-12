@@ -11,7 +11,7 @@ Elona.Common = {
     end,
     CannotDoInGlobal = "その行為は、ワールドマップにいる間はできない。",
     NameWithDirectArticle = function(entity)
-        return _.name(entity)
+        return _.name(entity, true)
     end,
     QualifiedName = function(basename, itemTypeName)
         return basename

@@ -112,7 +112,7 @@ namespace OpenNefia.Content.Locale.Funcs
         /// </summary>
         /// <hsp>#defcfunc name int tc</hsp>
         [LocaleFunction("name")]
-        public static string BuiltIn_name(object? obj, string? directness = null)
+        public static string BuiltIn_name(object? obj, bool? ignoreSight = null, int? amount = null, string? directness = null)
         {
             if (obj is not EntityUid entity)
             {

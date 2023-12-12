@@ -105,7 +105,7 @@ namespace OpenNefia.Content.Locale.Funcs
         {
             return Loc.GetString(obj?.ToString() ?? "");
         }
-
+            
         [LocaleFunction("gender")]
         public static string BuiltIn_Gender(object? obj)
         {
