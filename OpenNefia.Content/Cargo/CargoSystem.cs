@@ -40,6 +40,7 @@ namespace OpenNefia.Content.Cargo
             SubscribeComponent<CargoHolderComponent, EntityBeingGeneratedEvent>(InitializeCargoWeights);
             SubscribeComponent<CargoHolderComponent, EntityRefreshSpeedEvent>(HandleRefreshSpeed);
             SubscribeComponent<CargoComponent, LocalizeItemNameExtraEvent>(LocalizeExtra_Cargo);
+            SubscribeComponent<CargoComponent, AfterMapEnterEventArgs>(ShowCargoBurdenMessage);
         }
 
         private void InitializeCargoWeights(EntityUid uid, CargoHolderComponent cargo, ref EntityBeingGeneratedEvent args)
@@ -80,6 +81,19 @@ namespace OpenNefia.Content.Cargo
             {
                 args.OutFullName.Append(Loc.GetString("Elona.Cargo.ItemName.BuyingPrice", ("price", cargo.BuyingPrice.Value)));
             }
+        }
+
+        private void ShowCargoBurdenMessage(EntityUid uid, CargoComponent component, AfterMapEnterEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/map.hsp:218 		if gCargoWeight>gCargoLimit:if (areaType(gArea)= ...
+            if (CargoSpeedPenaltyAppliesTo(args.NewMap))
+            {
+                if (GetTotalCargoWeight(_gameSession.Player) > GetMaxCargoWeight(_gameSession.Player))
+                {
+                    _mes.Display("Elona.Cargo.Burdened");
+                }
+            }
+            // <<<<<<<< elona122/shade2/map.hsp:218 		if gCargoWeight>gCargoLimit:if (areaType(gArea)= ...
         }
 
         public int GetCargoItemWeight(EntityUid item, CargoComponent? cargo = null)

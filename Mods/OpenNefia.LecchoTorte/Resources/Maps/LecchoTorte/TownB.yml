@@ -59,6 +59,15 @@ entities:
   - type: RoleShopkeeper
     shopInventoryId: Elona.Innkeeper
     shopRank: 8
+- uid: 74
+  protoId: Elona.CharaShopkeeper
+  components:
+  - pos: 15,7
+    parent: 0
+    type: Spatial
+  - type: RoleShopkeeper
+    shopInventoryId: Elona.Trader
+    shopRank: 8
 - uid: 79
   protoId: Elona.CharaInformer
   components:
