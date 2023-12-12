@@ -4,6 +4,11 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "The outskirts",
         },
     },
+    MapQuestHuntEX = {
+        MetaData = {
+            Name = "Urban area",
+        },
+    },
     MapQuestParty = {
         MetaData = {
             Name = "Party Room",

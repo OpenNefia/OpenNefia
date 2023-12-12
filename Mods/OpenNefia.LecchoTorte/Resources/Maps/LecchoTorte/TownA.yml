@@ -32,6 +32,14 @@ grid: |
 entities:
 - uid: 0
   protoId: LecchoTorte.MapTownA
+- uid: 1
+  protoId: Elona.ItemSafe
+  components:
+  - pos: 3,3
+    parent: 0
+    type: Spatial
+  - type: Pickable
+    ownState: NPC
 - uid: 64
   protoId: Elona.CharaShopkeeper
   components:

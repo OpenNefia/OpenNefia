@@ -35,3 +35,19 @@
   - type: MapCharaGen
     charaFilterGen: !type:QuestHuntCharaFilterGen {}
   - type: MapReportQuestEliminateTargets
+  - type: MapTagEntitiesAsQuestTargets
+    tag: Elona.QuestHunt
+
+- type: Entity
+  id: Elona.MapQuestHuntEX
+  parent: Elona.MapQuest
+  components:
+  - type: MapCommon
+    tileset: Elona.Tower1
+    # >>>>>>>> shade2/sound.hsp:412 			if gQuest=qHunt		:music=mcBattle1 ...
+    music: Elona.Arena
+    # <<<<<<<< shade2/sound.hsp:411 		if gArea=areaQuest{ ..
+  - type: MapReportQuestEliminateTargets
+  - type: MapTagEntitiesAsQuestTargets
+    tag: Elona.QuestHuntEX
+  - type: MapDerivedForQuest

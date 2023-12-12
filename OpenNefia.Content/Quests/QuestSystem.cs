@@ -725,6 +725,9 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Calculates gold, platinum and number of items to generate for quest rewards.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestCalcRewardsEvent : CancellableEntityEventArgs
     {
@@ -743,6 +746,9 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised after quest rewards have been calculated.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestGenerateRewardsEvent : CancellableEntityEventArgs
     {

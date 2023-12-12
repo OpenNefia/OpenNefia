@@ -15,12 +15,17 @@ using OpenNefia.Content.DeferredEvents;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Encounters;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.Parties;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Quests
 {
     public interface IQuestEliminateTargetSystem : IEntitySystem
     {
-        IEnumerable<QuestEliminateTargetComponent> EnumerateQuestEliminateTargets(IMap map, string tag);
+        IEnumerable<TargetForEliminateQuestComponent> EnumerateQuestEliminateTargets(IMap map, string tag);
         bool AllTargetsEliminated(IMap map, string tag);
     }
 
@@ -32,26 +37,42 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<QuestEliminateTargetComponent, BeforeEntityDeletedEvent>(HandleEntityBeingDeleted);
-            SubscribeComponent<QuestEliminateTargetComponent, EntityKilledEvent>(HandleEntityKilled);
+            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(AutoTagTargetEntity);
+            SubscribeComponent<TargetForEliminateQuestComponent, BeforeEntityDeletedEvent>(HandleEntityBeingDeleted);
+            SubscribeComponent<TargetForEliminateQuestComponent, EntityKilledEvent>(HandleEntityKilled);
             SubscribeComponent<MapReportQuestEliminateTargetsComponent, MapQuestTargetKilledEvent>(ReportTargetEntities);
         }
 
-        private void HandleEntityBeingDeleted(EntityUid uid, QuestEliminateTargetComponent component, ref BeforeEntityDeletedEvent args)
+        // TODO expand to all entities even if spawned outside IEntityGen
+        private void AutoTagTargetEntity(EntityUid uid, CharaComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (TryMap(uid, out var map) && TryComp<MapTagEntitiesAsQuestTargetsComponent>(map.MapEntityUid, out var mapComp))
+            {
+                if (_factions.GetRelationToPlayer(uid) <= Relation.Hate)
+                {
+                    Logger.DebugS("quest.target", $"Autotag spawned entity as target: {uid} -> {mapComp.Tag}");
+                    EnsureComp<TargetForEliminateQuestComponent>(uid).Tag = mapComp.Tag;
+                }
+            }
+        }
+
+        private void HandleEntityBeingDeleted(EntityUid uid, TargetForEliminateQuestComponent component, ref BeforeEntityDeletedEvent args)
         {
             if (IsAlive(uid))
                 CheckQuestTargetElimination(uid, component);
         }
 
-        private void HandleEntityKilled(EntityUid uid, QuestEliminateTargetComponent component, ref EntityKilledEvent args)
+        private void HandleEntityKilled(EntityUid uid, TargetForEliminateQuestComponent component, ref EntityKilledEvent args)
         {
             CheckQuestTargetElimination(uid, component);
         }
 
-        private void CheckQuestTargetElimination(EntityUid uid, QuestEliminateTargetComponent component)
+        private void CheckQuestTargetElimination(EntityUid uid, TargetForEliminateQuestComponent component)
         {
             if (!TryMap(uid, out var map))
                 return;
@@ -91,10 +112,13 @@ namespace OpenNefia.Content.Quests
             return EnumerateQuestEliminateTargets(map, tag).Count() == 0;
         }
 
-        public IEnumerable<QuestEliminateTargetComponent> EnumerateQuestEliminateTargets(IMap map, string tag)
+        public IEnumerable<TargetForEliminateQuestComponent> EnumerateQuestEliminateTargets(IMap map, string tag)
         {
-            return _lookup.EntityQueryInMap<QuestEliminateTargetComponent>(map)
-                 .Where(qet => qet.Tag == tag);
+            return _lookup.EntityQueryInMap<TargetForEliminateQuestComponent, FactionComponent>(map)
+                 .Where(pair => pair.Item1.Tag == tag 
+                         && pair.Item2.RelationToPlayer <= Relation.Hate
+                         && !_parties.IsInPlayerParty(pair.Item1.Owner))
+                 .Select(pair => pair.Item1);
         }
     }
 

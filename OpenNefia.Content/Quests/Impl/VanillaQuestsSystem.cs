@@ -67,11 +67,14 @@ namespace OpenNefia.Content.Quests
 
         public override void Initialize()
         {
+            Initialize_QuestMapGenEvents();
+
             Initialize_Hunt();
             Initialize_Deliver();
             Initialize_Supply();
             Initialize_Escort();
             Initialize_Party();
+            Initialize_HuntEX();
             Initialize_Collect();
         }
 

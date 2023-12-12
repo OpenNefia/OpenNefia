@@ -199,6 +199,21 @@ entities:
             Assert.That(entMan.IsAlive(entityB), Is.False);
         }
 
+        [Test]
+        public void EntityGenLevelOverrideTest()
+        {
+            var sim = SimulationFactory();
+            var map = sim.CreateMapAndSetActive(1, 1);
+            var entMan = sim.Resolve<IEntityManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var entity = entGen.SpawnEntity(IdEntityGenTestVillager, map.AtPos(0, 0),
+                args: EntityGenArgSet.Make(new EntityGenCommonArgs() { LevelOverride = 42 }));
+
+            Assert.That(entMan.IsAlive(entity), Is.True);
+            Assert.That(entMan.GetComponent<LevelComponent>(entity!.Value).Level, Is.EqualTo(42));
+        }
+
         [Reflect(false)]
         private class EntityGenTestSystem : EntitySystem
         {

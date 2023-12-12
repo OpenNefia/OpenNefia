@@ -3,6 +3,7 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
+using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Core.Maps
 {
@@ -102,5 +103,6 @@ namespace OpenNefia.Core.Maps
         bool MapExistsInSave(MapId id, ISaveGameHandle save);
 
         Dictionary<string, HashSet<ErrorNode>> ValidateDirectory(ResourcePath path);
+        IMap LoadBlueprint(YamlStream stream);
     }
 }

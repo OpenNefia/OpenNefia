@@ -1120,6 +1120,14 @@ handlers["base.item"] = function(from, to)
         c.quality = cargo.cargo_quality
     end
 
+    if from._id == "elona.well" then
+        c = comp(to, "Well")
+    end
+
+    if from._id == "elona.holy_well" then
+        c = comp(to, "HolyWell")
+    end
+
     if from._id == "elona.cargo_travelers_food" then
         c = comp(to, "TravelersFood")
     end

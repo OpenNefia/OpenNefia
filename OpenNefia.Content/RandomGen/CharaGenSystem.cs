@@ -295,6 +295,9 @@ namespace OpenNefia.Content.RandomGen
         [DataField]
         public Quality? Quality { get => CommonArgs.Quality; set => CommonArgs.Quality = value; }
 
+        /// <summary>
+        /// Level to set the generated entity to, irrespective of the entity's level in the prototype.
+        /// </summary>
         [DataField]
         public int? LevelOverride { get => CommonArgs.LevelOverride; set => CommonArgs.LevelOverride = value; }
     }

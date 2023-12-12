@@ -41,7 +41,7 @@ namespace OpenNefia.Content.Tests.Areas
                 .RegisterPrototypes(protos => protos.LoadString(Prototypes))
                 .InitializeInstance();
 
-            sim.GetEntitySystem<IGlobalAreaSystem>().InitializeGlobalAreas(load: false);
+            sim.GetEntitySystem<IGlobalAreaSystem>().InitializeGlobalAreas(new[] { TestArea1ID });
             sim.GetEntitySystem<IGlobalAreaSystem>().GetOrCreateGlobalArea(TestArea1ID);
 
             return sim;

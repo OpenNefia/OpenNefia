@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.FileFormats;
+using NUnit.Framework;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -8,7 +9,12 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Utility;
+using System.Text;
+using YamlDotNet.Core.Tokens;
+using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Tests.Core.Maps.Loader
 {
@@ -514,6 +520,59 @@ entities:
             Assert.That(testComp.Uids, Is.EquivalentTo(new EntityUid[] { ent, new EntityUid(100), new EntityUid(999) }));
         }
 
+        [Test]
+        public void TestMapBlueprintDataDefinition()
+        {
+            var serMan = IoCManager.Resolve<ISerializationManager>();
+
+            var mapData2 = @$"meta:
+  format: 1
+  name: test
+  author: ruin
+grid: |
+  .
+tilemap:
+  '.': {TileTestFloorID}
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  components:
+  - type: Spatial
+    pos: 3,3
+    parent: 0
+";
+
+            using var textStream = new MemoryStream(EncodingHelpers.UTF8.GetBytes(mapData2));
+            using var reader = new StreamReader(textStream, EncodingHelpers.UTF8);
+            var yamlStream = new YamlStream();
+            yamlStream.Load(reader);
+
+            var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+
+            var serializationManager = IoCManager.Resolve<ISerializationManager>();
+            var robustMapping = mapping.ToDataNode() as MappingDataNode;
+            var blueprint = serMan.Read<MapBlueprint>(robustMapping!);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(blueprint.Metadata.Format, Is.EqualTo(1));
+                Assert.That(blueprint.Metadata.Name, Is.EqualTo("test"));
+                Assert.That(blueprint.Metadata.Author, Is.EqualTo("ruin"));
+                Assert.That(blueprint.Grid, Is.EqualTo(".\n"));
+                Assert.That(blueprint.Tilemap, Is.EquivalentTo(new Dictionary<string, PrototypeId<TilePrototype>>() { { ".", TileTestFloorID } }));
+                Assert.That(blueprint.Entities.Count, Is.EqualTo(2));
+                Assert.That(blueprint.Entities[0].Uid, Is.EqualTo(new EntityUid(0)));
+                Assert.That(blueprint.Entities[0].Components.Count, Is.EqualTo(1));
+                Assert.That(blueprint.Entities[0].Components.HasComponent<MapComponent>(), Is.True);
+                Assert.That(blueprint.Entities[1].Uid, Is.EqualTo(new EntityUid(1)));
+                Assert.That(blueprint.Entities[1].Components.Count, Is.EqualTo(1));
+                Assert.That(blueprint.Entities[1].Components.GetComponent<SpatialComponent>().ParentUid, Is.EqualTo(new EntityUid(0)));
+                Assert.That(blueprint.Entities[1].Components.GetComponent<SpatialComponent>().LocalPosition, Is.EqualTo(new Vector2i(3, 3)));
+            });
+        }
+
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {
@@ -524,11 +583,11 @@ entities:
 
         [DataDefinition]
         private sealed class MapDeserializeTestAddComponent : Component
-        {}
+        { }
 
         [DataDefinition]
         private sealed class MapDeserializeTestRemoveComponent : Component
-        {}
+        { }
 
         [DataDefinition]
         private sealed class MapDeserializeTestOverrideComponent : Component

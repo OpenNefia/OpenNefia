@@ -16,10 +16,20 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Currency;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Core.Log;
-using Spectre.Console;
-using Love;
 using OpenNefia.Core.Utility;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.GameObjects;
+using Love;
+using YamlDotNet.RepresentationModel;
+using System.Text;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Quests
 {
@@ -29,6 +39,14 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
         [Dependency] private readonly IVanillaNefiaGenSystem _vanillaNefiaGen = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly ISerializationManager _serialization = default!;
+
+        private void Initialize_QuestMapGenEvents()
+        {
+            SubscribeComponent<MapDerivedForQuestComponent, MapCreatedFromBlueprintEvent>(RaiseDerivedMapEvents);
+        }
 
         int ItemCountAt(MapCoordinates coords)
         {
@@ -68,7 +86,25 @@ namespace OpenNefia.Content.Quests
         // <<<<<<<< elona122/shade2/map_rand.hsp:683 	flt:p=217,218,216,215,215,152,152,91,189:item_cre ..
 #pragma warning restore format
 
-        public const string QuestHuntTargetTagId = "Elona.QuestHunt";
+        private IMap QuestMap_GenerateHuntBaseMap(PrototypeId<MapTilesetPrototype>? tileset)
+        {
+            var map = _mapManager.CreateMap(28 + _rand.Next(6), 20 + _rand.Next(6), Protos.Map.QuestHunt);
+            map.Clear(Protos.Tile.MapgenRoom);
+
+            var wallCount = _rand.Next((map.Width * map.Height) / 30);
+            for (var i = 0; i < wallCount; i++)
+            {
+                var point = _rand.NextVec2iInBounds(map.Bounds);
+                map.SetTile(point, Protos.Tile.MapgenWall);
+            }
+
+            if (tileset != null)
+                EnsureComp<MapCommonComponent>(map.MapEntityUid).Tileset = tileset.Value;
+
+            _mapTilesets.ApplyTileset(map);
+
+            return map;
+        }
 
         /// <summary>
         /// Generates the map for hunt quests.
@@ -84,23 +120,11 @@ namespace OpenNefia.Content.Quests
             // just generated directly until nefia generation is reworked
 
             // >>>>>>>> shade2/map_rand.hsp:305 *map_createDungeonHunt ..
-            var map = _mapManager.CreateMap(28 + _rand.Next(6), 20 + _rand.Next(6), new("Elona.MapQuestHunt"));
-            map.Clear(Protos.Tile.MapgenRoom);
-
-            var wallCount = _rand.Next((map.Width * map.Height) / 30);
-            for (var i = 0; i < wallCount; i++)
-            {
-                var point = _rand.NextVec2iInBounds(map.Bounds);
-                map.SetTile(point, Protos.Tile.MapgenWall);
-            }
-
-            if (tileset != null)
-                EnsureComp<MapCommonComponent>(map.MapEntityUid).Tileset = tileset.Value;
-
-            _mapTilesets.ApplyTileset(map);
+            var map = QuestMap_GenerateHuntBaseMap(tileset);
 
             var mapCharaGen = EnsureComp<MapCharaGenComponent>(map.MapEntityUid);
             mapCharaGen.MaxCharaCount = 0;
+            mapCharaGen.CharaFilterGen = new QuestHuntCharaFilterGen(difficulty);
             var huntCharaCount = 10 + _rand.Next(6);
             for (var i = 0; i < huntCharaCount; i++)
             {
@@ -108,7 +132,7 @@ namespace OpenNefia.Content.Quests
                 if (IsAlive(chara))
                 {
                     EnsureComp<FactionComponent>(chara.Value).RelationToPlayer = Relation.Enemy;
-                    EnsureComp<QuestEliminateTargetComponent>(chara.Value).Tag = QuestHuntTargetTagId;
+                    EnsureComp<TargetForEliminateQuestComponent>(chara.Value).Tag = QuestHuntTargetTagId;
                 }
             }
 
@@ -117,7 +141,7 @@ namespace OpenNefia.Content.Quests
             {
                 var point = _rand.NextVec2iInBounds(map.Bounds);
                 var coords = map.AtPos(point);
-                var item =_itemGen.GenerateItem(coords, tags: new[] { Protos.Tag.ItemCatTree });
+                var item = _itemGen.GenerateItem(coords, tags: new[] { Protos.Tag.ItemCatTree });
                 if (IsAlive(item))
                     EnsureComp<PickableComponent>(item.Value).OwnState = OwnState.NPC;
             }
@@ -128,6 +152,122 @@ namespace OpenNefia.Content.Quests
             // <<<<<<<< shade2/map_rand.hsp:122 			} ..
         }
 
+        private void RaiseDerivedMapEvents(EntityUid uid, MapDerivedForQuestComponent component, MapCreatedFromBlueprintEvent args)
+        {
+            Logger.DebugS("quest.mapgen", $"Map {args.Map} was created for conquer/huntEX/etc., running events");
+
+            var map = args.Map;
+            var ev = new AfterDerivedQuestMapGeneratedEvent(map);
+            RaiseEvent(map.MapEntityUid, ev);
+
+            foreach (var entity in _lookup.EntityQueryInMap<SpatialComponent>(map, includeChildren: true, includeDead: true))
+            {
+                var ev2 = new InitEntityInDerivedQuestMapEvent(map);
+                RaiseEvent(entity.Owner, ev2);
+            }
+        }
+
+        /// <summary>
+        /// Generates and cleans up a map from a blueprint for use with the conquer and huntEX quests.
+        /// </summary>
+        /// <param name="mapBlueprintPath"></param>
+        /// <returns></returns>
+        private IMap? QuestMap_GenerateDerivedHuntMap(ResourcePath mapBlueprintPath)
+        {
+            // TODO: YAML transformations will make this easier.
+            bool IsMapEntity(MapBlueprintEntity entity)
+            {
+                return entity.HasComponent<MapComponent>(_protos);
+            }
+
+            bool CanKeepBlueprintEntity(MapBlueprintEntity entity)
+            {
+                return !entity.HasComponent<CharaComponent>(_protos)
+                    && !entity.HasComponent<MObjComponent>(_protos);
+            }
+
+            var blueprintYaml = _resourceCache.ContentFileReadYaml(mapBlueprintPath);
+            var rootNode = blueprintYaml.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
+            var blueprint = _serialization.Read<MapBlueprint>(rootNode);
+            var mapEntity = blueprint.Entities.FirstOrDefault(IsMapEntity);
+
+            if (mapEntity == null)
+            {
+                Logger.ErrorS("quest.huntex", $"Map blueprint {mapBlueprintPath} did not contain a map entity.");
+                return null;
+            }
+
+            // Overwrite the map's prototype/components with the quest's.
+            mapEntity.ProtoId = Protos.Map.QuestHuntEX;
+            mapEntity.Components.Clear();
+
+            // Clear characters and mobjs.
+            foreach (var entity in blueprint.Entities.ToList())
+            {
+                if (!CanKeepBlueprintEntity(entity))
+                {
+                    blueprint.Entities.Remove(entity);
+                }
+            }
+
+            // I dunno...
+            var newYaml = _serialization.WriteValue(blueprint, alwaysWrite: true);
+            var document = new YamlDocument(newYaml.ToYamlNode());
+            var yamlStream = new YamlStream(document);
+
+            // The blueprint should have MapDerivedForQuestComponent so some extra
+            // events can be run modifying wells and safes to prevent powergaming.
+            var map = _mapLoader.LoadBlueprint(yamlStream);
+
+            return map;
+        }
+
+        /// <summary>
+        /// Generates the map for hunt quests.
+        /// </summary>
+        /// <param name="questDifficulty">Difficulty of the quest. Controls the level of wild monsters.</param>
+        /// <returns></returns>
+        private IMap QuestMap_GenerateHuntEX(IMap originMap, PrototypeId<EntityPrototype> enemyID, int enemyLevel, int questDifficulty)
+        {
+            IMap? map = null;
+
+            // These maps will reuse the geometry of the origin map (town) for the quest itself,
+            // so it looks like the player is hunting monsters in the town.
+            // To do this a MapRenewGeometryComponent is required so the initial geometry is known.
+            if (TryComp<MapRenewGeometryComponent>(originMap.MapEntityUid, out var mapRenewGeometry))
+            {
+                map = QuestMap_GenerateDerivedHuntMap(mapRenewGeometry.MapBlueprintPath);
+            }
+
+            if (map == null)
+            {
+                Logger.ErrorS("quest.huntex", $"Quest origin map did not have a {nameof(MapRenewGeometryComponent)} for use with the huntEX quest, defaulting to a fallback map.");
+                map = QuestMap_GenerateHuntBaseMap(null);
+            }
+
+            // >>>>>>>> shade2/map_rand.hsp:722 	if gQuest=qHuntEx{ ..
+            var count = _rand.Next(6) + 4;
+            for (var i = 0; i < count; i++)
+            {
+                var filter = new CharaFilter()
+                {
+                    MinLevel = (int)(questDifficulty * 1.5),
+                    LevelOverride = enemyLevel,
+                    Quality = Quality.Bad,
+                    Id = enemyID
+                };
+                var chara = _charaGen.GenerateChara(map, filter);
+                if (IsAlive(chara))
+                {
+                    EnsureComp<FactionComponent>(chara.Value).RelationToPlayer = Relation.Enemy;
+                    EnsureComp<TargetForEliminateQuestComponent>(chara.Value).Tag = QuestHuntEXTargetTagId;
+                }
+            }
+            // <<<<<<<< shade2/map_rand.hsp:726 		} ..
+
+            return map;
+        }
+
         /// <summary>
         /// Generates the map for party quests.
         /// </summary>
@@ -136,7 +276,7 @@ namespace OpenNefia.Content.Quests
         private IMap QuestMap_GenerateParty(int difficulty)
         {
             // >>>>>>>> elona122/shade2/map_rand.hsp:584 *map_createDungeonPerform ..
-            var map = _mapManager.CreateMap(38, 28, new("Elona.MapQuestParty"));
+            var map = _mapManager.CreateMap(38, 28, Protos.Map.QuestParty);
 
             var roomGenCount = 80;
 
@@ -357,21 +497,75 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IMapImmediateQuestSystem _immQuests = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
 
+        public QuestHuntCharaFilterGen() { }
+
+        public QuestHuntCharaFilterGen(int difficulty)
+        {
+            Difficulty = difficulty;
+        }
+
+        [DataField]
+        public int? Difficulty { get; set; } = null;
+
         public CharaFilter GenerateFilter(IMap map)
         {
             // >>>>>>>> shade2/map.hsp:70 	if gArea=areaQuest{ ..
-            var questDifficulty = 0;
-            if (_immQuests.TryGetImmediateQuest(map, out var quest, out _))
+            var questDifficulty = Difficulty;
+            if (questDifficulty == null && _immQuests.TryGetImmediateQuest(map, out var quest, out _))
                 questDifficulty = quest.Difficulty;
-            else
+
+            if (questDifficulty == null)
                 Logger.ErrorS("quest.hunt", "No immediate quest found in hunt character generation!");
 
             return new CharaFilter()
             {
-                MinLevel = _randomGen.CalcObjectLevel(questDifficulty + 1),
-                Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Normal)
+                MinLevel = _randomGen.CalcObjectLevel((questDifficulty ?? 0) + 1),
+                Quality = _randomGen.CalcObjectQuality(Quality.Normal)
             };
             // <<<<<<<< shade2/map.hsp:76 		} ..
         }
+    }
+
+    /// <summary>
+    /// Indicates this map was created from a map blueprint then modified
+    /// for use in a quest.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
+    public sealed class MapDerivedForQuestComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Raised when a quest map is generated which is derived from some other map.
+    /// This is to reset objects inside the map to a sane state.
+    /// For example, you would use this event to clear out safes and
+    /// reduce the number of well usages so the player can't keep grabbing items from them.
+    /// </summary>
+    [EventUsage(EventTarget.Map)]
+    public sealed class AfterDerivedQuestMapGeneratedEvent : EntityEventArgs
+    {
+        public AfterDerivedQuestMapGeneratedEvent(IMap map)
+        {
+            Map = map;
+        }
+
+        public IMap Map { get; }
+    }
+
+    /// <summary>
+    /// Raised on each entity in a quest map which is derived from some other map.
+    /// This is to reset objects inside the map to a sane state.
+    /// For example, you would use this event to clear out safes and
+    /// reduce the number of well usages so the player can't keep grabbing items from them.
+    /// </summary>
+    public sealed class InitEntityInDerivedQuestMapEvent : EntityEventArgs
+    {
+        public InitEntityInDerivedQuestMapEvent(IMap map)
+        {
+            Map = map;
+        }
+
+        public IMap Map { get; }
     }
 }

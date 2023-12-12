@@ -42,9 +42,8 @@ namespace OpenNefia.Content.EntityGen
         public int? Amount { get; set; }
 
         /// <summary>
-        /// Level to set the generated entity to.
+        /// Level to set the generated entity to, irrespective of the entity's level in the prototype.
         /// </summary>
-        // TODO implement in code
         [DataField]
         public int? LevelOverride { get; set; }
 

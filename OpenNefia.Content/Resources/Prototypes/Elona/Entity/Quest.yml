@@ -93,6 +93,30 @@
   - type: QuestTypeParty
 
 - type: Entity
+  id: Elona.QuestHuntEX
+  parent: BaseQuest
+  hspIds:
+    elona122: 1010
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.HuntEX.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 77 # 1000 / 13
+  - type: QuestMinimumFame
+    # >>>>>>>> elona122/shade2/quest.hsp:110 	if cFame(pc)>=30000:if rnd(13)=0{ ...
+    minimumFame: 30000
+    # <<<<<<<< elona122/shade2/quest.hsp:110 	if cFame(pc)>=30000:if rnd(13)=0{ ..
+  - type: QuestDeadlines
+    townBoardExpirationDays: 6~8
+  - type: QuestRewardGold
+    goldModifier: 140
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeHuntEX
+
+- type: Entity
   id: Elona.QuestCollect
   parent: BaseQuest
   hspIds:

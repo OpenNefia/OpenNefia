@@ -12,7 +12,15 @@ namespace OpenNefia.Content.Quests
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class QuestEliminateTargetComponent : Component
+    public sealed class TargetForEliminateQuestComponent : Component
+    {
+        [DataField]
+        public string Tag { get; set; } = string.Empty;
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
+    public sealed class MapTagEntitiesAsQuestTargetsComponent : Component
     {
         [DataField]
         public string Tag { get; set; } = string.Empty;
@@ -25,5 +33,5 @@ namespace OpenNefia.Content.Quests
     [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapReportQuestEliminateTargetsComponent : Component
     {
-    }   
+    }
 }

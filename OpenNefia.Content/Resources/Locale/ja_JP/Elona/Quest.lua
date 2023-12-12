@@ -628,6 +628,67 @@ Elona.Quest = {
             },
         },
 
+        HuntEX = {
+            Detail = "全ての敵の殲滅",
+
+            Variants = {
+                {
+                    Name = "街の危機",
+                    Description = function(player, speaker, params)
+                        return (
+                            "もう噂を耳にしたかもしれない%s、%sの亜種レベル%s相当が街の各地に出没してい%s。このままでは%sたちの平和も長くは続かない%s。%s、奴らを退治して%s。街を代表して報酬に%sを用意し%s。"
+                        ):format(
+                            _.ga(speaker, 4),
+                            params.enemyName,
+                            params.enemyLevel,
+                            _.ru(speaker, 4),
+                            _.ore(speaker, 4),
+                            _.daro(speaker, 4),
+                            _.tanomu(speaker, 4),
+                            _.kure(speaker, 4),
+                            params.reward,
+                            _.ta(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "井戸の呪い",
+                    Description = function(player, speaker, params)
+                        return (
+                            "どこかの馬鹿が井戸におかしな液体を混ぜやがった%s！おかげで街の中を変異したレベル%s相当の%sが徘徊してい%s。役所に頼んで、なんとか報酬の%sは集めた%s。早くなんとかして%s！"
+                        ):format(
+                            _.yo(speaker, 4),
+                            params.enemyLevel,
+                            params.enemyName,
+                            _.ru(speaker, 4),
+                            params.reward,
+                            _.yo(speaker, 4),
+                            _.kure(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "エーテル変異体",
+                    Description = function(player, speaker, params)
+                        return (
+                            "大変%s！大変%s！%sの隣の家の一家全員が、エーテル病で%sに変異してしまった%s！見たところ、強さはレベル%sぐらいじゃない%s？ともかく、すぐに退治して%s。報酬は%s払%s。"
+                        ):format(
+                            _.da(speaker, 4),
+                            _.da(speaker, 4),
+                            _.ore(speaker, 4),
+                            params.enemyName,
+                            _.noda(speaker, 4),
+                            params.enemyLevel,
+                            _.kana(speaker, 4),
+                            _.kure(speaker, 4),
+                            params.reward,
+                            _.u(speaker, 4)
+                        )
+                    end,
+                },
+            },
+        },
+
         Party = {
             Detail = function(params)
                 return ("%sの獲得"):format(params.requiredPoints)

@@ -34,6 +34,7 @@ using OpenNefia.Core.EngineVariables;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Areas;
+using OpenNefia.Content.Fame;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -151,6 +152,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             UpdateQuickstartChara(player, _quickstartPlayer);
             GenerateAllies(player);
+
+            EnsureComp<FameComponent>(player).Fame.Base = 50000;
 
             cb(player, map);
 

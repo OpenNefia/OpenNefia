@@ -271,6 +271,21 @@ Elona.Quest = {
             },
         },
 
+        HuntEX = {
+            Detail = "Eliminate monsters.",
+
+            Variants = {
+                {
+                    Name = "Panic.",
+                    Description = function(player, speaker, params)
+                        return (
+                            "Help! Our town is being seized by several subspecies of %s which are expected to be around level %s. Eliminate them all and I'll reward you with %s on behalf of all the citizen."
+                        ):format(params.enemyName, params.enemyLevel, params.reward)
+                    end,
+                },
+            },
+        },
+
         Party = {
             Detail = function(params)
                 return ("Gather %s."):format(params.requiredPoints)

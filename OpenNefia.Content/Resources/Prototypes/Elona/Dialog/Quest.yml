@@ -57,7 +57,14 @@
       - Elona.Quest.Types.Deliver.Dialog.BackpackIsFull
       nextNode: Elona.Default:Talk
 - type: Elona.Dialog
-  id: Elona.QuestHuntex
+  id: Elona.QuestHuntEX
+  nodes:
+    Accept: !type:DialogTextNode
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: Content.Quests.VanillaQuestsSystem:QuestHuntEX_TravelToMap
+      texts:
+      - Elona.Quest.Types.Hunt.Dialog.Accept
 - type: Elona.Dialog
   id: Elona.QuestParty
   nodes:

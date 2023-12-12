@@ -98,10 +98,30 @@ namespace OpenNefia.Core.Maps
             return DoMapLoad(mapId, reader, MapSerializeMode.Blueprint);
         }
 
+        /// <inheritdoc />
+        public IMap LoadBlueprint(YamlStream stream)
+        {
+            var mapId = _mapManager.GenerateMapId();
+            return DoMapLoad(mapId, stream, MapSerializeMode.Blueprint);
+        }
+
+        private IMap DoMapLoad(MapId mapId, YamlStream stream, MapSerializeMode mode)
+        {
+            var data = new MapData(stream);
+            return DoMapLoad(mapId, data, mode);
+        }
+
         private IMap DoMapLoad(MapId mapId, TextReader reader, MapSerializeMode mode)
         {
-            var data = new MapData(reader);
+            var stream = new YamlStream();
+            stream.Load(reader);
 
+            var data = new MapData(stream);
+            return DoMapLoad(mapId, data, mode);
+        }
+
+        private IMap DoMapLoad(MapId mapId, MapData data, MapSerializeMode mode)
+        {
             var deserializer = new MapDeserializer(mapId, mode,
                 data.RootNode.ToDataNodeCast<MappingDataNode>(), OnBlueprintEntityStartup);
             deserializer.Deserialize();
@@ -163,11 +183,8 @@ namespace OpenNefia.Core.Maps
 
             public YamlNode RootNode => Stream.Documents[0].RootNode;
 
-            public MapData(TextReader reader)
+            public MapData(YamlStream stream)
             {
-                var stream = new YamlStream();
-                stream.Load(reader);
-
                 if (stream.Documents.Count < 1)
                 {
                     throw new InvalidDataException("Stream has no YAML documents.");

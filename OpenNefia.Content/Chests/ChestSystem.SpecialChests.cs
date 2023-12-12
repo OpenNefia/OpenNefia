@@ -13,6 +13,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.Fame;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Quests;
 
 namespace OpenNefia.Content.Chests
 {
@@ -39,6 +40,8 @@ namespace OpenNefia.Content.Chests
 
             SubscribeComponent<TreasureBallComponent, EntityBeingGeneratedEvent>(BeingGenerated_TreasureBall);
             SubscribeComponent<TreasureBallComponent, BeforeGenerateChestItemEvent>(ChestFilter_TreasureBall);
+        
+            SubscribeComponent<ChestComponent, InitEntityInDerivedQuestMapEvent>(InitInDerivedQuest_Chest);
         }
 
         private void BeingGenerated_SmallGambleChest(EntityUid uid, SmallGambleChestComponent component, ref EntityBeingGeneratedEvent args)
@@ -155,6 +158,19 @@ namespace OpenNefia.Content.Chests
             args.OutItemFilter.Quality = component.ItemQuality;
             if (_rand.OneIn(30))
                 args.OutItemFilter.Id = Protos.Item.PotionOfCureCorruption;
+        }
+
+        /// <summary>
+        /// Make sure the player can't steal from safes/other chests inside
+        /// conquer/huntEX maps. Those spawn the chests from a given town map
+        /// each time the quest is generated.
+        /// </summary>
+        private void InitInDerivedQuest_Chest(EntityUid uid, ChestComponent component, InitEntityInDerivedQuestMapEvent args)
+        {
+            // >>>>>>>> elona122/shade2/map_rand.hsp:733 	if iId(cnt)=241		:iParam1(cnt)=0 ...
+            component.HasItems = false;
+            component.ItemCount = 0;
+            // <<<<<<<< elona122/shade2/map_rand.hsp:733 	if iId(cnt)=241		:iParam1(cnt)=0 ...
         }
     }
 }

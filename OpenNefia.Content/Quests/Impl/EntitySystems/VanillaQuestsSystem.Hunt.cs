@@ -64,13 +64,25 @@ namespace OpenNefia.Content.Quests
             _mapTransfer.DoMapTransfer(spatial, partyMap, new CenterMapLocation());
         }
 
+        public const string QuestHuntTargetTagId = "Elona.QuestHunt";
+
         private void QuestHunt_TargetsEliminated(EntityUid uid, MapImmediateQuestComponent component, MapQuestTargetsEliminatedEvent args)
         {
-            if (args.Tag != QuestHuntTargetTagId 
+            CheckHuntQuest<QuestTypeHuntComponent>(uid, args.Tag, QuestHuntTargetTagId);
+        }
+
+        private void CheckHuntQuest<T>(EntityUid uid, string tag, string requiredTag) where T: class, IComponent
+        {
+            if (tag != requiredTag
                 || !TryMap(uid, out var map)
-                || !_immediateQuests.TryGetImmediateQuest<QuestTypeHuntComponent>(map, out var quest, out _, out _))
+                || !_immediateQuests.TryGetImmediateQuest<T>(map, out var quest, out _, out _))
                 return;
 
+            HuntQuestAreaIsSecure(quest);
+        }
+
+        private void HuntQuestAreaIsSecure(QuestComponent quest)
+        {
             // >>>>>>>> elona122/shade2/quest.hsp:420 	call *music_play,(music=mcFanfare,musicLoop=1) ...
             _music.Play(Protos.Music.Fanfare, loop: false);
             quest.State = QuestState.Completed; // Now the player may leave the map without penalty.

@@ -383,7 +383,7 @@ namespace OpenNefia.Content.Encounters
                 {
                     _vanillaAIs.SetTarget(assassin.Value, _gameSession.Player, 30);
                     EnsureComp<FactionComponent>(assassin.Value).RelationToPlayer = Relation.Enemy;
-                    EnsureComp<QuestEliminateTargetComponent>(assassin.Value).Tag = EncounterAssassinEnemyTag;
+                    EnsureComp<TargetForEliminateQuestComponent>(assassin.Value).Tag = EncounterAssassinEnemyTag;
                 }
             }
 

@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Maps
     ///     Represents a map inside the ECS system.
     /// </summary>
     [ComponentUsage(ComponentTarget.Map)]
-    public class MapComponent : Component
+    public sealed class MapComponent : Component
     {
         [DataField("mapId")]
         private MapId _mapId = MapId.Nullspace;
@@ -22,12 +22,23 @@ namespace OpenNefia.Core.Maps
         public MapMetadata Metadata { get; internal set; } = new();
     }
 
-    public class MapMetadata
+    [DataDefinition]
+    public sealed class MapMetadata
     {
-        public readonly string Name;
-        public readonly string Author;
+        [DataField("format")]
+        public int Format { get; }
 
-        public MapMetadata(string name = "", string author = "")
+        [DataField("name")]
+        public string Name { get; } = string.Empty;
+
+        [DataField("author")]
+        public string Author { get; } = string.Empty;
+
+        public MapMetadata()
+        {
+        }
+
+        public MapMetadata(string name, string author)
         {
             Name = name;
             Author = author;
