@@ -79,10 +79,7 @@ namespace OpenNefia.Content.Encounters
             SubscribeComponent<WanderingMerchantComponent, AfterDialogEndedEvent>(WanderingMerchant_ExitMapAfterDialog);
             SubscribeComponent<WanderingMerchantComponent, OnGenerateLootDropsEvent>(WanderingMerchant_GenerateLootDrops);
 
-            SubscribeComponent<MapEncounterComponent, BeforeExitMapFromEdgesEventArgs>(Assassin_CheckActiveQuest);
-            SubscribeComponent<MapEncounterComponent, MapQuestTargetKilledEvent>(Assassin_TargetKilled);
             SubscribeComponent<MapEncounterComponent, MapQuestTargetsEliminatedEvent>(Assassin_TargetsEliminated);
-            SubscribeComponent<MapEncounterComponent, BeforeMapLeaveEventArgs>(Assassin_BeforeMapLeave);
             SubscribeComponent<EncounterAssassinComponent, EncounterCalcLevelEvent>(Assassin_CalcLevel);
             SubscribeComponent<EncounterAssassinComponent, EncounterBeforeMapEnteredEvent>(Assassin_BeforeStart);
             SubscribeComponent<EncounterAssassinComponent, EncounterAfterMapEnteredEvent>(Assassin_OnMapEntered);
@@ -278,7 +275,7 @@ namespace OpenNefia.Content.Encounters
             if (args.NodeEndedOn.DialogID == Protos.Dialog.Default)
             {
                 var map = GetMap(uid);
-                if (TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter) 
+                if (TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter)
                     && IsAlive(mapEncounter.EncounterContainer.ContainedEntity)
                     && TryComp<EncounterComponent>(mapEncounter.EncounterContainer.ContainedEntity, out var encounter))
                 {
@@ -309,50 +306,19 @@ namespace OpenNefia.Content.Encounters
 
         private const string EncounterAssassinEnemyTag = "Elona.Assassin";
 
-        private void Assassin_CheckActiveQuest(EntityUid uid, MapEncounterComponent comp, BeforeExitMapFromEdgesEventArgs args)
-        {
-            // >>>>>>>> elona122/shade2/action.hsp:583 		if mType=mTypeQuest:if gQuestStatus!qSuccess:txt ...
-            if (_encounters.TryGetEncounter<EncounterAssassinComponent>(args.Map, out var encounterAssassin)
-                && !encounterAssassin.AllEnemiesDefeated)
-                _mes.Display(Loc.GetString("Elona.Quest.AboutToAbandon"));
-            // <<<<<<<< elona122/shade2/action.hsp:583 		if mType=mTypeQuest:if gQuestStatus!qSuccess:txt ...
-        }
-
-        private void Assassin_TargetKilled(EntityUid uid, MapEncounterComponent component, MapQuestTargetKilledEvent args)
-        {
-            // >>>>>>>> elona122/shade2/chara_func.hsp:192 			if p=0:	evAdd evQuestEliminate :else: txtMore:t ...
-            if (args.Tag != EncounterAssassinEnemyTag)
-                return;
-
-            if (args.TargetsRemaining > 0)
-                _mes.Display(Loc.GetString("Elona.Quest.Eliminate.TargetsRemaining", ("count", args.TargetsRemaining)), color: UiColors.MesBlue);
-            // <<<<<<<< elona122/shade2/chara_func.hsp:192 			if p=0:	evAdd evQuestEliminate :else: txtMore:t ...
-        }
-
         private void Assassin_TargetsEliminated(EntityUid uid, MapEncounterComponent component, MapQuestTargetsEliminatedEvent args)
         {
-            if (args.Tag != EncounterAssassinEnemyTag || !TryMap(uid, out var map))
+            if (args.Tag != EncounterAssassinEnemyTag
+                || !TryMap(uid, out var map)
+                || !_encounters.TryGetEncounter<EncounterAssassinComponent>(map, out var encounterAssassin)
+                || !TryComp<QuestComponent>(encounterAssassin.EscortQuestUid, out var quest))
                 return;
 
             // >>>>>>>> elona122/shade2/quest.hsp:420 	call *music_play,(music=mcFanfare,musicLoop=1) ...
             _music.Play(Protos.Music.Fanfare, loop: false);
-            if (_encounters.TryGetEncounter<EncounterAssassinComponent>(map, out var encounterAssassin))
-                encounterAssassin.AllEnemiesDefeated = true;
+            quest.State = QuestState.Completed;
             _mes.Display(Loc.GetString("Elona.Quest.Eliminate.Complete"), color: UiColors.MesGreen);
             // <<<<<<<< elona122/shade2/quest.hsp:421 	gQuestStatus=qSuccess ...
-        }
-
-        private void Assassin_BeforeMapLeave(EntityUid uid, MapEncounterComponent component, BeforeMapLeaveEventArgs args)
-        {
-            // >>>>>>>> elona122/shade2/quest.hsp:322 	if gQuestStatus!qSuccess{ ...
-            if (_encounters.TryGetEncounter<EncounterAssassinComponent>(args.OldMap, out var encounterAssassin)
-                && !encounterAssassin.AllEnemiesDefeated)
-            {
-                _mes.Display(Loc.GetString("Elona.Quest.LeftYourClient"));
-                _quests.FailQuest(encounterAssassin.EscortQuestUid);
-                _playerQueries.PromptMore();
-            }
-            // <<<<<<<< elona122/shade2/quest.hsp:327 		} ...
         }
 
         private void Assassin_CalcLevel(EntityUid uid, EncounterAssassinComponent comp, EncounterCalcLevelEvent args)
@@ -380,7 +346,8 @@ namespace OpenNefia.Content.Encounters
         {
             // >>>>>>>> shade2/action.hsp:678 			txt lang("暗殺者につかまった。あなたはクライアントを守らなければならない。","Yo ...
             _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.CaughtByAssassins"));
-            comp.AllEnemiesDefeated = false;
+            if (TryComp<QuestComponent>(comp.EscortQuestUid, out var quest))
+                quest.State = QuestState.Accepted;
             _playerQueries.PromptMore();
             // <<<<<<<< shade2/action.hsp:679 			msg_halt ..
         }
@@ -400,6 +367,7 @@ namespace OpenNefia.Content.Encounters
 
             EnsureComp<MapCharaGenComponent>(args.EncounterMap.MapEntityUid).MaxCharaCount = 0;
             EnsureComp<MapTypeQuestComponent>(args.EncounterMap.MapEntityUid);
+            EnsureComp<MapReportQuestEliminateTargetsComponent>(args.EncounterMap.MapEntityUid);
 
             var charaCount = _rand.Next(3) + 5;
             for (var i = 0; i < charaCount; i++)
@@ -419,10 +387,12 @@ namespace OpenNefia.Content.Encounters
                 }
             }
 
-            comp.AllEnemiesDefeated = _questElimTargets.AllTargetsEliminated(args.EncounterMap, EncounterAssassinEnemyTag);
+            _mapImmediateQuests.SetImmediateQuest(args.EncounterMap, quest, encounter.PreviousLocation);
+
+            if (_questElimTargets.AllTargetsEliminated(args.EncounterMap, EncounterAssassinEnemyTag))
+                quest.State = QuestState.Completed;
             // <<<<<<<< shade2/map.hsp:1620 			} ...   end
         }
-
         #endregion
 
         #region Elona.Rogue

@@ -67,6 +67,7 @@ namespace OpenNefia.Content.UI
 
         public static readonly FontSpec QuestBoardDifficultyNormal = new(14, 12);
         public static readonly FontSpec QuestBoardDifficultySmall = new(10, 10);
+        public static readonly FontSpec QuestBoardPage = new(16, 16, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
         public static readonly FontSpec HouseBoardRankStar = new(14, 14, color: UiColors.HouseBoardRankStar, bgColor: UiColors.TextBlack);
         public static readonly FontSpec HouseBoardRankText = new(12, 12, color: UiColors.TextBlack); // 12 + sizefix

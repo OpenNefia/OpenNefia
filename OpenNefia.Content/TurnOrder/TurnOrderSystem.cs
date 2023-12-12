@@ -487,8 +487,13 @@ namespace OpenNefia.Content.TurnOrder
             var ev = new PlayerDiedEventArgs();
             RaiseEvent(_gameSession.Player, ev);
             if (ev.Handled)
-            {
                 return ev.TurnResult.ToTurnOrderState();
+
+            if (TryMap(_gameSession.Player, out var map))
+            {
+                RaiseEvent(map.MapEntityUid, ev);
+                if (ev.Handled)
+                    return ev.TurnResult.ToTurnOrderState();
             }
 
             _mes.Display(Loc.GetString("Elona.PlayerDeath.GoodBye"));
@@ -630,7 +635,7 @@ namespace OpenNefia.Content.TurnOrder
     {
     }
 
-    [EventUsage(EventTarget.Normal)]
+    [EventUsage(EventTarget.Normal | EventTarget.Map)]
     public sealed class PlayerDiedEventArgs : TurnResultEntityEventArgs
     {
     }

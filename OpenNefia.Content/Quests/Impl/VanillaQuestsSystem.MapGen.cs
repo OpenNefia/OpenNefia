@@ -15,6 +15,11 @@ using OpenNefia.Content.Roles;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Currency;
 using OpenNefia.Content.Pickable;
+using OpenNefia.Core.Log;
+using Spectre.Console;
+using Love;
+using OpenNefia.Core.Utility;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Quests
 {
@@ -23,6 +28,7 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
+        [Dependency] private readonly IVanillaNefiaGenSystem _vanillaNefiaGen = default!;
 
         int ItemCountAt(MapCoordinates coords)
         {
@@ -61,6 +67,66 @@ namespace OpenNefia.Content.Quests
         };
         // <<<<<<<< elona122/shade2/map_rand.hsp:683 	flt:p=217,218,216,215,215,152,152,91,189:item_cre ..
 #pragma warning restore format
+
+        public const string QuestHuntTargetTagId = "Elona.QuestHunt";
+
+        /// <summary>
+        /// Generates the map for hunt quests.
+        /// </summary>
+        /// <param name="difficulty">Difficulty of the quest. Controls the level of wild monsters.</param>
+        /// <returns></returns>
+        private IMap QuestMap_GenerateHunt(int difficulty, PrototypeId<MapTilesetPrototype>? tileset)
+        {
+            // >>>>>>>> shade2/map_rand.hsp:117 		if gQuest=qHunt{ ..
+
+            // NOTE: in vanilla this uses the nefia generation engine
+            // but currently the new nefia code is too confusing, so here it's
+            // just generated directly until nefia generation is reworked
+
+            // >>>>>>>> shade2/map_rand.hsp:305 *map_createDungeonHunt ..
+            var map = _mapManager.CreateMap(28 + _rand.Next(6), 20 + _rand.Next(6), new("Elona.MapQuestHunt"));
+            map.Clear(Protos.Tile.MapgenRoom);
+
+            var wallCount = _rand.Next((map.Width * map.Height) / 30);
+            for (var i = 0; i < wallCount; i++)
+            {
+                var point = _rand.NextVec2iInBounds(map.Bounds);
+                map.SetTile(point, Protos.Tile.MapgenWall);
+            }
+
+            if (tileset != null)
+                EnsureComp<MapCommonComponent>(map.MapEntityUid).Tileset = tileset.Value;
+
+            _mapTilesets.ApplyTileset(map);
+
+            var mapCharaGen = EnsureComp<MapCharaGenComponent>(map.MapEntityUid);
+            mapCharaGen.MaxCharaCount = 0;
+            var huntCharaCount = 10 + _rand.Next(6);
+            for (var i = 0; i < huntCharaCount; i++)
+            {
+                var chara = _charaGen.GenerateCharaFromMapFilter(map);
+                if (IsAlive(chara))
+                {
+                    EnsureComp<FactionComponent>(chara.Value).RelationToPlayer = Relation.Enemy;
+                    EnsureComp<QuestEliminateTargetComponent>(chara.Value).Tag = QuestHuntTargetTagId;
+                }
+            }
+
+            var huntTreeCount = 10 + _rand.Next(6);
+            for (var i = 0; i < huntTreeCount; i++)
+            {
+                var point = _rand.NextVec2iInBounds(map.Bounds);
+                var coords = map.AtPos(point);
+                var item =_itemGen.GenerateItem(coords, tags: new[] { Protos.Tag.ItemCatTree });
+                if (IsAlive(item))
+                    EnsureComp<PickableComponent>(item.Value).OwnState = OwnState.NPC;
+            }
+
+            return map;
+            // <<<<<<<< shade2/map_rand.hsp:331 	return true ..
+
+            // <<<<<<<< shade2/map_rand.hsp:122 			} ..
+        }
 
         /// <summary>
         /// Generates the map for party quests.
@@ -283,6 +349,29 @@ namespace OpenNefia.Content.Quests
                     }
                 }
             }
+        }
+    }
+
+    public class QuestHuntCharaFilterGen : IMapCharaFilterGen
+    {
+        [Dependency] private readonly IMapImmediateQuestSystem _immQuests = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+
+        public CharaFilter GenerateFilter(IMap map)
+        {
+            // >>>>>>>> shade2/map.hsp:70 	if gArea=areaQuest{ ..
+            var questDifficulty = 0;
+            if (_immQuests.TryGetImmediateQuest(map, out var quest, out _))
+                questDifficulty = quest.Difficulty;
+            else
+                Logger.ErrorS("quest.hunt", "No immediate quest found in hunt character generation!");
+
+            return new CharaFilter()
+            {
+                MinLevel = _randomGen.CalcObjectLevel(questDifficulty + 1),
+                Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Normal)
+            };
+            // <<<<<<<< shade2/map.hsp:76 		} ..
         }
     }
 }

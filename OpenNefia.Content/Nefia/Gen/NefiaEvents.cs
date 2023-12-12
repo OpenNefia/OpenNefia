@@ -35,6 +35,7 @@ namespace OpenNefia.Content.Nefia
         public int CreaturePacks { get; set; } = 1;
         public bool CanHaveMultipleMonsterHouses { get; set; } = false;
         public int MaxCharaCount { get; set; } = 1;
+        public PrototypeId<EntityPrototype> EntityPrototypeID { get; set; } = Protos.Map.Nefia;
     }
 
     /// <summary>

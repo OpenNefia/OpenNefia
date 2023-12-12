@@ -144,6 +144,14 @@ namespace OpenNefia.Content.Dialog
     {
         public DialogTextEntry() { }
 
+        /// <summary>
+        /// Creates a new text entry from a string.
+        /// 
+        /// Prefer <see cref="FromLocaleKey(LocaleKey)"/> unless you need to pass extra
+        /// parameters into the localization engine besides the speaker and player.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static DialogTextEntry FromString(string text)
         {
             return new DialogTextEntry() { Text = text };

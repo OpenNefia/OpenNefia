@@ -17,4 +17,13 @@ namespace OpenNefia.Content.Quests
         [DataField]
         public string Tag { get; set; } = string.Empty;
     }
+
+    /// <summary>
+    /// Reports the quest targets remaining in the map when one of them is killed.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
+    public sealed class MapReportQuestEliminateTargetsComponent : Component
+    {
+    }   
 }

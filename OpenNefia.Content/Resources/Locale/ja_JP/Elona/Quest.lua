@@ -83,6 +83,48 @@ Elona.Quest = {
     },
 
     Types = {
+        Hunt = {
+            Dialog = {
+                Accept = function(speaker, player)
+                    return ("では、早速案内するので、モンスターを一匹残らず退治して%s"):format(
+                        _.kure(speaker)
+                    )
+                end,
+            },
+            Detail = "全ての敵の殲滅",
+
+            Variants = {
+                {
+                    Name = "森の清浄化",
+                    Description = function(player, speaker, params)
+                        return (
+                            "森が危険になってい%s。近辺の森にモンスターが発生したよう%s。%sを出すので、誰か退治して%s。"
+                        ):format(
+                            _.ru(speaker, 4),
+                            _.da(speaker, 4),
+                            params.reward,
+                            _.kure(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "魔物退治",
+                    Description = function(player, speaker, params)
+                        return (
+                            "%sを報酬として払%s。ある場所の魔物どもを退治してもらいたい%s。"
+                        ):format(params.reward, _.u(speaker, 4), _.noda(speaker, 4))
+                    end,
+                },
+                {
+                    Name = "家の周りのモンスター",
+                    Description = function(player, speaker, params)
+                        return (
+                            "自宅の近辺にモンスターが出没して困っている%s。退治してくれるなら、報酬として%sを払%s。"
+                        ):format(_.noda(speaker, 4), params.reward, _.u(speaker, 4))
+                    end,
+                },
+            },
+        },
         Deliver = {
             Dialog = {
                 BackpackIsFull = function(speaker)

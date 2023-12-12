@@ -67,6 +67,7 @@ namespace OpenNefia.Content.Quests
 
         public override void Initialize()
         {
+            Initialize_Hunt();
             Initialize_Deliver();
             Initialize_Supply();
             Initialize_Escort();

@@ -17,12 +17,27 @@ using OpenNefia.Content.UI;
 using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.DeferredEvents;
+using OpenNefia.Content.Encounters;
+using OpenNefia.Content.GameObjects;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Quests;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Skills;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Quests
 {
+    /// <summary>
+    /// An "immediate quest" is a quest associated with the current map. If the player
+    /// attempts to leave the map before the quest is marked <see cref="QuestState.Completed"/>,
+    /// then the quest will be automatically failed.
+    /// Immediate quests may also have an optional duration, after which custom code
+    /// can be run by subscribing to the <see cref="QuestTimerExpiredEvent"/>
+    /// </summary>
     public interface IMapImmediateQuestSystem : IEntitySystem
     {
-
         /// <summary>
         /// Sets an immediate quest for this map and begins the timer.
         /// </summary>
@@ -39,6 +54,14 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMapTimersSystem _mapTimers = default!;
         [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
+        [Dependency] private readonly IQuestSystem _quests = default!;
+        [Dependency] private readonly IPlayerQuery _playerQueries = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly ITurnOrderSystem _turnOrders = default!;
+        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
 
         public const string MapTimerID = "Elona.ImmediateQuest";
 
@@ -46,6 +69,41 @@ namespace OpenNefia.Content.Quests
         {
             SubscribeComponent<MapImmediateQuestComponent, MapOnTimePassedEvent>(UpdateMapImmediateQuest);
             SubscribeComponent<MapImmediateQuestComponent, MapTimerExpiredEvent>(FinishMapImmediateQuest);
+            SubscribeComponent<MapImmediateQuestComponent, BeforeExitMapFromEdgesEventArgs>(BeforeExitEdges_CheckAbandonment);
+            SubscribeComponent<MapImmediateQuestComponent, BeforeMapLeaveEventArgs>(BeforeMapLeave_CheckAbandonment);
+            SubscribeComponent<MapImmediateQuestComponent, PlayerDiedEventArgs>(PlayerDied_FailQuest);
+        }
+
+        private void BeforeExitEdges_CheckAbandonment(EntityUid uid, MapImmediateQuestComponent comp, BeforeExitMapFromEdgesEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/action.hsp:583 		if mType=mTypeQuest:if gQuestStatus!qSuccess:txt ...
+            if (TryGetImmediateQuest(args.Map, out var quest, out _) && quest.State != QuestState.Completed)
+                _mes.Display(Loc.GetString("Elona.Quest.AboutToAbandon"));
+            // <<<<<<<< elona122/shade2/action.hsp:583 		if mType=mTypeQuest:if gQuestStatus!qSuccess:txt ...
+        }
+
+        private void BeforeMapLeave_CheckAbandonment(EntityUid uid, MapImmediateQuestComponent component, BeforeMapLeaveEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/quest.hsp:322 	if gQuestStatus!qSuccess{ ...
+            if (TryGetImmediateQuest(args.OldMap, out var quest, out _) && quest.State != QuestState.Completed)
+            {
+                _mes.Display(Loc.GetString("Elona.Quest.LeftYourClient"));
+                _quests.FailQuest(component.QuestUid);
+                _playerQueries.PromptMore();
+            }
+            // <<<<<<<< elona122/shade2/quest.hsp:327 		} ...
+        }
+
+        private void PlayerDied_FailQuest(EntityUid uid, MapImmediateQuestComponent component, PlayerDiedEventArgs args)
+        {
+            // >>>>>>>> elona122/shade2/main.hsp:1509 	if gQuest:goto *quest_death ...
+            DebugTools.Assert(_charas.Revive(_gameSession.Player, force: true), "Failed to revive player!");
+            _skills.GainSkillExp(_gameSession.Player, Protos.Skill.AttrCharisma, -500);
+            _skills.GainSkillExp(_gameSession.Player, Protos.Skill.AttrWill, -500);
+            _refresh.Refresh(_gameSession.Player);
+            _mapEntrances.UseMapEntrance(_gameSession.Player, component.PreviousLocation);
+            args.Handle(TurnResult.Aborted);
+            // <<<<<<<< elona122/shade2/main.hsp:1509 	if gQuest:goto *quest_death ...
         }
 
         public void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? duration, MapImmediateQuestComponent? comp = null)

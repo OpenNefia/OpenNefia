@@ -10,13 +10,13 @@ using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Nefia
 {
-    public sealed class NefiaTemplateCryptOfTheDamned : IVanillaNefiaTemplate
+    public sealed class NefiaTemplateQuestHunt: IVanillaNefiaTemplate
     {
         [Dependency] private readonly IEntityManager _entityMan = default!;
 
         public IVanillaNefiaLayout GetLayout(int floorNumber, Blackboard<NefiaGenParams> data)
         {
-            return new NefiaLayoutStandard();
+            return new NefiaLayoutHunt();
         }
 
         public void AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data)

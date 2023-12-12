@@ -72,6 +72,24 @@ Elona.Quest = {
     },
 
     Types = {
+        Hunt = {
+            Dialog = {
+                Accept = "Great! I'll guide you to the place, kill them all!",
+            },
+            Detail = "Eliminate monsters.",
+
+            Variants = {
+                {
+                    Name = "Hunting.",
+                    Description = function(player, speaker, params)
+                        return (
+                            "Filthy creatures are spawning in a forest nearby this city. I'll give you %s if you get rid of them."
+                        ):format(params.reward)
+                    end,
+                },
+            },
+        },
+
         Deliver = {
             Dialog = {
                 BackpackIsFull = "It seems your backpack is already full. Come see me again when you're ready.",

@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.DeferredEvents;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Encounters;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Quests
 {
@@ -35,6 +37,7 @@ namespace OpenNefia.Content.Quests
         {
             SubscribeComponent<QuestEliminateTargetComponent, BeforeEntityDeletedEvent>(HandleEntityBeingDeleted);
             SubscribeComponent<QuestEliminateTargetComponent, EntityKilledEvent>(HandleEntityKilled);
+            SubscribeComponent<MapReportQuestEliminateTargetsComponent, MapQuestTargetKilledEvent>(ReportTargetEntities);
         }
 
         private void HandleEntityBeingDeleted(EntityUid uid, QuestEliminateTargetComponent component, ref BeforeEntityDeletedEvent args)
@@ -73,6 +76,14 @@ namespace OpenNefia.Content.Quests
                     return TurnResult.Aborted;
                 });
             }
+        }
+
+        private void ReportTargetEntities(EntityUid uid, MapReportQuestEliminateTargetsComponent component, MapQuestTargetKilledEvent args)
+        {
+            // >>>>>>>> elona122/shade2/chara_func.hsp:192 			if p=0:	evAdd evQuestEliminate :else: txtMore:t ...
+            if (args.TargetsRemaining > 0)
+                _mes.Display(Loc.GetString("Elona.Quest.Eliminate.TargetsRemaining", ("count", args.TargetsRemaining)), color: UiColors.MesBlue);
+            // <<<<<<<< elona122/shade2/chara_func.hsp:192 			if p=0:	evAdd evQuestEliminate :else: txtMore:t ...
         }
 
         public bool AllTargetsEliminated(IMap map, string tag)

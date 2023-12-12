@@ -1,4 +1,24 @@
 - type: Entity
+  id: Elona.QuestHunt
+  parent: BaseQuest
+  hspIds:
+    elona122: 1001
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Hunt.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 125 # 1000 / 8
+  - type: QuestDeadlines
+    townBoardExpirationDays: 6~8
+  - type: QuestRewardGold
+    goldModifier: 135
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemWear
+  - type: QuestTypeHunt
+
+- type: Entity
   id: Elona.QuestDeliver
   parent: BaseQuest
   hspIds:

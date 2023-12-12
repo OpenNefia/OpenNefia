@@ -56,6 +56,8 @@ namespace OpenNefia.Content.Quests
         QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker, IDialogEngine? engine = null);
         void FailQuest(EntityUid quest, QuestComponent? questComp = null);
         void DeleteQuest(QuestComponent quest);
+
+        int RoundDifficultyMargin(int a, int b);
     }
 
     public sealed partial class QuestSystem : EntitySystem, IQuestSystem
@@ -563,6 +565,21 @@ namespace OpenNefia.Content.Quests
                 if (IsAlive(entity) && Spatial(entity).MapID == mapID)
                     yield return entity;
             }
+        }
+
+        public int RoundDifficultyMargin(int a, int b)
+        {
+            // >>>>>>>> elona122/shade2/init.hsp:4226 	#defcfunc roundMargin int a,int b ...
+            if (a > b)
+            {
+                return a - _rand.Next(a - b);
+            }
+            else if (a < b)
+            {
+                return a + _rand.Next(b - a);
+            }
+            return a;
+            // <<<<<<<< elona122/shade2/init.hsp:4229 	return a ...
         }
 
         #endregion

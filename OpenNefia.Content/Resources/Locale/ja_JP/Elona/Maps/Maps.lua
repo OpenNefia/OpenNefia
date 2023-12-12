@@ -192,6 +192,9 @@ OpenNefia.Maps.Elona = {
     ThievesGuild = {
         Name = "盗賊ギルド",
     },
+    QuestHunt = {
+        Name = "街近辺",
+    },
     QuestParty = {
         Name = "パーティー場",
     },

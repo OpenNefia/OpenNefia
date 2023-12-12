@@ -62,9 +62,10 @@ namespace OpenNefia.Content.Logic
         public void Alert()
         {
             var wait = _config.GetCVar(CCVars.AnimeAlertWait);
-
-            while (wait > 0f)
-                wait -= _gameController.StepFrame();
+            
+            // TODO
+            // while (wait > 0f)
+            //     wait -= _gameController.StepFrame();
         }
 
         public void Clear()

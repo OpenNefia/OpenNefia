@@ -236,6 +236,7 @@ namespace OpenNefia.Content.Quests
 
         private IAssetInstance AssetDecoBoardA;
         [Child] private QuestBoardList List = new();
+        [Child] private UiText PageText = new UiTextOutlined(UiFonts.QuestBoardPage);
 
         public QuestBoardLayer()
         {
@@ -315,17 +316,21 @@ namespace OpenNefia.Content.Quests
         {
             base.SetSize(width, height);
             List.SetSize(Width - 40, Height - 40);
+            PageText.SetPreferredSize();
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             List.SetPosition(X + 20, Y + 20);
+            PageText.SetPosition(X + Width + 20, Y);
         }
 
         public override void Update(float dt)
         {
             List.Update(dt);
+            PageText.Text = $"Page {List.CurrentPage+1}/{List.PageCount}";
+            PageText.Update(dt);
         }
 
         private void DrawTiled(IAssetInstance asset)
@@ -345,6 +350,7 @@ namespace OpenNefia.Content.Quests
             DrawTiled(AssetDecoBoardA);
 
             List.Draw();
+            PageText.Draw();
         }
     }
 }

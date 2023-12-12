@@ -3,13 +3,13 @@
 - [x] item enchantments
 - [x] house board
 - [x] respawning
-- [ ] random encounters
+- [x] random encounters
 - [ ] weather
 - [ ] town quests
 - [ ] journal
 - [ ] scene playback
 - [x] intro/first pet event
-- [ ] PCCs
+- [ ] PCCs & ring light
 - [ ] magic/buffs/effects
   + [ ] timestop
 - [ ] magic items
@@ -29,6 +29,7 @@
 - [ ] religion
 - [ ] effect protoevents -> ECS
 - [ ] all villager roles/dialog options
+- [ ] all interact options/inventory contexts
 - [ ] buildings/zones
 - [x] staying charas
 - [ ] arena/pet arena

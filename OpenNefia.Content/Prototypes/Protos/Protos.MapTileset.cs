@@ -27,6 +27,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly MapTilesetPrototypeId Tower2 = new($"Elona.{nameof(Tower2)}");
             public static readonly MapTilesetPrototypeId DungeonCastle = new($"Elona.{nameof(DungeonCastle)}");
             public static readonly MapTilesetPrototypeId DungeonForest = new($"Elona.{nameof(DungeonForest)}");
+            public static readonly MapTilesetPrototypeId DungeonForestNoyel = new($"Elona.{nameof(DungeonForestNoyel)}");
 
             #pragma warning restore format
         }

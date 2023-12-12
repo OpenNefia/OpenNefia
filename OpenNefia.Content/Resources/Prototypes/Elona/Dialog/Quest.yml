@@ -71,6 +71,13 @@
       callback: Content.Quests.VanillaQuestsSystem:QuestParty_Complete
 - type: Elona.Dialog
   id: Elona.QuestHunt
+  nodes:
+    Accept: !type:DialogTextNode
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: Content.Quests.VanillaQuestsSystem:QuestHunt_TravelToMap
+      texts:
+      - Elona.Quest.Types.Hunt.Dialog.Accept
 - type: Elona.Dialog
   id: Elona.QuestCook
 

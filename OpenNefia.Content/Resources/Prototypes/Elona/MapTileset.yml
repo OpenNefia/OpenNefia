@@ -280,6 +280,7 @@
   hspIds:
     elona122: 300
   tiles:
+  # >>>>>>>> elona122/shade2/map_func.hsp:168 	if fval=tsForest1{ ...
     Elona.MapgenDefault: !type:TileSingle
       tile: Elona.WallForest
     Elona.MapgenRoom: !type:TileRandom
@@ -290,11 +291,29 @@
       - Elona.GrassTall1
       - Elona.GrassTall2
       - Elona.GrassPatch1
-      pickChance: 0.166666
+      pickChance: 0.166666 # 1 in 6 chance
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Grass
     Elona.MapgenWall: !type:TileSingle
       tile: Elona.WallForest
   fogTile: !type:TileSingle
     tile: Elona.WallStone1Fog
+  # <<<<<<<< elona122/shade2/map_func.hsp:174 	} ..
+
+# Used for generating hunt quests inside noyel
+- type: Elona.MapTileset
+  id: Elona.DungeonForestNoyel
+  parent: Elona.DungeonForest
+  tiles:
+    # >>>>>>>> elona122/shade2/map_rand.hsp:314 	if gReturnArea=areaNoyel{ ...
+    Elona.MapgenRoom: !type:TileRandom
+      tiles:
+      - Elona.Snow
+      - Elona.SnowMound
+      - Elona.SnowPlants
+      - Elona.SnowRock
+      - Elona.SnowStump
+      - Elona.SnowFlowers1
+      pickChance: 0.166666 # 1 in 6 chance
+    # <<<<<<<< elona122/shade2/map_rand.hsp:316 		} ..
 ...

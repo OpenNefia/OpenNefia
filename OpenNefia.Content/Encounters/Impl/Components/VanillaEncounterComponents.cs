@@ -28,9 +28,6 @@ namespace OpenNefia.Content.Encounters
     {
         [DataField]
         public EntityUid EscortQuestUid { get; set; }
-
-        [DataField]
-        public bool AllEnemiesDefeated { get; set; } = false;
     }
 
     [RegisterComponent]

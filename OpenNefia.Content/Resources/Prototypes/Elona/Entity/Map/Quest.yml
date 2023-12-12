@@ -21,3 +21,17 @@
     isIndoors: true
     revealsFog: true
     music: Elona.Casino
+
+- type: Entity
+  id: Elona.MapQuestHunt
+  parent: Elona.MapQuest
+  components:
+  - type: MapCommon
+    isIndoors: false
+    tileset: Elona.DungeonForest
+    # >>>>>>>> shade2/sound.hsp:412 			if gQuest=qHunt		:music=mcBattle1 ...
+    music: Elona.Battle1
+    # <<<<<<<< shade2/sound.hsp:411 		if gArea=areaQuest{ ..
+  - type: MapCharaGen
+    charaFilterGen: !type:QuestHuntCharaFilterGen {}
+  - type: MapReportQuestEliminateTargets

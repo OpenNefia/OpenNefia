@@ -34,8 +34,11 @@ namespace OpenNefia.Content.UI.Element
             get => _text;
             set
             {
-                _text = value;
-                RebakeText();
+                if (_text != value)
+                {
+                    _text = value;
+                    RebakeText();
+                }
             }
         }
 

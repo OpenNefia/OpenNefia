@@ -116,7 +116,7 @@ namespace OpenNefia.Content.Nefia.Layout
 
         public IMap CreateMap(MapId mapId, BaseNefiaGenParams baseParams, Vector2i mapSize)
         {
-            var map = _mapManager.CreateMap(mapSize.X, mapSize.Y, mapId, Protos.Map.Nefia);
+            var map = _mapManager.CreateMap(mapSize.X, mapSize.Y, mapId, baseParams.EntityPrototypeID);
             map.Clear(Protos.Tile.MapgenDefault);
 
             var level = _entityManager.EnsureComponent<LevelComponent>(map.MapEntityUid);
