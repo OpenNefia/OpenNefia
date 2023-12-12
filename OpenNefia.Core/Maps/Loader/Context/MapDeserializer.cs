@@ -89,11 +89,11 @@ namespace OpenNefia.Core.Maps
             // Run Startup on all components.
             FinishEntitiesStartup();
 
-            // Run MapInit on all entities.
-            RunMapInitEventsOnMapAndEntities();
-
             // Recalculate solidity/opacity for all tiles, taking entity spatials in to account.
             RecalculateTileTangibility();
+
+            // Run MapInit on all entities. Can only do this after tile solidity has been calculated.
+            RunMapInitEventsOnMapAndEntities();
         }
 
         private void VerifyEntitiesExist()
