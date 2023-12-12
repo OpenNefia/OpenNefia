@@ -26,7 +26,11 @@ namespace OpenNefia.Content.Encounters
     [ComponentUsage(ComponentTarget.Encounter)]
     public sealed class EncounterAssassinComponent : Component
     {
+        [DataField]
         public EntityUid EscortQuestUid { get; set; }
+
+        [DataField]
+        public bool AllEnemiesDefeated { get; set; } = false;
     }
 
     [RegisterComponent]

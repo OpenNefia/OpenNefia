@@ -9,6 +9,15 @@ Elona.Quest = {
     MinutesLeft = function(minutesLeft)
         return ("%s min left for the quest."):format(minutesLeft)
     end,
+    AboutToAbandon = "Warning! You are going to abandon your current quest.",
+    LeftYourClient = "You left your client.",
+
+    Eliminate = {
+        Complete = "The area is secured!",
+        TargetsRemaining = function(count)
+            return ("%s more to go."):format(count)
+        end,
+    },
 
     Deadline = {
         NoDeadline = "-",
@@ -198,7 +207,6 @@ Elona.Quest = {
             Fail = {
                 Reason = {
                     FailedToProtect = "You have failed to protect the client.",
-                    LeftYourClient = "You left your client.",
                 },
                 Dialog = {
                     Protect = _.quote "Hey, the assassins are killing me.",

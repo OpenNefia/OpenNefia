@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Audio
         /// Plays a music file.
         /// </summary>
         /// <param name="musicId">Prototype of the music to play.</param>
-        public void Play(PrototypeId<MusicPrototype> musicId);
+        public void Play(PrototypeId<MusicPrototype> musicId, bool loop = true);
 
         /// <summary>
         /// Restarts playing the current music.

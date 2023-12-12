@@ -40,6 +40,8 @@ namespace OpenNefia.Core.EngineVariables
 #if !FULL_RELEASE
             var sw = Stopwatch.StartNew();
 
+            // TODO: if variables are missing/commented out in file, set to their defaults
+            // currently the previously set variables are kept instead
             ReloadVariables(_reloadQueue);
 
             _reloadQueue.Clear();

@@ -97,8 +97,11 @@ namespace OpenNefia.Content.Quests
                 _deferredEvents.Enqueue(() =>
                 {
                     _quests.FailQuest(component.QuestUid);
-                    EntityManager.GetComponent<CharaComponent>(uid).Liveness = CharaLivenessState.Dead;
-                    _parties.RemoveFromCurrentParty(uid);
+                    if (IsAlive(uid))
+                    {
+                        EntityManager.GetComponent<CharaComponent>(uid).Liveness = CharaLivenessState.Dead;
+                        _parties.RemoveFromCurrentParty(uid);
+                    }
                     return TurnResult.Aborted;
                 });
             }

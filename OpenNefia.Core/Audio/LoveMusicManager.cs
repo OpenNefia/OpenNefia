@@ -78,7 +78,7 @@ namespace OpenNefia.Core.Audio
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<MusicPrototype> musicId)
+        public void Play(PrototypeId<MusicPrototype> musicId, bool loop = true)
         {
             if (IsPlaying && _lastPlayedMusic == musicId)
                 return;
@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Audio
                         var midiFile = MidiFile.Read(stream);
 
                         _midiPlayback = midiFile.GetPlayback(_midiDevice);
-                        _midiPlayback.Loop = true;
+                        _midiPlayback.Loop = loop;
                         _midiPlayback.Start();
                     }
                 }
@@ -110,7 +110,7 @@ namespace OpenNefia.Core.Audio
             else
             {
                 _streamPlayback = GetLoveStreamSource(path);
-                _streamPlayback.SetLooping(true);
+                _streamPlayback.SetLooping(loop);
                 Love.Audio.Play(_streamPlayback);
             }
         }

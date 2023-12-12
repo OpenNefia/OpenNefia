@@ -47,10 +47,19 @@ namespace OpenNefia.Content.GameObjects
             {
                 if (EntityManager.TryGetComponent<MapEdgesEntranceComponent>(map.MapEntityUid, out var mapEdgesEntrance))
                 {
+                    var ev = new BeforeExitMapFromEdgesEventArgs(map, mapEdgesEntrance.Entrance);
+                    RaiseEvent(map.MapEntityUid, ev);
+                    if (ev.Cancelled)
+                    {
+                        args.Handle(TurnResult.Aborted);
+                        return;
+                    }
+
                     if (_playerQuery.YesOrNo(Loc.GetString("Elona.PlayerMovement.PromptLeaveMap", ("map", map.MapEntityUid))))
                     {
+                        var ev2 = new ExitingMapFromEdgesEventArgs(map, mapEdgesEntrance.Entrance);
                         playerSpatial.Direction = playerSpatial.Direction.GetOpposite();
-                        Raise(uid, new ExitingMapFromEdgesEventArgs(map, mapEdgesEntrance.Entrance), args);
+                        Raise(uid, ev2, args);
                     }
                 }
             }
@@ -114,6 +123,19 @@ namespace OpenNefia.Content.GameObjects
                     _mes.Display(Loc.GetString("Elona.PlayerMovement.SenseSomething"));
                 }
             }
+        }
+    }
+
+    [EventUsage(EventTarget.Normal)]
+    public class BeforeExitMapFromEdgesEventArgs : CancellableEntityEventArgs
+    {
+        public readonly IMap Map;
+        public readonly MapEntrance Entrance;
+
+        public BeforeExitMapFromEdgesEventArgs(IMap map, MapEntrance entrance)
+        {
+            Map = map;
+            Entrance = entrance;
         }
     }
 

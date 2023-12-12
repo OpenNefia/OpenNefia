@@ -9,6 +9,15 @@ Elona.Quest = {
     MinutesLeft = function(minutesLeft)
         return ("クエスト[残り%s分]"):format(minutesLeft)
     end,
+    AboutToAbandon = "注意！現在のクエストは失敗に終わってしまう。",
+    LeftYourClient = "あなたはクライアントを置き去りにした。",
+
+    Eliminate = {
+        Complete = "エリアを制圧した！",
+        TargetsRemaining = function(count)
+            return ("[殲滅依頼]残り%s体] "):format(count)
+        end,
+    },
 
     Deadline = {
         NoDeadline = "即時",
@@ -418,7 +427,6 @@ Elona.Quest = {
             Fail = {
                 Reason = {
                     FailedToProtect = "あなたは護衛の任務を果たせなかった。",
-                    LeftYourClient = "あなたはクライアントを置き去りにした。",
                 },
                 Dialog = {
                     Protect = _.quote "おい、暗殺者が私の後ろにいるぞ",

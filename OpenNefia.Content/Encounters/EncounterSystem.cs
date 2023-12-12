@@ -28,6 +28,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Areas;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.EngineVariables;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Encounters
 {
@@ -64,6 +65,10 @@ namespace OpenNefia.Content.Encounters
         /// <param name="player">Current player.</param>
         /// <returns>Chance as a percentage.</returns>
         float CalcRogueAppearanceChance(EntityUid player);
+
+        bool IsEncounterActive(IMap map);
+        bool TryGetEncounter(IMap map, [NotNullWhen(true)] out EncounterComponent? encounter);
+        bool TryGetEncounter<T>(IMap map, [NotNullWhen(true)] out T? encounter) where T: class, IComponent;
     }
 
     public sealed class EncounterSystem : EntitySystem, IEncounterSystem
@@ -251,6 +256,35 @@ namespace OpenNefia.Content.Encounters
 
             var evAfter = new EncounterAfterMapEnteredEvent(encounterMap);
             RaiseEvent(encounterUid, evAfter);
+        }
+
+        public bool IsEncounterActive(IMap map)
+        {
+            return TryGetEncounter(map, out _);
+        }
+
+        public bool TryGetEncounter(IMap map, [NotNullWhen(true)] out EncounterComponent? encounter)
+        {
+            if (!TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter)
+                || !IsAlive(mapEncounter.EncounterContainer.ContainedEntity))
+            {
+                encounter = null;
+                return false;
+            }
+
+            return TryComp(mapEncounter.EncounterContainer.ContainedEntity, out encounter);
+        }
+
+        public bool TryGetEncounter<T>(IMap map, [NotNullWhen(true)] out T? encounter)
+            where T: class, IComponent
+        {
+            if (!TryGetEncounter(map, out var encounterComp))
+            {
+                encounter = default(T);
+                return false;
+            }
+
+            return TryComp<T>(encounterComp.Owner, out encounter);
         }
     }
 

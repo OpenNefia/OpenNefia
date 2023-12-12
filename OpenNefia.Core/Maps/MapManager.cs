@@ -295,7 +295,7 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc/>
         public bool TryGetMapOfEntity(EntityUid entity, [NotNullWhen(true)] out IMap? map)
         {
-            if (!_entityManager.IsAlive(entity) || !_entityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
+            if (!_entityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
             {
                 map = null;
                 return false;

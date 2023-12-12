@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Audio
             return Enumerable.Empty<OutputDevice>();
         }
 
-        public void Play(PrototypeId<MusicPrototype> musicId)
+        public void Play(PrototypeId<MusicPrototype> musicId, bool loop = true)
         {
         }
 
