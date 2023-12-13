@@ -41,8 +41,8 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            var size = _coords.TileToScreen(_mapSize) + (0, (int)(_graphics.WindowPixelSize.Y) - (int)(_hud.GameBounds.Bottom * _parent.UIScale));
-            _screenPos = _coords.BoundDrawPosition(screenPos, size, _parent.PixelSize);
+            var size = _coords.TileToScreen(_mapSize);
+            _screenPos = _coords.BoundDrawPosition(screenPos, size, _parent.PixelSize - (0, (int)(_graphics.WindowPixelSize.Y) - (int)(_hud.GameBounds.Bottom * _parent.UIScale)));
         }
 
         public void CenterOnTilePos(EntityCoordinates coords)
