@@ -497,5 +497,45 @@ namespace OpenNefia.Content.Locale.Funcs
                     return "";
             }
         }
+
+        [LocaleFunction("does_not")]
+        public static string BuiltIn_does_not(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "doesn't";
+                    else
+                        return "don't";
+
+                case long objLong:
+                    if (objLong == 1)
+                        return "doesn't";
+                    else
+                        return "don't";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+
+                    if (gameSession.IsPlayer(objEntity))
+                        return "don't";
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count == 1)
+                            return "doesn't";
+                        else
+                            return "don't";
+                    }
+
+                    return "doesn't";
+
+                default:
+                    return "doesn't";
+            }
+        }
     }
 }

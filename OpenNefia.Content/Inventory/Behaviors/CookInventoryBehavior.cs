@@ -11,7 +11,6 @@ namespace OpenNefia.Content.Inventory
 {
     public class CookInventoryBehavior : BaseInventoryBehavior
     {
-        [Dependency] private readonly IVerbSystem _verbSystem = default!;
         [Dependency] private readonly IFoodSystem _foods = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 16));

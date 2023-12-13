@@ -18,12 +18,15 @@ using OpenNefia.Content.Food;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.DisplayName;
+using ICSharpCode.Decompiler.IL;
+using OpenNefia.Content.Damage;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Items.Impl
 {
     public interface ICookingToolSystem : IEntitySystem
     {
-        void Cook(EntityUid cooker, EntityUid item, EntityUid tool, FoodComponent? foodComp = null, CookingToolComponent? cookingTool = null);
+        void CookFoodWithTool(EntityUid cooker, EntityUid item, EntityUid tool, FoodComponent? foodComp = null, CookingToolComponent? cookingTool = null);
     }
 
     public sealed class CookingToolSystem : EntitySystem, ICookingToolSystem
@@ -36,6 +39,7 @@ namespace OpenNefia.Content.Items.Impl
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IFoodSystem _foods = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public override void Initialize()
         {
@@ -47,6 +51,23 @@ namespace OpenNefia.Content.Items.Impl
             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Cooking Tool", () => CookingTool_Use(args.Source, args.Target, component)));
         }
 
+        private const int CookingActionStaminaCost = 15;
+        private static readonly PrototypeId<SkillPrototype> CookingActionRelatedAttribute = Protos.Skill.AttrLearning;
+
+        /// <summary>
+        /// NOTE: In vanilla, cooking is considered a "skill action" with the 15 stamina cost
+        /// attached to the <see cref="Protos.Skill.Cooking"/> skill, but is hidden from the
+        /// [a]ctions menu. I find it simpler to bypass the effect/magic system entirely in this
+        /// case since you can only cook with a tool, at least until I realize why Noa wrote it 
+        /// that way to begin with...
+        /// </summary>
+        /// <remarks>
+        /// For reference, skills with a "skill action" attached to them only need the following code:
+        /// - Target selection, if any
+        /// - Stamina check *with the associated attribute* (in the case of cooking, it's Learning)
+        /// - Actual skill action logic
+        /// In 1.22 these are: cooking, fishing, riding, and performing.
+        /// </remarks>
         private TurnResult CookingTool_Use(EntityUid source, EntityUid target, CookingToolComponent component)
         {
             if (!TryMap(target, out var map))
@@ -54,19 +75,34 @@ namespace OpenNefia.Content.Items.Impl
                 return TurnResult.Aborted;
             }
 
+            if (!_damage.DoStaminaCheck(source, CookingActionStaminaCost, relatedSkillId: CookingActionRelatedAttribute))
+            {
+                _mes.Display(Loc.GetString("Elona.Common.TooExhausted"));
+                return TurnResult.Failed;
+            }
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2278 	if sCooking(pc)=0:txt lang("料理の仕方を知らない。","You don ...
+            if (!_skills.HasSkill(source, Protos.Skill.Cooking))
+            {
+                _mes.Display(Loc.GetString("Elona.Food.Cooking.DoNotKnow", ("user", source)));
+                return TurnResult.Aborted;
+            }
+            
             var context = new InventoryContext(source, target, new CookInventoryBehavior());
             var result = _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
 
             if (!result.HasValue || !EntityManager.IsAlive(result.Value.SelectedItem))
                 return TurnResult.Aborted;
 
-            Cook(source, result.Value.SelectedItem!.Value, target);
+            CookFoodWithTool(source, result.Value.SelectedItem!.Value, target);
 
             return TurnResult.Succeeded;
+            // <<<<<<<< elona122/shade2/proc.hsp:2283 	gosub *item_cook ...
         }
 
-        public void Cook(EntityUid cooker, EntityUid food, EntityUid tool, FoodComponent? foodComp = null, CookingToolComponent? cookingTool = null)
+        public void CookFoodWithTool(EntityUid cooker, EntityUid food, EntityUid tool, FoodComponent? foodComp = null, CookingToolComponent? cookingTool = null)
         {
+            // >>>>>>>> shade2/item.hsp:813 *item_cook ...
             if (!Resolve(food, ref foodComp) || !Resolve(tool, ref cookingTool))
                 return;
 
@@ -94,11 +130,12 @@ namespace OpenNefia.Content.Items.Impl
             foodQuality = int.Clamp(foodQuality + toolQuality / 100, 1, 9);
             _foods.MakeDish(split, foodQuality);
 
-            _mes.Display(Loc.GetString("Elona.Food.Cook", ("oldFoodName", oldFoodName), ("toolEntity", tool), ("newFoodEntity", split)));
+            _mes.Display(Loc.GetString("Elona.Food.Cooking.YouCook", ("user", cooker), ("oldFoodName", oldFoodName), ("toolEntity", tool), ("newFoodEntity", split)));
 
             var newFoodQuality = EnsureComp<FoodComponent>(split).FoodQuality;
             if (newFoodQuality > 2)
                 _skills.GainSkillExp(cooker, Protos.Skill.Cooking, 30 + newFoodQuality * 5);
+            // <<<<<<<< shade2/item.hsp:833 	return ..
         }
     }
 }

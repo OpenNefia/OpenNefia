@@ -13,7 +13,7 @@ LecchoTorte:
       Elona.AttrLife: 2000
       Elona.Mining: 2000
       Elona.Performer: 100
-      Elona.Cooking: 2000
+      Elona.Cooking: 100
     items:
       - id: Elona.ItemDagger
         location: Equipment
@@ -52,6 +52,7 @@ LecchoTorte:
         amount: 50
       - id: Elona.ItemHarmonica
       - id: Elona.ItemBarbecueSet
+      - id: Elona.ItemPortableCookingTool
 
     components:
       - type: Money

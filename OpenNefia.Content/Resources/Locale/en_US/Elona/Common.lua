@@ -5,9 +5,12 @@ Elona.Common = {
     ItIsImpossible = "It's impossible.",
     NothingHappens = "Nothing happens...",
     SomethingIsPut = "Something is put on the ground.",
-    TooExhausted = "You are too exhausted!",
-    PutInBackpack = function(entity)
-        return ("You put %s in your backpack."):format(_.name(entity))
+    TooExhausted = function(entity)
+        entity = entity or _.player()
+        return ("%s %s too exhausted!"):format(_.name(entity), _.is(entity))
+    end,
+    PutInBackpack = function(item)
+        return ("You put %s in your backpack."):format(_.name(item))
     end,
     CannotDoInGlobal = "You can't do that while you're in a global area.",
     NameWithDirectArticle = function(entity)

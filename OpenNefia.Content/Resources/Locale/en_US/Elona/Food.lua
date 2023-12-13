@@ -2,9 +2,21 @@ Elona.Food = {
     ItemName = {
         Rotten = "rotten",
     },
-    Cook = function(oldFoodName, toolEntity, newFoodEntity)
-        return ("You cook %s with %s and make %s."):format(oldFoodName, _.name(toolEntity, 1), _.name(newFoodEntity, 1))
-    end,
+    Cooking = {
+        DoNotKnow = function(user)
+            return ("%s %s know how to cook."):format(_.name(user), _.does_not(user))
+        end,
+        YouCook = function(user, oldFoodName, toolEntity, newFoodEntity)
+            return ("%s cook%s %s with %s and make%s %s."):format(
+                _.name(user),
+                _.s(user),
+                oldFoodName,
+                _.name(toolEntity, 1),
+                _.s(user),
+                _.name(newFoodEntity, 1)
+            )
+        end,
+    },
     EatStatus = {
         Good = function(_1)
             return ("%s feel%s good."):format(_.name(_1), _.s(_1))
@@ -63,15 +75,15 @@ Elona.Food = {
         Rotten = "Ugh! Rotten food!",
         Ability = {
             Deteriorates = function(_1, _2)
-                return ("%s%s %s deteriorates."):format(_.name(_1), _.possessive(_1), _2)
+                return ("%s %s deteriorates."):format(_.possessive(_1), _2)
             end,
             Develops = function(_1, _2)
-                return ("%s%s %s develops."):format(_.name(_1), _.possessive(_1), _2)
+                return ("%s %s develops."):format(_.possessive(_1), _2)
             end,
         },
     },
     NotAffectedByRotten = function(_1)
-        return ("But %s%s stomach isn't affected."):format(_.name(_1), _.possessive(_1))
+        return ("But %s stomach isn't affected."):format(_.possessive(_1))
     end,
     PassedRotten = {
         _.quote "Yuck!!",

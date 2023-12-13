@@ -71,6 +71,7 @@ namespace OpenNefia.Content.Quests
 
             Initialize_Hunt();
             Initialize_Deliver();
+            Initialize_Cook();
             Initialize_Supply();
             Initialize_Escort();
             Initialize_Harvest();
@@ -97,11 +98,11 @@ namespace OpenNefia.Content.Quests
             public EntityUid Item { get; }
 
             /// <summary>
-            /// If true, the client will check if the item is poisoned. If so,
+            /// If true, the client will check if the item is poisoned. If it is,
             /// karma loss will be applied.
             /// </summary>
             /// <remarks>
-            /// Only Delivery quests don't check for poison (in vanilla)
+            /// Only delivery quests don't check for poison (in 1.22)
             /// </remarks>
             [DataField]
             public bool CheckPoison { get; set; } = false;
