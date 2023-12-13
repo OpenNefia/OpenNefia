@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Quests
     /// An "immediate quest" is a quest associated with the current map. If the player
     /// attempts to leave the map before the quest is marked <see cref="QuestState.Completed"/>,
     /// then the quest will be automatically failed.
-    /// Immediate quests may also have an optional duration, after which custom code
+    /// Immediate quests may also have an optional time limit, after which custom code
     /// can be run by subscribing to the <see cref="QuestTimerExpiredEvent"/>
     /// </summary>
     public interface IMapImmediateQuestSystem : IEntitySystem
@@ -41,12 +41,13 @@ namespace OpenNefia.Content.Quests
         /// <summary>
         /// Sets an immediate quest for this map and begins the timer.
         /// </summary>
-        void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? duration = null, MapImmediateQuestComponent? comp = null);
+        void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? timeLimit = null, MapImmediateQuestComponent? comp = null);
 
         bool TryGetImmediateQuest(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest);
         bool TryGetImmediateQuest<T>(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest, [NotNullWhen(true)] out T? questComp) where T : class, IComponent;
         bool HasImmediateQuest<T>(IMap map) where T : class, IComponent;
         GameTimeSpan GetImmediateQuestRemainingTime(IMap map);
+        void RemoveImmediateQuestTimer(IMap map);
     }
 
     public sealed class MapImmediateQuestSystem : EntitySystem, IMapImmediateQuestSystem
@@ -106,7 +107,7 @@ namespace OpenNefia.Content.Quests
             // <<<<<<<< elona122/shade2/main.hsp:1509 	if gQuest:goto *quest_death ...
         }
 
-        public void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? duration, MapImmediateQuestComponent? comp = null)
+        public void SetImmediateQuest(IMap map, QuestComponent quest, MapEntrance prevLocation, GameTimeSpan? timeLimit, MapImmediateQuestComponent? comp = null)
         {
             if (!Resolve(map.MapEntityUid, ref comp, logMissing: false))
                 comp = EnsureComp<MapImmediateQuestComponent>(map.MapEntityUid);
@@ -114,10 +115,10 @@ namespace OpenNefia.Content.Quests
             comp.QuestUid = quest.Owner;
             comp.PreviousLocation = prevLocation;
 
-            if (duration != null)
+            if (timeLimit != null)
             {
                 comp.TimeToNextNotify = GameTimeSpan.FromMinutes(10);
-                _mapTimers.AddOrUpdateTimer(map, MapTimerID, duration.Value);
+                _mapTimers.AddOrUpdateTimer(map, MapTimerID, timeLimit.Value);
             }
         }
 
@@ -196,6 +197,11 @@ namespace OpenNefia.Content.Quests
                 return GameTimeSpan.Zero;
 
             return timer.TimeRemaining;
+        }
+
+        public void RemoveImmediateQuestTimer(IMap map)
+        {
+            _mapTimers.RemoveTimer(map, MapTimerID, raiseEvent: false);
         }
     }
 

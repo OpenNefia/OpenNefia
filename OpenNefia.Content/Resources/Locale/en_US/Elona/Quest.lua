@@ -286,6 +286,33 @@ Elona.Quest = {
             },
         },
 
+        Conquer = {
+            UnknownMonster = "unknown monster",
+            Detail = function(params)
+                return ("Slay %s."):format(params.enemyName)
+            end,
+
+            Event = {
+                OnMapEnter = function(enemyName, timeLimitMinutes)
+                    return ("You have to slay %s within %s minutes."):format(enemyName, timeLimitMinutes)
+                end,
+
+                Complete = "You successfully slay the target.",
+                Fail = "You failed to slay the target...",
+            },
+
+            Variants = {
+                {
+                    Name = "Challenge",
+                    Description = function(player, speaker, params)
+                        return (
+                            "Only experienced adventurers should take this task. An unique mutant of %s has been sighted near the town. Slay this monster and we'll give you %s. This is no ordinary mission. The monster's level is expected to be around %s."
+                        ):format(params.enemyName, params.reward, params.enemyLevel)
+                    end,
+                },
+            },
+        },
+
         Party = {
             Detail = function(params)
                 return ("Gather %s."):format(params.requiredPoints)

@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Quests
     /// <hspVariant>elona122</hspVariant>
     /// <hspId>1001</hspId>
     [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Normal)]
+    [ComponentUsage(ComponentTarget.Quest)]
     public sealed class QuestTypeHuntComponent : Component
     {
     }

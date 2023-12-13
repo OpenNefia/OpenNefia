@@ -39,6 +39,17 @@
     tag: Elona.QuestHunt
 
 - type: Entity
+  id: Elona.MapQuestConquer
+  parent: Elona.MapQuest
+  components:
+  - type: MapCommon
+    tileset: Elona.Tower1
+    # >>>>>>>> elona122/shade2/sound.hsp:415 			if gQuest=qConquer	:music=mcBoss ...
+    music: Elona.Boss
+    # <<<<<<<< elona122/shade2/sound.hsp:415 			if gQuest=qConquer	:music=mcBoss ..
+  - type: MapDerivedForQuest
+
+- type: Entity
   id: Elona.MapQuestHuntEX
   parent: Elona.MapQuest
   components:

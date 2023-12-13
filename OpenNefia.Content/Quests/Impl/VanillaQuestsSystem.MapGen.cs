@@ -30,6 +30,7 @@ using System.Text;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Quests
 {
@@ -172,7 +173,7 @@ namespace OpenNefia.Content.Quests
         /// </summary>
         /// <param name="mapBlueprintPath"></param>
         /// <returns></returns>
-        private IMap? QuestMap_GenerateDerivedHuntMap(ResourcePath mapBlueprintPath)
+        private IMap? QuestMap_GenerateDerivedHuntMap(ResourcePath mapBlueprintPath, PrototypeId<EntityPrototype> mapEntityProto)
         {
             // TODO: YAML transformations will make this easier.
             bool IsMapEntity(MapBlueprintEntity entity)
@@ -198,7 +199,7 @@ namespace OpenNefia.Content.Quests
             }
 
             // Overwrite the map's prototype/components with the quest's.
-            mapEntity.ProtoId = Protos.Map.QuestHuntEX;
+            mapEntity.ProtoId = mapEntityProto;
             mapEntity.Components.Clear();
 
             // Clear characters and mobjs.
@@ -236,7 +237,7 @@ namespace OpenNefia.Content.Quests
             // To do this a MapRenewGeometryComponent is required so the initial geometry is known.
             if (TryComp<MapRenewGeometryComponent>(originMap.MapEntityUid, out var mapRenewGeometry))
             {
-                map = QuestMap_GenerateDerivedHuntMap(mapRenewGeometry.MapBlueprintPath);
+                map = QuestMap_GenerateDerivedHuntMap(mapRenewGeometry.MapBlueprintPath, Protos.Map.QuestHuntEX);
             }
 
             if (map == null)
@@ -261,9 +262,50 @@ namespace OpenNefia.Content.Quests
                 {
                     EnsureComp<FactionComponent>(chara.Value).RelationToPlayer = Relation.Enemy;
                     EnsureComp<TargetForEliminateQuestComponent>(chara.Value).Tag = QuestHuntEXTargetTagId;
+                    EnsureComp<LevelComponent>(chara.Value).ShowLevelInName = true;
                 }
             }
             // <<<<<<<< shade2/map_rand.hsp:726 		} ..
+
+            return map;
+        }
+
+        /// <summary>
+        /// Generates the map for hunt quests.
+        /// </summary>
+        /// <param name="questDifficulty">Difficulty of the quest. Controls the level of wild monsters.</param>
+        /// <returns></returns>
+        private IMap QuestMap_GenerateConquer(IMap originMap, PrototypeId<EntityPrototype> enemyID, int enemyLevel, int questDifficulty, EntityUid questUid)
+        {
+            IMap? map = null;
+
+            if (TryComp<MapRenewGeometryComponent>(originMap.MapEntityUid, out var mapRenewGeometry))
+            {
+                map = QuestMap_GenerateDerivedHuntMap(mapRenewGeometry.MapBlueprintPath, Protos.Map.QuestConquer);
+            }
+
+            if (map == null)
+            {
+                Logger.ErrorS("quest.conquer", $"Quest origin map did not have a {nameof(MapRenewGeometryComponent)} for use with the conquer quest, defaulting to a fallback map.");
+                map = QuestMap_GenerateHuntBaseMap(null);
+            }
+
+            // >>>>>>>> shade2/map_rand.hsp:718 	if gQuest=qConquer{ ..
+            var filter = new CharaFilter()
+            {
+                MinLevel = questDifficulty,
+                LevelOverride = enemyLevel,
+                Quality = Quality.God,
+                Id = enemyID
+            };
+            var chara = _charaGen.GenerateChara(map, filter);
+            if (IsAlive(chara))
+            {
+                EnsureComp<FactionComponent>(chara.Value).RelationToPlayer = Relation.Enemy;
+                EnsureComp<LevelComponent>(chara.Value).ShowLevelInName = true;
+                EnsureComp<ConquerQuestTargetComponent>(chara.Value).QuestUid = questUid;
+            }
+            // <<<<<<<< shade2/map_rand.hsp:721 		} ..
 
             return map;
         }

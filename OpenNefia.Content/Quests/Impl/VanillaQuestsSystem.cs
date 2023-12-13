@@ -73,6 +73,7 @@ namespace OpenNefia.Content.Quests
             Initialize_Deliver();
             Initialize_Supply();
             Initialize_Escort();
+            Initialize_Conquer();
             Initialize_Party();
             Initialize_HuntEX();
             Initialize_Collect();

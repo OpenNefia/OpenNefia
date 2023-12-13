@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Quests
         private void QuestHuntEX_BeforeGenerate(EntityUid uid, QuestTypeHuntEXComponent huntQuest, QuestBeforeGenerateEvent args)
         {
             var minLevel = int.Clamp(args.Quest.Difficulty / 7, 5, 30);
-            var enemyId = QuestHuntEX_PickRandomEnemyID(args.Quest, minLevel);
+            var enemyId = QuestHunt_PickRandomEnemyID(args.Quest, minLevel);
 
             if (enemyId == null)
             {
@@ -69,13 +69,13 @@ namespace OpenNefia.Content.Quests
             }
 
             huntQuest.EnemyID = enemyId.Value;
-            huntQuest.EnemyLevel = minLevel;
+            huntQuest.EnemyLevel = (int)(minLevel * 1.5);
         }
 
-        private PrototypeId<EntityPrototype>? QuestHuntEX_PickRandomEnemyID(QuestComponent quest, int minLevel)
+        private PrototypeId<EntityPrototype>? QuestHunt_PickRandomEnemyID(QuestComponent quest, int minLevel)
         {
             // >>>>>>>> elona122/shade2/quest.hsp:115 		repeat 50 ...
-            for (var i = 0; i < 1000; i++)
+            for (var i = 0; i < 100; i++)
             {
                 var commonArgs = new EntityGenCommonArgs()
                 {

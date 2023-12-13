@@ -79,6 +79,28 @@
   - type: QuestTypeEscort
 
 - type: Entity
+  id: Elona.QuestConquer
+  parent: BaseQuest
+  hspIds:
+    elona122: 1008
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Conquer.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 50 # 1000 / 20
+  - type: QuestMinimumFame
+    minimumFame: 50000
+  - type: QuestDeadlines
+    townBoardExpirationDays: 6~8
+  - type: QuestRewardGold
+    goldModifier: 175
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemWear
+  - type: QuestTypeConquer
+
+- type: Entity
   id: Elona.QuestParty
   parent: BaseQuest
   hspIds:

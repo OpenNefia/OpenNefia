@@ -93,3 +93,6 @@
 
 - type: Elona.Dialog
   id: Elona.QuestConquer
+  nodes:
+    Accept: !type:DialogCallbackNode
+      callback: Content.Quests.VanillaQuestsSystem:QuestConquer_TravelToMap

@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Maps
     public interface IMapTimersSystem : IEntitySystem
     {
         MapTimer AddOrUpdateTimer(IMap map, string id, GameTimeSpan duration, MapTimersComponent? mapTimers = null);
-        void RemoveTimer(IMap map, string id, GameTimeSpan duration, bool raiseEvent = true, MapTimersComponent? mapTimers = null);
+        void RemoveTimer(IMap map, string id, bool raiseEvent = true, MapTimersComponent? mapTimers = null);
         bool TryGetTimer(IMap map, string id, [NotNullWhen(true)] out MapTimer? timer, MapTimersComponent? mapTimers = null);
         MapTimer GetTimer(IMap map, string id, MapTimersComponent? mapTimers = null);
     }
@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Maps
             return timer;
         }
 
-        public void RemoveTimer(IMap map, string id, GameTimeSpan duration, bool raiseEvent = true, MapTimersComponent? mapTimers = null)
+        public void RemoveTimer(IMap map, string id, bool raiseEvent = true, MapTimersComponent? mapTimers = null)
         {
             if (!Resolve(map.MapEntityUid, ref mapTimers, logMissing: false))
                 mapTimers = EnsureComp<MapTimersComponent>(map.MapEntityUid);

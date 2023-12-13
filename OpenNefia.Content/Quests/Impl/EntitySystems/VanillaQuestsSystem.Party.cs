@@ -54,7 +54,7 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<QuestTypePartyComponent, QuestCompletedEvent>(QuestParty_QuestCompleted);
             SubscribeComponent<QuestTypePartyComponent, QuestGenerateRewardsEvent>(QuestParty_GenerateRewards);
 
-            SubscribeBroadcast<AfterMapEnterEventArgs>(QuestParty_ShowMessage);
+            SubscribeComponent<MapImmediateQuestComponent, AfterMapEnterEventArgs>(QuestParty_ShowMessage);
             SubscribeEntity<OnAICalmActionEvent>(QuestParty_DrinkingAI);
             SubscribeEntity<MapBeforeTurnBeginEventArgs>(BeforeTurnBegin_SetPartyQuestEmoicons);
         }
@@ -103,7 +103,7 @@ namespace OpenNefia.Content.Quests
             _mapTransfer.DoMapTransfer(spatial, partyMap, new CenterMapLocation());
         }
 
-        private void QuestParty_ShowMessage(AfterMapEnterEventArgs args)
+        private void QuestParty_ShowMessage(EntityUid uid, MapImmediateQuestComponent comp, AfterMapEnterEventArgs args)
         {
             // >>>>>>>> shade2/map.hsp:2158 		if gQuest=qPerform{ ...
             if (_immediateQuests.TryGetImmediateQuest<QuestTypePartyComponent>(args.NewMap, out _, out _, out var questParty))

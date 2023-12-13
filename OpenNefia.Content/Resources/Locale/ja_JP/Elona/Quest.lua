@@ -689,6 +689,80 @@ Elona.Quest = {
             },
         },
 
+        Conquer = {
+            UnknownMonster = "正体不明の存在",
+            Detail = function(params)
+                return ("%sの討伐"):format(params.enemyName)
+            end,
+
+            Event = {
+                OnMapEnter = function(enemyName, timeLimitMinutes)
+                    return ("%s分以内に、%sを討伐しなければならない。"):format(
+                        timeLimitMinutes,
+                        enemyName
+                    )
+                end,
+
+                Complete = "討伐に成功した！",
+                Fail = "討伐に失敗した…",
+            },
+
+            Variants = {
+                {
+                    Name = "討伐の依頼",
+                    Description = function(player, speaker, params)
+                        return (
+                            "熟練の冒険者にだけ頼める依頼%s。%sの変種が街に向かっているのが確認された%s。討伐すれば報酬に%sを与え%s。これは平凡な依頼ではない%s。この怪物の強さは、少なくともレベル%sは下らない%s。"
+                        ):format(
+                            _.da(speaker, 4),
+                            params.enemyName,
+                            _.noda(speaker, 4),
+                            params.reward,
+                            _.ru(speaker, 4),
+                            _.yo(speaker, 4),
+                            params.enemyLevel,
+                            _.daro(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "助けて！",
+                    Description = function(player, speaker, params)
+                        return (
+                            "ふざけて友人に変異のポーションを飲ませたら、%sになってしまった%s！レベル%sはあるモンスター%s！街の平和のためにも一刻もはやく始末して%s！お礼%s？もちろん、%sを用意し%s。%s！"
+                        ):format(
+                            params.enemyName,
+                            _.yo(speaker, 4),
+                            params.enemyLevel,
+                            _.da(speaker, 4),
+                            _.kure(speaker, 4),
+                            _.ka(speaker, 4),
+                            params.reward,
+                            _.ta(speaker, 4),
+                            _.tanomu(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "特務指令",
+                    Description = function(player, speaker, params)
+                        return (
+                            "脅威の芽はなるべく早く摘み取らなければならない%s。この街の中で、軍の実験体が檻から出て暴れている%s。%sを払うので討伐して%s。研究データによると、この%sはレベル%sのモンスターに匹敵する強さらしい%s。気をつけてかかって%s。"
+                        ):format(
+                            _.na(speaker, 4),
+                            _.noda(speaker, 4),
+                            params.reward,
+                            _.kure(speaker, 4),
+                            params.enemyName,
+                            params.enemyLevel,
+                            _.yo(speaker, 4),
+                            _.kure(speaker, 4)
+                        )
+                    end,
+                },
+            },
+        },
+
         Party = {
             Detail = function(params)
                 return ("%sの獲得"):format(params.requiredPoints)

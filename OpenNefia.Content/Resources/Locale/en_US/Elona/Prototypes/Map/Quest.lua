@@ -9,6 +9,11 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "Urban area",
         },
     },
+    MapQuestConquer = {
+        MetaData = {
+            Name = _.refp "Entity.Elona.MapQuestHuntEX.MetaData.Name",
+        },
+    },
     MapQuestParty = {
         MetaData = {
             Name = "Party Room",
