@@ -74,6 +74,7 @@ namespace OpenNefia.Content.Activity
             Initialize_Sex();
             Initialize_Performing();
             Initialize_DiggingSpot();
+            Initialize_Harvesting();
         }
     }
 }

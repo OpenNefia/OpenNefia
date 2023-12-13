@@ -35,6 +35,9 @@
     townBoardExpirationDays: 6~8
   - type: QuestRewardGold
     goldModifier: 70
+# >>>>>>>> elona122/shade2/quest.hsp:36 	if (qType(rq)=qTypeSupply)or(qType(rq)=qTypeDeliv ...
+    modifyGoldBasedOnPlayerLevel: false
+# <<<<<<<< elona122/shade2/quest.hsp:36 	if (qType(rq)=qTypeSupply)or(qType(rq)=qTypeDeliv ..
   - type: QuestTypeDeliver
 
 - type: Entity
@@ -54,9 +57,32 @@
     townBoardExpirationDays: 3~4
   - type: QuestRewardGold
     goldModifier: 65
+# >>>>>>>> elona122/shade2/quest.hsp:36 	if (qType(rq)=qTypeSupply)or(qType(rq)=qTypeDeliv ...
+    modifyGoldBasedOnPlayerLevel: false
+# <<<<<<<< elona122/shade2/quest.hsp:36 	if (qType(rq)=qTypeSupply)or(qType(rq)=qTypeDeliv ..
   - type: QuestRewardRandomCategory
     itemCategories: Elona.ItemRewardSupply
   - type: QuestTypeSupply
+
+- type: Entity
+  id: Elona.QuestHarvest
+  parent: BaseQuest
+  hspIds:
+    elona122: 1006
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Harvest.Variants
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 33 # 1000 / 30
+  - type: QuestDeadlines
+    townBoardExpirationDays: 2~8
+  - type: QuestRewardGold
+    goldModifier: 60
+  - type: QuestRewardRandomCategory
+    itemCategories: Elona.ItemRewardSupply
+  - type: QuestTypeHarvest
 
 - type: Entity
   id: Elona.QuestEscort

@@ -62,3 +62,15 @@
   - type: MapTagEntitiesAsQuestTargets
     tag: Elona.QuestHuntEX
   - type: MapDerivedForQuest
+
+- type: Entity
+  id: Elona.MapQuestHarvest
+  parent: Elona.MapQuest
+  components:
+  - type: MapCommon
+    tileset: Elona.Wilderness
+# >>>>>>>> elona122/shade2/sound.hsp:413 			if gQuest=qHarvest	:music=mcVillage1 ...
+    music: Elona.Village1
+# <<<<<<<< elona122/shade2/sound.hsp:413 			if gQuest=qHarvest	:music=mcVillage1 ..
+  - type: MapCharaGen
+    maxCharaCount: 15

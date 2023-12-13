@@ -251,7 +251,7 @@ namespace OpenNefia.Content.Activity
             }
             else
             {
-                var evTurns = new CalcActivityTurnsEvent(activityComp.DefaultTurns);
+                var evTurns = new CalcActivityTurnsEvent(activityComp.DefaultTurns, activityComp);
                 RaiseEvent(activity, evTurns);
                 activityComp.TurnsRemaining = evTurns.OutTurns;
             }
@@ -353,10 +353,12 @@ namespace OpenNefia.Content.Activity
     public sealed class CalcActivityTurnsEvent : EntityEventArgs
     {
         public int OutTurns { get; set; }
+        public ActivityComponent Activity { get; }
 
-        public CalcActivityTurnsEvent(int turns)
+        public CalcActivityTurnsEvent(int turns, ActivityComponent activity)
         {
             OutTurns = turns;
+            Activity = activity;
         }
     }
 

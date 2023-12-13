@@ -215,17 +215,24 @@ namespace OpenNefia.Content.Quests
 
         private int CalcQuestRewardGoldAmount(EntityUid uid, QuestRewardGoldComponent component, QuestComponent quest)
         {
-            var amount = ((quest.Difficulty + 3) * 100 + _rand.Next(quest.Difficulty * 30 + 200) + 400) * component.GoldModifier / 100;
-            amount = amount * 100 / (100 + quest.Difficulty * 2 / 3);
+            // >>>>>>>> elona122/shade2/quest.hsp:34 	qReward(rq)	=((qLevel(rq)+3)*100+rnd(qLevel(rq)*3 ...
+            int amount = _rand.WithSeed(quest.RandomSeed, () =>
+            {
+                var amount = ((quest.Difficulty + 3) * 100 + _rand.Next(quest.Difficulty * 30 + 200) + 400) * component.GoldModifier / 100;
+                amount = amount * 100 / (100 + quest.Difficulty * 2 / 3);
+                return amount;
+            });
 
             if (!component.ModifyGoldBasedOnPlayerLevel)
                 return amount;
+            // <<<<<<<< elona122/shade2/quest.hsp:36 	if (qType(rq)=qTypeSupply)or(qType(rq)=qTypeDeliv ...
 
             return CalcQuestRewardGoldAmountFromPlayerLevel(uid, component, quest, amount);
         }
 
         private int CalcQuestRewardGoldAmountFromPlayerLevel(EntityUid uid, QuestRewardGoldComponent component, QuestComponent quest, int baseAmount)
         {
+            // >>>>>>>> elona122/shade2/quest.hsp:37 	if cLevel(pc)>=qLevel(rq){ ...
             var level = _levels.GetLevel(_gameSession.Player);
             if (level >= quest.Difficulty)
             {
@@ -235,6 +242,7 @@ namespace OpenNefia.Content.Quests
             {
                 return baseAmount * (100 + Math.Clamp((quest.Difficulty - level) / 5 * 25, 0, 200)) / 100;
             }
+            // <<<<<<<< elona122/shade2/quest.hsp:41 		} ...
         }
 
         private void QuestRewardGold_CalcRewards(EntityUid uid, QuestRewardGoldComponent component, QuestCalcRewardsEvent args)

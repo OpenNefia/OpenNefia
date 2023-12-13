@@ -126,7 +126,7 @@ namespace OpenNefia.Content.Activity
     public sealed class ActivityHarvestingComponent : Component
     {
         [DataField]
-        public EntityUid? Item { get; set; }
+        public EntityUid Item { get; set; }
     }
 
     [RegisterComponent]

@@ -1128,6 +1128,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "HolyWell")
     end
 
+    if from._id == "elona.masters_delivery_chest" then
+        c = comp(to, "HarvestDeliveryChest")
+    end
+
     if from._id == "elona.cargo_travelers_food" then
         c = comp(to, "TravelersFood")
     end

@@ -31,6 +31,9 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.FieldMap;
+using OpenNefia.Content.Weight;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.Quests
 {
@@ -43,6 +46,7 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
 
         private void Initialize_QuestMapGenEvents()
         {
@@ -531,6 +535,101 @@ namespace OpenNefia.Content.Quests
                     }
                 }
             }
+        }
+
+        private IMap QuestMap_GenerateHarvest(int difficulty)
+        {
+            // >>>>>>>> shade2/map_rand.hsp:337 	mField=mFieldOutdoor ..
+            var map = _mapManager.CreateMap(50 + _rand.Next(16), 50 + _rand.Next(16), Protos.Map.QuestHarvest);
+            map.Clear(Protos.Tile.MapgenDefault);
+
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassBush3, 10, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassPatch3, 10, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.Grass, 30, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassViolets, 4, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassTall2, 2, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassTall1, 2, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassTall2, 2, _rand);
+            FieldMapGenerator.SprayTile(map, Protos.Tile.GrassPatch1, 2, _rand);
+
+            _mapTilesets.ApplyTileset(map);
+
+            EnsureComp<MapCharaGenComponent>(map.MapEntityUid).CharaFilterGen = new QuestHarvestCharaFilterGen(difficulty);
+
+            for (var i = 0; i < 30; i++)
+            {
+                var width = _rand.Next(5) + 5;
+                var height = _rand.Next(4) + 4;
+                var point = _rand.NextVec2iInBounds(map.Bounds);
+
+                var tile = Protos.Tile.Field1;
+                if (_rand.OneIn(2))
+                    tile = Protos.Tile.Field2;
+
+                var size = int.Clamp((int)(point - (map.Size / 2)).Length / 8, 0, 8);
+                var cropItemId = _rand.Pick(RandomGenConsts.ItemSets.Crop);
+
+                for (var y = point.Y; y < point.Y + height - 1; y++)
+                {
+                    if (y >= map.Height)
+                        break;
+
+                    for (var x = point.X; x < point.X + width - 1; x++)
+                    {
+                        if (y >= map.Width)
+                            break;
+
+                        var coords = new Vector2i(x, y);
+                        map.SetTile(coords, tile);
+
+                        if (_rand.OneIn(10) && ItemCountAt(map.AtPos(coords)) == 0)
+                        {
+                            PrototypeId<EntityPrototype> itemId;
+                            if (_rand.OneIn(4))
+                                itemId = cropItemId;
+                            else
+                                itemId = _rand.Pick(RandomGenConsts.ItemSets.Crop);
+
+                            var crop = _itemGen.GenerateItem(map.AtPos(coords), itemId);
+                            if (IsAlive(crop))
+                            {
+                                EnsureComp<PickableComponent>(crop.Value).OwnState = OwnState.Quest;
+                                var weight = int.Clamp(size + _rand.Next(_rand.Next(4) + 1), 0, 9);
+                                EnsureComp<WeightComponent>(crop.Value).Weight.Base *= (int)((80 + weight * weight * 100) / 100);
+                                EnsureComp<HarvestQuestCropComponent>(crop.Value).WeightClass = weight;
+                            }
+                        }
+                    }
+                }
+            }
+
+            var itemCount = 70 + _rand.Next(20);
+            for (var i = 0; i < itemCount; i++)
+            {
+                var point = _rand.NextVec2iInBounds(map.Bounds);
+                var tileID = map.GetTileID(point);
+                if (tileID != Protos.Tile.Field1 && tileID != Protos.Tile.Field2 && ItemCountAt(map.AtPos(point)) == 0) 
+                {
+                    if (_rand.OneIn(8))
+                    {
+                        var tree = _itemGen.GenerateItem(map.AtPos(point), tags: new[] { Protos.Tag.ItemCatTree });
+                        if (IsAlive(tree))
+                            EnsureComp<PickableComponent>(tree.Value).OwnState = OwnState.NPC;
+                    }
+                    else
+                    {
+                        _entityGen.SpawnEntity(Protos.MObj.Pot, map.AtPos(point));
+                    }
+                }
+            }
+
+            for (var i = 0; i < 30; i++)
+            {
+                _charaGen.GenerateCharaFromMapFilter(map);
+            }
+
+            return map;
+            // <<<<<<<< shade2/map_rand.hsp:393 	return true ..
         }
     }
 

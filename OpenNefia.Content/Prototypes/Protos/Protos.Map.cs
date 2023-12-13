@@ -13,6 +13,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly MapPrototypeId QuestHuntEX = new($"Elona.Map{nameof(QuestHuntEX)}");
             public static readonly MapPrototypeId QuestConquer = new($"Elona.Map{nameof(QuestConquer)}");
             public static readonly MapPrototypeId QuestParty = new($"Elona.Map{nameof(QuestParty)}");
+            public static readonly MapPrototypeId QuestHarvest = new($"Elona.Map{nameof(QuestHarvest)}");
 
             #pragma warning restore format
         }

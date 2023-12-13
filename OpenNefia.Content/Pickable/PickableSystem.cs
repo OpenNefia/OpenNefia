@@ -19,7 +19,23 @@ namespace OpenNefia.Content.Pickable
     {
         bool CheckNoDropAndMessage(EntityUid item, PickableComponent? pickable = null);
         bool CheckPickableOwnStateAndMessage(EntityUid item, PickableComponent? pickable = null);
+
+        /// <summary>
+        /// Directly picks up the item (does not go through the verbs system)
+        /// </summary>
+        /// <param name="picker"></param>
+        /// <param name="item"></param>
+        /// <param name="pickable"></param>
+        /// <returns></returns>
         TurnResult PickUp(EntityUid picker, EntityUid item, PickableComponent? pickable = null);
+
+        /// <summary>
+        /// Directly drops the item (does not go through the verbs system)
+        /// </summary>
+        /// <param name="picker"></param>
+        /// <param name="item"></param>
+        /// <param name="pickable"></param>
+        /// <returns></returns>
         TurnResult Drop(EntityUid picker, EntityUid item, PickableComponent? pickable = null);
     }
 
@@ -104,6 +120,7 @@ namespace OpenNefia.Content.Pickable
             }
         }
 
+        /// <inheritdoc />
         public TurnResult PickUp(EntityUid picker, EntityUid item, PickableComponent? pickable = null)
         {
             if (!Resolve(item, ref pickable))

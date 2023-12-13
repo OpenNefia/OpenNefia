@@ -271,6 +271,80 @@ Elona.Quest = {
             },
         },
 
+        Harvest = {
+            Detail = {
+                Objective = function(params)
+                    return ("Gather harvests weight %s."):format(params.required_weight)
+                end,
+                Now = function(currentWeight)
+                    return ("(Now %s)"):format(currentWeight)
+                end,
+            },
+
+            Dialog = {
+                Accept = "Fine. I'll take you to my farm.",
+                GiveExtraCoins = "I've added some extra coins since you worked really hard.",
+            },
+
+            Event = {
+                OnMapEnter = function(requiredWeight, timeLimitMinutes)
+                    return (
+                        "To complete the quest, you have to harvest %s worth farm products and put them into the delivery chest within %s minutes."
+                    ):format(requiredWeight, timeLimitMinutes)
+                end,
+                Put = function(item, addWeight, currentWeight, requiredWeight)
+                    return ("You deliver %s. +%s Delivered(%s) Quota (%s)"):format(
+                        _.name(item),
+                        addWeight,
+                        currentWeight,
+                        requiredWeight
+                    )
+                end,
+                Complete = "You complete the task!",
+                Fail = "You fail to fulfill your task...",
+            },
+
+            ItemName = {
+                Grown = function(baseName, weightClass)
+                    local weightName = _.loc(("Elona.Quest.Types.Harvest.ItemName.WeightClass.%s"):format(weightClass))
+                    return ("%s grown %s"):format(baseName, weightName)
+                end,
+                WeightClass = {
+                    ["0"] = "extremely mini",
+                    ["1"] = "small",
+                    ["2"] = "handy",
+                    ["3"] = "rather big",
+                    ["4"] = "huge",
+                    ["5"] = "pretty huge",
+                    ["6"] = "monstrous-size",
+                    ["7"] = "bigger than a man",
+                    ["8"] = "legendary-size",
+                    ["9"] = "heavier than an elephant",
+                },
+            },
+
+            Activity = {
+                Start = function(actor, item)
+                    return ("%s start%s to pick %s."):format(_.name(actor), _.s(actor), _.name(item))
+                end,
+                Finish = function(actor, item, weight)
+                    return ("%s harvest%s %s. (%s)"):format(_.name(actor), _.s(actor), _.name(item), weight)
+                end,
+                Sound = { "*sing*", "*pull*", "*thud*", "*rumble*", "*gasp*" },
+            },
+
+            Variants = {
+                {
+                    Name = "The harvest time.",
+                    Description = function(player, speaker, params)
+                        return (
+                            "At last, the harvest time has come. It is by no means a job that I alone can handle. You get %s if you can gather grown crops weighting %s."
+                        ):format(params.reward, params.requiredWeight)
+                    end,
+                },
+            },
+        },
+
         HuntEX = {
             Detail = "Eliminate monsters.",
 

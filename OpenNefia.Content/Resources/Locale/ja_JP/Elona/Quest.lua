@@ -628,6 +628,126 @@ Elona.Quest = {
             },
         },
 
+        Harvest = {
+            Detail = {
+                Objective = function(params)
+                    return ("%sの作物の納入"):format(params.required_weight)
+                end,
+                Now = function(currentWeight)
+                    return ("(現在%s)"):format(currentWeight)
+                end,
+            },
+
+            Dialog = {
+                Accept = function(speaker)
+                    return ("畑までは案内するから、しっかりと期限内に作物を納入して%s"):format(
+                        _.kure(speaker)
+                    )
+                end,
+                GiveExtraCoins = function(speaker)
+                    return ("予想以上にいい働きだったから、幾らか色を付けておいた%s"):format(
+                        _.yo(speaker)
+                    )
+                end,
+            },
+
+            Event = {
+                OnMapEnter = function(requiredWeight, timeLimitMinutes)
+                    return ("%s分以内に、納入箱に%sの作物を納入しよう。"):format(
+                        timeLimitMinutes,
+                        requiredWeight
+                    )
+                end,
+                Put = function(item, addWeight, currentWeight, requiredWeight)
+                    return ("%sを納入した。 +%s  納入済み(%s) 納入ノルマ(%s)"):format(
+                        item,
+                        addWeight,
+                        currentWeight,
+                        requiredWeight
+                    )
+                end,
+                Complete = "無事に納入を終えた！",
+                Fail = "納入は間に合わなかった…",
+            },
+
+            ItemName = {
+                Grown = function(baseName, weightClass)
+                    local weightName = _.loc(("Elona.Quest.Types.Harvest.ItemName.WeightClass.%s"):format(weightClass))
+                    return ("%s%s育った"):format(baseName, weightName)
+                end,
+                WeightClass = {
+                    ["0"] = "超ミニに",
+                    ["1"] = "小振りに",
+                    ["2"] = "手ごろに",
+                    ["3"] = "やや大きく",
+                    ["4"] = "どでかく",
+                    ["5"] = "かなり巨大に",
+                    ["6"] = "化け物サイズに",
+                    ["7"] = "人より大きく",
+                    ["8"] = "伝説的サイズに",
+                    ["9"] = "象より重く",
+                },
+            },
+
+            Activity = {
+                Start = function(actor, item)
+                    return ("%s%sを掘り始めた。"):format(_.kare_wa(actor), _.name(item))
+                end,
+                Finish = function(actor, item, weight)
+                    return ("%s%sを収穫した(%s)"):format(_.kare_wa(actor), _.name(item), weight)
+                end,
+                Sound = { " *ザクッ* ", " *♪* ", " *ズシュ* ", " *ジャリ* " },
+            },
+
+            Variants = {
+                {
+                    Name = "農作業の手伝い",
+                    Description = function(player, speaker, params)
+                        return (
+                            "そろそろ畑に植えた作物も育っている頃%s。%s付近にある畑まで行って、%sほどの作物を掘ってきて%s。報酬は%sを払%s。"
+                        ):format(
+                            _.da(speaker, 4),
+                            params.map,
+                            params.requiredWeight,
+                            _.kure(speaker, 4),
+                            params.reward,
+                            _.u(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "代わりに収穫して",
+                    Description = function(player, speaker, params)
+                        return (
+                            "この時期になると、なんだか気が重くなる%s。畑に育った作物を、どっさりと掘らなきゃならない%s。%sを払うから、代わりに%sぐらいの量を収穫して来てくれない%s！"
+                        ):format(
+                            _.yo(speaker, 4),
+                            _.noda(speaker, 4),
+                            params.reward,
+                            params.requiredWeight,
+                            _.kana(speaker, 4)
+                        )
+                    end,
+                },
+                {
+                    Name = "収穫期",
+                    Description = function(player, speaker, params)
+                        return (
+                            "いよいよ待ちに待った収穫期の到来%s！とてもじゃないが一人では無理なので、%sで手伝ってもらえない%s？そう%s、%sの担当は重さにして%sほど%s。"
+                        ):format(
+                            _.da(speaker, 4),
+                            params.reward,
+                            _.kana(speaker, 4),
+                            _.dana(speaker, 4),
+                            _.kimi(speaker, 4),
+                            params.requiredWeight,
+                            _.da(speaker, 4)
+                        )
+                    end,
+                },
+            },
+        },
+
         HuntEX = {
             Detail = "全ての敵の殲滅",
 

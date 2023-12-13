@@ -57,3 +57,8 @@
   - type: AreaEntrance
     startingFloor: LecchoTorte.TownC:0
     globalId: LecchoTorte.TownC
+  - type: AreaRandomGenTables
+    tables:
+      quest:
+        Elona.QuestHarvest:
+          rarity: 200

@@ -76,6 +76,11 @@ namespace OpenNefia.Content.Inventory
             if (!_entityManager.IsAlive(ent))
                 return false;
 
+            var ev = new InventoryContextFilterEvent(this);
+            _entityManager.EventBus.RaiseEvent(ent, ref ev);
+            if (!ev.OutAccepted)
+                return false;
+
             return Behavior.IsAccepted(this, ent);
         }
 
@@ -115,5 +120,20 @@ namespace OpenNefia.Content.Inventory
 
             return Behavior.OnSelect(this, item, amount);
         }
+    }
+
+    [ByRefEvent]
+    [EventUsage(EventTarget.Normal)]
+    public struct InventoryContextFilterEvent
+    {
+        public InventoryContextFilterEvent(InventoryContext inventoryContext)
+        {
+            InventoryContext = inventoryContext;
+        }
+
+        public bool OutAccepted { get; set; } = true;
+
+        public InventoryContext InventoryContext { get; }
+        public IInventoryBehavior Behavior => InventoryContext.Behavior;
     }
 }

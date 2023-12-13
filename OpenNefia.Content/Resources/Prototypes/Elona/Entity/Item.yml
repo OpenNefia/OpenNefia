@@ -16405,6 +16405,7 @@
     isPrecious: true
   - type: Weight
     weight: 20000
+  - type: HarvestDeliveryChest
 - type: Entity
   id: Elona.ItemShopStrongbox
   parent: BaseItem

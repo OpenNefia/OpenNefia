@@ -35,6 +35,16 @@
 
 - type: Elona.Dialog
   id: Elona.QuestHarvest
+  nodes:
+    Accept: !type:DialogTextNode
+      afterEnter:
+      - !type:DialogCallbackAction
+        callback: Content.Quests.VanillaQuestsSystem:QuestHarvest_TravelToMap
+      texts:
+      - Elona.Quest.Types.Harvest.Dialog.Accept
+    Complete: !type:DialogCallbackNode
+      callback: Content.Quests.VanillaQuestsSystem:QuestHarvest_Complete
+
 - type: Elona.Dialog
   id: Elona.QuestEscort
   nodes:

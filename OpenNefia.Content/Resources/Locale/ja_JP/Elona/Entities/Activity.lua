@@ -64,4 +64,9 @@ OpenNefia.Prototypes.Entity.Elona = {
             Name = "行動",
         },
     },
+    ActivityHarvesting = {
+        MetaData = {
+            Name = "行動",
+        },
+    },
 }
