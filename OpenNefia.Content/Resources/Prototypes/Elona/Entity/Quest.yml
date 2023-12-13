@@ -41,6 +41,25 @@
   - type: QuestTypeDeliver
 
 - type: Entity
+  id: Elona.QuestCook
+  parent: BaseQuest
+  hspIds:
+    elona122: 1003
+  components:
+  - type: Quest
+    localeKeyRoot: Elona.Quest.Types.Cook.Variants.General
+  - type: RandomGen
+    tables:
+      quest:
+        rarity: 167 # 1000 / 6
+  - type: QuestDeadlines
+    deadlineDays: 2~8
+    townBoardExpirationDays: 3~4
+  - type: QuestRewardGold
+    goldModifier: 60
+  - type: QuestTypeCook
+
+- type: Entity
   id: Elona.QuestSupply
   parent: BaseQuest
   hspIds:

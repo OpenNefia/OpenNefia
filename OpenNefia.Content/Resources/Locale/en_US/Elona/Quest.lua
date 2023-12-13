@@ -177,6 +177,110 @@ Elona.Quest = {
             },
         },
 
+        Cook = {
+            Detail = function(params)
+                return ("Give %s to the client."):format(params.foodName)
+            end,
+
+            Variants = {
+                General = {
+                    {
+                        Name = "My stomach!",
+                        Description = function(player, speaker, params)
+                            return (
+                                "My stomach growls like I'm starving to death habitually. Will you bring a piece to this beast? Maybe %s will do the job. I can give you %s as a reward."
+                            ):format(params.foodName, params.reward)
+                        end,
+                    },
+                },
+                FoodType = {
+                    Elona = {
+                        Meat = {
+                            {
+                                Name = "A reception.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "We will be hosting this very important reception tonight. The guests must be satisfied and made to feel gorgeous. I want you to prepare %s and %s are yours."
+                                    ):format(params.foodName, params.reward)
+                                end,
+                            },
+                        },
+                        Vegetable = {
+                            {
+                                Name = "On a diet",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "Vegetables are essential parts of a healthy diet. Cook %s for me. Your rewards are %s."
+                                    ):format(params.foodName, params.reward)
+                                end,
+                            },
+                        },
+                        Fruit = {
+                            {
+                                Name = "Cocktail party!",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "Run a small errand for us and earn %s. We need a wicked relish for our cocktail party. Say, %s sounds decent."
+                                    ):format(params.reward, params.foodName)
+                                end,
+                            },
+                        },
+                        Sweet = {
+                            {
+                                Name = "Sweet sweet.",
+                                Description = function(player, speaker, params)
+                                    return ("I prefer cakes and candies to alcoholic drinks. You want %s? Gimme %s!"):format(
+                                        params.reward,
+                                        params.foodName
+                                    )
+                                end,
+                            },
+                        },
+                        Pasta = {
+                            {
+                                Name = "I love noodles!",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "I love noodles! Is there anyone that hates noodles? I want to eat %s now! Rewards? Of course. %s sound good? "
+                                    ):format(params.foodName, params.reward)
+                                end,
+                            },
+                        },
+                        Fish = {
+                            {
+                                Name = "Fussy taste.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "My children won't eat fish. It's killing me. I'm gonna give %s to anyone that makes %s delicious enough to sweep their fuss!"
+                                    ):format(params.reward, params.foodName)
+                                end,
+                            },
+                        },
+                        Bread = {
+                            {
+                                Name = "Going on a picnic.",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "First off, the rewards are no more than %s, ok? My kid needs %s for a picnic tomorrow. Please hurry."
+                                    ):format(params.reward, params.foodName)
+                                end,
+                            },
+                        },
+                        Egg = {
+                            {
+                                Name = "A new recipe!",
+                                Description = function(player, speaker, params)
+                                    return (
+                                        "As in the capacity of a cooking master, I'm always eager to learn a new recipe. Bring me %s and I'll pay you %s."
+                                    ):format(params.foodName, params.reward)
+                                end,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
         Supply = {
             Variants = {
                 {

@@ -435,7 +435,7 @@ namespace OpenNefia.Content.Quests
         {
             var bounds = new UIBox2i(room.Bounds.TopLeft + (1, 1), room.Bounds.BottomRight - (1, 1));
             var roomSize = bounds.Width * bounds.Height;
-            var roomDifficulty = Math.Clamp(_rand.Next(difficulty / 3 + 3), 0, PartyRoomCharaTypes.Length);
+            var roomDifficulty = int.Clamp(_rand.Next(difficulty / 3 + 3), 0, PartyRoomCharaTypes.Length - 1);
 
             if (_rand.OneIn(2))
                 PlaceItemInRoom(Protos.Item.GrandPiano, map, room);

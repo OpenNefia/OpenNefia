@@ -3365,6 +3365,8 @@
   - type: Item
   - type: Weight
     weight: 14000
+  - type: CookingTool
+    quality: 150
 - type: Entity
   id: Elona.ItemSign
   parent: BaseItem
@@ -4149,6 +4151,8 @@
   - type: Item
   - type: Weight
     weight: 17400
+  - type: CookingTool
+    quality: 200
 - type: Entity
   id: Elona.ItemBundleOfBows
   parent: BaseItem
@@ -4429,6 +4433,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 14000
+  - type: CookingTool
+    quality: 100
 - type: Entity
   id: Elona.ItemWashstand
   parent: BaseItem
@@ -4455,6 +4461,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 15000
+  - type: CookingTool
+    quality: 100
 - type: Entity
   id: Elona.ItemKitchenOven
   parent: BaseItem
@@ -4481,6 +4489,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 14000
+  - type: CookingTool
+    quality: 100
 - type: Entity
   id: Elona.ItemNarrowDiningTable
   parent: BaseItem
@@ -6408,6 +6418,8 @@
   - type: Item
   - type: Weight
     weight: 15000
+  - type: CookingTool
+    quality: 60
 - type: Entity
   id: Elona.ItemKatana
   parent: BaseItem
@@ -7463,6 +7475,8 @@
   - type: Item
   - type: Weight
     weight: 12000
+  - type: CookingTool
+    quality: 40
   - type: LightSource
     id: Elona.Torch
 - type: Entity
@@ -7488,6 +7502,8 @@
   - type: Item
   - type: Weight
     weight: 1200
+  - type: CookingTool
+    quality: 80
 - type: Entity
   id: Elona.ItemSpellbookOfMagicArrow
   parent: BaseItem
@@ -8867,6 +8883,8 @@
   - type: Item
   - type: Weight
     weight: 34000
+  - type: CookingTool
+    quality: 200
 - type: Entity
   id: Elona.ItemSoftBed
   parent: BaseItem
@@ -9527,6 +9545,9 @@
   - type: Item
   - type: Food
     foodQuality: 3
+  - type: Cargo
+    weight: 2000
+    quality: 0
   - type: TravelersFood
 - type: Entity
   id: Elona.ItemThrone
@@ -17594,6 +17615,8 @@
   - type: Item
   - type: Weight
     weight: 8250
+  - type: CookingTool
+    quality: 225
 - type: Entity
   id: Elona.ItemGiantCactus
   parent: BaseItem
@@ -23201,6 +23224,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 500
+  - type: CookingTool
+    quality: 0
 - type: Entity
   id: Elona.ItemFryingPanForTesting
   parent: BaseItem
@@ -23227,6 +23252,8 @@
     randomColor: Furniture
   - type: Weight
     weight: 500
+  - type: CookingTool
+    quality: 0
 - type: Entity
   id: Elona.ItemDragonSlayer
   parent: BaseItem

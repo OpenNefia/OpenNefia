@@ -23,6 +23,7 @@ local IItemAncientBook = require "mod.elona.api.aspect.IItemAncientBook"
 local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 local IItemPotion = require "mod.elona.api.aspect.IItemPotion"
 local IItemCargo = require "mod.elona.api.aspect.IItemCargo"
+local IItemCookingTool = require "mod.elona.api.aspect.IItemCookingTool"
 
 local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
@@ -1114,10 +1115,16 @@ handlers["base.item"] = function(from, to)
     end
 
     local cargo = from._ext and from._ext[IItemCargo]
-    if table.set(from.categories or {})["elona.cargo"] then
+    if cargo then
         c = comp(to, "Cargo")
         c.weight = cargo.cargo_weight
         c.quality = cargo.cargo_quality
+    end
+
+    local cookingTool = from._ext and from._ext[IItemCookingTool]
+    if cookingTool then
+        c = comp(to, "CookingTool")
+        c.quality = cookingTool.cooking_quality or 0
     end
 
     if from._id == "elona.well" then

@@ -353,7 +353,7 @@ namespace OpenNefia.Content.Food
             if (!food.IsRotten && food.SpoilageInterval != null)
                 food.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromDays(3);
 
-            food.FoodQuality = foodQuality;
+            food.FoodQuality = int.Clamp(foodQuality, 1, 9);
         }
 
         public string GetNutritionMessage(int newNutrition)

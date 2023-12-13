@@ -2,8 +2,12 @@ Elona.Food = {
     ItemName = {
         Rotten = "腐った",
     },
-    Cook = function(_1, _2, _3)
-        return ("%sで%sを料理して、%sを作った。"):format(_2, _1, _3)
+    Cook = function(oldFoodName, toolEntity, newFoodEntity)
+        return ("%sで%sを料理して、%sを作った。"):format(
+            _.name(toolEntity, 1),
+            oldFoodName,
+            _.name(newFoodEntity, 1)
+        )
     end,
     EatStatus = {
         Good = function(_1)

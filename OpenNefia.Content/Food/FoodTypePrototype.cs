@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -40,6 +41,6 @@ namespace OpenNefia.Content.Food
         public IReadOnlyDictionary<int, PrototypeId<ChipPrototype>> ItemChips => _itemChips;
 
         [DataField]
-        public string? QuestRewardCategory { get; }
+        public PrototypeId<TagPrototype>? QuestRewardCategory { get; }
     }
 }

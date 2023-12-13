@@ -122,6 +122,11 @@ namespace OpenNefia.Content.Inventory
         }
     }
 
+    /// <summary>
+    /// Raised to determine if an item should be shown in an inventory screen.
+    /// Strongly prefer the features exposed by <see cref="IInventoryBehavior"/> instead
+    /// of this event.
+    /// </summary>
     [ByRefEvent]
     [EventUsage(EventTarget.Normal)]
     public struct InventoryContextFilterEvent

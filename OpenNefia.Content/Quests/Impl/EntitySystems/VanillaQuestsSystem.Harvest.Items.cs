@@ -103,9 +103,7 @@ namespace OpenNefia.Content.Quests
             var result = _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
 
             if (result.HasValue && result.Value.Data is InventoryResult.Finished invResult)
-            {
                 return invResult.TurnResult;
-            }
 
             return TurnResult.Aborted;
         }

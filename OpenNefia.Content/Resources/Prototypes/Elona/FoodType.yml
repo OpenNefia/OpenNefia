@@ -23,7 +23,7 @@
     7: Elona.ItemDishMeat7
     8: Elona.ItemDishMeat8
     9: Elona.ItemDishMeat4
-  questRewardCategory: Elona.EquipAmmo
+  questRewardCategory: Elona.ItemCatEquipAmmo
 - type: Elona.FoodType
   id: Elona.Vegetable
   hspIds:
@@ -45,7 +45,7 @@
     7: Elona.ItemDishVegetable4
     8: Elona.ItemDishMeat8
     9: Elona.ItemDishMeat7
-  questRewardCategory: Elona.Rod
+  questRewardCategory: Elona.ItemCatRod
 - type: Elona.FoodType
   id: Elona.Fruit
   hspIds:
@@ -67,7 +67,7 @@
     7: Elona.ItemDishFruit6
     8: Elona.ItemDishEgg8
     9: Elona.ItemDishFruit4
-  questRewardCategory: Elona.Scroll
+  questRewardCategory: Elona.ItemCatScroll
 - type: Elona.FoodType
   id: Elona.Sweet
   hspIds:
@@ -91,7 +91,7 @@
     7: Elona.ItemDishEgg8
     8: Elona.ItemDishEgg8
     9: Elona.ItemDishEgg8
-  questRewardCategory: Elona.Drink
+  questRewardCategory: Elona.ItemCatDrink
 - type: Elona.FoodType
   id: Elona.Pasta
   hspIds:
@@ -113,7 +113,7 @@
     7: Elona.ItemDishPasta3
     8: Elona.ItemDishPasta4
     9: Elona.ItemDishPasta3
-  questRewardCategory: Elona.Drink
+  questRewardCategory: Elona.ItemCatDrink
 - type: Elona.FoodType
   id: Elona.Fish
   hspIds:
@@ -137,7 +137,7 @@
     7: Elona.ItemDishFish7
     8: Elona.ItemDishFish3
     9: Elona.ItemDishFish3
-  questRewardCategory: Elona.EquipAmmo
+  questRewardCategory: Elona.ItemCatEquipAmmo
 - type: Elona.FoodType
   id: Elona.Bread
   hspIds:
@@ -163,7 +163,7 @@
     7: Elona.ItemDishBread7
     8: Elona.ItemDishBread8
     9: Elona.ItemDishBread9
-  questRewardCategory: Elona.Ore
+  questRewardCategory: Elona.ItemCatOre
 - type: Elona.FoodType
   id: Elona.Egg
   hspIds:
