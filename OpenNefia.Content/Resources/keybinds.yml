@@ -140,6 +140,7 @@ binds:
   type: State
   key: F
   canRepeat: true
+  repeatMode: Movement
 - function: Elona.Ammo
   type: State
   key: A
