@@ -2,6 +2,7 @@
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
@@ -59,6 +60,56 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
                 Assert.That(mapMan.MapIsLoaded(map2.Id), Is.True, "Map 2 is loaded");
                 Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(map2.Id), "Map 2 is active");
                 Assert.That(playerSpatial.MapPosition, Is.EqualTo(map2.AtPos(expectedPos)), "Position was updated");
+            });
+        }
+
+        [Test]
+        public void TestMapTransferForAllies_Dead()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var gameSess = sim.Resolve<IGameSessionManager>();
+            var saveGameMan = sim.Resolve<ISaveGameManager>();
+            var mapLoader = sim.Resolve<IMapLoader>();
+            var mapTransfer = sim.GetEntitySystem<IMapTransferSystem>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var parties = sim.GetEntitySystem<IPartySystem>();
+
+            var map1 = sim.CreateMapAndSetActive(10, 10);
+            var map2 = mapMan.CreateMap(10, 10);
+
+            using var save = new TempSaveGameHandle();
+            saveGameMan.CurrentSave = save;
+
+            var player = entMan.SpawnEntity(null, map1.AtPos(Vector2i.One));
+            gameSess.Player = player;
+            entMan.EnsureComponent<PlayerComponent>(player);
+            entMan.EnsureComponent<PartyComponent>(player);
+            var playerSpatial = entMan.GetComponent<SpatialComponent>(player);
+
+            var ally = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map1.AtPos(1, 1))!.Value;
+            var allyChara = entMan.GetComponent<CharaComponent>(ally);
+            var allySpatial = entMan.GetComponent<SpatialComponent>(ally);
+            Assert.That(parties.RecruitAsAlly(player, ally), Is.True);
+
+            var expectedPos = new Vector2i(3, 4);
+            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full, noUnloadPrevious: true);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(allySpatial.MapID, Is.EqualTo(map2.Id), "Position was updated");
+            });
+
+            allyChara.Liveness = CharaLivenessState.PetDead;
+            mapTransfer.DoMapTransfer(playerSpatial, map1, map1.AtPosEntity(expectedPos), MapLoadType.Full, noUnloadPrevious: true);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(allySpatial.MapID, Is.EqualTo(map1.Id), "Position was updated after death");
             });
         }
 

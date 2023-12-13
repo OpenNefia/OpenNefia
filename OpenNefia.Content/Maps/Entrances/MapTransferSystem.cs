@@ -14,10 +14,36 @@ using ICSharpCode.Decompiler.IL;
 
 namespace OpenNefia.Content.Maps
 {
+    /// <summary>
+    /// This is the main system for transferring the player between maps.
+    /// As it will fire several crucial events that handle cleanup and initialization, you
+    /// should prefer using this system over manipulating <see cref="SpatialComponent"/>
+    /// directly.
+    /// </summary>
     public interface IMapTransferSystem : IEntitySystem
     {
+        /// <summary>
+        /// Transfers the player and their party between maps, raising events
+        /// before and after the transfer, and handling map unloading/deletion.
+        /// </summary>
+        /// <param name="playerSpatial"></param>
+        /// <param name="map"></param>
+        /// <param name="location">Map location to place the player in</param>
+        /// <param name="loadType">Controls what map initialization events to run.</param>
+        /// <param name="noUnloadPrevious">If <c>true</c>, do not unload/delete the player's previous map.</param>
         void DoMapTransfer(SpatialComponent playerSpatial, IMap map, IMapStartLocation location, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false);
+
+        /// <summary>
+        /// Transfers the player and their party between maps, raising events
+        /// before and after the transfer, and handling map unloading/deletion.
+        /// </summary>
+        /// <param name="playerSpatial"></param>
+        /// <param name="map"></param>
+        /// <param name="newCoords"></param>
+        /// <param name="loadType">Controls what map initialization events to run.</param>
+        /// <param name="noUnloadPrevious">If <c>true</c>, do not unload/delete the player's previous map.</param>
         void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType = MapLoadType.Full, bool noUnloadPrevious = false);
+
         void RunMapInitializeEvents(IMap map, MapLoadType loadType);
     }
 
@@ -174,7 +200,7 @@ namespace OpenNefia.Content.Maps
     }
 
     /// <summary>
-    /// Raised after a map is entered. Event is raised on the *new map*s. Player and party
+    /// Raised after a map is entered. Event is raised on the *new map*. Player and party
     /// will have been moved to the new map.
     /// </summary>
     [EventUsage(EventTarget.Map)]

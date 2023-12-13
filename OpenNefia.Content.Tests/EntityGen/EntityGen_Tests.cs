@@ -53,6 +53,8 @@ namespace OpenNefia.Content.Tests.EntityGen
   - type: Chara
   - type: EntityGenTest
   - type: RoleSpecial
+  - type: Level
+    level: 1
 ";
 
         private static ISimulation SimulationFactory()

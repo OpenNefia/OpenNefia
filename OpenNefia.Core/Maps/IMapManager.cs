@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Maps
     public enum MapLoadType
     {
         /// <summary>
-        /// This map is being initialized but will not be entered. Used when a new game is started.
+        /// This map is being initialized but will not be entered. Only used when a new game is started.
         /// </summary>
         InitializeOnly,
 

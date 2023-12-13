@@ -188,14 +188,21 @@ namespace OpenNefia.Content.UI
             }
         }
 
+        private bool ShouldShowIconBar()
+        {
+            return UserInterfaceManager.CurrentLayer == this;
+        }
+
         public override void Draw()
         {
             base.Draw();
 
-            TabIconWindow.Draw();
-            TabDeco.Draw(UIScale, TabIconWindow.X - 32, TabIconWindow.Y - 7);
-
-            DrawIconBar();
+            if (ShouldShowIconBar())
+            {
+                TabIconWindow.Draw();
+                TabDeco.Draw(UIScale, TabIconWindow.X - 32, TabIconWindow.Y - 7);
+                DrawIconBar();
+            }
 
             if (SelectedLayer != null)
                 SelectedLayer.Draw();

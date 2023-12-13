@@ -1,15 +1,10 @@
 ﻿using NUnit.Framework;
-using OpenNefia.Content.Areas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Maps;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Stayers;
-using OpenNefia.Content.TitleScreen;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Tests;
 
@@ -84,6 +79,67 @@ namespace OpenNefia.Content.Tests.Stayers
                 Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
                 Assert.That(entMan.IsAlive(ally), Is.True);
                 Assert.That(allySpatial.MapPosition, Is.EqualTo(expectedPos));
+            });
+        }
+
+        [Test]
+        public void TestStayersSystem_Dead()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var stayers = sim.GetEntitySystem<IStayersSystem>();
+            var transfer = sim.GetEntitySystem<IMapTransferSystem>();
+
+            var map1 = sim.CreateMapAndSetActive(10, 10);
+            var map2 = sim.CreateMap(10, 10);
+
+            var player = entMan.SpawnEntity(TestEntity, map1.AtPos(5, 5));
+            sim.Resolve<IGameSessionManager>().Player = player;
+
+            var ally = entMan.SpawnEntity(TestEntity, map1.AtPos(1, 1));
+            var allySpatial = entMan.GetComponent<SpatialComponent>(ally);
+            var expectedPos = map1.AtPos(3, 4);
+
+            stayers.RegisterStayer(ally, map1, StayingTags.Ally, expectedPos.Position);
+
+            entMan.GetComponent<MetaDataComponent>(ally).Liveness = EntityGameLiveness.Hidden;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
+                Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
+                Assert.That(entMan.IsAlive(ally), Is.False);
+                Assert.That(allySpatial.MapPosition, Is.EqualTo(map1.AtPos(1, 1)));
+            });
+
+            transfer.DoMapTransfer(entMan.GetComponent<SpatialComponent>(player), map2, new CenterMapLocation(), MapLoadType.Full, noUnloadPrevious: true);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
+                Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
+                Assert.That(entMan.IsAlive(ally), Is.False);
+                Assert.That(allySpatial.MapPosition, Is.EqualTo(map1.AtPos(1, 1)));
+            });
+
+            transfer.DoMapTransfer(entMan.GetComponent<SpatialComponent>(player), map1, new CenterMapLocation(), MapLoadType.Full, noUnloadPrevious: true);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(stayers.IsStaying(ally, StayingTags.Ally), Is.True);
+                Assert.That(stayers.IsStaying(ally, StayingTags.Adventurer), Is.False);
+                Assert.That(stayers.EnumerateAllStayers(StayingTags.Ally).Count(), Is.EqualTo(0));
+                Assert.That(entMan.IsAlive(ally), Is.False);
+                Assert.That(allySpatial.MapPosition, Is.EqualTo(map1.AtPos(1, 1)));
             });
         }
     }
