@@ -72,6 +72,12 @@ namespace OpenNefia.Core.Areas
             area = null;
             floorId = default;
 
+            if (!_mapManager.MapIsLoaded(map))
+            {
+                _mapsToAreas.Remove(map);
+                return false;
+            }
+
             if (!_mapsToAreas.TryGetValue(map, out var pair))
                 return false;
 

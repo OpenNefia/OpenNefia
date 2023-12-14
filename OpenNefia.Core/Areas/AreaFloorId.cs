@@ -13,6 +13,8 @@ namespace OpenNefia.Core.Areas
         readonly string _id;
         readonly int _floorNumber;
 
+        public const string DefaultFloorName = "Default";
+
         /// <summary>
         ///    The floor number considered "floor 1" by the engine.
         /// </summary>
@@ -29,7 +31,7 @@ namespace OpenNefia.Core.Areas
         /// <summary>
         ///     Default floor ID.
         /// </summary>
-        public static readonly AreaFloorId Default = new("Default", DefaultFloorNumber);
+        public static readonly AreaFloorId Default = new(DefaultFloorName, DefaultFloorNumber);
 
         /// <summary>
         ///     Creates an instance of this structure.

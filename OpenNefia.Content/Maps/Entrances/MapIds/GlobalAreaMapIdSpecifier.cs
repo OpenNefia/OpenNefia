@@ -71,10 +71,10 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
-            var map = _areaManager.GetOrGenerateMapForFloor(area.Id, startingFloor.Value);
+            var map = _areaManager.GetOrGenerateMapForFloor(area.Id, startingFloor);
             if (map == null)
             {
-                Logger.ErrorS("area.mapIds", $"Area {area.Id} is missing floor {startingFloor.Value}!");
+                Logger.ErrorS("area.mapIds", $"Area {area.Id} is missing floor {startingFloor}!");
                 return null;
             }
 
@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
-            var map = _areaManager.GetMapForFloor(area.Id, startingFloor.Value);
+            var map = _areaManager.GetMapForFloor(area.Id, startingFloor);
             if (map == null)
                 return null;
 

@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Areas
         /// Starting floor of this area.
         /// </summary>
         [DataField]
-        public AreaFloorId? StartingFloor { get; set; }
+        public AreaFloorId StartingFloor { get; set; } = AreaFloorId.Default;
 
         /// <summary>
         /// Position to place the player on when entering the starting floor. 

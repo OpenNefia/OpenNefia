@@ -7,7 +7,7 @@
     maxItemsOnGround: 100
   - type: AreaEntrance
     chipID: Elona.MObjAreaTown
-    startingFloor: Elona.Home:0
+    startingFloor: Elona.Home:1
     startLocation: !type:MapEdgesLocation
       edge: South
 

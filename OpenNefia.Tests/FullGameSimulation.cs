@@ -13,6 +13,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;

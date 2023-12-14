@@ -21,6 +21,9 @@ namespace OpenNefia.Core.Areas
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context = null)
         {
+            if (node.Value == AreaFloorId.DefaultFloorName)
+                return new ValidatedValueNode(node);
+
             return AreaFloorIdRegex.IsMatch(node.Value)
                 ? new ValidatedValueNode(node) :
                 new ErrorNode(node, $"Could not parse {nameof(AreaFloorId)}: '{node.Value}'. Must be formatted like 'SomeId:123'.");
@@ -30,6 +33,9 @@ namespace OpenNefia.Core.Areas
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null,
             AreaFloorId rawValue = default)
         {
+            if (node.Value == AreaFloorId.DefaultFloorName)
+                return AreaFloorId.Default;
+
             var matches = AreaFloorIdRegex.Match(node.Value);
             if (!matches.Success)
                 throw new InvalidMappingException($"Could not parse {nameof(AreaFloorId)}: '{node.Value}'. Must be formatted like 'SomeId:123'.");

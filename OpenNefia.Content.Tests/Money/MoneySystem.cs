@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Tests.Money
             var mapMan = sim.Resolve<IMapManager>();
             var entGen = sim.GetEntitySystem<IEntityGen>();
             var stacks = sim.GetEntitySystem<IStackSystem>();
-            
+
             var sys = sim.GetEntitySystem<IMoneySystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);

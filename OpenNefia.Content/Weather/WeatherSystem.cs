@@ -140,10 +140,12 @@ namespace OpenNefia.Content.Weather
 
             weather.TimeUntilNextChange = duration ?? CalcRandomWeatherDuration();
 
-            var weatherLayer = _mapRenderer.GetTileLayer<WeatherTileDrawLayer>();
-            var ev = new WeatherGetDrawableEvent();
-            RaiseEvent(weather.Owner, ev);
-            weatherLayer.WeatherDrawable = ev.OutDrawable;
+            if (_mapRenderer.TryGetTileLayer<WeatherTileDrawLayer>(out var layer))
+            {
+                var ev = new WeatherGetDrawableEvent();
+                RaiseEvent(weather.Owner, ev);
+                layer.WeatherDrawable = ev.OutDrawable;
+            }
 
             WeatherPlayAmbientSound(_mapManager.ActiveMap);
 
@@ -227,10 +229,16 @@ namespace OpenNefia.Content.Weather
                 return false;
             }
 
+            if (HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
+            {
+                coords = Spatial(player).MapPosition;
+                return true;
+            }
+
             var entrances = _areaKnownEntrances.EnumerateKnownEntrancesTo(map.Id);
             if (!entrances.TryFirstOrDefault(out var entrance))
             {
-                Logger.DebugS("weather", $"Can't find entrance to {map} in world map");
+                // Logger.DebugS("weather", $"Can't find entrance to {map} in world map");
                 coords = null;
                 return false;
             }

@@ -17,10 +17,16 @@ namespace OpenNefia.Content.Areas
     public sealed class AreaKnownEntrancesComponent : Component
     {
         /// <summary>
+        /// { TargetArea -> { EntrancesLeadingToArea } }
+        /// </summary>
+        [DataField]
+        public Dictionary<AreaId, Dictionary<EntityUid, AreaEntranceMetadata>> KnownEntrancesByArea { get; set; } = new();
+
+        /// <summary>
         /// { TargetGlobalArea -> { EntrancesLeadingToArea } }
         /// </summary>
         [DataField]
-        public Dictionary<GlobalAreaId, Dictionary<EntityUid, AreaEntranceMetadata>> KnownEntrances { get; set; } = new();
+        public Dictionary<GlobalAreaId, Dictionary<EntityUid, AreaEntranceMetadata>> KnownEntrancesByGlobalArea { get; set; } = new();
     }
 
     [DataDefinition]

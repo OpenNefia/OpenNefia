@@ -176,7 +176,7 @@ namespace OpenNefia.Content.Nefia
             {
                 var stairs = EntityManager.GetComponent<StairsComponent>(surfacing.Owner);
 
-                if (floorNumber <= 0)
+                if (floorNumber <= AreaFloorId.DefaultFloorNumber)
                 {
                     // TODO for better precision, the entity UID of the entrance needs to be passed here.
                     // but MapEntrance doesn't attach any entity information.

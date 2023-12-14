@@ -7,6 +7,7 @@ using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.Rendering.TileRowDrawLayers;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace OpenNefia.Core.Rendering
@@ -126,9 +127,18 @@ namespace OpenNefia.Core.Rendering
             dependencyCollection.Register(type);
         }
 
-        public T GetTileLayer<T>() where T : ITileLayer
+        public bool TryGetTileLayer<T>([NotNullWhen(true)] out T? tileLayer) where T : class, ITileLayer
         {
-            return (T)_allTileLayers.Single(layer => layer is T);
+            _allTileLayers.TryFirstOrDefault(layer => layer is T, out var tileLayer2);
+            if (tileLayer2 != null)
+            {
+                tileLayer = (T)tileLayer2;
+            }
+            else
+            {
+                tileLayer = null;
+            }
+            return tileLayer != null;
         }
 
         private IEnumerable<Type> GetSortedLayers(Dictionary<Type, OrderingData> types)

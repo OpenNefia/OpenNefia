@@ -42,9 +42,9 @@ namespace OpenNefia.Content.Home
 
             var floorNo = floorId.Value.FloorNumber;
 
-            if (floorNo > 0)
+            if (floorNo > AreaFloorId.DefaultFloorNumber)
                 args.OutName += $" B.{floorNo}";
-            else if (floorNo < 0)
+            else if (floorNo < AreaFloorId.DefaultFloorNumber)
                 args.OutName += $" L.{Math.Abs(floorNo)}";
         }
 
