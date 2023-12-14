@@ -101,7 +101,13 @@ namespace OpenNefia.Core.Rendering
         /// Location of the memory on the map.
         /// </summary>
         [DataField]
-        internal MapCoordinates Coords;
+        public MapCoordinates Coords { get; internal set; }
+
+        /// <summary>
+        /// Previous coordinates of this memory. Used for smooth scrolling.
+        /// </summary>
+        [DataField]
+        public MapCoordinates PreviousCoords { get; set; }
 
         /// <summary>
         /// Internal ID of the memory for bookkeeping.

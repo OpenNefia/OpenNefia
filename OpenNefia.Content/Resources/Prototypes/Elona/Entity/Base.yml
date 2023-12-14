@@ -5,6 +5,7 @@
   - type: Chip
     id: Default
   - type: Tag
+  - type: Scrollable
 
 - type: Entity
   id: BaseChara
@@ -132,7 +133,6 @@
 
 - type: Entity
   id: BaseEnchantment
-  parent: BaseObject
   abstract: true
   hspEntityType: enchantment
   components:
