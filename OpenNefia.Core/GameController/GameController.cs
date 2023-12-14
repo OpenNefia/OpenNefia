@@ -362,6 +362,7 @@ namespace OpenNefia.Core.GameController
                 DoShutdown();
             }
 
+            _audio.FrameUpdate(frame);
             _hotReloadWatcher.FrameUpdate(frame);
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);

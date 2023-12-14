@@ -7,7 +7,7 @@ Elona.Common = {
     SomethingIsPut = "何かが足元に転がってきた。",
     TooExhausted = function(entity)
         entity = entity or _.player()
-        return ("%s疲労し過ぎて失敗した！"):format(_.kare_wa(entity))
+        return ("%s疲労し過ぎて失敗した！"):format(_.sore_wa(entity))
     end,
     PutInBackpack = function(item)
         return ("%sをバックパックに入れた。"):format(_.name(item))

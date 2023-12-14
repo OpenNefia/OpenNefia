@@ -59,7 +59,7 @@ namespace OpenNefia.Content.GameObjects
                     {
                         var ev2 = new ExitingMapFromEdgesEventArgs(map, mapEdgesEntrance.Entrance);
                         playerSpatial.Direction = playerSpatial.Direction.GetOpposite();
-                        Raise(uid, ev2, args);
+                        RaiseAndPropagate(uid, ev2, args);
                     }
                 }
             }
@@ -91,11 +91,11 @@ namespace OpenNefia.Content.GameObjects
             foreach (var collidedSpatial in entities)
             {
                 var ev = new CollideWithEventArgs(collidedSpatial.Owner);
-                if (!Raise(source, ev, args))
+                if (!RaiseAndPropagate(source, ev, args))
                     return;
 
                 var ev2 = new WasCollidedWithEventArgs(source);
-                if (!Raise(collidedSpatial.Owner, ev2, args))
+                if (!RaiseAndPropagate(collidedSpatial.Owner, ev2, args))
                     return;
             }
         }

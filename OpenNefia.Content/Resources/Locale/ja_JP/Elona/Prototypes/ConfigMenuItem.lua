@@ -101,6 +101,15 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Formatter = "config.common.formatter.wait", -- TODO
     },
 
+    AnimeScreenRefresh = {
+        Name = "画面の更新頻度",
+        Formatter = "config.common.formatter.wait", -- TODO
+    },
+
+    AnimeBackgroundEffectWait = {
+        Name = "背景エフェクトウェイト",
+    },
+
     --
     -- Menu: Input
     --

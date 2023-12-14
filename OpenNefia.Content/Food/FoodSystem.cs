@@ -57,7 +57,6 @@ namespace OpenNefia.Content.Food
         void SpoilFood(EntityUid ent, FoodComponent? food = null);
 
         string GetFoodName(EntityUid ent, FoodComponent? food = null);
-        string GetNutritionMessage(int newNutrition);
         PrototypeId<ChipPrototype> GetFoodChip(PrototypeId<FoodTypePrototype> foodType, int foodQuality);
         void MakeDish(EntityUid item, int foodQuality, FoodComponent? food = null);
         bool IsHumanFlesh(EntityUid entity, FoodComponent? food = null);
@@ -188,7 +187,7 @@ namespace OpenNefia.Content.Food
             if (_gameSession.IsPlayer(eater))
             {
                 _identify.Identify(food, IdentifyState.Name);
-                _mes.Display(GetNutritionMessage(hungerComp.Nutrition), UiColors.MesGreen);
+                _mes.Display(_hunger.GetNutritionMessage(hungerComp.Nutrition), UiColors.MesGreen);
             }
             else
             {
@@ -354,25 +353,6 @@ namespace OpenNefia.Content.Food
                 food.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromDays(3);
 
             food.FoodQuality = int.Clamp(foodQuality, 1, 9);
-        }
-
-        public string GetNutritionMessage(int newNutrition)
-        {
-            LocaleKey key;
-            if (newNutrition >= HungerLevels.Bloated)
-                key = "Bloated";
-            else if (newNutrition >= HungerLevels.Satisfied)
-                key = "Satisfied";
-            else if (newNutrition >= HungerLevels.Normal)
-                key = "Normal";
-            else if (newNutrition >= HungerLevels.Hungry)
-                key = "Hungry";
-            else if (newNutrition >= HungerLevels.VeryHungry)
-                key = "VeryHungry";
-            else
-                key = "Starving";
-
-            return Loc.GetString(new LocaleKey("Elona.Food.Nutrition").With(key));
         }
 
         private void ApplyFoodCurseState(EntityUid eater, CurseState curseState, HungerComponent? hunger = null)

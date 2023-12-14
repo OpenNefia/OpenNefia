@@ -967,10 +967,10 @@ Elona.Quest = {
 
             Activity = {
                 Start = function(actor, item)
-                    return ("%s%sを掘り始めた。"):format(_.kare_wa(actor), _.name(item))
+                    return ("%s%sを掘り始めた。"):format(_.sore_wa(actor), _.name(item))
                 end,
                 Finish = function(actor, item, weight)
-                    return ("%s%sを収穫した(%s)"):format(_.kare_wa(actor), _.name(item), weight)
+                    return ("%s%sを収穫した(%s)"):format(_.sore_wa(actor), _.name(item), weight)
                 end,
                 Sound = { " *ザクッ* ", " *♪* ", " *ズシュ* ", " *ジャリ* " },
             },

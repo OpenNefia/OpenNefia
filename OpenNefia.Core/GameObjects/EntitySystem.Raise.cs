@@ -26,7 +26,7 @@ namespace OpenNefia.Core.GameObjects
             return args.Handled || (!EntityManager.IsAlive(uid) && !ignoreLiveness);
         }
 
-        protected bool Raise<T1, T2>(EntityUid uid, T1 args, T2 propagateTo, bool ignoreLiveness = false)
+        protected bool RaiseAndPropagate<T1, T2>(EntityUid uid, T1 args, T2 propagateTo, bool ignoreLiveness = false)
             where T1 : TurnResultEntityEventArgs
             where T2 : TurnResultEntityEventArgs
         {

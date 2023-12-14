@@ -2,22 +2,22 @@
   id: Elona.EncounterEnemy
   parent: BaseEncounter
   components:
-  - type: EncounterEnemy
+  - type: EncounterTypeEnemy
 
 - type: Entity
   id: Elona.EncounterAssassin
   parent: BaseEncounter
   components:
-  - type: EncounterAssassin
+  - type: EncounterTypeAssassin
 
 - type: Entity
   id: Elona.EncounterMerchant
   parent: BaseEncounter
   components:
-  - type: EncounterMerchant
+  - type: EncounterTypeMerchant
 
 - type: Entity
   id: Elona.EncounterRogue
   parent: BaseEncounter
   components:
-  - type: EncounterRogue
+  - type: EncounterTypeRogue

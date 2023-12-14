@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Nefia
         /// <summary>
         /// Floor type used by Nefias.
         /// </summary>
-        public static readonly AreaFloorId AreaFloorNefia = new AreaFloorId("Elona.Nefia", 0);
+        public static readonly AreaFloorId AreaFloorNefia = new AreaFloorId("Elona.Nefia", AreaFloorId.DefaultFloorNumber);
 
         private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)
         {
@@ -386,7 +386,7 @@ namespace OpenNefia.Content.Nefia
             areaDungeonComp.DeepestFloor = floorCount;
 
             var areaEntranceComp = EntityManager.EnsureComponent<AreaEntranceComponent>(areaEntity);
-            areaEntranceComp.StartingFloor = AreaFloorNefia.WithFloorNumber(0);
+            areaEntranceComp.StartingFloor = AreaFloorNefia;
         }
 
         private PrototypeId<EntityPrototype> PickRandomNefiaEntityID()

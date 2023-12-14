@@ -33,6 +33,8 @@ namespace OpenNefia.Content.Maps
                 if (_mapManager.ActiveMap != null)
                     UpdateMapShadow(_mapManager.ActiveMap);
             };
+
+            SubscribeComponent<MapCommonComponent, MapOnTimePassedEvent>(UpdateMapShadow);
         }
 
         private void UpdateMapShadow(EntityUid uid, MapCommonComponent component, ref MapOnTimePassedEvent args)

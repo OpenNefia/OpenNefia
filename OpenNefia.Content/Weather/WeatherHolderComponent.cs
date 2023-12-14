@@ -6,23 +6,23 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Stayers
+namespace OpenNefia.Content.Weather
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class StayersComponent : Component
+    public sealed class WeatherHolderComponent : Component
     {
-        public static readonly ContainerId ContainerIdStayers = new("Elona.Stayers");
+        public static readonly ContainerId ContainerIdWeatherHolder = new("Elona.WeatherHolder");
 
         /// <summary>
-        /// Holds the staying character entities.
+        /// Holds the active weather, if any.
         /// </summary>
-        public Container Container { get; private set; } = default!;
+        public ContainerSlot Container { get; private set; } = default!;
 
         protected override void Initialize()
         {
             base.Initialize();
-            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdStayers);
+            Container = ContainerHelpers.EnsureContainer<ContainerSlot>(Owner, ContainerIdWeatherHolder);
         }
     }
 }

@@ -12,19 +12,19 @@ namespace OpenNefia.Content.Encounters
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Encounter)]
-    public sealed class EncounterEnemyComponent : Component
+    public sealed class EncounterTypeEnemyComponent : Component
     {
     }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Encounter)]
-    public sealed class EncounterMerchantComponent : Component
+    public sealed class EncounterTypeMerchantComponent : Component
     {
     }
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Encounter)]
-    public sealed class EncounterAssassinComponent : Component
+    public sealed class EncounterTypeAssassinComponent : Component
     {
         [DataField]
         public EntityUid EscortQuestUid { get; set; }
@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Encounters
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Encounter)]
-    public sealed class EncounterRogueComponent : Component
+    public sealed class EncounterTypeRogueComponent : Component
     {
     }
 }

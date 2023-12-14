@@ -17,6 +17,8 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
+    // TODO since mods can define arbitrary entity types anyway, this
+    // is probably best represented with strings instead of bitflags
     public enum ComponentTarget
     {
         /// <summary>
@@ -48,5 +50,10 @@ namespace OpenNefia.Core.GameObjects
         /// This component should be used with encounter entities.
         /// </summary>
         Encounter = 0x20,
+
+        /// <summary>
+        /// This component should be used with weather entities.
+        /// </summary>
+        Weather = 0x40,
     }
 }

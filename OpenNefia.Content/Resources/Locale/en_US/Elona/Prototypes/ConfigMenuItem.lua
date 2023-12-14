@@ -103,6 +103,16 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Formatter = "config.common.formatter.wait", -- TODO
     },
 
+    AnimeScreenRefresh = {
+        Name = "Screen Refresh",
+        Description = "Number of frames to wait between updates to animations in the screen, like rain/lighting.\nThis does not affect key delay or animations that block input.\n",
+        Formatter = "config.common.formatter.wait", -- TODO
+    },
+
+    AnimeBackgroundEffectWait = {
+        Name = "Background Effect Wait",
+    },
+
     --
     -- Menu: Input
     --

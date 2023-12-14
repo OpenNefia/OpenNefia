@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Home
         private void AreaHomeTutorial_FloorGenerate(EntityUid uid, AreaHomeTutorialComponent component, AfterAreaFloorGeneratedEvent args)
         {
             // >>>>>>>> shade2/map.hsp:877 	 		if gHomeLevel=0{ ..
-            if (args.FloorId.FloorNumber != 0)
+            if (args.FloorId.FloorNumber != AreaFloorId.DefaultFloorNumber)
                 return;
 
             if (_sidequests.GetState(Protos.Sidequest.MainQuest) != 0)

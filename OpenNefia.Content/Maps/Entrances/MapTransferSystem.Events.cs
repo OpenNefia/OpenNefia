@@ -110,7 +110,7 @@ namespace OpenNefia.Content.Maps
             if (_turnOrder.PlayerAboutToRespawn)
             {
                 _mes.Display(Loc.GetString("Elona.MapTransfer.Leave.DeliveredToYourHome"));
-                _weather.ChangeFromWorldMap(args.NewMap);
+                _weather.ChangeWeatherFromWorldMapClimate();
             }
             else if (HasComp<MapTypeWorldMapComponent>(args.OldMap.MapEntityUid))
             {

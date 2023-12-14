@@ -1,0 +1,49 @@
+- type: Entity
+  id: Elona.WeatherSunny
+  parent: BaseWeather
+  # hspIds:
+  #   elona122: 0
+  components:
+  - type: Weather
+    showNameInHUD: false
+  - type: WeatherTypeSunny
+
+- type: Entity
+  id: Elona.WeatherEtherwind
+  parent: BaseWeather
+  # hspIds:
+  #   elona122: 1
+  components:
+  - type: Weather
+    isBadWeather: true
+    ambientSound: Elona.BgWind
+  - type: WeatherTypeEtherwind
+
+- type: Entity
+  id: Elona.WeatherSnow
+  # hspIds:
+  #   elona122: 2
+  components:
+  - type: Weather
+    isBadWeather: true
+  - type: WeatherTypeSnow
+
+- type: Entity
+  id: Elona.WeatherRain
+  # hspIds:
+  #   elona122: 3
+  components:
+  - type: Weather
+    isBadWeather: true
+    ambientSound: Elona.BgRain
+  - type: WeatherTypeRain
+
+- type: Entity
+  id: Elona.WeatherHardRain
+  # hspIds:
+  #   elona122: 4
+  components:
+  - type: Weather
+    isBadWeather: true
+    ambientSound: Elona.BgThunder
+  - type: WeatherTypeHardRain

@@ -238,6 +238,7 @@ namespace OpenNefia.Content.Parties
         {
             if (Parties.TryGetPartyId(uid, out var partyId))
             {
+                Logger.WarningS("party", $"Entity {uid} is being removed from {partyId} because they were deleted.");
                 Parties.RemoveMember(partyId, uid);
             }
         }

@@ -35,6 +35,8 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.Fame;
+using OpenNefia.Content.Weather;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -57,6 +59,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
         [Dependency] private readonly IAreaManager _areas = default!;
+        [Dependency] private readonly IWeatherSystem _weathers = default!;
 
         [EngineVariable("LecchoTorte.QuickstartPlayer")]
         private QuickstartChara _quickstartPlayer { get; } = new();
@@ -137,11 +140,11 @@ namespace OpenNefia.LecchoTorte.QuickStart
             var playerSpatial = Spatial(ev.Player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
-            ev.OutActiveMap = map;
+            _mapMan.SetActiveMap(map.Id);
 
             PrototypeId<EntityPrototype> areaId = new("LecchoTorte.QuickstartArea");
             GlobalAreaId globalAreaId = new("LecchoTorte.QuickstartArea");
-            AreaFloorId floorId = new("LecchoTorte.QuickstartArea", 0);
+            AreaFloorId floorId = new("LecchoTorte.QuickstartArea", AreaFloorId.DefaultFloorNumber);
 
             var area = _areas.CreateArea(areaId, globalAreaId);
             _areas.RegisterAreaFloor(area, floorId, map);
@@ -154,6 +157,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
             GenerateAllies(player);
 
             EnsureComp<FameComponent>(player).Fame.Base = 50000;
+
+            _weathers.TryChangeWeather(Protos.Weather.Rain, GameTimeSpan.FromHours(6));
 
             cb(player, map);
 

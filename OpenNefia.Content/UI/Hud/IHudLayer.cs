@@ -15,6 +15,11 @@ namespace OpenNefia.Content.UI.Hud
         /// </summary>
         public UIBox2 GameBounds { get; }
 
+        /// <summary>
+        /// Portion of the game window not covered by the HUD, in physical pixels.
+        /// </summary>
+        public UIBox2 GamePixelBounds { get; }
+
         void Initialize();
         void ClearWidgets();
         void RefreshWidgets();

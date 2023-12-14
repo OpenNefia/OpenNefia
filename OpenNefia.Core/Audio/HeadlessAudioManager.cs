@@ -2,12 +2,17 @@
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia.Core.Audio
 {
     public sealed class HeadlessAudioManager : IAudioManager
     {
         public void Initialize()
+        {
+        }
+
+        public void FrameUpdate(FrameEventArgs frame)
         {
         }
 
@@ -36,6 +41,18 @@ namespace OpenNefia.Core.Audio
         }
 
         public void SetListenerPosition(Vector2 listenerPos)
+        {
+        }
+
+        public void PlayLooping(PrototypeId<SoundPrototype> soundId, string tag, AudioParams? audioParams = null)
+        {
+        }
+
+        public void StopLooping(string tag)
+        {
+        }
+
+        public void StopAllLooping()
         {
         }
     }
