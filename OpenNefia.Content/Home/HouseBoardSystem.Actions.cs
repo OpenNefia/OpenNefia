@@ -22,6 +22,7 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Activity;
+using OpenNefia.Core.Areas;
 
 namespace OpenNefia.Content.Home
 {
@@ -168,7 +169,7 @@ namespace OpenNefia.Content.Home
             {
                 args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.HomeRank"), HouseBoard_ViewHomeRank));
                 args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.AlliesInYourHome"), HouseBoard_AlliesInYourHome));
-                if (_areaManager.TryGetFloorOfMap(map.Id, out var floor) && floor.Value.FloorNumber == 1)
+                if (_areaManager.TryGetFloorOfMap(map.Id, out var floor) && floor.Value.FloorNumber == AreaFloorId.DefaultFloorNumber)
                 {
                     args.OutActions.Add(new(Loc.GetString("Elona.Item.HouseBoard.Actions.RecruitAServant"), HouseBoard_RecruitServant));
                 }

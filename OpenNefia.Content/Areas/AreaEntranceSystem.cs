@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Areas
 {
     public interface IAreaEntranceSystem : IEntitySystem
     {
-        AreaFloorId? GetStartingFloor(IArea area, AreaFloorId? floorId,
+        AreaFloorId GetStartingFloor(IArea area, AreaFloorId? floorId,
             AreaEntranceComponent? areaDefEntrance = null);
 
         WorldMapEntranceComponent CreateAreaEntrance(IArea area, MapCoordinates coords,
@@ -57,11 +57,11 @@ namespace OpenNefia.Content.Areas
             args.OutMessage = areaEntrance.EntranceMessage;
         }
 
-        public AreaFloorId? GetStartingFloor(IArea area, AreaFloorId? floorId,
+        public AreaFloorId GetStartingFloor(IArea area, AreaFloorId? floorId,
             AreaEntranceComponent? areaEntranceComp = null)
         {
             if (!Resolve(area.AreaEntityUid, ref areaEntranceComp))
-                return floorId;
+                return AreaFloorId.Default;
 
             return floorId != null ? floorId.Value : areaEntranceComp.StartingFloor;
         }

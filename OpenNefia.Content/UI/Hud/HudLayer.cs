@@ -79,6 +79,7 @@ namespace OpenNefia.Content.UI.Hud
         public HudMessageBoxWidget HudMessageWindow { get; private set; } = default!;
 
         public UIBox2 GameBounds => new(0, 0, _graphics.WindowSize.X, _graphics.WindowSize.Y - HudMinimapWidget.MinimapHeight);
+        public UIBox2 GamePixelBounds => new(0, 0, _graphics.WindowPixelSize.X, _graphics.WindowPixelSize.Y - HudMinimapWidget.MinimapHeight * UIScale);
         public IBacklog Backlog => HudMessageWindow;
         public IHudMessageWindow MessageWindow => HudMessageWindow;
         public bool IsShowingBacklog => HudMessageWindow.IsShowingBacklog;

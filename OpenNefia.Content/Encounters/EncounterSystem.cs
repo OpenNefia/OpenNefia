@@ -146,10 +146,10 @@ namespace OpenNefia.Content.Encounters
             if (_rand.OneIn(30))
                 id = Protos.Encounter.Enemy;
 
-            if (_weather.IsWeatherActive(Protos.Weather.HardRain) && _rand.OneIn(10))
+            if (_weather.IsWeatherActive<WeatherTypeHardRainComponent>() && _rand.OneIn(10))
                 id = Protos.Encounter.Enemy;
 
-            if (_weather.IsWeatherActive(Protos.Weather.Etherwind) && _rand.OneIn(13))
+            if (_weather.IsWeatherActive<WeatherTypeEtherwindComponent>() && _rand.OneIn(13))
                 id = Protos.Encounter.Enemy;
 
             var tile = map.GetTileID(ev.Coords.Position);

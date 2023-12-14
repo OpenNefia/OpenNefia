@@ -53,10 +53,17 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IRandomAliasGenerator _randomAlias = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         private void Startup()
         {
             _fieldLayer.Startup();
+        }
+
+        private void OnTitleScreenEntered()
+        {
+            _saveGameSerializer.ResetGameState();
+            _audio.StopAllLooping();
         }
 
         public void RunTitleScreen()
@@ -79,7 +86,7 @@ namespace OpenNefia.Content.TitleScreen
 
             while (action != TitleScreenAction.Quit)
             {
-                _saveGameSerializer.ResetGameState();
+                OnTitleScreenEntered();
 
                 using (ITitleScreenLayer titleScreen = _uiManager.CreateLayer<TitleScreenLayer, TitleScreenResult>())
                 {
@@ -216,14 +223,12 @@ namespace OpenNefia.Content.TitleScreen
 
             var pev = new P_ScenarioOnGameStartEvent(player);
             _protos.EventBus.RaiseEvent(scenarioID, pev);
-            
-            if (pev.OutActiveMap == null)
+
+            var map = _mapManager.ActiveMap;
+            if (map == null)
             {
                 throw new InvalidDataException($"Scenario {scenarioID} did not return an active map");
             }
-
-            var map = pev.OutActiveMap;
-            _mapManager.SetActiveMap(map.Id);
 
             var ev2 = new NewGameStartedEventArgs();
             _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev2);

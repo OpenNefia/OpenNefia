@@ -55,6 +55,7 @@ using OpenNefia.Content.Identify;
 using OpenNefia.Content.Quests;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
+using OpenNefia.Content.Weather;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -84,6 +85,7 @@ var _refresh = EntitySystem.Get<IRefreshSystem>();
 var _levels = EntitySystem.Get<ILevelSystem>();
 var _effects = EntitySystem.Get<IEffectSystem>();
 var _quests = EntitySystem.Get<IQuestSystem>();
+var _weather = EntitySystem.Get<IWeatherSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -288,4 +290,9 @@ public bool warpTo(GlobalAreaId areaId, AreaFloorId? floorId = null)
 public void passDays(int days)
 {
     _world.PassTime(GameTimeSpan.FromDays(days));
+}
+
+public void changeWeather(PrototypeId<EntityPrototype> id, GameTimeSpan? duration = null)
+{
+    _weather.TryChangeWeather(id, duration);
 }

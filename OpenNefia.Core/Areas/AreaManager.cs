@@ -342,13 +342,19 @@ namespace OpenNefia.Core.Areas
                 Logger.WarningS("area", $"Deleting active area {areaID}");
             }
 
-            if (!_areas.ContainsKey(areaID))
+            if (!_areas.TryGetValue(areaID, out var area))
             {
                 Logger.WarningS("area", $"Attempted to delete nonexistent area '{areaID}'");
                 return;
             }
 
             Logger.InfoS("area", $"Deleting area {areaID}.");
+
+            foreach (var (floorId, floor) in area.ContainedMaps)
+            {
+                if (floor.MapId != null)
+                    _mapsToAreas.Remove(floor.MapId.Value);
+            }
 
             _areas.Remove(areaID);
 

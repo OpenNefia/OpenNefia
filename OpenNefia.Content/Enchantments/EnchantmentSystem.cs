@@ -247,7 +247,7 @@ namespace OpenNefia.Content.Enchantments
             }
         }
 
-        private EntityUid? GetItemWielder(EntityUid item)
+        private EntityUid GetItemWielder(EntityUid item)
         {
             if (_containers.TryGetContainingContainer(item, out var container) && HasComp<CharaComponent>(container.Owner))
                 return container.Owner;

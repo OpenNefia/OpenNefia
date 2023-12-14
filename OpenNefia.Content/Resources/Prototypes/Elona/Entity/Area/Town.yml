@@ -6,9 +6,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorVernis:0: Elona.Vernis
+      Default: Elona.Vernis
   - type: AreaEntrance
-    startingFloor: Elona.FloorVernis:0
     globalId: Elona.AreaVernis
 
 - type: Entity
@@ -19,9 +18,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorPortKapul:0: Elona.PortKapul
+      Default: Elona.PortKapul
   - type: AreaEntrance
-    startingFloor: Elona.FloorPortKapul:0
     globalId: Elona.AreaPortKapul
 
 - type: Entity
@@ -32,9 +30,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorYowyn:0: Elona.Yowyn
+      Default: Elona.Yowyn
   - type: AreaEntrance
-    startingFloor: Elona.FloorYowyn:0
     globalId: Elona.AreaYowyn
   - type: AreaRandomGenTables
     tables:
@@ -52,9 +49,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorDerphy:0: Elona.Derphy
+      Default: Elona.Derphy
   - type: AreaEntrance
-    startingFloor: Elona.FloorDerphy:0
     globalId: Elona.AreaDerphy
 
 - type: Entity
@@ -65,9 +61,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorPalmia:0: Elona.Palmia
+      Default: Elona.Palmia
   - type: AreaEntrance
-    startingFloor: Elona.FloorPalmia:0
     globalId: Elona.AreaPalmia
   - type: AreaRandomGenTables
     tables:
@@ -85,9 +80,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorNoyel:0: Elona.Noyel
+      Default: Elona.Noyel
   - type: AreaEntrance
-    startingFloor: Elona.FloorNoyel:0
     globalId: Elona.AreaNoyel
 
 - type: Entity
@@ -98,7 +92,6 @@
   components:
   - type: AreaStaticFloors
     floors:
-      Elona.FloorLumiest:0: Elona.Lumiest
+      Default: Elona.Lumiest
   - type: AreaEntrance
-    startingFloor: Elona.FloorLumiest:0
     globalId: Elona.AreaLumiest

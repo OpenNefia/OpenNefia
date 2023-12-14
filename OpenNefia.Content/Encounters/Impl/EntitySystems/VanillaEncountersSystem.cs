@@ -69,23 +69,23 @@ namespace OpenNefia.Content.Encounters
 
         public override void Initialize()
         {
-            SubscribeComponent<EncounterEnemyComponent, EncounterCalcLevelEvent>(Enemy_CalcLevel);
-            SubscribeComponent<EncounterEnemyComponent, EncounterBeforeMapEnteredEvent>(Enemy_BeforeStart);
-            SubscribeComponent<EncounterEnemyComponent, EncounterAfterMapEnteredEvent>(Enemy_OnMapEntered);
+            SubscribeComponent<EncounterTypeEnemyComponent, EncounterCalcLevelEvent>(Enemy_CalcLevel);
+            SubscribeComponent<EncounterTypeEnemyComponent, EncounterBeforeMapEnteredEvent>(Enemy_BeforeStart);
+            SubscribeComponent<EncounterTypeEnemyComponent, EncounterAfterMapEnteredEvent>(Enemy_OnMapEntered);
 
-            SubscribeComponent<EncounterMerchantComponent, EncounterCalcLevelEvent>(Merchant_CalcLevel);
-            SubscribeComponent<EncounterMerchantComponent, EncounterAfterMapEnteredEvent>(Merchant_OnMapEntered);
+            SubscribeComponent<EncounterTypeMerchantComponent, EncounterCalcLevelEvent>(Merchant_CalcLevel);
+            SubscribeComponent<EncounterTypeMerchantComponent, EncounterAfterMapEnteredEvent>(Merchant_OnMapEntered);
             SubscribeComponent<WanderingMerchantComponent, GetDefaultDialogChoicesEvent>(WanderingMerchant_AddDialogChoices);
             SubscribeComponent<WanderingMerchantComponent, AfterDialogEndedEvent>(WanderingMerchant_ExitMapAfterDialog);
             SubscribeComponent<WanderingMerchantComponent, OnGenerateLootDropsEvent>(WanderingMerchant_GenerateLootDrops);
 
             SubscribeComponent<MapEncounterComponent, MapQuestTargetsEliminatedEvent>(Assassin_TargetsEliminated);
-            SubscribeComponent<EncounterAssassinComponent, EncounterCalcLevelEvent>(Assassin_CalcLevel);
-            SubscribeComponent<EncounterAssassinComponent, EncounterBeforeMapEnteredEvent>(Assassin_BeforeStart);
-            SubscribeComponent<EncounterAssassinComponent, EncounterAfterMapEnteredEvent>(Assassin_OnMapEntered);
+            SubscribeComponent<EncounterTypeAssassinComponent, EncounterCalcLevelEvent>(Assassin_CalcLevel);
+            SubscribeComponent<EncounterTypeAssassinComponent, EncounterBeforeMapEnteredEvent>(Assassin_BeforeStart);
+            SubscribeComponent<EncounterTypeAssassinComponent, EncounterAfterMapEnteredEvent>(Assassin_OnMapEntered);
 
-            SubscribeComponent<EncounterRogueComponent, EncounterCalcLevelEvent>(Rogue_CalcLevel);
-            SubscribeComponent<EncounterRogueComponent, EncounterAfterMapEnteredEvent>(Rogue_OnMapEntered);
+            SubscribeComponent<EncounterTypeRogueComponent, EncounterCalcLevelEvent>(Rogue_CalcLevel);
+            SubscribeComponent<EncounterTypeRogueComponent, EncounterAfterMapEnteredEvent>(Rogue_OnMapEntered);
         }
 
         public void ReturnToPreviousMap(IDialogEngine engine, IDialogNode node)
@@ -105,7 +105,7 @@ namespace OpenNefia.Content.Encounters
 
         #region Elona.Enemy
 
-        private void Enemy_CalcLevel(EntityUid uid, EncounterEnemyComponent comp, EncounterCalcLevelEvent args)
+        private void Enemy_CalcLevel(EntityUid uid, EncounterTypeEnemyComponent comp, EncounterCalcLevelEvent args)
         {
             // >>>>>>>> shade2/action.hsp:690 			p=dist_town() ...
             var townDist = _encounters.DistanceFromNearestTown(args.OuterMapCoords);
@@ -117,14 +117,14 @@ namespace OpenNefia.Content.Encounters
             var tile = encounter.StoodWorldMapTile;
             if (ProtoSets.Tile.WorldMapRoadTiles.Contains(tile))
                 level /= 2;
-            else if (_weathers.IsWeatherActive(Protos.Weather.Etherwind))
-                level = level * 3 / 2 + 10;
+            else if (_weathers.IsWeatherActive<WeatherTypeEtherwindComponent>())
+                level = ((int)(level * 1.5)) + 10;
 
             args.OutLevel = level;
             // <<<<<<<< shade2/action.hsp:698 			if encounterLv<0:encounterLv=1 ..
         }
 
-        private void Enemy_BeforeStart(EntityUid uid, EncounterEnemyComponent comp, EncounterBeforeMapEnteredEvent args)
+        private void Enemy_BeforeStart(EntityUid uid, EncounterTypeEnemyComponent comp, EncounterBeforeMapEnteredEvent args)
         {
             // >>>>>>>> shade2/action.hsp:690 			p=dist_town() ...
             var townDist = _encounters.DistanceFromNearestTown(args.OuterMapCoords);
@@ -151,7 +151,7 @@ namespace OpenNefia.Content.Encounters
             // <<<<<<<< shade2/action.hsp:711 			txt lang("襲撃だ！","Ambush!")+valn:msg_halt ..
         }
 
-        private void Enemy_OnMapEntered(EntityUid uid, EncounterEnemyComponent comp, EncounterAfterMapEnteredEvent args)
+        private void Enemy_OnMapEntered(EntityUid uid, EncounterTypeEnemyComponent comp, EncounterAfterMapEnteredEvent args)
         {
             // >>>>>>>> shade2/map.hsp:1640 			p=rnd(9):if cLevel(pc)<=5:p=rnd(3) ...
             var enemyCount = _rand.Next(9);
@@ -170,7 +170,7 @@ namespace OpenNefia.Content.Encounters
                     Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Normal)
                 };
 
-                if (_weathers.IsWeatherActive(Protos.Weather.Etherwind) && !isRoad)
+                if (_weathers.IsWeatherActive<WeatherTypeEtherwindComponent>() && !isRoad)
                 {
                     if (_rand.OneIn(3))
                         filter.Quality = Qualities.Quality.God;
@@ -196,14 +196,14 @@ namespace OpenNefia.Content.Encounters
 
         #region Elona.Merchant
 
-        private void Merchant_CalcLevel(EntityUid uid, EncounterMerchantComponent comp, EncounterCalcLevelEvent args)
+        private void Merchant_CalcLevel(EntityUid uid, EncounterTypeMerchantComponent comp, EncounterCalcLevelEvent args)
         {
             //  >>>>>>>> shade2/action.hsp:685 			encounterLv=10+rnd(100) ...
             args.OutLevel = 10 + _rand.Next(100);
             // <<<<<<<< shade2/action.hsp:685 			encounterLv=10+rnd(100) ..
         }
 
-        private void Merchant_OnMapEntered(EntityUid uid, EncounterMerchantComponent comp, EncounterAfterMapEnteredEvent args)
+        private void Merchant_OnMapEntered(EntityUid uid, EncounterTypeMerchantComponent comp, EncounterAfterMapEnteredEvent args)
         {
             // >>>>>>>> shade2/map.hsp:1623 			flt  ...
             var merchant = _charaGen.GenerateChara(args.EncounterMap.AtPos(10, 11), Protos.Chara.Shopkeeper);
@@ -272,7 +272,7 @@ namespace OpenNefia.Content.Encounters
 
         private void WanderingMerchant_ExitMapAfterDialog(EntityUid uid, WanderingMerchantComponent component, AfterDialogEndedEvent args)
         {
-            if (args.NodeEndedOn.DialogID == Protos.Dialog.Default)
+            if (args.NodeEndedOn?.DialogID == Protos.Dialog.Default)
             {
                 var map = GetMap(uid);
                 if (TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter)
@@ -310,7 +310,7 @@ namespace OpenNefia.Content.Encounters
         {
             if (args.Tag != EncounterAssassinEnemyTag
                 || !TryMap(uid, out var map)
-                || !_encounters.TryGetEncounter<EncounterAssassinComponent>(map, out var encounterAssassin)
+                || !_encounters.TryGetEncounter<EncounterTypeAssassinComponent>(map, out var encounterAssassin)
                 || !TryComp<QuestComponent>(encounterAssassin.EscortQuestUid, out var quest))
                 return;
 
@@ -321,7 +321,7 @@ namespace OpenNefia.Content.Encounters
             // <<<<<<<< elona122/shade2/quest.hsp:421 	gQuestStatus=qSuccess ...
         }
 
-        private void Assassin_CalcLevel(EntityUid uid, EncounterAssassinComponent comp, EncounterCalcLevelEvent args)
+        private void Assassin_CalcLevel(EntityUid uid, EncounterTypeAssassinComponent comp, EncounterCalcLevelEvent args)
         {
             // >>>>>>>> shade2/map.hsp:1615 			flt qLevel(rq),fixGood ...
             var quests = _quests.EnumerateAcceptedQuests<QuestTypeEscortComponent>()
@@ -342,7 +342,7 @@ namespace OpenNefia.Content.Encounters
             // <<<<<<<< shade2/map.hsp:1615 			flt qLevel(rq),fixGood ..
         }
 
-        private void Assassin_BeforeStart(EntityUid uid, EncounterAssassinComponent comp, EncounterBeforeMapEnteredEvent args)
+        private void Assassin_BeforeStart(EntityUid uid, EncounterTypeAssassinComponent comp, EncounterBeforeMapEnteredEvent args)
         {
             // >>>>>>>> shade2/action.hsp:678 			txt lang("暗殺者につかまった。あなたはクライアントを守らなければならない。","Yo ...
             _mes.Display(Loc.GetString("Elona.Quest.Types.Escort.CaughtByAssassins"));
@@ -352,7 +352,7 @@ namespace OpenNefia.Content.Encounters
             // <<<<<<<< shade2/action.hsp:679 			msg_halt ..
         }
 
-        private void Assassin_OnMapEntered(EntityUid uid, EncounterAssassinComponent comp, EncounterAfterMapEnteredEvent args)
+        private void Assassin_OnMapEntered(EntityUid uid, EncounterTypeAssassinComponent comp, EncounterAfterMapEnteredEvent args)
         {
             // >>>>>>>> shade2/map.hsp:1608 		if encounter=encounterAssassin{ ...
             if (!IsAlive(comp.EscortQuestUid) || !TryComp<QuestComponent>(comp.EscortQuestUid, out var quest))
@@ -397,14 +397,14 @@ namespace OpenNefia.Content.Encounters
 
         #region Elona.Rogue
 
-        private void Rogue_CalcLevel(EntityUid uid, EncounterRogueComponent comp, EncounterCalcLevelEvent args)
+        private void Rogue_CalcLevel(EntityUid uid, EncounterTypeRogueComponent comp, EncounterCalcLevelEvent args)
         {
             // >>>>>>>> shade2/action.hsp:673 			encounterLv=cFame(pc)/1000 ...
             args.OutLevel = _fames.GetFame(_gameSession.Player) / 1000;
             // <<<<<<<< shade2/action.hsp:673 			encounterLv=cFame(pc)/1000 ..
         }
 
-        private void Rogue_OnMapEntered(EntityUid uid, EncounterRogueComponent comp, EncounterAfterMapEnteredEvent args)
+        private void Rogue_OnMapEntered(EntityUid uid, EncounterTypeRogueComponent comp, EncounterAfterMapEnteredEvent args)
         {
             EnsureComp<MapCharaGenComponent>(args.EncounterMap.MapEntityUid).MaxCharaCount = 0;
 

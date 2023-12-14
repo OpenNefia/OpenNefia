@@ -30,11 +30,11 @@ using OpenNefia.Content.Charas;
 namespace OpenNefia.Content.Quests
 {
     /// <summary>
-    /// An "immediate quest" is a quest associated with the current map. If the player
-    /// attempts to leave the map before the quest is marked <see cref="QuestState.Completed"/>,
-    /// then the quest will be automatically failed.
+    /// An "immediate quest" is a quest entity associated with a map. If the player
+    /// attempts to leave the map or dies before the quest is marked <see cref="QuestState.Completed"/>,
+    /// the quest will be automatically failed.
     /// Immediate quests may also have an optional time limit, after which custom code
-    /// can be run by subscribing to the <see cref="QuestTimerExpiredEvent"/>
+    /// can be run by subscribing to the <see cref="QuestTimerExpiredEvent"/>.
     /// </summary>
     public interface IMapImmediateQuestSystem : IEntitySystem
     {
@@ -205,6 +205,9 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised on a quest when its immediate quest's timer expires.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestTimerExpiredEvent
     {

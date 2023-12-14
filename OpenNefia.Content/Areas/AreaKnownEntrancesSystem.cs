@@ -81,7 +81,9 @@ namespace OpenNefia.Content.Areas
         {
             if (_areaManager.TryGetAreaOfMap(args.Map.Id, out var area) && TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp))
             {
-                foreach (var (globalAreaId, entrances) in knownComp.KnownEntrances)
+                var allEntrances = knownComp.KnownEntrancesByGlobalArea.Values.Concat(knownComp.KnownEntrancesByArea.Values);
+
+                foreach (var entrances in allEntrances)
                 {
                     foreach (var (entranceEntity, metadata) in entrances.ToList())
                     {
@@ -100,7 +102,7 @@ namespace OpenNefia.Content.Areas
             if (_areaManager.TryGetAreaOfMap(map.Id, out var area) && area.GlobalId != null)
             {
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(area.AreaEntityUid);
-                var known = knownComp.KnownEntrances.GetOrInsertNew(area.GlobalId.Value);
+                var known = knownComp.KnownEntrancesByGlobalArea.GetOrInsertNew(area.GlobalId.Value);
 
                 foreach (var existingEntity in known.Keys.ToList())
                 {
@@ -164,11 +166,12 @@ namespace OpenNefia.Content.Areas
         {
             var destAreaId = entrance.Entrance.MapIdSpecifier.GetOrGenerateAreaId();
 
-            if (destAreaId != null && TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId))
+            if (destAreaId != null)
             {
                 var destArea = _areaManager.GetArea(destAreaId.Value);
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(destArea.AreaEntityUid);
-                var known = knownComp.KnownEntrances.GetOrInsertNew(globalAreaId.Value);
+
+                var known = knownComp.KnownEntrancesByArea.GetOrInsertNew(destAreaId.Value);
 
                 if (known.TryGetValue(spatial.Owner, out var meta))
                 {
@@ -180,6 +183,21 @@ namespace OpenNefia.Content.Areas
                     known.Add(spatial.Owner, new AreaEntranceMetadata(spatial.MapPosition, spatial.Owner));
                 }
 
+                if (TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId))
+                {
+                    var knownGlobal = knownComp.KnownEntrancesByGlobalArea.GetOrInsertNew(globalAreaId.Value);
+
+                    if (knownGlobal.TryGetValue(spatial.Owner, out var meta2))
+                    {
+                        meta2.MapCoordinates = spatial.MapPosition;
+                        meta2.EntranceEntity = spatial.Owner;
+                    }
+                    else
+                    {
+                        knownGlobal.Add(spatial.Owner, new AreaEntranceMetadata(spatial.MapPosition, spatial.Owner));
+                    }
+                }
+
                 Logger.DebugS("sys.knownEntrances", $"Found area entrance: {globalAreaId} ({destAreaId}) <- {spatial.MapPosition}");
             }
         }
@@ -188,12 +206,17 @@ namespace OpenNefia.Content.Areas
         {
             var destAreaId = entrance.Entrance.MapIdSpecifier.GetOrGenerateAreaId();
 
-            if (destAreaId != null && TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId))
+            if (destAreaId != null)
             {
                 var destArea = _areaManager.GetArea(destAreaId.Value);
                 var knownComp = EnsureComp<AreaKnownEntrancesComponent>(destArea.AreaEntityUid);
-                if (knownComp.KnownEntrances.TryGetValue(globalAreaId.Value, out var known))
+
+                if (knownComp.KnownEntrancesByArea.TryGetValue(destAreaId.Value, out var known))
                     known.Remove(entrance.Owner);
+
+                if (TryGetGlobalAreaIdOfArea(destAreaId.Value, out var globalAreaId)
+                    && knownComp.KnownEntrancesByGlobalArea.TryGetValue(globalAreaId.Value, out var knownGlobal))
+                    knownGlobal.Remove(entrance.Owner);
             }
         }
 
@@ -223,17 +246,18 @@ namespace OpenNefia.Content.Areas
 
         public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IArea area)
         {
-            if (area.GlobalId == null)
+            if (!TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp)
+                || !knownComp.KnownEntrancesByArea.TryGetValue(area.Id, out var entrances))
                 return Enumerable.Empty<AreaEntranceMetadata>();
 
-            return EnumerateKnownEntrancesTo(area.GlobalId.Value);
+            return entrances.Values;
         }
 
         public IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID)
         {
             if (!_areaManager.TryGetGlobalArea(globalAreaID, out var area)
                 || !TryComp<AreaKnownEntrancesComponent>(area.AreaEntityUid, out var knownComp)
-                || !knownComp.KnownEntrances.TryGetValue(globalAreaID, out var entrances))
+                || !knownComp.KnownEntrancesByGlobalArea.TryGetValue(globalAreaID, out var entrances))
                 return Enumerable.Empty<AreaEntranceMetadata>();
 
             return entrances.Values;

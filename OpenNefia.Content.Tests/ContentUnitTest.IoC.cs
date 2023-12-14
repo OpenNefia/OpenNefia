@@ -37,6 +37,7 @@ namespace OpenNefia.Content.Tests
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
 
         public UIBox2 GameBounds => default!;
+        public UIBox2 GamePixelBounds => default!;
 
         public IBacklog Backlog => default!;
 

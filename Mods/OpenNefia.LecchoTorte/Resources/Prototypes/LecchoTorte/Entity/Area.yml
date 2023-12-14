@@ -6,7 +6,6 @@
     maxItemsOnGround: 100
     homeRankPoints: 1200
   - type: AreaEntrance
-    startingFloor: LecchoTorte.QuickstartArea:0
     globalId: LecchoTorte.QuickstartArea
 
 - type: Entity
@@ -15,9 +14,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      LecchoTorte.Floor3Towns:0: LecchoTorte.3Towns
+      Default: LecchoTorte.3Towns
   - type: AreaEntrance
-    startingFloor: LecchoTorte.Floor3Towns:0
     globalId: LecchoTorte.3Towns
 
 - type: Entity
@@ -26,9 +24,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      LecchoTorte.TownA:0: LecchoTorte.TownA
+      Default: LecchoTorte.TownA
   - type: AreaEntrance
-    startingFloor: LecchoTorte.TownA:0
     globalId: LecchoTorte.TownA
 
 - type: Entity
@@ -37,9 +34,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      LecchoTorte.TownB:0: LecchoTorte.TownB
+      Default: LecchoTorte.TownB
   - type: AreaEntrance
-    startingFloor: LecchoTorte.TownB:0
     globalId: LecchoTorte.TownB
   - type: AreaRandomGenTables
     tables:
@@ -53,9 +49,8 @@
   components:
   - type: AreaStaticFloors
     floors:
-      LecchoTorte.TownC:0: LecchoTorte.TownC
+      Default: LecchoTorte.TownC
   - type: AreaEntrance
-    startingFloor: LecchoTorte.TownC:0
     globalId: LecchoTorte.TownC
   - type: AreaRandomGenTables
     tables:

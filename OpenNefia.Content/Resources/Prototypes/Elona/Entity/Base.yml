@@ -154,3 +154,9 @@
   abstract: true
   components:
   - type: Encounter
+
+- type: Entity
+  id: BaseWeather
+  abstract: true
+  components:
+  - type: Weather

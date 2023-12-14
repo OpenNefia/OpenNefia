@@ -105,7 +105,7 @@ namespace OpenNefia.Content.Tests.Skills
                 Assert.That(skillStr.Potential, Is.EqualTo(72));
 
                 // Random.
-                Assert.That(level.Experience, Is.EqualTo(4673));
+                Assert.That(level.Experience, Is.EqualTo(6954));
             });
         }
 
@@ -162,7 +162,7 @@ namespace OpenNefia.Content.Tests.Skills
             Assert.Multiple(() =>
             {
                 // Random.
-                Assert.That(level.Experience, Is.EqualTo(1175));
+                Assert.That(level.Experience, Is.EqualTo(1283));
             });
         }
 

@@ -12,7 +12,7 @@ namespace OpenNefia.Content.Stayers
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class StayersComponent : Component
     {
-        public static readonly ContainerId ContainerIdInventory = new("Elona.Stayers");
+        public static readonly ContainerId ContainerIdStayers = new("Elona.Stayers");
 
         /// <summary>
         /// Holds the staying character entities.
@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Stayers
         protected override void Initialize()
         {
             base.Initialize();
-            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdInventory);
+            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdStayers);
         }
     }
 }

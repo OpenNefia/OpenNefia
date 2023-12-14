@@ -33,11 +33,13 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Items;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.Hunger
 {
     public interface IHungerSystem : IEntitySystem
     {
+        string GetNutritionMessage(int newNutrition);
         bool VomitIfAnorexic(EntityUid entity, HungerComponent? hunger = null);
         void Vomit(EntityUid entity, HungerComponent? hunger = null);
         void CureAnorexia(EntityUid entity, HungerComponent? hunger = null);
@@ -102,6 +104,25 @@ namespace OpenNefia.Content.Hunger
             else
                 component.Nutrition = HungerLevels.Ally - 1000 + _rand.Next(4000);
             // <<<<<<<< shade2/chara.hsp:516 	if rc=pc:cHunger(rc)=9000:else:cHunger(rc)=defAll ..
+        }
+
+        public string GetNutritionMessage(int newNutrition)
+        {
+            LocaleKey key;
+            if (newNutrition >= HungerLevels.Bloated)
+                key = "Bloated";
+            else if (newNutrition >= HungerLevels.Satisfied)
+                key = "Satisfied";
+            else if (newNutrition >= HungerLevels.Normal)
+                key = "Normal";
+            else if (newNutrition >= HungerLevels.Hungry)
+                key = "Hungry";
+            else if (newNutrition >= HungerLevels.VeryHungry)
+                key = "VeryHungry";
+            else
+                key = "Starving";
+
+            return Loc.GetString(new LocaleKey("Elona.Food.Nutrition").With(key));
         }
 
         private void HandleCharaSleep(EntityUid uid, HungerComponent hunger, OnCharaSleepEvent args)

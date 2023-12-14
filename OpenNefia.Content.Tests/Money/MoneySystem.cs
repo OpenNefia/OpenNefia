@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Tests.Money
             var mapMan = sim.Resolve<IMapManager>();
             var entGen = sim.GetEntitySystem<IEntityGen>();
             var stacks = sim.GetEntitySystem<IStackSystem>();
-            
+
             var sys = sim.GetEntitySystem<IMoneySystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Tests.Money
                 Assert.That(entMan.IsAlive(mapGold), Is.True, "Map gold alive");
                 Assert.That(entMan.IsAlive(mapPlatinum), Is.True, "Map platinum alive");
 
-                Assert.That(money.Gold, Is.EqualTo(1099), "Inv gold amount");
+                Assert.That(money.Gold, Is.EqualTo(1046), "Inv gold amount");
                 Assert.That(money.Platinum, Is.EqualTo(50), "Inv platinum amount");
                 Assert.That(stacks.GetCount(mapGold), Is.EqualTo(1000), "Map gold amount");
                 Assert.That(stacks.GetCount(mapGoldRandom), Is.GreaterThan(0), "Map gold random amount"); // Randomized

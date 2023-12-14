@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.EffectMap;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;
@@ -33,6 +34,8 @@ namespace OpenNefia.Content.Maps
                 if (_mapManager.ActiveMap != null)
                     UpdateMapShadow(_mapManager.ActiveMap);
             };
+
+            SubscribeComponent<MapCommonComponent, MapOnTimePassedEvent>(UpdateMapShadow);
         }
 
         private void UpdateMapShadow(EntityUid uid, MapCommonComponent component, ref MapOnTimePassedEvent args)
@@ -42,8 +45,8 @@ namespace OpenNefia.Content.Maps
 
         private void UpdateMapShadow(IMap map)
         {
-            var layer = _mapRenderer.GetTileLayer<TileAndChipTileLayer>();
-            layer.TileShadow = CalcMapShadow(map);
+            if (_mapRenderer.TryGetTileLayer<TileAndChipTileLayer>(out var layer))
+                layer.TileShadow = CalcMapShadow(map);
         }
 
         public Color CalcMapShadow(IMap map)

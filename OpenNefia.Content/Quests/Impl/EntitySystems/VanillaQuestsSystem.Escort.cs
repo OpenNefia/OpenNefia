@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Quests
                 {
                     _deferredEvents.Enqueue(() =>
                     {
-                        _mes.Display("Elona.Quest.Completed");
+                        _mes.Display(Loc.GetString("Elona.Quest.Completed"), UiColors.MesGreen);
                         _dialog.StartDialog(_gameSession.Player, questEscort.EscortingChara, new QualifiedDialogNodeID(Protos.Dialog.QuestEscort, "Complete"));
                         _quests.TurnInQuest(comp.QuestUid, _gameSession.Player);
                         EntityManager.DeleteEntity(questEscort.EscortingChara);

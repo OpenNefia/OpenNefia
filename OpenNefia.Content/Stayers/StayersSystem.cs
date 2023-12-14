@@ -99,7 +99,7 @@ namespace OpenNefia.Content.Stayers
         {
             if (!IsAlive(_stayersEntity))
             {
-                Logger.DebugS("stayers", "Creating stayers container entity");
+                Logger.WarningS("stayers", "Creating stayers container entity");
                 _stayersEntity = EntityManager.SpawnEntity(null, MapCoordinates.Global);
                 DebugTools.Assert(IsAlive(_stayersEntity), "Could not initialize stayers container!");
                 EnsureComp<StayersComponent>(_stayersEntity);

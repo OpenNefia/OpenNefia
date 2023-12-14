@@ -585,8 +585,15 @@ namespace OpenNefia.Content.Quests
         #endregion
     }
 
+    /// <summary>
+    /// Localized name and description of a quest.
+    /// </summary>
     public sealed record LocalizedQuestData(string Name, string Description);
 
+    /// <summary>
+    /// Retrieves localized data for this quest. These are passed into
+    /// the quest's localization functions in Lua as a table of parameters.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestLocalizeDataEvent : EntityEventArgs
     {
@@ -605,6 +612,12 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Calculates the quest's difficulty. The parameters of some quests
+    /// depend on their calculated difficulty; others set the difficulty
+    /// based on the random parameters. Hence, not all quests have to use
+    /// this event as the difficulty is only symbolic in the latter cases.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestCalcDifficultyEvent : EntityEventArgs
     {
@@ -618,19 +631,11 @@ namespace OpenNefia.Content.Quests
         }
     }
 
-    [EventUsage(EventTarget.Quest)]
-    public sealed class QuestCalcGenRarityEvent : EntityEventArgs
-    {
-        public QuestComponent Quest { get; }
-
-        public int OutRarity { get; set; }
-
-        public QuestCalcGenRarityEvent(QuestComponent quest)
-        {
-            Quest = quest;
-        }
-    }
-
+    /// <summary>
+    /// You can use this event to prevent quests from being generated,
+    /// for example based on fame calculation.
+    /// </summary>
+    // TODO merge with QuestBeforeGenerateEvent?
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestCanGenerateEvent : EntityEventArgs
     {
@@ -644,6 +649,13 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised when this quest type is being considered for generation.
+    /// In these event handlers, you should attempt to generate random
+    /// parameters for the quest. If generation fails for some reason,
+    /// you can use <see cref="CancellableEntityEventArgs.Cancel"/>.
+    /// Otherwise, the quest will be made available in the quest board.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestBeforeGenerateEvent : CancellableEntityEventArgs
     {
@@ -659,6 +671,10 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// When the player first accepts the quest from the quest giver, this event
+    /// determines which dialog node to jump to next.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestBeforeAcceptEvent : CancellableEntityEventArgs
     {
@@ -673,6 +689,10 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised when the player completes a quest via
+    /// <see cref="IQuestSystem.TurnInQuest(EntityUid, EntityUid, IDialogEngine?)"/>.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestCompletedEvent : CancellableEntityEventArgs
     {
@@ -690,6 +710,10 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised when the player fails a quest via
+    /// <see cref="IQuestSystem.FailQuest(EntityUid, QuestComponent?)"/>.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestFailedEvent : CancellableEntityEventArgs
     {
@@ -701,6 +725,10 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Raised when a quest is being deleted, either because it was completed,
+    /// failed, or the town board deadline expired.
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestTerminatingEvent : CancellableEntityEventArgs
     {
@@ -712,6 +740,11 @@ namespace OpenNefia.Content.Quests
         }
     }
 
+    /// <summary>
+    /// Determines how the quest client will talk about quest rewards.
+    /// Example: The quest hands out some gold and a random supply item.
+    /// This event will output something like ["1234 gold pieces", "ores"].
+    /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestLocalizeRewardsEvent : CancellableEntityEventArgs
     {
@@ -747,7 +780,8 @@ namespace OpenNefia.Content.Quests
     }
 
     /// <summary>
-    /// Raised after quest rewards have been calculated.
+    /// Raised after quest rewards have been calculated and they're being handed out.
+    /// Use this event to generate extra things like music tickets.
     /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestGenerateRewardsEvent : CancellableEntityEventArgs
@@ -768,7 +802,7 @@ namespace OpenNefia.Content.Quests
 
     /// <summary>
     /// Event for collecting the relevant target characters of this quest.
-    /// This is used to add ths "Where is [...]?" dialog options when speaking to guards.
+    /// This is used to add the "Where is [...]?" dialog options when speaking to guards.
     /// </summary>
     [EventUsage(EventTarget.Quest)]
     public sealed class QuestGetTargetCharasEvent : CancellableEntityEventArgs

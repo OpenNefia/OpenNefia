@@ -121,6 +121,8 @@
     items:
       - Elona.AnimeAlertWait
       - Elona.AnimeAnimationWait
+      - Elona.AnimeScreenRefresh
+      - Elona.AnimeBackgroundEffectWait
 
 - type: Elona.ConfigMenuItem
   id: Elona.AnimeAlertWait
@@ -144,6 +146,14 @@
     cvar: anime.animationWait
     min: 0.0
     max: 10.0
+    step: 0.1
+
+- type: Elona.ConfigMenuItem
+  id: Elona.AnimeBackgroundEffectWait
+  node: !type:ConfigFloatMenuNode
+    cvar: anime.backgroundEffectWait
+    min: 0.0
+    max: 1.0
     step: 0.1
 
 #

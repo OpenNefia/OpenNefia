@@ -52,5 +52,15 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 
             Assert.That(deserializedRange, Is.EqualTo(floorId));
         }
+
+        [Test]
+        public void DeserializationTest_Default()
+        {
+            var floorId = AreaFloorId.Default;
+            var node = new ValueDataNode("Default");
+            var deserializedRange = Serialization.Read<AreaFloorId>(node);
+
+            Assert.That(deserializedRange, Is.EqualTo(floorId));
+        }
     }
 }

@@ -97,9 +97,9 @@ namespace OpenNefia.Core.Areas
         /// <param name="area"></param>
         private void InitializeStartingFloorOfArea(IArea area)
         {
-            if (TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance) && areaEntrance.StartingFloor != null)
+            if (TryComp<AreaEntranceComponent>(area.AreaEntityUid, out var areaEntrance))
             {
-                var map = _areaManager.GetOrGenerateMapForFloor(area.Id, areaEntrance.StartingFloor.Value)!;
+                var map = _areaManager.GetOrGenerateMapForFloor(area.Id, areaEntrance.StartingFloor)!;
                 if (map != null && TryComp<MapCommonComponent>(map.MapEntityUid, out var mapCommon) && !mapCommon.IsTemporary)
                 {
                     _mapTransfer.RunMapInitializeEvents(map, MapLoadType.InitializeOnly);

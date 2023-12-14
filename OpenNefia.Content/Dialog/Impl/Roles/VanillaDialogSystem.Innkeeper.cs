@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Dialog
 
             hunger.Nutrition = HungerLevels.InnkeeperMeal;
             _mes.Display(Loc.GetString("Elona.Dialog.Innkeeper.BuyMeal.Results"));
-            _mes.Display(_food.GetNutritionMessage(hunger.Nutrition));
+            _mes.Display(_hunger.GetNutritionMessage(hunger.Nutrition));
             _hunger.VomitIfAnorexic(engine.Player);
 
             return engine.GetNodeByID(Protos.Dialog.Innkeeper, "BuyMealFinish");

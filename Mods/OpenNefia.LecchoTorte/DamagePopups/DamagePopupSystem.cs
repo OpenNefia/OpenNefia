@@ -58,7 +58,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                 HealType.Stamina => new Color(255, 255, 175),
                 _ => Color.White
             };
-            
+
             AddDamagePopup(new DamagePopup()
             {
                 Text = args.Amount.ToString(),
@@ -80,7 +80,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             }
             else
             {
-                
+
                 AddDamagePopup(new DamagePopup()
                 {
                     Text = "miss"
@@ -90,20 +90,20 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
         public void AddDamagePopup(DamagePopup popup, MapCoordinates coords)
         {
-            var tileLayer = _mapRenderer.GetTileLayer<DamagePopupsTileLayer>();
-            tileLayer.AddDamagePopup(popup, coords);
+            if (_mapRenderer.TryGetTileLayer<DamagePopupsTileLayer>(out var tileLayer))
+                tileLayer.AddDamagePopup(popup, coords);
         }
 
         public void AddDamagePopup(DamagePopup popup, EntityUid uid)
         {
-            var tileLayer = _mapRenderer.GetTileLayer<DamagePopupsTileLayer>();
-            tileLayer.AddDamagePopup(popup, uid);
+            if (_mapRenderer.TryGetTileLayer<DamagePopupsTileLayer>(out var tileLayer))
+                tileLayer.AddDamagePopup(popup, uid);
         }
 
         public void ClearDamagePopups()
         {
-            var tileLayer = _mapRenderer.GetTileLayer<DamagePopupsTileLayer>();
-            tileLayer.ClearDamagePopups();
+            if (_mapRenderer.TryGetTileLayer<DamagePopupsTileLayer>(out var tileLayer))
+                tileLayer.ClearDamagePopups();
         }
     }
 }

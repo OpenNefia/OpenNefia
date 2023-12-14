@@ -95,7 +95,7 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IRankSystem _ranks = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
 
-        public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", 0);
+        public static readonly AreaFloorId AreaFloorHome = new("Elona.Home", AreaFloorId.DefaultFloorNumber);
 
         [RegisterSaveData("Elona.HomeSystem.ActiveHomeIDs")]
         private List<MapId> _activeHomeIDs { get; } = new List<MapId>();

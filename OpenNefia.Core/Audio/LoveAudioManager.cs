@@ -6,6 +6,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Audio
 {
-    // TODO: Need to frameupdate this to dispose of finished sources.
     public sealed class LoveAudioManager : IAudioManager
     {
         [Dependency] private readonly IConfigurationManager _config = default!;
@@ -27,6 +27,7 @@ namespace OpenNefia.Core.Audio
 
         private bool _enableSound;
         private bool _usePositionalSound;
+        private Dictionary<string, PlayingSource> _loopingSources = new();
 
         private class PlayingSource
         {
@@ -46,6 +47,20 @@ namespace OpenNefia.Core.Audio
             _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
         }
 
+        public void FrameUpdate(FrameEventArgs frame)
+        {
+            for (var i = 0; i < _playingSources.Count; i++)
+            {
+                var source = _playingSources[i];
+                if (!source.Source.IsPlaying())
+                {
+                    source.Source.Dispose();
+                    _playingSources.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
         public void Shutdown()
         {
             foreach (var source in _playingSources)
@@ -54,6 +69,8 @@ namespace OpenNefia.Core.Audio
                 source.Source.Dispose();
             }
             _playingSources.Clear();
+
+            StopAllLooping();
         }
 
         private Love.Source GetLoveSource(ResourcePath path)
@@ -144,6 +161,42 @@ namespace OpenNefia.Core.Audio
         public void SetListenerPosition(Vector2 listenerPos)
         {
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
+        }
+
+        public void PlayLooping(PrototypeId<SoundPrototype> soundId, string tag, AudioParams? audioParams = null)
+        {
+            if (_loopingSources.ContainsKey(tag))
+                StopLooping(tag);
+
+            var proto = _protos.Index(soundId);
+            var source = GetLoveSource(proto.Filepath);
+
+            source.SetLooping(true);
+
+            source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));
+
+            Love.Audio.Play(source);
+
+            _loopingSources[tag] = new PlayingSource(source);
+        }
+
+        public void StopLooping(string tag)
+        {
+            if (!_loopingSources.TryGetValue(tag, out var source))
+                return;
+
+            Love.Audio.Stop(source.Source);
+            source.Source.Dispose();
+            _loopingSources.Remove(tag);
+        }
+
+        public void StopAllLooping()
+        {
+            foreach (var tag in _loopingSources.Keys.ToList())
+            {
+                StopLooping(tag);
+            }
+            _loopingSources.Clear();
         }
     }
 }

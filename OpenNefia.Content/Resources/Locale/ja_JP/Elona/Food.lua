@@ -4,11 +4,11 @@ Elona.Food = {
     },
     Cooking = {
         DoNotKnow = function(user)
-            return ("%s料理の仕方を知らない。"):format(_.kare_wa(user, 1))
+            return ("%s料理の仕方を知らない。"):format(_.sore_wa(user, 1))
         end,
         YouCook = function(user, oldFoodName, toolEntity, newFoodEntity)
             return ("%s%sで%sを料理して、%sを作った。"):format(
-                _.kare_wa(user, 1),
+                _.sore_wa(user, 1),
                 _.name(toolEntity, 1),
                 oldFoodName,
                 _.name(newFoodEntity, 1)

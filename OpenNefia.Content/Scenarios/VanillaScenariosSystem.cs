@@ -22,6 +22,8 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Weather;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.Scenarios
 {
@@ -37,17 +39,20 @@ namespace OpenNefia.Content.Scenarios
         [Dependency] private readonly IDialogSystem _dialog = default!;
         [Dependency] private readonly ICharaSystem _charas = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IWeatherSystem _weathers = default!;
+        [Dependency] private readonly IMapManager _maps = default!;
 
         public void Default_OnGameStart(ScenarioPrototype proto, P_ScenarioOnGameStartEvent ev)
         {
             // Major TODO for now. Just set up important things like the player's house.
 
             var northTyrisArea = _areaManager.GetGlobalArea(GlobalAreas.NorthTyris);
-            var northTyrisMap = _areaManager.GetOrGenerateMapForFloor(northTyrisArea.Id, GlobalAreas.NorthTyris_FloorNorthTyris)!;
+            var northTyrisMap = _areaManager.GetOrGenerateMapForFloor(northTyrisArea.Id, AreaFloorId.Default)!;
 
             var yourHomeArea = _areaManager.CreateArea(Protos.Area.HomeCave, parent: northTyrisArea.Id);
-            IMap yourHomeMap = _areaManager.GetOrGenerateMapForFloor(yourHomeArea.Id, HomeSystem.AreaFloorHome.WithFloorNumber(0))!;
+            IMap yourHomeMap = _areaManager.GetOrGenerateMapForFloor(yourHomeArea.Id, HomeSystem.AreaFloorHome)!;
 
+            _maps.SetActiveMap(yourHomeMap.Id);
             _homes.SetHome(yourHomeMap);
 
             // Make sure when the player steps outside of their home for the first time that they
@@ -64,6 +69,10 @@ namespace OpenNefia.Content.Scenarios
             if (TryComp<MapRandomAreaManagerComponent>(northTyrisMap.MapEntityUid, out var randomAreas))
                 randomAreas.AboutToRegenerateRandomAreas = true;
 
+            // >>>>>>>> shade2/main.hsp:457 		gYear		=initYear,initMonth,initDay,1,10	 ..
+            _weathers.TryChangeWeather(Protos.Weather.Rain, GameTimeSpan.FromHours(6));
+            // <<<<<<<< shade2/main.hsp:467 		gWeather	=weatherRain,6 ..
+
             _deferredEvents.Enqueue(() =>
             {
                 var lomias = _charas.EnumerateNonAllies(yourHomeMap)
@@ -75,17 +84,18 @@ namespace OpenNefia.Content.Scenarios
 
                 return TurnResult.Aborted;
             });
-            
-            ev.OutActiveMap = yourHomeMap;
         }
     }
 
+    /// <summary>
+    /// Raised when a new scenario is started.
+    /// This event *must* set <see cref="IMapManager.ActiveMap"/>. 
+    /// If it does not, an exception will be thrown later.
+    /// </summary>
     [PrototypeEvent(typeof(ScenarioPrototype))]
     public sealed class P_ScenarioOnGameStartEvent : PrototypeEventArgs
     {
         public EntityUid Player { get; }
-
-        public IMap? OutActiveMap { get; set; }
 
         public P_ScenarioOnGameStartEvent(EntityUid player)
         {

@@ -25,8 +25,8 @@ namespace OpenNefia.Content.EffectMap
             if (coords.MapId != _mapManager.ActiveMap?.Id)
                 return;
 
-            var layer = _mapRenderer.GetTileLayer<EffectMapTileLayer>();
-            layer.AddEffectMap(assetID, coords.Position, maxFrames, rotation, type);
+            if (_mapRenderer.TryGetTileLayer<EffectMapTileLayer>(out var layer))
+                layer.AddEffectMap(assetID, coords.Position, maxFrames, rotation, type);
         }
     }
 

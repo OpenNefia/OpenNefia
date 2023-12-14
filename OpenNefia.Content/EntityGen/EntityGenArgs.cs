@@ -101,6 +101,16 @@ namespace OpenNefia.Content.EntityGen
         public bool IsMapSavable { get; set; } = true;
     }
 
+    public sealed class CharaGenArgs : EntityGenArgs
+    {
+        /// <summary>
+        /// Category of creature to spawn, as per <see cref="CreaturePackComponent"/>.
+        /// TODO this should really be <see cref="TagPrototype"/> instead...
+        /// </summary>
+        [DataField]
+        public string? Category { get; set; } 
+    }
+
     public sealed class ItemGenArgs : EntityGenArgs
     {
         /// <summary>
