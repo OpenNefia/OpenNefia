@@ -10,7 +10,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 namespace OpenNefia.Content.Maps.Debris
 {
     [RegisterTileRowLayer(TileRowLayerType.Tile)]
-    public sealed class MapDebrisTileLayer : BaseTileRowLayer
+    public sealed class MapDebrisTileRowLayer : BaseTileRowLayer
     {
         [Dependency] private readonly ICoords _coords = default!;
 
@@ -97,6 +97,9 @@ namespace OpenNefia.Content.Maps.Debris
 
             for (var y = 0; y < Map.Height; y++)
             {
+                bloodParts.Clear();
+                fragmentParts.Clear();
+
                 for (var x = 0; x < Map.Width; x++)
                 {
                     var debris = mapDebris.DebrisMemory[x, y];
@@ -127,11 +130,12 @@ namespace OpenNefia.Content.Maps.Debris
                 return;
 
             var scale = _coords.TileScale;
+            var tileH = _coords.TileSize.Y;
 
             Love.Graphics.SetColor(Color.White);
 
-            Love.Graphics.Draw(_bloodBatches[tileY], screenX, screenY, 0, scale, scale);
-            Love.Graphics.Draw(_fragmentBatches[tileY], screenX, screenY, 0, scale, scale);
+            Love.Graphics.Draw(_bloodBatches[tileY], screenX, screenY + scale * tileH * tileY, 0, scale, scale);
+            Love.Graphics.Draw(_fragmentBatches[tileY], screenX, screenY + scale * tileH * tileY, 0, scale, scale);
         }
     }
 }
