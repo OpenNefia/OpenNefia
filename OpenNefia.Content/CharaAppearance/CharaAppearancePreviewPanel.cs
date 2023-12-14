@@ -88,7 +88,7 @@ namespace OpenNefia.Content.CharaAppearance
             }
             else if (_data.UsePCC)
             {
-                _data.PCCDrawable.Draw(UIScale * 2f, WindowFrame.PixelX + (88), WindowFrame.PixelY + (120), centered: true);
+                _data.PCCDrawable.Draw(UIScale * 2f, (WindowFrame.X + 44) * UIScale, (WindowFrame.Y + 60) * UIScale, centered: true);
             }
             else
             {

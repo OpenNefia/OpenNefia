@@ -111,7 +111,7 @@ namespace OpenNefia.Content.CharaInfo
 
             if (_pccDrawable != null)
             {
-                _pccDrawable.Draw(UIScale * 1, (WindowFrame.X + 46) * UIScale, (WindowFrame.Y + 61) * UIScale, centered: true);
+                _pccDrawable.Draw(UIScale, (WindowFrame.X + 44) * UIScale, (WindowFrame.Y + 64) * UIScale);
             }
             else
             {
