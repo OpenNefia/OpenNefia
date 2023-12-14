@@ -1,4 +1,5 @@
 ﻿using Love;
+using Melanchall.DryWetMidi.MusicTheory;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -62,6 +63,7 @@ namespace OpenNefia.Core.Rendering
             _afterChipsTileRowLayers = _tileRowRenderer.GetTileRowLayers(TileRowLayerType.Chip).ToArray();
 
             _config.OnValueChanged(CVars.DisplayTileScale, OnTileScaleChanged);
+            _config.OnValueChanged(CVars.AnimeObjectMovementSpeed, OnObjMovementSpeedChanged);
         }
 
         private void OnTileScaleChanged(float scale)
@@ -72,9 +74,22 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        private void OnObjMovementSpeedChanged(float speed)
+        {
+            foreach (var row in _rows)
+            {
+                row.ChipBatch.ObjectMovementSpeed = speed;
+            }
+        }
+
         private float GetScale()
         {
             return _config.GetCVar(CVars.DisplayTileScale);
+        }
+
+        private float GetObjectMovementSpeed()
+        {
+            return _config.GetCVar(CVars.AnimeObjectMovementSpeed);
         }
 
         public void OnThemeSwitched()
@@ -86,7 +101,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int tileY = 0; tileY < _tiledSize.Y; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile, GetObjectMovementSpeed());
             }
         }
 
@@ -106,7 +121,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int tileY = 0; tileY < height; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile, GetObjectMovementSpeed());
             }
         }
 
@@ -219,7 +234,7 @@ namespace OpenNefia.Core.Rendering
         public Color TileShadow { get; set; }
 
         public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int rowYIndex, float scale,
-            ITileRowLayer[] afterTiles, ITileRowLayer[] afterChips, AtlasTile shadowTile)
+            ITileRowLayer[] afterTiles, ITileRowLayer[] afterChips, AtlasTile shadowTile, float objMovementSpeed)
         {
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
@@ -228,7 +243,7 @@ namespace OpenNefia.Core.Rendering
 
             TileBatchBottom = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             TileBatchTop = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
-            ChipBatch = new ChipBatch(chipAtlas, coords, shadowTile);
+            ChipBatch = new ChipBatch(chipAtlas, coords, shadowTile, objMovementSpeed);
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
 
             AfterTilesTileRowLayers = afterTiles;

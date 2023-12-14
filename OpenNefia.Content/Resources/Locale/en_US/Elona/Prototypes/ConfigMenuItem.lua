@@ -113,6 +113,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "Background Effect Wait",
     },
 
+    AnimeObjectMovementSpeed = {
+        Name = "Object Movement Speed",
+    },
+
     --
     -- Menu: Input
     --

@@ -135,15 +135,17 @@ namespace OpenNefia.Core.Rendering
         internal bool NeedsRedraw = false;
 
         public TileAtlas Atlas { get; }
+        public float ObjectMovementSpeed { get; set; } = 1f;
         private AtlasTile _shadowTile;
         private ICoords _coords;
 
-        public ChipBatch(TileAtlas atlas, ICoords coords, AtlasTile shadowTile)
+        public ChipBatch(TileAtlas atlas, ICoords coords, AtlasTile shadowTile, float objMovementSpeed)
         {
             Atlas = atlas;
             _coords = coords;
             _shadowTile = shadowTile;
             _entityShadowBatch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
+            ObjectMovementSpeed = objMovementSpeed;
         }
 
         public void Clear()
@@ -198,9 +200,8 @@ namespace OpenNefia.Core.Rendering
             var tile = entry.AtlasTile;
             var finalPos = screenPos + entry.Memory.ScreenOffset + entry.ScrollOffset;
 
-            var rect = tile!.Quad.GetViewport();
             var posX = finalPos.X;
-            var posY = finalPos.Y + tile.YOffset;
+            var posY = finalPos.Y + tile!.YOffset;
             return new Vector2(posX, posY);
         }
 
@@ -293,7 +294,7 @@ namespace OpenNefia.Core.Rendering
 
                     Vector2 startPos, endPos;
                     bool lerp;
-                    if (memory.Coords.MapId == memory.PreviousCoords.MapId && memory.Coords != memory.PreviousCoords)
+                    if (ObjectMovementSpeed > 0.01f && memory.Coords.MapId == memory.PreviousCoords.MapId)
                     {
                         lerp = true;
                         startPos = GetScreenPos(memory.PreviousCoords, entry);
@@ -302,7 +303,7 @@ namespace OpenNefia.Core.Rendering
                     else
                     {
                         lerp = false;
-                        startPos = GetScreenPos(memory.Coords, entry) + (rect.Width / 2, rect.Height / 2);
+                        startPos = GetScreenPos(memory.Coords, entry);
                         endPos = startPos;
                     }
                     memory.PreviousCoords = memory.Coords;
@@ -356,10 +357,13 @@ namespace OpenNefia.Core.Rendering
                 {
                     foreach (var sprite in entry.Batch.Sprites)
                     {
-                        if (sprite.LerpPercentage < 1f)
+                        if (ObjectMovementSpeed <= 0.01f)
                         {
-                            var speed = 5f;
-                            sprite.LerpPercentage = float.Min(sprite.LerpPercentage + speed * dt, 1f);
+                            entry.Batch.SpriteBatch.Set(sprite.Index, sprite.Quad, sprite.TargetPosition.X, sprite.TargetPosition.Y);
+                        }
+                        else if (sprite.LerpPercentage < 1f)
+                        {
+                            sprite.LerpPercentage = float.Min(sprite.LerpPercentage + dt / ObjectMovementSpeed, 1f);
                             sprite.Position = new Vector2(
                                 MathHelper.Lerp(sprite.StartPosition.X, sprite.TargetPosition.X, sprite.LerpPercentage),
                                 MathHelper.Lerp(sprite.StartPosition.Y, sprite.TargetPosition.Y, sprite.LerpPercentage));
