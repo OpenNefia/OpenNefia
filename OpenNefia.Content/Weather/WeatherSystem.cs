@@ -157,7 +157,7 @@ namespace OpenNefia.Content.Weather
             // >>>>>>>> shade2/main.hsp:564 *weather_change ...
             if (!TryGetPositionInWorldMap(_gameSession.Player, out var coords))
             {
-                Logger.DebugS("weather", "Can't find player position in world map");
+                // Logger.DebugS("weather", "Can't find player position in world map");
                 return;
             }
 

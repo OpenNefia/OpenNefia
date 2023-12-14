@@ -67,13 +67,13 @@ namespace OpenNefia.Content.Quests
         private TurnResult HarvestCrop_PickUp(EntityUid source, EntityUid target, HarvestQuestCropComponent component)
         {
             // >>>>>>>> shade2/action.hsp:151 		if iType(ci)=fltFood:if iProperty(ci)=propQuest: ...
-            if (!_activities.HasAnyActivity(source))
+            if (_activities.HasAnyActivity(source))
+                return TurnResult.Aborted;
+
+            if (_inv.IsInventoryFull(source))
             {
-                if (_inv.IsInventoryFull(source))
-                {
-                    _mes.Display(Loc.GetString("Elona.Inventory.Common.InventoryIsFull"));
-                    return TurnResult.Aborted;
-                }
+                _mes.Display(Loc.GetString("Elona.Inventory.Common.InventoryIsFull"));
+                return TurnResult.Aborted;
             }
 
             var activity = EntityManager.SpawnEntity(Protos.Activity.Harvesting, MapCoordinates.Global);
@@ -83,7 +83,7 @@ namespace OpenNefia.Content.Quests
             // This is so the inventory screen will exit and a turn will pass
             // Normally the pickup behavior would return InventoryResult.Continuing which
             // wouldn't make sense here.
-            return TurnResult.Failed; 
+            return TurnResult.Failed;
             // <<<<<<<< shade2/action.hsp:155 		} ..
         }
 

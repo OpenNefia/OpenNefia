@@ -4,7 +4,7 @@ Elona.Tone = {
             return ("What sentence should %s learn? "):format(_.name(entity))
         end,
         IsSomewhatDifferent = function(entity)
-            return ("%s is somewhat different."):format(_.name(entity))
+            return ("%s %s somewhat different."):format(_.name(entity), _.is(entity))
         end,
 
         Layer = {

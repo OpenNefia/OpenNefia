@@ -35,7 +35,7 @@ namespace OpenNefia.Content.PCCs
     {
         South = 0,
         West = 1,
-        North = 2,
-        East = 3
+        East = 2,
+        North = 3
     }
 }

@@ -51,9 +51,6 @@ namespace OpenNefia.Content.Items.Impl
             args.OutVerbs.Add(new Verb(UseInventoryBehavior.VerbTypeUse, "Use Cooking Tool", () => CookingTool_Use(args.Source, args.Target, component)));
         }
 
-        private const int CookingActionStaminaCost = 15;
-        private static readonly PrototypeId<SkillPrototype> CookingActionRelatedAttribute = Protos.Skill.AttrLearning;
-
         /// <summary>
         /// NOTE: In vanilla, cooking is considered a "skill action" with the 15 stamina cost
         /// attached to the <see cref="Protos.Skill.Cooking"/> skill, but is hidden from the
@@ -75,7 +72,7 @@ namespace OpenNefia.Content.Items.Impl
                 return TurnResult.Aborted;
             }
 
-            if (!_damage.DoStaminaCheck(source, CookingActionStaminaCost, relatedSkillId: CookingActionRelatedAttribute))
+            if (!_damage.DoStaminaCheck(source, 15, relatedSkillId: Protos.Skill.AttrLearning))
             {
                 _mes.Display(Loc.GetString("Elona.Common.TooExhausted"));
                 return TurnResult.Failed;

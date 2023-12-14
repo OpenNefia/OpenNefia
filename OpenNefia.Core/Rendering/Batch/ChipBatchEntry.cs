@@ -6,11 +6,11 @@ namespace OpenNefia.Core.Rendering
     internal class ChipBatchEntry : IComparable<ChipBatchEntry>
     {
         public MapObjectMemory Memory;
-        public AtlasTile AtlasTile;
+        public AtlasTile? AtlasTile;
         public int RowIndex;
         public Vector2i ScrollOffset;
 
-        public ChipBatchEntry(AtlasTile atlasTile, MapObjectMemory memory)
+        public ChipBatchEntry(AtlasTile? atlasTile, MapObjectMemory memory)
         {
             Memory = memory;
             AtlasTile = atlasTile;

@@ -84,7 +84,8 @@ namespace OpenNefia.Content.Pregnancy
                 if (IsAlive(alien))
                 {
                     var birthedAlien = EnsureComp<BirthedAlienComponent>(alien.Value);
-                    if (!HasComp<BirthedAlienComponent>(uid))
+                    birthedAlien.ParentEntity = uid;
+                    if (!HasComp<BirthedAlienComponent>(uid)) { }
                         birthedAlien.ParentName = _displayNames.GetBaseName(uid);
                 }
             }

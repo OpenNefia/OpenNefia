@@ -1,5 +1,8 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Directions;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
@@ -17,7 +20,7 @@ namespace OpenNefia.Content.PCCs
         /// <summary>
         /// Gets the underlying PCC drawable for this entity, if it exists.
         /// </summary>
-        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable, 
+        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,
             PCCComponent? pccComp = null);
 
         /// <summary>
@@ -46,6 +49,8 @@ namespace OpenNefia.Content.PCCs
         {
             SubscribeComponent<PCCComponent, ComponentStartup>(OnComponentStartup);
             SubscribeComponent<PCCComponent, ComponentShutdown>(OnComponentShutdown);
+            SubscribeComponent<PCCComponent, AfterMoveEventArgs>(AfterMove_UpdatePCC);
+            SubscribeComponent<PCCComponent, CollideWithEventArgs>(CollideWith_UpdatePCC, priority: EventPriorities.VeryHigh);
         }
 
         private void OnComponentStartup(EntityUid uid, PCCComponent pccComp, ComponentStartup args)
@@ -60,6 +65,33 @@ namespace OpenNefia.Content.PCCs
         private void OnComponentShutdown(EntityUid uid, PCCComponent pccComp, ComponentShutdown args)
         {
             _drawables.UnregisterDrawable(uid, DrawableID);
+        }
+
+        private void AfterMove_UpdatePCC(EntityUid uid, PCCComponent pccComp, AfterMoveEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            UpdatePCC(uid, pccComp, args.OldPosition, args.NewPosition);
+        }
+
+        private void CollideWith_UpdatePCC(EntityUid uid, PCCComponent pccComp, CollideWithEventArgs args)
+        {
+            if (args.Handled || !IsAlive(args.Target))
+                return;
+
+            UpdatePCC(uid, pccComp, Spatial(uid).MapPosition, Spatial(args.Target).MapPosition);
+        }
+
+        private void UpdatePCC(EntityUid uid, PCCComponent pccComp, MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            if (!pccComp.UsePCC || !TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
+                return;
+
+            if (oldPosition.TryDirectionTowards(newPosition, out var dir))
+                pccComp.PCCDirection = dir.ToPCCDirection();
+            pccDrawable.Direction = pccComp.PCCDirection;
+            pccDrawable.Frame = (pccDrawable.Frame + 1) % 4;
         }
 
         public bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,

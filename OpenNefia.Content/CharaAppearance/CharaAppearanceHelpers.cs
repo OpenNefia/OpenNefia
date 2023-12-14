@@ -4,7 +4,6 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
-using static NetVips.Enums;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Portraits;

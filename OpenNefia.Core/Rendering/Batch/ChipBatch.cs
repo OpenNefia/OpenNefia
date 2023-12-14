@@ -1,13 +1,37 @@
-﻿using OpenNefia.Core.Game;
+﻿using Melanchall.DryWetMidi.MusicTheory;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Rendering
 {
     internal class ChipBatch
     {
+        private class ChipBatchDrawable
+        {
+            public ChipBatchDrawable(Love.Drawable spriteBatch)
+            {
+                SpriteBatch = spriteBatch;
+            }
+
+            public ChipBatchDrawable(IEntityDrawable drawable, Vector2i tilePosition, Vector2 screenOffset, Vector2 scrollOffset)
+            {
+                Drawable = drawable;
+                TilePosition = tilePosition;
+                ScreenOffset = screenOffset;
+                ScrollOffset = scrollOffset;
+            }
+
+            public Love.Drawable? SpriteBatch { get; }
+            public IEntityDrawable? Drawable { get; }
+            public Vector2i TilePosition { get; }
+            public Vector2 ScreenOffset { get; }
+            public Vector2 ScrollOffset { get; }
+        }
+
         internal PriorityMap<int, ChipBatchEntry, int> ByIndex = new PriorityMap<int, ChipBatchEntry, int>();
-        private List<Love.Drawable> ToDraw = new List<Love.Drawable>();
-        private List<Love.SpriteBatch> SpriteBatches = new List<Love.SpriteBatch>();
+        private List<ChipBatchDrawable> ToDraw = new();
+        private List<Love.SpriteBatch> SpriteBatches = new();
         internal bool NeedsRedraw = false;
 
         public TileAtlas Atlas { get; }
@@ -30,7 +54,7 @@ namespace OpenNefia.Core.Rendering
             NeedsRedraw = true;
         }
 
-        public void AddOrUpdateChipEntry(ChipBatchEntry entry) 
+        public void AddOrUpdateChipEntry(ChipBatchEntry entry)
         {
             if (!ByIndex.ContainsKey(entry.Memory.Index))
             {
@@ -78,18 +102,16 @@ namespace OpenNefia.Core.Rendering
             foreach (var (index, entry) in ByIndex)
             {
                 var memory = entry.Memory;
-                if (memory.IsVisible)
+                var screenPos = Coords.TileToScreen(memory.Coords.Position);
+
+                if (entry.AtlasTile != null)
                 {
                     if (currentBatch == null)
                     {
                         currentBatch = GetOrCreateSpriteBatch(i);
                         i += 1;
-                        ToDraw.Add(currentBatch);
+                        ToDraw.Add(new(currentBatch));
                     }
-
-                    var screenPos = Coords.TileToScreen(memory.Coords.Position);
-
-                    var p = screenPos + memory.ScreenOffset + entry.ScrollOffset;
 
                     currentBatch.SetColor(memory.Color.R,
                         memory.Color.G,
@@ -97,16 +119,29 @@ namespace OpenNefia.Core.Rendering
                         memory.Color.A);
 
                     var tile = entry.AtlasTile;
+                    var finalPos = screenPos + memory.ScreenOffset + entry.ScrollOffset;
 
                     var rect = tile.Quad.GetViewport();
                     currentBatch.Add(tile.Quad,
-                        p.X + (rect.Width / 2),
-                        p.Y + tile.YOffset + (rect.Height / 2),
+                        finalPos.X + (rect.Width / 2),
+                        finalPos.Y + tile.YOffset + (rect.Height / 2),
                         memory.Rotation,
                         1,
                         1,
                         rect.Width / 2,
                         rect.Height / 2);
+                }
+                if (memory.Drawables.Count > 0)
+                {
+                    if (currentBatch != null)
+                    {
+                        currentBatch.SetColor(1, 1, 1, 1);
+                        currentBatch.Flush();
+                        currentBatch = null;
+                    }
+
+                    foreach (var drawable in memory.Drawables)
+                        ToDraw.Add(new(drawable, memory.Coords.Position, memory.ScreenOffset, entry.ScrollOffset));
                 }
             }
 
@@ -119,16 +154,38 @@ namespace OpenNefia.Core.Rendering
             NeedsRedraw = false;
         }
 
+        private HashSet<IEntityDrawable> _seen = new();
+
         public void Update(float dt)
         {
             // TODO chip animations
+            _seen.Clear();
+            foreach (var entry in ToDraw)
+            {
+                // The same drawable can be added to multiple memories; ensure
+                // they're only updated once.
+                if (entry.Drawable != null && !_seen.Contains(entry.Drawable))
+                {
+                    entry.Drawable.Update(dt);
+                    _seen.Add(entry.Drawable);
+                }
+            }
         }
 
-        public void Draw(int screenX, int screenY, float scale)
+        public void Draw(int screenX, int screenY, float tileScale)
         {
-            foreach (var drawable in ToDraw)
+            foreach (var entry in ToDraw)
             {
-                Love.Graphics.Draw(drawable, screenX, screenY, 0, scale, scale);
+                if (entry.SpriteBatch != null)
+                {
+                    Love.Graphics.Draw(entry.SpriteBatch, screenX, screenY, 0, tileScale, tileScale);
+                }
+
+                if (entry.Drawable != null)
+                {
+                    var pos = Coords.TileToScreen(entry.TilePosition) * tileScale + entry.ScreenOffset + entry.ScrollOffset;
+                    entry.Drawable.Draw(tileScale, screenX + pos.X, screenY + pos.Y);
+                }
             }
         }
     }

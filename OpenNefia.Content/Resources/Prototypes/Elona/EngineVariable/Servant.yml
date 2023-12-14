@@ -1,5 +1,5 @@
 #
-# Types of servants that can be generated through the house board
+# Types of servants that can be generated through the house board.
 #
 - type: EngineVariable
   id: Elona.ServantChoices

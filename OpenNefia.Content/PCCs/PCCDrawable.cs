@@ -10,6 +10,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.PCCs
 {
@@ -17,10 +18,16 @@ namespace OpenNefia.Content.PCCs
     {
         private readonly Love.Quad[] _quads = new Love.Quad[16];
 
-        public Dictionary<string, PCCPart> Parts { get; }
+        [DataField]
+        public Dictionary<string, PCCPart> Parts { get; } = new();
 
+        [DataField]
         public int Frame { get; set; }
+
+        [DataField]
         public PCCDirection Direction { get; set; }
+
+        [DataField]
         public bool IsFullSize { get; set; }
 
         private Love.Image? BakedImage = null;
@@ -31,11 +38,17 @@ namespace OpenNefia.Content.PCCs
         private const int SheetHeight = PartHeight * 4;
         private const int MaxFrames = 16;
 
+        public PCCDrawable() {}
+
         public PCCDrawable(Dictionary<string, PCCPart> parts)
         {
             Parts = parts;
+        }
 
+        public void Initialize(IResourceCache cache)
+        {
             AllocateQuads();
+            RebakeImage(cache);
         }
 
         private void AllocateQuads()
@@ -77,17 +90,15 @@ namespace OpenNefia.Content.PCCs
             }
         }
 
-        public void NextFrame()
-        {
-            Frame = (Frame + 1) % MaxFrames;
-        }
-
         public void Update(float dt)
         {
         }
 
-        public void Draw(float x, float y, float scaleX, float scaleY)
+        public void Draw(float scale, float x, float y, float scaleX = 1f, float scaleY = 1f)
         {
+            if (BakedImage == null)
+                return;
+
             int width, height, offsetX, offsetY;
 
             if (IsFullSize)
@@ -109,7 +120,7 @@ namespace OpenNefia.Content.PCCs
             var quad = _quads[index];
 
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scaleX, y + offsetY * scaleY, width * scaleX, height * scaleY, centered: true);
+            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scaleX * scale, y + offsetY * scaleY * scale, width * scaleX * scale, height * scaleY * scale, centered: false);
         }
 
         public void Dispose()
