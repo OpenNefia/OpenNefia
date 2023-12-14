@@ -272,7 +272,7 @@ namespace OpenNefia.Content.Encounters
 
         private void WanderingMerchant_ExitMapAfterDialog(EntityUid uid, WanderingMerchantComponent component, AfterDialogEndedEvent args)
         {
-            if (args.NodeEndedOn.DialogID == Protos.Dialog.Default)
+            if (args.NodeEndedOn?.DialogID == Protos.Dialog.Default)
             {
                 var map = GetMap(uid);
                 if (TryComp<MapEncounterComponent>(map.MapEntityUid, out var mapEncounter)

@@ -271,7 +271,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class AfterDialogEndedEvent : EntityEventArgs
     {
-        public AfterDialogEndedEvent(QualifiedDialogNode last)
+        public AfterDialogEndedEvent(QualifiedDialogNode? last)
         {
             NodeEndedOn = last;
         }
@@ -279,6 +279,6 @@ namespace OpenNefia.Content.Dialog
         /// <summary>
         /// Node that the dialog ended on.
         /// </summary>
-        public QualifiedDialogNode NodeEndedOn { get; }
+        public QualifiedDialogNode? NodeEndedOn { get; }
     }
 }
