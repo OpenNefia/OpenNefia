@@ -8,11 +8,13 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
@@ -29,6 +31,7 @@ namespace OpenNefia.Content.Tests.EntityGen
     {
         private static readonly PrototypeId<EntityPrototype> IdEntityGenTestChara = new("EntityGenTestChara");
         private static readonly PrototypeId<EntityPrototype> IdEntityGenTestVillager = new("EntityGenTestVillager");
+        private static readonly PrototypeId<EntityPrototype> IdEntityGenTestBlocker = new("EntityGenTestBlocker");
 
         private static readonly string Prototypes = $@"
 - type: Entity
@@ -55,6 +58,13 @@ namespace OpenNefia.Content.Tests.EntityGen
   - type: RoleSpecial
   - type: Level
     level: 1
+
+- type: Entity
+  id: {IdEntityGenTestBlocker}
+  components:
+  - type: Spatial
+    isSolid: true
+    isOpaque: true
 ";
 
         private static ISimulation SimulationFactory()
