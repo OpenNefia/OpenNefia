@@ -19,6 +19,6 @@ namespace OpenNefia.Core.Rendering.TileRowDrawLayers
         public virtual void RedrawAll() {}
         public virtual void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn) { }
         public virtual void Update(float dt) { }
-        public virtual void DrawRow(int row, int screenX, int screenY) {}
+        public virtual void DrawRow(int tileY, int screenX, int screenY) {}
     }
 }

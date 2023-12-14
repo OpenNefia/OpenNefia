@@ -1,30 +1,38 @@
 ﻿using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Rendering.TileDrawLayers;
+using OpenNefia.Core.Rendering.TileRowDrawLayers;
 using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.EffectMap
 {
-    [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) })]
-    public sealed class EffectMapTileLayer : BaseTileLayer
+    [RegisterTileRowLayer(TileRowLayerType.Tile)]
+    public sealed class EffectMapTileRowLayer : BaseTileRowLayer
     {
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
-        private readonly List<EffectMapEntry> _entries = new();
+        private List<EffectMapEntry>[] _entries = { };
 
         public override void Initialize()
         {
-            _entries.Clear();
+            foreach (var row in _entries)
+            {
+                row.Clear();
+            }
         }
 
         public override void OnThemeSwitched()
         {
-            _entries.Clear();
+            foreach (var row in _entries)
+            {
+                row.Clear();
+            }
         }
 
         private sealed class EffectMapEntry
@@ -53,6 +61,16 @@ namespace OpenNefia.Content.EffectMap
             }
         }
 
+        public override void SetMap(IMap map)
+        {
+            base.SetMap(map);
+            _entries = new List<EffectMapEntry>[map.Height];
+            for (var y = 0; y < map.Height; y++)
+            {
+                _entries[y] = new();
+            }
+        }
+
         public void AddEffectMap(PrototypeId<AssetPrototype> assetID, Vector2i tilePos, int? maxFrames = null, float rotation = 0f, EffectMapType type = EffectMapType.Anime)
         {
             var asset = Assets.GetAsset(assetID);
@@ -74,38 +92,42 @@ namespace OpenNefia.Content.EffectMap
             var screenPos = _coords.TileToScreen(tilePos);
             screenPos += _coords.TileSize / 2;
 
-            _entries.Add(new(asset, maxFrames.Value, rotation, type, screenPos, tilePos, alpha));
+            _entries[tilePos.Y].Add(new(asset, maxFrames.Value, rotation, type, screenPos, tilePos, alpha));
         }
 
         private void StepAll(float dt)
         {
-            var i = 0;
-            while (i < _entries.Count)
+            for (var y = 0; y < _entries.Length; y++)
             {
-                var entry = _entries[i];
-
-                entry.Dt += dt;
-
-                while (entry.Dt > 0)
+                var row = _entries[y];
+                var i = 0;
+                while (i < row.Count)
                 {
-                    entry.Dt -= 1f;
-                    entry.Frame++;
-                    switch (entry.Type)
+                    var entry = row[i];
+
+                    entry.Dt += dt;
+
+                    while (entry.Dt > 0)
                     {
-                        case EffectMapType.Anime:
-                        default:
-                            entry.AssetFrame++;
-                            break;
-                        case EffectMapType.Fade:
-                            entry.Alpha = (byte)((entry.MaxFrames - entry.Frame) * 12 + 30);
-                            break;
+                        entry.Dt -= 1f;
+                        entry.Frame++;
+                        switch (entry.Type)
+                        {
+                            case EffectMapType.Anime:
+                            default:
+                                entry.AssetFrame++;
+                                break;
+                            case EffectMapType.Fade:
+                                entry.Alpha = (byte)((entry.MaxFrames - entry.Frame) * 12 + 30);
+                                break;
+                        }
                     }
+
+                    i++;
                 }
 
-                i++;
+                row.RemoveAll(entry => entry.Frame >= entry.MaxFrames);
             }
-
-            _entries.RemoveAll(entry => entry.Frame >= entry.MaxFrames);
         }
 
         public override void Update(float dt)
@@ -114,14 +136,15 @@ namespace OpenNefia.Content.EffectMap
             StepAll(frames);
         }
 
-        public override void Draw()
+        public override void DrawRow(int tileY, int screenX, int screenY)
         {
-            foreach (var entry in _entries)
+            foreach (var entry in _entries[tileY])
             {
+                // TODO optimize...
                 if (Map!.IsInWindowFov(entry.TilePosition))
                 {
                     Love.Graphics.SetColor(Color.White.WithAlphaB(entry.Alpha));
-                    entry.Asset.DrawRegion(_coords.TileScale, entry.AssetFrame.ToString(), PixelX / _coords.TileScale + entry.ScreenPosition.X, PixelY / _coords.TileScale + entry.ScreenPosition.Y, centered: true, rotationRads: entry.Rotation);
+                    entry.Asset.DrawRegion(_coords.TileScale, entry.AssetFrame.ToString(), screenX / _coords.TileScale + entry.ScreenPosition.X, screenY / _coords.TileScale + entry.ScreenPosition.Y, centered: true, rotationRads: entry.Rotation);
                 }
             }
         }

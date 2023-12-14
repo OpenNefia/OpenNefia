@@ -121,17 +121,17 @@ namespace OpenNefia.Content.Maps.Debris
         {
         }
 
-        public override void DrawRow(int y, int screenX, int screenY)
+        public override void DrawRow(int tileY, int screenX, int screenY)
         {
-            if (y < 0 || y >= Map!.Height)
+            if (tileY < 0 || tileY >= Map!.Height)
                 return;
 
             var scale = _coords.TileScale;
 
             Love.Graphics.SetColor(Color.White);
 
-            Love.Graphics.Draw(_bloodBatches[y], screenX, screenY, 0, scale, scale);
-            Love.Graphics.Draw(_fragmentBatches[y], screenX, screenY, 0, scale, scale);
+            Love.Graphics.Draw(_bloodBatches[tileY], screenX, screenY, 0, scale, scale);
+            Love.Graphics.Draw(_fragmentBatches[tileY], screenX, screenY, 0, scale, scale);
         }
     }
 }

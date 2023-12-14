@@ -72,7 +72,7 @@ Elona.Quest = {
     Board = {
         Name = "掲載されている依頼",
         Difficulty = {
-            Difficulty = "★",
+            Star = "★",
             Counter = function(starCount)
                 return ("★×%s"):format(starCount)
             end,
@@ -757,7 +757,7 @@ Elona.Quest = {
                 },
             },
 
-            Type = {
+            Variants = {
                 Protect = {
                     {
                         Name = "使者の護衛",

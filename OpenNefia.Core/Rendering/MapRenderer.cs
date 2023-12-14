@@ -56,6 +56,9 @@ namespace OpenNefia.Core.Rendering
             _enabledTileLayers.Clear();
             _types.Clear();
 
+            // Tile layers have dependencies on tile row layers
+            _tileRowRenderer.RegisterTileLayers();
+
             _layerDependencyCollection = new(_entitySystemManager.DependencyCollection);
 
             foreach (var type in _reflectionManager.FindTypesWithAttribute<RegisterTileLayerAttribute>())
@@ -83,8 +86,6 @@ namespace OpenNefia.Core.Rendering
             }
 
             RebuildEnabledTileLayers();
-
-            _tileRowRenderer.RegisterTileLayers();
         }
 
         private void RebuildEnabledTileLayers()

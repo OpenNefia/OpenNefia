@@ -14,7 +14,7 @@ namespace OpenNefia.Content.EffectMap
     public sealed class EffectMapSystem : EntitySystem, IEffectMapSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IMapTileRowRenderer _tileRowRenderer = default!;
 
         public override void Initialize()
         {
@@ -25,7 +25,7 @@ namespace OpenNefia.Content.EffectMap
             if (coords.MapId != _mapManager.ActiveMap?.Id)
                 return;
 
-            if (_mapRenderer.TryGetTileLayer<EffectMapTileLayer>(out var layer))
+            if (_tileRowRenderer.TryGetTileRowLayer<EffectMapTileRowLayer>(out var layer))
                 layer.AddEffectMap(assetID, coords.Position, maxFrames, rotation, type);
         }
     }

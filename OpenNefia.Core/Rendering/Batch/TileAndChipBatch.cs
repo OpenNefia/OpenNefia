@@ -196,6 +196,14 @@ namespace OpenNefia.Core.Rendering
             {
                 row.Update(dt);
             }
+            foreach (var rowLayer in _afterTilesTileRowLayers)
+            {
+                rowLayer.Update(dt);
+            }
+            foreach (var rowLayer in _afterChipsTileRowLayers)
+            {
+                rowLayer.Update(dt);
+            }
         }
 
         public override void Draw()
