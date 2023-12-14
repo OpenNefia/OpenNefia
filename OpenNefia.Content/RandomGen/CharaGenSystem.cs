@@ -23,7 +23,7 @@ namespace OpenNefia.Content.RandomGen
         PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(IMap? map, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
         PrototypeId<EntityPrototype> PickRandomCharaId(IMap? map, EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
-            PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
+            PrototypeId<RacePrototype>? raceFilter = null);
 
         // TODO TryGenerateChara
         EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null,
@@ -71,6 +71,7 @@ namespace OpenNefia.Content.RandomGen
                 if (raceFilter != null && charaComp.Race != raceFilter.Value)
                     return false;
 
+                // TODO use TagComponent instead...
                 if (category != null)
                 {
                     if (!proto.Components.TryGetComponent<CreaturePackComponent>(out var creaturePack) || creaturePack.Category != category)
@@ -104,9 +105,13 @@ namespace OpenNefia.Content.RandomGen
             return id;
         }
 
-        public PrototypeId<EntityPrototype> PickRandomCharaId(IMap? map, EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
+        public PrototypeId<EntityPrototype> PickRandomCharaId(IMap? map, EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null)
         {
             var commonArgs = args.Ensure<EntityGenCommonArgs>();
+
+            string? category = null;
+            if (args.TryGet<CharaGenArgs>(out var charaArgs))
+                category ??= charaArgs.Category;
 
             if (category == null && tags?.Length == 0 && raceFilter == null)
             {

@@ -27,7 +27,6 @@ namespace OpenNefia.Core.Maps
             return save.Files.Exists(mapFile);
         }
 
-
         public bool TryGetOrLoadMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
             if (_saveGameManager.CurrentSave == null)

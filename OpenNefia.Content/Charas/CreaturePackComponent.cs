@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Charas
     /// Tags a character as belonging to a group of characters
     /// that can be used as part of a monster house.
     /// </summary>
+    // TODO use TagComponent instead!
     [RegisterComponent]
     public class CreaturePackComponent : Component
     {

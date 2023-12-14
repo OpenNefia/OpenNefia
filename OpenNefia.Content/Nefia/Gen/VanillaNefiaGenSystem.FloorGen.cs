@@ -125,10 +125,14 @@ namespace OpenNefia.Content.Nefia
                                     for (var j = 0; j < creatureCount2; j++)
                                     {
                                         var pos = _rand.NextVec2iInBounds(bounds);
+                                        var args = new CharaGenArgs()
+                                        {
+                                            Category = creaturePack.Category
+                                        };
                                         _charaGen.GenerateChara(map.AtPos(pos),
+                                            args: EntityGenArgSet.Make(args),
                                             minLevel: _levels.GetLevel(chara.Value),
-                                            quality: _randomGen.CalcObjectQuality(Quality.Normal),
-                                            fltselect: creaturePack.Category);
+                                            quality: _randomGen.CalcObjectQuality(Quality.Normal));
                                     }
                                     break;
                                 }

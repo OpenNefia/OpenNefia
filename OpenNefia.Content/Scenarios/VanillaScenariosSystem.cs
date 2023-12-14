@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Scenarios
             // Major TODO for now. Just set up important things like the player's house.
 
             var northTyrisArea = _areaManager.GetGlobalArea(GlobalAreas.NorthTyris);
-            var northTyrisMap = _areaManager.GetOrGenerateMapForFloor(northTyrisArea.Id, GlobalAreas.NorthTyris_FloorNorthTyris)!;
+            var northTyrisMap = _areaManager.GetOrGenerateMapForFloor(northTyrisArea.Id, AreaFloorId.Default)!;
 
             var yourHomeArea = _areaManager.CreateArea(Protos.Area.HomeCave, parent: northTyrisArea.Id);
             IMap yourHomeMap = _areaManager.GetOrGenerateMapForFloor(yourHomeArea.Id, HomeSystem.AreaFloorHome)!;
