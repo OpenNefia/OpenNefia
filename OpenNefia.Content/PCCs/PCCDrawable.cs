@@ -11,6 +11,7 @@ using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.PCCs
 {
@@ -92,9 +93,15 @@ namespace OpenNefia.Content.PCCs
             {
                 foreach (var (_, part) in Parts.OrderBy(pair => pair.Value.ZOrder))
                 {
-                    var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
-                    Love.Graphics.SetColor(part.Color);
-                    Love.Graphics.Draw(image, 0, 0);
+                    if (cache.TryGetResource<LoveImageResource>(part.ImagePath, out var resource))
+                    {
+                        Love.Graphics.SetColor(part.Color);
+                        Love.Graphics.Draw(resource.Image, 0, 0);
+                    }
+                    else
+                    {
+                        Logger.WarningS("pcc", $"PCC part at path {part.ImagePath} was missing.");
+                    }
                 }
             }
         }

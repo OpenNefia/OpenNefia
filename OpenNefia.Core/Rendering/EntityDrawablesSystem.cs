@@ -22,6 +22,9 @@ namespace OpenNefia.Core.Rendering
     /// 
     /// The drawable is assumed to be the same size as a tile in the
     /// current coordinate system (48 pixels by default).
+    /// 
+    /// Entity drawables must be serializable so they can be saved
+    /// in the map's list of memorized objects.
     /// </summary>
     [ImplicitDataDefinitionForInheritors]
     public interface IEntityDrawable : IDisposable

@@ -46,8 +46,6 @@ namespace OpenNefia.Core.Rendering
         {
             _positional = new List<MapObjectMemory>?[_width, _height];
 
-            var resourceCache = IoCManager.Resolve<IResourceCache>();
-
             foreach (var memory in AllMemory.Values)
             {
                 var coords = memory.Coords;
@@ -60,11 +58,6 @@ namespace OpenNefia.Core.Rendering
                 }
 
                 at.Add(memory);
-
-                foreach (var drawable in memory.Drawables)
-                {
-                    drawable.Initialize(resourceCache);
-                }
             }
         }
 
