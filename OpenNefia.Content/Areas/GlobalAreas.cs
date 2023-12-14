@@ -10,7 +10,6 @@ namespace OpenNefia.Content.Areas
     public static class GlobalAreas
     {
         public static readonly GlobalAreaId NorthTyris = new($"Elona.Area{nameof(NorthTyris)}");
-        public static readonly AreaFloorId NorthTyris_FloorNorthTyris = new("Elona.FloorNorthTyris", AreaFloorId.DefaultFloorNumber);
 
         public static readonly GlobalAreaId Vernis = new($"Elona.Area{nameof(Vernis)}");
         public static readonly GlobalAreaId PortKapul = new($"Elona.Area{nameof(PortKapul)}");
