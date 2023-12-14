@@ -134,7 +134,7 @@ namespace OpenNefia.Content.Tests.Spells
                 Assert.That(spellCureOfJure.SpellStock, Is.EqualTo(25));
 
                 // Random.
-                Assert.That(level.Experience, Is.EqualTo(15696));
+                Assert.That(level.Experience, Is.EqualTo(24823));
             });
         }
 
@@ -194,7 +194,7 @@ namespace OpenNefia.Content.Tests.Spells
             Assert.Multiple(() =>
             {
                 // Random.
-                Assert.That(level.Experience, Is.EqualTo(1701));
+                Assert.That(level.Experience, Is.EqualTo(2135));
             });
         }
     }

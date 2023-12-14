@@ -218,7 +218,7 @@ namespace OpenNefia.Content.Tests.Areas
             Assert.That(sys.EnumerateKnownEntrancesTo(area1MapId).Count, Is.EqualTo(1));
         }
 
-        // XXX: should area list of contained maps be updated if a map is deleted?
+        // XXX: should an area's list of contained maps be updated if a map is deleted?
         //      it would let this test pass.
         /*
         [Test]

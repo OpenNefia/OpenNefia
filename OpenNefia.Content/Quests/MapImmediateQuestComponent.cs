@@ -16,6 +16,9 @@ namespace OpenNefia.Content.Quests
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MapImmediateQuestComponent : Component
     {
+        /// <summary>
+        /// Associated quest of the immediate quest.
+        /// </summary>
         [DataField]
         public EntityUid QuestUid { get; set; }
 
@@ -26,13 +29,14 @@ namespace OpenNefia.Content.Quests
         public GameTimeSpan TimeToNextNotify { get; set; }
 
         /// <summary>
-        /// Location to return the player to after the quest is finished.
+        /// Location to return the player to after the quest is completed/failed.
+        /// Used as a fallback if the quest is failed.
         /// </summary>
         [DataField]
         public MapEntrance PreviousLocation { get; set; } = new MapEntrance();
 
         /// <summary>
-        /// If true then the quest state will be tracked if the player tries to exit the map,
+        /// If true, then the quest state will be tracked if the player tries to exit the map,
         /// either via the edges or through other means like the Return spell.
         /// If the quest state was not set to <see cref="QuestState.Completed"/>, then the
         /// associated quest will be failed.

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.Areas;
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
@@ -36,10 +37,11 @@ namespace OpenNefia.Content.Tests.EntityGen
             var entMan = sim.Resolve<IEntityManager>();
             var charaGen = sim.GetEntitySystem<ICharaGen>();
 
-            var args = new EntityGenCommonArgs()
+            var args = new CharaGenArgs()
             {
+                Category = CreaturePacks.Dog
             };
-            var id = charaGen.PickRandomCharaId(null, EntityGenArgSet.Make(args), minLevel: 28, fltselect: "Elona.Dog");
+            var id = charaGen.PickRandomCharaId(null, EntityGenArgSet.Make(args), minLevel: 28);
 
             Assert.That(id, Is.EqualTo(Protos.Chara.Dog));
         }

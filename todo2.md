@@ -4,21 +4,21 @@
 - [x] house board
 - [x] respawning
 - [x] random encounters
-- [ ] weather
-- [ ] town quests
+- [x] weather
+- [x] town quests
+- [ ] PCCs & ring light
 - [ ] journal
 - [ ] scene playback
 - [x] intro/first pet event
-- [ ] PCCs & ring light
+- [ ] riding
 - [ ] magic/buffs/effects
   + [ ] timestop
 - [ ] magic items
 - [ ] AI/calm actions
-- [ ] riding
-- [x] living weapons
 - [ ] cargo
+- [x] living weapons
 - [ ] all unique areas
-- [ ] main quest/sidequests
+- [ ] main quest/sidequests/dialogs
 - [ ] house guests
 - [ ] house upgrading
 - [ ] all item events/properties
