@@ -9,6 +9,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using OpenNefia.Core.ResourceManagement;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -21,6 +22,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
         [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] private readonly IMapTileRowRenderer _tileRowRenderer = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
 
@@ -66,7 +68,7 @@ namespace OpenNefia.Core.Rendering
             foreach (var type in GetSortedLayers(_types))
             {
                 var attr = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
-                var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
+                var layer = (ITileLayer)_layerDependencyCollection.ResolveType(type);
                 layer.Initialize();
                 _allTileLayers.Add(layer);
                 _tileLayerMetaData.Add(layer, new TileLayerMetaData(enabled: attr.EnabledAtStartup));
@@ -201,7 +203,7 @@ namespace OpenNefia.Core.Rendering
                     layer.RedrawAll();
                 }
             }
-            else if(_map.DirtyTilesThisTurn.Count > 0)
+            else if (_map.DirtyTilesThisTurn.Count > 0)
             {
                 foreach (var layer in _allTileLayers)
                 {

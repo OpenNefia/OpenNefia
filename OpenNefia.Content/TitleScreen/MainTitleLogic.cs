@@ -27,6 +27,8 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Scenarios;
 using OpenNefia.Core.EngineVariables;
+using OpenNefia.Content.CharaAppearance;
+using OpenNefia.Core.ResourceManagement;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -54,6 +56,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IRandomAliasGenerator _randomAlias = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private void Startup()
         {
@@ -141,6 +144,8 @@ namespace OpenNefia.Content.TitleScreen
         [EngineVariable("Elona.QuickstartScenarios")]
         private List<PrototypeId<ScenarioPrototype>> _varQuickstartScenarios { get; } = new();
 
+        private const string QuickStartPlayerName = "*QuickStart*";
+
         private void RunQuickStart(PrototypeId<ScenarioPrototype>? scenarioId = null)
         {
             if (scenarioId == null)
@@ -167,15 +172,16 @@ namespace OpenNefia.Content.TitleScreen
             {
                 new CharaMakeClassSelectLayer.ResultData(Protos.Class.Predator),
                 new CharaMakeRaceSelectLayer.ResultData(Protos.Race.Machinegod),
+                new CharaMakeAppearanceLayer.ResultData(CharaAppearanceHelpers.MakeDefaultAppearanceData(_protos, _resourceCache)),
                 new CharaMakeAliasLayer.ResultData(_randomAlias.GenerateRandomAlias(AliasType.Chara)),
             });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
-            customName.CustomName = "*QuickStart*";
+            customName.CustomName = QuickStartPlayerName;
 
             // Wipe the previous quickstart save(s)
             foreach (var save in _saveGameManager.AllSaves.ToList())
             {
-                if (save.Header.Name == "*QuickStart*")
+                if (save.Header.Name == QuickStartPlayerName)
                 {
                     _saveGameManager.DeleteSave(save);
                 }

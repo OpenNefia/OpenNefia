@@ -1,5 +1,9 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.CharaAppearance;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Directions;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
@@ -9,15 +13,23 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NetVips.Enums;
 
 namespace OpenNefia.Content.PCCs
 {
     public interface IPCCSystem : IEntitySystem
     {
         /// <summary>
+        /// Initializes/removes the PCC of an entity.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="pccComp"></param>
+        void SetupPCCDrawable(EntityUid uid, PCCComponent? pccComp = null);
+
+        /// <summary>
         /// Gets the underlying PCC drawable for this entity, if it exists.
         /// </summary>
-        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable, 
+        bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,
             PCCComponent? pccComp = null);
 
         /// <summary>
@@ -46,20 +58,69 @@ namespace OpenNefia.Content.PCCs
         {
             SubscribeComponent<PCCComponent, ComponentStartup>(OnComponentStartup);
             SubscribeComponent<PCCComponent, ComponentShutdown>(OnComponentShutdown);
+            SubscribeComponent<PCCComponent, CharaAppearanceChangedEvent>(OnAppearanceChanged);
+            SubscribeComponent<PCCComponent, AfterMoveEventArgs>(AfterMove_UpdatePCC);
+            SubscribeComponent<PCCComponent, CollideWithEventArgs>(CollideWith_UpdatePCC, priority: EventPriorities.VeryHigh);
         }
 
         private void OnComponentStartup(EntityUid uid, PCCComponent pccComp, ComponentStartup args)
         {
-            var pccDrawable = new PCCDrawable(pccComp.PCCParts);
-            pccDrawable.RebakeImage(_resourceCache);
+            SetupPCCDrawable(uid, pccComp);
+        }
 
-            var entityDrawable = new EntityDrawableEntry(pccDrawable, true);
-            _drawables.RegisterDrawable(uid, DrawableID, entityDrawable);
+        private void OnAppearanceChanged(EntityUid uid, PCCComponent pccComp, CharaAppearanceChangedEvent args)
+        {
+            SetupPCCDrawable(uid, pccComp);
+        }
+
+        public void SetupPCCDrawable(EntityUid uid, PCCComponent? pccComp = null)
+        {
+            if (!Resolve(uid, ref pccComp))
+                return;
+
+            if (pccComp.UsePCC)
+            {
+                var pccDrawable = PCCHelpers.CreatePCCDrawable(pccComp, _resourceCache);
+                var entityDrawable = new EntityDrawableEntry(pccDrawable, hidesChip: true);
+                _drawables.RegisterDrawable(uid, DrawableID, entityDrawable);
+            }
+            else
+            {
+                _drawables.UnregisterDrawable(uid, DrawableID);
+            }
         }
 
         private void OnComponentShutdown(EntityUid uid, PCCComponent pccComp, ComponentShutdown args)
         {
             _drawables.UnregisterDrawable(uid, DrawableID);
+        }
+
+        private void AfterMove_UpdatePCC(EntityUid uid, PCCComponent pccComp, AfterMoveEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            UpdatePCC(uid, pccComp, args.OldPosition, args.NewPosition);
+        }
+
+        private void CollideWith_UpdatePCC(EntityUid uid, PCCComponent pccComp, CollideWithEventArgs args)
+        {
+            if (args.Handled || !IsAlive(args.Target))
+                return;
+
+            UpdatePCC(uid, pccComp, Spatial(uid).MapPosition, Spatial(args.Target).MapPosition);
+        }
+
+        private void UpdatePCC(EntityUid uid, PCCComponent pccComp, MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            if (!pccComp.UsePCC || !TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
+                return;
+
+            if (oldPosition.TryDirectionTowards(newPosition, out var dir))
+                pccComp.PCCDirection = dir.ToPCCDirection();
+            pccDrawable.IsFullSize = pccComp.IsFullSize;
+            pccDrawable.Direction = pccComp.PCCDirection;
+            pccDrawable.Frame = (pccDrawable.Frame + 1) % 4;
         }
 
         public bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,
@@ -79,9 +140,10 @@ namespace OpenNefia.Content.PCCs
 
         public void RebakePCCImage(EntityUid uid, PCCComponent? pccComp = null)
         {
-            if (!TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
+            if (!Resolve(uid, ref pccComp) || !TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
                 return;
 
+            pccDrawable.IsFullSize = pccComp.IsFullSize;
             pccDrawable.RebakeImage(_resourceCache);
         }
 

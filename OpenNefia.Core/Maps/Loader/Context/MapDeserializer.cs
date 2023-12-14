@@ -4,6 +4,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
@@ -17,12 +18,12 @@ namespace OpenNefia.Core.Maps
 {
     internal sealed class MapDeserializer
     {
-        [Dependency] private readonly IResourceManager _resourceManager = default!;
         [Dependency] private readonly IMapManagerInternal _mapManager = default!;
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IEntityManagerInternal _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private readonly BlueprintEntityStartupDelegate? _onBlueprintEntityStartup;
 
@@ -205,6 +206,14 @@ namespace OpenNefia.Core.Maps
             }
 
             MapGrid!.MapObjectMemory = _serializationManager.Read<MapObjectMemoryStore>(objectMemoryNode);
+
+            foreach (var memory in MapGrid.MapObjectMemory.AllMemory.Values)
+            {
+                foreach (var drawable in memory.Drawables)
+                {
+                    drawable.Initialize(_resourceCache);
+                }
+            }
         }
 
         private void AllocEntities()

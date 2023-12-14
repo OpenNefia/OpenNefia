@@ -246,7 +246,7 @@ namespace OpenNefia.Content.RandomGen
 
             // TODO extended prototype validation
             if (tagSet.Tags.Count == 0)
-                throw new InvalidDataException($"Tag set {tagSetID} containss no tags.");
+                throw new InvalidDataException($"Tag set {tagSetID} contains no tags.");
 
             var sampler = new WeightedSampler<PrototypeId<TagPrototype>>();
             foreach (var entry in tagSet.Tags)

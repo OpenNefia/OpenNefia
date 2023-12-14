@@ -36,6 +36,7 @@ Elona.CharaAppearance.Control = {
             Etc3 = "ｱｸｾｻﾘ3",
             Eyes = "目",
 
+            IsFullSize = "原寸表示",
             SetBasic = "基本設定",
         },
         Equipment = {

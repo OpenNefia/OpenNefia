@@ -372,6 +372,7 @@ namespace OpenNefia.Core.Maps
 
     /// <summary>
     /// Raised when a map is loaded from save data.
+    /// Areas will not be loaded yet.
     /// </summary>
     [EventUsage(EventTarget.Map)]
     public sealed class MapLoadedFromSaveEvent : EntityEventArgs

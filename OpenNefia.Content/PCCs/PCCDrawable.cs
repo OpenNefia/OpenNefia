@@ -10,6 +10,8 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.PCCs
 {
@@ -17,10 +19,16 @@ namespace OpenNefia.Content.PCCs
     {
         private readonly Love.Quad[] _quads = new Love.Quad[16];
 
-        public Dictionary<string, PCCPart> Parts { get; }
+        [DataField]
+        public Dictionary<string, PCCPart> Parts { get; } = new();
 
+        [DataField]
         public int Frame { get; set; }
+
+        [DataField]
         public PCCDirection Direction { get; set; }
+
+        [DataField]
         public bool IsFullSize { get; set; }
 
         private Love.Image? BakedImage = null;
@@ -31,23 +39,38 @@ namespace OpenNefia.Content.PCCs
         private const int SheetHeight = PartHeight * 4;
         private const int MaxFrames = 16;
 
-        public PCCDrawable(Dictionary<string, PCCPart> parts)
+        public PCCDrawable() : this(false) { }
+
+        public PCCDrawable(bool isFullSize)
+        {
+            IsFullSize = isFullSize;
+        }
+
+        public PCCDrawable(Dictionary<string, PCCPart> parts, bool isFullSize = false)
         {
             Parts = parts;
+            IsFullSize = isFullSize;
+        }
 
+        public void Initialize(IResourceCache cache)
+        {
             AllocateQuads();
+            RebakeImage(cache);
         }
 
         private void AllocateQuads()
         {
+            if (_quads[0] != null)
+                return;
+
             for (int i = 0; i < 16; i++)
             {
                 var x = i / 4;
                 var y = i % 4;
 
                 _quads[i]?.Dispose();
-                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight, 
-                    PartWidth, PartHeight, 
+                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight,
+                    PartWidth, PartHeight,
                     SheetWidth, SheetHeight);
             }
         }
@@ -70,46 +93,58 @@ namespace OpenNefia.Content.PCCs
             {
                 foreach (var (_, part) in Parts.OrderBy(pair => pair.Value.ZOrder))
                 {
-                    var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
-                    Love.Graphics.SetColor(part.Color);
-                    Love.Graphics.Draw(image, 0, 0);
+                    if (cache.TryGetResource<LoveImageResource>(part.ImagePath, out var resource))
+                    {
+                        Love.Graphics.SetColor(part.Color);
+                        Love.Graphics.Draw(resource.Image, 0, 0);
+                    }
+                    else
+                    {
+                        Logger.WarningS("pcc", $"PCC part at path {part.ImagePath} was missing.");
+                    }
                 }
             }
-        }
-
-        public void NextFrame()
-        {
-            Frame = (Frame + 1) % MaxFrames;
         }
 
         public void Update(float dt)
         {
         }
 
-        public void Draw(float x, float y, float scaleX, float scaleY)
+        public void Draw(float scale, float x, float y, bool centered = false)
         {
-            int width, height, offsetX, offsetY;
+            if (BakedImage == null)
+                return;
+
+            int width, height;
+            int offsetX = 0;
+            int offsetY = 0;
 
             if (IsFullSize)
             {
                 width = PartWidth;
                 height = PartHeight;
-                offsetX = 8;
-                offsetY = -4;
+                if (!centered)
+                {
+                    offsetX = 8;
+                    offsetY = -4;
+                }
             }
             else
             {
                 width = 24;
                 height = 40;
-                offsetX = 12;
-                offsetY = 4;
+                if (!centered)
+                {
+                    offsetX = 12;
+                    offsetY = 4;
+                }
             }
 
             var index = Math.Clamp((int)Direction + Frame * 4, 0, MaxFrames - 1);
             var quad = _quads[index];
 
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scaleX, y + offsetY * scaleY, width * scaleX, height * scaleY, centered: true);
+            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scale, y + offsetY * scale, width * scale, height * scale, centered: centered);
         }
 
         public void Dispose()

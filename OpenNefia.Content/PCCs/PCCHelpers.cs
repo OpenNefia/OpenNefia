@@ -33,6 +33,14 @@ namespace OpenNefia.Content.PCCs
             }
         }
 
+        public static PCCDrawable CreatePCCDrawable(PCCComponent pcc, IResourceCache? _resourceCache = null)
+        {
+            IoCManager.Resolve(ref _resourceCache);
+            var drawable = new PCCDrawable(pcc.PCCParts, pcc.IsFullSize);
+            drawable.Initialize(_resourceCache);
+            return drawable;
+        }
+
         /// <summary>
         /// Gets a dictionary of all the PCC parts grouped by their <see cref="PCCPartType"/>.
         /// </summary>

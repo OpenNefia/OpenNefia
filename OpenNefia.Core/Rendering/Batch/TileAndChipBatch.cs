@@ -113,11 +113,15 @@ namespace OpenNefia.Core.Rendering
         public void AddChipEntry(MapObjectMemory memory)
         {
             ChipBatchEntry? entry;
+            AtlasTile? tile = null;
 
-            if (!_chipAtlas.TryGetTile(memory.AtlasIndex, out var tile))
+            if (memory.AtlasIndex != null)
             {
-                Logger.ErrorS("tile.chipBatch", $"Missing chip {memory.AtlasIndex}");
-                return;
+                if (!_chipAtlas.TryGetTile(memory.AtlasIndex, out tile))
+                {
+                    Logger.ErrorS("tile.chipBatch", $"Missing chip {memory.AtlasIndex}");
+                    return;
+                }
             }
 
             // Allocate a new chip batch entry.
@@ -137,10 +141,13 @@ namespace OpenNefia.Core.Rendering
                         _rows[entry.RowIndex].EntityShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
                         break;
                     case ShadowType.DropShadow:
-                        var viewport = tile.Quad.GetViewport();
-                        // TODO no idea what the actual rotation amounts should be
-                        // TODO this needs to be rendered as a solid color instead of the texture of the chip
-                        _rows[entry.RowIndex].EntityShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                        if (tile != null)
+                        {
+                            var viewport = tile.Quad.GetViewport();
+                            // TODO no idea what the actual rotation amounts should be
+                            // TODO this needs to be rendered as a solid color instead of the texture of the chip
+                            _rows[entry.RowIndex].EntityShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                        }
                         break;
                 }
             }
@@ -223,7 +230,7 @@ namespace OpenNefia.Core.Rendering
         private int RowYIndex;
         private int ScreenWidth;
         private int ScreenHeight;
-        private float Scale;
+        private float TileScale;
         private bool HasOverhang = false;
         private ICoords Coords;
 
@@ -237,7 +244,7 @@ namespace OpenNefia.Core.Rendering
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
             Coords = coords;
-            Scale = scale;
+            TileScale = scale;
 
             TileBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             ChipBatch = new ChipBatch(chipAtlas, coords);
@@ -254,7 +261,7 @@ namespace OpenNefia.Core.Rendering
 
         public void SetScale(float scale)
         {
-            Scale = scale;
+            TileScale = scale;
         }
 
         public void OnThemeSwitched()
@@ -316,20 +323,20 @@ namespace OpenNefia.Core.Rendering
             if (HasOverhang)
             {
                 var overhangHeight = Coords.TileSize.Y / 4;
-                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, (int)(ScreenWidth * Scale), (int)(overhangHeight * Scale));
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, Scale, Scale);
+                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, (int)(ScreenWidth * TileScale), (int)(overhangHeight * TileScale));
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
 
                 // Darken tiles to simulate day/night.
                 Love.Graphics.SetBlendMode(BlendMode.Subtract);
                 Love.Graphics.SetColor(TileShadow);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, Scale, Scale);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
                 Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
                 Love.Graphics.SetScissor();
             }
 
             Love.Graphics.SetColor(Color.White);
-            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, Scale, Scale);
+            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, TileScale, TileScale);
             
             // Darken tiles to simulate day/night.
             // TODO: The original HSP code uses the gfdec2 function. gfdec2
@@ -338,7 +345,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             Love.Graphics.SetColor(TileShadow);
             //Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
-            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, Scale, Scale);
+            Love.Graphics.Draw(TileBatch, screenX, screenY, 0, TileScale, TileScale);
 
             foreach (var rowLayer in AfterTilesTileRowLayers)
             {
@@ -347,12 +354,12 @@ namespace OpenNefia.Core.Rendering
 
             // Draw shadows underneath chips...
             Love.Graphics.SetColor(Color.White.WithAlphaB(110));
-            Love.Graphics.Draw(EntityShadowBatch, screenX, screenY, 0, Scale, Scale);
+            Love.Graphics.Draw(EntityShadowBatch, screenX, screenY, 0, TileScale, TileScale);
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
             // ...then draw each chip.
             Love.Graphics.SetColor(Color.White);
-            ChipBatch.Draw(screenX, screenY, Scale);
+            ChipBatch.Draw(screenX, screenY, TileScale);
 
             foreach (var rowLayer in AfterChipsTileRowLayers)
             {

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.GameObjects
 {
+    /// <summary>
+    /// These flags are set by associated enchantments, hence why they're not their own components.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class SpecialInstrumentsComponent : Component, IComponentRefreshable

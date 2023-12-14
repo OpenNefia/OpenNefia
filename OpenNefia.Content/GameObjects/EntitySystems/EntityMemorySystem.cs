@@ -53,7 +53,8 @@ namespace OpenNefia.Content.GameObjects
             memory.ZOrder = chip.DrawDepth;
             memory.HideWhenOutOfSight = false;
             memory.ShadowType = ShadowType.None;
-            memory.ShadowRotationRads = .15f;
+            memory.Drawables.Clear();
+            // memory.ShadowRotationRads = .15f;
         }
 
         public void GetEntityMemory(EntityUid entity, ref MapObjectMemory memory)

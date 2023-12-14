@@ -221,6 +221,7 @@ namespace OpenNefia.Content.Activity
             return TryGetActivity(entity, out _, activityHolder);
         }
 
+        // TODO this should be generic on IComponent, not using a prototype ID comparison
         public bool HasActivity(EntityUid entity, PrototypeId<EntityPrototype> id, ActivityHolderComponent? activityHolder = null)
         {
             if (!TryGetActivity(entity, out var activityComp, activityHolder))

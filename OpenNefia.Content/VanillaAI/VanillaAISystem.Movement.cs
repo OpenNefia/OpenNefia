@@ -16,6 +16,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Book;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -23,9 +29,13 @@ namespace OpenNefia.Content.VanillaAI
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
+        [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
-        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
-            int maxDistance = 2, 
+        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai,
+            int maxDistance = 2,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(entity, ref spatial))
@@ -189,7 +199,7 @@ namespace OpenNefia.Content.VanillaAI
 
                     if (Resolve(target, ref targetLevel) && Resolve(onCell, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
-                        if (onCellQuality.Quality.Buffed > Quality.Good 
+                        if (onCellQuality.Quality.Buffed > Quality.Good
                             && onCellLevel.Level > targetLevel.Level
                             && onCellAi.CurrentTarget != ai.CurrentTarget)
                         {
@@ -212,7 +222,7 @@ namespace OpenNefia.Content.VanillaAI
                 {
                     if (_rand.OneIn(4))
                     {
-                        // TODO crush wall
+                        CrushWall(entity, map, newCoords);
                         return true;
                     }
                 }
@@ -257,6 +267,23 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             return false;
+        }
+
+        private void CrushWall(EntityUid entity, IMap map, MapCoordinates newCoords)
+        {
+            // >>>>>>>> elona122/shade2/ai.hsp:411 			map(x,y,0)=tile_tunnel ...
+            var tileset = _mapTilesets.GetTileset(map);
+            var tile = _mapTilesets.GetTile(Protos.Tile.MapgenTunnel, tileset);
+            if (tile == null)
+                return;
+
+            map.SetTile(newCoords.Position, tile.Value);
+            _mapDebris.SpillFragments(newCoords, 2);
+            _audio.Play(Protos.Sound.Crush1, newCoords);
+            var drawable = new BreakingFragmentsMapDrawable();
+            _mapDrawables.Enqueue(drawable, newCoords);
+            _mes.Display(Loc.GetString("Elona.AI.CrushesWall", ("entity", entity)), entity: entity);
+            // <<<<<<<< elona122/shade2/ai.hsp:415 			goto *turn_end ...
         }
 
         private MovementResult FindPositionForMovement(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
@@ -310,7 +337,7 @@ namespace OpenNefia.Content.VanillaAI
                     reverse = true;
                 }
                 dir = Direction.East;
-            } 
+            }
             else if (desired.X < spatial.WorldPosition.X)
             {
                 if (desired.Y < spatial.WorldPosition.Y)
@@ -350,8 +377,8 @@ namespace OpenNefia.Content.VanillaAI
             return new MovementResult(pos, blocked, SouthNorth);
         }
 
-        private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse, 
-            VanillaAIComponent ai, 
+        private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse,
+            VanillaAIComponent ai,
             SpatialComponent spatial)
         {
             var pos = Vector2i.Zero;

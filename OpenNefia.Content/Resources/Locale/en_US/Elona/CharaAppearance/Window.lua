@@ -36,6 +36,7 @@ Elona.CharaAppearance.Control = {
             Etc3 = "Etc3",
             Eyes = "Eyes",
 
+            IsFullSize = "Full Size",
             SetBasic = "Set Basic",
         },
         Equipment = {

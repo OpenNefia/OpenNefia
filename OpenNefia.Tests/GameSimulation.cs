@@ -22,6 +22,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -271,6 +272,7 @@ namespace OpenNefia.Tests
 
             container.RegisterInstance<IReflectionManager>(reflectionManager.Object); // tests should not be searching for types
             container.RegisterInstance<IResourceManager>(new Mock<IResourceManager>().Object); // no disk access for tests
+            container.RegisterInstance<IResourceCache>(new Mock<IResourceCache>().Object);
 
             //Tier 2: Simulation
             container.Register<IEntityManager, EntityManagerInternal>();

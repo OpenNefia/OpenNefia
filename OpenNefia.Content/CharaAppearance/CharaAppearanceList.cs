@@ -178,6 +178,21 @@ namespace OpenNefia.Content.CharaAppearance
                     UsePCC = true;
             }
         }
+
+        public sealed class PCCFullSize : CharaAppearanceUICellData
+        {
+            public bool IsFullSize { get; set; }
+
+            public override string Text => IsFullSize ? "1" : "0";
+
+            public override void Change(int delta)
+            {
+                if (delta < 0)
+                    IsFullSize = false;
+                else
+                    IsFullSize = true;
+            }
+        }
     }
 
     public sealed class CharaAppearanceUIListCell : UiListCell<CharaAppearanceUICellData>
@@ -358,6 +373,9 @@ namespace OpenNefia.Content.CharaAppearance
                         break;
                     case CharaAppearanceUICellData.CustomChara customChara:
                         customChara.UsePCC = data.UsePCC;
+                        break;
+                    case CharaAppearanceUICellData.PCCFullSize pccFullSize:
+                        pccFullSize.IsFullSize = data.IsFullSize;
                         break;
                 }
 

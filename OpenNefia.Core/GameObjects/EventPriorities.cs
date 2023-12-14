@@ -10,7 +10,7 @@
         /// Event is executed as late as possible.
         /// <see cref="VeryLow"/> is recommended instead.
         /// </summary>
-        public const long Lowest   =  1000000000L;
+        public const long Lowest   = 1000000000000L;
 
         /// <summary>
         /// Event is executed very late.
@@ -41,6 +41,6 @@
         /// Event is executed as early as possible.
         /// <see cref="VeryHigh"/> is recommended instead.
         /// </summary>
-        public const long Highest  = -1000000000L;
+        public const long Highest  = -1000000000000L;
     }
 }

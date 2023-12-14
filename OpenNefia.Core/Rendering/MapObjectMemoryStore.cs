@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using static NetVips.Enums;

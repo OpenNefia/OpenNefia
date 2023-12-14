@@ -47,6 +47,11 @@ namespace OpenNefia.Content.CharaAppearance
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
+                // Reset appearance to current entity state
+                CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(_targetEntity,
+                _protos, _entityManager, _resourceCache);
+                CharaAppearanceHelpers.ApplyAppearanceDataTo(_targetEntity, appearanceData, _entityManager, _pccs);
+
                 Cancel();
             }
         }
@@ -69,7 +74,7 @@ namespace OpenNefia.Content.CharaAppearance
             _targetEntity = args.TargetEntity;
 
             CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(_targetEntity,
-                _protos, _entityManager, _resourceCache, _pccs);
+                _protos, _entityManager, _resourceCache);
             AppearanceControl.Initialize(appearanceData);
         }
 
