@@ -70,15 +70,15 @@ namespace OpenNefia.Content.Maps
             if (ev.Cancelled || !IsAlive(user))
                 return false;
 
+            if (!silent)
+                _audio.Play(Protos.Sound.Exitmap1);
+
             mapId = entrance.MapIdSpecifier.GetOrGenerateMapId();
             if (mapId == null)
             {
                 Logger.WarningS("map.entrance", $"Failed to get map ID for entrance {entrance}!");
                 return false;
             }
-
-            if (!silent)
-                _audio.Play(Protos.Sound.Exitmap1);
 
             if (!_mapLoader.TryGetOrLoadMap(mapId.Value, _saveGameManager.CurrentSave!, out var map))
                 return false;
