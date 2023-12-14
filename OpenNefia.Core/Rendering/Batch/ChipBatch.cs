@@ -35,13 +35,18 @@ namespace OpenNefia.Core.Rendering
         /// </summary>
         private class TrackedSprite
         {
-            public TrackedSprite(int index, Love.Quad quad, Vector2 position, Vector2 targetPosition, Vector2 lerpSpeed)
+            public TrackedSprite(int index, Love.Quad quad, ShadowType shadowType, int? shadowIndex, Love.Quad shadowQuad, Vector2i screenOffset, Vector2 position, Vector2 targetPosition, bool lerp)
             {
                 Index = index;
                 Quad = quad;
+                ShadowType = shadowType;
+                ShadowIndex = shadowIndex;
+                ShadowQuad = shadowQuad;
+                ScreenOffset = screenOffset;
                 Position = position;
+                StartPosition = position;
                 TargetPosition = targetPosition;
-                LerpSpeed = lerpSpeed;
+                LerpPercentage = lerp ? 0f : 1f;
             }
 
             /// <summary>
@@ -55,9 +60,34 @@ namespace OpenNefia.Core.Rendering
             public Love.Quad Quad { get; }
 
             /// <summary>
+            /// Type of shadow under the entity.
+            /// </summary>
+            public ShadowType ShadowType { get; }
+
+            /// <summary>
+            /// Index in the shadow <see cref="Love.SpriteBatch"/>.
+            /// </summary>
+            public int? ShadowIndex { get; }
+
+            /// <summary>
+            /// Shadow quad used for this sprite.
+            /// </summary>
+            public Love.Quad ShadowQuad { get; }
+
+            /// <summary>
+            /// Screen offset for use with shadows.
+            /// </summary>
+            public Vector2i ScreenOffset { get; set; }
+
+            /// <summary>
             /// Current position of the sprite.
             /// </summary>
             public Vector2 Position { get; set; }
+
+            /// <summary>
+            /// Starting position of the sprite.
+            /// </summary>
+            public Vector2 StartPosition { get; set; }
 
             /// <summary>
             /// Target position the sprite will lerp towards.
@@ -65,9 +95,9 @@ namespace OpenNefia.Core.Rendering
             public Vector2 TargetPosition { get; set; }
 
             /// <summary>
-            /// Speed of linear interpolation.
+            /// Percentage of linear interpolation (0f-1f).
             /// </summary>
-            public Vector2 LerpSpeed { get; set; }
+            public float LerpPercentage { get; set; }
         }
 
         private class TrackedSpriteBatch
@@ -76,16 +106,19 @@ namespace OpenNefia.Core.Rendering
             public int Index { get; }
             public List<TrackedSprite> Sprites { get; } = new();
 
-            public TrackedSpriteBatch(Love.SpriteBatch spriteBatch, int index)
+            private readonly AtlasTile _shadowTile;
+
+            public TrackedSpriteBatch(Love.SpriteBatch spriteBatch, int index, AtlasTile shadowTile)
             {
                 SpriteBatch = spriteBatch;
                 Index = index;
+                _shadowTile = shadowTile;
             }
 
-            public void Add(Love.Quad quad, Vector2 startPos, Vector2 endPos, Vector2 lerpSpeed, float angle = 0, float sx = 1, float sy = 1, float ox = 0, float oy = 0, float kx = 0, float ky = 0)
+            public void Add(Love.Quad quad, Vector2 startPos, Vector2 endPos,  bool lerp, ShadowType shadowType, int? shadowIndex, Vector2i screenOffset, float angle = 0, float sx = 1, float sy = 1, float ox = 0, float oy = 0, float kx = 0, float ky = 0)
             {
                 var index = SpriteBatch.Add(quad, startPos.X, startPos.Y, angle, sx, sy, ox, oy, kx, ky);
-                Sprites.Add(new TrackedSprite(index, quad, startPos, endPos, lerpSpeed));
+                Sprites.Add(new TrackedSprite(index, quad, shadowType, shadowIndex, _shadowTile.Quad, screenOffset, startPos, endPos, lerp));
             }
 
             public void Clear()
@@ -95,24 +128,29 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        private Love.SpriteBatch _entityShadowBatch;
         internal PriorityMap<int, ChipBatchEntry, int> ByIndex = new PriorityMap<int, ChipBatchEntry, int>();
         private List<ChipBatchDrawable> ToDraw = new();
         private List<TrackedSpriteBatch> SpriteBatches = new();
         internal bool NeedsRedraw = false;
 
         public TileAtlas Atlas { get; }
-        private ICoords Coords;
+        private AtlasTile _shadowTile;
+        private ICoords _coords;
 
-        public ChipBatch(TileAtlas atlas, ICoords coords)
+        public ChipBatch(TileAtlas atlas, ICoords coords, AtlasTile shadowTile)
         {
-            this.Atlas = atlas;
-            this.Coords = coords;
+            Atlas = atlas;
+            _coords = coords;
+            _shadowTile = shadowTile;
+            _entityShadowBatch = Love.Graphics.NewSpriteBatch(atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
         }
 
         public void Clear()
         {
             ByIndex.Clear();
             ToDraw.Clear();
+            _entityShadowBatch.Clear();
             foreach (var batch in SpriteBatches)
             {
                 batch.Clear();
@@ -148,14 +186,14 @@ namespace OpenNefia.Core.Rendering
                 return this.SpriteBatches[i]!;
 
             var batch = Love.Graphics.NewSpriteBatch(this.Atlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
-            var tracked = new TrackedSpriteBatch(batch, i);
+            var tracked = new TrackedSpriteBatch(batch, i, _shadowTile);
             this.SpriteBatches.Add(tracked);
             return tracked;
         }
 
         private Vector2 GetScreenPos(MapCoordinates coords, ChipBatchEntry entry)
         {
-            var screenPos = Coords.TileToScreen(coords.Position);
+            var screenPos = _coords.TileToScreen(coords.Position);
 
             var tile = entry.AtlasTile;
             var finalPos = screenPos + entry.Memory.ScreenOffset + entry.ScrollOffset;
@@ -166,12 +204,59 @@ namespace OpenNefia.Core.Rendering
             return new Vector2(posX, posY);
         }
 
+        private Vector2 GetShadowOffset(ShadowType type, AtlasTile? tile, Vector2i screenOffset)
+        {
+            switch (type)
+            {
+                case ShadowType.None:
+                default:
+                    return Vector2.Zero;
+                case ShadowType.Normal:
+                    return new(8, 36);
+                case ShadowType.DropShadow:
+                    if (tile != null)
+                    {
+                        var viewport = tile.Quad.GetViewport();
+                        var x = screenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2;
+                        var y = screenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y);
+                        return new(x, y);
+                    }
+                    return Vector2.Zero;
+            }
+        }
+
+        private int? AddShadow(MapObjectMemory memory, AtlasTile? tile)
+        {
+            if (!memory.IsVisible)
+                return null;
+
+            var screenPos = _coords.TileToScreen(memory.Coords.Position) + GetShadowOffset(memory.ShadowType, tile, memory.ScreenOffset);
+
+            switch (memory.ShadowType)
+            {
+                case ShadowType.None:
+                default:
+                    return null;
+                case ShadowType.Normal:
+                    return _entityShadowBatch.Add(_shadowTile.Quad, screenPos.X, screenPos.Y);
+                case ShadowType.DropShadow:
+                    if (tile != null)
+                    {
+                        // TODO no idea what the actual rotation amounts should be
+                        // TODO this needs to be rendered as a solid color instead of the texture of the chip
+                        return _entityShadowBatch.Add(tile.Quad, screenPos.X, screenPos.Y, angle: memory.ShadowRotationRads);
+                    }
+                    return null;
+            }
+        }
+
         public void UpdateBatches()
         {
             if (!NeedsRedraw)
                 return;
 
             ToDraw.Clear();
+            _entityShadowBatch.Clear();
             foreach (var spriteBatch in this.SpriteBatches)
             {
                 spriteBatch.Clear();
@@ -182,6 +267,12 @@ namespace OpenNefia.Core.Rendering
             foreach (var (index, entry) in ByIndex)
             {
                 var memory = entry.Memory;
+
+                int? shadowIndex = null;
+                if (memory.IsVisible)
+                {
+                    shadowIndex = AddShadow(memory, entry.AtlasTile);
+                }
 
                 if (entry.AtlasTile != null)
                 {
@@ -200,25 +291,29 @@ namespace OpenNefia.Core.Rendering
                     var quad = entry.AtlasTile.Quad;
                     var rect = quad.GetViewport();
 
-                    Vector2 startPos, endPos, lerpSpeed;
+                    Vector2 startPos, endPos;
+                    bool lerp;
                     if (memory.Coords.MapId == memory.PreviousCoords.MapId && memory.Coords != memory.PreviousCoords)
                     {
+                        lerp = true;
                         startPos = GetScreenPos(memory.PreviousCoords, entry);
                         endPos = GetScreenPos(memory.Coords, entry);
-                        lerpSpeed = (endPos - startPos) / 10f;
                     }
                     else
                     {
-                        startPos = GetScreenPos(memory.Coords, entry);
-                        endPos = startPos + (rect.Width / 2, rect.Height / 2);
-                        lerpSpeed = Vector2.Zero;
+                        lerp = false;
+                        startPos = GetScreenPos(memory.Coords, entry) + (rect.Width / 2, rect.Height / 2);
+                        endPos = startPos;
                     }
                     memory.PreviousCoords = memory.Coords;
 
                     currentBatch.Add(quad,
                         startPos,
                         endPos,
-                        lerpSpeed,
+                        lerp,
+                        memory.ShadowType,
+                        shadowIndex,
+                        memory.ScreenOffset,
                         memory.Rotation,
                         1,
                         1,
@@ -261,10 +356,20 @@ namespace OpenNefia.Core.Rendering
                 {
                     foreach (var sprite in entry.Batch.Sprites)
                     {
-                        if (!sprite.Position.EqualsApprox(sprite.TargetPosition, 0.01))
+                        if (sprite.LerpPercentage < 1f)
                         {
-                            sprite.Position = sprite.Position + sprite.LerpSpeed / 2;
+                            var speed = 5f;
+                            sprite.LerpPercentage = float.Min(sprite.LerpPercentage + speed * dt, 1f);
+                            sprite.Position = new Vector2(
+                                MathHelper.Lerp(sprite.StartPosition.X, sprite.TargetPosition.X, sprite.LerpPercentage),
+                                MathHelper.Lerp(sprite.StartPosition.Y, sprite.TargetPosition.Y, sprite.LerpPercentage));
                             entry.Batch.SpriteBatch.Set(sprite.Index, sprite.Quad, sprite.Position.X, sprite.Position.Y);
+
+                            if (sprite.ShadowIndex != null)
+                            {
+                                var offset = GetShadowOffset(sprite.ShadowType, _shadowTile, sprite.ScreenOffset);
+                                _entityShadowBatch.Set(sprite.ShadowIndex.Value, sprite.ShadowQuad, sprite.Position.X + offset.X, sprite.Position.Y + offset.Y);
+                            }
                         }
                     }
                 }
@@ -281,6 +386,12 @@ namespace OpenNefia.Core.Rendering
 
         public void Draw(int screenX, int screenY, float tileScale)
         {
+            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
+            Love.Graphics.SetColor(Color.White.WithAlphaB(110));
+            Love.Graphics.Draw(_entityShadowBatch, screenX, screenY, 0, tileScale, tileScale);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
+            Love.Graphics.SetColor(Color.White);
+
             foreach (var entry in ToDraw)
             {
                 if (entry.Batch != null)
@@ -290,7 +401,7 @@ namespace OpenNefia.Core.Rendering
 
                 if (entry.Drawable != null)
                 {
-                    var pos = Coords.TileToScreen(entry.TilePosition) * tileScale + entry.ScreenOffset + entry.ScrollOffset;
+                    var pos = _coords.TileToScreen(entry.TilePosition) * tileScale + entry.ScreenOffset + entry.ScrollOffset;
                     entry.Drawable.Draw(tileScale, screenX + pos.X, screenY + pos.Y);
                 }
             }

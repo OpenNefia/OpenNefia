@@ -86,7 +86,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int tileY = 0; tileY < _tiledSize.Y; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile);
             }
         }
 
@@ -106,7 +106,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int tileY = 0; tileY < height; tileY++)
             {
-                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY, scale, _afterTilesTileRowLayers, _afterChipsTileRowLayers, _shadowTile);
             }
         }
 
@@ -126,31 +126,6 @@ namespace OpenNefia.Core.Rendering
 
             // Allocate a new chip batch entry.
             entry = new ChipBatchEntry(tile, memory);
-
-            // Add shadow.
-            if (memory.IsVisible)
-            {
-                var screenPos = _coords.TileToScreen(memory.Coords.Position);
-                var scale = GetScale();
-                switch (memory.ShadowType)
-                {
-                    case ShadowType.None:
-                    default:
-                        break;
-                    case ShadowType.Normal:
-                        _rows[entry.RowIndex].EntityShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
-                        break;
-                    case ShadowType.DropShadow:
-                        if (tile != null)
-                        {
-                            var viewport = tile.Quad.GetViewport();
-                            // TODO no idea what the actual rotation amounts should be
-                            // TODO this needs to be rendered as a solid color instead of the texture of the chip
-                            _rows[entry.RowIndex].EntityShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
-                        }
-                        break;
-                }
-            }
 
             // Add to the appropriate Z layer strip.
             _rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
@@ -228,7 +203,6 @@ namespace OpenNefia.Core.Rendering
         internal Love.SpriteBatch TileBatchBottom;
         internal Love.SpriteBatch TileBatchTop;
         internal ChipBatch ChipBatch;
-        internal Love.SpriteBatch EntityShadowBatch;
         internal Love.SpriteBatch TileOverhangBatch;
         internal ITileRowLayer[] AfterTilesTileRowLayers;
         internal ITileRowLayer[] AfterChipsTileRowLayers;
@@ -245,7 +219,7 @@ namespace OpenNefia.Core.Rendering
         public Color TileShadow { get; set; }
 
         public TileBatchRow(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords, int widthInTiles, int rowYIndex, float scale,
-            ITileRowLayer[] afterTiles, ITileRowLayer[] afterChips)
+            ITileRowLayer[] afterTiles, ITileRowLayer[] afterChips, AtlasTile shadowTile)
         {
             TileAtlas = tileAtlas;
             ChipAtlas = chipAtlas;
@@ -254,8 +228,7 @@ namespace OpenNefia.Core.Rendering
 
             TileBatchBottom = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
             TileBatchTop = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
-            ChipBatch = new ChipBatch(chipAtlas, coords);
-            EntityShadowBatch = Love.Graphics.NewSpriteBatch(chipAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
+            ChipBatch = new ChipBatch(chipAtlas, coords, shadowTile);
             TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
 
             AfterTilesTileRowLayers = afterTiles;
@@ -322,7 +295,6 @@ namespace OpenNefia.Core.Rendering
             TileBatchTop.Clear();
             TileOverhangBatch.Clear();
             ChipBatch.Clear();
-            EntityShadowBatch.Clear();
         }
 
         public void Update(float dt)
@@ -360,6 +332,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor(TileShadow);
             //Love.Graphics.Rectangle(DrawMode.Fill, screenX, screenY + RowYIndex * Coords.TileSize.Y, ScreenWidth, Coords.TileSize.Y);
             Love.Graphics.Draw(TileBatchBottom, screenX, screenY, 0, TileScale, TileScale);
+            Love.Graphics.SetBlendMode(BlendMode.Alpha);
 
             foreach (var rowLayer in AfterTilesTileRowLayers)
             {
@@ -369,12 +342,6 @@ namespace OpenNefia.Core.Rendering
 
         public void DrawTop(int screenX, int screenY)
         {
-            // Draw shadows underneath chips...
-            Love.Graphics.SetColor(Color.White.WithAlphaB(110));
-            Love.Graphics.Draw(EntityShadowBatch, screenX, screenY, 0, TileScale, TileScale);
-            Love.Graphics.SetBlendMode(BlendMode.Alpha);
-
-            // ...then draw each chip.
             Love.Graphics.SetColor(Color.White);
             ChipBatch.Draw(screenX, screenY, TileScale);
 
