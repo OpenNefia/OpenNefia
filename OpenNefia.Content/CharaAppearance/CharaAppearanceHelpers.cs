@@ -18,15 +18,14 @@ namespace OpenNefia.Content.CharaAppearance
             PortraitPrototype portraitProto = protos.EnumeratePrototypes<PortraitPrototype>().Where(p => p.GetStrongID() != Portrait.Default).First();
             PCCDrawable pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPCCPartLayout, protos, resourceCache);
 
-            var appearanceData = new CharaAppearanceData(chipProto, Color.White, portraitProto, pccDrawable, true);
+            var appearanceData = new CharaAppearanceData(chipProto, Color.White, portraitProto, pccDrawable, true, false);
             return appearanceData;
         }
 
         public static CharaAppearanceData MakeAppearanceDataFrom(EntityUid entity,
             IPrototypeManager protos,
             IEntityManager entityManager,
-            IResourceCache resourceCache,
-            IPCCSystem pccs)
+            IResourceCache resourceCache)
         {
             ChipPrototype chipProto = protos.Index(Chip.Default);
             Color chipColor = Color.White;
@@ -47,18 +46,23 @@ namespace OpenNefia.Content.CharaAppearance
             }
 
             var usePCC = false;
+            var isFullSize = false;
             PCCDrawable? pccDrawable;
 
-            if (entityManager.TryGetComponent(entity, out PCCComponent pcc) && pccs.TryGetPCCDrawable(entity, out pccDrawable, pcc))
+            if (entityManager.TryGetComponent(entity, out PCCComponent pcc))
             {
+                // Make a new drawable so the one in-game won't be modified
+                pccDrawable = PCCHelpers.CreatePCCDrawable(pcc);
+
                 usePCC = pcc.UsePCC;
+                isFullSize = pcc.IsFullSize;
             }
             else
             {
                 pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPCCPartLayout, protos, resourceCache);
             }
 
-            var appearanceData = new CharaAppearanceData(chipProto, chipColor, portraitProto, pccDrawable, usePCC);
+            var appearanceData = new CharaAppearanceData(chipProto, chipColor, portraitProto, pccDrawable, usePCC, isFullSize);
             return appearanceData;
         }
 
@@ -71,9 +75,23 @@ namespace OpenNefia.Content.CharaAppearance
 
             var pccComp = _entityManager.EnsureComponent<PCCComponent>(entity);
             pccComp.UsePCC = appearance.UsePCC;
+            pccComp.IsFullSize = appearance.IsFullSize;
 
             var newParts = appearance.PCCDrawable.Parts.ShallowClone();
             pccs.SetPCCParts(entity, newParts, pccComp);
+
+            var ev = new CharaAppearanceChangedEvent(appearance);
+            _entityManager.EventBus.RaiseEvent(entity, ev);
         }
+    }
+
+    public sealed class CharaAppearanceChangedEvent : EntityEventArgs
+    {
+        public CharaAppearanceChangedEvent(CharaAppearanceData appearance)
+        {
+            Appearance = appearance;
+        }
+
+        public CharaAppearanceData Appearance { get; }
     }
 }

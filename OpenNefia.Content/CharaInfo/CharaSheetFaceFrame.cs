@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Inventory;
+using OpenNefia.Content.PCCs;
 using OpenNefia.Content.Portraits;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.UI;
@@ -10,6 +11,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.ResourceManagement;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -17,6 +19,7 @@ namespace OpenNefia.Content.CharaInfo
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private EntityUid _entity;
 
@@ -24,7 +27,8 @@ namespace OpenNefia.Content.CharaInfo
         [Child] private readonly EntitySpriteBatch EntityBatch;
         private readonly TileAtlasBatch _portraitBatch;
 
-        private PortraitPrototype? portraitProto;
+        private PortraitPrototype? _portraitProto;
+        private PCCDrawable? _pccDrawable;
 
         public CharaSheetFaceFrame()
         {
@@ -39,10 +43,23 @@ namespace OpenNefia.Content.CharaInfo
         {
             _entity = entity;
 
-            if (_entityManager.TryGetComponent(_entity, out PortraitComponent portraitComp))
-                portraitProto = _protos.Index(portraitComp.PortraitID);
+            if (_entityManager.TryGetComponent(_entity, out PortraitComponent portraitComp)) 
+                _portraitProto = _protos.Index(portraitComp.PortraitID);
             else
-                portraitProto = null;
+                _portraitProto = null;
+
+            _pccDrawable?.Dispose();
+            if (_entityManager.TryGetComponent<PCCComponent>(_entity, out var pcc) 
+                && pcc.UsePCC)
+            {
+                _pccDrawable = PCCHelpers.CreatePCCDrawable(pcc, _resourceCache);
+                _pccDrawable.Direction = PCCDirection.South;
+                _pccDrawable.Frame = 0;
+            }
+            else
+            {
+                _pccDrawable = null;
+            }
         }
 
         public override void GetPreferredSize(out Vector2 size)
@@ -61,7 +78,7 @@ namespace OpenNefia.Content.CharaInfo
         {
             base.SetPosition(x, y);
             WindowFrame.SetPosition(X, Y);
-            EntityBatch.SetPosition(X + 46, Y + 61);
+            EntityBatch.SetPosition(WindowFrame.X + 46, WindowFrame.Y + 61);
         }
 
         public override void Update(float dt)
@@ -69,22 +86,37 @@ namespace OpenNefia.Content.CharaInfo
             WindowFrame.Update(dt);
             EntityBatch.Update(dt);
 
-            if (portraitProto != null)
+            if (_portraitProto != null)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(UIScale, portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
+                _portraitBatch.Add(UIScale, _portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
                 _portraitBatch.Flush();
             }
 
-            EntityBatch.Clear();
-            EntityBatch.Add(_entity, 0, 0);
+            if (_pccDrawable != null)
+            {
+                _pccDrawable.Update(dt);
+            }
+            else
+            {
+                EntityBatch.Clear();
+                EntityBatch.Add(_entity, 0, 0);
+            }
         }
 
         public override void Draw()
         {
             WindowFrame.Draw();
             _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
-            EntityBatch.Draw();
+
+            if (_pccDrawable != null)
+            {
+                _pccDrawable.Draw(UIScale * 1, (WindowFrame.X + 46) * UIScale, (WindowFrame.Y + 61) * UIScale, centered: true);
+            }
+            else
+            {
+                EntityBatch.Draw();
+            }
         }   
     }
 }

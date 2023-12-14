@@ -25,14 +25,16 @@ namespace OpenNefia.Content.CharaAppearance
         public PortraitPrototype PortraitProto { get; set; }
         public PCCDrawable PCCDrawable { get; set; }
         public bool UsePCC { get; set; }
+        public bool IsFullSize => PCCDrawable.IsFullSize;
 
-        public CharaAppearanceData(ChipPrototype chipProto, Color chipColor, PortraitPrototype portraitProto, PCCDrawable pccDrawable, bool usePCC)
+        public CharaAppearanceData(ChipPrototype chipProto, Color chipColor, PortraitPrototype portraitProto, PCCDrawable pccDrawable, bool usePCC, bool isFullSize)
         {
             ChipProto = chipProto;
             ChipColor = chipColor;
             PortraitProto = portraitProto;
             PCCDrawable = pccDrawable;
             UsePCC = usePCC;
+            PCCDrawable.IsFullSize = isFullSize;
         }
     }
 
@@ -157,6 +159,9 @@ namespace OpenNefia.Content.CharaAppearance
                 case CharaAppearanceUICellData.CustomChara customChara:
                     AppearanceData.UsePCC = customChara.UsePCC;
                     break;
+                case CharaAppearanceUICellData.PCCFullSize pccFullSize:
+                    AppearanceData.PCCDrawable.IsFullSize = pccFullSize.IsFullSize;
+                    break;
                 case CharaAppearanceUICellData.ChangePage:
                     // Handled internally in the list.
                     break;
@@ -217,6 +222,7 @@ namespace OpenNefia.Content.CharaAppearance
                 MakePCCPartCell(parts, PCCPartType.Etc, PCCPartSlots.Etc3, "Detail.Etc3"),
                 MakePCCPartCell(parts, PCCPartType.Eye, PCCPartSlots.Eye, "Detail.Eyes"),
 
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.PCCFullSize(), _locScope.GetString("Choices.Detail.IsFullSize")),
                 new CharaAppearanceUIListCell(new CharaAppearanceUICellData.ChangePage(CharaAppearancePage.Basic), _locScope.GetString("Choices.Detail.SetBasic")),
             };
 

@@ -83,7 +83,7 @@ namespace OpenNefia.Core.GameObjects
 
         public void Shutdown()
         {
-            FlushEntities();
+            FlushEntities(EntityDeleteType.Unload);
             _eventBus.ClearEventTables();
             EntitySystemManager.Shutdown();
             ClearComponents();

@@ -54,7 +54,8 @@ namespace OpenNefia.Content.Areas
 
         private void HandleMapLoadedFromSave(MapLoadedFromSaveEvent args)
         {
-            UpdateKnownEntrances(args.Map);
+            // XXX: Areas aren't loaded yet.
+            // UpdateKnownEntrances(args.Map);
         }
 
         private void HandleMapEnter(AfterMapEnterEventArgs ev)

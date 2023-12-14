@@ -25,13 +25,22 @@ namespace OpenNefia.Content.Weather
     {
         public override void Initialize()
         {
-            SubscribeBroadcast<GameInitiallyLoadedEventArgs>(EnsureWeatherContainer);
+            SubscribeBroadcast<GameInitiallyLoadedEventArgs>(OnGameInitiallyLoaded);
+            SubscribeBroadcast<GameQuickLoadedEventArgs>(OnGameQuickLoaded);
             SubscribeEntity<WeatherOnChangeEvent>(OnWeatherChange_ProcEtherwind, priority: EventPriorities.High);
             SubscribeBroadcast<MapOnTimePassedEvent>(WeatherPassTurn, priority: EventPriorities.High);
             SubscribeEntity<MapEnterEvent>(OnMapEnter_ProcWeather);
             SubscribeBroadcast<OnTravelInWorldMapEvent>(ProcWeatherOnTravel);
             SubscribeBroadcast<CalcMapShadowEvent>(ProcWeatherCalcMapShadow);
             SubscribeEntity<EntityTurnStartingEventArgs>(ProcWeatherOnTurnStart);
+        }
+
+        private void OnGameQuickLoaded(GameQuickLoadedEventArgs ev)
+        {
+            var map = _mapManager.ActiveMap;
+
+            UpdateWeatherRenderable();
+            PlayWeatherAmbientSound(map);
         }
 
         private void OnWeatherChange_ProcEtherwind(EntityUid uid, WeatherOnChangeEvent args)
@@ -105,12 +114,29 @@ namespace OpenNefia.Content.Weather
         private void OnMapEnter_ProcWeather(EntityUid uid, MapEnterEvent args)
         {
             ChangeWeatherFromWorldMapClimate();
-            WeatherPlayAmbientSound(args.Map);
+            PlayWeatherAmbientSound(args.Map);
+        }
+
+        private void UpdateWeatherRenderable()
+        {
+            if (!_mapRenderer.TryGetTileLayer<WeatherTileDrawLayer>(out var layer))
+                return;
+
+            if (TryGetActiveWeather(out var weather))
+            {
+                var ev = new WeatherGetDrawableEvent();
+                RaiseEvent(weather.Owner, ev);
+                layer.WeatherDrawable = ev.OutDrawable;
+            }
+            else
+            {
+                layer.WeatherDrawable = null;
+            }
         }
 
         public const string WeatherLoopingSoundTag = "Elona.Weather";
 
-        private void WeatherPlayAmbientSound(IMap? map)
+        private void PlayWeatherAmbientSound(IMap? map)
         {
             // >>>>>>>> shade2/sound.hsp:384 	if mField=mFieldOutdoor:dssetvolume lpFile,cfg_sv ...
             if (map == null || !IsAlive(map.MapEntityUid))

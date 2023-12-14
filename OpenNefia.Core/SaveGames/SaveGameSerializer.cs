@@ -375,10 +375,7 @@ namespace OpenNefia.Core.SaveGames
             // Set the next entity UID first since the map loader depends on it.
             _entityManager.NextEntityUid = sessionData.NextEntityUid;
 
-            _mapManager.NextMapId = sessionData.NextMapId;
-            var map = _mapLoader.LoadMap(new MapId(sessionData.ActiveMapId), save);
-
-            // Load the global map.
+            // Load the global map (which contains the area entities).
             _mapLoader.LoadMap(MapId.Global, save);
 
             // Load areas.
@@ -387,13 +384,17 @@ namespace OpenNefia.Core.SaveGames
             {
                 _areaManager.RegisterArea(area, areaId, area.AreaEntityUid);
             }
+
+            // Load the active map.
+            _mapManager.NextMapId = sessionData.NextMapId;
+            var map = _mapLoader.LoadMap(new MapId(sessionData.ActiveMapId), save);
         
+            // Set the player entity.
             var playerUid = new EntityUid(sessionData.PlayerUid);
             if (!_entityManager.TryGetComponent(playerUid, out SpatialComponent player) || player.MapID != map.Id)
             {
                 throw new InvalidDataException($"Active player '{sessionData.PlayerUid}' was not in saved active map {map.Id}!");
             }
-
             _gameSessionManager.Player = playerUid;
 
             // Set the active map. This also lets things like map tile layers that depend

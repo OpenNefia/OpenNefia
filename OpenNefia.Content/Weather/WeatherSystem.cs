@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Weather
         [RegisterSaveData("Elona.WeatherSystem.DateOfLastEtherwind")]
         public GameDateTime DateOfLastEtherwind { get; set; } = GameDateTime.Zero;
 
-        private void EnsureWeatherContainer(GameInitiallyLoadedEventArgs ev)
+        private void OnGameInitiallyLoaded(GameInitiallyLoadedEventArgs ev)
         {
             EnsureWeatherContainer();
         }
@@ -140,14 +140,8 @@ namespace OpenNefia.Content.Weather
 
             weather.TimeUntilNextChange = duration ?? CalcRandomWeatherDuration();
 
-            if (_mapRenderer.TryGetTileLayer<WeatherTileDrawLayer>(out var layer))
-            {
-                var ev = new WeatherGetDrawableEvent();
-                RaiseEvent(weather.Owner, ev);
-                layer.WeatherDrawable = ev.OutDrawable;
-            }
-
-            WeatherPlayAmbientSound(_mapManager.ActiveMap);
+            UpdateWeatherRenderable();
+            PlayWeatherAmbientSound(_mapManager.ActiveMap);
 
             return true;
         }

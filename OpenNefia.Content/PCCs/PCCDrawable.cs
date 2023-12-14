@@ -38,11 +38,17 @@ namespace OpenNefia.Content.PCCs
         private const int SheetHeight = PartHeight * 4;
         private const int MaxFrames = 16;
 
-        public PCCDrawable() {}
+        public PCCDrawable() : this(false) { }
 
-        public PCCDrawable(Dictionary<string, PCCPart> parts)
+        public PCCDrawable(bool isFullSize)
+        {
+            IsFullSize = isFullSize;
+        }
+
+        public PCCDrawable(Dictionary<string, PCCPart> parts, bool isFullSize = false)
         {
             Parts = parts;
+            IsFullSize = isFullSize;
         }
 
         public void Initialize(IResourceCache cache)
@@ -53,14 +59,17 @@ namespace OpenNefia.Content.PCCs
 
         private void AllocateQuads()
         {
+            if (_quads[0] != null)
+                return;
+
             for (int i = 0; i < 16; i++)
             {
                 var x = i / 4;
                 var y = i % 4;
 
                 _quads[i]?.Dispose();
-                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight, 
-                    PartWidth, PartHeight, 
+                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight,
+                    PartWidth, PartHeight,
                     SheetWidth, SheetHeight);
             }
         }
@@ -94,33 +103,41 @@ namespace OpenNefia.Content.PCCs
         {
         }
 
-        public void Draw(float scale, float x, float y, float scaleX = 1f, float scaleY = 1f)
+        public void Draw(float scale, float x, float y, bool centered = false)
         {
             if (BakedImage == null)
                 return;
 
-            int width, height, offsetX, offsetY;
+            int width, height;
+            int offsetX = 0;
+            int offsetY = 0;
 
             if (IsFullSize)
             {
                 width = PartWidth;
                 height = PartHeight;
-                offsetX = 8;
-                offsetY = -4;
+                if (!centered)
+                {
+                    offsetX = 8;
+                    offsetY = -4;
+                }
             }
             else
             {
                 width = 24;
                 height = 40;
-                offsetX = 12;
-                offsetY = 4;
+                if (!centered)
+                {
+                    offsetX = 12;
+                    offsetY = 4;
+                }
             }
 
             var index = Math.Clamp((int)Direction + Frame * 4, 0, MaxFrames - 1);
             var quad = _quads[index];
 
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scaleX * scale, y + offsetY * scaleY * scale, width * scaleX * scale, height * scaleY * scale, centered: false);
+            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scale, y + offsetY * scale, width * scale, height * scale, centered: centered);
         }
 
         public void Dispose()

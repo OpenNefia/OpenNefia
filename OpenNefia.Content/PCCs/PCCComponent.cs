@@ -18,6 +18,12 @@ namespace OpenNefia.Content.PCCs
         public bool UsePCC { get; set; } = false;
 
         /// <summary>
+        /// Renders the PCC at original (RPG Maker VX) resolution.
+        /// </summary>
+        [DataField("isFullSize")]
+        public bool IsFullSize { get; set; } = false;
+
+        /// <summary>
         /// List of PCC parts. Be sure to call <see cref="IPCCSystem.RebakePCCImage(EntityUid, PCCComponent?)"/>
         /// if you modify this.
         /// </summary>

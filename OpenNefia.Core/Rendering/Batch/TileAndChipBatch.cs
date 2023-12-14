@@ -141,10 +141,13 @@ namespace OpenNefia.Core.Rendering
                         _rows[entry.RowIndex].EntityShadowBatch.Add(_shadowTile.Quad, screenPos.X + 8, screenPos.Y + 36);
                         break;
                     case ShadowType.DropShadow:
-                        var viewport = tile.Quad.GetViewport();
-                        // TODO no idea what the actual rotation amounts should be
-                        // TODO this needs to be rendered as a solid color instead of the texture of the chip
-                        _rows[entry.RowIndex].EntityShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                        if (tile != null)
+                        {
+                            var viewport = tile.Quad.GetViewport();
+                            // TODO no idea what the actual rotation amounts should be
+                            // TODO this needs to be rendered as a solid color instead of the texture of the chip
+                            _rows[entry.RowIndex].EntityShadowBatch.Add(tile.Quad, screenPos.X + memory.ScreenOffset.X + (viewport.Height / _coords.TileSize.Y) * 8 + 2, screenPos.Y + memory.ScreenOffset.Y - 4 - (viewport.Height - _coords.TileSize.Y), angle: memory.ShadowRotationRads);
+                        }
                         break;
                 }
             }

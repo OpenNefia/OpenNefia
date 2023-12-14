@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -27,7 +28,15 @@ namespace OpenNefia.Core.Rendering
     {
         void Initialize(IResourceCache cache);
         void Update(float dt);
-        void Draw(float scale, float x, float y, float scaleX = 1f, float scaleY = 1f);
+
+        /// <summary>
+        /// Draws the drawable.
+        /// </summary>
+        /// <param name="scale">Tile scale.</param>
+        /// <param name="screenX">X position in *physical* pixels.</param>
+        /// <param name="screenY">Y position in *physical* pixels.</param>
+        /// <param name="centered">Controls centering.</param>
+        void Draw(float scale, float screenX, float screenY, bool centered = false);
     }
 
     public sealed class EntityDrawableEntry
@@ -46,7 +55,7 @@ namespace OpenNefia.Core.Rendering
 
     public interface IEntityDrawablesSystem : IEntitySystem
     {
-        void RegisterDrawable(EntityUid entity, string key, EntityDrawableEntry drawable, 
+        void RegisterDrawable(EntityUid entity, string key, EntityDrawableEntry drawable,
             EntityDrawablesComponent? drawables = null);
 
         void UnregisterDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null);
@@ -60,6 +69,7 @@ namespace OpenNefia.Core.Rendering
     public sealed class EntityDrawablesSystem : EntitySystem, IEntityDrawablesSystem
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IMapRenderer _mapRenderers = default!;
 
         public override void Initialize()
         {
@@ -85,7 +95,13 @@ namespace OpenNefia.Core.Rendering
             }
 
             drawable.Drawable.Initialize(_resourceCache);
-            drawables.EntityDrawables.Add(key, drawable);
+            drawables.EntityDrawables[key] = drawable;
+
+            if (TryMap(entity, out var map))
+            {
+                // TODO merge flag with method call
+                map.RedrawAllThisTurn = true;
+            }
         }
 
         public void UnregisterDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null)
@@ -94,10 +110,17 @@ namespace OpenNefia.Core.Rendering
                 return;
 
             drawables.EntityDrawables.Remove(key);
+            _mapRenderers.RefreshAllLayers();
+
+            if (TryMap(entity, out var map))
+            {
+                // TODO merge flag with method call
+                map.RedrawAllThisTurn = true;
+            }
         }
 
         public bool TryGetDrawable(EntityUid entity, string key,
-            [NotNullWhen(true)] out EntityDrawableEntry? drawable, 
+            [NotNullWhen(true)] out EntityDrawableEntry? drawable,
             EntityDrawablesComponent? drawables = null)
         {
             if (!Resolve(entity, ref drawables, logMissing: false))
