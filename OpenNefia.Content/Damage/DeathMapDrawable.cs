@@ -47,9 +47,9 @@ namespace OpenNefia.Content.Damage
                 _points.Add(new Vector2i(_rand.Next(_coords.TileSizeScaled.X) - (_coords.TileSizeScaled.X / 2), _coords.TileSizeScaled.Y / 2));
             }
 
-            var waitSecs = 0.15f;
+            var waitSecs = 0.30f;
             if (_elementAnim != null)
-                waitSecs += 0.20f;
+                waitSecs += 0.40f;
 
             _counter = new FrameCounter(waitSecs * _config.GetCVar(CCVars.AnimeAnimationWait), 6);
         }

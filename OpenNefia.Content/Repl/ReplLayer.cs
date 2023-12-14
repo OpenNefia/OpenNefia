@@ -533,8 +533,17 @@ namespace OpenNefia.Content.Repl
 
             PrintText($"{TextCaret.Text}{code}");
 
+            ReplExecutionResult result;
+
             IsExecuting = true;
-            var result = _executor.Execute(code);
+            if (code == ":r")
+            {
+                result = _executor.LoadStartupScript();
+            }
+            else
+            {
+                result = _executor.Execute(code);
+            }
             IsExecuting = false;
 
             switch (result)

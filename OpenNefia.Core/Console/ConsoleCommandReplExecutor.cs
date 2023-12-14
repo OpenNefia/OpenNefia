@@ -26,5 +26,10 @@ namespace OpenNefia.Core.Console
             _conHost.ExecuteCommand(code);
             return new ReplExecutionResult.Success("");
         }
+
+        public ReplExecutionResult LoadStartupScript()
+        {
+            return new ReplExecutionResult.Success("");
+        }
     }
 }
