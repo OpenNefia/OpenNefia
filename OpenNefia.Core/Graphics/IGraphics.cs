@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Graphics
         Vector2i WindowPixelSize { get; }
 
         event Action<WindowResizedEventArgs>? OnWindowResized;
-        event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        event Action<WindowFocusChangedEventArgs>? OnWindowFocusChanged;
         event Action<KeyEventArgs>? OnKeyPressed;
         event Action<KeyEventArgs>? OnKeyReleased;
         event Action<TextEditingEventArgs>? OnTextEditing;

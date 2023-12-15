@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Locale
         private CancellationTokenSource _reloadToken = new();
         private readonly HashSet<ResourcePath> _reloadQueue = new();
 
-        private void WindowFocusedChanged(WindowFocusedEventArgs args)
+        private void WindowFocusedChanged(WindowFocusChangedEventArgs args)
         {
 #if !FULL_RELEASE
             if (args.Focused && _reloadQueue.Count > 0)

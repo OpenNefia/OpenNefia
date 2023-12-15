@@ -7,7 +7,7 @@
 - [x] weather
 - [x] town quests
 - [x] PCCs & ring light
-- [ ] journal
+- [x] journal
 - [ ] scene playback
 - [x] intro/first pet event
 - [ ] riding

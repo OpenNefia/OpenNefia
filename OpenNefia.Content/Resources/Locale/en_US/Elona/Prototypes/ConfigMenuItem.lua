@@ -41,6 +41,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "Positional Audio",
     },
 
+    ScreenMuteInBackground = {
+        Name = "Mute In Background",
+    },
+
     ScreenWindowMode = {
         Description = "Fullscreen mode.\n'Full screen' will use a hardware fullscreen mode.\n'Desktop fullscreen' will create a borderless window the same size as the screen.\n",
         Name = "Screen Mode",

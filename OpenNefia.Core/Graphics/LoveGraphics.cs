@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Graphics
         public Vector2 WindowSize => (Vector2)WindowPixelSize / WindowScale;
 
         public event Action<WindowResizedEventArgs>? OnWindowResized;
-        public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        public new event Action<WindowFocusChangedEventArgs>? OnWindowFocusChanged;
         public new event Action<KeyEventArgs>? OnKeyPressed;
         public new event Action<KeyEventArgs>? OnKeyReleased;
         public new event Action<TextEditingEventArgs>? OnTextEditing;
@@ -399,7 +399,7 @@ namespace OpenNefia.Core.Graphics
 
         public override void WindowFocus(bool focus)
         {
-            OnWindowFocused?.Invoke(new WindowFocusedEventArgs(focus));
+            OnWindowFocusChanged?.Invoke(new WindowFocusChangedEventArgs(focus));
         }
 
         private bool PressModifiers(Love.KeyConstant key)

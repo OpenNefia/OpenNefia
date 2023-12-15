@@ -121,7 +121,7 @@ namespace OpenNefia.Core.EngineVariables
                 RegisterEngineVariablesFromFields(instance);
             }
 
-            _graphics.OnWindowFocused += WindowFocusedChanged;
+            _graphics.OnWindowFocusChanged += WindowFocusedChanged;
 
             WatchResources();
         }
