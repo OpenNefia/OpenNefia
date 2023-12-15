@@ -48,4 +48,5 @@ nodes:
   - actor: '1'
     text: I expect nothing but that he shall live and bear witness to the comedy that
       shall soon unfold. Without that man, my story cannot come to a close.
+- !type:SceneFadeOutNode {}
 ...

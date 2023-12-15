@@ -120,4 +120,5 @@ nodes:
       faith in your abilities, Barius The Blue Haired.
   - actor: '3'
     text: '...'
+- !type:SceneFadeOutNode {}
 ...

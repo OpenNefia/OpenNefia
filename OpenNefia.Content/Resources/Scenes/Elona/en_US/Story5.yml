@@ -93,4 +93,5 @@ nodes:
   - actor: '4'
     text: We don't have time to stop and ask questions. Don't lose sight of me. We're
       going to leave the city through the alleyways.
+- !type:SceneFadeOutNode {}
 ...

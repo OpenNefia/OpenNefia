@@ -2201,8 +2201,11 @@ local function convert_scenes()
             local mtNext = getmetatable(nodeNext)
             -- print(mt.tag)
             if mt.tag == mtNext.tag then
-                if mt.tag == "type:SceneDialogNode" or mt.tag == "type:SceneTextNode" then
+                if mt.tag == "type:SceneDialogNode" then
                     node.dialog = table.imerge(node.dialog, nodeNext.dialog)
+                    table.iremove_value(nodes, nodeNext)
+                elseif mt.tag == "type:SceneTextNode" then
+                    node.text = table.imerge(node.text, nodeNext.text)
                     table.iremove_value(nodes, nodeNext)
                 elseif mt.tag == "type:SceneSetActorsNode" then
                     node.actors = table.merge(node.actors, nodeNext.actors)

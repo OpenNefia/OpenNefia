@@ -56,4 +56,5 @@ nodes:
 
     You leave the square slowly, remembering the albino prince with a strange sense
     of both unease and interest.
+- !type:SceneFadeOutNode {}
 ...

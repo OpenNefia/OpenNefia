@@ -19,6 +19,17 @@ nodes:
   text:
   - |
     - At the bar in Vernis -
+  - |+
+    With the ringing cups of the Zanan soldiers, the bar in Vernis had at long last
+    regained its liveliness.
+
+    A young soldier, overwhelmed with liquor and drunk with his own sense of power,
+    fabricated some pretext to begin a fight with a seedy-looking patron, occasionally
+    yelling and striking the man with his fists.
+
+    A red-haired official, noticing the commotion that his subordinate was causing,
+    drained his tankard of Crim Ale and stood up calmly.
+
 - !type:SceneDialogNode
   dialog:
   - actor: '1'
@@ -87,4 +98,5 @@ nodes:
   - actor: '1'
     text: As you request then, Bethel Rumford. It seems you've become soft. Any danger
       you may have posed has long since left you.
+- !type:SceneFadeOutNode {}
 ...
