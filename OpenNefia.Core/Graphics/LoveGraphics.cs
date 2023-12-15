@@ -366,6 +366,11 @@ namespace OpenNefia.Core.Graphics
             Love.Graphics.Draw(TargetCanvas);
         }
 
+        public Love.ImageData CaptureCanvasImageData()
+        {
+            return TargetCanvas.NewImageData();
+        }
+
         public byte[] CaptureCanvasPNG()
         {
             // This emulates LÖVE 11's love.graphics.captureScreenshot.

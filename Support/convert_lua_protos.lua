@@ -1801,6 +1801,11 @@ handlers["elona.weather"] = function(from, to)
     event(from, to, "on_turn_start", "Weather", "VanillaWeatherSystem", "OnTurnStart")
 end
 
+handlers["elona_sys.scene"] = function(from, to)
+    to.location = "/Resources/Scenes/Elona"
+    to.filename = dataPart(from._id) .. ".yml"
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2125,6 +2130,7 @@ end
 
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
+-- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")
 -- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")

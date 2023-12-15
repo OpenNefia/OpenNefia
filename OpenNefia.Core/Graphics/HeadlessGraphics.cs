@@ -97,6 +97,11 @@ namespace OpenNefia.Core.Graphics
         {
         }
 
+        public Love.ImageData? CaptureCanvasImageData()
+        {
+            return null;
+        }
+
         public byte[] CaptureCanvasPNG()
         {
             return Array.Empty<byte>();

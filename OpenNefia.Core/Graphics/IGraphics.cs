@@ -45,6 +45,8 @@ namespace OpenNefia.Core.Graphics
         string GetDisplayName(int displayIndex);
         void SetCursor(CursorShape cursorShape);
 
+        Love.ImageData? CaptureCanvasImageData();
+
         /// <summary>
         /// Captures the current state of the rendering canvas as
         /// the bytes of a PNG file.

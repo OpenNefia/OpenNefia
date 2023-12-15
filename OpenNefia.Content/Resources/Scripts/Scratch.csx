@@ -58,6 +58,7 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.Items;
+using OpenNefia.Content.Scene;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -89,6 +90,7 @@ var _levels = EntitySystem.Get<ILevelSystem>();
 var _effects = EntitySystem.Get<IEffectSystem>();
 var _quests = EntitySystem.Get<IQuestSystem>();
 var _weather = EntitySystem.Get<IWeatherSystem>();
+var _scenes = EntitySystem.Get<ISceneSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);

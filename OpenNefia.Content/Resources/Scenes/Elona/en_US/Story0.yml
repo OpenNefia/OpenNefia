@@ -1,0 +1,44 @@
+nodes:
+  - !type:SceneChangeBackgroundNode
+    id: Elona.Bg3
+  - !type:ScenePlayMusicNode
+    id: Elona.Intro
+  - !type:SceneTextNode
+    text:
+      - |
+          In times long past, the land of Ylva has seen ten great civilizations,
+          the ruins of which still dot the land. The scars left by the previous
+          civilization, Rehm-Ido, have yet to heal. This is a story of Sierra Terre,
+          the 11th era, said to be the most destructive and yet most revitalizing of them all.
+      - |
+          A month of rain plagued the frontier lands of Karune, and once it cleared,
+          the Vindale Forest began to change. The Forest rapidly spread its roots,
+          and began emanating a strange fog which created an environment
+          uninhabitable by people.
+
+          The Vindale Forest quickly overtook the land of the people of Karune,
+          and refugees poured into North Tyris.
+
+          A prince from Zanan, one of the Western countries, preaches that
+          this phenomenon is the very same calamity that befell Rehm-Ido
+          and advocates for the destruction of both the Heretical Forest
+          and the Elean people.
+
+          The Elea of Vindale began to retreat from human lands to avoid persecution,
+          but the world's animosity towards them is still afire. The flames of war threaten
+          to ignite at any moment.
+      - |
+          The dawn will soon arrive. You had slipped in with the cargo of the merchant
+          ship Queen Sedona which was headed for North Tyris.  Suddenly you are
+          awakened by a thundering roar.
+
+          The air is alight with the sound of splitting wood as violent waves crash
+           into the ship and terrible winds assault the sails. An old sailor curses his
+           God and mutters:
+
+           "It's the Ether Wind"
+
+          ...The wood of the ship gives a final moan as the violent waves crush the hull.
+          Without even time for her passengers to say a final prayer, the Queen Sedona
+           is swallowed by the sea.
+  - !type:SceneFadeOutNode {}
