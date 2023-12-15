@@ -1,0 +1,13 @@
+---
+nodes:
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg12
+- !type:ScenePlayMusicNode
+  id: Elona.Epilogue
+- !type:SceneTextNode
+  text:
+  - |
+    - エピローグ -
+    　
+    《一つの冒険の終わりと、新たなる旅立ち》
+...

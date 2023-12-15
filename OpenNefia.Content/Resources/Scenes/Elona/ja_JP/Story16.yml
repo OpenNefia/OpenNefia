@@ -1,0 +1,44 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+    '5':
+      name: セビリスの部下
+      portraitID: Elona.Man19
+    '6':
+      name: 青い髪の『ヴァリウス』
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - "- ダルフィの酒場 -\n "
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: ほう、部下も連れずによく来れたものだ。貴様が握っているザナンとの交渉の手綱が命綱だということを忘れるな。
+  - actor: '1'
+    text: ザナンは今回の件には関係ない。娘の連行はサイモアの個人的な指示だろう。私を通じて、彼女を解放する用意があると通告してきた。
+  - actor: '4'
+    text: サイモアの要求は？
+  - actor: '1'
+    text: 近くパルミアで各国の集まる会談がある。それにエレアの代表として出席することだ。
+  - actor: '3'
+    text: …それだけか？私達にすれば、むしろ歓迎したい機会だが、奴に何の利があるというのだ？
+  - actor: '1'
+    text: 君達を捕らえるつもりなら、幾らでも別の方法がある。サイモアのことだ…趣味の悪い余興でも考えているのだろう。
+...

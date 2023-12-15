@@ -1,0 +1,83 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Saimore> The Crown Prince of Zanan
+      portraitID: Elona.Saimore
+    '2':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+    '3':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+- !type:ScenePlayMusicNode
+  id: Elona.Unrest2
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg6
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, at the camp of the Prince of Zanan.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: No need to be so tense, Elea. I have no intention of harming you. I simply
+      wish for a conversational partner. Someone to talk to about myself.
+  - actor: '3'
+    text: Someone to talk to? Don't expect for us to reach some sort of understanding.
+      You're slyly manipulating the public opinion in order to call for the destruction
+      of the Vindale Forest. Until you can provide some evidence that the issue of
+      the Forest and the Ether Winds are the cause of the calamity of which you speak,
+      the Elea will never believe you.
+  - actor: '1'
+    text: There's no need for you to believe me. In fact, my story is a lie. Rather
+      than being the cause of the calamity, the Vindale Forest is an antidote of sorts.
+      It senses the revival of the Meshera and is releasing an antibody which we know
+      as Ether.
+  - actor: '3'
+    text: '...What are you saying?'
+  - actor: '1'
+    text: Fufu, got your attention now do I? But I'm afraid you'll have to listen
+      to my tale before I inform you of the truth of the Forest.
+  - actor: '3'
+    text: '...'
+- !type:ScenePlayMusicNode
+  id: Elona.Psml035
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: This story is from long ago. There were once two princes in Zanan. One was
+      a frail and ugly albino, while the other was his handsome and vigorous brother
+      Clyne. The name of the first, I think, need not be mentioned. The two princes
+      were as different as light and shadow. The warlike Clyne was naturally successful,
+      while his brother who lived in his shadow was a failure.
+  - actor: '1'
+    text: Unlike his brother, the younger boy despised conflict, instead preferring
+      song and poem. He was a pacifist and did much to help the disadvantaged and
+      those that were orphaned by the war. Among these, he took a particular interest
+      in the "Heretical" Elea and their Forest. While Clyne amused himself with hunting
+      and socializing, the younger boy devoted himself to studying the Forest. Hope,
+      after all, is something born of ignorance. Perhaps it was that he saw something
+      of himself in the Heretical Forest. By eliminating the prejudice and suspicion
+      regarding the Forest, and by exploring a path of coexistence with the Elea,
+      he believed the world might change...
+  - actor: '1'
+    text: And yet years passed while his research made little progress. Fufu, the
+      boy simply could not come to terms with the life of an adult. He couldn't accept
+      that the world was at its core an unkind and unfair place where the strong rule
+      over the weak. He began to begrudge his brother who continuously rose in power,
+      all the while cursing himself for being born an albino and hating the world
+      that refused to change its ways... And then, he met an angel.
+  - actor: '1'
+    text: She was an Elean girl roughly his own age. From the moment he saw her he
+      was fascinated with her. Her chestnut eyes were strong, gentle, and overflowing
+      with compassion. As he watched her live a strong life in Zanan which is notoriously
+      cruel to her kind, he once again saw a part of himself in the Elea.
+  - actor: '1'
+    text: For the boy, she was... No, I think that's a story for another time... Suffice
+      it to say that her passing left nothing but a gaping wound upon the boy's heart.
+      Even now I am pained by my memories of that time... Let's continue this later.
+      There is more than enough time to discuss everything.
+...

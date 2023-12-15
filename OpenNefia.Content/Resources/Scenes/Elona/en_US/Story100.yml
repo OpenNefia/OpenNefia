@@ -1,0 +1,13 @@
+---
+nodes:
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg12
+- !type:ScenePlayMusicNode
+  id: Elona.Epilogue
+- !type:SceneTextNode
+  text:
+  - |
+    -Epilogue-
+
+    <At the end of every adventure lies a new journey.>
+...

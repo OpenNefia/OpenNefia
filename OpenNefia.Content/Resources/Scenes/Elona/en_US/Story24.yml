@@ -1,0 +1,80 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: Soldier
+      portraitID: Elona.Man19
+    '6':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg6
+- !type:ScenePlayMusicNode
+  id: Elona.Town4
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, at Palmia Castle.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: What an odd time to hold an audience. Does Saimore really intend to release
+      Larnneire?
+  - actor: '1'
+    text: '...Who knows. You can''t trust what that man says.'
+  - actor: '3'
+    text: You bastard, you're the one who said...
+- !type:SceneWaitNode {}
+- !type:ScenePlaySoundNode
+  id: Base.Door1
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '2'
+    text: '...Lomias, Sevilis! I''m relieved to see that you''re safe.'
+  - actor: '3'
+    text: Larnneire! We were worried about you! Did he do anything to you?
+  - actor: '2'
+    text: No, nothing. All he did was make me listen to him. But more importantly,
+      I think we'd better get out of here. I have a bad feeling that something is
+      about to happen.
+- !type:SceneWaitNode {}
+- !type:ScenePlaySoundNode
+  id: Base.Door1
+- !type:ScenePlayMusicNode
+  id: Elona.Pinch2
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: There she is! The assassin!
+  - actor: '3'
+    text: What's going on, Larnneire?
+  - actor: '5'
+    text: She has others with her too. Call for reinforcements and establish a perimeter
+      around the castle.
+  - actor: '1'
+    text: '...Heh, so that''s why. We were called here to be framed as assassins.
+      And most likely, the one who was killed is...'
+  - actor: '2'
+    text: No... King Xabi...
+  - actor: '4'
+    text: We haven't been surrounded just yet. We can still escape.
+  - actor: '1'
+    text: I trust Bethel if he says we can still escape. But if we're leaving, we
+      have to do it now.
+  - actor: '3'
+    text: I am so sick of Saimore's schemes. When will we ever be free of his plotting?
+...

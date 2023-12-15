@@ -1,0 +1,74 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+    '5':
+      name: 兵士
+      portraitID: Elona.Man19
+    '6':
+      name: 青い髪の『ヴァリウス』
+      portraitID: Elona.Barius
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg6
+- !type:ScenePlayMusicNode
+  id: Elona.Town4
+- !type:SceneTextNode
+  text:
+  - |
+    - パルミア城 一室 -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: 何時になったら諸侯に謁見できるんだ。本当にサイモアはラーネイレを解放するつもりなのだろうな？
+  - actor: '1'
+    text: …さあな。奴の約束には何の保証もない。
+  - actor: '3'
+    text: なんだと、貴様…
+- !type:SceneWaitNode {}
+- !type:ScenePlaySoundNode
+  id: Base.Door1
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '2'
+    text: …ロミアス、ヴェセル！良かった、無事だったのね。
+  - actor: '3'
+    text: ラーネイレ！無事を気遣っていたのはこちらの方だ。奴に何をされた？
+  - actor: '2'
+    text: 何も。ただ、彼の話を聞いただけよ。それより、早くここを出たほうがいい。何か悪い予感がするの。
+- !type:SceneWaitNode {}
+- !type:ScenePlaySoundNode
+  id: Base.Door1
+- !type:ScenePlayMusicNode
+  id: Elona.Pinch2
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: いたぞ！暗殺者だ！
+  - actor: '3'
+    text: どういうことだ、ラーネイレ。
+  - actor: '5'
+    text: 仲間もいるぞ。応援を呼べ。城の周りを固めるんだ。
+  - actor: '1'
+    text: …ふ、そういうことか。奴は私達を暗殺者に仕立て上げるために呼んだのだ。そして、殺されたのは恐らく…
+  - actor: '2'
+    text: ジャビ王…そんな…
+  - actor: '4'
+    text: 包囲は完全ではない。今なら突破できる。
+  - actor: '1'
+    text: 私達が逃げおおせるのも奴の計算のうちだろう。だが、今はその選択をとる他にない。
+  - actor: '3'
+    text: サイモアの陰謀とやらにはうんざりだ。いったい、何時になったら我々は自分自身の意思で行動を選択できるのだ？
+...

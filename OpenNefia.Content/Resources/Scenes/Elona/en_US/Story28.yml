@@ -1,0 +1,76 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg7
+- !type:ScenePlayMusicNode
+  id: Elona.Memory2
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, in camp.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: Still awake, huh?
+  - actor: '2'
+    text: Bethel... I'm just thinking. About the Forest, about the Ether Wind, about
+      what Saimore is expecting, about our journey... I can't say I've found any answers
+      though.
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: Standing there like that... You remind me of Elishe.
+  - actor: '2'
+    text: You've mentioned her before. Is she someone important to you?
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: Like you, she was an Elea from Vindale. While we weren't blood related,
+      we loved and supported one another like family while we lived in the port city
+      of Altiheit in Zanan... I should stop. I'm sure this is boring for you.
+  - actor: '2'
+    text: No, please continue. I'd like to hear about it.
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: '...At the time, the war between the Yerles and the Eulderna was in full
+      force, and many people got caught in the middle. I was still young, and the
+      war had left me with nothing but disappointment and a feeling of emptiness.
+      All I cared about was getting away from my home town, so I slipped aboard a
+      ship carrying war orphans to Altiheit. It was there, in Altiheit, that I met
+      Elishe.'
+  - actor: '1'
+    text: They looked at her with nothing but contempt, and their words towards her
+      were nothing but abuse. They blamed her for an illness that had been spreading
+      throughout the ship, and consequently, no orphanage would take her in. But Elishe
+      stood strong and endured their abuse and contempt, as if that kind of treatment
+      was normal for her. Before I even realized what I was doing, I was standing
+      in front of her and holding her hand.
+  - actor: '1'
+    text: Scrounging up enough to eat isn't easy for two children living alone in
+      an unfamiliar city. But we took shelter in one of the port warehouses, and by
+      working, managed to stave off hunger. While I worked for her sake, I found that
+      my disappointment slowly began to fade. And then... Something strange happened.
+  - actor: '1'
+    text: A leather bag began to be placed in the window of the warehouse every morning
+      on the day of worship. Inside was hard bread and good cheese, a few gold coins,
+      and occasionally even medicine or clothing. Someone was lending us a helping
+      hand from the shadows. I once asked the man who brought the bag about it, but
+      he dodged my question by saying it was from "The Fairy of Altiheit".
+  - actor: '1'
+    text: Whether that man was the "fairy" himself or simply a courier, I never found
+      out. But I'm sure whoever it was noticed that it wasn't just bread or coin that
+      bag brought us, but hope. Elishe and I clung to that faint light of hope and
+      used it to weather our difficulties in Altiheit...
+...

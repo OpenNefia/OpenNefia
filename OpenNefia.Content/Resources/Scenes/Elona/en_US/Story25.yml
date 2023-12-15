@@ -1,0 +1,54 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg9
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, on the outskirts of Vernis.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: It's no use. We can't enter Vernis. The city is already abuzz with rumors
+      about a Witch from the Heretical Forest using wicked magic to murder the king
+      of Palmia for refusing to support Vindale.
+  - actor: '1'
+    text: Saimore's aim is clear. By making us public enemies, he will drive us to
+      the Heretical Forest and use that as an excuse for war.
+  - actor: '3'
+    text: War, is it? The Elean people have neither the weapons nor stupidity required
+      for such a thing. But if even avoiding conflict and secluding ourselves within
+      the Forest leads to such distrust, what else is left to us?
+  - actor: '2'
+    text: Even if that's what Saimore plans, we still must go to the Forest to warn
+      everyone. But I think we should make another stop first. Saimore told me to
+      seek his research institute if I wanted to know more about the secrets of the
+      Forest.
+  - actor: '3'
+    text: And you intend to just do what he says?
+  - actor: '2'
+    text: He claimed that the Vindale Forest is keeping the Meshera in check. Obtaining
+      evidence of that might just be the only hope we have left. And... I don't know
+      quite how to say it, but I feel like he's waiting. He's waiting to see what
+      path we will choose.
+  - actor: '1'
+    text: Then we head for Zanan. Been a long time hasn't it, Bethel?
+  - actor: '4'
+    text: '...'
+...

@@ -1,0 +1,43 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg9
+- !type:SceneTextNode
+  text:
+  - |
+    - ヴェルニース郊外 -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: 駄目だ。ヴェルニースには入れない。街中が異形の森の魔女の噂でざわめいている。ヴィンデールへの支援を断ったパルミアの王を、会談の席で邪悪な術を使い殺したなどと。
+  - actor: '1'
+    text: サイモアの狙いは明らかだ。世界の反感を買った我々を、異形の森へと追い詰め、戦争の口実にしようというのだろう。
+  - actor: '3'
+    text: 戦争だと？エレアの民は殺しあうための武器も愚かさも持たない。争いを避け森に篭ればそれも不信の対象となるなら、我々の居場所はどこにある。
+  - actor: '2'
+    text: サイモアの狙いが分かっていても、私達は森の皆に警告をしなければ。でも、その前に行くべき場所があるわ。サイモアは、森の秘密が知りたければ彼の研究所を探せと私に告げた。
+  - actor: '3'
+    text: わざわざ奴のもとへ出向くのか？
+  - actor: '2'
+    text: 彼は、ヴィンデールの森がメシェーラを抑止していると言っていた。その証拠を掴めたら、あるいは私達にも望みが残されているのかもしれない。それに…うまく言えないけど、彼もまた待っているような気がするの。私達の出す答えを。
+  - actor: '1'
+    text: では、目的地はザナンだな。懐かしくはないか、ヴェセル。
+  - actor: '4'
+    text: …
+...

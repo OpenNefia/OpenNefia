@@ -1,0 +1,59 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Saimore> The Crown Prince of Zanan
+      portraitID: Elona.Saimore
+- !type:ScenePlayMusicNode
+  id: Elona.Town1
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg1
+- !type:SceneTextNode
+  text:
+  - |+
+    A soldier bearing the crest of Zanan hails you as you enter the town of Vernis.
+
+    After a round of careful questioning, the Zanan soldier that had regarded you
+    with suspicion informs you that the Crown Prince of Zanan is in the town on
+    campaign.
+
+    You notice that a crowd is gathered in the village square, listening intently to
+    the albino prince that leans weakly against his attendant.
+
+- !type:ScenePlayMusicNode
+  id: Elona.Unrest2
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: '...And so I am overcome with grief. Zanan has lost the war with the new
+      Kingdoms, and without its leader, shall become host to the conflict between
+      the two great nations for many years to come. Even if the late Prince Clyne
+      were still alive and was to make a bid for peace, the war between these nations
+      would not be silenced.'
+  - actor: '1'
+    text: War... Can not these nations who wish to stain themselves with blood and
+      flame recognize that an unimaginable crisis has befallen Sierra Terre? These
+      evil winds spoil our forests, take the lives of our countrymen, and rob us of
+      our lands. The Elea and their Heretical Forest plan to revive the Meshera, the
+      nightmares that destroyed the civilization of Rehm-Ido.
+  - actor: '1'
+    text: Now is the time for unity - A great trial has been thrust upon Ylva, and
+      if we put aside our petty squabbles and learn to understand one another, we
+      can destroy the Heretics and their Forest. Together we can overcome this catastrophe.
+  - actor: '1'
+    text: 'Zanan is no longer the superpower that it once was. But hear me, my friends:
+      we are not powerless. Palmia, which has heretofore withstood the power of the
+      two great nations and has the faith and determination of its people, is the
+      hope of Sierra Terre.'
+- !type:SceneTextNode
+  text:
+  - |
+    A great cheer rose from the square.
+
+    The speaker's voice was drowned out by the sound, no longer reaching your
+    ears where you stood at the back of the crowd.
+
+    You leave the square slowly, remembering the albino prince with a strange sense
+    of both unease and interest.
+...

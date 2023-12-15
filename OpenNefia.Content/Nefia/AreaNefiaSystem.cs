@@ -307,7 +307,7 @@ namespace OpenNefia.Content.Nefia
             if (TryComp<FameComponent>(_gameSession.Player, out var fame))
             {
                 var fameGained = CalcBossFameGained(_gameSession.Player, map);
-                _mes.Display(Loc.GetString("Elona.Quest.GainFame", ("fameGained", fameGained)), UiColors.MesGreen);
+                _mes.Display(Loc.GetString("Elona.Fame.Gain", ("fameGained", fameGained)), UiColors.MesGreen);
                 fame.Fame.Base += fameGained;
             }
             // <<<<<<<< shade2/main.hsp:1765 	cFame(pc)+=gQuestFame ..

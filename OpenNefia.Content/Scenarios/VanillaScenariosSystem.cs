@@ -24,6 +24,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.World;
+using OpenNefia.Content.Scene;
 
 namespace OpenNefia.Content.Scenarios
 {
@@ -41,9 +42,12 @@ namespace OpenNefia.Content.Scenarios
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IWeatherSystem _weathers = default!;
         [Dependency] private readonly IMapManager _maps = default!;
+        [Dependency] private readonly ISceneSystem _scenes = default!;
 
         public void Default_OnGameStart(ScenarioPrototype proto, P_ScenarioOnGameStartEvent ev)
         {
+            _scenes.PlayScene(Protos.Scene.Story0);
+
             // Major TODO for now. Just set up important things like the player's house.
 
             var northTyrisArea = _areaManager.GetGlobalArea(GlobalAreas.NorthTyris);

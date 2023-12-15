@@ -1,0 +1,73 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: Soldier
+      portraitID: Elona.Man19
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Boss2
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg11
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: My my, to what do I owe the pleasure of receiving a Witch of the Heretical
+      Forest here?
+  - actor: '2'
+    text: Barius, why are you... Where is Saimore? Let me talk to him.
+  - actor: '5'
+    text: He is no longer here, nor do I know where he has gone. I have taken command.
+      And unfortunately for you, I have no intention of negotiating.
+  - actor: '2'
+    text: I know it's too late to stop the flames. But please, stop attacking the
+      Elea who are escaping the Forest. They don't even have weapons with which to
+      resist.
+  - actor: '5'
+    text: I said I would not negotiate. But I am different than him. If no one stands
+      in the way of our goal, then there is no need for bloodshed.
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: Lord Barius, a distress signal has gone up from the Forest. I'm afraid a
+      group got lost in the smoke, and after coming in contact with the Forest's miasma,
+      is unable to escape.
+  - actor: '5'
+    text: Inside the Forest? Fools... Leave them. The Forest is still alive. And don't
+      bother me with every little message.
+  - actor: '2'
+    text: '...Tell me where the signal came from. I will help.'
+  - actor: '5'
+    text: Fufu, amusing. You intend to save those who burn your home and slaughter
+      your kin?
+  - actor: '4'
+    text: This is unnecessary. Don't you hate them for what they're doing?
+  - actor: '2'
+    text: Let go of my arm, Bethel. It's precisely because of this situation that
+      I must go. I must show that even for those who can't understand each other,
+      you can't abandon the idea that possibilities exist beyond a simple wall of
+      hatred and distrust.
+  - actor: '4'
+    text: I am begging you... Please, Larnneire, don't go. If you enter the Forest,
+      I won't be able to follow you. I won't be able to protect you. Will you once
+      again carve the pain of that day into my heart?
+  - actor: '2'
+    text: If I abandon them here then I have betrayed myself, as well as the Elishe
+      that you loved. I know that it cannot be only sorrow that she brought you. Goodbye,
+      White Hawk of Altiheit. No matter how many tears you shed from the pain of the
+      wounds upon your wings, I pray that the day will come that you will be able
+      to fly once more.
+...

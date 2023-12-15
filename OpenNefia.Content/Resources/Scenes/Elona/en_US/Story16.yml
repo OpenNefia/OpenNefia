@@ -1,0 +1,52 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: Sevilis' Subordinate
+      portraitID: Elona.Man19
+    '6':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, in the bar in Derphy.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: Hoh, so you came without your subordinates. Don't expect me to forget that
+      you're our "lifeline" with Zanan though.
+  - actor: '1'
+    text: Zanan itself has nothing to do with all of this. The girl's confinement
+      is a direct order from Saimore. From what I understand though, he's ready to
+      release her at any time.
+  - actor: '4'
+    text: And what does Saimore want in return?
+  - actor: '1'
+    text: Very soon the leaders from various countries will be gathering in Palmia
+      for discussion. His request is that she attend as a representative of the Elea.
+  - actor: '3'
+    text: '...That''s it? That kind of opportunity is something we''ve been desperately
+      hoping for. What would he stand to gain from this?'
+  - actor: '1'
+    text: If his intent was simply to arrest you all, there were innumerable methods
+      he could have chosen. I'm sure Saimore has some twisted event planned... something
+      he'll find humorous.
+...

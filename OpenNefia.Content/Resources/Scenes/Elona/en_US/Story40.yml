@@ -1,0 +1,48 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg9
+- !type:SceneDialogNode
+  dialog:
+  - actor: '4'
+    text: Sevilis, there's something I've been meaning to ask you. How is it that
+      you know me?
+  - actor: '1'
+    text: '...I once wore the name of Clyne. Is that name familiar to you? The heir
+      of Zanan, and the man Saimore killed.'
+  - actor: '4'
+    text: Then you are the true King of Zanan? ...Interesting. But that doesn't answer
+      my question.
+  - actor: '1'
+    text: A single girl was the trigger of everything. A light rain was falling in
+      Altiheit, scattering the streetlight as it fell to the earth. A group of people
+      surrounded and gazed cruelly at a young Elean girl, and a beautiful blonde young
+      man protected her without hesitation. From that moment, he was like her brother...
+      That event became Saimore's hope, and the White Hawk became the target of his
+      admiration.
+  - actor: '4'
+    text: Elishe...
+  - actor: '1'
+    text: Saimore wished for the two of you to live a happy life... And so he helped.
+      You should know well that, even in a merit-based society like Zanan, without
+      some sort of connection it's difficult to realize the dream of become an Officer
+      of the Imperial Court while associating with an Elean girl.
+  - actor: '4'
+    text: '...The Fairy of Altiheit... was Saimore...'
+...

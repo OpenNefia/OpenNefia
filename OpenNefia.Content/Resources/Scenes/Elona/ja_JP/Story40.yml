@@ -1,0 +1,37 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg9
+- !type:SceneDialogNode
+  dialog:
+  - actor: '4'
+    text: セビリス、前々から尋ねようと思っていた。あなたは、なぜ私のことを知っている？
+  - actor: '1'
+    text: …私はかつてクラインという名を持っていた。聞き覚えがあるだろう？ザナンの継承者であり、サイモアが殺し損じた男だ。
+  - actor: '4'
+    text: では、あなたは自分がザナンの真の王だと？…それは興味深い。だが、私の問いの答えにはなっていない。
+  - actor: '1'
+    text: 一人の少女が、全ての「きっかけ」だったのだ。アルティハイトの小雨を受け、街灯の光を散らす地面、エレアの少女を取り囲む残酷な人々の視線、そして躊躇うことなく少女を庇った金髪の美しい青年。あの瞬間から、エレアの娘は弟の…サイモアの希望となり、白き鷹は彼の憧れとなった。
+  - actor: '4'
+    text: エリシェ…
+  - actor: '1'
+    text: お前達が幸せに暮らすことが、サイモアの望みだった。…そして救いだった。実力主義のザナンの中でさえ、身よりもなく、エレアの娘という足枷をひいた者が、宮廷に仕官する夢物語を実現させることは難しい。それは、お前がよく知っているはずだ。
+  - actor: '4'
+    text: …アルティハイトの妖精、か…サイモアが。
+...

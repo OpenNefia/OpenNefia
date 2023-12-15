@@ -1,0 +1,90 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Loyter> The Crimson of Zanan
+      portraitID: Elona.Loyter
+    '2':
+      name: Soldier
+      portraitID: Elona.Man19
+    '3':
+      name: ????
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Town1
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - |
+    - At the bar in Vernis -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: What's going on here?
+  - actor: '2'
+    text: Oh, captain. Ain't nothing serious. Just questioning this suspicious looking
+      man here. With the Prince in the area, a guard can't just overlook suspicious
+      people even while at the bar! ...Hey, you. Are you listening?
+  - actor: '3'
+    text: '...'
+  - actor: '1'
+    text: This man is...
+  - actor: '2'
+    text: Yeah, as you can see, he's not much for manners. I'll just rough him up
+      a bit more and then send him away. I couldn't possibly enjoy my drink now if
+      I don't cause him at least some pain.
+  - actor: '1'
+    text: Stop.
+  - actor: '2'
+    text: C'mon Captain. If I break one of his legs, it'll just give the beggar an
+      easier time.
+  - actor: '1'
+    text: Whose benefit do you think I said that for? This man is the White Hawk of
+      Zanan. Leave us alone for a while.
+- !type:SceneFadeOutNode {}
+- !type:ScenePlayMusicNode
+  id: Elona.Memory
+- !type:SceneFadeInNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: So this is where you holed up, is it? What, did you intend to become some
+      type of hermit?
+  - actor: '3'
+    text: '...'
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: You've changed. The White Hawk of Zanan, given the privileges of an aristocrat,
+      whose talent was envied and whose deeds were praised by all, now sits in the
+      corner of a rundown bar, gazing at the world with the eyes of a dead man. It
+      was troubling, you know, to no longer have anyone to compete with once you left
+      Zanan.
+  - actor: '3'
+    text: '...'
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: Heh, not even a single response to all of that. When you're bored of this
+      little act, do you ever think back to what you told me back then?
+  - actor: '1'
+    text: You've been stripped of your fame and wealth and look like nothing more
+      than a common beggar. What an unimaginable joke you are now compared to what
+      you once were. Did you decide, perhaps, to cast off your desires and live the
+      life of a sinner as a memorial to that girl?
+  - actor: '3'
+    text: I don't want to hear it.
+  - actor: '1'
+    text: That Elean lass... Elishe, was it? If you'll allow me to borrow your own
+      words here, wasn't even she just a part of your mask?
+  - actor: '3'
+    text: I have no intention of playing twenty questions with you. I'd rather be
+      beaten and thrown into prison than answer your questions.
+  - actor: '1'
+    text: As you request then, Bethel Rumford. It seems you've become soft. Any danger
+      you may have posed has long since left you.
+...

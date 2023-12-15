@@ -1,0 +1,66 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Saimore> The Crown Prince of Zanan
+      portraitID: Elona.Saimore
+    '2':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+    '3':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '4':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '5':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg7
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: The border of Karune is in sight. If we keep a steady pace, we'll reach
+      Vindale in three days.
+  - actor: '4'
+    text: What do you intend to do after returning to the Forest? With our strength,
+      even delaying the invasion by Zanan would be difficult, let alone stopping them.
+  - actor: '5'
+    text: We will warn the people of the Forest. They may not have even realized the
+      threat creeping towards them. After that, I don't know. Having our home destroyed
+      is painful, yet part of me believes they should do as they damn well please.
+      Those who took part in the Forest's destruction and those who stood on the sidelines
+      and allowed it will realize with despair what they have wrought. But Larnneire...
+      What do you think?
+  - actor: '3'
+    text: I can understand how you feel. But I want to stay true to myself until the
+      end. I want to do everything I can to protect the Forest. Even if we fail, perhaps
+      we'll leave a bud of hope that will live afterwards.
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:ScenePlayMusicNode
+  id: Elona.Soraochi
+- !type:SceneFadeInNode {}
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, at the Zanan Royal Household.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: How does it feel to destroy your home, Barius? The Eulderna are in Karune
+      and can move at any time. They only wait for orders.
+  - actor: '2'
+    text: '...Our miscalculations led to the Yerles not participating. Much of the
+      meaning of this war was to have the whole world involved. But, there won''t
+      be any interference with the invasion. Vindale isn''t prepared for war.'
+  - actor: '1'
+    text: Once the Forest is gone, I leave things in your hands. I intend to hide,
+      though with this body I'm sure I won't stay hidden long. But that's fine. As
+      long as I can leave a scar on Ylva, I will be satisfied.
+...

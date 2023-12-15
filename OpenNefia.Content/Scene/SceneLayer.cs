@@ -26,6 +26,7 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.Portraits;
 
 namespace OpenNefia.Content.Scene
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.Scene
     {
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IMusicManager _music = default!;
 
         public class Args
         {
@@ -86,12 +88,12 @@ namespace OpenNefia.Content.Scene
         }
 
         private SceneState _state = SceneState.Advancing;
-        private Dictionary<string, ActorSpec> _actors = new();
+        private Dictionary<string, SceneActorSpec> _actors = new();
         private IAssetInstance _background = default!;
 
         [Child] private MorePrompt _morePrompt = new();
 
-        private DialogData? _dialog = null;
+        private IList<SceneDialogText>? _dialog = null;
         private UiText[] _textLines = { };
         private TextData? _texts = null;
 
@@ -102,6 +104,7 @@ namespace OpenNefia.Content.Scene
         private IAssetInstance _assetSceneTextShadow = default!;
 
         private IList<ISceneNode> _nodes = new List<ISceneNode>();
+        private PrototypeId<MusicPrototype>? _previousMusicID;
         private int currentNodeIndex = 0;
         private ISceneNode? CurrentNode => currentNodeIndex >= _nodes.Count ? null : _nodes[currentNodeIndex];
 
@@ -136,7 +139,7 @@ namespace OpenNefia.Content.Scene
             }
         }
 
-        private void SetCrossFadeParameters(float time = 0.25f)
+        private void SetCrossFadeParameters(float time = 0.3f)
         {
             _waitTimer = time;
             _crossFadeStart = _waitTimer;
@@ -160,11 +163,20 @@ namespace OpenNefia.Content.Scene
 
         public override void OnQuery()
         {
+            _previousMusicID = _music.PlayingMusicID;
             currentNodeIndex = 0;
             _crossFadeStart = 0;
             _waitTimer = 0;
             UpdateCrossFadeImage();
             _state = SceneState.Advancing;
+        }
+
+        public override void OnQueryFinish()
+        {
+            if (_previousMusicID != null)
+                _music.Play(_previousMusicID.Value);
+            else
+                _music.Stop();
         }
 
         public override void SetPosition(float x, float y)
@@ -181,9 +193,9 @@ namespace OpenNefia.Content.Scene
             _morePrompt.SetPreferredSize();
         }
 
-        public void SetActors(IDictionary<string, ActorSpec> actors)
+        public void SetActors(IDictionary<string, SceneActorSpec> actors)
         {
-            _actors = new Dictionary<string, ActorSpec>(actors);
+            _actors = new Dictionary<string, SceneActorSpec>(actors);
         }
 
         public void SetBackground(PrototypeId<AssetPrototype> assetID)
@@ -247,7 +259,7 @@ namespace OpenNefia.Content.Scene
             }
         }
 
-        public void ShowDialog(string actorID, IList<string> texts)
+        public void ShowDialog(IList<SceneDialogText> texts)
         {
             if (texts.Count == 0)
             {
@@ -257,36 +269,41 @@ namespace OpenNefia.Content.Scene
             }
 
             _state = SceneState.Dialog;
-            _dialog = new(actorID, texts);
+            _dialog = texts;
         }
 
-        private void StartDialog(DialogData dialog)
+        private void StartDialog(IList<SceneDialogText> texts)
         {
+            DisposeTextLines();
+
             _state = SceneState.ShowingDialog;
-
-            var actorID = dialog.ActorID;
-            var texts = dialog.Texts;
-
-            string speakerName;
-            if (_actors.TryGetValue(actorID, out var actor))
-            {
-                speakerName = Loc.GetString(actor.Name);
-            }
-            else
-            {
-                Logger.ErrorS("scene", $"Actor {actorID} not found!");
-                speakerName = Loc.GetString("Elona.Scene.Common.ActorName.Unknown");
-            }
 
             var args = new DialogArgs();
             var dialogLayer = UserInterfaceManager.CreateLayer<DialogLayer, DialogArgs, DialogResult>(args);
             foreach (var text in texts)
             {
+                string speakerName;
+                PrototypeId<PortraitPrototype>? portraitID = null;
+                if (_actors.TryGetValue(text.Actor, out var actor))
+                {
+                    if (Loc.TryGetString(actor.Name, out var name))
+                        speakerName = name;
+                    else
+                        speakerName = (string)actor.Name;
+                    portraitID = actor.PortraitID;
+                }
+                else
+                {
+                    Logger.ErrorS("scene", $"Actor {text.Actor} not found!");
+                    speakerName = "????";
+                }
+
                 var step = new DialogStepData()
                 {
+                    PortraitID = portraitID,
                     Target = null,
                     SpeakerName = speakerName,
-                    Text = text,
+                    Text = text.Text,
                     Choices = new List<DialogChoice>()
                     {
                         new DialogChoice()
@@ -307,6 +324,8 @@ namespace OpenNefia.Content.Scene
                 {
                     Logger.WarningS("scene", "TODO cancel scene");
                 }
+
+                UpdateCrossFadeImage();
             }
 
             _dialog = null;
@@ -354,8 +373,9 @@ namespace OpenNefia.Content.Scene
 
             if (CurrentNode == null)
             {
-                _state = SceneState.Done;
-                Finish(new());
+                _waitTimer = 1.5f;
+                _crossFadeStart = _waitTimer;
+                _state = SceneState.Ending;
                 return;
             }
 
@@ -374,6 +394,9 @@ namespace OpenNefia.Content.Scene
             {
                 case SceneState.CrossFading:
                     return SceneState.AwaitingInput;
+                case SceneState.Ending:
+                    Finish(new());
+                    return SceneState.Done;
                 default:
                     return SceneState.Advancing;
             }
@@ -426,7 +449,7 @@ namespace OpenNefia.Content.Scene
         public override void Draw()
         {
             Love.Graphics.Clear(Color.Black);
-            _background.DrawUnscaled(0, LetterboxMargin, PixelWidth, PixelHeight - (LetterboxMargin * 2));
+            _background.DrawUnscaled(0, LetterboxMargin * UIScale, PixelWidth, PixelHeight - (LetterboxMargin * 2 * UIScale));
 
             Love.Graphics.SetColor(Color.White.WithAlphaB(70));
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
@@ -461,7 +484,7 @@ namespace OpenNefia.Content.Scene
                         Love.Graphics.Draw(_crossFadeImage, 0, 0, 0, PixelWidth / _crossFadeImage.GetWidth(), PixelHeight / _crossFadeImage.GetHeight());
                     }
                 }
-                else if (_state == SceneState.FadingOut && _crossFadeImage != null)
+                else if ((_state == SceneState.FadingOut || _state == SceneState.Ending) && _crossFadeImage != null)
                 {
                     Love.Graphics.SetColor(Color.White);
                     Love.Graphics.Draw(_crossFadeImage, 0, 0, 0, PixelWidth / _crossFadeImage.GetWidth(), PixelHeight / _crossFadeImage.GetHeight());
@@ -480,7 +503,13 @@ namespace OpenNefia.Content.Scene
                 }
             }
 
-            if (_state != SceneState.ShowingDialog)
+            if (_state != SceneState.Dialog
+                && _state != SceneState.ShowingDialog
+                && _state != SceneState.FadingOut
+                && _state != SceneState.FadingIn
+                && _state != SceneState.Waiting
+                && _state != SceneState.Ending
+                && _state != SceneState.Done)
                 _morePrompt.Draw();
         }
     }

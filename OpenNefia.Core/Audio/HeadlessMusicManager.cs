@@ -11,6 +11,7 @@ namespace OpenNefia.Core.Audio
     public sealed class HeadlessMusicManager : IMusicManager
     {
         public bool IsPlaying => false;
+        public PrototypeId<MusicPrototype>? PlayingMusicID => null;
 
         public void Initialize()
         {

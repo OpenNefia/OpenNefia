@@ -1,0 +1,101 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Saimore> The Crown Prince of Zanan
+      portraitID: Elona.Saimore
+    '2':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+    '3':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+- !type:ScenePlayMusicNode
+  id: Elona.Psml035
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg6
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, in Saimore's camp.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: I'm sure you've heard about the funeral of the late Prince Clyne, yes? Twas
+      a grand affair, after all. Yet, few people are aware that there was no corpse
+      within his coffin. The world was told that Clyne's death was a result of falling
+      off a cliff while out on a ride... But that's not the truth. Would you care
+      to take a guess at what is? Clyne was murdered. Murdered by that albino boy
+      that everyone despised.
+  - actor: '1'
+    text: As Clyne took in the view from the mountainside, his brother pushed him
+      off the cliff. And when he made that push, something within him died as well.
+      Having struggled his entire life to not be a burden on others, it was the first
+      time the boy felt powerful and free. And yet in that moment, in his lust to
+      deny and overturn the values of his brother whom the world viewed as a success,
+      he abandoned himself. His pacifism, his compassion for the poor, his affection
+      for the weak, all of the morals he touted - he betrayed them all and became
+      nothing more than a tool for the power he had despised all his life.
+  - actor: '1'
+    text: And even after becoming the successor to Zanan, he was unable to move forward.
+      Oh, he could exercise his power and become a second Clyne if he so wished. But
+      could he truly deny everything he once was? His past self that was so ugly and
+      weak? Could he honestly turn his head, pretending that the pain and conflict
+      that he and others had experienced each and every day did not exist? It was
+      the very means by which I affirmed myself that also took away my ability to
+      accept the world. Morals, values, emotions... What had I left to believe in?
+      But don't misunderstand. I am not attempting to garner your sympathy by making
+      it appear that I am unhappy or feel regret.
+  - actor: '3'
+    text: Why tell me your story, then? To be honest, the choices you have defined
+      for yourself appear as simple deception to me. Could that boy from the past
+      who preached compassion towards the weak truly accept becoming such an ugly
+      person as you are now? I won't say that I don't understand your pain. But having
+      been rejected by the world - No, I should say having turned your back on it
+      - and running from a life you felt incomplete, wishing nothing but pain and
+      hatred upon yourself... I can't help but wonder if you're using these things
+      to fill the emptiness in your heart.
+  - actor: '3'
+    text: You say you had nothing left to believe in, but I feel that potential still
+      lies within your heart. I think you have decided that some things are undeserving
+      of love, and that you yourself are one of them. But I think that relationships
+      can be built with methods others than hatred and insincerity.
+  - actor: '1'
+    text: '...How surprising. It is once again a young Elean girl that offers me the
+      light known as hope as I drown within the darkness of my despair. But I''m afraid
+      that the time where that may have been useful has passed. If nothing else, I
+      now understand that if such a thing as good will existed within this world that
+      there may have yet been another path for me. For that, at least, I am grateful.'
+  - actor: '1'
+    text: '...Ah yes, I promised to tell you the secret of the Forest, didn''t I?
+      As you thought, the Ether Wind and the Forest''s expansion are not the calamity
+      known as the "Meshera". Meshera is... a bacteria, so to speak, that devours
+      all life. It all but perished once during the era of Rehm-Ido, but has risen
+      again with the advent of Sierra Terre. Or perhaps I should say that Sierra Terre
+      is Meshera itself. The World-Devouring Giants live within me, within you, within
+      all living creatures.'
+  - actor: '3'
+    text: But... If that's the case, if we're all infected by the Meshera, how are
+      we alive?
+  - actor: '1'
+    text: I can't spoil the fun by giving everything away, now can I? I'll answer
+      your question as strictly as I can. The reason that we can exist is due to the
+      Heretical Forest. Were the Forest to be destroyed, all life on Ylva would disappear,
+      though whether it would take a single year or a hundred I cannot say. Fufu.
+      "Heretical Forest" is such an ironic name. It is we who are the true heretics
+      of this world.
+  - actor: '1'
+    text: Now it's only a matter of time before the Vindale Forest is destroyed by
+      human hands. When everything that the people of the world believe in collapses,
+      when they learn the truth too late to reverse their actions, what do you think
+      will become of the world? I, for one, am looking forward to finding out.
+  - actor: '3'
+    text: This is absurd. While I could sympathize with your background, how could
+      you escalate a personal issue to one of life and death for the entire world?
+  - actor: '1'
+    text: Ah, but is it not that absurdity that makes it enjoyable? If you would prefer
+      to discuss philosophy, speak with Barius instead. His own motivations differ
+      from my own... But this conversation is at an end. Rest well, Witch of the Heretical
+      Forest. I have an amusing scenario planned for you tomorrow.
+...

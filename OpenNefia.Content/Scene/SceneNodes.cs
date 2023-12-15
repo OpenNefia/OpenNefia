@@ -30,22 +30,19 @@ namespace OpenNefia.Content.Scene
     }
 
     [DataDefinition]
-    public class ActorSpec
+    public class SceneActorSpec
     {
-        [DataField(required: true)]
-        public string ID { get; set; } = string.Empty;
-
         [DataField]
         public LocaleKey Name { get; set; } = "Elona.Scene.Common.ActorName.Unknown";
 
         [DataField]
-        public PrototypeId<PortraitPrototype>? Portrait { get; set; }
+        public PrototypeId<PortraitPrototype>? PortraitID { get; set; }
     }
 
-    public sealed class SceneActorsNode : ISceneNode
+    public sealed class SceneSetActorsNode : ISceneNode
     {
         [DataField(required: true)]
-        public Dictionary<string, ActorSpec> Actors { get; set; } = new();
+        public Dictionary<string, SceneActorSpec> Actors { get; set; } = new();
 
         public void OnEnter(ISceneEngine engine)
         {
@@ -104,17 +101,24 @@ namespace OpenNefia.Content.Scene
         }
     }
 
-    public sealed class SceneDialogNode : ISceneNode
+    [DataDefinition]
+    public sealed class SceneDialogText
     {
         [DataField(required: true)]
         public string Actor { get; set; } = "";
 
         [DataField(required: true)]
-        public List<string> Text { get; set; } = new();
+        public string Text { get; set; } = "";
+    }
+
+    public sealed class SceneDialogNode : ISceneNode
+    {
+        [DataField(required: true)]
+        public List<SceneDialogText> Dialog { get; set; } = new();
 
         public void OnEnter(ISceneEngine engine)
         {
-            engine.ShowDialog(Actor, Text);
+            engine.ShowDialog(Dialog);
         }
     }
 

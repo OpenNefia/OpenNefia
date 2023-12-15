@@ -216,7 +216,9 @@ namespace OpenNefia.Content.Quests
             _audio.Play(Protos.Sound.Inv, _gameSession.Player);
             args.OutNextDialogNodeID = new QualifiedDialogNodeID(Protos.Dialog.QuestDeliver, "Accept");
         }
-
+        
+        // TODO: Replace this with a "climate" system that indicates things like weather, tileset for
+        // random maps, etc.
         private bool AreaIsNoyel(IArea area)
         {
             return TryProtoID(area!.AreaEntityUid, out var protoID) && protoID.Value == Protos.Area.Noyel;

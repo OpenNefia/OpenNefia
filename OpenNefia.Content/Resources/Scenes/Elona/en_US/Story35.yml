@@ -1,0 +1,64 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Anosora
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg10
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: It was only the far East, where untouched forests still covered the land,
+      that withstood the advance of the Meshera. The people gave the Forest the name
+      of "Vindale", meaning hope... And after many years, after the vast knowledge
+      and culture of the previous human civilization had been lost, the Vindale Forest
+      lived up to its name.
+  - actor: '5'
+    text: A massive immune reaction arose from the Forest, becoming a wind that raged
+      across the world. Indeed, this is what we now know as the Ether Wind. The Ether
+      Wind enhanced the natural immunity of the plant life that had been infected
+      by the Meshera, massively weakening the Meshera infection. The Vindale Forest
+      which produced the Ether Winds and the outside world where the Meshera had been
+      weakened slowly began to differ from one another. That is the environment present
+      in Ylva now.
+  - actor: '5'
+    text: With the arrival of the miracle of Vindale, the civilization of Rehm-Ido
+      came to an end, and the era of Sierra Terre began... But humanity had painful
+      times in their future. As time passed, some were born who could adapt to life
+      outside of the Forest, and eventually, some who were born who were only capable
+      of living outside the Forest. How that would turn out, you should well know.
+  - actor: '5'
+    text: '...That is the truth of the Forest. Should the Vindale Forest ever be destroyed,
+      the Ether Winds will cease. Eventually the Meshera would spread across all of
+      Ylva, leaving it a place unsuitable for life.'
+  - actor: '3'
+    text: So now we understand the truth of the Forest. And yet, now another question
+      is even more difficult to grasp. What the hell is the meaning behind doing this?
+      I could understand if the motive was revenge against those who had abused the
+      Elea, but what point would such an action have if all life perishes as a result?
+  - actor: '5'
+    text: It is not revenge. It is both a punishment and a chance. Besides, life will
+      not perish. Salvation is already within our grasp.
+  - actor: '5'
+    text: I believe Rehm-Ido to be the ideal civilization. Yet, something as weak
+      as fellowship isn't enough to keep the Yutasu in check. In order to overcome
+      the Yutasu, the civilization must have a stronger and more precise will. When
+      the time comes, you will understand. For this plan to succeed, the sacrifice
+      of Vindale was required.
+...

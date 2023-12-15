@@ -1,0 +1,91 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Unrest2
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg10
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: So this is the institution that Saimore was talking about. Looks like it's
+      been abandoned though. There doesn't appear to be anyone here, and the equipment
+      doesn't seem to have been used recently either. I hope the information we came
+      for is still here.
+  - actor: '5'
+    text: I hate to be the bearer of bad news, but the "evidence" you're looking for
+      isn't here.
+  - actor: '2'
+    text: You...
+  - actor: '5'
+    text: Not that it matters. Even if you found the evidence you're looking for,
+      who would listen to an Elea anymore? Oh, but don't worry. I haven't come to
+      interfere with you. I came to tell you the truth about the Vindale Forest.
+  - actor: '3'
+    text: And we should believe the words of someone who would betray his race, and
+      our captor no less?
+  - actor: '5'
+    text: It's your choice whether or not to believe me. But there's no use in wasting
+      your precious time on a plan that will bear no fruits. As someone with the blood
+      of the Elea, I can sympathize with you.
+- !type:ScenePlayMusicNode
+  id: Elona.Anosora
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: How much do you know about the civilization of Rehm-Ido? Rehm-Ido overcame
+      the materialism that had plagued Eyth Terre, and even after 300 years was considered
+      to be the greatest civilization of the world. All across the nation various
+      communities were joined by the idea of mutual cooperation with each other and
+      harmony with nature.
+  - actor: '5'
+    text: Yet among these communities was a group that differed from the others, known
+      as the Yutasu. Rather than being a close-knit community, "Yutasu" was simply
+      a generic term for those who lacked the ability to fit in with the other communities.
+      Those who couldn't form close bonds with others, those with abnormal desires,
+      those who preferred solitude, those without morals, materialists... Anyone who
+      didn't fit in with the other communities was named Yutasu, and while it wasn't
+      visible on the surface, they were detested by society.
+  - actor: '5'
+    text: The substance that we know as Ether was discovered by accident near the
+      end of Rehm-Ido. Rehm-Ido had highly advanced biochemistry, and Ether proved
+      to be a valuable resource that provided a chemical change to a variety of medicines.
+      And perhaps most importantly, Ether could be harvested from trees and was environment
+      friendly, a perfect fit for the ideology of Rehm-Ido.
+  - actor: '5'
+    text: With the discovery of Ether came a great change in the position of Yutasu
+      in society. The process of Ether collection was called "Star Harvesting" and
+      considered sacred... And the Yutasu were the greatest land holders. Through
+      the process of "Star Harvesting", the Yutasu regained their injured self-esteem
+      and found their place in the society of Rehm-Ido. It was for this reason that,
+      despite knowing it was coming, they averted their eyes from the creeping threat
+      of the Meshera...
+  - actor: '5'
+    text: How the Meshera came to be remains a mystery. What is known is that it was
+      Ether that was responsible for the immune system of the forests. With the rampant
+      collection of Ether, the forests were left easy prey for the Meshera. Because
+      the Yutasu were afraid of losing their status they had gained as Ether collectors,
+      by the time the rest of the world noticed what was happening, it was too late
+      to do anything.
+  - actor: '5'
+    text: The forest "devouring" Meshera gradually spread, and where they spread,
+      they created an environment where no other life on Ylva could survive. The civilization
+      of Rehm-Ido was slowly slipping towards its death.
+...

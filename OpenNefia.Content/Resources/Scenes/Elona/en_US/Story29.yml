@@ -1,0 +1,57 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg7
+- !type:ScenePlayMusicNode
+  id: Elona.Memory2
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: Before I left for Altiheit, I was enrolled in a military academy called
+      Ateran, a place for those who are exceptionally gifted to sharpen their talents
+      even further. For the kind of people at Ateran, power is everything. To them,
+      everyone else is an enemy, nothing more than tools to be used in order to get
+      ahead. They show no hesitation in using the weak as stepping stones... And I
+      was no different. Knowingly or not, whether they resisted or not, I harmed many
+      people. I was an arrogant and ruthless man.
+  - actor: '1'
+    text: One day I came down with a terrible illness and had to leave Ateran. Through
+      the attentive care of my younger brother, my only remaining relative, I narrowly
+      survived. But when I rejoined the world after two months of recovery, it seemed
+      like an entirely different place.
+  - actor: '1'
+    text: Suddenly, when others looked at me, it was if I could feel their malice
+      and contempt. Even in the eyes of children, a person like me who had left Ateran
+      was nothing but a piece of trash... Of course, they didn't actually feel that
+      way. I was terrorizing myself by projecting my own way of thinking onto others.
+      It wasn't until that moment that I realized just how ugly and totally devoid
+      of humanity I was.
+  - actor: '1'
+    text: '...I tried to change myself. But regardless of any efforts I made to find
+      inner pieace, even when I otherwise kept myself engaged, the part of me that
+      had been trained in Ateran sneered at how pathetic I was, tempting me to return.
+      Even now I doubt I''ve fully separated myself from the values that place instilled
+      in me. I fought that side of myself for many years, and in the end, I had nothing
+      but a feeling of emptiness and a desire to erase everything about myself. That''s
+      why I left home.'
+  - actor: '1'
+    text: Elishe was different from any person I had ever met. She was not a beautiful
+      woman as you are, but her eyes... They saw everything as it truly was, and forgave
+      it. Accepted it... You have those eyes as well. The years I spent together with
+      her in Altiheit will forever occupy a large place in my heart. Elishe was my
+      reason to live, in every sense of the phrase.
+  - actor: '1'
+    text: In order to protect her, in order to make her happy, I was able to accept
+      my past self. By telling myself it was for her, I was capable of using others
+      as tools and doing terrible things to guarantee success. My internal struggle
+      had been entrusted to Elishe. And, after more than seven years in Altiheit,
+      I had become a top officer in Zanan...
+...

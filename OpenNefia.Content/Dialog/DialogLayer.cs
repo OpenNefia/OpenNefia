@@ -77,6 +77,7 @@ namespace OpenNefia.Content.Dialog
         public string Text { get; set; } = string.Empty;
         public List<DialogChoice> Choices { get; set; } = new();
         public bool CanCancel { get; set; } = false;
+        public PrototypeId<PortraitPrototype>? PortraitID { get; set; } = null;
     }
 
     public sealed class DialogChoice
@@ -212,10 +213,12 @@ namespace OpenNefia.Content.Dialog
             }
             else
             {
-                TextSpeakerName.Text = "";
                 TextImpression.Text = "-";
                 TextImpression2.Text = "-";
             }
+
+            if (data.PortraitID != null)
+                _portrait = _protos.Index(data.PortraitID.Value);
 
             _field.RefreshScreen();
         }
