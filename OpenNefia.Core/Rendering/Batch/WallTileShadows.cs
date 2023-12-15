@@ -99,7 +99,7 @@ namespace OpenNefia.Core.Rendering
 
             foreach (var (tileX, tileY) in TopShadows)
             {
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, tileY * tileH + Y - tileH / 4, tileW, tileH / 6);
             }
 
             foreach (var (tileX, tileY) in BottomShadows)

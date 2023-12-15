@@ -18,6 +18,7 @@ namespace OpenNefia.Core.Rendering
         /// <returns>An Nx2 array with the start and end positions of the radius.</returns>
         public static int[,] Get(int fovMax)
         {
+            fovMax = int.Max(fovMax, 0);
             if (Cache.TryGetValue(fovMax, out var fovList))
                 return fovList;
 

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Directions;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -59,8 +60,8 @@ namespace OpenNefia.Content.PCCs
             SubscribeComponent<PCCComponent, ComponentStartup>(OnComponentStartup);
             SubscribeComponent<PCCComponent, ComponentShutdown>(OnComponentShutdown);
             SubscribeComponent<PCCComponent, CharaAppearanceChangedEvent>(OnAppearanceChanged);
-            SubscribeComponent<PCCComponent, AfterMoveEventArgs>(AfterMove_UpdatePCC);
-            SubscribeComponent<PCCComponent, CollideWithEventArgs>(CollideWith_UpdatePCC, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<PCCComponent, EntityTurnStartingEventArgs>(OnTurnStarting);
+            SubscribeComponent<PCCComponent, BeforeMoveEventArgs>(BeforeMove_UpdatePCC, priority: EventPriorities.VeryLow);
         }
 
         private void OnComponentStartup(EntityUid uid, PCCComponent pccComp, ComponentStartup args)
@@ -81,7 +82,7 @@ namespace OpenNefia.Content.PCCs
             if (pccComp.UsePCC)
             {
                 var pccDrawable = PCCHelpers.CreatePCCDrawable(pccComp, _resourceCache);
-                var entityDrawable = new EntityDrawableEntry(pccDrawable, hidesChip: true);
+                var entityDrawable = new EntityDrawableEntry(pccDrawable, hidesChip: true, zOrder: 1000);
                 _drawables.RegisterDrawable(uid, DrawableID, entityDrawable);
             }
             else
@@ -95,32 +96,40 @@ namespace OpenNefia.Content.PCCs
             _drawables.UnregisterDrawable(uid, DrawableID);
         }
 
-        private void AfterMove_UpdatePCC(EntityUid uid, PCCComponent pccComp, AfterMoveEventArgs args)
+        private void BeforeMove_UpdatePCC(EntityUid uid, PCCComponent pccComp, BeforeMoveEventArgs args)
         {
             if (args.Handled)
                 return;
 
-            UpdatePCC(uid, pccComp, args.OldPosition, args.NewPosition);
+            UpdatePCC(uid, pccComp, Spatial(uid).Direction);
         }
 
-        private void CollideWith_UpdatePCC(EntityUid uid, PCCComponent pccComp, CollideWithEventArgs args)
-        {
-            if (args.Handled || !IsAlive(args.Target))
-                return;
-
-            UpdatePCC(uid, pccComp, Spatial(uid).MapPosition, Spatial(args.Target).MapPosition);
-        }
-
-        private void UpdatePCC(EntityUid uid, PCCComponent pccComp, MapCoordinates oldPosition, MapCoordinates newPosition)
+        private void OnTurnStarting(EntityUid uid, PCCComponent pccComp, EntityTurnStartingEventArgs args)
         {
             if (!pccComp.UsePCC || !TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
                 return;
 
-            if (oldPosition.TryDirectionTowards(newPosition, out var dir))
-                pccComp.PCCDirection = dir.ToPCCDirection();
+            UpdatePCC(uid, pccComp, Spatial(uid).Direction);
+        }
+
+        private void UpdatePCC(EntityUid uid, PCCComponent pccComp, MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            if (!oldPosition.TryDirectionTowards(newPosition, out var dir))
+                dir = Spatial(uid).Direction;
+            UpdatePCC(uid, pccComp, dir);
+        }
+
+        private void UpdatePCC(EntityUid uid, PCCComponent pccComp, Core.Maths.Direction dir)
+        {
+            if (!pccComp.UsePCC || !TryGetPCCDrawable(uid, out var pccDrawable, pccComp))
+                return;
+
+            var frame = CompOrNull<TurnOrderComponent>(uid)?.TotalTurnsTaken ?? (pccDrawable.Frame + 1);
+
+            pccComp.PCCDirection = dir.ToPCCDirection();
             pccDrawable.IsFullSize = pccComp.IsFullSize;
             pccDrawable.Direction = pccComp.PCCDirection;
-            pccDrawable.Frame = (pccDrawable.Frame + 1) % 4;
+            pccDrawable.Frame = frame % 4;
         }
 
         public bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable,

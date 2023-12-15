@@ -8,7 +8,6 @@ namespace OpenNefia.Core.Rendering
         public MapObjectMemory Memory;
         public AtlasTile? AtlasTile;
         public int RowIndex;
-        public Vector2i ScrollOffset;
 
         public ChipBatchEntry(AtlasTile? atlasTile, MapObjectMemory memory)
         {

@@ -7,6 +7,7 @@ namespace OpenNefia.Core.Console
         void Initialize();
 
         ReplExecutionResult Execute(string code);
+        ReplExecutionResult LoadStartupScript();
 
         IReadOnlyCollection<CompletionItemWithDescription> Complete(string text, int caret);
     }

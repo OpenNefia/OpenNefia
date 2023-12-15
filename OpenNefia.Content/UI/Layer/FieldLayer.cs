@@ -148,6 +148,9 @@ namespace OpenNefia.Content.UI.Layer
             {
                 RefreshScreen();
                 _mapRenderer.RefreshAllLayers();
+
+                var ev = new MapAfterRedrawAllEvent(Map);
+                _entityManager.EventBus.RaiseEvent(Map.MapEntityUid, ref ev);
             }
 
             _scroller.GetPositionDiff(dt, out var dx, out var dy);
@@ -172,5 +175,20 @@ namespace OpenNefia.Content.UI.Layer
         public override void Dispose()
         {
         }
+    }
+
+    /// <summary>
+    /// Raised after the map runs a deferred redraw.
+    /// </summary>
+    [ByRefEvent]
+    [EventUsage(EventTarget.Map)]
+    public struct MapAfterRedrawAllEvent
+    {
+        public MapAfterRedrawAllEvent(IMap map)
+        {
+            Map = map;
+        }
+
+        public IMap Map { get; }
     }
 }

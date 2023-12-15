@@ -144,7 +144,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             PrototypeId<EntityPrototype> areaId = new("LecchoTorte.QuickstartArea");
             GlobalAreaId globalAreaId = new("LecchoTorte.QuickstartArea");
-            AreaFloorId floorId = new("LecchoTorte.QuickstartArea", AreaFloorId.DefaultFloorNumber);
+            AreaFloorId floorId = AreaFloorId.Default;
 
             var area = _areas.CreateArea(areaId, globalAreaId);
             _areas.RegisterAreaFloor(area, floorId, map);

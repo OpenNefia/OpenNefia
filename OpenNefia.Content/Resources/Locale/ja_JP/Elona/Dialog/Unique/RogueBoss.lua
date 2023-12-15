@@ -9,7 +9,7 @@ Elona.Dialog.Unique.RogueBoss = {
     },
 
     Ambush = {
-        dialog = function(speaker, rogueGroupName, surrenderCost)
+        Text = function(speaker, rogueGroupName, surrenderCost)
             return (
                 "おまえさん、ついてない%s%s達は泣く子も黙る冷血な盗賊団、その名も%s%s命が惜しければ、おとなしく荷車の積荷と金貨%s枚を渡すがいい%s"
             ):format(
@@ -22,8 +22,8 @@ Elona.Dialog.Unique.RogueBoss = {
             )
         end,
         Choices = {
-            Surrender = "I surrender.",
-            TryMe = "Try me.",
+            Surrender = "降参する",
+            TryMe = "返り討ちにする",
         },
     },
 

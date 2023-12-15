@@ -129,25 +129,37 @@ namespace OpenNefia.Core.Console
                 var loadReferenceScriptResult = await _roslynServices.EvaluateAsync(loadReferenceScript);
                 await PrintAsync(loadReferenceScriptResult, Level.FirstSimple);
 
-                var autoloadScriptPathString = _config.GetCVar(CVars.ReplAutoloadScript);
-
-                if (!string.IsNullOrEmpty(autoloadScriptPathString))
-                {
-                    var autoloadScriptPath = new ResourcePath(autoloadScriptPathString);
-                    if (_resources.ContentFileExists(autoloadScriptPath))
-                    {
-                        _console.WriteLine($"Loading startup script: {autoloadScriptPath}");
-                        var autoloadScript = _resources.ContentFileReadAllText(autoloadScriptPath);
-                        var autoloadScriptResult = await _roslynServices.EvaluateAsync(autoloadScript);
-                        await PrintAsync(autoloadScriptResult, Level.FirstSimple);
-                    }
-                    else
-                    {
-                        _console.WriteErrorLine($"Startup script not found: {autoloadScriptPathString}");
-                    }
-                }
+                await LoadStartupScriptAsync();
 
                 IsInitialized = true;
+            }
+        }
+
+        public ReplExecutionResult LoadStartupScript()
+        {
+            return _taskRunner.Run(LoadStartupScriptAsync());
+        }
+
+        private async Task<ReplExecutionResult> LoadStartupScriptAsync()
+        {
+            var autoloadScriptPathString = _config.GetCVar(CVars.ReplAutoloadScript);
+
+            if (string.IsNullOrEmpty(autoloadScriptPathString))
+                return new ReplExecutionResult.Success("");
+
+            var autoloadScriptPath = new ResourcePath(autoloadScriptPathString);
+            if (_resources.ContentFileExists(autoloadScriptPath))
+            {
+                _console.WriteLine($"Loading startup script: {autoloadScriptPath}");
+                var autoloadScript = _resources.ContentFileReadAllText(autoloadScriptPath);
+                var autoloadScriptResult = await _roslynServices.EvaluateAsync(autoloadScript);
+                await PrintAsync(autoloadScriptResult, Level.FirstSimple);
+                return ToReplResult(autoloadScriptResult);
+            }
+            else
+            {
+                _console.WriteErrorLine($"Startup script not found: {autoloadScriptPathString}");
+                return new ReplExecutionResult.Error(new InvalidOperationException($"Startup script not found: {autoloadScriptPathString}"));
             }
         }
 
@@ -198,7 +210,11 @@ namespace OpenNefia.Core.Console
             var result = _roslynServices.EvaluateAsync(code, _replConfig.LoadScriptArgs, new CancellationToken()).GetAwaiter().GetResult();
 
             PrintAsync(result, Level.FirstDetailed).GetAwaiter().GetResult();
+            return ToReplResult(result);
+        }
 
+        private ReplExecutionResult ToReplResult(EvaluationResult result)
+        {
             switch (result)
             {
                 case EvaluationResult.Success success:

@@ -10,7 +10,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 namespace OpenNefia.Content.Maps.Debris
 {
     [RegisterTileRowLayer(TileRowLayerType.Tile)]
-    public sealed class MapDebrisTileLayer : BaseTileRowLayer
+    public sealed class MapDebrisTileRowLayer : BaseTileRowLayer
     {
         [Dependency] private readonly ICoords _coords = default!;
 
@@ -97,6 +97,9 @@ namespace OpenNefia.Content.Maps.Debris
 
             for (var y = 0; y < Map.Height; y++)
             {
+                bloodParts.Clear();
+                fragmentParts.Clear();
+
                 for (var x = 0; x < Map.Width; x++)
                 {
                     var debris = mapDebris.DebrisMemory[x, y];
@@ -121,17 +124,18 @@ namespace OpenNefia.Content.Maps.Debris
         {
         }
 
-        public override void DrawRow(int y, int screenX, int screenY)
+        public override void DrawRow(int tileY, int screenX, int screenY)
         {
-            if (y < 0 || y >= Map!.Height)
+            if (tileY < 0 || tileY >= Map!.Height)
                 return;
 
             var scale = _coords.TileScale;
+            var tileH = _coords.TileSize.Y;
 
             Love.Graphics.SetColor(Color.White);
 
-            Love.Graphics.Draw(_bloodBatches[y], screenX, screenY, 0, scale, scale);
-            Love.Graphics.Draw(_fragmentBatches[y], screenX, screenY, 0, scale, scale);
+            Love.Graphics.Draw(_bloodBatches[tileY], screenX, screenY + scale * tileH * tileY, 0, scale, scale);
+            Love.Graphics.Draw(_fragmentBatches[tileY], screenX, screenY + scale * tileH * tileY, 0, scale, scale);
         }
     }
 }

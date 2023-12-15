@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.GameObjects
 {
+    /// <summary>
+    /// This system refreshes all buffed stats on an entity.
+    /// </summary>
     public interface IRefreshSystem : IEntitySystem
     {
+        /// <summary>
+        /// Refreshes <see cref="Stat{T}"/> properties on components that
+        /// implement <see cref="IComponentRefreshable"/>.
+        /// </summary>
+        /// <param name="entity"></param>
         void Refresh(EntityUid entity);
     }
 

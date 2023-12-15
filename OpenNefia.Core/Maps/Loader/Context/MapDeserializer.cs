@@ -211,6 +211,7 @@ namespace OpenNefia.Core.Maps
             {
                 foreach (var drawable in memory.Drawables)
                 {
+                    EntitySystem.InjectDependencies(drawable);
                     drawable.Initialize(_resourceCache);
                 }
             }

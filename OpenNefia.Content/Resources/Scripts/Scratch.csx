@@ -44,6 +44,7 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Effects;
@@ -56,10 +57,12 @@ using OpenNefia.Content.Quests;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Weather;
+using OpenNefia.Content.Items;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
 var _areaMan = IoCManager.Resolve<IAreaManager>();
+var _entityGen = EntitySystem.Get<IEntityGen>();
 var _itemGen = EntitySystem.Get<IItemGen>();
 var _charaGen = EntitySystem.Get<ICharaGen>();
 var _gameSession = IoCManager.Resolve<IGameSessionManager>();
@@ -153,6 +156,36 @@ public void spellLv(PrototypeId<SpellPrototype> id, int level)
 {
     var sp = spell(id);
     sp.Level.Base = level;
+}
+
+public EntityUid? spawn(PrototypeId<EntityPrototype> id, int? amount = null)
+{
+    var proto = _protos.Index(id);
+
+    if (proto.Components.HasComponent<CharaComponent>())
+    {
+        var chara = _charaGen.GenerateChara(player(), id);
+        if (!_entityMan.IsAlive(chara))
+            return null;
+
+        return chara.Value;
+    }
+    else if (proto.Components.HasComponent<ItemComponent>())
+    {
+        var item = _itemGen.GenerateItem(player(), id, amount: amount);
+        if (!_entityMan.IsAlive(item))
+            return null;
+
+        return item.Value;
+    }
+    else
+    {
+        var ent = _entityGen.SpawnEntity(id, player());
+        if (!_entityMan.IsAlive(ent))
+            return null;
+
+        return ent.Value;
+    }
 }
 
 public EntityUid? give(PrototypeId<EntityPrototype> id, int? amount = null)

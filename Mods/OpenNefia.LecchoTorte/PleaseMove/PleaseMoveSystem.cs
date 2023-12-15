@@ -22,6 +22,7 @@ using Love;
 using OpenNefia.Content.World;
 using NetVips;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.Encounters;
 
 namespace OpenNefia.LecchoTorte.PleaseMove
 {
@@ -37,6 +38,7 @@ namespace OpenNefia.LecchoTorte.PleaseMove
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IMoveableSystem _moveable = default!;
+        [Dependency] private readonly IEncounterSystem _encounters = default!;
 
         public override void Initialize()
         {
@@ -49,6 +51,7 @@ namespace OpenNefia.LecchoTorte.PleaseMove
                 && _factions.GetRelationToPlayer(uid) == Relation.Neutral
                 && TryMap(uid, out var map)
                 && !HasComp<MapShowHouseComponent>(map.MapEntityUid)
+                && !_encounters.IsEncounterActive(map)
                 && !_parties.IsInPlayerParty(uid)
                 && !_deferredEvents.IsEventEnqueued())
             {

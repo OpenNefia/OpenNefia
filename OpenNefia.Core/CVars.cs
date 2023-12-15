@@ -74,6 +74,13 @@ namespace OpenNefia.Core
             CVarDef.Create("display.title", "OpenNefia");
 
         /*
+         * Anime
+         */
+
+        public static readonly CVarDef<float> AnimeObjectMovementSpeed =
+            CVarDef.Create("anime.objectMovementSpeed", 0.2f, CVar.Archive);
+
+        /*
          * Audio
          */
 

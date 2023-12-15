@@ -110,6 +110,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "背景エフェクトウェイト",
     },
 
+    AnimeObjectMovementSpeed = {
+        Name = "オブジェクトの移動速度",
+    },
+
     --
     -- Menu: Input
     --

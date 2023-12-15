@@ -9,6 +9,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -47,6 +48,19 @@ namespace OpenNefia.Core.Rendering
         public IEnumerable<ITileRowLayer> GetTileRowLayers(TileRowLayerType type)
         {
             return _allTileRowLayers.Where(x => x.Item2 == type).Select(x => x.Item1);
+        }
+
+        public bool TryGetTileRowLayer<T>([NotNullWhen(true)] out T? layer)
+            where T: class, ITileRowLayer
+        {
+            var result = _allTileRowLayers.TryFirstOrNull(x => x.Item1 is T, out var pair);
+            if (pair != null)
+            {
+                layer = (T)pair.Value.Item1;
+                return result;
+            }
+            layer = null;
+            return false;
         }
 
         public void RegisterTileLayers()
