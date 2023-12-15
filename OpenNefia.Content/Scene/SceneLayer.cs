@@ -217,7 +217,6 @@ namespace OpenNefia.Content.Scene
 
             _shownAnything = true;
             SetCrossFadeParameters();
-            Logger.WarningS("scene", texts[0]);
             _texts = new(texts);
             RenderTextLines(_texts);
             _state = SceneState.CrossFading;

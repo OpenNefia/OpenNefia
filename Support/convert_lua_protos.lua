@@ -1806,7 +1806,7 @@ handlers["elona.weather"] = function(from, to)
 end
 
 handlers["elona_sys.scene"] = function(from, to)
-    to.location = "/Resources/Scenes/Elona"
+    to.location = "/Scenes/Elona"
     to.filename = dataPart(from._id) .. ".yml"
 end
 
@@ -2245,8 +2245,8 @@ end
 
 -- write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
-convert_scenes()
--- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
+-- convert_scenes()
+write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")
 -- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")

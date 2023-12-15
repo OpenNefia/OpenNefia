@@ -1,7 +1,23 @@
+---
+- type: Elona.Scene
+  id: Elona.Story70
+  location: /Scenes/Elona
+  filename: Story70.yml
+
+- type: Elona.Scene
+  id: Elona.Story90
+  location: /Scenes/Elona
+  filename: Story90.yml
+
 - type: Elona.Scene
   id: Elona.Story0
   location: /Scenes/Elona
   filename: Story0.yml
+
+- type: Elona.Scene
+  id: Elona.Story25
+  location: /Scenes/Elona
+  filename: Story25.yml
 
 - type: Elona.Scene
   id: Elona.Story100

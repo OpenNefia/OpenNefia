@@ -46,6 +46,7 @@ namespace OpenNefia.Content.Scene
         {
             if (!_protos.TryIndex(sceneID, out var sceneProto))
             {
+                Logger.ErrorS("scene", $"Scene prototype {sceneID} doesn't exist!");
                 return;
             }
 
