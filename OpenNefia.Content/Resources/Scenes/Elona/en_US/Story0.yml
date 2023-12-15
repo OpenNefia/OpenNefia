@@ -27,6 +27,10 @@ nodes:
           The Elea of Vindale began to retreat from human lands to avoid persecution,
           but the world's animosity towards them is still afire. The flames of war threaten
           to ignite at any moment.
+  - !type:SceneChangeBackgroundNode
+    id: Elona.Bg4
+  - !type:SceneTextNode
+    text:
       - |
           The dawn will soon arrive. You had slipped in with the cargo of the merchant
           ship Queen Sedona which was headed for North Tyris.  Suddenly you are

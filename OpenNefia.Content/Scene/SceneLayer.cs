@@ -24,6 +24,8 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Content.UI.Element;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Scene
 {
@@ -56,7 +58,31 @@ namespace OpenNefia.Content.Scene
             Done
         }
 
-        private record class DialogData(string ActorID, IList<string> Texts);
+        private class DialogData
+        {
+            public string ActorID { get; }
+            public IList<string> Texts { get; }
+            public int TextIndex { get; set; }
+
+            public DialogData(string actorID, IList<string> texts)
+            {
+                this.ActorID = actorID;
+                this.Texts = texts;
+                this.TextIndex = 0;
+            }
+        }
+
+        private class TextData
+        {
+            public IList<string> Texts { get; }
+            public int TextIndex { get; set; }
+
+            public TextData(IList<string> texts)
+            {
+                Texts = texts;
+                TextIndex = 0;
+            }
+        }
 
         private SceneState _state = SceneState.Advancing;
         private Dictionary<string, ActorSpec> _actors = new();
@@ -65,11 +91,14 @@ namespace OpenNefia.Content.Scene
         [Child] private MorePrompt _morePrompt = new();
 
         private DialogData? _dialog = null;
+        private UiText[] _textLines = { };
+        private TextData? _texts = null;
 
         private float _waitTimer = 0f;
         private float _crossFadeStart = 0f;
         private bool _canvasRebake = false;
         private Love.Image? _crossFadeImage;
+        private IAssetInstance _assetSceneTextShadow = default!;
 
         private IList<ISceneNode> _nodes = new List<ISceneNode>();
         private int currentNodeIndex = 0;
@@ -86,10 +115,15 @@ namespace OpenNefia.Content.Scene
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
+            if (_state != SceneState.AwaitingInput)
+            {
+                args.Handle();
+                return;
+            }
+
             if (args.Function == EngineKeyFunctions.UISelect)
             {
                 _audio.Play(Protos.Sound.Ok1);
-                currentNodeIndex++;
                 _state = SceneState.Advancing;
                 args.Handle();
             }
@@ -102,7 +136,6 @@ namespace OpenNefia.Content.Scene
 
         private void StartCrossFade(float time = 0.25f)
         {
-            _state = SceneState.CrossFading;
             _waitTimer = time;
             _crossFadeStart = _waitTimer;
         }
@@ -111,12 +144,15 @@ namespace OpenNefia.Content.Scene
         {
             _nodes = args.Nodes;
             _background = Assets.Get(Protos.Asset.Bg1);
+            _assetSceneTextShadow = Assets.Get(Protos.Asset.SceneTextShadow);
         }
 
         public override void OnQuery()
         {
             currentNodeIndex = 0;
-            StartCrossFade();
+            _crossFadeStart = 0;
+            _waitTimer = 0;
+            _state = SceneState.Advancing;
             var data = _graphics.CaptureCanvasImageData();
             if (data != null)
             {
@@ -127,11 +163,13 @@ namespace OpenNefia.Content.Scene
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
+            UpdateTextPosition();
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
+            UpdateTextPosition();
         }
 
         public void SetActors(IDictionary<string, ActorSpec> actors)
@@ -141,17 +179,74 @@ namespace OpenNefia.Content.Scene
 
         public void SetBackground(PrototypeId<AssetPrototype> assetID)
         {
+            _background = Assets.Get(assetID);
             StartCrossFade();
         }
 
-        public void ShowText(IList<string> text)
+        public void ShowText(IList<string> texts)
         {
+            if (texts.Count == 0)
+            {
+                Logger.ErrorS("scene", $"No texts to display!");
+                _state = SceneState.Advancing;
+                return;
+            }
+
             StartCrossFade();
-            Logger.WarningS("scene", text[0]);
+            Logger.WarningS("scene", texts[0]);
+            _texts = new(texts);
+            RenderTextLines(_texts);
+            _state = SceneState.CrossFading;
+        }
+
+        private void RenderTextLines(TextData texts)
+        {
+            DisposeTextLines();
+
+            var str = texts.Texts[texts.TextIndex].ReplaceLineEndings("\n");
+            var lines = str.Split('\n');
+            _textLines = new UiText[lines.Length];
+            for (var i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i].Trim();
+                _textLines[i] = new UiTextOutlined(UiFonts.SceneText, line);
+                AddChild(_textLines[i]);
+            }
+
+            UpdateTextPosition();
+        }
+
+        private void DisposeTextLines()
+        {
+            foreach (var text in _textLines)
+            {
+                text.Dispose();
+                RemoveChild(text);
+            }
+           _textLines = new UiText[0];
+        }
+
+        private void UpdateTextPosition()
+        {
+            for (var i = 0; i < _textLines.Length; i++)
+            {
+                var line = _textLines[i];
+                line.SetPreferredSize();
+                var x = Width / 2 - line.Width / 2;
+                var y = LetterboxMargin + 28 + (9 - _textLines.Length / 2 + i) * 20;
+                line.SetPosition(x, y);
+            }   
         }
 
         public void ShowDialog(string actorID, IList<string> texts)
         {
+            if (texts.Count == 0)
+            {
+                Logger.ErrorS("scene", $"No dialog texts to display!");
+                _state = SceneState.Advancing;
+                return;
+            }
+
             _state = SceneState.Dialog;
             _dialog = new(actorID, texts);
         }
@@ -229,6 +324,23 @@ namespace OpenNefia.Content.Scene
 
         private void AdvanceState()
         {
+            if (_texts != null)
+            {
+                _texts.TextIndex++;
+                if (_texts.TextIndex >= _texts.Texts.Count)
+                {
+                    _state = SceneState.Advancing;
+                    _texts = null;
+                }
+                else
+                {
+                    RenderTextLines(_texts);
+                    StartCrossFade();
+                    _state = SceneState.CrossFading;
+                    return;
+                }
+            }
+
             if (CurrentNode == null)
             {
                 _state = SceneState.Done;
@@ -236,10 +348,17 @@ namespace OpenNefia.Content.Scene
                 return;
             }
 
+            DisposeTextLines();
+
             while (_state == SceneState.Advancing && CurrentNode != null)
             {
                 CurrentNode.OnEnter(this);
                 currentNodeIndex++;
+            }
+
+            if (_crossFadeStart > 0f)
+            {
+                _state = SceneState.CrossFading;
             }
 
             if (CurrentNode == null)
@@ -308,9 +427,35 @@ namespace OpenNefia.Content.Scene
             }
         }
 
+        private const int LetterboxMargin = 60;
+
         public override void Draw()
         {
-            _background.DrawUnscaled(0, 0, PixelWidth, PixelHeight);
+            Love.Graphics.Clear(Color.Black);
+            _background.DrawUnscaled(0, LetterboxMargin, PixelWidth, PixelHeight - (LetterboxMargin * 2));
+
+            Love.Graphics.SetColor(Color.White.WithAlphaB(70));
+            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
+
+            for (var i = 0; i < _textLines.Length; i++)
+            {
+                var y = LetterboxMargin + 31 + (9 - _textLines.Length / 2 + i) * 20 + 4;
+                var shadowWidth = 80 + _textLines[i].Width;
+                if (shadowWidth < 180)
+                    shadowWidth = 0;
+                _assetSceneTextShadow.Draw(UIScale, Width / 2, y, shadowWidth, null, centered: true);
+            }
+
+            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
+
+            if (_texts != null)
+            {
+                foreach (var text in _textLines)
+                {
+                    text.Draw();
+                }
+            }
+
             if (_crossFadeImage != null && _crossFadeStart > 0f)
             {
                 if (_waitTimer <= 0f)
@@ -319,31 +464,9 @@ namespace OpenNefia.Content.Scene
                 else
                 {
                     var alpha = 1f - ((_crossFadeStart - _waitTimer) / _crossFadeStart);
-                    Console.WriteLine($"{alpha}");
                     Love.Graphics.SetColor(Color.White.WithAlphaF(alpha));
                     Love.Graphics.Draw(_crossFadeImage, 0, 0, 0, PixelWidth / _crossFadeImage.GetWidth(), PixelHeight / _crossFadeImage.GetHeight());
                 }
-            }
-
-            Love.Graphics.SetColor(Color.White);
-
-            switch (_state)
-            {
-                case SceneState.AwaitingInput:
-                default:
-                    break;
-                case SceneState.Dialog:
-                    break;
-                case SceneState.FadingOut:
-                    break;
-                case SceneState.FadingIn:
-                    break;
-                case SceneState.Waiting:
-                    break;
-                case SceneState.CrossFading:
-                    break;
-                case SceneState.Ending:
-                    break;
             }
         }
     }
