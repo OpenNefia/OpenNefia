@@ -42,13 +42,14 @@ namespace OpenNefia.Core.Rendering
         void Draw(float scale, float screenX, float screenY, bool centered = false);
     }
 
+    // TODO refactor into parameter args?
     public sealed class EntityDrawableEntry
     {
         public IEntityDrawable Drawable { get; set; }
         public bool HidesChip { get; set; }
         public int ZOrder { get; set; } = 0;
 
-        public EntityDrawableEntry(IEntityDrawable drawable, bool hidesChip, int zOrder = 0)
+        public EntityDrawableEntry(IEntityDrawable drawable, bool hidesChip = false, int zOrder = 0)
         {
             Drawable = drawable;
             HidesChip = hidesChip;
@@ -58,12 +59,16 @@ namespace OpenNefia.Core.Rendering
 
     public interface IEntityDrawablesSystem : IEntitySystem
     {
+        // TODO refactor into parameter args?
         void RegisterDrawable(EntityUid entity, string key, EntityDrawableEntry drawable,
             EntityDrawablesComponent? drawables = null);
 
         void UnregisterDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null);
 
         bool TryGetDrawable(EntityUid entity, string key, [NotNullWhen(true)] out EntityDrawableEntry? drawable,
+            EntityDrawablesComponent? drawables = null);
+
+        bool HasDrawable(EntityUid entity, string key,
             EntityDrawablesComponent? drawables = null);
 
         void ClearDrawables(EntityUid entity, EntityDrawablesComponent? drawables = null);
@@ -97,6 +102,7 @@ namespace OpenNefia.Core.Rendering
                 drawables = EntityManager.EnsureComponent<EntityDrawablesComponent>(entity);
             }
 
+            EntitySystem.InjectDependencies(drawable.Drawable);
             drawable.Drawable.Initialize(_resourceCache);
             drawables.EntityDrawables[key] = drawable;
 
@@ -133,6 +139,11 @@ namespace OpenNefia.Core.Rendering
             }
 
             return drawables.EntityDrawables.TryGetValue(key, out drawable);
+        }
+
+        public bool HasDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null)
+        {
+            return TryGetDrawable(entity, key, out _, drawables);
         }
 
         public void ClearDrawables(EntityUid entity, EntityDrawablesComponent? drawables = null)

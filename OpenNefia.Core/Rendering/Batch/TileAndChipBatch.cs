@@ -327,22 +327,6 @@ namespace OpenNefia.Core.Rendering
 
         public void DrawBottom(int screenX, int screenY)
         {
-            // Draw wall overhang.
-            if (HasOverhang)
-            {
-                var overhangHeight = Coords.TileSize.Y / 4;
-                Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, (int)(ScreenWidth * TileScale), (int)(overhangHeight * TileScale));
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
-
-                // Darken tiles to simulate day/night.
-                Love.Graphics.SetBlendMode(BlendMode.Subtract);
-                Love.Graphics.SetColor(TileShadow);
-                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
-                Love.Graphics.SetBlendMode(BlendMode.Alpha);
-
-                Love.Graphics.SetScissor();
-            }
-
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
             Love.Graphics.SetColor(Color.White);
             Love.Graphics.Draw(TileBatchBottom, screenX, screenY, 0, TileScale, TileScale);
@@ -367,6 +351,19 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Color.White);
             ChipBatch.Draw(screenX, screenY, TileScale);
+
+            // Draw wall overhang.
+            if (HasOverhang)
+            {
+                var overhangHeight = Coords.TileSize.Y / 4;
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
+
+                // Darken tiles to simulate day/night.
+                Love.Graphics.SetBlendMode(BlendMode.Subtract);
+                Love.Graphics.SetColor(TileShadow);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight, 0, TileScale, TileScale);
+                Love.Graphics.SetBlendMode(BlendMode.Alpha);
+            }
 
             Love.Graphics.SetColor(Color.White);
             Love.Graphics.Draw(TileBatchTop, screenX, screenY, 0, TileScale, TileScale);
