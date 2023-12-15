@@ -51,6 +51,7 @@ namespace OpenNefia.Content.Scene
             Advancing,
             AwaitingInput,
             InputSent,
+            CrossFadingToDialog,
             Dialog,
             ShowingDialog,
             FadingOut,
@@ -96,6 +97,7 @@ namespace OpenNefia.Content.Scene
         private IList<SceneDialogText>? _dialog = null;
         private UiText[] _textLines = { };
         private TextData? _texts = null;
+        private bool _shownAnything = false;
 
         private float _waitTimer = 0f;
         private float _crossFadeStart = 0f;
@@ -213,6 +215,7 @@ namespace OpenNefia.Content.Scene
                 return;
             }
 
+            _shownAnything = true;
             SetCrossFadeParameters();
             Logger.WarningS("scene", texts[0]);
             _texts = new(texts);
@@ -268,7 +271,15 @@ namespace OpenNefia.Content.Scene
                 return;
             }
 
-            _state = SceneState.Dialog;
+            if (!_shownAnything)
+            {
+                SetCrossFadeParameters();
+                _state = SceneState.CrossFadingToDialog;
+            }
+            else
+            {
+                _state = SceneState.Dialog;
+            }
             _dialog = texts;
         }
 
@@ -276,6 +287,7 @@ namespace OpenNefia.Content.Scene
         {
             DisposeTextLines();
 
+            _shownAnything = true;
             _state = SceneState.ShowingDialog;
 
             var args = new DialogArgs();
@@ -394,6 +406,8 @@ namespace OpenNefia.Content.Scene
             {
                 case SceneState.CrossFading:
                     return SceneState.AwaitingInput;
+                case SceneState.CrossFadingToDialog:
+                    return SceneState.Dialog;
                 case SceneState.Ending:
                     Finish(new());
                     return SceneState.Done;
@@ -476,7 +490,7 @@ namespace OpenNefia.Content.Scene
             if (_crossFadeStart > 0f && _waitTimer > 0f)
             {
                 var perc = ((_crossFadeStart - _waitTimer) / _crossFadeStart);
-                if (_state == SceneState.CrossFading && _crossFadeImage != null)
+                if ((_state == SceneState.CrossFading || _state == SceneState.CrossFadingToDialog) && _crossFadeImage != null)
                 {
                     if (_waitTimer > 0f)
                     {
