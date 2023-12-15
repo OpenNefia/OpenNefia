@@ -29,6 +29,7 @@ namespace OpenNefia.Content.Quests
         {
             args.OutParams["enemyName"] = Loc.GetPrototypeString(questHunt.EnemyID, "MetaData.Name"); 
             args.OutParams["enemyLevel"] = questHunt.EnemyLevel;
+            args.OutDetailLocaleKey = "Elona.Quest.Types.HuntEX.Detail";
         }
 
         private void QuestHuntEX_CalcDifficulty(EntityUid uid, QuestTypeHuntEXComponent huntQuest, QuestCalcDifficultyEvent args)

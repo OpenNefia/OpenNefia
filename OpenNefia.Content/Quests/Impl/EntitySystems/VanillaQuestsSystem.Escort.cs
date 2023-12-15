@@ -111,6 +111,7 @@ namespace OpenNefia.Content.Quests
         private void QuestEscort_Localize(EntityUid uid, QuestTypeEscortComponent escortQuest, QuestLocalizeDataEvent args)
         {
             args.OutParams["targetMapName"] = escortQuest.TargetMapName;
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Escort.Detail";
         }
 
         private void QuestEscort_CalcDifficulty(EntityUid uid, QuestTypeEscortComponent escortQuest, QuestCalcDifficultyEvent args)

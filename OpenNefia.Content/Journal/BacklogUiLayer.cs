@@ -19,14 +19,12 @@ namespace OpenNefia.Content.Journal
 
         public override void OnQuery()
         {
-            base.OnQuery();
             _hud.Backlog.ToggleBacklog(visible: true);
             Sounds.Play(Protos.Sound.Log);
         }
 
         public override void OnQueryFinish()
         {
-            base.OnQueryFinish();
             _hud.Backlog.ToggleBacklog(visible: false);
         }
 

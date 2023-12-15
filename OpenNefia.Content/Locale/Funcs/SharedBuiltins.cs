@@ -101,9 +101,14 @@ namespace OpenNefia.Content.Locale.Funcs
         }
 
         [LocaleFunction("loc")]
-        public static string BuiltIn_Loc(object? obj)
+        public static string BuiltIn_Loc(object? obj, params object[] rest)
         {
-            return Loc.GetString(obj?.ToString() ?? "");
+            LocaleArg[] args = new LocaleArg[rest.Length];
+            for (var i = 0; i < rest.Length; i++)
+            {
+                args[i] = ($"arg{i}", rest[i]);
+            }
+            return Loc.GetString(obj?.ToString() ?? "", args);
         }
             
         [LocaleFunction("gender")]

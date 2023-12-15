@@ -8,6 +8,7 @@ namespace OpenNefia.Core.UI.Layer
         int ZOrder { get; set; }
         bool ExceptionTolerance { get; }
 
+        // TODO these should not be out parameters.
         void GetPreferredBounds(out UIBox2 bounds);
         void GetPreferredPosition(out Vector2 pos);
         void SetPreferredPosition();

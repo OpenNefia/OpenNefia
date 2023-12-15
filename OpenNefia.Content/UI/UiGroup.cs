@@ -30,6 +30,14 @@ namespace OpenNefia.Content.UI
         public TArgs SelectedArgs = default!;
     }
 
+    /// <summary>
+    /// Defines a single layer within a UI layer group. Typically, these layers
+    /// can be "detached" and function without a tab bar, so implementors almost always
+    /// wrap another standalone layer internally. See <see cref="CharaInfo.EquipmentUiLayer"/> 
+    /// for an example of this.
+    /// </summary>
+    /// <typeparam name="TArgs"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
     public class GroupableUiLayer<TArgs, TResult> : UiLayerWithResult<TArgs, TResult>
         where TResult : class
     {
@@ -37,7 +45,14 @@ namespace OpenNefia.Content.UI
         {
         }
     }
-
+    
+    /// <summary>
+    /// Defines a group of related UI layers that can be tabbed between.
+    /// </summary>
+    /// <typeparam name="TLayer"></typeparam>
+    /// <typeparam name="TArgs"></typeparam>
+    /// <typeparam name="TSublayerArgs"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
     public class UiGroup<TLayer, TArgs, TSublayerArgs, TResult> : UiLayerWithResult<TArgs, TResult>
         where TArgs : UiGroupArgs<TLayer, TSublayerArgs>
         where TSublayerArgs : notnull

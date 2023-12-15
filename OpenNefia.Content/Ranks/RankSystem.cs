@@ -23,10 +23,13 @@ namespace OpenNefia.Content.Ranks
     public interface IRankSystem : IEntitySystem
     {
         IEnumerable<(PrototypeId<RankPrototype>, Rank)> EnumerateRanks();
-        string? GetRankTitle(PrototypeId<RankPrototype> rankId, int? place);
+        string? GetRankTitle(PrototypeId<RankPrototype> rankId, int? place = null);
         Rank GetRank(PrototypeId<RankPrototype> id);
         void SetRank(PrototypeId<RankPrototype> rankId, int newExp, bool showMessage = true);
         void ModifyRank(PrototypeId<RankPrototype> rankId, int expDelta, int? placeLimit = null, bool showMessage = true);
+
+        int CalcRankIncome(PrototypeId<RankPrototype> rankId);
+        int CalcRandomizedRankIncome(PrototypeId<RankPrototype> rankId);
     }
 
     [DataDefinition]
@@ -69,12 +72,17 @@ namespace OpenNefia.Content.Ranks
     }
 
     [DataDefinition]
-    public sealed class RankData : Dictionary<PrototypeId<RankPrototype>, Rank> {}
+    public sealed class RankData
+    {
+        [DataField]
+        public Dictionary<PrototypeId<RankPrototype>, Rank> AllRanks { get; } = new();
+}
 
     public sealed class RankSystem : EntitySystem, IRankSystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IRandom _rand = default!;
 
         [RegisterSaveData("Elona.RankSystem.RankData")]
         private RankData RankData { get; } = new();
@@ -114,7 +122,7 @@ namespace OpenNefia.Content.Ranks
             }
         }
 
-        public string? GetRankTitle(PrototypeId<RankPrototype> rankId, int? place)
+        public string? GetRankTitle(PrototypeId<RankPrototype> rankId, int? place = null)
         {
             if (place == null)
                 place = GetRank(rankId).Place;
@@ -139,12 +147,12 @@ namespace OpenNefia.Content.Ranks
 
         public Rank GetRank(PrototypeId<RankPrototype> rankId)
         {
-            if (!RankData.ContainsKey(rankId))
+            if (!RankData.AllRanks.ContainsKey(rankId))
             {
                 var rankData = new Rank();
-                RankData[rankId] = rankData;
+                RankData.AllRanks[rankId] = rankData;
             }
-            return RankData[rankId];
+            return RankData.AllRanks[rankId];
         }
 
         public void SetRank(PrototypeId<RankPrototype> rankId, int newExp, bool showMessage = true)
@@ -156,7 +164,7 @@ namespace OpenNefia.Content.Ranks
         {
             var oldRank = GetRank(rankId);
 
-            RankData[rankId] = newRank;
+            RankData.AllRanks[rankId] = newRank;
 
             if (!showMessage)
                 return;
@@ -206,6 +214,31 @@ namespace OpenNefia.Content.Ranks
             }
 
             SetRank(rankId, new Rank(oldRank.Experience - trueExpDelta, timeUntilDecay), showMessage);
+        }
+
+        public int CalcRankIncome(PrototypeId<RankPrototype> rankId)
+        {
+            // >>>>>>>> shade2/event.hsp:408 #module ...
+            if (!RankData.AllRanks.TryGetValue(rankId, out var rank) || rank.Place >= Rank.MaxRankPlace)
+                return 0;
+
+            var income = 100 - rank.Place;
+            if (income == 99)
+                income *= 70;
+            else
+                income *= 50;
+
+            var rankProto = _protos.Index(rankId);
+            income = (int)(income * rankProto.IncomeModifier);
+
+            return income;
+            // <<<<<<<< shade2/event.hsp:421 #global ..
+        }
+
+        public int CalcRandomizedRankIncome(PrototypeId<RankPrototype> rankId)
+        {
+            var baseIncome = CalcRankIncome(rankId);
+            return baseIncome + _rand.Next(baseIncome / 3 + 1) - _rand.Next(baseIncome / 3 + 1);
         }
     }
 }

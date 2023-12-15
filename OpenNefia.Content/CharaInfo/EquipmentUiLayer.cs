@@ -16,7 +16,7 @@ namespace OpenNefia.Content.CharaInfo
             _inner.OnUnequipped += HandleInnerLayerUnequipped;
         }
 
-        private void HandleInnerLayerEquipped(GotEquippedInMenuEvent ev)
+        private void HandleInnerLayerEquipped(WasEquippedInMenuEvent ev)
         {
             SharedSublayerResult.ChangedEquipment = true;
         }
@@ -40,6 +40,7 @@ namespace OpenNefia.Content.CharaInfo
 
         public override void OnQuery()
         {
+            base.OnQuery();
             _inner.UpdateFromEquipTarget();
             _inner.OnQuery();
         }
@@ -81,6 +82,7 @@ namespace OpenNefia.Content.CharaInfo
             switch (innerResult)
             {
                 case UiResult<EquipmentLayer.Result>.Finished:
+                    // Override with shared result
                     return new UiResult<CharaGroupSublayerResult>.Finished(SharedSublayerResult);
                 case UiResult<EquipmentLayer.Result>.Cancelled:
                     return new UiResult<CharaGroupSublayerResult>.Cancelled();

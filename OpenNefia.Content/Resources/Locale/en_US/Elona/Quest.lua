@@ -378,7 +378,7 @@ Elona.Quest = {
         Harvest = {
             Detail = {
                 Objective = function(params)
-                    return ("Gather harvests weight %s."):format(params.required_weight)
+                    return ("Gather harvests weight %s.%s"):format(params.requiredWeight, params.currentWeight)
                 end,
                 Now = function(currentWeight)
                     return ("(Now %s)"):format(currentWeight)

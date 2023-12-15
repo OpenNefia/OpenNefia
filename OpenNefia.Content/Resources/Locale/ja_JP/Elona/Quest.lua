@@ -907,7 +907,7 @@ Elona.Quest = {
         Harvest = {
             Detail = {
                 Objective = function(params)
-                    return ("%sの作物の納入"):format(params.required_weight)
+                    return ("%sの作物の納入%s"):format(params.requiredWeight, params.currentWeight)
                 end,
                 Now = function(currentWeight)
                     return ("(現在%s)"):format(currentWeight)
@@ -949,7 +949,7 @@ Elona.Quest = {
             ItemName = {
                 Grown = function(baseName, weightClass)
                     local weightName = _.loc(("Elona.Quest.Types.Harvest.ItemName.WeightClass.%s"):format(weightClass))
-                    return ("%s%s育った"):format(baseName, weightName)
+                    return ("%s育った%s"):format(weightName, baseName)
                 end,
                 WeightClass = {
                     ["0"] = "超ミニに",

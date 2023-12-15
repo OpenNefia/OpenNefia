@@ -16,7 +16,7 @@ namespace $rootnamespace$
     [Prototype(!"Elona.$safeitemrootname$")]
     public class $safeitemrootname$ : IPrototype, IHspIds<int>
     {
-        [DataField("id", required: true)]
+        [IdDataField]
         public string ID { get; } = default!;
 
         /// <inheritdoc/>

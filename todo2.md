@@ -6,7 +6,7 @@
 - [x] random encounters
 - [x] weather
 - [x] town quests
-- [ ] PCCs & ring light
+- [x] PCCs & ring light
 - [ ] journal
 - [ ] scene playback
 - [x] intro/first pet event
@@ -39,6 +39,7 @@
 - [ ] blackjack
 - [ ] deck/tcg
 - [ ] theming
+- [ ] port all OpenNefia/LÖVE unit tests
 - [ ] non-compiled mods
 - [ ] Qy@
 - [ ] mod API examples
@@ -54,6 +55,7 @@
 - [ ] `[DataField]` types must be serializable
 - [ ] `HandleableEntityEventArgs.Handled` must be checked in all event handlers
 - [ ] use primitive type functions (`int.Clamp`) instead of `Math.Clamp` and similar
+- [ ] prevent reserved `[DataField]` names (`id`, `type`, `events`, ...)
 
 ## mods
 - [ ] visual ai

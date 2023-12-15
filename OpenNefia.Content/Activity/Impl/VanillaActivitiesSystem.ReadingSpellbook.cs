@@ -104,9 +104,9 @@ namespace OpenNefia.Content.Activity
                 _spells.GainSpell(actor, spellbook.SpellID, CalcGainedSpellStock(memorizationLevel, currentStock));
                 _skills.GainSkillExp(actor, Protos.Skill.Memorization, 10 + difficulty / 5);
 
-                if (TryProtoID(component.Spellbook, out var spellbookID) && !_spellbooks.SpellbookReserveStates.ContainsKey(spellbookID.Value))
+                if (TryProtoID(component.Spellbook, out var spellbookID) && !_spellbooks.SpellbookReserveStates.ReserveStates.ContainsKey(spellbookID.Value))
                 {
-                    _spellbooks.SpellbookReserveStates[spellbookID.Value] = SpellbookReserveState.NotReserved;
+                    _spellbooks.SpellbookReserveStates.ReserveStates[spellbookID.Value] = SpellbookReserveState.NotReserved;
                 }
             }
 

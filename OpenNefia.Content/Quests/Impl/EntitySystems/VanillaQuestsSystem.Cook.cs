@@ -35,6 +35,7 @@ namespace OpenNefia.Content.Quests
             var ingredient = Loc.GetPrototypeString(component.TargetFoodType, "DefaultOrigin");
             var foodName = Loc.GetPrototypeString(component.TargetFoodType, $"Names.{component.TargetFoodQuality}", ("ingredient", ingredient));
             args.OutParams["foodName"] = _quests.FormatQuestObjective(foodName);
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Cook.Detail";
         }
 
         private void QuestCook_CalcDifficulty(EntityUid uid, QuestTypeCookComponent component, QuestCalcDifficultyEvent args)

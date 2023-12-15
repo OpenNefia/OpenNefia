@@ -28,6 +28,7 @@ namespace OpenNefia.Content.Quests
         private void QuestSupply_Localize(EntityUid uid, QuestTypeSupplyComponent component, QuestLocalizeDataEvent args)
         {
             args.OutParams["itemName"] = _quests.FormatQuestObjective(_itemName.QualifyNameWithItemType(component.TargetItemID));
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Supply.Detail";
         }
 
         private void QuestSupply_CalcDifficulty(EntityUid uid, QuestTypeSupplyComponent component, QuestCalcDifficultyEvent args)

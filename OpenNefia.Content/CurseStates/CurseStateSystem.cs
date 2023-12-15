@@ -34,7 +34,7 @@ namespace OpenNefia.Content.CurseStates
         public override void Initialize()
         {
             SubscribeComponent<CurseStateComponent, EntityBeingGeneratedEvent>(SetRandomCurseState, priority: EventPriorities.High);
-            SubscribeComponent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, priority: EventPriorities.High);
+            SubscribeComponent<CurseStateComponent, WasEquippedInMenuEvent>(OnEquippedInMenu, priority: EventPriorities.High);
             SubscribeComponent<CurseStateComponent, BeingUnequippedAttemptEvent>(OnBeingUnequipped, priority: EventPriorities.High);
         }
 
@@ -85,7 +85,7 @@ namespace OpenNefia.Content.CurseStates
             curseState.CurseState = GetDefaultCurseState(uid);
         }
 
-        private void OnEquippedInMenu(EntityUid item, CurseStateComponent component, GotEquippedInMenuEvent args)
+        private void OnEquippedInMenu(EntityUid item, CurseStateComponent component, WasEquippedInMenuEvent args)
         {
             string? key = component.CurseState switch
             {

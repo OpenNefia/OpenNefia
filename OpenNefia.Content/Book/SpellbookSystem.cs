@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Book
         void FailToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
 
         /// <summary>
-        /// Rolls the spellbook check, and if it fails then run the failure effects on the reader.
+        /// Rolls the spellbook check, and if it fails, runs the failure effects on the reader.
         /// </summary>
         bool TryToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
         TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook);
@@ -46,7 +46,10 @@ namespace OpenNefia.Content.Book
     }
 
     [DataDefinition]
-    public sealed class SpellbookReserveStates : Dictionary<PrototypeId<EntityPrototype>, SpellbookReserveState> { }
+    public sealed class SpellbookReserveStates
+    {
+        public Dictionary<PrototypeId<EntityPrototype>, SpellbookReserveState> ReserveStates { get; } = new();
+    }
 
     public sealed class SpellbookSystem : EntitySystem, ISpellbookSystem
     {

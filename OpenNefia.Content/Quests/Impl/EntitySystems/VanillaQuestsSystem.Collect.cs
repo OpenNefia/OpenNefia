@@ -45,6 +45,7 @@ namespace OpenNefia.Content.Quests
                 targetName = Loc.GetString("Elona.Quest.Types.Collect.TargetIn", ("mapName", args.Quest.ClientOriginatingMapName));
 
             args.OutParams["targetName"] = targetName;
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Collect.Detail";
         }
 
         private void QuestCollect_CalcDifficulty(EntityUid uid, QuestTypeCollectComponent collectQuest, QuestCalcDifficultyEvent args)

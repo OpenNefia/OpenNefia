@@ -47,14 +47,12 @@ namespace OpenNefia.Content.Quests
 
         private void QuestHarvest_Localize(EntityUid uid, QuestTypeHarvestComponent questConquer, QuestLocalizeDataEvent args)
         {
-            // TODO journal
-            var requiredWeight = UiUtils.DisplayWeight(questConquer.RequiredWeight);
-            var objective = Loc.GetString("Elona.Quest.Types.Harvest.Detail.Objective", ("requiredWeight", requiredWeight));
+            args.OutParams["requiredWeight"] = UiUtils.DisplayWeight(questConquer.RequiredWeight);
+            args.OutParams["currentWeight"] = "";
             if (_immediateQuests.TryGetImmediateQuest(_mapManager.ActiveMap!, out var quest, out _) && quest.Owner == args.Quest.Owner)
-                objective += Loc.Space + Loc.GetString("Elona.Quest.Types.Harvest.Detail.Now", ("currentWeight", UiUtils.DisplayWeight(questConquer.CurrentWeight)));
+                args.OutParams["currentWeight"] = Loc.GetString("Elona.Quest.Types.Harvest.Detail.Now", ("currentWeight", UiUtils.DisplayWeight(questConquer.CurrentWeight)));
 
-            args.OutParams["objective"] = objective;
-            args.OutParams["requiredWeight"] = requiredWeight;
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Harvest.Detail.Objective";
         }
 
         private void QuestHarvest_CalcDifficulty(EntityUid uid, QuestTypeHarvestComponent harvestQuest, QuestCalcDifficultyEvent args)
