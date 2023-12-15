@@ -2155,11 +2155,11 @@ local function convert_scenes()
             })
         elseif ty == "mc" then
             return typedYamlNode("ScenePlayMusicNode", {
-                id = dotted(node[2]),
+                id = "Elona." .. dataPart(node[2]),
             })
         elseif ty == "se" then
             return typedYamlNode("ScenePlaySoundNode", {
-                id = dotted(node[2]),
+                id = "Elona." .. dataPart(node[2]),
             })
         elseif ty == "pic" then
             return typedYamlNode("SceneChangeBackgroundNode", {
@@ -2245,8 +2245,8 @@ end
 
 -- write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
--- convert_scenes()
-write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
+convert_scenes()
+-- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")
 -- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")

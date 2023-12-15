@@ -39,7 +39,7 @@ nodes:
     text: You bastard, you're the one who said...
 - !type:SceneWaitNode {}
 - !type:ScenePlaySoundNode
-  id: Base.Door1
+  id: Elona.Door1
 - !type:SceneWaitNode {}
 - !type:SceneDialogNode
   dialog:
@@ -53,7 +53,7 @@ nodes:
       about to happen.
 - !type:SceneWaitNode {}
 - !type:ScenePlaySoundNode
-  id: Base.Door1
+  id: Elona.Door1
 - !type:ScenePlayMusicNode
   id: Elona.Pinch2
 - !type:SceneDialogNode

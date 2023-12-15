@@ -38,7 +38,7 @@ nodes:
     text: なんだと、貴様…
 - !type:SceneWaitNode {}
 - !type:ScenePlaySoundNode
-  id: Base.Door1
+  id: Elona.Door1
 - !type:SceneWaitNode {}
 - !type:SceneDialogNode
   dialog:
@@ -50,7 +50,7 @@ nodes:
     text: 何も。ただ、彼の話を聞いただけよ。それより、早くここを出たほうがいい。何か悪い予感がするの。
 - !type:SceneWaitNode {}
 - !type:ScenePlaySoundNode
-  id: Base.Door1
+  id: Elona.Door1
 - !type:ScenePlayMusicNode
   id: Elona.Pinch2
 - !type:SceneDialogNode
