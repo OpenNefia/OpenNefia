@@ -23,10 +23,13 @@ namespace OpenNefia.Content.Logic
         public override int? DefaultZOrder => HudLayer.HudZOrder + 10000;
 
         private bool _canFinish = false;
-        private bool _finished = false;
         private float _size;
-        private float _size2;
         private float _delay;
+        private bool _closed = false;
+
+        public bool IsPromptHidden { get; set; } = false;
+        public bool IsClosing => HasResult || IsPromptHidden;
+        public bool FinishedClosing => _closed;
 
         public MorePrompt()
         {
@@ -42,7 +45,7 @@ namespace OpenNefia.Content.Logic
             {
                 if (_canFinish)
                 {
-                    _size2 = Height / 2;
+                    _size = Height / 2;
                     Sounds.Play(Sound.Ok1);
                     Finish(new());
                 }
@@ -51,10 +54,9 @@ namespace OpenNefia.Content.Logic
 
         public override void Initialize(UINone args)
         {
+            _closed = false;
             _canFinish = false;
-            _finished = false;
             _size = 0f;
-            _size2 = 0f;
             _delay = 0f;
         }
 
@@ -71,7 +73,7 @@ namespace OpenNefia.Content.Logic
             if (result == null)
                 return null;
 
-            if ((HasResult && _size2 >= 0f))
+            if ((HasResult && _size > 0f))
                 return null;
 
             return result;
@@ -81,18 +83,16 @@ namespace OpenNefia.Content.Logic
         {
             var delta = dt * 50f;
 
-            if (HasResult)
+            if (IsClosing)
             {
+                _closed = _size <= 0f;
                 // Retract the prompt momentarily before popping the layer.
-                _size2 -= delta * 2;
-
-                if (_size2 < 0f)
-                {
-                    _finished = true;
-                }
+                _size = float.Max(_size - delta * 2, 0f);
             }
             else
             {
+                _closed = false;
+
                 // Unfold the prompt and delay the player's input for a
                 // short period so they can notice it.
                 _size += delta;
@@ -114,11 +114,11 @@ namespace OpenNefia.Content.Logic
         public override void Draw()
         {
             Love.Graphics.SetColor(Color.White);
-
-            if (HasResult)
+            if (IsClosing)
             {
                 // FIXME don't use 0 as indicating default height...
-                AssetMorePrompt.Draw(UIScale, X, Y + (Height / 2) - _size2, Width, _size2 * 2f + 1f);
+                if (_size > 0f)
+                    AssetMorePrompt.Draw(UIScale, X, Y + (Height / 2) - _size, Width, _size * 2f + 1f);
             }
             else if (_size > 0f)
             {
