@@ -62,6 +62,7 @@ namespace OpenNefia.Content.Quests
         private void QuestParty_Localize(EntityUid uid, QuestTypePartyComponent partyQuest, QuestLocalizeDataEvent args)
         {
             args.OutParams["requiredPoints"] = Loc.GetString("Elona.Quest.Types.Party.Points", ("points", partyQuest.RequiredPoints));
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Party.Detail";
         }
 
         private void QuestParty_CalcDifficulty(EntityUid uid, QuestTypePartyComponent partyQuest, QuestCalcDifficultyEvent args)

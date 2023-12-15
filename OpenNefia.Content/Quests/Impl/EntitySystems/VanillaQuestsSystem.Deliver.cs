@@ -55,6 +55,7 @@ namespace OpenNefia.Content.Quests
             args.OutParams["itemCategory"] = Loc.GetPrototypeString(questDeliver.TargetItemCategory, "Name");
             args.OutParams["targetCharaName"] = questDeliver.TargetCharaName;
             args.OutParams["targetMapName"] = questDeliver.TargetMapName;
+            args.OutDetailLocaleKey = "Elona.Quest.Types.Deliver.Detail";
         }
 
         private void QuestDeliver_CalcDifficulty(EntityUid uid, QuestTypeDeliverComponent component, QuestCalcDifficultyEvent args)

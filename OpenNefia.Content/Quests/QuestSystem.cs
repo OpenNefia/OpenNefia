@@ -26,6 +26,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.Quests
 {
@@ -49,7 +50,7 @@ namespace OpenNefia.Content.Quests
         string FormatQuestObjective(string name);
         string FormatDeadlineText(GameTimeSpan? deadlineSpan);
         LocalizedQuestData LocalizeQuestData(EntityUid quest, EntityUid client, EntityUid player, QuestComponent? questComp = null);
-        Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid client, EntityUid player);
+        Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid player);
         IEnumerable<EntityUid> EnumerateTargetCharasInMap(IMap map, EntityUid quest, QuestComponent? questComp = null);
         IEnumerable<EntityUid> EnumerateTargetCharasInMap(MapId mapID, EntityUid quest, QuestComponent? questComp = null);
 
@@ -58,6 +59,8 @@ namespace OpenNefia.Content.Quests
         void DeleteQuest(QuestComponent quest);
 
         int RoundDifficultyMargin(int a, int b);
+        string LocalizeQuestRewardText(EntityUid quest, QuestComponent? questComp = null);
+        string LocalizeQuestDetailText(EntityUid quest, EntityUid player, QuestComponent? questComp = null);
     }
 
     public sealed partial class QuestSystem : EntitySystem, IQuestSystem
@@ -427,7 +430,7 @@ namespace OpenNefia.Content.Quests
                 return Loc.GetString("Elona.Quest.Deadline.Days", ("deadlineDays", deadlineSpan.Value.TotalDays));
         }
 
-        private string LocalizeQuestRewardText(EntityUid quest, QuestComponent? questComp = null)
+        public string LocalizeQuestRewardText(EntityUid quest, QuestComponent? questComp = null)
         {
             if (!Resolve(quest, ref questComp))
                 return Loc.GetString("Elona.Quest.Rewards.Nothing");
@@ -463,6 +466,20 @@ namespace OpenNefia.Content.Quests
             }
 
             return sb.ToString();
+        }
+
+        public const string QuestDetailTextParamKey = "detailText";
+
+        public string LocalizeQuestDetailText(EntityUid quest, EntityUid player, QuestComponent? questComp = null)
+        {
+            if (!Resolve(quest, ref questComp))
+                return string.Empty;
+
+            var localeParams = GetQuestLocaleParams(quest, player);
+            if (!localeParams.TryGetValue(QuestDetailTextParamKey, out var text))
+                return string.Empty;
+
+            return $"{text}";
         }
 
         public QualifiedDialogNodeID TurnInQuest(EntityUid quest, EntityUid speaker, IDialogEngine? engine = null)
@@ -503,7 +520,7 @@ namespace OpenNefia.Content.Quests
             DeleteQuest(questComp);
         }
 
-        public Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid client, EntityUid player)
+        public Dictionary<string, object> GetQuestLocaleParams(EntityUid quest, EntityUid player)
         {
             var localeParams = new Dictionary<string, object>();
 
@@ -511,12 +528,16 @@ namespace OpenNefia.Content.Quests
                 return localeParams;
 
             localeParams["map"] = questComp.ClientOriginatingMapName;
+            localeParams[QuestDetailTextParamKey] = string.Empty;
 
             var rewardText = LocalizeQuestRewardText(quest);
             localeParams["reward"] = rewardText;
 
-            var ev = new QuestLocalizeDataEvent(questComp, client, player, outParams: localeParams);
+            var ev = new QuestLocalizeDataEvent(questComp, player, outParams: localeParams);
             RaiseEvent(quest, ev);
+
+            if (ev.OutDetailLocaleKey != null)
+                localeParams[QuestDetailTextParamKey] = Loc.GetString(ev.OutDetailLocaleKey.Value, ("params", ev.OutParams));
 
             return ev.OutParams;
         }
@@ -526,7 +547,7 @@ namespace OpenNefia.Content.Quests
             if (!Resolve(quest, ref questComp))
                 return new LocalizedQuestData("<unknown>", "<unknown>");
 
-            var luaParams = GetQuestLocaleParams(quest, client, player);
+            var luaParams = GetQuestLocaleParams(quest, player);
 
             var variants = Loc.GetTable(questComp.LocaleKeyRoot);
             var keys = variants.Keys.Cast<object>().ToList();
@@ -598,15 +619,14 @@ namespace OpenNefia.Content.Quests
     public sealed class QuestLocalizeDataEvent : EntityEventArgs
     {
         public QuestComponent Quest { get; }
-        public EntityUid Client { get; }
         public EntityUid Player { get; }
 
         public Dictionary<string, object> OutParams { get; }
+        public LocaleKey? OutDetailLocaleKey { get; set; }
 
-        public QuestLocalizeDataEvent(QuestComponent quest, EntityUid client, EntityUid player, Dictionary<string, object> outParams)
+        public QuestLocalizeDataEvent(QuestComponent quest, EntityUid player, Dictionary<string, object> outParams)
         {
             Quest = quest;
-            Client = client;
             Player = player;
             OutParams = outParams;
         }

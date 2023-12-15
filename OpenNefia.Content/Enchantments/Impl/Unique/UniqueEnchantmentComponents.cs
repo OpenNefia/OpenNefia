@@ -124,7 +124,6 @@ namespace OpenNefia.Content.Enchantments
     {
     }
 
-
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Enchantment)]
     public sealed class EncEnhanceSpellsComponent : Component, IEnchantmentComponent

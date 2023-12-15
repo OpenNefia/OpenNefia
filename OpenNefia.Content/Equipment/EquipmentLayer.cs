@@ -216,7 +216,7 @@ namespace OpenNefia.Content.Equipment
         [Child][Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
-        public delegate void EquippedDelegate(GotEquippedInMenuEvent ev);
+        public delegate void EquippedDelegate(WasEquippedInMenuEvent ev);
         public delegate void UnequippedDelegate();
 
         public event EquippedDelegate? OnEquipped;
@@ -362,7 +362,7 @@ namespace OpenNefia.Content.Equipment
                 ChangedEquipment = true;
 
                 // Display messages relating to curse state, weapon suitability, etc.
-                var ev = new GotEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
+                var ev = new WasEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
                 _entityManager.EventBus.RaiseEvent(splitItem, ev);
                 OnEquipped?.Invoke(ev);
 
@@ -547,13 +547,13 @@ namespace OpenNefia.Content.Equipment
         }
     }
 
-    public class GotEquippedInMenuEvent : EntityEventArgs
+    public class WasEquippedInMenuEvent : EntityEventArgs
     {
         public EntityUid Equipee { get; }
         public EntityUid EquipTarget { get; }
         public EquipSlotInstance EquipSlot { get; }
 
-        public GotEquippedInMenuEvent(EntityUid equipee, EntityUid equipTarget, EquipSlotInstance equipSlot)
+        public WasEquippedInMenuEvent(EntityUid equipee, EntityUid equipTarget, EquipSlotInstance equipSlot)
         {
             Equipee = equipee;
             EquipTarget = equipTarget;

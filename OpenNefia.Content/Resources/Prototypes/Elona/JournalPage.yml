@@ -1,0 +1,51 @@
+- type: Elona.JournalPage
+  id: Elona.News
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: News_Render
+
+- type: Elona.JournalPage
+  id: Elona.Quest
+  ordering:
+    after: Elona.News
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: Quest_Render
+
+- type: Elona.JournalPage
+  id: Elona.QuestItem
+  ordering:
+    after: Elona.Quest
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: QuestItem_Render
+
+- type: Elona.JournalPage
+  id: Elona.TitleAndRanking
+  ordering:
+    after: Elona.QuestItem
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: TitleAndRanking_Render
+
+- type: Elona.JournalPage
+  id: Elona.IncomeAndExpense
+  ordering:
+    after: Elona.TitleAndRanking
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: IncomeAndExpense_Render
+
+- type: Elona.JournalPage
+  id: Elona.CompletedQuests
+  ordering:
+    after: Elona.IncomeAndExpense
+  events:
+  - type: Journal.P_JournalPageRenderEvent
+    system: Journal.VanillaJournalPagesSystem
+    method: CompletedQuests_Render

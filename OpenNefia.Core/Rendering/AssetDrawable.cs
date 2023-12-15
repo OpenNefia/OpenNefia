@@ -37,6 +37,9 @@ namespace OpenNefia.Core.Rendering
             Rotation = rotation;
             RegionId = regionId;
             OriginOffset = originOffset;
+
+            GetPreferredSize(out var size);
+            SetSize(size.X, size.Y);
         }
 
         public override void GetPreferredSize(out Vector2 size)

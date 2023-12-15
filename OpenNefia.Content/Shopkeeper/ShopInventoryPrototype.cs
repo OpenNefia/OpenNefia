@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Shopkeeper
             var _rand = IoCManager.Resolve<IRandom>();
             var _spellbooks = EntitySystem.Get<ISpellbookSystem>();
 
-            var reserved = _spellbooks.SpellbookReserveStates
+            var reserved = _spellbooks.SpellbookReserveStates.ReserveStates
                 .Where(pair => pair.Value == SpellbookReserveState.Reserved)
                 .Select(pair => pair.Key)
                 .ToList();

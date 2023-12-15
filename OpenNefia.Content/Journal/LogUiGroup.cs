@@ -32,23 +32,13 @@ namespace OpenNefia.Content.Journal
         {
             EventFilter = UIEventFilterMode.Pass;
             CanControlFocus = true;
+            OnKeyBindDown += OnKeyDown;
         }
+
         protected virtual void OnKeyDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
                 Cancel();
-        }
-
-        public override void OnQuery()
-        {
-            base.OnQuery();
-            OnKeyBindDown += OnKeyDown;
-        }
-
-        public override void OnQueryFinish()
-        {
-            base.OnQueryFinish();
-            OnKeyBindDown -= OnKeyDown;
         }
     }
 
@@ -65,6 +55,7 @@ namespace OpenNefia.Content.Journal
                 Layers[args] = logType switch
                 {
                     LogGroupSublayerArgs.LogTab.Backlog => new BacklogUiLayer(),
+                    LogGroupSublayerArgs.LogTab.Journal => new JournalUiLayer(),
                     // TODO: add other group layers
                     _ => new LogGroupUiLayer()
                 };

@@ -2,7 +2,7 @@ Elona.UI.MenuGroup = {
     Log = {
         Backlog = "ログ",
         Journal = "日誌",
-        Chat = "チャット",
+        ChatLog = "チャット",
     },
     Chara = {
         CharaInfo = "情報",
