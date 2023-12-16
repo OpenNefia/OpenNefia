@@ -58,11 +58,11 @@ namespace OpenNefia.Content.Skills
         #region Leveling (Shared)
 
         void GainSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
-        
+
         void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);
-        
+
         void ModifyPotential(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int delta);
-        
+
         #endregion
 
         #region Leveling (Skills)
@@ -152,6 +152,7 @@ namespace OpenNefia.Content.Skills
 
         private void RefreshHPMPAndStamina(SkillsComponent skills)
         {
+            // >>>>>>>> elona122/shade2/calculation.hsp:532 	cMmp(r1)=limit( (sMAG(r1)*2 + sWIL(r1) + sLER(r1) ...
             var level = _levels.GetLevel(skills.Owner);
 
             var maxMPRaw = (skills.Level(Skill.AttrMagic) * 2
@@ -160,8 +161,8 @@ namespace OpenNefia.Content.Skills
                          * (level / 25)
                          + skills.Level(Skill.AttrMagic);
 
-            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (skills.Level(Skill.AttrMana) / 100);
-            skills.MaxMP = Math.Max(skills.MaxHP, 1);
+            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * skills.Level(Skill.AttrMana) / 100;
+            skills.MaxMP = Math.Max(skills.MaxMP, 1);
 
             var maxHPRaw = (skills.Level(Skill.AttrConstitution) * 2
                          + skills.Level(Skill.AttrStrength)
@@ -169,11 +170,12 @@ namespace OpenNefia.Content.Skills
                          * (level / 25)
                          + skills.Level(Skill.AttrConstitution);
 
-            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (skills.Level(Skill.AttrLife) / 100) + 5;
+            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * skills.Level(Skill.AttrLife) / 100 + 5;
             skills.MaxHP = Math.Max(skills.MaxHP, 1);
 
-            // TODO traits
-            skills.MaxStamina = 100 + (skills.Level(Skill.AttrConstitution) + skills.Level(Skill.AttrStrength)) / 5;
+            skills.MaxStamina = 100 + (skills.Level(Skill.AttrWill) + skills.Level(Skill.AttrConstitution)) / 5
+                + _feats.Level(skills.Owner, Prototypes.Protos.Feat.Stamina) * 8;
+            // <<<<<<<< elona122/shade2/calculation.hsp:536 	if cMHP(r1)<1:cMHP(r1)=1 ...
         }
     }
 }

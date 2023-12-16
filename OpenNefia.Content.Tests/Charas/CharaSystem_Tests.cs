@@ -172,6 +172,9 @@ namespace OpenNefia.Content.Tests.Charas
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(50), "Luck");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(80), "Life");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxHP, Is.EqualTo(9), "Max HP");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxMP, Is.EqualTo(4), "Max MP");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxStamina, Is.EqualTo(102), "Max Stamina");
 
                 Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(81), "Strength Potential");
                 Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(101), "Constitution Potential");
@@ -205,6 +208,9 @@ namespace OpenNefia.Content.Tests.Charas
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(50), "Luck");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(80), "Life");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxHP, Is.EqualTo(1081), "Max HP");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxMP, Is.EqualTo(1412), "Max MP");
+                Assert.That(entMan.GetComponent<SkillsComponent>(ent.Value).MaxStamina, Is.EqualTo(144), "Max Stamina");
 
                 Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(2), "Strength Potential");
                 Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(2), "Constitution Potential");
