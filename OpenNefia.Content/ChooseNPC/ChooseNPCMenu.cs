@@ -33,6 +33,7 @@ using System.Collections.Generic;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Logic;
 using CSharpRepl.Services.Roslyn.Formatting;
+using OpenNefia.Content.Targetable;
 
 namespace OpenNefia.Content.ChooseNPC
 {
@@ -231,6 +232,10 @@ namespace OpenNefia.Content.ChooseNPC
                     return false;
 
                 if (_entityManager.HasComponent<TemporaryAllyComponent>(entity))
+                    return false;
+
+                if (_entityManager.TryGetComponent<TargetableComponent>(entity, out var targetable)
+                    && !targetable.IsTargetable.Buffed)
                     return false;
 
                 return true;

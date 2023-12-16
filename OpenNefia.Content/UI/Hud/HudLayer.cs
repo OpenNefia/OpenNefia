@@ -157,6 +157,7 @@ namespace OpenNefia.Content.UI.Hud
             }
 
             Widgets.Add(new(new HudHPBarWidget(), WidgetAnchor.BottomLeft, new(260, -93), flags: WidgetDrawFlags.Normal));
+            Widgets.Add(new(new HudMountHPBarWidget(), WidgetAnchor.BottomLeft, new(260 - 120, -93), flags: WidgetDrawFlags.Normal));
             Widgets.Add(new(new HudMPBarWidget(), WidgetAnchor.BottomLeft, new(400, -93), flags: WidgetDrawFlags.Normal));
 
             Widgets.Add(new(new HudGoldWidget(), WidgetAnchor.BottomRight, new(-220, -104), flags: WidgetDrawFlags.Normal));

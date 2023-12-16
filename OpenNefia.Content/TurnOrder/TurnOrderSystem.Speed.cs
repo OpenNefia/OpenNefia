@@ -28,7 +28,9 @@ namespace OpenNefia.Content.TurnOrder
             var ev = new EntityRefreshSpeedEvent();
             RaiseEvent(entity, ref ev);
 
-            turnOrder.CurrentSpeed = ev.OutSpeed;
+            var speed = Math.Max(MinSpeed, ev.OutSpeed);
+
+            turnOrder.CurrentSpeed = speed;
             turnOrder.CurrentSpeedModifier = ev.OutSpeedModifier;
         }
 

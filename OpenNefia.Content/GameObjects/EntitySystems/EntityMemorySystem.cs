@@ -50,7 +50,7 @@ namespace OpenNefia.Content.GameObjects
             memory.ScreenOffset = chipProto.Offset;
             memory.ShadowRotationRads = (float)Angle.FromDegrees(chipProto.ShadowRotation).Theta / 2;
             memory.IsVisible = _vis.CanSeeEntity(_gameSession.Player, uid, ignoreLos: true);
-            memory.ZOrder = chip.DrawDepth;
+            memory.ZOrder = chip.DrawDepth; // BUG: need better z-ordering, this causes flickering
             memory.HideWhenOutOfSight = false;
             memory.ShadowType = ShadowType.None;
             memory.Drawables.Clear();

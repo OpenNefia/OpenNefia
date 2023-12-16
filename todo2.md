@@ -8,29 +8,29 @@
 - [x] town quests
 - [x] PCCs & ring light
 - [x] journal
-- [ ] scene playback
+- [x] scene playback
 - [x] intro/first pet event
-- [ ] riding
+- [x] riding
 - [ ] magic/buffs/effects
   + [ ] timestop
-- [ ] magic items
 - [ ] AI/calm actions
-- [ ] cargo
 - [x] living weapons
-- [ ] all unique areas
-- [ ] main quest/sidequests/dialogs
-- [ ] house guests
-- [ ] house upgrading
+- [ ] cargo
+- [ ] magic items
 - [ ] all item events/properties
   + [ ] corpses
   + [ ] card/figure/sandbag drawables
+- [ ] buildings/zones
+- [ ] all unique areas
+- [ ] house guests
+- [ ] house upgrading
 - [ ] all chara events/properties
   + [ ] custom talk
 - [ ] religion
 - [ ] effect protoevents -> ECS
+- [ ] main quest/sidequests/dialogs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
-- [ ] buildings/zones
 - [x] staying charas
 - [ ] arena/pet arena
 - [ ] nefia generation refactor
@@ -53,6 +53,7 @@
 
 ## analyzers
 - [ ] data definitions must have a zero-arg constructor
+- [ ] any components with `Stat<T>` must implement `IComponentRefreshable`
 - [ ] `[DataField]` types must be serializable
 - [ ] `HandleableEntityEventArgs.Handled` must be checked in all event handlers
 - [ ] use primitive type functions (`int.Clamp`) instead of `Math.Clamp` and similar

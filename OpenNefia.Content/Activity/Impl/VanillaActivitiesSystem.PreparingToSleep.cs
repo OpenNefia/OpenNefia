@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Activity
         private void PreparingToSleep_OnCleanup(EntityUid uid, ActivityPreparingToSleepComponent component, OnActivityCleanupEvent args)
         {
             if (component.Bed != null)
-                _inUse.RemoveItemInUse(args.Activity.Actor, component.Bed.Value);
+                _inUse.RemoveItemInUse(component.Bed.Value);
         }
     }
 }

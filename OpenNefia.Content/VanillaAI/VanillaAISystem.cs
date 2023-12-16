@@ -19,6 +19,7 @@ using OpenNefia.Content.Talk;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -52,6 +53,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IVerbSystem _verbs = default!;
         [Dependency] private readonly IFoodSystem _foods = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         public override void Initialize()
         {
@@ -199,6 +201,21 @@ namespace OpenNefia.Content.VanillaAI
             if (!EntityManager.IsAlive(ai.CurrentTarget))
                 SetTarget(entity, GetDefaultTarget(entity), 0, ai);
 
+            var target = ai.CurrentTarget;
+            if (target != null)
+            {
+                if (_mounts.TryGetRider(target.Value, out var rider))
+                {
+                    if (_rand.OneIn(3))
+                        ai.CurrentTarget = rider.Owner;
+                }
+                if (_mounts.TryGetMount(target.Value, out var mount))
+                {
+                    if (_factions.GetRelationTowards(entity, target.Value) <= Relation.Hate && _rand.OneIn(3))
+                        ai.CurrentTarget = mount.Owner;
+                }
+            }
+
             DoAiTalk(entity);
 
             if (HelpWithChoking(entity, ai, spatial))
@@ -210,7 +227,7 @@ namespace OpenNefia.Content.VanillaAI
             if (TryToUseItem(entity, ai, spatial))
                 return TurnResult.Succeeded;
 
-            var target = ai.CurrentTarget;
+            target = ai.CurrentTarget;
             if (EntityManager.IsAlive(target)
                 && (ai.Aggro > 0 || IsAlliedWithPlayer(entity)))
             {
@@ -261,9 +278,8 @@ namespace OpenNefia.Content.VanillaAI
 
                         if (x >= 0 && x < map.Width)
                         {
-                            var onCellSpatial = _lookup.GetBlockingEntity(map.AtPos(x, y));
 
-                            if (onCellSpatial != null && entity != onCellSpatial.Owner)
+                            if (_targetable.TryGetBlockingEntity(map.AtPos(x, y), out var onCellSpatial) && entity != onCellSpatial.Owner)
                             {
                                 if (!EntityManager.HasComponent<AINoTargetComponent>(onCellSpatial.Owner)
                                     && _factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
@@ -518,7 +534,7 @@ namespace OpenNefia.Content.VanillaAI
 
         public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null)
         {
-            if (!Resolve(entity, ref ai))
+            if (!Resolve(entity, ref ai, logMissing: false))
                 return;
 
             SetTarget(entity, null, ai: ai);

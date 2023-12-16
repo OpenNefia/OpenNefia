@@ -25,6 +25,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
         public PrototypeId<EntityPrototype> ID { get; } = Protos.Chara.Putit;
 
         [DataField]
+        public int Level { get; set; } = 1;
+
+        [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills { get; } = new();
 
         [DataField]

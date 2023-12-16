@@ -27,16 +27,17 @@ namespace OpenNefia.Content.PCCs
         [DataField]
         public int ZOrder { get; set; }
 
+        // Zero-arg constructor for serialization
         public PCCPart()
         {
         }
 
-        public PCCPart(PCCPartType type, ResourcePath imagePath, Color color, int zOrder)
+        public PCCPart(PCCPartType type, ResourcePath imagePath, Color? color = null, int? zOrder = null)
         {
             Type = type;
             ImagePath = imagePath;
-            Color = color;
-            ZOrder = zOrder;
+            Color = color ?? Color.White;
+            ZOrder = zOrder ?? PCCHelpers.GetPCCPartTypeZOrder(type);
         }
     }
 }

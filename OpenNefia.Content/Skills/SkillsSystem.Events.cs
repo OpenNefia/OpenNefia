@@ -84,37 +84,41 @@ namespace OpenNefia.Content.Skills
                 if (proto.InitialLevel != null)
                 {
                     var currentLevel = BaseLevel(uid, proto, component);
+                    var currentPotential = Potential(uid, proto, component);
                     var entityLevel = _levels.GetLevel(uid);
-                    var initial = CalcInitialSkillLevelAndPotential(uid, proto, proto.InitialLevel.Value, currentLevel, entityLevel);
+                    var initial = CalcInitialSkillLevelAndPotential(uid, proto, proto.InitialLevel.Value, currentLevel, entityLevel, currentPotential);
                     component.Skills[proto.GetStrongID()] = initial;
                 }
             }
         }
 
-        private LevelAndPotential CalcInitialSkillLevelAndPotential(EntityUid uid, SkillPrototype proto, int initialLevel, int currentLevel, int entityLevel)
+        public LevelAndPotential CalcInitialSkillLevelAndPotential(EntityUid uid, SkillPrototype proto, int initialLevel, int currentLevel, int entityLevel, int currentPotential)
         {
-            var potential = CalcInitialPotential(proto, initialLevel, currentLevel != 0);
-            var ev1 = new P_SkillCalcInitialPotentialEvent(uid, initialLevel, potential);
-            _protos.EventBus.RaiseEvent(proto, ev1);
-            potential = ev1.OutInitialPotential;
+            // >>>>>>>> elona122/shade2/calculation.hsp:941 #deffunc skillInit int sid,int c,int a ...
+            var addedPotential = CalcInitialPotential(proto, initialLevel, currentLevel != 0);
+            var ev1 = new P_SkillCalcInitialPotentialEvent(uid, initialLevel, addedPotential);
+            _protos.EventBus.RaiseEvent(proto, ref ev1);
+            addedPotential = ev1.OutInitialPotential;
 
-            var level = ((int)Math.Pow(potential, 2) * entityLevel / 45000 + initialLevel + entityLevel / 3);
-            var ev2 = new P_SkillCalcInitialLevelEvent(uid, level);
-            _protos.EventBus.RaiseEvent(proto, ev2);
-            level = ev2.OutInitialLevel;
+            var addedLevel = (addedPotential * addedPotential * entityLevel) / 45000 + initialLevel + (entityLevel / 3);
+            var ev2 = new P_SkillCalcInitialLevelEvent(uid, initialLevel, addedLevel);
+            _protos.EventBus.RaiseEvent(proto, ref ev2);
+            addedLevel = ev2.OutInitialLevel;
 
-            potential = CalcDecayedInitialPotential(potential, entityLevel);
+            addedPotential = CalcDecayedInitialPotential(addedPotential, entityLevel);
 
-            // For life/mana/luck/speed
-            var ev3 = new P_SkillCalcFinalInitialLevelAndPotentialEvent(uid, level, potential);
-            _protos.EventBus.RaiseEvent(proto, ev3);
-            level = ev3.OutInitialLevel;
-            potential = ev3.OutInitialPotential;
+            var ev3 = new P_SkillCalcFinalInitialLevelAndPotentialEvent(uid, initialLevel, addedLevel, addedPotential);
+            _protos.EventBus.RaiseEvent(proto, ref ev3);
+            addedLevel = ev3.OutInitialLevel;
+            addedPotential = ev3.OutInitialPotential;
 
-            level = Math.Clamp(level, 0, MaxSkillLevel);
-            potential = Math.Clamp(potential, 1, MaxSkillPotential);
+            addedPotential = int.Max(addedPotential, 1);
 
-            return new LevelAndPotential(level, potential);
+            int finalLevel = Math.Clamp(addedLevel + currentLevel, 0, MaxSkillLevel);
+            int finalPotential = Math.Clamp(addedPotential + currentPotential, 1, MaxSkillPotential);
+
+            return new LevelAndPotential(finalLevel, finalPotential);
+            // <<<<<<<< elona122/shade2/calculation.hsp:957 	return ...
         }
 
         private int CalcDecayedInitialPotential(int potential, int entityLevel)
@@ -129,9 +133,9 @@ namespace OpenNefia.Content.Skills
 
         private int CalcInitialPotential(SkillPrototype proto, int initialLevel, bool alreadyKnowsSkill)
         {
-            // >>>>>>>> shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            // >>>>>>>> elona122/shade2/calculation.hsp:943 	if sid >= headWeaponSkill{ ...
             if (proto.SkillType == SkillType.Attribute)
-                return Math.Min(initialLevel * 20, 400);
+                return Math.Clamp(initialLevel * 20, 0, 400);
 
             var potential = initialLevel * 5;
 
@@ -141,7 +145,7 @@ namespace OpenNefia.Content.Skills
                 potential += 100;
 
             return potential;
-            // <<<<<<<< shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            // <<<<<<<< elona122/shade2/calculation.hsp:949 		} ...
         }
 
         private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
@@ -159,9 +163,9 @@ namespace OpenNefia.Content.Skills
         {
             var speedCorrection = CompOrNull<TurnOrderComponent>(uid)?.SpeedCorrection ?? 0;
 
-            args.OutSpeed = Math.Max(TurnOrderSystem.MinSpeed, Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100));
+            args.OutSpeed = Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100);
 
-            if (_gameSession.IsPlayer(uid) && !_mounts.HasMount(uid))
+            if (_gameSession.IsPlayer(uid) && !_mounts.IsMounting(uid))
             {
                 if (skills.Stamina < FatigueThresholds.Heavy)
                     args.OutSpeedModifier -= 0.3f;
@@ -317,15 +321,15 @@ namespace OpenNefia.Content.Skills
     [PrototypeEvent(typeof(SkillPrototype))]
     public struct P_SkillCalcInitialLevelEvent
     {
-        public P_SkillCalcInitialLevelEvent(EntityUid entity, int initialLevel)
+        public P_SkillCalcInitialLevelEvent(EntityUid entity, int initialLevel, int newLevel)
         {
             Entity = entity;
-            InitialLevel = initialLevel;
-            OutInitialLevel = initialLevel;
+            BaseLevel = initialLevel;
+            OutInitialLevel = newLevel;
         }
 
         public EntityUid Entity { get; }
-        public int InitialLevel { get; }
+        public int BaseLevel { get; }
 
         public int OutInitialLevel { get; set; }
     }
@@ -334,14 +338,16 @@ namespace OpenNefia.Content.Skills
     [PrototypeEvent(typeof(SkillPrototype))]
     public struct P_SkillCalcFinalInitialLevelAndPotentialEvent
     {
-        public P_SkillCalcFinalInitialLevelAndPotentialEvent(EntityUid entity, int initialLevel, int initialPotential)
+        public P_SkillCalcFinalInitialLevelAndPotentialEvent(EntityUid entity, int baseLevel, int initialLevel, int initialPotential)
         {
             Entity = entity;
+            BaseLevel = baseLevel;
             OutInitialLevel = initialLevel;
             OutInitialPotential = initialPotential;
         }
 
         public EntityUid Entity { get; }
+        public int BaseLevel { get; }
 
         public int OutInitialLevel { get; set; }
         public int OutInitialPotential { get; set; }

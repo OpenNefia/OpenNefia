@@ -40,7 +40,7 @@ namespace OpenNefia.Content.World
         {
             SubscribeBroadcast<NewGameStartedEventArgs>(InitializeState);
             SubscribeEntity<CheckKillEvent>(IncrementTotalKills);
-            SubscribeEntity<MapOnTimePassedEvent>(UpdateAwakeHours, priority: EventPriorities.Low);
+            SubscribeEntity<MapOnTimePassedEvent>(UpdatePlayTurnsAndAwakeHours, priority: EventPriorities.Low);
         }
 
         private void InitializeState(NewGameStartedEventArgs ev)
@@ -54,36 +54,38 @@ namespace OpenNefia.Content.World
                 State.TotalKills++;
         }
 
-        private void UpdateAwakeHours(EntityUid uid, ref MapOnTimePassedEvent args)
+        private void UpdatePlayTurnsAndAwakeHours(EntityUid uid, ref MapOnTimePassedEvent args)
         {
-            if (args.HoursPassed <= 0)
-                return;
+            State.PlayTurns += args.MinutesPassed;
 
-            if (HasComp<MapTypeWorldMapComponent>(uid))
+            if (args.HoursPassed > 0)
             {
-                if (_rand.OneIn(3))
+                if (HasComp<MapTypeWorldMapComponent>(uid))
                 {
-                    State.AwakeTime += args.TotalTimePassed;
+                    if (_rand.OneIn(3))
+                    {
+                        State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                    }
+                    if (_rand.OneIn(15))
+                    {
+                        _mes.Display(Loc.GetString("Elona.World.Nap"));
+                        State.AwakeTime -= GameTimeSpan.FromHours(3);
+                        if (State.AwakeTime.TotalSeconds < 0)
+                            State.AwakeTime = GameTimeSpan.Zero;
+                    }
                 }
-                if (_rand.OneIn(15))
+                else
                 {
-                    _mes.Display(Loc.GetString("Elona.World.Nap"));
-                    State.AwakeTime -= GameTimeSpan.FromHours(3);
-                    if (State.AwakeTime.TotalSeconds < 0)
-                        State.AwakeTime = GameTimeSpan.Zero;
+                    if (!HasComp<MapNoSleepAdvancementComponent>(args.Map.MapEntityUid))
+                    {
+                        State.AwakeTime += GameTimeSpan.FromHours(args.HoursPassed);
+                    }
                 }
-            }
-            else
-            {
-                if (!HasComp<MapNoSleepAdvancementComponent>(args.Map.MapEntityUid))
+
+                if (State.GameDate.Hour - args.HoursPassed < 8 && State.GameDate.Hour >= 8)
                 {
-                    State.AwakeTime += args.TotalTimePassed;
+                    _mes.Display(Loc.GetString("Elona.World.NewDay"), UiColors.MesYellow);
                 }
-            }
-            
-            if (State.GameDate.Hour == 8)
-            {
-                _mes.Display(Loc.GetString("Elona.World.NewDay"), UiColors.MesYellow);
             }
         }
 
@@ -112,7 +114,7 @@ namespace OpenNefia.Content.World
             int daysPassed = 0;
             int monthsPassed = 0;
             int yearsPassed = 0;
-            
+
             newSeconds += secondsPassed;
             if (newSeconds >= 60)
             {
@@ -173,14 +175,14 @@ namespace OpenNefia.Content.World
     public struct MapOnTimePassedEvent
     {
         public IMap Map { get; }
-        
+
         public int YearsPassed { get; }
         public int MonthsPassed { get; }
         public int DaysPassed { get; }
         public int HoursPassed { get; }
         public int MinutesPassed { get; }
         public int SecondsPassed { get; }
-        
+
         /// <summary>
         /// Amount of time that was actually passed. Used if the event handler
         /// is accumulating time by adding up this value on every turn.

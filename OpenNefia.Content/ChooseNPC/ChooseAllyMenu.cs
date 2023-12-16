@@ -36,6 +36,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.Stayers;
 using OpenNefia.Content.Parties;
 using static OpenNefia.Content.ChooseNPC.ChooseAllyMenu.ChooseAllyData;
+using OpenNefia.Content.Targetable;
 
 namespace OpenNefia.Content.ChooseNPC
 {
@@ -319,6 +320,10 @@ namespace OpenNefia.Content.ChooseNPC
                     return false;
 
                 if (_entityManager.HasComponent<TemporaryAllyComponent>(entity))
+                    return false;
+
+                if (_entityManager.TryGetComponent<TargetableComponent>(entity, out var targetable)
+                    && !targetable.IsTargetable.Buffed)
                     return false;
 
                 return true;

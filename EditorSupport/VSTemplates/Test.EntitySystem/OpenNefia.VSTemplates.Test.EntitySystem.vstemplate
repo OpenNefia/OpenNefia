@@ -13,6 +13,6 @@
     <DefaultName>New</DefaultName>
   </TemplateData>
   <TemplateContent>
-    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$System.cs">EntitySystem_Tests.cs</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$System_Tests.cs">EntitySystem_Tests.cs</ProjectItem>
   </TemplateContent>
 </VSTemplate>

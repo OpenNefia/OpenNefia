@@ -117,7 +117,7 @@ namespace OpenNefia.Content.Activity
 
         private void ReadingSpellbook_OnCleanup(EntityUid uid, ActivityReadingSpellbookComponent component, OnActivityCleanupEvent args)
         {
-            _inUse.RemoveItemInUse(args.Activity.Actor, component.Spellbook);
+            _inUse.RemoveItemInUse(component.Spellbook);
         }
     }
 }

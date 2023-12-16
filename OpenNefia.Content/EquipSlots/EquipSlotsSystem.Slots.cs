@@ -302,6 +302,11 @@ namespace OpenNefia.Content.EquipSlots
         /// <inheritdoc/>
         public bool IsEquippedOnAnySlot(EntityUid item) => TryGetSlotEquippedOn(item, out _, out _);
 
+        public bool CanEquipOn(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId)
+        {
+            return GetEquipSlots(uid).Any(x => x.ID == slotId);
+        }
+
         public bool TryGetSlotEquippedOn(EntityUid item, [NotNullWhen(true)] out EntityUid? owner, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance)
         {
             if (!TryComp<SpatialComponent>(item, out var spatialComp))

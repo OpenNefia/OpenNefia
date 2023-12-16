@@ -25,6 +25,7 @@ namespace OpenNefia.Core.Prototypes
         /// I want to replace this with prototype weak references later.
         /// </para>
         /// </remarks>
+        [Obsolete]
         public static T ResolvePrototype<T>(this PrototypeId<T> id) where T : class, IPrototype
         {
             return IoCManager.Resolve<IPrototypeManager>().Index(id);

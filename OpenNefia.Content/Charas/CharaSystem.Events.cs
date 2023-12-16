@@ -18,6 +18,8 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Levels;
+using static OpenNefia.Content.CharaInfo.SkillsListControl.SkillsListEntry;
 
 namespace OpenNefia.Content.Charas
 {
@@ -34,6 +36,8 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly ISkillAdjustsSystem _skillAdjusts = default!;
         [Dependency] private readonly ISlotSystem _slots = default!;
         [Dependency] private readonly IEquipmentGenSystem _equipmentGen = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
 
         public override void Initialize()
         {
@@ -68,12 +72,21 @@ namespace OpenNefia.Content.Charas
             if (!Resolve(uid, ref skills))
                 return;
 
-            foreach (var pair in _protos.Index(chara.Race).BaseSkills)
+            var charaLevel = _levels.GetLevel(uid);
+            var baseSkills = _protos.Index(chara.Race).BaseSkills;
+            foreach (var (skillID, initialLevel) in baseSkills)
             {
-                if (!skills.Skills.ContainsKey(pair.Key))
+                if (!skills.Skills.ContainsKey(skillID))
                 {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = new(pair.Value) });
+                    skills.Skills.Add(skillID, new LevelAndPotential() { Level = new(0), Potential = 0 });
                 }
+
+                var currentLevel = skills.Skills[skillID].Level.Base;
+                var currentPotential = skills.Skills[skillID].Potential;
+                var skillProto = _protos.Index(skillID);
+                var init = _skills.CalcInitialSkillLevelAndPotential(uid, skillProto, initialLevel, currentLevel, charaLevel, currentPotential);
+                skills.Skills[skillID].Level.Base = init.Level.Base;
+                skills.Skills[skillID].Potential = init.Potential;
             }
         }
 
@@ -171,14 +184,21 @@ namespace OpenNefia.Content.Charas
             if (!Resolve(uid, ref skills))
                 return;
 
-            foreach (var pair in _protos.Index(chara.Class).BaseSkills)
+            var charaLevel = _levels.GetLevel(uid);
+            var baseSkills = _protos.Index(chara.Class).BaseSkills;
+            foreach (var (skillID, initialLevel) in baseSkills)
             {
-                if (!skills.Skills.ContainsKey(pair.Key))
+                if (!skills.Skills.ContainsKey(skillID))
                 {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = new(0) });
+                    skills.Skills.Add(skillID, new LevelAndPotential() { Level = new(0), Potential = 0 });
                 }
 
-                skills.Skills[pair.Key].Level.Base += pair.Value;
+                var currentLevel = skills.Skills[skillID].Level.Base;
+                var currentPotential = skills.Skills[skillID].Potential;
+                var skillProto = _protos.Index(skillID);
+                var init = _skills.CalcInitialSkillLevelAndPotential(uid, skillProto, initialLevel, currentLevel, charaLevel, currentPotential);
+                skills.Skills[skillID].Level.Base = init.Level.Base;
+                skills.Skills[skillID].Potential = init.Potential;
             }
         }
 

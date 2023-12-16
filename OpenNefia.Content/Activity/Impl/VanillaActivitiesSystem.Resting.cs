@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Activity
                 if (doSleep)
                 {
                     _mes.Display(Loc.GetString("Elona.Activity.Resting.DropOffToSleep"));
-                    _inUse.ClearItemsInUse(actor);
+                    _inUse.ClearItemsInUseForUser(actor);
                     _sleep.Sleep(actor, bed: null);
                     _activities.RemoveActivity(actor);
                 }

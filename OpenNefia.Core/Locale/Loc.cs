@@ -78,7 +78,7 @@ namespace OpenNefia.Core.Locale
             get
             {
                 if (_localization.IsFullwidth())
-                    return "";
+                    return string.Empty;
                 return " ";
             }
         }

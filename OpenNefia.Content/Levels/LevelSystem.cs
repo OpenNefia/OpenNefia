@@ -37,15 +37,20 @@ namespace OpenNefia.Content.Levels
 
         public override void Initialize()
         {
+            SubscribeComponent<LevelComponent, EntityBeingGeneratedEvent>(InitializeLevelOverride, priority: EventPriorities.VeryHigh - 1000000);
             SubscribeComponent<LevelComponent, EntityBeingGeneratedEvent>(InitializeLevelComponent, priority: EventPriorities.High);
             SubscribeComponent<LevelComponent, GetDisplayNameEventArgs>(GetDisplayName_ShowLevel, priority: EventPriorities.VeryLow);
             SubscribeComponent<LevelComponent, EntityTurnStartingEventArgs>(ProcLevelGain, priority: EventPriorities.VeryLow);
         }
 
-        private void InitializeLevelComponent(EntityUid uid, LevelComponent component, ref EntityBeingGeneratedEvent args)
+        private void InitializeLevelOverride(EntityUid uid, LevelComponent component, ref EntityBeingGeneratedEvent args)
         {
             if (args.CommonArgs.LevelOverride != null)
-                component.Level = args.CommonArgs.LevelOverride.Value;
+                component.Level = Math.Max(1, args.CommonArgs.LevelOverride.Value);
+        }
+
+        private void InitializeLevelComponent(EntityUid uid, LevelComponent component, ref EntityBeingGeneratedEvent args)
+        {
             component.ExperienceToNext = CalcExperienceToNext(uid, component);
         }
 

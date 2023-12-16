@@ -20,8 +20,8 @@ namespace OpenNefia.Content.InUse
         bool IsUsingAnything(EntityUid user, ItemUserComponent? itemUser = null);
         bool IsUsing(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
         void SetItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
-        void RemoveItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null);
-        void ClearItemsInUse(EntityUid user, ItemUserComponent? initemUserUse = null);
+        void RemoveItemInUse(EntityUid item);
+        void ClearItemsInUseForUser(EntityUid user, ItemUserComponent? initemUserUse = null);
         bool TryGetUser(EntityUid item, [NotNullWhen(true)] out EntityUid? user, InUseComponent? inUse = null);
         void RemoveUserOfItem(EntityUid item);
     }
@@ -50,25 +50,25 @@ namespace OpenNefia.Content.InUse
                 return;
 
             if (TryGetUser(item, out var otherUser))
-                RemoveItemInUse(otherUser.Value, item);
+                RemoveItemInUse(item);
 
             EnsureComp<InUseComponent>(item).User = user;
-            
+
             itemUser.InUse.Add(item);
         }
 
-        public void RemoveItemInUse(EntityUid user, EntityUid item, ItemUserComponent? itemUser = null)
+        public void RemoveItemInUse(EntityUid item)
         {
-            if (!Resolve(user, ref itemUser))
-                return;
-
-            if (TryComp<InUseComponent>(item, out var inUse) && inUse.User == user)
+            // TODO use flags instead of Add/RemoveComponent
+            if (TryComp<InUseComponent>(item, out var inUse))
+            {
                 EntityManager.RemoveComponent(item, inUse);
-
-            itemUser.InUse.Remove(item);
+                if (TryComp<ItemUserComponent>(inUse.User, out var itemUser))
+                    itemUser.InUse.Remove(item);
+            }
         }
 
-        public void ClearItemsInUse(EntityUid user, ItemUserComponent? itemUser = null)
+        public void ClearItemsInUseForUser(EntityUid user, ItemUserComponent? itemUser = null)
         {
             if (!Resolve(user, ref itemUser))
                 return;
@@ -97,7 +97,7 @@ namespace OpenNefia.Content.InUse
         public void RemoveUserOfItem(EntityUid item)
         {
             if (TryGetUser(item, out var user))
-                RemoveItemInUse(user.Value, item);
+                RemoveItemInUse(item);
         }
     }
 }

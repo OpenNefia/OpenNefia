@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Targetable;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Audio;
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly ITargetableSystem _targetable = default!;
 
         public class Args
         {
@@ -210,9 +212,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private bool ShouldDrawLine()
         {
-            var targetSpatial = _lookup.GetBlockingEntity(_targetPos);
-
-            if (targetSpatial == null || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
+            if (!_targetable.TryGetBlockingEntity(_targetPos, out var targetSpatial) || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
                 || !_map.HasLineOfSight(targetSpatial.WorldPosition, _originPos.Position))
             {
                 return false;
