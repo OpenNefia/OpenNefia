@@ -162,3 +162,12 @@
   abstract: true
   components:
   - type: Weather
+
+- type: Entity
+  id: BaseEffect
+  abstract: true
+  hspEntityType: effect
+  components:
+  - type: MetaData
+    isMapSavable: false
+  - type: Effect
