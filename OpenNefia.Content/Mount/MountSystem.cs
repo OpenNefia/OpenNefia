@@ -22,6 +22,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Quests;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Mount
 {
@@ -49,6 +50,7 @@ namespace OpenNefia.Content.Mount
         [Dependency] private readonly IPCCSystem _pccs = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -85,7 +87,7 @@ namespace OpenNefia.Content.Mount
         // TODO remove when actions are implemented
         private TurnResult InteractAction_Ride(EntityUid source, EntityUid target)
         {
-            if (TryGetMount(source, out var mount) && mount.Owner == target && mount.Rider == source)
+            if (TryGetMount(source, out var mount) && (mount.Owner == target || _gameSession.IsPlayer(target)) && mount.Rider == source)
             {
                 return TryDismount(source) ? TurnResult.Succeeded : TurnResult.Aborted;
             }
