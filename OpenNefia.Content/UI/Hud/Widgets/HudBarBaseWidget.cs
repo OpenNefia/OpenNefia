@@ -51,6 +51,9 @@ namespace OpenNefia.Content.Hud
 
         public override void Draw()
         {
+            if (!Visible) // BUG doesn't work with UiElement?
+                return;
+
             base.Draw();
             BarBGAsset.Draw(UIScale, X, Y);
             UiHelpers.DrawPercentageBar(UIScale, BarState, Position + BarOffset, BarState.HPRatio * BarSize.X);
