@@ -30,9 +30,7 @@ namespace OpenNefia.Content.Markup
         {
             var result = new List<ElonaMarkupLine>();
 
-            var lines = markupStr.ReplaceLineEndings("\n").Split("\n").ToList();
-            if (lines.Count > 0)
-                lines.Pop();
+            var lines = markupStr.ReplaceLineEndings("\n").Split("\n");
 
             foreach (string line in lines)
             {

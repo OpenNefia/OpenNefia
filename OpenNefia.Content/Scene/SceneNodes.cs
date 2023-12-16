@@ -4,6 +4,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -71,6 +72,13 @@ namespace OpenNefia.Content.Scene
             var id = ID.GetSound();
             if (id == null)
                 return;
+
+            if (!IoCManager.Resolve<IPrototypeManager>().HasIndex(id.Value))
+            {
+                Logger.ErrorS("scene", $"Sound ID {id} does not exist!");
+                return;
+            }
+
             IoCManager.Resolve<IAudioManager>().Play(id.Value);
         }
     }
@@ -82,6 +90,12 @@ namespace OpenNefia.Content.Scene
 
         public void OnEnter(ISceneEngine engine)
         {
+            if (ID != null && !IoCManager.Resolve<IPrototypeManager>().HasIndex(ID.Value))
+            {
+                Logger.ErrorS("scene", $"Music ID {ID} does not exist!");
+                return;
+            }
+
             var music = IoCManager.Resolve<IMusicManager>();
             if (ID != null)
                 music.Play(ID.Value);

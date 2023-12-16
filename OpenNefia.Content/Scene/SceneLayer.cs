@@ -35,6 +35,7 @@ namespace OpenNefia.Content.Scene
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public class Args
         {
@@ -202,6 +203,12 @@ namespace OpenNefia.Content.Scene
 
         public void SetBackground(PrototypeId<AssetPrototype> assetID)
         {
+            if (!_protos.HasIndex(assetID))
+            {
+                Logger.ErrorS("scene", $"Asset ID {assetID} does not exist!");
+                return;
+            }
+
             _background = Assets.Get(assetID);
             SetCrossFadeParameters();
         }
@@ -322,7 +329,7 @@ namespace OpenNefia.Content.Scene
                             Text = Loc.GetString("Elona.Dialog.Common.Choices.More"),
                         }
                     },
-                    CanCancel = true
+                    CanCancel = false // TODO scene cancellation
                 };
 
                 dialogLayer.UpdateFromStepData(step);

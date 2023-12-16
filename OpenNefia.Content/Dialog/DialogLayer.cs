@@ -18,6 +18,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -218,7 +219,12 @@ namespace OpenNefia.Content.Dialog
             }
 
             if (data.PortraitID != null)
-                _portrait = _protos.Index(data.PortraitID.Value);
+            {
+                if (_protos.TryIndex(data.PortraitID.Value, out PortraitPrototype? portrait))
+                    _portrait = portrait;
+                else
+                    Logger.ErrorS("dialog", $"Unknown portrait ID {data.PortraitID}!");
+            }
 
             _field.RefreshScreen();
         }
