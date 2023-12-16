@@ -1,0 +1,52 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Psml515
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg4
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, on a boat headed towards Zanan.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: I can't seem to fall asleep. Just what is it you're looking for out there?
+  - actor: '2'
+    text: Oh, Sevilis... I'm just thinking about the people Lomias and I left at the
+      Forest. We left shouldering everyone's expectations. I was looking forward to
+      seeing their smiling faces when we returned, but... This journey has become
+      so long and painful. I'm truly sorry we got you involved in this. And I'm grateful
+      you prepared this ship for us.
+  - actor: '1'
+    text: There's no need to thank me. I have my own grudge against Zanan. I'm here
+      of my own free will... And Bethel, too, has his own reasons for coming.
+  - actor: '2'
+    text: You seem to know him... Bethel is a good man, I think. He seemed difficult
+      to approach at first, but he has risked his life to protect us, and given us
+      encouragement through our hardships. Even Lomias of all people has changed how
+      he feels about him. But that smile he wears seems sad for some reason. It makes
+      it seem... Like he's given up. Sometimes it feels like he's wearing a mask to
+      hide his heart from other people.
+  - actor: '1'
+    text: Some people don't mesh well with this world. Yes, he has his own problems,
+      and he knows better than anyone else that he's the only one who can deal with
+      them. But he can't bring himself to seek the sympathy and consolation of others.
+      Some people will cling to and fight for and glimmer of hope that shows itself,
+      while others will surrender and wallow in darkness. Which Bethel will choose,
+      I cannot say.
+...

@@ -1,0 +1,78 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '2':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '3':
+      name: ????
+      portraitID: Elona.Liana
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Psml515
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - |
+    - パルミアの酒場 -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '2'
+    text: リアナという女を探している。心当たりはないか？
+  - actor: '3'
+    text: …その女に何の用？
+  - actor: '2'
+    text: 腕の立つ者で、金次第でどんな依頼も受けるとだけ聞いている。護衛を雇う理由などないのだが、王の使いより通達があってな。
+  - actor: '3'
+    text: 金次第でどんな依頼も受ける、か…ふふ。確かに腕は立つし、どんな危険なヤマであろうと関係ない。ただし、あの男の場合はね、金次第じゃなくて気分次第なのよ。ええ、あたしがリアナよ。二人とも、着いて来なさい。
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg8
+- !type:SceneFadeInNode {}
+- !type:SceneSetActorsNode
+  actors:
+    '3':
+      name: 妄想少女『リアナ』
+      portraitID: Elona.Liana
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: ヴェセル、ひさしぶりの仕事よ、ぅ…げほっ、げほっ。
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: あなた、食事もろくにとらず、またクラムベリーの煙を吸っていたのね。あたしの可愛そうなヴェセル…さあ、起き上がって依頼人に挨拶するのよ。
+  - actor: '2'
+    text: 素晴らしい。我々の頼る剣の主は、薬漬けで意識の朦朧とした病人か。ラーネイレ、どうやら無駄足だったようだ。この男がかつてどのような腕を誇っていたかは知らないが、療養に付き合ってる時間はない。
+  - actor: '3'
+    text: まぁまぁ…そう急かさないで。ヴェセル、気にしないでいいのよ。あなたがどんなに惨めでひどい目にあってきたのか、この人たちは知らないの。あたしは、あなたの悲しそうな瞳を一目見て、すぐに直感したわ。この人は計り知れない苦悩を抱え、断ち切れない過去を引きずった可愛そうな人だって。そして、あたしが付いていれば、きっと全てを乗り越えて一人前の男になれるって。でもね…そろそろ仕事をしないと、食べる物もないのよ！
+  - actor: '4'
+    text: 君と飢え死にするのも悪くない。
+  - actor: '3'
+    text: いやぁん、ヴェセルぅ！！
+  - actor: '4'
+    text: ふふ、リアナ。君にまであの世に付き添ってもらうつもりはない。さて依頼を…
+  - actor: '4'
+    text: …貴女は…エリシェ…？
+  - actor: '1'
+    text: エリシェ？
+  - actor: '4'
+    text: いや、気にしないでくれ。依頼を聞こう。
+  - actor: '2'
+    text: その必要はない。薬漬けの男に護衛を頼めなどという命令は、パルミア流の性質の悪い冗談だと受け取っておこう。もともと、身を狙われる覚えなど私達にはないのだから。
+  - actor: '4'
+    text: …護衛とは気軽に言ってくれる。もし私の感覚が薬で鈍っているのでなければ、この家を取り囲んでいる気配の数は、一介の者の護衛の範囲を遥かに超えている。
+  - actor: '1'
+    text: 囲まれている？私達を狙っている者がいるというのですか？
+  - actor: '4'
+    text: それはこちらが聞きたい質問だが、どうやら話をしている暇はないようだ。私の背を見失わないように。裏路地から街を出る。
+- !type:SceneFadeOutNode {}
+...

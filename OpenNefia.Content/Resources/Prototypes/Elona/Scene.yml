@@ -1,0 +1,116 @@
+---
+- type: Elona.Scene
+  id: Elona.Story70
+  location: /Scenes/Elona
+  filename: Story70.yml
+
+- type: Elona.Scene
+  id: Elona.Story90
+  location: /Scenes/Elona
+  filename: Story90.yml
+
+- type: Elona.Scene
+  id: Elona.Story0
+  location: /Scenes/Elona
+  filename: Story0.yml
+
+- type: Elona.Scene
+  id: Elona.Story25
+  location: /Scenes/Elona
+  filename: Story25.yml
+
+- type: Elona.Scene
+  id: Elona.Story100
+  location: /Scenes/Elona
+  filename: Story100.yml
+
+- type: Elona.Scene
+  id: Elona.Story24
+  location: /Scenes/Elona
+  filename: Story24.yml
+
+- type: Elona.Scene
+  id: Elona.Story28
+  location: /Scenes/Elona
+  filename: Story28.yml
+
+- type: Elona.Scene
+  id: Elona.Story26
+  location: /Scenes/Elona
+  filename: Story26.yml
+
+- type: Elona.Scene
+  id: Elona.Story1
+  location: /Scenes/Elona
+  filename: Story1.yml
+
+- type: Elona.Scene
+  id: Elona.Story30
+  location: /Scenes/Elona
+  filename: Story30.yml
+
+- type: Elona.Scene
+  id: Elona.Story40
+  location: /Scenes/Elona
+  filename: Story40.yml
+
+- type: Elona.Scene
+  id: Elona.Story3
+  location: /Scenes/Elona
+  filename: Story3.yml
+
+- type: Elona.Scene
+  id: Elona.Story7
+  location: /Scenes/Elona
+  filename: Story7.yml
+
+- type: Elona.Scene
+  id: Elona.Story5
+  location: /Scenes/Elona
+  filename: Story5.yml
+
+- type: Elona.Scene
+  id: Elona.Story2
+  location: /Scenes/Elona
+  filename: Story2.yml
+
+- type: Elona.Scene
+  id: Elona.Story35
+  location: /Scenes/Elona
+  filename: Story35.yml
+
+- type: Elona.Scene
+  id: Elona.Story16
+  location: /Scenes/Elona
+  filename: Story16.yml
+
+- type: Elona.Scene
+  id: Elona.Story29
+  location: /Scenes/Elona
+  filename: Story29.yml
+
+- type: Elona.Scene
+  id: Elona.Story33
+  location: /Scenes/Elona
+  filename: Story33.yml
+
+- type: Elona.Scene
+  id: Elona.Story15
+  location: /Scenes/Elona
+  filename: Story15.yml
+
+- type: Elona.Scene
+  id: Elona.Story17
+  location: /Scenes/Elona
+  filename: Story17.yml
+
+- type: Elona.Scene
+  id: Elona.Story60
+  location: /Scenes/Elona
+  filename: Story60.yml
+
+- type: Elona.Scene
+  id: Elona.Story4
+  location: /Scenes/Elona
+  filename: Story4.yml
+...

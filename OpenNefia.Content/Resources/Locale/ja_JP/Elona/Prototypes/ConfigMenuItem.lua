@@ -40,6 +40,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "ステレオサウンド",
     },
 
+    ScreenMuteInBackground = {
+        Name = "非アクティブ時にミュート",
+    },
+
     ScreenWindowMode = {
         Description = "ウィンドウとフルスクリーンを切り替えます。\nフルスクリーン2は、スクリーンと同じサイズのウィンドウを生成し擬似的にフルスクリーンとします。\n",
         Name = "画面モード",

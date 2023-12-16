@@ -350,7 +350,7 @@ namespace OpenNefia.Core.Prototypes
 
             _eventBus = new PrototypeEventBus(this);
 
-            _graphics.OnWindowFocused += WindowFocusedChanged;
+            _graphics.OnWindowFocusChanged += WindowFocusedChanged;
 
             WatchResources();
         }

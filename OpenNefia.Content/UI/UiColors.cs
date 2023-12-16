@@ -102,5 +102,8 @@ namespace OpenNefia.Content.UI
         public static readonly Color QuestDifficultyEasy = new Color(0, 155, 0);
 
         public static readonly Color HouseBoardRankStar = new Color(255, 255, 50);
+
+        public static readonly Color SceneTextFg = new Color(240, 240, 240);
+        public static readonly Color SceneTextBg = new Color(10, 10, 10);
     }
 }

@@ -71,6 +71,7 @@ namespace OpenNefia.Content.Ranks
         public GameTimeSpan? TimeUntilDecay { get; set; }
     }
 
+    // TODO
     [DataDefinition]
     public sealed class RankData
     {

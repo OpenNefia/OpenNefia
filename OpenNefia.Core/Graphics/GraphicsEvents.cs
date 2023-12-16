@@ -3,9 +3,9 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Graphics
 {
-    public class WindowFocusedEventArgs : EventArgs
+    public class WindowFocusChangedEventArgs : EventArgs
     {
-        public WindowFocusedEventArgs(bool focused)
+        public WindowFocusChangedEventArgs(bool focused)
         {
             Focused = focused;
         }

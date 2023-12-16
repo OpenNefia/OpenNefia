@@ -24,6 +24,7 @@ namespace OpenNefia.Core.Audio
         private Love.Source? _streamPlayback = null;
 
         private PrototypeId<MusicPrototype>? _lastPlayedMusic;
+        public PrototypeId<MusicPrototype>? PlayingMusicID => _lastPlayedMusic;
 
         public bool IsPlaying => _midiPlayback != null || _streamPlayback != null;
 

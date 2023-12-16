@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Graphics;
 
 namespace OpenNefia.Core.Audio
 {
@@ -24,6 +25,7 @@ namespace OpenNefia.Core.Audio
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         private bool _enableSound;
         private bool _usePositionalSound;
@@ -32,10 +34,12 @@ namespace OpenNefia.Core.Audio
         private class PlayingSource
         {
             public Love.Source Source;
+            public float Volume;
 
-            public PlayingSource(Love.Source source)
+            public PlayingSource(Love.Source source, float volume)
             {
                 Source = source;
+                Volume = volume;
             }
         }
 
@@ -43,8 +47,33 @@ namespace OpenNefia.Core.Audio
 
         public void Initialize()
         {
-            _config.OnValueChanged(CVars.AudioSound, b => _enableSound = b, true);
+            _graphics.OnWindowFocusChanged += OnWindowFocusChanged;
+            _config.OnValueChanged(CVars.AudioSound, OnEnableSoundChanged, true);
             _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
+        }
+
+        private void OnWindowFocusChanged(WindowFocusChangedEventArgs args)
+        {
+            var muteInBackground = _config.GetCVar(CVars.AudioMuteInBackground);
+            SetSourceVolumes(_enableSound && (!muteInBackground || args.Focused));
+        }
+
+        private void OnEnableSoundChanged(bool enableSound)
+        {
+            _enableSound = enableSound;
+            SetSourceVolumes(_enableSound);
+        }
+
+        private void SetSourceVolumes(bool enable)
+        {
+            foreach (var source in _playingSources)
+            {
+                source.Source.SetVolume(enable ? source.Volume : 0f);
+            }
+            foreach (var source in _loopingSources.Values)
+            {
+                source.Source.SetVolume(enable ? source.Volume : 0f);
+            }
         }
 
         public void FrameUpdate(FrameEventArgs frame)
@@ -82,9 +111,6 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> soundId, AudioParams? audioParams = null)
         {
-            if (!_enableSound)
-                return;
-
             var proto = _protos.Index(soundId);
             var source = GetLoveSource(proto.Filepath);
 
@@ -94,11 +120,12 @@ namespace OpenNefia.Core.Audio
                 source.SetAttenuationDistances(0, 0);
             }
 
-            source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            source.SetVolume(_enableSound ? volume : 0f);
 
             Love.Audio.Play(source);
 
-            _playingSources.Add(new PlayingSource(source));
+            _playingSources.Add(new PlayingSource(source, volume));
         }
 
         /// <inheritdoc />
@@ -130,9 +157,6 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> soundId, Vector2i screenPosition, AudioParams? audioParams = null)
         {
-            if (!_enableSound)
-                return;
-
             var proto = _protos.Index(soundId);
             var source = GetLoveSource(proto.Filepath);
 
@@ -151,11 +175,12 @@ namespace OpenNefia.Core.Audio
                 }
             }
 
-            source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            source.SetVolume(Math.Clamp(_enableSound ? volume : 0f, 0f, 1f));
 
             Love.Audio.Play(source);
 
-            _playingSources.Add(new PlayingSource(source));
+            _playingSources.Add(new PlayingSource(source, volume));
         }
 
         public void SetListenerPosition(Vector2 listenerPos)
@@ -173,11 +198,12 @@ namespace OpenNefia.Core.Audio
 
             source.SetLooping(true);
 
-            source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            source.SetVolume(_enableSound ? volume : 0f);
 
             Love.Audio.Play(source);
 
-            _loopingSources[tag] = new PlayingSource(source);
+            _loopingSources[tag] = new PlayingSource(source, volume);
         }
 
         public void StopLooping(string tag)

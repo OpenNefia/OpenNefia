@@ -1,0 +1,38 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+- !type:ScenePlayMusicNode
+  id: Elona.Memory
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg7
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: On that day... It was a cool Autumn night. I had gone to see a play together
+      with Elishe. It was mediocre in every sense, but I can still remember it even
+      now. There's nothing about that day I can forget.
+  - actor: '1'
+    text: As we made our way home from the play, smoke and screams arose from a nearby
+      mansion. We rushed over as quickly as we could, and when we arrived, the flames
+      were still low. We immediately set about rescuing people. Elishe refused to
+      stop until she could be certain nobody was left inside, until no more voices
+      were crying out. And... A part of the exit-way suddenly collapsed on her...
+  - actor: '1'
+    text: I immediately rushed to her and attempted to lift the beam off of her, but
+      it was impossible for me to do by myself. I turned to seek help from those around
+      us, but my pleas were met only by the scared and cruel gazes of the onlookers.
+      They were going to leave the young Elean girl who had been their savior to die.
+      But what right had I to fault them? If a rival had needed my help, my reaction
+      would have been the same as theirs... Before long, the flames had engulfed everything.
+  - actor: '1'
+    text: I buried my head into the ground until dawn came. When I came across Elishe's
+      bones when searching that charred rubble, I cried for the first time... And
+      time has been frozen for me ever since.
+...

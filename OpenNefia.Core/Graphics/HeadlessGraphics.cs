@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Graphics
         public Vector2i WindowPixelSize => new(800, 600);
 
         public event Action<WindowResizedEventArgs>? OnWindowResized;
-        public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        public new event Action<WindowFocusChangedEventArgs>? OnWindowFocusChanged;
         public new event Action<KeyEventArgs>? OnKeyPressed;
         public new event Action<KeyEventArgs>? OnKeyReleased;
         public new event Action<TextEditingEventArgs>? OnTextEditing;
@@ -95,6 +95,11 @@ namespace OpenNefia.Core.Graphics
 
         public void EndDraw()
         {
+        }
+
+        public Love.ImageData? CaptureCanvasImageData()
+        {
+            return null;
         }
 
         public byte[] CaptureCanvasPNG()

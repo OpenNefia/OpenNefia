@@ -123,7 +123,7 @@ namespace OpenNefia.Core.Locale
 
             _config.OnValueChanged(CVars.LanguageLanguage, OnConfigLanguageChanged, true);
 
-            _graphics.OnWindowFocused += WindowFocusedChanged;
+            _graphics.OnWindowFocusChanged += WindowFocusedChanged;
 
             WatchResources();
         }

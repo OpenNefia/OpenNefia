@@ -7,7 +7,7 @@
 - [x] weather
 - [x] town quests
 - [x] PCCs & ring light
-- [ ] journal
+- [x] journal
 - [ ] scene playback
 - [x] intro/first pet event
 - [ ] riding
@@ -46,6 +46,7 @@
 - [ ] robust upstream commits
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
+- [ ] "garbage collectable" components (all flags inside the component are false, etc.)
 
 ## debug
 - [ ] edit game save data in one debug view

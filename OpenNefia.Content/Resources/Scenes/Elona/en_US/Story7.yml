@@ -1,0 +1,93 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+    '5':
+      name: Sevilis' Subordinate
+      portraitID: Elona.Man19
+    '6':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, at the palace in Derphy.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: You're King Xabi's young female guest?
+  - actor: '2'
+    text: '...Yes. My name is Larnneire.'
+  - actor: '3'
+    text: The cold-hearted shadow of Deprhy, Duke Sevilis. I recall the King once
+      mentioning to rely on you in case of an emergency, and so we have come. Someone
+      is after us, though we are unaware of their identity. Could you use your connections
+      in the underworld to find out?
+  - actor: '1'
+    text: I see. You did well to rely on me. The ones pursuing you are from Zanan...
+      Saimore, to be precise. Heh, there's no need to have anyone investigate that.
+      Let's see, so we have both the girl and the White Hawk here. You've changed
+      quite a bit since last I saw you, Bethel Rumford. Why is it you yet live with
+      such regret?
+  - actor: '4'
+    text: I wasn't aware one needed a reason to continue living. And forgive me for
+      my rudeness, Duke Sevilis, but I don't recall us having met before.
+  - actor: '1'
+    text: Heh, I'm not surprised. You'd be unlikely to remember me with this face.
+      We've both changed. Now, regarding your group's fate...
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: Lord Sevilis, Sir Barius urges you to hurry.
+  - actor: '3'
+    text: '...Barius?'
+  - actor: '1'
+    text: My apologies. As you've no doubt surmised, I was visited by another guest
+      before your arrival. While I'm sure you're tired from your long trip from Palmia,
+      Larnneire, I'll have to ask that you accompany him. Though, it's not really
+      a choice. The palace is already surrounded.
+  - actor: '2'
+    text: So you will hand me over to Zanan. Would you betray the trust of King Xabi
+      so easily?
+  - actor: '1'
+    text: '...Relax. Saimore will harm neither you nor your companions.'
+  - actor: '4'
+    text: You will regret this, Duke Sevilis. I will remember your betrayal, and I
+      am a vindictive man.
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:SceneFadeInNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: This is enough, isn't it?
+  - actor: '6'
+    text: Yes. I appreciate your cooperation.
+  - actor: '1'
+    text: Your methods are as dirty as ever, Barius. Do you intend to keep your promise?
+  - actor: '6'
+    text: Don't worry. Your subordinates have been treated courteously. I'll have
+      them delivered at dawn... Oh yes, and I won't mention to Saimore that you're
+      still alive. It would be quite the inconvenience if he were to find out, wouldn't
+      it?
+  - actor: '1'
+    text: '...Do as you like.'
+...

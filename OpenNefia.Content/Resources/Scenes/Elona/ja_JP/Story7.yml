@@ -1,0 +1,76 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+    '5':
+      name: セビリスの部下
+      portraitID: Elona.Man19
+    '6':
+      name: 青い髪の『ヴァリウス』
+      portraitID: Elona.Barius
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:SceneTextNode
+  text:
+  - |
+    - ダルフィ宮殿 -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: ジャビ王の客人とは、その娘か。
+  - actor: '2'
+    text: …はい、ラーネイレと申します。
+  - actor: '3'
+    text: ダルフィの冷酷なる影、セビリス公。有事には公を頼れとの王からの言伝を思い出し、頼らせてもらった。我々を狙う者の素性はわからないが、裏の世界で生きる貴公ならば足がかりをつかめるのではないか？
+  - actor: '1'
+    text: なるほど、私を頼ってきたのは正解だ。君達を狙っているのはザナン…サイモアだろう。ふっ、部下に探らせるまでもない。一目でわかった、その娘の顔、そして白き鷹を目にして。ヴェセル・ランフォード、久しくみないうちに随分と変わったものだ。何故まだ未練たらしく生きている？
+  - actor: '4'
+    text: 生きるために理由が必要だと思ったことなどない。それにセビリス公、失礼だが私はあなたと会った記憶もないと思う。
+  - actor: '1'
+    text: ふ、この顔では無理もない。変わったのはお互い様ということか。さて、君達の今後についてだが…
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: セビリス様、ヴァリウス様がまだかと催促していますが。
+  - actor: '3'
+    text: …ヴァリウスだと？
+  - actor: '1'
+    text: すまぬな、先客があって聞いての通りだ。ラーネイレとやら、パルミアからの長旅で疲れているだろうが、同行してもらう。選択の余地があるとは思うな。この宮殿の周りは既に固めてある。
+  - actor: '2'
+    text: 私をザナンに引き渡すのね。あなたはジャビ王の信頼を裏切るのですか？
+  - actor: '1'
+    text: …安心しろ、サイモアが君を傷つけることはない。君の仲間にも危害は加えない。
+  - actor: '4'
+    text: セビリス公、後悔するぞ。敵に回るというなら覚悟しておくがいい。私は執念深い性質だ。
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:SceneFadeInNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: これでよいのだろう？
+  - actor: '6'
+    text: ええ、ご協力に感謝します。
+  - actor: '1'
+    text: 相変わらずやり方が汚い、ヴァリウス。約束の方は守ってくれるのだな？
+  - actor: '6'
+    text: 安心なさい。あなたの部下達は丁重に扱っています。夜明けまでには送り届けましょう。…そうそう、あなたが生きていることも、あの方には黙っておきますよ。知られては何かと不都合でしょう？
+  - actor: '1'
+    text: …好きにするがいいさ。
+...

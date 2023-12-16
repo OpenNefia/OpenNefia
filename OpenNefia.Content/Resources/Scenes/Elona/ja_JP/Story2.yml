@@ -1,0 +1,84 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ザナンの紅血『ロイター』
+      portraitID: Elona.Loyter
+    '2':
+      name: 兵士
+      portraitID: Elona.Man19
+    '3':
+      name: ????
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Town1
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - |
+    同刻 - ヴェルニースの酒場 -
+  - |
+    粗忽なザナンの下級兵士が交わす杯の音で
+    ヴェルニースの酒場は久々の活気を取り戻していた。
+    　
+    酒に酔い力をもてあました若い兵士が
+    一人のみすぼらしい男に因縁をつけ
+    時々、威嚇するような大声をあげ拳をふるう。
+    　
+    部下の騒ぎに気づいた赤髪の仕官は
+    溢れんばかりのクリムエールの杯を乾すと
+    静かに席を立った。
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: 何事だ？
+  - actor: '2'
+    text: これは隊長。なに、たいした騒ぎではありません。このボロ布をまとった不振な男を尋問していただけのことで。なにしろ皇子直々のご遊説、警護を申しつかった我々としては、例え酒に興じている最中でも、怪しいものを見過ごすわけにはいきませんからな！…おい、お前のことだぞ。聞こえているのか？
+  - actor: '3'
+    text: …
+  - actor: '1'
+    text: この男は…
+  - actor: '2'
+    text: ご覧のとおり、ふてぶてしい野郎です。もう少し痛い目に合わせて追い返して見せましょう。危害はないにせよ、目に付くだけで我らの飲む酒がまずくなりますからな。
+  - actor: '1'
+    text: やめておけ。
+  - actor: '2'
+    text: しかしね、隊長、脚の一本でも折れていたほうが、むしろ物乞いに箔が付くってもんです。
+  - actor: '1'
+    text: 誰のために言ったと思っている？ザナンの白き鷹、それがお前の目の前にいる男だ。…しばし二人だけにさせてもらう。
+- !type:SceneFadeOutNode {}
+- !type:ScenePlayMusicNode
+  id: Elona.Memory
+- !type:SceneFadeInNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: こんな所に骨を埋めていたとはな。そのなりはなんだ、世捨て人にでもなったつもりか。
+  - actor: '3'
+    text: …
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: 人は変わるものだ。国中の誰もがその才能を羨み、功績を讃え、貴族の特権まで与えられた白き鷹が、小汚い酒場の隅に隠れ、死人の目で空を見つめている。貴様がザナンを出てからは、何事も張り合う相手がいなくて困る。
+  - actor: '3'
+    text: …
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: ふっ、憎まれ口の一つでも叩いたらどうだ。仮の自分にうんざりだと、昔俺に言ったのを覚えているか。
+  - actor: '1'
+    text: 富と名声を脱ぎ捨てた、その薄汚い乞食のような姿がありのままの姿だと吹くのなら、とんだ笑い種だ。あるいは、欲望を捨て、罪人のように暮らすことがあの娘の供養になるとでも？
+  - actor: '3'
+    text: その話は聞きたくない。
+  - actor: '1'
+    text: エレアの小娘…エリシェといったな、貴様の言葉を借りれば、あの娘さえも己の仮面の一部だったのではないか？
+  - actor: '3'
+    text: 問答に付き合うつもりはない。あのまま殴られ牢に入っていたほうが、まだ静かでいい。
+  - actor: '1'
+    text: では、望みどおり身柄を拘束させてもらおう、ヴェセル・ランフォード。ザナンを出た貴様以上の危険分子は他に居まい。
+- !type:SceneFadeOutNode {}
+...

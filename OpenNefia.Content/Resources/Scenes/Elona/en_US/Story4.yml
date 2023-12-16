@@ -1,0 +1,124 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Xabi> The King of Palmia
+      portraitID: Elona.Xabi
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Barius> The Blue Haired
+      portraitID: Elona.Barius
+    '4':
+      name: <Saimore> The Crown Prince of Zanan
+      portraitID: Elona.Saimore
+- !type:ScenePlayMusicNode
+  id: Elona.Town4
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, in the throne room of Palmia.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: It's wonderful to see you again, Larnneire. You have grown from a naughty
+      little child into a splendid woman since last we met. I'm sure your journey
+      here must have been harsh, given the circumstances.
+  - actor: '2'
+    text: It's been a long time, Your Majesty. Thanks to your influence, we were able
+      to arrive here without incident. At this time, as a messenger from the Forest,
+      and for the sake of both the Elea and all of Sierra Terre, I would like to request
+      that Palmia lend the Elea its strength in dealing with the Heretical Forest.
+  - actor: '1'
+    text: '...Larnneire, I am truly sorry, but I''m afraid that I cannot lend you
+      that aid that you seek. I too am pained by the tragedy befalling the Elea, but
+      as I''m sure you''re aware, the most Palmia can do is seek to keep a balance
+      between the Yerles and the Eulderna.'
+  - actor: '1'
+    text: The Prince of Zanan has already gathered significant support from various
+      nations and their peoples, and they have found a common enemy in the Heretical
+      Forest. If Palmia were to speak against this now, not only would Zanan treat
+      us as rebels, but the two great nations would as well. If Palmia were to fall,
+      there would no longer be any barrier against a war between the two great nations.
+      I simply cannot condemn Sierra Terre to another great war.
+  - actor: '2'
+    text: '...Is your intent then for the Elea to be the sacrificial lambs on the
+      altar of peace between the two great nations? Our country was only established
+      because the blood of innocent Elea was being shed in foreign nations. What peace
+      we have had has been short and fragile. Is there no longer anyone on this continent
+      with the heart to reach out to the weak?'
+  - actor: '3'
+    text: '...If they committed no sin, then their fate is truly regrettable. Yet,
+      surely you''re aware of what your Heretical Forest and its Ether Winds have
+      wrought upon the world?'
+  - actor: '2'
+    text: So you've come, Lord Barius? Certainly it is undeniable that strange events
+      have been occurring in the Forest due to the Ether Winds. But for what reason
+      would the Vindale Forest, which has posed no problems for all of Sierra Terre,
+      suddenly act up now? Is it not prejudice to lay blame at the feet of the Elea
+      without first investigating?
+  - actor: '2'
+    text: Your Majesty, please heed my words. The issue of the Ether Winds and the
+      Forest is not related to the calamity that they speak of. If the claims that
+      the Prince of Zanan makes are wrong...
+  - actor: '1'
+    text: Speak no further, Larnneire.
+  - actor: '2'
+    text: But Your Majesty, the truth...
+  - actor: '1'
+    text: I said that's enough. I'll hear the rest of what you have to say tomorrow.
+      I will have arrangements made for you and your companion to stay tonight at
+      the inn. Now is... not the time for us to continue. Please understand.
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '2'
+    text: Your Majesty... Very well. But I will be back again tomorrow. You are the
+      Elea's final hope.
+- !type:SceneFadeOutNode {}
+- !type:ScenePlayMusicNode
+  id: Elona.Soraochi
+- !type:SceneFadeInNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '4'
+    text: How embarrassing. Don't believe the girl's lies, King Xabi.
+  - actor: '4'
+    text: I began investigating this disaster at a young age. The "Meshera" are also
+      known as the "World Devouring Giants". Is the Heretical Forest, whose roots
+      spread and eat away our lands, not exactly that? Even were her claims that the
+      Forest and the Meshera are unrelated to be true, it is undeniable that the Forest
+      is consuming our land and producing terrible monsters. King Xabi, I must insist
+      that you entrust that girl to my care.
+  - actor: '1'
+    text: Hmm. Could that be because what Larnneire speaks is the truth?
+  - actor: '4'
+    text: What I have told you is the truth. I have my own interests in that girl.
+      More importantly, King Xabi, have you forgotten that Palmia's existence is reliant
+      upon Zanan?
+  - actor: '1'
+    text: Larnneire is an important guest. Even if the request is coming from the
+      Prince of Zanan himself, I cannot hand her over. Palmia will forsake all involvement
+      with the issue of the Vindale Forest. Is that not enough to satisfy you? You
+      must excuse me for now. I have other business that must be attended to.
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '4'
+    text: '...Fufu, she escaped. Still, I was surprised. Is she not the spitting image
+      of her?'
+  - actor: '3'
+    text: First the White Hawk, and now her. At last the wheels of destiny have begun
+      to turn.
+  - actor: '4'
+    text: While I don't believe in fate, this lively stage that has been set has exceeded
+      my expectations. I welcome it. We must prepare a suitable role for them. I have
+      faith in your abilities, Barius The Blue Haired.
+  - actor: '3'
+    text: '...'
+- !type:SceneFadeOutNode {}
+...

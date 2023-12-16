@@ -18,6 +18,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -77,6 +78,7 @@ namespace OpenNefia.Content.Dialog
         public string Text { get; set; } = string.Empty;
         public List<DialogChoice> Choices { get; set; } = new();
         public bool CanCancel { get; set; } = false;
+        public PrototypeId<PortraitPrototype>? PortraitID { get; set; } = null;
     }
 
     public sealed class DialogChoice
@@ -212,9 +214,16 @@ namespace OpenNefia.Content.Dialog
             }
             else
             {
-                TextSpeakerName.Text = "";
                 TextImpression.Text = "-";
                 TextImpression2.Text = "-";
+            }
+
+            if (data.PortraitID != null)
+            {
+                if (_protos.TryIndex(data.PortraitID.Value, out PortraitPrototype? portrait))
+                    _portrait = portrait;
+                else
+                    Logger.ErrorS("dialog", $"Unknown portrait ID {data.PortraitID}!");
             }
 
             _field.RefreshScreen();

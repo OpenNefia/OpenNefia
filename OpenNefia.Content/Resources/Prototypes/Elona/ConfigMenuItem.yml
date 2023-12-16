@@ -37,6 +37,7 @@
       - Elona.ScreenMusic
       - Elona.ScreenMidiDevice
       - Elona.ScreenPositionalAudio
+      - Elona.ScreenMuteInBackground
       - Elona.ScreenWindowMode
       - Elona.ScreenScreenResolution
       - Elona.ScreenDisplayNumber
@@ -63,6 +64,11 @@
   id: Elona.ScreenPositionalAudio
   node: !type:ConfigBoolMenuNode
     cvar: audio.positionalaudio
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenMuteInBackground
+  node: !type:ConfigBoolMenuNode
+    cvar: audio.muteInBackground
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenWindowMode

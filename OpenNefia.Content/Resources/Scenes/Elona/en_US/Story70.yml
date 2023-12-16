@@ -1,0 +1,40 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Sevilis> The Fog of Derphy
+      portraitID: Elona.Sevilis
+    '2':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '3':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Boss2
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg11
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: '...Look! There are flames in the Forest. Has Zanan already begun the invasion?'
+  - actor: '2'
+    text: Hurry, Lomias! Head to the Forest! Those who were slow to get out or who
+      stayed need to be evacuated.
+  - actor: '3'
+    text: Got it. And you, Larnneire?
+  - actor: '2'
+    text: I will go to Saimore. It may gain us nothing to negotiate at this point,
+      but even so, for the sake of the Elea who are evacuating... If nothing else,
+      I'll earn them time.
+  - actor: '1'
+    text: We will go with Larnneire. While the Forest still lives, we humans cannot
+      enter.
+  - actor: '4'
+    text: Don't worry, Larnneire. I won't allow any soldiers to lay a single finger
+      on you before we reach Saimore.
+...

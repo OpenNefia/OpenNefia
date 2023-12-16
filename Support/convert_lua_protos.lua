@@ -29,6 +29,10 @@ local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
 local tags = {}
 
+local function pp(...)
+    print(inspect(...))
+end
+
 local function capitalize(str)
     return str:gsub("^%l", string.upper)
 end
@@ -1801,6 +1805,11 @@ handlers["elona.weather"] = function(from, to)
     event(from, to, "on_turn_start", "Weather", "VanillaWeatherSystem", "OnTurnStart")
 end
 
+handlers["elona_sys.scene"] = function(from, to)
+    to.location = "/Scenes/Elona"
+    to.filename = dataPart(from._id) .. ".yml"
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2123,8 +2132,121 @@ local function write(ty, filename, namespace)
     end
 end
 
-write("base.chara", "Entity/Chara.yml")
-write("base.item", "Entity/Item.yml")
+local LANGUAGES = {
+    en = "en_US",
+    jp = "ja_JP",
+}
+
+local function typedYamlNode(nodeType, t)
+    return setmetatable(t or {}, { tag = "type:" .. nodeType, type = "mapping" })
+end
+
+local function convert_scenes()
+    local function toYaml(node)
+        local ty = node[1]
+        if ty == "actor" then
+            return typedYamlNode("SceneSetActorsNode", {
+                actors = {
+                    [tostring(node[2])] = {
+                        name = node.name,
+                        portraitID = dotted(node.portrait),
+                    },
+                },
+            })
+        elseif ty == "mc" then
+            return typedYamlNode("ScenePlayMusicNode", {
+                id = "Elona." .. dataPart(node[2]),
+            })
+        elseif ty == "se" then
+            return typedYamlNode("ScenePlaySoundNode", {
+                id = "Elona." .. dataPart(node[2]),
+            })
+        elseif ty == "pic" then
+            return typedYamlNode("SceneChangeBackgroundNode", {
+                id = "Elona." .. dataPart(node[2]),
+            })
+        elseif ty == "txt" then
+            return typedYamlNode("SceneTextNode", {
+                text = { node[2] },
+            })
+        elseif ty == "chat" then
+            return typedYamlNode("SceneDialogNode", {
+                dialog = {
+                    {
+                        actor = tostring(node[2]),
+                        text = node[3],
+                    },
+                },
+            })
+        elseif ty == "fade" then
+            return typedYamlNode("SceneFadeOutNode", {})
+        elseif ty == "fadein" then
+            return typedYamlNode("SceneFadeInNode", {})
+        elseif ty == "wait" then
+            return typedYamlNode("SceneWaitNode", {})
+        else
+            error(("Unknown node type '%s'"):format(ty))
+        end
+    end
+    local function mergeNodes(nodes)
+        local i = 1
+        while i <= #nodes do
+            local node = nodes[i]
+            local nodeNext = nodes[i + 1]
+            if node == nil or nodeNext == nil then
+                break
+            end
+
+            local mt = getmetatable(node)
+            local mtNext = getmetatable(nodeNext)
+            -- print(mt.tag)
+            if mt.tag == mtNext.tag then
+                if mt.tag == "type:SceneDialogNode" then
+                    node.dialog = table.imerge(node.dialog, nodeNext.dialog)
+                    table.iremove_value(nodes, nodeNext)
+                elseif mt.tag == "type:SceneTextNode" then
+                    node.text = table.imerge(node.text, nodeNext.text)
+                    table.iremove_value(nodes, nodeNext)
+                elseif mt.tag == "type:SceneSetActorsNode" then
+                    node.actors = table.merge(node.actors, nodeNext.actors)
+                    table.iremove_value(nodes, nodeNext)
+                else
+                    i = i + 1
+                end
+            else
+                i = i + 1
+            end
+        end
+    end
+    local function convert(scene)
+        for langID, newLangID in pairs(LANGUAGES) do
+            local originalNodes = scene.content[langID]
+            if originalNodes ~= nil then
+                local nodes = fun.iter(originalNodes):map(toYaml):to_list()
+                mergeNodes(nodes)
+
+                local result = {
+                    nodes = nodes,
+                }
+                local yml = lyaml.dump({ result }, {})
+
+                local filename = dataPart(scene._id) .. ".yml"
+                local file = io.open(
+                    ("%s/OpenNefia.Content/Resources/Scenes/Elona/%s/%s"):format(rootDir, newLangID, filename),
+                    "w"
+                )
+                file:write(yml)
+                file:close()
+            end
+        end
+    end
+    data["elona_sys.scene"]:iter():each(convert)
+end
+
+-- write("base.chara", "Entity/Chara.yml")
+-- write("base.item", "Entity/Item.yml")
+convert_scenes()
+-- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")
 -- write("base.class", "Class.yml", "OpenNefia.Content.Prototypes.ClassPrototype")

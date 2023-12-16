@@ -1,0 +1,52 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ザナンの皇子『サイモア』
+      portraitID: Elona.Saimore
+    '2':
+      name: 青い髪の『ヴァリウス』
+      portraitID: Elona.Barius
+    '3':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '4':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '5':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+- !type:ScenePlayMusicNode
+  id: Elona.Lonely
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg7
+- !type:SceneDialogNode
+  dialog:
+  - actor: '5'
+    text: カルーンの国境はすぐ目の先だ。順調に進めば、ヴィンデールまで三日もかかるまい。
+  - actor: '4'
+    text: 森へ帰り、その後はどうするつもりだ？我々の力では、ザナンの侵攻を止めることはおろか、遅らせることさえ難しい。
+  - actor: '5'
+    text: 森の民に警告を伝える。彼らは脅威の影が忍び寄っていることにさえ、まだ気付いていないかもしれない。その後は、私にもわからない。故郷を奪われるのは辛い。だが、ある部分では、好きにさせればいいとも思っている。それが後に、森を滅ぼそうとしている者と傍観者に、絶望と後悔の念をもたらすことになるのならばな。ただ、ラーネイレ…お前はそうは思っていないのだろう？
+  - actor: '3'
+    text: あなたの気持ちはわかるわ。でも、私は最後の瞬間まで自分の意思で行動したい。森を守るために、できる限りのことをしたい。それが例え失敗に終わっても、後に希望の芽を残せるのなら。
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg5
+- !type:ScenePlayMusicNode
+  id: Elona.Soraochi
+- !type:SceneFadeInNode {}
+- !type:SceneTextNode
+  text:
+  - |
+    - ザナン王室 -
+- !type:SceneDialogNode
+  dialog:
+  - actor: '1'
+    text: 自らの故郷を滅ぼす気分はどうだ、ヴァリウス？エウダーナはカルーンに常駐し、いつでも動ける状態だ。あとはただ、私の命令を待つのみだよ。
+  - actor: '2'
+    text: …イェルスが参加を拒否したことは誤算です。この戦は、皆が共謀者になることに意味があるのに。しかし、侵攻に支障はないでしょう。ヴィンデールには、そもそも戦の用意などないのですから。
+  - actor: '1'
+    text: 森が消えた後のことは、お前に任せる。私は姿を隠すが、この顔だ、長くは逃げ切れないだろう。それでもいい。イルヴァに傷跡を残しさえすれば、私は満足だ。
+...

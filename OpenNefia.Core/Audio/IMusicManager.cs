@@ -6,6 +6,7 @@ namespace OpenNefia.Core.Audio
     public interface IMusicManager
     {
         public bool IsPlaying { get; }
+        public PrototypeId<MusicPrototype>? PlayingMusicID { get; }
 
         public void Initialize();
         public void Shutdown();

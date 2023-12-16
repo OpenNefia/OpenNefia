@@ -1,0 +1,35 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: ダルフィの霧『セビリス』
+      portraitID: Elona.Sevilis
+    '2':
+      name: 風を聴く者『ラーネイレ』
+      portraitID: Elona.Larnneire
+    '3':
+      name: 異形の森の使者『ロミアス』
+      portraitID: Elona.Lomias
+    '4':
+      name: 白き鷹『ヴェセル』
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Boss2
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg11
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: …あれは！森から火の手が上がっている。ザナンはもう侵攻を開始したのか。
+  - actor: '2'
+    text: ロミアス、急いで、森へ！逃げ遅れている者や、留まっている者を森から避難させて。
+  - actor: '3'
+    text: わかった。ラーネイレ、お前は？
+  - actor: '2'
+    text: 私はサイモアの元に行く。ここまできたら、説得なんて無意味かも知れない。それでも、森の外に避難したエレアのために交渉を…せめて時間だけでも稼いでみせるわ。
+  - actor: '1'
+    text: 私達もラーネイレに付き添おう。森が生きている限り、人間は中に入れない。
+  - actor: '4'
+    text: 心配するな、ラーネイレ。サイモアの元に辿りつくまで、ザナンの兵には指一本触れさせない。
+...

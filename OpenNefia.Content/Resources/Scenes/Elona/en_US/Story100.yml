@@ -1,0 +1,112 @@
+---
+nodes:
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg12
+- !type:ScenePlayMusicNode
+  id: Elona.Epilogue
+- !type:SceneTextNode
+  text:
+  - |
+    -Epilogue-
+
+    <At the end of every adventure lies a new journey.>
+  - |
+    The Vindale Forest was lost.
+
+    Though the people who heard the
+    news praised the Prince of Zanan,
+    the world gradually began to change.
+  - |
+    Unknown illnesses began to spread,
+    crops withered, and dry winds raged.
+
+    By the time people began to notice these
+    strange occurrences, Barius of Zanan had a
+    female Elea, a survivor of the war, standing
+    witness before the Imperial Court.
+  - |
+    The woman told the world the truth.
+
+    The Vindale Forest, which people had
+    referred to as the Heretical Forest, had
+    been suppressing the power of the Meshera.
+
+    And with the destruction of the
+    Forest, Ylva would soon change to
+    become uninhabitable by all peoples.
+  - |
+    The people of Ylva were taken aback by this testimony.
+
+    Some were heartbroken, others
+    filled with regret, and as always,
+    others cared not at all.
+
+    Dark times had come to Sierra Terre.
+  - |
+    But not all hope was lost.
+
+    It was as Barius said. Another Heretical Forest
+    was left in Ylva. Strangely, it was something
+    that Saimore had created for research when
+    still the Second Prince of Zanan.
+  - |
+    The country of Zanan which had led the attack on Vindale split,
+    and the community of Rosuria, ruled by Barius, was born.
+
+    Rosuria would cultivate the Forest, promote
+    peace, and without regard for borders allow
+    people to visit the Forest and be cured of
+    their disease.
+  - |
+    The promised land of Rosuria was expected
+    to become the utopia of Ylva.
+  - |
+    -Three Years Later-
+  - |
+    You have wandered from country to country, and
+    like the first time you visited North Tyris, have
+    slipped upon a merchant ship headed for Port Kapul.
+  - |
+    Three years have brought many changes.
+
+    The scars left on Ylva are deep. Although
+    the sadness may never be overcome, over
+    time, the towns regained their bustle
+    and the people have forgotten the nightmare,
+    or at least behave as if they have.
+  - |
+    Rosuria has become corrupted.
+
+    With the salvation they offered, Rosura attracted
+    great wealth as well as the interest of many countries
+    like the Yerles, and Rosuria was left at their mercy.
+
+    Even with the world headed towards destruction,
+    Ylva could not be united under Rosuria. With
+    each country plotting and planning, new dark
+    clouds of dispute have begun to cover Ylva.
+  - |
+    And now, your journey into the shadow of
+    confusion covering Ylva is about to begin.
+  - |
+    You spent a great deal of time deciphering the
+    writing of truth discovered in Lesimas, and
+    discovered that between the era of Rehm-Ido
+    and the previous civilization an unknown era
+    known as Naku Domara existed.
+
+    It was in this time that Chaos and magic were brought
+    to Ylva, as well as the time that holds the keys to
+    the mysterious civilization of Nefia.
+  - |
+    As you land in Port Kapul, the nostalgic cool
+    winds of North Tyris brush against your face.
+    You take a step forward.
+  - |
+    In your future, a wondrous yet difficult
+    adventure concerning the Eternal League
+    of Nefia awaits.
+  - |
+    Eternal League of Nefia
+    <<Part 1 END>>
+...

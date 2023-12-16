@@ -96,6 +96,9 @@ namespace OpenNefia.Core
         public static readonly CVarDef<bool> AudioPositionalAudio =
             CVarDef.Create("audio.positionalaudio", true, CVar.Archive);
 
+        public static readonly CVarDef<bool> AudioMuteInBackground =
+            CVarDef.Create("audio.muteInBackground", true, CVar.Archive);
+
         /*
          * Language
          */

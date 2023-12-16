@@ -1,0 +1,97 @@
+---
+nodes:
+- !type:SceneSetActorsNode
+  actors:
+    '1':
+      name: <Larnneire> The Listener of the Wind
+      portraitID: Elona.Larnneire
+    '2':
+      name: <Lomias> The Messenger From Vindale
+      portraitID: Elona.Lomias
+    '3':
+      name: ????
+      portraitID: Elona.Liana
+    '4':
+      name: <Bethel> The White Hawk
+      portraitID: Elona.Bethel
+- !type:ScenePlayMusicNode
+  id: Elona.Psml515
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg2
+- !type:SceneTextNode
+  text:
+  - |
+    Meanwhile, at the bar in Palmia.
+- !type:SceneDialogNode
+  dialog:
+  - actor: '2'
+    text: We're looking for a woman named Liana. Do you know of her?
+  - actor: '3'
+    text: '...And what business do you have with her?'
+  - actor: '2'
+    text: We've been told that she'll fulfill any request, so long as the price is
+      right. While I don't feel as if we need one, we were instructed to seek out
+      Liana by the King so that we may hire a guard.
+  - actor: '3'
+    text: Any request for a price, is it? ...Fufu. Well, I certainly know someone
+      who is skilled enough to help you, regardless of what danger it is you find
+      yourself in. But for that man, it comes down to whether he feels like it or
+      not, not a price. Yes, I am Liana. Both of you, come with me.
+- !type:SceneFadeOutNode {}
+- !type:SceneChangeBackgroundNode
+  id: Elona.Bg8
+- !type:SceneFadeInNode {}
+- !type:SceneSetActorsNode
+  actors:
+    '3':
+      name: <Liana> The Girl of Fancies
+      portraitID: Elona.Liana
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: Bethel, I've finally got some work for you... *cough* *cough*
+- !type:SceneWaitNode {}
+- !type:SceneDialogNode
+  dialog:
+  - actor: '3'
+    text: You barely eat, and yet here you are inhaling crimberry smoke. My precious
+      Bethel... Come now, stand up. You need to greet the clients.
+  - actor: '2'
+    text: Oh, wonderful. The sword master we're supposed to rely on for protection
+      is a drug addled mess. Larnneire, this is pointless. Regardless of what skill
+      this man may have had, we don't have time for him to sober up.
+  - actor: '3'
+    text: Now now... there's no need to be in such a rush. Don't mind them, Bethel.
+      These people don't know the terrible things that you've been through. When I
+      first saw your haunted eyes, I knew. This man has known unimaginable suffering.
+      He's a pitiful man that can't let go of his past. But as long as he sticks with
+      me, I'm sure I'll be able to help him overcome that. But you know, Bethel...
+      If you don't work, you can't eat!
+  - actor: '4'
+    text: Starving to death with you wouldn't be a bad way to go.
+  - actor: '3'
+    text: Oh Bethel, you flatterer!!
+  - actor: '4'
+    text: Fufu. Liana, I don't plan on taking you with me to the next world. Now,
+      the request...
+  - actor: '4'
+    text: '...Elishe...?'
+  - actor: '1'
+    text: Elishe?
+  - actor: '4'
+    text: No, never mind. Tell me about your request.
+  - actor: '2'
+    text: There'll be no need for that. Let us just consider the order to hire a drug
+      addled bodyguard a poor Palmian joke. I don't recall there being anyone out
+      to get us anyway.
+  - actor: '4'
+    text: '...The drugs may have dulled my senses, but I''m still easily capable of
+      guarding you. And given the number of presences I can sense surrounding the
+      place, I think you''ll find you need someone of my caliber.'
+  - actor: '1'
+    text: This place is surrounded? Are they aiming for us?
+  - actor: '4'
+    text: We don't have time to stop and ask questions. Don't lose sight of me. We're
+      going to leave the city through the alleyways.
+- !type:SceneFadeOutNode {}
+...
