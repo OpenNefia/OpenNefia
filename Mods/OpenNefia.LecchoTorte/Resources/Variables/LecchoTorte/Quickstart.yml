@@ -6,6 +6,7 @@ Elona:
 
 LecchoTorte:
   QuickstartPlayer:
+    level: 50
     skills:
       Elona.AttrStrength: 2000
       Elona.AttrConstitution: 2000
@@ -61,6 +62,10 @@ LecchoTorte:
 
   QuickstartAllies:
     - id: Elona.CharaGoldenKnight
+      level: 50
     - id: Elona.CharaRogueWarrior
+      level: 50
     - id: Elona.CharaRogueWizard
+      level: 50
     - id: Elona.CharaRogueArcher
+      level: 50

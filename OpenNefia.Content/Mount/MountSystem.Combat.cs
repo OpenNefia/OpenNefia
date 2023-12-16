@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Mount
             var mountSTR = _skills.Level(mount, Protos.Skill.AttrStrength);
             var riderRiding = _skills.Level(rider.Owner, Protos.Skill.Riding);
 
-            args.OutSpeed = int.Clamp(mountSTR + riderRiding, 10, mountSPD);
+            args.OutSpeed = int.Clamp(mountSTR + riderRiding, 10, Math.Max(10, mountSPD));
             // <<<<<<<< elona122/shade2/chara_func.hsp:215 		if gRider=c:cSpeed(c)=limit(sSTR(c)+sRiding(pc), ...
         }
 

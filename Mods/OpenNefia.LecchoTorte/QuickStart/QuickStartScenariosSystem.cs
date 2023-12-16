@@ -37,6 +37,8 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.World;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Levels;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -60,6 +62,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
         [Dependency] private readonly IAreaManager _areas = default!;
         [Dependency] private readonly IWeatherSystem _weathers = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
 
         [EngineVariable("LecchoTorte.QuickstartPlayer")]
         private QuickstartChara _quickstartPlayer { get; } = new();
@@ -72,6 +75,12 @@ namespace OpenNefia.LecchoTorte.QuickStart
             _entityFactory.UpdateEntityComponents(chara, data.Components);
 
             GenerateQuickstartItems(chara, data);
+
+            var level = _levels.GetLevel(chara);
+            for (var i = level; i < data.Level; i++)
+            {
+                _levels.GainLevel(chara, showMessage: false);
+            }
 
             var skills = EnsureComp<SkillsComponent>(chara);
 
@@ -123,7 +132,11 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             foreach (var allyDef in _quickstartAllies)
             {
-                var ally = _charaGen.GenerateChara(coords, allyDef.ID);
+                var args = new EntityGenCommonArgs()
+                {
+                    LevelOverride = allyDef.Level
+                };
+                var ally = _charaGen.GenerateChara(coords, allyDef.ID, args: EntityGenArgSet.Make(args));
                 if (ally != null)
                 {
                     _parties.RecruitAsAlly(player, ally.Value);

@@ -84,37 +84,40 @@ namespace OpenNefia.Content.Skills
                 if (proto.InitialLevel != null)
                 {
                     var currentLevel = BaseLevel(uid, proto, component);
+                    var currentPotential = Potential(uid, proto, component);
                     var entityLevel = _levels.GetLevel(uid);
-                    var initial = CalcInitialSkillLevelAndPotential(uid, proto, proto.InitialLevel.Value, currentLevel, entityLevel);
+                    var initial = CalcInitialSkillLevelAndPotential(uid, proto, proto.InitialLevel.Value, currentLevel, entityLevel, currentPotential);
                     component.Skills[proto.GetStrongID()] = initial;
                 }
             }
         }
 
-        private LevelAndPotential CalcInitialSkillLevelAndPotential(EntityUid uid, SkillPrototype proto, int initialLevel, int currentLevel, int entityLevel)
+        public LevelAndPotential CalcInitialSkillLevelAndPotential(EntityUid uid, SkillPrototype proto, int initialLevel, int currentLevel, int entityLevel, int currentPotential)
         {
-            var potential = CalcInitialPotential(proto, initialLevel, currentLevel != 0);
-            var ev1 = new P_SkillCalcInitialPotentialEvent(uid, initialLevel, potential);
+            // >>>>>>>> elona122/shade2/calculation.hsp:941 #deffunc skillInit int sid,int c,int a ...
+            var addedPotential = CalcInitialPotential(proto, initialLevel, currentLevel != 0);
+            var ev1 = new P_SkillCalcInitialPotentialEvent(uid, initialLevel, addedPotential);
             _protos.EventBus.RaiseEvent(proto, ev1);
-            potential = ev1.OutInitialPotential;
+            addedPotential = ev1.OutInitialPotential;
 
-            var level = ((int)Math.Pow(potential, 2) * entityLevel / 45000 + initialLevel + entityLevel / 3);
-            var ev2 = new P_SkillCalcInitialLevelEvent(uid, level);
+            var addedLevel = (addedPotential * addedPotential * entityLevel) / 45000 + initialLevel + (entityLevel / 3);
+            var ev2 = new P_SkillCalcInitialLevelEvent(uid, addedLevel);
             _protos.EventBus.RaiseEvent(proto, ev2);
-            level = ev2.OutInitialLevel;
+            addedLevel = ev2.OutInitialLevel;
 
-            potential = CalcDecayedInitialPotential(potential, entityLevel);
+            addedPotential = CalcDecayedInitialPotential(addedPotential, entityLevel);
 
             // For life/mana/luck/speed
-            var ev3 = new P_SkillCalcFinalInitialLevelAndPotentialEvent(uid, level, potential);
+            var ev3 = new P_SkillCalcFinalInitialLevelAndPotentialEvent(uid, addedLevel, addedPotential);
             _protos.EventBus.RaiseEvent(proto, ev3);
-            level = ev3.OutInitialLevel;
-            potential = ev3.OutInitialPotential;
+            addedLevel = ev3.OutInitialLevel;
+            addedPotential = ev3.OutInitialPotential;
 
-            level = Math.Clamp(level, 0, MaxSkillLevel);
-            potential = Math.Clamp(potential, 1, MaxSkillPotential);
+            int finalLevel = Math.Clamp(addedLevel + currentLevel, 0, MaxSkillLevel);
+            int finalPotential = Math.Clamp(addedPotential + currentPotential, 1, MaxSkillPotential);
 
-            return new LevelAndPotential(level, potential);
+            return new LevelAndPotential(finalLevel, finalPotential);
+            // <<<<<<<< elona122/shade2/calculation.hsp:957 	return ...
         }
 
         private int CalcDecayedInitialPotential(int potential, int entityLevel)
@@ -129,9 +132,9 @@ namespace OpenNefia.Content.Skills
 
         private int CalcInitialPotential(SkillPrototype proto, int initialLevel, bool alreadyKnowsSkill)
         {
-            // >>>>>>>> shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            // >>>>>>>> elona122/shade2/calculation.hsp:943 	if sid >= headWeaponSkill{ ...
             if (proto.SkillType == SkillType.Attribute)
-                return Math.Min(initialLevel * 20, 400);
+                return Math.Clamp(initialLevel * 20, 0, 400);
 
             var potential = initialLevel * 5;
 
@@ -141,7 +144,7 @@ namespace OpenNefia.Content.Skills
                 potential += 100;
 
             return potential;
-            // <<<<<<<< shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            // <<<<<<<< elona122/shade2/calculation.hsp:949 		} ...
         }
 
         private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
