@@ -26,6 +26,9 @@ using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Mount
 {
+    /// <summary>
+    /// Implements the riding mechanic.
+    /// </summary>
     public interface IMountSystem : IEntitySystem
     {
         bool IsMounting(EntityUid uid, MountRiderComponent? mountRider = null);
@@ -255,9 +258,16 @@ namespace OpenNefia.Content.Mount
             if (!Resolve(rider, ref mountRiderComp) || !Resolve(mount, ref mountComp))
                 return false;
 
-            if (!_parties.IsPartyLeaderOf(rider, mount))
+            if (!_parties.AreInSameParty(rider, mount))
             {
-                _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.CanOnlyRideAlly", ("rider", rider), ("mount", mount)));
+                if (_gameSession.IsPlayer(rider))
+                    _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.CanOnlyRideAlly", ("rider", rider), ("mount", mount)));
+                return false;
+            }
+
+            if (_gameSession.IsPlayer(mount))
+            {
+                // The player should never be ridden
                 return false;
             }
 
@@ -303,6 +313,8 @@ namespace OpenNefia.Content.Mount
             _turnOrder.RefreshSpeed(mount);
 
             var mountNewSpeed = turnOrder?.CurrentSpeed ?? 0;
+
+            Spatial(mount).Coordinates = Spatial(rider).Coordinates;
 
             _mes.Display(Loc.GetString("Elona.Mount.Start.YouRide",
                 ("rider", rider),

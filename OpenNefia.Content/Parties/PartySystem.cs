@@ -192,6 +192,8 @@ namespace OpenNefia.Content.Parties
         /// </summary>
         bool IsDirectAllyOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null);
 
+        bool AreInSameParty(EntityUid a, EntityUid b, PartyComponent? compA = null, PartyComponent? compB = null);
+
         EntityUid? GetLeaderOrNull(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
@@ -439,6 +441,25 @@ namespace OpenNefia.Content.Parties
             Parties.RemoveMember(party.PartyID.Value, ally);
             party.PartyID = null;
             return true;
+        }
+
+        public bool AreInSameParty(EntityUid a, EntityUid b, PartyComponent? compA = null, PartyComponent? compB = null)
+        {
+            var hasA = Resolve(a, ref compA, logMissing: false);
+            var hasB = Resolve(b, ref compB, logMissing: false);
+
+            if (!hasA && !hasB)
+            {
+                return true;
+            }
+            else if (hasA && hasB)
+            {
+                return compA!.PartyID == compB!.PartyID;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

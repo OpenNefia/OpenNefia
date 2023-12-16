@@ -65,6 +65,7 @@ namespace OpenNefia.Content.Stayers
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         [RegisterSaveData("Elona.StayerSystem.StayersEntity")]
         private EntityUid _stayersEntity { get; set; } = EntityUid.Invalid;
@@ -152,6 +153,13 @@ namespace OpenNefia.Content.Stayers
         {
             if (!Resolve(ent, ref staying, logMissing: false))
                 staying = EnsureComp<StayingComponent>(ent);
+
+            // TODO event?
+            if (_mounts.IsBeingMounted(ent) || _mounts.IsMounting(ent))
+            {
+                Logger.WarningS("stayers", $"Cannot register stayer {ent} because it is being mounted or mounting");
+                return;
+            }
 
             string areaName = GetAreaName(map);
 
