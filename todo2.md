@@ -8,7 +8,7 @@
 - [x] town quests
 - [x] PCCs & ring light
 - [x] journal
-- [ ] scene playback
+- [x] scene playback
 - [x] intro/first pet event
 - [ ] riding
 - [ ] magic/buffs/effects

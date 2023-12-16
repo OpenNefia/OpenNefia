@@ -110,9 +110,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            var target = _lookup.GetBlockingEntity(dir.Value.Coords);
-
-            if (target == null)
+            if (!_lookup.TryGetBlockingEntity(dir.Value.Coords, out var target))
             {
                 _mes.Display(Loc.GetString("Elona.Targeting.NoTargetInDirection"));
                 return TurnResult.Aborted;

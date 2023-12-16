@@ -210,9 +210,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private bool ShouldDrawLine()
         {
-            var targetSpatial = _lookup.GetBlockingEntity(_targetPos);
-
-            if (targetSpatial == null || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
+            if (!_lookup.TryGetBlockingEntity(_targetPos, out var targetSpatial) || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
                 || !_map.HasLineOfSight(targetSpatial.WorldPosition, _originPos.Position))
             {
                 return false;

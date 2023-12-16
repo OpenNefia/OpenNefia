@@ -235,7 +235,7 @@ namespace OpenNefia.Content.Nefia
                 else
                     coords2 = coords.Value;
 
-                if (map.IsFloor(coords2.Position) && _lookup.GetBlockingEntity(coords2) == null)
+                if (map.IsFloor(coords2.Position) && !_lookup.TryGetBlockingEntity(coords2, out _))
                 {
                     // TODO
                     _entityGen.SpawnEntity(Protos.MObj.Mine, coords2);
@@ -255,7 +255,7 @@ namespace OpenNefia.Content.Nefia
                 else
                     coords2 = coords.Value;
 
-                if (map.IsFloor(coords2.Position) && _lookup.GetBlockingEntity(coords2) == null)
+                if (map.IsFloor(coords2.Position) && !_lookup.TryGetBlockingEntity(coords2, out _))
                 {
                     var entity = _entityGen.SpawnEntity(Protos.Mef.Web, coords2);
                     if (entity != null && EntityManager.TryGetComponent<WebComponent>(entity.Value, out var web))

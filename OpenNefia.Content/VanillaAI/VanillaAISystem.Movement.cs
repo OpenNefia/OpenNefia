@@ -179,8 +179,7 @@ namespace OpenNefia.Content.VanillaAI
             var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var newCoords = spatial.MapPosition.Offset(direction);
 
-            var onCellSpatial = _lookup.GetBlockingEntity(newCoords);
-            if (onCellSpatial != null)
+            if (_lookup.TryGetBlockingEntity(newCoords, out var onCellSpatial))
             {
                 var onCell = onCellSpatial.Owner;
 
@@ -422,9 +421,7 @@ namespace OpenNefia.Content.VanillaAI
                     return (coords, blocked);
                 }
 
-                var onCellSpatial = _lookup.GetBlockingEntity(coords);
-
-                if (onCellSpatial != null)
+                if (_lookup.TryGetBlockingEntity(coords, out var onCellSpatial))
                 {
                     if (_factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                     {

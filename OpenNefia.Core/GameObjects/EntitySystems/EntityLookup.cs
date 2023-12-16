@@ -70,7 +70,7 @@ namespace OpenNefia.Core.GameObjects
         /// It's necessary to keep track of the non-primary characters on the same tile because they are 
         /// still affected by things like area of effect magic.
         /// </summary>
-        SpatialComponent? GetBlockingEntity(MapCoordinates coords);
+        bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
 
         IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
 
@@ -286,15 +286,19 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public SpatialComponent? GetBlockingEntity(MapCoordinates coords)
+        public bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial)
         {
-            foreach (var spatial in GetLiveEntitiesAtCoords(coords))
+            foreach (var entSpatial in GetLiveEntitiesAtCoords(coords))
             {
-                if (spatial.IsSolid)
-                    return spatial;
+                if (entSpatial.IsSolid)
+                {
+                    spatial = entSpatial;
+                    return true;
+                }
             }
 
-            return null;
+            spatial = null;
+            return false;
         }
         
         /// <inheritdoc/>

@@ -261,9 +261,8 @@ namespace OpenNefia.Content.VanillaAI
 
                         if (x >= 0 && x < map.Width)
                         {
-                            var onCellSpatial = _lookup.GetBlockingEntity(map.AtPos(x, y));
 
-                            if (onCellSpatial != null && entity != onCellSpatial.Owner)
+                            if (_lookup.TryGetBlockingEntity(map.AtPos(x, y), out var onCellSpatial) && entity != onCellSpatial.Owner)
                             {
                                 if (!EntityManager.HasComponent<AINoTargetComponent>(onCellSpatial.Owner)
                                     && _factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
