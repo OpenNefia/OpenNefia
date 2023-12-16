@@ -11,6 +11,7 @@ using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Targetable;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -45,6 +46,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly ITargetableSystem _targetable = default!;
 
         public override void Initialize()
         {
@@ -110,7 +112,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            if (!_lookup.TryGetBlockingEntity(dir.Value.Coords, out var target))
+            if (!_targetable.TryGetBlockingEntity(dir.Value.Coords, out var target))
             {
                 _mes.Display(Loc.GetString("Elona.Targeting.NoTargetInDirection"));
                 return TurnResult.Aborted;

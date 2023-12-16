@@ -22,6 +22,7 @@ using OpenNefia.Content.Book;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Targetable;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly ITargetableSystem _targetable = default!;
 
         public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai,
             int maxDistance = 2,
@@ -179,7 +181,7 @@ namespace OpenNefia.Content.VanillaAI
             var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var newCoords = spatial.MapPosition.Offset(direction);
 
-            if (_lookup.TryGetBlockingEntity(newCoords, out var onCellSpatial))
+            if (_targetable.TryGetBlockingEntity(newCoords, out var onCellSpatial))
             {
                 var onCell = onCellSpatial.Owner;
 
@@ -421,7 +423,7 @@ namespace OpenNefia.Content.VanillaAI
                     return (coords, blocked);
                 }
 
-                if (_lookup.TryGetBlockingEntity(coords, out var onCellSpatial))
+                if (_targetable.TryGetBlockingEntity(coords, out var onCellSpatial))
                 {
                     if (_factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                     {

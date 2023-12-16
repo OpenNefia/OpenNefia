@@ -56,22 +56,6 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="includeParent">If true, include the parent entity as the last in the enumerable.</param>
         IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false);
 
-        /// <summary>
-        /// Gets the primary character on this tile.
-        /// 
-        /// In Elona, traditionally only one character is allowed on each tile. However, extra features
-        /// such as the Riding mechanic or the Tag Teams mechanic added in Elona+ allow multiple characters to
-        /// occupy the same tile.
-        /// 
-        /// This function retrieves the "primary" character used for things like
-        /// damage calculation, spell effects, and so on, which should exclude the riding mount, tag team
-        /// partner, etc.
-        /// 
-        /// It's necessary to keep track of the non-primary characters on the same tile because they are 
-        /// still affected by things like area of effect magic.
-        /// </summary>
-        bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
-
         IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
 
         /// <summary>
@@ -283,22 +267,6 @@ namespace OpenNefia.Core.GameObjects
         public IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false)
         {
             return GetLiveEntitiesAtCoords(coords.ToMap(EntityManager), includeParent);
-        }
-
-        /// <inheritdoc />
-        public bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial)
-        {
-            foreach (var entSpatial in GetLiveEntitiesAtCoords(coords))
-            {
-                if (entSpatial.IsSolid)
-                {
-                    spatial = entSpatial;
-                    return true;
-                }
-            }
-
-            spatial = null;
-            return false;
         }
         
         /// <inheritdoc/>
