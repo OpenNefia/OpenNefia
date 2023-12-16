@@ -27,9 +27,11 @@ namespace OpenNefia.Content.VanillaAI
             var target = ai.CurrentTarget.Value;
             if (_parties.TryGetLeader(target, out var leader))
             {
-                target = leader.Value;
-                if (TryComp<VanillaAIComponent>(leader.Value, out var leaderAI))
-                    leaderAI.LastAttacker = entity;
+                if (target == leader.Value)
+                {
+                    if (TryComp<VanillaAIComponent>(leader.Value, out var leaderAI))
+                        leaderAI.LastAttacker = entity;
+                }
             }
 
             // TODO
