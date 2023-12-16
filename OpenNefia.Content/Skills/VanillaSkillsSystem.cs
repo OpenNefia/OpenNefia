@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Skills
 {
@@ -19,6 +20,27 @@ namespace OpenNefia.Content.Skills
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+
+        public void ForceInitialLevelAnd100Potential(SkillPrototype proto, ref P_SkillCalcFinalInitialLevelAndPotentialEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ...
+            ev.OutInitialLevel = ev.BaseLevel;
+            ev.OutInitialPotential = 100;
+            // <<<<<<<< elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ...
+        }
+
+        #region Elona.AttrSpeed
+
+        public void AttrSpeed_CalcInitialLevel(SkillPrototype proto, ref P_SkillCalcInitialLevelEvent ev)
+        {
+            // >>>>>>>> shade2/calculation.hsp:954 	if sId=rsSPD : p(1)=a*(100+cLevel(c)*2)/100 : els ..
+            var charaLevel = _levels.GetLevel(ev.Entity);
+            ev.OutInitialLevel = ev.BaseLevel * (100 + charaLevel * 2) / 100;
+            // <<<<<<<< shade2/calculation.hsp:954 	if sId=rsSPD : p(1)=a*(100+cLevel(c)*2)/100 : els ..
+        }
+
+        #endregion
 
         #region Elona.MartialArts
 

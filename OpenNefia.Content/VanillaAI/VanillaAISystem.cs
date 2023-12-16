@@ -534,7 +534,7 @@ namespace OpenNefia.Content.VanillaAI
 
         public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null)
         {
-            if (!Resolve(entity, ref ai))
+            if (!Resolve(entity, ref ai, logMissing: false))
                 return;
 
             SetTarget(entity, null, ai: ai);

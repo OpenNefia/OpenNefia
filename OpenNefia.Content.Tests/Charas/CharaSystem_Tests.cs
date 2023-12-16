@@ -151,7 +151,11 @@ namespace OpenNefia.Content.Tests.Charas
 
             var map = sim.CreateMapAndSetActive(10, 10);
 
-            var ent = charaGen.GenerateChara(map.AtPos(Vector2i.One), Protos.Chara.Putit);
+            var args = new EntityGenCommonArgs()
+            {
+                NoRandomModify = true
+            };
+            var ent = charaGen.GenerateChara(map.AtPos(Vector2i.One), Protos.Chara.Putit, args: EntityGenArgSet.Make(args));
             Assert.That(entMan.IsAlive(ent), Is.True);
 
             Assert.Multiple(() =>
@@ -166,24 +170,25 @@ namespace OpenNefia.Content.Tests.Charas
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(14), "Charisma");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrSpeed), Is.EqualTo(56), "Speed");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(50), "Luck");
+                Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(80), "Life");
+                Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana");
 
-                Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(80), "Strength Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(100), "Constitution Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrDexterity), Is.EqualTo(140), "Dexterity Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLearning), Is.EqualTo(100), "Learning Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrWill), Is.EqualTo(120), "Will Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrPerception), Is.EqualTo(160), "Perception Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMagic), Is.EqualTo(80), "Magic Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(260), "Charisma Potential");
+                Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(81), "Strength Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(101), "Constitution Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrDexterity), Is.EqualTo(141), "Dexterity Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLearning), Is.EqualTo(121), "Learning Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrWill), Is.EqualTo(161), "Will Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrPerception), Is.EqualTo(101), "Perception Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMagic), Is.EqualTo(81), "Magic Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(261), "Charisma Potential");
                 Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrSpeed), Is.EqualTo(400), "Speed Potential");
                 Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(100), "Luck Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(100), "Life Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana Potential");
             });
 
-            var args = new EntityGenCommonArgs()
-            {
-                LevelOverride = 100
-            };
-            ent = charaGen.GenerateChara(map.AtPos(Vector2i.One), Protos.Chara.Putit);
+            args.LevelOverride = 100;
+            ent = charaGen.GenerateChara(map.AtPos(Vector2i.One), Protos.Chara.Putit, args: EntityGenArgSet.Make(args));
             Assert.That(entMan.IsAlive(ent), Is.True);
 
             Assert.Multiple(() =>
@@ -198,17 +203,21 @@ namespace OpenNefia.Content.Tests.Charas
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(229), "Charisma");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrSpeed), Is.EqualTo(165), "Speed");
                 Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(50), "Luck");
+                Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(80), "Life");
+                Assert.That(skills.BaseLevel(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana");
 
-                Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(1), "Strength Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(1), "Constitution Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrDexterity), Is.EqualTo(1), "Dexterity Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLearning), Is.EqualTo(1), "Learning Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrWill), Is.EqualTo(1), "Will Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrPerception), Is.EqualTo(1), "Perception Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMagic), Is.EqualTo(1), "Magic Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(1), "Charisma Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrSpeed), Is.EqualTo(1), "Speed Potential");
-                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(1), "Luck Potential");
+                Assert.That(skills.Potential(ent!.Value, Protos.Skill.AttrStrength), Is.EqualTo(2), "Strength Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrConstitution), Is.EqualTo(2), "Constitution Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrDexterity), Is.EqualTo(2), "Dexterity Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLearning), Is.EqualTo(2), "Learning Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrWill), Is.EqualTo(2), "Will Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrPerception), Is.EqualTo(2), "Perception Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMagic), Is.EqualTo(2), "Magic Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrCharisma), Is.EqualTo(2), "Charisma Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrSpeed), Is.EqualTo(2), "Speed Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLuck), Is.EqualTo(100), "Luck Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrLife), Is.EqualTo(100), "Life Potential");
+                Assert.That(skills.Potential(ent.Value, Protos.Skill.AttrMana), Is.EqualTo(100), "Mana Potential");
             });
         }
 
