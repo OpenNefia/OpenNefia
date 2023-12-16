@@ -24,6 +24,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using OpenNefia.Content.DisplayName;
 using static NetVips.Enums;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Stayers
 {
@@ -63,6 +64,7 @@ namespace OpenNefia.Content.Stayers
         [Dependency] private readonly IMapPlacement _mapPlacement = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         [RegisterSaveData("Elona.StayerSystem.StayersEntity")]
         private EntityUid _stayersEntity { get; set; } = EntityUid.Invalid;
@@ -74,7 +76,36 @@ namespace OpenNefia.Content.Stayers
 
             SubscribeBroadcast<BeforeMapLeaveEventArgs>(TransferFromMapToStayers);
             SubscribeBroadcast<AfterMapEnterEventArgs>(TransferFromStayersToMap);
+
+            SubscribeComponent<StayingComponent, BeforeEntityMountedOntoEvent>(Staying_BlockRiding);
+            SubscribeComponent<StayingComponent, BeforeEntityStartsRidingEvent>(Staying_BlockRiding);
         }
+
+        // >>>>>>>> elona122/shade2/proc.hsp:2245 	if cArea(tc)!0{ ...
+        private void Staying_BlockRiding(EntityUid uid, StayingComponent component, BeforeEntityMountedOntoEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            if (component.StayingLocation != null)
+            {
+                _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.IsStayer", ("rider", args.Rider), ("mount", uid)));
+                args.Cancel();
+            }
+        }
+
+        private void Staying_BlockRiding(EntityUid uid, StayingComponent component, BeforeEntityStartsRidingEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            if (component.StayingLocation != null)
+            {
+                _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.IsStayer", ("rider", uid), ("mount", args.Mount)));
+                args.Cancel();
+            }
+        }
+        // <<<<<<<< elona122/shade2/proc.hsp:2248 		} ...
 
         public bool IsStaying(EntityUid ent, string? tag = null, StayingComponent? staying = null)
         {

@@ -13,6 +13,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Hud
 {
@@ -61,7 +62,7 @@ namespace OpenNefia.Content.Hud
     {
         [Dependency] private readonly IEntityManager _entMan = default!;
 
-        protected override string BarText { get; set; } = default!;
+        protected override string BarText { get; set; } = string.Empty;
         protected override IAssetInstance BarAsset { get; set; } = default!;
         protected override float BarRatio { get; set; }
 
@@ -72,6 +73,7 @@ namespace OpenNefia.Content.Hud
 
         public override void RefreshWidget()
         {
+            // >>>>>>>> elona122/shade2/screen.hsp:149 	if cHP(pc)>0{ ...
             base.RefreshWidget();
             if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
@@ -79,6 +81,45 @@ namespace OpenNefia.Content.Hud
                 BarRatio = (float)skills.HP / skills.MaxHP;
             }
             RefreshBarState();
+            // <<<<<<<< elona122/shade2/screen.hsp:152 		} ...
+        }
+    }
+
+    public sealed class HudMountHPBarWidget : HudBarBaseWidget
+    {
+        [Dependency] private readonly IEntityManager _entMan = default!;
+
+        protected override string BarText { get; set; } = string.Empty;
+        protected override IAssetInstance BarAsset { get; set; } = default!;
+        protected override float BarRatio { get; set; }
+
+        public HudMountHPBarWidget()
+        {
+            BarAsset = Assets.Get(Protos.Asset.HudHpBar);
+        }
+
+        public override void RefreshWidget()
+        {
+            // >>>>>>>> elona122/shade2/screen.hsp:159 	if gRider!0 : if cExist(gRider)=cAlive{ ...
+            base.RefreshWidget();
+
+            if (!_entMan.TryGetComponent<MountRiderComponent>(GameSession.Player, out var rider)
+                || !_entMan.IsAlive(rider.Mount))
+            {
+                Visible = false;
+                RefreshBarState();
+                return;
+            }
+
+            Visible = true;
+
+            if (_entMan.TryGetComponent<SkillsComponent>(rider.Mount.Value, out var skills))
+            {
+                BarText = $"{skills.HP}({skills.MaxHP})";
+                BarRatio = (float)skills.HP / skills.MaxHP;
+            }
+            RefreshBarState();
+            // <<<<<<<< elona122/shade2/screen.hsp:163 		} ...
         }
     }
 
@@ -97,6 +138,7 @@ namespace OpenNefia.Content.Hud
 
         public override void RefreshWidget()
         {
+            // >>>>>>>> elona122/shade2/screen.hsp:155 	if cMP(pc)>0{ ...
             base.RefreshWidget();
             if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
@@ -104,6 +146,7 @@ namespace OpenNefia.Content.Hud
                 BarRatio = (float)skills.MP / skills.MaxMP;
             }
             RefreshBarState();
+            // <<<<<<<< elona122/shade2/screen.hsp:158 		} ...
         }
     }
 }

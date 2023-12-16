@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Targetable
         public bool IsTargetable(EntityUid uid, TargetableComponent? targetable = null)
         {
             // If the component is missing, then the entity can always be targeted
-            if (!Resolve(uid, ref targetable))
+            if (!Resolve(uid, ref targetable, logMissing: false))
                 return true;
 
             return targetable.IsTargetable.Buffed;

@@ -52,6 +52,8 @@
   - type: Marriage
   - type: Tone
   - type: Alias
+  - type: MountRider
+  - type: Mount
 
 - type: Entity
   id: BaseItem

@@ -145,7 +145,7 @@ namespace OpenNefia.Content.Hunger
 
         private void HandleRefreshSpeed(EntityUid uid, HungerComponent hunger, ref EntityRefreshSpeedEvent args)
         {
-            if (!_gameSession.IsPlayer(uid) || _mounts.HasMount(uid))
+            if (!_gameSession.IsPlayer(uid) || _mounts.IsMounting(uid))
                 return;
 
             if (hunger.Nutrition < HungerLevels.VeryHungry)

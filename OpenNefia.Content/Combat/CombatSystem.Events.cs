@@ -268,7 +268,7 @@ namespace OpenNefia.Content.Combat
                         _skills.GainSkillExp(attacker, Protos.Skill.DualWield, 20 / expDivisor, 0, 4);
                 }
 
-                if (_mounts.HasMount(attacker))
+                if (_mounts.IsMounting(attacker))
                     _skills.GainSkillExp(attacker, Protos.Skill.Riding, 30 / expDivisor, 0, 5);
 
                 if (IsAlive(args.Target) && TryComp<SkillsComponent>(args.Target, out var targetSkills))

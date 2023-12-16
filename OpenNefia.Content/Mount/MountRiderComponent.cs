@@ -12,6 +12,6 @@ namespace OpenNefia.Content.Mount
     public sealed class MountRiderComponent : Component
     {
         [DataField]
-        public EntityUid Mount { get; set; }
+        public EntityUid? Mount { get; set; }
     }
 }

@@ -33,6 +33,7 @@ using OpenNefia.Content.Damage;
 using ICSharpCode.Decompiler.IL;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Encounters;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Quests
 {
@@ -54,6 +55,9 @@ namespace OpenNefia.Content.Quests
 
             SubscribeComponent<EscortedInQuestComponent, AfterPartyMemberEntersMapEventArgs>(QuestEscort_CheckDestinationReached);
             SubscribeComponent<EscortedInQuestComponent, EntityKilledEvent>(QuestEscort_CheckKilled);
+            SubscribeComponent<EscortedInQuestComponent, BeforeEntityDeletedEvent>(QuestEscort_CheckKilled);
+            SubscribeComponent<EscortedInQuestComponent, BeforeEntityStartsRidingEvent>(QuestEscort_BlockRiding);
+            SubscribeComponent<EscortedInQuestComponent, BeforeEntityMountedOntoEvent>(QuestEscort_BlockRiding);
             SubscribeBroadcast<MapCalcRandomEncounterIDEvent>(QuestEscort_GenerateEncounter);
         }
 
@@ -91,22 +95,52 @@ namespace OpenNefia.Content.Quests
 
         private void QuestEscort_CheckKilled(EntityUid uid, EscortedInQuestComponent component, ref EntityKilledEvent args)
         {
+            HandleEscortKilled(uid, component);
+        }
+
+        private void QuestEscort_CheckKilled(EntityUid uid, EscortedInQuestComponent component, ref BeforeEntityDeletedEvent args)
+        {
+            HandleEscortKilled(uid, component);
+        }
+
+        private void HandleEscortKilled(EntityUid uid, EscortedInQuestComponent component)
+        {
             // >>>>>>>> shade2/chara_func.hsp:1674 		if tc!pc :if tc<maxFollower { ..
-            if (IsAlive(component.QuestUid))
+            _deferredEvents.Enqueue(() =>
             {
-                _deferredEvents.Enqueue(() =>
-                {
-                    _quests.FailQuest(component.QuestUid);
-                    if (IsAlive(uid))
-                    {
-                        EntityManager.GetComponent<CharaComponent>(uid).Liveness = CharaLivenessState.Dead;
-                        _parties.RemoveFromCurrentParty(uid);
-                    }
+                if (!IsAlive(component.QuestUid))
                     return TurnResult.Aborted;
-                });
-            }
+
+                _quests.FailQuest(component.QuestUid);
+                if (IsAlive(uid))
+                {
+                    EntityManager.GetComponent<CharaComponent>(uid).Liveness = CharaLivenessState.Dead;
+                    _parties.RemoveFromCurrentParty(uid);
+                }
+                return TurnResult.Aborted;
+            });
             // <<<<<<<< shade2/chara_func.hsp:1683 			} ..
         }
+
+        // >>>>>>>> elona122/shade2/proc.hsp:2233 	if (cBit(cBodyguard,tc)=true)or(cBit(cGuardTemp,t ...
+        private void QuestEscort_BlockRiding(EntityUid uid, EscortedInQuestComponent component, BeforeEntityStartsRidingEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.CannotRideClient", ("rider", uid), ("mount", args.Mount)));
+            args.Cancel();
+        }
+
+        private void QuestEscort_BlockRiding(EntityUid uid, EscortedInQuestComponent component, BeforeEntityMountedOntoEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.CannotRideClient", ("rider", args.Rider), ("mount", uid)));
+            args.Cancel();
+        }
+        // <<<<<<<< elona122/shade2/proc.hsp:2236 		} ...
 
         private void QuestEscort_Localize(EntityUid uid, QuestTypeEscortComponent escortQuest, QuestLocalizeDataEvent args)
         {

@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Skills
 
             args.OutSpeed = Math.Max(TurnOrderSystem.MinSpeed, Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100));
 
-            if (_gameSession.IsPlayer(uid) && !_mounts.HasMount(uid))
+            if (_gameSession.IsPlayer(uid) && !_mounts.IsMounting(uid))
             {
                 if (skills.Stamina < FatigueThresholds.Heavy)
                     args.OutSpeedModifier -= 0.3f;
