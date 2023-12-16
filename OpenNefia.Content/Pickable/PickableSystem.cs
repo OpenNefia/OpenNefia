@@ -12,6 +12,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Maps;
+using OpenNefia.Content.InUse;
 
 namespace OpenNefia.Content.Pickable
 {
@@ -50,6 +51,7 @@ namespace OpenNefia.Content.Pickable
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IInUseSystem _inUses = default!;
 
         // TODO: SoundSpecifier instead
         public static readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
@@ -120,6 +122,18 @@ namespace OpenNefia.Content.Pickable
             }
         }
 
+        private bool CheckItemInUseStateAndMessage(EntityUid item, PickableComponent pickable)
+        {
+            if (_inUses.TryGetUser(item, out var user))
+            {
+                _sounds.Play(Protos.Sound.Fail1);
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.IsBeingUsed", ("item", item), ("user", user.Value)));
+                return false;
+            }
+
+            return true;
+        }
+
         /// <inheritdoc />
         public TurnResult PickUp(EntityUid picker, EntityUid item, PickableComponent? pickable = null)
         {
@@ -130,6 +144,9 @@ namespace OpenNefia.Content.Pickable
                 return TurnResult.Failed;
 
             if (!CheckPickableOwnStateAndMessage(item, pickable))
+                return TurnResult.Failed;
+
+            if (!CheckItemInUseStateAndMessage(item, pickable))
                 return TurnResult.Failed;
 
             var success = pickerInv.Container.Insert(item);

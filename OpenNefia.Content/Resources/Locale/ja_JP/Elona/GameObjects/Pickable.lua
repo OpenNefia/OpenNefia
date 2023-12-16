@@ -6,6 +6,9 @@ Elona.GameObjects.Pickable = {
     },
     CannotCarry = "それは持ち運べない。",
     GraspAtAir = "あなたは空気をつかんだ。",
+    IsBeingUsed = function(item, user)
+        return ("それは%sが使用中だ。"):format(_.name(user))
+    end,
 
     PicksUp = function(entity, target)
         return ("%sは%sを拾った。"):format(_.name(entity), _.name(target))

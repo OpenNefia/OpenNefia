@@ -45,6 +45,13 @@ Elona.Mount = {
         DismountCorpse = function(rider, mount)
             return ("%s%sの死体から降りた。"):format(_.kare_wa(rider), _.name(mount, true))
         end,
+
+        Dialog = {
+            _.quote "ふぅ",
+            _.quote "乗り心地はよかった？",
+            _.quote "疲れた…",
+            _.quote "またいつでも乗ってね♪",
+        },
     },
 
     Movement = {

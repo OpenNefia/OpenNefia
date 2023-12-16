@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Activity
             if (!IsAlive(component.Food))
             {
                 if (component.Food != null)
-                    _inUse.RemoveItemInUse(actor, component.Food.Value);
+                    _inUse.RemoveItemInUse(component.Food.Value);
                 _activities.RemoveActivity(actor);
                 return;
             }
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.Activity
             if (!IsAlive(component.Food))
             {
                 if (component.Food != null)
-                    _inUse.RemoveItemInUse(actor, component.Food.Value);
+                    _inUse.RemoveItemInUse(component.Food.Value);
                 _activities.RemoveActivity(actor);
                 return;
             }
@@ -88,7 +88,7 @@ namespace OpenNefia.Content.Activity
                 _mes.Display(Loc.GetString("Elona.Activity.Eating.Finish", ("actor", actor), ("food", component.Food)), entity: actor);
             }
 
-            _inUse.RemoveItemInUse(actor, component.Food.Value);
+            _inUse.RemoveItemInUse(component.Food.Value);
 
             _food.EatFood(actor, component.Food.Value);
         }
@@ -96,7 +96,7 @@ namespace OpenNefia.Content.Activity
         private void Eating_OnCleanup(EntityUid activity, ActivityEatingComponent component, OnActivityCleanupEvent args)
         {
             if (component.Food != null)
-                _inUse.RemoveItemInUse(args.Activity.Actor, component.Food.Value);
+                _inUse.RemoveItemInUse(component.Food.Value);
         }
     }
 

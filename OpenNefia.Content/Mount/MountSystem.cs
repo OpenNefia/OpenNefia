@@ -55,6 +55,8 @@ namespace OpenNefia.Content.Mount
             SubscribeComponent<MountRiderComponent, CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyRider);
             SubscribeComponent<MountComponent, CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyMount);
             SubscribeComponent<MountComponent, EntityRefreshEvent>(HandleRefresh);
+            SubscribeComponent<MountRiderComponent, EntityRefreshSpeedEvent>(RefreshSpeed_MountRider);
+            SubscribeComponent<MountComponent, EntityRefreshSpeedEvent>(RefreshSpeed_Mount);
             SubscribeComponent<MountComponent, GetMapObjectMemoryEventArgs>(HandleGetMemory);
             SubscribeComponent<MountRiderComponent, EntityTurnStartingEventArgs>(TurnStarting_MountRider);
             SubscribeComponent<MountComponent, EntityTurnStartingEventArgs>(TurnStarting_Mount);
@@ -324,7 +326,7 @@ namespace OpenNefia.Content.Mount
             RaiseEvent(rider, ev3);
             RaiseEvent(mount, ev4);
 
-            _mes.Display(_displayNames.GetDisplayName(mount) + Loc.Space + Loc.GetString("Elona.Mount.Start.Dialog", ("mount", mount), ("rider", rider)), color: UiColors.MesSkyBlue);
+            _mes.Display(_displayNames.GetDisplayName(mount) + Loc.Space + Loc.GetString("Elona.Mount.Start.Dialog", ("mount", mount), ("rider", rider)), color: UiColors.MesSkyBlue, entity: mount);
 
             return true;
             // <<<<<<<< elona122/shade2/chara_func.hsp:246 	if cBit(cNoHorse,gRider):txt lang("この生物はあなたを乗せるには ...
@@ -332,6 +334,7 @@ namespace OpenNefia.Content.Mount
 
         public bool TryDismount(EntityUid rider, MountRiderComponent? mountRiderComp = null)
         {
+            // >>>>>>>> elona122/shade2/proc.hsp:2217 		cell_findSpace cX(pc),cY(pc),1 : if stat=false : ...
             if (!Resolve(rider, ref mountRiderComp) || !IsAlive(mountRiderComp.Mount))
                 return false;
 
@@ -354,7 +357,11 @@ namespace OpenNefia.Content.Mount
                 ("rider", rider),
                 ("mount", mount)));
 
+            if (IsAlive(mount))
+                _mes.Display(_displayNames.GetDisplayName(mount.Value) + Loc.Space + Loc.GetString("Elona.Mount.Stop.Dialog", ("mount", mount.Value), ("rider", rider)), color: UiColors.MesSkyBlue, entity: mount);
+
             return true;
+            // <<<<<<<< elona122/shade2/proc.hsp:2224 		swbreak ...
         }
 
         private void HandleGetMemory(EntityUid uid, MountComponent component, GetMapObjectMemoryEventArgs args)

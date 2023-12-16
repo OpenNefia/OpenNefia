@@ -159,7 +159,7 @@ namespace OpenNefia.Content.Skills
         {
             var speedCorrection = CompOrNull<TurnOrderComponent>(uid)?.SpeedCorrection ?? 0;
 
-            args.OutSpeed = Math.Max(TurnOrderSystem.MinSpeed, Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100));
+            args.OutSpeed = Level(uid, Protos.Skill.AttrSpeed, skills) + Math.Clamp(100 - speedCorrection, 0, 100);
 
             if (_gameSession.IsPlayer(uid) && !_mounts.IsMounting(uid))
             {

@@ -26,6 +26,7 @@ namespace OpenNefia.Content.Activity
             SubscribeComponent<ActivityHarvestingComponent, OnActivityStartEvent>(Harvesting_OnStart);
             SubscribeComponent<ActivityHarvestingComponent, OnActivityPassTurnEvent>(Harvesting_OnPassTurn);
             SubscribeComponent<ActivityHarvestingComponent, OnActivityFinishEvent>(Harvesting_OnFinish);
+            SubscribeComponent<ActivityHarvestingComponent, OnActivityCleanupEvent>(Harvesting_OnCleanup);
         }
 
         private void Harvesting_CalcTurns(EntityUid uid, ActivityHarvestingComponent component, CalcActivityTurnsEvent args)
@@ -48,15 +49,18 @@ namespace OpenNefia.Content.Activity
                 return;
             }
 
-             _mes.Display(Loc.GetString("Elona.Quest.Types.Harvest.Activity.Start", 
-                 ("actor", args.Activity.Actor), 
-                 ("item", component.Item)));
+            _inUse.SetItemInUse(args.Activity.Actor, component.Item);
+
+            _mes.Display(Loc.GetString("Elona.Quest.Types.Harvest.Activity.Start",
+                ("actor", args.Activity.Actor),
+                ("item", component.Item)));
         }
 
         private void Harvesting_OnPassTurn(EntityUid activity, ActivityHarvestingComponent component, OnActivityPassTurnEvent args)
         {
             // >>>>>>>> shade2/proc.hsp:487 		if gRowAct=rowActHarvest{ ...
             var actor = args.Activity.Actor;
+            _inUse.SetItemInUse(actor, component.Item);
 
             if (_rand.OneIn(5))
                 _skills.GainSkillExp(actor, Protos.Skill.Gardening, 20, 4);
@@ -71,7 +75,7 @@ namespace OpenNefia.Content.Activity
                 _skills.GainSkillExp(actor, Protos.Skill.AttrWill, 50);
 
             if (_rand.OneIn(4))
-                _mes.Display(Loc.GetString("Elona.Quest.Types.Harvest.Activity.Sound"), color: UiColors.MesBlue); 
+                _mes.Display(Loc.GetString("Elona.Quest.Types.Harvest.Activity.Sound"), color: UiColors.MesBlue);
             // <<<<<<<< shade2/proc.hsp:497 			} ..
         }
 
@@ -84,10 +88,16 @@ namespace OpenNefia.Content.Activity
             var weight = CompOrNull<WeightComponent>(component.Item)?.Weight?.Buffed ?? 0;
             _mes.Display(Loc.GetString("Elona.Quest.Types.Harvest.Activity.Start",
                 ("actor", args.Activity.Actor),
-                ("item", component.Item), 
+                ("item", component.Item),
                 ("weight", UiUtils.DisplayWeight(weight))));
+            _inUse.RemoveItemInUse(component.Item);
             _pickables.PickUp(args.Activity.Actor, component.Item);
             // <<<<<<<< shade2/proc.hsp:626 		} ..
+        }
+
+        private void Harvesting_OnCleanup(EntityUid activity, ActivityHarvestingComponent component, OnActivityCleanupEvent args)
+        {
+            _inUse.RemoveItemInUse(component.Item);
         }
     }
 }

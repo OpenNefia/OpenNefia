@@ -49,6 +49,13 @@ Elona.Mount = {
         DismountCorpse = function(rider, mount)
             return ("%s get%s off the corpse of %s."):format(_.name(rider), _.s(rider), _.name(mount, true))
         end,
+
+        Dialog = {
+            _.quote "Phew.",
+            _.quote "How was my ride?",
+            _.quote "Tired...tired...",
+            _.quote "It was nice.",
+        },
     },
 
     Movement = {

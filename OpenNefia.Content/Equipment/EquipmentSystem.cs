@@ -11,6 +11,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using System.CommandLine.Parsing;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.Equipment
 {
@@ -49,6 +51,7 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
 
         public override void Initialize()
         {

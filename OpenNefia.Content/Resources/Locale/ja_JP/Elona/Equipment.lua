@@ -25,4 +25,30 @@ Elona.Equipment = {
 
         MainHand = "利手",
     },
+
+    Suitability = {
+        TwoHand = {
+            FitsWell = function(actor, target, item)
+                return ("装備中の%sは両手にしっくりとおさまる。"):format(_.name(item))
+            end,
+            TooLight = function(actor, target, item)
+                return ("装備中の%sは両手持ちにはやや軽すぎる。"):format(_.name(item))
+            end,
+        },
+        DualWield = {
+            TooHeavy = {
+                MainHand = function(actor, target, item)
+                    return ("装備中の%sは利手で扱うにも重すぎる。"):format(_.name(item))
+                end,
+                SubHand = function(actor, target, item)
+                    return ("装備中の%sは片手で扱うには重すぎる。"):format(_.name(item))
+                end,
+            },
+        },
+        Riding = {
+            TooHeavy = function(actor, target, item)
+                return ("装備中の%sは乗馬中に扱うには重過ぎる。"):format(_.name(item))
+            end,
+        },
+    },
 }

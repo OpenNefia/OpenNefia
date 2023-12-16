@@ -82,7 +82,7 @@ namespace OpenNefia.Content.Activity
 
         private void ReadingAncientBook_OnCleanup(EntityUid uid, ActivityReadingAncientBookComponent component, OnActivityCleanupEvent args)
         {
-            _inUse.RemoveItemInUse(args.Activity.Actor, component.AncientBook);
+            _inUse.RemoveItemInUse(component.AncientBook);
         }
     }
 }

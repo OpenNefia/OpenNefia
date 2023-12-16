@@ -24,6 +24,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.VanillaAI;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Effects
 {
@@ -42,10 +43,20 @@ namespace OpenNefia.Content.Effects
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly ISanitySystem _sanity = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
         
         public void Heal(EntityUid chara, IDice dice)
         {
-            // TODO riding
+            // >>>>>>>> elona122/shade2/proc.hsp:3491 *effect_heal ...
+            if (_mounts.TryGetRider(chara, out var rider))
+            {
+                chara = rider.Owner;
+            }
+            else if (_mounts.TryGetMount(chara, out var mount))
+            {
+                chara = mount.Owner;
+            }
+
             var amount = dice.Roll(_rand);
             _damage.HealHP(chara, amount);
             _statusEffects.HealFully(chara, Protos.StatusEffect.Fear);
@@ -54,8 +65,8 @@ namespace OpenNefia.Content.Effects
             _statusEffects.Heal(chara, Protos.StatusEffect.Dimming, 30);
             _statusEffects.Heal(chara, Protos.StatusEffect.Bleeding, 20);
             _sanity.HealInsanity(chara, 1);
+            // <<<<<<<< elona122/shade2/proc.hsp:3508 	return ...
         }
-        
 
         public void WakeUpEveryone(IMap map)
         {

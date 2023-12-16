@@ -38,6 +38,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Combat
 {
@@ -54,6 +55,10 @@ namespace OpenNefia.Content.Combat
         IMapDrawable? GetRangedAttackAnimation(MapCoordinates start, MapCoordinates end, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon);
         IMapDrawable? GetRangedAttackAnimation(EntityUid start, EntityUid end, PrototypeId<SkillPrototype> attackSkill, EntityUid weapon);
         bool TryGetActiveAmmoEnchantment(EntityUid attacker, EntityUid rangedWeapon, [NotNullWhen(true)] out AmmoComponent? ammoComp, [NotNullWhen(true)] out EncAmmoComponent? ammoEncComp);
+        bool IsEquippedInMainHand(EntityUid item, EntityUid equipper, EquipSlotsComponent? equipSlots = null);
+        bool IsSuitableForWieldingTwoHanded(EntityUid weapon);
+        bool IsSuitableForDualWielding(EntityUid weapon, bool mainHand);
+        bool IsSuitableForWieldingWhileRiding(EntityUid weapon);
     }
 
     public sealed partial class CombatSystem : EntitySystem, ICombatSystem
@@ -96,6 +101,7 @@ namespace OpenNefia.Content.Combat
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackHitEventArgs>(GainCombatSkillExperienceOnHit, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, AfterPhysicalAttackMissEventArgs>(GainCombatSkillExperienceOnMiss, priority: EventPriorities.VeryHigh);
             SubscribeComponent<EquipStatsComponent, AfterPhysicalAttackHitEventArgs>(ProcDamageReflection, priority: EventPriorities.High);
+            SubscribeEntity<WasEquippedInMenuEvent>(ShowEquipmentSuitabilityMessages);
             #endregion
         }
 
@@ -139,6 +145,109 @@ namespace OpenNefia.Content.Combat
             // <<<<<<<< elona122/shade2/calculation.hsp:530 		} ...
 
             return new(attackCount, isWieldingShield, isWieldingTwoHanded, isDualWielding);
+        }
+
+        public bool IsSuitableForWieldingTwoHanded(EntityUid weapon)
+        {
+            if (!TryComp<WeightComponent>(weapon, out var weight))
+                return false;
+
+            return weight.Weight.Buffed >= EquipmentWeightConsts.TwoHandedMinWeaponWeight;
+        }
+
+        public bool IsSuitableForDualWielding(EntityUid weapon, bool mainHand)
+        {
+            if (!TryComp<WeightComponent>(weapon, out var weight))
+                return true;
+
+            if (mainHand)
+                return weight.Weight.Buffed < EquipmentWeightConsts.DualWieldingMainHandMaxWeaponWeight;
+            else
+                return weight.Weight.Buffed < EquipmentWeightConsts.DualWieldingSubHandMaxWeaponWeight;
+        }
+
+        public bool IsSuitableForWieldingWhileRiding(EntityUid weapon)
+        {
+            if (!TryComp<WeightComponent>(weapon, out var weight))
+                return true;
+
+            return weight.Weight.Buffed < EquipmentWeightConsts.RidingMaxWeaponWeight;
+        }
+
+        public bool IsEquippedInMainHand(EntityUid item, EntityUid equipper, EquipSlotsComponent? equipSlots = null)
+        {
+            if (!Resolve(equipper, ref equipSlots))
+                return false;
+
+            if (!_equipSlots.TryGetSlotEquippedOn(item, out _, out var found))
+                return false;
+
+            var first = equipSlots.EquipSlots.FirstOrDefault(x => x.ID == found.ID);
+            return found == first;
+        }
+
+        private void ShowEquipmentSuitabilityMessages(EntityUid item, WasEquippedInMenuEvent args)
+        {
+            // >>>>>>>> elona122/shade2/command.hsp:3171 			if (cdata(body,cc)/extBody)=bodyHand: gosub *sh ...
+            // TODO maybe check for WeaponComponent instead?
+            if (!_equipSlots.CanEquipOn(item, Protos.EquipSlot.Hand))
+                return;
+            // <<<<<<<< elona122/shade2/command.hsp:3171 			if (cdata(body,cc)/extBody)=bodyHand: gosub *sh ...
+
+            // >>>>>>>> elona122/shade2/command.hsp:3052 *show_weaponStat ...
+            var equipState = GetEquipState(args.EquipTarget);
+            var actor = args.Equipee;
+            var target = args.EquipTarget;
+
+            if (equipState.IsWieldingTwoHanded)
+            {
+                if (IsSuitableForWieldingTwoHanded(item))
+                {
+                    _mes.Display(Loc.GetString("Elona.Equipment.Suitability.TwoHand.FitsWell",
+                        ("actor", actor),
+                        ("target", target),
+                        ("item", item)));
+                }
+                else
+                {
+                    _mes.Display(Loc.GetString("Elona.Equipment.Suitability.TwoHand.TooLight",
+                        ("actor", actor),
+                        ("target", target),
+                        ("item", item)));
+                }
+            }
+            if (equipState.IsDualWielding)
+            {
+                var isMainHand = IsEquippedInMainHand(item, target);
+                if (!IsSuitableForDualWielding(item, isMainHand))
+                {
+                    if (isMainHand)
+                    {
+                        _mes.Display(Loc.GetString("Elona.Equipment.Suitability.DualWield.TooHeavy.MainHand",
+                            ("actor", actor),
+                            ("target", target),
+                            ("item", item)));
+                    }
+                    else
+                    {
+                        _mes.Display(Loc.GetString("Elona.Equipment.Suitability.DualWield.TooHeavy.MainHand",
+                            ("actor", actor),
+                            ("target", target),
+                            ("item", item)));
+                    }
+                }
+            }
+            if (_mounts.IsMounting(args.EquipTarget))
+            {
+                if (!IsSuitableForWieldingWhileRiding(item))
+                {
+                    _mes.Display(Loc.GetString("Elona.Equipment.Suitability.Riding.TooHeavy",
+                        ("actor", actor),
+                        ("target", target),
+                        ("item", item)));
+                }
+            }
+            // <<<<<<<< elona122/shade2/command.hsp:3074 	return ...
         }
 
         private void ApplyShieldPVBonus(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
