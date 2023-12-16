@@ -56,6 +56,8 @@ namespace OpenNefia.Content.World
 
         private void UpdateAwakeHours(EntityUid uid, ref MapOnTimePassedEvent args)
         {
+            State.PlayTurns += args.MinutesPassed;   
+
             if (args.HoursPassed <= 0)
                 return;
 
