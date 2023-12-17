@@ -28,10 +28,10 @@ namespace OpenNefia.Content.Spells
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
-        [DataField]
+        [DataField(required: true)]
         public PrototypeId<SkillPrototype> SkillID { get; }
 
-        [DataField]
+        [DataField(required: true)]
         public PrototypeId<EntityPrototype> EffectID { get; }
 
         [DataField]

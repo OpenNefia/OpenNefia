@@ -363,97 +363,109 @@
   id: Elona.BuffHolyShield
   hspIds:
     elona122: 442
+  mpCost: 8
   difficulty: 150
+  skillID: Elona.SpellBuffHolyShield
+  effectID: Elona.SpellBuffHolyShield
 
-  skillID: Elona.BuffHolyShield
-  effectID: Elona.BuffHolyShield
 - type: Elona.Spell
   id: Elona.BuffMistOfSilence
   hspIds:
     elona122: 443
+  mpCost: 24
   difficulty: 620
-  skillID: Elona.BuffMistOfSilence
-  effectID: Elona.BuffMistOfSilence
+  skillID: Elona.SpellBuffMistOfSilence
+  effectID: Elona.SpellBuffMistOfSilence
 
 - type: Elona.Spell
   id: Elona.BuffRegeneration
   hspIds:
     elona122: 444
+  mpCost: 16
   difficulty: 400
+  skillID: Elona.SpellBuffRegeneration
+  effectID: Elona.SpellBuffRegeneration
 
-  skillID: Elona.BuffRegeneration
-  effectID: Elona.BuffRegeneration
 - type: Elona.Spell
   id: Elona.BuffElementalShield
   hspIds:
     elona122: 445
+  mpCost: 14
   difficulty: 350
-  skillID: Elona.BuffElementalShield
-  effectID: Elona.BuffElementalShield
+  skillID: Elona.SpellBuffElementalShield
+  effectID: Elona.SpellBuffElementalShield
 
 - type: Elona.Spell
   id: Elona.BuffSpeed
   hspIds:
     elona122: 446
+  mpCost: 28
   difficulty: 1050
+  skillID: Elona.SpellBuffSpeed
+  effectID: Elona.SpellBuffSpeed
 
-  skillID: Elona.BuffSpeed
-  effectID: Elona.BuffSpeed
 - type: Elona.Spell
   id: Elona.BuffSlow
   hspIds:
     elona122: 447
+  mpCost: 10
   difficulty: 450
-  skillID: Elona.BuffSlow
-  effectID: Elona.BuffSlow
+  skillID: Elona.SpellBuffSlow
+  effectID: Elona.SpellBuffSlow
 
 - type: Elona.Spell
   id: Elona.BuffHero
   hspIds:
     elona122: 448
+  mpCost: 12
   difficulty: 80
+  skillID: Elona.SpellBuffHero
+  effectID: Elona.SpellBuffHero
 
-  skillID: Elona.BuffHero
-  effectID: Elona.BuffHero
 - type: Elona.Spell
   id: Elona.BuffMistOfFrailness
   hspIds:
     elona122: 449
+  mpCost: 8
   difficulty: 300
-  skillID: Elona.BuffMistOfFrailness
-  effectID: Elona.BuffMistOfFrailness
+  skillID: Elona.SpellBuffMistOfFrailness
+  effectID: Elona.SpellBuffMistOfFrailness
 
 - type: Elona.Spell
   id: Elona.BuffElementScar
   hspIds:
     elona122: 450
+  mpCost: 15
   difficulty: 600
+  skillID: Elona.SpellBuffElementScar
+  effectID: Elona.SpellBuffElementScar
 
-  skillID: Elona.BuffElementScar
-  effectID: Elona.BuffElementScar
 - type: Elona.Spell
   id: Elona.BuffHolyVeil
   hspIds:
     elona122: 451
+  mpCost: 20
   difficulty: 900
-  skillID: Elona.BuffHolyVeil
-  effectID: Elona.BuffHolyVeil
+  skillID: Elona.SpellBuffHolyVeil
+  effectID: Elona.SpellBuffHolyVeil
 
 - type: Elona.Spell
   id: Elona.BuffNightmare
   hspIds:
     elona122: 452
+  mpCost: 15
   difficulty: 500
+  skillID: Elona.SpellBuffNightmare
+  effectID: Elona.SpellBuffNightmare
 
-  skillID: Elona.BuffNightmare
-  effectID: Elona.BuffNightmare
 - type: Elona.Spell
   id: Elona.BuffDivineWisdom
   hspIds:
     elona122: 453
+  mpCost: 22
   difficulty: 350
-  skillID: Elona.BuffDivineWisdom
-  effectID: Elona.BuffDivineWisdom
+  skillID: Elona.SpellBuffDivineWisdom
+  effectID: Elona.SpellBuffDivineWisdom
 
 - type: Elona.Spell
   id: Elona.Mutation
@@ -497,8 +509,8 @@
     elona122: 458
   difficulty: 250
   mpCost: 38
-  skillID: Elona.BuffIncognito
-  effectID: Elona.BuffIncognito
+  skillID: Elona.SpellBuffIncognito
+  effectID: Elona.SpellBuffIncognito
 
 - type: Elona.Spell
   id: Elona.CrystalSpear
@@ -531,10 +543,11 @@
   id: Elona.BuffContingency
   hspIds:
     elona122: 462
+  mpCost: 25
   difficulty: 1250
+  skillID: Elona.SpellBuffContingency
+  effectID: Elona.SpellBuffContingency
 
-  skillID: Elona.BuffContingency
-  effectID: Elona.BuffContingency
 - type: Elona.Spell
   id: Elona.FourDimensionalPocket
   hspIds:
@@ -570,286 +583,3 @@
   mpCost: 24
   skillID: Elona.SpellGravity
   effectID: Elona.SpellGravity
-
-# - type: Elona.Spell
-#   id: Elona.EffectMaterialKit
-#   hspIds:
-#     elona122: 21
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGaroksHammer
-#   hspIds:
-#     elona122: 49
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectMilk
-#   hspIds:
-#     elona122: 1101
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectAle
-#   hspIds:
-#     elona122: 1102
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectWater
-#   hspIds:
-#     elona122: 1103
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainKnowledge
-#   hspIds:
-#     elona122: 1104
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainSkill
-#   hspIds:
-#     elona122: 1105
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectPunishDecrementStats
-#   hspIds:
-#     elona122: 1106
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainFaith
-#   hspIds:
-#     elona122: 1107
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectPoison
-#   hspIds:
-#     elona122: 1108
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectConfuse
-#   hspIds:
-#     elona122: 1109
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectParalyze
-#   hspIds:
-#     elona122: 1110
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectBlind
-#   hspIds:
-#     elona122: 1111
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectSleep
-#   hspIds:
-#     elona122: 1112
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainPotential
-#   hspIds:
-#     elona122: 1113
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectCurse
-#   hspIds:
-#     elona122: 1114
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectDeed
-#   hspIds:
-#     elona122: 1115
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectSulfuric
-#   hspIds:
-#     elona122: 1116
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectCreateMaterial
-#   hspIds:
-#     elona122: 1117
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectWeakenResistance
-#   hspIds:
-#     elona122: 1118
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainSkillPotential
-#   hspIds:
-#     elona122: 1119
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectElixir
-#   hspIds:
-#     elona122: 1120
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectCureMutation
-#   hspIds:
-#     elona122: 1121
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainAlly
-#   hspIds:
-#     elona122: 1122
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainYoungerSister
-#   hspIds:
-#     elona122: 1123
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectEnchantWeapon
-#   hspIds:
-#     elona122: 1124
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectEnchantArmor
-#   hspIds:
-#     elona122: 1125
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectChangeMaterial
-#   hspIds:
-#     elona122: 1127
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectDeedOfInheritance
-#   hspIds:
-#     elona122: 1128
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectRecharge
-#   hspIds:
-#     elona122: 1129
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectDirtyWater
-#   hspIds:
-#     elona122: 1130
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectCureCorruption
-#   hspIds:
-#     elona122: 1131
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectAlchemy
-#   hspIds:
-#     elona122: 1132
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectMolotov
-#   hspIds:
-#     elona122: 1133
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectLovePotion
-#   hspIds:
-#     elona122: 1135
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectTreasureMap
-#   hspIds:
-#     elona122: 1136
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainYoungLady
-#   hspIds:
-#     elona122: 1137
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectGainCatSister
-#   hspIds:
-#     elona122: 1138
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectTrollBlood
-#   hspIds:
-#     elona122: 1139
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectFlight
-#   hspIds:
-#     elona122: 1140
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectEscape
-#   hspIds:
-#     elona122: 1141
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectSalt
-#   hspIds:
-#     elona122: 1142
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectDescent
-#   hspIds:
-#     elona122: 1143
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectEvolution
-#   hspIds:
-#     elona122: 1144
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectName
-#   hspIds:
-#     elona122: 1145
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectSoda
-#   hspIds:
-#     elona122: 1146
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.EffectCupsule
-#   hspIds:
-#     elona122: 1147
-#   skillType: Effect
-...

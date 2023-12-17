@@ -32,6 +32,9 @@ namespace OpenNefia.Content.Effects.New
         public SpellAlignment Alignment { get; set; } = SpellAlignment.Positive;
     }
 
+    /// <summary>
+    /// Represents actions that can be listed in the skills menu.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectTypeActionComponent : Component

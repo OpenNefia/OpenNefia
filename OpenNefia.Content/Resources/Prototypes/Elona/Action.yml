@@ -2,7 +2,6 @@
   id: Elona.DrainBlood
   hspIds:
     elona122: 601
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionDrainBlood
   effectID: Elona.ActionDrainBlood
   staminaCost: 7
@@ -11,7 +10,6 @@
   id: Elona.FireBreath
   hspIds:
     elona122: 602
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionFireBreath
   effectID: Elona.ActionFireBreath
   staminaCost: 12
@@ -20,7 +18,6 @@
   id: Elona.ColdBreath
   hspIds:
     elona122: 603
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionColdBreath
   effectID: Elona.ActionColdBreath
   staminaCost: 10
@@ -29,7 +26,6 @@
   id: Elona.LightningBreath
   hspIds:
     elona122: 604
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionLightningBreath
   effectID: Elona.ActionLightningBreath
   staminaCost: 10
@@ -38,7 +34,6 @@
   id: Elona.DarknessBreath
   hspIds:
     elona122: 605
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionDarknessBreath
   effectID: Elona.ActionDarknessBreath
   staminaCost: 10
@@ -47,7 +42,6 @@
   id: Elona.ChaosBreath
   hspIds:
     elona122: 606
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionChaosBreath
   effectID: Elona.ActionChaosBreath
   staminaCost: 10
@@ -56,7 +50,6 @@
   id: Elona.SoundBreath
   hspIds:
     elona122: 607
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionSoundBreath
   effectID: Elona.ActionSoundBreath
   staminaCost: 10
@@ -65,7 +58,6 @@
   id: Elona.NetherBreath
   hspIds:
     elona122: 608
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionNetherBreath
   effectID: Elona.ActionNetherBreath
   staminaCost: 10
@@ -74,7 +66,6 @@
   id: Elona.NerveBreath
   hspIds:
     elona122: 609
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionNerveBreath
   effectID: Elona.ActionNerveBreath
   staminaCost: 10
@@ -83,7 +74,6 @@
   id: Elona.PoisonBreath
   hspIds:
     elona122: 610
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionPoisonBreath
   effectID: Elona.ActionPoisonBreath
   staminaCost: 10
@@ -92,7 +82,6 @@
   id: Elona.MindBreath
   hspIds:
     elona122: 611
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionMindBreath
   effectID: Elona.ActionMindBreath
   staminaCost: 10
@@ -101,7 +90,6 @@
   id: Elona.PowerBreath
   hspIds:
     elona122: 612
-#  relatedSkill: Elona.AttrConstitution
   skillID: Elona.ActionPowerBreath
   effectID: Elona.ActionPowerBreath
   staminaCost: 10
@@ -110,7 +98,6 @@
   id: Elona.TouchOfWeakness
   hspIds:
     elona122: 613
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionTouchOfWeakness
   effectID: Elona.ActionTouchOfWeakness
   staminaCost: 10
@@ -119,7 +106,6 @@
   id: Elona.TouchOfHunger
   hspIds:
     elona122: 614
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionTouchOfHunger
   effectID: Elona.ActionTouchOfHunger
   staminaCost: 10
@@ -128,7 +114,6 @@
   id: Elona.TouchOfPoison
   hspIds:
     elona122: 615
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionTouchOfPoison
   effectID: Elona.ActionTouchOfPoison
   staminaCost: 10
@@ -137,7 +122,6 @@
   id: Elona.TouchOfNerve
   hspIds:
     elona122: 616
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionTouchOfNerve
   effectID: Elona.ActionTouchOfNerve
   staminaCost: 10
@@ -146,7 +130,6 @@
   id: Elona.TouchOfFear
   hspIds:
     elona122: 617
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionTouchOfFear
   effectID: Elona.ActionTouchOfFear
   staminaCost: 10
@@ -155,23 +138,14 @@
   id: Elona.TouchOfSleep
   hspIds:
     elona122: 618
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionTouchOfSleep
   effectID: Elona.ActionTouchOfSleep
   staminaCost: 10
 
 - type: Elona.Action
-  id: Elona.ShadowStep
   hspIds:
     elona122: 619
-#  relatedSkill: Elona.AttrWill
-  type: Spell
-  skillID: Elona.ActionShadowStep
-  effectID: Elona.ActionShadowStep
-
-- type: Elona.Action
   id: Elona.DimensionalMove
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionDimensionalMove
   effectID: Elona.ActionDimensionalMove
   staminaCost: 15
@@ -180,7 +154,6 @@
   id: Elona.DrawShadow
   hspIds:
     elona122: 620
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionDrawShadow
   effectID: Elona.ActionDrawShadow
   staminaCost: 10
@@ -189,7 +162,6 @@
   id: Elona.HarvestMana
   hspIds:
     elona122: 621
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 700
   skillID: Elona.ActionHarvestMana
   effectID: Elona.ActionHarvestMana
@@ -200,7 +172,6 @@
   id: Elona.BuffPunishment
   hspIds:
     elona122: 622
-  # relatedSkill: Elona.AttrWill
   skillID: Elona.BuffPunishment
   effectID: Elona.BuffPunishment
   staminaCost: 15
@@ -210,7 +181,6 @@
   id: Elona.PrayerOfJure
   hspIds:
     elona122: 623
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionPrayerOfJure
   effectID: Elona.ActionPrayerOfJure
   staminaCost: 30
@@ -219,7 +189,6 @@
   id: Elona.AbsorbMagic
   hspIds:
     elona122: 624
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionAbsorbMagic
   effectID: Elona.ActionAbsorbMagic
   staminaCost: 25
@@ -228,7 +197,6 @@
   id: Elona.BuffLulwysTrick
   hspIds:
     elona122: 625
-  # relatedSkill: Elona.AttrDexterity
   skillID: Elona.BuffLulwysTrick
   effectID: Elona.BuffLulwysTrick
   staminaCost: 20
@@ -238,7 +206,6 @@
   id: Elona.Mirror
   hspIds:
     elona122: 626
-#  relatedSkill: Elona.AttrPerception
 #  difficulty: 500
   skillID: Elona.ActionMirror
   effectID: Elona.ActionMirror
@@ -249,7 +216,6 @@
   id: Elona.Change
   hspIds:
     elona122: 628
-#  relatedSkill: Elona.AttrPerception
   skillID: Elona.ActionChange
   effectID: Elona.ActionChange
   staminaCost: 10
@@ -258,7 +224,6 @@
   id: Elona.DrawCharge
   hspIds:
     elona122: 629
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionDrawCharge
   effectID: Elona.ActionDrawCharge
   staminaCost: 1
@@ -267,7 +232,6 @@
   id: Elona.FillCharge
   hspIds:
     elona122: 630
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionFillCharge
   effectID: Elona.ActionFillCharge
   staminaCost: 10
@@ -276,7 +240,6 @@
   id: Elona.Swarm
   hspIds:
     elona122: 631
-#  relatedSkill: Elona.AttrStrength
 #  difficulty: 220
   skillID: Elona.ActionSwarm
   effectID: Elona.ActionSwarm
@@ -287,7 +250,6 @@
   id: Elona.EyeOfMutation
   hspIds:
     elona122: 632
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionEyeOfMutation
   effectID: Elona.ActionEyeOfMutation
   staminaCost: 10
@@ -296,7 +258,6 @@
   id: Elona.EyeOfEther
   hspIds:
     elona122: 633
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionEyeOfEther
   effectID: Elona.ActionEyeOfEther
   staminaCost: 10
@@ -305,9 +266,6 @@
   id: Elona.EtherGround
   hspIds:
     elona122: 634
-#  relatedSkill: Elona.AttrMagic
-  type: Spell
-#  difficulty: 480
   skillID: Elona.ActionEtherGround
   effectID: Elona.ActionEtherGround
   staminaCost: 18
@@ -317,7 +275,6 @@
   id: Elona.SuspiciousHand
   hspIds:
     elona122: 635
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionSuspiciousHand
   effectID: Elona.ActionSuspiciousHand
   staminaCost: 10
@@ -326,7 +283,6 @@
   id: Elona.EyeOfInsanity
   hspIds:
     elona122: 636
-#  relatedSkill: Elona.AttrCharisma
   skillID: Elona.ActionEyeOfInsanity
   effectID: Elona.ActionEyeOfInsanity
   staminaCost: 10
@@ -335,7 +291,6 @@
   id: Elona.RainOfSanity
   hspIds:
     elona122: 637
-#  relatedSkill: Elona.AttrWill
 #  difficulty: 500
   skillID: Elona.ActionRainOfSanity
   effectID: Elona.ActionRainOfSanity
@@ -346,7 +301,6 @@
   id: Elona.EyeOfDimness
   hspIds:
     elona122: 638
-#  relatedSkill: Elona.AttrCharisma
   skillID: Elona.ActionEyeOfDimness
   effectID: Elona.ActionEyeOfDimness
   staminaCost: 10
@@ -355,7 +309,6 @@
   id: Elona.SummonCats
   hspIds:
     elona122: 639
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 200
   skillID: Elona.ActionSummonCats
   effectID: Elona.ActionSummonCats
@@ -366,7 +319,6 @@
   id: Elona.SummonYeek
   hspIds:
     elona122: 640
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 200
   skillID: Elona.ActionSummonYeek
   effectID: Elona.ActionSummonYeek
@@ -377,7 +329,6 @@
   id: Elona.SummonPawn
   hspIds:
     elona122: 641
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 200
   skillID: Elona.ActionSummonPawn
   effectID: Elona.ActionSummonPawn
@@ -388,7 +339,6 @@
   id: Elona.SummonFire
   hspIds:
     elona122: 642
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 200
   skillID: Elona.ActionSummonFire
   effectID: Elona.ActionSummonFire
@@ -399,7 +349,6 @@
   id: Elona.SummonSister
   hspIds:
     elona122: 643
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 200
   skillID: Elona.ActionSummonSister
   effectID: Elona.ActionSummonSister
@@ -410,7 +359,6 @@
   id: Elona.SuicideAttack
   hspIds:
     elona122: 644
-#  relatedSkill: Elona.AttrConstitution
 #  difficulty: 450
   skillID: Elona.ActionSuicideAttack
   effectID: Elona.ActionSuicideAttack
@@ -421,7 +369,6 @@
   id: Elona.Curse
   hspIds:
     elona122: 645
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 100
   skillID: Elona.ActionCurse
   effectID: Elona.ActionCurse
@@ -432,7 +379,6 @@
   id: Elona.BuffDeathWord
   hspIds:
     elona122: 646
-  # relatedSkill: Elona.AttrWill
   skillID: Elona.BuffDeathWord
   effectID: Elona.BuffDeathWord
   staminaCost: 15
@@ -442,7 +388,6 @@
   id: Elona.BuffBoost
   hspIds:
     elona122: 647
-  # relatedSkill: Elona.AttrWill
   skillID: Elona.BuffBoost
   effectID: Elona.BuffBoost
   staminaCost: 50
@@ -452,7 +397,6 @@
   id: Elona.Insult
   hspIds:
     elona122: 648
-#  relatedSkill: Elona.AttrCharisma
   skillID: Elona.ActionInsult
   effectID: Elona.ActionInsult
   staminaCost: 10
@@ -461,7 +405,6 @@
   id: Elona.DistantAttack4
   hspIds:
     elona122: 649
-#  relatedSkill: Elona.AttrStrength
   skillID: Elona.ActionDistantAttack4
   effectID: Elona.ActionDistantAttack4
   staminaCost: 10
@@ -470,7 +413,6 @@
   id: Elona.DistantAttack7
   hspIds:
     elona122: 650
-#  relatedSkill: Elona.AttrStrength
   skillID: Elona.ActionDistantAttack7
   effectID: Elona.ActionDistantAttack7
   staminaCost: 10
@@ -479,7 +421,6 @@
   id: Elona.Scavenge
   hspIds:
     elona122: 651
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionScavenge
   effectID: Elona.ActionScavenge
   staminaCost: 10
@@ -488,7 +429,6 @@
   id: Elona.EyeOfMana
   hspIds:
     elona122: 652
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionEyeOfMana
   effectID: Elona.ActionEyeOfMana
   staminaCost: 10
@@ -497,7 +437,6 @@
   id: Elona.Vanish
   hspIds:
     elona122: 653
-#  relatedSkill: Elona.AttrPerception
   skillID: Elona.ActionVanish
   effectID: Elona.ActionVanish
   staminaCost: 10
@@ -506,7 +445,6 @@
   id: Elona.Pregnant
   hspIds:
     elona122: 654
-#  relatedSkill: Elona.AttrPerception
   skillID: Elona.ActionPregnant
   effectID: Elona.ActionPregnant
   staminaCost: 15
@@ -515,7 +453,6 @@
   id: Elona.Grenade
   hspIds:
     elona122: 655
-#  relatedSkill: Elona.AttrMagic
 #  difficulty: 700
   skillID: Elona.ActionGrenade
   effectID: Elona.ActionGrenade
@@ -526,7 +463,6 @@
   id: Elona.Cheer
   hspIds:
     elona122: 656
-#  relatedSkill: Elona.AttrCharisma
 #  difficulty: 500
   skillID: Elona.ActionCheer
   effectID: Elona.ActionCheer
@@ -537,7 +473,6 @@
   id: Elona.Mewmewmew
   hspIds:
     elona122: 657
-#  relatedSkill: Elona.AttrLuck
 #  difficulty: 500
   skillID: Elona.ActionMewmewmew
   effectID: Elona.ActionMewmewmew
@@ -548,7 +483,6 @@
   id: Elona.Decapitation
   hspIds:
     elona122: 658
-#  relatedSkill: Elona.AttrDexterity
   skillID: Elona.ActionDecapitation
   effectID: Elona.ActionDecapitation
   staminaCost: 10
@@ -557,7 +491,6 @@
   id: Elona.DropMine
   hspIds:
     elona122: 659
-#  relatedSkill: Elona.AttrMagic
   skillID: Elona.ActionDropMine
   effectID: Elona.ActionDropMine
   staminaCost: 15
@@ -566,7 +499,6 @@
   id: Elona.ManisDisassembly
   hspIds:
     elona122: 660
-#  relatedSkill: Elona.AttrWill
   skillID: Elona.ActionManisDisassembly
   effectID: Elona.ActionManisDisassembly
   staminaCost: 10

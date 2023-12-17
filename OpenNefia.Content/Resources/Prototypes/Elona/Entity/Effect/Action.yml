@@ -1,0 +1,353 @@
+- type: Entity
+  id: Elona.ActionDrainBlood
+  hspIds:
+    elona122: 601
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionFireBreath
+  hspIds:
+    elona122: 602
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionColdBreath
+  hspIds:
+    elona122: 603
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionLightningBreath
+  hspIds:
+    elona122: 604
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDarknessBreath
+  hspIds:
+    elona122: 605
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionChaosBreath
+  hspIds:
+    elona122: 606
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSoundBreath
+  hspIds:
+    elona122: 607
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionNetherBreath
+  hspIds:
+    elona122: 608
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionNerveBreath
+  hspIds:
+    elona122: 609
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionPoisonBreath
+  hspIds:
+    elona122: 610
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionMindBreath
+  hspIds:
+    elona122: 611
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionPowerBreath
+  hspIds:
+    elona122: 612
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfWeakness
+  hspIds:
+    elona122: 613
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfHunger
+  hspIds:
+    elona122: 614
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfPoison
+  hspIds:
+    elona122: 615
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfNerve
+  hspIds:
+    elona122: 616
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfFear
+  hspIds:
+    elona122: 617
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionTouchOfSleep
+  hspIds:
+    elona122: 618
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 619
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionHarvestMana
+  hspIds:
+    elona122: 621
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionBuffPunishment
+  hspIds:
+    elona122: 622
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionPrayerOfJure
+  hspIds:
+    elona122: 623
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionAbsorbMagic
+  hspIds:
+    elona122: 624
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionBuffLulwysTrick
+  hspIds:
+    elona122: 625
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionMirror
+  hspIds:
+    elona122: 626
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionChange
+  hspIds:
+    elona122: 628
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDrawCharge
+  hspIds:
+    elona122: 629
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionFillCharge
+  hspIds:
+    elona122: 630
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSwarm
+  hspIds:
+    elona122: 631
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEyeOfMutation
+  hspIds:
+    elona122: 632
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEyeOfEther
+  hspIds:
+    elona122: 633
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSuspiciousHand
+  hspIds:
+    elona122: 635
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEyeOfInsanity
+  hspIds:
+    elona122: 636
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEyeOfDimness
+  hspIds:
+    elona122: 638
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionCurse
+  hspIds:
+    elona122: 645
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionBuffDeathWord
+  hspIds:
+    elona122: 646
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionBuffBoost
+  hspIds:
+    elona122: 647
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionInsult
+  hspIds:
+    elona122: 648
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDistantAttack4
+  hspIds:
+    elona122: 649
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDistantAttack7
+  hspIds:
+    elona122: 650
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionScavenge
+  hspIds:
+    elona122: 651
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionEyeOfMana
+  hspIds:
+    elona122: 652
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionVanish
+  hspIds:
+    elona122: 653
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionPregnant
+  hspIds:
+    elona122: 654
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionCheer
+  hspIds:
+    elona122: 656
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionMewmewmew
+  hspIds:
+    elona122: 657
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDecapitation
+  hspIds:
+    elona122: 658
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionDropMine
+  hspIds:
+    elona122: 659
+  parent: Elona.BaseActionEffect
+
+- type: Entity
+  id: Elona.ActionManisDisassembly
+  hspIds:
+    elona122: 660
+  parent: Elona.BaseActionEffect

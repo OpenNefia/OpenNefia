@@ -290,6 +290,7 @@ namespace OpenNefia.Content.Spells
 
         public int GetDifficulty(PrototypeId<SpellPrototype> spellID)
         {
+            return _protos.Index(spellID).Difficulty;
         }
 
         #endregion
