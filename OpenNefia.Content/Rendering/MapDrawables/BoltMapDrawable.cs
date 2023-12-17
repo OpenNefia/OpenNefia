@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Rendering
             _assetAnimShock = Assets.Get(Prototypes.Protos.Asset.AnimShock);
             _tilePos = startPos.Position;
 
-            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 2.5f, MaxBoltFrames);
+            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 5f, MaxBoltFrames);
         }
 
         public override void OnThemeSwitched()

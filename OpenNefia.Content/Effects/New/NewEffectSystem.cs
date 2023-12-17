@@ -20,13 +20,16 @@ using OpenNefia.Content.Skills;
 namespace OpenNefia.Content.Effects.New
 {
     /// <summary>
-    /// New implementation of the effect system. This is an ECS-based version based
+    /// New implementation of the effect system. This is an ECS-based version designed
     /// around combining components:
-    /// 
-    /// - All effects are entities with a <see cref="EffectComponent"/>.
+    /// - All effects are entities with an <see cref="EffectComponent"/>.
     /// - Effects must have an "effect type" such as <see cref="EffectTypeSpellComponent"/>
     ///   or <see cref="EffectTypeActionComponent"/>. These determine the resource costs 
     ///   of the effect.
+    /// - Effects should subscribe to <see cref="GetEffectTargetEvent"/> so they can
+    ///   provide a default target if none is provided.
+    ///   The <see cref="EffectTargetOtherComponent"/> targets an entity or the ground,
+    ///   and <see cref="EffectTargetDirectionComponent"/> targets a cardinal direction.
     /// - You can customize how the effect is applied and its range with an "effect area"
     ///   component like <see cref="EffectAreaBallComponent"/> for AoE or just 
     ///   <see cref="EffectAreaDirectComponent"/> to skip any special targeting logic.
@@ -35,6 +38,17 @@ namespace OpenNefia.Content.Effects.New
     ///   this event to apply the actual effect. These include
     ///   <see cref="EffectDamageElementalComponent"/> for elemental damage, among others.
     /// </summary>
+    /// <remarks>
+    /// To summarize:
+    /// - <see cref="INewEffectSystem"/> raises <see cref="CastEffectEvent"/>.
+    /// - Event handlers of <see cref="CastEffectEvent"/> should raise <see cref="ApplyEffectAreaEvent"/>.
+    /// - Event handlers of <see cref="ApplyEffectAreaEvent"/> should raise <see cref="ApplyEffectDamageEvent"/>
+    ///   and possibly <see cref="ApplyEffectTileDamageEvent"/>.
+    /// - Event handlers of <see cref="ApplyEffectDamageEvent"/> could call 
+    /// <see cref="INewEffectSystem.Apply"/> recursively for even more complex effects.
+    /// Following this convention allows you to mix and match different effect behaviors
+    /// to easily create new effects from the existing parts.
+    /// </remarks>
     public interface INewEffectSystem : IEntitySystem
     {
         /// <summary>
@@ -44,8 +58,9 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="target"></param>
         /// <param name="effectID"></param>
         /// <param name="args"></param>
-        /// <returns></returns>
-        TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args);
+        /// <param name="retainEffectEntity">If false, the effect entity will be deleted after the effect is applied.</param>
+        /// <returns>Turn result from the effect.</returns>
+        TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
     }
 
     public sealed class NewEffectSystem : EntitySystem, INewEffectSystem
@@ -57,37 +72,13 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
 
-        public override void Initialize()
-        {
-            // TODO remove! for debugging only.
-            SubscribeBroadcast<GetInteractActionsEvent>(DebugCastBolt);
-        }
-
-        private void DebugCastBolt(GetInteractActionsEvent ev)
-        {
-            ev.OutInteractActions.Add(new("Cast Bolt", CastBolt));
-        }
-
-        private TurnResult CastBolt(EntityUid source, EntityUid target)
-        {
-            var ids = new PrototypeId<EntityPrototype>[]
-            {
-                new("Elona.SpellIceBolt"),
-                new("Elona.SpellFireBolt"),
-                new("Elona.SpellLightningBolt")
-            };
-            var args = EffectArgSet.Make();
-            args.Power = 100;
-            return Apply(source, target, _rand.Pick(ids), args);
-        }
-
-        public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)
+        public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
         {
             var effectEntity = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
-            if (!IsAlive(effectEntity))
+            if (!IsAlive(effectEntity) || !HasComp<EffectComponent>(effectEntity.Value))
             {
-                Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned");
-                if (effectEntity != null)
+                Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
+                if (effectEntity != null && !retainEffectEntity)
                     EntityManager.DeleteEntity(effectEntity.Value);
                 return TurnResult.Aborted;
             }
@@ -95,7 +86,7 @@ namespace OpenNefia.Content.Effects.New
             var ev = new CastEffectEvent(source, target, args);
             RaiseEvent(effectEntity.Value, ev);
 
-            if (IsAlive(effectEntity))
+            if (IsAlive(effectEntity) && !retainEffectEntity)
                 EntityManager.DeleteEntity(effectEntity.Value);
 
             return ev.TurnResult;
@@ -137,6 +128,25 @@ namespace OpenNefia.Content.Effects.New
         public EntityCoordinates? OutCoords { get; set; } = null;
 
         public GetEffectTargetEvent(EntityUid source, EffectArgSet args)
+        {
+            Source = source;
+            Args = args;
+        }
+    }
+
+    /// <summary>
+    /// Raised to retrieve the primary target if the AI is casting this effect.
+    /// </summary>
+    [EventUsage(EventTarget.Effect)]
+    public sealed class GetEffectAITargetEvent : CancellableEntityEventArgs
+    {
+        public EntityUid Source { get; }
+        public EffectArgSet Args { get; }
+
+        public EntityUid? OutTarget { get; set; } = null;
+        public EntityCoordinates? OutCoords { get; set; } = null;
+
+        public GetEffectAITargetEvent(EntityUid source, EffectArgSet args)
         {
             Source = source;
             Args = args;
