@@ -180,6 +180,7 @@
     elona122: 419
   difficulty: 220
   mpCost: 10
+  maxRange: 6
   skillID: Elona.SpellIceBolt
   effectID: Elona.SpellIceBolt
 
@@ -189,6 +190,7 @@
     elona122: 420
   difficulty: 220
   mpCost: 10
+  maxRange: 6
   skillID: Elona.SpellFireBolt
   effectID: Elona.SpellFireBolt
 
@@ -198,6 +200,7 @@
     elona122: 421
   difficulty: 220
   mpCost: 10
+  maxRange: 6
   skillID: Elona.SpellLightningBolt
   effectID: Elona.SpellLightningBolt
 
@@ -207,6 +210,7 @@
     elona122: 422
   difficulty: 350
   mpCost: 12
+  maxRange: 6
   skillID: Elona.SpellDarknessBolt
   effectID: Elona.SpellDarknessBolt
 
@@ -216,6 +220,7 @@
     elona122: 423
   difficulty: 350
   mpCost: 12
+  maxRange: 6
   skillID: Elona.SpellMindBolt
   effectID: Elona.SpellMindBolt
 

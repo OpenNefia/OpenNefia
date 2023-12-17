@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Spells
             if (candidates.Count == 0)
             {
                 _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Ensure<EffectCommonArgs>().EffectWasObvious = false;
+                args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
                 
                 return TurnResult.Failed;
             }

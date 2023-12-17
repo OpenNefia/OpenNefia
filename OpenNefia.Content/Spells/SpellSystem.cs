@@ -35,6 +35,7 @@ using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Spells
 {
+    // TODO Spell -> Spells?
     public interface ISpellSystem : IEntitySystem
     {
         #region Querying
@@ -48,7 +49,7 @@ namespace OpenNefia.Content.Spells
         int SpellStock(EntityUid uid, PrototypeId<SpellPrototype> spellId, SpellsComponent? spells = null);
         int SpellStock(EntityUid uid, SpellPrototype spellProto, SpellsComponent? spells = null);
 
-        bool TryGetKnown(EntityUid uid, PrototypeId<SpellPrototype> protoId, [NotNullWhen(true)] out LevelPotentialAndStock? level, SpellsComponent? spells = null);
+        bool TryGetKnown(EntityUid uid, PrototypeId<SpellPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level, [NotNullWhen(true)] out SpellState? spellState, SpellsComponent? spells = null);
 
         bool HasSpell(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null);
         bool HasSpell(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null);
@@ -80,6 +81,7 @@ namespace OpenNefia.Content.Spells
         int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcBaseSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcRandomizedSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        int CalcSpellPower(SpellPrototype spell, EntityUid caster);
 
         #endregion
     }
@@ -100,15 +102,19 @@ namespace OpenNefia.Content.Spells
 
         #region Querying
 
-        public bool TryGetKnown(EntityUid uid, PrototypeId<SpellPrototype> protoId, [NotNullWhen(true)] out LevelPotentialAndStock? level, SpellsComponent? spells = null)
+        public bool TryGetKnown(EntityUid uid, PrototypeId<SpellPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level, [NotNullWhen(true)] out SpellState? spellState, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells))
+            if (!Resolve(uid, ref spells)
+                || !_protos.TryIndex(protoId, out var spell)
+                || !_skills.TryGetKnown(uid, spell.SkillID, out level))
             {
                 level = null;
+                spellState = null;
                 return false;
             }
 
-            return spells.TryGetKnown(protoId, out level);
+            spellState = spells.Ensure(protoId);
+            return true;
         }
 
         public int Level(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null)
@@ -116,10 +122,10 @@ namespace OpenNefia.Content.Spells
 
         public int Level(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells))
+            if (!TryGetKnown(uid, protoId, out var level, out _))
                 return 0;
 
-            return spells.Level(protoId);
+            return level.Level.Buffed;
         }
 
         public int BaseLevel(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null)
@@ -127,10 +133,10 @@ namespace OpenNefia.Content.Spells
 
         public int BaseLevel(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells))
+            if (!TryGetKnown(uid, protoId, out var level, out _))
                 return 0;
 
-            return spells.BaseLevel(protoId);
+            return level.Level.Base;
         }
 
         public int Potential(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null)
@@ -138,31 +144,26 @@ namespace OpenNefia.Content.Spells
 
         public int Potential(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells))
+            if (!TryGetKnown(uid, protoId, out var level, out _))
                 return 0;
 
-            return spells.Potential(protoId);
+            return level.Potential;
         }
 
         public bool HasSpell(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null)
             => HasSpell(uid, proto.GetStrongID(), spells);
 
         public bool HasSpell(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null)
-        {
-            if (!Resolve(uid, ref spells))
-                return false;
-
-            return spells.TryGetKnown(protoId, out _);
-        }
+            => TryGetKnown(uid, protoId, out _, out _, spells);
 
         public int SpellStock(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null)
             => SpellStock(uid, proto.GetStrongID(), spells);
         public int SpellStock(EntityUid uid, PrototypeId<SpellPrototype> spellID, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells) || !spells.TryGetKnown(spellID, out var level))
+            if (!Resolve(uid, ref spells) || !HasSpell(uid, spellID))
                 return 0;
 
-            return level.SpellStock;
+            return spells.Spells.GetOrInsertNew(spellID).SpellStock;
         }
 
         #endregion
@@ -172,12 +173,11 @@ namespace OpenNefia.Content.Spells
         public void ModifyPotential(EntityUid uid, PrototypeId<SpellPrototype> spellID, int delta, SpellsComponent? spells = null)
         {
             if (delta == 0 || !Resolve(uid, ref spells)
-                || !_protos.TryIndex(spellID, out var spellProto)
-                || !TryGetKnown(uid, spellID, out var level)
-                || !_protos.TryIndex(spellProto.SkillID, out var skill))
+                || !HasSpell(uid, spellID)
+                || !_protos.TryIndex(spellID, out var spell))
                 return;
 
-            _skills.ModifyPotential(uid, skill, level.Stats, delta);
+            _skills.ModifyPotential(uid, spell.SkillID, delta);
         }
 
         public void ModifyPotential(EntityUid uid, SpellPrototype skillProto, int delta, SpellsComponent? spells = null)
@@ -186,18 +186,11 @@ namespace OpenNefia.Content.Spells
         public void GainFixedSpellExp(EntityUid uid, PrototypeId<SpellPrototype> spellID, int expGained,
             SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells)
-                || !TryGetKnown(uid, spellID, out var level))
+            if (!Resolve(uid, ref spells) || !HasSpell(uid, spellID)
+                || !_protos.TryIndex(spellID, out var spellProto))
                 return;
 
-            if (!_protos.TryIndex(spellID, out var spellProto)
-                || !_protos.TryIndex(spellProto.SkillID, out var skill))
-            {
-                Logger.WarningS("spell", $"No spell with ID {spellID} found.");
-                return;
-            }
-
-            _skills.GainFixedSkillExp(uid, skill, level.Stats, expGained);
+            _skills.GainFixedSkillExp(uid, spellProto.SkillID, expGained);
         }
 
         public void GainSpellExp(EntityUid uid, PrototypeId<SpellPrototype> spellID,
@@ -206,17 +199,16 @@ namespace OpenNefia.Content.Spells
             int levelExpDivisor = 0,
             SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells) || !TryGetKnown(uid, spellID, out var level))
+            if (!Resolve(uid, ref spells) || !HasSpell(uid, spellID))
                 return;
 
-            if (!_protos.TryIndex(spellID, out var spellProto)
-                || !_protos.TryIndex(spellProto.SkillID, out var skill))
+            if (!_protos.TryIndex(spellID, out var spellProto))
             {
                 Logger.WarningS("spell", $"No spell with ID {spellID} found.");
                 return;
             }
 
-            _skills.GainSkillExp(uid, skill, level.Stats, baseExpGained, relatedSkillExpDivisor, levelExpDivisor);
+            _skills.GainSkillExp(uid, spellProto.SkillID, baseExpGained, relatedSkillExpDivisor, levelExpDivisor);
         }
 
         public void GainSpellExp(EntityUid uid, SpellPrototype spell,
@@ -230,29 +222,30 @@ namespace OpenNefia.Content.Spells
 
         public void GainSpell(EntityUid uid, PrototypeId<SpellPrototype> spellID, int spellStock = 0, LevelAndPotential? initialValues = null, SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells))
+            if (!Resolve(uid, ref spells) || !_protos.TryIndex(spellID, out var spellProto)
+                || !TryComp<SkillsComponent>(uid, out var skills))
                 return;
 
-            if (spells.TryGetKnown(spellID, out var level))
+            if (TryGetKnown(uid, spellID, out _, out var spellState))
             {
                 if (_gameSession.IsPlayer(uid))
                 {
-                    level.SpellStock += spellStock;
+                    spellState.SpellStock += spellStock;
                     ModifyPotential(uid, spellID, 1);
                 }
                 return;
             }
 
-            var newSkill = new LevelPotentialAndStock()
+            var newSkill = new LevelAndPotential()
             {
                 Level = initialValues?.Level ?? new(1),
                 Potential = initialValues?.Potential ?? 0,
                 Experience = initialValues?.Experience ?? 0,
-                SpellStock = spellStock
             };
             newSkill.Level.Base = Math.Max(newSkill.Level.Base, 1);
 
-            spells.Spells[spellID] = newSkill;
+            skills.Skills[spellProto.SkillID] = newSkill;
+            spells.Spells[spellID] = new SpellState() { SpellStock = spellStock };
 
             if (newSkill.Potential <= 0)
             {
@@ -286,6 +279,16 @@ namespace OpenNefia.Content.Spells
                 return TurnResult.Aborted;
             }
 
+            var power = CalcSpellPower(spell, caster);
+
+            var commonArgs = new EffectCommonArgs()
+            {
+                EffectSource = EffectSources.Spell,
+                Power = power,
+                CurseState = CurseState.Normal,
+                SkillLevel = _skills.Level(caster, spell.SkillID),
+                TileRange = spell.MaxRange
+            };
             var args = EffectArgSet.Make();
 
             if (!_newEffects.TryPromptEffectTarget(caster, effect.Value, args, out var targetPair))
@@ -303,6 +306,30 @@ namespace OpenNefia.Content.Spells
         {
             // TODO format power
             return Loc.GetPrototypeString(proto.SkillID, "Description");
+        }
+
+        public int CalcSpellPower(SpellPrototype spell, EntityUid caster)
+        {
+            // >>>>>>>> shade2/calculation.hsp:867 #defcfunc calcSpellPower int id,int c ...
+
+            // NOTE: In vanilla, power was calculated by multipying the enum
+            // value of the skill's type (bolt, arrow, ball, etc.) and
+            // adding 10. This means bolt spells were the least powerful and
+            // ball spells were more powerful. This is changed here (and in
+            // omake overhaul) to be the skill level of the action or the
+            // character's level.
+            if (!_gameSession.IsPlayer(caster))
+            {
+                return _levels.GetLevel(caster) * 6 + 10;
+            }
+
+            if (_skills.TryGetKnown(caster, spell.SkillID, out var skill))
+            {
+                return skill.Level.Buffed * 6 + 10;
+            }
+
+            return 100;
+            // <<<<<<<< shade2/calculation.hsp:874 	return sCasting(c)*6+10 ..
         }
 
         public float CalcSpellSuccessRate(SpellPrototype proto, EntityUid caster, EntityUid effect)

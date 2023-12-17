@@ -41,6 +41,12 @@ namespace OpenNefia.Content.Spells
         public int MPCost { get; set; } = 0;
 
         /// <summary>
+        /// Maximum range of the spell in tiles.
+        /// </summary>
+        [DataField]
+        public int MaxRange { get; set; } = 1;
+
+        /// <summary>
         /// If true, MP cost will not scale with the spell's skill level.
         /// </summary>
         [DataField]

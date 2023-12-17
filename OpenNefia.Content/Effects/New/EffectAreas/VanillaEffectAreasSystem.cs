@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var result = ApplyEffectDamage(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args, 1, 0);
 
-            args.CommonArgs.EffectWasObvious = result.EffectWasObvious;
+            args.CommonArgs.OutEffectWasObvious = result.EffectWasObvious;
             args.Handle(result.TurnResult);
         }
 
@@ -136,10 +136,8 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return;
             }
 
-            // TODO range
-            var range = RANGE_BOLT;
+            var range = args.CommonArgs.TileRange;
 
-            // TODO anim
             var (color, impactSound) = GetEffectColorAndSound(uid, args.Args);
             var anim = new BoltMapDrawable(args.SourceCoordsMap, args.TargetCoordsMap, offsets, range, color, impactSound);
             _mapDrawables.Enqueue(anim, args.Source);
@@ -169,7 +167,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 }
             }
 
-            args.CommonArgs.EffectWasObvious = obvious;
+            args.CommonArgs.OutEffectWasObvious = obvious;
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
         }

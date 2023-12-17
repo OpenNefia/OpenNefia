@@ -67,11 +67,27 @@ namespace OpenNefia.Content.Effects
 
     public sealed class EffectArgSet : Blackboard<EffectArgs>
     {
-        public int Power { get; set; } = 1;
-        public int Range { get; set; } = 1;
-        public int SkillLevel { get; set; } = 0;
-        public CurseState CurseState { get; set; } = CurseState.Normal;
-        public IDice Dice { get; set; } = new Dice();
+        public EffectCommonArgs CommonArgs => Ensure<EffectCommonArgs>();
+        public int Power
+        {
+            get => CommonArgs.Power;
+            set => CommonArgs.Power = value;
+        }
+        public int SkillLevel
+        {
+            get => CommonArgs.SkillLevel;
+            set => CommonArgs.SkillLevel = value;
+        }
+        public int TileRange
+        {
+            get => CommonArgs.TileRange;
+            set => CommonArgs.TileRange = value;
+        }
+        public CurseState CurseState
+        {
+            get => CommonArgs.CurseState;
+            set => CommonArgs.CurseState = value;
+        }
 
         public static EffectArgSet Make(params EffectArgs[] rest)
         {
@@ -86,8 +102,8 @@ namespace OpenNefia.Content.Effects
         public static EffectArgSet FromImmutable(ImmutableEffectArgSet args, params EffectArgs[] rest)
         {
             var result = Make(rest);
-            result.Power = args.Power;
-            result.CurseState = args.CurseState;
+            //result.Power = args.Power;
+            //result.CurseState = args.CurseState;
             return result;
         }
     }
@@ -95,6 +111,15 @@ namespace OpenNefia.Content.Effects
     [DataDefinition]
     public sealed class EffectCommonArgs : EffectArgs
     {
+        [DataField]
+        public int Power { get; set; } = 1;
+
+        [DataField]
+        public int SkillLevel { get; set; } = 0;
+
+        [DataField]
+        public CurseState CurseState { get; set; } = CurseState.Normal;
+
         /// <summary>
         /// How this effect was triggered initially (e.g. by casting a spell, drinking a potion, traps, etc.). This is mostly used for message display.
         /// </summary>
@@ -107,17 +132,18 @@ namespace OpenNefia.Content.Effects
         [DataField]
         public int TileRange { get; set; } = 1;
 
+        [DataField]
+        public bool NoInheritCurseState { get; set; } = false;
+
+        public EntityUid? Item { get; set; } = null;
+
         /// <summary>
         /// If set to true after casting a spell, the thing holding the spell should be identified.
         /// </summary>
         /// <remarks>
         /// The default is <c>true</c>, set to <c>false</c> to prevent identification.
         /// </remarks>
-        public bool EffectWasObvious { get; set; } = true;
-
-        public EntityUid? Item { get; set; } = null;
-
-        public bool NoInheritCurseState { get; set; } = false;
+        public bool OutEffectWasObvious { get; set; } = true;
     }
 
     public static class EffectSources

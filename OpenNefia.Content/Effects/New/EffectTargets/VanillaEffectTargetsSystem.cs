@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
                     args.Handle(target);
                 else
                 {
-                    effectCommon.EffectWasObvious = false;
+                    effectCommon.OutEffectWasObvious = false;
                     args.Handle(null);
                 }
             }
@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             }
             else
             {
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null);
             }
             // <<<<<<<< elona122/shade2/proc.hsp:1576 			}else{ ...
@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             var effectCommon = args.Args.Ensure<EffectCommonArgs>();
             if (!TryComp<VanillaAIComponent>(args.Source, out var vai))
             {
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null, null);
                 return;
             }
@@ -120,7 +120,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
                 if (!TryMap(coords, out var map) || !_vis.HasLineOfSight(args.Source, coords))
                 {
                     _mes.Display(Loc.GetString("Elona.Targeting.Prompt.CannotSeeLocation"));
-                    effectCommon.EffectWasObvious = false;
+                    effectCommon.OutEffectWasObvious = false;
                     args.Handle(null, null);
                 }
 
@@ -131,11 +131,11 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             // <<<<<<<< elona122/shade2/proc.hsp:1597 				} ...
 
             // >>>>>>>> elona122/shade2/proc.hsp:1615 		if cc=pc{ ...
-            var range = args.Args.Range;
+            var range = args.Args.TileRange;
 
             if (!TryPickTarget(args.Source, component.PromptIfFriendly, range, out var targetEnt))
             {
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null, null);
                 return;
             }
@@ -156,7 +156,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             if (!dir.HasValue)
             {
                 _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null);
                 return;
             }
@@ -183,7 +183,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             if (!posResult.HasValue)
             {
                 _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null);
                 return;
             }
@@ -191,7 +191,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             if (!posResult.Value.CanSee)
             {
                 _mes.Display(Loc.GetString("Elona.Targeting.Prompt.CannotSeeLocation"));
-                effectCommon.EffectWasObvious = false;
+                effectCommon.OutEffectWasObvious = false;
                 args.Handle(null);
                 return;
             }

@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 || map.GetTileID(args.TargetCoordsMap) == tileID)
             {
                 _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Args.Ensure<EffectCommonArgs>().EffectWasObvious = false;
+                args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
                 args.Handle(TurnResult.Failed);
                 return;
             }
