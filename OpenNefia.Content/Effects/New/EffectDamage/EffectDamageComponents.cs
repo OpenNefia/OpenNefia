@@ -21,9 +21,6 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectBaseDamageDiceComponent : Component
     {
         [DataField]
-        public PrototypeId<SkillPrototype>? AssociatedSkill { get; }
-
-        [DataField]
         public Formula DiceX { get; } = new("1");
 
         [DataField]

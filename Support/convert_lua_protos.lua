@@ -2243,9 +2243,21 @@ local function convert_scenes()
     data["elona_sys.scene"]:iter():each(convert)
 end
 
+local function print_spell_costs()
+    data["base.skill"]
+        :iter()
+        :filter(function(d)
+            return d.type == "action"
+        end)
+        :each(function(d)
+            print(dotted(d._id):gsub("%.Action", "."), d.cost, d.difficulty)
+        end)
+end
+
+print_spell_costs()
 -- write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
-convert_scenes()
+-- convert_scenes()
 -- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")

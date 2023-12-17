@@ -16,10 +16,10 @@ using OpenNefia.Content.Effects;
 namespace OpenNefia.Content.Spells
 {
     /// <summary>
-    /// Represents a skill assocated with an effect that has a spell stock.
+    /// Represents a skill assocated with an effect.
     /// </summary>
-    [Prototype("Elona.Spell")]
-    public class SpellPrototype : IPrototype, IHspIds<int>
+    [Prototype("Elona.Action")]
+    public class ActionPrototype : IPrototype, IHspIds<int>
     {
         [IdDataField]
         public string ID { get; } = default!;
@@ -35,9 +35,9 @@ namespace OpenNefia.Content.Spells
         public PrototypeId<EntityPrototype> EffectID { get; }
 
         [DataField]
-        public int Difficulty { get; set; } = 0;
+        public int Difficulty { get; }
 
         [DataField]
-        public int MPCost { get; set; } = 0;
+        public int StaminaCost { get; set; } = 0;
     }
 }

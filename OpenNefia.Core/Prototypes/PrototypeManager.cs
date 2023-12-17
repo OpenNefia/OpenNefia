@@ -17,6 +17,7 @@ using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
 using Spectre.Console;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -88,8 +89,8 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype;
         bool HasIndex(Type type, string id);
-        bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype;
-        bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype);
+        bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype, bool logMissing = true) where T : class, IPrototype;
+        bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype, bool logMissing = true);
 
         bool HasMapping<T>(PrototypeId<T> id) where T : class, IPrototype;
         bool TryGetMapping(Type type, string id, [NotNullWhen(true)] out MappingDataNode? mappings);
@@ -1255,17 +1256,20 @@ namespace OpenNefia.Core.Prototypes
             return index.ContainsKey(id);
         }
 
-        public bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype
+        public bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype, bool logMissing = true) where T : class, IPrototype
         {
-            var returned = TryIndex(typeof(T), (string)id, out var proto);
+            var returned = TryIndex(typeof(T), (string)id, out var proto, logMissing);
             prototype = (proto ?? null) as T;
             return returned;
         }
 
-        public bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype)
+        public bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype, bool logMissing = true)
         {
             if (id == null)
             {
+                if (logMissing)
+                    Logger.ErrorS("resolve", $"Can't find prototype {id} of type \"{type}\"!\n{new StackTrace(1, true)}");
+
                 prototype = null;
                 return false;
             }
@@ -1278,7 +1282,11 @@ namespace OpenNefia.Core.Prototypes
                     throw new UnknownPrototypeException(id, type);
             }
 
-            return index.TryGetValue(id, out prototype);
+            var found = index.TryGetValue(id, out prototype);
+            if (!found && logMissing)
+                Logger.ErrorS("resolve", $"Can't find prototype {id} of type \"{type}\"!\n{new StackTrace(1, true)}");
+
+            return found;
         }
 
         public bool HasMapping<T>(PrototypeId<T> id) where T : class, IPrototype

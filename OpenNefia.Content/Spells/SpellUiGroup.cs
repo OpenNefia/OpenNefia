@@ -28,9 +28,9 @@ namespace OpenNefia.Content.Spells
 
     public record SpellGroupSublayerResult
     {
-        public sealed record CastSpell(SpellDefinition Spell) : SpellGroupSublayerResult
+        public sealed record CastSpell(SpellPrototype Spell) : SpellGroupSublayerResult
         {
-            public override string ToString() => $"{nameof(CastSpell)}({Spell.Effect.ID}, {Spell.AssociatedSkill.ID})";
+            public override string ToString() => $"{nameof(CastSpell)}({Spell.EffectID}, {Spell.SkillID})";
         }
         //public sealed record UseSkill(EntityUid? SelectedItem = null) : InventoryResult
         //{

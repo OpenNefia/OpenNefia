@@ -34,22 +34,23 @@ namespace OpenNefia.Content.Spells
     {
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public class Args
         {
-            public Args(IEnumerable<SpellDefinition> spells)
+            public Args(IEnumerable<SpellPrototype> spells)
             {
                 Spells = spells.ToList();
             }
 
-            public IList<SpellDefinition> Spells { get; }
+            public IList<SpellPrototype> Spells { get; }
         }
 
         public class Result
         {
-            public SpellDefinition Spell { get; }
+            public SpellPrototype Spell { get; }
 
-            public Result(SpellDefinition spell)
+            public Result(SpellPrototype spell)
             {
                 Spell = spell;
             }
@@ -57,6 +58,7 @@ namespace OpenNefia.Content.Spells
 
         public sealed record class ListItem(
             string Name,
+            SpellPrototype Spell,
             SkillPrototype Skill, 
             EntityPrototype Effect, 
             EntityUid EffectEntity,
@@ -170,14 +172,17 @@ namespace OpenNefia.Content.Spells
             _list.Select(PreviousListIndex);
         }
 
-        private IEnumerable<SpellsListCell> MakeListCells(IList<SpellDefinition> spells)
+        private IEnumerable<SpellsListCell> MakeListCells(IList<SpellPrototype> spells)
         {
-            SpellsListCell ToListCell(SpellDefinition def)
+            SpellsListCell ToListCell(SpellPrototype proto)
             {
-                var entity = _entityManager.SpawnEntity(def.Effect.GetStrongID(), MapCoordinates.Global);
+                var skillProto = _protos.Index(proto.SkillID);
+                var entityProto = _protos.Index(proto.EffectID);
+
+                var entity = _entityManager.SpawnEntity(proto.EffectID, MapCoordinates.Global);
                 _entityManager.GetComponent<MetaDataComponent>(entity).IsMapSavable = false;
 
-                var name = Loc.GetPrototypeString(def.AssociatedSkill, "Name");
+                var name = Loc.GetPrototypeString(proto.SkillID, "Name");
 
                 var cost = "0";
                 var stock = 0;
@@ -185,9 +190,9 @@ namespace OpenNefia.Content.Spells
                 var successRate = "";
                 var description = "TODO asldkjawolifj";
                 string? shortcutKey = null;
-                var attribute = def.AssociatedSkill.RelatedSkill;
+                var attribute = skillProto.RelatedSkill;
 
-                var data = new ListItem(name, def.AssociatedSkill, def.Effect, entity, 
+                var data = new ListItem(name, proto, skillProto, entityProto, entity, 
                     cost, stock, level, successRate, description, shortcutKey, attribute);
 
                 return new SpellsListCell(data);
@@ -218,7 +223,7 @@ namespace OpenNefia.Content.Spells
 
         private void HandleListActivated(object? sender, UiListEventArgs<ListItem> e)
         {
-            Finish(new(new SpellDefinition(e.SelectedCell.Data.Effect, e.SelectedCell.Data.Skill)));
+            Finish(new(e.SelectedCell.Data.Spell));
             e.Handle();
         }
 

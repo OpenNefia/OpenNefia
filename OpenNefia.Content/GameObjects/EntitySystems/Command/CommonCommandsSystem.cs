@@ -156,7 +156,7 @@ namespace OpenNefia.Content.GameObjects
             switch (value)
             {
                 case SpellGroupSublayerResult.CastSpell castSpell:
-                    return _spells.NewCast(player, castSpell.Spell);
+                    return _spells.NewCast(player, castSpell.Spell.GetStrongID());
                 default:
                     return TurnResult.Aborted;
             }

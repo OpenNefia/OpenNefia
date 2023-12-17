@@ -24,7 +24,6 @@
   parent: Elona.BaseSpellBolt
   components:
   - type: EffectBaseDamageDice
-    associatedSkill: Elona.SpellIceBolt
   - type: EffectDamageElemental
     element: Elona.Cold
 
@@ -35,7 +34,6 @@
   parent: Elona.BaseSpellBolt
   components:
   - type: EffectBaseDamageDice
-    associatedSkill: Elona.SpellFireBolt
   - type: EffectDamageElemental
     element: Elona.Fire
 
@@ -46,7 +44,6 @@
   parent: Elona.BaseSpellBolt
   components:
   - type: EffectBaseDamageDice
-    associatedSkill: Elona.SpellLightningBolt
   - type: EffectDamageElemental
     element: Elona.Lightning
 
@@ -60,7 +57,6 @@
     mpCost: 12
     difficulty: 350
   - type: EffectBaseDamageDice
-    associatedSkill: Elona.SpellDarknessBolt
     diceY: (power / 25) + 4
   - type: EffectDamageElemental
     element: Elona.Darkness
@@ -75,7 +71,6 @@
     mpCost: 12
     difficulty: 350
   - type: EffectBaseDamageDice
-    associatedSkill: Elona.SpellMindBolt
     diceY: (power / 25) + 4
   - type: EffectDamageElemental
     element: Elona.Mind

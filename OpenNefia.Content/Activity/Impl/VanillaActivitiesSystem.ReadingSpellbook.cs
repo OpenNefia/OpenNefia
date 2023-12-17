@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Activity
 
             if (TryComp<SpellbookComponent>(component.Spellbook, out var spellbook))
             {
-                int difficulty = _protos.Index(spellbook.SpellID).Difficulty;
+                int difficulty = _spells.GetDifficulty(spellbook.SpellID);
 
                 if (_curseStates.IsBlessed(component.Spellbook))
                     difficulty = (int)(difficulty / 1.2);
@@ -99,7 +99,7 @@ namespace OpenNefia.Content.Activity
             {
                 var memorizationLevel = _skills.Level(actor, Protos.Skill.Memorization);
                 var currentStock = _spells.SpellStock(actor, spellbook.SpellID);
-                int difficulty = _protos.Index(spellbook.SpellID).Difficulty;
+                int difficulty = _spells.GetDifficulty(spellbook.SpellID);
 
                 _spells.GainSpell(actor, spellbook.SpellID, CalcGainedSpellStock(memorizationLevel, currentStock));
                 _skills.GainSkillExp(actor, Protos.Skill.Memorization, 10 + difficulty / 5);

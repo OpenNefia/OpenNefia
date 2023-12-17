@@ -70,6 +70,7 @@ namespace OpenNefia.Content.Skills
     /// cref="SkillsSystem"/> to do the actual leveling.
     /// </para>
     /// </summary>
+    // TODO remove
     public interface ISkillPrototype : IPrototype
     {
         /// <summary>

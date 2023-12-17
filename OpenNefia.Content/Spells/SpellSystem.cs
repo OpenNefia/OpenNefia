@@ -27,18 +27,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Love.Misc.Moonshine;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Spells
 {
-    /// <summary>
-    /// A spell effect and the skill it's associated with.
-    /// </summary>
-    /// <param name="Effect">Entity of the spell's effect.</param>
-    /// <param name="AssociatedSkill">Skill associated with the effect.</param>
-    public sealed record class SpellDefinition(
-        EntityPrototype Effect, 
-        SkillPrototype AssociatedSkill);
-
     public interface ISpellSystem : IEntitySystem
     {
         #region Querying
@@ -57,8 +49,6 @@ namespace OpenNefia.Content.Spells
         bool HasSpell(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null);
         bool HasSpell(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null);
 
-        IEnumerable<SpellDefinition> EnumerateSpells();
-
         #endregion
 
         #region Leveling
@@ -74,12 +64,14 @@ namespace OpenNefia.Content.Spells
 
         #region Casting
 
-        TurnResult NewCast(EntityUid caster, SpellDefinition spell);
+        TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spell);
 
         TurnResult Cast(PrototypeId<SpellPrototype> spellID, EntityUid target, int power = 0,
             EntityUid? source = null, EntityUid? item = null,
             EntityCoordinates? coords = null, CurseState? curseState = null,
             string effectSource = EffectSources.Default, EffectArgSet? args = null);
+
+        int GetDifficulty(PrototypeId<SpellPrototype> spellID);
 
         #endregion
     }
@@ -160,30 +152,19 @@ namespace OpenNefia.Content.Spells
             return level.SpellStock;
         }
 
-        public IEnumerable<SpellDefinition> EnumerateSpells()
-        {
-            return _protos.EnumeratePrototypes<EntityPrototype>()
-                .Select(ent =>
-                {
-                    if (ent.Components.TryGetComponent<EffectBaseDamageDiceComponent>(out var dice)
-                    && dice.AssociatedSkill != null
-                    && _protos.TryIndex(dice.AssociatedSkill.Value, out var skill))
-                        return new SpellDefinition(ent, skill);
-                    return null;
-                })
-                .WhereNotNull();
-        }
-
         #endregion
 
         #region Leveling
 
         public void ModifyPotential(EntityUid uid, PrototypeId<SpellPrototype> spellID, int delta, SpellsComponent? spells = null)
         {
-            if (delta == 0 || !Resolve(uid, ref spells) || !_protos.TryIndex(spellID, out var spellProto) || !TryGetKnown(uid, spellID, out var level))
+            if (delta == 0 || !Resolve(uid, ref spells) 
+                || !_protos.TryIndex(spellID, out var spellProto) 
+                || !TryGetKnown(uid, spellID, out var level)
+                || !_protos.TryIndex(spellProto.SkillID, out var skill))
                 return;
 
-            _skills.ModifyPotential(uid, spellProto, level.Stats, delta);
+            _skills.ModifyPotential(uid, skill, level.Stats, delta);
         }
 
         public void ModifyPotential(EntityUid uid, SpellPrototype skillProto, int delta, SpellsComponent? spells = null)
@@ -192,16 +173,18 @@ namespace OpenNefia.Content.Spells
         public void GainFixedSpellExp(EntityUid uid, PrototypeId<SpellPrototype> spellID, int expGained,
             SpellsComponent? spells = null)
         {
-            if (!Resolve(uid, ref spells) || !TryGetKnown(uid, spellID, out var level))
+            if (!Resolve(uid, ref spells)
+                || !TryGetKnown(uid, spellID, out var level))
                 return;
 
-            if (!_protos.TryIndex(spellID, out var spellProto))
+            if (!_protos.TryIndex(spellID, out var spellProto)
+                || !_protos.TryIndex(spellProto.SkillID, out var skill))
             {
                 Logger.WarningS("spell", $"No spell with ID {spellID} found.");
                 return;
             }
 
-            _skills.GainFixedSkillExp(uid, spellProto, level.Stats, expGained);
+            _skills.GainFixedSkillExp(uid, skill, level.Stats, expGained);
         }
 
         public void GainSpellExp(EntityUid uid, PrototypeId<SpellPrototype> spellID,
@@ -213,13 +196,14 @@ namespace OpenNefia.Content.Spells
             if (!Resolve(uid, ref spells) || !TryGetKnown(uid, spellID, out var level))
                 return;
 
-            if (!_protos.TryIndex(spellID, out var skillProto))
+            if (!_protos.TryIndex(spellID, out var spellProto)
+                || !_protos.TryIndex(spellProto.SkillID, out var skill))
             {
                 Logger.WarningS("spell", $"No spell with ID {spellID} found.");
                 return;
             }
 
-            _skills.GainSkillExp(uid, skillProto, level.Stats, baseExpGained, relatedSkillExpDivisor, levelExpDivisor);
+            _skills.GainSkillExp(uid, skill, level.Stats, baseExpGained, relatedSkillExpDivisor, levelExpDivisor);
         }
 
         public void GainSpellExp(EntityUid uid, SpellPrototype spell,
@@ -265,25 +249,25 @@ namespace OpenNefia.Content.Spells
             _refresh.Refresh(uid);
         }
 
-        public TurnResult NewCast(EntityUid caster, SpellDefinition spell)
+        public TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spellID)
         {
-            var result = DoCastSpell(caster, spell);
+            var result = DoCastSpell(caster, spellID);
             if (result == TurnResult.Succeeded)
             {
                 // TODO gain casting exp
             }
-
             return result;
         }
 
-        private TurnResult DoCastSpell(EntityUid caster, SpellDefinition spell)
+        private TurnResult DoCastSpell(EntityUid caster, PrototypeId<SpellPrototype> spellID)
         {
-            var effectID = spell.Effect.GetStrongID();
+            if (!_protos.TryIndex(spellID, out var spell))
+                return TurnResult.Aborted;
 
-            var effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
+            var effect = _entityGen.SpawnEntity(spell.EffectID, MapCoordinates.Global);
             if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
             {
-                Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
+                Logger.ErrorS("effect", $"Failed to cast event {spell.EffectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
                 if (effect != null)
                     EntityManager.DeleteEntity(effect.Value);
                 return TurnResult.Aborted;
@@ -302,6 +286,10 @@ namespace OpenNefia.Content.Spells
                 EntityManager.DeleteEntity(effect.Value);
 
             return result;
+        }
+
+        public int GetDifficulty(PrototypeId<SpellPrototype> spellID)
+        {
         }
 
         #endregion

@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Book
             if (!_stacks.TrySplit(spellbook, 1, out var split) || !TryComp<SpellbookComponent>(split, out var spellbookComp))
                 return TurnResult.Aborted;
 
-            var turns = _protos.Index(spellbookComp.SpellID).Difficulty / (2 + _skills.Level(reader, Protos.Skill.Literacy)) + 1;
+            var turns = _spells.GetDifficulty(spellbookComp.SpellID) / (2 + _skills.Level(reader, Protos.Skill.Literacy)) + 1;
             var activity = EntityManager.SpawnEntity(Protos.Activity.ReadingSpellbook, MapCoordinates.Global);
             Comp<ActivityReadingSpellbookComponent>(activity).Spellbook = split;
             _activities.StartActivity(reader, activity, turns);

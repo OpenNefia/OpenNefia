@@ -10,6 +10,7 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Spells
 {
@@ -19,6 +20,7 @@ namespace OpenNefia.Content.Spells
     public class SpellsUiLayer : SpellGroupUiLayer
     {
         [Dependency] private readonly ISpellSystem _spells = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         [Child] private SpellsLayer _inner = new();
         
@@ -29,7 +31,7 @@ namespace OpenNefia.Content.Spells
 
         public override void Initialize(SpellGroupSublayerArgs args)
         {
-            var spells = _spells.EnumerateSpells();
+            var spells = _protos.EnumeratePrototypes<SpellPrototype>();
             var innerArgs = new SpellsLayer.Args(spells)
             {
             };

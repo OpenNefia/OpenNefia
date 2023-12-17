@@ -24,18 +24,6 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectTypeSpellComponent : Component
     {
         /// <summary>
-        /// Spell casting difficulty.
-        /// </summary>
-        [DataField]
-        public int Difficulty { get; set; } = 0;
-
-        /// <summary>
-        /// MP cost to cast this spell.
-        /// </summary>
-        [DataField]
-        public int MPCost { get; set; } = 0;
-
-        /// <summary>
         /// Whether this spell has positive or negative effects.
         /// Affects the power of the spell if its corresponding item
         /// is blessed or cursed.
