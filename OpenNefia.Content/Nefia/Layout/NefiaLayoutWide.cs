@@ -139,7 +139,7 @@ namespace OpenNefia.Content.Nefia
                         var dx = roomPos.X;
                         for (var rx = 0; rx < roomSize.X; rx++)
                         {
-                            map.SetTile(new(dx, dy), Protos.Tile.MapgenRoom);
+                            map.SetTile(new Vector2i(dx, dy), Protos.Tile.MapgenRoom);
                             dx++;
                         }
                         dy++;

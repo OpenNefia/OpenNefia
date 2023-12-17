@@ -1,4 +1,8 @@
 Elona.Spells = {
+    Prompt = {
+        WhichDirection = "どの方向に唱える？",
+    },
+
     Layer = {
         Window = {
             Title = "魔法の詠唱",

@@ -126,6 +126,22 @@ namespace OpenNefia.Core.Maps
             DirtyTilesThisTurn.Add(pos);
         }
 
+        public void SetTile(MapCoordinates coords, PrototypeId<TilePrototype> tileId)
+        {
+            if (coords.MapId != Id)
+                return;
+
+            SetTile(coords.Position, tileId);
+        }
+
+        public void SetTileMemory(MapCoordinates coords, PrototypeId<TilePrototype> tileId)
+        {
+            if (coords.MapId != Id)
+                return;
+
+            SetTileMemory(coords.Position, tileId);
+        }
+
         public void MemorizeTile(Vector2i pos)
         {
             if (!IsInBounds(pos))
@@ -135,6 +151,14 @@ namespace OpenNefia.Core.Maps
             DirtyTilesThisTurn.Add(pos);
             MapObjectMemory.RevealObjects(this, pos, _entityManager);
             InSight[pos.X, pos.Y] = LastSightId;
+        }
+
+        public void MemorizeTile(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return;
+
+            MemorizeTile(coords.Position);
         }
 
         public void RefreshTile(Vector2i pos)

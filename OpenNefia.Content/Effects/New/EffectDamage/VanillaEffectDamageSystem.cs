@@ -45,13 +45,13 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
         }
 
-        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid target, EffectBaseDamageDiceComponent component, EffectArgSet args)
+        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectBaseDamageDiceComponent component, EffectArgSet args)
         {
             var result = new Dictionary<string, double>();
 
             result["power"] = args.Power;
             result["skillLevel"] = args.SkillLevel;
-            if (_spatials.TryMapDistanceFractional(source, target, out var dist))
+            if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
             {
                 result["distance"] = dist;
             }
@@ -61,10 +61,10 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Cancelled)
+            if (args.Handled)
                 return;
 
-            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, component, args.Args);
+            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, component, args.Args);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(component.DiceX, formulaArgs, 1f), 1);
             var diceY = int.Max((int)_formulaEngine.Calculate(component.DiceY, formulaArgs, 1f), 1);
@@ -109,17 +109,17 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_ControlMagic(EntityUid uid, EffectDamageControlMagicComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Cancelled)
+            if (args.Handled || args.InnerTarget == null)
                 return;
 
-            var result = ProcControlMagic(args.Source, args.InnerTarget, args.OutDamage);
+            var result = ProcControlMagic(args.Source, args.InnerTarget.Value, args.OutDamage);
             args.OutDamage = result.NewDamage;
 
             switch (result.Status)
             {
                 case ControlMagicStatus.Success:
                     _mes.Display(Loc.GetString("Elona.Magic.ControlMagic.PassesThrough", ("target", args.InnerTarget)), entity: args.InnerTarget);
-                    args.Cancel();
+                    args.Handle(TurnResult.Succeeded);
                     break;
                 case ControlMagicStatus.Partial:
                     _skills.GainSkillExp(args.Source, Protos.Skill.ControlMagic, 30, 2);
@@ -154,11 +154,11 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_Elemental(EntityUid uid, EffectDamageElementalComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Cancelled)
+            if (args.Handled || args.InnerTarget == null)
                 return;
 
-            var tense = _damages.GetDamageMessageTense(args.InnerTarget);
-            DisplayEffectDamageMessage(uid, args.InnerTarget, tense);
+            var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
+            DisplayEffectDamageMessage(uid, args.InnerTarget.Value, tense);
 
             var extraArgs = new DamageHPExtraArgs()
             {
@@ -167,7 +167,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 IsThirdPerson = true
             };
             var damageType = new ElementalDamageType(component.Element, args.OutElementalPower);
-            _damages.DamageHP(args.InnerTarget, args.OutDamage, args.Source, damageType, extraArgs);
+            _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
         }
     }
 }

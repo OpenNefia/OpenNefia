@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectAreaBoltComponent : Component
     {
+        [DataField]
+        public bool IgnoreFOV { get; set; } = false;
     }
 
     /// <summary>
@@ -23,16 +26,6 @@ namespace OpenNefia.Content.Effects.New
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectAreaArrowComponent : Component
-    {
-    }
-
-    /// <summary>
-    /// Applies the effect directly to the target without any further
-    /// checks or animations.
-    /// </summary>
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectAreaDirectComponent : Component
     {
     }
 

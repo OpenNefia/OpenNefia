@@ -41,6 +41,22 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         public override void Initialize()
         {
             SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
+            SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
+        }
+
+        /// <summary>
+        /// If nothing handled an earlier <see cref="ApplyEffectAreaEvent"/>,
+        /// then the effect will be applied directly to the target automatically.
+        /// </summary>
+        private void ApplyAreaFallback(EntityUid uid, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var result = ApplyEffectDamage(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args, 1, 0);
+
+            args.CommonArgs.EffectWasObvious = result.EffectWasObvious;
+            args.Handle(result.TurnResult);
         }
 
         private const int RANGE_BOLT = 6;
@@ -131,36 +147,42 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var curPos = args.SourceCoordsMap.Position;
             var map = args.Map;
 
+            var obvious = false;
+
             for (var i = 0; i < BoltMaxTiles; i++)
             {
                 var offset = offsets[i % offsets.Count];
                 curPos += offset;
                 var curPosMap = map.AtPos(curPos);
+                var curPosEntity = map.AtPosEntity(curPos);
 
-                if (i < offsets.Count
-                    || (map.IsInBounds(curPos)
-                        && map.CanSeeThrough(curPos)
-                        && _vis.IsInWindowFov(curPosMap)))
+                var isInFOV = map.IsInBounds(curPos) && map.CanSeeThrough(curPos) && _vis.IsInWindowFov(curPosMap);
+
+                if ((component.IgnoreFOV || isInFOV) && i < range)
                 {
                     ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args);
 
-                    if (_targetable.TryGetTargetableEntity(curPosMap, out var innerTarget))
-                    {
-                        ApplyEffectDamage(uid, args.Source, innerTarget.Owner, args.SourceCoords, innerTarget.Coordinates, args.Args);
-                    }
+                    _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
+                    var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, offsets.Count, i);
+
+                    obvious = obvious || result.EffectWasObvious;
                 }
             }
 
+            args.CommonArgs.EffectWasObvious = obvious;
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
         }
 
-        private void ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid innerTarget, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        private EffectDamageResult ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid? innerTarget, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
-            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords, args);
+            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords, args, affectedTiles, affectedTileIndex);
             RaiseEvent(uid, ev);
+            return new(ev.TurnResult, ev.OutEffectWasObvious);
         }
     }
+
+    public sealed record class EffectDamageResult(TurnResult TurnResult, bool EffectWasObvious);
 
     [EventUsage(EventTarget.Effect)]
     public sealed class GetEffectAnimationParamsEvent : EntityEventArgs

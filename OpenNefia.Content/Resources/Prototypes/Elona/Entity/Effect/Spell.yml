@@ -190,6 +190,9 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 438
+  components:
+  - type: EffectTargetPosition
+  - type: EffectWallCreation
 
 - type: Entity
   id: Elona.SpellRestoreBody

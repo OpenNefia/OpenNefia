@@ -69,18 +69,19 @@ namespace OpenNefia.Content.Effects.New
                 return;
 
             EntityUid target;
-            EntityCoordinates? targetCoords = null;
+            EntityCoordinates? targetCoords = args.TargetCoords;
             if (args.Target == null)
             {
                 target = args.Source;
+                targetCoords ??= Spatial(args.Source).Coordinates;
             }
             else
             {
                 target = args.Target.Value;
+                targetCoords = Spatial(target).Coordinates;
             }
 
             var sourceCoords = Spatial(args.Source).Coordinates;
-            targetCoords ??= Spatial(target).Coordinates;
 
             var common = args.Args.Ensure<EffectCommonArgs>();
             if (!common.NoInheritCurseState)

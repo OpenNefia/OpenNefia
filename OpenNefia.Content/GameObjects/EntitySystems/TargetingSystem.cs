@@ -31,7 +31,7 @@ namespace OpenNefia.Content.GameObjects
         List<SpatialComponent> FindTargets(EntityUid attacker);
 
         /// <hsp>*findTarget</hsp>
-        bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false);
+        bool TrySearchForTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false);
     }
 
     public sealed class TargetingSystem : EntitySystem, ITargetingSystem
@@ -106,7 +106,7 @@ namespace OpenNefia.Content.GameObjects
         }
 
         /// <inheritdoc/>
-        public bool TryGetTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false)
+        public bool TrySearchForTarget(EntityUid attacker, [NotNullWhen(true)] out EntityUid? target, bool silent = false)
         {
             // >>>>>>>> shade2/command.hsp:4240 *findTarget ...
             if (!TryComp<VanillaAIComponent>(attacker, out var vai))

@@ -46,6 +46,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IEntityLookup _entityLookup = default!;
         [Dependency] private readonly IVanillaAISystem _vai = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         public override void Initialize()
         {
@@ -115,7 +116,7 @@ namespace OpenNefia.Content.GameObjects
             if (BlockIfWorldMap(session!.Player))
                 return TurnResult.Aborted;
 
-            if (!_targeting.TryGetTarget(session.Player, out var target))
+            if (!_targeting.TrySearchForTarget(session.Player, out var target))
                 return TurnResult.Aborted;
 
             if (_factions.GetRelationTowards(session.Player, target.Value) >= Relation.Neutral
@@ -235,7 +236,7 @@ namespace OpenNefia.Content.GameObjects
             if (vai.CurrentTarget != null)
                 targetCoords = Spatial(vai.CurrentTarget.Value).MapPosition;
 
-            var args = new PositionPrompt.Args(coords, targetCoords, session.Player);
+            var args = new PositionPrompt.Args(coords, session.Player, targetCoords);
             var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(args);
 
             if (!posResult.HasValue)
@@ -244,7 +245,7 @@ namespace OpenNefia.Content.GameObjects
             var result = posResult.Value;
             if (!result.CanSee || !map.IsFloor(result.Coords))
             {
-                _mes.Display(Loc.GetString("Elona.TargetText.CannotSeeLocation"));
+                _mes.Display(Loc.GetString("Elona.Targeting.Prompt.CannotSeeLocation"));
             }    
             else
             {
@@ -255,9 +256,9 @@ namespace OpenNefia.Content.GameObjects
                     _vai.SetTarget(session.Player, chara.Owner, 0, vai);
                     _mes.Display(Loc.GetString("Elona.Targeting.Action.YouTarget", ("onlooker", session.Player), ("target", chara.Owner)));
                 }
-                else
+                else if (result.Coords.TryToEntity(_mapManager, out var entityCoords))
                 {
-                    vai.CurrentTargetLocation = result.Coords;
+                    vai.CurrentTargetLocation = entityCoords;
                     _mes.Display(Loc.GetString("Elona.Targeting.Action.YouTargetGround", ("onlooker", session.Player)));
                 }
             }

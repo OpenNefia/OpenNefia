@@ -1,5 +1,4 @@
 Elona.TargetText = {
-    CannotSeeLocation = "You can't see the location.",
     DangerLevel = {
         ["0"] = function(target)
             return ("You can absolutely beat %s with your eyes closed and arms crossed."):format(_.him(target))

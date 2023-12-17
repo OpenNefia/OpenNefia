@@ -20,6 +20,9 @@ LecchoTorte:
       Elona.SpellIceBolt: 2000
       Elona.SpellLightningBolt: 500
       Elona.SpellFireBolt: 10
+      Elona.SpellWallCreation: 10
+
+      LecchoTorte.SpellBoltOfWallCreation: 10
     items:
       - id: Elona.ItemDagger
         location: Equipment

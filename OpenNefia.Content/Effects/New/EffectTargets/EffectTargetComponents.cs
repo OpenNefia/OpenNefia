@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Effects.New
     /// <summary>
     /// Only affects the caster.
     /// </summary>
+    /// <hsp>tgSelfOnly</hsp>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectTargetSelfComponent : Component
@@ -30,9 +31,11 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
-    /// Can affect the caster or someone nearby, but only if a wand is being used. Fails if no
-    /// character on tile (Heal, Holy Veil, Riding, Pickpocket)
+    /// Can affect the caster, or someone next to them (via directional prompt)
+    /// if a wand is being used.
+    /// Fails if no character on tile. (Heal, Holy Veil)
     /// </summary>
+    /// <hsp>tgSelf</hsp>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectTargetSelfOrNearbyComponent : Component
@@ -40,17 +43,32 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
-    /// Affects a ground position (Web, Create Wall)
+    /// Can affect someone next to them (via directional prompt),
+    /// Fails if no character on tile.  (Riding, Pickpocket)
     /// </summary>
+    /// <hsp>tgDirection</hsp>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectTargetGroundComponent : Component
+    public sealed class EffectTargetNearbyComponent : Component
     {
+    }
+
+    /// <summary>
+    /// Affects a ground position (Web, Create Wall)
+    /// </summary>
+    /// <hsp>tgLocation</hsp>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectTargetPositionComponent : Component
+    {
+        [DataField]
+        public bool AlwaysShowLine { get; set; } = false;
     }
 
     /// <summary>
     /// Casts in a cardinal direction (Teleport Other, Touch of Weakness)
     /// </summary>
+    /// <hsp>tgDir</hsp>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectTargetDirectionComponent : Component
@@ -63,12 +81,14 @@ namespace OpenNefia.Content.Effects.New
     /// - Can skip prompting (Shadow Step)
     /// - Can optionally be applied a ground position (arrows, bolts)
     /// </summary>
+    /// <hsp>tgEnemy</hsp>
+    /// <hsp>tgBoth</hsp>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectTargetOtherComponent : Component
     {
         [DataField]
-        public bool CanTargetFriendly { get; set; } = false;
+        public bool PromptIfFriendly { get; set; } = false;
 
         [DataField]
         public bool CanTargetGround { get; set; } = false;

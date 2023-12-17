@@ -1,5 +1,4 @@
 Elona.TargetText = {
-    CannotSeeLocation = "その場所は見えない。",
     DangerLevel = {
         ["0"] = "目隠しして座っていても勝てる。",
         ["1"] = "目隠ししていても勝てそうだ。",

@@ -1,4 +1,8 @@
 Elona.Spells = {
+    Prompt = {
+        WhichDirection = "Which direction do you want to cast the spell?",
+    },
+
     Layer = {
         Window = {
             Title = "Spell",

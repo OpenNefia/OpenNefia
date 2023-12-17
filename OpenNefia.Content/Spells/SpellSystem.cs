@@ -291,9 +291,7 @@ namespace OpenNefia.Content.Spells
             if (!_newEffects.TryPromptEffectTarget(caster, effect.Value, args, out var targetPair))
                 return TurnResult.Aborted;
 
-            // TODO map-coordinates-only target
-
-            var result = _newEffects.Apply(caster, targetPair.Target, effect.Value, args);
+            var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args);
 
             if (IsAlive(effect))
                 EntityManager.DeleteEntity(effect.Value);

@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Enchantments
             {
                 _combat.PhysicalAttack(ev.Attacker, target.Value, ev.AttackSkill, ev.Weapon, true);
 
-                if (!IsAlive(ev.Target) && !_targeting.TryGetTarget(ev.Attacker, out target, silent: true))
+                if (!IsAlive(ev.Target) && !_targeting.TrySearchForTarget(ev.Attacker, out target, silent: true))
                     break;
             }
         }

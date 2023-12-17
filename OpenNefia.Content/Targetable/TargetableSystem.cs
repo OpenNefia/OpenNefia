@@ -32,6 +32,7 @@ namespace OpenNefia.Content.Targetable
         /// still affected by things like area of effect magic.
         /// </summary>
         bool TryGetTargetableEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
+        bool TryGetTargetableEntity(EntityCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
 
         bool IsTargetable(EntityUid uid, TargetableComponent? targetable = null);
     }
@@ -59,6 +60,9 @@ namespace OpenNefia.Content.Targetable
             spatial = null;
             return false;
         }
+
+        public bool TryGetTargetableEntity(EntityCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial)
+            => TryGetTargetableEntity(coords.ToMap(EntityManager), out spatial);
 
         public bool IsTargetable(EntityUid uid, TargetableComponent? targetable = null)
         {

@@ -27,13 +27,13 @@ namespace OpenNefia.Content.Effects.New
     /// - Effects must have an "effect type" such as <see cref="EffectTypeSpellComponent"/>
     ///   or <see cref="EffectTypeActionComponent"/>. These determine the resource costs 
     ///   of the effect.
-    /// - Effects should subscribe to <see cref="GetEffectTargetEvent"/> so they can
+    /// - Effects should subscribe to <see cref="GetEffectPlayerTargetEvent"/> so they can
     ///   provide a default target if none is provided.
     ///   The <see cref="EffectTargetOtherComponent"/> targets an entity or the ground,
     ///   and <see cref="EffectTargetDirectionComponent"/> targets a cardinal direction.
     /// - You can customize how the effect is applied and its range with an "effect area"
     ///   component like <see cref="EffectAreaBallComponent"/> for AoE or just 
-    ///   <see cref="EffectAreaDirectComponent"/> to skip any special targeting logic.
+    ///   omit all area components to skip area targeting.
     /// - Effect area components should raise <see cref="ApplyEffectDamageEvent"/>, which applies
     ///   the effect to the target. In turn, "effect damage" components will listen for 
     ///   this event to apply the actual effect. These include
@@ -61,9 +61,9 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="args"></param>
         /// <param name="retainEffectEntity">If false, the effect entity will be deleted after the effect is applied.</param>
         /// <returns>Turn result from the effect.</returns>
-        TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
 
-        TurnResult Apply(EntityUid source, EntityUid? target, EntityUid effect, EffectArgSet args);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args);
 
         bool TryPromptEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
     }
@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
         {
             var effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
             if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Effects.New
                 return TurnResult.Aborted;
             }
 
-            var result = Apply(source, target, effect.Value, args);
+            var result = Apply(source, target, targetCoords, effect.Value, args);
 
             if (IsAlive(effect) && !retainEffectEntity)
                 EntityManager.DeleteEntity(effect.Value);
@@ -98,9 +98,9 @@ namespace OpenNefia.Content.Effects.New
             return result;
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityUid effect, EffectArgSet args)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args)
         {
-            var ev = new CastEffectEvent(source, target, args);
+            var ev = new CastEffectEvent(source, target, targetCoords, args);
             RaiseEvent(effect, ev);
             return ev.TurnResult;
         }
@@ -113,9 +113,9 @@ namespace OpenNefia.Content.Effects.New
                 return false;
             }
 
-            var ev = new GetEffectTargetEvent(source, args);
+            var ev = new GetEffectPlayerTargetEvent(source, args);
             RaiseEvent(effect, ev);
-            if (ev.Cancelled || (ev.OutTarget == null && ev.OutCoords == null))
+            if (!ev.Handled || (ev.OutTarget == null && ev.OutCoords == null))
             {
                 target = null;
                 return false;
@@ -137,12 +137,14 @@ namespace OpenNefia.Content.Effects.New
     {
         public EntityUid Source { get; }
         public EntityUid? Target { get; }
+        public EntityCoordinates? TargetCoords { get; }
         public EffectArgSet Args { get; }
 
-        public CastEffectEvent(EntityUid source, EntityUid? target, EffectArgSet args)
+        public CastEffectEvent(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EffectArgSet args)
         {
             Source = source;
             Target = target;
+            TargetCoords = targetCoords;
             Args = args;
         }
     }
@@ -152,7 +154,7 @@ namespace OpenNefia.Content.Effects.New
     /// if it was <c>null</c>.
     /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class GetEffectTargetEvent : CancellableEntityEventArgs
+    public sealed class GetEffectPlayerTargetEvent : HandledEntityEventArgs
     {
         public EntityUid Source { get; }
         public EffectArgSet Args { get; }
@@ -160,10 +162,17 @@ namespace OpenNefia.Content.Effects.New
         public EntityUid? OutTarget { get; set; } = null;
         public EntityCoordinates? OutCoords { get; set; } = null;
 
-        public GetEffectTargetEvent(EntityUid source, EffectArgSet args)
+        public GetEffectPlayerTargetEvent(EntityUid source, EffectArgSet args)
         {
             Source = source;
             Args = args;
+        }
+
+        public void Handle(EntityUid? target, EntityCoordinates? coords = null)
+        {
+            OutTarget = target;
+            OutCoords = coords;
+            Handled = true;
         }
     }
 
@@ -230,6 +239,7 @@ namespace OpenNefia.Content.Effects.New
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
 
         public ApplyEffectAreaEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
         {
@@ -277,7 +287,7 @@ namespace OpenNefia.Content.Effects.New
     /// Raised once for each entity affected by an AoE.
     /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class ApplyEffectDamageEvent : CancellableEntityEventArgs, IApplyEffectEvent
+    public sealed class ApplyEffectDamageEvent : TurnResultEntityEventArgs, IApplyEffectEvent
     {
         /// <summary>
         /// Person who casted the event.
@@ -286,15 +296,16 @@ namespace OpenNefia.Content.Effects.New
 
         /// <summary>
         /// Target of the effect. May be different from the original target
-        /// in the case of AoE.
+        /// in the case of AoE. May be <c>null</c> if the effect targets the ground.
         /// </summary>
-        public EntityUid InnerTarget { get; }
+        public EntityUid? InnerTarget { get; }
+
+        public EntityCoordinates SourceCoords { get; }
 
         /// <summary>
-        /// Automatically set to the location of <see cref="InnerTarget"/> if
-        /// not set manually.
+        /// Coordinates of the target entity or targeted position, 
+        /// These are guaranteed to be available even if there is no <see cref="InnerTarget"/>.
         /// </summary>
-        public EntityCoordinates SourceCoords { get; }
         public EntityCoordinates TargetCoords { get; }
 
         public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
@@ -306,6 +317,16 @@ namespace OpenNefia.Content.Effects.New
         public EffectArgSet Args { get; }
 
         /// <summary>
+        /// Number of affected tiles if this event was invoked with an AoE.
+        /// </summary>
+        public int AffectedTiles { get; }
+
+        /// <summary>
+        /// Index of the tile being affected, starting from 0.
+        /// </summary>
+        public int AffectedTileIndex { get; } = 0;
+
+        /// <summary>
         /// A damage property for calculating damage somewhere in the effect chain.
         /// </summary>
         public int OutDamage { get; set; } = 0;
@@ -315,13 +336,20 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         public int OutElementalPower { get; set; } = 0;
 
-        public ApplyEffectDamageEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        /// <summary>
+        /// Set to false if the effect failed so that the associated item is not identified.
+        /// </summary>
+        public bool OutEffectWasObvious { get; set; } = true;
+
+        public ApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
             Source = source;
             InnerTarget = target;
             SourceCoords = sourceCoords;
             TargetCoords = targetCoords;
             Args = args;
+            AffectedTiles = affectedTiles;
+            AffectedTileIndex = affectedTileIndex;
         }
     }
 }

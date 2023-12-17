@@ -68,6 +68,7 @@ namespace OpenNefia.Content.Effects
     public sealed class EffectArgSet : Blackboard<EffectArgs>
     {
         public int Power { get; set; } = 1;
+        public int Range { get; set; } = 1;
         public int SkillLevel { get; set; } = 0;
         public CurseState CurseState { get; set; } = CurseState.Normal;
         public IDice Dice { get; set; } = new Dice();

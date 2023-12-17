@@ -14,4 +14,11 @@ Elona.Targeting = {
         end,
         YouTargetGround = "You target the ground.",
     },
+
+    Prompt = {
+        WhichDirection = "Which direction?",
+        InWhichDirection = "Which direction? ",
+        CannotSeeLocation = "You can't see the location.",
+        OutOfRange = "It's out of range.",
+    },
 }
