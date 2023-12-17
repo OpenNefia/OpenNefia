@@ -13,48 +13,62 @@ namespace OpenNefia.Core.Utility
             return Math.Sqrt(dx * dx + dy * dy);
         }
 
-        /// <remarks>
-        /// From http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html.
-        /// </remarks>
-        public static IEnumerable<Vector2i> EnumerateLine(Vector2i a, Vector2i b)
+        public static IEnumerable<Vector2i> EnumerateLine(Vector2i from, Vector2i to, bool includeStartPos = false)
         {
-            bool steep = Math.Abs(b.Y - a.Y) > Math.Abs(b.X - a.X);
-            if (steep)
+            if (from == to)
             {
-                int t;
-                t = a.X; // swap a.X and a.Y
-                a.X = a.Y;
-                a.Y = t;
-                t = b.X; // swap b.X and b.Y
-                b.X = b.Y;
-                b.Y = t;
+                if (includeStartPos)
+                    yield return to;
+                yield break;
             }
-            if (a.X > b.X)
+
+            int deltaX, deltaY, boundX, boundY;
+
+            if (from.X < to.X)
             {
-                int t;
-                t = a.X; // swap a.X and b.X
-                a.X = b.X;
-                b.X = t;
-                t = a.Y; // swap a.Y and b.Y
-                a.Y = b.Y;
-                b.Y = t;
+                deltaX = 1;
+                boundX = to.X - from.X;
             }
-            int dx = b.X - a.X;
-            int dy = Math.Abs(b.Y - a.Y);
-            int error = dx / 2;
-            int ystep = (a.Y < b.Y) ? 1 : -1;
-            int y = a.Y;
-            for (int x = a.X; x <= b.X; x++)
+            else
             {
-                yield return new Vector2i((steep ? y : x), (steep ? x : y));
-                error = error - dy;
-                if (error < 0)
+                deltaX = -1;
+                boundX = from.X - to.X;
+            }
+            if (from.Y < to.Y)
+            {
+                deltaY = 1;
+                boundY = to.Y - from.Y;
+            }
+            else
+            {
+                deltaY = -1;
+                boundY = from.Y - to.Y;
+            }
+
+            var i = 0;
+            var pos = from;
+            var err = boundX - boundY;
+
+            do
+            {
+                if (i > 0 || includeStartPos)
+                    yield return pos;
+                i++;
+
+                var e = err * 2;
+                if (e > -boundY)
                 {
-                    y += ystep;
-                    error += dx;
+                    err -= boundY;
+                    pos.X += deltaX;
                 }
-            }
-            yield break;
+                if (e < boundX)
+                {
+                    err += boundX;
+                    pos.Y += deltaY;
+                }
+            } while (pos != to);
+
+            yield return pos;
         }
 
         public static IEnumerable<MapCoordinates> EnumerateLine(MapCoordinates a, MapCoordinates b)

@@ -188,20 +188,20 @@ namespace OpenNefia.Content.Spells
                 var skillProto = _protos.Index(proto.SkillID);
                 var entityProto = _protos.Index(proto.EffectID);
 
-                var entity = _entityManager.SpawnEntity(proto.EffectID, MapCoordinates.Global);
-                _entityManager.GetComponent<MetaDataComponent>(entity).IsMapSavable = false;
+                var effect = _entityManager.SpawnEntity(proto.EffectID, MapCoordinates.Global);
+                _entityManager.GetComponent<MetaDataComponent>(effect).IsMapSavable = false;
 
                 var name = Loc.GetPrototypeString(proto.SkillID, "Name");
 
-                var cost = proto.MPCost;
+                var cost = _spells.CalcSpellMPCost(proto, _casterEntity, effect);
                 var stock = _spells.SpellStock(_casterEntity, proto);
                 var level = _skills.Level(_casterEntity, proto.SkillID);
-                var successRate = _spells.CalcSpellSuccessRate(proto, _casterEntity, entity);
-                var description = _spells.LocalizeSpellDescription(proto, _casterEntity, entity);
+                var successRate = _spells.CalcSpellSuccessRate(proto, _casterEntity, effect);
+                var description = _spells.LocalizeSpellDescription(proto, _casterEntity, effect);
                 string? shortcutKey = null;
                 var attribute = skillProto.RelatedSkill;
 
-                var data = new ListItem(name, proto, skillProto, entityProto, entity, 
+                var data = new ListItem(name, proto, skillProto, entityProto, effect, 
                     cost, stock, level, successRate, description, shortcutKey, attribute);
 
                 return new SpellsListCell(data);

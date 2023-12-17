@@ -2254,7 +2254,46 @@ local function print_spell_costs()
         end)
 end
 
-print_spell_costs()
+local function print_lines()
+    local Pos = require "api.Pos"
+
+    local test_cases = {
+        { 0, 0, 0, 0 },
+        { 0, 0, 3, 0 },
+        { 0, 0, -3, 0 },
+        { 0, 0, 0, 3 },
+        { 0, 0, 0, -3 },
+        { 0, 0, 3, 3 },
+        { 0, 0, -3, 3 },
+        { 0, 0, 3, 3 },
+        { 0, 0, 3, -3 },
+        { 0, 0, 3, 6 },
+        { 0, 0, -3, 6 },
+        { 0, 0, 3, 6 },
+        { 0, 0, 3, -6 },
+        { 0, 0, 6, 3 },
+        { 0, 0, -3, 3 },
+        { 0, 0, 6, 3 },
+        { 0, 0, 6, -3 },
+        { 0, 0, 9, 2 },
+        { 0, 0, -9, 2 },
+        { 0, 0, 9, 2 },
+        { 0, 0, 9, -2 },
+    }
+
+    for _, case in ipairs(test_cases) do
+        local result = Pos.iter_line(case[1], case[2], case[3], case[4])
+            :map(function(x, y)
+                return ("(%s, %s)"):format(x, y)
+            end)
+            :to_list()
+        result = table.concat(result, ", ")
+        print(("new((%s, %s), (%s, %s), new Vector2i[] { %s }),"):format(case[1], case[2], case[3], case[4], result))
+    end
+end
+
+-- print_spell_costs()
+print_lines()
 -- write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
 -- convert_scenes()

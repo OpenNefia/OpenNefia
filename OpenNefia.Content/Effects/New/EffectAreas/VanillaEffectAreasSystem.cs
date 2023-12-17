@@ -94,8 +94,6 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             foreach (var pos in PosHelpers.EnumerateLine(from.Position, to.Position))
             {
-                if (pos == lastPos)
-                    continue;
                 if (map.CanSeeThrough(pos))
                 {
                     offsets.Add(pos - lastPos);

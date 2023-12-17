@@ -4,7 +4,8 @@ using System.Text;
 
 namespace OpenNefia.Tests.Core.Utility
 {
-    [TestFixture, Parallelizable]
+    [Parallelizable(ParallelScope.All | ParallelScope.Fixtures)]
+    [TestFixture]
     [TestOf(typeof(StringHelpers))]
     public class StringHelpers_Test
     {
