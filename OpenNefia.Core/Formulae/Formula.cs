@@ -4,7 +4,7 @@ namespace OpenNefia.Core.Formulae
     {
         public string Body = string.Empty;
 
-        public static readonly LocaleKey Empty = new("");
+        public static readonly Formula Empty = new("");
 
         public Formula(string body)
         {

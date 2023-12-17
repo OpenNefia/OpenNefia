@@ -1,41 +1,80 @@
 - type: Entity
-  id: Elona.BaseMagicBolt
+  id: Elona.BaseSpellBolt
   abstract: true
   parent: BaseEffect
   components:
-  - type: EffectTypeMagic
+  - type: EffectTypeSpell
     mpCost: 10
     difficulty: 220
   - type: EffectTargetOther
   - type: EffectAreaBolt
   - type: EffectBaseDamageDice
-  - type: EffectDamageControlMagic
+    diceX: (power / 50) + 1 + (skillLevel / 20)
+    diceY: (power / 26) + 4
+    elementPower: 180 + (power / 4)
+  - type: EffectDamageControlSpell
   - type: EffectDamageMessage
     rootKey: Elona.Magic.Message.Bolt
 
 - type: Entity
-  id: Elona.MagicIceBolt
+  id: Elona.SpellIceBolt
   hspIds:
     elona122: 419
-  parent: Elona.BaseMagicBolt
+  parent: Elona.BaseSpellBolt
   components:
+  - type: EffectBaseDamageDice
+    associatedSkill: Elona.SpellIceBolt
   - type: EffectDamageElemental
     element: Elona.Cold
 
 - type: Entity
-  id: Elona.MagicFireBolt
+  id: Elona.SpellFireBolt
   hspIds:
     elona122: 420
-  parent: Elona.BaseMagicBolt
+  parent: Elona.BaseSpellBolt
   components:
+  - type: EffectBaseDamageDice
+    associatedSkill: Elona.SpellFireBolt
   - type: EffectDamageElemental
     element: Elona.Fire
 
 - type: Entity
-  id: Elona.MagicLightningBolt
+  id: Elona.SpellLightningBolt
   hspIds:
     elona122: 421
-  parent: Elona.BaseMagicBolt
+  parent: Elona.BaseSpellBolt
   components:
+  - type: EffectBaseDamageDice
+    associatedSkill: Elona.SpellLightningBolt
   - type: EffectDamageElemental
     element: Elona.Lightning
+
+- type: Entity
+  id: Elona.SpellDarknessBolt
+  hspIds:
+    elona122: 421
+  parent: Elona.BaseSpellBolt
+  components:
+  - type: EffectTypeSpell
+    mpCost: 12
+    difficulty: 350
+  - type: EffectBaseDamageDice
+    associatedSkill: Elona.SpellDarknessBolt
+    diceY: (power / 25) + 4
+  - type: EffectDamageElemental
+    element: Elona.Darkness
+
+- type: Entity
+  id: Elona.SpellMindBolt
+  hspIds:
+    elona122: 421
+  parent: Elona.BaseSpellBolt
+  components:
+  - type: EffectTypeSpell
+    mpCost: 12
+    difficulty: 350
+  - type: EffectBaseDamageDice
+    associatedSkill: Elona.SpellMindBolt
+    diceY: (power / 25) + 4
+  - type: EffectDamageElemental
+    element: Elona.Mind

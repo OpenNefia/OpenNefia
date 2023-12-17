@@ -17,6 +17,8 @@ using OpenNefia.Content.Damage;
 using NetVips;
 using OpenNefia.Content.Effects.New.EffectAreas;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Formulae;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -31,6 +33,8 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IDamageSystem _damages = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ISpatialSystem _spatials = default!;
+        [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
 
         public override void Initialize()
         {
@@ -41,14 +45,42 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
         }
 
+        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid target, EffectBaseDamageDiceComponent component, EffectArgSet args)
+        {
+            var result = new Dictionary<string, double>();
+
+            result["power"] = args.Power;
+            result["skillLevel"] = 0f;
+            if (component.AssociatedSkill != null)
+            {
+                result["skillLevel"] = _skills.Level(source, component.AssociatedSkill.Value);
+            }
+            if (_spatials.TryMapDistanceFractional(source, target, out var dist))
+            {
+                result["distance"] = dist;
+            }
+
+            return result;
+        }
+
         private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
         {
             if (args.Cancelled)
                 return;
 
-            // TODO formula
-            // TODO distance modifier
-            args.OutDamage = 500;
+            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, component, args.Args);
+
+            var diceX = int.Max((int)_formulaEngine.Calculate(component.DiceX, formulaArgs, 1f), 1);
+            var diceY = int.Max((int)_formulaEngine.Calculate(component.DiceY, formulaArgs, 1f), 1);
+            var bonus = (int)_formulaEngine.Calculate(component.Bonus, formulaArgs, 0f);
+            args.OutElementalPower = (int)_formulaEngine.Calculate(component.ElementPower, formulaArgs, 0f);
+
+            var dice = new Dice(diceX, diceY, bonus);
+            var baseDamage = dice.Roll(_rand);
+
+            formulaArgs["baseDamage"] = baseDamage;
+
+            args.OutDamage = (int)_formulaEngine.Calculate(component.DamageModifier, formulaArgs, baseDamage);
         }
 
         private enum ControlMagicStatus
@@ -132,15 +164,13 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             var tense = _damages.GetDamageMessageTense(args.InnerTarget);
             DisplayEffectDamageMessage(uid, args.InnerTarget, tense);
 
-            var elementalPower = 0; // TODO is kept on dice
-
             var extraArgs = new DamageHPExtraArgs()
             {
                 MessageTense = tense,
                 NoAttackText = true,
                 IsThirdPerson = true
             };
-            var damageType = new ElementalDamageType(component.Element, elementalPower);
+            var damageType = new ElementalDamageType(component.Element, args.OutElementalPower);
             _damages.DamageHP(args.InnerTarget, args.OutDamage, args.Source, damageType, extraArgs);
         }
     }

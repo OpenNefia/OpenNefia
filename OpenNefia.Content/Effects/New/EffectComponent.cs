@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Resists;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -82,7 +84,7 @@ namespace OpenNefia.Content.Effects.New
         public bool CanTargetGround { get; set; } = false;
     }
 
-    public enum MagicAlignment
+    public enum SpellAlignment
     {
         Positive,
         Neutral,
@@ -95,7 +97,7 @@ namespace OpenNefia.Content.Effects.New
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectTypeMagicComponent : Component
+    public sealed class EffectTypeSpellComponent : Component
     {
         /// <summary>
         /// Spell casting difficulty.
@@ -115,7 +117,7 @@ namespace OpenNefia.Content.Effects.New
         /// is blessed or cursed.
         /// </summary>
         [DataField]
-        public MagicAlignment Alignment { get; set; } = MagicAlignment.Positive;
+        public SpellAlignment Alignment { get; set; } = SpellAlignment.Positive;
     }
 
     [RegisterComponent]
@@ -178,11 +180,31 @@ namespace OpenNefia.Content.Effects.New
 
     /// <summary>
     /// Randomly selects damage based on dice.
+    /// Arguments you can use here:
+    /// - "power": Power of the effect
+    /// - "skillLevel": Level of the associated skill.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectBaseDamageDiceComponent : Component
     {
+        [DataField]
+        public PrototypeId<SkillPrototype>? AssociatedSkill { get; }
+
+        [DataField]
+        public Formula DiceX { get; } = new("1");
+
+        [DataField]
+        public Formula DiceY { get; } = new("1");
+
+        [DataField]
+        public Formula Bonus { get; } = new("0");
+
+        [DataField]
+        public Formula ElementPower { get; } = new("0");
+
+        [DataField]
+        public Formula DamageModifier { get; } = new("baseDamage");
     }
 
     /// <summary>

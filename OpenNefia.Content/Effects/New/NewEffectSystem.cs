@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -23,7 +24,7 @@ namespace OpenNefia.Content.Effects.New
     /// around combining components:
     /// 
     /// - All effects are entities with a <see cref="EffectComponent"/>.
-    /// - Effects must have an "effect type" such as <see cref="EffectTypeMagicComponent"/>
+    /// - Effects must have an "effect type" such as <see cref="EffectTypeSpellComponent"/>
     ///   or <see cref="EffectTypeActionComponent"/>. These determine the resource costs 
     ///   of the effect.
     /// - You can customize how the effect is applied and its range with an "effect area"
@@ -69,7 +70,15 @@ namespace OpenNefia.Content.Effects.New
 
         private TurnResult CastBolt(EntityUid source, EntityUid target)
         {
-            return Apply(source, target, new("Elona.MagicIceBolt"), EffectArgSet.Make());
+            var ids = new PrototypeId<EntityPrototype>[]
+            {
+                new("Elona.SpellIceBolt"),
+                new("Elona.SpellFireBolt"),
+                new("Elona.SpellLightningBolt")
+            };
+            var args = EffectArgSet.Make();
+            args.Power = 100;
+            return Apply(source, target, _rand.Pick(ids), args);
         }
 
         public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)
@@ -257,6 +266,11 @@ namespace OpenNefia.Content.Effects.New
         /// A damage property for calculating damage somewhere in the effect chain.
         /// </summary>
         public int OutDamage { get; set; } = 0;
+
+        /// <summary>
+        /// A damage property for calculating elemental power somewhere in the effect chain.
+        /// </summary>
+        public int OutElementalPower { get; set; } = 0;
 
         public ApplyEffectDamageEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
         {

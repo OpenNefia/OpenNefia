@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Effects.New
     /// <summary>
     /// Handles spell casting checks.
     /// </summary>
-    public sealed class EffectTypeMagicSystem : EntitySystem
+    public sealed class EffectTypeSpellSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
@@ -28,17 +28,17 @@ namespace OpenNefia.Content.Effects.New
 
         public override void Initialize()
         {
-            SubscribeComponent<EffectTypeMagicComponent, CastEffectEvent>(CastMagic);
+            SubscribeComponent<EffectTypeSpellComponent, CastEffectEvent>(CastMagic);
         }
 
-        private int CalcAdjustedPower(MagicAlignment alignment, int power, CurseState curseState)
+        private int CalcAdjustedPower(SpellAlignment alignment, int power, CurseState curseState)
         {
             switch (alignment)
             {
-                case MagicAlignment.Neutral:
+                case SpellAlignment.Neutral:
                 default:
                     return power;
-                case MagicAlignment.Positive:
+                case SpellAlignment.Positive:
                     switch (curseState)
                     {
                         case CurseState.Blessed:
@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Effects.New
                         default:
                             return power;
                     }
-                case MagicAlignment.Negative:
+                case SpellAlignment.Negative:
                     switch (curseState)
                     {
                         case CurseState.Blessed:
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Effects.New
             }
         }
 
-        private void CastMagic(EntityUid effectUid, EffectTypeMagicComponent component, CastEffectEvent args)
+        private void CastMagic(EntityUid effectUid, EffectTypeSpellComponent component, CastEffectEvent args)
         {
             if (args.Handled)
                 return;

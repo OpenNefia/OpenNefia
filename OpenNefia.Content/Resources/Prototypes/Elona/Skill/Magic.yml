@@ -1,0 +1,21 @@
+- type: Elona.Skill
+  id: Elona.SpellIceBolt
+  skillType: Spell
+  ordering: # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    after: Elona.Riding
+
+- type: Elona.Skill
+  id: Elona.SpellFireBolt
+  skillType: Spell
+
+- type: Elona.Skill
+  id: Elona.SpellLightningBolt
+  skillType: Spell
+
+- type: Elona.Skill
+  id: Elona.SpellDarknessBolt
+  skillType: Spell
+
+- type: Elona.Skill
+  id: Elona.SpellMindBolt
+  skillType: Spell

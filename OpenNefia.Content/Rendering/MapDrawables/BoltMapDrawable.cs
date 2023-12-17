@@ -95,7 +95,6 @@ namespace OpenNefia.Content.Rendering
         public override void Update(float dt)
         {
             _counter.Update(dt);
-            Console.WriteLine($"FRAME: {_counter.Frame}");
 
             for (var i = 0; i < _frames.Length; i++)
             {
@@ -162,7 +161,6 @@ namespace OpenNefia.Content.Rendering
                 if (frame.Frame < 5f)
                 {
                     var region = (int)frame.Frame;
-                    Console.WriteLine(frame.Frame);
                     _assetAnimShock.DrawRegion(_coords.TileScale, region.ToString(), frame.ScreenPos.X + ScreenOffset.X, frame.ScreenPos.Y + ScreenOffset.Y, rotationRads: angle, centered: true);
                 }
             }
