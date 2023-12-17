@@ -142,7 +142,7 @@ namespace OpenNefia.Content.Enchantments
 
             if (_rand.Next(25) < Math.Clamp(Math.Abs(args.AdjustedPower) / 50, 1, 25))
             {
-                _spells.Cast(Protos.Spell.SpellTeleport, args.Equipper, args.AdjustedPower);
+                _spells.Cast(Protos.Spell.Teleport, args.Equipper, args.AdjustedPower);
             }
         }
 

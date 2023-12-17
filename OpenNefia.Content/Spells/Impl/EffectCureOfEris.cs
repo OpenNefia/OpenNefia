@@ -25,7 +25,7 @@ namespace OpenNefia.Content.Spells
                 y: new("power / 12 + 5"),
                 bonus: new("power / 6"),
                 extraVariables: new[] { 
-                    new SpellDiceVariables(Protos.Spell.SpellCureOfEris)
+                    new SpellDiceVariables(Protos.Spell.CureOfEris)
                 });
             MessageKey = "Elona.Effect.Heal.Apply.Greatly";
         }

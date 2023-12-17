@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Quests
             var extraData = new Blackboard<IDialogExtraData>();
             extraData.Add(new DialogQuestData(selectedQuest));
 
-            _spells.Cast(Protos.Spell.ActionShadowStep, target: selectedQuest.ClientEntity, source: source);
+            //_spells.Cast(Protos.Spell.ActionDimensionalMove, target: selectedQuest.ClientEntity, source: source);
             return _dialogs.TryToChatWith(source, selectedQuest.ClientEntity, dialogNodeID, extraData: extraData);
         }
     }

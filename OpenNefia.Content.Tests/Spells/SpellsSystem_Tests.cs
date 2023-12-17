@@ -52,8 +52,8 @@ namespace OpenNefia.Content.Tests.Spells
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             var spells = entMan.EnsureComponent<SpellsComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spell = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spell = spells.Ensure(Spell.CureOfJure);
 
             Assert.Multiple(() =>
             {
@@ -81,10 +81,10 @@ namespace OpenNefia.Content.Tests.Spells
             var ent = entMan.SpawnEntity(TestSpellsEntityID, map.AtPos(Vector2i.One));
             var spells = entMan.GetComponent<SpellsComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spell = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spell = spells.Ensure(Spell.CureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000);
 
             Assert.Multiple(() =>
             {
@@ -115,10 +115,10 @@ namespace OpenNefia.Content.Tests.Spells
             var level = entMan.GetComponent<LevelComponent>(ent);
             var skillWill = skills.Ensure(Skill.AttrWill);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spellCureOfJure = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spellCureOfJure = spells.Ensure(Spell.CureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000);
 
             Assert.Multiple(() =>
             {
@@ -156,9 +156,9 @@ namespace OpenNefia.Content.Tests.Spells
             var skills = entMan.GetComponent<SkillsComponent>(ent);
             var skillWill = skills.Ensure(Skill.AttrWill);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000, relatedSkillExpDivisor: 2);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000, relatedSkillExpDivisor: 2);
 
             Assert.Multiple(() =>
             {
@@ -186,10 +186,10 @@ namespace OpenNefia.Content.Tests.Spells
             var spells = entMan.GetComponent<SpellsComponent>(ent);
             var level = entMan.GetComponent<LevelComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spellCureOfJure = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spellCureOfJure = spells.Ensure(Spell.CureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000, levelExpDivisor: 20);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000, levelExpDivisor: 20);
 
             Assert.Multiple(() =>
             {

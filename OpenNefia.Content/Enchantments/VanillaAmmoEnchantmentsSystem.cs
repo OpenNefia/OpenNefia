@@ -119,7 +119,7 @@ namespace OpenNefia.Content.Enchantments
 
             // TODO magic
             var power = _skills.Level(ev.Attacker, ev.AttackSkill) * 8 + 10;
-            _spells.Cast(Protos.Spell.SpellMagicStorm, ev.Target, power, ev.Attacker);
+            _spells.Cast(Protos.Spell.MagicStorm, ev.Target, power, ev.Attacker);
         }
 
         #endregion

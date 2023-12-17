@@ -179,7 +179,7 @@ namespace OpenNefia.Content.Book
             }
 
             _mes.Display(Loc.GetString("Elona.Magic.FailToCast.DimensionDoorOpens", ("chara", reader)));
-            _spells.Cast(Protos.Spell.SpellTeleport, reader);
+            _spells.Cast(Protos.Spell.Teleport, reader);
             // <<<<<<<< shade2/calculation.hsp:1114 	return false ..
         }
 
