@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Resists;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -191,6 +192,21 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectDamageControlMagicComponent : Component
     {
+    }
+
+    /// <summary>
+    /// Controls how the damage message is displayed.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageMessageComponent : Component
+    {
+        /// <summary>
+        /// Root key to use. It should have "Ally" and "Other"
+        /// messages for attacks that hit allies and non-allies.
+        /// </summary>
+        [DataField]
+        public LocaleKey RootKey { get; set; }
     }
 
     /// <summary>

@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Effects.New
             if (args.Handled)
                 return;
 
-            args.Handle();
+            args.Handle(TurnResult.Failed);
         }
     }
 }

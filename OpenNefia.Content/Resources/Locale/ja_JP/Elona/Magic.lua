@@ -18,4 +18,46 @@ Elona.Magic = {
             return ("%sは巻き込みを免れた。"):format(_.name(target))
         end,
     },
+
+    Message = {
+        Arrow = {
+            Ally = function(entity)
+                return ("矢が%sに命中した。"):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("矢は%sに命中し"):format(_.name(entity))
+            end,
+        },
+        Ball = {
+            Ally = function(entity)
+                return ("ボールが%sに命中した。"):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("ボールは%sに命中し"):format(_.name(entity))
+            end,
+        },
+        Bolt = {
+            Ally = function(entity)
+                return ("ボルトが%sに命中した。"):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("ボルトは%sに命中し"):format(_.name(entity))
+            end,
+        },
+        Breath = {
+            Ally = function(entity)
+                return ("ブレスは%sに命中した。"):format(_.name(entity))
+            end,
+            Bellows = function(entity, breathName)
+                return ("%sは%sブレスを吐いた。"):format(_.name(entity), breathName)
+            end,
+            Named = function(entity)
+                return ("%sの"):format(entity)
+            end,
+            NoElement = "",
+            Other = function(entity)
+                return ("ブレスは%sに命中し"):format(_.name(entity))
+            end,
+        },
+    },
 }

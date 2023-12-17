@@ -11,31 +11,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.GameObjects;
 
-namespace OpenNefia.Content.Effects.New
+namespace OpenNefia.Content.Effects.New.EffectTargets
 {
-    /// <summary>
-    /// Applies effects directly to targets with no further checks.
-    /// </summary>
-    public sealed class EffectTypeItemSystem : EntitySystem
+    public sealed class VanillaEffectTargetsSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ITargetingSystem _targeting = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<EffectTypeItemComponent, CastEffectEvent>(UseItem);
+            SubscribeComponent<EffectTargetOtherComponent, GetEffectTargetEvent>(GetTarget_Other);
         }
 
-        private void UseItem(EntityUid uid, EffectTypeItemComponent component, CastEffectEvent args)
+        private void GetTarget_Other(EntityUid uid, EffectTargetOtherComponent component, GetEffectTargetEvent args)
         {
-            if (args.Handled)
+            if (args.Cancelled)
                 return;
 
-            args.Handle(TurnResult.Failed);
+            // TODO
+            if (_targeting.TryGetTarget(uid, out var target))
+            {
+                args.OutTarget = target.Value;
+            }
+            else
+            {
+                args.Cancel();
+            }
         }
     }
 }

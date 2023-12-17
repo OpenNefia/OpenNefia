@@ -82,7 +82,7 @@ namespace OpenNefia.Content.Effects.New
 
                 if (ev.OutTarget == null)
                 {
-                    // Set target to the same as source as a fallaback.
+                    // Set target to the same as source as a fallback.
                     target = args.Source;
                 }
                 else

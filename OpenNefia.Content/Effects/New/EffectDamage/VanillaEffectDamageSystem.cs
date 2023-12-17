@@ -13,6 +13,10 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Damage;
+using NetVips;
+using OpenNefia.Content.Effects.New.EffectAreas;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -25,6 +29,8 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -32,6 +38,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageControlMagicComponent, ApplyEffectDamageEvent>(ApplyDamage_ControlMagic, priority: EventPriorities.VeryHigh - 100);
 
             SubscribeComponent<EffectDamageElementalComponent, ApplyEffectDamageEvent>(ApplyDamage_Elemental);
+            SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
         }
 
         private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
@@ -95,9 +102,46 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             }
         }
 
+        private void GetAnimParams_Elemental(EntityUid uid, EffectDamageElementalComponent component, GetEffectAnimationParamsEvent args)
+        {
+            if (_protos.TryIndex(component.Element, out var eleProto))
+            {
+                args.OutColor = eleProto.Color;
+                args.OutSound = eleProto.Sound?.GetSound();
+            }
+        }
+
+        /// <summary>
+        /// Shows a message like "The bolt hits the putit and" or "The bolt hits the putit.".
+        /// The rest of the message is displayed in <see cref="IDamageSystem.DamageHP"/>.
+        /// </summary>
+        private void DisplayEffectDamageMessage(EntityUid uid, EntityUid innerTarget, DamageHPMessageTense tense)
+        {
+            if (TryComp<EffectDamageMessageComponent>(uid, out var damageMessage))
+            {
+                var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
+                _mes.Display(Loc.GetString(damageMessage.RootKey.With(endKey), ("entity", innerTarget)), entity: innerTarget);
+            }
+        }
+
         private void ApplyDamage_Elemental(EntityUid uid, EffectDamageElementalComponent component, ApplyEffectDamageEvent args)
         {
-            throw new NotImplementedException();
+            if (args.Cancelled)
+                return;
+
+            var tense = _damages.GetDamageMessageTense(args.InnerTarget);
+            DisplayEffectDamageMessage(uid, args.InnerTarget, tense);
+
+            var elementalPower = 0; // TODO is kept on dice
+
+            var extraArgs = new DamageHPExtraArgs()
+            {
+                MessageTense = tense,
+                NoAttackText = true,
+                IsThirdPerson = true
+            };
+            var damageType = new ElementalDamageType(component.Element, elementalPower);
+            _damages.DamageHP(args.InnerTarget, args.OutDamage, args.Source, damageType, extraArgs);
         }
     }
 }

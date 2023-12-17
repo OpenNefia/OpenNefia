@@ -39,6 +39,8 @@ namespace OpenNefia.Content.Damage
         /// including karma loss, quest quotas, etc.
         /// </summary>
         void RunCheckKillEvents(EntityUid target, EntityUid attacker);
+
+        DamageHPMessageTense GetDamageMessageTense(EntityUid target);
     }
 
     public sealed partial class DamageSystem : EntitySystem, IDamageSystem
@@ -199,6 +201,11 @@ namespace OpenNefia.Content.Damage
 
             return true;
         }
+
+        public DamageHPMessageTense GetDamageMessageTense(EntityUid target)
+        {
+            return _parties.IsInPlayerParty(target) ? DamageHPMessageTense.Passive : DamageHPMessageTense.Active;
+        }
     }
 
     /// <param name="WasKilled">True if the target was killed.</param>
@@ -209,11 +216,13 @@ namespace OpenNefia.Content.Damage
     public enum DamageHPMessageTense
     {
         /// <summary>
+        /// For use with ally targets.
         /// "...was killed."
         /// </summary>
         Passive,
 
         /// <summary>
+        /// For use with enemy targets.
         /// "...and kills them."
         /// </summary>
         Active

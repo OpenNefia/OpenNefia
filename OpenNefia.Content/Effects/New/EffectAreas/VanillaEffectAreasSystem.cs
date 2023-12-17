@@ -18,6 +18,11 @@ using System.Threading.Tasks;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Targetable;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Audio;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.Effects.New.EffectAreas
 {
@@ -31,6 +36,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly ITargetingSystem _targetings = default!;
         [Dependency] private readonly ITargetableSystem _targetable = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
         public override void Initialize()
         {
@@ -41,11 +47,11 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         private const int RANGE_BALL = 2;
         private const int RANGE_BREATH = 5;
 
-        private Color GetEffectColor(EntityUid effect, EffectArgSet args)
+        private (Color, PrototypeId<SoundPrototype>?) GetEffectColorAndSound(EntityUid effect, EffectArgSet args)
         {
-            var ev = new GetEffectColorEvent(args);
+            var ev = new GetEffectAnimationParamsEvent(args);
             RaiseEvent(effect, ev);
-            return ev.OutColor;
+            return (ev.OutColor, ev.OutSound);
         }
 
         private void ApplyEffectTileDamage(EntityUid effect, EntityUid source, MapCoordinates coords, EffectArgSet args)
@@ -86,6 +92,8 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             foreach (var pos in PosHelpers.EnumerateLine(from.Position, to.Position))
             {
+                if (pos == from.Position)
+                    continue;
                 if (map.CanSeeThrough(pos))
                     offsets.Add(pos - from.Position);
                 else
@@ -109,8 +117,13 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return;
             }
 
+            // TODO range
+            var range = RANGE_BOLT;
+
             // TODO anim
-            var color = GetEffectColor(uid, args.Args);
+            var (color, impactSound) = GetEffectColorAndSound(uid, args.Args);
+            var anim = new BoltMapDrawable(args.SourceCoordsMap, args.TargetCoordsMap, offsets, range, color, impactSound);
+            _mapDrawables.Enqueue(anim, args.Source);
 
             var curPos = args.SourceCoordsMap.Position;
             var map = args.Map;
@@ -121,32 +134,39 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 curPos += offset;
                 var curPosMap = map.AtPos(curPos);
 
-                if (i < offsets.Count 
+                if (i < offsets.Count
                     || (map.IsInBounds(curPos)
-                        && map.CanSeeThrough(curPos) 
+                        && map.CanSeeThrough(curPos)
                         && _vis.IsInWindowFov(curPosMap)))
                 {
                     ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args);
 
                     if (_targetable.TryGetTargetableEntity(curPosMap, out var innerTarget))
                     {
-
+                        ApplyEffectDamage(uid, args.Source, innerTarget.Owner, args.SourceCoords, innerTarget.Coordinates, args.Args);
                     }
                 }
             }
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
         }
+
+        private void ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid innerTarget, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        {
+            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords, args);
+            RaiseEvent(uid, ev);
+        }
     }
 
     [EventUsage(EventTarget.Effect)]
-    public sealed class GetEffectColorEvent : EntityEventArgs
+    public sealed class GetEffectAnimationParamsEvent : EntityEventArgs
     {
-        public GetEffectColorEvent(EffectArgSet args)
+        public GetEffectAnimationParamsEvent(EffectArgSet args)
         {
             Args = args;
         }
 
         public Color OutColor { get; set; } = Color.White;
+        public PrototypeId<SoundPrototype>? OutSound { get; set; }
         public EffectArgSet Args { get; }
     }
 }

@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -57,6 +58,18 @@ namespace OpenNefia.Content.Effects.New
 
         public override void Initialize()
         {
+            // TODO remove! for debugging only.
+            SubscribeBroadcast<GetInteractActionsEvent>(DebugCastBolt);
+        }
+
+        private void DebugCastBolt(GetInteractActionsEvent ev)
+        {
+            ev.OutInteractActions.Add(new("Cast Bolt", CastBolt));
+        }
+
+        private TurnResult CastBolt(EntityUid source, EntityUid target)
+        {
+            return Apply(source, target, new("Elona.MagicIceBolt"), EffectArgSet.Make());
         }
 
         public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)

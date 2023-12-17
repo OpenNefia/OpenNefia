@@ -5,6 +5,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,14 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Effects.New
 {
     /// <summary>
-    /// Applies effects directly to targets with no further checks.
+    /// Wraps <see cref="INewEffectSystem"/> with MP checks and casting style logic.
     /// </summary>
-    public sealed class EffectTypeItemSystem : EntitySystem
+    public interface IMagicSystem : IEntitySystem
+    {
+        TurnResult Cast(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args);
+    }
+
+    public sealed class MagicSystem : EntitySystem, IMagicSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
@@ -25,17 +31,13 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
-        public override void Initialize()
+        public TurnResult Cast(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)
         {
-            SubscribeComponent<EffectTypeItemComponent, CastEffectEvent>(UseItem);
+            return TurnResult.Failed;
         }
 
-        private void UseItem(EntityUid uid, EffectTypeItemComponent component, CastEffectEvent args)
+        public override void Initialize()
         {
-            if (args.Handled)
-                return;
-
-            args.Handle(TurnResult.Failed);
         }
     }
 }
