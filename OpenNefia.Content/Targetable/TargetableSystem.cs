@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Targetable
         /// It's necessary to keep track of the non-primary characters on the same tile because they are 
         /// still affected by things like area of effect magic.
         /// </summary>
-        bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
+        bool TryGetTargetableEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial);
 
         bool IsTargetable(EntityUid uid, TargetableComponent? targetable = null);
     }
@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Targetable
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
         /// <inheritdoc />
-        public bool TryGetBlockingEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial)
+        public bool TryGetTargetableEntity(MapCoordinates coords, [NotNullWhen(true)] out SpatialComponent? spatial)
         {
             foreach (var entSpatial in _lookup.GetLiveEntitiesAtCoords(coords))
             {

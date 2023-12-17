@@ -12,4 +12,10 @@ Elona.Magic = {
             return ("%sはマナを吸い取られた！"):format(_.name(chara))
         end,
     },
+
+    ControlMagic = {
+        PassesThrough = function(target)
+            return ("%sは巻き込みを免れた。"):format(_.name(target))
+        end,
+    },
 }

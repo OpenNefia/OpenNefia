@@ -28,8 +28,8 @@ namespace OpenNefia.Content.Effects.New
     /// - You can customize how the effect is applied and its range with an "effect area"
     ///   component like <see cref="EffectAreaBallComponent"/> for AoE or just 
     ///   <see cref="EffectAreaDirectComponent"/> to skip any special targeting logic.
-    /// - Effect area components should raise <see cref="EffectHitEvent"/> which applies
-    ///   the effect to the target. In turn "effect damage" components will listen for 
+    /// - Effect area components should raise <see cref="ApplyEffectDamageEvent"/>, which applies
+    ///   the effect to the target. In turn, "effect damage" components will listen for 
     ///   this event to apply the actual effect. These include
     ///   <see cref="EffectDamageElementalComponent"/> for elemental damage, among others.
     /// </summary>
@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="effectID"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        TurnResult Apply(EntityUid source, EntityUid target, PrototypeId<EntityPrototype> effectID, EffectArgSet args);
+        TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args);
     }
 
     public sealed class NewEffectSystem : EntitySystem, INewEffectSystem
@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Effects.New
         {
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)
+        public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args)
         {
             var effectEntity = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
             if (!IsAlive(effectEntity))
@@ -83,17 +83,17 @@ namespace OpenNefia.Content.Effects.New
     /// <summary>
     /// Called when an effect is cast. This event should delegate to a system that
     /// handles targeting and stat checks (MP/stamina/etc.) before raising 
-    /// <see cref="ApplyEffectEvent"/> internally. 
+    /// <see cref="ApplyEffectAreaEvent"/> internally. 
     /// Examples are the magic and action entity systems.
     /// </summary>
     [EventUsage(EventTarget.Effect)]
     public sealed class CastEffectEvent : TurnResultEntityEventArgs
     {
         public EntityUid Source { get; }
-        public EntityUid Target { get; }
+        public EntityUid? Target { get; }
         public EffectArgSet Args { get; }
 
-        public CastEffectEvent(EntityUid source, EntityUid target, EffectArgSet args)
+        public CastEffectEvent(EntityUid source, EntityUid? target, EffectArgSet args)
         {
             Source = source;
             Target = target;
@@ -102,22 +102,155 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
-    /// Runs the actual logic of the event after checks like MP/stamina/targeting
-    /// have been completed.
+    /// Raised to retrieve the primary target or location of this effect,
+    /// if it was <c>null</c>.
     /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class ApplyEffectEvent : TurnResultEntityEventArgs
+    public sealed class GetEffectTargetEvent : CancellableEntityEventArgs
     {
         public EntityUid Source { get; }
-        public EntityUid Target { get; }
-        public EntityCoordinates Coords { get; }
         public EffectArgSet Args { get; }
 
-        public ApplyEffectEvent(EntityUid source, EntityUid target, EntityCoordinates coords, EffectArgSet args)
+        public EntityUid? OutTarget { get; set; } = null;
+        public EntityCoordinates? OutCoords { get; set; } = null;
+
+        public GetEffectTargetEvent(EntityUid source, EffectArgSet args)
+        {
+            Source = source;
+            Args = args;
+        }
+    }
+
+    public interface IApplyEffectEvent
+    {
+        public EntityCoordinates SourceCoords { get; }
+        public EntityCoordinates TargetCoords { get; }
+
+        public MapCoordinates SourceCoordsMap { get; }
+        public MapCoordinates TargetCoordsMap { get; }
+
+        public IMap Map { get; }
+        public IMap TargetMap { get; }
+    }
+
+    /// <summary>
+    /// Runs the actual logic of the event after checks like MP/stamina/targeting
+    /// have been completed. Will run area-based logic for calculating effect targets
+    /// like ball AoE and bolt piercing.
+    /// </summary>
+    [EventUsage(EventTarget.Effect)]
+    public sealed class ApplyEffectAreaEvent : TurnResultEntityEventArgs, IApplyEffectEvent
+    {
+        /// <summary>
+        /// Person who casted the event.
+        /// </summary>
+        public EntityUid Source { get; }
+
+        /// <summary>
+        /// May be set to <see cref="Source"/> if no target is available.
+        /// </summary>
+        public EntityUid Target { get; }
+
+        /// <summary>
+        /// Automatically set to the location of <see cref="Target"/> if
+        /// not set manually.
+        /// </summary>
+        public EntityCoordinates SourceCoords { get; }
+        public EntityCoordinates TargetCoords { get; }
+
+        public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+        public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+
+        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
+
+        public EffectArgSet Args { get; }
+
+        public ApplyEffectAreaEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
         {
             Source = source;
             Target = target;
+            SourceCoords = sourceCoords;
+            TargetCoords = targetCoords;
+            Args = args;
+        }
+    }
+
+    /// <summary>
+    /// Applies effect tile damage, like fire burning items on the ground.
+    /// </summary>
+    [EventUsage(EventTarget.Effect)]
+    public sealed class ApplyEffectTileDamageEvent : HandledEntityEventArgs
+    {
+        /// <summary>
+        /// Person who casted the event.
+        /// </summary>
+        public EntityUid Source { get; }
+
+        /// <summary>
+        /// Automatically set to the location of <see cref="InnerTarget"/> if
+        /// not set manually.
+        /// </summary>
+        public EntityCoordinates Coords { get; }
+
+        public MapCoordinates CoordsMap => Coords.ToMap(IoCManager.Resolve<IEntityManager>());
+
+        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(CoordsMap.MapId);
+
+        public EffectArgSet Args { get; }
+
+        public ApplyEffectTileDamageEvent(EntityUid source, EntityCoordinates coords, EffectArgSet args)
+        {
+            Source = source;
             Coords = coords;
+            Args = args;
+        }
+    }
+
+    /// <summary>
+    /// Applies the effect to a single target. 
+    /// Raised once for each entity affected by an AoE.
+    /// </summary>
+    [EventUsage(EventTarget.Effect)]
+    public sealed class ApplyEffectDamageEvent : CancellableEntityEventArgs, IApplyEffectEvent
+    {
+        /// <summary>
+        /// Person who casted the event.
+        /// </summary>
+        public EntityUid Source { get; }
+
+        /// <summary>
+        /// Target of the effect. May be different from the original target
+        /// in the case of AoE.
+        /// </summary>
+        public EntityUid InnerTarget { get; }
+
+        /// <summary>
+        /// Automatically set to the location of <see cref="InnerTarget"/> if
+        /// not set manually.
+        /// </summary>
+        public EntityCoordinates SourceCoords { get; }
+        public EntityCoordinates TargetCoords { get; }
+
+        public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+        public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+
+        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
+
+        public EffectArgSet Args { get; }
+
+        /// <summary>
+        /// A damage property for calculating damage somewhere in the effect chain.
+        /// </summary>
+        public int OutDamage { get; set; } = 0;
+
+        public ApplyEffectDamageEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        {
+            Source = source;
+            InnerTarget = target;
+            SourceCoords = sourceCoords;
+            TargetCoords = targetCoords;
             Args = args;
         }
     }

@@ -12,4 +12,10 @@ Elona.Magic = {
             return ("%s mana is absorbed."):format(_.possessive(chara))
         end,
     },
+
+    ControlMagic = {
+        PassesThrough = function(target)
+            return ("The spell passes through %s."):format(_.name(target))
+        end,
+    },
 }

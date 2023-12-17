@@ -112,6 +112,10 @@ namespace OpenNefia.Content.Effects
         /// The default is <c>true</c>, set to <c>false</c> to prevent identification.
         /// </remarks>
         public bool EffectWasObvious { get; set; } = true;
+
+        public EntityUid? Item { get; set; } = null;
+
+        public bool NoInheritCurseState { get; set; } = false;
     }
 
     public static class EffectSources

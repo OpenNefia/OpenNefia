@@ -7,7 +7,10 @@
   - type: EffectTypeMagic
     mpCost: 10
     difficulty: 220
+  - type: EffectTargetOther
   - type: EffectAreaBolt
+  - type: EffectBaseDamageDice
+  - type: EffectDamageControlMagic
   - type: EffectDamageElemental
     element: Elona.Cold
 
@@ -20,7 +23,10 @@
   - type: EffectTypeMagic
     mpCost: 10
     difficulty: 220
+  - type: EffectTargetOther
   - type: EffectAreaBolt
+  - type: EffectBaseDamageDice
+  - type: EffectDamageControlMagic
   - type: EffectDamageElemental
     element: Elona.Fire
 
@@ -33,6 +39,9 @@
   - type: EffectTypeMagic
     mpCost: 10
     difficulty: 220
+  - type: EffectTargetOther
   - type: EffectAreaBolt
+  - type: EffectBaseDamageDice
+  - type: EffectDamageControlMagic
   - type: EffectDamageElemental
     element: Elona.Lightning
