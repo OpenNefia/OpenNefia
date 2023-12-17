@@ -39,5 +39,11 @@ namespace OpenNefia.Content.Spells
 
         [DataField]
         public int MPCost { get; set; } = 0;
+
+        /// <summary>
+        /// If true, MP cost will not scale with the spell's skill level.
+        /// </summary>
+        [DataField]
+        public bool NoMPCostScaling { get; set; } = false;
     }
 }

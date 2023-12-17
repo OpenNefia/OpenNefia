@@ -19,10 +19,12 @@ namespace OpenNefia.Content.Spells
         }
 
         public SpellTab Type { get; }
+        public EntityUid Caster { get; }
 
-        public SpellGroupSublayerArgs(SpellTab type)
+        public SpellGroupSublayerArgs(SpellTab type, EntityUid caster)
         {
             Type = type;
+            Caster = caster;
         }
     }
 
@@ -56,11 +58,11 @@ namespace OpenNefia.Content.Spells
 
     public class SpellUiGroupArgs : UiGroupArgs<SpellGroupUiLayer, SpellGroupSublayerArgs>
     {
-        public SpellUiGroupArgs(SpellGroupSublayerArgs.SpellTab selectedTab)
+        public SpellUiGroupArgs(SpellGroupSublayerArgs.SpellTab selectedTab, EntityUid caster)
         {
             foreach (SpellGroupSublayerArgs.SpellTab SpellTabType in Enum.GetValues(typeof(SpellGroupSublayerArgs.SpellTab)))
             {
-                var args = new SpellGroupSublayerArgs(SpellTabType);
+                var args = new SpellGroupSublayerArgs(SpellTabType, caster);
                 if (SpellTabType == selectedTab)
                     SelectedArgs = args;
 

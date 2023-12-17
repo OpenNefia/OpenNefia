@@ -26,6 +26,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Maps;
 using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Content.Spells;
 
 namespace OpenNefia.Content.Spells
 {
@@ -35,14 +36,18 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         public class Args
         {
-            public Args(IEnumerable<SpellPrototype> spells)
+            public Args(EntityUid caster, IEnumerable<SpellPrototype> spells)
             {
+                Caster = caster;
                 Spells = spells.ToList();
             }
 
+            public EntityUid Caster { get; }
             public IList<SpellPrototype> Spells { get; }
         }
 
@@ -63,10 +68,10 @@ namespace OpenNefia.Content.Spells
             EntityPrototype Effect, 
             EntityUid EffectEntity,
 
-            string Cost,
+            int Cost,
             int Stock,
-            string Level,
-            string SuccessRate,
+            int Level,
+            float SuccessRate,
             string Description,
             string? ShortcutKey,
             PrototypeId<SkillPrototype>? AttributeID
@@ -87,7 +92,7 @@ namespace OpenNefia.Content.Spells
 
                 _icon = new AttributeIcon(Data.AttributeID);
                 _textCostStock = new UiText($"{Data.Cost} ({Data.Stock})");
-                _textLvRate = new UiText($"{Data.Level}/{Data.SuccessRate}%");
+                _textLvRate = new UiText($"{Data.Level}/{(int)(Data.SuccessRate * 100)}%");
                 _textDescription = new UiText(Data.Description);
             }
 
@@ -128,6 +133,8 @@ namespace OpenNefia.Content.Spells
             }
         }
 
+        private EntityUid _casterEntity;
+
         [Localize] private LocaleScope _loc = Loc.MakeScope("Elona.Spells.Layer");
 
         [Child][Localize("Window")] private UiWindow _win = new();
@@ -161,6 +168,8 @@ namespace OpenNefia.Content.Spells
 
         public override void Initialize(Args args)
         {
+            _casterEntity = args.Caster;
+
             foreach (var cell in _list)
             {
                 if (_entityManager.IsAlive(cell.Data.EffectEntity))
@@ -184,11 +193,11 @@ namespace OpenNefia.Content.Spells
 
                 var name = Loc.GetPrototypeString(proto.SkillID, "Name");
 
-                var cost = "0";
-                var stock = 0;
-                var level = "0";
-                var successRate = "";
-                var description = "TODO asldkjawolifj";
+                var cost = proto.MPCost;
+                var stock = _spells.SpellStock(_casterEntity, proto);
+                var level = _skills.Level(_casterEntity, proto.SkillID);
+                var successRate = _spells.CalcSpellSuccessRate(proto, _casterEntity, entity);
+                var description = _spells.LocalizeSpellDescription(proto, _casterEntity, entity);
                 string? shortcutKey = null;
                 var attribute = skillProto.RelatedSkill;
 

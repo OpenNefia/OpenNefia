@@ -140,7 +140,7 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? ShowSpells(IGameSessionManager? session)
         {
-            var context = new SpellUiGroupArgs(SpellTab.Spell);
+            var context = new SpellUiGroupArgs(SpellTab.Spell, session!.Player);
             var result = _uiManager.Query<SpellUiGroup, SpellUiGroupArgs, SpellGroupSublayerResult>(context);
 
             if (!result.HasValue)

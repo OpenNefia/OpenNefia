@@ -11,6 +11,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.Spells
 {
@@ -21,6 +22,7 @@ namespace OpenNefia.Content.Spells
     {
         [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         [Child] private SpellsLayer _inner = new();
         
@@ -31,8 +33,8 @@ namespace OpenNefia.Content.Spells
 
         public override void Initialize(SpellGroupSublayerArgs args)
         {
-            var spells = _protos.EnumeratePrototypes<SpellPrototype>();
-            var innerArgs = new SpellsLayer.Args(spells)
+            var spells = _protos.EnumeratePrototypes<SpellPrototype>().Where(s => _skills.HasSkill(args.Caster, s.SkillID));
+            var innerArgs = new SpellsLayer.Args(args.Caster, spells)
             {
             };
             UserInterfaceManager.InitializeLayer<SpellsLayer, SpellsLayer.Args, SpellsLayer.Result>(_inner, innerArgs);

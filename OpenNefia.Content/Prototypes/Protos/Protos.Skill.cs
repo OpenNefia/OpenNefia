@@ -84,6 +84,76 @@ namespace OpenNefia.Content.Prototypes
 
             #endregion
 
+            #region Spells
+
+            public static readonly SkillPrototypeId SpellHealLight             = new($"Elona.{nameof(SpellHealLight)}");
+            public static readonly SkillPrototypeId SpellHealCritical          = new($"Elona.{nameof(SpellHealCritical)}");
+            public static readonly SkillPrototypeId SpellCureOfEris            = new($"Elona.{nameof(SpellCureOfEris)}");
+            public static readonly SkillPrototypeId SpellCureOfJure            = new($"Elona.{nameof(SpellCureOfJure)}");
+            public static readonly SkillPrototypeId SpellHealingRain           = new($"Elona.{nameof(SpellHealingRain)}");
+            public static readonly SkillPrototypeId SpellHealingTouch          = new($"Elona.{nameof(SpellHealingTouch)}");
+            public static readonly SkillPrototypeId SpellHolyLight             = new($"Elona.{nameof(SpellHolyLight)}");
+            public static readonly SkillPrototypeId SpellVanquishHex           = new($"Elona.{nameof(SpellVanquishHex)}");
+            public static readonly SkillPrototypeId SpellTeleport              = new($"Elona.{nameof(SpellTeleport)}");
+            public static readonly SkillPrototypeId SpellTeleportOther         = new($"Elona.{nameof(SpellTeleportOther)}");
+            public static readonly SkillPrototypeId SpellShortTeleport         = new($"Elona.{nameof(SpellShortTeleport)}");
+            public static readonly SkillPrototypeId SpellIdentify              = new($"Elona.{nameof(SpellIdentify)}");
+            public static readonly SkillPrototypeId SpellUncurse               = new($"Elona.{nameof(SpellUncurse)}");
+            public static readonly SkillPrototypeId SpellOracle                = new($"Elona.{nameof(SpellOracle)}");
+            public static readonly SkillPrototypeId SpellMagicDart             = new($"Elona.{nameof(SpellMagicDart)}");
+            public static readonly SkillPrototypeId SpellNetherArrow           = new($"Elona.{nameof(SpellNetherArrow)}");
+            public static readonly SkillPrototypeId SpellNerveArrow            = new($"Elona.{nameof(SpellNerveArrow)}");
+            public static readonly SkillPrototypeId SpellChaosEye              = new($"Elona.{nameof(SpellChaosEye)}");
+            public static readonly SkillPrototypeId SpellDarkEye               = new($"Elona.{nameof(SpellDarkEye)}");
+            public static readonly SkillPrototypeId SpellIceBolt               = new($"Elona.{nameof(SpellIceBolt)}");
+            public static readonly SkillPrototypeId SpellFireBolt              = new($"Elona.{nameof(SpellFireBolt)}");
+            public static readonly SkillPrototypeId SpellLightningBolt         = new($"Elona.{nameof(SpellLightningBolt)}");
+            public static readonly SkillPrototypeId SpellDarknessBolt          = new($"Elona.{nameof(SpellDarknessBolt)}");
+            public static readonly SkillPrototypeId SpellMindBolt              = new($"Elona.{nameof(SpellMindBolt)}");
+            public static readonly SkillPrototypeId SpellSummonMonsters        = new($"Elona.{nameof(SpellSummonMonsters)}");
+            public static readonly SkillPrototypeId SpellSummonWild            = new($"Elona.{nameof(SpellSummonWild)}");
+            public static readonly SkillPrototypeId SpellReturn                = new($"Elona.{nameof(SpellReturn)}");
+            public static readonly SkillPrototypeId SpellMagicMap              = new($"Elona.{nameof(SpellMagicMap)}");
+            public static readonly SkillPrototypeId SpellSenseObject           = new($"Elona.{nameof(SpellSenseObject)}");
+            public static readonly SkillPrototypeId SpellIceBall               = new($"Elona.{nameof(SpellIceBall)}");
+            public static readonly SkillPrototypeId SpellFireBall              = new($"Elona.{nameof(SpellFireBall)}");
+            public static readonly SkillPrototypeId SpellChaosBall             = new($"Elona.{nameof(SpellChaosBall)}");
+            public static readonly SkillPrototypeId SpellRagingRoar            = new($"Elona.{nameof(SpellRagingRoar)}");
+            public static readonly SkillPrototypeId SpellDominate              = new($"Elona.{nameof(SpellDominate)}");
+            public static readonly SkillPrototypeId SpellWeb                   = new($"Elona.{nameof(SpellWeb)}");
+            public static readonly SkillPrototypeId SpellMistOfDarkness        = new($"Elona.{nameof(SpellMistOfDarkness)}");
+            public static readonly SkillPrototypeId SpellWallCreation          = new($"Elona.{nameof(SpellWallCreation)}");
+            public static readonly SkillPrototypeId SpellRestoreBody           = new($"Elona.{nameof(SpellRestoreBody)}");
+            public static readonly SkillPrototypeId SpellRestoreSpirit         = new($"Elona.{nameof(SpellRestoreSpirit)}");
+            public static readonly SkillPrototypeId SpellWish                  = new($"Elona.{nameof(SpellWish)}");
+            public static readonly SkillPrototypeId SpellBuffHolyShield        = new($"Elona.{nameof(SpellBuffHolyShield)}");
+            public static readonly SkillPrototypeId SpellBuffMistOfSilence     = new($"Elona.{nameof(SpellBuffMistOfSilence)}");
+            public static readonly SkillPrototypeId SpellBuffRegeneration      = new($"Elona.{nameof(SpellBuffRegeneration)}");
+            public static readonly SkillPrototypeId SpellBuffElementalShield   = new($"Elona.{nameof(SpellBuffElementalShield)}");
+            public static readonly SkillPrototypeId SpellBuffSpeed             = new($"Elona.{nameof(SpellBuffSpeed)}");
+            public static readonly SkillPrototypeId SpellBuffSlow              = new($"Elona.{nameof(SpellBuffSlow)}");
+            public static readonly SkillPrototypeId SpellBuffHero              = new($"Elona.{nameof(SpellBuffHero)}");
+            public static readonly SkillPrototypeId SpellBuffMistOfFrailness   = new($"Elona.{nameof(SpellBuffMistOfFrailness)}");
+            public static readonly SkillPrototypeId SpellBuffElementScar       = new($"Elona.{nameof(SpellBuffElementScar)}");
+            public static readonly SkillPrototypeId SpellBuffHolyVeil          = new($"Elona.{nameof(SpellBuffHolyVeil)}");
+            public static readonly SkillPrototypeId SpellBuffNightmare         = new($"Elona.{nameof(SpellBuffNightmare)}");
+            public static readonly SkillPrototypeId SpellBuffDivineWisdom      = new($"Elona.{nameof(SpellBuffDivineWisdom)}");
+            public static readonly SkillPrototypeId SpellMutation              = new($"Elona.{nameof(SpellMutation)}");
+            public static readonly SkillPrototypeId SpellAcidGround            = new($"Elona.{nameof(SpellAcidGround)}");
+            public static readonly SkillPrototypeId SpellFireWall              = new($"Elona.{nameof(SpellFireWall)}");
+            public static readonly SkillPrototypeId SpellDoorCreation          = new($"Elona.{nameof(SpellDoorCreation)}");
+            public static readonly SkillPrototypeId SpellBuffIncognito         = new($"Elona.{nameof(SpellBuffIncognito)}");
+            public static readonly SkillPrototypeId SpellCrystalSpear          = new($"Elona.{nameof(SpellCrystalSpear)}");
+            public static readonly SkillPrototypeId SpellMagicStorm            = new($"Elona.{nameof(SpellMagicStorm)}");
+            public static readonly SkillPrototypeId SpellResurrection          = new($"Elona.{nameof(SpellResurrection)}");
+            public static readonly SkillPrototypeId SpellBuffContingency       = new($"Elona.{nameof(SpellBuffContingency)}");
+            public static readonly SkillPrototypeId SpellFourDimensionalPocket = new($"Elona.{nameof(SpellFourDimensionalPocket)}");
+            public static readonly SkillPrototypeId SpellWizardsHarvest        = new($"Elona.{nameof(SpellWizardsHarvest)}");
+            public static readonly SkillPrototypeId SpellMeteor                = new($"Elona.{nameof(SpellMeteor)}");
+            public static readonly SkillPrototypeId SpellGravity               = new($"Elona.{nameof(SpellGravity)}");
+
+            #endregion
+
             #pragma warning restore format
         }
     }

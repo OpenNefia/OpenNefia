@@ -77,6 +77,7 @@
     elona122: 408
   difficulty: 400
   mpCost: 10
+  noMPCostScaling: true
   skillID: Elona.SpellTeleport
   effectID: Elona.SpellTeleport
 
@@ -86,6 +87,7 @@
     elona122: 409
   difficulty: 200
   mpCost: 10
+  noMPCostScaling: true
   skillID: Elona.SpellTeleportOther
   effectID: Elona.SpellTeleportOther
 
@@ -95,6 +97,7 @@
     elona122: 410
   difficulty: 120
   mpCost: 8
+  noMPCostScaling: true
   skillID: Elona.SpellShortTeleport
   effectID: Elona.SpellShortTeleport
 
@@ -122,6 +125,7 @@
     elona122: 413
   difficulty: 1500
   mpCost: 150
+  noMPCostScaling: true
   skillID: Elona.SpellOracle
   effectID: Elona.SpellOracle
 
@@ -329,6 +333,7 @@
     elona122: 438
   difficulty: 250
   mpCost: 20
+  noMPCostScaling: true
   skillID: Elona.SpellWallCreation
   effectID: Elona.SpellWallCreation
 
@@ -500,6 +505,7 @@
     elona122: 457
   difficulty: 200
   mpCost: 15
+  noMPCostScaling: true
   skillID: Elona.SpellDoorCreation
   effectID: Elona.SpellDoorCreation
 
@@ -536,6 +542,7 @@
     elona122: 461
   difficulty: 1650
   mpCost: 60
+  noMPCostScaling: true
   skillID: Elona.SpellResurrection
   effectID: Elona.SpellResurrection
 
@@ -581,5 +588,6 @@
     elona122: 466
   difficulty: 750
   mpCost: 24
+  noMPCostScaling: true
   skillID: Elona.SpellGravity
   effectID: Elona.SpellGravity

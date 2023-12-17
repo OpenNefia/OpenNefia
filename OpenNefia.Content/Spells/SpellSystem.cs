@@ -28,6 +28,10 @@ using System.Text;
 using System.Threading.Tasks;
 using static Love.Misc.Moonshine;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Mount;
+using OpenNefia.Content.Combat;
+using OpenNefia.Content.Equipment;
+using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Spells
 {
@@ -71,7 +75,11 @@ namespace OpenNefia.Content.Spells
             EntityCoordinates? coords = null, CurseState? curseState = null,
             string effectSource = EffectSources.Default, EffectArgSet? args = null);
 
-        int GetDifficulty(PrototypeId<SpellPrototype> spellID);
+        string LocalizeSpellDescription(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        float CalcSpellSuccessRate(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        int CalcBaseSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        int CalcRandomizedSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
 
         #endregion
     }
@@ -84,6 +92,11 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
+        [Dependency] private readonly IEquipmentSystem _equip = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IRandom _rand = default!;
 
         #region Querying
 
@@ -158,8 +171,8 @@ namespace OpenNefia.Content.Spells
 
         public void ModifyPotential(EntityUid uid, PrototypeId<SpellPrototype> spellID, int delta, SpellsComponent? spells = null)
         {
-            if (delta == 0 || !Resolve(uid, ref spells) 
-                || !_protos.TryIndex(spellID, out var spellProto) 
+            if (delta == 0 || !Resolve(uid, ref spells)
+                || !_protos.TryIndex(spellID, out var spellProto)
                 || !TryGetKnown(uid, spellID, out var level)
                 || !_protos.TryIndex(spellProto.SkillID, out var skill))
                 return;
@@ -288,9 +301,106 @@ namespace OpenNefia.Content.Spells
             return result;
         }
 
-        public int GetDifficulty(PrototypeId<SpellPrototype> spellID)
+        public string LocalizeSpellDescription(SpellPrototype proto, EntityUid caster, EntityUid effect)
         {
-            return _protos.Index(spellID).Difficulty;
+            // TODO format power
+            return Loc.GetPrototypeString(proto.SkillID, "Description");
+        }
+
+        public float CalcSpellSuccessRate(SpellPrototype proto, EntityUid caster, EntityUid effect)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:874 #defcfunc calcSpellFail int id,int c ...
+            int intRate;
+            if (!_gameSession.IsPlayer(caster))
+            {
+                if (_mounts.TryGetRider(caster, out var rider))
+                {
+                    intRate = 95 - int.Clamp(30 - _skills.Level(rider.Owner, Protos.Skill.Riding) / 2, 0, 30);
+                    return float.Clamp(intRate / 100f, 0, 1);
+                }
+                else
+                {
+                    return 0.95f;
+                }
+            }
+
+            var armorClass = _equip.GetArmorClass(caster);
+            var factor = 4;
+            if (armorClass == Protos.Skill.HeavyArmor)
+                factor = 17 - _skills.Level(caster, armorClass) / 5;
+            else if (armorClass == Protos.Skill.MediumArmor)
+                factor = 12 - _skills.Level(caster, armorClass) / 5;
+
+            factor = int.Max(factor, 4);
+
+            if (_mounts.IsMounting(caster))
+                factor += 4;
+
+            var skillLevel = _skills.Level(caster, proto.SkillID);
+
+            // TODO generalize
+            if (proto.SkillID == Protos.Skill.SpellWish)
+                factor += skillLevel;
+            else if (proto.SkillID == Protos.Skill.SpellWizardsHarvest)
+                factor += skillLevel;
+
+            intRate = 90 + skillLevel
+                - (proto.Difficulty * factor / (5 + _skills.Level(caster, Protos.Skill.Casting) * 4));
+
+            if (armorClass == Protos.Skill.HeavyArmor)
+            {
+                intRate = int.Min(intRate, 80);
+            }
+            else if (armorClass == Protos.Skill.MediumArmor)
+            {
+                intRate = int.Min(intRate, 92);
+            }
+            else
+            {
+                intRate = int.Min(intRate, 100);
+            }
+
+            var equipState = _combat.GetEquipState(caster);
+            if (equipState.IsDualWielding)
+                intRate -= 6;
+            if (equipState.IsWieldingShield)
+                intRate -= 12;
+
+            return float.Clamp(intRate / 100f, 0f, 1f);
+            // <<<<<<<< elona122/shade2/calculation.hsp:902 	return p ...
+        }
+
+        public int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:906 #defcfunc calcSpellCostMp int id ,int c ...
+            if (_gameSession.IsPlayer(caster))
+            {
+                if (proto.NoMPCostScaling)
+                    return proto.MPCost;
+
+                return proto.MPCost * (100 + _skills.Level(caster, proto.SkillID) * 3) / 100 + _skills.Level(caster, proto.SkillID) / 8;
+            }
+            else
+            {
+                return proto.MPCost * (50 + _levels.GetLevel(caster) * 3) / 100;
+            }
+            // <<<<<<<< elona122/shade2/calculation.hsp:913 	return cost ...
+        }
+
+        public int CalcBaseSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:917 #defcfunc calcSpellCostStock int id ,int c ...
+            return int.Max(proto.MPCost * 200 / (_skills.Level(caster, proto.SkillID) * 3 + 100), proto.MPCost / 5);
+            // <<<<<<<< elona122/shade2/calculation.hsp:922 	return cost ...
+        }
+
+        public int CalcRandomizedSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:917 #defcfunc calcSpellCostStock int id ,int c ...
+            var cost = CalcBaseSpellStockCost(proto, caster, effect);
+            cost = _rand.Next(cost / 2 + 1) + cost / 2;
+            return int.Max(cost, 1);
+            // <<<<<<<< elona122/shade2/calculation.hsp:922 	return cost ...
         }
 
         #endregion
