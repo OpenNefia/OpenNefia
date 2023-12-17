@@ -10,4 +10,8 @@ Elona.UI.MenuGroup = {
         FeatInfo = "Feat",
         MaterialInfo = "Material",
     },
+    Spell = {
+        Spell = "Spell",
+        Skill = "Skill",
+    },
 }

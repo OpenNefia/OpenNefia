@@ -11,6 +11,12 @@ using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.UI.Element.List
 {
+    /// <summary>
+    /// A selectable list of elements.
+    /// To support pagination, use <see cref="UiPagedList{T}"/> instead.
+    /// </summary>
+    /// <seealso cref="UiPagedList{T}"/>
+    /// <typeparam name="T">Type of list data</typeparam>
     public class UiList<T> : UiElement, IUiList<T>, IRawInputControl
     {
         public const float DEFAULT_ITEM_HEIGHT = 19f;

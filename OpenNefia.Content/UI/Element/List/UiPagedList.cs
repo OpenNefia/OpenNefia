@@ -12,6 +12,11 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.UI.Element.List
 {
+    /// <summary>
+    /// A selectable list of elements with pagination support.
+    /// </summary>
+    /// <seealso cref="UiList{T}"/>
+    /// <typeparam name="T">Type of data to use</typeparam>
     public class UiPagedList<T> : UiList<T>, IUiPaged
     {
         private UiPageModel<UiListCell<T>> _pageModel;

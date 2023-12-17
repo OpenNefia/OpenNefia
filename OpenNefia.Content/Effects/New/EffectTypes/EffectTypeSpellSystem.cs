@@ -72,24 +72,7 @@ namespace OpenNefia.Content.Effects.New
             EntityCoordinates? targetCoords = null;
             if (args.Target == null)
             {
-                var ev = new GetEffectTargetEvent(args.Source, args.Args);
-                RaiseEvent(effectUid, ev);
-                if (ev.Cancelled)
-                {
-                    args.Handle(TurnResult.Aborted);
-                    return;
-                }
-
-                if (ev.OutTarget == null)
-                {
-                    // Set target to the same as source as a fallback.
-                    target = args.Source;
-                }
-                else
-                {
-                    target = ev.OutTarget.Value;
-                }
-                targetCoords = ev.OutCoords;
+                target = args.Source;
             }
             else
             {

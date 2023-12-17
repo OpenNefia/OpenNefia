@@ -50,7 +50,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             var result = new Dictionary<string, double>();
 
             result["power"] = args.Power;
-            result["skillLevel"] = 0f;
+            result["skillLevel"] = 0;
             if (component.AssociatedSkill != null)
             {
                 result["skillLevel"] = _skills.Level(source, component.AssociatedSkill.Value);

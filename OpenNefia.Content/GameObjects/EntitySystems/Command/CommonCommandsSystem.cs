@@ -5,6 +5,7 @@ using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.SaveLoad;
+using OpenNefia.Content.Spells;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -26,6 +27,7 @@ using OpenNefia.Core.Utility;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
 using static OpenNefia.Content.Journal.LogGroupSublayerArgs;
 using static OpenNefia.Content.Prototypes.Protos;
+using static OpenNefia.Content.Spells.SpellGroupSublayerArgs;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -43,6 +45,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         public override void Initialize()
         {
@@ -56,7 +59,10 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(ContentKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
                 .Bind(ContentKeyFunctions.Journal, InputCmdHandler.FromDelegate(ShowJournal))
                 .Bind(ContentKeyFunctions.ChatLog, InputCmdHandler.FromDelegate(ShowChatLog))
-                
+
+                // Spell group
+                .Bind(ContentKeyFunctions.Cast, InputCmdHandler.FromDelegate(ShowSpells))
+
                 // Other commands
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
@@ -132,6 +138,30 @@ namespace OpenNefia.Content.GameObjects
             return TurnResult.Aborted;
         }
 
+        private TurnResult? ShowSpells(IGameSessionManager? session)
+        {
+            var context = new SpellUiGroupArgs(SpellTab.Spell);
+            var result = _uiManager.Query<SpellUiGroup, SpellUiGroupArgs, SpellGroupSublayerResult>(context);
+
+            if (!result.HasValue)
+                return TurnResult.Aborted;
+
+            return HandleSkillOrSpellResult(session!.Player, result.Value);
+        }
+
+        private TurnResult? HandleSkillOrSpellResult(EntityUid player, SpellGroupSublayerResult value)
+        {
+            // TODO block in world map.
+
+            switch (value)
+            {
+                case SpellGroupSublayerResult.CastSpell castSpell:
+                    return _spells.NewCast(player, castSpell.Spell);
+                default:
+                    return TurnResult.Aborted;
+            }
+        }
+
         private TurnResult? QuickSaveGame(IGameSessionManager? session)
         {
             _saveLoad.QuickSaveGame();
@@ -175,8 +205,8 @@ namespace OpenNefia.Content.GameObjects
                 QueryText = Loc.GetString("Elona.UserInterface.Exit.Prompt.Text")
             };
 
-            var result = _uiManager.Query<Prompt<EscapeMenuChoice>, 
-                Prompt<EscapeMenuChoice>.Args, 
+            var result = _uiManager.Query<Prompt<EscapeMenuChoice>,
+                Prompt<EscapeMenuChoice>.Args,
                 PromptChoice<EscapeMenuChoice>>(promptArgs);
 
             if (result.HasValue)
@@ -210,7 +240,7 @@ namespace OpenNefia.Content.GameObjects
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             bool save;
-            
+
             switch (_config.GetCVar(CCVars.GameSaveOnReturnToTitle))
             {
                 case SaveOnReturnToTitle.Always:

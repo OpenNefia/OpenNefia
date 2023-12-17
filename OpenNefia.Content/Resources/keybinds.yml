@@ -197,6 +197,9 @@ binds:
 - function: Elona.ChatLog
   type: State
   key: F4
+- function: Elona.Cast
+  type: State
+  key: V
 
 - function: Elona.PickUp
   type: State

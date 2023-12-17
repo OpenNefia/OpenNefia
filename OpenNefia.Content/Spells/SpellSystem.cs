@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Effects;
+using OpenNefia.Content.Effects.New;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
@@ -17,15 +19,26 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Love.Misc.Moonshine;
 
 namespace OpenNefia.Content.Spells
 {
+    /// <summary>
+    /// A spell effect and the skill it's associated with.
+    /// </summary>
+    /// <param name="Effect">Entity of the spell's effect.</param>
+    /// <param name="AssociatedSkill">Skill associated with the effect.</param>
+    public sealed record class SpellDefinition(
+        EntityPrototype Effect, 
+        SkillPrototype AssociatedSkill);
+
     public interface ISpellSystem : IEntitySystem
     {
         #region Querying
@@ -44,6 +57,8 @@ namespace OpenNefia.Content.Spells
         bool HasSpell(EntityUid uid, SpellPrototype proto, SpellsComponent? spells = null);
         bool HasSpell(EntityUid uid, PrototypeId<SpellPrototype> protoId, SpellsComponent? spells = null);
 
+        IEnumerable<SpellDefinition> EnumerateSpells();
+
         #endregion
 
         #region Leveling
@@ -59,6 +74,8 @@ namespace OpenNefia.Content.Spells
 
         #region Casting
 
+        TurnResult NewCast(EntityUid caster, SpellDefinition spell);
+
         TurnResult Cast(PrototypeId<SpellPrototype> spellID, EntityUid target, int power = 0,
             EntityUid? source = null, EntityUid? item = null,
             EntityCoordinates? coords = null, CurseState? curseState = null,
@@ -73,6 +90,8 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
 
         #region Querying
 
@@ -139,6 +158,20 @@ namespace OpenNefia.Content.Spells
                 return 0;
 
             return level.SpellStock;
+        }
+
+        public IEnumerable<SpellDefinition> EnumerateSpells()
+        {
+            return _protos.EnumeratePrototypes<EntityPrototype>()
+                .Select(ent =>
+                {
+                    if (ent.Components.TryGetComponent<EffectBaseDamageDiceComponent>(out var dice)
+                    && dice.AssociatedSkill != null
+                    && _protos.TryIndex(dice.AssociatedSkill.Value, out var skill))
+                        return new SpellDefinition(ent, skill);
+                    return null;
+                })
+                .WhereNotNull();
         }
 
         #endregion
@@ -230,6 +263,45 @@ namespace OpenNefia.Content.Spells
             }
 
             _refresh.Refresh(uid);
+        }
+
+        public TurnResult NewCast(EntityUid caster, SpellDefinition spell)
+        {
+            var result = DoCastSpell(caster, spell);
+            if (result == TurnResult.Succeeded)
+            {
+                // TODO gain casting exp
+            }
+
+            return result;
+        }
+
+        private TurnResult DoCastSpell(EntityUid caster, SpellDefinition spell)
+        {
+            var effectID = spell.Effect.GetStrongID();
+
+            var effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
+            if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
+            {
+                Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
+                if (effect != null)
+                    EntityManager.DeleteEntity(effect.Value);
+                return TurnResult.Aborted;
+            }
+
+            var args = EffectArgSet.Make();
+
+            if (!_newEffects.TryPromptEffectTarget(caster, effect.Value, args, out var targetPair))
+                return TurnResult.Aborted;
+
+            // TODO map-coordinates-only target
+
+            var result = _newEffects.Apply(caster, targetPair.Target, effect.Value, args);
+
+            if (IsAlive(effect))
+                EntityManager.DeleteEntity(effect.Value);
+
+            return result;
         }
 
         #endregion

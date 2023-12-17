@@ -10,9 +10,11 @@ namespace OpenNefia.Content.Effects.New
 {
     /// <summary>
     /// Randomly selects damage based on dice.
-    /// Arguments you can use here:
+    /// Arguments you can use in the formulas:
     /// - "power": Power of the effect
     /// - "skillLevel": Level of the associated skill.
+    /// - "distance": Fractional distance from the source entity to the target entity.
+    /// - "baseDamage": Result of the dice roll (only inside <see cref="DamageModifier"/>).
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
@@ -48,6 +50,9 @@ namespace OpenNefia.Content.Effects.New
 
     /// <summary>
     /// Controls how the damage message is displayed.
+    /// Generally speaking, if you use the other EffectDamage
+    /// components, you should also include this one so that the
+    /// damage message is formatted correctly.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]

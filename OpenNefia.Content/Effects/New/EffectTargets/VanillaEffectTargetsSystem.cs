@@ -29,13 +29,13 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             SubscribeComponent<EffectTargetOtherComponent, GetEffectTargetEvent>(GetTarget_Other);
         }
 
-        private void GetTarget_Other(EntityUid uid, EffectTargetOtherComponent component, GetEffectTargetEvent args)
+        private void GetTarget_Other(EntityUid effect, EffectTargetOtherComponent component, GetEffectTargetEvent args)
         {
             if (args.Cancelled)
                 return;
 
             // TODO
-            if (_targeting.TryGetTarget(uid, out var target))
+            if (_targeting.TryGetTarget(args.Source, out var target))
             {
                 args.OutTarget = target.Value;
             }

@@ -90,12 +90,17 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return false;
             }
 
+            var lastPos = from.Position;
+
             foreach (var pos in PosHelpers.EnumerateLine(from.Position, to.Position))
             {
-                if (pos == from.Position)
+                if (pos == lastPos)
                     continue;
                 if (map.CanSeeThrough(pos))
-                    offsets.Add(pos - from.Position);
+                {
+                    offsets.Add(pos - lastPos);
+                    lastPos = pos;
+                }
                 else
                     return false;
             }
@@ -147,6 +152,8 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                     }
                 }
             }
+
+            args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
         }
 

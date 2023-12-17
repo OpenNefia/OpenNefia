@@ -16,6 +16,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Skills;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -61,7 +62,13 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="retainEffectEntity">If false, the effect entity will be deleted after the effect is applied.</param>
         /// <returns>Turn result from the effect.</returns>
         TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
+
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityUid effect, EffectArgSet args);
+
+        bool TryPromptEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
     }
+
+    public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
 
     public sealed class NewEffectSystem : EntitySystem, INewEffectSystem
     {
@@ -74,22 +81,48 @@ namespace OpenNefia.Content.Effects.New
 
         public TurnResult Apply(EntityUid source, EntityUid? target, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
         {
-            var effectEntity = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
-            if (!IsAlive(effectEntity) || !HasComp<EffectComponent>(effectEntity.Value))
+            var effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
+            if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
             {
                 Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
-                if (effectEntity != null && !retainEffectEntity)
-                    EntityManager.DeleteEntity(effectEntity.Value);
+                if (effect != null && !retainEffectEntity)
+                    EntityManager.DeleteEntity(effect.Value);
                 return TurnResult.Aborted;
             }
 
+            var result = Apply(source, target, effect.Value, args);
+
+            if (IsAlive(effect) && !retainEffectEntity)
+                EntityManager.DeleteEntity(effect.Value);
+
+            return result;
+        }
+
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityUid effect, EffectArgSet args)
+        {
             var ev = new CastEffectEvent(source, target, args);
-            RaiseEvent(effectEntity.Value, ev);
-
-            if (IsAlive(effectEntity) && !retainEffectEntity)
-                EntityManager.DeleteEntity(effectEntity.Value);
-
+            RaiseEvent(effect, ev);
             return ev.TurnResult;
+        }
+
+        public bool TryPromptEffectTarget(EntityUid source, EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target)
+        {
+            if (!IsAlive(effect))
+            {
+                target = null;
+                return false;
+            }
+
+            var ev = new GetEffectTargetEvent(source, args);
+            RaiseEvent(effect, ev);
+            if (ev.Cancelled || (ev.OutTarget == null && ev.OutCoords == null))
+            {
+                target = null;
+                return false;
+            }
+
+            target = new(ev.OutTarget, ev.OutCoords);
+            return true;
         }
     }
 

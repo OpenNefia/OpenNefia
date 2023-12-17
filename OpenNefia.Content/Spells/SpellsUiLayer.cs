@@ -8,14 +8,18 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.IoC;
+using OpenNefia.Content.Spells;
+using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.Content.Spells
 {
     /// <summary>
     /// Wraps the <see cref="JournalLayer"/> in a UI layer that's groupable.
     /// </summary>
-    public class SpellsUiLayer : SpellsGroupUiLayer
+    public class SpellsUiLayer : SpellGroupUiLayer
     {
+        [Dependency] private readonly ISpellSystem _spells = default!;
+
         [Child] private SpellsLayer _inner = new();
         
         public SpellsUiLayer()
@@ -23,9 +27,10 @@ namespace OpenNefia.Content.Spells
             _inner.EventFilter = UIEventFilterMode.Pass;
         }
 
-        public override void Initialize(SpellsGroupSublayerArgs args)
+        public override void Initialize(SpellGroupSublayerArgs args)
         {
-            var innerArgs = new SpellsLayer.Args()
+            var spells = _spells.EnumerateSpells();
+            var innerArgs = new SpellsLayer.Args(spells)
             {
             };
             UserInterfaceManager.InitializeLayer<SpellsLayer, SpellsLayer.Args, SpellsLayer.Result>(_inner, innerArgs);
@@ -59,9 +64,25 @@ namespace OpenNefia.Content.Spells
             _inner.SetPosition(X, Y);
         }
 
-        public override UiResult<UINone>? GetResult()
+        public override UiResult<SpellGroupSublayerResult>? GetResult()
         {
-            return _inner.GetResult();
+            var innerResult = _inner.GetResult();
+
+            if (innerResult == null)
+                return null;
+
+            switch (innerResult)
+            {
+                case UiResult<SpellsLayer.Result>.Finished finished:
+                    var newResult = new SpellGroupSublayerResult.CastSpell(finished.Value.Spell);
+                    return new UiResult<SpellGroupSublayerResult>.Finished(newResult);
+                case UiResult<SpellsLayer.Result>.Cancelled:
+                    return new UiResult<SpellGroupSublayerResult>.Cancelled();
+                case UiResult<SpellsLayer.Result>.Error err:
+                    return new UiResult<SpellGroupSublayerResult>.Error(err.Exception);
+            }
+
+            return null;
         }
 
         public override void Update(float dt)
