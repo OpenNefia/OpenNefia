@@ -23,16 +23,23 @@ using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Love.Misc.Moonshine;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Mount;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Actions;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Book;
+using OpenNefia.Core;
+using OpenNefia.Content.Buffs;
+using OpenNefia.Content.Visibility;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Content.Enchantments;
+using OpenNefia.Content.Factions;
 
 namespace OpenNefia.Content.Spells
 {
@@ -70,7 +77,19 @@ namespace OpenNefia.Content.Spells
 
         #region Casting
 
-        TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spell);
+        /// <summary>
+        /// Makes this entity cast a spell. You shouldn't use this if you're
+        /// trying to apply a spell's effect from an item; instead use
+        /// <see cref="INewEffectSystem"/>.
+        /// </summary>
+        /// <param name="caster"></param>
+        /// <param name="spell"></param>
+        /// <param name="alwaysUseMP">
+        /// Normally the AI will never expend MP when casting spells. Set this flag to true
+        /// to override this.
+        /// </param>
+        /// <returns></returns>
+        TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spell, bool alwaysUseMP = false, SpellsComponent? spells = null);
 
         TurnResult Cast(PrototypeId<SpellPrototype> spellID, EntityUid target, int power = 0,
             EntityUid? source = null, EntityUid? item = null,
@@ -79,7 +98,7 @@ namespace OpenNefia.Content.Spells
 
         string LocalizeSpellDescription(SpellPrototype proto, EntityUid caster, EntityUid effect);
         float CalcSpellSuccessRate(SpellPrototype proto, EntityUid caster, EntityUid effect);
-        int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
+        int CalcBaseSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcBaseSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcRandomizedSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcCastSpellPower(SpellPrototype spell, EntityUid caster);
@@ -101,6 +120,23 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IConfigurationManager _configuration = default!;
+        [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly ISpellbookSystem _spellbooks = default!;
+        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
+        [Dependency] private readonly ITargetingSystem _targetings = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+
+        public override void Initialize()
+        {
+            SubscribeEntity<BeforeSpellEffectInvokedEvent>(BeforeSpellEffect_ProcVanillaCastingEvents);
+        }
 
         #region Querying
 
@@ -257,14 +293,17 @@ namespace OpenNefia.Content.Spells
             _refresh.Refresh(uid);
         }
 
-        public TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spellID)
+        /// <inheritdoc/>
+        public TurnResult NewCast(EntityUid caster, PrototypeId<SpellPrototype> spellID, bool alwaysUseMP = false, SpellsComponent? spells = null)
         {
-            var result = DoCastSpell(caster, spellID);
+            // >>>>>>>> elona122/shade2/proc.hsp:1272 *cast ...
+            var result = DoCastSpell(caster, spellID, alwaysUseMP);
             if (result == TurnResult.Succeeded)
             {
                 GainSpellAndCastingExp(caster, spellID);
             }
             return result;
+            // <<<<<<<< elona122/shade2/proc.hsp:1280 	return false	 ...
         }
 
         private void GainSpellAndCastingExp(EntityUid caster, PrototypeId<SpellPrototype> spellID)
@@ -279,13 +318,27 @@ namespace OpenNefia.Content.Spells
             _skills.GainSkillExp(caster, Protos.Skill.Casting, spell.MPCost + 10, 5);
         }
 
-        private TurnResult DoCastSpell(EntityUid caster, PrototypeId<SpellPrototype> spellID)
+        private TurnResult DoCastSpell(EntityUid caster, PrototypeId<SpellPrototype> spellID, bool alwaysUseMP = false, SpellsComponent? spells = null)
         {
-            if (!_protos.TryIndex(spellID, out var spell))
+            // >>>>>>>> elona122/shade2/proc.hsp:1282 *cast_proc ..
+            if (!_protos.TryIndex(spellID, out var spell)
+                || !TryComp<SkillsComponent>(caster, out var skills)
+                || !Resolve(caster, ref spells))
                 return TurnResult.Aborted;
 
             if (!_newEffects.TrySpawnEffect(spell.EffectID, out var effect))
                 return TurnResult.Aborted;
+
+            var isPlayer = _gameSession.IsPlayer(caster);
+            if (isPlayer)
+            {
+                var estMPCost = CalcBaseSpellMPCost(spell, caster, effect.Value);
+                if (estMPCost > skills.MP && _configuration.GetCVar(CCVars.GameWarnOnSpellOvercast))
+                {
+                    if (!_playerQuery.YesOrNo(Loc.GetString("Elona.Spells.Prompt.OvercastWarning")))
+                        return TurnResult.Aborted;
+                }
+            }
 
             var power = CalcCastSpellPower(spell, caster);
 
@@ -302,12 +355,135 @@ namespace OpenNefia.Content.Spells
             if (!_newEffects.TryGetEffectTarget(caster, effect.Value, args, out var targetPair))
                 return TurnResult.Aborted;
 
-            var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args);
+            var useMP = isPlayer || alwaysUseMP;
+            if (useMP)
+            {
+                // NOTE: Spell stock only applies to the player.
+                if (isPlayer)
+                {
+                    var stock = spells.Spells.GetOrInsertNew(spellID);
+                    stock.SpellStock = int.Max(stock.SpellStock - CalcRandomizedSpellStockCost(spell, caster, effect.Value), 0);
+                }
+
+                var mpUsed = CalcBaseSpellMPCost(spell, caster, effect.Value);
+                _damages.DamageMP(caster, mpUsed, showMessage: false);
+
+                // Check magic reaction damage.
+                if (!IsAlive(caster))
+                    return TurnResult.Failed;
+            }
+
+            var ev = new BeforeSpellEffectInvokedEvent(caster, targetPair.Target, targetPair.Coords, spell, args);
+            RaiseEvent(effect.Value, ev);
+            if (ev.Handled)
+                return ev.TurnResult;
+
+            var rapidMagicShots = 1;
+            if (spells.CanCastRapidMagic.Buffed && spell.IsRapidCastable)
+            {
+                rapidMagicShots = 1 + (_rand.OneIn(3) ? 1 : 0) + (_rand.OneIn(2) ? 1 : 0);
+            }
+
+            TurnResult result = TurnResult.Failed;
+            if (rapidMagicShots > 1)
+            {
+                // TODO combine turn results
+                for (var i = 0; i < rapidMagicShots; i++)
+                {
+                    result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args);
+                    if (!IsAlive(targetPair.Target))
+                    {
+                        if(_targetings.TrySearchForTarget(caster, out var newTarget) && _factions.GetRelationTowards(caster, newTarget.Value) <= Relation.Enemy)
+                        {
+                            targetPair = new(newTarget.Value, targetPair.Coords);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }   
+            }
+            else
+            {
+                result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args);
+            }
 
             if (IsAlive(effect))
                 EntityManager.DeleteEntity(effect.Value);
 
             return result;
+            // <<<<<<<< elona122/shade2/proc.hsp:1350 	return true ..
+        }
+
+        private void BeforeSpellEffect_ProcVanillaCastingEvents(EntityUid effect, BeforeSpellEffectInvokedEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (_statusEffects.HasEffect(args.Caster, Protos.StatusEffect.Confusion)
+                || _statusEffects.HasEffect(args.Caster, Protos.StatusEffect.Dimming))
+            {
+                _mes.Display(Loc.GetString("Elona.Spells.Cast.Confused", ("caster", args.Caster)), entity: args.Caster);
+                if (!_spellbooks.TryToReadSpellbook(args.Caster, args.Spell.Difficulty, Level(args.Caster, args.Spell)))
+                {
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+            }
+            else
+            {
+                var spells = Comp<SpellsComponent>(args.Caster);
+                LocaleKey castingStyle;
+                if (spells.CastingStyle != null)
+                {
+                    var key = new LocaleKey($"Elona.Spells.CastingStyle").With(spells.CastingStyle.Value);
+                    if (Loc.KeyExists(key))
+                        castingStyle = key;
+                    else
+                        castingStyle = "Elona.Spells.CastingStyle.Default";
+                }
+                else
+                {
+                    castingStyle = "Elona.Spells.CastingStyle.Default";
+                }
+
+                if (_gameSession.IsPlayer(args.Caster))
+                {
+                    var skillName = Loc.GetPrototypeString(args.Spell.SkillID, "Name");
+                    _mes.Display(Loc.GetString(castingStyle.With("WithSkillName"), ("caster", args.Caster), ("target", args.Target), ("skillName", skillName)), entity: args.Caster);
+                }
+                else
+                {
+                    _mes.Display(Loc.GetString(castingStyle.With("Generic"), ("caster", args.Caster), ("target", args.Target)), entity: args.Caster);
+                }
+            }
+
+            // TODO buffs
+            if (_buffs.HasBuff("Elona.MistOfSilence"))
+            {
+                _mes.Display(Loc.GetString("Elona.Spells.Cast.Silenced", ("caster", args.Caster)), entity: args.Caster);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            if (!_rand.Prob(CalcSpellSuccessRate(args.Spell, args.Caster, effect)))
+            {
+                if (_vis.IsInWindowFov(args.Caster))
+                {
+                    _mes.Display(Loc.GetString("Elona.Spells.Cast.Fail", ("caster", args.Caster)), entity: args.Caster);
+                    var anim = new SpellCastFailureMapDrawable();
+                    _mapDrawables.Enqueue(anim, args.Caster);
+                }
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            var encPower = _enchantments.GetTotalEquippedEnchantmentPower<EncEnhanceSpellsComponent>(args.Caster);
+            if (encPower > 0)
+            {
+                args.Args.Power = (int)(args.Args.Power * (100f + encPower / 10f) / 100f);
+            }
         }
 
         public string LocalizeSpellDescription(SpellPrototype proto, EntityUid caster, EntityUid effect)
@@ -326,7 +502,7 @@ namespace OpenNefia.Content.Spells
             {
                 return Level(caster, spell) * 10 + 50;
             }
-            
+
             // TODO customize AI spell power
             if (_skills.HasSkill(caster, Protos.Skill.Casting) && !_parties.IsInPlayerParty(caster))
             {
@@ -400,7 +576,7 @@ namespace OpenNefia.Content.Spells
             // <<<<<<<< elona122/shade2/calculation.hsp:902 	return p ...
         }
 
-        public int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect)
+        public int CalcBaseSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect)
         {
             // >>>>>>>> elona122/shade2/calculation.hsp:906 #defcfunc calcSpellCostMp int id ,int c ...
             if (_gameSession.IsPlayer(caster))
@@ -434,5 +610,24 @@ namespace OpenNefia.Content.Spells
         }
 
         #endregion
+    }
+
+    [EventUsage(EventTarget.Effect)]
+    public sealed class BeforeSpellEffectInvokedEvent : TurnResultEntityEventArgs
+    {
+        public BeforeSpellEffectInvokedEvent(EntityUid caster, EntityUid? target, EntityCoordinates? coords, SpellPrototype spell, EffectArgSet args)
+        {
+            Caster = caster;
+            Target = target;
+            Coords = coords;
+            Spell = spell;
+            Args = args;
+        }
+
+        public EntityUid Caster { get; }
+        public EntityUid? Target { get; }
+        public EntityCoordinates? Coords { get; }
+        public SpellPrototype Spell { get; }
+        public EffectArgSet Args { get; }
     }
 }

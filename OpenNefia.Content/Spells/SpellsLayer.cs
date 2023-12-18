@@ -148,11 +148,10 @@ namespace OpenNefia.Content.Spells
 
         public SpellsLayer()
         {
-            CanControlFocus = true;
+            CanControlFocus = false;
             EventFilter = UIEventFilterMode.Stop;
 
             OnKeyBindDown += HandleKeyBindDown;
-            _list.OnSelected += HandleListSelected;
             _list.OnActivated += HandleListActivated;
 
             var costStock = $"{_loc.GetString("Topic.Cost")}({_loc.GetString("Topic.Stock")})";
@@ -178,7 +177,7 @@ namespace OpenNefia.Content.Spells
 
             var cells = MakeListCells(args.Spells);
             _list.SetCells(cells);
-            _list.Select(PreviousListIndex);
+            _list.SelectAcrossAllPages(PreviousListIndex, playSound: false);
         }
 
         private IEnumerable<SpellsListCell> MakeListCells(IList<SpellPrototype> spells)
@@ -193,7 +192,7 @@ namespace OpenNefia.Content.Spells
 
                 var name = Loc.GetPrototypeString(proto.SkillID, "Name");
 
-                var cost = _spells.CalcSpellMPCost(proto, _casterEntity, effect);
+                var cost = _spells.CalcBaseSpellMPCost(proto, _casterEntity, effect);
                 var stock = _spells.SpellStock(_casterEntity, proto);
                 var level = _skills.Level(_casterEntity, proto.SkillID);
                 var successRate = _spells.CalcSpellSuccessRate(proto, _casterEntity, effect);
@@ -225,13 +224,9 @@ namespace OpenNefia.Content.Spells
             }
         }
 
-        private void HandleListSelected(object? sender, UiListEventArgs<ListItem> e)
-        {
-            PreviousListIndex = e.SelectedIndex;
-        }
-
         private void HandleListActivated(object? sender, UiListEventArgs<ListItem> e)
         {
+            PreviousListIndex = _list.SelectedIndexAcrossAllPages;
             Finish(new(e.SelectedCell.Data.Spell));
             e.Handle();
         }

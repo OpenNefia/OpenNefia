@@ -479,6 +479,11 @@ handlers["base.chara"] = function(from, to)
         end
     end
 
+    if from.can_cast_rapid_magic then
+        c = comp(to, "Spells")
+        field(from, c, "can_cast_rapid_magic")
+    end
+
     if from._id == "elona.beggar" then
         c = comp(to, "EquipmentGen")
         c.initialEquipment = c.initialEquipment or {}
@@ -2303,6 +2308,16 @@ local function print_lines()
         print(("new((%s, %s), (%s, %s), new Vector2i[] { %s }),"):format(case[1], case[2], case[3], case[4], result))
     end
 end
+
+-- data["base.race"]
+--     :iter()
+--     :filter(function(d)
+--         return d.properties.cast_style
+--     end)
+--     :map(function(d)
+--         return { d._id, d.properties.cast_style }
+--     end)
+--     :each(pp)
 
 -- print_spell_costs()
 -- print_lines()

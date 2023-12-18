@@ -43,8 +43,7 @@ namespace OpenNefia.Content.Effects.New
     /// </summary>
     /// <remarks>
     /// To summarize:
-    /// - <see cref="INewEffectSystem"/> raises <see cref="CastEffectEvent"/>.
-    /// - Event handlers of <see cref="CastEffectEvent"/> should raise <see cref="ApplyEffectAreaEvent"/>.
+    /// - <see cref="INewEffectSystem"/> raises <see cref="ApplyEffectAreaEvent"/>.
     /// - Event handlers of <see cref="ApplyEffectAreaEvent"/> should raise <see cref="ApplyEffectDamageEvent"/>
     ///   and possibly <see cref="ApplyEffectTileDamageEvent"/>.
     /// - Event handlers of <see cref="ApplyEffectDamageEvent"/> could call 
@@ -227,7 +226,7 @@ namespace OpenNefia.Content.Effects.New
     /// Raised to retrieve the primary target if the AI is casting this effect.
     /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class GetEffectAITargetEvent : CancellableEntityEventArgs
+    public sealed class GetEffectAITargetEvent : HandledEntityEventArgs
     {
         public EntityUid Source { get; }
         public EffectArgSet Args { get; }
@@ -239,6 +238,13 @@ namespace OpenNefia.Content.Effects.New
         {
             Source = source;
             Args = args;
+        }
+
+        public void Handle(EntityUid? target, EntityCoordinates? coords = null)
+        {
+            OutTarget = target;
+            OutCoords = coords;
+            Handled = true;
         }
     }
 

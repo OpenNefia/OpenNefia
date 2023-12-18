@@ -19,6 +19,8 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Effects.New.EffectTargets
 {
@@ -36,6 +38,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
         [Dependency] private readonly ISpatialSystem _spatials = default!;
         [Dependency] private readonly IPlayerQuery _playerQueries = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -45,6 +48,9 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             SubscribeComponent<EffectTargetOtherComponent, GetEffectPlayerTargetEvent>(GetTarget_Other);
             SubscribeComponent<EffectTargetDirectionComponent, GetEffectPlayerTargetEvent>(GetTarget_Direction);
             SubscribeComponent<EffectTargetPositionComponent, GetEffectPlayerTargetEvent>(GetTarget_Ground);
+
+            SubscribeComponent<EffectTargetSummoningComponent, GetEffectPlayerTargetEvent>(GetPlayerTarget_Summoning);
+            SubscribeComponent<EffectTargetSummoningComponent, GetEffectAITargetEvent>(GetAITarget_Summoning);
         }
 
         private void GetTarget_Self(EntityUid uid, EffectTargetSelfComponent component, GetEffectPlayerTargetEvent args)
@@ -63,7 +69,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             var effectCommon = args.Args.Ensure<EffectCommonArgs>();
 
             // TODO wands
-            var wasCastedByWand = true;
+            var wasCastedByWand = effectCommon.EffectSource == EffectSources.Wand;
             if (wasCastedByWand)
             {
                 if (TryGetDirectionalTarget(args.Source, out var target))
@@ -254,6 +260,70 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
 
             targetEnt = target.Owner;
             return true;
+        }
+
+        /// <summary>
+        /// Set the target as the player if they are casting a summoning skill.
+        /// </summary>
+        private void GetPlayerTarget_Summoning(EntityUid uid, EffectTargetSummoningComponent component, GetEffectPlayerTargetEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1567 	if skillType(efId)=skSummon : if cc=pc : tc=pc :  ...
+            if (args.Handled)
+                return;
+
+            if (_gameSession.IsPlayer(args.Source))
+            {
+                args.Handle(args.Source);
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:1567 	if skillType(efId)=skSummon : if cc=pc : tc=pc :  ...
+        }
+
+        /// <summary>
+        /// Use directional targeting if the AI is casting a summoning spell.
+        /// Also prevent the AI from spamming summoning skills in undesirable situations:
+        /// - If they're an ally
+        /// - If the map is the pet arena
+        /// - If the casting frequency is too high
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="component"></param>
+        /// <param name="args"></param>
+        private void GetAITarget_Summoning(EntityUid uid, EffectTargetSummoningComponent component, GetEffectAITargetEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:1298 	if cc!pc:if skillType(efId)=skSummon{ ...
+            // TODO pet arena
+            var isPetArena = false;
+            if (_factions.GetRelationToPlayer(args.Source) == Relation.Ally || isPetArena)
+            {
+                args.Handle(null);
+                return;
+            }
+
+            // 40% chance to cast if an NPC
+            if (TryComp<TurnOrderComponent>(args.Source, out var turnOrder) && turnOrder.TotalTurnsTaken % 10 > 4)
+            {
+                args.Handle(null);
+                return;
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:1302 		} ...
+
+            // In vanilla, all summoning skills use tgEnemy for AI targeting.
+
+            // >>>>>>>> elona122/shade2/init.hsp:2983 	skillSet spSummon	,rsMAG	,skSummon			,15	,tgEnemy ...
+            var range = args.Args.TileRange;
+
+            // TODO
+            //if (!TryPickTarget(args.Source, false, range, out var targetEnt))
+            //{
+            //    args.Handle(null, null);
+            //    return;
+            //}
+
+            //args.Handle(targetEnt);
+            // <<<<<<<< elona122/shade2/init.hsp:2989 	skillSet actSummonSister,rsMAG	,skSummon			,15	,t ...
         }
     }
 }

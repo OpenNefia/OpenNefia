@@ -93,4 +93,17 @@ namespace OpenNefia.Content.Effects.New
         [DataField]
         public bool CanTargetGround { get; set; } = false;
     }
+
+    /// <summary>
+    /// Special AI and targeting behavior for summoning related skills.
+    /// - The AI won't try to spam this spell every turn (only 2/5 of the time).
+    /// - If the player casts this spell there is no directional prompt; it always chooses the
+    ///   player as the target location. On the other hand, the AI will only try to cast
+    ///   the spell if it's directly next to the player
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectTargetSummoningComponent : Component
+    {
+    }
 }

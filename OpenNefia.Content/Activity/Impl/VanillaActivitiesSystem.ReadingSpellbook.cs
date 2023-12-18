@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Activity
                     difficulty = (int)(difficulty * 1.5);
 
                 var spellLevel = _spells.Level(actor, spellbook.SpellID);
-                var success = _spellbooks.TryToReadSpellbook(actor, component.Spellbook, difficulty, spellLevel);
+                var success = _spellbooks.TryToReadSpellbook(actor, difficulty, spellLevel, component.Spellbook);
 
                 if (!success)
                 {

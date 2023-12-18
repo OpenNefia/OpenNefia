@@ -278,7 +278,7 @@ namespace OpenNefia.Content.Inventory
 
             if (result.HasValue)
             {
-                List.SelectInAllPages(result.Value.SelectedIndexOnExit);
+                List.SelectAcrossAllPages(result.Value.SelectedIndexOnExit);
             }
         }
 
@@ -297,7 +297,7 @@ namespace OpenNefia.Content.Inventory
                     {
                         var index = List.FindIndex(c => c.Data.ItemEntityUid == continuing.SelectedItem.Value);
                         if (index != -1)
-                            List.SelectInAllPages(index);
+                            List.SelectAcrossAllPages(index);
                     }
                     break;
                 default:

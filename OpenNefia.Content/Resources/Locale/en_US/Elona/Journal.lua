@@ -28,7 +28,7 @@ Elona.Journal = {
                 return ("Location: %s"):format(locationName)
             end,
             Remaining = function(remainingTime)
-                return ("%s"):format(remainingTime)
+                return ("Deadline: %s"):format(remainingTime)
             end,
             Reward = function(rewardText)
                 return ("Reward  : %s"):format(rewardText)

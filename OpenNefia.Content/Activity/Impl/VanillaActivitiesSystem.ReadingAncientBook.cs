@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Activity
                     difficulty = (int)(difficulty * 1.5);
 
                 var magicStat = _skills.Level(actor, Protos.Skill.AttrMagic);
-                var success = _spellbooks.TryToReadSpellbook(actor, component.AncientBook, difficulty, magicStat);
+                var success = _spellbooks.TryToReadSpellbook(actor, difficulty, magicStat, component.AncientBook);
 
                 if (!success)
                 {

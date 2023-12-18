@@ -26,6 +26,7 @@ namespace OpenNefia.Content.UI.Element.List
         public int CurrentPage => _pageModel.CurrentPage;
         public int PageCount => _pageModel.PageCount;
         public int ItemsPerPage => _pageModel.ItemsPerPage;
+        public int SelectedIndexAcrossAllPages => CurrentPage * ItemsPerPage + SelectedIndex;
 
         public IUiElement? PageTextElement
         {
@@ -120,12 +121,18 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public void SelectInAllPages(int index)
+        public bool SelectAcrossAllPages(int index, bool playSound)
         {
             var page = index / ItemsPerPage;
             index = index % ItemsPerPage;
-            SetPage(page);
+            var result = SetPage(page, playSound);
             Select(index);
+            return result;
+        }
+
+        public bool SelectAcrossAllPages(int page)
+        {
+            return SelectAcrossAllPages(page, true);
         }
 
         public bool SetPage(int page, bool playSound)

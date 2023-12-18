@@ -8665,6 +8665,8 @@
     hasRandomName: true
   - type: LootType
     lootType: Elona.Humanoid
+  - type: Spells
+    canCastRapidMagic: true
 - type: Entity
   id: Elona.CharaGoldenKnight
   parent: BaseChara
@@ -9465,6 +9467,8 @@
     moveChance: 0.65
   - type: LootType
     lootType: Elona.Humanoid
+  - type: Spells
+    canCastRapidMagic: true
 - type: Entity
   id: Elona.CharaMageGuildMember
   parent: BaseChara
@@ -9555,6 +9559,8 @@
     moveChance: 0.65
   - type: LootType
     lootType: Elona.Humanoid
+  - type: Spells
+    canCastRapidMagic: true
 - type: Entity
   id: Elona.CharaFray
   parent: BaseChara

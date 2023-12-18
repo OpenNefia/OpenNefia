@@ -154,7 +154,7 @@ OpenNefia.Prototypes.Entity.Elona = {
     EncEnhanceSpells = {
         Enchantment = {
             Description = function(item, wielder, power)
-                return ("%s enhances %s spells."):format(_.he(item), _.possessive(wielder))
+                return ("%s enhance%s %s spells."):format(_.he(item), _.s(item), _.possessive(wielder))
             end,
         },
     },

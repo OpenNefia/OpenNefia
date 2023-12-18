@@ -164,7 +164,12 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             {
                 MessageTense = tense,
                 NoAttackText = true,
-                IsThirdPerson = true
+                // The bolt/ball/dart is the one doing the striking, not the player (directly at least)
+                //
+                // "You hit the putit and {transform} him..."
+                //   vs.
+                // "The bolt hits the putit and {transforms} him..."
+                AttackerIsMessageSubject = false
             };
             var damageType = new ElementalDamageType(component.Element, args.OutElementalPower);
             _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);

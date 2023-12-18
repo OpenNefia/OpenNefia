@@ -7,7 +7,7 @@ Elona.Targeting = {
 
     Action = {
         FindNothing = function(onlooker)
-            return ("%s look%s around and find%s nothing."):format(_.name(onlooker))
+            return ("%s look%s around and find%s nothing."):format(_.name(onlooker), _.s(onlooker), _.s(onlooker))
         end,
         YouTarget = function(onlooker, target)
             return ("%s target%s %s."):format(_.name(onlooker), _.s(onlooker), _.name(target))

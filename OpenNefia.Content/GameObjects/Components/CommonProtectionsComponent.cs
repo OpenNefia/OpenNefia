@@ -49,10 +49,6 @@ namespace OpenNefia.Content.GameObjects
         [DataField]
         public Stat<bool> IsFloating { get; set; } = new(false);
 
-        // TODO move
-        [DataField]
-        public Stat<bool> HasEnhancedSpells { get; set; } = new(false);
-
         public void Refresh()
         {
             IsProtectedFromRottenFood.Reset();
@@ -65,7 +61,6 @@ namespace OpenNefia.Content.GameObjects
             CanCatchGodSignals.Reset();
             CanDetectReligion.Reset();
             IsFloating.Reset();
-            HasEnhancedSpells.Reset();
         }
     }
 }

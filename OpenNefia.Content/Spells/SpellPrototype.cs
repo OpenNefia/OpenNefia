@@ -61,5 +61,8 @@ namespace OpenNefia.Content.Spells
         /// </summary>
         [DataField]
         public bool NoMPCostScaling { get; set; } = false;
+
+        [DataField]
+        public bool IsRapidCastable { get; set; } = false;
     }
 }

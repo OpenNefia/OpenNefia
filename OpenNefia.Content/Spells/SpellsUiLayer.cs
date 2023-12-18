@@ -52,6 +52,11 @@ namespace OpenNefia.Content.Spells
             _inner.OnQuery();
         }
 
+        public override void OnQueryFinish()
+        {
+            _inner.OnQueryFinish();
+        }
+
         public override void GetPreferredBounds(out UIBox2 bounds)
         {
             _inner.GetPreferredBounds(out bounds);
