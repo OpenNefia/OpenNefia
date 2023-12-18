@@ -31,7 +31,8 @@ namespace OpenNefia.Content.Combat
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class UnarmedDamageTextComponent : Component
     {
-        // Key into "Elona.Damage.UnarmedText.<XXX>"
+        /// Key into "Elona.Damage.UnarmedText.<XXX>"
+        // TODO rework
         [DataField(required: true)]
         public LocaleKey DamageTextType { get; set; } = "Elona.Default";
     }

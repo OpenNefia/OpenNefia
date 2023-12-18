@@ -16,6 +16,7 @@ namespace OpenNefia.Content.Buffs
     {
         void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
         void AddBuff(string id, EntityUid target, int power, int turns, EntityUid source, BuffsComponent? buffs = null);
+        bool HasBuff(string id);
     }
 
     public sealed class BuffsSystem : EntitySystem, IBuffsSystem
@@ -55,6 +56,12 @@ namespace OpenNefia.Content.Buffs
 
             // TODO
             _mes.Display($"TODO: Add buff {id}", UiColors.MesYellow);
+        }
+
+        // TODO generic on component type
+        public bool HasBuff(string id)
+        {
+            return false;
         }
     }
 

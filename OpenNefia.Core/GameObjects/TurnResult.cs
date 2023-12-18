@@ -17,6 +17,7 @@
         /// <summary>
         /// The action failed, and turns should not pass (control is returned to the player).
         /// Commonly used when a menu is canceled out of.
+        /// Equivalent to <see cref="Failed"/> for the AI.
         /// </summary>
         Aborted = 2,
         

@@ -14,4 +14,11 @@ Elona.Targeting = {
             return ("%s地面をターゲットにした。"):format(_.sore_wa(onlooker))
         end,
     },
+
+    Prompt = {
+        WhichDirection = "どの方向？",
+        InWhichDirection = "どの方向に？",
+        CannotSeeLocation = "その場所は見えない。",
+        OutOfRange = "射程距離外だ。",
+    },
 }

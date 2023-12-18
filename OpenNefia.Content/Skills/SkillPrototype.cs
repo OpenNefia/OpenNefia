@@ -9,6 +9,8 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Skills
 {
+    // TODO: make the invidual behaviors for each skill type boolean flags
+    // on SkillPrototype instead, and make base skill prototypes.
     public enum SkillType
     {
         /// <summary>
@@ -70,6 +72,7 @@ namespace OpenNefia.Content.Skills
     /// cref="SkillsSystem"/> to do the actual leveling.
     /// </para>
     /// </summary>
+    // TODO remove
     public interface ISkillPrototype : IPrototype
     {
         /// <summary>

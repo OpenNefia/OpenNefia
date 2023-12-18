@@ -44,20 +44,23 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
-        [Dependency] private readonly IEntityLookup _entityLookup = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IVanillaAISystem _vai = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly ICommonCommandsSystem _cmd = default!;
 
         public override void Initialize()
         {
             CommandBinds.Builder
-                .Bind(ContentKeyFunctions.Dig, InputCmdHandler.FromDelegate(CommandDig))
-                .Bind(ContentKeyFunctions.Bash, InputCmdHandler.FromDelegate(CommandBash))
-                .Bind(ContentKeyFunctions.Fire, InputCmdHandler.FromDelegate(CommandFire))
-                .Bind(ContentKeyFunctions.Ammo, InputCmdHandler.FromDelegate(CommandAmmo))
-                .Bind(ContentKeyFunctions.Rest, InputCmdHandler.FromDelegate(CommandRest))
-                .Bind(ContentKeyFunctions.Interact, InputCmdHandler.FromDelegate(CommandInteract))
-                .Bind(ContentKeyFunctions.Target, InputCmdHandler.FromDelegate(CommandTarget))
-                .Bind(ContentKeyFunctions.Look, InputCmdHandler.FromDelegate(CommandLook))
+                .Bind(ContentKeyFunctions.Dig, _cmd.MakeCommandHandler(CommandDig))
+                .Bind(ContentKeyFunctions.Bash, _cmd.MakeCommandHandler(CommandBash, blockInWorldMap: true))
+                .Bind(ContentKeyFunctions.Fire, _cmd.MakeCommandHandler(CommandFire, blockInWorldMap: true))
+                .Bind(ContentKeyFunctions.Ammo, _cmd.MakeCommandHandler(CommandAmmo))
+                .Bind(ContentKeyFunctions.Rest, _cmd.MakeCommandHandler(CommandRest))
+                .Bind(ContentKeyFunctions.Interact, _cmd.MakeCommandHandler(CommandInteract))
+                .Bind(ContentKeyFunctions.Target, _cmd.MakeCommandHandler(CommandTarget))
+                .Bind(ContentKeyFunctions.Look, _cmd.MakeCommandHandler(CommandLook))
+                .Bind(ContentKeyFunctions.Close, _cmd.MakeCommandHandler(CommandClose))
                 .Register<ActionCommandsSystem>();
         }
 
@@ -115,7 +118,7 @@ namespace OpenNefia.Content.GameObjects
             if (BlockIfWorldMap(session!.Player))
                 return TurnResult.Aborted;
 
-            if (!_targeting.TryGetTarget(session.Player, out var target))
+            if (!_targeting.TrySearchForTarget(session.Player, out var target))
                 return TurnResult.Aborted;
 
             if (_factions.GetRelationTowards(session.Player, target.Value) >= Relation.Neutral
@@ -235,7 +238,7 @@ namespace OpenNefia.Content.GameObjects
             if (vai.CurrentTarget != null)
                 targetCoords = Spatial(vai.CurrentTarget.Value).MapPosition;
 
-            var args = new PositionPrompt.Args(coords, targetCoords, session.Player);
+            var args = new PositionPrompt.Args(coords, session.Player, targetCoords);
             var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(args);
 
             if (!posResult.HasValue)
@@ -244,20 +247,20 @@ namespace OpenNefia.Content.GameObjects
             var result = posResult.Value;
             if (!result.CanSee || !map.IsFloor(result.Coords))
             {
-                _mes.Display(Loc.GetString("Elona.TargetText.CannotSeeLocation"));
+                _mes.Display(Loc.GetString("Elona.Targeting.Prompt.CannotSeeLocation"));
             }    
             else
             {
                 _audio.Play(Protos.Sound.Ok1);
-                var chara = _entityLookup.QueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
+                var chara = _lookup.QueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
                 if (chara != null && !session.IsPlayer(chara.Owner))
                 {
                     _vai.SetTarget(session.Player, chara.Owner, 0, vai);
                     _mes.Display(Loc.GetString("Elona.Targeting.Action.YouTarget", ("onlooker", session.Player), ("target", chara.Owner)));
                 }
-                else
+                else if (result.Coords.TryToEntity(_mapManager, out var entityCoords))
                 {
-                    vai.CurrentTargetLocation = result.Coords;
+                    vai.CurrentTargetLocation = entityCoords;
                     _mes.Display(Loc.GetString("Elona.Targeting.Action.YouTargetGround", ("onlooker", session.Player)));
                 }
             }
@@ -289,6 +292,30 @@ namespace OpenNefia.Content.GameObjects
             }
         
             return TurnResult.Aborted;
+        }
+
+        private TurnResult? CommandClose(IGameSessionManager? session)
+        {
+            var dir = _uiManager.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player, Loc.GetString("Elona.Door.QueryClose")));
+            if (!dir.HasValue)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
+                return TurnResult.Aborted;
+            }
+
+            var verbReq = new VerbRequest(DoorSystem.VerbTypeClose);
+
+            var targets = _lookup.GetLiveEntitiesAtCoords(dir.Value.Coords)
+                .Select(spatial => _verbs.GetVerbOrNull(session.Player, spatial.Owner, verbReq))
+                .WhereNotNull();
+
+            if (!targets.Any())
+            {
+                _mes.Display(Loc.GetString("Elona.Door.Close.NothingToClose"));
+                return TurnResult.Aborted;
+            }
+
+            return targets.First()!.Act();
         }
     }
 }

@@ -15,6 +15,7 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Book;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Activity
 {
@@ -70,7 +71,7 @@ namespace OpenNefia.Content.Activity
                     difficulty = (int)(difficulty * 1.5);
 
                 var spellLevel = _spells.Level(actor, spellbook.SpellID);
-                var success = _spellbooks.TryToReadSpellbook(actor, component.Spellbook, difficulty, spellLevel);
+                var success = _spellbooks.TryToReadSpellbook(actor, difficulty, spellLevel, component.Spellbook);
 
                 if (!success)
                 {

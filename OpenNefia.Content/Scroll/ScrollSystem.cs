@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Scroll
 
             if (_gameSession.IsPlayer(reader))
             {
-                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.EffectWasObvious) && IsAlive(scroll))
+                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.OutEffectWasObvious) && IsAlive(scroll))
                 {
                     _identify.Identify(scroll, IdentifyState.Name);
                 }

@@ -350,7 +350,7 @@ namespace OpenNefia.Core.EngineVariables
             }
         }
 
-        private StreamReader? ReadFile(ResourcePath file, bool @throw = true)
+        private TextReader? ReadFile(ResourcePath file, bool @throw = true)
         {
             var retries = 0;
 
@@ -359,7 +359,7 @@ namespace OpenNefia.Core.EngineVariables
             {
                 try
                 {
-                    var reader = new StreamReader(_resources.ContentFileRead(file), EncodingHelpers.UTF8);
+                    var reader = new StringReader(_resources.ContentFileReadAllText(file, EncodingHelpers.UTF8));
                     return reader;
                 }
                 catch (IOException e)

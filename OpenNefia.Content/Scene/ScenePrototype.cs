@@ -6,6 +6,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.TypeSerializers.Implementations;
 using OpenNefia.Core.Utility;
 using System;
 using System;
@@ -29,7 +30,7 @@ namespace OpenNefia.Content.Scene
         [DataField(required: true)]
         public string Filename  { get; } = string.Empty;
 
-        [DataField(required: true)]
+        [DataField(required: true, customTypeSerializer: typeof(ResourcePathDirectorySerializer))]
         public ResourcePath Location { get; } = ResourcePath.Root;
     }
 }

@@ -29,13 +29,13 @@ namespace OpenNefia.Content.Book
     {
         public SpellbookReserveStates SpellbookReserveStates { get; }
 
-        bool ProcSpellbookSuccess(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
-        void FailToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
+        bool ProcSpellbookSuccess(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null);
+        void FailToReadSpellbook(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null);
 
         /// <summary>
         /// Rolls the spellbook check, and if it fails, runs the failure effects on the reader.
         /// </summary>
-        bool TryToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel);
+        bool TryToReadSpellbook(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null);
         TurnResult ReadSpellbook(EntityUid reader, EntityUid spellbook);
     }
 
@@ -103,7 +103,7 @@ namespace OpenNefia.Content.Book
         }
 
         /// <inheritdoc/>
-        public bool ProcSpellbookSuccess(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel)
+        public bool ProcSpellbookSuccess(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null)
         {
             // >>>>>>>> shade2/calculation.hsp:1079 *calcReadCheck	 ..
             if (_effects.HasEffect(reader, Protos.StatusEffect.Blindness))
@@ -132,7 +132,7 @@ namespace OpenNefia.Content.Book
         }
 
         /// <inheritdoc/>
-        public void FailToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel)
+        public void FailToReadSpellbook(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null)
         {
             // >>>>>>>> shade2/calculation.hsp:1092 	if rnd(4)=0{ ...
             if (_rand.OneIn(4) && TryComp<SkillsComponent>(reader, out var skills))
@@ -179,17 +179,17 @@ namespace OpenNefia.Content.Book
             }
 
             _mes.Display(Loc.GetString("Elona.Magic.FailToCast.DimensionDoorOpens", ("chara", reader)));
-            _spells.Cast(Protos.Spell.SpellTeleport, reader);
+            _spells.Cast(Protos.Spell.Teleport, reader);
             // <<<<<<<< shade2/calculation.hsp:1114 	return false ..
         }
 
         /// <inheritdoc/>
-        public bool TryToReadSpellbook(EntityUid reader, EntityUid spellbook, int difficulty, int skillLevel)
+        public bool TryToReadSpellbook(EntityUid reader, int difficulty, int skillLevel, EntityUid? spellbook = null)
         {
-            if (ProcSpellbookSuccess(reader, spellbook, difficulty, skillLevel))
+            if (ProcSpellbookSuccess(reader, difficulty, skillLevel, spellbook))
                 return true;
 
-            FailToReadSpellbook(reader, spellbook, difficulty, skillLevel);
+            FailToReadSpellbook(reader, difficulty, skillLevel, spellbook);
             return false;
         }
     }

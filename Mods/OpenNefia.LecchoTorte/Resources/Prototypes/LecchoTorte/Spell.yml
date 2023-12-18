@@ -1,0 +1,23 @@
+- type: Elona.Spell
+  id: LecchoTorte.BoltOfWallCreation
+  hspIds:
+    elona122: 400
+  difficulty: 80
+  mpCost: 6
+  skillID: LecchoTorte.SpellBoltOfWallCreation
+  effectID: LecchoTorte.SpellBoltOfWallCreation
+
+- type: Elona.Skill
+  id: LecchoTorte.SpellBoltOfWallCreation
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+
+- type: Entity
+  id: LecchoTorte.SpellBoltOfWallCreation
+  parent: Elona.BaseSpellEffect
+  components:
+  - type: EffectTargetPosition
+    alwaysShowLine: true
+  - type: EffectAreaBolt
+    ignoreFOV: true
+  - type: EffectWallCreation

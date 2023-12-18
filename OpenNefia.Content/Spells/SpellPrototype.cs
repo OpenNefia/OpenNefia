@@ -15,47 +15,54 @@ using OpenNefia.Content.Effects;
 
 namespace OpenNefia.Content.Spells
 {
+    /// <summary>
+    /// A spell is a skill associated with an effect that can
+    /// be learned by a character, has a spell stock, and can appear 
+    /// in the Spell menu.
+    /// </summary>
     [Prototype("Elona.Spell")]
-    public class SpellPrototype : ISkillPrototype, IHspIds<int>
+    public class SpellPrototype : IPrototype, IHspIds<int>
     {
         [IdDataField]
         public string ID { get; } = default!;
 
-        /// <inheritdoc/>
         [DataField]
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
-        /// <inheritdoc/>
-        [DataField]
-        public SkillType SkillType { get; } = SkillType.Spell;
-
-        /// <inheritdoc/>
-        [DataField]
-        public PrototypeId<SkillPrototype>? RelatedSkill { get; }
+        /// <summary>
+        /// Associated skill. If the level is non-zero, the entity
+        /// knows this spell. The level of this skill is used
+        /// for power/damage calculation.
+        /// </summary>
+        [DataField(required: true)]
+        public PrototypeId<SkillPrototype> SkillID { get; }
 
         /// <summary>
-        /// Difficulty of casting this spell/using this action.
+        /// Effect to invoke when the spell is cast.
         /// </summary>
+        [DataField(required: true)]
+        public PrototypeId<EntityPrototype> EffectID { get; }
+
         [DataField]
-        public int Difficulty { get; }
+        public int Difficulty { get; set; } = 0;
+
+        [DataField]
+        public int MPCost { get; set; } = 0;
 
         /// <summary>
-        /// Range in tiles of this spell/action.
+        /// Maximum range of the spell in tiles.
         /// </summary>
         [DataField]
-        public int Range { get; } = 1;
-        
+        public int MaxRange { get; set; } = 1;
+
+        /// <summary>
+        /// If true, MP cost will not scale with the spell's skill level.
+        /// </summary>
         [DataField]
-        public SpellAlignment Alignment { get; } = SpellAlignment.Positive;
-        
+        public bool NoMPCostScaling { get; set; } = false;
+
         [DataField]
-        public IEffect Effect { get; } = new NullEffect();
-    }
-    
-    public enum SpellAlignment
-    {
-        Positive,
-        Negative
+        public bool IsRapidCastable { get; set; } = false;
     }
 }

@@ -17,13 +17,19 @@ using static OpenNefia.Core.UI.Wisp.Drawing.StyleBox;
 using System.IO;
 using System.Reflection.Emit;
 using OpenNefia.Content.GameObjects;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Maps
 {
     public interface IMapTilesetSystem : IEntitySystem
     {
         PrototypeId<MapTilesetPrototype> GetTileset(IMap map);
-        PrototypeId<TilePrototype>? GetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, bool noFallback = false);
+
+        // TODO I think this always needs to return a tile.
+        bool TryGetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, [NotNullWhen(true)] out PrototypeId<TilePrototype>? tile, bool noFallback = false);
+        bool TryGetTile(PrototypeId<TilePrototype> tileId, IMap map, [NotNullWhen(true)] out PrototypeId<TilePrototype>? tile, bool noFallback = false);
+
         void ApplyTileset(IMap map);
         void ApplyTileset(IMap map, PrototypeId<MapTilesetPrototype> protoId);
     }
@@ -41,21 +47,30 @@ namespace OpenNefia.Content.Maps
             return Protos.MapTileset.Default;
         }
 
-        public PrototypeId<TilePrototype>? GetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, bool noFallback = false)
+        public bool TryGetTile(PrototypeId<TilePrototype> tileId, PrototypeId<MapTilesetPrototype> tilesetId, [NotNullWhen(true)] out PrototypeId<TilePrototype>? tile, bool noFallback = false)
         {
             var tileset = _protos.Index(tilesetId);
 
             if (tileset.Tiles.TryGetValue(tileId, out var tilePicker))
             {
-                return tilePicker.GetTile();
+                tile = tilePicker.GetTile();
+                return true;
             }
 
             if (!noFallback)
             {
-                return GetTile(tileId, Protos.MapTileset.Default, noFallback: true);
+                return TryGetTile(tileId, Protos.MapTileset.Default, out tile, noFallback: true);
             }
 
-            return null;
+            Logger.ErrorS("tileset", $"Failed to find tile {tileId} in tileset {tilesetId}");
+            tile = null;
+            return false;
+        }
+
+        public bool TryGetTile(PrototypeId<TilePrototype> tileId, IMap map, [NotNullWhen(true)] out PrototypeId<TilePrototype>? tile, bool noFallback = false)
+        {
+            var tileset = GetTileset(map);
+            return TryGetTile(tileId, tileset, out tile, noFallback);
         }
 
         public void ApplyTileset(IMap map)

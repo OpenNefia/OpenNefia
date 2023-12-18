@@ -7,6 +7,7 @@ using OpenNefia.Core.Maths;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Spells;
+using static OpenNefia.Content.CharaInfo.SkillsListControl.SkillsListEntry;
 
 namespace OpenNefia.Content.Tests.Spells
 {
@@ -31,7 +32,7 @@ namespace OpenNefia.Content.Tests.Spells
   - type: Spells
   - type: Skills
     skills:
-      {Skill.AttrWill}:
+      {Content.Prototypes.Protos.Skill.AttrWill}:
         level: 8
         potential: 161
 ";
@@ -51,17 +52,28 @@ namespace OpenNefia.Content.Tests.Spells
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             var spells = entMan.EnsureComponent<SpellsComponent>(ent);
+            var skills = entMan.EnsureComponent<SkillsComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spell = spells.Ensure(Spell.SpellCureOfJure);
+            Assert.That(spellSys.TryGetKnown(ent, Spell.CureOfJure, out _, out _), Is.False);
+
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spell = spells.Ensure(Spell.CureOfJure);
+            var skill = skills.Ensure(Content.Prototypes.Protos.Skill.SpellCureOfJure);
 
             Assert.Multiple(() =>
             {
-                Assert.That(spell.Level.Base, Is.EqualTo(1));
-                Assert.That(spell.Level.Buffed, Is.EqualTo(1));
-                Assert.That(spell.Experience, Is.EqualTo(0));
-                Assert.That(spell.Potential, Is.EqualTo(200));
+                Assert.That(skill.Level.Base, Is.EqualTo(1));
+                Assert.That(skill.Level.Buffed, Is.EqualTo(1));
+                Assert.That(skill.Experience, Is.EqualTo(0));
+                Assert.That(skill.Potential, Is.EqualTo(200));
                 Assert.That(spell.SpellStock, Is.EqualTo(25));
+
+                Assert.That(spellSys.TryGetKnown(ent, Spell.CureOfJure, out skill, out spell), Is.True);
+                Assert.That(skill!.Level.Base, Is.EqualTo(1));
+                Assert.That(skill.Level.Buffed, Is.EqualTo(1));
+                Assert.That(skill.Experience, Is.EqualTo(0));
+                Assert.That(skill.Potential, Is.EqualTo(200));
+                Assert.That(spell!.SpellStock, Is.EqualTo(25));
             });
         }
 
@@ -80,19 +92,25 @@ namespace OpenNefia.Content.Tests.Spells
 
             var ent = entMan.SpawnEntity(TestSpellsEntityID, map.AtPos(Vector2i.One));
             var spells = entMan.GetComponent<SpellsComponent>(ent);
+            var skills = entMan.GetComponent<SkillsComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spell = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spell = spells.Ensure(Spell.CureOfJure);
+            var skill = skills.Ensure(Content.Prototypes.Protos.Skill.SpellCureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000);
 
             Assert.Multiple(() =>
             {
-                Assert.That(spell.Level.Base, Is.EqualTo(9));
-                Assert.That(spell.Level.Buffed, Is.EqualTo(9));
-                Assert.That(spell.Experience, Is.EqualTo(695));
-                Assert.That(spell.Potential, Is.EqualTo(84));
+                Assert.That(skill.Level.Base, Is.EqualTo(9));
+                Assert.That(skill.Level.Buffed, Is.EqualTo(9));
+                Assert.That(skill.Experience, Is.EqualTo(695));
+                Assert.That(skill.Potential, Is.EqualTo(84));
                 Assert.That(spell.SpellStock, Is.EqualTo(25));
+
+                Assert.That(spellSys.BaseLevel(ent, Spell.CureOfJure), Is.EqualTo(9));
+                Assert.That(spellSys.Level(ent, Spell.CureOfJure), Is.EqualTo(9));
+                Assert.That(spellSys.Potential(ent, Spell.CureOfJure), Is.EqualTo(84));
             });
         }
 
@@ -113,12 +131,13 @@ namespace OpenNefia.Content.Tests.Spells
             var spells = entMan.GetComponent<SpellsComponent>(ent);
             var skills = entMan.GetComponent<SkillsComponent>(ent);
             var level = entMan.GetComponent<LevelComponent>(ent);
-            var skillWill = skills.Ensure(Skill.AttrWill);
+            var skillWill = skills.Ensure(Content.Prototypes.Protos.Skill.AttrWill);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spellCureOfJure = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spellCureOfJure = spells.Ensure(Spell.CureOfJure);
+            var skillCureOfJure = skills.Ensure(Content.Prototypes.Protos.Skill.SpellCureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000);
 
             Assert.Multiple(() =>
             {
@@ -127,10 +146,10 @@ namespace OpenNefia.Content.Tests.Spells
                 Assert.That(skillWill.Experience, Is.EqualTo(829));
                 Assert.That(skillWill.Potential, Is.EqualTo(144));
 
-                Assert.That(spellCureOfJure.Level.Base, Is.EqualTo(9));
-                Assert.That(spellCureOfJure.Level.Buffed, Is.EqualTo(9));
-                Assert.That(spellCureOfJure.Experience, Is.EqualTo(695));
-                Assert.That(spellCureOfJure.Potential, Is.EqualTo(84));
+                Assert.That(skillCureOfJure.Level.Base, Is.EqualTo(9));
+                Assert.That(skillCureOfJure.Level.Buffed, Is.EqualTo(9));
+                Assert.That(skillCureOfJure.Experience, Is.EqualTo(695));
+                Assert.That(skillCureOfJure.Potential, Is.EqualTo(84));
                 Assert.That(spellCureOfJure.SpellStock, Is.EqualTo(25));
 
                 // Random.
@@ -154,11 +173,11 @@ namespace OpenNefia.Content.Tests.Spells
             var ent = entMan.SpawnEntity(TestSpellsEntityID, map.AtPos(Vector2i.One));
             var spells = entMan.GetComponent<SpellsComponent>(ent);
             var skills = entMan.GetComponent<SkillsComponent>(ent);
-            var skillWill = skills.Ensure(Skill.AttrWill);
+            var skillWill = skills.Ensure(Content.Prototypes.Protos.Skill.AttrWill);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000, relatedSkillExpDivisor: 2);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000, relatedSkillExpDivisor: 2);
 
             Assert.Multiple(() =>
             {
@@ -186,10 +205,10 @@ namespace OpenNefia.Content.Tests.Spells
             var spells = entMan.GetComponent<SpellsComponent>(ent);
             var level = entMan.GetComponent<LevelComponent>(ent);
 
-            spellSys.GainSpell(ent, Spell.SpellCureOfJure, 25);
-            var spellCureOfJure = spells.Ensure(Spell.SpellCureOfJure);
+            spellSys.GainSpell(ent, Spell.CureOfJure, 25);
+            var spellCureOfJure = spells.Ensure(Spell.CureOfJure);
 
-            spellSys.GainSpellExp(ent, Spell.SpellCureOfJure, 5000, levelExpDivisor: 20);
+            spellSys.GainSpellExp(ent, Spell.CureOfJure, 5000, levelExpDivisor: 20);
 
             Assert.Multiple(() =>
             {

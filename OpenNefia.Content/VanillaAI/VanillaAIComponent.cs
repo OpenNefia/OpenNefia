@@ -26,7 +26,7 @@ namespace OpenNefia.Content.VanillaAI
         /// Current target location.
         /// </summary>
         [DataField]
-        public MapCoordinates? CurrentTargetLocation { get; set; }
+        public EntityCoordinates? CurrentTargetLocation { get; set; }
 
         /// <summary>
         /// How much aggro this entity carries towards its current target.

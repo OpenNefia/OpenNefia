@@ -23,6 +23,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         public class Args
         {
@@ -43,11 +44,13 @@ namespace OpenNefia.Content.UI.Layer
         {
             public Direction Direction;
             public MapCoordinates Coords;
+            public EntityCoordinates? EntityCoords;
 
-            public Result(Direction direction, MapCoordinates coords)
+            public Result(Direction direction, MapCoordinates coords, EntityCoordinates? coordsEntity)
             {
                 Direction = direction;
                 Coords = coords;
+                EntityCoords = coordsEntity;
             }
         }
 
@@ -73,7 +76,7 @@ namespace OpenNefia.Content.UI.Layer
             _centerCoords = args.Origin;
             _queryText = args.QueryText;
         }
-        
+
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function.TryToDirection(out var dir))
@@ -82,11 +85,14 @@ namespace OpenNefia.Content.UI.Layer
                     return;
 
                 var mapCoords = _centerCoords.Offset(dir).ToMap(_entityManager);
-                Finish(new Result(dir, mapCoords));
+                EntityCoordinates? entityCoords = null;
+                if (mapCoords.TryToEntity(_mapManager, out var ec))
+                    entityCoords = ec;
+                Finish(new Result(dir, mapCoords, entityCoords));
             }
             else if (args.Function == EngineKeyFunctions.UISelect)
             {
-                Finish(new Result(Direction.Center, _centerCoords.ToMap(_entityManager)));
+                Finish(new Result(Direction.Center, _centerCoords.ToMap(_entityManager), _centerCoords));
             }
             else if (args.Function == EngineKeyFunctions.UICancel)
             {

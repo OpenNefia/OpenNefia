@@ -1,10 +1,13 @@
-﻿using OpenNefia.Content.CharaInfo;
+﻿using OpenNefia.Content.Actions;
+using OpenNefia.Content.CharaInfo;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.SaveLoad;
+using OpenNefia.Content.Spells;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -26,10 +29,18 @@ using OpenNefia.Core.Utility;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
 using static OpenNefia.Content.Journal.LogGroupSublayerArgs;
 using static OpenNefia.Content.Prototypes.Protos;
+using static OpenNefia.Content.Spells.SpellGroupSublayerArgs;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class CommonCommandsSystem : EntitySystem
+    public interface ICommonCommandsSystem : IEntitySystem
+    {
+        bool BlockIfInWorldMap(EntityUid player);
+        InputCmdHandler MakeCommandHandler(StateInputCmdDelegate enabled, bool blockInWorldMap = false);
+        InputCmdHandler MakeCommandHandler(InputCmdHandler inner, bool blockInWorldMap = false);
+    }
+
+    public class CommonCommandsSystem : EntitySystem, ICommonCommandsSystem
     {
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
@@ -43,24 +54,68 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
+        [Dependency] private readonly IActionSystem _actions = default!;
+
+        public bool BlockIfInWorldMap(EntityUid player)
+        {
+            if (TryMap(player, out var map) && HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
+            {
+                _mes.Display(Loc.GetString("Elona.Common.CannotDoInGlobal", ("entity", player)));
+                return true;
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// Optionally wraps an input command delegate with a check if the player is in the world map.
+        /// </summary>
+        public InputCmdHandler MakeCommandHandler(StateInputCmdDelegate enabled, bool blockInWorldMap = false)
+        {
+            if (blockInWorldMap)
+            {
+                var oldEnabled = enabled;
+                enabled = (IGameSessionManager? session) =>
+                {
+                    if (BlockIfInWorldMap(session!.Player))
+                        return TurnResult.Aborted;
+
+                    return oldEnabled(session);
+                };
+            }
+
+            return InputCmdHandler.FromDelegate(enabled);
+        }
+
+        /// <summary>
+        /// Optionally wraps an input command delegate with a check if the player is in the world map.
+        /// </summary>
+        public InputCmdHandler MakeCommandHandler(InputCmdHandler inner, bool blockInWorldMap = false)
+        {
+            return MakeCommandHandler(inner.Enabled, blockInWorldMap);
+        }
 
         public override void Initialize()
         {
             CommandBinds.Builder
                 // CharaInfo group
-                .Bind(ContentKeyFunctions.CharaInfo, InputCmdHandler.FromDelegate(ShowCharaInfo))
-                .Bind(ContentKeyFunctions.Equipment, InputCmdHandler.FromDelegate(ShowEquipment))
-                .Bind(ContentKeyFunctions.FeatInfo, InputCmdHandler.FromDelegate(ShowFeatInfo))
+                .Bind(ContentKeyFunctions.CharaInfo, MakeCommandHandler(ShowCharaInfo))
+                .Bind(ContentKeyFunctions.Equipment, MakeCommandHandler(ShowEquipment))
+                .Bind(ContentKeyFunctions.FeatInfo, MakeCommandHandler(ShowFeatInfo))
 
                 // Journal group
-                .Bind(ContentKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
-                .Bind(ContentKeyFunctions.Journal, InputCmdHandler.FromDelegate(ShowJournal))
-                .Bind(ContentKeyFunctions.ChatLog, InputCmdHandler.FromDelegate(ShowChatLog))
-                
+                .Bind(ContentKeyFunctions.Backlog, MakeCommandHandler(ShowBacklog))
+                .Bind(ContentKeyFunctions.Journal, MakeCommandHandler(ShowJournal))
+                .Bind(ContentKeyFunctions.ChatLog, MakeCommandHandler(ShowChatLog))
+
+                // Spell group
+                .Bind(ContentKeyFunctions.Cast, MakeCommandHandler(ShowSpells, blockInWorldMap: true))
+                .Bind(ContentKeyFunctions.Skill, MakeCommandHandler(ShowActions, blockInWorldMap: true))
+
                 // Other commands
-                .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
-                .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
-                .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
+                .Bind(EngineKeyFunctions.ShowEscapeMenu, MakeCommandHandler(ShowEscapeMenu))
+                .Bind(EngineKeyFunctions.QuickSaveGame, MakeCommandHandler(QuickSaveGame))
+                .Bind(EngineKeyFunctions.QuickLoadGame, MakeCommandHandler(QuickLoadGame))
                 .Register<CommonCommandsSystem>();
         }
 
@@ -132,6 +187,43 @@ namespace OpenNefia.Content.GameObjects
             return TurnResult.Aborted;
         }
 
+        private TurnResult? ShowSpells(IGameSessionManager? session)
+        {
+            var context = new SpellUiGroupArgs(SpellTab.Spell, session!.Player);
+            var result = _uiManager.Query<SpellUiGroup, SpellUiGroupArgs, SpellGroupSublayerResult>(context);
+
+            if (!result.HasValue)
+                return TurnResult.Aborted;
+
+            return HandleSkillOrSpellResult(session!.Player, result.Value);
+        }
+
+        private TurnResult? ShowActions(IGameSessionManager? session)
+        {
+            var context = new SpellUiGroupArgs(SpellTab.Skill, session!.Player);
+            var result = _uiManager.Query<SpellUiGroup, SpellUiGroupArgs, SpellGroupSublayerResult>(context);
+
+            if (!result.HasValue)
+                return TurnResult.Aborted;
+
+            return HandleSkillOrSpellResult(session!.Player, result.Value);
+        }
+
+        private TurnResult? HandleSkillOrSpellResult(EntityUid player, SpellGroupSublayerResult value)
+        {
+            // TODO block in world map.
+
+            switch (value)
+            {
+                case SpellGroupSublayerResult.CastSpell castSpell:
+                    return _spells.NewCast(player, castSpell.Spell.GetStrongID());
+                case SpellGroupSublayerResult.InvokeAction invokeAction:
+                    return _actions.InvokeAction(player, invokeAction.Action.GetStrongID());
+                default:
+                    return TurnResult.Aborted;
+            }
+        }
+
         private TurnResult? QuickSaveGame(IGameSessionManager? session)
         {
             _saveLoad.QuickSaveGame();
@@ -175,8 +267,8 @@ namespace OpenNefia.Content.GameObjects
                 QueryText = Loc.GetString("Elona.UserInterface.Exit.Prompt.Text")
             };
 
-            var result = _uiManager.Query<Prompt<EscapeMenuChoice>, 
-                Prompt<EscapeMenuChoice>.Args, 
+            var result = _uiManager.Query<Prompt<EscapeMenuChoice>,
+                Prompt<EscapeMenuChoice>.Args,
                 PromptChoice<EscapeMenuChoice>>(promptArgs);
 
             if (result.HasValue)
@@ -210,7 +302,7 @@ namespace OpenNefia.Content.GameObjects
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             bool save;
-            
+
             switch (_config.GetCVar(CCVars.GameSaveOnReturnToTitle))
             {
                 case SaveOnReturnToTitle.Always:

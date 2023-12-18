@@ -1,0 +1,414 @@
+- type: Elona.Skill
+  id: Elona.ActionDrainBlood
+  ordering:
+    after: Elona.SpellGravity
+  hspIds:
+    elona122: 601
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionFireBreath
+  hspIds:
+    elona122: 602
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionColdBreath
+  hspIds:
+    elona122: 603
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionLightningBreath
+  hspIds:
+    elona122: 604
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionDarknessBreath
+  hspIds:
+    elona122: 605
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionChaosBreath
+  hspIds:
+    elona122: 606
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionSoundBreath
+  hspIds:
+    elona122: 607
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionNetherBreath
+  hspIds:
+    elona122: 608
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionNerveBreath
+  hspIds:
+    elona122: 609
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionPoisonBreath
+  hspIds:
+    elona122: 610
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionMindBreath
+  hspIds:
+    elona122: 611
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionPowerBreath
+  hspIds:
+    elona122: 612
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfWeakness
+  hspIds:
+    elona122: 613
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfHunger
+  hspIds:
+    elona122: 614
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfPoison
+  hspIds:
+    elona122: 615
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfNerve
+  hspIds:
+    elona122: 616
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfFear
+  hspIds:
+    elona122: 617
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionTouchOfSleep
+  hspIds:
+    elona122: 618
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 619
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionHarvestMana
+  hspIds:
+    elona122: 621
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionBuffPunishment
+  hspIds:
+    elona122: 622
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionPrayerOfJure
+  hspIds:
+    elona122: 623
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionAbsorbMagic
+  hspIds:
+    elona122: 624
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionBuffLulwysTrick
+  hspIds:
+    elona122: 625
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionMirror
+  hspIds:
+    elona122: 626
+  skillType: Action
+  relatedSkill: Elona.AttrPerception
+
+- type: Elona.Skill
+  id: Elona.ActionChange
+  hspIds:
+    elona122: 628
+  skillType: Action
+  relatedSkill: Elona.AttrPerception
+
+- type: Elona.Skill
+  id: Elona.ActionDrawCharge
+  hspIds:
+    elona122: 629
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionFillCharge
+  hspIds:
+    elona122: 630
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSwarm
+  hspIds:
+    elona122: 631
+  skillType: Action
+  relatedSkill: Elona.AttrStrength
+
+- type: Elona.Skill
+  id: Elona.ActionEyeOfMutation
+  hspIds:
+    elona122: 632
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionEyeOfEther
+  hspIds:
+    elona122: 633
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSuspiciousHand
+  hspIds:
+    elona122: 635
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionEyeOfInsanity
+  hspIds:
+    elona122: 636
+  skillType: Action
+  relatedSkill: Elona.AttrCharisma
+
+- type: Elona.Skill
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionEyeOfDimness
+  hspIds:
+    elona122: 638
+  skillType: Action
+  relatedSkill: Elona.AttrCharisma
+
+- type: Elona.Skill
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+
+- type: Elona.Skill
+  id: Elona.ActionCurse
+  hspIds:
+    elona122: 645
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionBuffDeathWord
+  hspIds:
+    elona122: 646
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionBuffBoost
+  hspIds:
+    elona122: 647
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+
+- type: Elona.Skill
+  id: Elona.ActionInsult
+  hspIds:
+    elona122: 648
+  skillType: Action
+  relatedSkill: Elona.AttrCharisma
+
+- type: Elona.Skill
+  id: Elona.ActionDistantAttack4
+  hspIds:
+    elona122: 649
+  skillType: Action
+  relatedSkill: Elona.AttrStrength
+
+- type: Elona.Skill
+  id: Elona.ActionDistantAttack7
+  hspIds:
+    elona122: 650
+  skillType: Action
+  relatedSkill: Elona.AttrStrength
+
+- type: Elona.Skill
+  id: Elona.ActionScavenge
+  hspIds:
+    elona122: 651
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionEyeOfMana
+  hspIds:
+    elona122: 652
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionVanish
+  hspIds:
+    elona122: 653
+  skillType: Action
+  relatedSkill: Elona.AttrPerception
+
+- type: Elona.Skill
+  id: Elona.ActionPregnant
+  hspIds:
+    elona122: 654
+  skillType: Action
+  relatedSkill: Elona.AttrPerception
+
+- type: Elona.Skill
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionCheer
+  hspIds:
+    elona122: 656
+  skillType: Action
+  relatedSkill: Elona.AttrCharisma
+
+- type: Elona.Skill
+  id: Elona.ActionMewmewmew
+  hspIds:
+    elona122: 657
+  skillType: Action
+  relatedSkill: Elona.AttrLuck
+
+- type: Elona.Skill
+  id: Elona.ActionDecapitation
+  hspIds:
+    elona122: 658
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+
+- type: Elona.Skill
+  id: Elona.ActionDropMine
+  hspIds:
+    elona122: 659
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+
+- type: Elona.Skill
+  id: Elona.ActionManisDisassembly
+  hspIds:
+    elona122: 660
+  skillType: Action
+  relatedSkill: Elona.AttrWill

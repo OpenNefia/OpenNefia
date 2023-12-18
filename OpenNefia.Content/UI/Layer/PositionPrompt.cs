@@ -38,7 +38,9 @@ namespace OpenNefia.Content.UI.Layer
             public MapCoordinates TargetPos { get; set; }
             public EntityUid? Onlooker { get; set; }
 
-            public Args(MapCoordinates origin, MapCoordinates? target = null, EntityUid? onlooker = null)
+            public bool AlwaysShowLine { get; set; } = false;
+
+            public Args(MapCoordinates origin, EntityUid? onlooker = null, MapCoordinates? target = null)
             {
                 if (target != null && origin.MapId != target.Value.MapId)
                     target = origin;
@@ -52,11 +54,13 @@ namespace OpenNefia.Content.UI.Layer
         public new class Result
         {
             public MapCoordinates Coords;
+            public EntityCoordinates? EntityCoords;
             public bool CanSee;
 
-            public Result(MapCoordinates pos, bool canSee)
+            public Result(MapCoordinates pos, EntityCoordinates? entityPos, bool canSee)
             {
                 Coords = pos;
+                EntityCoords = entityPos;
                 CanSee = canSee;
             }
         }
@@ -68,7 +72,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private EntityUid _onlooker = default!;
         private IMap _map = default!;
-
+        private bool _alwaysShowLine;
         protected Color ColorTargetedTile = UiColors.PromptTargetedTile;
         protected FontSpec FontTargetText = UiFonts.TargetText;
         [Child] protected UiText TextTarget;
@@ -88,13 +92,17 @@ namespace OpenNefia.Content.UI.Layer
             _targetPos = args.TargetPos;
             _onlooker = args.Onlooker ?? _gameSession.Player;
             _map = _mapManager.GetMap(args.OriginPos.MapId);
+            _alwaysShowLine = args.AlwaysShowLine;
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UISelect || args.Function == EngineKeyFunctions.UIClick)
             {
-                Finish(new Result(_targetPos, _canSee));
+                EntityCoordinates? entityPos = null;
+                if (_targetPos.TryToEntity(_mapManager, out var ec))
+                    entityPos = ec;
+                Finish(new Result(_targetPos, entityPos, _canSee));
             }
             else if (args.Function.TryToDirection(out var dir))
             {
@@ -212,7 +220,10 @@ namespace OpenNefia.Content.UI.Layer
 
         private bool ShouldDrawLine()
         {
-            if (!_targetable.TryGetBlockingEntity(_targetPos, out var targetSpatial) || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
+            if (_alwaysShowLine)
+                return true;
+
+            if (!_targetable.TryGetTargetableEntity(_targetPos, out var targetSpatial) || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
                 || !_map.HasLineOfSight(targetSpatial.WorldPosition, _originPos.Position))
             {
                 return false;

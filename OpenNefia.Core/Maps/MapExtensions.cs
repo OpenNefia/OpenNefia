@@ -30,6 +30,14 @@ namespace OpenNefia.Core.Maps
             return map.GetTile(pos)?.Tile.GetStrongID();
         }
 
+        public static PrototypeId<TilePrototype>? GetTileID(this IMap map, MapCoordinates coords)
+        {
+            if (coords.MapId != map.Id)
+                return null;
+
+            return map.GetTileID(coords.Position);
+        }
+
         public static TilePrototype? GetTilePrototype(this IMap map, Vector2i pos)
         {
             return map.GetTile(pos)?.Tile.ResolvePrototype();

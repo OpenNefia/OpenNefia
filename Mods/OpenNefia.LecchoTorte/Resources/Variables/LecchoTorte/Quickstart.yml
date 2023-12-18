@@ -8,13 +8,30 @@ LecchoTorte:
   QuickstartPlayer:
     level: 50
     skills:
+      Elona.AttrLife: 2000
+      Elona.AttrMana: 2000
       Elona.AttrStrength: 2000
       Elona.AttrConstitution: 2000
+      Elona.AttrDexterity: 2000
+      Elona.AttrPerception: 2000
+      Elona.AttrLearning: 2000
+      Elona.AttrWill: 2000
+      Elona.AttrMagic: 2000
       Elona.AttrCharisma: 2000
-      Elona.AttrLife: 2000
+      Elona.AttrSpeed: 2000
+      Elona.AttrLuck: 2000
+
       Elona.Mining: 2000
       Elona.Performer: 100
       Elona.Cooking: 100
+      Elona.ControlMagic: 100
+
+      Elona.SpellIceBolt: 2000
+      Elona.SpellLightningBolt: 500
+      Elona.SpellFireBolt: 10
+      Elona.SpellWallCreation: 10
+
+      LecchoTorte.SpellBoltOfWallCreation: 10
     items:
       - id: Elona.ItemDagger
         location: Equipment

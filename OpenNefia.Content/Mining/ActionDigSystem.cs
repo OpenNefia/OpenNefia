@@ -132,8 +132,8 @@ namespace OpenNefia.Content.Mining
 
             // Set the dug tile type to the "tunnel" tile of the map's tileset.
             var mapCommon = EntityManager.EnsureComponent<MapCommonComponent>(map.MapEntityUid);
-            var tile = _tilesets.GetTile(Protos.Tile.MapgenTunnel, mapCommon.Tileset)!;
-            map.SetTile(digCoords.Position, tile.Value);
+            _tilesets.TryGetTile(Protos.Tile.MapgenTunnel, mapCommon.Tileset, out var tile);
+            map.SetTile(digCoords.Position, tile!.Value);
 
             _mapDebris.SpillFragments(digCoords, 2);
             _audio.Play(Protos.Sound.Crush1, digCoords);

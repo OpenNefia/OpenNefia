@@ -95,7 +95,7 @@ namespace OpenNefia.Core.GameObjects
         /// Useful for generating lists of temporary entities that might not all
         /// need saving.
         /// </summary>
-        [DataField]
+        [DataField("isMapSavable")]
         private bool _isMapSavable { get; set; } = true;
 
         public bool IsMapSavable {

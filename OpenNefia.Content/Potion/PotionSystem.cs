@@ -65,7 +65,7 @@ namespace OpenNefia.Content.Potion
 
             if (_gameSession.IsPlayer(drinker))
             {
-                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.EffectWasObvious) && IsAlive(potion))
+                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.OutEffectWasObvious) && IsAlive(potion))
                 {
                     _identify.Identify(potion, IdentifyState.Name);
                 }

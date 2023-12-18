@@ -283,7 +283,7 @@ namespace OpenNefia.Content.Equipment
                             var index = List.FindIndex(c => c.Data.ItemEntityUid == entity);
 
                             if (index != -1)
-                                List.SelectInAllPages(index);
+                                List.SelectAcrossAllPages(index);
                         }
                     }
                 }

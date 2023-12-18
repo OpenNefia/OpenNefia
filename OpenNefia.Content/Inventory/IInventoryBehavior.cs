@@ -82,6 +82,11 @@ namespace OpenNefia.Content.Inventory
         TurnResult? TurnResultAfterSelectionIfEmpty { get; }
 
         /// <summary>
+        /// If true, prevent using this behavior in the world map.
+        /// </summary>
+        bool BlockInWorldMap { get; }
+
+        /// <summary>
         /// Allocates the icon that this behavior will display in the icon bar.
         /// </summary>
         UiElement? MakeIcon();

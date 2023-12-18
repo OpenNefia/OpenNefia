@@ -36,6 +36,12 @@ namespace OpenNefia.Content.Visibility
             SpatialComponent? spatial = null);
 
         /// <summary>
+        /// Returns true if the entity has line of sight to the map position.
+        /// </summary>
+        bool HasLineOfSight(EntityUid onlooker, EntityCoordinates targetPos,
+            SpatialComponent? spatial = null);
+
+        /// <summary>
         /// Returns true if the onlooker can see the entity, including visibility checks.
         /// </summary>
         bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool ignoreLos = false);
@@ -127,6 +133,9 @@ namespace OpenNefia.Content.Visibility
 
             return true;
         }
+
+        public bool HasLineOfSight(EntityUid onlooker, EntityCoordinates targetPos, SpatialComponent? spatial = null)
+            => HasLineOfSight(onlooker, targetPos.ToMap(EntityManager), spatial);
 
         public bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool ignoreLos = false)
         {

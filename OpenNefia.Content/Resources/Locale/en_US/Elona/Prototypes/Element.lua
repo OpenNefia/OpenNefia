@@ -16,8 +16,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("let%s the chaos consume %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("let%s the chaos consume %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s drawn into a chaotic vortex."):format(_.name(entity), _.is(entity))
@@ -41,8 +41,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("transform%s %s to an ice sculpture."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("transform%s %s into an ice sculpture."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s frozen and turn%s into an ice sculpture."):format(
@@ -61,8 +61,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             return ("%s get%s a cut."):format(_.name(entity), _.s(entity))
         end,
         Killed = {
-            Active = function(entity, attacker)
-                return ("cut%s %s into thin strips."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("cut%s %s into thin strips."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s cut into thin strips."):format(_.name(entity), _.is(entity))
@@ -86,8 +86,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("let%s the depths swallow %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("let%s the depths swallow %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s consumed by darkness."):format(_.name(entity), _.is(entity))
@@ -111,8 +111,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("burn%s %s to death."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("burn%s %s to death."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s burnt to ashes."):format(_.name(entity), _.is(entity))
@@ -136,8 +136,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("electrocute%s %s to death."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("electrocute%s %s to death."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s struck by lightning and die%s."):format(_.name(entity), _.is(entity), _.s(entity))
@@ -174,8 +174,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("completely disable%s %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("completely disable%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s lose%s %s mind and commit%s a suicide."):format(
@@ -204,8 +204,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("destroy%s %s nerves."):format(_.s(attacker), _.his(entity))
+            Active = function(entity, attacker, direct)
+                return ("destroy%s %s nerves."):format(direct and _.s(attacker) or "s", _.his(entity))
             end,
             Passive = function(entity)
                 return ("%s die%s from neurofibroma."):format(_.name(entity), _.s(entity))
@@ -229,8 +229,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("entrap%s %s into the inferno."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("entrap%s %s into the inferno."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s go%s to hell."):format(_.name(entity), s(entity, true))
@@ -254,8 +254,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("kill%s %s with poison."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("kill%s %s with poison."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s poisoned to death."):format(_.name(entity), _.is(entity))
@@ -279,8 +279,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
         Killed = {
-            Active = function(entity, attacker)
-                return ("shatter%s %s to atoms."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("shatter%s %s to atoms."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s resonate%s and break%s up."):format(_.name(entity), _.s(entity), _.s(entity))
@@ -292,8 +292,8 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             return ("%s %s burnt by acid."):format(_.name(entity), _.is(entity))
         end,
         Killed = {
-            Active = function(entity, attacker)
-                return ("melt%s %s away."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("melt%s %s away."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s melt%s."):format(_.name(entity), _.s(entity))

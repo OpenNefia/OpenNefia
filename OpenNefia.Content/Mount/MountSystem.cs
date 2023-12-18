@@ -258,7 +258,7 @@ namespace OpenNefia.Content.Mount
             if (!Resolve(rider, ref mountRiderComp) || !Resolve(mount, ref mountComp))
                 return false;
 
-            if (!_parties.AreInSameParty(rider, mount))
+            if (!_parties.IsInSameParty(rider, mount))
             {
                 if (_gameSession.IsPlayer(rider))
                     _mes.Display(Loc.GetString("Elona.Mount.Start.Problems.CanOnlyRideAlly", ("rider", rider), ("mount", mount)));

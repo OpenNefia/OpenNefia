@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Enchantments
             {
                 _combat.PhysicalAttack(ev.Attacker, target.Value, ev.AttackSkill, ev.Weapon, true);
 
-                if (!IsAlive(ev.Target) && !_targeting.TryGetTarget(ev.Attacker, out target, silent: true))
+                if (!IsAlive(ev.Target) && !_targeting.TrySearchForTarget(ev.Attacker, out target, silent: true))
                     break;
             }
         }
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.Enchantments
 
             // TODO magic
             var power = _skills.Level(ev.Attacker, ev.AttackSkill) * 8 + 10;
-            _spells.Cast(Protos.Spell.SpellMagicStorm, ev.Target, power, ev.Attacker);
+            _spells.Cast(Protos.Spell.MagicStorm, ev.Target, power, ev.Attacker);
         }
 
         #endregion

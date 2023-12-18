@@ -405,7 +405,7 @@ namespace OpenNefia.Content.Religion
             _drawables.Enqueue(anim, spatial.MapPosition);
             _audio.Play(Protos.Sound.Pray2, target);
 
-            _spells.Cast(Protos.Spell.EffectElixir, power: 100, target: target);
+            // _spells.Cast(Protos.Spell.EffectElixir, power: 100, target: target);
             _spells.Cast(Protos.Spell.BuffHolyVeil, power: 200, target: target);
 
             religion.PrayerCharge = 0;
@@ -622,7 +622,7 @@ namespace OpenNefia.Content.Religion
 
         public void Punish(EntityUid chara)
         {
-            _spells.Cast(Protos.Spell.ActionCurse, power: 500, target: chara);
+            //_spells.Cast(Protos.Spell.ActionCurse, power: 500, target: chara);
             if (_rand.OneIn(2))
             {
                 _spells.Cast(Protos.Spell.BuffPunishment, power: 250, target: chara);
@@ -630,7 +630,7 @@ namespace OpenNefia.Content.Religion
             }
             if (_rand.OneIn(2))
             {
-                _spells.Cast(Protos.Spell.EffectPunishDecrementStats, power: 100, target: chara);
+                //_spells.Cast(Protos.Spell.EffectPunishDecrementStats, power: 100, target: chara);
             }
         }
     }

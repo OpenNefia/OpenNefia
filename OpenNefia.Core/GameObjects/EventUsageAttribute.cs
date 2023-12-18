@@ -51,6 +51,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This event should be used with weather entities.
         /// </summary>
-        Weather = 0x40
+        Weather = 0x40,
+
+        /// <summary>
+        /// This event should be used with effect entities.
+        /// </summary>
+        Effect = 0x80
     }
 }

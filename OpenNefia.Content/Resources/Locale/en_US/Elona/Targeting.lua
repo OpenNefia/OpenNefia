@@ -7,11 +7,18 @@ Elona.Targeting = {
 
     Action = {
         FindNothing = function(onlooker)
-            return ("%s look%s around and find%s nothing."):format(_.name(onlooker))
+            return ("%s look%s around and find%s nothing."):format(_.name(onlooker), _.s(onlooker), _.s(onlooker))
         end,
         YouTarget = function(onlooker, target)
             return ("%s target%s %s."):format(_.name(onlooker), _.s(onlooker), _.name(target))
         end,
         YouTargetGround = "You target the ground.",
+    },
+
+    Prompt = {
+        WhichDirection = "Which direction?",
+        InWhichDirection = "Which direction? ",
+        CannotSeeLocation = "You can't see the location.",
+        OutOfRange = "It's out of range.",
     },
 }

@@ -94,11 +94,15 @@ namespace OpenNefia.Content.Damage
             string text;
             if (args.DamageType is ElementalDamageType ele)
             {
-                text = Loc.GetPrototypeString(ele.ElementID, "Wounded", ("entity", target), ("attacker", args.Attacker));
+                text = Loc.GetPrototypeString(ele.ElementID, "Wounded",
+                    ("entity", target),
+                    ("attacker", args.Attacker));
             }
             else
             {
-                text = Loc.GetString("Elona.Damage.Wounded", ("entity", target), ("attacker", args.Attacker));
+                text = Loc.GetString("Elona.Damage.Wounded",
+                    ("entity", target),
+                    ("attacker", args.Attacker));
             }
             _mes.Display(text, entity: target);
             // <<<<<<<< elona122/shade2/chara_func.hsp:1430 	return  ...
@@ -160,7 +164,8 @@ namespace OpenNefia.Content.Damage
 
                 if (key != null)
                 {
-                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker)), color, entity: entity, noCapitalize: true);
+                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker), ("direct", args.ExtraArgs.AttackerIsMessageSubject)), 
+                        color, entity: entity, noCapitalize: true);
                 }
 
                 goto skipDmgTxt;
@@ -219,21 +224,32 @@ namespace OpenNefia.Content.Damage
 
             if (args.ExtraArgs.MessageTense == DamageHPMessageTense.Active)
             {
-                if (!Loc.TryGetPrototypeString(ele.ElementID, "Killed.Active", out text, ("target", target), ("attacker", args.Attacker)))
+                if (!Loc.TryGetPrototypeString(ele.ElementID, "Killed.Active", out text,
+                    ("target", target),
+                    ("attacker", args.Attacker),
+                    ("direct", args.ExtraArgs.AttackerIsMessageSubject)))
                 {
-                    text = Loc.GetString("Elona.Damage.Killed.Active", ("target", target), ("attacker", args.Attacker));
+                    text = Loc.GetString("Elona.Damage.Killed.Active",
+                        ("target", target),
+                        ("attacker", args.Attacker),
+                        ("direct", args.ExtraArgs.AttackerIsMessageSubject));
                 }
             }
             else if (args.ExtraArgs.MessageTense == DamageHPMessageTense.Passive)
             {
-                if (!Loc.TryGetPrototypeString(ele.ElementID, "Killed.Passive", out text, ("target", target), ("attacker", args.Attacker)))
+                if (!Loc.TryGetPrototypeString(ele.ElementID, "Killed.Passive", out text,
+                    ("target", target),
+                    ("attacker", args.Attacker)))
                 {
-                    text = Loc.GetString("Elona.Damage.Killed.Passive", ("target", target), ("attacker", args.Attacker));
+                    text = Loc.GetString("Elona.Damage.Killed.Passive",
+                        ("target", target),
+                        ("attacker", args.Attacker));
                 }
             }
 
+            var noCapitalize = args.ExtraArgs.MessageTense == DamageHPMessageTense.Active;
             if (text != null)
-                _mes.Display(text, UiColors.MesRed, entity: target);
+                _mes.Display(text, UiColors.MesRed, entity: target, noCapitalize: noCapitalize);
         }
 
         private readonly LocaleKey[] DeathMessageKeys = new LocaleKey[]

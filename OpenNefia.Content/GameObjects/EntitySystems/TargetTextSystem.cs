@@ -33,7 +33,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (!Get<VisibilitySystem>().HasLineOfSight(onlooker, targetPos))
             {
-                text = Loc.GetString("Elona.TargetText.CannotSeeLocation");
+                text = Loc.GetString("Elona.Targeting.Prompt.CannotSeeLocation");
                 return false;
             }
 

@@ -21,6 +21,7 @@ namespace OpenNefia.Content.Input
             common.AddFunction(ContentKeyFunctions.ReplNextCompletion);
             common.AddFunction(ContentKeyFunctions.ReplComplete);
             common.AddFunction(ContentKeyFunctions.ReplClear);
+            common.AddFunction(ContentKeyFunctions.ReplCopyResult);
 
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
@@ -52,6 +53,8 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Look);
             field.AddFunction(ContentKeyFunctions.Examine);
             field.AddFunction(ContentKeyFunctions.Dig);
+            field.AddFunction(ContentKeyFunctions.Cast);
+            field.AddFunction(ContentKeyFunctions.Skill);
 
             field.AddFunction(ContentKeyFunctions.CharaInfo);
             field.AddFunction(ContentKeyFunctions.Equipment);

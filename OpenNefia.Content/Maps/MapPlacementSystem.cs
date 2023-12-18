@@ -236,7 +236,7 @@ namespace OpenNefia.Content.Maps
             if (!map.IsFloor(coords.Position))
             {
                 var tileset = _tilesets.GetTileset(map);
-                var tile = _tilesets.GetTile(Protos.Tile.MapgenTunnel, tileset);
+                _tilesets.TryGetTile(Protos.Tile.MapgenTunnel, tileset, out var tile);
                 map.SetTile(coords.Position, tile!.Value);
             }
 

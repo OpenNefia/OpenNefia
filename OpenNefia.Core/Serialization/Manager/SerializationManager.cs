@@ -446,6 +446,16 @@ namespace OpenNefia.Core.Serialization.Manager
 
             if (value == null) return new ValueDataNode("null");
 
+            // If the underlying type is a "Type" itself, then
+            // at runtime it will be resolved to System.RuntimeType,
+            // which is not what we want.
+            // This bypasses the TypeSerializer, but oh well...
+            if (underlyingType == typeof(Type).GetType())
+            {
+                var typeValue = (Type)value;
+                return new ValueDataNode(typeValue.FullName ?? typeValue.Name);
+            }
+
             if (underlyingType.IsEnum)
             {
                 // Enums implement IConvertible.

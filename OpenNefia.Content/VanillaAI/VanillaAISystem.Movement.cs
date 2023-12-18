@@ -181,7 +181,7 @@ namespace OpenNefia.Content.VanillaAI
             var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var newCoords = spatial.MapPosition.Offset(direction);
 
-            if (_targetable.TryGetBlockingEntity(newCoords, out var onCellSpatial))
+            if (_targetable.TryGetTargetableEntity(newCoords, out var onCellSpatial))
             {
                 var onCell = onCellSpatial.Owner;
 
@@ -274,10 +274,8 @@ namespace OpenNefia.Content.VanillaAI
         {
             // >>>>>>>> elona122/shade2/ai.hsp:411 			map(x,y,0)=tile_tunnel ...
             var tileset = _mapTilesets.GetTileset(map);
-            var tile = _mapTilesets.GetTile(Protos.Tile.MapgenTunnel, tileset);
-            if (tile == null)
+            if (!_mapTilesets.TryGetTile(Protos.Tile.MapgenTunnel, tileset, out var tile))
                 return;
-
             map.SetTile(newCoords.Position, tile.Value);
             _mapDebris.SpillFragments(newCoords, 2);
             _audio.Play(Protos.Sound.Crush1, newCoords);
@@ -423,7 +421,7 @@ namespace OpenNefia.Content.VanillaAI
                     return (coords, blocked);
                 }
 
-                if (_targetable.TryGetBlockingEntity(coords, out var onCellSpatial))
+                if (_targetable.TryGetTargetableEntity(coords, out var onCellSpatial))
                 {
                     if (_factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                     {

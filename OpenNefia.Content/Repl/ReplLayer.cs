@@ -153,6 +153,7 @@ namespace OpenNefia.Content.Repl
         protected int HistoryPos = -1;
         private bool IsExecuting = false;
         private bool _wasInitialized;
+        private string _lastResultText = "";
 
         public override int? DefaultZOrder => HudLayer.HudZOrder + 1000000;
 
@@ -287,6 +288,10 @@ namespace OpenNefia.Content.Repl
             else if (args.Function == EngineKeyFunctions.TextCopy)
             {
                 CopyText();
+            }
+            else if (args.Function == ContentKeyFunctions.ReplCopyResult)
+            {
+                CopyResultText();
             }
             else if (args.Function == EngineKeyFunctions.TextPaste)
             {
@@ -430,6 +435,11 @@ namespace OpenNefia.Content.Repl
             ClipboardService.SetText(EditingLine);
         }
 
+        public void CopyResultText()
+        {
+            ClipboardService.SetText(_lastResultText);
+        }
+
         public void PasteText()
         {
             var text = ClipboardService.GetText() ?? "";
@@ -511,6 +521,7 @@ namespace OpenNefia.Content.Repl
             ScrollbackPos = 0;
             UpdateCompletions();
             NeedsScrollbackRedraw = true;
+            _lastResultText = string.Empty;
         }
 
         public void SubmitText()
@@ -550,10 +561,12 @@ namespace OpenNefia.Content.Repl
             {
                 case ReplExecutionResult.Success success:
                     PrintText(success.Result, ColorReplTextResult);
+                    _lastResultText = success.Result;
                     break;
                 case ReplExecutionResult.Error error:
                     var text = $"Error: {error.Exception.Message}";
                     PrintText(text, ColorReplTextError);
+                    _lastResultText = text;
                     break;
                 default:
                     break;

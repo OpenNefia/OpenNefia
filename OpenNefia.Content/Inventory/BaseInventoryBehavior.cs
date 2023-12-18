@@ -27,7 +27,6 @@ namespace OpenNefia.Content.Inventory
     public abstract class BaseInventoryBehavior : IInventoryBehavior
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
@@ -44,6 +43,7 @@ namespace OpenNefia.Content.Inventory
         public virtual bool ApplyNameModifiers => true;
         public virtual bool RestorePreviousListIndex => true;
         public virtual TurnResult? TurnResultAfterSelectionIfEmpty => null;
+        public virtual bool BlockInWorldMap => false;
 
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);

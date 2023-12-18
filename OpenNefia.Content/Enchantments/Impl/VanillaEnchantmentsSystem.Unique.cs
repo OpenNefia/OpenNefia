@@ -142,7 +142,7 @@ namespace OpenNefia.Content.Enchantments
 
             if (_rand.Next(25) < Math.Clamp(Math.Abs(args.AdjustedPower) / 50, 1, 25))
             {
-                _spells.Cast(Protos.Spell.SpellTeleport, args.Equipper, args.AdjustedPower);
+                _spells.Cast(Protos.Spell.Teleport, args.Equipper, args.AdjustedPower);
             }
         }
 
@@ -205,12 +205,12 @@ namespace OpenNefia.Content.Enchantments
                 }
             }
         }
-        
+
         private void EncResistBlindness_ApplyOnRefresh(EntityUid uid, EncResistBlindnessComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Blindness);
         }
-        
+
         private void EncResistParalysis_ApplyOnRefresh(EntityUid uid, EncResistParalysisComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
             _statusEffects.AddTemporaryEffectImmunity(args.Equipper, Protos.StatusEffect.Paralysis);
@@ -295,7 +295,8 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncEnhanceSpells_ApplyOnRefresh(EntityUid uid, EncEnhanceSpellsComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<CommonProtectionsComponent>(args.Equipper).HasEnhancedSpells.Buffed = true;
+            if (TryComp<SpellsComponent>(args.Equipper, out var spells))
+                spells.HasEnhancedSpells.Buffed = true;
         }
 
 

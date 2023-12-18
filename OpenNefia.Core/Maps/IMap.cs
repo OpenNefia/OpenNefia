@@ -32,6 +32,8 @@ namespace OpenNefia.Core.Maps
         void ClearMemory(PrototypeId<TilePrototype> tile);
         void SetTile(Vector2i pos, PrototypeId<TilePrototype> tile);
         void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tile);
+        void SetTile(MapCoordinates pos, PrototypeId<TilePrototype> tile);
+        void SetTileMemory(MapCoordinates pos, PrototypeId<TilePrototype> tile);
 
         void RefreshTile(Vector2i pos);
         void RefreshTileEntities(Vector2i pos, IEnumerable<SpatialComponent> entities);
@@ -49,8 +51,9 @@ namespace OpenNefia.Core.Maps
         bool IsMemorized(Vector2i pos);
         void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
-        bool IsInBounds(MapCoordinates newCoords);
+        bool IsInBounds(MapCoordinates coords);
         void MemorizeTile(Vector2i position);
+        void MemorizeTile(MapCoordinates coords);
 
         bool CanAccess(Vector2i position);
         bool CanSeeThrough(Vector2i position);

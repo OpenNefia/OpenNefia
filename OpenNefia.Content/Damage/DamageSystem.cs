@@ -39,6 +39,8 @@ namespace OpenNefia.Content.Damage
         /// including karma loss, quest quotas, etc.
         /// </summary>
         void RunCheckKillEvents(EntityUid target, EntityUid attacker);
+
+        DamageHPMessageTense GetDamageMessageTense(EntityUid target);
     }
 
     public sealed partial class DamageSystem : EntitySystem, IDamageSystem
@@ -199,6 +201,11 @@ namespace OpenNefia.Content.Damage
 
             return true;
         }
+
+        public DamageHPMessageTense GetDamageMessageTense(EntityUid target)
+        {
+            return _parties.IsInPlayerParty(target) ? DamageHPMessageTense.Passive : DamageHPMessageTense.Active;
+        }
     }
 
     /// <param name="WasKilled">True if the target was killed.</param>
@@ -209,11 +216,13 @@ namespace OpenNefia.Content.Damage
     public enum DamageHPMessageTense
     {
         /// <summary>
+        /// For use with ally targets.
         /// "...was killed."
         /// </summary>
         Passive,
 
         /// <summary>
+        /// For use with enemy targets.
         /// "...and kills them."
         /// </summary>
         Active
@@ -238,7 +247,20 @@ namespace OpenNefia.Content.Damage
         public int AttackCount { get; set; }
         public DamageHPMessageTense MessageTense { get; set; } = DamageHPMessageTense.Passive;
         public PrototypeId<SkillPrototype>? AttackSkill { get; set; }
-        public bool IsThirdPerson { get; set; }
+
+        /// <summary>
+        /// Affects the tense of the damage/kill messages. To explain:
+        /// - The player can attack with a weapon that does cold damage.
+        ///   The message will be "You attack the putit and {transform} him into an ice sculpture."
+        /// - The player can cast a bolt that does cold damage.
+        ///   Even though the player is the attacker, the message should become
+        ///   "The bolt hits the putit and {transforms} him into an ice sculpture."
+        /// So by setting this flag to <c>true</c>, it's like saying the player isn't the
+        /// one directly responsible for the attack in the message tense (even though
+        /// they are still set as the attacker for gameplay purposes).
+        /// </summary>
+        public bool AttackerIsMessageSubject { get; set; } = true;
+
         public bool NoAttackText { get; set; }
     }
 
@@ -266,6 +288,10 @@ namespace OpenNefia.Content.Damage
     {
         public int Amount { get; }
         public bool NoMagicReaction { get; }
+
+        /// <summary>
+        /// If false, things like damage popups shouldn't be shown.
+        /// </summary>
         public bool ShowMessage { get; }
 
         public AfterDamageMPEvent(int amount, bool noMagicReaction, bool showMessage)
@@ -280,6 +306,10 @@ namespace OpenNefia.Content.Damage
     public struct AfterDamageStaminaEvent
     {
         public int Amount { get; }
+
+        /// <summary>
+        /// If false, things like damage popups shouldn't be shown.
+        /// </summary>
         public bool ShowMessage { get; }
 
         public AfterDamageStaminaEvent(int amount, bool showMessage)

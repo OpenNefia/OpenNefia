@@ -11,6 +11,8 @@ using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
+    // NOTE: This doesn't work fully due to this behavior:
+    // https://stackoverflow.com/questions/47861723/comparing-typeoftype-to-system-runtimetype
     [TypeSerializer]
     public class TypeSerializer : ITypeSerializer<Type, ValueDataNode>
     {

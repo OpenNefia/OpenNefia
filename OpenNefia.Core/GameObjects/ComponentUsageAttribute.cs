@@ -55,5 +55,10 @@ namespace OpenNefia.Core.GameObjects
         /// This component should be used with weather entities.
         /// </summary>
         Weather = 0x40,
+
+        /// <summary>
+        /// This component should be used with effect entities.
+        /// </summary>
+        Effect = 0x80,
     }
 }

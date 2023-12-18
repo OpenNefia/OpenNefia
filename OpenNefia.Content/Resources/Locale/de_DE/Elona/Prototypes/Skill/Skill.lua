@@ -152,7 +152,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Indicates your skill with blunt weapons.",
         Name = "Blunt",
     },
-    BuffBoost = {
+    SpellBuffBoost = {
         Name = "Boost",
     },
     Bow = {
@@ -191,7 +191,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Breath(Cold)",
         Name = "Cold Breath",
     },
-    BuffContingency = {
+    SpellBuffContingency = {
         Name = "Contingency",
     },
     ControlMagic = {
@@ -234,7 +234,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Breath(Darkness)",
         Name = "Darkness Breath",
     },
-    BuffDeathWord = {
+    SpellBuffDeathWord = {
         Name = "Death Word",
     },
     ActionDecapitation = {
@@ -259,7 +259,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     ActionDistantAttack7 = {
         Name = "Distant Attack",
     },
-    BuffDivineWisdom = {
+    SpellBuffDivineWisdom = {
         Name = "Divine Wisdom",
     },
     SpellDominate = {
@@ -290,10 +290,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Used when wielding two weapoms at the same time.",
         Name = "Dual Wield",
     },
-    BuffElementScar = {
+    SpellBuffElementScar = {
         Name = "Element Scar",
     },
-    BuffElementalShield = {
+    SpellBuffElementalShield = {
         Name = "Elemental Shield",
     },
     ActionEtherGround = {
@@ -418,17 +418,17 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Skill to effectively act while wearing heavy armor.",
         Name = "Heavy Armor",
     },
-    BuffHero = {
+    SpellBuffHero = {
         Name = "Hero",
     },
     SpellHolyLight = {
         Description = "Remove one hex",
         Name = "Holy Light",
     },
-    BuffHolyShield = {
+    SpellBuffHolyShield = {
         Name = "Holy Shield",
     },
-    BuffHolyVeil = {
+    SpellBuffHolyVeil = {
         Name = "Holy Veil",
     },
     SpellIceBall = {
@@ -443,7 +443,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Identify one item",
         Name = "Identify",
     },
-    BuffIncognito = {
+    SpellBuffIncognito = {
         Name = "Incognito",
     },
     ActionInsult = {
@@ -485,7 +485,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Indicates your skill with long swords.",
         Name = "Long Sword",
     },
-    BuffLulwysTrick = {
+    SpellBuffLulwysTrick = {
         Name = "Lulwy's Trick",
     },
     MagicCapacity = {
@@ -566,10 +566,10 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Create mist",
         Name = "Mist of Darkness",
     },
-    BuffMistOfFrailness = {
+    SpellBuffMistOfFrailness = {
         Name = "Mist of frailness",
     },
-    BuffMistOfSilence = {
+    SpellBuffMistOfSilence = {
         Name = "Mist of Silence",
     },
     SpellMutation = {
@@ -596,7 +596,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Breath(Nether)",
         Name = "Nether Breath",
     },
-    BuffNightmare = {
+    SpellBuffNightmare = {
         Name = "Nightmare",
     },
     SpellOracle = {
@@ -631,7 +631,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Pregnant target",
         Name = "Pregnant",
     },
-    BuffPunishment = {
+    SpellBuffPunishment = {
         Name = "Punishment",
     },
     SpellRagingRoar = {
@@ -642,7 +642,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Cure insane area",
         Name = "Rain of sanity",
     },
-    BuffRegeneration = {
+    SpellBuffRegeneration = {
         Name = "Regeneration",
     },
     SpellRestoreBody = {
@@ -681,7 +681,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Allows you to sense the quality of stuff.",
         Name = "Sense Quality",
     },
-    ActionShadowStep = {
+    ActionDimensionalMove = {
         Description = "Teleport to target",
         Name = "Shadow Step",
     },
@@ -697,14 +697,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Teleport self",
         Name = "Short Teleport",
     },
-    BuffSlow = {
+    SpellBuffSlow = {
         Name = "Slow",
     },
     ActionSoundBreath = {
         Description = "Breath(Sound)",
         Name = "Sound Breath",
     },
-    BuffSpeed = {
+    SpellBuffSpeed = {
         Name = "Speed",
     },
     Stave = {

@@ -2,14 +2,21 @@
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.GameObjects
 {
+    public interface ISpatialSystem : IEntitySystem
+    {
+        bool TryMapDistanceFractional(EntityUid a, EntityUid b, out float dist);
+        bool TryMapDistanceTiled(EntityUid a, EntityUid b, out int dist);
+    }   
+
     /// <summary>
     /// Handles updating the solidity/opacity of tiles on the map when an entity's
     /// state changes.
     /// </summary>
-    public class SpatialSystem : EntitySystem
+    public class SpatialSystem : EntitySystem, ISpatialSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -123,6 +130,20 @@ namespace OpenNefia.Core.GameObjects
         private void HandleTangibilityChanged(EntityUid uid, SpatialComponent spatial, ref EntityTangibilityChangedEvent args)
         {
             RefreshTileOfEntity(uid, spatial);
+        }
+
+        public bool TryMapDistanceFractional(EntityUid a, EntityUid b, [NotNullWhen(true)] out float dist)
+        {
+            var spatialA = Spatial(a);
+            var spatialB = Spatial(b);
+            return spatialA.MapPosition.TryDistanceFractional(spatialB.MapPosition, out dist);
+        }
+
+        public bool TryMapDistanceTiled(EntityUid a, EntityUid b, [NotNullWhen(true)] out int dist)
+        {
+            var spatialA = Spatial(a);
+            var spatialB = Spatial(b);
+            return spatialA.MapPosition.TryDistanceTiled(spatialB.MapPosition, out dist);
         }
     }
 }

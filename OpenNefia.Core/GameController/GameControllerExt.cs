@@ -9,13 +9,13 @@ namespace OpenNefia.Core.GameController
 {
     public static class GameControllerExt
     {
-        public static float StepFrame(this IGameController gameController)
+        public static float StepFrame(this IGameController gameController, bool stepInput = false)
         {
             var dt = Love.Timer.GetDelta();
             var frameArgs = new FrameEventArgs(dt, stepInput: false);
             gameController.Update(frameArgs);
             gameController.Draw();
-            gameController.SystemStep(stepInput: false);
+            gameController.SystemStep(stepInput: stepInput);
             return dt;
         }
 

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameObjects.Components;
 using OpenNefia.Content.Spells;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -8,6 +9,13 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Spells
 {
+    [DataDefinition]
+    public sealed class SpellState
+    {
+        [DataField]
+        public int SpellStock { get; set; } = 0;
+    }
+
     /// <summary>
     /// Holds spell level/stock data.
     /// </summary>
@@ -15,77 +23,43 @@ namespace OpenNefia.Content.Spells
     public class SpellsComponent : Component, IComponentRefreshable
     {
         /// <summary>
-        /// Level, potential, experience and spell stock for spells.
+        /// Spell stock for known spells.
         /// </summary>
+        /// <remarks>
+        /// NOTE: This mechanic only applies to the player in vanilla (and base OpenNefia).
+        /// </remarks>
         [DataField]
-        public Dictionary<PrototypeId<SpellPrototype>, LevelPotentialAndStock> Spells { get; } = new();
+        public Dictionary<PrototypeId<SpellPrototype>, SpellState> Spells { get; } = new();
 
-        public LevelPotentialAndStock Ensure(PrototypeId<SpellPrototype> skillID)
+        /// <summary>
+        /// Text to display when the entity casts a spell. It is purely cosmetic. 
+        /// It is an index into <c>Elona.Spells.CastingStyle.<...></c>.
+        /// </summary>
+        // TODO rework
+        [DataField]
+        public LocaleKey? CastingStyle { get; set; }
+
+        [DataField]
+        public Stat<bool> HasEnhancedSpells { get; set; } = new(false);
+
+        [DataField]
+        public Stat<bool> CanCastRapidMagic { get; set; } = new(false);
+
+        public SpellState Ensure(PrototypeId<SpellPrototype> skillID)
         {
             if (!Spells.TryGetValue(skillID, out var spell))
             {
-                spell = new LevelPotentialAndStock();
+                spell = new SpellState();
                 Spells[skillID] = spell;
             }
 
             return spell;
         }
 
-        public bool TryGetKnown(PrototypeId<SpellPrototype> protoId, [NotNullWhen(true)] out LevelPotentialAndStock? level)
-        {
-            if (!Spells.TryGetValue(protoId, out level))
-            {
-                return false;
-            }
-
-            if (level.Stats.Level.Base <= 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool HasSkill(SpellPrototype proto)
-            => HasSkill(proto.GetStrongID());
-        public bool HasSkill(PrototypeId<SpellPrototype> id)
-        {
-            return TryGetKnown(id, out _);
-        }
-
-        public int Level(SpellPrototype proto) => Level(proto.GetStrongID());
-        public int Level(PrototypeId<SpellPrototype> id)
-        {
-            if (!TryGetKnown(id, out var level))
-                return 0;
-
-            return level.Level.Buffed;
-        }
-
-        public int BaseLevel(SpellPrototype proto) => BaseLevel(proto.GetStrongID());
-        public int BaseLevel(PrototypeId<SpellPrototype> id)
-        {
-            if (!TryGetKnown(id, out var level))
-                return 0;
-
-            return level.Level.Base;
-        }
-
-        public int Potential(SpellPrototype proto) => Potential(proto.GetStrongID());
-        public int Potential(PrototypeId<SpellPrototype> id)
-        {
-            if (!TryGetKnown(id, out var level))
-                return 0;
-
-            return level.Potential;
-        }
-
         public void Refresh()
         {
-            foreach (var level in Spells.Values)
-            {
-                level.Level.Reset();
-            }
+            HasEnhancedSpells.Reset();
+            CanCastRapidMagic.Reset();
         }
     }
 }

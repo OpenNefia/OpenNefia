@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Spells
                 bonus: new("power / 10"), 
                 extraVariables: new[]
                 {
-                    new SpellDiceVariables(Protos.Spell.SpellHealingTouch)
+                    new SpellDiceVariables(Protos.Spell.HealingTouch)
                 });
             MessageKey = "Elona.Effect.Heal.Apply.Normal";
         }
