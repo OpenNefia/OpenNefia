@@ -114,6 +114,8 @@ namespace OpenNefia.Core.Locale
         private const string LocDataKey = "_LocData";
         private ConcurrentDictionary<string, EntityLocData> _entityCache = new();
 
+        private readonly HashSet<LocaleKey> _missingKeys = new();
+
         public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
 
         public void Initialize()
@@ -147,6 +149,8 @@ namespace OpenNefia.Core.Locale
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
             using var profiler = new ProfilerLogger(LogLevel.Info, "loc", $"Switching language to {language}");
+
+            _missingKeys.Clear();
 
             Language = language;
             SetLanguage(language);
@@ -237,6 +241,12 @@ namespace OpenNefia.Core.Locale
             if (TryGetString(key, out var str, args))
                 return str;
 
+            if (!_missingKeys.Contains(key))
+            {
+                Logger.WarningS("loc", $"Missing locale key: {key}");
+                _missingKeys.Add(key);
+            }
+
             return $"<Missing key: {key}>";
         }
 
@@ -321,6 +331,12 @@ namespace OpenNefia.Core.Locale
         {
             if (TryGetList(key, out var list, args))
                 return list;
+
+            if (!_missingKeys.Contains(key))
+            {
+                Logger.WarningS("loc", $"Missing locale key (list): {key}");
+                _missingKeys.Add(key);
+            }
 
             return new List<string>() { $"<Missing key: {key}>" };
         }

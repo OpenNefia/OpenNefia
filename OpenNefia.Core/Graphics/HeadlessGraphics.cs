@@ -27,7 +27,8 @@ namespace OpenNefia.Core.Graphics
         public void Initialize()
         {
             // TODO: Much of Love.Graphics requires the window to be initialized
-            // and visible.
+            // and visible. True headless support requires some code changes
+            // in Love2dCS.
             var bootConfig = new Love.BootConfig()
             {
                 WindowTitle = Engine.Title,

@@ -313,7 +313,10 @@ namespace OpenNefia.Content.Spells
         public string LocalizeSpellDescription(SpellPrototype proto, EntityUid caster, EntityUid effect)
         {
             // TODO format power
-            return Loc.GetPrototypeString(proto.SkillID, "Description");
+            var description = string.Empty;
+            if (Loc.TryGetPrototypeString(proto.SkillID, "Description", out var desc))
+                description = desc;
+            return description;
         }
 
         public int CalcCastSpellPower(SpellPrototype spell, EntityUid caster)

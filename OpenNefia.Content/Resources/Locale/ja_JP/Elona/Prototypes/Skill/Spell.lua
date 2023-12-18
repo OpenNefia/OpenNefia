@@ -203,16 +203,8 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "特定の場所への帰還",
         Name = "帰還",
     },
-    SpellBuffBoost = {
-        Name = "ブースト",
-        Description = "",
-    },
     SpellBuffContingency = {
         Name = "契約",
-    },
-    SpellBuffDeathWord = {
-        Name = "死の宣告",
-        Description = "",
     },
     SpellBuffDivineWisdom = {
         Name = "知者の加護",
@@ -226,19 +218,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     SpellBuffHolyVeil = {
         Name = "ホーリーヴェイル",
     },
-    SpellBuffLulwysTrick = {
-        Name = "ルルウィの憑依",
-        Description = "",
-    },
     SpellBuffMistOfFrailness = {
         Name = "脆弱の霧",
     },
     SpellBuffNightmare = {
         Name = "ナイトメア",
-    },
-    SpellBuffPunishment = {
-        Name = "神罰",
-        Description = "対象を罰する",
     },
     SpellBuffRegeneration = {
         Name = "リジェネレーション",

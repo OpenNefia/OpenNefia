@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Actions
             // >>>>>>>> elona122/shade2/proc.hsp:1549 	if (skillTg(efId)!tgSelf)&(skillTg(efId)!tgSelfOn ...
             if (IsAlive(args.Target) && args.Target.Value == args.Caster)
                 return;
-            
+
             if (_statusEffects.HasEffect(args.Caster, Protos.StatusEffect.Confusion)
                 || _statusEffects.HasEffect(args.Caster, Protos.StatusEffect.Blindness))
             {
@@ -146,7 +146,10 @@ namespace OpenNefia.Content.Actions
 
         public string LocalizeActionDescription(ActionPrototype proto, EntityUid casterEntity, EntityUid effect)
         {
-            return Loc.GetPrototypeString(proto.SkillID, "Description");
+            var description = string.Empty;
+            if (Loc.TryGetPrototypeString(proto.SkillID, "Description", out var desc))
+                description = desc;
+            return description;
         }
     }
 

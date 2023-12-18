@@ -19,6 +19,19 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "対象即死",
         Name = "首狩り",
     },
+    ActionBuffDeathWord = {
+        Name = "死の宣告",
+    },
+    ActionBuffPunishment = {
+        Name = "神罰",
+        Description = "対象を罰する",
+    },
+    ActionBuffLulwysTrick = {
+        Name = "ルルウィの憑依",
+    },
+    ActionBuffBoost = {
+        Name = "ブースト",
+    },
     ActionDimensionalMove = {
         Description = "近くへの瞬間移動",
         Name = "空間歪曲",

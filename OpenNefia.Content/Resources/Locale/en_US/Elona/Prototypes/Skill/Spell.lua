@@ -209,16 +209,8 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     SpellBuffSpeed = {
         Name = "Speed",
     },
-    SpellBuffBoost = {
-        Name = "Boost",
-        Description = "",
-    },
     SpellBuffContingency = {
         Name = "Contingency",
-    },
-    SpellBuffDeathWord = {
-        Name = "Death Word",
-        Description = "",
     },
     SpellBuffDivineWisdom = {
         Name = "Divine Wisdom",
@@ -232,19 +224,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     SpellBuffHolyVeil = {
         Name = "Holy Veil",
     },
-    SpellBuffLulwysTrick = {
-        Name = "Lulwy's Trick",
-        Description = "",
-    },
     SpellBuffMistOfFrailness = {
         Name = "Mist of frailness",
     },
     SpellBuffNightmare = {
         Name = "Nightmare",
-    },
-    SpellBuffPunishment = {
-        Name = "Punishment",
-        Description = "Punish target",
     },
     SpellBuffRegeneration = {
         Name = "Regeneration",

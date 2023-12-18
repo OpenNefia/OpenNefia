@@ -23,6 +23,19 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Breath(Darkness)",
         Name = "Darkness Breath",
     },
+    ActionBuffDeathWord = {
+        Name = "Death Word",
+    },
+    ActionBuffPunishment = {
+        Name = "Punishment",
+        Description = "Punish target",
+    },
+    ActionBuffLulwysTrick = {
+        Name = "Lulwy's Trick",
+    },
+    ActionBuffBoost = {
+        Name = "Boost",
+    },
     ActionDecapitation = {
         Description = "Kill target",
         Name = "Decapitation",
