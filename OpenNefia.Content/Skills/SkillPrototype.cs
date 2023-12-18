@@ -9,6 +9,8 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Skills
 {
+    // TODO: make the invidual behaviors for each skill type boolean flags
+    // on SkillPrototype instead, and make base skill prototypes.
     public enum SkillType
     {
         /// <summary>

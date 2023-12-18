@@ -133,7 +133,7 @@ namespace OpenNefia.Content.Effects
         public int TileRange { get; set; } = 1;
 
         [DataField]
-        public bool NoInheritCurseState { get; set; } = false;
+        public bool NoInheritItemCurseState { get; set; } = false;
 
         public EntityUid? Item { get; set; } = null;
 

@@ -200,6 +200,9 @@ binds:
 - function: Elona.Cast
   type: State
   key: V
+- function: Elona.Skill
+  type: State
+  key: A
 
 - function: Elona.PickUp
   type: State

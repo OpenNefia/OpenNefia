@@ -15,9 +15,9 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IEffectSystem _effects = default!;
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         
-        private int CalcAdjustedSpellPower(int power, SpellAlignment alignment, CurseState curseState)
+        private int CalcAdjustedSpellPower(int power, EffectAlignment alignment, CurseState curseState)
         {
-            if (alignment == SpellAlignment.Negative)
+            if (alignment == EffectAlignment.Negative)
             {
                 switch (curseState)
                 {

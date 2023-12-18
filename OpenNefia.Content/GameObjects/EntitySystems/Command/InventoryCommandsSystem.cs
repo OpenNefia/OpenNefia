@@ -33,27 +33,28 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly ICommonCommandsSystem _cmd = default!;
 
         public override void Initialize()
         {
             CommandBinds.Builder
-                .Bind(ContentKeyFunctions.PickUp, InputCmdHandler.FromDelegate(HandlePickUp))
+                .Bind(ContentKeyFunctions.PickUp, _cmd.MakeCommandHandler(HandlePickUp))
                 .Bind(ContentKeyFunctions.Examine,
-                    new InventoryInputCmdHandler(_uiMgr, new ExamineInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ExamineInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drop,
-                    new InventoryInputCmdHandler(_uiMgr, new DropInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new DropInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drink,
-                    new InventoryInputCmdHandler(_uiMgr, new DrinkInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new DrinkInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Throw,
-                    new InventoryInputCmdHandler(_uiMgr, new ThrowInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ThrowInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Eat,
-                    new InventoryInputCmdHandler(_uiMgr, new EatInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new EatInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Use,
-                    new InventoryInputCmdHandler(_uiMgr, new UseInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new UseInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Read,
-                    new InventoryInputCmdHandler(_uiMgr, new ReadInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ReadInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Open,
-                    new InventoryInputCmdHandler(_uiMgr, new OpenInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new OpenInventoryBehavior()))
                 .Register<InventoryCommandsSystem>();
         }
 
@@ -113,12 +114,15 @@ namespace OpenNefia.Content.GameObjects
         private sealed class InventoryInputCmdHandler : InputCmdHandler
         {
             private readonly IUserInterfaceManager _uiMgr;
+            private readonly ICommonCommandsSystem _cmd;
             private readonly IInventoryBehavior _behavior;
 
-            public InventoryInputCmdHandler(IUserInterfaceManager uiMgr, IInventoryBehavior behavior)
+            public InventoryInputCmdHandler(IUserInterfaceManager uiMgr, ICommonCommandsSystem cmd,
+                IInventoryBehavior behavior)
             {
                 _behavior = behavior;
                 _uiMgr = uiMgr;
+                _cmd = cmd;
             }
 
             public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
@@ -127,6 +131,9 @@ namespace OpenNefia.Content.GameObjects
                 {
                     return null;
                 }
+
+                if (_behavior.BlockInWorldMap && _cmd.BlockIfInWorldMap(session!.Player))
+                    return TurnResult.Aborted;
 
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {

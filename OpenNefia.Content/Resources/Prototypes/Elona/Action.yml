@@ -172,8 +172,8 @@
   id: Elona.BuffPunishment
   hspIds:
     elona122: 622
-  skillID: Elona.BuffPunishment
-  effectID: Elona.BuffPunishment
+  skillID: Elona.ActionBuffPunishment
+  effectID: Elona.ActionBuffPunishment
   staminaCost: 15
   difficulty: 500
 
@@ -197,8 +197,8 @@
   id: Elona.BuffLulwysTrick
   hspIds:
     elona122: 625
-  skillID: Elona.BuffLulwysTrick
-  effectID: Elona.BuffLulwysTrick
+  skillID: Elona.ActionBuffLulwysTrick
+  effectID: Elona.ActionBuffLulwysTrick
   staminaCost: 20
   difficulty: 500
 
@@ -379,8 +379,8 @@
   id: Elona.BuffDeathWord
   hspIds:
     elona122: 646
-  skillID: Elona.BuffDeathWord
-  effectID: Elona.BuffDeathWord
+  skillID: Elona.ActionBuffDeathWord
+  effectID: Elona.ActionBuffDeathWord
   staminaCost: 15
   difficulty: 500
 
@@ -388,8 +388,8 @@
   id: Elona.BuffBoost
   hspIds:
     elona122: 647
-  skillID: Elona.BuffBoost
-  effectID: Elona.BuffBoost
+  skillID: Elona.ActionBuffBoost
+  effectID: Elona.ActionBuffBoost
   staminaCost: 50
   difficulty: 500
 

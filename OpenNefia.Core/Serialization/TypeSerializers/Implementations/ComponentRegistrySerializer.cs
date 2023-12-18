@@ -87,18 +87,19 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             foreach (var componentMapping in node.Sequence.Cast<MappingDataNode>())
             {
-                string compType = ((ValueDataNode) componentMapping.Get("type")).Value;
+                var compTypeNode = componentMapping.Get<ValueDataNode>("type");
+                string compType = compTypeNode.Value;
                 // See if type exists to detect errors.
                 if (!factory.IsRegistered(compType))
                 {
-                    list.Add(new ErrorNode(componentMapping, $"Unknown component type {compType}."));
+                    list.Add(new ErrorNode(compTypeNode, $"Unknown component type {compType}."));
                     continue;
                 }
 
                 // Has this type already been added?
                 if (components.Keys.Contains(compType))
                 {
-                    list.Add(new ErrorNode(componentMapping, "Duplicate Component."));
+                    list.Add(new ErrorNode(compTypeNode, "Duplicate Component."));
                     continue;
                 }
 
@@ -117,6 +118,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             {
                 var registration = factory.GetRegistration(componentName);
 
+                // TODO remove
                 foreach (var compType in registration.References)
                 {
                     if (referenceTypes.Contains(compType))

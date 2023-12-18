@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Inventory;
+﻿using OpenNefia.Content.Actions;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
@@ -7,6 +8,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Spells
 {
@@ -34,10 +36,10 @@ namespace OpenNefia.Content.Spells
         {
             public override string ToString() => $"{nameof(CastSpell)}({Spell.EffectID}, {Spell.SkillID})";
         }
-        //public sealed record UseSkill(EntityUid? SelectedItem = null) : InventoryResult
-        //{
-        //    public override string ToString() => $"{nameof(Continuing)}()";
-        //}
+        public sealed record InvokeAction(ActionPrototype Action) : SpellGroupSublayerResult
+        {
+            public override string ToString() => $"{nameof(InvokeAction)}({Action.EffectID}, {Action.SkillID})";
+        }
     }
 
     public class SpellGroupUiLayer : GroupableUiLayer<SpellGroupSublayerArgs, SpellGroupSublayerResult>
@@ -69,8 +71,7 @@ namespace OpenNefia.Content.Spells
                 Layers[args] = SpellTabType switch
                 {
                     SpellGroupSublayerArgs.SpellTab.Spell => new SpellsUiLayer(),
-                    // SpellsGroupSublayerArgs.SpellsTab.Actions => new JournalUiLayer(),
-                    // TODO: add other group layers
+                    SpellGroupSublayerArgs.SpellTab.Skill => new ActionsUiLayer(),
                     _ => new SpellGroupUiLayer()
                 };
             }

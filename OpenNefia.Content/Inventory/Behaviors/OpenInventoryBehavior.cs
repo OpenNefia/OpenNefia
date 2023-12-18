@@ -18,6 +18,7 @@ namespace OpenNefia.Content.Inventory
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Open.WindowTitle");
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Open);
         public override bool EnableShortcuts => true;
+        public override bool BlockInWorldMap => true;
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

@@ -148,7 +148,7 @@
   relatedSkill: Elona.AttrMagic
 
 - type: Elona.Skill
-  id: Elona.ActionSpellBuffPunishment
+  id: Elona.ActionBuffPunishment
   hspIds:
     elona122: 622
   skillType: Action
@@ -169,7 +169,7 @@
   relatedSkill: Elona.AttrMagic
 
 - type: Elona.Skill
-  id: Elona.ActionSpellBuffLulwysTrick
+  id: Elona.ActionBuffLulwysTrick
   hspIds:
     elona122: 625
   skillType: Action
@@ -309,14 +309,14 @@
   relatedSkill: Elona.AttrMagic
 
 - type: Elona.Skill
-  id: Elona.ActionSpellBuffDeathWord
+  id: Elona.ActionBuffDeathWord
   hspIds:
     elona122: 646
   skillType: Action
   relatedSkill: Elona.AttrWill
 
 - type: Elona.Skill
-  id: Elona.ActionSpellBuffBoost
+  id: Elona.ActionBuffBoost
   hspIds:
     elona122: 647
   skillType: Action

@@ -16,7 +16,9 @@ using OpenNefia.Content.Effects;
 namespace OpenNefia.Content.Spells
 {
     /// <summary>
-    /// Represents a skill assocated with an effect that has a spell stock.
+    /// A spell is a skill associated with an effect that can
+    /// be learned by a character, has a spell stock, and can appear 
+    /// in the Spell menu.
     /// </summary>
     [Prototype("Elona.Spell")]
     public class SpellPrototype : IPrototype, IHspIds<int>
@@ -28,9 +30,17 @@ namespace OpenNefia.Content.Spells
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
+        /// <summary>
+        /// Associated skill. If the level is non-zero, the entity
+        /// knows this spell. The level of this skill is used
+        /// for power/damage calculation.
+        /// </summary>
         [DataField(required: true)]
         public PrototypeId<SkillPrototype> SkillID { get; }
 
+        /// <summary>
+        /// Effect to invoke when the spell is cast.
+        /// </summary>
         [DataField(required: true)]
         public PrototypeId<EntityPrototype> EffectID { get; }
 

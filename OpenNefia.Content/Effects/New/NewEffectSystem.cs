@@ -17,6 +17,8 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Skills;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.CurseStates;
+using System.ComponentModel;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -52,6 +54,8 @@ namespace OpenNefia.Content.Effects.New
     /// </remarks>
     public interface INewEffectSystem : IEntitySystem
     {
+        bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false);
+
         /// <summary>
         /// Applies an effect.
         /// </summary>
@@ -65,7 +69,8 @@ namespace OpenNefia.Content.Effects.New
 
         TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args);
 
-        bool TryPromptEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
+        bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
+        int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
     }
 
     public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
@@ -79,16 +84,26 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
+        public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {
-            var effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
+            effect = _entityGen.SpawnEntity(effectID, MapCoordinates.Global);
             if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
             {
                 Logger.ErrorS("effect", $"Failed to cast event {effectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
                 if (effect != null && !retainEffectEntity)
                     EntityManager.DeleteEntity(effect.Value);
-                return TurnResult.Aborted;
+                return false;
             }
+
+            MetaData(effect.Value).IsMapSavable = false;
+
+            return true;
+        }
+
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
+        {
+            if (!TrySpawnEffect(effectID, out var effect, retainEffectEntity))
+                return TurnResult.Aborted;
 
             var result = Apply(source, target, targetCoords, effect.Value, args);
 
@@ -100,12 +115,67 @@ namespace OpenNefia.Content.Effects.New
 
         public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args)
         {
-            var ev = new CastEffectEvent(source, target, targetCoords, args);
-            RaiseEvent(effect, ev);
-            return ev.TurnResult;
+            if (target == null)
+            {
+                target = null;
+                targetCoords ??= Spatial(source).Coordinates;
+            }
+            else
+            {
+                targetCoords = Spatial(target.Value).Coordinates;
+            }
+
+            var sourceCoords = Spatial(source).Coordinates;
+
+            var common = args.Ensure<EffectCommonArgs>();
+            if (!common.NoInheritItemCurseState)
+            {
+                if (IsAlive(common.Item) && TryComp<CurseStateComponent>(common.Item, out var curseStateComp))
+                    args.CurseState = curseStateComp.CurseState;
+            }
+
+            var effectComp = Comp<EffectComponent>(effect);
+            args.Power = CalcEffectAdjustedPower(effectComp.Alignment, args.Power, args.CurseState);
+
+            var ev2 = new ApplyEffectAreaEvent(source, target, sourceCoords, targetCoords.Value, args);
+            Raise(effect, ev2);
+
+            return ev2.TurnResult;
         }
 
-        public bool TryPromptEffectTarget(EntityUid source, EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target)
+        public int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState)
+        {
+            switch (alignment)
+            {
+                case EffectAlignment.Neutral:
+                default:
+                    return power;
+                case EffectAlignment.Positive:
+                    switch (curseState)
+                    {
+                        case CurseState.Blessed:
+                            return (int)(power * 1.5);
+                        case CurseState.Cursed:
+                        case CurseState.Doomed:
+                            return 50;
+                        default:
+                            return power;
+                    }
+                case EffectAlignment.Negative:
+                    switch (curseState)
+                    {
+                        case CurseState.Blessed:
+                            return 50;
+                        case CurseState.Cursed:
+                        case CurseState.Doomed:
+                            return (int)(power * 1.5);
+                        default:
+                            return power;
+                    }
+            }
+        }
+
+        public bool TryGetEffectTarget(EntityUid source, EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target)
         {
             if (!IsAlive(effect))
             {
@@ -123,29 +193,6 @@ namespace OpenNefia.Content.Effects.New
 
             target = new(ev.OutTarget, ev.OutCoords);
             return true;
-        }
-    }
-
-    /// <summary>
-    /// Called when an effect is cast. This event should delegate to a system that
-    /// handles targeting and stat checks (MP/stamina/etc.) before raising 
-    /// <see cref="ApplyEffectAreaEvent"/> internally. 
-    /// Examples are the magic and action entity systems.
-    /// </summary>
-    [EventUsage(EventTarget.Effect)]
-    public sealed class CastEffectEvent : TurnResultEntityEventArgs
-    {
-        public EntityUid Source { get; }
-        public EntityUid? Target { get; }
-        public EntityCoordinates? TargetCoords { get; }
-        public EffectArgSet Args { get; }
-
-        public CastEffectEvent(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EffectArgSet args)
-        {
-            Source = source;
-            Target = target;
-            TargetCoords = targetCoords;
-            Args = args;
         }
     }
 
@@ -220,10 +267,7 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         public EntityUid Source { get; }
 
-        /// <summary>
-        /// May be set to <see cref="Source"/> if no target is available.
-        /// </summary>
-        public EntityUid Target { get; }
+        public EntityUid? Target { get; }
 
         /// <summary>
         /// Automatically set to the location of <see cref="Target"/> if
@@ -241,7 +285,7 @@ namespace OpenNefia.Content.Effects.New
         public EffectArgSet Args { get; }
         public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
 
-        public ApplyEffectAreaEvent(EntityUid source, EntityUid target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        public ApplyEffectAreaEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
         {
             Source = source;
             Target = target;

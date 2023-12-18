@@ -13,32 +13,32 @@ using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Skills;
 
-namespace OpenNefia.Content.Spells
+namespace OpenNefia.Content.Actions
 {
     /// <summary>
-    /// Wraps the <see cref="JournalLayer"/> in a UI layer that's groupable.
+    /// Wraps the <see cref="ActionsLayer"/> in a UI layer that's groupable.
     /// </summary>
-    public class SpellsUiLayer : SpellGroupUiLayer
+    public class ActionsUiLayer : SpellGroupUiLayer
     {
         [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
 
-        [Child] private SpellsLayer _inner = new();
+        [Child] private ActionsLayer _inner = new();
         
-        public SpellsUiLayer()
+        public ActionsUiLayer()
         {
             _inner.EventFilter = UIEventFilterMode.Pass;
         }
 
         public override void Initialize(SpellGroupSublayerArgs args)
         {
-            var spells = _protos.EnumeratePrototypes<SpellPrototype>()
+            var actions = _protos.EnumeratePrototypes<ActionPrototype>()
                 .Where(s => _skills.HasSkill(args.Caster, s.SkillID));
-            var innerArgs = new SpellsLayer.Args(args.Caster, spells)
+            var innerArgs = new ActionsLayer.Args(args.Caster, actions)
             {
             };
-            UserInterfaceManager.InitializeLayer<SpellsLayer, SpellsLayer.Args, SpellsLayer.Result>(_inner, innerArgs);
+            UserInterfaceManager.InitializeLayer<ActionsLayer, ActionsLayer.Args, ActionsLayer.Result>(_inner, innerArgs);
         }
 
         public override void GrabFocus()
@@ -78,12 +78,12 @@ namespace OpenNefia.Content.Spells
 
             switch (innerResult)
             {
-                case UiResult<SpellsLayer.Result>.Finished finished:
-                    var newResult = new SpellGroupSublayerResult.CastSpell(finished.Value.Spell);
+                case UiResult<ActionsLayer.Result>.Finished finished:
+                    var newResult = new SpellGroupSublayerResult.InvokeAction(finished.Value.Action);
                     return new UiResult<SpellGroupSublayerResult>.Finished(newResult);
-                case UiResult<SpellsLayer.Result>.Cancelled:
+                case UiResult<ActionsLayer.Result>.Cancelled:
                     return new UiResult<SpellGroupSublayerResult>.Cancelled();
-                case UiResult<SpellsLayer.Result>.Error err:
+                case UiResult<ActionsLayer.Result>.Error err:
                     return new UiResult<SpellGroupSublayerResult>.Error(err.Exception);
             }
 

@@ -677,7 +677,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellTeleport
+    spellID: Elona.Teleport
   - type: Charged
     charges: 5
     maxCharges: 5
@@ -709,7 +709,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellIdentify
+    spellID: Elona.Identify
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -741,7 +741,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellUncurse
+    spellID: Elona.Uncurse
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -1019,7 +1019,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellIceBolt
+    spellID: Elona.IceBolt
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -1051,7 +1051,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellFireBolt
+    spellID: Elona.FireBolt
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -1083,7 +1083,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellLightningBolt
+    spellID: Elona.LightningBolt
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -3467,7 +3467,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellTeleport
+    spellID: Elona.Teleport
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -3525,7 +3525,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellSummonMonsters
+    spellID: Elona.SummonMonsters
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7200,7 +7200,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellMagicMap
+    spellID: Elona.MagicMap
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7232,7 +7232,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellOracle
+    spellID: Elona.Oracle
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -7264,7 +7264,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellReturn
+    spellID: Elona.Return
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -7296,7 +7296,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellHealLight
+    spellID: Elona.HealLight
   - type: Charged
     charges: 5
     maxCharges: 5
@@ -7328,7 +7328,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellHealCritical
+    spellID: Elona.HealCritical
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7360,7 +7360,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellCureOfEris
+    spellID: Elona.CureOfEris
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -7392,7 +7392,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellCureOfJure
+    spellID: Elona.CureOfJure
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -7532,7 +7532,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellMagicDart
+    spellID: Elona.MagicDart
   - type: Charged
     charges: 5
     maxCharges: 5
@@ -7707,7 +7707,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellNetherArrow
+    spellID: Elona.NetherArrow
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -7739,7 +7739,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellChaosEye
+    spellID: Elona.ChaosEye
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -7771,7 +7771,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellNerveArrow
+    spellID: Elona.NerveArrow
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -7841,7 +7841,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellDarknessBolt
+    spellID: Elona.DarknessBolt
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7873,7 +7873,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellMindBolt
+    spellID: Elona.MindBolt
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7905,7 +7905,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellIceBall
+    spellID: Elona.IceBall
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7937,7 +7937,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellFireBall
+    spellID: Elona.FireBall
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -7969,7 +7969,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellRagingRoar
+    spellID: Elona.RagingRoar
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -8001,7 +8001,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellChaosBall
+    spellID: Elona.ChaosBall
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -8451,7 +8451,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellWish
+    spellID: Elona.Wish
   - type: Charged
     charges: 1
 - type: Entity
@@ -11191,7 +11191,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellHolyLight
+    spellID: Elona.HolyLight
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -11223,7 +11223,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellVanquishHex
+    spellID: Elona.VanquishHex
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -11842,7 +11842,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellSenseObject
+    spellID: Elona.SenseObject
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -12620,7 +12620,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellMutation
+    spellID: Elona.Mutation
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -14178,7 +14178,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellDominate
+    spellID: Elona.Dominate
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -14296,7 +14296,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellWeb
+    spellID: Elona.Web
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -16015,7 +16015,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellWallCreation
+    spellID: Elona.WallCreation
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -16066,7 +16066,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellHealingRain
+    spellID: Elona.HealingRain
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -16126,7 +16126,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellHealingTouch
+    spellID: Elona.HealingTouch
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -16518,7 +16518,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellAcidGround
+    spellID: Elona.AcidGround
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -16657,7 +16657,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellFireWall
+    spellID: Elona.FireWall
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -16996,7 +16996,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellDoorCreation
+    spellID: Elona.DoorCreation
   - type: Charged
     charges: 4
     maxCharges: 4
@@ -19091,7 +19091,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellDarkEye
+    spellID: Elona.DarkEye
   - type: Charged
     charges: 5
     maxCharges: 5
@@ -20317,7 +20317,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellMagicStorm
+    spellID: Elona.MagicStorm
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -20349,7 +20349,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellCrystalSpear
+    spellID: Elona.CrystalSpear
   - type: Charged
     charges: 2
     maxCharges: 2
@@ -21558,7 +21558,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellFourDimensionalPocket
+    spellID: Elona.FourDimensionalPocket
   - type: Charged
     charges: 3
     maxCharges: 3
@@ -21590,7 +21590,7 @@
   - type: Weight
     weight: 380
   - type: Spellbook
-    spellID: Elona.SpellWizardsHarvest
+    spellID: Elona.WizardsHarvest
   - type: Charged
     charges: 3
     maxCharges: 3

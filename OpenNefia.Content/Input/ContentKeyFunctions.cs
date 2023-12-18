@@ -45,6 +45,7 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Journal = "Elona.Journal";
         public static readonly BoundKeyFunction ChatLog = "Elona.ChatLog";
         public static readonly BoundKeyFunction Cast = "Elona.Cast";
+        public static readonly BoundKeyFunction Skill = "Elona.Skill";
 
         public static readonly BoundKeyFunction ReplFullscreen = "Elona.ReplFullscreen";
         public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";

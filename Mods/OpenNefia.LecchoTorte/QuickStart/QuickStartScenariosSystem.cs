@@ -39,6 +39,8 @@ using OpenNefia.Content.Weather;
 using OpenNefia.Content.World;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.Spells;
+using OpenNefia.Content.Actions;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -63,6 +65,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IAreaManager _areas = default!;
         [Dependency] private readonly IWeatherSystem _weathers = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         [EngineVariable("LecchoTorte.QuickstartPlayer")]
         private QuickstartChara _quickstartPlayer { get; } = new();
@@ -170,6 +173,11 @@ namespace OpenNefia.LecchoTorte.QuickStart
             GenerateAllies(player);
 
             EnsureComp<FameComponent>(player).Fame.Base = 50000;
+
+            foreach (var spell in _protos.EnumeratePrototypes<SpellPrototype>())
+                _skills.GainSkill(player, spell.SkillID);
+            foreach (var action in _protos.EnumeratePrototypes<ActionPrototype>())
+                _skills.GainSkill(player, action.SkillID);
 
             _weathers.TryChangeWeather(Protos.Weather.Rain, GameTimeSpan.FromHours(6));
 

@@ -12,7 +12,7 @@
     diceX: (power / 50) + 1 + (skillLevel / 20)
     diceY: (power / 26) + 4
     elementPower: 180 + (power / 4)
-  - type: EffectDamageControlSpell
+  - type: EffectDamageControlMagic
   - type: EffectDamageMessage
     rootKey: Elona.Magic.Message.Bolt
 

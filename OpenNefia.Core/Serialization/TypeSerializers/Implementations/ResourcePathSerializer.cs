@@ -1,9 +1,11 @@
 using System;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
@@ -14,9 +16,10 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
-    [TypeSerializer]
-    public class ResourcePathSerializer : ITypeSerializer<ResourcePath, ValueDataNode>
+    public abstract class BaseResourcePathSerializer : ITypeSerializer<ResourcePath, ValueDataNode>
     {
+        protected abstract string ValidationError { get; }
+
         public ResourcePath Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
@@ -31,24 +34,21 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             var path = new ResourcePath(node.Value);
 
-            if (path.Extension.Equals("rsi"))
-            {
-                path /= "meta.json";
-            }
-
             path = path.ToRootedPath();
 
             try
             {
-                return IoCManager.Resolve<IResourceManager>().ContentFileExists(path)
+                return ValidatePath(path)
                     ? new ValidatedValueNode(node)
-                    : new ErrorNode(node, $"File not found. ({path})");
+                    : new ErrorNode(node, $"{ValidationError}. ({path})");
             }
             catch (Exception e)
             {
-                return new ErrorNode(node, $"Failed parsing filepath. ({path}) ({e.Message})");
+                return new ErrorNode(node, $"Failed parsing resource path. ({path}) ({e.Message})");
             }
         }
+
+        protected abstract bool ValidatePath(ResourcePath path);
 
         public DataNode Write(ISerializationManager serializationManager, ResourcePath value,
             bool alwaysWrite = false,
@@ -69,6 +69,28 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             ISerializationContext? context = null)
         {
             return left == right;
+        }
+    }
+
+    [TypeSerializer]
+    public class ResourcePathSerializer : BaseResourcePathSerializer
+    {
+        protected override string ValidationError => "File not found.";
+
+        protected override bool ValidatePath(ResourcePath path)
+        {
+            return IoCManager.Resolve<IResourceManager>().ContentFileExists(path);
+        }
+    }
+
+    public class ResourcePathDirectorySerializer : BaseResourcePathSerializer
+    {
+        protected override string ValidationError => "Directory not found.";
+
+        protected override bool ValidatePath(ResourcePath path)
+        {
+            // IResourceManager doesn't keep track of directories...
+            return true;
         }
     }
 }

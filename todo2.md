@@ -47,6 +47,7 @@
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
 - [ ] "garbage collectable" components (all flags inside the component are false, etc.)
+- [ ] remaining TODOs
 
 ## debug
 - [ ] edit game save data in one debug view
@@ -58,6 +59,7 @@
 - [ ] `HandleableEntityEventArgs.Handled` must be checked in all event handlers
 - [ ] use primitive type functions (`int.Clamp`) instead of `Math.Clamp` and similar
 - [ ] prevent reserved `[DataField]` names (`id`, `type`, `events`, ...)
+- [ ] component event registrations where `EventUsage` and `ComponentUsage` do not match
 
 ## mods
 - [ ] visual ai

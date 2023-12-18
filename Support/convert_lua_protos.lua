@@ -319,20 +319,30 @@ handlers["base.chara"] = function(from, to)
         local spells
         for _, skill in ipairs(from.skills) do
             skill = skill:gsub("%.stat_", "%.attr_")
-            local ty = data["base.skill"]:ensure(skill).type
-            if ty == "spell" or ty == "action" then
-                if spells == nil then
-                    spells = comp(to, "Spells")
-                    spells.spells = {}
-                end
-                spells.spells[dotted(skill)] = 1
-            else
-                if skills == nil then
-                    skills = comp(to, "Skills")
-                    skills.skills = {}
-                end
-                skills.skills[dotted(skill)] = 1
+            local dat = data["base.skill"]:ensure(skill)
+            local ty = dat.type
+            -- if ty == "spell" or ty == "action" then
+            --     if spells == nil then
+            --         spells = comp(to, "Spells")
+            --         spells.spells = {}
+            --     end
+            --     spells.spells[dotted(skill)] = 1
+            -- else
+            if skills == nil then
+                skills = comp(to, "Skills")
+                skills.skills = {}
             end
+            local skillID = dotted(skill)
+            if skillID:match "Elona.Buff" then
+                if ty == "spell" then
+                    skillID = skillID:gsub("Elona.Buff", "Elona.SpellBuff")
+                elseif ty == "action" then
+                    skillID = skillID:gsub("Elona.Buff", "Elona.ActionBuff")
+                end
+            end
+            print(skillID, ty)
+            skills.skills[skillID] = 1
+            -- end
         end
     end
 
@@ -1154,7 +1164,9 @@ handlers["base.item"] = function(from, to)
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")
-        field(spellbook, c, "skill_id", dotted, "spellID")
+        field(spellbook, c, "skill_id", function(i)
+            return dotted(i):gsub("Elona.Spell", "Elona.")
+        end, "spellID")
 
         c = comp(to, "Charged")
         field(spellbook, c, "charges")
@@ -2293,9 +2305,9 @@ local function print_lines()
 end
 
 -- print_spell_costs()
-print_lines()
--- write("base.chara", "Entity/Chara.yml")
--- write("base.item", "Entity/Item.yml")
+-- print_lines()
+write("base.chara", "Entity/Chara.yml")
+write("base.item", "Entity/Item.yml")
 -- convert_scenes()
 -- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")

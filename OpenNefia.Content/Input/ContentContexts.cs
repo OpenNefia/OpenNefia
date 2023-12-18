@@ -53,6 +53,7 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Examine);
             field.AddFunction(ContentKeyFunctions.Dig);
             field.AddFunction(ContentKeyFunctions.Cast);
+            field.AddFunction(ContentKeyFunctions.Skill);
 
             field.AddFunction(ContentKeyFunctions.CharaInfo);
             field.AddFunction(ContentKeyFunctions.Equipment);

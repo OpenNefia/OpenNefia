@@ -32,6 +32,7 @@ using OpenNefia.Content.Mount;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Spells
 {
@@ -81,7 +82,7 @@ namespace OpenNefia.Content.Spells
         int CalcSpellMPCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcBaseSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
         int CalcRandomizedSpellStockCost(SpellPrototype proto, EntityUid caster, EntityUid effect);
-        int CalcSpellPower(SpellPrototype spell, EntityUid caster);
+        int CalcCastSpellPower(SpellPrototype spell, EntityUid caster);
 
         #endregion
     }
@@ -99,6 +100,7 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IEquipmentSystem _equip = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         #region Querying
 
@@ -260,9 +262,21 @@ namespace OpenNefia.Content.Spells
             var result = DoCastSpell(caster, spellID);
             if (result == TurnResult.Succeeded)
             {
-                // TODO gain casting exp
+                GainSpellAndCastingExp(caster, spellID);
             }
             return result;
+        }
+
+        private void GainSpellAndCastingExp(EntityUid caster, PrototypeId<SpellPrototype> spellID)
+        {
+            var spell = _protos.Index(spellID);
+
+            if (_gameSession.IsPlayer(caster))
+            {
+                _skills.GainSkillExp(caster, spell.SkillID, spell.MPCost * 4 + 20, 4, 5);
+            }
+
+            _skills.GainSkillExp(caster, Protos.Skill.Casting, spell.MPCost + 10, 5);
         }
 
         private TurnResult DoCastSpell(EntityUid caster, PrototypeId<SpellPrototype> spellID)
@@ -270,16 +284,10 @@ namespace OpenNefia.Content.Spells
             if (!_protos.TryIndex(spellID, out var spell))
                 return TurnResult.Aborted;
 
-            var effect = _entityGen.SpawnEntity(spell.EffectID, MapCoordinates.Global);
-            if (!IsAlive(effect) || !HasComp<EffectComponent>(effect.Value))
-            {
-                Logger.ErrorS("effect", $"Failed to cast event {spell.EffectID}, entity could not be spawned or has no {nameof(EffectComponent)}");
-                if (effect != null)
-                    EntityManager.DeleteEntity(effect.Value);
+            if (!_newEffects.TrySpawnEffect(spell.EffectID, out var effect))
                 return TurnResult.Aborted;
-            }
 
-            var power = CalcSpellPower(spell, caster);
+            var power = CalcCastSpellPower(spell, caster);
 
             var commonArgs = new EffectCommonArgs()
             {
@@ -289,9 +297,9 @@ namespace OpenNefia.Content.Spells
                 SkillLevel = _skills.Level(caster, spell.SkillID),
                 TileRange = spell.MaxRange
             };
-            var args = EffectArgSet.Make();
+            var args = EffectArgSet.Make(commonArgs);
 
-            if (!_newEffects.TryPromptEffectTarget(caster, effect.Value, args, out var targetPair))
+            if (!_newEffects.TryGetEffectTarget(caster, effect.Value, args, out var targetPair))
                 return TurnResult.Aborted;
 
             var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args);
@@ -308,28 +316,22 @@ namespace OpenNefia.Content.Spells
             return Loc.GetPrototypeString(proto.SkillID, "Description");
         }
 
-        public int CalcSpellPower(SpellPrototype spell, EntityUid caster)
+        public int CalcCastSpellPower(SpellPrototype spell, EntityUid caster)
         {
-            // >>>>>>>> shade2/calculation.hsp:867 #defcfunc calcSpellPower int id,int c ...
-
-            // NOTE: In vanilla, power was calculated by multipying the enum
-            // value of the skill's type (bolt, arrow, ball, etc.) and
-            // adding 10. This means bolt spells were the least powerful and
-            // ball spells were more powerful. This is changed here (and in
-            // omake overhaul) to be the skill level of the action or the
-            // character's level.
-            if (!_gameSession.IsPlayer(caster))
+            // >>>>>>>> elona122/shade2/calculation.hsp:868 	if c=pc:return	sdata@(id,c)*10+50 ...
+            if (_gameSession.IsPlayer(caster))
+            {
+                return Level(caster, spell) * 10 + 50;
+            }
+            
+            // TODO customize AI spell power
+            if (_skills.HasSkill(caster, Protos.Skill.Casting) && !_parties.IsInPlayerParty(caster))
             {
                 return _levels.GetLevel(caster) * 6 + 10;
             }
 
-            if (_skills.TryGetKnown(caster, spell.SkillID, out var skill))
-            {
-                return skill.Level.Buffed * 6 + 10;
-            }
-
-            return 100;
-            // <<<<<<<< shade2/calculation.hsp:874 	return sCasting(c)*6+10 ..
+            return _skills.Level(caster, Protos.Skill.Casting) * 6 + 10;
+            // <<<<<<<< elona122/shade2/calculation.hsp:870 	return sCasting(c)*6+10 ...
         }
 
         public float CalcSpellSuccessRate(SpellPrototype proto, EntityUid caster, EntityUid effect)

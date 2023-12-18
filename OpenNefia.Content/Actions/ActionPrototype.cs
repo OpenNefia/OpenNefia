@@ -13,10 +13,11 @@ using System.Linq;
 using System.Text;
 using OpenNefia.Content.Effects;
 
-namespace OpenNefia.Content.Spells
+namespace OpenNefia.Content.Actions
 {
     /// <summary>
-    /// Represents a skill assocated with an effect.
+    /// An action is a skill associated with an effect, and
+    /// can appear in the Skill menu.
     /// </summary>
     [Prototype("Elona.Action")]
     public class ActionPrototype : IPrototype, IHspIds<int>
@@ -28,16 +29,33 @@ namespace OpenNefia.Content.Spells
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
+        /// <summary>
+        /// Associated skill. If the level is non-zero, the entity knows this action. 
+        /// Note that the skill level is not used for power calculation; it is only used
+        /// to check the existence of the skill.
+        /// </summary>
         [DataField(required: true)]
         public PrototypeId<SkillPrototype> SkillID { get; }
 
+        /// <summary>
+        /// Effect to invoke when the action is used.
+        /// </summary>
         [DataField(required: true)]
         public PrototypeId<EntityPrototype> EffectID { get; }
 
         [DataField]
         public int Difficulty { get; }
 
+        /// <summary>
+        /// Stamina cost of invoking the action.
+        /// </summary>
         [DataField]
         public int StaminaCost { get; set; } = 0;
+
+        /// <summary>
+        /// Maximum range of the action in tiles.
+        /// </summary>
+        [DataField]
+        public int MaxRange { get; set; } = 1;
     }
 }

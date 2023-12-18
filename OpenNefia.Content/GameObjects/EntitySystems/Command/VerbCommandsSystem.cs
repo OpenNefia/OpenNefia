@@ -39,32 +39,7 @@ namespace OpenNefia.Content.GameObjects
                     new VerbInputCmdHandler(new VerbRequest(StairsSystem.VerbTypeDescend)))
                 .Bind(ContentKeyFunctions.Activate,
                     new VerbInputCmdHandler(new VerbRequest(StairsSystem.VerbTypeActivate)))
-                .Bind(ContentKeyFunctions.Close, InputCmdHandler.FromDelegate(CommandClose))
                 .Register<VerbCommandsSystem>();
-        }
-
-        private TurnResult? CommandClose(IGameSessionManager? session)
-        {
-            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player, Loc.GetString("Elona.Door.QueryClose")));
-            if (!dir.HasValue)
-            {
-                _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
-                return TurnResult.Aborted;
-            }
-
-            var verbReq = new VerbRequest(DoorSystem.VerbTypeClose);
-
-            var targets = _lookup.GetLiveEntitiesAtCoords(dir.Value.Coords)
-                .Select(spatial => _verbSystem.GetVerbOrNull(session.Player, spatial.Owner, verbReq))
-                .WhereNotNull();
-
-            if (!targets.Any())
-            {
-                _mes.Display(Loc.GetString("Elona.Door.Close.NothingToClose"));
-                return TurnResult.Aborted;
-            }
-
-            return targets.First()!.Act();
         }
 
         private TurnResult? HandleVerb(IGameSessionManager? session, VerbRequest verbReq)
