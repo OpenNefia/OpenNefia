@@ -658,6 +658,11 @@ binds:
   type: State
   key: L
   mod1: Control
+- function: Elona.ReplCopyResult
+  type: State
+  key: C
+  mod1: Control
+  mod2: Shift
 
 - function: Elona.QuickStart
   type: State

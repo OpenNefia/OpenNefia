@@ -59,6 +59,7 @@ using OpenNefia.Content.Hunger;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Scene;
+using OpenNefia.Content.Effects;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -143,21 +144,10 @@ public void gainSkill(PrototypeId<SkillPrototype> id)
     _skills.GainSkill(player(), id);
 }
 
-public LevelPotentialAndStock spell(PrototypeId<SpellPrototype> id)
-{
-    return _entityMan.GetComponent<SpellsComponent>(player()).Ensure(id);
-}
-
 public void skillLv(PrototypeId<SkillPrototype> id, int level)
 {
     var sk = skill(id);
     sk.Level.Base = level;
-}
-
-public void spellLv(PrototypeId<SpellPrototype> id, int level)
-{
-    var sp = spell(id);
-    sp.Level.Base = level;
 }
 
 public EntityUid? spawn(PrototypeId<EntityPrototype> id, int? amount = null)

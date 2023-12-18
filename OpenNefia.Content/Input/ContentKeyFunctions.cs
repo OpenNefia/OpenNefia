@@ -14,6 +14,13 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction UIMode2 = "Elona.UIMode2";
         public static readonly BoundKeyFunction UIPortrait = "Elona.UIPortrait";
 
+        public static readonly BoundKeyFunction ReplFullscreen = "Elona.ReplFullscreen";
+        public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";
+        public static readonly BoundKeyFunction ReplNextCompletion = "Elona.ReplNextCompletion";
+        public static readonly BoundKeyFunction ReplComplete = "Elona.ReplComplete";
+        public static readonly BoundKeyFunction ReplClear = "Elona.ReplClear";
+        public static readonly BoundKeyFunction ReplCopyResult = "Elona.ReplCopyResult";
+
         public static readonly BoundKeyFunction DiagonalOnly = "Elona.DiagonalOnly";
 
         public static readonly BoundKeyFunction Ascend = "Elona.Ascend";
@@ -46,12 +53,6 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction ChatLog = "Elona.ChatLog";
         public static readonly BoundKeyFunction Cast = "Elona.Cast";
         public static readonly BoundKeyFunction Skill = "Elona.Skill";
-
-        public static readonly BoundKeyFunction ReplFullscreen = "Elona.ReplFullscreen";
-        public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";
-        public static readonly BoundKeyFunction ReplNextCompletion = "Elona.ReplNextCompletion";
-        public static readonly BoundKeyFunction ReplComplete = "Elona.ReplComplete";
-        public static readonly BoundKeyFunction ReplClear = "Elona.ReplClear";
 
         public static readonly BoundKeyFunction QuickStart = "Elona.QuickStart";
     }

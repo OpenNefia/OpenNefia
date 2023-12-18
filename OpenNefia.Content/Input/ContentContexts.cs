@@ -21,6 +21,7 @@ namespace OpenNefia.Content.Input
             common.AddFunction(ContentKeyFunctions.ReplNextCompletion);
             common.AddFunction(ContentKeyFunctions.ReplComplete);
             common.AddFunction(ContentKeyFunctions.ReplClear);
+            common.AddFunction(ContentKeyFunctions.ReplCopyResult);
 
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
