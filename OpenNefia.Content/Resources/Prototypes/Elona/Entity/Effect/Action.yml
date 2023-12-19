@@ -149,36 +149,6 @@
   parent: Elona.BaseActionEffect
 
 - type: Entity
-  id: Elona.ActionSummonCats
-  hspIds:
-    elona122: 639
-  parent: Elona.BaseActionEffect
-
-- type: Entity
-  id: Elona.ActionSummonYeek
-  hspIds:
-    elona122: 640
-  parent: Elona.BaseActionEffect
-
-- type: Entity
-  id: Elona.ActionSummonPawn
-  hspIds:
-    elona122: 641
-  parent: Elona.BaseActionEffect
-
-- type: Entity
-  id: Elona.ActionSummonFire
-  hspIds:
-    elona122: 642
-  parent: Elona.BaseActionEffect
-
-- type: Entity
-  id: Elona.ActionSummonSister
-  hspIds:
-    elona122: 643
-  parent: Elona.BaseActionEffect
-
-- type: Entity
   id: Elona.ActionSuicideAttack
   hspIds:
     elona122: 644

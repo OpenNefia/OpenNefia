@@ -69,5 +69,6 @@ Elona.Magic = {
             end,
             NoElement = "breath",
         },
+        Summon = "Several monsters come out from a portal.",
     },
 }

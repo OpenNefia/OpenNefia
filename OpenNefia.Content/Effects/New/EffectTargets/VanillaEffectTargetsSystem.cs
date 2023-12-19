@@ -49,8 +49,8 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             SubscribeComponent<EffectTargetDirectionComponent, GetEffectPlayerTargetEvent>(GetTarget_Direction);
             SubscribeComponent<EffectTargetPositionComponent, GetEffectPlayerTargetEvent>(GetTarget_Ground);
 
-            SubscribeComponent<EffectTargetSummoningComponent, GetEffectPlayerTargetEvent>(GetPlayerTarget_Summoning);
-            SubscribeComponent<EffectTargetSummoningComponent, GetEffectAITargetEvent>(GetAITarget_Summoning);
+            SubscribeComponent<EffectSummonComponent, GetEffectPlayerTargetEvent>(GetPlayerTarget_Summon);
+            SubscribeComponent<EffectSummonComponent, GetEffectAITargetEvent>(GetAITarget_Summon);
         }
 
         private void GetTarget_Self(EntityUid uid, EffectTargetSelfComponent component, GetEffectPlayerTargetEvent args)
@@ -267,7 +267,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
         /// <summary>
         /// Set the target as the player if they are casting a summoning skill.
         /// </summary>
-        private void GetPlayerTarget_Summoning(EntityUid uid, EffectTargetSummoningComponent component, GetEffectPlayerTargetEvent args)
+        private void GetPlayerTarget_Summon(EntityUid uid, EffectSummonComponent component, GetEffectPlayerTargetEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1567 	if skillType(efId)=skSummon : if cc=pc : tc=pc :  ...
             if (args.Handled)
@@ -290,7 +290,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
         /// <param name="uid"></param>
         /// <param name="component"></param>
         /// <param name="args"></param>
-        private void GetAITarget_Summoning(EntityUid uid, EffectTargetSummoningComponent component, GetEffectAITargetEvent args)
+        private void GetAITarget_Summon(EntityUid uid, EffectSummonComponent component, GetEffectAITargetEvent args)
         {
             if (args.Handled)
                 return;

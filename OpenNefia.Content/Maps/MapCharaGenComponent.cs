@@ -40,4 +40,17 @@ namespace OpenNefia.Content.Maps
     {
         CharaFilter GenerateFilter(IMap map);
     }
+
+    /// <summary>
+    /// Original max chara counts from 1.22.
+    /// TODO: Should robably replace these at some point.
+    /// </summary>
+    public static class MapCharaGenConsts
+    {
+        public const int MaxAllyCount = 16;
+        public const int MaxAdventurerCount = 40;
+        public const int MaxSavedCharaCount = MaxAllyCount + MaxAdventurerCount;
+        public const int MaxTotalCharaCount = 245;
+        public const int MaxOtherCharaCount = MaxTotalCharaCount - MaxSavedCharaCount;
+    }
 }

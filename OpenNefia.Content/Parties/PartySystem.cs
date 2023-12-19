@@ -19,6 +19,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Parties
 {
@@ -330,12 +331,10 @@ namespace OpenNefia.Content.Parties
             return IsDirectAllyOf(_gameSession.Player, entity);
         }
 
-        public const int MaxCharasInParty = 16;
-
         public int CalcMaxPartySize(EntityUid entity)
         {
             // >>>>>>>> shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ...
-            return Math.Clamp(_skills.Level(entity, Protos.Skill.AttrCharisma) / 5 + 1, 2, MaxCharasInParty);
+            return Math.Clamp(_skills.Level(entity, Protos.Skill.AttrCharisma) / 5 + 1, 2, MapCharaGenConsts.MaxAllyCount);
             // <<<<<<<< shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ..
         }
 

@@ -369,7 +369,7 @@ namespace OpenNefia.Content.Effects.New
         /// <summary>
         /// Number of affected tiles if this event was invoked with an AoE.
         /// </summary>
-        public int AffectedTiles { get; }
+        public int AffectedTileCount { get; }
 
         /// <summary>
         /// Index of the tile being affected, starting from 0.
@@ -398,7 +398,7 @@ namespace OpenNefia.Content.Effects.New
             SourceCoords = sourceCoords;
             TargetCoords = targetCoords;
             Args = args;
-            AffectedTiles = affectedTiles;
+            AffectedTileCount = affectedTiles;
             AffectedTileIndex = affectedTileIndex;
         }
     }

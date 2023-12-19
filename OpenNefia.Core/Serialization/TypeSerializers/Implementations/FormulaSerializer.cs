@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
@@ -29,6 +30,12 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             ISerializationContext? context = null)
         {
             var engine = dependencies.Resolve<IFormulaEngine>();
+            
+            // Suppress formula error logging.
+            var sawmill = Logger.GetSawmill("formulae");
+            var oldLevel = sawmill.Level;
+            sawmill.Level = LogLevel.Fatal;
+
             try
             {
                 engine.Calculate(new Formula(node.Value), _vars);
@@ -41,6 +48,10 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             catch (Exception)
             {
                 // Ignore execution errors, they're dependent on runtime values.
+            }
+            finally
+            {
+                sawmill.Level = oldLevel;
             }
 
             return new ValidatedValueNode(node);

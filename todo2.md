@@ -11,8 +11,10 @@
 - [x] scene playback
 - [x] intro/first pet event
 - [x] riding
-- [ ] magic/buffs/effects
+- [ ] magic/effects
+  + [ ] buffs
   + [ ] timestop
+  + [ ] spell stock check
 - [ ] magic items
 - [x] living weapons
 - [ ] cargo
@@ -26,7 +28,6 @@
 - [ ] house guests
 - [ ] house upgrading
 - [ ] all chara events/properties
-  + [ ] custom talk
 - [ ] religion
 - [ ] guilds
 - [ ] animated tiles/water
@@ -35,21 +36,37 @@
 - [ ] all interact options/inventory contexts
 - [x] status effect protoevents -> ECS
 - [x] staying charas
-- [ ] arena/pet arena
 - [ ] nefia generation refactor
+- [ ] elonaextender features
+  + [ ] save backup
+- [ ] arena/pet arena
 - [ ] the void
-- [ ] noyel festival
 - [ ] blackjack
 - [ ] deck/tcg
+- [ ] noyel festival
+- [ ] correct prototype ordering (spells, etc.)
+- [ ] custom talk
 - [ ] theming
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] non-compiled mods
 - [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
 - [ ] Qy@
 - [ ] mod API examples
+- [ ] update NuGet packages
 - [ ] robust upstream commits
+- [ ] data definition for "randomly pickable list" (element associated with weight)
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
+- [ ] handled event changes
+  + all `EntityEventArgs` should come with a `Handled` property
+  + if `Handled` is set to `true`, the rest of the event handlers are skipped unless the `alwaysRun` flag is set on them
+  + what this allows: events that modify the handled results later
+    - example: an `EffectSummonEvent` returns a summoned character and handles the event.
+    - an `alwaysRun` event can modify the level of the character afterwards.
+      + in Elona+ CGX the summoned characters are set to have a friendly relation to the player.
+    - other events will not run (summon other characters).
+  + can no longer raise arbitrary class instances as events (but can do so for structs still)
+    - all events must derive from `EntityEventArgs` so `Handled` is always available
 - [ ] "garbage collectable" components (all flags inside the component are false, etc.)
 - [ ] remaining TODOs
 

@@ -15,8 +15,10 @@ namespace OpenNefia.Content.Effects.New
     /// Arguments you can use in the formulas:
     /// - "power": Power of the effect
     /// - "skillLevel": Level of the associated skill.
+    /// - "casterLevel": Experience level of the caster/user.
+    /// - "targetLevel": Experience level of the target, or 0 if there is no target.
     /// - "distance": Fractional distance from the source entity to the target entity.
-    /// - "baseDamage": Result of the dice roll (only inside <see cref="DamageModifier"/>).
+    /// - "baseDamage": Result of the dice roll (only inside <see cref="FinalDamage"/>).
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
@@ -35,7 +37,7 @@ namespace OpenNefia.Content.Effects.New
         public Formula ElementPower { get; } = new("0");
 
         [DataField]
-        public Formula DamageModifier { get; } = new("baseDamage");
+        public Formula FinalDamage { get; } = new("baseDamage");
     }
 
     /// <summary>

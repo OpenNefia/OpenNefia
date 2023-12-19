@@ -11,7 +11,7 @@
     diceX: (power / 100) + 1 + (skillLevel / 20)
     diceY: (power / 15) + 2
     elementPower: 150 + (power / 5)
-    damageModifier: baseDamage * 100 / (75 + distance * 25)
+    finalDamage: baseDamage * 100 / (75 + distance * 25)
   - type: EffectDamageControlMagic
   - type: EffectDamageMessage
     rootKey: Elona.Magic.Message.Ball

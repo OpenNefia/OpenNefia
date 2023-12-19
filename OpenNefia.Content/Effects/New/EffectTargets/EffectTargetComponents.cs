@@ -1,4 +1,7 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.RandomGen;
+using OpenNefia.Core;
+using OpenNefia.Core.Formulae;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -103,7 +106,39 @@ namespace OpenNefia.Content.Effects.New
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectTargetSummoningComponent : Component
+    public sealed class EffectSummonComponent : Component
     {
+        /// <summary>
+        /// Number of entities to summon.
+        /// Valid variables include the ones inside <see cref="EffectBaseDamageDiceComponent"/>.
+        /// </summary>
+        [DataField]
+        public Formula SummonCount { get; set; } = new("3");
+
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Magic.Message.Summon";
+    }
+
+    /// <summary>
+    /// Summons characters. For use with <see cref="EffectSummonComponent"/>.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectSummonCharaComponent: Component
+    {
+        /// <summary>
+        /// Set of character filters to choose from.
+        /// One is randomly picked per summon.
+        /// </summary>
+        // TODO random weighted list.
+        [DataField]
+        public List<CharaFilter> CharaFilters { get; } = new();
+
+        /// <summary>
+        /// If <c>false</c>, the summon will not spawn characters with
+        /// the same prototype ID as the caster.
+        /// </summary>
+        [DataField]
+        public bool CanBeSameTypeAsCaster { get; set; } = false;
     }
 }

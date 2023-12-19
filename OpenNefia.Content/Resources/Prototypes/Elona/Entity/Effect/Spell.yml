@@ -77,18 +77,6 @@
     elona122: 418
 
 - type: Entity
-  id: Elona.SpellSummonMonsters
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 424
-
-- type: Entity
-  id: Elona.SpellSummonWild
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 425
-
-- type: Entity
   id: Elona.SpellReturn
   parent: Elona.BaseSpellEffect
   hspIds:

@@ -28,6 +28,12 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Sanity;
+using System.IO.Pipelines;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -50,6 +56,10 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly ISanitySystem _sanities = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -62,14 +72,19 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             SubscribeComponent<EffectDamageHealingComponent, ApplyEffectDamageEvent>(ApplyDamage_Healing);
             SubscribeComponent<EffectDamageHealSanityComponent, ApplyEffectDamageEvent>(ApplyDamage_HealSanity);
+
+            SubscribeComponent<EffectSummonComponent, ApplyEffectDamageEvent>(ApplyDamage_Summon);
+            SubscribeComponent<EffectSummonCharaComponent, EffectSummonEvent>(Summon_Chara);
         }
 
-        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectBaseDamageDiceComponent component, EffectArgSet args)
+        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
         {
             var result = new Dictionary<string, double>();
 
             result["power"] = args.Power;
             result["skillLevel"] = args.SkillLevel;
+            result["casterLevel"] = _levels.GetLevel(source);
+            result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
             if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
             {
                 result["distance"] = dist;
@@ -83,7 +98,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled)
                 return;
 
-            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, component, args.Args);
+            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(component.DiceX, formulaArgs, 1f), 1);
             var diceY = int.Max((int)_formulaEngine.Calculate(component.DiceY, formulaArgs, 1f), 1);
@@ -95,7 +110,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             formulaArgs["baseDamage"] = baseDamage;
 
-            args.OutDamage = (int)_formulaEngine.Calculate(component.DamageModifier, formulaArgs, baseDamage);
+            args.OutDamage = (int)_formulaEngine.Calculate(component.FinalDamage, formulaArgs, baseDamage);
         }
 
         /// <summary>
@@ -272,6 +287,96 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             _sanities.HealInsanity(args.InnerTarget.Value, args.Args.Power / 10);
             _statusEffects.Heal(args.InnerTarget.Value, Protos.StatusEffect.Insanity, 9999);
             // <<<<<<<< shade2/proc.hsp:1768 			} ..
+        }
+
+        private void ApplyDamage_Summon(EntityUid uid, EffectSummonComponent component, ApplyEffectDamageEvent args)
+        {
+            if (_gameSession.IsPlayer(args.Source)
+                && TryComp<MapCharaGenComponent>(args.TargetMap.MapEntityUid, out var mapCharaGen))
+            {
+                if (mapCharaGen.CurrentCharaCount + 100 > MapCharaGenConsts.MaxOtherCharaCount)
+                {
+                    // TODO combine nothing happens messages
+                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                    args.Args.CommonArgs.OutEffectWasObvious = false;
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+            }
+
+            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            formulaArgs["finalDamage"] = args.OutDamage;
+
+            var summonCount = (int)(double.Round(_formulaEngine.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));
+            var obvious = false;
+
+            for (var attempts = 0; attempts < 100; attempts++)
+            {
+                if (summonCount <= 0)
+                    break;
+
+                var ev = new EffectSummonEvent(args.Source, args.TargetCoords, args.OutDamage);
+                RaiseEvent(uid, ev);
+                if (!IsAlive(ev.OutSummonedEntity))
+                    continue;
+
+                summonCount--;
+                attempts = 0;
+                obvious = true;
+            }
+
+            _mes.Display(Loc.GetString(component.MessageKey, ("source", args.Source)), entity: args.Source);
+
+            args.Args.CommonArgs.OutEffectWasObvious = obvious;
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void Summon_Chara(EntityUid uid, EffectSummonCharaComponent component, EffectSummonEvent args)
+        {
+            if (component.CharaFilters.Count == 0)
+                return;
+
+            var filter = _rand.Pick(component.CharaFilters);
+            filter.MinLevel = _randomGen.CalcObjectLevel(args.SummonPower);
+            filter.Quality = Quality.Normal;
+
+            var chara = _charaGen.GenerateChara(args.TargetCoords.ToMap(EntityManager), filter);
+            if (IsAlive(chara))
+            {
+                if (!component.CanBeSameTypeAsCaster)
+                {
+                    if (MetaData(args.Source)?.EntityPrototype?.ID == MetaData(chara.Value)?.EntityPrototype?.ID)
+                    {
+                        EntityManager.DeleteEntity(chara.Value);
+                        return;
+                    }
+                }
+
+                args.Handle(chara.Value);
+            }
+        }
+    }
+
+    [EventUsage(EventTarget.Effect)]
+    public sealed class EffectSummonEvent : HandledEntityEventArgs
+    {
+        public EffectSummonEvent(EntityUid source, EntityCoordinates targetCoords, int summonPower)
+        {
+            Source = source;
+            TargetCoords = targetCoords;
+            SummonPower = summonPower;
+        }
+
+        public EntityUid Source { get; }
+        public EntityCoordinates TargetCoords { get; }
+        public int SummonPower { get; }
+
+        public EntityUid? OutSummonedEntity { get; set; } = null;
+
+        public void Handle(EntityUid entity)
+        {
+            Handled = true;
+            OutSummonedEntity = entity;
         }
     }
 }

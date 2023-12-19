@@ -1,0 +1,169 @@
+- type: Entity
+  id: Elona.BaseEffectSummon
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectSummon
+    summonCount: randInt(3) + 1
+    messageKey: Elona.Magic.Message.Summon
+  - type: EffectBaseDamageDice
+    finalDamage: max((power / 25 + power * power / 100000 + casterLevel) / 2, 1)
+
+- type: Elona.Spell
+  id: Elona.SummonMonsters
+  hspIds:
+    elona122: 424
+  difficulty: 200
+  mpCost: 15
+  skillID: Elona.SpellSummonMonsters
+  effectID: Elona.SpellSummonMonsters
+- type: Entity
+  id: Elona.SpellSummonMonsters
+  parent: Elona.BaseEffectSummon
+  hspIds:
+    elona122: 424
+  components:
+  - type: EffectTypeSpell
+  - type: EffectSummonChara
+    charaFilters:
+    - {}
+
+- type: Elona.Spell
+  id: Elona.SummonWild
+  hspIds:
+    elona122: 425
+  difficulty: 200
+  mpCost: 15
+  skillID: Elona.SpellSummonWild
+  effectID: Elona.SpellSummonWild
+- type: Entity
+  id: Elona.SpellSummonWild
+  parent: Elona.BaseEffectSummon
+  hspIds:
+    elona122: 425
+  components:
+  - type: EffectTypeSpell
+  - type: EffectSummonChara
+    charaFilters:
+    - tags:
+      - Elona.TagCharaWild
+
+
+- type: Elona.Action
+  id: Elona.SummonCats
+  hspIds:
+    elona122: 639
+#  difficulty: 200
+  skillID: Elona.ActionSummonCats
+  effectID: Elona.ActionSummonCats
+  staminaCost: 15
+  difficulty: 200
+- type: Entity
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectTypeAction
+  - type: EffectBaseDamageDice
+    finalDamage: 2 + randInt(18)
+  - type: EffectSummonChara
+    charaFilters:
+      - tags:
+        - Elona.TagCharaCat
+
+- type: Elona.Action
+  id: Elona.SummonYeek
+  hspIds:
+    elona122: 640
+#  difficulty: 200
+  skillID: Elona.ActionSummonYeek
+  effectID: Elona.ActionSummonYeek
+  staminaCost: 15
+  difficulty: 200
+- type: Entity
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectTypeAction
+  - type: EffectBaseDamageDice
+    finalDamage: 5 + randInt(12)
+  - type: EffectSummonChara
+    charaFilters:
+    - tags:
+      - Elona.TagCharaYeek
+
+- type: Elona.Action
+  id: Elona.SummonPawn
+  hspIds:
+    elona122: 641
+#  difficulty: 200
+  skillID: Elona.ActionSummonPawn
+  effectID: Elona.ActionSummonPawn
+  staminaCost: 15
+  difficulty: 200
+- type: Entity
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectTypeAction
+  - type: EffectBaseDamageDice
+    finalDamage: 15 + randInt(8)
+  - type: EffectSummonChara
+    charaFilters:
+      - tags:
+        - Elona.TagCharaPawn
+
+- type: Elona.Action
+  id: Elona.SummonFire
+  hspIds:
+    elona122: 642
+#  difficulty: 200
+  skillID: Elona.ActionSummonFire
+  effectID: Elona.ActionSummonFire
+  staminaCost: 15
+  difficulty: 200
+- type: Entity
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectTypeAction
+  - type: EffectBaseDamageDice
+    finalDamage: 15 + randInt(15)
+  - type: EffectSummonChara
+    charaFilters:
+      - tags:
+        - Elona.TagCharaFire
+
+- type: Elona.Action
+  id: Elona.SummonSister
+  hspIds:
+    elona122: 643
+#  difficulty: 200
+  skillID: Elona.ActionSummonSister
+  effectID: Elona.ActionSummonSister
+  staminaCost: 15
+  difficulty: 200
+- type: Entity
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectTypeAction
+  - type: EffectBaseDamageDice
+    finalDamage: 15 + randInt(15)
+  - type: EffectSummon
+    summonCount: randInt(10) + 1
+  - type: EffectSummonChara
+    canBeSameTypeAsCaster: true
+    charaFilters:
+      - id: Elona.CharaYoungerSister

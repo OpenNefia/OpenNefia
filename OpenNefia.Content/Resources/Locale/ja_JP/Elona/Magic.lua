@@ -69,5 +69,6 @@ Elona.Magic = {
             end,
             NoElement = "",
         },
+        Summon = "魔法でモンスターが召喚された。",
     },
 }

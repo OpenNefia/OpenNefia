@@ -208,56 +208,6 @@
   staminaCost: 10
 
 - type: Elona.Action
-  id: Elona.SummonCats
-  hspIds:
-    elona122: 639
-#  difficulty: 200
-  skillID: Elona.ActionSummonCats
-  effectID: Elona.ActionSummonCats
-  staminaCost: 15
-  difficulty: 200
-
-- type: Elona.Action
-  id: Elona.SummonYeek
-  hspIds:
-    elona122: 640
-#  difficulty: 200
-  skillID: Elona.ActionSummonYeek
-  effectID: Elona.ActionSummonYeek
-  staminaCost: 15
-  difficulty: 200
-
-- type: Elona.Action
-  id: Elona.SummonPawn
-  hspIds:
-    elona122: 641
-#  difficulty: 200
-  skillID: Elona.ActionSummonPawn
-  effectID: Elona.ActionSummonPawn
-  staminaCost: 15
-  difficulty: 200
-
-- type: Elona.Action
-  id: Elona.SummonFire
-  hspIds:
-    elona122: 642
-#  difficulty: 200
-  skillID: Elona.ActionSummonFire
-  effectID: Elona.ActionSummonFire
-  staminaCost: 15
-  difficulty: 200
-
-- type: Elona.Action
-  id: Elona.SummonSister
-  hspIds:
-    elona122: 643
-#  difficulty: 200
-  skillID: Elona.ActionSummonSister
-  effectID: Elona.ActionSummonSister
-  staminaCost: 15
-  difficulty: 200
-
-- type: Elona.Action
   id: Elona.SuicideAttack
   hspIds:
     elona122: 644
