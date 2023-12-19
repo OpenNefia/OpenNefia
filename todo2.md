@@ -54,6 +54,7 @@
 - [ ] mod API examples
 - [ ] update NuGet packages
 - [ ] robust upstream commits
+- [ ] serializer strict mode
 - [ ] data definition for "randomly pickable list" (element associated with weight)
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
@@ -75,7 +76,6 @@
 
 ## analyzers
 - [ ] data definitions must have a zero-arg constructor
-- [ ] serializer strict mode
 - [ ] any components with `Stat<T>` must implement `IComponentRefreshable`
 - [ ] `[DataField]` types must be serializable
 - [ ] `HandleableEntityEventArgs.Handled` must be checked in all event handlers

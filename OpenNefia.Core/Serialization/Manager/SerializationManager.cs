@@ -311,15 +311,15 @@ namespace OpenNefia.Core.Serialization.Manager
             if (TryValidateWithTypeValidator(underlyingType, node, DependencyCollection, context, out var valid)) return valid;
 
             if (typeof(ISelfSerialize).IsAssignableFrom(underlyingType))
-                return node is ValueDataNode valueDataNode ? new ValidatedValueNode(valueDataNode) : new ErrorNode(node, "Invalid nodetype for ISelfSerialize", true);
+                return node is ValueDataNode valueDataNode ? new ValidatedValueNode(valueDataNode) : new ErrorNode(node, $"Invalid nodetype for ISelfSerialize: expected a value, got {node.GetType().Name}", true);
 
             if (TryGetDefinition(underlyingType, out var dataDefinition))
             {
                 return node switch
                 {
-                    ValueDataNode valueDataNode => valueDataNode.Value == "" ? new ValidatedValueNode(valueDataNode) : new ErrorNode(node, "Invalid nodetype for Datadefinition", false),
+                    ValueDataNode valueDataNode => valueDataNode.Value == "" ? new ValidatedValueNode(valueDataNode) : new ErrorNode(node, $"Invalid node type for data definition: expected either a value or mapping, got {node.GetType().Name}", false),
                     MappingDataNode mappingDataNode => dataDefinition.Validate(this, mappingDataNode, context),
-                    _ => new ErrorNode(node, "Invalid nodetype for Datadefinition", true)
+                    _ => new ErrorNode(node, $"Invalid node type for data definition: expected either a value or mapping, got {node.GetType().Name}", true)
                 };
             }
 

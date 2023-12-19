@@ -27,8 +27,8 @@
   components:
   - type: EffectTypeSpell
   - type: EffectSummonChara
-    charaFilters:
-    - {}
+    choices:
+      - charaFilter: {} # default filter, spawns anything
 
 - type: Elona.Spell
   id: Elona.SummonWild
@@ -46,10 +46,10 @@
   components:
   - type: EffectTypeSpell
   - type: EffectSummonChara
-    charaFilters:
-    - tags:
-      - Elona.TagCharaWild
-
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaWild
 
 - type: Elona.Action
   id: Elona.SummonCats
@@ -70,8 +70,9 @@
   - type: EffectBaseDamageDice
     finalDamage: 2 + randInt(18)
   - type: EffectSummonChara
-    charaFilters:
-      - tags:
+    choices:
+    - charaFilter:
+        tags:
         - Elona.TagCharaCat
 
 - type: Elona.Action
@@ -93,9 +94,10 @@
   - type: EffectBaseDamageDice
     finalDamage: 5 + randInt(12)
   - type: EffectSummonChara
-    charaFilters:
-    - tags:
-      - Elona.TagCharaYeek
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaYeek
 
 - type: Elona.Action
   id: Elona.SummonPawn
@@ -116,8 +118,9 @@
   - type: EffectBaseDamageDice
     finalDamage: 15 + randInt(8)
   - type: EffectSummonChara
-    charaFilters:
-      - tags:
+    choices:
+    - charaFilter:
+        tags:
         - Elona.TagCharaPawn
 
 - type: Elona.Action
@@ -139,8 +142,9 @@
   - type: EffectBaseDamageDice
     finalDamage: 15 + randInt(15)
   - type: EffectSummonChara
-    charaFilters:
-      - tags:
+    choices:
+    - charaFilter:
+        tags:
         - Elona.TagCharaFire
 
 - type: Elona.Action
@@ -165,5 +169,6 @@
     summonCount: randInt(10) + 1
   - type: EffectSummonChara
     canBeSameTypeAsCaster: true
-    charaFilters:
-      - id: Elona.CharaYoungerSister
+    choices:
+    - charaFilter:
+      id: Elona.CharaYoungerSister

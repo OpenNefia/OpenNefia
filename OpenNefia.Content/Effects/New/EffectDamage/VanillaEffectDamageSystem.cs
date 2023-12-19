@@ -333,12 +333,18 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void Summon_Chara(EntityUid uid, EffectSummonCharaComponent component, EffectSummonEvent args)
         {
-            if (component.CharaFilters.Count == 0)
+            if (component.Choices.Count == 0)
                 return;
 
-            var filter = _rand.Pick(component.CharaFilters);
-            filter.MinLevel = _randomGen.CalcObjectLevel(args.SummonPower);
-            filter.Quality = Quality.Normal;
+            var choice = _rand.Pick(component.Choices);
+
+            var filter = choice.CharaFilter;
+
+            if (!choice.NoOverrideLevelAndQuality)
+            {
+                filter.MinLevel = _randomGen.CalcObjectLevel(args.SummonPower);
+                filter.Quality = Quality.Normal;
+            }
 
             var chara = _charaGen.GenerateChara(args.TargetCoords.ToMap(EntityManager), filter);
             if (IsAlive(chara))

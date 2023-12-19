@@ -132,7 +132,7 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         // TODO random weighted list.
         [DataField]
-        public List<CharaFilter> CharaFilters { get; } = new();
+        public List<SummonCharaFilter> Choices { get; } = new();
 
         /// <summary>
         /// If <c>false</c>, the summon will not spawn characters with
@@ -140,5 +140,15 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public bool CanBeSameTypeAsCaster { get; set; } = false;
+    }
+
+    [DataDefinition]
+    public sealed class SummonCharaFilter
+    {
+        [DataField]
+        public CharaFilter CharaFilter { get; set; } = new();
+
+        [DataField]
+        public bool NoOverrideLevelAndQuality { get; set; } = false;
     }
 }
