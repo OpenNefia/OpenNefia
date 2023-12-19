@@ -4,7 +4,7 @@ Elona.Scroll = {
             return ("%sはふらふらした。"):format(_.name(reader))
         end,
         Execute = function(reader, scroll)
-            return ("%s%sを読んだ。"):format(_.sore_wa(reader), _.name(scroll))
+            return ("%s%sを読んだ。"):format(_.sore_wa(reader), _.name(scroll, nil, 1))
         end,
     },
 }

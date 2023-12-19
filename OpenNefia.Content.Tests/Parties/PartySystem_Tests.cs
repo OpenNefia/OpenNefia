@@ -70,7 +70,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(parties.EnumerateMembers(entLeader), Is.EquivalentTo(Enumerable.Empty<EntityUid>()));
                 Assert.That(parties.EnumerateMembers(entAlly), Is.EquivalentTo(Enumerable.Empty<EntityUid>()));
 
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 var members = parties.EnumerateMembers(entLeader).ToList();
                 Assert.That(members!.Count, Is.EqualTo(2));
@@ -99,16 +99,16 @@ namespace OpenNefia.Content.Tests.Parties
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.RecruitAsAlly(entLeader1, entLeader1), Is.False, "Trying to recruit self");
-                Assert.That(parties.RecruitAsAlly(entLeader1, EntityUid.Invalid), Is.False, "Trying to recruit invalid entity");
-                Assert.That(parties.RecruitAsAlly(EntityUid.Invalid, entAlly1), Is.False, "Trying to recruit invalid entity");
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, entLeader1), Is.False, "Trying to recruit self");
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, EntityUid.Invalid), Is.False, "Trying to recruit invalid entity");
+                Assert.That(parties.TryRecruitAsAlly(EntityUid.Invalid, entAlly1), Is.False, "Trying to recruit invalid entity");
 
-                Assert.That(parties.RecruitAsAlly(entLeader1, entAlly1), Is.True);
-                Assert.That(parties.RecruitAsAlly(entLeader2, entAlly2), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, entAlly1), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader2, entAlly2), Is.True);
 
-                Assert.That(parties.RecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity is already in another party");
-                Assert.That(parties.RecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity is already in same party");
-                Assert.That(parties.RecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity already has party");
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity is already in another party");
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity is already in same party");
+                Assert.That(parties.TryRecruitAsAlly(entLeader1, entAlly2), Is.False, "Entity already has party");
             });
         }
 
@@ -135,7 +135,7 @@ namespace OpenNefia.Content.Tests.Parties
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 Assert.That(factionLeader.RelationToPlayer, Is.EqualTo(Relation.Ally));
                 Assert.That(factionAlly.RelationToPlayer, Is.EqualTo(Relation.Ally));
@@ -160,7 +160,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.False);
                 Assert.That(parties.IsPartyLeaderOf(entAlly, entLeader), Is.False);
 
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 Assert.That(parties.IsPartyLeaderOf(entLeader, entAlly), Is.True);
                 Assert.That(parties.IsPartyLeaderOf(entAlly, entLeader), Is.False);
@@ -185,7 +185,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(parties.TryGetLeader(entLeader, out var _), Is.False);
                 Assert.That(parties.TryGetLeader(entAlly, out var _), Is.False);
 
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 Assert.That(parties.TryGetLeader(entLeader, out var resultLeader), Is.True);
                 Assert.That(resultLeader!.Value, Is.EqualTo(entLeader));
@@ -217,7 +217,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(parties.RemoveFromCurrentParty(entLeader), Is.False);
                 Assert.That(parties.RemoveFromCurrentParty(entAlly), Is.False);
 
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 Assert.That(partyLeader.PartyID, Is.EqualTo(0));
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
@@ -258,7 +258,7 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(parties.RemoveFromCurrentParty(entLeader), Is.False);
                 Assert.That(parties.RemoveFromCurrentParty(entAlly), Is.False);
 
-                Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+                Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
                 Assert.That(partyLeader.PartyID, Is.EqualTo(0));
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
@@ -293,7 +293,7 @@ namespace OpenNefia.Content.Tests.Parties
             var partyLeader = entMan.GetComponent<PartyComponent>(entLeader);
             var partyAlly = entMan.GetComponent<PartyComponent>(entAlly);
 
-            Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
+            Assert.That(parties.TryRecruitAsAlly(entLeader, entAlly), Is.True);
 
             Assert.That(partyLeader.PartyID, Is.EqualTo(0));
             Assert.That(partyAlly.PartyID, Is.EqualTo(0));

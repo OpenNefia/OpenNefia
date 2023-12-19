@@ -220,7 +220,7 @@ namespace OpenNefia.Content.Items.Impl
 
             var chara = _charaGen.GenerateChara(user, id: monsterBallComp.CapturedEntityID.Value, args: args);
             if (IsAlive(chara))
-                _parties.RecruitAsAlly(user, chara.Value);
+                _parties.TryRecruitAsAlly(user, chara.Value);
 
             return TurnResult.Succeeded;
         }

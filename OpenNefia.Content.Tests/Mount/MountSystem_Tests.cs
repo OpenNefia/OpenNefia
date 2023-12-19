@@ -74,8 +74,8 @@ namespace OpenNefia.Content.Tests.Mount
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.RecruitAsAlly(playerRider, partyMount), Is.True, "Recruit ally");
-                Assert.That(parties.RecruitAsAlly(playerRider, partyMount2), Is.True, "Recruit ally");
+                Assert.That(parties.TryRecruitAsAlly(playerRider, partyMount), Is.True, "Recruit ally");
+                Assert.That(parties.TryRecruitAsAlly(playerRider, partyMount2), Is.True, "Recruit ally");
 
                 Assert.That(mounts.TryMount(playerRider, playerRider), Is.False, "Attempting to ride self");
                 Assert.That(mounts.TryMount(playerRider, npcRider), Is.False, "Can't ride non-mount");

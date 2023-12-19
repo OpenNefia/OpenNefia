@@ -10,6 +10,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Scroll
 {
@@ -27,6 +29,8 @@ namespace OpenNefia.Content.Scroll
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
         [Dependency] private readonly IEffectSystem _effects = default!;
+        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
         
         public override void Initialize()
         {
@@ -72,12 +76,25 @@ namespace OpenNefia.Content.Scroll
             }
             
             var coords = Spatial(reader).Coordinates;
-            var effectArgs = EffectArgSet.FromImmutable(scrollComp.EffectArgs);
-            var result = _effects.Apply(scrollComp.Effect, reader, reader, coords, scroll, effectArgs);
+
+            TurnResult result = TurnResult.Failed; // At minimum, a turn should pass.
+            var obvious = false;
+            foreach (var spec in scrollComp.Effects.EnumerateEffectSpecs())
+            {
+                var args = new EffectCommonArgs()
+                {
+                    EffectSource = EffectSources.Scroll,
+                    CurseState = _curseStates.GetCurseState(scroll),
+                    Item = scroll
+                };
+                var newResult = _newEffects.Apply(reader, reader, coords, spec.ID, EffectArgSet.Make(args));
+                result = result.Combine(newResult);
+                obvious = obvious || args.OutEffectWasObvious;
+            }
 
             if (_gameSession.IsPlayer(reader))
             {
-                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.OutEffectWasObvious) && IsAlive(scroll))
+                if (obvious && IsAlive(scroll))
                 {
                     _identify.Identify(scroll, IdentifyState.Name);
                 }

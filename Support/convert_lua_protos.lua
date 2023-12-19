@@ -217,6 +217,10 @@ local function tuple(t)
     return table.concat(t, ",")
 end
 
+local function typedYamlNode(nodeType, t)
+    return setmetatable(t or {}, { tag = "type:" .. nodeType, type = "mapping" })
+end
+
 local write_effect
 
 local function effect(skill_id, t)
@@ -226,7 +230,30 @@ local function effect(skill_id, t)
     end
     write_effect(effectTy)
 
-    return setmetatable(t or {}, { tag = "type:" .. effectTy, type = "mapping" })
+    return typedYamlNode(effectTy, t)
+end
+
+local function newEffect(effect_id, power)
+    local entPrefix
+    local d = data["base.skill"][effect_id]
+    local id = effect_id
+    if d ~= nil then
+        entPrefix = capitalize(d.type)
+        id = d.effect_id
+        d = data["elona_sys.magic"]:ensure(d.effect_id)
+    else
+        d = data["elona_sys.magic"]:ensure(effect_id)
+        entPrefix = ""
+    end
+    if effect_id:match "elona%.buff" then
+        entPrefix = "Spell"
+    end
+    local newId = dotted(id):gsub("Elona%.", "Elona." .. entPrefix)
+    print(effect_id, entPrefix, newId)
+    return typedYamlNode("EffectSpec", {
+        id = newId,
+        power = power,
+    })
 end
 
 local handlers = {}
@@ -340,7 +367,7 @@ handlers["base.chara"] = function(from, to)
                     skillID = skillID:gsub("Elona.Buff", "Elona.ActionBuff")
                 end
             end
-            print(skillID, ty)
+            -- print(skillID, ty)
             skills.skills[skillID] = 1
             -- end
         end
@@ -1214,8 +1241,7 @@ handlers["base.item"] = function(from, to)
 
     if from.scroll_id then
         c = comp(to, "Scroll")
-        c.effect = effect(from.scroll_id)
-        c.effectArgs = { power = from.spell_power }
+        c.effects = newEffect(from.scroll_id, from.spell_power)
         if from.spell_no_consume then
             c.amountConsumedOnRead = 0
         end
@@ -2154,10 +2180,6 @@ local LANGUAGES = {
     jp = "ja_JP",
 }
 
-local function typedYamlNode(nodeType, t)
-    return setmetatable(t or {}, { tag = "type:" .. nodeType, type = "mapping" })
-end
-
 local function convert_scenes()
     local function toYaml(node)
         local ty = node[1]
@@ -2385,7 +2407,7 @@ end
 
 -- print_spell_costs()
 -- print_lines()
-print_balls()
+-- print_balls()
 -- print_dists()
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")

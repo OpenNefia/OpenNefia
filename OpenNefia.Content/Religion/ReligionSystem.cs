@@ -489,7 +489,7 @@ namespace OpenNefia.Content.Religion
                 args: EntityGenArgSet.Make(new EntityGenCommonArgs() { NoRandomModify = true }));
 
             if (ally != null)
-                _parties.RecruitAsAlly(target, ally.Value);
+                _parties.TryRecruitAsAlly(target, ally.Value);
 
             return (ally, false);
         }

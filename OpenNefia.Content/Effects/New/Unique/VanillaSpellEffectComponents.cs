@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -7,6 +9,9 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
+    /// <summary>
+    /// Creates a wall at the affected location.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectWallCreationComponent : Component

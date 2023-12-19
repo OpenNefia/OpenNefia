@@ -91,4 +91,10 @@ Elona.Effect = {
             return ("%s teleport%s toward %s."):format(_.name(source, true), _.s(source), _.basename(target))
         end,
     },
+
+    GainAlly = {
+        YoungerSister = "How...! You suddenly get a younger sister!",
+        YoungLady = "A young lady falls from the sky.",
+        CatSister = "How...! You suddenly get a younger cat sister!",
+    },
 }

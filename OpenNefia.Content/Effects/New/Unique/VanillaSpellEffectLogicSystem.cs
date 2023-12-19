@@ -16,7 +16,7 @@ using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
-    public sealed class VanillaEffectLogicSystem : EntitySystem
+    public sealed class VanillaSpellEffectLogicSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;

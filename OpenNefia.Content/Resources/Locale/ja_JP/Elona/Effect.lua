@@ -84,4 +84,10 @@ Elona.Effect = {
             return ("%sは%sの元に移動した。"):format(_.name(source, true), _.basename(target))
         end,
     },
+
+    GainAlly = {
+        YoungerSister = "なんと、あなたには生き別れた血の繋がっていない妹がいた！",
+        YoungLady = "お嬢さんが空から降ってきた！",
+        CatSister = "なんと、あなたには生き別れた血の繋がっていないぬこの妹がいた！",
+    },
 }

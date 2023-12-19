@@ -6,6 +6,10 @@
 
         public static readonly LocaleKey Empty = new("");
 
+        public LocaleKey() : this(string.Empty)
+        {
+        }
+
         public LocaleKey(string key)
         {
             Key = key;

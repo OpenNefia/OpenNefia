@@ -23,6 +23,7 @@ namespace OpenNefia.Content.CurseStates
         bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null);
         bool IsBlessed(CurseState state);
         bool IsCursed(CurseState state);
+        CurseState GetCurseState(EntityUid uid, CurseStateComponent? curseState = null);
         CurseState GetDefaultCurseState(EntityUid uid);
         CurseState PickRandomCurseState(EntityUid uid);
     }
@@ -110,6 +111,14 @@ namespace OpenNefia.Content.CurseStates
                 args.Reason = Loc.GetString("Elona.CurseState.CannotBeTakenOff", ("entity", uid));
                 args.Cancel();
             }
+        }
+
+        public CurseState GetCurseState(EntityUid uid, CurseStateComponent? curseState = null)
+        {
+            if (!Resolve(uid, ref curseState, logMissing: false))
+                return CurseState.Normal;
+
+            return curseState.CurseState;
         }
 
         public bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null)

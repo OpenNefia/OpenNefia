@@ -365,6 +365,7 @@ namespace OpenNefia.Content.Effects.New
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
 
         /// <summary>
         /// Number of affected tiles if this event was invoked with an AoE.

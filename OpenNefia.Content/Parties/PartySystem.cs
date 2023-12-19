@@ -216,8 +216,19 @@ namespace OpenNefia.Content.Parties
         int CalcMaxPartySize(EntityUid entity);
 
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
-
-        bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
+        
+        /// <summary>
+        /// Attempts to recruit this character. If the leader's party is full,
+        /// a message will be displayed instead.
+        /// </summary>
+        /// <param name="leader"></param>
+        /// <param name="ally"></param>
+        /// <param name="partyLeader"></param>
+        /// <param name="partyAlly"></param>
+        /// <param name="noMessage"></param>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        bool TryRecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
 
         bool RemoveFromCurrentParty(EntityUid ally, PartyComponent? party = null);
     }
@@ -361,7 +372,8 @@ namespace OpenNefia.Content.Parties
             return otherMemberCount < maxPartySize;
         }
 
-        public bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false)
+        /// <inheritdoc/>
+        public bool TryRecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false)
         {
             if (!Resolve(leader, ref partyLeader) || !Resolve(ally, ref partyAlly))
                 return false;

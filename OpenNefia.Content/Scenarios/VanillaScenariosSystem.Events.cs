@@ -88,7 +88,7 @@ namespace OpenNefia.Content.Scenarios
             };
             var ally = _charaGen.GenerateChara(_gameSession.Player, filter);
             if (IsAlive(ally))
-                _parties.RecruitAsAlly(_gameSession.Player, ally.Value);
+                _parties.TryRecruitAsAlly(_gameSession.Player, ally.Value);
 
             return TurnResult.Aborted;
         }

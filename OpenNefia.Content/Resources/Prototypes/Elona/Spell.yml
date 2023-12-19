@@ -121,24 +121,6 @@
   effectID: Elona.SpellDarkEye
 
 - type: Elona.Spell
-  id: Elona.SummonMonsters
-  hspIds:
-    elona122: 424
-  difficulty: 200
-  mpCost: 15
-  skillID: Elona.SpellSummonMonsters
-  effectID: Elona.SpellSummonMonsters
-
-- type: Elona.Spell
-  id: Elona.SummonWild
-  hspIds:
-    elona122: 425
-  difficulty: 200
-  mpCost: 15
-  skillID: Elona.SpellSummonWild
-  effectID: Elona.SpellSummonWild
-
-- type: Elona.Spell
   id: Elona.Return
   hspIds:
     elona122: 428

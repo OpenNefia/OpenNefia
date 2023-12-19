@@ -73,7 +73,9 @@ namespace OpenNefia.Content.EntityGen
 
         /// <summary>
         /// If true, the <see cref="EntityGeneratedEvent"/> will not be fired when spawning this entity.
+        /// Useful if you want to defer raising the generation events until after some checks are finished.
         /// </summary>
+        // TODO implement!
         [DataField]
         public bool NoFireGeneratedEvent { get; set; } = false;
 

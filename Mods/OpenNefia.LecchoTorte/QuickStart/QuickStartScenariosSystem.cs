@@ -41,6 +41,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
+using OpenNefia.Content.Scroll;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -142,7 +143,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 var ally = _charaGen.GenerateChara(coords, allyDef.ID, args: EntityGenArgSet.Make(args));
                 if (ally != null)
                 {
-                    _parties.RecruitAsAlly(player, ally.Value);
+                    _parties.TryRecruitAsAlly(player, ally.Value);
                     UpdateQuickstartChara(ally.Value, allyDef);
                 }
             }
@@ -197,13 +198,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 {
                     if (proto.Components.HasComponent<FoodComponent>())
                         _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
-                }
 
-                foreach (var proto in _protos.EnumeratePrototypes<MusicPrototype>())
-                {
-                    var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
-                    if (IsAlive(item))
-                        Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
+                    if (proto.Components.HasComponent<ScrollComponent>())
+                        _itemGen.GenerateItem(map.AtPos((2, 4)), proto.GetStrongID(), amount: 99);
                 }
 
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))
