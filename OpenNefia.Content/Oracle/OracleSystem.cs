@@ -29,15 +29,60 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using static OpenNefia.Content.Prototypes.Protos;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Oracle
 {
+    [DataDefinition]
+    public sealed class ArtifactLocation
+    {
+        [DataField]
+        public EntityUid ItemEntity { get; set; }
+
+        [DataField]
+        public string ItemFullName { get; set; } = "???";
+
+        [DataField]
+        public string ItemBaseName { get; set; } = "???";
+
+        [DataField]
+        public MapCoordinates MapCoordinates { get; set; }
+
+        [DataField]
+        public string MapName { get; set; } = "???";
+
+        [DataField]
+        public AreaId? AreaId { get; set; } = null;
+
+        [DataField]
+        public string? AreaName { get; set; } = null;
+
+        [DataField]
+        public bool ShowAsHeldBy { get; set; } = false;
+
+        [DataField]
+        public EntityUid? OwnerEntity { get; set; } = null;
+
+        [DataField]
+        public string? OwnerName { get; set; } = null;
+
+        [DataField]
+        public string? OwnerBaseName { get; set; } = null;
+
+        [DataField]
+        public GameDateTime CreationDate { get; set; } = GameDateTime.Zero;
+    }
+
     public interface IOracleSystem : IEntitySystem
     {
-        List<string> ArtifactLocations { get; }
+        List<ArtifactLocation> ArtifactLocations { get; }
 
-        string? GetOracleText(EntityUid item);
+        bool TryGetArtifactLocation(EntityUid item, [NotNullWhen(true)] out ArtifactLocation? location);
         void ConvertArtifact(ref EntityUid item);
+        string FormatArtifactLocation(ArtifactLocation loc);
     }
 
     public sealed class OracleSystem : EntitySystem, IOracleSystem
@@ -57,7 +102,7 @@ namespace OpenNefia.Content.Oracle
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         [RegisterSaveData("Elona.OracleSystem.ArtifactLocations")]
-        public List<string> ArtifactLocations { get; } = new();
+        public List<ArtifactLocation> ArtifactLocations { get; } = new();
 
         public override void Initialize()
         {
@@ -75,36 +120,64 @@ namespace OpenNefia.Content.Oracle
 
             if (!noOracle && CompOrNull<QualityComponent>(item)?.Quality.Base == Quality.Unique)
             {
-                var text = GetOracleText(item);
-                if (text != null)
-                    ArtifactLocations.Add(text);
+                if (TryGetArtifactLocation(item, out var loc))
+                    ArtifactLocations.Add(loc);
             }
             // <<<<<<<< shade2/item.hsp:636  	} ...
         }
 
-        public string? GetOracleText(EntityUid item)
+        public bool TryGetArtifactLocation(EntityUid item, [NotNullWhen(true)] out ArtifactLocation? location)
         {
             if (!TryMap(item, out var map))
-                return null;
-
-            var date = _world.State.GameDate;
-
-            if (_lookup.TryGetOwningEntity<CharaComponent>(item, out var owner)
-                && HasComp<RoleAdventurerComponent>(owner.Value)
-                && _adv.TryGetArea(owner.Value, out var area))
             {
-                return Loc.GetString("Elona.Oracle.WasHeldBy", ("item", item), ("owner", owner.Value), ("map", map), ("day", date.Day), ("month", date.Month), ("year", date.Year));
+                location = null;
+                return false;
             }
 
-            return Loc.GetString("Elona.Oracle.WasCreatedAt", ("item", item), ("map", map), ("day", date.Day), ("month", date.Month), ("year", date.Year));
+            TryArea(map, out var area);
+
+            location = new ArtifactLocation()
+            {
+                ItemEntity = item,
+                ItemFullName = _displayNames.GetDisplayName(item),
+                ItemBaseName = _displayNames.GetBaseName(item),
+                MapCoordinates = Spatial(item).MapPosition,
+                MapName = _displayNames.GetDisplayName(map.MapEntityUid),
+                AreaId = area?.Id,
+                AreaName = area != null ? _displayNames.GetDisplayName(area.AreaEntityUid) : null,
+                CreationDate = _world.State.GameDate
+            };
+
+            if (_lookup.TryGetOwningEntity<CharaComponent>(item, out var owner)
+                && _adv.TryGetArea(owner.Value, out var advArea))
+            {
+                location.ShowAsHeldBy = HasComp<RoleAdventurerComponent>(owner.Value);
+                location.OwnerEntity = owner.Value;
+                location.OwnerName = _displayNames.GetDisplayName(owner.Value);
+                location.OwnerBaseName = _displayNames.GetBaseName(owner.Value);
+                location.AreaId = advArea.Id;
+                location.AreaName = _displayNames.GetDisplayName(advArea.AreaEntityUid);
+            }
+
+            return true;
+        }
+
+        public string FormatArtifactLocation(ArtifactLocation loc)
+        {
+            if (loc.ShowAsHeldBy && loc.OwnerBaseName != null)
+            {
+                return Loc.GetString("Elona.Oracle.Message.WasHeldBy", ("item", loc.ItemBaseName), ("map", loc.MapName), ("area", loc.AreaName ?? "???"), ("owner", loc.OwnerBaseName), ("date", loc.CreationDate));
+            }
+
+            return Loc.GetString("Elona.Oracle.Message.WasCreatedAt", ("item", loc.ItemBaseName), ("map", loc.MapName), ("area", loc.AreaName ?? "???"), ("date", loc.CreationDate));
         }
 
         public void ConvertArtifact(ref EntityUid item)
         {
             // >>>>>>>> elona122/shade2/item.hsp:3 #deffunc convertArtifact int ci,int mode ...
             if (!HasComp<EquipmentComponent>(item)
-                || _qualities.GetQuality(item) != Quality.Unique
-                || _equipSlots.IsEquippedOnAnySlot(item)
+            || _qualities.GetQuality(item) != Quality.Unique
+            || _equipSlots.IsEquippedOnAnySlot(item)
                 || !TryMap(item, out var map)
                 || !TryProtoID(item, out var id)
                 || !_inventories.TryGetInventoryContainer(item, out var container))

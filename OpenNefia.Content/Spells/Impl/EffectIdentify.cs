@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Spells
             if (args.Power >= identify.IdentifyDifficulty)
                 level = IdentifyState.Full;
 
-            var identifyResult = _identify.Identify(item, level);
+            var identifyResult = _identify.IdentifyItem(item, level);
             if (identifyResult.ChangedState)
             {
                 if (identifyResult.NewState != IdentifyState.Full)

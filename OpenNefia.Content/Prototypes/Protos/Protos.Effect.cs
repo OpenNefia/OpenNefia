@@ -1,4 +1,4 @@
-using EffectPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Spells.SpellPrototype>;
+using EffectPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Prototypes.EntityPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

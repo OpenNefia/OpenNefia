@@ -67,7 +67,7 @@ namespace OpenNefia.Content.Potion
             {
                 if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.OutEffectWasObvious) && IsAlive(potion))
                 {
-                    _identify.Identify(potion, IdentifyState.Name);
+                    _identify.IdentifyItem(potion, IdentifyState.Name);
                 }
             }
 

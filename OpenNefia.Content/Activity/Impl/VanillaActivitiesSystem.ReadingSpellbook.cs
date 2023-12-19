@@ -111,7 +111,7 @@ namespace OpenNefia.Content.Activity
                 }
             }
 
-            _identify.Identify(component.Spellbook, IdentifyState.Name);
+            _identify.IdentifyItem(component.Spellbook, IdentifyState.Name);
 
             DecrementBookCharge(actor, component.Spellbook);
         }

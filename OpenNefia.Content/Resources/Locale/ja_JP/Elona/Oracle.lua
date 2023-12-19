@@ -1,16 +1,18 @@
 Elona.Oracle = {
-    WasCreatedAt = function(item, map, day, month, year)
-        return ("%sは%s年%s月に%sで生成された。"):format(_.basename(item), year, month, _.name(map))
-    end,
-    WasHeldBy = function(item, owner, map, day, month, year)
-        return ("%sは%s年%s月に%sの%sの手に渡った。"):format(
-            _.basename(item),
-            year,
-            month,
-            _.name(item),
-            _.basename(owner)
-        )
-    end,
+    Message = {
+        WasCreatedAt = function(itemName, mapName, areaName, date)
+            return ("%sは%s年%s月に%sで生成された。"):format(itemName, date.Year, date.Month, mapName)
+        end,
+        WasHeldBy = function(itemName, mapName, areaName, ownerName, date)
+            return ("%sは%s年%s月に%sの%sの手に渡った。"):format(
+                itemName,
+                date.Year,
+                date.Month,
+                areaName,
+                ownerName
+            )
+        end,
+    },
 
     Effect = {
         NoArtifacts = "まだ特殊なアイテムは生成されていない。",

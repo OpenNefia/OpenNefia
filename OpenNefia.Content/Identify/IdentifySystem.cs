@@ -20,24 +20,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Identify
 {
     public interface IIdentifySystem : IEntitySystem
     {
         IdentifyState GetIdentifyState(EntityUid ent, IdentifyComponent? identify = null);
+        int GetIdentifyDifficulty(EntityUid ent, IdentifyComponent? identify = null);
 
-        IdentifyResult Identify(EntityUid ent, IdentifyState state, IdentifyComponent? identify = null);
+        IdentifyResult IdentifyItem(EntityUid ent, IdentifyState state, IdentifyComponent? identify = null);
         IdentifyResult TryToIdentify(EntityUid ent, int identifyPower, IdentifyComponent? identify = null);
     }
 
-    public sealed record IdentifyResult(bool ChangedState, IdentifyState NewState);
+    public sealed record IdentifyResult(bool ChangedState, IdentifyState NewState, string PreviousItemName);
 
     public sealed class IdentifySystem : EntitySystem, IIdentifySystem
     {
         [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -70,7 +73,7 @@ namespace OpenNefia.Content.Identify
             
             if (_config.GetCVar(CCVars.DebugAutoIdentify))
             {
-                Identify(uid, IdentifyState.Full);
+                IdentifyItem(uid, IdentifyState.Full);
             }
         }
 
@@ -84,22 +87,24 @@ namespace OpenNefia.Content.Identify
 
         private IdentifyResult GetNewIdentifyState(EntityUid ent, IdentifyState newState, IdentifyComponent? identify = null)
         {
+            var prevName = _displayNames.GetDisplayName(ent);
+
             if (!Resolve(ent, ref identify))
-                return new(false, IdentifyState.None);
+                return new(false, IdentifyState.None, prevName);
 
             if (identify.IdentifyState == IdentifyState.Quality && !HasComp<EquipmentComponent>(ent))
                     newState = IdentifyState.Full;
 
             if (identify.IdentifyState >= newState)
-                return new(false, identify.IdentifyState);
+                return new(false, identify.IdentifyState, prevName);
 
-            return new(true, newState);
+            return new(true, newState, prevName);
         }
 
-        public IdentifyResult Identify(EntityUid ent, IdentifyState state, IdentifyComponent? identify = null)
+        public IdentifyResult IdentifyItem(EntityUid ent, IdentifyState state, IdentifyComponent? identify = null)
         {
             if (!Resolve(ent, ref identify))
-                return new(false, IdentifyState.None);
+                return new(false, IdentifyState.None, _displayNames.GetDisplayName(ent));
 
             var result = GetNewIdentifyState(ent, state, identify);
 
@@ -119,7 +124,7 @@ namespace OpenNefia.Content.Identify
         public IdentifyResult TryToIdentify(EntityUid ent, int identifyPower, IdentifyComponent? identify = null)
         {
             if (!Resolve(ent, ref identify))
-                return new(false, IdentifyState.None);
+                return new(false, IdentifyState.None, _displayNames.GetDisplayName(ent));
 
             IdentifyState newState;
 
@@ -128,7 +133,15 @@ namespace OpenNefia.Content.Identify
             else
                 newState = IdentifyState.None;
 
-            return Identify(ent, newState);
+            return IdentifyItem(ent, newState);
+        }
+
+        public int GetIdentifyDifficulty(EntityUid ent, IdentifyComponent? identify = null)
+        {
+            if (!Resolve(ent, ref identify))
+                return 0;
+
+            return identify.IdentifyDifficulty;
         }
     }
 

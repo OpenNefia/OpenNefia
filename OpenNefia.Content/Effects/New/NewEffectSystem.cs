@@ -129,7 +129,7 @@ namespace OpenNefia.Content.Effects.New
             var common = args.Ensure<EffectCommonArgs>();
             if (!common.NoInheritItemCurseState)
             {
-                if (IsAlive(common.Item) && TryComp<CurseStateComponent>(common.Item, out var curseStateComp))
+                if (IsAlive(common.SourceItem) && TryComp<CurseStateComponent>(common.SourceItem, out var curseStateComp))
                     args.CurseState = curseStateComp.CurseState;
             }
 

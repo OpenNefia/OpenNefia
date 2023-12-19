@@ -33,18 +33,33 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 411
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    diceX: 0
+    diceY: 1
+    bonus: skillLevel * power * 10 / 100
+  - type: EffectIdentify
 
 - type: Entity
   id: Elona.SpellUncurse
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 412
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectUncurse
 
 - type: Entity
   id: Elona.SpellOracle
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 413
+  components:
+  - type: EffectTargetSelf
+  - type: EffectOracle
 
 - type: Entity
   id: Elona.SpellMagicDart

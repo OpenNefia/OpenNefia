@@ -68,7 +68,7 @@ namespace OpenNefia.Content.Activity
             var actor = args.Activity.Actor;
 
             _mes.Display(Loc.GetString("Elona.Read.Activity.Finish", ("reader", actor), ("book", component.AncientBook)), entity: actor);
-            _identify.Identify(component.AncientBook, IdentifyState.Full);
+            _identify.IdentifyItem(component.AncientBook, IdentifyState.Full);
             _mes.Display(Loc.GetString("Elona.Read.AncientBook.FinishedDecoding", ("book", component.AncientBook)));
 
             if (TryComp<AncientBookComponent>(component.AncientBook, out var ancientBook))

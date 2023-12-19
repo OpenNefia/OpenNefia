@@ -1,14 +1,14 @@
 Elona.Effect = {
     Common = {
-        ItIsCursed = "これは呪われている！",
+        ItIsCursed = "It's cursed!",
         CursedLaughter = function(target)
-            return ("%sは悪魔が笑う声を聞いた。"):format(_.name(target))
+            return ("%s hear%s devils laugh."):format(_.name(target), _.s(target))
         end,
         Resists = function(target)
-            return ("%sは抵抗した。"):format(_.name(target))
+            return ("%s resist%s."):format(_.name(target), _.s(target))
         end,
         CursedConsumable = function(target)
-            return ("%sは気分が悪くなった。"):format(_.name(target))
+            return ("%s feel%s grumpy."):format(_.name(target), _.s(target))
         end,
     },
 
@@ -96,5 +96,30 @@ Elona.Effect = {
         YoungerSister = "How...! You suddenly get a younger sister!",
         YoungLady = "A young lady falls from the sky.",
         CatSister = "How...! You suddenly get a younger cat sister!",
+    },
+
+    Oracle = {
+        Cursed = "You hear a sepulchral whisper but the voice is too small to distinguish a word.",
+        NoArtifactsYet = "No artifacts have been generated yet.",
+    },
+
+    Uncurse = {
+        Power = {
+            Normal = function(source, target)
+                return ("%s equipment are surrounded by a white aura."):format(_.possessive(target))
+            end,
+            Blessed = function(source, target)
+                return ("%s %s surrounded by a holy aura."):format(_.name(target), _.is(target))
+            end,
+        },
+        Apply = {
+            Equipment = function(source, target)
+                return ("The aura uncurses some of %s equipment."):format(_.his(target))
+            end,
+            Item = function(source, target)
+                return ("The aura uncurses some %s stuff."):format(_.his(target))
+            end,
+            Resisted = "Several items resist the aura and remain cursed.",
+        },
     },
 }

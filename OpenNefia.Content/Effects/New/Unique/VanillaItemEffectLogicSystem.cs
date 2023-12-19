@@ -47,8 +47,6 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
             }
 
-            var level = args.OutDamage;
-            var quality = Quality.Good;
             var filter = component.CharaFilter;
 
             // TODO CharaFilter.Clone()
@@ -57,6 +55,8 @@ namespace OpenNefia.Content.Effects.New.Unique
             else
                 filter.Tags = null;
 
+            filter.MinLevel = args.OutDamage;
+            filter.Quality = Quality.Good;
             filter.CommonArgs.NoLevelScaling = true;
             filter.CommonArgs.NoRandomModify = true;
 

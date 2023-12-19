@@ -1,14 +1,14 @@
 Elona.Effect = {
     Common = {
-        ItIsCursed = "It's cursed!",
+        ItIsCursed = "これは呪われている！",
         CursedLaughter = function(target)
-            return ("%s hear%s devils laugh."):format(_.name(target), _.s(target))
+            return ("%sは悪魔が笑う声を聞いた。"):format(_.name(target))
         end,
         Resists = function(target)
-            return ("%s resist%s."):format(_.name(target), _.s(target))
+            return ("%sは抵抗した。"):format(_.name(target))
         end,
         CursedConsumable = function(target)
-            return ("%s feel%s grumpy."):format(_.name(target), _.s(target))
+            return ("%sは気分が悪くなった。"):format(_.name(target))
         end,
     },
 
@@ -89,5 +89,26 @@ Elona.Effect = {
         YoungerSister = "なんと、あなたには生き別れた血の繋がっていない妹がいた！",
         YoungLady = "お嬢さんが空から降ってきた！",
         CatSister = "なんと、あなたには生き別れた血の繋がっていないぬこの妹がいた！",
+    },
+
+    Oracle = {
+        Cursed = "何かがあなたの耳元でささやいたが、あなたは聞き取ることができなかった。",
+        NoArtifactsYet = "まだ特殊なアイテムは生成されていない。",
+    },
+
+    Uncurse = {
+        Power = {
+            Normal = function(source, target)
+                return ("%sの装備品は白い光に包まれた。"):format(_.name(target))
+            end,
+            Blessed = function(source, target)
+                return ("%sは聖なる光に包み込まれた。"):format(_.name(target))
+            end,
+        },
+        Apply = {
+            Equipment = "身に付けている装備の幾つかが浄化された。",
+            Item = "幾つかのアイテムが浄化された。",
+            Resisted = "幾つかのアイテムは抵抗した。",
+        },
     },
 }

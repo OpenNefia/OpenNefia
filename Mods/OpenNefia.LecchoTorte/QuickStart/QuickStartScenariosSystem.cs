@@ -42,6 +42,7 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
 using OpenNefia.Content.Scroll;
+using OpenNefia.Content.CurseStates;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -59,7 +60,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
         [Dependency] private readonly IEquipmentSystem _equip = default!;
-        [Dependency] private readonly IMaterialSystem _materials = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
@@ -180,6 +180,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
             foreach (var action in _protos.EnumeratePrototypes<ActionPrototype>())
                 _skills.GainSkill(player, action.SkillID);
 
+            // Generate an artifact for oracle
+            _itemGen.GenerateItem(map.AtPos(3, 3), Protos.Item.BloodMoon);
+
             _weathers.TryChangeWeather(Protos.Weather.Rain, GameTimeSpan.FromHours(6));
 
             cb(player, map);
@@ -200,7 +203,16 @@ namespace OpenNefia.LecchoTorte.QuickStart
                         _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
 
                     if (proto.Components.HasComponent<ScrollComponent>())
-                        _itemGen.GenerateItem(map.AtPos((2, 4)), proto.GetStrongID(), amount: 99);
+                    {
+                        foreach (var curseState in EnumHelpers.EnumerateValues<CurseState>())
+                        {
+                            var item = _itemGen.GenerateItem(map.AtPos((2, 4)), proto.GetStrongID(), amount: 99);
+                            if (IsAlive(item))
+                            {
+                                EnsureComp<CurseStateComponent>(item.Value).CurseState = curseState;
+                            }
+                        }
+                    }
                 }
 
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))

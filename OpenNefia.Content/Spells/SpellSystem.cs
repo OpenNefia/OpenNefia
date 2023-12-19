@@ -381,6 +381,8 @@ namespace OpenNefia.Content.Spells
             var rapidMagicShots = 1;
             if (spells.CanCastRapidMagic.Buffed && spell.IsRapidCastable)
             {
+                // TODO reduce spell power!
+                // if rapidMagic : efP=efP/2+1:dice1=dice1/2+1:dice2=dice2/2+1:bonus=bonus/2+1
                 rapidMagicShots = 1 + (_rand.OneIn(3) ? 1 : 0) + (_rand.OneIn(2) ? 1 : 0);
             }
 

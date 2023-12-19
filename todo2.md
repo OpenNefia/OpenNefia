@@ -55,6 +55,7 @@
 - [ ] update NuGet packages
 - [ ] robust upstream commits
 - [ ] serializer strict mode
+- [ ] make event subscriptions declarative (no more `IEntitySystem.Initialize()`) for better hot reloading
 - [ ] data definition for "randomly pickable list" (element associated with weight)
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading
