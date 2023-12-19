@@ -109,6 +109,7 @@
   - type: EffectAreaAnimation
     showAnimation: false
   - type: EffectAreaBall
+    includeOriginPos: true
   - type: EffectBaseDamageDice
     diceX: (skillLevel / 20) + 3
     diceY: (power / 15) + 5

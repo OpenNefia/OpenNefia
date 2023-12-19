@@ -33,6 +33,12 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectAreaBallComponent : Component
     {
+        /// <summary>
+        /// If true, the caster's position will have the effect applied to it.
+        /// Set to false if you intend to damage other entities.
+        /// </summary>
+        [DataField]
+        public bool IncludeOriginPos { get; set; } = false;
     }
 
     /// <summary>
@@ -52,7 +58,7 @@ namespace OpenNefia.Content.Effects.New
         public bool ShowAnimation { get; set; } = true;
 
         [DataField]
-        public Color? Color { get; set; } = OpenNefia.Core.Maths.Color.White;
+        public Color? Color { get; set; }
 
         [DataField]
         public SoundSpecifier? Sound { get; set; } 

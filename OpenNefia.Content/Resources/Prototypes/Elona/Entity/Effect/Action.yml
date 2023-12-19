@@ -209,12 +209,6 @@
   parent: Elona.BaseActionEffect
 
 - type: Entity
-  id: Elona.ActionRainOfSanity
-  hspIds:
-    elona122: 637
-  parent: Elona.BaseActionEffect
-
-- type: Entity
   id: Elona.ActionEyeOfDimness
   hspIds:
     elona122: 638
@@ -314,12 +308,6 @@
   id: Elona.ActionPregnant
   hspIds:
     elona122: 654
-  parent: Elona.BaseActionEffect
-
-- type: Entity
-  id: Elona.ActionGrenade
-  hspIds:
-    elona122: 655
   parent: Elona.BaseActionEffect
 
 - type: Entity

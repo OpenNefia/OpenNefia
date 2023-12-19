@@ -92,5 +92,29 @@ namespace OpenNefia.Core.Utility
                 }
             }
         }
+
+        public static IEnumerable<Vector2i> EnumerateBallPositions(Vector2i origin, int radius, UIBox2i bounds, bool includeStartPos = false)
+        {
+            for (var i = 0; i <= radius * 2; i++)
+            {
+                var ty = origin.Y - radius + i;
+                if (ty >= bounds.Left && ty < bounds.Right)
+                {
+                    for (var j = 0; j <= radius * 2; j++)
+                    {
+                        var tx = origin.X - radius + j;
+                        if (tx >= bounds.Left && tx < bounds.Right)
+                        {
+                            var pos = new Vector2i(tx, ty);
+                            // TODO: verify this in HSP.
+                            if (double.Floor((pos - origin).Length) <= radius && (includeStartPos || pos != origin))
+                            {
+                                yield return pos;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

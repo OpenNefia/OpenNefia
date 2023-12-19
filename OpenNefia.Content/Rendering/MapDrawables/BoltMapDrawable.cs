@@ -117,7 +117,7 @@ namespace OpenNefia.Content.Rendering
 
                     if (Map.IsInBounds(_tilePos) && Map.CanSeeThrough(_tilePos) && Map.IsInWindowFov(_tilePos))
                     {
-                        if ((_tilePos - _startPos.Position).Length > _range)
+                        if (double.Floor((_tilePos - _startPos.Position).Length) > _range)
                         {
                             _endFrames = 4;
                         }

@@ -2309,6 +2309,70 @@ local function print_lines()
     end
 end
 
+local function print_balls()
+    local ElonaPos = require "mod.elona.api.ElonaPos"
+    local InstancedMap = require "api.InstancedMap"
+
+    local test_cases = {
+        { 10, 10, 0 },
+        { 10, 10, 1 },
+        { 10, 10, 2 },
+        { 10, 10, 3 },
+        { 10, 10, 4 },
+    }
+
+    local map = InstancedMap:new(20, 20)
+    for _, case in ipairs(test_cases) do
+        local result = fun.iter(ElonaPos.make_ball(case[1], case[2], case[3], map, function()
+            return true
+        end))
+            :map(function(x)
+                return ("(%s, %s)"):format(x[1], x[2])
+            end)
+            :to_list()
+        result = table.concat(result, ", ")
+        print(
+            ("new((%s, %s), %s, new UIBox2i(0, 0, 20, 20), new Vector2i[] { %s }),"):format(
+                case[1],
+                case[2],
+                case[3],
+                result
+            )
+        )
+    end
+end
+
+local function print_dists()
+    local Pos = require "api.Pos"
+
+    local test_cases = {
+        { 0, 0, 0, 0 },
+        { 0, 0, 1, 0 },
+        { 0, 0, 2, 0 },
+        { 0, 0, 3, 0 },
+        { 0, 0, 1, 1 },
+        { 0, 0, 2, 1 },
+        { 0, 0, 3, 1 },
+        { 0, 0, 1, 2 },
+        { 0, 0, 2, 2 },
+        { 0, 0, 3, 2 },
+        { 0, 0, 1, 3 },
+        { 0, 0, 2, 3 },
+        { 0, 0, 3, 3 },
+        { 0, 0, 1, 4 },
+        { 0, 0, 2, 4 },
+        { 0, 0, 3, 4 },
+        { 0, 0, 1, 5 },
+        { 0, 0, 2, 5 },
+        { 0, 0, 3, 5 },
+    }
+
+    for _, case in ipairs(test_cases) do
+        local result = Pos.dist(case[1], case[2], case[3], case[4])
+        print(("new((%s, %s), (%s, %s), %s),"):format(case[1], case[2], case[3], case[4], result))
+    end
+end
+
 -- data["base.race"]
 --     :iter()
 --     :filter(function(d)
@@ -2321,6 +2385,8 @@ end
 
 -- print_spell_costs()
 -- print_lines()
+print_balls()
+-- print_dists()
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
 -- convert_scenes()

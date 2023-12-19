@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Rendering
         private readonly PrototypeId<SoundPrototype> _sound;
         private readonly IAssetInstance _asset;
         private readonly IList<Particle> _particles = new List<Particle>();
-        private float _rotDelta = -1;
+        private float _rotDelta;
 
         protected struct Particle
         {
@@ -34,13 +34,14 @@ namespace OpenNefia.Content.Rendering
 
         protected FrameCounter Counter;
 
-        public HealMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype> sound)
+        public HealMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype> sound, float rotDelta = -1f)
         {
             // TODO
             IoCManager.InjectDependencies(this);
 
             _sound = sound;
             _asset = Assets.Get(asset);
+            _rotDelta = rotDelta;
 
             var waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) / 5;
 

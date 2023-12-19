@@ -256,7 +256,7 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap { get; }
         public MapCoordinates TargetCoordsMap { get; }
 
-        public IMap Map { get; }
+        public IMap SourceMap { get; }
         public IMap TargetMap { get; }
     }
 
@@ -285,7 +285,7 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
         public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
 
-        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }
@@ -361,7 +361,7 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
         public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
 
-        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }

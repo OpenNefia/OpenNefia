@@ -103,4 +103,18 @@ namespace OpenNefia.Content.Effects.New
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
     }
+
+    /// <summary>
+    /// Causes sanity healing "damage" to targets.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageHealSanityComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealSanity.RainOfSanity";
+    }
 }

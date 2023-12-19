@@ -107,30 +107,6 @@
     elona122: 430
 
 - type: Entity
-  id: Elona.SpellIceBall
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 431
-
-- type: Entity
-  id: Elona.SpellFireBall
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 432
-
-- type: Entity
-  id: Elona.SpellChaosBall
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 433
-
-- type: Entity
-  id: Elona.SpellRagingRoar
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 434
-
-- type: Entity
   id: Elona.SpellDominate
   parent: Elona.BaseSpellEffect
   hspIds:
@@ -282,12 +258,6 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 459
-
-- type: Entity
-  id: Elona.SpellMagicStorm
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 460
 
 - type: Entity
   id: Elona.SpellResurrection

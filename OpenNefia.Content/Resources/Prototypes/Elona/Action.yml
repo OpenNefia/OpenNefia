@@ -288,16 +288,6 @@
   staminaCost: 10
 
 - type: Elona.Action
-  id: Elona.RainOfSanity
-  hspIds:
-    elona122: 637
-#  difficulty: 500
-  skillID: Elona.ActionRainOfSanity
-  effectID: Elona.ActionRainOfSanity
-  staminaCost: 38
-  difficulty: 500
-
-- type: Elona.Action
   id: Elona.EyeOfDimness
   hspIds:
     elona122: 638
@@ -448,16 +438,6 @@
   skillID: Elona.ActionPregnant
   effectID: Elona.ActionPregnant
   staminaCost: 15
-
-- type: Elona.Action
-  id: Elona.Grenade
-  hspIds:
-    elona122: 655
-#  difficulty: 700
-  skillID: Elona.ActionGrenade
-  effectID: Elona.ActionGrenade
-  staminaCost: 18
-  difficulty: 700
 
 - type: Elona.Action
   id: Elona.Cheer

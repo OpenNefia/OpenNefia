@@ -27,6 +27,7 @@ using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Rendering;
+using OpenNefia.Content.Sanity;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -48,6 +49,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly ISanitySystem _sanities = default!;
 
         public override void Initialize()
         {
@@ -59,6 +61,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageElementalComponent, ApplyEffectDamageEvent>(ApplyDamage_Elemental);
 
             SubscribeComponent<EffectDamageHealingComponent, ApplyEffectDamageEvent>(ApplyDamage_Healing);
+            SubscribeComponent<EffectDamageHealSanityComponent, ApplyEffectDamageEvent>(ApplyDamage_HealSanity);
         }
 
         private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectBaseDamageDiceComponent component, EffectArgSet args)
@@ -252,6 +255,21 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1826 	call *anime,(animeId=aniHeal) ...
+        }
+
+        private void ApplyDamage_HealSanity(EntityUid uid, EffectDamageHealSanityComponent healComp, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.InnerTarget == null)
+                return;
+
+            // >>>>>>>> shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
+            var anim = new HealMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1, rotDelta: 5);
+            _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
+            if (TryGetEffectDamageMessage(args.InnerTarget.Value, healComp.MessageKey, out var message))
+                _mes.Display(message, entity: args.InnerTarget.Value);
+            _sanities.HealInsanity(args.InnerTarget.Value, args.Args.Power / 10);
+            _statusEffects.Heal(args.InnerTarget.Value, Protos.StatusEffect.Insanity, 9999);
+            // <<<<<<<< shade2/proc.hsp:1768 			} ..
         }
     }
 }

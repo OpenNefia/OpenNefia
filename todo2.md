@@ -54,6 +54,7 @@
 
 ## analyzers
 - [ ] data definitions must have a zero-arg constructor
+- [ ] serializer strict mode
 - [ ] any components with `Stat<T>` must implement `IComponentRefreshable`
 - [ ] `[DataField]` types must be serializable
 - [ ] `HandleableEntityEventArgs.Handled` must be checked in all event handlers

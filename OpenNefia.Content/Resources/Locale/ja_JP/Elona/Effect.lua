@@ -29,6 +29,12 @@ Elona.Effect = {
         },
     },
 
+    HealSanity = {
+        RainOfSanity = function(target)
+            return ("%sの狂気は消え去った。"):format(_.name(target))
+        end,
+    },
+
     Identify = {
         Fully = function(item)
             return ("それは%sだと完全に判明した。"):format(_.name(item))

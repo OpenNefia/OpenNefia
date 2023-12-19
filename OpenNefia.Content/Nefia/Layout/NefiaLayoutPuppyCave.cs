@@ -85,7 +85,7 @@ namespace OpenNefia.Content.Nefia
                         return;
                     }
 
-                    if ((pos - dpos).Length >= width / 2)
+                    if (double.Floor((pos - dpos).Length) >= width / 2)
                     {
                         return;
                     }

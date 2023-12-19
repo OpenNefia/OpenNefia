@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (args.Handled)
                 return;
 
-            var map = args.Map;
+            var map = args.SourceMap;
 
             if (!_mapTilesets.TryGetTile(Protos.Tile.MapgenWall, map, out var tileID)
                 || !map.IsInBounds(args.TargetCoordsMap)

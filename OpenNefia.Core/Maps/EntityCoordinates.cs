@@ -215,7 +215,7 @@ namespace OpenNefia.Core.Maps
                 return false;
             }
 
-            distance = (int)distanceFractional;
+            distance = (int)double.Floor(distanceFractional);
             return true;
         }
 

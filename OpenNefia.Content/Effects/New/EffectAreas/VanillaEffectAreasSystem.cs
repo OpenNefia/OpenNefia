@@ -41,6 +41,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         public override void Initialize()
         {
             SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
+            SubscribeComponent<EffectAreaBallComponent, ApplyEffectAreaEvent>(ApplyArea_Ball);
             SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
             SubscribeComponent<EffectAreaAnimationComponent, GetEffectAnimationParamsEvent>(ApplyAreaAnimFallback, priority: EventPriorities.VeryLow + 100000);
         }
@@ -70,6 +71,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 args.OutSound = component.Sound.GetSound();
         }
 
+        // TODO refactor into GetEffectMapDrawable?
         private bool TryGetEffectColorAndSound(EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectAnimationParams? result)
         {
             var ev = new GetEffectAnimationParamsEvent(args);
@@ -78,7 +80,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             {
                 result = null;
                 return false;
-            }    
+            }
             result = new(ev.OutColor, ev.OutSound);
             return true;
         }
@@ -158,7 +160,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             }
 
             var curPos = args.SourceCoordsMap.Position;
-            var map = args.Map;
+            var map = args.SourceMap;
 
             var obvious = false;
 
@@ -177,6 +179,55 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
                     _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
                     var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, offsets.Count, i);
+
+                    obvious = obvious || result.EffectWasObvious;
+                }
+            }
+
+            args.CommonArgs.OutEffectWasObvious = obvious;
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
+        }
+
+        private void ApplyArea_Ball(EntityUid uid, EffectAreaBallComponent component, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:1697 	case skBolt ...
+            var map = args.SourceMap;
+            var positions = PosHelpers.EnumerateBallPositions(args.SourceCoordsMap.Position, args.Args.TileRange, map.Bounds, component.IncludeOriginPos)
+                .Select(p => map.AtPos(p))
+                .ToList();
+
+            if (positions.Count == 0)
+            {
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+
+            var range = args.CommonArgs.TileRange;
+
+            if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
+            {
+                var anim = new BallMapDrawable(positions, animParams.Color, animParams.Sound);
+                _mapDrawables.Enqueue(anim, args.Source);
+            }
+
+            var curPos = args.SourceCoordsMap.Position;
+
+            var obvious = false;
+
+            for (var i = 0; i < positions.Count; i++)
+            {
+                var coords = positions[i];
+
+                ApplyEffectTileDamage(uid, args.Source, coords, args.Args);
+
+                if (coords.TryToEntity(_mapManager, out var curPosEntity))
+                {
+                    _targetable.TryGetTargetableEntity(coords, out var innerTarget);
+                    var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, positions.Count, i);
 
                     obvious = obvious || result.EffectWasObvious;
                 }
