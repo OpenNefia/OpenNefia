@@ -43,13 +43,15 @@ namespace OpenNefia.Content.Effects.New.Unique
                 || !map.CanAccess(args.TargetCoordsMap)
                 || map.GetTileID(args.TargetCoordsMap) == tileID)
             {
+                // TODO combine nothing happens flags so message doesn't appear
+                // more than once
                 _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
                 args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
                 args.Handle(TurnResult.Failed);
                 return;
             }
 
-            _mes.Display(Loc.GetString("Elona.Effect.Spell.WallCreation.WallAppears"));
+            _mes.Display(Loc.GetString("Elona.Effect.Spell.WallCreation.WallAppears"), combineDuplicates: true);
             _audio.Play(Protos.Sound.Offer1, args.TargetCoordsMap);
 
             map.SetTile(args.TargetCoordsMap, tileID.Value);

@@ -32,7 +32,7 @@ namespace OpenNefia.Content.UI.Layer
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ICoords _coords = default!;
-        
+
         public MapCoordinates TileOrigin { get; set; }
 
         public sealed class Item
@@ -51,7 +51,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             EntitySystem.InjectDependencies(this);
         }
-        
+
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
@@ -83,7 +83,7 @@ namespace OpenNefia.Content.UI.Layer
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
-                
+
                 cell.SetSize(_coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
             }
         }
@@ -94,14 +94,14 @@ namespace OpenNefia.Content.UI.Layer
             Love.Graphics.SetBlendMode(BlendMode.Add);
             Love.Graphics.SetColor(UiColors.PromptTargetedTile);
             Love.Graphics.Rectangle(DrawMode.Fill, targetScreenPos.X, targetScreenPos.Y, _coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
-            
+
             Love.Graphics.SetColor(UiColors.PromptHighlightedTile);
             foreach (var pos in PosHelpers.EnumerateLine(TileOrigin.Position, targetTilePos))
             {
                 var screenPos = _field.Camera.TileToVisibleScreen(pos);
                 Love.Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, _coords.TileSize.X * _coords.TileScale, _coords.TileSize.Y * _coords.TileScale);
             }
-            
+
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
         }
 
@@ -121,7 +121,7 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
     }
-    
+
     public sealed class TargetPrompt : UiLayerWithResult<TargetPrompt.Args, TargetPrompt.Result>
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -135,11 +135,13 @@ namespace OpenNefia.Content.UI.Layer
         {
             public EntityUid Onlooker { get; set; }
             public IReadOnlyList<EntityUid>? Targets { get; set; }
+            public EntityUid? CurrentTarget { get; set; }
 
-            public Args(EntityUid onlooker, IReadOnlyList<EntityUid>? targets = null)
+            public Args(EntityUid onlooker, IReadOnlyList<EntityUid>? targets = null, EntityUid? currentTarget = null)
             {
                 Onlooker = onlooker;
                 Targets = targets;
+                CurrentTarget = currentTarget;
             }
         }
 
@@ -155,7 +157,7 @@ namespace OpenNefia.Content.UI.Layer
 
         [Child] private TargetPromptList List = new();
         [Child] private UiText TextTarget = new UiTextOutlined(UiFonts.TargetText);
-        
+
         private EntityUid _onlooker;
 
         public TargetPrompt()
@@ -188,9 +190,9 @@ namespace OpenNefia.Content.UI.Layer
             List.TileOrigin = _entityManager.GetComponent<SpatialComponent>(_onlooker)
                 .MapPosition;
 
-            var targets = args.Targets?.Select(u => _entityManager.GetComponent<SpatialComponent>(u)) 
+            var targets = args.Targets?.Select(u => _entityManager.GetComponent<SpatialComponent>(u))
                           ?? _targeting.FindTargets(_onlooker);
-            
+
             List.SetCells(targets.Select(spatial =>
             {
                 var item = new TargetPromptList.Item(spatial.Owner, spatial.MapPosition);
@@ -199,8 +201,15 @@ namespace OpenNefia.Content.UI.Layer
                     Text = string.Empty
                 };
             }));
+
+            if (args.CurrentTarget != null)
+            {
+                var index = targets.FindIndex(t => t.Owner == args.CurrentTarget.Value);
+                if (index != -1)
+                    List.Select(index);
+            }
         }
-        
+
         public override void GrabFocus()
         {
             base.GrabFocus();
@@ -210,7 +219,7 @@ namespace OpenNefia.Content.UI.Layer
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
-            {            
+            {
                 Cancel();
             }
         }
@@ -236,7 +245,7 @@ namespace OpenNefia.Content.UI.Layer
                 TextTarget.Text = String.Empty;
                 return;
             }
-            
+
             var canSee = _targetText.GetTargetText(_onlooker, List.SelectedCell.Data.TilePosition, out var text, visibleOnly: true);
             TextTarget.Text = text;
         }

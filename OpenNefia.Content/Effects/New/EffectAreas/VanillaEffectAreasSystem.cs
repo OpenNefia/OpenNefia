@@ -40,12 +40,13 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
         public override void Initialize()
         {
-            SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
-            SubscribeComponent<EffectAreaBallComponent, ApplyEffectAreaEvent>(ApplyArea_Ball);
             SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
             SubscribeComponent<EffectAreaAnimationComponent, GetEffectAnimationParamsEvent>(ApplyAreaAnimFallback, priority: EventPriorities.VeryLow + 100000);
-        }
 
+            SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
+            SubscribeComponent<EffectAreaBallComponent, ApplyEffectAreaEvent>(ApplyArea_Ball);
+            SubscribeComponent<EffectAreaBreathComponent, ApplyEffectAreaEvent>(ApplyArea_Breath);
+        }
 
         /// <summary>
         /// If nothing handled an earlier <see cref="ApplyEffectAreaEvent"/>,
@@ -197,6 +198,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             // >>>>>>>> elona122/shade2/proc.hsp:1697 	case skBolt ...
             var map = args.SourceMap;
             var positions = PosHelpers.EnumerateBallPositions(args.SourceCoordsMap.Position, args.Args.TileRange, map.Bounds, component.IncludeOriginPos)
+                .Where(p => map.HasLineOfSight(args.SourceCoordsMap.Position, p))
                 .Select(p => map.AtPos(p))
                 .ToList();
 
@@ -236,6 +238,110 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             args.CommonArgs.OutEffectWasObvious = obvious;
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
+        }
+
+        public IEnumerable<Vector2i> EnumerateBreathPositions(Vector2i from , Vector2i to, int tileRange, UIBox2i bounds)
+        {
+            var breathWidth = 1;
+            var count = 0;
+            var seen = new HashSet<Vector2i>();
+
+            foreach (var pos in PosHelpers.EnumerateLine(from, to, includeStartPos: true).Take(tileRange))
+            {
+                if (count < 6)
+                {
+                    if (count % 3 == 1)
+                    {
+                        breathWidth += 2;
+                    }
+                }
+                else
+                {
+                    breathWidth = int.Max(breathWidth - 2, 3);
+                }
+
+                count++;
+                if (count > tileRange)
+                    break;
+
+                for (var j = 0; j < breathWidth; j++)
+                {
+                    var ty = j - breathWidth / 2 + pos.Y;
+                    for (var i = 0; i < breathWidth; i++)
+                    {
+                        var tx = i - breathWidth / 2 + pos.X;
+
+                        var rpos = new Vector2i(tx, ty);
+                        if (!seen.Contains(rpos))
+                        {
+                            yield return rpos;
+                            seen.Add(rpos);
+                        }
+
+                        // 1.22 behavior
+                        // if (seen.Count >= 100)
+                        //     yield break;
+                    }
+                }
+            }
+        }
+
+        private void ApplyArea_Breath(EntityUid uid, EffectAreaBreathComponent component, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var map = args.SourceMap;
+            if (!map.HasLineOfSight(args.SourceCoordsMap, args.TargetCoordsMap) || !map.IsInWindowFov(args.SourceCoordsMap))
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            string breathName;
+            if (TryComp<EffectDamageElementalComponent>(uid, out var effElem) && effElem.Element != null)
+            {
+                breathName = Loc.GetPrototypeString(effElem.Element.Value, "Name");
+                breathName = Loc.GetString("Elona.Magic.Message.Breath.Named", ("breathName", breathName));
+            }
+            else
+            {
+                breathName = Loc.GetString(component.BreathNameKey);
+            }
+            _mes.Display(Loc.GetString("Elona.Magic.Message.Breath.Bellows", ("source", args.Source), ("breathName", breathName)), entity: args.Source);
+
+            var positions = EnumerateBreathPositions(args.SourceCoordsMap.Position, args.TargetCoordsMap.Position, args.Args.TileRange, args.TargetMap.Bounds)
+                .Where(p => map.HasLineOfSight(args.SourceCoordsMap.Position, p))
+                .Select(p => map.AtPos(p))
+                .ToList();
+
+            if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
+            {
+                var anim = new BreathMapDrawable(positions, args.SourceCoordsMap, args.TargetCoordsMap, animParams.Color, animParams.Sound);
+                _mapDrawables.Enqueue(anim, args.Source);
+            }
+
+            var obvious = false;
+
+            for (var i = 0; i < positions.Count; i++)
+            {
+                var curPosMap = positions[i];
+                if (component.IncludeOriginPos || curPosMap != args.SourceCoordsMap)
+                {
+                    ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args);
+
+                    if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
+                    {
+                        _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
+                        var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, positions.Count, i);
+
+                        obvious = obvious || result.EffectWasObvious;
+                    }
+                }
+            }
+
+            args.CommonArgs.OutEffectWasObvious = obvious;
+            args.Handle(TurnResult.Succeeded);
         }
 
         private EffectDamageResult ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid? innerTarget, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)

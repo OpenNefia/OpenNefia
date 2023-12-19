@@ -280,7 +280,11 @@ namespace OpenNefia.Content.GameObjects
             }
             else
             {
-                var args = new TargetPrompt.Args(session.Player);
+                var currentTarget = CompOrNull<VanillaAIComponent>(session.Player)?.CurrentTarget;
+                var args = new TargetPrompt.Args(session.Player)
+                {
+                    CurrentTarget = currentTarget
+                };
                 var result = _uiManager.Query<TargetPrompt, TargetPrompt.Args, TargetPrompt.Result>(args);
                 if (result.HasValue && IsAlive(result.Value.Target))
                 {

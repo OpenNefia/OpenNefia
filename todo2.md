@@ -13,13 +13,14 @@
 - [x] riding
 - [ ] magic/buffs/effects
   + [ ] timestop
-- [ ] AI/calm actions
+- [ ] magic items
 - [x] living weapons
 - [ ] cargo
-- [ ] magic items
 - [ ] all item events/properties
   + [ ] corpses
   + [ ] card/figure/sandbag drawables
+- [ ] AI/calm actions
+- [ ] all commands
 - [ ] buildings/zones
 - [ ] all unique areas
 - [ ] house guests
@@ -27,10 +28,12 @@
 - [ ] all chara events/properties
   + [ ] custom talk
 - [ ] religion
-- [ ] effect protoevents -> ECS
+- [ ] guilds
+- [ ] animated tiles/water
 - [ ] main quest/sidequests/dialogs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
+- [x] status effect protoevents -> ECS
 - [x] staying charas
 - [ ] arena/pet arena
 - [ ] nefia generation refactor
@@ -41,6 +44,7 @@
 - [ ] theming
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] non-compiled mods
+- [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
 - [ ] Qy@
 - [ ] mod API examples
 - [ ] robust upstream commits

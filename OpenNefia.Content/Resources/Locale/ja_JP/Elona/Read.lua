@@ -28,7 +28,7 @@ Elona.Read = {
             Decoded = function(name)
                 return ("解読済みの%s"):format(name)
             end,
-            -- Undecoded = nil,
+            Undecoded = "",
 
             Title = function(name, title)
                 return ("《%s》という題名の%s"):format(title, name)

@@ -101,7 +101,7 @@
     cvar: display.tileScale
     min: 1.0
     max: 4.0
-    step: 0.1
+    step: 0.5
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenTileFilterMode

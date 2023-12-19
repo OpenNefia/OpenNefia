@@ -1,3 +1,4 @@
+-- TODO merge elsewhere
 Elona.Magic = {
     FailToCast = {
         CreaturesAreSummoned = "Several creatures are summoned from a vortex of magic.",
@@ -59,11 +60,12 @@ Elona.Magic = {
             Other = function(entity)
                 return ("The breath hits %s and"):format(_.name(entity))
             end,
+
             Bellows = function(entity, breathName)
                 return ("%s bellow%s %s from %s mouth."):format(_.name(entity), _.s(entity), breathName, _.his(entity))
             end,
-            Named = function(entity)
-                return ("%s breath"):format(entity)
+            Named = function(breathName)
+                return ("%s breath"):format(breathName)
             end,
             NoElement = "breath",
         },

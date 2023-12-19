@@ -104,6 +104,7 @@ namespace OpenNefia.Content.UI.Hud
 
         private const int BacklogLines = 26;
         private const int MessageBoxLines = 4;
+        private const int MaxMessages = 500;
 
         private float MessageFadeAmount => (float)_config.GetCVar(CCVars.MessageFade) / 100f;
         private bool NeedsRelayout;
@@ -112,7 +113,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             IoCManager.InjectDependencies(this);
             //not the amount of lines, but the amount of messages
-            Messages = new CircularBuffer<FormattedMessage>(200);
+            Messages = new CircularBuffer<FormattedMessage>(MaxMessages);
             MessageBoxContainer = messageBoxContainer;
             BacklogContainer = backLogContainer;
         }

@@ -193,7 +193,7 @@ namespace OpenNefia.Core.Locale
             }
             catch (Exception ex)
             {
-                Logger.ErrorS("loc", ex, $"Error in locale function: {ex}");
+                Logger.ErrorS("loc", ex, $"Error in locale function ({key}): {ex}");
                 str = $"<exception: {ex.Message} ({key})>";
             }
 

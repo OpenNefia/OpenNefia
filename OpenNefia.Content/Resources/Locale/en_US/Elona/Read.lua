@@ -25,7 +25,7 @@ Elona.Read = {
 
     AncientBook = {
         ItemName = {
-            -- Decoded = nil,
+            Decoded = "",
             Undecoded = function(name)
                 return ("undecoded %s"):format(name)
             end,

@@ -175,7 +175,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void GetAnimParams_Elemental(EntityUid uid, EffectDamageElementalComponent component, GetEffectAnimationParamsEvent args)
         {
-            if (_protos.TryIndex(component.Element, out var eleProto))
+            if (component.Element != null && _protos.TryIndex(component.Element.Value, out var eleProto))
             {
                 args.OutColor = eleProto.Color;
                 args.OutSound = eleProto.Sound?.GetSound();
@@ -231,7 +231,9 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 // "The bolt hits the putit and {transforms} him..."
                 AttackerIsMessageSubject = false
             };
-            var damageType = new ElementalDamageType(component.Element, args.OutElementalPower);
+            IDamageType? damageType = null;
+            if (component.Element != null)
+                damageType = new ElementalDamageType(component.Element.Value, args.OutElementalPower);
             _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
         }
 

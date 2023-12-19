@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Audio;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -48,6 +49,11 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectAreaBreathComponent : Component
     {
+        [DataField]
+        public bool IncludeOriginPos { get; set; } = false;
+
+        [DataField]
+        public LocaleKey BreathNameKey { get; set; } = "Elona.Magic.Message.Breath.NoElement";
     }
 
     [RegisterComponent]

@@ -1,3 +1,4 @@
+-- TODO merge elsewhere
 Elona.Magic = {
     FailToCast = {
         CreaturesAreSummoned = "魔力の渦が何かを召喚した！",
@@ -56,16 +57,17 @@ Elona.Magic = {
             Ally = function(entity)
                 return ("ブレスは%sに命中した。"):format(_.name(entity))
             end,
-            Bellows = function(entity, breathName)
-                return ("%sは%sブレスを吐いた。"):format(_.name(entity), breathName)
-            end,
-            Named = function(entity)
-                return ("%sの"):format(entity)
-            end,
-            NoElement = "",
             Other = function(entity)
                 return ("ブレスは%sに命中し"):format(_.name(entity))
             end,
+
+            Bellows = function(entity, breathName)
+                return ("%sは%sブレスを吐いた。"):format(_.name(entity), breathName)
+            end,
+            Named = function(breathName)
+                return ("%sの"):format(breathName)
+            end,
+            NoElement = "",
         },
     },
 }

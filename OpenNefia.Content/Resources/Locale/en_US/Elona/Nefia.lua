@@ -12,7 +12,7 @@ Elona.Nefia = {
     Event = {
         ReachedDeepestLevel = "It seems you have reached the deepest level of this dungeon.",
         GuardedByLord = function(mapEntity, bossEntity)
-            return ("Be aware! This level is guarded by the lord of %s, %s."):format(
+            return ("Beware! This level is guarded by the lord of %s, %s."):format(
                 _.name(mapEntity),
                 _.basename(bossEntity)
             )

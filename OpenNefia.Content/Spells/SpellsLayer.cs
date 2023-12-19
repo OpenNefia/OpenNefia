@@ -219,6 +219,7 @@ namespace OpenNefia.Content.Spells
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
+                PreviousListIndex = _list.SelectedIndexAcrossAllPages;
                 Cancel();
                 args.Handle();
             }

@@ -87,7 +87,7 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectDamageElementalComponent : Component
     {
         [DataField]
-        public PrototypeId<ElementPrototype> Element { get; set; } = Prototypes.Protos.Element.Fire;
+        public PrototypeId<ElementPrototype>? Element { get; set; } = null;
     }
 
     /// <summary>

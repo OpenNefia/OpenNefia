@@ -153,17 +153,23 @@
   effectID: Elona.ActionRainOfSanity
   staminaCost: 38
   difficulty: 500
+  maxRange: 2
 - type: Entity
   id: Elona.ActionRainOfSanity
   hspIds:
     elona122: 637
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
   components:
+  - type: Effect
+    alignment: Positive
   - type: EffectTypeAction
+  - type: EffectTargetSelf
+  - type: EffectAreaAnimation
+    showAnimation: false
   - type: EffectAreaBall
     includeOriginPos: true
   - type: EffectBaseDamageDice
-    diceX: (level / 20) + 3
+    diceX: (skillLevel / 20) + 3
     diceY: (power / 15) + 5
     elementPower: power / 10
   # >>>>>>>> shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...

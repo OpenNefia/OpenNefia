@@ -135,7 +135,7 @@ namespace OpenNefia.Content.Spells
 
         public ActionsLayer()
         {
-            CanControlFocus = true;
+            CanControlFocus = false;
             EventFilter = UIEventFilterMode.Stop;
 
             OnKeyBindDown += HandleKeyBindDown;
@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Spells
 
             var cells = MakeListCells(args.Actions);
             _list.SetCells(cells);
-            _list.Select(PreviousListIndex);
+            _list.SelectAcrossAllPages(PreviousListIndex, playSound: false);
         }
 
         private IEnumerable<ActionsListCell> MakeListCells(IList<ActionPrototype> spells)
@@ -200,6 +200,7 @@ namespace OpenNefia.Content.Spells
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
+                PreviousListIndex = _list.SelectedIndexAcrossAllPages;
                 Cancel();
                 args.Handle();
             }
@@ -207,11 +208,11 @@ namespace OpenNefia.Content.Spells
 
         private void HandleListSelected(object? sender, UiListEventArgs<ListItem> e)
         {
-            PreviousListIndex = e.SelectedIndex;
         }
 
         private void HandleListActivated(object? sender, UiListEventArgs<ListItem> e)
         {
+            PreviousListIndex = _list.SelectedIndexAcrossAllPages;
             Finish(new(e.SelectedCell.Data.Action));
             e.Handle();
         }

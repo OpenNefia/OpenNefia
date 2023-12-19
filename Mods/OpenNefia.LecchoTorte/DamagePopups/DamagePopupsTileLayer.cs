@@ -89,7 +89,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
             foreach (var popupInst in _popups)
             {
-                popupInst.ScreenPosition = (popupInst.ScreenPosition.X, popupInst.ScreenPosition.Y - popupInst.DamagePopup.Font.Size * UIScale);
+                popupInst.ScreenPosition = (popupInst.ScreenPosition.X, popupInst.ScreenPosition.Y - popupInst.DamagePopup.Font.Size * _coords.TileScale);
             }
 
             var popupInstance = new DamagePopupInstance()

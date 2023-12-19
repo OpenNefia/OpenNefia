@@ -62,6 +62,7 @@ namespace OpenNefia.Content.Book
             }
             if (component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Decoded", out s, ("name", args.OutFullName.ToString())))
             {
+                // BUG function errors
                 args.OutFullName.Clear().Append(s);
             }
             else if (!component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Undecoded", out s, ("name", args.OutFullName.ToString())))

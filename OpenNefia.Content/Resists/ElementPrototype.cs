@@ -18,10 +18,10 @@ namespace OpenNefia.Content.Resists
         public bool CanResist { get; } = false;
 
         [DataField]
-        public Color Color { get; }
+        public Color Color { get; } = Color.White;
 
         [DataField("uiColor")]
-        public Color UIColor { get; }
+        public Color UIColor { get; } = Color.Black;
 
         [DataField]
         public SoundSpecifier? Sound { get; }
