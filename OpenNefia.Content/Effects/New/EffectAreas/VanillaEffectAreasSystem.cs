@@ -42,7 +42,9 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         {
             SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
             SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
+            SubscribeComponent<EffectAreaAnimationComponent, GetEffectAnimationParamsEvent>(ApplyAreaAnimFallback, priority: EventPriorities.VeryLow + 100000);
         }
+
 
         /// <summary>
         /// If nothing handled an earlier <see cref="ApplyEffectAreaEvent"/>,
@@ -59,15 +61,26 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             args.Handle(result.TurnResult);
         }
 
-        private const int RANGE_BOLT = 6;
-        private const int RANGE_BALL = 2;
-        private const int RANGE_BREATH = 5;
+        private void ApplyAreaAnimFallback(EntityUid uid, EffectAreaAnimationComponent component, GetEffectAnimationParamsEvent args)
+        {
+            args.OutShowAnimation = component.ShowAnimation;
+            if (component.Color != null)
+                args.OutColor = component.Color.Value;
+            if (component.Sound != null)
+                args.OutSound = component.Sound.GetSound();
+        }
 
-        private (Color, PrototypeId<SoundPrototype>?) GetEffectColorAndSound(EntityUid effect, EffectArgSet args)
+        private bool TryGetEffectColorAndSound(EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectAnimationParams? result)
         {
             var ev = new GetEffectAnimationParamsEvent(args);
             RaiseEvent(effect, ev);
-            return (ev.OutColor, ev.OutSound);
+            if (ev.OutShowAnimation == false)
+            {
+                result = null;
+                return false;
+            }    
+            result = new(ev.OutColor, ev.OutSound);
+            return true;
         }
 
         private void ApplyEffectTileDamage(EntityUid effect, EntityUid source, MapCoordinates coords, EffectArgSet args)
@@ -138,9 +151,11 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var range = args.CommonArgs.TileRange;
 
-            var (color, impactSound) = GetEffectColorAndSound(uid, args.Args);
-            var anim = new BoltMapDrawable(args.SourceCoordsMap, args.TargetCoordsMap, offsets, range, color, impactSound);
-            _mapDrawables.Enqueue(anim, args.Source);
+            if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
+            {
+                var anim = new BoltMapDrawable(args.SourceCoordsMap, args.TargetCoordsMap, offsets, range, animParams.Color, animParams.Sound);
+                _mapDrawables.Enqueue(anim, args.Source);
+            }
 
             var curPos = args.SourceCoordsMap.Position;
             var map = args.Map;
@@ -182,6 +197,8 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
     public sealed record class EffectDamageResult(TurnResult TurnResult, bool EffectWasObvious);
 
+    public sealed record class EffectAnimationParams(Color Color, PrototypeId<SoundPrototype>? Sound);
+
     [EventUsage(EventTarget.Effect)]
     public sealed class GetEffectAnimationParamsEvent : EntityEventArgs
     {
@@ -190,6 +207,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             Args = args;
         }
 
+        public bool OutShowAnimation { get; set; } = true;
         public Color OutColor { get; set; } = Color.White;
         public PrototypeId<SoundPrototype>? OutSound { get; set; }
         public EffectArgSet Args { get; }

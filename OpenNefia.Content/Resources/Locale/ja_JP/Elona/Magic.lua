@@ -20,6 +20,14 @@ Elona.Magic = {
     },
 
     Message = {
+        Generic = {
+            Ally = function(entity)
+                return ("%sに命中した。"):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("%sに命中し"):format(_.name(entity))
+            end,
+        },
         Arrow = {
             Ally = function(entity)
                 return ("矢が%sに命中した。"):format(_.name(entity))

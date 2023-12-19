@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             var matches = IntRangeRegex.Match(node.Value);
             if (!matches.Success)
-                throw new InvalidMappingException($"Could not parse {nameof(IntRange)}: '{node.Value}'. Must be formatted like '(0, 100)'.");
+                throw new InvalidMappingException($"Could not parse {nameof(IntRange)}: '{node.Value}'. Must be formatted like '0~100'.");
 
             return new IntRange(int.Parse(matches.Groups[1].Value), int.Parse(matches.Groups[2].Value));
         }
@@ -36,7 +36,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return IntRangeRegex.IsMatch(node.Value) 
                 ? new ValidatedValueNode(node) :
-                new ErrorNode(node, $"Could not parse {nameof(IntRange)}: '{node.Value}'. Must be formatted like '(0, 100)'.");
+                new ErrorNode(node, $"Could not parse {nameof(IntRange)}: '{node.Value}'. Must be formatted like '0~100'.");
         }
 
         public DataNode Write(ISerializationManager serializationManager, IntRange value, bool alwaysWrite = false,

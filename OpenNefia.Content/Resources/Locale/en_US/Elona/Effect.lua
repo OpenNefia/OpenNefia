@@ -13,20 +13,18 @@ Elona.Effect = {
     },
 
     Heal = {
-        Apply = {
-            Slightly = function(target)
-                return ("%s %s slightly healed."):format(_.name(target), _.is(target))
-            end,
-            Normal = function(target)
-                return ("%s %s healed."):format(_.name(target), _.is(target))
-            end,
-            Greatly = function(target)
-                return ("%s %s greatly healed."):format(_.name(target), _.is(target))
-            end,
-            Completely = function(target)
-                return ("%s %s completely healed."):format(_.name(target), _.is(target))
-            end,
-        },
+        Slightly = function(target)
+            return ("%s %s slightly healed."):format(_.name(target), _.is(target))
+        end,
+        Normal = function(target)
+            return ("%s %s healed."):format(_.name(target), _.is(target))
+        end,
+        Greatly = function(target)
+            return ("%s %s greatly healed."):format(_.name(target), _.is(target))
+        end,
+        Completely = function(target)
+            return ("%s %s completely healed."):format(_.name(target), _.is(target))
+        end,
     },
 
     Identify = {

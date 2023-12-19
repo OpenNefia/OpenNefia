@@ -1,10 +1,7 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Audio;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -45,5 +42,19 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectAreaBreathComponent : Component
     {
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaAnimationComponent : Component
+    {
+        [DataField]
+        public bool ShowAnimation { get; set; } = true;
+
+        [DataField]
+        public Color? Color { get; set; } = OpenNefia.Core.Maths.Color.White;
+
+        [DataField]
+        public SoundSpecifier? Sound { get; set; } 
     }
 }

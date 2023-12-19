@@ -175,7 +175,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             EnsureComp<FameComponent>(player).Fame.Base = 50000;
 
             foreach (var spell in _protos.EnumeratePrototypes<SpellPrototype>())
-                _skills.GainSkill(player, spell.SkillID);
+                _skills.GainSkill(player, spell.SkillID, new LevelAndPotential() { Level = new(50) });
             foreach (var action in _protos.EnumeratePrototypes<ActionPrototype>())
                 _skills.GainSkill(player, action.SkillID);
 

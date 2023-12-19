@@ -151,10 +151,10 @@ namespace OpenNefia.Content.Damage
             if (!Resolve(uid, ref skills))
                 return;
 
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxHP - skills.HP, 0));
-            skills.HP += amount;
+            int finalAmount = Math.Clamp(amount, 0, Math.Max(skills.MaxHP - skills.HP, 0));
+            skills.HP += finalAmount;
 
-            var ev = new AfterHealEvent(uid, HealType.HP, amount, showMessage);
+            var ev = new AfterHealEvent(uid, HealType.HP, amount, finalAmount, showMessage);
             RaiseEvent(uid, ref ev);
         }
 
@@ -163,10 +163,10 @@ namespace OpenNefia.Content.Damage
             if (!Resolve(uid, ref skills))
                 return;
 
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxMP - skills.MP, 0));
-            skills.MP += amount;
+            var finalAmount = Math.Clamp(amount, 0, Math.Max(skills.MaxMP - skills.MP, 0));
+            skills.MP += finalAmount;
 
-            var ev = new AfterHealEvent(uid, HealType.MP, amount, showMessage);
+            var ev = new AfterHealEvent(uid, HealType.MP, amount, finalAmount, showMessage);
             RaiseEvent(uid, ref ev);
         }
 
@@ -175,10 +175,10 @@ namespace OpenNefia.Content.Damage
             if (!Resolve(uid, ref skills))
                 return;
 
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxStamina - skills.Stamina, 0));
+            var finalAmount = Math.Clamp(amount, 0, Math.Max(skills.MaxStamina - skills.Stamina, 0));
             skills.Stamina += amount;
 
-            var ev = new AfterHealEvent(uid, HealType.Stamina, amount, showMessage);
+            var ev = new AfterHealEvent(uid, HealType.Stamina, amount, finalAmount, showMessage);
             RaiseEvent(uid, ref ev);
         }
 

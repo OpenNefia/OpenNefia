@@ -22,10 +22,27 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             return new Formula(node.Value);
         }
 
+        private Dictionary<string, double> _vars = new();
+
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,
             ISerializationContext? context = null)
         {
+            var engine = dependencies.Resolve<IFormulaEngine>();
+            try
+            {
+                engine.Calculate(new Formula(node.Value), _vars);
+                return new ValidatedValueNode(node);
+            }
+            catch (Jace.ParseException ex)
+            {
+                return new ErrorNode(node, "Formula parse error: " + ex.Message);
+            }
+            catch (Exception)
+            {
+                // Ignore execution errors, they're dependent on runtime values.
+            }
+
             return new ValidatedValueNode(node);
         }
 

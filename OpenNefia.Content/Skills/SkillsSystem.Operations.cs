@@ -12,7 +12,7 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem
     {
         public const int BonusPointExperienceAmount = 400;
-        
+
         public void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))
@@ -34,26 +34,28 @@ namespace OpenNefia.Content.Skills
         }
     }
 
-    public enum HealType
+    public static class HealType
     {
-        HP,
-        MP,
-        Stamina
+        public const string HP = $"Elona.{nameof(HP)}";
+        public const string MP = $"Elona.{nameof(MP)}";
+        public const string Stamina = $"Elona.{nameof(Stamina)}";
     }
 
     [ByRefEvent]
     public struct AfterHealEvent
     {
         public EntityUid Entity { get; }
-        public HealType Type { get; }
-        public int Amount { get; }
+        public string Type { get; }
+        public int OriginalAmount { get; }
+        public int ActualAmount { get; }
         public bool ShowMessage { get; }
 
-        public AfterHealEvent(EntityUid uid, HealType type, int amount, bool showMessage)
+        public AfterHealEvent(EntityUid uid, string type, int originalAmount, int actualAmount, bool showMessage)
         {
             Entity = uid;
             Type = type;
-            Amount = amount;
+            OriginalAmount = originalAmount;
+            ActualAmount = actualAmount;
             ShowMessage = showMessage;
         }
     }

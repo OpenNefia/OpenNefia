@@ -61,7 +61,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
             AddDamagePopup(new DamagePopup()
             {
-                Text = args.Amount.ToString(),
+                Text = args.OriginalAmount.ToString(),
                 Color = color
             }, uid);
         }

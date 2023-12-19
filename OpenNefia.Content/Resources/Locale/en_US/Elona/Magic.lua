@@ -20,6 +20,14 @@ Elona.Magic = {
     },
 
     Message = {
+        Generic = {
+            Ally = function(entity)
+                return ("It hits %s."):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("It hits %s and"):format(_.name(entity))
+            end,
+        },
         Arrow = {
             Ally = function(entity)
                 return ("The arrow hits %s."):format(_.name(entity))
@@ -30,7 +38,7 @@ Elona.Magic = {
         },
         Ball = {
             Ally = function(entity)
-                return ("The Ball hits %s."):format(_.name(entity))
+                return ("The ball hits %s."):format(_.name(entity))
             end,
             Other = function(entity)
                 return ("The ball hits %s and"):format(_.name(entity))

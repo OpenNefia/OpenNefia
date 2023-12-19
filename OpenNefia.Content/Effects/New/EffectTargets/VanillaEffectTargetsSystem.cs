@@ -76,6 +76,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
                     args.Handle(target);
                 else
                 {
+                    _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
                     effectCommon.OutEffectWasObvious = false;
                     args.Handle(null);
                 }
@@ -100,6 +101,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             }
             else
             {
+                _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
                 effectCommon.OutEffectWasObvious = false;
                 args.Handle(null);
             }
@@ -244,7 +246,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
 
         private bool TryGetDirectionalTarget(EntityUid source, [NotNullWhen(true)] out EntityUid? targetEnt)
         {
-            var dir = _uiManager.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(source, Loc.GetString("Elona.Targeting.Prompt.WhichDirectio")));
+            var dir = _uiManager.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(source, Loc.GetString("Elona.Targeting.Prompt.WhichDirection")));
 
             if (!dir.HasValue)
             {

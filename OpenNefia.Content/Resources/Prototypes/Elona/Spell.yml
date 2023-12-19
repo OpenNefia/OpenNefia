@@ -5,6 +5,7 @@
     elona122: 400
   difficulty: 80
   mpCost: 6
+  range: 2
   skillID: Elona.SpellHealLight
   effectID: Elona.SpellHealLight
 
@@ -14,6 +15,7 @@
     elona122: 401
   difficulty: 350
   mpCost: 15
+  range: 2
   skillID: Elona.SpellHealCritical
   effectID: Elona.SpellHealCritical
 
@@ -23,6 +25,7 @@
     elona122: 402
   difficulty: 800
   mpCost: 35
+  range: 2
   skillID: Elona.SpellCureOfEris
   effectID: Elona.SpellCureOfEris
 
@@ -32,6 +35,7 @@
     elona122: 403
   difficulty: 1300
   mpCost: 80
+  range: 2
   skillID: Elona.SpellCureOfJure
   effectID: Elona.SpellCureOfJure
 
@@ -41,6 +45,7 @@
     elona122: 404
   difficulty: 500
   mpCost: 38
+  range: 2
   skillID: Elona.SpellHealingRain
   effectID: Elona.SpellHealingRain
 
@@ -50,6 +55,7 @@
     elona122: 405
   difficulty: 400
   mpCost: 20
+  range: 2
   skillID: Elona.SpellHealingTouch
   effectID: Elona.SpellHealingTouch
 

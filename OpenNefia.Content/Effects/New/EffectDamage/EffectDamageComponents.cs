@@ -1,8 +1,10 @@
-﻿using OpenNefia.Content.Resists;
+﻿using OpenNefia.Content.Factions;
+using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
@@ -46,9 +48,23 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
+    /// Ignores targets in the AoE that have the specified relations.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageRelationsComponent : Component
+    {
+        /// <summary>
+        /// Relation range to use.
+        /// </summary>
+        [DataField]
+        public EnumRange<Relation> ValidRelations { get; }
+    }
+
+    /// <summary>
     /// Controls how the damage message is displayed.
-    /// Generally speaking, if you use the other EffectDamage
-    /// components, you should also include this one so that the
+    /// Generally speaking, if you use an EffectDamage component that
+    /// damages HP, you should also include this one so that the
     /// damage message is formatted correctly.
     /// </summary>
     [RegisterComponent]
@@ -60,7 +76,7 @@ namespace OpenNefia.Content.Effects.New
         /// messages for attacks that hit allies and non-allies.
         /// </summary>
         [DataField]
-        public LocaleKey RootKey { get; set; }
+        public LocaleKey RootKey { get; set; } = "Elona.Magic.Message.Generic";
     }
 
     /// <summary>
@@ -72,5 +88,19 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public PrototypeId<ElementPrototype> Element { get; set; } = Prototypes.Protos.Element.Fire;
+    }
+
+    /// <summary>
+    /// Causes healing "damage" to targets.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageHealingComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
     }
 }

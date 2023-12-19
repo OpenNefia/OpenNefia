@@ -28,7 +28,18 @@ using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Effects
 {
-    public sealed class CommonEffectsSystem : EntitySystem
+    public interface ICommonEffectsSystem
+    {
+        void Heal(EntityUid chara, int amount);
+        void WakeUpEveryone(IMap map);
+        void GetWet(EntityUid ent, int amount, StatusEffectsComponent? statusEffects = null);
+        void DamageTileFire(MapCoordinates coords, EntityUid? source);
+        void DamageItemsFire(EntityUid target);
+        void MakeSound(EntityUid origin, MapCoordinates coords, int tileRadius, float wakeChance, bool isWhistle = false);
+        void MakeSickIfCursed(EntityUid target, CurseState curseState, int oneInChance = 1);
+    }
+
+    public sealed class CommonEffectsSystem : EntitySystem, ICommonEffectsSystem
     {
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
@@ -44,8 +55,9 @@ namespace OpenNefia.Content.Effects
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly ISanitySystem _sanity = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         
-        public void Heal(EntityUid chara, IDice dice)
+        public void Heal(EntityUid chara, int amount)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:3491 *effect_heal ...
             if (_mounts.TryGetRider(chara, out var rider))
@@ -57,7 +69,6 @@ namespace OpenNefia.Content.Effects
                 chara = mount.Owner;
             }
 
-            var amount = dice.Roll(_rand);
             _damage.HealHP(chara, amount);
             _statusEffects.HealFully(chara, Protos.StatusEffect.Fear);
             _statusEffects.Heal(chara, Protos.StatusEffect.Poison, 50);
@@ -149,13 +160,16 @@ namespace OpenNefia.Content.Effects
             }
         }
 
-        public void MakeSickIfCursed(EntityUid target, CurseState curseState)
+        public void MakeSickIfCursed(EntityUid target, CurseState curseState, int oneInChance = 1)
         {
-            if (curseState == CurseState.Normal || curseState == CurseState.Blessed)
+            if (!_curseStates.IsCursed(curseState))
                 return;
 
-            _mes.Display(Loc.GetString("Elona.Effect.Common.CursedConsumable", ("target", target)));
-            _statusEffects.Apply(target, Protos.StatusEffect.Sick, 200);
+            if (_rand.OneIn(oneInChance))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Common.CursedConsumable", ("target", target)));
+                _statusEffects.Apply(target, Protos.StatusEffect.Sick, 200);
+            }
         }
     }
 }
