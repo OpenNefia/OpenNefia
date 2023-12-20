@@ -12,7 +12,8 @@ using OpenNefia.Content.EntityGen;
 
 namespace $rootnamespace$
 {
-    [TestFixture, Parallelizable]
+    [TestFixture]
+    [Parallelizable(ParallelScope.All | ParallelScope.Fixtures)]
     [TestOf(typeof($safeitemrootname$))]
     public class $safeitemrootname$_Tests : OpenNefiaUnitTest
     {

@@ -190,6 +190,7 @@ namespace OpenNefia.Content.Wishes
             }
 
             _karmas.ModifyKarma(ev.Wisher, -(karma.Karma.Base / 2), karma);
+            karma.Karma.Reset();
             _mes.Display(Loc.GetPrototypeString(proto, "Result", ("wisher", ev.Wisher)));
         }
 

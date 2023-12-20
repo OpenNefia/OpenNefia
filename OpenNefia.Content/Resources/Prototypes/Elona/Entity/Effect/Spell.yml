@@ -174,7 +174,7 @@
   hspIds:
     elona122: 441
   components:
-  - type: EffectTargetSelfOrNearby
+  - type: EffectTargetSelf
   - type: EffectWish
 
 - type: Entity

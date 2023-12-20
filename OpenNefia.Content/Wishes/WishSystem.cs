@@ -40,11 +40,7 @@ namespace OpenNefia.Content.Wishes
 
     public sealed class WishSystem : EntitySystem, IWishSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMan = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;

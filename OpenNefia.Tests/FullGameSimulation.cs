@@ -29,6 +29,8 @@ namespace OpenNefia.Tests
         IFullSimulationFactory RegisterEntitySystems(EntitySystemRegistrationDelegate factory);
         IFullSimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory);
         IFullSimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory);
+        IFullSimulationFactory LoadLocalizations(LocalizationLoadDelegate factory);
+        IFullSimulationFactory LoadLocalizationsFromDisk();
         ISimulation InitializeInstance();
     }
 
@@ -62,6 +64,8 @@ namespace OpenNefia.Tests
         private PrototypeRegistrationDelegate? _protoDelegate;
         private EngineVariableRegistrationDelegate? _varDelegate;
         private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
+        private LocalizationLoadDelegate? _localizationLoadDelegate;
+        private bool _loadLocalizationsFromDisk = false;
 
         public IDependencyCollection Collection { get; private set; } = default!;
 
@@ -149,6 +153,18 @@ namespace OpenNefia.Tests
             return this;
         }
 
+        public IFullSimulationFactory LoadLocalizations(LocalizationLoadDelegate factory)
+        {
+            _localizationLoadDelegate += factory;
+            return this;
+        }
+
+        public IFullSimulationFactory LoadLocalizationsFromDisk()
+        {
+            _loadLocalizationsFromDisk = true;
+            return this;
+        }
+
         public ISimulation InitializeInstance()
         {
             var container = new DependencyCollection();
@@ -157,7 +173,7 @@ namespace OpenNefia.Tests
             IoCManager.InitThread(container, true);
             IoCSetup.Register(DisplayMode.Headless);
 
-            UnitTestIoC.Setup();
+            UnitTestIoC.Setup(_loadLocalizationsFromDisk);
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
@@ -236,6 +252,8 @@ namespace OpenNefia.Tests
 
             var locMan = container.Resolve<ILocalizationManager>();
             locMan.Initialize();
+            _localizationLoadDelegate?.Invoke(locMan);
+            locMan.Resync();
 
             var compLoc = container.Resolve<IComponentLocalizerInternal>();
             compLoc.Initialize();
