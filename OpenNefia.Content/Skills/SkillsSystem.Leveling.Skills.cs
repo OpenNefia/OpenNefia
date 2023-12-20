@@ -158,6 +158,21 @@ namespace OpenNefia.Content.Skills
             _refresh.Refresh(entity);
         }
 
+        public void SetLevelAdjustment(EntityUid uid, PrototypeId<SkillPrototype> skillId, int adjustment = 0, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            if (adjustment == 0)
+            {
+                skills.LevelAdjustments.Remove(skillId);
+            }
+            else
+            {
+                skills.LevelAdjustments[skillId] = adjustment;
+            }
+        }
+
         private PrototypeId<EquipSlotPrototype> GetRandomEquipSlot()
         {
             if (_rand.OneIn(7))

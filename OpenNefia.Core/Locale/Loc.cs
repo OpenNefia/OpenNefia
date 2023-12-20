@@ -27,7 +27,23 @@ namespace OpenNefia.Core.Locale
         /// </summary>
         public static bool KeyExists(LocaleKey key)
         {
-            return _localization.HasString(key);
+            return _localization.KeyExists(key);
+        }
+
+        /// <summary>
+        /// Returns true if this key exists in any form in the localization environment (string, list, function, etc.)
+        /// </summary>
+        public static bool PrototypeKeyExists<T>(PrototypeId<T> protoID, LocaleKey key) where T: class, IPrototype
+        {
+            return _localization.PrototypeKeyExists<T>(protoID, key);
+        }
+
+        /// <summary>
+        /// Returns true if this key exists in any form in the localization environment (string, list, function, etc.)
+        /// </summary>
+        public static bool PrototypeKeyExists<T>(T proto, LocaleKey key) where T : class, IPrototype
+        {
+            return _localization.PrototypeKeyExists<T>(proto, key);
         }
 
         public static bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
@@ -130,6 +146,21 @@ namespace OpenNefia.Core.Locale
         public static bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             return _localization.TryGetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, out str, args);
+        }
+
+        public static bool TryGetPrototypeList<T>(T proto, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? str, params LocaleArg[] args)
+            where T : class, IPrototype
+            => TryGetPrototypeList(proto.GetStrongID(), keySuffix, out str, args);
+
+        public static bool TryGetPrototypeList<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? str, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            return _localization.TryGetPrototypeList(protoId, key, out str, args);
+        }
+
+        public static bool TryGetPrototypeListRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? str, params LocaleArg[] args)
+        {
+            return _localization.TryGetPrototypeListRaw(prototypeType, prototypeID, keySuffix, out str, args);
         }
 
         public static LocaleScope MakeScope(LocaleKey keyPrefix)

@@ -45,23 +45,6 @@ Elona.Effect = {
         NeedMorePower = "新しい知識は得られなかった。より上位の鑑定で調べる必要がある。",
     },
 
-    Uncurse = {
-        Apply = {
-            Normal = function(target)
-                return ("%sの装備品は白い光に包まれた。"):format(_.name(target))
-            end,
-            Blessed = function(target)
-                return ("%sは聖なる光に包み込まれた。"):format(_.name(target))
-            end,
-        },
-
-        Result = {
-            Equipment = "身に付けている装備の幾つかが浄化された。",
-            Items = "幾つかのアイテムが浄化された。",
-            Resisted = "幾つかのアイテムは抵抗した。",
-        },
-    },
-
     Curse = {
         Spell = function(source, target)
             return ("%sは%sを指差して呪いの言葉を呟いた。"):format(_.name(source), _.name(target))
@@ -109,6 +92,46 @@ Elona.Effect = {
             Equipment = "身に付けている装備の幾つかが浄化された。",
             Item = "幾つかのアイテムが浄化された。",
             Resisted = "幾つかのアイテムは抵抗した。",
+        },
+    },
+
+    WallCreation = {
+        WallAppears = "床が盛り上がってきた。",
+    },
+
+    DoorCreation = {
+        WallsResist = "この壁は魔法を受け付けないようだ。",
+        DoorAppears = "扉が出現した。",
+    },
+
+    WizardsHarvest = {
+        FallsDown = function(source, item)
+            return ("%sが降ってきた！"):format(_.name(item), _.s(item))
+        end,
+    },
+
+    Restore = {
+        Body = {
+            Apply = function(_1)
+                return ("%sの肉体は復活した。"):format(name(_1))
+            end,
+            Blessed = function(_1)
+                return ("さらに、%sの肉体は強化された。"):format(name(_1))
+            end,
+            Cursed = function(_1)
+                return ("%sの肉体は蝕まれた。"):format(name(_1))
+            end,
+        },
+        Spirit = {
+            Apply = function(_1)
+                return ("%sの精神は復活した。"):format(name(_1))
+            end,
+            Blessed = function(_1)
+                return ("さらに、%sの精神は強化された。"):format(name(_1))
+            end,
+            Cursed = function(_1)
+                return ("%sの精神は蝕まれた。"):format(name(_1))
+            end,
         },
     },
 }

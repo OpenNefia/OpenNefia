@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Materials;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -11,6 +12,12 @@ namespace OpenNefia.Content.Items
     {
         [DataField]
         public bool IsPrecious { get; set; } = false;
+
+        [DataField]
+        public bool CanWishFor { get; set; } = true;
+
+        [DataField]
+        public Formula? WishAmount { get; set; }
 
         /// <summary>
         /// A qualifier like "cargo", "dish", "potion", etc. for use in item names. Example: "a

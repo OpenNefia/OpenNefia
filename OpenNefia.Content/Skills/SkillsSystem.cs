@@ -25,6 +25,8 @@ namespace OpenNefia.Content.Skills
         int BaseLevel(EntityUid uid, PrototypeId<SkillPrototype> protoId, SkillsComponent? skills = null);
         int Potential(EntityUid uid, SkillPrototype proto, SkillsComponent? skills = null);
         int Potential(EntityUid uid, PrototypeId<SkillPrototype> protoId, SkillsComponent? skills = null);
+        int LevelAdjustment(EntityUid uid, SkillPrototype proto, SkillsComponent? skills = null);
+        int LevelAdjustment(EntityUid uid, PrototypeId<SkillPrototype> protoId, SkillsComponent? skills = null);
 
         bool TryGetKnown(EntityUid uid, PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level, SkillsComponent? skills = null);
 
@@ -75,6 +77,7 @@ namespace OpenNefia.Content.Skills
         void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null,
             SkillsComponent? skills = null);
         void ApplyEntityLevelUpGrowth(EntityUid entity, bool showMessage = false, SkillsComponent? skillComp = null, LevelComponent? levelComp = null);
+        void SetLevelAdjustment(EntityUid uid, PrototypeId<SkillPrototype> skillId, int adjustment = 0, SkillsComponent? skills = null);
 
         #endregion
 
@@ -137,6 +140,17 @@ namespace OpenNefia.Content.Skills
                 return 0;
 
             return skills.Potential(protoId);
+        }
+
+        public int LevelAdjustment(EntityUid uid, SkillPrototype proto, SkillsComponent? skills = null)
+            => Potential(uid, proto.GetStrongID(), skills);
+
+        public int LevelAdjustment(EntityUid uid, PrototypeId<SkillPrototype> protoId, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills) || !skills.LevelAdjustments.TryGetValue(protoId, out var adj))
+                return 0;
+
+            return adj;
         }
 
         public bool HasSkill(EntityUid uid, SkillPrototype proto, SkillsComponent? skills = null)

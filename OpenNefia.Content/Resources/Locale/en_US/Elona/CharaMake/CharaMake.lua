@@ -63,15 +63,7 @@ Elona.CharaMake = {
     },
 
     AliasSelect = {
-        Window = {
-            Title = "Alias Selection",
-        },
-        Reroll = "Reroll",
-        AliasTopic = "Alias List",
         Caption = "Choose your Alias.",
-        KeyHints = {
-            LockAlias = "Lock Alias",
-        },
     },
 
     GenderSelect = {

@@ -863,6 +863,9 @@ handlers["base.item"] = function(from, to)
     if from.is_precious then
         c.isPrecious = true
     end
+    if from.is_wishable == false then
+        c.canWishFor = false
+    end
 
     if from.knownnameref then
         if from.knownnameref == "staff" then
@@ -1191,6 +1194,35 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.house_board" or from._id == "elona.register" then
         c = comp(to, "HouseBoard")
+    end
+
+    if from._id == "elona.potion_of_cure_corruption" then
+        c = comp(to, "Item")
+        c.wishAmount = "2 + randInt(2)"
+    end
+
+    if
+        from._id == "elona.potion_of_descent"
+        or from._id == "elona.scroll_of_gain_attribute"
+        or from._id == "elona.treasure_map"
+    then
+        c = comp(to, "Item")
+        c.wishAmount = "1"
+    end
+
+    if from._id == "elona.scroll_of_superior_material" then
+        c = comp(to, "Item")
+        c.wishAmount = "2"
+    end
+
+    if from._id == "elona.gold_piece" then
+        c = comp(to, "Item")
+        c.wishAmount = "sourceLevel * sourceLevel * 50 + 20000"
+    end
+
+    if from._id == "elona.platinum_coin" then
+        c = comp(to, "Item")
+        c.wishAmount = "8 + randInt(5)"
     end
 
     local spellbook = from._ext and from._ext[IItemSpellbook]
@@ -1853,6 +1885,10 @@ handlers["elona_sys.scene"] = function(from, to)
     to.filename = dataPart(from._id) .. ".yml"
 end
 
+handlers["elona.wish_handler"] = function(from, to)
+    event(from, to, "on_wish", "Wishes", "VanillaWishHandlersSystem", "OnWish")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2412,6 +2448,7 @@ end
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
 -- convert_scenes()
+-- write("elona.wish_handler", "WishHandler.yml", "OpenNefia.Content.Wishes.WishHandlerPrototype")
 -- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")

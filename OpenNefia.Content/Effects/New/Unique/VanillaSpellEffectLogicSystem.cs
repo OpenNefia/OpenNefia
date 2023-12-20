@@ -27,6 +27,14 @@ using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.BaseAnim;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Core.GameController;
+using OpenNefia.Content.GameController;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Wishes;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -50,6 +58,13 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IRefreshSystem _refreshes = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IFieldLayer _fieldLayers = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IWishSystem _wishes = default!;
 
         public override void Initialize()
         {
@@ -57,6 +72,10 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectUncurseComponent, ApplyEffectDamageEvent>(Apply_Uncurse);
             SubscribeComponent<EffectOracleComponent, ApplyEffectDamageEvent>(Apply_Oracle);
             SubscribeComponent<EffectWallCreationComponent, ApplyEffectDamageEvent>(Apply_WallCreation);
+            SubscribeComponent<EffectDoorCreationComponent, ApplyEffectDamageEvent>(Apply_DoorCreation);
+            SubscribeComponent<EffectWizardsHarvestComponent, ApplyEffectDamageEvent>(Apply_WizardsHarvest);
+            SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
+            SubscribeComponent<EffectWishComponent, ApplyEffectDamageEvent>(Apply_Wish);
         }
 
         private void Apply_Identify(EntityUid uid, EffectIdentifyComponent component, ApplyEffectDamageEvent args)
@@ -279,11 +298,188 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
             }
 
-            _mes.Display(Loc.GetString("Elona.Effect.Spell.WallCreation.WallAppears"), combineDuplicates: true);
+            // >>>>>>>> elona122/shade2/proc.hsp:3257 			if homeMapMode=false{ ...
+            _mes.Display(Loc.GetString("Elona.Effect.WallCreation.WallAppears"), combineDuplicates: true);
             _audio.Play(Protos.Sound.Offer1, args.TargetCoordsMap);
 
             map.SetTile(args.TargetCoordsMap, tileID.Value);
             map.MemorizeTile(args.TargetCoordsMap);
+            // <<<<<<<< elona122/shade2/proc.hsp:3265 			map(x,y,2)=p ...
+
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void Apply_DoorCreation(EntityUid uid, EffectDoorCreationComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var map = args.SourceMap;
+
+            if (!map.IsInBounds(args.TargetCoordsMap))
+            {
+                // TODO combine nothing happens flags so message doesn't appear
+                // more than once
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            var tile = map.GetTilePrototype(args.TargetCoordsMap)!;
+
+            if (tile.IsSolid)
+            {
+                if (_mapTilesets.TryGetTile(Protos.Tile.MapgenTunnel, map, out var newTile))
+                {
+                    map.SetTile(args.TargetCoordsMap, newTile.Value);
+                }
+                else
+                {
+                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                    args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+            }
+
+            // >>>>>>>> elona122/shade2/proc.hsp:3269 			snd seOffer ...
+            _audio.Play(Protos.Sound.Offer1, args.TargetCoordsMap);
+            if (tile.Kind == TileKind.HardWall || tile.Kind2 == TileKind.HardWall)
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.DoorCreation.WallsResist"), combineDuplicates: true);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            _mes.Display(Loc.GetString("Elona.Effect.DoorCreation.DoorAppears"), combineDuplicates: true);
+
+            // TODO determine door theme.
+            var door = _entityGen.SpawnEntity(Protos.MObj.DoorWooden, args.TargetCoordsMap);
+            if (IsAlive(door))
+                EnsureComp<DoorComponent>(door.Value).UnlockDifficulty = int.Max(args.OutDamage, 0);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3273 			if tAttb(map(x,y,0))&cantPass:map(x,y,0)=tile_t ...
+        }
+
+        private void Apply_WizardsHarvest(EntityUid uid, EffectWizardsHarvestComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:3445 	case spHarvest ...
+            var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
+            _mapDrawables.Enqueue(anim, args.TargetCoordsMap);
+
+            var itemCount = int.Clamp(4 + _rand.Next(args.OutDamage / 50 + 1), 1, 15);
+
+            for (var i = 0; i < itemCount; i++)
+            {
+                _audio.Play(Protos.Sound.Pray1, args.TargetCoordsMap);
+
+                var itemID = Protos.Item.GoldPiece;
+                var amount = 400 + _rand.Next(args.OutDamage);
+
+                if (_rand.OneIn(30))
+                {
+                    itemID = Protos.Item.PlatinumCoin;
+                    amount = 1;
+                }
+                if (_rand.OneIn(80))
+                {
+                    itemID = Protos.Item.SmallMedal;
+                    amount = 1;
+                }
+                if (_rand.OneIn(2000))
+                {
+                    itemID = Protos.Item.RodOfWishing;
+                    amount = 1;
+                }
+
+                var filter = new ItemFilter()
+                {
+                    Amount = amount,
+                    Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Good),
+                    MinLevel = _randomGen.CalcObjectLevel(args.OutDamage / 10),
+                    Id = itemID,
+                    Args = EntityGenArgSet.Make(new EntityGenCommonArgs()
+                    {
+                        NoStack = true
+                    })
+                };
+                var item = _itemGen.GenerateItem(args.TargetCoordsMap, filter);
+                if (IsAlive(item))
+                {
+                    _mes.Display(Loc.GetString("Elona.Effect.WizardsHarvest.FallsDown", ("source", args.Source), ("item", item.Value)), entity: args.Source);
+                }
+
+                _gameController.Wait(100);
+                _fieldLayers.RefreshScreen(); // TODO remove?
+            }
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3457 	loop ...
+        }
+
+        private void Apply_Restore(EntityUid uid, EffectRestoreComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.InnerTarget == null)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2728 	if efId=spRestoreBody{ ...
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+            {
+                _audio.Play(Protos.Sound.Curse3, args.TargetCoordsMap);
+                _mes.Display(Loc.GetString(component.MessageKey.With("Cursed"), ("source", args.Source), ("target", args.InnerTarget)));
+            }
+            else
+            {
+                _mes.Display(Loc.GetString(component.MessageKey.With("Apply"), ("source", args.Source), ("target", args.InnerTarget)));
+                var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
+                _mapDrawables.Enqueue(anim, args.TargetCoordsMap);
+
+                if (_curseStates.IsBlessed(args.CommonArgs.CurseState))
+                {
+                    _mes.Display(Loc.GetString(component.MessageKey.With("Blessed"), ("source", args.Source), ("target", args.InnerTarget)));
+                    anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
+                    _mapDrawables.Enqueue(anim, args.TargetCoordsMap);
+                }
+            }
+
+            var targetQuality = CompOrNull<QualityComponent>(args.InnerTarget.Value)?.Quality?.Buffed ?? Quality.Normal;
+
+            foreach (var skillID in component.SkillsToRestore)
+            {
+                var adj = _skills.LevelAdjustment(args.InnerTarget.Value, skillID);
+                if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+                {
+                    if (targetQuality <= Quality.Normal)
+                    {
+                        adj -= _rand.Next(_skills.BaseLevel(args.InnerTarget.Value, skillID)) / 5 + _rand.Next(5);
+                    }
+                }
+                else
+                {
+                    adj = int.Max(adj, 0);
+                    if (args.CommonArgs.CurseState == CurseState.Blessed)
+                        adj = _skills.BaseLevel(args.InnerTarget.Value, skillID) / 10 + 5;
+                }
+
+                _skills.SetLevelAdjustment(args.InnerTarget.Value, skillID, adj);
+            }
+
+            _refreshes.Refresh(args.InnerTarget.Value);
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2741 	} ...
+        }
+
+        private void Apply_Wish(EntityUid uid, EffectWishComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            _wishes.PromptForWish(_gameSession.Player);
 
             args.Handle(TurnResult.Succeeded);
         }

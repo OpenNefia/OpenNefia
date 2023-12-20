@@ -216,7 +216,7 @@ namespace OpenNefia.Content.Religion
         public PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true)
         {
             var ids = _protos.EnumeratePrototypes<GodPrototype>()
-                .Where(proto => proto.IsPrimaryGod)
+                .Where(proto => proto.CanAppearRandomly)
                 .Select(proto => proto.GetStrongID())
                 .ToList();
 

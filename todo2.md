@@ -15,6 +15,7 @@
   + [ ] buffs
   + [ ] timestop
   + [ ] spell stock check
+- [ ] wishing
 - [ ] magic items
 - [x] living weapons
 - [ ] cargo

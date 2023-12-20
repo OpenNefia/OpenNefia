@@ -26,17 +26,26 @@ namespace OpenNefia.Core.Locale
         /// <summary>
         /// Returns true if this key exists in any form in the localization environment (string, list, function, etc.)
         /// </summary>
-        bool HasString(LocaleKey key);
+        bool KeyExists(LocaleKey key);
+        bool PrototypeKeyExists<T>(PrototypeId<T> protoID, LocaleKey key) where T: class, IPrototype;
+        bool PrototypeKeyExists<T>(T proto, LocaleKey key) where T: class, IPrototype;
+
         bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         string GetString(LocaleKey key, params LocaleArg[] args);
+
         string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T: class, IPrototype;
         string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args);
         bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
             where T : class, IPrototype;
         bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
+
         bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args);
         IReadOnlyList<string> GetList(LocaleKey key, params LocaleArg[] args);
+        bool TryGetPrototypeList<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+    where T : class, IPrototype;
+        bool TryGetPrototypeListRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args);
+
         bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
         LuaTable GetTable(LocaleKey key);
         string FormatRaw(object? obj, LocaleArg[] args);
@@ -172,10 +181,18 @@ namespace OpenNefia.Core.Locale
         }
 
         /// <inheritdoc//>
-        public bool HasString(LocaleKey key)
+        public bool KeyExists(LocaleKey key)
         {
             return (_stringStore.ContainsKey(key) || _functionStore.ContainsKey(key) || _listStore.ContainsKey(key));
         }
+
+        /// <inheritdoc//>
+        public bool PrototypeKeyExists<T>(PrototypeId<T> protoID, LocaleKey key) where T: class, IPrototype
+            => KeyExists(GetPrototypeLocaleKey(protoID).With(key));
+
+        /// <inheritdoc//>
+        public bool PrototypeKeyExists<T>(T proto, LocaleKey key) where T : class, IPrototype
+            => KeyExists(GetPrototypeLocaleKey(proto).With(key));
 
         private static string CallFunction(LocaleKey key, LocaleArg[] args, LuaFunction func)
         {
@@ -287,10 +304,22 @@ namespace OpenNefia.Core.Locale
             where T : class, IPrototype
             => GetPrototypeStringRaw(typeof(T), (string)protoId, key, args);
 
-        public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
+        public static LocaleKey GetPrototypeLocaleKeyRaw(Type prototypeType, string prototypeID)
         {
             var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
-            return GetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), args);
+            return new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}");
+        }
+
+        public static LocaleKey GetPrototypeLocaleKey<T>(PrototypeId<T> prototypeID) where T: class, IPrototype
+            => GetPrototypeLocaleKeyRaw(typeof(T), (string)prototypeID);
+
+        public static LocaleKey GetPrototypeLocaleKey<T>(T prototype) where T : class, IPrototype
+            => GetPrototypeLocaleKeyRaw(typeof(T), prototype.ID);
+
+        public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
+        {
+            var key = GetPrototypeLocaleKeyRaw(prototypeType, prototypeID);
+            return GetString(key.With(keySuffix), args);
         }
 
         public bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
@@ -299,8 +328,8 @@ namespace OpenNefia.Core.Locale
 
         public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
-            return TryGetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), out str, args);
+            var key = GetPrototypeLocaleKeyRaw(prototypeType, prototypeID);
+            return TryGetString(key.With(keySuffix), out str, args);
         }
 
         public bool TryGetList(LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
@@ -341,6 +370,16 @@ namespace OpenNefia.Core.Locale
             return new List<string>() { $"<Missing key: {key}>" };
         }
 
+        public bool TryGetPrototypeList<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+            where T : class, IPrototype
+            => TryGetPrototypeListRaw(typeof(T), (string)protoId, key, out list, args);
+
+        public bool TryGetPrototypeListRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            var key = GetPrototypeLocaleKeyRaw(prototypeType, prototypeID);
+            return TryGetList(key.With(keySuffix), out list, args);
+        }
+
         public bool IsFullwidth()
         {
             return Language == LanguagePrototypeOf.Japanese;
@@ -355,12 +394,14 @@ namespace OpenNefia.Core.Locale
                 return false;
             }
 
-            return TryGetTable($"OpenNefia.Prototypes.Entity.{metadata.EntityPrototype.ID}", out table);
+            var key = GetPrototypeLocaleKey(metadata.EntityPrototype);
+            return TryGetTable(key, out table);
         }
 
         private EntityLocData ReadEntityLocDataFromLua(string id)
         {
-            if (!TryGetTable($"OpenNefia.Prototypes.Entity.{id}", out var entityTable)
+            var key = GetPrototypeLocaleKeyRaw(typeof(EntityPrototype), id);
+            if (!TryGetTable(key, out var entityTable)
                 || !entityTable.TryGetTable(LocDataKey, out var locTable))
                 return new(ImmutableDictionary.Create<string, string>());
 

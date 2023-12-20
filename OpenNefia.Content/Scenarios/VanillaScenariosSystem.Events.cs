@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Scenarios
                 return;
 
             _world.State.HasMetFirstAlly = true;
-            _deferredEvents.Enqueue(() => MeetFirstAlly(canCancel: true));
+            _deferredEvents.Enqueue(() => MeetFirstAlly(canCancel: false));
         }
 
         private readonly PrototypeId<EntityPrototype>[] FirstAllyChoices = new[]

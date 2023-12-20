@@ -101,6 +101,8 @@ namespace OpenNefia.Content.Fame
                     TurnGuardsHostile(uid, karma);
                 }
             }
+
+            karma.Karma.Base += delta;
         }
 
         public bool CaresAboutKarma(EntityUid entity)

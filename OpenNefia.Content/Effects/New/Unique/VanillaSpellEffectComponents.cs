@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
@@ -43,6 +44,47 @@ namespace OpenNefia.Content.Effects.New.Unique
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectWallCreationComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Creates a wall at the affected location.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDoorCreationComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Creates valuable items.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectWizardsHarvestComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Creates valuable items.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectRestoreComponent : Component
+    {
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.Restore.Body";
+
+        [DataField]
+        public List<PrototypeId<SkillPrototype>> SkillsToRestore { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Prompts the player for a wish.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectWishComponent : Component
     {
     }
 }

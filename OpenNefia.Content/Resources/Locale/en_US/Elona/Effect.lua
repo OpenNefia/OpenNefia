@@ -43,27 +43,6 @@ Elona.Effect = {
         NeedMorePower = "You need higher identification to gain new knowledge.",
     },
 
-    Uncurse = {
-        Apply = {
-            Normal = function(target)
-                return ("%s equipment are surrounded by a white aura."):format(_.possessive(target))
-            end,
-            Blessed = function(target)
-                return ("%s %s surrounded by a holy aura."):format(_.name(target), _.is(target))
-            end,
-        },
-
-        Result = {
-            Equipment = function(target)
-                return ("The aura uncurses some of %s equipment."):format(_.his(target))
-            end,
-            Items = function(target)
-                return ("The aura uncurses some %s stuff."):format(_.his(target))
-            end,
-            Resisted = "Several items resist the aura and remain cursed.",
-        },
-    },
-
     Curse = {
         Spell = function(source, target)
             return ("%s point%s %s and mutter%s a curse."):format(
@@ -120,6 +99,51 @@ Elona.Effect = {
                 return ("The aura uncurses some %s stuff."):format(_.his(target))
             end,
             Resisted = "Several items resist the aura and remain cursed.",
+        },
+    },
+
+    WallCreation = {
+        WallAppears = "A wall appears.",
+    },
+
+    DoorCreation = {
+        WallsResist = "These walls seem to resist your magic.",
+        DoorAppears = "A door appears.",
+    },
+
+    WizardsHarvest = {
+        FallsDown = function(source, item)
+            return ("%s fall%s down!"):format(_.name(item), _.s(item))
+        end,
+    },
+
+    Restore = {
+        Body = {},
+        Spirit = {},
+    },
+
+    Restore = {
+        Body = {
+            Apply = function(source, target)
+                return ("%s body is restored."):format(_.possessive(target))
+            end,
+            Blessed = function(source, target)
+                return ("In addition, %s body is enchanted."):format(_.his(target))
+            end,
+            Cursed = function(source, target)
+                return ("%s body is damaged."):format(_.possessive(target))
+            end,
+        },
+        Spirit = {
+            Apply = function(source, target)
+                return ("%s spirit is restored."):format(_.possessive(target))
+            end,
+            Blessed = function(source, target)
+                return ("In addition, %s spirit is enchanted."):format(_.his(target))
+            end,
+            Cursed = function(source, target)
+                return ("%s spirit is damaged."):format(_.possessive(target))
+            end,
         },
     },
 }

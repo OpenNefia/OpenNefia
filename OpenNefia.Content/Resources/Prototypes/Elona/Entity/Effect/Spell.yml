@@ -141,18 +141,41 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 439
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectRestore
+    messageKey: Elona.Effect.Restore.Body
+    skillsToRestore:
+    - Elona.AttrStrength
+    - Elona.AttrConstitution
+    - Elona.AttrDexterity
+    - Elona.AttrCharisma
+    - Elona.AttrSpeed
 
 - type: Entity
   id: Elona.SpellRestoreSpirit
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 440
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectRestore
+    messageKey: Elona.Effect.Restore.Spirit
+    skillsToRestore:
+    - Elona.AttrLearning
+    - Elona.AttrPerception
+    - Elona.AttrMagic
+    - Elona.AttrWill
+    - Elona.AttrLuck
 
 - type: Entity
   id: Elona.SpellWish
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 441
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectWish
 
 - type: Entity
   id: Elona.SpellBuffHolyShield
@@ -249,6 +272,11 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 457
+  components:
+  - type: EffectTargetPosition
+  - type: EffectBaseDamageDice
+    finalDamage: randInt(power) / 10 + 1
+  - type: EffectDoorCreation
 
 - type: Entity
   id: Elona.SpellBuffIncognito
@@ -285,6 +313,11 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 464
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectWizardsHarvest
 
 - type: Entity
   id: Elona.SpellMeteor

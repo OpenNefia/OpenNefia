@@ -91,7 +91,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 OnTitleScreenEntered();
 
-                using (ITitleScreenLayer titleScreen = _uiManager.CreateLayer<TitleScreenLayer, TitleScreenResult>())
+                using (ITitleScreenLayer titleScreen = _uiManager.CreateAndInitializeLayer<TitleScreenLayer, TitleScreenResult>())
                 {
                     var bg = new TitleScreenBGLayer();
                     _uiManager.PushLayer(bg);
@@ -167,7 +167,7 @@ namespace OpenNefia.Content.TitleScreen
             }
 
             _saveGameSerializer.ResetGameState();
-            var layer = _uiManager.CreateLayer<CharaMakeCharaSheetLayer>();
+            var layer = _uiManager.CreateAndInitializeLayer<CharaMakeCharaSheetLayer>();
             var player = layer.CreatePlayerEntity(new List<ICharaMakeResult>()
             {
                 new CharaMakeClassSelectLayer.ResultData(Protos.Class.Predator),

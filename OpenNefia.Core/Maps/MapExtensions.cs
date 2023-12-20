@@ -43,6 +43,14 @@ namespace OpenNefia.Core.Maps
             return map.GetTile(pos)?.Tile.ResolvePrototype();
         }
 
+        public static TilePrototype? GetTilePrototype(this IMap map, MapCoordinates pos)
+        {
+            if (pos.MapId != map.Id)
+                return null;
+
+            return GetTilePrototype(map, pos.Position);
+        }
+
         public static bool TryGetTileID(this IMap map, Vector2i pos, [NotNullWhen(true)] out PrototypeId<TilePrototype>? id)
         {
             id = GetTileID(map, pos);

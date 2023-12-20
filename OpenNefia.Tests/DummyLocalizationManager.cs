@@ -71,8 +71,33 @@ namespace OpenNefia.Tests
             return false;
         }
 
-        public bool HasString(LocaleKey key)
+        public bool KeyExists(LocaleKey key)
         {
+            return false;
+        }
+
+        public bool PrototypeKeyExists<T>(PrototypeId<T> protoID, LocaleKey key)
+            where T : class, IPrototype
+        {
+            return false;
+        }
+
+        public bool PrototypeKeyExists<T>(T proto, LocaleKey key)
+            where T : class, IPrototype
+        {
+            return false;
+        }
+
+        public bool TryGetPrototypeList<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            list = null;
+            return false;
+        }
+
+        public bool TryGetPrototypeListRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            list = null;
             return false;
         }
 
@@ -88,7 +113,7 @@ namespace OpenNefia.Tests
         }
 
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
-            where T: class, IPrototype
+            where T : class, IPrototype
         {
             return string.Empty;
         }

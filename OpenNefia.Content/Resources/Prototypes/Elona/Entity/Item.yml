@@ -17,6 +17,7 @@
   - type: Value
     value: 1
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 1
   - type: LightSource
@@ -763,6 +764,7 @@
   - type: Value
     value: 100
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 80
 - type: Entity
@@ -1586,6 +1588,7 @@
   - type: Value
     value: 1
   - type: Item
+    wishAmount: sourceLevel * sourceLevel * 50 + 20000
   - type: GoldPiece
   - type: Identify
     identifyState: Full
@@ -1615,6 +1618,7 @@
   - type: Value
     value: 1
   - type: Item
+    wishAmount: 8 + randInt(5)
   - type: Weight
     weight: 1
   - type: PlatinumCoin
@@ -7099,6 +7103,7 @@
   - type: Value
     value: 240000
   - type: Item
+    wishAmount: '1'
   - type: RandomItem
     knownNameRef: Elona.Scroll
   - type: RandomColor
@@ -8444,6 +8449,7 @@
   - type: Value
     value: 40000
   - type: Item
+    canWishFor: false
   - type: RandomItem
     knownNameRef: Elona.Spellbook
   - type: RandomColor
@@ -10414,6 +10420,7 @@
   - type: Value
     value: 380
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 1200
   - type: Temporal
@@ -14810,6 +14817,7 @@
   - type: Value
     value: 20000
   - type: Item
+    wishAmount: '2'
   - type: RandomItem
     knownNameRef: Elona.Scroll
   - type: RandomColor
@@ -16393,6 +16401,7 @@
   - type: Value
     value: 100000
   - type: Item
+    wishAmount: 2 + randInt(2)
   - type: RandomItem
     knownNameRef: Elona.Potion
   - type: RandomColor
@@ -17984,6 +17993,7 @@
   - type: Value
     value: 10000
   - type: Item
+    wishAmount: '1'
   - type: Weight
     weight: 20
   - type: TreasureMap
@@ -20601,6 +20611,7 @@
   - type: Value
     value: 4500
   - type: Item
+    wishAmount: '1'
   - type: RandomItem
     knownNameRef: Elona.Potion
   - type: RandomColor

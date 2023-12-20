@@ -34,15 +34,17 @@ namespace OpenNefia.Content.UI.Layer
             public int? MaxLength { get; set; } = 16;
             public bool HasShadow { get; set; } = true;
             public string? QueryText { get; set; } = null;
+            public Color QueryTextColor { get; set; } = UiColors.MesWhite;
 
             public Args(int? maxLength = 16, string? initialValue = null, bool isCancellable = true, 
-                bool hasShadow = true, string? queryText = null)
+                bool hasShadow = true, string? queryText = null, Color? queryTextColor = null)
             {
                 MaxLength = maxLength;
                 InitialValue = initialValue;
                 IsCancellable = isCancellable;
                 HasShadow = hasShadow;
                 QueryText = queryText;
+                QueryTextColor = queryTextColor ?? UiColors.MesWhite;
             }
         }
 
@@ -61,7 +63,7 @@ namespace OpenNefia.Content.UI.Layer
         public int? MaxLength { get; set; }
         public bool HasShadow { get; set; }
         private string? _queryText;
-
+        private Color _queryTextColor;
         protected bool IsCutOff = false;
         protected float Dt = 0f;
         protected double CaretAlpha = 2;
@@ -105,6 +107,7 @@ namespace OpenNefia.Content.UI.Layer
             IsCancellable = args.IsCancellable;
             HasShadow = args.HasShadow;
             _queryText = args.QueryText;
+            _queryTextColor = args.QueryTextColor;
         }
 
         public override void GrabFocus()
@@ -144,7 +147,7 @@ namespace OpenNefia.Content.UI.Layer
             Sounds.Play(Protos.Sound.Pop2);
             if (_queryText != null)
             {
-                _mes.Display(_queryText);
+                _mes.Display(_queryText, color: _queryTextColor);
             }
         }
 

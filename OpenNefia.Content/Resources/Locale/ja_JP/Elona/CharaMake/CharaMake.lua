@@ -63,15 +63,7 @@ Elona.CharaMake = {
     },
 
     AliasSelect = {
-        Window = {
-            Title = "異名の選択",
-        },
-        Reroll = "リロール",
-        AliasTopic = "異名の候補",
         Caption = "有名になると、名前とは別の通り名で呼ばれることがあるらしい。",
-        KeyHints = {
-            LockAlias = "異名のロック",
-        },
     },
 
     GenderSelect = {
