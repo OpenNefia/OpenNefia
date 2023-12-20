@@ -6,6 +6,9 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: (casterLevel / 2) + 5
+  - type: EffectDamageCastInstead
+    ifSource: NotPlayer
+    effectID: null
   - type: EffectGainAlly
 
 - type: Entity

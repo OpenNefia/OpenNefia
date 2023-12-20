@@ -56,6 +56,7 @@ namespace OpenNefia.Content.Actions
         /// Maximum range of the action in tiles.
         /// </summary>
         [DataField]
+        // TODO move into EffectComponent?
         public int MaxRange { get; set; } = 1;
     }
 }

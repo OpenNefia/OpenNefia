@@ -42,6 +42,10 @@ using OpenNefia.Content.Feats;
 using OpenNefia.Core.Maths;
 using OpenNefia.Content.UI;
 using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Content.Effects;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.Items.Impl;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -76,11 +80,16 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IEnchantmentSystem _encs = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly ICommonEffectsSystem _commonEffects = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IInventorySystem _inv = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<EffectMutationComponent, ApplyEffectDamageEvent>(Apply_Mutation);
             SubscribeComponent<EffectCureMutationComponent, ApplyEffectDamageEvent>(Apply_CureMutation);
+            SubscribeComponent<EffectDominateComponent, ApplyEffectDamageEvent>(Apply_Dominate);
             SubscribeComponent<EffectIdentifyComponent, ApplyEffectDamageEvent>(Apply_Identify);
             SubscribeComponent<EffectUncurseComponent, ApplyEffectDamageEvent>(Apply_Uncurse);
             SubscribeComponent<EffectOracleComponent, ApplyEffectDamageEvent>(Apply_Oracle);
@@ -105,6 +114,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 args.Handle(TurnResult.Failed);
                 return;
             }
+
             List<FeatPrototype> feats = GetMutationFeatsList();
             var didSomething = false;
 
@@ -154,9 +164,6 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             if (!didSomething)
             {
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.CommonArgs.OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
                 return;
             }
 
@@ -222,9 +229,6 @@ namespace OpenNefia.Content.Effects.New.Unique
 
                 if (!didSomething)
                 {
-                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                    args.CommonArgs.OutEffectWasObvious = false;
-                    args.Handle(TurnResult.Failed);
                     return;
                 }
 
@@ -232,6 +236,55 @@ namespace OpenNefia.Content.Effects.New.Unique
                 args.Handle(TurnResult.Succeeded);
             }
             // <<<<<<<< elona122/shade2/proc.hsp:2423  ...
+        }
+
+        private void Apply_Dominate(EntityUid uid, EffectDominateComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2915 	case spCharm ...
+            if (args.Handled || args.InnerTarget is not EntityUid target)
+                return;
+
+            if (_parties.IsInSameParty(args.Source, target)
+                || _parties.IsUnderlingOfSomeParty(args.Source)
+                || _factions.GetRelationTowards(target, args.Source) >= Relation.Ally)
+            {
+                return;
+            }
+
+            if (!_commonEffects.CanCaptureMonstersIn(args.TargetMap))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Domination.DoesNotWorkHere", ("source", args.Source)), entity: args.Source);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            if (!_commonEffects.CanCaptureMonster(target))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Domination.CannotBeCharmed", ("source", args.Source), ("target", target)), entity: args.Source);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            // XXX: Can this be its own component?
+            var hasMonsterHeart = _inv.EntityQueryInInventory<MonsterHeartComponent>(args.Source).Any();
+
+            var power = args.OutDamage;
+            if (hasMonsterHeart)
+                power = (int)(power * 1.5);
+
+            var success = power >= _levels.GetLevel(target);
+            
+            if (success)
+            {
+                _parties.TryRecruitAsAlly(args.Source, target);
+            }
+            else
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Common.Resists", ("source", args.Source), ("target", target)), entity: args.Source);
+            }
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2931 	swbreak ...
         }
 
         private void Apply_Identify(EntityUid uid, EffectIdentifyComponent component, ApplyEffectDamageEvent args)
@@ -262,9 +315,6 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
                 else
                 {
-                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                    args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
-                    args.Handle(TurnResult.Failed);
                     return;
                 }
             }
@@ -379,21 +429,14 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _mes.Display(Loc.GetString("Elona.Effect.Uncurse.Apply.Resisted", ("source", args.Source), ("target", args.InnerTarget.Value)));
             }
 
-            var obvious = true;
-
             if (totalUncursed == 0 && totalResisted == 0)
             {
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                obvious = false;
+                return;
             }
-            else
-            {
-                var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
-                _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
-            }
-
+            
+            var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
+            _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
             _refreshes.Refresh(args.InnerTarget.Value);
-            args.CommonArgs.OutEffectWasObvious = obvious;
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:2497 	call *charaRefresh,(r1=tc)  ...
         }
@@ -405,12 +448,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
 
             if (!_parties.IsInPlayerParty(args.Source))
-            {
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
                 return;
-            }
 
             if (_curseStates.IsCursed(args.CommonArgs.CurseState))
             {
@@ -446,11 +484,6 @@ namespace OpenNefia.Content.Effects.New.Unique
                 || !map.CanAccess(args.TargetCoordsMap)
                 || map.GetTileID(args.TargetCoordsMap) == tileID)
             {
-                // TODO combine nothing happens flags so message doesn't appear
-                // more than once
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
                 return;
             }
 
@@ -474,11 +507,6 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             if (!map.IsInBounds(args.TargetCoordsMap))
             {
-                // TODO combine nothing happens flags so message doesn't appear
-                // more than once
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
                 return;
             }
 
@@ -492,9 +520,6 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
                 else
                 {
-                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                    args.Args.Ensure<EffectCommonArgs>().OutEffectWasObvious = false;
-                    args.Handle(TurnResult.Failed);
                     return;
                 }
             }

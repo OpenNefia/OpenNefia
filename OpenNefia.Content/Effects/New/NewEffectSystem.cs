@@ -358,6 +358,11 @@ namespace OpenNefia.Content.Effects.New
     /// <summary>
     /// Applies the effect to a single target. 
     /// Raised once for each entity affected by an AoE.
+    /// 
+    /// If the effect is not handled by any handler,
+    /// then a "Nothing happens..." message is printed,
+    /// and the effect result is marked as non-obvious (item will
+    /// not be identified automatically)
     /// </summary>
     [EventUsage(EventTarget.Effect)]
     public sealed class ApplyEffectDamageEvent : TurnResultEntityEventArgs, IApplyEffectEvent

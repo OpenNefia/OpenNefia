@@ -1053,6 +1053,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Bill")
     end
 
+    if from._id == "elona.monster_heart" then
+        c = comp(to, "MonsterHeart")
+    end
+
     if from._id == "elona.wallet" or from._id == "elona.suitcase" then
         c = comp(to, "LostProperty")
     end

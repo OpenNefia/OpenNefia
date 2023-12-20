@@ -334,17 +334,14 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_Summon(EntityUid uid, EffectSummonComponent component, ApplyEffectDamageEvent args)
         {
+            if (args.Handled)
+                return;
+
             if (_gameSession.IsPlayer(args.Source)
                 && TryComp<MapCharaGenComponent>(args.TargetMap.MapEntityUid, out var mapCharaGen))
             {
                 if (mapCharaGen.CurrentCharaCount + 100 > MapCharaGenConsts.MaxOtherCharaCount)
-                {
-                    // TODO combine nothing happens messages
-                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                    args.Args.CommonArgs.OutEffectWasObvious = false;
-                    args.Handle(TurnResult.Failed);
                     return;
-                }
             }
 
             var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);

@@ -13,6 +13,7 @@ Elona.Common = {
         return ("%sをバックパックに入れた。"):format(_.name(item))
     end,
     CannotDoInGlobal = "その行為は、ワールドマップにいる間はできない。",
+    DoesNotWorkHere = "この場所では効果がない。",
     NameWithDirectArticle = function(entity)
         return _.name(entity, true)
     end,

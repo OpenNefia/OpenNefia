@@ -19212,6 +19212,7 @@
     isPrecious: true
   - type: Weight
     weight: 2500
+  - type: MonsterHeart
   - type: LightSource
     id: Elona.Item
 - type: Entity

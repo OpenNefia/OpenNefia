@@ -164,4 +164,11 @@ Elona.Effect = {
             return ("%s %s now one step closer to %s."):format(_.name(target), _.is(target), _.himself(target))
         end,
     },
+
+    Domination = {
+        CannotBeCharmed = function(source, target)
+            return ("%s cannot be charmed."):format(_.name(target))
+        end,
+        DoesNotWorkHere = "The effect doesn't work in this area.",
+    },
 }

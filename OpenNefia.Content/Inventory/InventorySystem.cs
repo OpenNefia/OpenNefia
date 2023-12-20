@@ -44,6 +44,11 @@ namespace OpenNefia.Content.Inventory
             where TComp3 : IComponent
             where TComp4 : IComponent;
 
+        /// <remarks>
+        /// NOTE: Prefer <see cref="EntityQueryInInventory"/>; this function should
+        /// be used when dealing with things like quests that require a specific
+        /// item ID. Matching on components in an ECS manner is more flexible.
+        /// </remarks>
         bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null);
 
         int GetItemWeight(EntityUid item, WeightComponent? weight = null);

@@ -152,4 +152,11 @@ Elona.Effect = {
             return ("%sは元の自分に近づいた気がした。"):format(_.name(target))
         end,
     },
+
+    Domination = {
+        CannotBeCharmed = function(source, target)
+            return ("%sは支配できない。"):format(_.name(target))
+        end,
+        DoesNotWorkHere = "この場所では効果がない。",
+    },
 }

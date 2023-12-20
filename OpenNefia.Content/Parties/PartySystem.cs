@@ -203,6 +203,11 @@ namespace OpenNefia.Content.Parties
         bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
+        /// Returns true if this character is an underling in a party (not the leader).
+        /// </summary>
+        bool IsUnderlingOfSomeParty(EntityUid target, PartyComponent? party = null);
+
+        /// <summary>
         /// Returns true if this entity is in the player's party.
         /// Includes the player themselves.
         /// </summary>
@@ -302,7 +307,6 @@ namespace OpenNefia.Content.Parties
             if (!Resolve(member, ref partyComp) || !Parties.TryGetParty(member, out var party))
                 return Enumerable.Empty<EntityUid>();
 
-
             return party.Members.Where(m => m != party.Leader);
         }
 
@@ -319,6 +323,14 @@ namespace OpenNefia.Content.Parties
         public bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? partyComp = null)
         {
             return IsPartyLeaderOf(target, target, partyComp);
+        }
+
+        public bool IsUnderlingOfSomeParty(EntityUid target, PartyComponent? partyComp = null)
+        {
+            if (!Resolve(target, ref partyComp, logMissing: false))
+                return false;
+
+            return partyComp.PartyID != null && !IsLeaderOfSomeParty(target, partyComp);
         }
 
         public bool IsInPlayerParty(EntityUid entity)

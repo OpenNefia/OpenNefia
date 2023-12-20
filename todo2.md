@@ -46,7 +46,7 @@
 - [ ] nefia generation refactor
 - [ ] elonaextender features
   + [ ] save backup
-- [ ] arena/pet arena
+- [ ] arena/pet arena/show house
 - [ ] spell tracker
 - [ ] the void
 - [ ] blackjack
@@ -57,6 +57,7 @@
 - [ ] theming
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
+- [ ] loc manager doesn't re-watch if language is switched
 - [ ] non-compiled mods
 - [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
 - [ ] Qy@
@@ -80,6 +81,12 @@
     - other events will not run (summon other characters).
   + can no longer raise arbitrary class instances as events (but can do so for structs still)
     - all events must derive from `EntityEventArgs` so `Handled` is always available
+- [ ] mod "feature flags"
+  + mods can register a flag name for a specific behavior of a method overridden with Harmony or similar
+  + example: you can pick "Elona.122", "Elona.Plus" or "Elona.Omake" for a "Elona.CalcQuestDifficulty" flag
+  + this is so you don't have to inherit all of a variant's behavior by installing the mod and only keep the behaviors you want. 
+  + it allows for picking and choosing how you want the game to act, hence "building your own Elona".
+  + sets of feature flags compatible with a set of mods can be saved into one file and loaded in a profile
 - [ ] "garbage collectable" components (all flags inside the component are false, etc.)
 - [ ] remaining TODOs
 

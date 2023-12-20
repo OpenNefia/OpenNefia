@@ -8,13 +8,16 @@ Elona.MonsterBall = {
         end,
     },
 
-    Throw = {
-        DoesNotWork = "This doesn't work in this area.",
+    Errors = {
+        CannotCaptureHere = "You can't capture monsters here.",
         CannotBeCaptured = "The creature can't be captured.",
         NotEnoughPower = "Power level of the ball is not enough to capture the creature.",
         NotWeakEnough = "You need to weaken the creature to capture it.",
+    },
+
+    Throw = {
         YouCapture = function(user, target)
-            return ("%s capture%s %s."):format(_.name(user), _.s(user), name(target))
+            return ("%s capture%s %s."):format(_.name(user), _.s(user), _.name(target))
         end,
     },
 

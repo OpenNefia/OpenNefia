@@ -936,7 +936,7 @@ Elona.Quest = {
                 end,
                 Put = function(item, addWeight, currentWeight, requiredWeight)
                     return ("%sを納入した。 +%s  納入済み(%s) 納入ノルマ(%s)"):format(
-                        item,
+                        _.name(item),
                         addWeight,
                         currentWeight,
                         requiredWeight

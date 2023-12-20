@@ -39,14 +39,6 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (args.Handled)
                 return;
 
-            if (!_gameSession.IsPlayer(args.Source))
-            {
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.CommonArgs.OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
-                return;
-            }
-
             var filter = component.CharaFilter;
 
             // TODO CharaFilter.Clone()
@@ -63,9 +55,6 @@ namespace OpenNefia.Content.Effects.New.Unique
             var chara = _charaGen.GenerateChara(args.Source, filter);
             if (!IsAlive(chara))
             {
-                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                args.CommonArgs.OutEffectWasObvious = false;
-                args.Handle(TurnResult.Failed);
                 return;
             }
 

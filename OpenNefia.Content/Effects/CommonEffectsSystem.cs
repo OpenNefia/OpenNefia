@@ -25,6 +25,9 @@ using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Mount;
+using OpenNefia.Content.Arena;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.Roles;
 
 namespace OpenNefia.Content.Effects
 {
@@ -37,6 +40,8 @@ namespace OpenNefia.Content.Effects
         void DamageItemsFire(EntityUid target);
         void MakeSound(EntityUid origin, MapCoordinates coords, int tileRadius, float wakeChance, bool isWhistle = false);
         void MakeSickIfCursed(EntityUid target, CurseState curseState, int oneInChance = 1);
+        bool CanCaptureMonstersIn(IMap map);
+        bool CanCaptureMonster(EntityUid target);
     }
 
     public sealed class CommonEffectsSystem : EntitySystem, ICommonEffectsSystem
@@ -56,6 +61,7 @@ namespace OpenNefia.Content.Effects
         [Dependency] private readonly ISanitySystem _sanity = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
+        [Dependency] private readonly IRoleSystem _roles = default!;
         
         public void Heal(EntityUid chara, int amount)
         {
@@ -77,6 +83,32 @@ namespace OpenNefia.Content.Effects
             _statusEffects.Heal(chara, Protos.StatusEffect.Bleeding, 20);
             _sanity.HealInsanity(chara, 1);
             // <<<<<<<< elona122/shade2/proc.hsp:3508 	return ...
+        }
+
+        /// <summary>
+        /// Returns true if Dominate and monster balls work in this map.
+        /// </summary>
+        public bool CanCaptureMonstersIn(IMap map)
+        {
+            if (TryArea(map, out var area))
+            {
+                // TODO pet arena
+                // TODO show house
+                if (HasComp<AreaArenaComponent>(area.AreaEntityUid))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCaptureMonster(EntityUid target)
+        {
+            return TryComp<CharaComponent>(target, out var targetChara)
+                && _factions.GetRelationToPlayer(target) < Relation.Ally
+                && !_roles.HasAnyRoles(target)
+                && (CompOrNull<QualityComponent>(target)?.Quality) != Quality.Unique
+                && !targetChara.IsPrecious
+                && MetaData(target).EntityPrototype != null;
         }
 
         public void WakeUpEveryone(IMap map)

@@ -60,6 +60,14 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var result = ApplyEffectDamage(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args, 1, 0);
 
+            if (!result.EventWasHandled)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
             args.CommonArgs.OutEffectWasObvious = result.EffectWasObvious;
             args.Handle(result.TurnResult);
         }
@@ -113,6 +121,14 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             }
 
             var result = ApplyEffectDamage(uid, args.Source, args.Target, args.SourceCoords, null, args.Args, 1, 0);
+
+            if (!result.EventWasHandled)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
 
             args.CommonArgs.OutEffectWasObvious = result.EffectWasObvious;
             args.Handle(TurnResult.Succeeded);
@@ -184,6 +200,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var map = args.SourceMap;
 
             var obvious = false;
+            var didSomething = false;
 
             for (var i = 0; i < BoltMaxTiles; i++)
             {
@@ -202,7 +219,16 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                     var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, offsets.Count, i);
 
                     obvious = obvious || result.EffectWasObvious;
+                    didSomething = didSomething || result.EventWasHandled;
                 }
+            }
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
             }
 
             args.CommonArgs.OutEffectWasObvious = obvious;
@@ -239,6 +265,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var curPos = args.SourceCoordsMap.Position;
 
             var obvious = false;
+            var didSomething = false;
 
             for (var i = 0; i < positions.Count; i++)
             {
@@ -252,7 +279,16 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                     var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, positions.Count, i);
 
                     obvious = obvious || result.EffectWasObvious;
+                    didSomething = didSomething || result.EventWasHandled;
                 }
+            }
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
             }
 
             args.CommonArgs.OutEffectWasObvious = obvious;
@@ -260,7 +296,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             // <<<<<<<< elona122/shade2/proc.hsp:1717 	swbreak ...
         }
 
-        public IEnumerable<Vector2i> EnumerateBreathPositions(Vector2i from , Vector2i to, int tileRange, UIBox2i bounds)
+        public IEnumerable<Vector2i> EnumerateBreathPositions(Vector2i from, Vector2i to, int tileRange, UIBox2i bounds)
         {
             var breathWidth = 1;
             var count = 0;
@@ -342,6 +378,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             }
 
             var obvious = false;
+            var didSomething = false;
 
             for (var i = 0; i < positions.Count; i++)
             {
@@ -356,8 +393,17 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                         var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, positions.Count, i);
 
                         obvious = obvious || result.EffectWasObvious;
+                        didSomething = didSomething || result.EventWasHandled;
                     }
                 }
+            }
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
             }
 
             args.CommonArgs.OutEffectWasObvious = obvious;
@@ -375,11 +421,11 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex);
             RaiseEvent(uid, ev);
-            return new(ev.TurnResult, ev.OutEffectWasObvious);
+            return new(ev.TurnResult, ev.OutEffectWasObvious, ev.Handled);
         }
     }
 
-    public sealed record class EffectDamageResult(TurnResult TurnResult, bool EffectWasObvious);
+    public sealed record class EffectDamageResult(TurnResult TurnResult, bool EffectWasObvious, bool EventWasHandled);
 
     public sealed record class EffectAnimationParams(Color Color, PrototypeId<SoundPrototype>? Sound);
 

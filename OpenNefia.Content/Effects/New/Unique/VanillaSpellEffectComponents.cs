@@ -35,6 +35,15 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Chance to recruit the target as an ally.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDominateComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Identifies a target item.
     /// </summary>
     [RegisterComponent]

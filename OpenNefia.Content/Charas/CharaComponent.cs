@@ -54,6 +54,7 @@ namespace OpenNefia.Content.Charas
         public GameDateTime RevivalDate { get; set; } = new();
 
         // TODO PreciousComponent?
+        // share with items
         [DataField]
         public bool IsPrecious { get; set; }
 
