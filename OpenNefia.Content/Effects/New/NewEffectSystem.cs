@@ -31,9 +31,6 @@ namespace OpenNefia.Content.Effects.New
     /// New implementation of the effect system. This is an ECS-based version designed
     /// around combining components:
     /// - All effects are entities with an <see cref="EffectComponent"/>.
-    /// - Effects must have an "effect type" such as <see cref="EffectTypeSpellComponent"/>
-    ///   or <see cref="EffectTypeActionComponent"/>. These determine the resource costs 
-    ///   of the effect.
     /// - Effects should subscribe to <see cref="GetEffectPlayerTargetEvent"/> so they can
     ///   provide a default target if none is provided.
     ///   The <see cref="EffectTargetOtherComponent"/> targets an entity or the ground,

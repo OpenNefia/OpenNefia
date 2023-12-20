@@ -133,9 +133,9 @@ namespace OpenNefia.Core.GameObjects
             where TComp3 : IComponent
             where TComp4 : IComponent;
 
-        IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords)
+        IEnumerable<TComp> EntityQueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords)
             where TComp : IComponent;
-        IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords)
+        IEnumerable<TComp> EntityQueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords)
             where TComp : IComponent;
 
         IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(EntityUid ent)
@@ -397,7 +397,7 @@ namespace OpenNefia.Core.GameObjects
             where TComp4 : IComponent
             => EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(map.Id, includeChildren, includeDead);
 
-        public IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords) where TComp : IComponent
+        public IEnumerable<TComp> EntityQueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords) where TComp : IComponent
         {
             foreach (var spatial in GetLiveEntitiesAtCoords(coords))
             {
@@ -406,9 +406,9 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        public IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords) where TComp : IComponent
+        public IEnumerable<TComp> EntityQueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords) where TComp : IComponent
         {
-            return QueryLiveEntitiesAtCoords<TComp>(coords.ToMap(EntityManager));
+            return EntityQueryLiveEntitiesAtCoords<TComp>(coords.ToMap(EntityManager));
         }
 
         public IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(EntityUid ent) where TComp : IComponent

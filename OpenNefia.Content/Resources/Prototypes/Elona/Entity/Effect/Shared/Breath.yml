@@ -31,7 +31,6 @@
     elona122: 602
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Fire
 
@@ -49,7 +48,6 @@
     elona122: 603
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Cold
 
@@ -67,7 +65,6 @@
     elona122: 604
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Lightning
 
@@ -85,7 +82,6 @@
     elona122: 605
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Darkness
 
@@ -103,7 +99,6 @@
     elona122: 606
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Chaos
 
@@ -121,7 +116,6 @@
     elona122: 607
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Sound
 
@@ -139,7 +133,6 @@
     elona122: 608
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Nether
 
@@ -157,7 +150,6 @@
     elona122: 609
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Nerve
 
@@ -175,7 +167,6 @@
     elona122: 610
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Poison
 
@@ -193,7 +184,6 @@
     elona122: 611
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectDamageElemental
     element: Elona.Mind
 
@@ -211,7 +201,6 @@
     elona122: 612
   parent: Elona.BaseEffectBreath
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     diceX: 1 + (power / 20)
     diceY: 6 + 1

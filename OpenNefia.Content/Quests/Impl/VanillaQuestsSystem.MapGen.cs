@@ -55,7 +55,7 @@ namespace OpenNefia.Content.Quests
 
         int ItemCountAt(MapCoordinates coords)
         {
-            return _lookup.QueryLiveEntitiesAtCoords<ItemComponent>(coords).Count();
+            return _lookup.EntityQueryLiveEntitiesAtCoords<ItemComponent>(coords).Count();
         }
 
 #pragma warning disable format

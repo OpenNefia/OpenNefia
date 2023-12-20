@@ -15,9 +15,8 @@
 
 - type: Entity
   id: LecchoTorte.SpellBoltOfWallCreation
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   components:
-  - type: EffectTypeSpell
   - type: EffectTargetPosition
     alwaysShowLine: true
   - type: EffectAreaBolt

@@ -1099,6 +1099,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "TightRope")
     end
 
+    if from._id == "elona.nuclear_bomb" then
+        c = comp(to, "NuclearBomb")
+    end
+
     if from.cooldown_hours then
         c = comp(to, "UseInterval")
         c.useInterval = timeSpan(from.cooldown_hours)

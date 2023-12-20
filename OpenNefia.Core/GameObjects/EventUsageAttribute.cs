@@ -19,7 +19,8 @@ namespace OpenNefia.Core.GameObjects
     public enum EventTarget
     {
         /// <summary>
-        /// This event should be used with non-map/non-area entities.
+        /// This event should be used with regular game objects
+        /// (characters, items, feats, mobjs, mefs, etc.)
         /// </summary>
         Normal = 0x1,
 

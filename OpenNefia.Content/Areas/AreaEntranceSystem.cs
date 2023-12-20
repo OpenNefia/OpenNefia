@@ -29,11 +29,11 @@ namespace OpenNefia.Content.Areas
 
         public override void Initialize()
         {
-            SubscribeComponent<WorldMapEntranceComponent, EntitySteppedOnEvent>(DisplayAreaEntranceMessage);
+            SubscribeComponent<WorldMapEntranceComponent, AfterEntitySteppedOnEvent>(DisplayAreaEntranceMessage);
             SubscribeEntity<GetAreaEntranceMessageEvent>(GetDefaultEntranceMessage, priority: EventPriorities.Highest);
         }
 
-        private void DisplayAreaEntranceMessage(EntityUid uid, WorldMapEntranceComponent component, EntitySteppedOnEvent args)
+        private void DisplayAreaEntranceMessage(EntityUid uid, WorldMapEntranceComponent component, AfterEntitySteppedOnEvent args)
         {
             if (!_gameSession.IsPlayer(args.Stepper))
                 return;

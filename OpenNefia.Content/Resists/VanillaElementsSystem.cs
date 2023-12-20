@@ -8,6 +8,8 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Mefs;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.Resists
 {
@@ -17,6 +19,7 @@ namespace OpenNefia.Content.Resists
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly CommonEffectsSystem _commonEffects = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IMefSystem _mefs = default!;
 
         public override void Initialize()
         {
@@ -59,13 +62,10 @@ namespace OpenNefia.Content.Resists
         {
             // >>>>>>>> shade2/chara_func.hsp:1643 		if (dmgSource=dmgFromFire)or(ele=rsResFire){ ..
             var pos = Comp<SpatialComponent>(ev.Target).Coordinates;
-            var args = EntityGenArgSet.Make(new MefGenArgs()
-            {
-                TurnDuration = _rand.Next(10) + 5,
-                Power = 100,
-                Origin = ev.Source
-            });
-            _entityGen.SpawnEntity(Protos.Mef.Fire, pos, args: args);
+            _mefs.SpawnMef(Protos.Mef.Fire, pos,
+                duration: GameTimeSpan.FromMinutes(_rand.Next(10) + 5),
+                power: 100,
+                spawnedBy: ev.Source);
             // <<<<<<<< shade2/chara_func.hsp:1645 			} ..
         }
 

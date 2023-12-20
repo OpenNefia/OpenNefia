@@ -70,5 +70,12 @@ Elona.Magic = {
             NoElement = "",
         },
         Summon = "魔法でモンスターが召喚された。",
+        Mef = {
+            AcidGround = "酸の水溜りが発生した。",
+            EtherGround = "エーテルの霧が発生した。",
+            Fire = "火柱が発生した。",
+            MistOfDarkness = "辺りを濃い霧が覆った。",
+            Web = "蜘蛛の巣が辺りを覆った。",
+        },
     },
 }

@@ -6,15 +6,9 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Damage;
-using NetVips;
 using OpenNefia.Content.Effects.New.EffectAreas;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Formulae;
@@ -22,46 +16,42 @@ using OpenNefia.Content.Combat;
 using OpenNefia.Content.Factions;
 using OpenNefia.Core;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Sanity;
-using System.IO.Pipelines;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.Game;
-using OpenNefia.Content.Effects.New;
+using OpenNefia.Content.Resists;
+using OpenNefia.Content.Mefs;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
     public sealed class VanillaEffectDamageSystem : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IDamageSystem _damages = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly ISpatialSystem _spatials = default!;
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly ICommonEffectsSystem _commonEffects = default!;
-        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly ISanitySystem _sanities = default!;
-        [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
+        [Dependency] private readonly IElementSystem _elements = default!;
+        [Dependency] private readonly IMefSystem _mefs = default!;
 
         public override void Initialize()
         {
@@ -73,12 +63,17 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
             SubscribeComponent<EffectDamageElementalComponent, ApplyEffectDamageEvent>(ApplyDamage_Elemental);
+            SubscribeComponent<EffectDamageElementalComponent, ApplyEffectTileDamageEvent>(ApplyTileDamage_Elemental);
 
             SubscribeComponent<EffectDamageHealingComponent, ApplyEffectDamageEvent>(ApplyDamage_Healing);
             SubscribeComponent<EffectDamageHealSanityComponent, ApplyEffectDamageEvent>(ApplyDamage_HealSanity);
 
             SubscribeComponent<EffectSummonComponent, ApplyEffectDamageEvent>(ApplyDamage_Summon);
             SubscribeComponent<EffectSummonCharaComponent, EffectSummonEvent>(Summon_Chara);
+
+            SubscribeComponent<EffectDamageMefComponent, ApplyEffectDamageEvent>(ApplyDamage_Mef);
+
+            SubscribeComponent<EffectTileDamageElementalComponent, ApplyEffectTileDamageEvent>(ApplyTileDamage_Elemental, priority: EventPriorities.High);
         }
 
         private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
@@ -295,6 +290,12 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
         }
 
+        private void ApplyTileDamage_Elemental(EntityUid uid, EffectDamageElementalComponent component, ApplyEffectTileDamageEvent args)
+        {
+            if (component.Element != null)
+                _elements.DamageTile(args.CoordsMap, component.Element.Value, args.Source);
+        }
+
         private void ApplyDamage_Healing(EntityUid uid, EffectDamageHealingComponent healingComp, ApplyEffectDamageEvent args)
         {
             if (args.Handled || args.InnerTarget == null)
@@ -400,6 +401,37 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
                 args.Handle(chara.Value);
             }
+        }
+
+        private void ApplyDamage_Mef(EntityUid uid, EffectDamageMefComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2973 	if efId=actEtherGround	:addMef x,y,mefEther,20,rn ...
+            if (args.Handled)
+                return;
+
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+
+            int? turns = null;
+            if (component.Turns != null)
+                turns = (int)_formulaEngine.Calculate(component.Turns.Value, formulaArgs, 10f);
+
+            var power = args.OutDamage;
+
+            var mef = _mefs.SpawnMef(component.MefID, args.TargetCoordsMap, 
+                duration: turns != null ? GameTimeSpan.FromMinutes(turns.Value) : null, 
+                power: power,
+                spawnedBy: args.Source);
+
+            if (!IsAlive(mef))
+                return;
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2977 	if efId=spMist		:addMef x,y,mefMist,30,8+rnd(15+e ...
+        }
+
+        private void ApplyTileDamage_Elemental(EntityUid uid, EffectTileDamageElementalComponent component, ApplyEffectTileDamageEvent args)
+        {
+            _elements.DamageTile(args.CoordsMap, component.Element, args.Source);
         }
     }
 

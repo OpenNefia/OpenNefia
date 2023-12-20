@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Audio;
 using OpenNefia.Core;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -53,6 +54,40 @@ namespace OpenNefia.Content.Effects.New
 
         [DataField]
         public LocaleKey BreathNameKey { get; set; } = "Elona.Magic.Message.Breath.NoElement";
+    }
+
+    /// <summary>
+    /// Affects a random spray of tiles around the origin.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaWebComponent : Component
+    {
+        /// <summary>
+        /// Number of tiles to affect.
+        /// </summary>
+        [DataField]
+        public Formula TileCount { get; set; } = new("power / 100");
+
+        /// <summary>
+        /// Controls the spread of the effect spray.
+        /// </summary>
+        [DataField]
+        public Formula Spread { get; set; } = new("3");
+    }
+
+    /// <summary>
+    /// Shows a message and plays a sound when the area effect is cast.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaMessageComponent : Component
+    {
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "";
+
+        [DataField]
+        public SoundSpecifier? Sound { get; set; }
     }
 
     [RegisterComponent]

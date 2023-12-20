@@ -1842,6 +1842,7 @@
     damageTextType: Elona.Bite
   - type: Spells
     castingType: Elona.Spider
+  - type: RaceSpider
 
 - type: Elona.Race
   id: Elona.Golem

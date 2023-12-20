@@ -46,6 +46,7 @@ namespace OpenNefia.Content.GameObjects
         public Stat<bool> CanDetectReligion { get; set; } = new(false);
 
         // TODO move
+        // TODO implement status effect gravity
         [DataField]
         public Stat<bool> IsFloating { get; set; } = new(false);
 

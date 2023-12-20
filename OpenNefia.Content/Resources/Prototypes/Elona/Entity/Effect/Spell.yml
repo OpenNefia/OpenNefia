@@ -8,7 +8,7 @@
   effectID: Elona.SpellHolyLight
 - type: Entity
   id: Elona.SpellHolyLight
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 406
 
@@ -22,7 +22,7 @@
   effectID: Elona.SpellVanquishHex
 - type: Entity
   id: Elona.SpellVanquishHex
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 407
 
@@ -37,7 +37,7 @@
   effectID: Elona.SpellTeleport
 - type: Entity
   id: Elona.SpellTeleport
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 408
 
@@ -52,7 +52,7 @@
   effectID: Elona.SpellTeleportOther
 - type: Entity
   id: Elona.SpellTeleportOther
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 409
 
@@ -67,7 +67,7 @@
   effectID: Elona.SpellShortTeleport
 - type: Entity
   id: Elona.SpellShortTeleport
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 410
 
@@ -81,7 +81,7 @@
   effectID: Elona.SpellIdentify
 - type: Entity
   id: Elona.SpellIdentify
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 411
   components:
@@ -102,7 +102,7 @@
   effectID: Elona.SpellUncurse
 - type: Entity
   id: Elona.SpellUncurse
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 412
   components:
@@ -125,7 +125,7 @@
   effectID: Elona.SpellOracle
 - type: Entity
   id: Elona.SpellOracle
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 413
   components:
@@ -142,7 +142,7 @@
   effectID: Elona.SpellReturn
 - type: Entity
   id: Elona.SpellReturn
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 428
 
@@ -156,7 +156,7 @@
   effectID: Elona.SpellMagicMap
 - type: Entity
   id: Elona.SpellMagicMap
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 429
 
@@ -170,7 +170,7 @@
   effectID: Elona.SpellSenseObject
 - type: Entity
   id: Elona.SpellSenseObject
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 430
 
@@ -185,7 +185,7 @@
   effectID: Elona.SpellDominate
 - type: Entity
   id: Elona.SpellDominate
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 435
   components:
@@ -198,34 +198,6 @@
   - type: EffectDominate
 
 - type: Elona.Spell
-  id: Elona.Web
-  hspIds:
-    elona122: 436
-  difficulty: 150
-  mpCost: 10
-  skillID: Elona.SpellWeb
-  effectID: Elona.SpellWeb
-- type: Entity
-  id: Elona.SpellWeb
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 436
-
-- type: Elona.Spell
-  id: Elona.MistOfDarkness
-  hspIds:
-    elona122: 437
-  difficulty: 320
-  mpCost: 12
-  skillID: Elona.SpellMistOfDarkness
-  effectID: Elona.SpellMistOfDarkness
-- type: Entity
-  id: Elona.SpellMistOfDarkness
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 437
-
-- type: Elona.Spell
   id: Elona.WallCreation
   hspIds:
     elona122: 438
@@ -236,7 +208,7 @@
   effectID: Elona.SpellWallCreation
 - type: Entity
   id: Elona.SpellWallCreation
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 438
   components:
@@ -253,7 +225,7 @@
   effectID: Elona.SpellRestoreBody
 - type: Entity
   id: Elona.SpellRestoreBody
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 439
   components:
@@ -277,7 +249,7 @@
   effectID: Elona.SpellRestoreSpirit
 - type: Entity
   id: Elona.SpellRestoreSpirit
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 440
   components:
@@ -301,7 +273,7 @@
   effectID: Elona.SpellWish
 - type: Entity
   id: Elona.SpellWish
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 441
   components:
@@ -318,7 +290,7 @@
   effectID: Elona.SpellBuffHolyShield
 - type: Entity
   id: Elona.SpellBuffHolyShield
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 442
 
@@ -332,7 +304,7 @@
   effectID: Elona.SpellBuffMistOfSilence
 - type: Entity
   id: Elona.SpellBuffMistOfSilence
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 443
 
@@ -346,7 +318,7 @@
   effectID: Elona.SpellBuffRegeneration
 - type: Entity
   id: Elona.SpellBuffRegeneration
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 444
 
@@ -360,7 +332,7 @@
   effectID: Elona.SpellBuffElementalShield
 - type: Entity
   id: Elona.SpellBuffElementalShield
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 445
 
@@ -374,7 +346,7 @@
   effectID: Elona.SpellBuffSpeed
 - type: Entity
   id: Elona.SpellBuffSpeed
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 446
 
@@ -388,7 +360,7 @@
   effectID: Elona.SpellBuffSlow
 - type: Entity
   id: Elona.SpellBuffSlow
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 447
 
@@ -402,7 +374,7 @@
   effectID: Elona.SpellBuffHero
 - type: Entity
   id: Elona.SpellBuffHero
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 448
 
@@ -416,7 +388,7 @@
   effectID: Elona.SpellBuffMistOfFrailness
 - type: Entity
   id: Elona.SpellBuffMistOfFrailness
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 449
 
@@ -430,7 +402,7 @@
   effectID: Elona.SpellBuffElementScar
 - type: Entity
   id: Elona.SpellBuffElementScar
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 450
 
@@ -444,7 +416,7 @@
   effectID: Elona.SpellBuffHolyVeil
 - type: Entity
   id: Elona.SpellBuffHolyVeil
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 451
 
@@ -458,7 +430,7 @@
   effectID: Elona.SpellBuffNightmare
 - type: Entity
   id: Elona.SpellBuffNightmare
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 452
 
@@ -472,7 +444,7 @@
   effectID: Elona.SpellBuffDivineWisdom
 - type: Entity
   id: Elona.SpellBuffDivineWisdom
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 453
 
@@ -486,7 +458,7 @@
   effectID: Elona.SpellMutation
 - type: Entity
   id: Elona.SpellMutation
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 454
   components:
@@ -494,34 +466,6 @@
   - type: EffectBaseDamageDice
     finalDamage: 1
   - type: EffectMutation
-
-- type: Elona.Spell
-  id: Elona.AcidGround
-  hspIds:
-    elona122: 455
-  difficulty: 480
-  mpCost: 18
-  skillID: Elona.SpellAcidGround
-  effectID: Elona.SpellAcidGround
-- type: Entity
-  id: Elona.SpellAcidGround
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 455
-
-- type: Elona.Spell
-  id: Elona.FireWall
-  hspIds:
-    elona122: 456
-  difficulty: 640
-  mpCost: 24
-  skillID: Elona.SpellFireWall
-  effectID: Elona.SpellFireWall
-- type: Entity
-  id: Elona.SpellFireWall
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 456
 
 - type: Elona.Spell
   id: Elona.DoorCreation
@@ -534,7 +478,7 @@
   effectID: Elona.SpellDoorCreation
 - type: Entity
   id: Elona.SpellDoorCreation
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 457
   components:
@@ -553,7 +497,7 @@
   effectID: Elona.SpellBuffIncognito
 - type: Entity
   id: Elona.SpellBuffIncognito
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 458
 
@@ -568,7 +512,7 @@
   effectID: Elona.SpellResurrection
 - type: Entity
   id: Elona.SpellResurrection
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 461
 
@@ -582,7 +526,7 @@
   effectID: Elona.SpellBuffContingency
 - type: Entity
   id: Elona.SpellBuffContingency
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 462
 
@@ -596,7 +540,7 @@
   mpCost: 60
 - type: Entity
   id: Elona.SpellFourDimensionalPocket
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 463
 
@@ -610,7 +554,7 @@
   effectID: Elona.SpellWizardsHarvest
 - type: Entity
   id: Elona.SpellWizardsHarvest
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 464
   components:
@@ -629,7 +573,7 @@
   effectID: Elona.SpellMeteor
 - type: Entity
   id: Elona.SpellMeteor
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 465
 
@@ -644,6 +588,6 @@
   effectID: Elona.SpellGravity
 - type: Entity
   id: Elona.SpellGravity
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 466

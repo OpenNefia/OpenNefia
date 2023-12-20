@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Factions;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core;
@@ -42,11 +43,55 @@ namespace OpenNefia.Content.Effects.New
 
     /// <summary>
     /// Modifies damage based on the caster's Control Magic level.
+    /// Can cancel the effect entirely if the level is high enough.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectDamageControlMagicComponent : Component
     {
+    }
+
+    public enum CastInsteadCriteria
+    {
+        Any,
+        Player,
+        PlayerOrAlly,
+        NotPlayer,
+        Other,
+    }
+
+    /// <summary>
+    /// Casts a different effect or stops the effect if the criteria is met.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageCastInsteadComponent : Component
+    {
+        [DataField]
+        public CastInsteadCriteria IfSource { get; set; } = CastInsteadCriteria.Any;
+
+        [DataField]
+        public CastInsteadCriteria IfTarget { get; set; } = CastInsteadCriteria.Any;
+
+        /// <summary>
+        /// If null, then "nothing happens..."
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype>? EffectID { get; set; }
+    }
+
+    /// <summary>
+    /// Randomly fails the spell.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageSuccessRateComponent : Component
+    {
+        [DataField]
+        public LocaleKey? MessageKey { get; set; }
+
+        [DataField]
+        public Formula SuccessRate { get; set; } = new("1");
     }
 
     /// <summary>
@@ -120,46 +165,36 @@ namespace OpenNefia.Content.Effects.New
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealSanity.RainOfSanity";
     }
 
-    public enum CastInsteadCriteria
-    {
-        Any,
-        Player,
-        PlayerOrAlly,
-        NotPlayer,
-        Other,
-    }
-
     /// <summary>
-    /// Casts a different effect if the criteria is met.
+    /// Spawns map effects at the tile positions.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectDamageCastInsteadComponent : Component
+    public sealed class EffectDamageMefComponent : Component
     {
         [DataField]
-        public CastInsteadCriteria IfSource { get; set; } = CastInsteadCriteria.Any;
-
-        [DataField]
-        public CastInsteadCriteria IfTarget { get; set; } = CastInsteadCriteria.Any;
+        public PrototypeId<EntityPrototype> MefID { get; set; } = Protos.Mef.Web;
 
         /// <summary>
-        /// If null, then "nothing happens..."
+        /// Number of turns the mef should last for.
+        /// If <c>null</c>, then the mef will last forever.
         /// </summary>
         [DataField]
-        public PrototypeId<EntityPrototype>? EffectID { get; set; }
+        public Formula? Turns { get; set; }
     }
 
     /// <summary>
-    /// Randomly fails the spell.
+    /// Damages tiles on the ground with the specified element.
     /// </summary>
+    /// <remarks>
+    /// Similar to <see cref="EffectDamageElementalComponent"/> but
+    /// without entity damage.
+    /// </remarks>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectDamageSuccessRateComponent : Component
+    public sealed class EffectTileDamageElementalComponent : Component
     {
         [DataField]
-        public LocaleKey? MessageKey { get; set; }
-
-        [DataField]
-        public Formula SuccessRate { get; set; } = new("1");
+        public PrototypeId<ElementPrototype> Element { get; set; }
     }
 }

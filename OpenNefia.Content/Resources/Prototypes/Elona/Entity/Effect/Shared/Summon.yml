@@ -25,7 +25,6 @@
   hspIds:
     elona122: 424
   components:
-  - type: EffectTypeSpell
   - type: EffectSummonChara
     choices:
       - charaFilter: {} # default filter, spawns anything
@@ -44,7 +43,6 @@
   hspIds:
     elona122: 425
   components:
-  - type: EffectTypeSpell
   - type: EffectSummonChara
     choices:
     - charaFilter:
@@ -66,7 +64,6 @@
     elona122: 639
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     finalDamage: 2 + randInt(18)
   - type: EffectSummonChara
@@ -90,7 +87,6 @@
     elona122: 640
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     finalDamage: 5 + randInt(12)
   - type: EffectSummonChara
@@ -114,7 +110,6 @@
     elona122: 641
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     finalDamage: 15 + randInt(8)
   - type: EffectSummonChara
@@ -138,7 +133,6 @@
     elona122: 642
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     finalDamage: 15 + randInt(15)
   - type: EffectSummonChara
@@ -162,7 +156,6 @@
     elona122: 643
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     finalDamage: 15 + randInt(15)
   - type: EffectSummon

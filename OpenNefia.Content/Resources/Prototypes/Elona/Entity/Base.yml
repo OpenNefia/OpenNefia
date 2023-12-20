@@ -101,6 +101,7 @@
   components:
   - type: Chip
     drawDepth: Mefs
+  - type: Mef
 
 - type: Entity
   id: BaseMap

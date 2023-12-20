@@ -9,7 +9,7 @@
   id: Elona.ActionDrainBlood
   hspIds:
     elona122: 601
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfWeakness
@@ -22,7 +22,7 @@
   id: Elona.ActionTouchOfWeakness
   hspIds:
     elona122: 613
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfHunger
@@ -35,7 +35,7 @@
   id: Elona.ActionTouchOfHunger
   hspIds:
     elona122: 614
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfPoison
@@ -48,7 +48,7 @@
   id: Elona.ActionTouchOfPoison
   hspIds:
     elona122: 615
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfNerve
@@ -61,7 +61,7 @@
   id: Elona.ActionTouchOfNerve
   hspIds:
     elona122: 616
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfFear
@@ -74,7 +74,7 @@
   id: Elona.ActionTouchOfFear
   hspIds:
     elona122: 617
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.TouchOfSleep
@@ -87,7 +87,7 @@
   id: Elona.ActionTouchOfSleep
   hspIds:
     elona122: 618
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   hspIds:
@@ -100,7 +100,7 @@
   id: Elona.ActionDimensionalMove
   hspIds:
     elona122: 619
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.DrawShadow
@@ -113,7 +113,7 @@
   id: Elona.ActionDrawShadow
   hspIds:
     elona122: 620
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.HarvestMana
@@ -128,7 +128,7 @@
   id: Elona.ActionHarvestMana
   hspIds:
     elona122: 621
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.BuffPunishment
@@ -142,7 +142,7 @@
   id: Elona.ActionBuffPunishment
   hspIds:
     elona122: 622
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.PrayerOfJure
@@ -155,7 +155,7 @@
   id: Elona.ActionPrayerOfJure
   hspIds:
     elona122: 623
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.AbsorbMagic
@@ -168,7 +168,7 @@
   id: Elona.ActionAbsorbMagic
   hspIds:
     elona122: 624
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.BuffLulwysTrick
@@ -182,7 +182,7 @@
   id: Elona.ActionBuffLulwysTrick
   hspIds:
     elona122: 625
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Mirror
@@ -197,7 +197,7 @@
   id: Elona.ActionMirror
   hspIds:
     elona122: 626
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Change
@@ -210,7 +210,7 @@
   id: Elona.ActionChange
   hspIds:
     elona122: 628
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.DrawCharge
@@ -223,7 +223,7 @@
   id: Elona.ActionDrawCharge
   hspIds:
     elona122: 629
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.FillCharge
@@ -236,7 +236,7 @@
   id: Elona.ActionFillCharge
   hspIds:
     elona122: 630
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Swarm
@@ -251,7 +251,7 @@
   id: Elona.ActionSwarm
   hspIds:
     elona122: 631
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.EyeOfMutation
@@ -264,7 +264,7 @@
   id: Elona.ActionEyeOfMutation
   hspIds:
     elona122: 632
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
   components:
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
@@ -289,21 +289,7 @@
   id: Elona.ActionEyeOfEther
   hspIds:
     elona122: 633
-  parent: Elona.BaseActionEffect
-
-- type: Elona.Action
-  id: Elona.EtherGround
-  hspIds:
-    elona122: 634
-  skillID: Elona.ActionEtherGround
-  effectID: Elona.ActionEtherGround
-  staminaCost: 18
-  difficulty: 480
-- type: Entity
-  id: Elona.ActionEtherGround
-  hspIds:
-    elona122: 634
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.SuspiciousHand
@@ -316,7 +302,7 @@
   id: Elona.ActionSuspiciousHand
   hspIds:
     elona122: 635
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.EyeOfInsanity
@@ -329,7 +315,7 @@
   id: Elona.ActionEyeOfInsanity
   hspIds:
     elona122: 636
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.EyeOfDimness
@@ -342,7 +328,7 @@
   id: Elona.ActionEyeOfDimness
   hspIds:
     elona122: 638
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.SuicideAttack
@@ -357,7 +343,7 @@
   id: Elona.ActionSuicideAttack
   hspIds:
     elona122: 644
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Curse
@@ -372,7 +358,7 @@
   id: Elona.ActionCurse
   hspIds:
     elona122: 645
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.BuffDeathWord
@@ -386,7 +372,7 @@
   id: Elona.ActionBuffDeathWord
   hspIds:
     elona122: 646
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.BuffBoost
@@ -400,7 +386,7 @@
   id: Elona.ActionBuffBoost
   hspIds:
     elona122: 647
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Insult
@@ -413,7 +399,7 @@
   id: Elona.ActionInsult
   hspIds:
     elona122: 648
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.DistantAttack4
@@ -426,7 +412,7 @@
   id: Elona.ActionDistantAttack4
   hspIds:
     elona122: 649
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.DistantAttack7
@@ -439,7 +425,7 @@
   id: Elona.ActionDistantAttack7
   hspIds:
     elona122: 650
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Scavenge
@@ -452,7 +438,7 @@
   id: Elona.ActionScavenge
   hspIds:
     elona122: 651
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.EyeOfMana
@@ -465,7 +451,7 @@
   id: Elona.ActionEyeOfMana
   hspIds:
     elona122: 652
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Vanish
@@ -478,7 +464,7 @@
   id: Elona.ActionVanish
   hspIds:
     elona122: 653
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Pregnant
@@ -491,7 +477,7 @@
   id: Elona.ActionPregnant
   hspIds:
     elona122: 654
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Cheer
@@ -506,7 +492,7 @@
   id: Elona.ActionCheer
   hspIds:
     elona122: 656
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Mewmewmew
@@ -521,7 +507,7 @@
   id: Elona.ActionMewmewmew
   hspIds:
     elona122: 657
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.Decapitation
@@ -534,7 +520,7 @@
   id: Elona.ActionDecapitation
   hspIds:
     elona122: 658
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.DropMine
@@ -547,7 +533,7 @@
   id: Elona.ActionDropMine
   hspIds:
     elona122: 659
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect
 
 - type: Elona.Action
   id: Elona.ManisDisassembly
@@ -560,4 +546,4 @@
   id: Elona.ActionManisDisassembly
   hspIds:
     elona122: 660
-  parent: Elona.BaseActionEffect
+  parent: BaseEffect

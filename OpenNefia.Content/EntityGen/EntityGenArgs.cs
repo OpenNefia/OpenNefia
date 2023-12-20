@@ -141,25 +141,4 @@ namespace OpenNefia.Content.EntityGen
         [DataField]
         public OwnState OwnState { get; set; } = OwnState.None;
     }
-
-    public sealed class MefGenArgs : EntityGenArgs
-    {
-        /// <summary>
-        /// Number of turns this mef will last for.
-        /// </summary>
-        [DataField]
-        public int TurnDuration { get; set; } = 10;
-
-        /// <summary>
-        /// Power of this mef.
-        /// </summary>
-        [DataField]
-        public int Power { get; set; } = 10;
-
-        /// <summary>
-        /// The entity responsible for creating this mef.
-        /// </summary>
-        [DataField]
-        public EntityUid? Origin { get; set; } = null;
-    }
 }

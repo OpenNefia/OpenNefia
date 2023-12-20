@@ -252,7 +252,7 @@ namespace OpenNefia.Content.GameObjects
             else
             {
                 _audio.Play(Protos.Sound.Ok1);
-                var chara = _lookup.QueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
+                var chara = _lookup.EntityQueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
                 if (chara != null && !session.IsPlayer(chara.Owner))
                 {
                     _vai.SetTarget(session.Player, chara.Owner, 0, vai);

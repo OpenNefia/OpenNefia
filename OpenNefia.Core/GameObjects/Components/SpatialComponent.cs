@@ -264,6 +264,7 @@ namespace OpenNefia.Core.GameObjects
         ///     Current position offset of the entity relative to the world.
         ///     This is effectively a more complete version of <see cref="WorldPosition"/>
         /// </summary>
+        // TOOD rename to MapCoordinates?
         public MapCoordinates MapPosition => new(MapID, WorldPosition);
 
         /// <summary>

@@ -23,6 +23,10 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Audio;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Formulae;
+using OpenNefia.Content.Effects.New;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
+using System.Threading.Tasks.Sources;
 
 namespace OpenNefia.Content.Effects.New.EffectAreas
 {
@@ -37,16 +41,21 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         [Dependency] private readonly ITargetingSystem _targetings = default!;
         [Dependency] private readonly ITargetableSystem _targetable = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         public override void Initialize()
         {
             SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
             SubscribeComponent<EffectAreaAnimationComponent, GetEffectAnimationParamsEvent>(ApplyAreaAnimFallback, priority: EventPriorities.VeryLow + 100000);
+            SubscribeComponent<EffectAreaMessageComponent, ApplyEffectAreaEvent>(ShowAreaMessage, priority: EventPriorities.VeryHigh + 100000);
 
             SubscribeComponent<EffectAreaArrowComponent, ApplyEffectAreaEvent>(ApplyArea_Arrow);
             SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
             SubscribeComponent<EffectAreaBallComponent, ApplyEffectAreaEvent>(ApplyArea_Ball);
             SubscribeComponent<EffectAreaBreathComponent, ApplyEffectAreaEvent>(ApplyArea_Breath);
+            SubscribeComponent<EffectAreaWebComponent, ApplyEffectAreaEvent>(ApplyArea_Web);
         }
 
         /// <summary>
@@ -79,6 +88,14 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 args.OutColor = component.Color.Value;
             if (component.Sound != null)
                 args.OutSound = component.Sound.GetSound();
+        }
+
+        private void ShowAreaMessage(EntityUid uid, EffectAreaMessageComponent component, ApplyEffectAreaEvent args)
+        {
+            _mes.Display(Loc.GetString(component.MessageKey));
+            var soundId = component.Sound?.GetSound();
+            if (soundId != null)
+                _audio.Play(soundId.Value, args.TargetCoordsMap);
         }
 
         // TODO refactor into GetEffectMapDrawable?
@@ -395,6 +412,72 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                         obvious = obvious || result.EffectWasObvious;
                         didSomething = didSomething || result.EventWasHandled;
                     }
+                }
+            }
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            args.CommonArgs.OutEffectWasObvious = obvious;
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private IList<MapCoordinates> GetWebPositions(MapCoordinates origin, int spread, int attempts)
+        {
+            var map = GetMap(origin);
+            var positions = new List<MapCoordinates>();
+
+            while (attempts > 0)
+            {
+                var pos = origin.Position + _rand.NextVec2iInVec(spread, spread) - _rand.NextVec2iInVec(spread, spread);
+
+                var canAccess = map.IsFloor(pos) && double.Floor((pos - origin.Position).Length) < spread;
+
+                if (canAccess)
+                {
+                    positions.Add(map.AtPos(pos));
+                    attempts--;
+                }
+                else if (_rand.OneIn(2))
+                {
+                    attempts--;
+                }
+            }
+
+            return positions;
+        }
+
+        private void ApplyArea_Web(EntityUid uid, EffectAreaWebComponent component, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args);
+            var attempts = (int)_formulaEngine.Calculate(component.TileCount, vars, 10);
+            var spread = (int)_formulaEngine.Calculate(component.Spread, vars, 3);
+
+            var positions = GetWebPositions(args.TargetCoordsMap, spread, attempts);
+
+            var obvious = false;
+            var didSomething = false;
+            var i = 0;
+
+            foreach (var curPosMap in positions)
+            {
+                ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args);
+
+                if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
+                {
+                    _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
+                    var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, positions.Count, i);
+
+                    obvious = obvious || result.EffectWasObvious;
+                    didSomething = didSomething || result.EventWasHandled;
                 }
             }
 

@@ -31,7 +31,6 @@
   hspIds:
     elona122: 431
   components:
-  - type: EffectTypeSpell
   - type: EffectDamageElemental
     element: Elona.Cold
 
@@ -50,7 +49,6 @@
   hspIds:
     elona122: 432
   components:
-  - type: EffectTypeSpell
   - type: EffectDamageElemental
     element: Elona.Fire
 
@@ -69,7 +67,6 @@
   hspIds:
     elona122: 433
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 80) + 1 + (skillLevel / 20)
     diceY: (power / 12) + 2
@@ -91,7 +88,6 @@
   hspIds:
     elona122: 434
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 80) + 1 + (skillLevel / 20)
     diceY: (power / 12) + 2
@@ -113,7 +109,6 @@
   hspIds:
     elona122: 460
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 100) + 1 + (skillLevel / 25)
     diceY: (power / 18) + 2
@@ -136,7 +131,6 @@
     elona122: 655
   parent: Elona.BaseEffectBall
   components:
-  - type: EffectTypeAction
   - type: EffectBaseDamageDice
     diceX: (power / 80) + 1
     diceY: (power / 8) + 2
@@ -162,7 +156,6 @@
   components:
   - type: Effect
     alignment: Positive
-  - type: EffectTypeAction
   - type: EffectTargetSelf
   - type: EffectAreaAnimation
     showAnimation: false

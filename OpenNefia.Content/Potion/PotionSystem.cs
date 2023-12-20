@@ -20,6 +20,7 @@ using Microsoft.FileFormats;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Effects.New;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.Mefs;
 
 namespace OpenNefia.Content.Potion
 {
@@ -38,13 +39,14 @@ namespace OpenNefia.Content.Potion
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IMefSystem _mefs = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<PotionComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<PotionComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
             SubscribeComponent<PotionComponent, ThrownEntityImpactedGroundEvent>(HandleImpactGround);
-            SubscribeComponent<PotionPuddleComponent, EntitySteppedOnEvent>(HandlePotionPuddleSteppedOn);
+            SubscribeComponent<MefPotionPuddleComponent, AfterEntitySteppedOnEvent>(HandlePotionPuddleSteppedOn);
         }
 
         private void HandleGetVerbs(EntityUid potion, PotionComponent drinkableComp, GetVerbsEventArgs args)
@@ -58,10 +60,9 @@ namespace OpenNefia.Content.Potion
             if (!Resolve(potion, ref potionComp))
                 return TurnResult.Failed;
 
-            // TODO simpler visibilty check, which assumes player is the onlooker
-            if (_vis.HasLineOfSight(_gameSession.Player, drinker))
+            if (_vis.PlayerCanSeeEntity(drinker))
             {
-                _mes.Display(Loc.GetString("Elona.Potion.Drinks", ("entity", drinker), ("item", potion)));
+                _mes.Display(Loc.GetString("Elona.Potion.Drinks", ("entity", drinker), ("item", potion)), entity: drinker);
                 _sounds.Play(Protos.Sound.Drink1, drinker);
             }
 
@@ -150,7 +151,7 @@ namespace OpenNefia.Content.Potion
             _mes.Display(Loc.GetString("Elona.Potion.Thrown.Shatters"));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
-            var puddle = _entityGen.SpawnEntity(Protos.Mef.Potion, args.Coords);
+            var puddle = _mefs.SpawnMef(Protos.Mef.PotionPuddle, args.Coords, duration: null);
 
             if (puddle == null)
                 return;
@@ -160,7 +161,7 @@ namespace OpenNefia.Content.Potion
             {
                 chipCompPuddle.Color = chipCompPotion.Color;
             }
-            if (EntityManager.TryGetComponent(puddle.Value, out PotionPuddleComponent puddleComp))
+            if (EntityManager.TryGetComponent(puddle.Value, out MefPotionPuddleComponent puddleComp))
             {
                 puddleComp.Effects = potionComp.Effects;
             }
@@ -169,7 +170,7 @@ namespace OpenNefia.Content.Potion
             EntityManager.DeleteEntity(thrown);
         }
 
-        private void HandlePotionPuddleSteppedOn(EntityUid puddle, PotionPuddleComponent potionComp, EntitySteppedOnEvent args)
+        private void HandlePotionPuddleSteppedOn(EntityUid puddle, MefPotionPuddleComponent potionComp, AfterEntitySteppedOnEvent args)
         {
             _sounds.Play(Protos.Sound.Water, puddle);
             _sounds.Play(Protos.Sound.Drink1, args.Stepper);

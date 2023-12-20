@@ -9,7 +9,7 @@
   effectID: Elona.SpellHealLight
 - type: Entity
   id: Elona.SpellHealLight
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 400
   components:
@@ -32,7 +32,7 @@
   effectID: Elona.SpellHealCritical
 - type: Entity
   id: Elona.SpellHealCritical
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 401
   components:
@@ -55,7 +55,7 @@
   effectID: Elona.SpellCureOfEris
 - type: Entity
   id: Elona.SpellCureOfEris
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 402
   components:
@@ -78,7 +78,7 @@
   effectID: Elona.SpellCureOfJure
 - type: Entity
   id: Elona.SpellCureOfJure
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 403
   components:
@@ -101,7 +101,7 @@
   effectID: Elona.SpellHealingRain
 - type: Entity
   id: Elona.SpellHealingRain
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 404
   components:
@@ -132,7 +132,7 @@
   effectID: Elona.SpellHealingTouch
 - type: Entity
   id: Elona.SpellHealingTouch
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   hspIds:
     elona122: 405
   components:

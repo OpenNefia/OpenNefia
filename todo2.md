@@ -15,6 +15,8 @@
   + [ ] buffs
   + [ ] timestop
   + [ ] spell stock check
+  + [ ] add all effect alignments
+  + [ ] remove/refactor old effect system
 - [ ] inventory/spell/skill shortcuts
 - [ ] wishing
 - [ ] magic items
@@ -41,7 +43,10 @@
 - [ ] main quest/sidequests/dialogs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
-- [x] status effect protoevents -> ECS
+- [ ] status effect protoevents -> ECS
+  + [ ] gravity floating buff
+  + [ ] fear prevents melee attacking
+  + [ ] all other status effect checks in HSP code
 - [x] staying charas
 - [ ] nefia generation refactor
 - [ ] elonaextender features
@@ -59,15 +64,28 @@
 - [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] loc manager doesn't re-watch if language is switched
 - [ ] non-compiled mods
-- [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
 - [ ] Qy@
+
+## enhancements
 - [ ] mod API examples
 - [ ] update NuGet packages
 - [ ] robust upstream commits
 - [ ] serializer strict mode
   + [ ] throw if unknown field is found in mapping
   + [ ] throw if duplicate prototype IDs are detected
+- [] add new effect event type for checking/modifying area positions (`ApplyEffectPositionsEvent`)
+  + pass the positions list to the new event
+  + this should allow specifying which effect animation to show from YAML
+  + this way you can show the ball animation for the web area or the bolt area
+  + effect area components run their own logic inside the positions event (FOV checking for each tile, etc.) 
+- [ ] how to combine more than one effect damage
+  + each individual effect handles afterward with the turn result
+  + events could also handle with failure to block running damage
+  + in the future handled events will be exited out of early so this needs to be changed
+- [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
+- [ ] entity gen interfaces `SpawnEntity` -> `TrySpawnEntity` everywhere
 - [ ] make event subscriptions declarative (no more `IEntitySystem.Initialize()`) for better hot reloading
+- [ ] new effect event for modifying returned area positions and showing a message
 - [ ] data definition for "randomly pickable list" (element associated with weight)
 - [ ] "start engine with this mod" compile targets
 - [ ] autodetect dependent mods during debugging and mount resource folders for hotloading

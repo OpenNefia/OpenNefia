@@ -70,5 +70,12 @@ Elona.Magic = {
             NoElement = "breath",
         },
         Summon = "Several monsters come out from a portal.",
+        Mef = {
+            AcidGround = "Acid puddles are generated.",
+            EtherGround = "Ether mist spreads.",
+            Fire = "Walls of fire come out from the ground.",
+            MistOfDarkness = "The air is wrapped in a dense fog.",
+            Web = "The ground is covered with thick webbing.",
+        },
     },
 }

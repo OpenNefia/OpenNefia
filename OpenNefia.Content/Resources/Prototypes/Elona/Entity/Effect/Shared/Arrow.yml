@@ -30,7 +30,6 @@
   hspIds:
     elona122: 414
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 125) + 2 + (skillLevel / 50)
     diceY: (power / 60) + 9
@@ -54,7 +53,6 @@
   hspIds:
     elona122: 415
   components:
-  - type: EffectTypeSpell
   - type: EffectDamageElemental
     element: Elona.Nether
 
@@ -74,7 +72,6 @@
   hspIds:
     elona122: 416
   components:
-  - type: EffectTypeSpell
   - type: EffectDamageElemental
     element: Elona.Nerve
 
@@ -94,7 +91,6 @@
   hspIds:
     elona122: 417
   components:
-  - type: EffectTypeSpell
   - type: EffectDamageElemental
     element: Elona.Chaos
 
@@ -114,7 +110,6 @@
   hspIds:
     elona122: 418
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 80) + 1 + (skillLevel / 18)
     diceY: (power / 25) + 8
@@ -138,7 +133,6 @@
   hspIds:
     elona122: 459
   components:
-  - type: EffectTypeSpell
   - type: EffectBaseDamageDice
     diceX: (power / 100) + 3 + (skillLevel / 25)
     diceY: (power / 40) + 12
