@@ -119,4 +119,47 @@ namespace OpenNefia.Content.Effects.New
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealSanity.RainOfSanity";
     }
+
+    public enum CastInsteadCriteria
+    {
+        Any,
+        Player,
+        PlayerOrAlly,
+        NotPlayer,
+        Other,
+    }
+
+    /// <summary>
+    /// Casts a different effect if the criteria is met.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageCastInsteadComponent : Component
+    {
+        [DataField]
+        public CastInsteadCriteria IfSource { get; set; } = CastInsteadCriteria.Any;
+
+        [DataField]
+        public CastInsteadCriteria IfTarget { get; set; } = CastInsteadCriteria.Any;
+
+        /// <summary>
+        /// If null, then "nothing happens..."
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype>? EffectID { get; set; }
+    }
+
+    /// <summary>
+    /// Randomly fails the spell.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageSuccessRateComponent : Component
+    {
+        [DataField]
+        public LocaleKey? MessageKey { get; set; }
+
+        [DataField]
+        public Formula SuccessRate { get; set; } = new("1");
+    }
 }

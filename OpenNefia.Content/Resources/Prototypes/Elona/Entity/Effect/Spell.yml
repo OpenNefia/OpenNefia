@@ -50,6 +50,9 @@
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
     finalDamage: power
+  - type: EffectDamageCastInstead
+    ifTarget: NotPlayer
+    effectID: null
   - type: EffectUncurse
 
 - type: Entity
@@ -254,6 +257,11 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 454
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: 1
+  - type: EffectMutation
 
 - type: Entity
   id: Elona.SpellAcidGround

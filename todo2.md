@@ -17,6 +17,9 @@
   + [ ] spell stock check
 - [ ] wishing
 - [ ] magic items
+- [ ] mef
+  + [ ] potion puddle
+  + [ ] retain original mef creator for magic
 - [x] living weapons
 - [ ] cargo
 - [ ] all item events/properties

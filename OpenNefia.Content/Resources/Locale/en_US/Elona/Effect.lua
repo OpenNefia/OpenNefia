@@ -146,4 +146,22 @@ Elona.Effect = {
             end,
         },
     },
+
+    Mutation = {
+        Apply = function(source, target)
+            return ("%s mutate%s."):format(_.name(target), _.s(target))
+        end,
+        Resist = function(source, target)
+            return ("%s resist%s the threat of mutation."):format(_.name(target), _.s(target))
+        end,
+        Eye = function(source, target)
+            return ("%s cast%s an insane glance on %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+    },
+
+    CureMutation = {
+        Message = function(source, target)
+            return ("%s %s now one step closer to %s."):format(_.name(target), _.is(target), _.himself(target))
+        end,
+    },
 }

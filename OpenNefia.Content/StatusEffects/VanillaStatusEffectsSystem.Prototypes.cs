@@ -102,7 +102,7 @@ namespace OpenNefia.Content.StatusEffects
             if (_statusEffects.GetTurns(ev.Entity, Protos.StatusEffect.Dimming) > 60)
             {
                 if (_gameSession.IsPlayer(ev.Entity))
-                    _gameController.Wait(0.18f);
+                    _gameController.WaitSecs(0.18f);
                 ev.Handle(TurnResult.Failed);
             }
         }
@@ -187,7 +187,7 @@ namespace OpenNefia.Content.StatusEffects
         public void Choking_BeforeTurnStart(StatusEffectPrototype proto, P_StatusEffectBeforeTurnStartEvent ev)
         {
             if (_gameSession.IsPlayer(ev.Entity))
-                _gameController.Wait(0.18f);
+                _gameController.WaitSecs(0.18f);
             ev.Handle(TurnResult.Failed);
         }
 
@@ -259,7 +259,7 @@ namespace OpenNefia.Content.StatusEffects
         public void Sleep_BeforeTurnStart(StatusEffectPrototype proto, P_StatusEffectBeforeTurnStartEvent ev)
         {
             if (_gameSession.IsPlayer(ev.Entity))
-                _gameController.Wait(0.06f);
+                _gameController.WaitSecs(0.06f);
             ev.Handle(TurnResult.Failed);
         }
 
@@ -286,7 +286,7 @@ namespace OpenNefia.Content.StatusEffects
         public void Paralysis_BeforeTurnStart(StatusEffectPrototype proto, P_StatusEffectBeforeTurnStartEvent ev)
         {
             if (_gameSession.IsPlayer(ev.Entity))
-                _gameController.Wait(0.06f);
+                _gameController.WaitSecs(0.06f);
             ev.Handle(TurnResult.Failed);
         }
 

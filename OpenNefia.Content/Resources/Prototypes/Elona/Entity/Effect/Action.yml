@@ -117,6 +117,18 @@
   hspIds:
     elona122: 632
   parent: Elona.BaseActionEffect
+  components:
+  - type: EffectTargetOther
+  - type: EffectBaseDamageDice
+    finalDamage: 1
+  - type: EffectDamageCastInstead
+    ifTarget: NotPlayer
+    effectID: Elona.ActionChange
+  - type: EffectDamageSuccessRate
+    messageKey: Elona.Effect.Mutation.Eye
+    successRate: 2 / 3
+  - type: EffectMutation
+    mutationTimes: 1
 
 - type: Entity
   id: Elona.ActionEyeOfEther

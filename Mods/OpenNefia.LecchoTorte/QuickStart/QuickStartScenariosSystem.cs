@@ -43,6 +43,7 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
 using OpenNefia.Content.Scroll;
 using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Potion;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -202,7 +203,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
                     if (proto.Components.HasComponent<FoodComponent>())
                         _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
 
-                    if (proto.Components.HasComponent<ScrollComponent>())
+                    if (proto.Components.HasComponent<ScrollComponent>()
+                      || proto.Components.HasComponent<PotionComponent>())
                     {
                         foreach (var curseState in EnumHelpers.EnumerateValues<CurseState>())
                         {

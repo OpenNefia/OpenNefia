@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Food
                     _statusEffects.Apply(args.Eater, Protos.StatusEffect.Insanity, 150);
                     if (!_feats.HasFeat(args.Eater, Protos.Feat.EatHuman) && _rand.OneIn(5))
                     {
-                        _feats.AddLevel(args.Eater, Protos.Feat.EatHuman, 1);
+                        _feats.ModifyLevel(args.Eater, Protos.Feat.EatHuman, 1);
                     }
                 }
             }

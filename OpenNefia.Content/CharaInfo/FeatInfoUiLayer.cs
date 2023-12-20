@@ -122,7 +122,7 @@ namespace OpenNefia.Content.CharaInfo
                     return;
 
                 feats.NumberOfFeatsAcquirable--;
-                Layer._feats.AddLevel(Layer._charaEntity, feat.Prototype.GetStrongID(), 1);
+                Layer._feats.ModifyLevel(Layer._charaEntity, feat.Prototype.GetStrongID(), 1);
                 Layer._refresh.Refresh(Layer._charaEntity);
             }
         }

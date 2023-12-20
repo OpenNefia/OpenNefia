@@ -19,6 +19,11 @@ using OpenNefia.Content.Skills;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.CurseStates;
 using System.ComponentModel;
+using CSharpRepl.Services.Roslyn.Formatting;
+using OpenNefia.Content.Levels;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using Microsoft.FileFormats;
+using OpenNefia.Content.UI.Element;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -70,6 +75,7 @@ namespace OpenNefia.Content.Effects.New
 
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args);
     }
 
     public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
@@ -82,6 +88,23 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        {
+            var result = new Dictionary<string, double>();
+
+            result["power"] = args.Power;
+            result["skillLevel"] = args.SkillLevel;
+            result["casterLevel"] = _levels.GetLevel(source);
+            result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
+            if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
+            {
+                result["distance"] = dist;
+            }
+
+            return result;
+        }
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {

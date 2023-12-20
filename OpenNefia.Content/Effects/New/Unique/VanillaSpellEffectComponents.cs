@@ -2,6 +2,7 @@
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,6 +11,29 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
+    /// <summary>
+    /// Mutates the target.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectMutationComponent : Component
+    {
+        /// <summary>
+        /// Do not randomly pick from negative mutations.
+        /// </summary>
+        [DataField]
+        public bool NoNegativeMutations { get; set; } = false;
+    }
+
+    /// <summary>
+    /// Cures mutations.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectCureMutationComponent : Component
+    {
+    }
+
     /// <summary>
     /// Identifies a target item.
     /// </summary>

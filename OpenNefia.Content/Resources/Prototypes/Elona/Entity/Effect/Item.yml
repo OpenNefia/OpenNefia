@@ -136,6 +136,10 @@
   parent: BaseEffect
   hspIds:
     elona122: 1121
+  components:
+  - type: EffectBaseDamageDice
+    finalDamage: 1 + randInt(2)
+  - type: EffectCureMutation
 
 - type: Entity
   id: Elona.EffectGainAlly
@@ -262,6 +266,11 @@
   parent: BaseEffect
   hspIds:
     elona122: 1144
+  components:
+  - type: EffectBaseDamageDice
+    finalDamage: 2 + randInt(3)
+  - type: EffectMutation
+    noNegativeMutations: true
 
 - type: Entity
   id: Elona.EffectName

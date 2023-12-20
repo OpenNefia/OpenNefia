@@ -332,7 +332,7 @@ namespace OpenNefia.Content.Religion
 
                 _spells.Cast(Protos.Spell.BuffPunishment, power: 10000, target: target);
                 _audio.Play(Protos.Sound.Punish1, target);
-                _gameController.Wait(0.5f);
+                _gameController.WaitSecs(0.5f);
             }
 
             SwitchReligion(target, newGod, religion);

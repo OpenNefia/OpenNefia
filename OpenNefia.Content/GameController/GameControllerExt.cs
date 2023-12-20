@@ -12,7 +12,7 @@ namespace OpenNefia.Content.GameController
 {
     public static class GameControllerExt
     {
-        public static void Wait(this IGameController gameController, float timeSecs, bool noRefreshScreen = false)
+        public static void WaitSecs(this IGameController gameController, float timeSecs, bool noRefreshScreen = false)
         {
             var field = IoCManager.Resolve<IFieldLayer>();
             var remaining = timeSecs;

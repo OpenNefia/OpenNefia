@@ -34,6 +34,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -60,11 +61,14 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<EffectBaseDamageDiceComponent, ApplyEffectDamageEvent>(ApplyDamage_Dice, priority: EventPriorities.VeryHigh - 10000);
-            SubscribeComponent<EffectDamageRelationsComponent, ApplyEffectDamageEvent>(ApplyDamage_Relations, priority: EventPriorities.VeryHigh - 2000);
+            SubscribeComponent<EffectDamageCastInsteadComponent, ApplyEffectDamageEvent>(ApplyDamage_CastInstead, priority: EventPriorities.VeryHigh - 4000);
+            SubscribeComponent<EffectDamageRelationsComponent, ApplyEffectDamageEvent>(ApplyDamage_Relations, priority: EventPriorities.VeryHigh - 3000);
+            SubscribeComponent<EffectDamageSuccessRateComponent, ApplyEffectDamageEvent>(ApplyDamage_SuccessRate, priority: EventPriorities.VeryHigh - 2000);
             SubscribeComponent<EffectDamageControlMagicComponent, ApplyEffectDamageEvent>(ApplyDamage_ControlMagic, priority: EventPriorities.VeryHigh - 1000);
 
             SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
@@ -77,28 +81,12 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectSummonCharaComponent, EffectSummonEvent>(Summon_Chara);
         }
 
-        private IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
-        {
-            var result = new Dictionary<string, double>();
-
-            result["power"] = args.Power;
-            result["skillLevel"] = args.SkillLevel;
-            result["casterLevel"] = _levels.GetLevel(source);
-            result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
-            if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
-            {
-                result["distance"] = dist;
-            }
-
-            return result;
-        }
-
         private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
         {
             if (args.Handled)
                 return;
 
-            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(component.DiceX, formulaArgs, 1f), 1);
             var diceY = int.Max((int)_formulaEngine.Calculate(component.DiceY, formulaArgs, 1f), 1);
@@ -111,6 +99,43 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             formulaArgs["baseDamage"] = baseDamage;
 
             args.OutDamage = (int)_formulaEngine.Calculate(component.FinalDamage, formulaArgs, baseDamage);
+        }
+
+        private void ApplyDamage_CastInstead(EntityUid uid, EffectDamageCastInsteadComponent component, ApplyEffectDamageEvent args)
+        {
+            bool Matches(EntityUid uid, CastInsteadCriteria criteria)
+            {
+                switch (criteria)
+                {
+                    case CastInsteadCriteria.Any:
+                        return true;
+                    case CastInsteadCriteria.Player:
+                        return _gameSession.IsPlayer(uid);
+                    case CastInsteadCriteria.PlayerOrAlly:
+                        return _parties.IsInPlayerParty(uid);
+                    case CastInsteadCriteria.NotPlayer:
+                        return !_gameSession.IsPlayer(uid);
+                    case CastInsteadCriteria.Other:
+                        return !_parties.IsInPlayerParty(uid);
+                }
+                return false;
+            }
+
+            if (Matches(args.Source, component.IfSource) && (!IsAlive(args.InnerTarget) || Matches(args.InnerTarget.Value, component.IfTarget)))
+            {
+                if (component.EffectID != null)
+                {
+                    var result = _newEffects.Apply(args.Source, args.InnerTarget, args.TargetCoords, component.EffectID.Value, args.Args);
+                    args.Handle(result);
+                }
+                else
+                {
+                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                    args.CommonArgs.OutEffectWasObvious = false;
+                    args.Handle(TurnResult.Failed);
+                }
+                return;
+            }
         }
 
         /// <summary>
@@ -131,6 +156,24 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             var relation = _factions.GetRelationTowards(args.Source, args.InnerTarget.Value);
             if (!component.ValidRelations.Includes(relation))
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+        }
+
+        private void ApplyDamage_SuccessRate(EntityUid uid, EffectDamageSuccessRateComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (component.MessageKey != null)
+                _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
+
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var rate = (float)_formulaEngine.Calculate(component.SuccessRate, formulaArgs, 1.0);
+
+            if (!_rand.Prob(rate))
             {
                 args.Handle(TurnResult.Failed);
                 return;
@@ -304,7 +347,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 }
             }
 
-            var formulaArgs = GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
             formulaArgs["finalDamage"] = args.OutDamage;
 
             var summonCount = (int)(double.Round(_formulaEngine.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));

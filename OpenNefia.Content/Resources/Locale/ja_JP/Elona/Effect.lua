@@ -112,26 +112,44 @@ Elona.Effect = {
 
     Restore = {
         Body = {
-            Apply = function(_1)
-                return ("%sの肉体は復活した。"):format(name(_1))
+            Apply = function(source, target)
+                return ("%sの肉体は復活した。"):format(_.name(target))
             end,
-            Blessed = function(_1)
-                return ("さらに、%sの肉体は強化された。"):format(name(_1))
+            Blessed = function(source, target)
+                return ("さらに、%sの肉体は強化された。"):format(_.name(target))
             end,
-            Cursed = function(_1)
-                return ("%sの肉体は蝕まれた。"):format(name(_1))
+            Cursed = function(source, target)
+                return ("%sの肉体は蝕まれた。"):format(_.name(target))
             end,
         },
         Spirit = {
-            Apply = function(_1)
-                return ("%sの精神は復活した。"):format(name(_1))
+            Apply = function(source, target)
+                return ("%sの精神は復活した。"):format(_.name(target))
             end,
-            Blessed = function(_1)
-                return ("さらに、%sの精神は強化された。"):format(name(_1))
+            Blessed = function(source, target)
+                return ("さらに、%sの精神は強化された。"):format(_.name(target))
             end,
-            Cursed = function(_1)
-                return ("%sの精神は蝕まれた。"):format(name(_1))
+            Cursed = function(source, target)
+                return ("%sの精神は蝕まれた。"):format(_.name(target))
             end,
         },
+    },
+
+    Mutation = {
+        Apply = function(source, target)
+            return ("%sは変容した！ "):format(_.name(target))
+        end,
+        Resist = function(source, target)
+            return ("%sは変異を受け付けなかった。"):format(_.name(target))
+        end,
+        Eye = function(source, target)
+            return ("%sは%sを気の狂いそうな眼差しで見た。"):format(_.name(source), _.name(_target))
+        end,
+    },
+
+    CureMutation = {
+        Message = function(source, target)
+            return ("%sは元の自分に近づいた気がした。"):format(_.name(target))
+        end,
     },
 }

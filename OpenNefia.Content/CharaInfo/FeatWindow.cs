@@ -203,6 +203,7 @@ namespace OpenNefia.Content.CharaInfo
             }
             data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Gained")));
             data.AddRange(gainedFeats
+                .Where(x => x.Value.Level.Base != 0)
                 .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value.Level.Base)))
                 .OrderBy(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype.FeatType));
 

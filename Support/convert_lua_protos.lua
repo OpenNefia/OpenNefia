@@ -244,12 +244,22 @@ local function newEffect(effect_id, power)
     else
         d = data["elona_sys.magic"]:ensure(effect_id)
         entPrefix = ""
+        if d.type == "skill" or d.type == "action" then
+            local mod_id, data_id = d._id:match "([^.]+)%.([^.]+)"
+            print(mod_id .. ".spell_" .. data_id)
+            d = data["base.skill"][mod_id .. ".spell_" .. data_id]
+            if d then
+                entPrefix = capitalize(d.type)
+                print("GET", effect_id, entPrefix)
+            end
+        end
     end
     if effect_id:match "elona%.buff" then
         entPrefix = "Spell"
     end
     local newId = dotted(id):gsub("Elona%.", "Elona." .. entPrefix)
-    print(effect_id, entPrefix, newId)
+    newId = newId:gsub("EffectEffect", "Effect")
+    print(effect_id, tostring(entPrefix), newId)
     return typedYamlNode("EffectSpec", {
         id = newId,
         power = power,
@@ -1283,8 +1293,7 @@ handlers["base.item"] = function(from, to)
     if potion then
         c = comp(to, "Potion")
         assert(#potion.effects == 1)
-        c.effect = effect(potion.effects[1]._id)
-        c.effectArgs = { power = potion.effects[1].power }
+        c.effects = newEffect(potion.effects[1]._id, potion.effects[1].power)
     end
 end
 

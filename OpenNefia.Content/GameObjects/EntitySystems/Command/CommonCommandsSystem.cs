@@ -325,7 +325,7 @@ namespace OpenNefia.Content.GameObjects
                 QuickSaveGame(gameSession);
                 _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
                 _playerQuery.PromptMore();
-                _gameController.Wait(0.3f);
+                _gameController.WaitSecs(0.3f);
             }
 
             _field.Cancel();
@@ -337,7 +337,7 @@ namespace OpenNefia.Content.GameObjects
             _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
             _mes.Display(Loc.GetString("Elona.UserInterface.Exit.YouCloseYourEyes", ("entity", gameSession.Player!)));
             _playerQuery.PromptMore();
-            _gameController.Wait(0.3f);
+            _gameController.WaitSecs(0.3f);
 
             _gameController.Shutdown();
         }

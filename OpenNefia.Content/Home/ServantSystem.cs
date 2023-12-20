@@ -355,7 +355,7 @@ namespace OpenNefia.Content.Home
                 {
                     _audio.Play(Protos.Sound.Paygold1);
                     money.Gold -= hireCost;
-                    _gameController.Wait(0.25f);
+                    _gameController.WaitSecs(0.25f);
                     _mes.Display(Loc.GetString("Elona.Servant.Hire.YouHire", ("entity", servant)), color: UiColors.MesGreen);
                     MetaData(servant).IsMapSavable = true;
                     _mapPlacement.TryPlaceChara(servant, Spatial(player).MapPosition);

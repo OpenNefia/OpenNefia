@@ -35,6 +35,13 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Wishes;
+using OpenNefia.Core.Formulae;
+using OpenNefia.Content.Enchantments;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Feats;
+using OpenNefia.Core.Maths;
+using OpenNefia.Content.UI;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -65,9 +72,15 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IFieldLayer _fieldLayers = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IWishSystem _wishes = default!;
+        [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
+        [Dependency] private readonly IEnchantmentSystem _encs = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IFeatsSystem _feats = default!;
 
         public override void Initialize()
         {
+            SubscribeComponent<EffectMutationComponent, ApplyEffectDamageEvent>(Apply_Mutation);
+            SubscribeComponent<EffectCureMutationComponent, ApplyEffectDamageEvent>(Apply_CureMutation);
             SubscribeComponent<EffectIdentifyComponent, ApplyEffectDamageEvent>(Apply_Identify);
             SubscribeComponent<EffectUncurseComponent, ApplyEffectDamageEvent>(Apply_Uncurse);
             SubscribeComponent<EffectOracleComponent, ApplyEffectDamageEvent>(Apply_Oracle);
@@ -76,6 +89,149 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectWizardsHarvestComponent, ApplyEffectDamageEvent>(Apply_WizardsHarvest);
             SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
             SubscribeComponent<EffectWishComponent, ApplyEffectDamageEvent>(Apply_Wish);
+        }
+
+        private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.InnerTarget == null)
+                return;
+
+            var mutationTimes = args.OutDamage;
+            var target = args.InnerTarget.Value;
+
+            if (_encs.HasEnchantmentEquipped<EncResistMutationComponent>(target) && !_rand.OneIn(5))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Mutation.Resists", ("source", args.Source), ("target", target)), entity: target);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+            List<FeatPrototype> feats = GetMutationFeatsList();
+            var didSomething = false;
+
+            for (var i = 0; i < mutationTimes; i++)
+            {
+                for (var j = 0; j < 100; j++)
+                {
+                    var feat = _rand.Pick(feats);
+
+                    var delta = 1;
+                    if (_rand.OneIn(2))
+                        delta = -1;
+
+                    if (_feats.Level(target, feat) >= feat.LevelMax)
+                        delta = -1;
+                    if (_feats.Level(target, feat) <= feat.LevelMin)
+                        delta = 1;
+
+                    var proceed = true;
+
+                    if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+                    {
+                        if (delta > 0)
+                            proceed = false;
+                    }
+                    else
+                    {
+                        if (delta < 0)
+                        {
+                            if ((args.CommonArgs.CurseState == CurseState.Blessed && _rand.OneIn(3)) || component.NoNegativeMutations)
+                                proceed = false;
+                        }
+                    }
+
+                    if (proceed)
+                    {
+                        _mes.Display(Loc.GetString("Elona.Effect.Mutation.Apply", ("source", args.Source), ("target", target), ("featID", (string)feat.GetStrongID())));
+                        _feats.ModifyLevel(target, feat, delta);
+                        var cb = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSmoke);
+                        _mapDrawables.Enqueue(cb, target);
+                        didSomething = true;
+                        break;
+                    }
+                }
+            }
+
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            _refreshes.Refresh(target);
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private List<FeatPrototype> GetMutationFeatsList()
+        {
+            return _protos.EnumeratePrototypes<FeatPrototype>().Where(f => f.FeatType == FeatType.Mutation).ToList();
+        }
+
+        private void Apply_CureMutation(EntityUid uid, EffectCureMutationComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.InnerTarget == null)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2398 	if tc!pc:txtNothingHappen:swbreak ...
+            var times = args.OutDamage;
+            if (args.CommonArgs.CurseState == CurseState.Normal)
+                times += 1;
+            else if (args.CommonArgs.CurseState == CurseState.Blessed)
+                times += 2;
+
+            var target = args.InnerTarget.Value;
+            List<FeatPrototype> candidates = GetMutationFeatsList();
+            var didSomething = false;
+
+            for (var i = 0; i < times; i++)
+            {
+                for (var j = 0; j < 100; j++)
+                {
+                    var feat = _rand.Pick(candidates);
+                    var level = _feats.Level(target, feat);
+
+                    if (level != 0)
+                    {
+                        string? message;
+                        Color color;
+                        if (level < 0)
+                        {
+                            Loc.TryGetPrototypeString(feat, "OnGainLevel", out message, ("entity", target));
+                            color = UiColors.MesGreen;
+                        }
+                        else
+                        {
+
+                            Loc.TryGetPrototypeString(feat, "OnLoseLevel", out message, ("entity", target));
+                            color = UiColors.MesRed;
+                        }
+
+                        _feats.SetLevel(target, feat, 0);
+
+                        _mes.Display(Loc.GetString("Elona.Effect.CureMutation.Message", ("source", args.Source), ("target", target), ("featID", (string)feat.GetStrongID())), entity: target);
+
+                        if (message != null)
+                            _mes.Display(message, color: color, entity: target); // TODO move messages into IFeatSystem
+
+                        didSomething = true;
+                        break;
+                    }
+                }
+
+                if (!didSomething)
+                {
+                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                    args.CommonArgs.OutEffectWasObvious = false;
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+
+                _refreshes.Refresh(target);
+                args.Handle(TurnResult.Succeeded);
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:2423  ...
         }
 
         private void Apply_Identify(EntityUid uid, EffectIdentifyComponent component, ApplyEffectDamageEvent args)
@@ -414,7 +570,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     _mes.Display(Loc.GetString("Elona.Effect.WizardsHarvest.FallsDown", ("source", args.Source), ("item", item.Value)), entity: args.Source);
                 }
 
-                _gameController.Wait(100);
+                _gameController.WaitSecs(0.1f);
                 _fieldLayers.RefreshScreen(); // TODO remove?
             }
 
