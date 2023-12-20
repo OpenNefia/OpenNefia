@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.Areas;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.DeferredEvents;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Karma;
@@ -106,13 +107,13 @@ namespace OpenNefia.Content.Tests.Wishes
             var map = sim.CreateMapAndSetActive(10, 10);
 
             gameSession.Player = entGen.SpawnEntity(Protos.Chara.Android, map)!.Value;
-            var parties = sim.GetEntitySystem<IPartySystem>();
+            var deferred = sim.GetEntitySystem<IDeferredEventsSystem>();
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.EnumerateMembers(gameSession.Player).Count(), Is.EqualTo(1));
+                Assert.That(deferred.IsEventEnqueued(), Is.False);
                 Assert.That(wishes.GrantWish(wish), Is.True);
-                Assert.That(parties.EnumerateMembers(gameSession.Player).Count(), Is.EqualTo(2));
+                Assert.That(deferred.IsEventEnqueued(), Is.True);
             });
         }
 
@@ -323,7 +324,7 @@ namespace OpenNefia.Content.Tests.Wishes
            new object[] { LanguagePrototypeOf.English, "seven lea", Protos.Item.SevenLeagueBoots },
            new object[] { LanguagePrototypeOf.English, "item seven lea", Protos.Item.SevenLeagueBoots },
            new object[] { LanguagePrototypeOf.Japanese, "﻿セブンリーグブーツ", Protos.Item.SevenLeagueBoots },
-           new object[] { LanguagePrototypeOf.Japanese, "﻿アイテム ﻿セブンリーグ", Protos.Item.SevenLeagueBoots },
+           new object[] { LanguagePrototypeOf.Japanese, "アイテムセブンリーグ", Protos.Item.SevenLeagueBoots },
 
            // Name qualification
            new object[] { LanguagePrototypeOf.English, "potion of cure critical", Protos.Item.PotionOfCureCriticalWound },
@@ -414,10 +415,6 @@ namespace OpenNefia.Content.Tests.Wishes
         {
             var sim = ContentFullGameSimulation
                 .NewSimulation()
-                .LoadLocalizations(factory =>
-                {
-                    factory.SwitchLanguage(languageID);
-                })
                 .LoadLocalizationsFromDisk()
                 .InitializeInstance();
 
@@ -453,10 +450,6 @@ namespace OpenNefia.Content.Tests.Wishes
         {
             var sim = ContentFullGameSimulation
                 .NewSimulation()
-                .LoadLocalizations(factory =>
-                {
-                    factory.SwitchLanguage(languageID);
-                })
                 .LoadLocalizationsFromDisk()
                 .InitializeInstance();
 

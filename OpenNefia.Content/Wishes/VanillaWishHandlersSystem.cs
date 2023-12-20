@@ -272,7 +272,7 @@ namespace OpenNefia.Content.Wishes
 
             _mes.Display(Loc.GetPrototypeString(proto, "Result", ("wisher", ev.Wisher)), color: UiColors.MesYellow);
             var amount = 5;
-            _itemGen.GenerateItem(ev.Wisher, Protos.Item.PlatinumCoin, amount: amount);
+            _itemGen.GenerateItem(ev.Wisher, Protos.Item.GoldPiece, amount: amount);
         }
 
         #endregion
@@ -509,11 +509,11 @@ namespace OpenNefia.Content.Wishes
             var value = CompOrNull<ValueComponent>(uid)?.Value?.Buffed ?? 0;
             var amount = _stacks.GetCount(uid);
             if (value >= 5000)
-                amount = 3;
+                amount = int.Min(amount, 3);
             if (value >= 10000)
-                amount = 2;
+                amount = int.Min(amount, 2);
             if (value >= 20000)
-                amount = 1;
+                amount = int.Min(amount, 1);
             _stacks.SetCount(uid, amount);
             // <<<<<<<< elona122/shade2/command.hsp:1607 			if iValue(ci)>=20000			:iNum(ci)=1 ...
         }
@@ -524,12 +524,14 @@ namespace OpenNefia.Content.Wishes
             if (ev.Handled)
                 return;
 
+            var wish = NormalizeWishText(ev.Wish);
+
             var candidates = new List<(EntityPrototype, int)>();
 
             foreach (var item in _protos.EnumeratePrototypes<EntityPrototype>().Where(IsWishableItem))
             {
                 var name = _itemNames.QualifyNameWithItemType(item.GetStrongID());
-                var priority = FuzzyMatch(ev.Wish, name);
+                var priority = FuzzyMatch(wish, name);
                 if (priority > 0)
                 {
                     candidates.Add((item, priority));
