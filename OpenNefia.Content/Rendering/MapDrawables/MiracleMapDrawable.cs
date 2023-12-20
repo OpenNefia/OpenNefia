@@ -9,6 +9,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.Utility;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
 namespace OpenNefia.Content.Rendering
 {
@@ -21,7 +22,8 @@ namespace OpenNefia.Content.Rendering
         [Dependency] private readonly IHudLayer _hud = default!;
         private readonly PrototypeId<SoundPrototype>? _soundID;
         private readonly PrototypeId<SoundPrototype>? _endSoundID;
-        private readonly List<MiracleBeam> _beams;
+        private List<MapCoordinates> _positions = new();
+        private List<MiracleBeam> _beams = new();
         protected IAssetInstance AssetAnimMiracle;
         protected FrameCounter Counter;
 
@@ -38,9 +40,9 @@ namespace OpenNefia.Content.Rendering
 
             var waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) / 2;
 
+            _positions = positions.ToList();
             _soundID = soundID;
             _endSoundID = endSoundID;
-            _beams = positions.Select(CreateMiracleBeam).WhereNotNull().ToList();
             AssetAnimMiracle = Assets.Get(Protos.Asset.AnimMiracle);
             Counter = new FrameCounter(waitSecs);
         }
@@ -73,6 +75,7 @@ namespace OpenNefia.Content.Rendering
 
         public override void OnEnqueue()
         {
+            _beams = _positions.Select(CreateMiracleBeam).WhereNotNull().ToList();
             if (_soundID != null)
                 _audio.Play(_soundID.Value, ScreenLocalPos); // TODO is this position correct?
         }
