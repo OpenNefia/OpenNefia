@@ -65,36 +65,6 @@
   - type: EffectOracle
 
 - type: Entity
-  id: Elona.SpellMagicDart
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 414
-
-- type: Entity
-  id: Elona.SpellNetherArrow
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 415
-
-- type: Entity
-  id: Elona.SpellNerveArrow
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 416
-
-- type: Entity
-  id: Elona.SpellChaosEye
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 417
-
-- type: Entity
-  id: Elona.SpellDarkEye
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 418
-
-- type: Entity
   id: Elona.SpellReturn
   parent: Elona.BaseSpellEffect
   hspIds:
@@ -291,12 +261,6 @@
   parent: Elona.BaseSpellEffect
   hspIds:
     elona122: 458
-
-- type: Entity
-  id: Elona.SpellCrystalSpear
-  parent: Elona.BaseSpellEffect
-  hspIds:
-    elona122: 459
 
 - type: Entity
   id: Elona.SpellResurrection

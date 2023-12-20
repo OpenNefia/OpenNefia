@@ -142,18 +142,6 @@
   - type: EffectCureMutation
 
 - type: Entity
-  id: Elona.EffectGainAlly
-  parent: BaseEffect
-  hspIds:
-    elona122: 1122
-
-- type: Entity
-  id: Elona.EffectGainYoungerSister
-  parent: BaseEffect
-  hspIds:
-    elona122: 1123
-
-- type: Entity
   id: Elona.EffectEnchantWeapon
   parent: BaseEffect
   hspIds:
@@ -218,18 +206,6 @@
   parent: BaseEffect
   hspIds:
     elona122: 1136
-
-- type: Entity
-  id: Elona.EffectGainYoungLady
-  parent: BaseEffect
-  hspIds:
-    elona122: 1137
-
-- type: Entity
-  id: Elona.EffectGainCatSister
-  parent: BaseEffect
-  hspIds:
-    elona122: 1138
 
 - type: Entity
   id: Elona.EffectTrollBlood

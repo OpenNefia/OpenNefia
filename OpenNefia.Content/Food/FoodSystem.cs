@@ -430,7 +430,7 @@ namespace OpenNefia.Content.Food
 
             if (food.IsRotten)
             {
-                _mes.Display("Elona.Food.Message.Rotten");
+                _mes.Display(Loc.GetString("Elona.Food.Message.Rotten"));
                 return;
             }
 

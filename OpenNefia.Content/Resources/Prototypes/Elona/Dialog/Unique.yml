@@ -113,6 +113,4 @@
   id: Elona.Ainc
 - type: Elona.Dialog
   id: Elona.Abyss
-- type: Elona.Dialog
-  id: Elona.WanderingMerchant
 ...

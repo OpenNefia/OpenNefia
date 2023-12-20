@@ -15,9 +15,10 @@
   + [ ] buffs
   + [ ] timestop
   + [ ] spell stock check
+- [ ] inventory/spell/skill shortcuts
 - [ ] wishing
 - [ ] magic items
-- [ ] mef
+- [ ] mefs
   + [ ] potion puddle
   + [ ] retain original mef creator for magic
 - [x] living weapons
@@ -34,7 +35,9 @@
 - [ ] all chara events/properties
 - [ ] religion
 - [ ] guilds
-- [ ] animated tiles/water
+- [ ] water tiles
+- [ ] animated tiles
+- [ ] enemies follow player up/down stairs
 - [ ] main quest/sidequests/dialogs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
@@ -44,6 +47,7 @@
 - [ ] elonaextender features
   + [ ] save backup
 - [ ] arena/pet arena
+- [ ] spell tracker
 - [ ] the void
 - [ ] blackjack
 - [ ] deck/tcg
@@ -52,6 +56,7 @@
 - [ ] custom talk
 - [ ] theming
 - [ ] port all OpenNefia/LÖVE unit tests
+- [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] non-compiled mods
 - [ ] "tile data" API (register a 2D array of data that is automatically instantiated/resized along with map)
 - [ ] Qy@
@@ -59,6 +64,8 @@
 - [ ] update NuGet packages
 - [ ] robust upstream commits
 - [ ] serializer strict mode
+  + [ ] throw if unknown field is found in mapping
+  + [ ] throw if duplicate prototype IDs are detected
 - [ ] make event subscriptions declarative (no more `IEntitySystem.Initialize()`) for better hot reloading
 - [ ] data definition for "randomly pickable list" (element associated with weight)
 - [ ] "start engine with this mod" compile targets

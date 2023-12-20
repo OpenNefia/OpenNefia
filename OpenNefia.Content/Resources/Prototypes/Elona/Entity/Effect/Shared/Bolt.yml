@@ -32,7 +32,6 @@
   parent: Elona.BaseEffectBolt
   components:
   - type: EffectTypeSpell
-  - type: EffectBaseDamageDice
   - type: EffectDamageElemental
     element: Elona.Cold
 
@@ -52,7 +51,6 @@
   parent: Elona.BaseEffectBolt
   components:
   - type: EffectTypeSpell
-  - type: EffectBaseDamageDice
   - type: EffectDamageElemental
     element: Elona.Fire
 
@@ -72,7 +70,6 @@
   parent: Elona.BaseEffectBolt
   components:
   - type: EffectTypeSpell
-  - type: EffectBaseDamageDice
   - type: EffectDamageElemental
     element: Elona.Lightning
 

@@ -6,6 +6,14 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Effects.New
 {
+    /// <summary>
+    /// Casts a magic missile that strikes a single target from a distance.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaArrowComponent : Component
+    {
+    }
 
     /// <summary>
     /// Casts a bolt in a line that can hit multiple targets.
@@ -16,15 +24,6 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public bool IgnoreFOV { get; set; } = false;
-    }
-
-    /// <summary>
-    /// Casts a magic missile that strikes a single target from a distance.
-    /// </summary>
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectAreaArrowComponent : Component
-    {
     }
 
     /// <summary>

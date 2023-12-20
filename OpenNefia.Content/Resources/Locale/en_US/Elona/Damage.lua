@@ -60,8 +60,8 @@ Elona.Damage = {
         return ("%s %s wounded."):format(_.name(target), _.is(target))
     end,
     Killed = {
-        Active = function(target, attacker)
-            return ("kill%s %s."):format(_.s(attacker), _.him(target))
+        Active = function(target, attacker, direct) -- TODO move?
+            return ("kill%s %s."):format(direct and _.s(attacker) or "s", _.him(target))
         end,
         Passive = function(target, attacker)
             return ("%s %s killed."):format(_.name(target), _.is(target))

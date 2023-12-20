@@ -19,12 +19,12 @@ namespace OpenNefia.Core.Random
 
         public int Next(int minValue, int maxValue)
         {
-            return _random.Next(minValue, maxValue);
+            return _random.Next(int.Max(minValue, 0), int.Max(maxValue, 0));
         }
 
         public int Next(int maxValue)
         {
-            return _random.Next(maxValue);
+            return _random.Next(int.Max(maxValue, 0));
         }
 
         public double NextDouble()

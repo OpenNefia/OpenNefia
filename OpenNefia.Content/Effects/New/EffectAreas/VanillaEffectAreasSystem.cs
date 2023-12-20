@@ -43,6 +43,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             SubscribeEntity<ApplyEffectAreaEvent>(ApplyAreaFallback, priority: EventPriorities.VeryLow + 100000);
             SubscribeComponent<EffectAreaAnimationComponent, GetEffectAnimationParamsEvent>(ApplyAreaAnimFallback, priority: EventPriorities.VeryLow + 100000);
 
+            SubscribeComponent<EffectAreaArrowComponent, ApplyEffectAreaEvent>(ApplyArea_Arrow);
             SubscribeComponent<EffectAreaBoltComponent, ApplyEffectAreaEvent>(ApplyArea_Bolt);
             SubscribeComponent<EffectAreaBallComponent, ApplyEffectAreaEvent>(ApplyArea_Ball);
             SubscribeComponent<EffectAreaBreathComponent, ApplyEffectAreaEvent>(ApplyArea_Breath);
@@ -97,6 +98,25 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         {
             var ev = new ApplyEffectTileDamageEvent(source, coords, args);
             RaiseEvent(effect, ev);
+        }
+
+        private void ApplyArea_Arrow(EntityUid uid, EffectAreaArrowComponent component, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:1810 	case skArrow ...
+            if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
+            {
+                var anim = new RangedAttackMapDrawable(args.SourceCoordsMap, args.TargetCoordsMap, Protos.Chip.ItemProjectileMagicArrow, animParams.Color, Protos.Sound.Arrow1);
+                _mapDrawables.Enqueue(anim, args.Source);
+            }
+
+            var result = ApplyEffectDamage(uid, args.Source, args.Target, args.SourceCoords, null, args.Args, 1, 0);
+
+            args.CommonArgs.OutEffectWasObvious = result.EffectWasObvious;
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:1828 	swbreak ...
         }
 
         /// <summary>
@@ -344,9 +364,16 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             args.Handle(TurnResult.Succeeded);
         }
 
-        private EffectDamageResult ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid? innerTarget, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
+        private EffectDamageResult ApplyEffectDamage(EntityUid uid, EntityUid source, EntityUid? innerTarget, EntityCoordinates sourceCoords, EntityCoordinates? targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
-            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords, args, affectedTiles, affectedTileIndex);
+            if (targetCoords == null)
+            {
+                if (IsAlive(innerTarget))
+                    targetCoords = Spatial(innerTarget.Value).Coordinates;
+            }
+            targetCoords ??= sourceCoords;
+
+            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex);
             RaiseEvent(uid, ev);
             return new(ev.TurnResult, ev.OutEffectWasObvious);
         }

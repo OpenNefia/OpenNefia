@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Activity
             {
                 if (!_damage.DoStaminaCheck(top, 1 + _rand.Next(2)))
                 {
-                    _mes.Display("Elona.Common.TooExhausted");
+                    _mes.Display(Loc.GetString("Elona.Common.TooExhausted"));
                     _activities.RemoveActivity(top);
                     _activities.RemoveActivity(bottom);
                     return true;

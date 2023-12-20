@@ -19,6 +19,7 @@ using OpenNefia.Core.Random;
 using Microsoft.FileFormats;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Effects.New;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Potion
 {
@@ -36,6 +37,7 @@ namespace OpenNefia.Content.Potion
         [Dependency] private readonly IHungerSystem _hunger = default!;
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
 
         public override void Initialize()
         {
@@ -56,8 +58,12 @@ namespace OpenNefia.Content.Potion
             if (!Resolve(potion, ref potionComp))
                 return TurnResult.Failed;
 
-            _mes.Display(Loc.GetString("Elona.Potion.Drinks", ("entity", drinker), ("item", potion)));
-            _sounds.Play(Protos.Sound.Drink1, drinker);
+            // TODO simpler visibilty check, which assumes player is the onlooker
+            if (_vis.HasLineOfSight(_gameSession.Player, drinker))
+            {
+                _mes.Display(Loc.GetString("Elona.Potion.Drinks", ("entity", drinker), ("item", potion)));
+                _sounds.Play(Protos.Sound.Drink1, drinker);
+            }
 
             TurnResult result = TurnResult.Failed;
             var obvious = false;

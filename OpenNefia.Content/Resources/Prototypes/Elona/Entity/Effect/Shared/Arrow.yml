@@ -1,0 +1,147 @@
+- type: Entity
+  id: Elona.BaseEffectArrow
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectAreaArrow
+  - type: EffectBaseDamageDice
+    diceX: (power / 70) + 1 + (skillLevel / 18)
+    diceY: (power / 25) + 8
+    elementPower: 200 + (power / 3)
+  - type: EffectDamageMessage
+    rootKey: Elona.Magic.Message.Arrow
+
+- type: Elona.Spell
+  id: Elona.MagicDart
+  hspIds:
+    elona122: 414
+  difficulty: 110
+  mpCost: 5
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellMagicDart
+  effectID: Elona.SpellMagicDart
+- type: Entity
+  id: Elona.SpellMagicDart
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 414
+  components:
+  - type: EffectTypeSpell
+  - type: EffectBaseDamageDice
+    diceX: (power / 125) + 2 + (skillLevel / 50)
+    diceY: (power / 60) + 9
+    elementPower: 100 + (power / 4)
+  - type: EffectDamageElemental
+    element: Elona.Magic
+
+- type: Elona.Spell
+  id: Elona.NetherArrow
+  hspIds:
+    elona122: 415
+  difficulty: 400
+  mpCost: 8
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellNetherArrow
+  effectID: Elona.SpellNetherArrow
+- type: Entity
+  id: Elona.SpellNetherArrow
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 415
+  components:
+  - type: EffectTypeSpell
+  - type: EffectDamageElemental
+    element: Elona.Nether
+
+- type: Elona.Spell
+  id: Elona.NerveArrow
+  hspIds:
+    elona122: 416
+  difficulty: 650
+  mpCost: 10
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellNerveArrow
+  effectID: Elona.SpellNerveArrow
+- type: Entity
+  id: Elona.SpellNerveArrow
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 416
+  components:
+  - type: EffectTypeSpell
+  - type: EffectDamageElemental
+    element: Elona.Nerve
+
+- type: Elona.Spell
+  id: Elona.ChaosEye
+  hspIds:
+    elona122: 417
+  difficulty: 400
+  mpCost: 10
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellChaosEye
+  effectID: Elona.SpellChaosEye
+- type: Entity
+  id: Elona.SpellChaosEye
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 417
+  components:
+  - type: EffectTypeSpell
+  - type: EffectDamageElemental
+    element: Elona.Chaos
+
+- type: Elona.Spell
+  id: Elona.DarkEye
+  hspIds:
+    elona122: 418
+  difficulty: 200
+  mpCost: 10
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellDarkEye
+  effectID: Elona.SpellDarkEye
+- type: Entity
+  id: Elona.SpellDarkEye
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 418
+  components:
+  - type: EffectTypeSpell
+  - type: EffectBaseDamageDice
+    diceX: (power / 80) + 1 + (skillLevel / 18)
+    diceY: (power / 25) + 8
+    elementPower: 100 + (power / 4)
+  - type: EffectDamageElemental
+    element: Elona.Darkness
+
+- type: Elona.Spell
+  id: Elona.CrystalSpear
+  hspIds:
+    elona122: 459
+  difficulty: 950
+  mpCost: 24
+  maxRange: 6
+  isRapidCastable: true
+  skillID: Elona.SpellCrystalSpear
+  effectID: Elona.SpellCrystalSpear
+- type: Entity
+  id: Elona.SpellCrystalSpear
+  parent: Elona.BaseEffectArrow
+  hspIds:
+    elona122: 459
+  components:
+  - type: EffectTypeSpell
+  - type: EffectBaseDamageDice
+    diceX: (power / 100) + 3 + (skillLevel / 25)
+    diceY: (power / 40) + 12
+    elementPower: 100 + (power / 4)
+  - type: EffectDamageElemental
+    element: Elona.Magic
