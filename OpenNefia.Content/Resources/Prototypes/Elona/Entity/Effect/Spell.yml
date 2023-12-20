@@ -515,6 +515,11 @@
   parent: BaseEffect
   hspIds:
     elona122: 461
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: clamp((skillLevel * 5 * power) / 20 + 40, 40, 100)
+  - type: EffectResurrection
 
 - type: Elona.Spell
   id: Elona.BuffContingency

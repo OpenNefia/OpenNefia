@@ -20,7 +20,7 @@ using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
-    public sealed class VanillaItemEffectLogicSystem : EntitySystem
+    public sealed class VanillaItemEffectsSystem : EntitySystem
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;

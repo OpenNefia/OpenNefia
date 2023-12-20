@@ -171,4 +171,19 @@ Elona.Effect = {
         end,
         DoesNotWorkHere = "The effect doesn't work in this area.",
     },
+
+    Resurrection = {
+        Cursed = "Hoards of undead rise from the grave!",
+
+        Prompt = "Resurrect who?",
+
+        Apply = function(source, target)
+            return ("%s %s been resurrected!"):format(_.name(target), _.has(target))
+        end,
+        Fail = function(source, target)
+            return ("%s prayer doesn't reach the underworld."):format(_.possessive(source))
+        end,
+
+        Dialog = _.quote "Thanks!",
+    },
 }

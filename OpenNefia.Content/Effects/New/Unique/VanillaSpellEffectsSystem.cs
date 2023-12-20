@@ -46,10 +46,16 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Items.Impl;
+using OpenNefia.Content.ChooseNPC;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Dialog;
+using OpenNefia.Content.Fame;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
-    public sealed class VanillaSpellEffectLogicSystem : EntitySystem
+    public sealed class VanillaSpellEffectsSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
@@ -84,6 +90,12 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
+        [Dependency] private readonly IMapPlacement _mapPlacements = default!;
+        [Dependency] private readonly IEmotionIconSystem _emotionIcons = default!;
+        [Dependency] private readonly IDialogSystem _dialogs = default!;
+        [Dependency] private readonly IKarmaSystem _karmas = default!;
 
         public override void Initialize()
         {
@@ -95,6 +107,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectOracleComponent, ApplyEffectDamageEvent>(Apply_Oracle);
             SubscribeComponent<EffectWallCreationComponent, ApplyEffectDamageEvent>(Apply_WallCreation);
             SubscribeComponent<EffectDoorCreationComponent, ApplyEffectDamageEvent>(Apply_DoorCreation);
+            SubscribeComponent<EffectResurrectionComponent, ApplyEffectDamageEvent>(Apply_Resurrection);
             SubscribeComponent<EffectWizardsHarvestComponent, ApplyEffectDamageEvent>(Apply_WizardsHarvest);
             SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
             SubscribeComponent<EffectWishComponent, ApplyEffectDamageEvent>(Apply_Wish);
@@ -108,6 +121,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             var mutationTimes = args.OutDamage;
             var target = args.InnerTarget.Value;
 
+            // >>>>>>>> elona122/shade2/proc.hsp:2365 	if encFind(tc,encResMutation)!falseM :if rnd(5):  ...
             if (_encs.HasEnchantmentEquipped<EncResistMutationComponent>(target) && !_rand.OneIn(5))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Mutation.Resists", ("source", args.Source), ("target", target)), entity: target);
@@ -169,6 +183,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             _refreshes.Refresh(target);
             args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2395 	swbreak ...
         }
 
         private List<FeatPrototype> GetMutationFeatsList()
@@ -273,7 +288,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 power = (int)(power * 1.5);
 
             var success = power >= _levels.GetLevel(target);
-            
+
             if (success)
             {
                 _parties.TryRecruitAsAlly(args.Source, target);
@@ -433,7 +448,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             {
                 return;
             }
-            
+
             var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
             _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
             _refreshes.Refresh(args.InnerTarget.Value);
@@ -542,6 +557,107 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:3273 			if tAttb(map(x,y,0))&cantPass:map(x,y,0)=tile_t ...
+        }
+
+        private void Apply_Resurrection(EntityUid uid, EffectResurrectionComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.AffectedTileIndex > 0)
+                return;
+
+            if (HasComp<MapTypeWorldMapComponent>(args.SourceMap.MapEntityUid))
+                return;
+
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Resurrection.Cursed"));
+
+                var undeadCount = 4 + _rand.Next(4);
+                for (var i = 0; i < undeadCount; i++)
+                {
+                    var filter = new CharaFilter()
+                    {
+                        MinLevel = _randomGen.CalcObjectLevel(_levels.GetLevel(_gameSession.Player)),
+                        Quality = _randomGen.CalcObjectQuality(Quality.Good),
+                        Tags = new[] { Protos.Tag.CharaUndead }
+                    };
+                    _charaGen.GenerateChara(args.Source, filter);
+                }
+
+                args.Handle(TurnResult.Failed);
+                args.OutEffectWasObvious = false;
+                return;
+            }
+
+            bool IsCharaDead(EntityUid e)
+            {
+                return TryComp<CharaComponent>(e, out var c)
+                    && (c.Liveness == CharaLivenessState.PetDead
+                     || c.Liveness == CharaLivenessState.VillagerDead
+                     || c.Liveness == CharaLivenessState.Dead);
+            }
+
+            EntityUid? target = args.InnerTarget;
+
+            if (target == args.Source || target == null)
+            {
+                target = null;
+
+                var candidates = _parties.EnumerateMembers(args.Source)
+                    .Where(IsCharaDead)
+                    .ToList();
+
+                if (candidates.Count == 0)
+                    return;
+
+                if (_gameSession.IsPlayer(args.Source))
+                {
+                    var uiArgs = new ChooseNPCMenu.Args(candidates)
+                    {
+                        Prompt = Loc.GetString("Elona.Effect.Resurrection.Prompt"),
+                    };
+                    var result = _uiManager.Query<ChooseNPCMenu, ChooseNPCMenu.Args, ChooseNPCMenu.Result>(uiArgs);
+                    if (result.HasValue)
+                        target = result.Value.Selected;
+                }
+                else
+                {
+                    target = _rand.Pick(candidates);
+                }
+            }
+
+            if (target == null || !IsCharaDead(target.Value))
+                return;
+
+            if (args.OutDamage < _rand.Next(100))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Resurrection.Fail", ("source", args.Source), ("target", target.Value)));
+                args.Handle(TurnResult.Failed);
+            }
+
+            _charas.Revive(target.Value);
+            if (!_mapPlacements.TryPlaceChara(target.Value, args.SourceCoordsMap))
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Resurrection.Apply", ("source", args.Source), ("target", target.Value)), color: UiColors.MesYellow);
+            _mes.Display(Loc.GetString("Elona.Effect.Resurrection.Dialog", ("source", args.Source), ("target", target.Value)), color: UiColors.MesTalk, entity: target.Value);
+
+            var targetPos = Spatial(target.Value).MapPosition;
+            var positions = new List<MapCoordinates>() { targetPos };
+            var anim = new MiracleMapDrawable(positions, Protos.Sound.Heal1, Protos.Sound.Pray2);
+            _mapDrawables.Enqueue(anim, targetPos);
+
+            _emotionIcons.SetEmotionIcon(target.Value, EmotionIcons.Heart, 3);
+
+            if (_gameSession.IsPlayer(args.Source))
+            {
+                _dialogs.ModifyImpression(target.Value, 15);
+                if (!_parties.IsInPlayerParty(target.Value))
+                {
+                    _karmas.ModifyKarma(args.Source, 2);
+                }
+            }
+
+            args.Handle(TurnResult.Succeeded);
         }
 
         private void Apply_WizardsHarvest(EntityUid uid, EffectWizardsHarvestComponent component, ApplyEffectDamageEvent args)

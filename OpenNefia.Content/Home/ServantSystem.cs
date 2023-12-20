@@ -103,9 +103,9 @@ namespace OpenNefia.Content.Home
             _servants = servants;
         }
 
-        public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.InitCost");
+        public override string TopicCustomInfo => Loc.GetString("Elona.Servant.Hire.Topic.InitCost");
 
-        public override string FormatDetail(EntityUid entity)
+        public override string FormatCustomInfo(EntityUid entity)
         {
             var hireCost = _servants.CalcHireCost(entity);
             var wage = _servants.CalcWageCost(entity);
@@ -122,9 +122,9 @@ namespace OpenNefia.Content.Home
             _servants = servants;
         }
 
-        public override string TopicCustom => Loc.GetString("Elona.Servant.Hire.Topic.Wage");
+        public override string TopicCustomInfo => Loc.GetString("Elona.Servant.Hire.Topic.Wage");
 
-        public override string FormatDetail(EntityUid entity)
+        public override string FormatCustomInfo(EntityUid entity)
         {
             var wage = _servants.CalcWageCost(entity);
             return Loc.GetString("Elona.UI.ChooseNPC.GoldCounter", ("gold", wage));

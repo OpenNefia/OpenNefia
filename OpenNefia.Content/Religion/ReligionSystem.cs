@@ -30,6 +30,7 @@ using OpenNefia.Content.Sleep;
 using OpenNefia.Content.GameController;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Items;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Religion
 {
@@ -400,10 +401,9 @@ namespace OpenNefia.Content.Religion
             }
 
             var spatial = EntityManager.GetComponent<SpatialComponent>(target);
-            var positions = new Vector2i[] { spatial.WorldPosition };
-            var anim = new AnimMiracleMapDrawable(positions);
+            var positions = new MapCoordinates[] { spatial.MapPosition };
+            var anim = new MiracleMapDrawable(positions, Protos.Sound.Heal1, Protos.Sound.Pray2);
             _drawables.Enqueue(anim, spatial.MapPosition);
-            _audio.Play(Protos.Sound.Pray2, target);
 
             // _spells.Cast(Protos.Spell.EffectElixir, power: 100, target: target);
             _spells.Cast(Protos.Spell.BuffHolyVeil, power: 200, target: target);
@@ -577,9 +577,8 @@ namespace OpenNefia.Content.Religion
                     ModifyPiety(chara, pietyValue * 5);
                     religion.PrayerCharge += pietyValue * 30;
                     var spatial = EntityManager.GetComponent<SpatialComponent>(chara);
-                    var positions = new Vector2i[] { spatial.WorldPosition };
-                    _drawables.Enqueue(new AnimMiracleMapDrawable(positions), spatial.MapPosition);
-                    _audio.Play(Protos.Sound.Pray2, chara);
+                    var positions = new MapCoordinates[] { spatial.MapPosition };
+                    _drawables.Enqueue(new MiracleMapDrawable(positions, Protos.Sound.Heal1, Protos.Sound.Pray2), spatial.MapPosition);
                     if (altarComp.GodID != null)
                         _mes.Display(Loc.GetString("Elona.Religion.Offer.TakeOver.Shadow"));
                     _mes.Display(Loc.GetString("Elona.Religion.Offer.TakeOver.Succeed", ("godName", godName), ("altar", altar.Value)), UiColors.MesYellow);

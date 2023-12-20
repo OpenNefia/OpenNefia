@@ -90,6 +90,15 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Prompts to resurrect dead allies.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectResurrectionComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Creates valuable items.
     /// </summary>
     [RegisterComponent]

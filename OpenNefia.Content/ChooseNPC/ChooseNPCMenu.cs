@@ -42,10 +42,11 @@ namespace OpenNefia.Content.ChooseNPC
         public string WindowTitle { get; }
         public string TopicName { get; }
         public string TopicInfo { get; }
-        public string? TopicCustom { get; }
+        public string? TopicCustomInfo { get; }
 
         string FormatName(EntityUid entity);
-        string FormatDetail(EntityUid entity);
+        string FormatInfo(EntityUid entity);
+        string FormatCustomInfo(EntityUid entity);
         int GetOrdering(EntityUid entity);
     }
 
@@ -53,13 +54,19 @@ namespace OpenNefia.Content.ChooseNPC
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public virtual string WindowTitle => Loc.GetString("Elona.UI.ChooseNPC.Window.Title");
         public virtual string TopicName => Loc.GetString("Elona.UI.ChooseNPC.Topic.Name");
         public virtual string TopicInfo => Loc.GetString("Elona.UI.ChooseNPC.Topic.Info");
-        public virtual string? TopicCustom => null;
+        public virtual string? TopicCustomInfo => null;
 
         public virtual string FormatName(EntityUid entity)
+        {
+            return _displayNames.GetDisplayName(entity);
+        }
+
+        public virtual string FormatInfo(EntityUid entity)
         {
             var chara = _entityManager.GetComponent<CharaComponent>(entity);
             var age = _entityManager.GetComponentOrNull<WeightComponent>(entity)?.Age ?? 0;
@@ -69,7 +76,7 @@ namespace OpenNefia.Content.ChooseNPC
             return $"Lv.{level} {genderText}{ageText}";
         }
 
-        public virtual string FormatDetail(EntityUid entity)
+        public virtual string FormatCustomInfo(EntityUid entity)
         {
             return string.Empty;
         }
@@ -243,13 +250,14 @@ namespace OpenNefia.Content.ChooseNPC
 
             ChooseNPCListItem Transform(EntityUid entity)
             {
-                var info1 = args.Behavior.FormatDetail(entity);
-                var info2 = args.Behavior.FormatDetail(entity);
+                var name = args.Behavior.FormatName(entity);
+                var info1 = args.Behavior.FormatInfo(entity);
+                var info2 = args.Behavior.FormatCustomInfo(entity);
                 var ordering = args.Behavior.GetOrdering(entity);
 
                 return new ChooseNPCListItem()
                 {
-                    Text = _displayNames.GetDisplayName(entity).WideSubstring(0, 36),
+                    Text = name.WideSubstring(0, 36),
                     Info1 = info1,
                     Info2 = info2,
                     Entity = entity,
@@ -270,10 +278,10 @@ namespace OpenNefia.Content.ChooseNPC
             _textTopicName.Text = args.Behavior.TopicName;
             _textTopicInfo.Text = args.Behavior.TopicInfo;
 
-            if (args.Behavior.TopicCustom != null)
+            if (args.Behavior.TopicCustomInfo != null)
             {
                 _textTopicCustom.Visible = true;
-                _textTopicCustom.Text = args.Behavior.TopicCustom;
+                _textTopicCustom.Text = args.Behavior.TopicCustomInfo;
             }
             else
             {
@@ -335,7 +343,9 @@ namespace OpenNefia.Content.ChooseNPC
 
             _textTopicName.Draw();
             _textTopicInfo.Draw();
-            _textTopicCustom.Draw();
+
+            if (_textTopicCustom.Visible) // TODO fix in wisp
+                _textTopicCustom.Draw();
 
             _batch.Clear();
             _list.Draw();

@@ -159,4 +159,19 @@ Elona.Effect = {
         end,
         DoesNotWorkHere = "この場所では効果がない。",
     },
+
+    Resurrection = {
+        Cursed = "冥界から死霊が呼び出された！",
+
+        Prompt = "誰を蘇らせる？",
+
+        Apply = function(source, target)
+            return ("%sは復活した！"):format(_.name(target))
+        end,
+        Fail = function(source, target)
+            return ("%sの力は冥界に及ばなかった。"):format(_.name(source))
+        end,
+
+        Dialog = _.quote "ありがとう！",
+    },
 }

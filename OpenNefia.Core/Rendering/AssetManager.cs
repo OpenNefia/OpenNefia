@@ -75,11 +75,17 @@ namespace OpenNefia.Core.Rendering
 
         private static AssetRegions GetRegions(AssetPrototype prototype, Vector2i size)
         {
+            var regions = new AssetRegions();
+            foreach (var (key, region) in prototype.Regions)
+                regions.Add(key, region);
+
             if (prototype.RegionSpecifier != null)
             {
-                return prototype.RegionSpecifier.GetRegions(size);
+                foreach (var (key, region) in prototype.RegionSpecifier.GetRegions(size))
+                    regions.Add(key, region);
             }
-            return prototype.Regions;
+
+            return regions;
         }
 
         public void LoadAsset(PrototypeId<AssetPrototype> id)

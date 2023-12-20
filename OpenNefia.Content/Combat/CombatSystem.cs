@@ -658,6 +658,14 @@ namespace OpenNefia.Content.Combat
                 var cb = GetRangedAttackAnimation(startPos, endPos, attackSkill, weapon.Value);
                 if (cb != null)
                     _mapDrawables.Enqueue(cb, startPos);
+
+
+
+
+
+
+                var positions = new MapCoordinates[] { startPos, endPos };
+                _mapDrawables.Enqueue(new MiracleMapDrawable(positions, Protos.Sound.Heal1, Protos.Sound.Pray2), startPos);
             }
             // <<<<<<<< shade2/action.hsp:1248 	if attackRange=true:call anime,(animeId=attackSki ..
 

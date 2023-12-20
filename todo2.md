@@ -17,6 +17,8 @@
   + [ ] spell stock check
   + [ ] add all effect alignments
   + [ ] remove/refactor old effect system
+  + [ ] move spell/action skills into effect prototype files
+  + [ ] bomb ammo enchantment
 - [ ] inventory/spell/skill shortcuts
 - [ ] wishing
 - [ ] magic items

@@ -19,6 +19,7 @@ namespace OpenNefia.Core.Formulae
 
         public void Initialize()
         {
+            _jaceEngine.AddFunction("clamp", (double value, double min, double max) => double.Clamp(value, min, max));
             _jaceEngine.AddFunction("randInt", (double x) => _rand.Next((int)double.Floor(x)));
             _jaceEngine.AddFunction("randFloat", (double x) => _rand.NextFloat((float)x));
         }

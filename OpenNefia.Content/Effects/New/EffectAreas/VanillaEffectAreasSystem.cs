@@ -27,6 +27,8 @@ using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Effects.New;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using System.Threading.Tasks.Sources;
+using Love;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.Effects.New.EffectAreas
 {

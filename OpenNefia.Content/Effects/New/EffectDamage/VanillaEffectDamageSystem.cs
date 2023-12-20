@@ -126,7 +126,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 else
                 {
                     _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
-                    args.CommonArgs.OutEffectWasObvious = false;
+                    args.OutEffectWasObvious = false;
                     args.Handle(TurnResult.Failed);
                 }
                 return;
@@ -368,7 +368,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             _mes.Display(Loc.GetString(component.MessageKey, ("source", args.Source)), entity: args.Source);
 
-            args.Args.CommonArgs.OutEffectWasObvious = obvious;
+            args.OutEffectWasObvious = obvious;
             args.Handle(TurnResult.Succeeded);
         }
 
