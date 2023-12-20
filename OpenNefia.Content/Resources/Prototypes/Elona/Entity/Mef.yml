@@ -5,6 +5,7 @@
     elona122: 1
   components:
   - type: Chip
+    id: Elona.MefWeb
   - type: MefWeb
 
 - type: Entity
@@ -14,6 +15,7 @@
     elona122: 2
   components:
   - type: Chip
+    id: Elona.MefMist
   - type: MefMistOfDarkness
 
 - type: Entity
@@ -23,6 +25,7 @@
     elona122: 3
   components:
   - type: Chip
+    id: Elona.MefAcid
   - type: MefAcidGround
 
 - type: Entity
@@ -32,6 +35,7 @@
     elona122: 4
   components:
   - type: Chip
+    id: Elona.MefEther
   - type: MefEtherGround
 
 - type: Entity
@@ -41,6 +45,7 @@
     elona122: 5
   components:
   - type: Chip
+    id: Elona.MefFire
   - type: MefFire
 
 - type: Entity
@@ -60,4 +65,5 @@
     elona122: 7
   components:
   - type: Chip
+    id: Elona.ItemMine
   - type: MefNuclearBomb

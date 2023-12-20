@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Mefs
     }
 
     /// <summary>
-    /// Mist of darkness. Sometimes nullifies melee attacks
+    /// Sometimes nullifies melee attacks
     /// if the attacker is standing on top of one.
     /// </summary>
     [RegisterComponent]

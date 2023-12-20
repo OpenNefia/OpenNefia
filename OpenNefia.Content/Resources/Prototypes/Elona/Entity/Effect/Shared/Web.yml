@@ -5,7 +5,7 @@
   components:
   - type: Effect
     alignment: Negative
-  - type: EffectTargetOther
+  - type: EffectTargetPosition
   - type: EffectAreaMessage
     messageKey: Elona.Magic.Message.Mef.Web
     sound: Elona.Web
