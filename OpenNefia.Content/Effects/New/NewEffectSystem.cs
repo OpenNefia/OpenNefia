@@ -66,9 +66,9 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="args"></param>
         /// <param name="retainEffectEntity">If false, the effect entity will be deleted after the effect is applied.</param>
         /// <returns>Turn result from the effect.</returns>
-        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet? args = null, bool retainEffectEntity = false);
 
-        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet? args = null);
 
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.Effects.New
             return true;
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet? args, bool retainEffectEntity = false)
         {
             if (!TrySpawnEffect(effectID, out var effect, retainEffectEntity))
                 return TurnResult.Aborted;
@@ -132,7 +132,7 @@ namespace OpenNefia.Content.Effects.New
             return result;
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet? args)
         {
             if (target == null)
             {
@@ -146,6 +146,7 @@ namespace OpenNefia.Content.Effects.New
 
             var sourceCoords = Spatial(source).Coordinates;
 
+            args ??= new EffectArgSet();
             var common = args.Ensure<EffectCommonArgs>();
             if (!common.NoInheritItemCurseState)
             {

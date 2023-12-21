@@ -60,7 +60,7 @@ Elona.Effect = {
 
     Teleport = {
         Prevented = "Magical field prevents teleportation.",
-        Execute = function(ent)
+        General = function(ent)
             return ("Suddenly, %s disappear%s."):format(_.name(ent, true), _.s(ent))
         end,
         DrawShadow = function(ent)

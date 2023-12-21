@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly EffectPrototypeId ActionTouchOfNerve         = new($"Elona.{nameof(ActionTouchOfNerve)}");
             public static readonly EffectPrototypeId ActionTouchOfFear          = new($"Elona.{nameof(ActionTouchOfFear)}");
             public static readonly EffectPrototypeId ActionTouchOfSleep         = new($"Elona.{nameof(ActionTouchOfSleep)}");
-            public static readonly EffectPrototypeId ActionDimensionalMove      = new($"Elona.{nameof(ActionDimensionalMove)}");
+            public static readonly EffectPrototypeId ActionShadowStep           = new($"Elona.{nameof(ActionShadowStep)}");
             public static readonly EffectPrototypeId ActionDrawShadow           = new($"Elona.{nameof(ActionDrawShadow)}");
             public static readonly EffectPrototypeId ActionHarvestMana          = new($"Elona.{nameof(ActionHarvestMana)}");
             public static readonly EffectPrototypeId ActionBuffPunishment       = new($"Elona.{nameof(ActionBuffPunishment)}");
@@ -34,6 +34,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly EffectPrototypeId ActionAbsorbMagic          = new($"Elona.{nameof(ActionAbsorbMagic)}");
             public static readonly EffectPrototypeId ActionBuffLulwysTrick      = new($"Elona.{nameof(ActionBuffLulwysTrick)}");
             public static readonly EffectPrototypeId ActionMirror               = new($"Elona.{nameof(ActionMirror)}");
+            public static readonly EffectPrototypeId ActionDimensionalMove      = new($"Elona.{nameof(ActionDimensionalMove)}");
             public static readonly EffectPrototypeId ActionChange               = new($"Elona.{nameof(ActionChange)}");
             public static readonly EffectPrototypeId ActionDrawCharge           = new($"Elona.{nameof(ActionDrawCharge)}");
             public static readonly EffectPrototypeId ActionFillCharge           = new($"Elona.{nameof(ActionFillCharge)}");

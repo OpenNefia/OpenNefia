@@ -57,7 +57,7 @@ Elona.Effect = {
 
     Teleport = {
         Prevented = "魔法の力がテレポートを防いだ。",
-        Execute = function(ent)
+        General = function(ent)
             return ("%sは突然消えた。"):format(_.name(ent, true))
         end,
         DrawShadow = function(ent)

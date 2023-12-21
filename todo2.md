@@ -15,10 +15,12 @@
   + [ ] buffs
   + [ ] timestop
   + [ ] spell stock check
+  + [ ] rods
   + [ ] add all effect alignments
   + [ ] remove/refactor old effect system
   + [ ] move spell/action skills into effect prototype files
   + [ ] bomb ammo enchantment
+  + [ ] curse state teleportation/effects
 - [ ] inventory/spell/skill shortcuts
 - [ ] wishing
 - [ ] magic items

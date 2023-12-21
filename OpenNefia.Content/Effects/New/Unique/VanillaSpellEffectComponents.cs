@@ -1,10 +1,14 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Spells;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;

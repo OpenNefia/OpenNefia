@@ -1,7 +1,13 @@
 Elona.AI = {
     Ally = {
-        SellsItems = function(_1, _2, _3)
-            return ("%s sells %s item%s and earns %s gold piece%s."):format(_.name(_1), _2, _.plural(_2), _3, s(_3))
+        SellsItems = function(entity, itemCount, goldEarned)
+            return ("%s sells %s item%s and earns %s gold piece%s."):format(
+                _.name(entity),
+                itemCount,
+                _.s(itemCount),
+                goldEarned,
+                _.s(goldEarned)
+            )
         end,
         VisitsTrainer = function(_1)
             return ("%s visits a trainer and develops %s potential!"):format(_.basename(_1), _.his(_1))

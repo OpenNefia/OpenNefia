@@ -52,6 +52,11 @@ using OpenNefia.Content.Rendering;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Dialog;
 using OpenNefia.Content.Fame;
+using NetVips;
+using OpenNefia.Content.Spells;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Activity;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -79,7 +84,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IGameController _gameController = default!;
-        [Dependency] private readonly IFieldLayer _fieldLayers = default!;
+        [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IWishSystem _wishes = default!;
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
@@ -96,6 +101,8 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IEmotionIconSystem _emotionIcons = default!;
         [Dependency] private readonly IDialogSystem _dialogs = default!;
         [Dependency] private readonly IKarmaSystem _karmas = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
 
         public override void Initialize()
         {
@@ -111,6 +118,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectWizardsHarvestComponent, ApplyEffectDamageEvent>(Apply_WizardsHarvest);
             SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
             SubscribeComponent<EffectWishComponent, ApplyEffectDamageEvent>(Apply_Wish);
+            SubscribeComponent<EffectDamageTeleportComponent, ApplyEffectDamageEvent>(Apply_Teleport);
         }
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
@@ -712,7 +720,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
 
                 _gameController.WaitSecs(0.1f);
-                _fieldLayers.RefreshScreen(); // TODO remove?
+                _field.RefreshScreen(); // TODO remove?
             }
 
             args.Handle(TurnResult.Succeeded);
@@ -779,6 +787,86 @@ namespace OpenNefia.Content.Effects.New.Unique
             _wishes.PromptForWish(_gameSession.Player);
 
             args.Handle(TurnResult.Succeeded);
+        }
+
+        private void Apply_Teleport(EntityUid uid, EffectDamageTeleportComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var ent = component.Subject == TeleportSubject.Source ? args.Source : args.InnerTarget;
+
+            EntityCoordinates coords;
+            switch (component.Origin)
+            {
+                case TeleportOrigin.Source:
+                default:
+                    coords = args.SourceCoords;
+                    break;
+                case TeleportOrigin.Target:
+                    coords = args.InnerTarget != null
+                        ? Spatial(args.InnerTarget.Value).Coordinates 
+                        : args.TargetCoords;
+                    break;
+                case TeleportOrigin.TargetCoordinates:
+                    coords = args.TargetCoords;
+                    break;
+            }
+
+            if (!IsAlive(ent) || !_mapManager.TryGetMapOfEntity(ent.Value, out var map))
+                return;
+
+            var subject = ent.Value;
+
+            if (!component.IgnoresPreventTeleport)
+            {
+                if (_encs.HasEnchantmentEquipped<EncPreventTeleportComponent>(subject))
+                {
+                    _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented"));
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+
+                if (EntityManager.TryGetComponent<MapCommonComponent>(map.MapEntityUid, out var mapCommon)
+                    && mapCommon.PreventsTeleport)
+                {
+                    _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented"));
+                    args.Handle(TurnResult.Failed);
+                    return;
+                }
+            }
+
+            var spatial = EntityManager.GetComponent<SpatialComponent>(subject);
+
+            EntitySystem.InjectDependencies(component.Position);
+
+            for (var attempt = 0; attempt < component.MaxAttempts; attempt++)
+            {
+                var newCoords = component.Position.GetCoordinates(subject, args.Source, args.InnerTarget, map, coords, attempt);
+
+                if (map.CanAccess(newCoords))
+                {
+                    _activities.RemoveActivity(subject);
+                    spatial.Coordinates = newCoords;
+
+                    if (_gameSession.IsPlayer(subject))
+                    {
+                        _field.RefreshScreen(); // ensure camera has correct position for spatial audio
+                        _audio.Play(Protos.Sound.Teleport1, newCoords);
+                        _mes.Display(Loc.GetString(component.MessageKey, ("chara", ent), ("source", args.Source), ("target", args.InnerTarget)));
+                    }
+                    else if (_vis.IsInWindowFov(coords))
+                    {
+                        _audio.Play(Protos.Sound.Teleport1, coords);
+                        _mes.Display(Loc.GetString(component.MessageKey, ("chara", ent), ("source", args.Source), ("target", args.InnerTarget)));
+                    }
+
+                    args.Handle(TurnResult.Succeeded);
+                    return;
+                }
+            }
+            
+            // "Nothing happens..." message appears after fallthrough.
         }
     }
 }

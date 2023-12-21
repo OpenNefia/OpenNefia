@@ -233,7 +233,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("entrap%s %s into the inferno."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
-                return ("%s go%s to hell."):format(_.name(entity), s(entity, true))
+                return ("%s go%s to hell."):format(_.name(entity), _.s(entity, true))
             end,
         },
     },

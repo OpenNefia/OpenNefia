@@ -27,51 +27,6 @@
     elona122: 407
 
 - type: Elona.Spell
-  id: Elona.Teleport
-  hspIds:
-    elona122: 408
-  difficulty: 400
-  mpCost: 10
-  noMPCostScaling: true
-  skillID: Elona.SpellTeleport
-  effectID: Elona.SpellTeleport
-- type: Entity
-  id: Elona.SpellTeleport
-  parent: BaseEffect
-  hspIds:
-    elona122: 408
-
-- type: Elona.Spell
-  id: Elona.TeleportOther
-  hspIds:
-    elona122: 409
-  difficulty: 200
-  mpCost: 10
-  noMPCostScaling: true
-  skillID: Elona.SpellTeleportOther
-  effectID: Elona.SpellTeleportOther
-- type: Entity
-  id: Elona.SpellTeleportOther
-  parent: BaseEffect
-  hspIds:
-    elona122: 409
-
-- type: Elona.Spell
-  id: Elona.ShortTeleport
-  hspIds:
-    elona122: 410
-  difficulty: 120
-  mpCost: 8
-  noMPCostScaling: true
-  skillID: Elona.SpellShortTeleport
-  effectID: Elona.SpellShortTeleport
-- type: Entity
-  id: Elona.SpellShortTeleport
-  parent: BaseEffect
-  hspIds:
-    elona122: 410
-
-- type: Elona.Spell
   id: Elona.Identify
   hspIds:
     elona122: 411

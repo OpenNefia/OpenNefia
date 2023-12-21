@@ -127,7 +127,7 @@
   relatedSkill: Elona.AttrWill
 
 - type: Elona.Skill
-  id: Elona.ActionDimensionalMove
+  id: Elona.ActionShadowStep
   hspIds:
     elona122: 619
   skillType: Action
@@ -181,6 +181,13 @@
     elona122: 626
   skillType: Action
   relatedSkill: Elona.AttrPerception
+
+- type: Elona.Skill
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 627
+  skillType: Action
+  relatedSkill: Elona.AttrWill
 
 - type: Elona.Skill
   id: Elona.ActionChange

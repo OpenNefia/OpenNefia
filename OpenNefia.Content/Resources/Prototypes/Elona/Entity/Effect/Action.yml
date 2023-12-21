@@ -90,32 +90,6 @@
   parent: BaseEffect
 
 - type: Elona.Action
-  hspIds:
-    elona122: 619
-  id: Elona.DimensionalMove
-  skillID: Elona.ActionDimensionalMove
-  effectID: Elona.ActionDimensionalMove
-  staminaCost: 15
-- type: Entity
-  id: Elona.ActionDimensionalMove
-  hspIds:
-    elona122: 619
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.DrawShadow
-  hspIds:
-    elona122: 620
-  skillID: Elona.ActionDrawShadow
-  effectID: Elona.ActionDrawShadow
-  staminaCost: 10
-- type: Entity
-  id: Elona.ActionDrawShadow
-  hspIds:
-    elona122: 620
-  parent: BaseEffect
-
-- type: Elona.Action
   id: Elona.HarvestMana
   hspIds:
     elona122: 621
