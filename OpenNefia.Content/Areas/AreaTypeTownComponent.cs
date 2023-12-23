@@ -5,7 +5,6 @@ namespace OpenNefia.Content.Areas
 {
     /// <summary>
     /// Used by the encounter system to calculate distance to the nearest town.
-    /// Currently serves no other purpose.
     /// </summary>
     /// <hsp>areaType(areaId)=mTypeTown</hsp>
     [RegisterComponent]

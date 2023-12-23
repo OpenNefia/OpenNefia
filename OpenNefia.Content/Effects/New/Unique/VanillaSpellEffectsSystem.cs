@@ -57,6 +57,17 @@ using OpenNefia.Content.Spells;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Equipment;
+using OpenNefia.Core.SaveGames;
+using System.Threading.Tasks.Sources;
+using System.Runtime.InteropServices;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.Return;
+using OpenNefia.Content.Nefia;
+using OpenNefia.Content.Dungeons;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -103,6 +114,13 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IKarmaSystem _karmas = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly ISpatialSystem _spatials = default!;
+        [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
+        [Dependency] private readonly IEquipmentSystem _equipment = default!;
+        [Dependency] private readonly IPlayerQuery _playerQueries = default!;
+        [Dependency] private readonly IReturnSystem _returning = default!;
+        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IAreaNefiaSystem _areaNefias = default!;
 
         public override void Initialize()
         {
@@ -119,6 +137,11 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
             SubscribeComponent<EffectWishComponent, ApplyEffectDamageEvent>(Apply_Wish);
             SubscribeComponent<EffectDamageTeleportComponent, ApplyEffectDamageEvent>(Apply_Teleport);
+            SubscribeComponent<EffectGravityComponent, ApplyEffectDamageEvent>(Apply_Gravity);
+            SubscribeComponent<EffectCurseComponent, ApplyEffectDamageEvent>(Apply_Curse);
+            SubscribeComponent<EffectReturnComponent, ApplyEffectDamageEvent>(Apply_Return);
+            SubscribeComponent<EffectEscapeComponent, ApplyEffectDamageEvent>(Apply_Escape);
+            SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
         }
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
@@ -386,7 +409,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 case CurseState.Cursed:
                 case CurseState.Doomed:
                     _mes.Display(Loc.GetString("Elona.Effect.Common.ItIsCursed"));
-                    var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.ActionCurse, args.Args);
+                    var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.Curse, args.Args);
                     args.Handle(result);
                     return;
             }
@@ -396,7 +419,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 if (curseState.CurseState == CurseState.Blessed || curseState.CurseState == CurseState.Normal)
                     return false;
 
-                // Only uncurse items if the scroll is blessed.
+                // Only uncurse items in the inventory if the scroll is blessed.
                 // Else, it only affects equipment.
                 if (args.CommonArgs.CurseState != CurseState.Blessed)
                 {
@@ -805,7 +828,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     break;
                 case TeleportOrigin.Target:
                     coords = args.InnerTarget != null
-                        ? Spatial(args.InnerTarget.Value).Coordinates 
+                        ? Spatial(args.InnerTarget.Value).Coordinates
                         : args.TargetCoords;
                     break;
                 case TeleportOrigin.TargetCoordinates:
@@ -865,8 +888,283 @@ namespace OpenNefia.Content.Effects.New.Unique
                     return;
                 }
             }
-            
+
             // "Nothing happens..." message appears after fallthrough.
         }
+
+        private void Apply_Gravity(EntityUid uid, EffectGravityComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            bool CanBeAffected(CharaComponent chara)
+            {
+                var e = chara.Owner;
+                var isImmune = TryComp<CommonProtectionsComponent>(e, out var prot) && prot.IsImmuneToMines.Buffed;
+                var inRange = _spatials.TryMapDistanceTiled(args.Source, e, out var dist) && dist <= args.CommonArgs.TileRange * 2;
+                return !isImmune && inRange;
+            }
+
+            var didSomething = false;
+            foreach (var chara in _lookup.EntityQueryInMap<CharaComponent>(args.SourceMap).Where(CanBeAffected))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Gravity.Apply", ("source", args.Source), ("target", chara.Owner)), entity: chara.Owner);
+                _statusEffects.Apply(chara.Owner, Protos.StatusEffect.Gravity, 100 + _rand.Next(100));
+                didSomething = true;
+            }
+
+            if (!didSomething)
+                return;
+
+            args.Handle(TurnResult.Failed);
+        }
+
+        private void Apply_Curse(EntityUid uid, EffectCurseComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2832 	case actCurse ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            var target = args.InnerTarget.Value;
+
+            var chance = args.OutDamage;
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+                chance *= 100;
+
+            var resistance = 75 + _skills.Level(target, Protos.Skill.AttrLuck);
+            var encPower = _encs.GetTotalEquippedEnchantmentPower<EncResistCurseComponent>(target);
+            if (encPower > 0)
+                resistance += (encPower / 2);
+
+            if (_rand.Next(resistance) > chance)
+                return;
+
+            if (_feats.HasFeat(target, Protos.Feat.ResCurse) && _rand.OneIn(3))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Curse.NoEffect", ("source", args.Source), ("target", target)), entity: target);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            bool CanCurse(EntityUid item)
+            {
+                if (_curseStates.IsBlessed(item) && _rand.OneIn(10))
+                    return false;
+
+                return true;
+            }
+
+            var candidates = _equipSlots.EnumerateEquippedEntities(target)
+                .Where(CanCurse)
+                .ToList();
+
+            if (candidates.Count == 0)
+            {
+                candidates = _inv.EnumerateInventory(target).Where(CanCurse).ToList();
+            }
+
+            if (candidates.Count == 0)
+            {
+                return;
+            }
+
+            var item = _rand.Pick(candidates);
+
+            _mes.Display(Loc.GetString("Elona.Effect.Curse.Apply", ("source", args.Source), ("target", target), ("item", item)), entity: target);
+
+            var curseState = EnsureComp<CurseStateComponent>(item);
+            if (curseState.CurseState == CurseState.Cursed)
+                curseState.CurseState = CurseState.Doomed;
+            else
+                curseState.CurseState = CurseState.Cursed;
+
+            _refreshes.Refresh(target);
+            _audio.Play(Protos.Sound.Curse3, target);
+
+            var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimCurse);
+            _mapDrawables.Enqueue(anim, target);
+            _stacks.TryStackAtSamePos(item);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2888 	swbreak ...
+        }
+
+
+        private void Apply_Return(EntityUid uid, EffectReturnComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !_gameSession.IsPlayer(args.Source))
+                return;
+
+            if (_returning.ReturnState != null)
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Return.Cancel", ("source", args.Source)));
+                _returning.CancelReturn();
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+
+            if (!_returning.CheckReturnCapability(out var message))
+            {
+                if (message != null)
+                    _mes.Display(message);
+
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            if (!_returning.TryPromptReturnLocation(args.SourceMap, out var entrance))
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            // >>>>>>>> elona122/shade2/command.hsp:4416 		txt lang("周囲の大気がざわめきだした。","The air around you be ...
+            var turnsUntilCast = args.OutDamage;
+            _returning.StartReturn(entrance, turnsUntilCast);
+            _mes.Display(Loc.GetString("Elona.Return.Begin", ("source", args.Source)));
+            // <<<<<<<< elona122/shade2/command.hsp:4419 		gReturn=15+rnd(15) ...
+
+            var ev = new AfterPlayerCastsReturnMagicEvent(args.SourceMap, args.Args);
+            RaiseEvent(args.Source, ev);
+
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void Apply_Escape(EntityUid uid, EffectEscapeComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !_gameSession.IsPlayer(args.Source))
+                return;
+
+            if (_returning.ReturnState != null)
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Return.Cancel", ("source", args.Source)));
+                _returning.CancelReturn();
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+
+            if (!_returning.CheckReturnCapability(out var message))
+            {
+                if (message != null)
+                {
+                    _mes.Display(message);
+                    args.Handle(TurnResult.Failed);
+                }
+                return;
+            }
+
+            if (!_returning.TryGetEscapeLocation(args.SourceMap, out var coords))
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2771 		txt lang("周囲の大気がざわめきだした。","The air around you be ...
+            var entrance = MapEntrance.FromMapCoordinates(coords.Value);
+            var turnsUntilCast = args.OutDamage;
+            _returning.StartReturn(entrance, turnsUntilCast);
+            _mes.Display(Loc.GetString("Elona.Return.Begin", ("source", args.Source)));
+            // <<<<<<<< elona122/shade2/proc.hsp:2775 		gReturn=5+rnd(10) ...
+
+            var ev = new AfterPlayerCastsReturnMagicEvent(args.SourceMap, args.Args);
+            RaiseEvent(args.Source, ev);
+
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void ReturnMagicCommon(EntityUid caster, AfterPlayerCastsReturnMagicEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2772 		if areaId(gArea)=areaRandDungeon : if gLevel=are ...
+            if (_areaNefias.IsNefiaBossActive(args.SourceMap))
+            {
+                _mes.Display(Loc.GetString("Elona.Nefia.BossMayDisappear"));
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:2772 		if areaId(gArea)=areaRandDungeon : if gLevel=are ...
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2786 		if efStatus<=stCursed:if rnd(3)=0:gTeleportArea= ...
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState) && _rand.OneIn(3))
+            {
+                _mes.Display("TODO jail", UiColors.MesYellow);
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:2786 		if efStatus<=stCursed:if rnd(3)=0:gTeleportArea= ...
+
+            // >>>>>>>> elona122/shade2/main.hsp:737 			if (mType=mTypeQuest)or(gArea=areaShelter)or(gA ...
+            if (HasComp<MapTypeQuestComponent>(args.SourceMap.MapEntityUid)
+                || HasComp<MapTypeShelterComponent>(args.SourceMap.MapEntityUid))
+            // TODO jail
+            {
+                _mes.Display(Loc.GetString("Elona.Return.Prevented", ("source", caster)));
+                _returning.CancelReturn();
+            }
+            // <<<<<<<< elona122/shade2/main.hsp:740 				} ...
+        }
+    }
+
+    public enum PreventReturnSeverity
+    {
+        /// <summary>
+        /// The player will cast return without being prompted.
+        /// </summary>
+        Proceed = 0,
+
+        /// <summary>
+        /// The player will be prompted for confirmation before casting return.
+        /// </summary>
+        PromptYesNo = 1,
+
+        /// <summary>
+        /// The player will not be able to cast return and the effect will fail.
+        /// </summary>
+        Fail = 2
+    }
+
+    [DataDefinition]
+    public record class PreventReturnReason
+    {
+        public PreventReturnReason()
+        {
+        }
+
+        public PreventReturnReason(string message, PreventReturnSeverity severity)
+        {
+            Message = message;
+            Severity = severity;
+        }
+
+        [DataField]
+        public string Message { get; set; } = "Unknown reason";
+
+        [DataField]
+        public PreventReturnSeverity Severity { get; set; } = PreventReturnSeverity.Proceed;
+    }
+
+    /// <summary>
+    /// Raised before the player casts magic that leaves the map.
+    /// Allows systems to warn the player before the map is left.
+    /// </summary>
+    public sealed class BeforePlayerCastsReturnMagicEvent : EntityEventArgs
+    {
+        public BeforePlayerCastsReturnMagicEvent(IMap sourceMap)
+        {
+            SourceMap = sourceMap;
+        }
+
+        public IMap SourceMap { get; }
+
+        /// <summary>
+        /// Reasons the return should fail.
+        /// If empty, the return will succeed.
+        /// </summary>
+        public IList<PreventReturnReason> OutWarningReasons { get; } = new List<PreventReturnReason>();
+    }
+
+    public sealed class AfterPlayerCastsReturnMagicEvent : EntityEventArgs
+    {
+        public AfterPlayerCastsReturnMagicEvent(IMap sourceMap, EffectArgSet args)
+        {
+            SourceMap = sourceMap;
+            Args = args;
+        }
+
+        public IMap SourceMap { get; }
+        public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
     }
 }

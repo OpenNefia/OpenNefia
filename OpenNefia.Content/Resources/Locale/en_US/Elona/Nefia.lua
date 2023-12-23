@@ -1,4 +1,5 @@
 Elona.Nefia = {
+    BossMayDisappear = "The lord of the dungeon might disappear if you escape now.",
     NoDungeonMaster = "This place is pretty dull. The dungeon master is no longer sighted here.",
     PromptGiveUpQuest = "Really give up the quest and move over?",
 

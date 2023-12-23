@@ -33,6 +33,7 @@
     messageKey: Elona.Magic.Message.Mef.Web
   - type: EffectAreaWeb
   - type: EffectBaseDamageDice
+    # Power of the spawned mef
     finalDamage: power * 2
   - type: EffectDamageMef
     mefID: Elona.MefWeb
@@ -56,6 +57,7 @@
     messageKey: Elona.Magic.Message.Mef.MistOfDarkness
   - type: EffectAreaWeb
   - type: EffectBaseDamageDice
+    # Power of the spawned mef
     finalDamage: power
   - type: EffectDamageMef
     mefID: Elona.MefMistOfDarkness
@@ -80,6 +82,7 @@
   - type: EffectAreaWeb
     spread: 2
   - type: EffectBaseDamageDice
+    # Power of the spawned mef
     finalDamage: power
   - type: EffectDamageMef
     mefID: Elona.MefAcidGround
@@ -104,6 +107,7 @@
   - type: EffectAreaWeb
     spread: 2
   - type: EffectBaseDamageDice
+    # Power of the spawned mef
     finalDamage: power
   - type: EffectTileDamageElemental
     element: Elona.Fire
@@ -131,6 +135,7 @@
     tileCount: 1 + randInt(power / 100 + 1)
     spread: 2
   - type: EffectBaseDamageDice
+    # Power of the spawned mef
     finalDamage: power
   - type: EffectDamageMef
     mefID: Elona.MefEtherGround

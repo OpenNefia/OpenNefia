@@ -454,6 +454,21 @@ handlers["base.chara"] = function(from, to)
         c = comp(to, "QuickTempered")
     end
 
+    if table.set(from.flags or {}).IsSuitableForMount then
+        c = comp(to, "Mount")
+        c.suitability = "Good"
+    end
+
+    if table.set(from.flags or {}).IsUnsuitableForMount then
+        c = comp(to, "Mount")
+        c.suitability = "Bad"
+    end
+
+    if from.is_immune_to_mines then
+        c = comp(to, "CommonProtections")
+        c.isImmuneToMines = true
+    end
+
     if from._id == "elona.rich_person" then
         c = comp(to, "KarmaValue")
         c.karmaValue = 15

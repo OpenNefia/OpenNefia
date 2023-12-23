@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
         private void ShowAreaMessage(EntityUid uid, EffectAreaMessageComponent component, ApplyEffectAreaEvent args)
         {
-            _mes.Display(Loc.GetString(component.MessageKey));
+            _mes.Display(Loc.GetString(component.MessageKey, ("source", args.Source), ("target", args.Target), ("sourceItem", args.CommonArgs.SourceItem), ("targetItem", args.CommonArgs.TargetItem)));
             var soundId = component.Sound?.GetSound();
             if (soundId != null)
                 _audio.Play(soundId.Value, args.TargetCoordsMap);

@@ -80,7 +80,6 @@
   parent: BaseEffect
   components:
   - type: EffectTargetOther
-    promptIfFriendly: false
   - type: EffectDamageTeleport
     subject: Source
     origin: Target
@@ -103,7 +102,6 @@
   parent: BaseEffect
   components:
   - type: EffectTargetOther
-    promptIfFriendly: false
   - type: EffectDamageTeleport
     subject: Target
     origin: Source

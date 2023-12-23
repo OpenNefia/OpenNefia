@@ -10,6 +10,14 @@ namespace OpenNefia.Content.Maps
     [DataDefinition]
     public class MapEntrance
     {
+        public MapEntrance() {}
+
+        public MapEntrance(IMapIdSpecifier mapIdSpecifier, IMapStartLocation startLocation)
+        {
+            MapIdSpecifier = mapIdSpecifier;
+            StartLocation = startLocation;
+        }
+
         /// <summary>
         /// ID specifier of the map this entrance will lead to.
         /// </summary>
@@ -18,9 +26,11 @@ namespace OpenNefia.Content.Maps
 
         /// <summary>
         /// Location in the destination map to place the player/allies.
+        /// By default it defers to the components in the map or area entity to pick the location.
         /// </summary>
+        /// <seealso cref="MapOrAreaEntityStartLocation"/>
         [DataField]
-        public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
+        public IMapStartLocation StartLocation { get; set; } = new MapOrAreaEntityStartLocation();
 
         /// <summary>
         /// Generates a map entrace leading to the specified map coordinates.

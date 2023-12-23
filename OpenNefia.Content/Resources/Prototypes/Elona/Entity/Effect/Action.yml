@@ -241,7 +241,9 @@
   parent: BaseEffect
   components:
   - type: EffectTargetOther
+    promptIfFriendly: true
   - type: EffectBaseDamageDice
+    # Number of mutations
     finalDamage: 1
   - type: EffectDamageCastInstead
     ifTarget: NotPlayer
@@ -327,12 +329,22 @@
   skillID: Elona.ActionCurse
   effectID: Elona.ActionCurse
   staminaCost: 10
+  maxRange: 4
   difficulty: 100
 - type: Entity
   id: Elona.ActionCurse
   hspIds:
     elona122: 645
   parent: BaseEffect
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Curse.Action
+  - type: EffectBaseDamageDice
+    # Curse power, compared against LUK and enchant strength
+    finalDamage: power / 2
+  - type: EffectCurse
 
 - type: Elona.Action
   id: Elona.BuffDeathWord

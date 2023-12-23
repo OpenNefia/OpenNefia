@@ -3,6 +3,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Areas
@@ -25,6 +26,12 @@ namespace OpenNefia.Core.Areas
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaId);
         bool TryGetParentArea(AreaId areaId, [NotNullWhen(true)] out IArea? parentArea);
+        IEnumerable<IArea> EnumerateParentAreas(IArea area);
+        IEnumerable<IArea> EnumerateParentAreas(AreaId areaID);
+        IEnumerable<IArea> EnumerateChildAreas(IArea area);
+        IEnumerable<IArea> EnumerateChildAreas(AreaId areaID);
+        IArea GetRootArea(IArea area);
+        IArea GetRootArea(AreaId areaID);
 
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, MapId mapId);
@@ -43,6 +50,7 @@ namespace OpenNefia.Core.Areas
         bool GlobalAreaExists(GlobalAreaId globalId);
         IArea GetGlobalArea(GlobalAreaId globalId);
         bool TryGetGlobalArea(GlobalAreaId globalId, [NotNullWhen(true)] out IArea? area);
+
     }
 
     internal interface IAreaManagerInternal : IAreaManager
@@ -254,7 +262,7 @@ namespace OpenNefia.Core.Areas
                 result = areaComp;
                 break;
             }
-            
+
             if (result != null)
             {
                 _areaEntities.Add(actualID, result.Owner);
@@ -276,7 +284,7 @@ namespace OpenNefia.Core.Areas
 
                 var areaComp = _entityManager.EnsureComponent<AreaComponent>(newEnt);
                 areaComp.AreaId = actualID;
-                
+
                 // Area entities will always live in the global map.
                 var areaSpatial = _entityManager.GetComponent<SpatialComponent>(newEnt);
                 areaSpatial.AttachParent(globalMapSpatial);
@@ -392,6 +400,61 @@ namespace OpenNefia.Core.Areas
             }
 
             return TryGetArea(parentAreaComp.AreaId, out parentArea);
+        }
+
+        public IEnumerable<IArea> EnumerateParentAreas(IArea area)
+            => EnumerateParentAreas(area.Id);
+
+        public IEnumerable<IArea> EnumerateParentAreas(AreaId areaID)
+        {
+            while (TryGetParentArea(areaID, out var parentArea))
+            {
+                yield return parentArea;
+                areaID = parentArea.Id;
+            }
+        }
+
+        public IEnumerable<IArea> EnumerateChildAreas(IArea area, bool recursive = false)
+            => EnumerateChildAreas(area.Id);
+
+        public IEnumerable<IArea> EnumerateChildAreas(AreaId areaID, bool recursive = false)
+        {
+            if (!TryGetArea(areaID, out var area))
+                return Enumerable.Empty<IArea>();
+
+            var areas = new List<IArea>();
+            var consider = new Queue<SpatialComponent>();
+            consider.Enqueue(_entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid));
+            
+            while (consider.Count > 0)
+            {
+                var spatial = consider.Dequeue();
+                foreach (var child in spatial.Children)
+                {
+                    if (!_entityManager.TryGetComponent<AreaComponent>(child.Owner, out var childAreaComp))
+                        continue;
+
+                    if (!TryGetArea(childAreaComp.AreaId, out var childArea))
+                        continue;
+
+                    areas.Add(childArea);
+                    if (recursive)
+                        consider.Enqueue(child);
+                }
+            }
+
+            return areas;
+        }
+
+        public IArea GetRootArea(IArea area)
+            => GetRootArea(area.Id);
+
+        public IArea GetRootArea(AreaId areaID)
+        {
+            var parents = EnumerateParentAreas(areaID).ToList();
+            if (parents.Count == 0)
+                return GetArea(areaID);
+            return parents.Last();
         }
     }
 

@@ -126,6 +126,8 @@
   parent: BaseArea
   components:
   - type: AreaTypeTown
+  - type: AreaReturnDestination
+    canBeReturnDestination: true
 
 - type: Entity
   id: BaseActivity

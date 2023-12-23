@@ -94,6 +94,12 @@
   parent: BaseEffect
   hspIds:
     elona122: 1114
+  components:
+  - type: EffectBaseDamageDice
+    # Curse power, compared against LUK and enchant strength
+    # If cast by cursed items it is multiplied by 1000
+    finalDamage: power / 2
+  - type: EffectCurse
 
 - type: Entity
   id: Elona.EffectDeed
@@ -224,6 +230,11 @@
   parent: BaseEffect
   hspIds:
     elona122: 1141
+  components:
+  - type: EffectBaseDamageDice
+    # Number of turns the return waiting period lasts
+    finalDamage: 5 + randInt(10)
+  - type: EffectEscape
 
 - type: Entity
   id: Elona.EffectSalt

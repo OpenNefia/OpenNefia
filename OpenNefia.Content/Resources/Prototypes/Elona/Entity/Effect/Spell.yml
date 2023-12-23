@@ -42,6 +42,7 @@
   components:
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
+    # Identification power, compared against item's identification difficulty
     diceX: 0
     diceY: 1
     bonus: skillLevel * power * 10 / 100
@@ -63,6 +64,7 @@
   components:
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
+    # Uncurse power, doomed items are harder to uncurse
     finalDamage: power
   - type: EffectDamageCastInstead
     ifTarget: NotPlayer
@@ -100,6 +102,12 @@
   parent: BaseEffect
   hspIds:
     elona122: 428
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    # Number of turns the return waiting period lasts
+    finalDamage: 15 + randInt(15)
+  - type: EffectReturn
 
 - type: Elona.Spell
   id: Elona.MagicMap
@@ -146,6 +154,7 @@
   components:
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
+    # Compared against target's level for success
     finalDamage: randInt(power / 15 + 5)
   - type: EffectDamageCastInstead
     ifSource: NotPlayer
@@ -419,6 +428,7 @@
   components:
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
+    # Number of mutations
     finalDamage: 1
   - type: EffectMutation
 
@@ -439,6 +449,7 @@
   components:
   - type: EffectTargetPosition
   - type: EffectBaseDamageDice
+    # Unlock difficulty of the door
     finalDamage: randInt(power) / 10 + 1
   - type: EffectDoorCreation
 
@@ -473,6 +484,8 @@
   components:
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
+    # Success rate out of 100%
+    # TODO make into double
     finalDamage: clamp((skillLevel * 5 * power) / 20 + 40, 40, 100)
   - type: EffectResurrection
 
@@ -520,7 +533,8 @@
   components:
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
-    finalDamage: power
+    # Number of items spawned
+    finalDamage: clamp(4 + _randInt(power / 50 + 1), 1, 15)
   - type: EffectWizardsHarvest
 
 - type: Elona.Spell
@@ -543,6 +557,7 @@
     elona122: 466
   difficulty: 750
   mpCost: 24
+  maxRange: 2
   noMPCostScaling: true
   skillID: Elona.SpellGravity
   effectID: Elona.SpellGravity
@@ -551,3 +566,6 @@
   parent: BaseEffect
   hspIds:
     elona122: 466
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectGravity

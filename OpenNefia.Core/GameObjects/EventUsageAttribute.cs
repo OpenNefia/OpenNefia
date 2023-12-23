@@ -19,6 +19,12 @@ namespace OpenNefia.Core.GameObjects
     public enum EventTarget
     {
         /// <summary>
+        /// This event will not be raised on an entity, and should
+        /// be subscribed to with SubscribeBroadcast.
+        /// </summary>
+        Broadcast = 0x0,
+
+        /// <summary>
         /// This event should be used with regular game objects
         /// (characters, items, feats, mobjs, mefs, etc.)
         /// </summary>

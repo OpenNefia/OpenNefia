@@ -11,7 +11,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Tests;
 
-namespace Content.IntegrationTests.Tests.Tag
+namespace OpenNefia.Content.Tests.GameObjects.Components.Tag
 {
     [TestFixture]
     [TestOf(typeof(TagComponent))]
@@ -61,7 +61,8 @@ namespace Content.IntegrationTests.Tests.Tag
             var sim = GameSimulation
                 .NewSimulation()
                 .RegisterComponents(compMan => compMan.RegisterClass<TagComponent>())
-                .RegisterPrototypes(protoMan => {
+                .RegisterPrototypes(protoMan =>
+                {
                     protoMan.RegisterType<TagPrototype>();
                     protoMan.LoadString(Prototypes);
                 })
@@ -146,34 +147,34 @@ namespace Content.IntegrationTests.Tests.Tag
             // Cannot add the starting tag again
             Assert.That(sTagComponent.AddTag(StartingTag), Is.False);
             Assert.That(sTagComponent.AddTags(StartingTag, StartingTag), Is.False);
-            Assert.That(sTagComponent.AddTags(new List<PrototypeId<TagPrototype>> {StartingTag, StartingTag}), Is.False);
+            Assert.That(sTagComponent.AddTags(new List<PrototypeId<TagPrototype>> { StartingTag, StartingTag }), Is.False);
 
             // Has the starting tag
             Assert.That(sTagComponent.HasTag(StartingTag), Is.True);
             Assert.That(sTagComponent.HasAllTags(StartingTag, StartingTag), Is.True);
-            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> {StartingTag, StartingTag}), Is.True);
+            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> { StartingTag, StartingTag }), Is.True);
             Assert.That(sTagComponent.HasAnyTag(StartingTag, StartingTag), Is.True);
-            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> {StartingTag, StartingTag}), Is.True);
+            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> { StartingTag, StartingTag }), Is.True);
 
             // Does not have the added tag yet
             Assert.That(sTagComponent.HasTag(AddedTag), Is.False);
             Assert.That(sTagComponent.HasAllTags(AddedTag, AddedTag), Is.False);
-            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> {AddedTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> { AddedTag, AddedTag }), Is.False);
             Assert.That(sTagComponent.HasAnyTag(AddedTag, AddedTag), Is.False);
-            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> {AddedTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> { AddedTag, AddedTag }), Is.False);
 
             // Has a combination of the two tags
             Assert.That(sTagComponent.HasAnyTag(StartingTag, AddedTag), Is.True);
-            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> {StartingTag, AddedTag}), Is.True);
+            Assert.That(sTagComponent.HasAnyTag(new List<PrototypeId<TagPrototype>> { StartingTag, AddedTag }), Is.True);
 
             // Does not have both tags
             Assert.That(sTagComponent.HasAllTags(StartingTag, AddedTag), Is.False);
-            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> {StartingTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> { StartingTag, AddedTag }), Is.False);
 
             // Cannot remove a tag that does not exist
             Assert.That(sTagComponent.RemoveTag(AddedTag), Is.False);
             Assert.That(sTagComponent.RemoveTags(AddedTag, AddedTag), Is.False);
-            Assert.That(sTagComponent.RemoveTags(new List<PrototypeId<TagPrototype>> {AddedTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.RemoveTags(new List<PrototypeId<TagPrototype>> { AddedTag, AddedTag }), Is.False);
 
             // Can add the new tag
             Assert.That(sTagComponent.AddTag(AddedTag), Is.True);
@@ -183,7 +184,7 @@ namespace Content.IntegrationTests.Tests.Tag
 
             // Cannot add existing tags
             Assert.That(sTagComponent.AddTags(StartingTag, AddedTag), Is.False);
-            Assert.That(sTagComponent.AddTags(new List<PrototypeId<TagPrototype>> {StartingTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.AddTags(new List<PrototypeId<TagPrototype>> { StartingTag, AddedTag }), Is.False);
 
             // Now has two tags
             Assert.That(sTagComponent.Tags.Count, Is.EqualTo(2));
@@ -193,8 +194,8 @@ namespace Content.IntegrationTests.Tests.Tag
             Assert.That(sTagComponent.HasTag(AddedTag), Is.True);
             Assert.That(sTagComponent.HasAllTags(StartingTag, StartingTag), Is.True);
             Assert.That(sTagComponent.HasAllTags(AddedTag, StartingTag), Is.True);
-            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> {StartingTag, AddedTag}), Is.True);
-            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> {AddedTag, StartingTag}), Is.True);
+            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> { StartingTag, AddedTag }), Is.True);
+            Assert.That(sTagComponent.HasAllTags(new List<PrototypeId<TagPrototype>> { AddedTag, StartingTag }), Is.True);
             Assert.That(sTagComponent.HasAnyTag(StartingTag, AddedTag), Is.True);
             Assert.That(sTagComponent.HasAnyTag(AddedTag, StartingTag), Is.True);
 
@@ -205,7 +206,7 @@ namespace Content.IntegrationTests.Tests.Tag
             Assert.That(sTagComponent.RemoveTags(AddedTag, AddedTag), Is.True);
 
             // No tags left to remove
-            Assert.That(sTagComponent.RemoveTags(new List<PrototypeId<TagPrototype>> {StartingTag, AddedTag}), Is.False);
+            Assert.That(sTagComponent.RemoveTags(new List<PrototypeId<TagPrototype>> { StartingTag, AddedTag }), Is.False);
 
             // No tags left in the component
             Assert.That(sTagComponent.Tags, Is.Empty);

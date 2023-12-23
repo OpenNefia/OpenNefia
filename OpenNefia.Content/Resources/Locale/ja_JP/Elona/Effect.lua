@@ -46,13 +46,15 @@ Elona.Effect = {
     },
 
     Curse = {
-        Spell = function(source, target)
+        Action = function(source, target)
             return ("%sは%sを指差して呪いの言葉を呟いた。"):format(_.name(source), _.name(target))
         end,
-        Apply = function(target, item)
-            return ("%sの%sは黒く輝いた。"):format(_.name(target), _.name(item))
+        Apply = function(source, target, item)
+            return ("%sの%sは黒く輝いた。"):format(_.name(target), _.name(item, true, 1))
         end,
-        NoEffect = "あなたは祈祷を捧げ呪いのつぶやきを無効にした。",
+        NoEffect = function(source, target)
+            return ("%sは祈祷を捧げ呪いのつぶやきを無効にした。"):format(_.name(source))
+        end,
     },
 
     Teleport = {

@@ -9,6 +9,8 @@ Elona.Quest = {
     MinutesLeft = function(minutesLeft)
         return ("%s min left for the quest."):format(minutesLeft)
     end,
+
+    ForbiddenDuringQuest = "Returning while taking a quest is forbidden. Are you sure you want to return?",
     AboutToAbandon = "Warning! You are going to abandon your current quest.",
     LeftYourClient = "You left your client.",
 

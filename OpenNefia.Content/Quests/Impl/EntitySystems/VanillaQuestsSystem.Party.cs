@@ -211,7 +211,7 @@ namespace OpenNefia.Content.Quests
 
             // >>>>>>>> elona122/shade2/calculation.hsp:1291 	if gQuest=qPerform{ ...
             var map = GetMap(uid);
-            if (!_immediateQuests.HasImmediateQuest<QuestTypePartyComponent>(map))
+            if (!_immediateQuests.IsImmediateQuestActive<QuestTypePartyComponent>(map))
                 return;
 
             foreach (var chara in _charas.EnumerateNonAllies(map))
@@ -229,7 +229,7 @@ namespace OpenNefia.Content.Quests
                 return;
 
             var map = GetMap(uid);
-            if (!_immediateQuests.HasImmediateQuest<QuestTypePartyComponent>(map) || !TryComp<VanillaAIComponent>(uid, out var vanillaAI))
+            if (!_immediateQuests.IsImmediateQuestActive<QuestTypePartyComponent>(map) || !TryComp<VanillaAIComponent>(uid, out var vanillaAI))
                 return;
 
             if (_inUses.IsUsingAnything(uid) || IsAlive(vanillaAI.ItemAboutToUse) || _factions.GetRelationToPlayer(uid) >= Factions.Relation.Ally)

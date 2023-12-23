@@ -8,4 +8,5 @@
     floors:
       Default: Elona.NorthTyris
   - type: AreaEntrance
-    globalId: Elona.AreaNorthTyris
+    globalArea:
+      id: Elona.AreaNorthTyris

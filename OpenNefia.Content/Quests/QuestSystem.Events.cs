@@ -19,6 +19,7 @@ using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Effects.New.Unique;
 
 namespace OpenNefia.Content.Quests
 {
@@ -52,6 +53,7 @@ namespace OpenNefia.Content.Quests
             SubscribeBroadcast<AfterMapEnterEventArgs>(AfterMapEnter_UpdateQuestTargets);
             SubscribeBroadcast<MapOnTimePassedEvent>(TimePassed_CheckQuestDeadlines);
             SubscribeEntity<MapBeforeTurnBeginEventArgs>(BeforeTurnBegin_SetQuestEmoicons);
+            SubscribeBroadcast<BeforePlayerCastsReturnMagicEvent>(BeforeCastReturn_CheckFailableQuests);
         }
 
         private void BeforeStepDialog_TurnInQuest(EntityUid uid, QuestClientComponent component, BeforeStepDialogEvent args)
@@ -133,8 +135,27 @@ namespace OpenNefia.Content.Quests
                     }
                 }
             }
-            
+
             // <<<<<<<< elona122/shade2/calculation.hsp:1288 			} ...
+        }
+
+        private void BeforeCastReturn_CheckFailableQuests(BeforePlayerCastsReturnMagicEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/command.hsp:4372 *check_return ...
+            var someQuestWillFail = EnumerateAcceptedQuests()
+                .Any(q =>
+                {
+                    if (!TryComp<QuestFailureConditionsComponent>(q.Owner, out var qCond))
+                        return false;
+
+                    return qCond.IsReturnForbidden;
+                });
+
+            if (someQuestWillFail)
+            {
+                ev.OutWarningReasons.Add(new(Loc.GetString("Elona.Quest.ReturnIsForbidden"), PreventReturnSeverity.PromptYesNo));
+            }
+            // <<<<<<<< elona122/shade2/command.hsp:4386 	p=0 ...
         }
 
         private void HandleAddQuestHub(EntityUid areaEntityUid, AfterAreaFloorGeneratedEvent ev)

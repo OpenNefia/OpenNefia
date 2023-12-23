@@ -3,6 +3,7 @@ using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.DeferredEvents
         {
             SubscribeBroadcast<MapBeforeTurnBeginEventArgs>(RunDeferredEvents);
             SubscribeBroadcast<BeforeMapLeaveEventArgs>(ClearDeferredEvents);
+            SubscribeBroadcast<ActiveMapChangedEvent>(ClearDeferredEvents);
         }
 
         private void RunDeferredEvents(MapBeforeTurnBeginEventArgs ev)
@@ -53,6 +55,11 @@ namespace OpenNefia.Content.DeferredEvents
         }
 
         private void ClearDeferredEvents(BeforeMapLeaveEventArgs ev)
+        {
+            _deferredEvents.Clear();
+        }
+
+        private void ClearDeferredEvents(ActiveMapChangedEvent ev)
         {
             _deferredEvents.Clear();
         }

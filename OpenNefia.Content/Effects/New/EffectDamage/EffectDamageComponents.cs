@@ -88,6 +88,7 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectDamageSuccessRateComponent : Component
     {
         [DataField]
+        [Obsolete("TODO move to EffectAreaMessageComponent")]
         public LocaleKey? MessageKey { get; set; }
 
         [DataField]

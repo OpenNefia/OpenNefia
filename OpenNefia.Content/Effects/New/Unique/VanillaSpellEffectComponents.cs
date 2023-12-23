@@ -133,4 +133,40 @@ namespace OpenNefia.Content.Effects.New.Unique
     public sealed class EffectWishComponent : Component
     {
     }
+
+    /// <summary>
+    /// Inflicts gravity.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectGravityComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Curses items in the target's inventory.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectCurseComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Teleports the player to a known location.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectReturnComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Teleports the player to the the outside of the current area.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectEscapeComponent : Component
+    {
+    }
 }

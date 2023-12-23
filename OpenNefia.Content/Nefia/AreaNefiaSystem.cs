@@ -28,7 +28,12 @@ using OpenNefia.Content.Chests;
 
 namespace OpenNefia.Content.Nefia
 {
-    public sealed class AreaNefiaSystem : EntitySystem
+    public interface IAreaNefiaSystem : IEntitySystem
+    {
+        bool IsNefiaBossActive(IMap map);
+    }
+
+    public sealed class AreaNefiaSystem : EntitySystem, IAreaNefiaSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
@@ -134,14 +139,24 @@ namespace OpenNefia.Content.Nefia
             return TurnResult.NoResult;
         }
 
-        private void RemoveNefiaBossOnMapLeave(EntityUid uid, BeforeMapLeaveEventArgs args)
+        public bool IsNefiaBossActive(IMap map)
         {
-            if (!TryArea(args.OldMap, out var area)
+            if (!TryArea(map, out var area)
                 || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)
                 || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return false;
+
+            return areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(map) 
+                && areaNefia.State == NefiaState.Visited
+                && IsAlive(areaNefia.BossEntityUid);
+        }
+
+        private void RemoveNefiaBossOnMapLeave(EntityUid uid, BeforeMapLeaveEventArgs args)
+        {
+            if (!IsNefiaBossActive(args.OldMap))
                 return;
 
-            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(args.OldMap) && areaNefia.State == NefiaState.Visited)
+            if (TryArea(args.OldMap, out var area) && TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
             {
                 if (IsAlive(areaNefia.BossEntityUid))
                     EntityManager.DeleteEntity(areaNefia.BossEntityUid.Value);
@@ -156,13 +171,7 @@ namespace OpenNefia.Content.Nefia
             if (args.Cancelled)
                 return;
 
-            if (!TryMap(uid, out var map) || !TryArea(map, out var area)
-                || !TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon)
-                || !TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
-                return;
-
-            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(map) && areaNefia.State == NefiaState.Visited
-                && IsAlive(areaNefia.BossEntityUid))
+            if (TryMap(uid, out var map) && IsNefiaBossActive(map))
             {
                 if (_playerQuery.YesOrNoOrCancel(Loc.GetString("Elona.Nefia.PromptGiveUpQuest")) != true)
                 {

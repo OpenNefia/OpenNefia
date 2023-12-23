@@ -19434,6 +19434,7 @@
     isPrecious: true
   - type: Weight
     weight: 120000
+  - type: NuclearBomb
 - type: Entity
   id: Elona.ItemSecretTreasure
   parent: BaseItem

@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
 
-namespace OpenNefia.Content.Maps
+namespace OpenNefia.Content.Timers
 {
     public interface IMapTimersSystem : IEntitySystem
     {
@@ -26,6 +26,7 @@ namespace OpenNefia.Content.Maps
         MapTimer GetTimer(IMap map, string id, MapTimersComponent? mapTimers = null);
     }
 
+    // TODO map turn update type (same as global timers)
     public sealed class MapTimersSystem : EntitySystem, IMapTimersSystem
     {
         public override void Initialize()

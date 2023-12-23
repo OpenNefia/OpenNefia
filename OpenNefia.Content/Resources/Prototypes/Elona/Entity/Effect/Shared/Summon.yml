@@ -9,7 +9,10 @@
     summonCount: randInt(3) + 1
     messageKey: Elona.Magic.Message.Summon
   - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1882 	p=3 :efP=(efP/25+efP*efP/10000+cLevel(cc)) /2 : i ...
     finalDamage: max((power / 25 + power * power / 100000 + casterLevel) / 2, 1)
+    # <<<<<<<< elona122/shade2/proc.hsp:1882 	p=3 :efP=(efP/25+efP*efP/10000+cLevel(cc)) /2 : i ..
 
 - type: Elona.Spell
   id: Elona.SummonMonsters
@@ -65,7 +68,10 @@
   parent: Elona.BaseEffectSummon
   components:
   - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1884 	if efId=actSummonCat	:efP=2+rnd(18) ...
     finalDamage: 2 + randInt(18)
+    # <<<<<<<< elona122/shade2/proc.hsp:1884 	if efId=actSummonCat	:efP=2+rnd(18) ..
   - type: EffectSummonChara
     choices:
     - charaFilter:
@@ -88,7 +94,10 @@
   parent: Elona.BaseEffectSummon
   components:
   - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1886 	if efId=actSummonYeek	:efP=5+rnd(12) ...
     finalDamage: 5 + randInt(12)
+    # <<<<<<<< elona122/shade2/proc.hsp:1886 	if efId=actSummonYeek	:efP=5+rnd(12) ..
   - type: EffectSummonChara
     choices:
     - charaFilter:
@@ -111,7 +120,10 @@
   parent: Elona.BaseEffectSummon
   components:
   - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1883 	if efId=actSummonPawn	:efP=15+rnd(8) ...
     finalDamage: 15 + randInt(8)
+    # <<<<<<<< elona122/shade2/proc.hsp:1883 	if efId=actSummonPawn	:efP=15+rnd(8) ..
   - type: EffectSummonChara
     choices:
     - charaFilter:
@@ -134,7 +146,10 @@
   parent: Elona.BaseEffectSummon
   components:
   - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1885 	if efId=actSummonFire	:efP=15+rnd(15) ...
     finalDamage: 15 + randInt(15)
+    # <<<<<<<< elona122/shade2/proc.hsp:1885 	if efId=actSummonFire	:efP=15+rnd(15) ..
   - type: EffectSummonChara
     choices:
     - charaFilter:
@@ -156,10 +171,10 @@
     elona122: 643
   parent: Elona.BaseEffectSummon
   components:
-  - type: EffectBaseDamageDice
-    finalDamage: 15 + randInt(15)
   - type: EffectSummon
+    # >>>>>>>> elona122/shade2/proc.hsp:1887 	if efId=actSummonSister :p=10 ...
     summonCount: randInt(10) + 1
+    # <<<<<<<< elona122/shade2/proc.hsp:1887 	if efId=actSummonSister :p=10 ..
   - type: EffectSummonChara
     canBeSameTypeAsCaster: true
     choices:

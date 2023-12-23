@@ -37,6 +37,9 @@ namespace OpenNefia.Content.GameObjects
         [DataField]
         public Stat<bool> IsProtectedFromBadWeather { get; set; } = new(false);
 
+        [DataField]
+        public Stat<bool> IsImmuneToMines { get; set; } = new(false);
+
         // TODO move
         [DataField]
         public Stat<bool> CanCatchGodSignals { get; set; } = new(false);
@@ -59,6 +62,7 @@ namespace OpenNefia.Content.GameObjects
             IsProtectedFromPregnancy.Reset();
             IsProtectedFromEtherwind.Reset();
             IsProtectedFromBadWeather.Reset();
+            IsImmuneToMines.Reset();
             CanCatchGodSignals.Reset();
             CanDetectReligion.Reset();
             IsFloating.Reset();

@@ -2,7 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.Maps
+namespace OpenNefia.Content.Timers
 {
     /// <summary>
     /// Arbitrary timers that decrement with time passed in the active map.

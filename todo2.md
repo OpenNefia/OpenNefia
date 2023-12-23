@@ -17,10 +17,12 @@
   + [ ] spell stock check
   + [ ] rods
   + [ ] add all effect alignments
+  + [ ] add all effect max ranges
   + [ ] remove/refactor old effect system
   + [ ] move spell/action skills into effect prototype files
   + [ ] bomb ammo enchantment
   + [ ] curse state teleportation/effects
+  + [ ] effect damage that chains multiple effects
 - [ ] inventory/spell/skill shortcuts
 - [ ] wishing
 - [ ] magic items
@@ -48,7 +50,7 @@
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
 - [ ] status effect protoevents -> ECS
-  + [ ] gravity floating buff
+  + [ ] gravity/floating buff
   + [ ] fear prevents melee attacking
   + [ ] all other status effect checks in HSP code
 - [x] staying charas

@@ -44,18 +44,20 @@ Elona.Effect = {
     },
 
     Curse = {
-        Spell = function(source, target)
-            return ("%s point%s %s and mutter%s a curse."):format(
+        Action = function(source, target)
+            return ("%s point%s at %s and mutter%s a curse."):format(
                 _.name(source),
                 _.s(source),
                 _.name(target),
                 _.s(source)
             )
         end,
-        Apply = function(target, item)
+        Apply = function(source, target, item)
             return ("%s %s glow%s black."):format(_.possessive(target), _.name(item, true, 1), _.s(item))
         end,
-        NoEffect = "Your prayer nullifies the curse.",
+        NoEffect = function(source, target)
+            return ("%s prayer nullifies the curse."):format(_.possessive(source))
+        end,
     },
 
     Teleport = {
