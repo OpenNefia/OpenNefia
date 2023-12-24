@@ -21,6 +21,9 @@ namespace OpenNefia.Content.CurseStates
     {
         bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null);
         bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null);
+        bool IsBlessed(CurseState state);
+        bool IsCursed(CurseState state);
+        CurseState GetCurseState(EntityUid uid, CurseStateComponent? curseState = null);
         CurseState GetDefaultCurseState(EntityUid uid);
         CurseState PickRandomCurseState(EntityUid uid);
     }
@@ -110,12 +113,20 @@ namespace OpenNefia.Content.CurseStates
             }
         }
 
+        public CurseState GetCurseState(EntityUid uid, CurseStateComponent? curseState = null)
+        {
+            if (!Resolve(uid, ref curseState, logMissing: false))
+                return CurseState.Normal;
+
+            return curseState.CurseState;
+        }
+
         public bool IsBlessed(EntityUid ent, CurseStateComponent? curseState = null)
         {
             if (!Resolve(ent, ref curseState))
                 return false;
 
-            return curseState.CurseState == CurseState.Blessed;
+            return IsBlessed(curseState.CurseState);
         }
 
         public bool IsCursed(EntityUid ent, CurseStateComponent? curseState = null)
@@ -123,7 +134,18 @@ namespace OpenNefia.Content.CurseStates
             if (!Resolve(ent, ref curseState))
                 return false;
 
-            return curseState.CurseState == CurseState.Cursed || curseState.CurseState == CurseState.Doomed;
+            return IsCursed(curseState.CurseState);
+        }
+
+        public bool IsBlessed(CurseState state)
+        {
+            return state == CurseState.Blessed;
+        }
+
+        public bool IsCursed(CurseState state)
+        {
+            return state == CurseState.Cursed
+                || state == CurseState.Doomed;
         }
     }
 

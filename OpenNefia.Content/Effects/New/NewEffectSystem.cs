@@ -19,6 +19,11 @@ using OpenNefia.Content.Skills;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.CurseStates;
 using System.ComponentModel;
+using CSharpRepl.Services.Roslyn.Formatting;
+using OpenNefia.Content.Levels;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using Microsoft.FileFormats;
+using OpenNefia.Content.UI.Element;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -26,9 +31,6 @@ namespace OpenNefia.Content.Effects.New
     /// New implementation of the effect system. This is an ECS-based version designed
     /// around combining components:
     /// - All effects are entities with an <see cref="EffectComponent"/>.
-    /// - Effects must have an "effect type" such as <see cref="EffectTypeSpellComponent"/>
-    ///   or <see cref="EffectTypeActionComponent"/>. These determine the resource costs 
-    ///   of the effect.
     /// - Effects should subscribe to <see cref="GetEffectPlayerTargetEvent"/> so they can
     ///   provide a default target if none is provided.
     ///   The <see cref="EffectTargetOtherComponent"/> targets an entity or the ground,
@@ -64,12 +66,13 @@ namespace OpenNefia.Content.Effects.New
         /// <param name="args"></param>
         /// <param name="retainEffectEntity">If false, the effect entity will be deleted after the effect is applied.</param>
         /// <returns>Turn result from the effect.</returns>
-        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet? args = null, bool retainEffectEntity = false);
 
-        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args);
+        TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet? args = null);
 
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args);
     }
 
     public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
@@ -82,6 +85,23 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args)
+        {
+            var result = new Dictionary<string, double>();
+
+            result["power"] = args.Power;
+            result["skillLevel"] = args.SkillLevel;
+            result["casterLevel"] = _levels.GetLevel(source);
+            result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
+            if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
+            {
+                result["distance"] = dist;
+            }
+
+            return result;
+        }
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {
@@ -99,7 +119,7 @@ namespace OpenNefia.Content.Effects.New
             return true;
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet args, bool retainEffectEntity = false)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, PrototypeId<EntityPrototype> effectID, EffectArgSet? args, bool retainEffectEntity = false)
         {
             if (!TrySpawnEffect(effectID, out var effect, retainEffectEntity))
                 return TurnResult.Aborted;
@@ -112,7 +132,7 @@ namespace OpenNefia.Content.Effects.New
             return result;
         }
 
-        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet args)
+        public TurnResult Apply(EntityUid source, EntityUid? target, EntityCoordinates? targetCoords, EntityUid effect, EffectArgSet? args)
         {
             if (target == null)
             {
@@ -126,10 +146,11 @@ namespace OpenNefia.Content.Effects.New
 
             var sourceCoords = Spatial(source).Coordinates;
 
+            args ??= new EffectArgSet();
             var common = args.Ensure<EffectCommonArgs>();
             if (!common.NoInheritItemCurseState)
             {
-                if (IsAlive(common.Item) && TryComp<CurseStateComponent>(common.Item, out var curseStateComp))
+                if (IsAlive(common.SourceItem) && TryComp<CurseStateComponent>(common.SourceItem, out var curseStateComp))
                     args.CurseState = curseStateComp.CurseState;
             }
 
@@ -256,7 +277,7 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap { get; }
         public MapCoordinates TargetCoordsMap { get; }
 
-        public IMap Map { get; }
+        public IMap SourceMap { get; }
         public IMap TargetMap { get; }
     }
 
@@ -285,7 +306,7 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
         public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
 
-        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }
@@ -335,6 +356,11 @@ namespace OpenNefia.Content.Effects.New
     /// <summary>
     /// Applies the effect to a single target. 
     /// Raised once for each entity affected by an AoE.
+    /// 
+    /// If this effect is not handled by any handler,
+    /// then a "Nothing happens..." message is printed,
+    /// and the effect result is marked as non-obvious (item will
+    /// not be identified automatically)
     /// </summary>
     [EventUsage(EventTarget.Effect)]
     public sealed class ApplyEffectDamageEvent : TurnResultEntityEventArgs, IApplyEffectEvent
@@ -361,15 +387,16 @@ namespace OpenNefia.Content.Effects.New
         public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
         public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
 
-        public IMap Map => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
         public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
 
         public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
 
         /// <summary>
         /// Number of affected tiles if this event was invoked with an AoE.
         /// </summary>
-        public int AffectedTiles { get; }
+        public int AffectedTileCount { get; }
 
         /// <summary>
         /// Index of the tile being affected, starting from 0.
@@ -398,7 +425,7 @@ namespace OpenNefia.Content.Effects.New
             SourceCoords = sourceCoords;
             TargetCoords = targetCoords;
             Args = args;
-            AffectedTiles = affectedTiles;
+            AffectedTileCount = affectedTiles;
             AffectedTileIndex = affectedTileIndex;
         }
     }

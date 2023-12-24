@@ -1,0 +1,105 @@
+- type: Elona.WishHandler
+  id: Elona.Alias
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Alias_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.SmallMedal
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: SmallMedal_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Sex
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Sex_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Youth
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Youth_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Redemption
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Redemption_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.ManInside
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: ManInside_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Ally
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Ally_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Platinum
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Platinum_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Death
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Death_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Gold
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Gold_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.GodInside
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: GodInside_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.God
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: God_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Common
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Common_OnWish
+
+# Default handler, catches all remaining input
+- type: Elona.WishHandler
+  id: Elona.Item
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Item_OnWish
+
+- type: Elona.WishHandler
+  id: Elona.Skill
+  events:
+  - type: Wishes.P_WishHandlerOnWishEvent
+    system: Wishes.VanillaWishHandlersSystem
+    method: Skill_OnWish

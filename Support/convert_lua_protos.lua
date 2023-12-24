@@ -217,6 +217,10 @@ local function tuple(t)
     return table.concat(t, ",")
 end
 
+local function typedYamlNode(nodeType, t)
+    return setmetatable(t or {}, { tag = "type:" .. nodeType, type = "mapping" })
+end
+
 local write_effect
 
 local function effect(skill_id, t)
@@ -226,7 +230,40 @@ local function effect(skill_id, t)
     end
     write_effect(effectTy)
 
-    return setmetatable(t or {}, { tag = "type:" .. effectTy, type = "mapping" })
+    return typedYamlNode(effectTy, t)
+end
+
+local function newEffect(effect_id, power)
+    local entPrefix
+    local d = data["base.skill"][effect_id]
+    local id = effect_id
+    if d ~= nil then
+        entPrefix = capitalize(d.type)
+        id = d.effect_id
+        d = data["elona_sys.magic"]:ensure(d.effect_id)
+    else
+        d = data["elona_sys.magic"]:ensure(effect_id)
+        entPrefix = ""
+        if d.type == "skill" or d.type == "action" then
+            local mod_id, data_id = d._id:match "([^.]+)%.([^.]+)"
+            print(mod_id .. ".spell_" .. data_id)
+            d = data["base.skill"][mod_id .. ".spell_" .. data_id]
+            if d then
+                entPrefix = capitalize(d.type)
+                print("GET", effect_id, entPrefix)
+            end
+        end
+    end
+    if effect_id:match "elona%.buff" then
+        entPrefix = "Spell"
+    end
+    local newId = dotted(id):gsub("Elona%.", "Elona." .. entPrefix)
+    newId = newId:gsub("EffectEffect", "Effect")
+    print(effect_id, tostring(entPrefix), newId)
+    return typedYamlNode("EffectSpec", {
+        id = newId,
+        power = power,
+    })
 end
 
 local handlers = {}
@@ -340,7 +377,7 @@ handlers["base.chara"] = function(from, to)
                     skillID = skillID:gsub("Elona.Buff", "Elona.ActionBuff")
                 end
             end
-            print(skillID, ty)
+            -- print(skillID, ty)
             skills.skills[skillID] = 1
             -- end
         end
@@ -415,6 +452,21 @@ handlers["base.chara"] = function(from, to)
     end
     if from.is_quick_tempered or table.set(from.flags or {}).IsQuickTempered then
         c = comp(to, "QuickTempered")
+    end
+
+    if table.set(from.flags or {}).IsSuitableForMount then
+        c = comp(to, "Mount")
+        c.suitability = "Good"
+    end
+
+    if table.set(from.flags or {}).IsUnsuitableForMount then
+        c = comp(to, "Mount")
+        c.suitability = "Bad"
+    end
+
+    if from.is_immune_to_mines then
+        c = comp(to, "CommonProtections")
+        c.isImmuneToMines = true
     end
 
     if from._id == "elona.rich_person" then
@@ -836,6 +888,9 @@ handlers["base.item"] = function(from, to)
     if from.is_precious then
         c.isPrecious = true
     end
+    if from.is_wishable == false then
+        c.canWishFor = false
+    end
 
     if from.knownnameref then
         if from.knownnameref == "staff" then
@@ -1013,6 +1068,10 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Bill")
     end
 
+    if from._id == "elona.monster_heart" then
+        c = comp(to, "MonsterHeart")
+    end
+
     if from._id == "elona.wallet" or from._id == "elona.suitcase" then
         c = comp(to, "LostProperty")
     end
@@ -1053,6 +1112,10 @@ handlers["base.item"] = function(from, to)
 
     if from._id == "elona.tight_rope" then
         c = comp(to, "TightRope")
+    end
+
+    if from._id == "elona.nuclear_bomb" then
+        c = comp(to, "NuclearBomb")
     end
 
     if from.cooldown_hours then
@@ -1166,6 +1229,35 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "HouseBoard")
     end
 
+    if from._id == "elona.potion_of_cure_corruption" then
+        c = comp(to, "Item")
+        c.wishAmount = "2 + randInt(2)"
+    end
+
+    if
+        from._id == "elona.potion_of_descent"
+        or from._id == "elona.scroll_of_gain_attribute"
+        or from._id == "elona.treasure_map"
+    then
+        c = comp(to, "Item")
+        c.wishAmount = "1"
+    end
+
+    if from._id == "elona.scroll_of_superior_material" then
+        c = comp(to, "Item")
+        c.wishAmount = "2"
+    end
+
+    if from._id == "elona.gold_piece" then
+        c = comp(to, "Item")
+        c.wishAmount = "sourceLevel * sourceLevel * 50 + 20000"
+    end
+
+    if from._id == "elona.platinum_coin" then
+        c = comp(to, "Item")
+        c.wishAmount = "8 + randInt(5)"
+    end
+
     local spellbook = from._ext and from._ext[IItemSpellbook]
     if spellbook then
         c = comp(to, "Spellbook")
@@ -1214,8 +1306,7 @@ handlers["base.item"] = function(from, to)
 
     if from.scroll_id then
         c = comp(to, "Scroll")
-        c.effect = effect(from.scroll_id)
-        c.effectArgs = { power = from.spell_power }
+        c.effects = newEffect(from.scroll_id, from.spell_power)
         if from.spell_no_consume then
             c.amountConsumedOnRead = 0
         end
@@ -1225,8 +1316,7 @@ handlers["base.item"] = function(from, to)
     if potion then
         c = comp(to, "Potion")
         assert(#potion.effects == 1)
-        c.effect = effect(potion.effects[1]._id)
-        c.effectArgs = { power = potion.effects[1].power }
+        c.effects = newEffect(potion.effects[1]._id, potion.effects[1].power)
     end
 end
 
@@ -1827,6 +1917,10 @@ handlers["elona_sys.scene"] = function(from, to)
     to.filename = dataPart(from._id) .. ".yml"
 end
 
+handlers["elona.wish_handler"] = function(from, to)
+    event(from, to, "on_wish", "Wishes", "VanillaWishHandlersSystem", "OnWish")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2154,10 +2248,6 @@ local LANGUAGES = {
     jp = "ja_JP",
 }
 
-local function typedYamlNode(nodeType, t)
-    return setmetatable(t or {}, { tag = "type:" .. nodeType, type = "mapping" })
-end
-
 local function convert_scenes()
     local function toYaml(node)
         local ty = node[1]
@@ -2309,6 +2399,70 @@ local function print_lines()
     end
 end
 
+local function print_balls()
+    local ElonaPos = require "mod.elona.api.ElonaPos"
+    local InstancedMap = require "api.InstancedMap"
+
+    local test_cases = {
+        { 10, 10, 0 },
+        { 10, 10, 1 },
+        { 10, 10, 2 },
+        { 10, 10, 3 },
+        { 10, 10, 4 },
+    }
+
+    local map = InstancedMap:new(20, 20)
+    for _, case in ipairs(test_cases) do
+        local result = fun.iter(ElonaPos.make_ball(case[1], case[2], case[3], map, function()
+            return true
+        end))
+            :map(function(x)
+                return ("(%s, %s)"):format(x[1], x[2])
+            end)
+            :to_list()
+        result = table.concat(result, ", ")
+        print(
+            ("new((%s, %s), %s, new UIBox2i(0, 0, 20, 20), new Vector2i[] { %s }),"):format(
+                case[1],
+                case[2],
+                case[3],
+                result
+            )
+        )
+    end
+end
+
+local function print_dists()
+    local Pos = require "api.Pos"
+
+    local test_cases = {
+        { 0, 0, 0, 0 },
+        { 0, 0, 1, 0 },
+        { 0, 0, 2, 0 },
+        { 0, 0, 3, 0 },
+        { 0, 0, 1, 1 },
+        { 0, 0, 2, 1 },
+        { 0, 0, 3, 1 },
+        { 0, 0, 1, 2 },
+        { 0, 0, 2, 2 },
+        { 0, 0, 3, 2 },
+        { 0, 0, 1, 3 },
+        { 0, 0, 2, 3 },
+        { 0, 0, 3, 3 },
+        { 0, 0, 1, 4 },
+        { 0, 0, 2, 4 },
+        { 0, 0, 3, 4 },
+        { 0, 0, 1, 5 },
+        { 0, 0, 2, 5 },
+        { 0, 0, 3, 5 },
+    }
+
+    for _, case in ipairs(test_cases) do
+        local result = Pos.dist(case[1], case[2], case[3], case[4])
+        print(("new((%s, %s), (%s, %s), %s),"):format(case[1], case[2], case[3], case[4], result))
+    end
+end
+
 -- data["base.race"]
 --     :iter()
 --     :filter(function(d)
@@ -2321,9 +2475,12 @@ end
 
 -- print_spell_costs()
 -- print_lines()
+-- print_balls()
+-- print_dists()
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
 -- convert_scenes()
+-- write("elona.wish_handler", "WishHandler.yml", "OpenNefia.Content.Wishes.WishHandlerPrototype")
 -- write("elona_sys.scene", "Scene.yml", "OpenNefia.Content.Scene.ScenePrototype")
 -- write("elona.weather", "Weather.yml", "OpenNefia.Content.Weather.WeatherPrototype")
 -- write("elona.encounter", "Encounter.yml", "OpenNefia.Content.Encounters.EncounterPrototype")

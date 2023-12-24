@@ -19,6 +19,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Parties
 {
@@ -202,6 +203,11 @@ namespace OpenNefia.Content.Parties
         bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
+        /// Returns true if this character is an underling in a party (not the leader).
+        /// </summary>
+        bool IsUnderlingOfSomeParty(EntityUid target, PartyComponent? party = null);
+
+        /// <summary>
         /// Returns true if this entity is in the player's party.
         /// Includes the player themselves.
         /// </summary>
@@ -215,8 +221,19 @@ namespace OpenNefia.Content.Parties
         int CalcMaxPartySize(EntityUid entity);
 
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
-
-        bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
+        
+        /// <summary>
+        /// Attempts to recruit this character. If the leader's party is full,
+        /// a message will be displayed instead.
+        /// </summary>
+        /// <param name="leader"></param>
+        /// <param name="ally"></param>
+        /// <param name="partyLeader"></param>
+        /// <param name="partyAlly"></param>
+        /// <param name="noMessage"></param>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        bool TryRecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false);
 
         bool RemoveFromCurrentParty(EntityUid ally, PartyComponent? party = null);
     }
@@ -290,7 +307,6 @@ namespace OpenNefia.Content.Parties
             if (!Resolve(member, ref partyComp) || !Parties.TryGetParty(member, out var party))
                 return Enumerable.Empty<EntityUid>();
 
-
             return party.Members.Where(m => m != party.Leader);
         }
 
@@ -307,6 +323,14 @@ namespace OpenNefia.Content.Parties
         public bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? partyComp = null)
         {
             return IsPartyLeaderOf(target, target, partyComp);
+        }
+
+        public bool IsUnderlingOfSomeParty(EntityUid target, PartyComponent? partyComp = null)
+        {
+            if (!Resolve(target, ref partyComp, logMissing: false))
+                return false;
+
+            return partyComp.PartyID != null && !IsLeaderOfSomeParty(target, partyComp);
         }
 
         public bool IsInPlayerParty(EntityUid entity)
@@ -330,12 +354,10 @@ namespace OpenNefia.Content.Parties
             return IsDirectAllyOf(_gameSession.Player, entity);
         }
 
-        public const int MaxCharasInParty = 16;
-
         public int CalcMaxPartySize(EntityUid entity)
         {
             // >>>>>>>> shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ...
-            return Math.Clamp(_skills.Level(entity, Protos.Skill.AttrCharisma) / 5 + 1, 2, MaxCharasInParty);
+            return Math.Clamp(_skills.Level(entity, Protos.Skill.AttrCharisma) / 5 + 1, 2, MapCharaGenConsts.MaxAllyCount);
             // <<<<<<<< shade2/init.hsp:3174 #define global followerLimit limit(sCHR(pc)/5+1,2, ..
         }
 
@@ -362,7 +384,8 @@ namespace OpenNefia.Content.Parties
             return otherMemberCount < maxPartySize;
         }
 
-        public bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false)
+        /// <inheritdoc/>
+        public bool TryRecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false, bool force = false)
         {
             if (!Resolve(leader, ref partyLeader) || !Resolve(ally, ref partyAlly))
                 return false;

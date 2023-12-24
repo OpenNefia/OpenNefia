@@ -1,5 +1,8 @@
+using Nett.Collections;
 using NUnit.Framework;
 using OpenNefia.Core.Areas;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -143,11 +146,67 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             sys.Data.Foo = 42;
             sys.Data.Bar = new List<string> { "hoge" };
+            sys.Data.Hoge = new TestSaveDataProperty() { Foo = 1 };
+            sys.Data.Piyo = new Formula("2 + 2");
 
             saveSerMan.ResetGameState();
 
             Assert.That(sys.Data.Foo, Is.EqualTo(-1));
             Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "baz", "quux" }));
+            Assert.That(sys.Data.Hoge, Is.Null);
+            Assert.That(sys.Data.Piyo, Is.Null);
+        }
+
+        /// <summary>
+        /// Tests that null references to save data can be restored.
+        /// </summary>
+        [Test]
+        public void TestSaveDataNullable()
+        {
+            // Arrange.
+            var sim = GameSimulation
+                .NewSimulation()
+                .RegisterEntitySystems(factory =>
+                {
+                    factory.LoadExtraSystemType<SaveGameTestSystem>();
+                })
+                .RegisterDataDefinitionTypes(types => types.Add(typeof(TestSaveData)))
+                .InitializeInstance();
+
+            var save = new TempSaveGameHandle();
+            var saveSerMan = sim.Resolve<ISaveGameSerializerInternal>();
+            var entMan = sim.Resolve<IEntityManagerInternal>();
+            var mapMan = sim.Resolve<IMapManagerInternal>();
+            var mapLoader = sim.Resolve<IMapLoader>();
+            var areaMan = sim.Resolve<IAreaManagerInternal>();
+            var sessMan = sim.Resolve<IGameSessionManager>();
+
+            var map = sim.CreateMapAndSetActive(50, 50);
+            var mapEnt = map.MapEntityUid;
+
+            // Act.
+            mapMan.CreateMap(50, 50);
+            var player = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            sessMan.Player = player;
+
+            var sys = sim.GetEntitySystem<SaveGameTestSystem>();
+            sys.DataNullable = null;
+
+            saveSerMan.SaveGame(save);
+            saveSerMan.LoadGame(save);
+
+            Assert.That(sys.Data.Foo, Is.EqualTo(-1));
+            Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "baz", "quux" }));
+            Assert.That(sys.Data.Hoge, Is.Null);
+            Assert.That(sys.Data.Piyo, Is.Null);
+
+            sys.Data = null!;
+
+            saveSerMan.SaveGame(save);
+            Assert.Throws<ArgumentException>(() =>
+            {
+                saveSerMan.LoadGame(save);
+            });
         }
     }
 
@@ -155,7 +214,17 @@ namespace OpenNefia.Tests.Core.SaveGames
     public class SaveGameTestSystem : EntitySystem
     {
         [RegisterSaveData("SaveGameTestSystem.Data")]
-        public TestSaveData Data { get; } = new();
+        public TestSaveData Data { get; set; } = new();
+
+        [RegisterSaveData("SaveGameTestSystem.DataNullable")]
+        public TestSaveData? DataNullable { get; set; } = new();
+    }
+
+    [DataDefinition]
+    public class TestSaveDataProperty
+    {
+        [DataField]
+        public int Foo { get; set; } = 42;
     }
 
     [DataDefinition]
@@ -166,5 +235,13 @@ namespace OpenNefia.Tests.Core.SaveGames
 
         [DataField(required: true)]
         public List<string> Bar = new() { "baz", "quux" };
+
+        // test reference nullable property
+        [DataField]
+        public TestSaveDataProperty? Hoge { get; set; } = null;
+
+        // test struct nullable property
+        [DataField]
+        public Formula? Piyo { get; set; } = null;
     }
 }

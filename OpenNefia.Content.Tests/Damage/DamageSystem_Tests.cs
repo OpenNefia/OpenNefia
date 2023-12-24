@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Tests.Damage
             sim.Resolve<IGameSessionManager>().Player = player;
 
             var ally = entGen.SpawnEntity(Protos.Chara.Putit, map.AtPos(0, 1))!.Value;
-            parties.RecruitAsAlly(player, ally, force: true);
+            parties.TryRecruitAsAlly(player, ally, force: true);
 
             var villager = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map.AtPos(1, 1))!.Value;
             entMan.EnsureComponent<RoleShopkeeperComponent>(villager);

@@ -9,6 +9,7 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.EngineVariables;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Quests
 {
@@ -18,6 +19,7 @@ namespace OpenNefia.Content.Quests
         [Dependency] private readonly IQuestSystem _quests = default!;
         [Dependency] private readonly IDialogSystem _dialogs = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         public override void Initialize()
         {
@@ -70,7 +72,7 @@ namespace OpenNefia.Content.Quests
             var extraData = new Blackboard<IDialogExtraData>();
             extraData.Add(new DialogQuestData(selectedQuest));
 
-            //_spells.Cast(Protos.Spell.ActionDimensionalMove, target: selectedQuest.ClientEntity, source: source);
+            _newEffects.Apply(source, selectedQuest.ClientEntity, null, Protos.Effect.ActionDrawShadow);
             return _dialogs.TryToChatWith(source, selectedQuest.ClientEntity, dialogNodeID, extraData: extraData);
         }
     }

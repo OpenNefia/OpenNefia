@@ -1,0 +1,162 @@
+- type: Entity
+  id: Elona.BaseEffectTeleport
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: EffectDamageTeleport
+    subject: Source
+    messageKey: Elona.Effect.Teleport.General
+
+- type: Elona.Spell
+  id: Elona.Teleport
+  hspIds:
+    elona122: 408
+  difficulty: 400
+  mpCost: 10
+  noMPCostScaling: true
+  skillID: Elona.SpellTeleport
+  effectID: Elona.SpellTeleport
+- type: Elona.Skill
+  id: Elona.SpellTeleport
+  hspIds:
+    elona122: 408
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellTeleport
+  parent: BaseEffect
+  hspIds:
+    elona122: 408
+  components:
+  - type: EffectTargetSelf
+  - type: EffectDamageTeleport
+    position: !type:WholeMapTeleportPosition {}
+
+- type: Elona.Spell
+  id: Elona.TeleportOther
+  hspIds:
+    elona122: 409
+  difficulty: 200
+  mpCost: 10
+  noMPCostScaling: true
+  skillID: Elona.SpellTeleportOther
+  effectID: Elona.SpellTeleportOther
+- type: Elona.Skill
+  id: Elona.SpellTeleportOther
+  hspIds:
+    elona122: 409
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellTeleportOther
+  parent: BaseEffect
+  hspIds:
+    elona122: 409
+  components:
+  - type: EffectTargetDirection
+  - type: EffectDamageTeleport
+    subject: Target
+    position: !type:WholeMapTeleportPosition {}
+
+- type: Elona.Spell
+  id: Elona.ShortTeleport
+  hspIds:
+    elona122: 410
+  difficulty: 120
+  mpCost: 8
+  noMPCostScaling: true
+  skillID: Elona.SpellShortTeleport
+  effectID: Elona.SpellShortTeleport
+- type: Elona.Skill
+  id: Elona.SpellShortTeleport
+  hspIds:
+    elona122: 410
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellShortTeleport
+  parent: BaseEffect
+  hspIds:
+    elona122: 410
+  components:
+  - type: EffectTargetSelf
+  - type: EffectDamageTeleport
+    position: !type:ShortTeleportPosition {}
+
+- type: Elona.Action
+  hspIds:
+    elona122: 619
+  id: Elona.ShadowStep
+  skillID: Elona.ActionShadowStep
+  effectID: Elona.ActionShadowStep
+  staminaCost: 10
+  maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionShadowStep
+  hspIds:
+    elona122: 619
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionShadowStep
+  hspIds:
+    elona122: 619
+  parent: BaseEffect
+  components:
+  - type: EffectTargetOther
+  - type: EffectDamageTeleport
+    subject: Source
+    origin: Target
+    ignoresPreventTeleport: true
+    position: !type:RadiusTeleportPosition {}
+    messageKey: Elona.Effect.Teleport.ShadowStep
+
+- type: Elona.Action
+  id: Elona.DrawShadow
+  hspIds:
+    elona122: 620
+  skillID: Elona.ActionDrawShadow
+  effectID: Elona.ActionDrawShadow
+  staminaCost: 10
+  maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  parent: BaseEffect
+  components:
+  - type: EffectTargetOther
+  - type: EffectDamageTeleport
+    subject: Target
+    origin: Source
+    position: !type:RadiusTeleportPosition {}
+    messageKey: Elona.Effect.Teleport.DrawShadow
+
+- type: Elona.Action
+  hspIds:
+    elona122: 627
+  id: Elona.DimensionalMove
+  skillID: Elona.ActionDimensionalMove
+  effectID: Elona.ActionDimensionalMove
+  staminaCost: 15
+- type: Elona.Skill
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 627
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 627
+  parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectDamageTeleport
+    position: !type:ShortTeleportPosition {}

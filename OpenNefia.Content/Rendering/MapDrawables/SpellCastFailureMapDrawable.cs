@@ -16,13 +16,6 @@ namespace OpenNefia.Content.Rendering
         [Dependency] protected readonly ICoords _coords = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
 
-        protected struct Particle
-        {
-            public Particle(Vector2i pos) { Pos = pos; }
-
-            public Vector2i Pos;
-        }
-
         protected IAssetInstance AssetFailureToCastEffect;
         protected FrameCounter Counter;
 

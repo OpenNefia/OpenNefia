@@ -5,6 +5,8 @@
   components:
   - type: Level
     level: 1
+  - type: MapStartLocation
+    startLocation: !type:MapEdgesLocation {}
   - type: MapCharaGen
     charaFilterGen: !type:TownCharaFilterGen {}
   - type: MapCommon

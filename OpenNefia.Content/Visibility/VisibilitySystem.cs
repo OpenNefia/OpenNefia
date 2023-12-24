@@ -45,6 +45,7 @@ namespace OpenNefia.Content.Visibility
         /// Returns true if the onlooker can see the entity, including visibility checks.
         /// </summary>
         bool CanSeeEntity(EntityUid onlooker, EntityUid target, bool ignoreLos = false);
+        bool PlayerCanSeeEntity(EntityUid uid);
 
         bool TryToPercieve(EntityUid perceiver, EntityUid target);
     }
@@ -162,6 +163,12 @@ namespace OpenNefia.Content.Visibility
             }
 
             return ignoreLos || HasLineOfSight(onlooker, targetSpatial.MapPosition);
+        }
+
+
+        public bool PlayerCanSeeEntity(EntityUid uid)
+        {
+            return CanSeeEntity(_gameSession.Player, uid, ignoreLos: false);
         }
 
         private bool IsInSquare(MapCoordinates from, MapCoordinates to, int radius)

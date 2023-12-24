@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Rendering;
 
 namespace OpenNefia.Content.Combat
 {
@@ -26,6 +28,7 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
         public override void Initialize()
         {
@@ -64,7 +67,7 @@ namespace OpenNefia.Content.Combat
                         _mes.Display(Loc.GetString("Elona.LayHand.IsHealed", ("entity", inTrouble)));
 
                         skills.HP = skills.MaxHP / 2;
-                        _audio.Play(Protos.Sound.Pray2, inTrouble);
+                        _mapDrawables.Enqueue(new MiracleMapDrawable(new[] { Spatial(ally).MapPosition }, Protos.Sound.Heal1, Protos.Sound.Pray2), ally);
 
                         return;
                     }

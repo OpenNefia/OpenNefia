@@ -1,3 +1,4 @@
+-- TODO merge elsewhere
 Elona.Magic = {
     FailToCast = {
         CreaturesAreSummoned = "魔力の渦が何かを召喚した！",
@@ -20,6 +21,14 @@ Elona.Magic = {
     },
 
     Message = {
+        Generic = {
+            Ally = function(entity)
+                return ("%sに命中した。"):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("%sに命中し"):format(_.name(entity))
+            end,
+        },
         Arrow = {
             Ally = function(entity)
                 return ("矢が%sに命中した。"):format(_.name(entity))
@@ -48,16 +57,25 @@ Elona.Magic = {
             Ally = function(entity)
                 return ("ブレスは%sに命中した。"):format(_.name(entity))
             end,
-            Bellows = function(entity, breathName)
-                return ("%sは%sブレスを吐いた。"):format(_.name(entity), breathName)
-            end,
-            Named = function(entity)
-                return ("%sの"):format(entity)
-            end,
-            NoElement = "",
             Other = function(entity)
                 return ("ブレスは%sに命中し"):format(_.name(entity))
             end,
+
+            Bellows = function(entity, breathName)
+                return ("%sは%sブレスを吐いた。"):format(_.name(entity), breathName)
+            end,
+            Named = function(breathName)
+                return ("%sの"):format(breathName)
+            end,
+            NoElement = "",
+        },
+        Summon = "魔法でモンスターが召喚された。",
+        Mef = {
+            AcidGround = "酸の水溜りが発生した。",
+            EtherGround = "エーテルの霧が発生した。",
+            Fire = "火柱が発生した。",
+            MistOfDarkness = "辺りを濃い霧が覆った。",
+            Web = "蜘蛛の巣が辺りを覆った。",
         },
     },
 }

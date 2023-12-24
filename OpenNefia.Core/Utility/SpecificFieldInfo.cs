@@ -12,6 +12,7 @@ namespace OpenNefia.Core.Utility
         public readonly FieldInfo FieldInfo;
         internal override MemberInfo MemberInfo => FieldInfo;
 
+        public override Module Module => FieldInfo.Module;
         public override Type FieldType => FieldInfo.FieldType;
         public override Type? DeclaringType => FieldInfo.DeclaringType;
 

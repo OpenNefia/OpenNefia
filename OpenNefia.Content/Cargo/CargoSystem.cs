@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Cargo
             {
                 if (GetTotalCargoWeight(_gameSession.Player) > GetMaxCargoWeight(_gameSession.Player))
                 {
-                    _mes.Display("Elona.Cargo.Burdened");
+                    _mes.Display(Loc.GetString("Elona.Cargo.Burdened"));
                 }
             }
             // <<<<<<<< elona122/shade2/map.hsp:218 		if gCargoWeight>gCargoLimit:if (areaType(gArea)= ...

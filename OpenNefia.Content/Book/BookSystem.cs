@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Book
             if (!Resolve(target, ref book))
                 return TurnResult.Aborted;
 
-            _identify.Identify(target, IdentifyState.Name);
+            _identify.IdentifyItem(target, IdentifyState.Name);
             var text = Loc.GetPrototypeString(book.BookID, "Text");
             // TODO book menu
             return TurnResult.Aborted;

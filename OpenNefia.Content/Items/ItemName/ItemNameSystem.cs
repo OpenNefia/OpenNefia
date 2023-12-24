@@ -96,6 +96,7 @@ namespace OpenNefia.Content.Items
             return GermanBuiltins.GetDisplayData(uid, meta.DisplayName!).GetIndirectName(stack.Count);
         }
 
+        /// <inheritdoc />
         public string QualifyNameWithItemType(PrototypeId<EntityPrototype> itemID)
         {
             var name = Loc.GetPrototypeString(itemID, "MetaData.Name");

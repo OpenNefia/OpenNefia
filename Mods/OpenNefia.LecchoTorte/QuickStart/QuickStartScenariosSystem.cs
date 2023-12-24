@@ -41,6 +41,10 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
+using OpenNefia.Content.Scroll;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Potion;
+using OpenNefia.Content.Return;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -58,7 +62,6 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
         [Dependency] private readonly IEquipmentSystem _equip = default!;
-        [Dependency] private readonly IMaterialSystem _materials = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
@@ -142,7 +145,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 var ally = _charaGen.GenerateChara(coords, allyDef.ID, args: EntityGenArgSet.Make(args));
                 if (ally != null)
                 {
-                    _parties.RecruitAsAlly(player, ally.Value);
+                    _parties.TryRecruitAsAlly(player, ally.Value);
                     UpdateQuickstartChara(ally.Value, allyDef);
                 }
             }
@@ -175,9 +178,12 @@ namespace OpenNefia.LecchoTorte.QuickStart
             EnsureComp<FameComponent>(player).Fame.Base = 50000;
 
             foreach (var spell in _protos.EnumeratePrototypes<SpellPrototype>())
-                _skills.GainSkill(player, spell.SkillID);
+                _skills.GainSkill(player, spell.SkillID, new LevelAndPotential() { Level = new(50) });
             foreach (var action in _protos.EnumeratePrototypes<ActionPrototype>())
                 _skills.GainSkill(player, action.SkillID);
+
+            // Generate an artifact for oracle
+            _itemGen.GenerateItem(map.AtPos(3, 3), Protos.Item.BloodMoon);
 
             _weathers.TryChangeWeather(Protos.Weather.Rain, GameTimeSpan.FromHours(6));
 
@@ -186,6 +192,15 @@ namespace OpenNefia.LecchoTorte.QuickStart
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {
                 identify.IdentifyState = IdentifyState.Full;
+            }
+
+            foreach (var childArea in _areas.EnumerateRootAreas(recursive: true))
+            {
+                if (TryComp<AreaReturnDestinationComponent>(childArea.AreaEntityUid, out var areaDest)
+                    && areaDest.CanBeReturnDestination)
+                {
+                    areaDest.HasEverBeenVisited = true;
+                }
             }
         }
 
@@ -197,13 +212,19 @@ namespace OpenNefia.LecchoTorte.QuickStart
                 {
                     if (proto.Components.HasComponent<FoodComponent>())
                         _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
-                }
 
-                foreach (var proto in _protos.EnumeratePrototypes<MusicPrototype>())
-                {
-                    var item = _itemGen.GenerateItem(map.AtPos((2, 3)), Protos.Item.Disc);
-                    if (IsAlive(item))
-                        Comp<MusicDiscComponent>(item.Value).MusicID = proto.GetStrongID();
+                    if (proto.Components.HasComponent<ScrollComponent>()
+                      || proto.Components.HasComponent<PotionComponent>())
+                    {
+                        foreach (var curseState in EnumHelpers.EnumerateValues<CurseState>())
+                        {
+                            var item = _itemGen.GenerateItem(map.AtPos((2, 4)), proto.GetStrongID(), amount: 99);
+                            if (IsAlive(item))
+                            {
+                                EnsureComp<CurseStateComponent>(item.Value).CurseState = curseState;
+                            }
+                        }
+                    }
                 }
 
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))

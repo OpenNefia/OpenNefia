@@ -132,12 +132,12 @@ namespace OpenNefia.Content.Actions
             // character's level.
             if (!_gameSession.IsPlayer(caster))
             {
-                return _levels.GetLevel(caster) * 6 + 10;
+                return _levels.GetLevel(caster) * 10 + 50;
             }
 
             if (_skills.TryGetKnown(caster, spell.SkillID, out var skill))
             {
-                return skill.Level.Buffed * 6 + 10;
+                return skill.Level.Buffed * 10 + 50;
             }
 
             return 100;

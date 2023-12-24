@@ -15,6 +15,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,23 +57,23 @@ namespace OpenNefia.Content.Items
                     counter = counterComp.CounterText;
                 fullName.Append($"{amount}{counter}の");
             }
-            
+
             if (identify >= IdentifyState.Full)
             {
                 switch (curse)
                 {
                     case CurseState.Blessed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Blessed") + Loc.Space);
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Blessed"));
                         break;
                     case CurseState.Cursed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Cursed") + Loc.Space);
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Cursed"));
                         break;
                     case CurseState.Doomed:
-                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Doomed") + Loc.Space);
+                        fullName.Append(Loc.GetString("Elona.CurseState.ItemName.Doomed"));
                         break;
                 }
             }
-            
+
             if (food != null && food.IsRotten)
             {
                 fullName.Append(Loc.GetString("Elona.Food.ItemName.Rotten") + Loc.Space);

@@ -79,6 +79,11 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
+        }
+
         public override List<UiKeyHint> MakeKeyHints()
         {
             var keyHints = base.MakeKeyHints();

@@ -99,7 +99,7 @@ namespace OpenNefia.Content.Dialog
             var args = new DialogArgs()
             {
             };
-            IDialogLayer dialogLayer = _uiManager.CreateLayer<DialogLayer, DialogArgs, DialogResult>(args);
+            IDialogLayer dialogLayer = _uiManager.CreateAndInitializeLayer<DialogLayer, DialogArgs, DialogResult>(args);
 
             var engine = new DialogEngine(source, target, dialogLayer, extraData);
 

@@ -15,6 +15,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly ActionPrototypeId RainOfSanity         = new($"Elona.{nameof(RainOfSanity)}");
             public static readonly ActionPrototypeId SuicideAttack        = new($"Elona.{nameof(SuicideAttack)}");
             public static readonly ActionPrototypeId PrayerOfJure         = new($"Elona.{nameof(PrayerOfJure)}");
+            public static readonly ActionPrototypeId ShadowStep           = new($"Elona.{nameof(ShadowStep)}");
             public static readonly ActionPrototypeId DimensionalMove      = new($"Elona.{nameof(DimensionalMove)}");
             public static readonly ActionPrototypeId DrawShadow           = new($"Elona.{nameof(DrawShadow)}");
             public static readonly ActionPrototypeId SuspiciousHand       = new($"Elona.{nameof(SuspiciousHand)}");

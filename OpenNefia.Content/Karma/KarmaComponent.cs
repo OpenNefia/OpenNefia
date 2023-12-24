@@ -29,6 +29,12 @@ namespace OpenNefia.Content.Karma
     public static class KarmaLevels
     {
         public const int Bad = -30;
+
+        /// <summary>
+        /// Threshold for the redemption wish to take effect.
+        /// </summary>
+        public const int Neutral = 0;
+        
         public const int Good = 20;
     }
 }

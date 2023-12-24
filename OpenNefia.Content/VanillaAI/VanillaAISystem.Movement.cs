@@ -219,7 +219,8 @@ namespace OpenNefia.Content.VanillaAI
                 if (EntityManager.TryGetComponent(entity, out QualityComponent? quality)
                     && quality.Quality.Buffed > Quality.Good
                     && _factions.GetRelationTowards(entity, ai.CurrentTarget!.Value) <= Relation.Hate
-                    && map.IsInBounds(newCoords))
+                    && map.IsInBounds(newCoords)
+                    && map.GetTilePrototype(newCoords)!.IsSolid)
                 {
                     if (_rand.OneIn(4))
                     {

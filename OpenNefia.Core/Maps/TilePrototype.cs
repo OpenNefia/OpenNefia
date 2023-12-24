@@ -11,6 +11,10 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Maps
 {
+    // TODO replace this somehow.
+    // maybe all tiles can have associated global entities that affect behavior?
+    // or systems can store 2D arrays of extra flags for tiles?
+    // unsure...
     public enum TileKind
     {
         None = 0,

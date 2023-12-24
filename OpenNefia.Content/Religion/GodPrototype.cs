@@ -51,8 +51,15 @@ namespace OpenNefia.Content.Religion
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
+        /// <summary>
+        /// If <c>true</c>, altars to this god can be randomly generated
+        /// and characters can be spawned worshipping this god.
+        /// Custom gods in other versions of Elona behave the same
+        /// as when this flag is <c>false</c>.
+        /// </summary>
+        /// <seealso cref="IReligionSystem.PickRandomGodID(bool)"/>
         [DataField]
-        public bool IsPrimaryGod { get; } = false;
+        public bool CanAppearRandomly { get; } = false;
 
         /// <summary>
         /// Entity this god uses when they are summoned through wishing.

@@ -26,6 +26,8 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.Effects.New.Unique;
+using OpenNefia.Content.Timers;
 
 namespace OpenNefia.Content.Quests
 {
@@ -45,7 +47,8 @@ namespace OpenNefia.Content.Quests
 
         bool TryGetImmediateQuest(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest);
         bool TryGetImmediateQuest<T>(IMap map, [NotNullWhen(true)] out QuestComponent? quest, [NotNullWhen(true)] out MapImmediateQuestComponent? immediateQuest, [NotNullWhen(true)] out T? questComp) where T : class, IComponent;
-        bool HasImmediateQuest<T>(IMap map) where T : class, IComponent;
+        bool IsImmediateQuestActive<T>(IMap map) where T : class, IComponent;
+        bool IsImmediateQuestActive(IMap map);
         GameTimeSpan GetImmediateQuestRemainingTime(IMap map);
         void RemoveImmediateQuestTimer(IMap map);
     }
@@ -73,6 +76,15 @@ namespace OpenNefia.Content.Quests
             SubscribeComponent<MapImmediateQuestComponent, BeforeExitMapFromEdgesEventArgs>(BeforeExitEdges_CheckAbandonment);
             SubscribeComponent<MapImmediateQuestComponent, BeforeMapLeaveEventArgs>(BeforeMapLeave_CheckAbandonment);
             SubscribeComponent<MapImmediateQuestComponent, PlayerDiedEventArgs>(PlayerDied_FailQuest);
+            SubscribeEntity<BeforePlayerCastsReturnMagicEvent>(BeforeCastReturn);
+        }
+
+        private void BeforeCastReturn(EntityUid ent, BeforePlayerCastsReturnMagicEvent args)
+        {
+            if (IsImmediateQuestActive(args.SourceMap))
+            {
+                args.OutWarningReasons.Add(new(Loc.GetString("Elona.Quest.AboutToAbandon"), PreventReturnSeverity.PromptYesNo));
+            }
         }
 
         private void BeforeExitEdges_CheckAbandonment(EntityUid uid, MapImmediateQuestComponent comp, BeforeExitMapFromEdgesEventArgs args)
@@ -188,8 +200,21 @@ namespace OpenNefia.Content.Quests
             return TryComp<T>(quest.Owner, out questComp);
         }
 
-        public bool HasImmediateQuest<T>(IMap map) where T : class, IComponent
-            => TryGetImmediateQuest<T>(map, out _, out _, out _);
+        public bool IsImmediateQuestActive<T>(IMap map) where T : class, IComponent
+        {
+            if (!TryGetImmediateQuest<T>(map, out var quest, out _, out _))
+                return false;
+
+            return quest.State == QuestState.Accepted;
+        }
+
+        public bool IsImmediateQuestActive(IMap map)
+        {
+            if (!TryGetImmediateQuest(map, out var quest, out _))
+                return false;
+
+            return quest.State == QuestState.Accepted;
+        }
 
         public GameTimeSpan GetImmediateQuestRemainingTime(IMap map)
         {

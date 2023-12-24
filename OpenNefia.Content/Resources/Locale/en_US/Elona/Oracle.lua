@@ -1,17 +1,19 @@
 Elona.Oracle = {
-    WasCreatedAt = function(item, map, day, month, year)
-        return ("%s was created at %s in %s/%s, %s. "):format(_.basename(item), _.name(map), day, month, year)
-    end,
-    WasHeldBy = function(item, owner, map, day, month, year)
-        return ("%s was held by %s at %s in %s/%s, %s. "):format(
-            _.basename(item),
-            _.basename(owner),
-            _.name(map),
-            day,
-            month,
-            year
-        )
-    end,
+    Message = {
+        WasCreatedAt = function(itemName, mapName, areaName, date)
+            return ("%s was created at %s in %s/%s, %s. "):format(itemName, mapName, date.Day, date.Month, date.Year)
+        end,
+        WasHeldBy = function(itemName, mapName, areaName, ownerName, date)
+            return ("%s was held by %s at %s in %s/%s, %s. "):format(
+                itemName,
+                ownerName,
+                areaName,
+                date.Day,
+                date.Month,
+                date.Year
+            )
+        end,
+    },
 
     Effect = {
         NoArtifacts = "No artifacts have been generated yet.",

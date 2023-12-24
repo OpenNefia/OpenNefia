@@ -11,6 +11,7 @@ using OpenNefia.Core.Areas;
 using OpenNefia.Content.EntityGen;
 using static NetVips.Enums;
 using ICSharpCode.Decompiler.IL;
+using OpenNefia.Content.Quests;
 
 namespace OpenNefia.Content.Maps
 {

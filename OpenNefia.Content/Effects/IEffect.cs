@@ -115,8 +115,12 @@ namespace OpenNefia.Content.Effects
         public int Power { get; set; } = 1;
 
         [DataField]
-        public int SkillLevel { get; set; } = 0;
+        public int SkillLevel { get; set; } = 1;
 
+        /// <summary>
+        /// Curse state of the item that cast this effect.
+        /// Can be overridden here to invoke the same curse state effect, but without any items involved.
+        /// </summary>
         [DataField]
         public CurseState CurseState { get; set; } = CurseState.Normal;
 
@@ -132,10 +136,24 @@ namespace OpenNefia.Content.Effects
         [DataField]
         public int TileRange { get; set; } = 1;
 
+        /// <summary>
+        /// If <see cref="SourceItem"/> is non-null, the item's curse state will be automatically
+        /// inherited into <see cref="CurseState"/>.
+        /// Set this to <c>false</c> to prevent this and use the value for <see cref="CurseState"/>
+        /// that was given.
+        /// </summary>
         [DataField]
         public bool NoInheritItemCurseState { get; set; } = false;
 
-        public EntityUid? Item { get; set; } = null;
+        /// <summary>
+        /// Item responsible for the effect, like the scroll/wand/potion.
+        /// </summary>
+        public EntityUid? SourceItem { get; set; } = null;
+
+        /// <summary>
+        /// Item that is the target of the effect (identification, uncurse, etc.)
+        /// </summary>
+        public EntityUid? TargetItem { get; set; } = null;
 
         /// <summary>
         /// If set to true after casting a spell, the thing holding the spell should be identified.

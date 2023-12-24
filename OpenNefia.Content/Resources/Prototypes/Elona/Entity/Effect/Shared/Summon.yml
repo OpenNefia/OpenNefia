@@ -1,0 +1,224 @@
+- type: Entity
+  id: Elona.BaseEffectSummon
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectSummon
+    summonCount: randInt(3) + 1
+    messageKey: Elona.Magic.Message.Summon
+  - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1882 	p=3 :efP=(efP/25+efP*efP/10000+cLevel(cc)) /2 : i ...
+    finalDamage: max((power / 25 + power * power / 100000 + casterLevel) / 2, 1)
+    # <<<<<<<< elona122/shade2/proc.hsp:1882 	p=3 :efP=(efP/25+efP*efP/10000+cLevel(cc)) /2 : i ..
+
+- type: Elona.Spell
+  id: Elona.SummonMonsters
+  hspIds:
+    elona122: 424
+  difficulty: 200
+  mpCost: 15
+  skillID: Elona.SpellSummonMonsters
+  effectID: Elona.SpellSummonMonsters
+- type: Elona.Skill
+  id: Elona.SpellSummonMonsters
+  hspIds:
+    elona122: 424
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellSummonMonsters
+  parent: Elona.BaseEffectSummon
+  hspIds:
+    elona122: 424
+  components:
+  - type: EffectSummonChara
+    choices:
+      - charaFilter: {} # default filter, spawns anything
+
+- type: Elona.Spell
+  id: Elona.SummonWild
+  hspIds:
+    elona122: 425
+  difficulty: 200
+  mpCost: 15
+  skillID: Elona.SpellSummonWild
+  effectID: Elona.SpellSummonWild
+- type: Elona.Skill
+  id: Elona.SpellSummonWild
+  hspIds:
+    elona122: 425
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellSummonWild
+  parent: Elona.BaseEffectSummon
+  hspIds:
+    elona122: 425
+  components:
+  - type: EffectSummonChara
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaWild
+
+- type: Elona.Action
+  id: Elona.SummonCats
+  hspIds:
+    elona122: 639
+#  difficulty: 200
+  skillID: Elona.ActionSummonCats
+  effectID: Elona.ActionSummonCats
+  staminaCost: 15
+  difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1884 	if efId=actSummonCat	:efP=2+rnd(18) ...
+    finalDamage: 2 + randInt(18)
+    # <<<<<<<< elona122/shade2/proc.hsp:1884 	if efId=actSummonCat	:efP=2+rnd(18) ..
+  - type: EffectSummonChara
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaCat
+
+- type: Elona.Action
+  id: Elona.SummonYeek
+  hspIds:
+    elona122: 640
+#  difficulty: 200
+  skillID: Elona.ActionSummonYeek
+  effectID: Elona.ActionSummonYeek
+  staminaCost: 15
+  difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1886 	if efId=actSummonYeek	:efP=5+rnd(12) ...
+    finalDamage: 5 + randInt(12)
+    # <<<<<<<< elona122/shade2/proc.hsp:1886 	if efId=actSummonYeek	:efP=5+rnd(12) ..
+  - type: EffectSummonChara
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaYeek
+
+- type: Elona.Action
+  id: Elona.SummonPawn
+  hspIds:
+    elona122: 641
+#  difficulty: 200
+  skillID: Elona.ActionSummonPawn
+  effectID: Elona.ActionSummonPawn
+  staminaCost: 15
+  difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1883 	if efId=actSummonPawn	:efP=15+rnd(8) ...
+    finalDamage: 15 + randInt(8)
+    # <<<<<<<< elona122/shade2/proc.hsp:1883 	if efId=actSummonPawn	:efP=15+rnd(8) ..
+  - type: EffectSummonChara
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaPawn
+
+- type: Elona.Action
+  id: Elona.SummonFire
+  hspIds:
+    elona122: 642
+#  difficulty: 200
+  skillID: Elona.ActionSummonFire
+  effectID: Elona.ActionSummonFire
+  staminaCost: 15
+  difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectBaseDamageDice
+    # Min level of the summoned character
+    # >>>>>>>> elona122/shade2/proc.hsp:1885 	if efId=actSummonFire	:efP=15+rnd(15) ...
+    finalDamage: 15 + randInt(15)
+    # <<<<<<<< elona122/shade2/proc.hsp:1885 	if efId=actSummonFire	:efP=15+rnd(15) ..
+  - type: EffectSummonChara
+    choices:
+    - charaFilter:
+        tags:
+        - Elona.TagCharaFire
+
+- type: Elona.Action
+  id: Elona.SummonSister
+  hspIds:
+    elona122: 643
+#  difficulty: 200
+  skillID: Elona.ActionSummonSister
+  effectID: Elona.ActionSummonSister
+  staminaCost: 15
+  difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  parent: Elona.BaseEffectSummon
+  components:
+  - type: EffectSummon
+    # >>>>>>>> elona122/shade2/proc.hsp:1887 	if efId=actSummonSister :p=10 ...
+    summonCount: randInt(10) + 1
+    # <<<<<<<< elona122/shade2/proc.hsp:1887 	if efId=actSummonSister :p=10 ..
+  - type: EffectSummonChara
+    canBeSameTypeAsCaster: true
+    choices:
+    - charaFilter:
+      id: Elona.CharaYoungerSister

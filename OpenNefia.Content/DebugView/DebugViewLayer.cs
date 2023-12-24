@@ -68,6 +68,7 @@ namespace OpenNefia.Content.DebugView
                 var win = new DefaultWindow()
                 {
                     Title = "Tools",
+                    CanClose = false
                 };
                 var box = new BoxContainer()
                 {

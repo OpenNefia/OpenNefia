@@ -105,7 +105,7 @@ namespace OpenNefia.Content.SenseQuality
                 if (power > _rand.Next(proc * 5))
                 {
                     var unidentifiedName = _names.GetDisplayName(item.Owner);
-                    _identify.Identify(item.Owner, IdentifyState.Full, identify);
+                    _identify.IdentifyItem(item.Owner, IdentifyState.Full, identify);
 
                     if (TryProtoID(ent, out var protoID))
                         _entityGenMemory.SetIdentified(protoID.Value, true);
@@ -127,7 +127,7 @@ namespace OpenNefia.Content.SenseQuality
                             _mes.Display(Loc.GetString("Elona.SenseQuality.Identify.AlmostIdentified", ("unidentifiedName", _names.GetDisplayName(item.Owner)), ("quality", quality.Quality.Base.GetLocalizedName())));
                         }
 
-                        _identify.Identify(item.Owner, IdentifyState.Quality, identify);
+                        _identify.IdentifyItem(item.Owner, IdentifyState.Quality, identify);
                         _skills.GainSkillExp(ent, Protos.Skill.SenseQuality, 50);
                     }
                 }

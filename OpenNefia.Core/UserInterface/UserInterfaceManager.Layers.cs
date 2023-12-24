@@ -179,7 +179,7 @@ namespace OpenNefia.Core.UserInterface
             // elem.TileScaleChanged(ev);
         }
 
-        public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
+        public TLayer CreateAndInitializeLayer<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
         {
@@ -188,20 +188,20 @@ namespace OpenNefia.Core.UserInterface
             return layer;
         }
 
-        public TLayer CreateLayer<TLayer, TResult>()
+        public TLayer CreateAndInitializeLayer<TLayer, TResult>()
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class
         {
-            return CreateLayer<TLayer, UINone, TResult>(new());
+            return CreateAndInitializeLayer<TLayer, UINone, TResult>(new());
         }
 
-        public TLayer CreateLayer<TLayer, TArgs>(TArgs args)
+        public TLayer CreateAndInitializeLayer<TLayer, TArgs>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
         {
-            return CreateLayer<TLayer, TArgs, UINone>(args);
+            return CreateAndInitializeLayer<TLayer, TArgs, UINone>(args);
         }
 
-        public TLayer CreateLayer<TLayer>()
+        public TLayer CreateAndInitializeLayer<TLayer>()
             where TLayer : IUiLayer, new()
         {
             var layer = Activator.CreateInstance<TLayer>()!;
@@ -251,7 +251,7 @@ namespace OpenNefia.Core.UserInterface
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
         {
-            using (var layer = CreateLayer<TLayer, TArgs, TResult>(args))
+            using (var layer = CreateAndInitializeLayer<TLayer, TArgs, TResult>(args))
             {
                 return Query(layer, queryArgs);
             }

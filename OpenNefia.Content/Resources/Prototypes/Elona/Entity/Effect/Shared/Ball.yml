@@ -1,0 +1,214 @@
+- type: Entity
+  id: Elona.BaseEffectBall
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelf
+  - type: EffectAreaBall
+  - type: EffectBaseDamageDice
+    diceX: (power / 100) + 1 + (skillLevel / 20)
+    diceY: (power / 15) + 2
+    elementPower: 150 + (power / 5)
+    finalDamage: baseDamage * 100 / (75 + distance * 25)
+  - type: EffectDamageControlMagic
+  - type: EffectDamageMessage
+    rootKey: Elona.Magic.Message.Ball
+
+- type: Elona.Spell
+  id: Elona.IceBall
+  hspIds:
+    elona122: 431
+  difficulty: 450
+  mpCost: 16
+  maxRange: 2
+  skillID: Elona.SpellIceBall
+  effectID: Elona.SpellIceBall
+- type: Elona.Skill
+  id: Elona.SpellIceBall
+  hspIds:
+    elona122: 431
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellIceBall
+  parent: Elona.BaseEffectBall
+  hspIds:
+    elona122: 431
+  components:
+  - type: EffectDamageElemental
+    element: Elona.Cold
+
+- type: Elona.Spell
+  id: Elona.FireBall
+  hspIds:
+    elona122: 432
+  difficulty: 450
+  mpCost: 16
+  maxRange: 2
+  skillID: Elona.SpellFireBall
+  effectID: Elona.SpellFireBall
+- type: Elona.Skill
+  id: Elona.SpellFireBall
+  hspIds:
+    elona122: 432
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellFireBall
+  parent: Elona.BaseEffectBall
+  hspIds:
+    elona122: 432
+  components:
+  - type: EffectDamageElemental
+    element: Elona.Fire
+
+- type: Elona.Spell
+  id: Elona.ChaosBall
+  hspIds:
+    elona122: 433
+  difficulty: 1000
+  mpCost: 20
+  maxRange: 2
+  skillID: Elona.SpellChaosBall
+  effectID: Elona.SpellChaosBall
+- type: Elona.Skill
+  id: Elona.SpellChaosBall
+  hspIds:
+    elona122: 433
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellChaosBall
+  parent: Elona.BaseEffectBall
+  hspIds:
+    elona122: 433
+  components:
+  - type: EffectBaseDamageDice
+    diceX: (power / 80) + 1 + (skillLevel / 20)
+    diceY: (power / 12) + 2
+  - type: EffectDamageElemental
+    element: Elona.Chaos
+
+- type: Elona.Spell
+  id: Elona.RagingRoar
+  hspIds:
+    elona122: 434
+  difficulty: 700
+  mpCost: 18
+  maxRange: 2
+  skillID: Elona.SpellRagingRoar
+  effectID: Elona.SpellRagingRoar
+- type: Elona.Skill
+  id: Elona.SpellRagingRoar
+  hspIds:
+    elona122: 434
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellRagingRoar
+  parent: Elona.BaseEffectBall
+  hspIds:
+    elona122: 434
+  components:
+  - type: EffectBaseDamageDice
+    diceX: (power / 80) + 1 + (skillLevel / 20)
+    diceY: (power / 12) + 2
+  - type: EffectDamageElemental
+    element: Elona.Sound
+
+- type: Elona.Spell
+  id: Elona.MagicStorm
+  hspIds:
+    elona122: 460
+  difficulty: 1400
+  mpCost: 40
+  maxRange: 2
+  skillID: Elona.SpellMagicStorm
+  effectID: Elona.SpellMagicStorm
+- type: Elona.Skill
+  id: Elona.SpellMagicStorm
+  hspIds:
+    elona122: 460
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellMagicStorm
+  parent: Elona.BaseEffectBall
+  hspIds:
+    elona122: 460
+  components:
+  - type: EffectBaseDamageDice
+    diceX: (power / 100) + 1 + (skillLevel / 25)
+    diceY: (power / 18) + 2
+    elementPower: 100
+  - type: EffectDamageElemental
+    element: Elona.Magic
+
+- type: Elona.Action
+  id: Elona.Grenade
+  hspIds:
+    elona122: 655
+  skillID: Elona.ActionGrenade
+  effectID: Elona.ActionGrenade
+  staminaCost: 18
+  maxRange: 1
+  difficulty: 700
+- type: Elona.Skill
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  parent: Elona.BaseEffectBall
+  components:
+  - type: EffectBaseDamageDice
+    diceX: (power / 80) + 1
+    diceY: (power / 8) + 2
+    elementPower: 150 + (power / 2)
+  - type: EffectDamageElemental
+    element: Elona.Sound
+
+- type: Elona.Action
+  id: Elona.RainOfSanity
+  hspIds:
+    elona122: 637
+#  difficulty: 500
+  skillID: Elona.ActionRainOfSanity
+  effectID: Elona.ActionRainOfSanity
+  staminaCost: 38
+  difficulty: 500
+  maxRange: 2
+- type: Elona.Skill
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Positive
+  - type: EffectTargetSelf
+  - type: EffectAreaAnimation
+    showAnimation: false
+  - type: EffectAreaBall
+    includeOriginPos: true
+  - type: EffectBaseDamageDice
+    diceX: (skillLevel / 20) + 3
+    diceY: (power / 15) + 5
+    elementPower: power / 10
+  # >>>>>>>> shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
+  - type: EffectDamageRelations
+    validRelations: Neutral~Ally
+  # <<<<<<<< shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
+  - type: EffectDamageHealSanity

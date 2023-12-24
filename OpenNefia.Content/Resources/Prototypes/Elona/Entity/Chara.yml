@@ -152,6 +152,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -182,6 +184,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1672,6 +1676,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
   - type: GenTwoHandedWeapon
@@ -1707,6 +1713,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1740,6 +1748,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1773,6 +1783,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1806,6 +1818,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1839,6 +1853,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1872,6 +1888,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1905,6 +1923,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1938,6 +1958,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -1971,6 +1993,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -2004,6 +2028,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.3
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5240,6 +5266,8 @@
     canTalk: true
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5272,6 +5300,8 @@
     id: Elona.Dog
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5303,6 +5333,8 @@
     id: Elona.LittleGirl
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -5638,6 +5670,8 @@
     id: Elona.YoungerSister
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -5785,6 +5819,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Twintail
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -5851,6 +5887,8 @@
     moveChance: 0.5
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -6855,6 +6893,8 @@
     id: Elona.YoungLady
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -7338,6 +7378,8 @@
     dialogID: Elona.Poppy
   - type: Tone
     id: Elona.Poppy
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -7479,6 +7521,8 @@
     canTalk: true
   - type: Tone
     id: Elona.Lion
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -8129,6 +8173,8 @@
     id: Elona.YoungerSister
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -8625,6 +8671,8 @@
     moveChance: 0.7
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -8769,6 +8817,8 @@
     id: Elona.LameHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -8801,6 +8851,8 @@
     id: Elona.YowynHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -9052,6 +9104,8 @@
     id: Elona.NoyelHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -9084,6 +9138,8 @@
     id: Elona.WildHorse
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -9116,6 +9172,8 @@
     id: Elona.WildHorse2
   - type: CharaNameGen
     hasRandomName: true
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Animal
 - type: Entity
@@ -10774,6 +10832,8 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.5
+  - type: Mount
+    suitability: Bad
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -10802,6 +10862,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.5
+  - type: Mount
+    suitability: Bad
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -10897,6 +10959,8 @@
   - type: VanillaAI
     targetDistance: 4
     moveChance: 0.3
+  - type: Mount
+    suitability: Bad
   - type: LootType
     lootType: Elona.Animal
     lootDrops:
@@ -10933,6 +10997,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.3
+  - type: Mount
+    suitability: Bad
   - type: LootType
     lootType: Elona.Animal
   - type: GoldLoot
@@ -11367,6 +11433,8 @@
   - type: VanillaAI
     targetDistance: 3
     moveChance: 0.4
+  - type: CommonProtections
+    isImmuneToMines: true
   - type: LootType
     lootType: Elona.Humanoid
     lootDrops:
@@ -11494,6 +11562,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity
@@ -11523,6 +11593,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0
+  - type: Mount
+    suitability: Good
   - type: LootType
     lootType: Elona.Humanoid
 - type: Entity

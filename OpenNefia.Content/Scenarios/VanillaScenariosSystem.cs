@@ -28,7 +28,12 @@ using OpenNefia.Content.Scene;
 
 namespace OpenNefia.Content.Scenarios
 {
-    public sealed partial class VanillaScenariosSystem : EntitySystem
+    public interface IVanillaScenariosSystem : IEntitySystem
+    {
+        TurnResult MeetFirstAlly(bool canCancel = false);
+    }
+
+    public sealed partial class VanillaScenariosSystem : EntitySystem, IVanillaScenariosSystem
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;

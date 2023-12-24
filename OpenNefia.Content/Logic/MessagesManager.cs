@@ -42,7 +42,7 @@ namespace OpenNefia.Content.Logic
             {
                 var visibilitySys = EntitySystem.Get<IVisibilitySystem>();
                 var canSee = _entityManager.IsAlive(_gameSession.Player)
-                    && visibilitySys.HasLineOfSight(_gameSession.Player, entity.Value);
+                    && visibilitySys.PlayerCanSeeEntity(entity.Value);
 
                 if (!canSee)
                     return;

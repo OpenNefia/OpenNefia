@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Scenarios
                 return;
 
             _world.State.HasMetFirstAlly = true;
-            _deferredEvents.Enqueue(() => MeetFirstAlly(canCancel: true));
+            _deferredEvents.Enqueue(() => MeetFirstAlly(canCancel: false));
         }
 
         private readonly PrototypeId<EntityPrototype>[] FirstAllyChoices = new[]
@@ -88,7 +88,7 @@ namespace OpenNefia.Content.Scenarios
             };
             var ally = _charaGen.GenerateChara(_gameSession.Player, filter);
             if (IsAlive(ally))
-                _parties.RecruitAsAlly(_gameSession.Player, ally.Value);
+                _parties.TryRecruitAsAlly(_gameSession.Player, ally.Value);
 
             return TurnResult.Aborted;
         }

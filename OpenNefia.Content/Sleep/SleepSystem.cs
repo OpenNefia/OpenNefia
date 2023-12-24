@@ -225,7 +225,7 @@ namespace OpenNefia.Content.Sleep
                 _world.State.GameDate = new GameDateTime(date.Year, date.Month, date.Day, date.Hour, 0, 0);
                 if (!noAnimation)
                 {
-                    _gameController.Wait(0.5f);
+                    _gameController.WaitSecs(0.5f);
                 }
             }
 

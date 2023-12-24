@@ -68,6 +68,7 @@ namespace OpenNefia.Content.CharaMake
 
         private void AddPlayerOnlyComponents(EntityUid playerEntity)
         {
+            // TODO make into its own entity prototype instead
             EntityManager.EnsureComponent<PlayerComponent>(playerEntity);
             EntityManager.EnsureComponent<KarmaComponent>(playerEntity);
             EntityManager.EnsureComponent<FameComponent>(playerEntity);

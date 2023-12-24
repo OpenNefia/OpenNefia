@@ -295,7 +295,7 @@ namespace OpenNefia.Content.RandomGen
         // TODO: args are not serializable yet
         public EntityGenArgSet Args { get; set; } = EntityGenArgSet.Make();
 
-        public EntityGenCommonArgs CommonArgs => Args.Get<EntityGenCommonArgs>();
+        public EntityGenCommonArgs CommonArgs => Args.Ensure<EntityGenCommonArgs>();
 
         [DataField]
         public Quality? Quality { get => CommonArgs.Quality; set => CommonArgs.Quality = value; }

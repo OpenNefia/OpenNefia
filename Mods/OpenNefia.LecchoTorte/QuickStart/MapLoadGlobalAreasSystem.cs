@@ -1,7 +1,7 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Areas;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;

@@ -48,6 +48,7 @@ namespace OpenNefia.Core.Maps
         TileRef? GetTileMemory(MapCoordinates coords);
 
         bool IsInWindowFov(Vector2i pos);
+        bool IsInWindowFov(MapCoordinates coords);
         bool IsMemorized(Vector2i pos);
         void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
@@ -62,6 +63,7 @@ namespace OpenNefia.Core.Maps
         bool CanAccess(EntityCoordinates coords, IEntityManager? entityManager = null);
         bool CanSeeThrough(EntityCoordinates coords, IEntityManager? entityManager = null);
 
-        bool HasLineOfSight(Vector2i worldPosition, Vector2i pos);
+        bool HasLineOfSight(Vector2i from, Vector2i to);
+        bool HasLineOfSight(MapCoordinates from, MapCoordinates to);
     }
 }

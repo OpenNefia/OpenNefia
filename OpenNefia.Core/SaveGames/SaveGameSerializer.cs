@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Core.Tokens;
 
 namespace OpenNefia.Core.SaveGames
 {
@@ -137,6 +138,7 @@ namespace OpenNefia.Core.SaveGames
             public object Parent { get; }
 
             public Type Type => FieldInfo.FieldType;
+            public bool CanBeNull => Type.IsNullable() || NullableHelper.IsMarkedAsNullable(FieldInfo);
 
             public SaveDataRegistration(AbstractFieldInfo propertyInfo, object parent)
             {
@@ -173,6 +175,54 @@ namespace OpenNefia.Core.SaveGames
             {
                 RegisterSaveDataFromFields(instance);
             }
+
+            GenerateDefaultGlobalSaveData();
+        }
+
+        private MappingDataNode _defaultSaveDataYAML = new();
+
+        /// <summary>
+        /// Generates the set of all default save data values
+        /// as created by the entity system constructors at startup.
+        /// 
+        /// Why this is needed:
+        /// 
+        /// When a new game is saved, the save data should be reset
+        /// to a default state so state from the previous game isn't
+        /// accidentally carried over. If a new game is started
+        /// instead of loaded, there will be nothing saved on disk to
+        /// restore. Also, there could be the case that new save data
+        /// field are added by content/mod updates, which need their own
+        /// defaults. 
+        /// 
+        /// So the question is where these default values come from.
+        /// In entity systems, the data is typically created with
+        /// "auto property" syntax, like this:
+        /// 
+        /// <code>
+        /// [<see cref="RegisterSaveData"/>("Elona.MySystem.Foo")]
+        /// public string Foo { get; set; } = "Bar";
+        /// </code>
+        /// 
+        /// In this case the default is "Bar". The problem is there
+        /// is no way in C# to get this value through reflection, because
+        /// the assignment is compiled directly into the constructor
+        /// (https://stackoverflow.com/q/48190013/5862977).
+        /// 
+        /// So instead, a "snapshot" of the default values is created
+        /// at a predictable point in early engine startup, and when
+        /// a new save is created, this is used as the "default <c>global.yml</c>"
+        /// for that save when it is first created.
+        /// </summary>
+        private void GenerateDefaultGlobalSaveData()
+        {
+            _defaultSaveDataYAML = GetGlobalData();
+        }
+
+        private void InitializeDefaultGlobalSaveData()
+        {
+            LoadGlobalData(_defaultSaveDataYAML);
+            OnSaveDataInitialize?.Invoke();
         }
 
         private void RegisterSaveDataFromFields(object instance)
@@ -181,10 +231,6 @@ namespace OpenNefia.Core.SaveGames
             {
                 if (info.TryGetAttribute(out RegisterSaveDataAttribute? attr))
                 {
-                    var value = info.GetValue(instance);
-                    if (value == null)
-                        throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
-
                     RegisterSaveData(attr.Key, info, instance);
                 }
             }
@@ -219,17 +265,6 @@ namespace OpenNefia.Core.SaveGames
 
             Logger.DebugS(SawmillName, $"Registering global save data: {key} ({ty})");
             _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
-        }
-
-        private void ResetGlobalSaveData()
-        {
-            foreach (var (_, reg) in _trackedSaveData)
-            {
-                var newValue = Activator.CreateInstance(reg.FieldInfo.FieldType);
-                reg.SetValueOnParent(newValue);
-            }
-
-            OnSaveDataInitialize?.Invoke();
         }
 
         private SaveGameHeader MakeSaveGameHeader(string name)
@@ -276,6 +311,13 @@ namespace OpenNefia.Core.SaveGames
 
         private void SaveSession(ISaveGameHandle save)
         {
+            SessionData sessionData = GetSessionData(save);
+            var session = new ResourcePath("/session.yml");
+            save.Files.WriteSerializedData(session, sessionData, _serializationManager, alwaysWrite: true);
+        }
+
+        private SessionData GetSessionData(ISaveGameHandle save)
+        {
             var activeMap = _mapManager.ActiveMap;
 
             if (activeMap == null)
@@ -311,9 +353,7 @@ namespace OpenNefia.Core.SaveGames
                 NextAreaId = _areaManager.NextAreaId,
                 Areas = GetSerializableAreas(_areaManager.LoadedAreas)
             };
-
-            var session = new ResourcePath("/session.yml");
-            save.Files.WriteSerializedData(session, sessionData, _serializationManager, alwaysWrite: true);
+            return sessionData;
         }
 
         private Dictionary<AreaId, Area> GetSerializableAreas(Dictionary<AreaId, IArea> loadedAreas)
@@ -323,7 +363,17 @@ namespace OpenNefia.Core.SaveGames
 
         public void SaveGlobalData(ISaveGameHandle save)
         {
-            // Save all the global data not tied to maps.
+            MappingDataNode root = GetGlobalData();
+            var global = new ResourcePath("/global.yml");
+            save.Files.WriteAllYaml(global, root.ToYaml());
+        }
+
+        /// <summary>
+        /// Save all the global data not tied to maps.
+        /// </summary>
+        /// <returns>Global data as a YAML mapping node</returns>
+        private MappingDataNode GetGlobalData()
+        {
             var globalData = new MappingDataNode();
 
             foreach (var (key, reg) in _trackedSaveData)
@@ -338,9 +388,7 @@ namespace OpenNefia.Core.SaveGames
 
             var root = new MappingDataNode();
             root.Add("data", globalData);
-
-            var global = new ResourcePath("/global.yml");
-            save.Files.WriteAllYaml(global, root.ToYaml());
+            return root;
         }
 
         /// <inheritdoc/>
@@ -407,7 +455,16 @@ namespace OpenNefia.Core.SaveGames
             var global = new ResourcePath("/global.yml");
             var stream = save.Files.ReadAllYaml(global);
             var node = stream.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
+            LoadGlobalData(node);
+        }
 
+        private bool IsNullNode(DataNode node)
+        {
+            return node is ValueDataNode valueDataNode && valueDataNode.Value.Trim().ToLower() is "null" or "";
+        }
+
+        private void LoadGlobalData(MappingDataNode node)
+        {
             var data = (MappingDataNode)node.Get("data");
 
             foreach (var (keyNode, rawNode) in data.Children)
@@ -422,9 +479,16 @@ namespace OpenNefia.Core.SaveGames
 
                 Logger.DebugS(SawmillName, $"Loading global data: {key} ({reg.Type})");
 
-                var value = _serializationManager.Read(reg.Type, rawNode, skipHook: true);
-
-                reg.SetValueOnParent(value);
+                // ISerializationManager.Read() doesn't handle null nodes, so we have to do it ourselves.
+                if (reg.CanBeNull && IsNullNode(rawNode))
+                {
+                    reg.SetValueOnParent(null);
+                }
+                else
+                {
+                    var value = _serializationManager.Read(reg.Type, rawNode, skipHook: true);
+                    reg.SetValueOnParent(value);
+                }
             }
         }
 
@@ -433,7 +497,7 @@ namespace OpenNefia.Core.SaveGames
             _entityManager.FlushEntities(EntityDeleteType.Unload);
             _mapManager.FlushMaps();
             _areaManager.FlushAreas();
-            ResetGlobalSaveData();
+            InitializeDefaultGlobalSaveData();
             _saveGameManager.CurrentSave = null;
         }
     }

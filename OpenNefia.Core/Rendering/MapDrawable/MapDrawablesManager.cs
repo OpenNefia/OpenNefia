@@ -56,6 +56,7 @@ namespace OpenNefia.Core.Rendering
                 return;
 
             var screenPos = _coords.TileToScreen(pos.Position);
+            drawable.ScreenOffset = Position / _coords.TileScale;
             drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
             _active.Add(new Entry(drawable, zOrder));

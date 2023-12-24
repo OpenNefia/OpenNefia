@@ -159,6 +159,45 @@ namespace OpenNefia.Content.Locale.Funcs
             }
         }
 
+        [LocaleFunction("is_not")]
+        public static string BuiltIn_is_not(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "isn't";
+                    else
+                        return "aren't";
+
+                case long objLong:
+                    if (objLong == 1L)
+                        return "isn't";
+                    else
+                        return "aren't";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "aren't";
+                    }
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count != 1)
+                            return "aren't";
+                    }
+
+                    return "isn't";
+
+                default:
+                    return "isn't";
+            }
+        }
+
         /// <summary>
         /// Function: he(entity)
         /// </summary>
@@ -495,6 +534,46 @@ namespace OpenNefia.Content.Locale.Funcs
 
                 default:
                     return "";
+            }
+        }
+
+        [LocaleFunction("does")]
+        public static string BuiltIn_does(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "does";
+                    else
+                        return "do";
+
+                case long objLong:
+                    if (objLong == 1)
+                        return "does";
+                    else
+                        return "do";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+
+                    if (gameSession.IsPlayer(objEntity))
+                        return "do";
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count == 1)
+                            return "does";
+                        else
+                            return "do";
+                    }
+
+                    return "does";
+
+                default:
+                    return "does";
             }
         }
 

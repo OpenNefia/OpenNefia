@@ -204,5 +204,48 @@ namespace OpenNefia.Core.Utility
         {
             sb.Clear().Append(str);
         }
+
+        /// <summary>
+        ///     Calculate the difference between 2 strings using the Levenshtein distance algorithm
+        /// </summary>
+        /// <param name="source1">First string</param>
+        /// <param name="source2">Second string</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// https://gist.github.com/Davidblkx/e12ab0bb2aff7fd8072632b396538560
+        /// </remarks>
+        public static int GetLevenshteinDistance(string source1, string source2) //O(n*m)
+        {
+            var source1Runes = source1.EnumerateRunes().ToArray();
+            var source2Runes = source2.EnumerateRunes().ToArray();
+            var source1Length = source1Runes.Length;
+            var source2Length = source2Runes.Length;
+
+            var matrix = new int[source1Length + 1, source2Length + 1];
+
+            if (source1Length == 0)
+                return source2Length;
+
+            if (source2Length == 0)
+                return source1Length;
+
+            for (var i = 0; i <= source1Length; matrix[i, 0] = i++) { }
+
+            for (var j = 0; j <= source2Length; matrix[0, j] = j++) { }
+
+            for (var i = 1; i <= source1Length; i++)
+            {
+                for (var j = 1; j <= source2Length; j++)
+                {
+                    var cost = (source2Runes[j - 1] == source1Runes[i - 1]) ? 0 : 1;
+
+                    matrix[i, j] = Math.Min(
+                        Math.Min(matrix[i - 1, j] + 1, matrix[i, j - 1] + 1),
+                        matrix[i - 1, j - 1] + cost);
+                }
+            }
+
+            return matrix[source1Length, source2Length];
+        }
     }
 }

@@ -10,13 +10,17 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Effects.New;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Scroll
 {
     public interface IScrollSystem : IEntitySystem
     {
+        bool CanReadScrolls(EntityUid reader, [NotNullWhen(false)] out string? error);
     }
-    
+
     public sealed class ScrollSystem : EntitySystem, IScrollSystem
     {
         [Dependency] private readonly IStackSystem _stacks = default!;
@@ -27,6 +31,8 @@ namespace OpenNefia.Content.Scroll
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
         [Dependency] private readonly IEffectSystem _effects = default!;
+        [Dependency] private readonly ICurseStateSystem _curseStates = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
         
         public override void Initialize()
         {
@@ -39,32 +45,46 @@ namespace OpenNefia.Content.Scroll
                 () => ReadScroll(args.Source, args.Target)));
         }
 
+        public bool CanReadScrolls(EntityUid reader, [NotNullWhen(false)] out string? error)
+        {
+            if (_statusEffects.HasEffect(reader, Protos.StatusEffect.Blindness))
+            {
+                error = Loc.GetString("Elona.Read.CannotSee", ("reader", reader));
+                return false;
+            }
+
+            if (_statusEffects.HasEffect(reader, Protos.StatusEffect.Dimming)
+                || _statusEffects.HasEffect(reader, Protos.StatusEffect.Confusion))
+            {
+                if (!_rand.OneIn(4))
+                {
+                    error = Loc.GetString("Elona.Scroll.Read.DimmedOrConfused", ("reader", reader));
+                    return false;
+                }
+            }
+
+            error = null;
+            return true;
+        }
+
         private TurnResult ReadScroll(EntityUid reader, EntityUid scroll, ScrollComponent? scrollComp = null)
         {
+            // >>>>>>>> elona122/shade2/proc.hsp:1465 *readScroll ...
             if (!Resolve(scroll, ref scrollComp))
                 return TurnResult.Aborted;
 
             if (_stacks.GetCount(scroll) < scrollComp.AmountConsumedOnRead)
                 return TurnResult.Aborted;
 
-            if (_statusEffects.HasEffect(reader, Protos.StatusEffect.Blindness))
-            {      
-                _mes.Display(Loc.GetString("Elona.Read.CannotSee", ("reader", reader)), entity: reader);
-                return TurnResult.Failed;
-            }
-
-            if (_statusEffects.HasEffect(reader, Protos.StatusEffect.Dimming) 
-                || _statusEffects.HasEffect(reader, Protos.StatusEffect.Confusion))
+            if (!CanReadScrolls(reader, out var error))
             {
-                if (!_rand.OneIn(4))
-                {
-                    _mes.Display(Loc.GetString("Elona.Scroll.Read.DimmedOrConfused", ("reader", reader)), entity: reader);
-                    return TurnResult.Failed;
-                }
+                _mes.Display(error, entity: reader);
+                return TurnResult.Failed;
             }
 
             _mes.Display(Loc.GetString("Elona.Scroll.Read.Execute", ("reader", reader), ("scroll", scroll)), entity: reader);
 
+            // The treasure map shouldn't be consumed or give literacy experience.
             if (scrollComp.AmountConsumedOnRead > 0)
             {
                 _stacks.Use(scroll, scrollComp.AmountConsumedOnRead);
@@ -72,18 +92,35 @@ namespace OpenNefia.Content.Scroll
             }
             
             var coords = Spatial(reader).Coordinates;
-            var effectArgs = EffectArgSet.FromImmutable(scrollComp.EffectArgs);
-            var result = _effects.Apply(scrollComp.Effect, reader, reader, coords, scroll, effectArgs);
+
+            TurnResult result = TurnResult.Failed; // At minimum, a turn should pass.
+            var obvious = false;
+            foreach (var spec in scrollComp.Effects.EnumerateEffectSpecs())
+            {
+                var args = new EffectCommonArgs()
+                {
+                    EffectSource = EffectSources.Scroll,
+                    CurseState = _curseStates.GetCurseState(scroll),
+                    Power = spec.Power,
+                    TileRange = spec.MaxRange,
+                    SkillLevel = spec.SkillLevel,
+                    SourceItem = scroll
+                };
+                var newResult = _newEffects.Apply(reader, reader, coords, spec.ID, EffectArgSet.Make(args));
+                result = result.Combine(newResult);
+                obvious = obvious || args.OutEffectWasObvious;
+            }
 
             if (_gameSession.IsPlayer(reader))
             {
-                if ((!effectArgs.TryGet<EffectCommonArgs>(out var commonArgs) || commonArgs.OutEffectWasObvious) && IsAlive(scroll))
+                if (obvious && IsAlive(scroll))
                 {
-                    _identify.Identify(scroll, IdentifyState.Name);
+                    _identify.IdentifyItem(scroll, IdentifyState.Name);
                 }
             }
 
             return result;
+            // <<<<<<<< elona122/shade2/proc.hsp:1488 	return true ...
         }
     }
 }

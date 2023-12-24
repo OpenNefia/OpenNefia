@@ -60,6 +60,7 @@ using OpenNefia.Content.Weather;
 using OpenNefia.Content.Items;
 using OpenNefia.Content.Scene;
 using OpenNefia.Content.Effects;
+using OpenNefia.Content.Wishes;
 
 var _entityMan = IoCManager.Resolve<IEntityManager>();
 var _mapMan = IoCManager.Resolve<IMapManager>();
@@ -92,6 +93,7 @@ var _effects = EntitySystem.Get<IEffectSystem>();
 var _quests = EntitySystem.Get<IQuestSystem>();
 var _weather = EntitySystem.Get<IWeatherSystem>();
 var _scenes = EntitySystem.Get<ISceneSystem>();
+var _wishes = EntitySystem.Get<IWishSystem>();
 
 public EntityUid player() => _gameSession.Player;
 public SpatialComponent playerS() => _entityMan.GetComponent<SpatialComponent>(_gameSession.Player);
@@ -320,4 +322,12 @@ public void passDays(int days)
 public void changeWeather(PrototypeId<EntityPrototype> id, GameTimeSpan? duration = null)
 {
     _weather.TryChangeWeather(id, duration);
+}
+
+public void wish(string? wish = null)
+{
+    if (wish == null)
+        _wishes.PromptForWish();
+    else
+        _wishes.GrantWish(wish);
 }

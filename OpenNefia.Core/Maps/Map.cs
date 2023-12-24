@@ -300,6 +300,14 @@ namespace OpenNefia.Core.Maps
             return InSight[pos.X, pos.Y] == LastSightId;
         }
 
+        public bool IsInWindowFov(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return false;
+
+            return IsInWindowFov(coords.Position);
+        }
+
         public bool IsMemorized(Vector2i pos)
         {
             if (!IsInBounds(pos))
@@ -361,6 +369,14 @@ namespace OpenNefia.Core.Maps
             }
 
             return true;
+        }
+
+        public bool HasLineOfSight(MapCoordinates from, MapCoordinates to)
+        {
+            if (from.MapId != to.MapId || from.MapId != Id)
+                return false;
+
+            return HasLineOfSight(from.Position, to.Position);
         }
 
         public override string ToString()

@@ -18,13 +18,14 @@ LecchoTorte:
       Elona.AttrWill: 2000
       Elona.AttrMagic: 2000
       Elona.AttrCharisma: 2000
-      Elona.AttrSpeed: 2000
-      Elona.AttrLuck: 2000
+      Elona.AttrSpeed: 100
+      Elona.AttrLuck: 100
 
       Elona.Mining: 2000
       Elona.Performer: 100
       Elona.Cooking: 100
       Elona.ControlMagic: 100
+      Elona.Casting: 100
 
       Elona.SpellIceBolt: 2000
       Elona.SpellLightningBolt: 500

@@ -9,6 +9,8 @@ Elona.Quest = {
     MinutesLeft = function(minutesLeft)
         return ("クエスト[残り%s分]"):format(minutesLeft)
     end,
+
+    ReturnIsForbidden = "依頼請負中の帰還は法律で禁止されている。それでも帰還する？",
     AboutToAbandon = "注意！現在のクエストは失敗に終わってしまう。",
     LeftYourClient = "あなたはクライアントを置き去りにした。",
 
@@ -936,7 +938,7 @@ Elona.Quest = {
                 end,
                 Put = function(item, addWeight, currentWeight, requiredWeight)
                     return ("%sを納入した。 +%s  納入済み(%s) 納入ノルマ(%s)"):format(
-                        item,
+                        _.name(item),
                         addWeight,
                         currentWeight,
                         requiredWeight

@@ -31,7 +31,8 @@ namespace OpenNefia.Content.Tests.Areas
   - type: AreaBlankMap
   - type: AreaEntrance
     startingFloor: Test:0
-    globalId: {TestArea1ID}
+    globalArea:
+      id: {TestArea1ID}
 ";
 
         private ISimulation SimulationFactory()

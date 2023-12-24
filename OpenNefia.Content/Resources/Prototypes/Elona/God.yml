@@ -3,7 +3,7 @@
   id: Elona.Mani
   hspIds:
     elona122: 1
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaAndroid
   items:
   - itemId: Elona.ItemGemStoneOfMani
@@ -19,7 +19,7 @@
   id: Elona.Lulwy
   hspIds:
     elona122: 2
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaBlackAngel
   items:
   - itemId: Elona.ItemLulwysGemStoneOfGodSpeed
@@ -35,7 +35,7 @@
   id: Elona.Itzpalt
   hspIds:
     elona122: 3
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaExile
   items:
   - filter:
@@ -51,7 +51,7 @@
   id: Elona.Ehekatl
   hspIds:
     elona122: 4
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaBlackCat
   items:
   - filter:
@@ -67,7 +67,7 @@
   id: Elona.Opatos
   hspIds:
     elona122: 5
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaGoldenKnight
   items:
   - filter:
@@ -83,7 +83,7 @@
   id: Elona.Jure
   hspIds:
     elona122: 6
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaDefender
   items:
   - itemId: Elona.ItemJuresGemStoneOfHolyRain
@@ -101,7 +101,7 @@
   id: Elona.Kumiromi
   hspIds:
     elona122: 7
-  isPrimaryGod: true
+  canAppearRandomly: true
   servant: Elona.CharaCuteFairy
   items:
   - itemId: Elona.ItemKumiromisGemStoneOfRejuvenation

@@ -19,6 +19,8 @@ namespace OpenNefia.Core.GameObjects
         /// Raises an event.
         /// </summary>
         /// <returns>True if something handled the event, or the target entity is dead after the event was fired.</returns>
+        // TOOD remove this and replace with checks?
+        // or rename it and make it less confusing to use
         protected bool Raise<T>(EntityUid uid, T args, bool broadcast = true, bool ignoreLiveness = false)
             where T : HandledEntityEventArgs
         {

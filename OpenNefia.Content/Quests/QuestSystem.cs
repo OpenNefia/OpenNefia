@@ -61,6 +61,7 @@ namespace OpenNefia.Content.Quests
         int RoundDifficultyMargin(int a, int b);
         string LocalizeQuestRewardText(EntityUid quest, QuestComponent? questComp = null);
         string LocalizeQuestDetailText(EntityUid quest, EntityUid player, QuestComponent? questComp = null);
+        bool IsReturnForbiddenByActiveQuest();
     }
 
     public sealed partial class QuestSystem : EntitySystem, IQuestSystem

@@ -1,284 +1,279 @@
 ---
-[]
-# - type: Elona.Spell
-#   id: Elona.SpellEffectMaterialKit
-#   hspIds:
-#     elona122: 21
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectMaterialKit
+  parent: BaseEffect
+  hspIds:
+    elona122: 21
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGaroksHammer
-#   hspIds:
-#     elona122: 49
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGaroksHammer
+  parent: BaseEffect
+  hspIds:
+    elona122: 49
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectMilk
-#   hspIds:
-#     elona122: 1101
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectMilk
+  parent: BaseEffect
+  hspIds:
+    elona122: 1101
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectAle
-#   hspIds:
-#     elona122: 1102
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectAle
+  parent: BaseEffect
+  hspIds:
+    elona122: 1102
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectWater
-#   hspIds:
-#     elona122: 1103
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectWater
+  parent: BaseEffect
+  hspIds:
+    elona122: 1103
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainKnowledge
-#   hspIds:
-#     elona122: 1104
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGainKnowledge
+  parent: BaseEffect
+  hspIds:
+    elona122: 1104
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainSkill
-#   hspIds:
-#     elona122: 1105
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGainSkill
+  parent: BaseEffect
+  hspIds:
+    elona122: 1105
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectPunishDecrementStats
-#   hspIds:
-#     elona122: 1106
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectPunishDecrementStats
+  parent: BaseEffect
+  hspIds:
+    elona122: 1106
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainFaith
-#   hspIds:
-#     elona122: 1107
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGainFaith
+  parent: BaseEffect
+  hspIds:
+    elona122: 1107
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectPoison
-#   hspIds:
-#     elona122: 1108
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectPoison
+  parent: BaseEffect
+  hspIds:
+    elona122: 1108
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectConfuse
-#   hspIds:
-#     elona122: 1109
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectConfuse
+  parent: BaseEffect
+  hspIds:
+    elona122: 1109
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectParalyze
-#   hspIds:
-#     elona122: 1110
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectParalyze
+  parent: BaseEffect
+  hspIds:
+    elona122: 1110
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectBlind
-#   hspIds:
-#     elona122: 1111
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectBlind
+  parent: BaseEffect
+  hspIds:
+    elona122: 1111
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectSleep
-#   hspIds:
-#     elona122: 1112
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectSleep
+  parent: BaseEffect
+  hspIds:
+    elona122: 1112
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainPotential
-#   hspIds:
-#     elona122: 1113
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGainPotential
+  parent: BaseEffect
+  hspIds:
+    elona122: 1113
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectCurse
-#   hspIds:
-#     elona122: 1114
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectCurse
+  parent: BaseEffect
+  hspIds:
+    elona122: 1114
+  components:
+  - type: EffectBaseDamageDice
+    # Curse power, compared against LUK and enchant strength
+    # If cast by cursed items it is multiplied by 1000
+    finalDamage: power / 2
+  - type: EffectCurse
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectDeed
-#   hspIds:
-#     elona122: 1115
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectDeed
+  parent: BaseEffect
+  hspIds:
+    elona122: 1115
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectSulfuric
-#   hspIds:
-#     elona122: 1116
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectSulfuric
+  parent: BaseEffect
+  hspIds:
+    elona122: 1116
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectCreateMaterial
-#   hspIds:
-#     elona122: 1117
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectCreateMaterial
+  parent: BaseEffect
+  hspIds:
+    elona122: 1117
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectWeakenResistance
-#   hspIds:
-#     elona122: 1118
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectWeakenResistance
+  parent: BaseEffect
+  hspIds:
+    elona122: 1118
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainSkillPotential
-#   hspIds:
-#     elona122: 1119
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectGainSkillPotential
+  parent: BaseEffect
+  hspIds:
+    elona122: 1119
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectElixir
-#   hspIds:
-#     elona122: 1120
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectElixir
+  parent: BaseEffect
+  hspIds:
+    elona122: 1120
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectCureMutation
-#   hspIds:
-#     elona122: 1121
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectCureMutation
+  parent: BaseEffect
+  hspIds:
+    elona122: 1121
+  components:
+  - type: EffectBaseDamageDice
+    finalDamage: 1 + randInt(2)
+  - type: EffectCureMutation
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainAlly
-#   hspIds:
-#     elona122: 1122
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectEnchantWeapon
+  parent: BaseEffect
+  hspIds:
+    elona122: 1124
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainYoungerSister
-#   hspIds:
-#     elona122: 1123
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectEnchantArmor
+  parent: BaseEffect
+  hspIds:
+    elona122: 1125
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectEnchantWeapon
-#   hspIds:
-#     elona122: 1124
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectChangeMaterial
+  parent: BaseEffect
+  hspIds:
+    elona122: 1127
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectEnchantArmor
-#   hspIds:
-#     elona122: 1125
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectDeedOfInheritance
+  parent: BaseEffect
+  hspIds:
+    elona122: 1128
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectChangeMaterial
-#   hspIds:
-#     elona122: 1127
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectRecharge
+  parent: BaseEffect
+  hspIds:
+    elona122: 1129
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectDeedOfInheritance
-#   hspIds:
-#     elona122: 1128
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectDirtyWater
+  parent: BaseEffect
+  hspIds:
+    elona122: 1130
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectRecharge
-#   hspIds:
-#     elona122: 1129
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectCureCorruption
+  parent: BaseEffect
+  hspIds:
+    elona122: 1131
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectDirtyWater
-#   hspIds:
-#     elona122: 1130
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectAlchemy
+  parent: BaseEffect
+  hspIds:
+    elona122: 1132
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectCureCorruption
-#   hspIds:
-#     elona122: 1131
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectMolotov
+  parent: BaseEffect
+  hspIds:
+    elona122: 1133
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectAlchemy
-#   hspIds:
-#     elona122: 1132
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectLovePotion
+  parent: BaseEffect
+  hspIds:
+    elona122: 1135
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectMolotov
-#   hspIds:
-#     elona122: 1133
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectTreasureMap
+  parent: BaseEffect
+  hspIds:
+    elona122: 1136
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectLovePotion
-#   hspIds:
-#     elona122: 1135
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectTrollBlood
+  parent: BaseEffect
+  hspIds:
+    elona122: 1139
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectTreasureMap
-#   hspIds:
-#     elona122: 1136
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectFlight
+  parent: BaseEffect
+  hspIds:
+    elona122: 1140
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainYoungLady
-#   hspIds:
-#     elona122: 1137
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectEscape
+  parent: BaseEffect
+  hspIds:
+    elona122: 1141
+  components:
+  - type: EffectBaseDamageDice
+    # Number of turns the return waiting period lasts
+    finalDamage: 5 + randInt(10)
+  - type: EffectEscape
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectGainCatSister
-#   hspIds:
-#     elona122: 1138
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectSalt
+  parent: BaseEffect
+  hspIds:
+    elona122: 1142
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectTrollBlood
-#   hspIds:
-#     elona122: 1139
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectDescent
+  parent: BaseEffect
+  hspIds:
+    elona122: 1143
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectFlight
-#   hspIds:
-#     elona122: 1140
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectEvolution
+  parent: BaseEffect
+  hspIds:
+    elona122: 1144
+  components:
+  - type: EffectBaseDamageDice
+    finalDamage: 2 + randInt(3)
+  - type: EffectMutation
+    noNegativeMutations: true
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectEscape
-#   hspIds:
-#     elona122: 1141
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectName
+  parent: BaseEffect
+  hspIds:
+    elona122: 1145
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectSalt
-#   hspIds:
-#     elona122: 1142
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectSoda
+  parent: BaseEffect
+  hspIds:
+    elona122: 1146
 
-# - type: Elona.Spell
-#   id: Elona.SpellEffectDescent
-#   hspIds:
-#     elona122: 1143
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.SpellEffectEvolution
-#   hspIds:
-#     elona122: 1144
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.SpellEffectName
-#   hspIds:
-#     elona122: 1145
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.SpellEffectSoda
-#   hspIds:
-#     elona122: 1146
-#   skillType: Effect
-
-# - type: Elona.Spell
-#   id: Elona.SpellEffectCupsule
-#   hspIds:
-#     elona122: 1147
-#   skillType: Effect
+- type: Entity
+  id: Elona.EffectCupsule
+  parent: BaseEffect
+  hspIds:
+    elona122: 1147
 ...

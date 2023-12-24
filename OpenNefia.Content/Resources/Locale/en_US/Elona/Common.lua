@@ -13,6 +13,7 @@ Elona.Common = {
         return ("You put %s in your backpack."):format(_.name(item))
     end,
     CannotDoInGlobal = "You can't do that while you're in a global area.",
+    DoesNotWorkHere = "This doesn't work in this area.",
     NameWithDirectArticle = function(entity)
         return _.name(entity, true)
     end,

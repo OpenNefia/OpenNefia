@@ -33,7 +33,8 @@ namespace OpenNefia.Core.Locale
             if (typeof(ILocalizable).IsAssignableFrom(field.FieldType))
             {
                 var localizable = (ILocalizable)field.GetValue(o)!;
-                localizable.Localize(baseKey.With(keyFrag));
+                if (localizable != null)
+                    localizable.Localize(baseKey.With(keyFrag));
                 return;
             }
 

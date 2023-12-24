@@ -24,6 +24,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Content.BaseAnim;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Effects;
 
 namespace OpenNefia.Content.Items.Impl
 {
@@ -46,6 +47,7 @@ namespace OpenNefia.Content.Items.Impl
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IActionThrowSystem _throwables = default!;
+        [Dependency] private readonly ICommonEffectsSystem _commonEffects = default!;
 
         public override void Initialize()
         {
@@ -95,7 +97,9 @@ namespace OpenNefia.Content.Items.Impl
 
         public bool CanCaptureEntity(EntityUid monsterBall, EntityUid target, [NotNullWhen(false)] out string? reason, MonsterBallComponent? monsterBallComp)
         {
-            if (!Resolve(monsterBall, ref monsterBallComp) || !TryComp<CharaComponent>(target, out var targetChara))
+            if (!Resolve(monsterBall, ref monsterBallComp)
+                || !TryComp<CharaComponent>(target, out var targetChara)
+                || !TryMap(targetChara.Owner, out var map))
             {
                 reason = "";
                 return false;
@@ -107,19 +111,21 @@ namespace OpenNefia.Content.Items.Impl
                 return true;
             }
 
-            if (_factions.GetRelationToPlayer(target) >= Relation.Ally
-                || _roles.HasAnyRoles(target)
-                || CompOrNull<QualityComponent>(target)?.Quality == Quality.Unique
-                || targetChara.IsPrecious
-                || MetaData(target).EntityPrototype == null)
+            if (!_commonEffects.CanCaptureMonstersIn(map))
             {
-                reason = Loc.GetString("Elona.MonsterBall.Throw.CannotBeCaptured");
+                reason = Loc.GetString("Elona.MonsterBall.Errors.CannotCaptureHere");
+                return false;
+            }
+
+            if (!_commonEffects.CanCaptureMonster(target))
+            {
+                reason = Loc.GetString("Elona.MonsterBall.Errors.CannotBeCaptured");
                 return false;
             }
 
             if (_levels.GetLevel(target) > monsterBallComp.MaxLevel)
             {
-                reason = Loc.GetString("Elona.MonsterBall.Throw.NotEnoughPower");
+                reason = Loc.GetString("Elona.MonsterBall.Errors.NotEnoughPower");
                 return false;
             }
 
@@ -127,7 +133,7 @@ namespace OpenNefia.Content.Items.Impl
             {
                 if (targetSkills.HP > targetSkills.MaxHP / 10)
                 {
-                    reason = Loc.GetString("Elona.MonsterBall.Throw.NotWeakEnough");
+                    reason = Loc.GetString("Elona.MonsterBall.Errors.NotWeakEnough");
                     return false;
                 }
             }
@@ -220,7 +226,7 @@ namespace OpenNefia.Content.Items.Impl
 
             var chara = _charaGen.GenerateChara(user, id: monsterBallComp.CapturedEntityID.Value, args: args);
             if (IsAlive(chara))
-                _parties.RecruitAsAlly(user, chara.Value);
+                _parties.TryRecruitAsAlly(user, chara.Value);
 
             return TurnResult.Succeeded;
         }

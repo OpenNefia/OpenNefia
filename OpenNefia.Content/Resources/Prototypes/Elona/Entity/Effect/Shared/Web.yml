@@ -1,0 +1,172 @@
+- type: Entity
+  id: Elona.BaseEffectWeb
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetPosition
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.Web
+    sound: Elona.Web
+  - type: EffectAreaWeb
+    tileCount: 2 + randInt(power / 50 + 1)
+    spread: 3
+  - type: EffectBaseDamageDice
+  - type: EffectDamageMef
+
+- type: Elona.Spell
+  id: Elona.Web
+  hspIds:
+    elona122: 436
+  difficulty: 150
+  mpCost: 10
+  skillID: Elona.SpellWeb
+  effectID: Elona.SpellWeb
+- type: Elona.Skill
+  id: Elona.SpellWeb
+  hspIds:
+    elona122: 436
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellWeb
+  parent: Elona.BaseEffectWeb
+  hspIds:
+    elona122: 436
+  components:
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.Web
+  - type: EffectAreaWeb
+  - type: EffectBaseDamageDice
+    # Power of the spawned mef
+    finalDamage: power * 2
+  - type: EffectDamageMef
+    mefID: Elona.MefWeb
+    turns: null
+
+- type: Elona.Spell
+  id: Elona.MistOfDarkness
+  hspIds:
+    elona122: 437
+  difficulty: 320
+  mpCost: 12
+  skillID: Elona.SpellMistOfDarkness
+  effectID: Elona.SpellMistOfDarkness
+- type: Elona.Skill
+  id: Elona.SpellMistOfDarkness
+  hspIds:
+    elona122: 437
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellMistOfDarkness
+  parent: Elona.BaseEffectWeb
+  hspIds:
+    elona122: 437
+  components:
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.MistOfDarkness
+  - type: EffectAreaWeb
+  - type: EffectBaseDamageDice
+    # Power of the spawned mef
+    finalDamage: power
+  - type: EffectDamageMef
+    mefID: Elona.MefMistOfDarkness
+    turns: 8 + randInt(15 / power + 25)
+
+- type: Elona.Spell
+  id: Elona.AcidGround
+  hspIds:
+    elona122: 455
+  difficulty: 480
+  mpCost: 18
+  skillID: Elona.SpellAcidGround
+  effectID: Elona.SpellAcidGround
+- type: Elona.Skill
+  id: Elona.SpellAcidGround
+  hspIds:
+    elona122: 455
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellAcidGround
+  parent: Elona.BaseEffectWeb
+  hspIds:
+    elona122: 455
+  components:
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.AcidGround
+  - type: EffectAreaWeb
+    spread: 2
+  - type: EffectBaseDamageDice
+    # Power of the spawned mef
+    finalDamage: power
+  - type: EffectDamageMef
+    mefID: Elona.MefAcidGround
+    turns: randInt(10) + 5
+
+- type: Elona.Spell
+  id: Elona.FireWall
+  hspIds:
+    elona122: 456
+  difficulty: 640
+  mpCost: 24
+  skillID: Elona.SpellFireWall
+  effectID: Elona.SpellFireWall
+- type: Elona.Skill
+  id: Elona.SpellFireWall
+  hspIds:
+    elona122: 456
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellFireWall
+  parent: Elona.BaseEffectWeb
+  hspIds:
+    elona122: 456
+  components:
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.FireWall
+  - type: EffectAreaWeb
+    spread: 2
+  - type: EffectBaseDamageDice
+    # Power of the spawned mef
+    finalDamage: power
+  - type: EffectTileDamageElemental
+    element: Elona.Fire
+  - type: EffectDamageMef
+    mefID: Elona.MefFire
+    turns: randInt(10) + 5
+
+- type: Elona.Action
+  id: Elona.EtherGround
+  hspIds:
+    elona122: 634
+  skillID: Elona.ActionEtherGround
+  effectID: Elona.ActionEtherGround
+  staminaCost: 18
+  difficulty: 480
+- type: Elona.Skill
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  parent: Elona.BaseEffectWeb
+  components:
+  - type: EffectAreaMessage
+    messageKey: Elona.Magic.Message.Mef.EtherGround
+  - type: EffectAreaWeb
+    tileCount: 1 + randInt(power / 100 + 1)
+    spread: 2
+  - type: EffectBaseDamageDice
+    # Power of the spawned mef
+    finalDamage: power
+  - type: EffectDamageMef
+    mefID: Elona.MefEtherGround
+    turns: randInt(4) + 2

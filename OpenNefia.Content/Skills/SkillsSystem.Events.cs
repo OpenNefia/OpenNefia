@@ -23,6 +23,7 @@ using OpenNefia.Content.UI;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Mount;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Qualities;
 
 namespace OpenNefia.Content.Skills
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.Skills
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly IQualitySystem _qualities = default!;
 
         public override void Initialize()
         {
@@ -156,7 +158,29 @@ namespace OpenNefia.Content.Skills
 
         private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
         {
+            ApplySkillLevelAdjustments(skills);
             RefreshHPMPAndStamina(skills);
+        }
+
+        private void ApplySkillLevelAdjustments(SkillsComponent skills)
+        {
+            // >>>>>>>> elona122/shade2/calculation.hsp:508 	repeat tailAttb-headAttb ...
+            foreach (var (protoId, adj) in skills.LevelAdjustments)
+            {
+                if (adj == 0 || !skills.TryGetKnown(protoId, out var skill))
+                    continue;
+
+                var trueAdj = adj;
+
+                if (_qualities.GetQuality(skills.Owner) >= Quality.Good)
+                {
+                    var amt = (int)(double.Floor(BaseLevel(skills.Owner, protoId, skills) / 5));
+                    trueAdj = int.Max(amt, adj);
+                }
+
+                skill.Level.Buffed = int.Max(skill.Level.Buffed + trueAdj, 1);
+            }   
+            // <<<<<<<< elona122/shade2/calculation.hsp:514 	loop	 ...
         }
 
         private void HandleRefreshSpeed(EntityUid uid, SkillsComponent skills, ref EntityRefreshSpeedEvent args)

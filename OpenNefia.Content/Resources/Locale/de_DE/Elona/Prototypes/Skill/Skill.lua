@@ -681,7 +681,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Allows you to sense the quality of stuff.",
         Name = "Sense Quality",
     },
-    ActionDimensionalMove = {
+    ActionShadowStep = {
         Description = "Teleport to target",
         Name = "Shadow Step",
     },

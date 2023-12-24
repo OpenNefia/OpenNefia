@@ -19,6 +19,8 @@ using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Effects.New.Unique;
+using OpenNefia.Content.Return;
 
 namespace OpenNefia.Content.Quests
 {
@@ -52,6 +54,8 @@ namespace OpenNefia.Content.Quests
             SubscribeBroadcast<AfterMapEnterEventArgs>(AfterMapEnter_UpdateQuestTargets);
             SubscribeBroadcast<MapOnTimePassedEvent>(TimePassed_CheckQuestDeadlines);
             SubscribeEntity<MapBeforeTurnBeginEventArgs>(BeforeTurnBegin_SetQuestEmoicons);
+            SubscribeBroadcast<BeforePlayerCastsReturnMagicEvent>(BeforeCastReturn_CheckFailableQuests);
+            SubscribeBroadcast<BeforeReturnMagicExecutedEvent>(CheckAndFailQuests, priority: EventPriorities.Low);
         }
 
         private void BeforeStepDialog_TurnInQuest(EntityUid uid, QuestClientComponent component, BeforeStepDialogEvent args)
@@ -113,7 +117,7 @@ namespace OpenNefia.Content.Quests
             // >>>>>>>> elona122/shade2/calculation.hsp:1284 		if cQuestNpc(r1)!0{ ...
             if (!TryMap(uid, out var map))
                 return;
-            
+
             var quests = EnumerateAcceptedOrCompletedQuests().ToList();
             foreach (var quest in quests)
             {
@@ -133,8 +137,47 @@ namespace OpenNefia.Content.Quests
                     }
                 }
             }
-            
+
             // <<<<<<<< elona122/shade2/calculation.hsp:1288 			} ...
+        }
+
+        public bool IsReturnForbiddenByActiveQuest()
+        {
+            return EnumerateAcceptedQuests()
+                .Any(q =>
+                {
+                    if (!TryComp<QuestFailureConditionsComponent>(q.Owner, out var qCond))
+                        return false;
+
+                    return qCond.IsReturnForbidden;
+                });
+        }
+
+        private void BeforeCastReturn_CheckFailableQuests(BeforePlayerCastsReturnMagicEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/command.hsp:4372 *check_return ...
+            if (IsReturnForbiddenByActiveQuest())
+            {
+                ev.OutWarningReasons.Add(new(Loc.GetString("Elona.Quest.ReturnIsForbidden"), PreventReturnSeverity.PromptYesNo));
+            }
+            // <<<<<<<< elona122/shade2/command.hsp:4386 	p=0 ...
+        }
+
+        /// <summary>
+        /// NOTE: For now has only a karma penalty.
+        /// </summary>
+        private void CheckAndFailQuests(BeforeReturnMagicExecutedEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            // >>>>>>>> elona122/shade2/main.hsp:752 				gosub *check_return :if stat=true:txtMore:txt  ...
+            if (IsReturnForbiddenByActiveQuest())
+            {
+                _mes.Display(Loc.GetString("Elona.Return.Result.CommitCrime"));
+                _karma.ModifyKarma(_gameSession.Player, -10);
+            }
+            // <<<<<<<< elona122/shade2/main.hsp:752 				gosub *check_return :if stat=true:txtMore:txt  ...
         }
 
         private void HandleAddQuestHub(EntityUid areaEntityUid, AfterAreaFloorGeneratedEvent ev)

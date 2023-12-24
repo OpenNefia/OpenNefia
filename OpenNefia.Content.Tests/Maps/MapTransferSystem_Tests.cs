@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var ally = entGen.SpawnEntity(Protos.Chara.Shopkeeper, map1.AtPos(1, 1))!.Value;
             var allyChara = entMan.GetComponent<CharaComponent>(ally);
             var allySpatial = entMan.GetComponent<SpatialComponent>(ally);
-            Assert.That(parties.RecruitAsAlly(player, ally), Is.True);
+            Assert.That(parties.TryRecruitAsAlly(player, ally), Is.True);
 
             var expectedPos = new Vector2i(3, 4);
             mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full, noUnloadPrevious: true);

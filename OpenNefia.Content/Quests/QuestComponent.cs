@@ -176,12 +176,14 @@ namespace OpenNefia.Content.Quests
         public PrototypeId<TagPrototype> ItemCategory { get; set; }
     }
 
-    /// <summary>
-    /// Returning while taking this quest will fail it.
-    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Quest)]
-    public sealed class QuestPreventsReturnComponent : Component
+    public sealed class QuestFailureConditionsComponent : Component
     {
+        /// <summary>
+        /// If Return is cast while this quest is active, it will be failed.
+        /// </summary>
+        [DataField]
+        public bool IsReturnForbidden { get; set; } = false;
     }
 }

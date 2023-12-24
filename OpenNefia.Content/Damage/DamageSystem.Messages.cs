@@ -266,7 +266,7 @@ namespace OpenNefia.Content.Damage
             var deathType = _rand.Pick(DeathMessageKeys);
             var capitalize = args.ExtraArgs.MessageTense == DamageHPMessageTense.Passive;
 
-            _mes.Display(Loc.GetString($"Elona.DamageType.Combat.{deathType}.{args.ExtraArgs.MessageTense}", ("target", target), ("attacker", args.Attacker)), UiColors.MesRed, entity: target, noCapitalize: !capitalize);
+            _mes.Display(Loc.GetString($"Elona.DamageType.Combat.{deathType}.{args.ExtraArgs.MessageTense}", ("target", target), ("attacker", args.Attacker), ("direct", args.ExtraArgs.AttackerIsMessageSubject)), UiColors.MesRed, entity: target, noCapitalize: !capitalize);
             // <<<<<<<< shade2/chara_func.hsp:1608 				} ...
         }
 

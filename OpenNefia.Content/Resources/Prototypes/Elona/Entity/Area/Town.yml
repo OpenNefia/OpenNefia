@@ -8,7 +8,9 @@
     floors:
       Default: Elona.Vernis
   - type: AreaEntrance
-    globalId: Elona.AreaVernis
+    globalArea:
+      id: Elona.AreaVernis
+      parent: Elona.AreaNorthTyris
 
 - type: Entity
   id: Elona.AreaPortKapul
@@ -20,7 +22,9 @@
     floors:
       Default: Elona.PortKapul
   - type: AreaEntrance
-    globalId: Elona.AreaPortKapul
+    globalArea:
+      id: Elona.AreaPortKapul
+      parent: Elona.AreaNorthTyris
 
 - type: Entity
   id: Elona.AreaYowyn
@@ -32,7 +36,9 @@
     floors:
       Default: Elona.Yowyn
   - type: AreaEntrance
-    globalId: Elona.AreaYowyn
+    globalArea:
+      id: Elona.AreaYowyn
+      parent: Elona.AreaNorthTyris
   - type: AreaRandomGenTables
     tables:
       quest:
@@ -51,7 +57,9 @@
     floors:
       Default: Elona.Derphy
   - type: AreaEntrance
-    globalId: Elona.AreaDerphy
+    globalArea:
+      id: Elona.AreaDerphy
+      parent: Elona.AreaNorthTyris
 
 - type: Entity
   id: Elona.AreaPalmia
@@ -63,7 +71,9 @@
     floors:
       Default: Elona.Palmia
   - type: AreaEntrance
-    globalId: Elona.AreaPalmia
+    globalArea:
+      id: Elona.AreaPalmia
+      parent: Elona.AreaNorthTyris
   - type: AreaRandomGenTables
     tables:
       quest:
@@ -82,7 +92,8 @@
     floors:
       Default: Elona.Noyel
   - type: AreaEntrance
-    globalId: Elona.AreaNoyel
+    globalArea:
+      id: Elona.AreaNoyel
 
 - type: Entity
   id: Elona.AreaLumiest
@@ -94,4 +105,6 @@
     floors:
       Default: Elona.Lumiest
   - type: AreaEntrance
-    globalId: Elona.AreaLumiest
+    globalArea:
+      id: Elona.AreaLumiest
+      parent: Elona.AreaNorthTyris

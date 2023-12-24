@@ -86,6 +86,12 @@ namespace OpenNefia.Content.Skills
         public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills { get; } = new();
 
         /// <summary>
+        /// Adjustments to skill levels.
+        /// </summary>
+        [DataField]
+        public Dictionary<PrototypeId<SkillPrototype>, int> LevelAdjustments { get; set; } = new();
+
+        /// <summary>
         /// Number of spendable skill bonus points.
         /// </summary>
         [DataField]

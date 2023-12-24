@@ -17,7 +17,6 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Nefia;
 using Love;
-using OpenNefia.Content.Web;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.RandomGen;
 
@@ -257,11 +256,7 @@ namespace OpenNefia.Content.Nefia
 
                 if (map.IsFloor(coords2.Position) && !_targetable.TryGetTargetableEntity(coords2, out _))
                 {
-                    var entity = _entityGen.SpawnEntity(Protos.Mef.Web, coords2);
-                    if (entity != null && EntityManager.TryGetComponent<WebComponent>(entity.Value, out var web))
-                    {
-                        web.UntangleDifficulty = difficulty;
-                    }
+                    var entity = _mefs.SpawnMef(Protos.Mef.Web, coords2, power: difficulty);
                     return;
                 }
             }

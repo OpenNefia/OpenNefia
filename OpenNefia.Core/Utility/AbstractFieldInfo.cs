@@ -9,6 +9,7 @@ namespace OpenNefia.Core.Utility
     {
         public abstract string Name { get; }
         internal abstract MemberInfo MemberInfo { get; }
+        public abstract Module Module { get; }
         public abstract Type FieldType { get; }
         public abstract Type? DeclaringType { get; }
 

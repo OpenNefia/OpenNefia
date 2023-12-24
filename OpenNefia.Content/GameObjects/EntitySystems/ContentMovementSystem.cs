@@ -227,7 +227,7 @@ namespace OpenNefia.Content.GameObjects
 
             var spatial = Spatial(uid);
 
-            if (!HasComp<MapTypeWorldMapComponent>(map.MapEntityUid) || _lookup.QueryLiveEntitiesAtCoords<MObjComponent>(spatial.MapPosition).Any())
+            if (!HasComp<MapTypeWorldMapComponent>(map.MapEntityUid) || _lookup.EntityQueryLiveEntitiesAtCoords<MObjComponent>(spatial.MapPosition).Any())
                 return;
 
             var id = _encounters.PickRandomEncounterID(spatial.MapPosition);

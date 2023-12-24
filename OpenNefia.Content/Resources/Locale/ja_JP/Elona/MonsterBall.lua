@@ -8,11 +8,14 @@ Elona.MonsterBall = {
         end,
     },
 
-    Throw = {
-        DoesNotWork = "この場所では効果がない。",
+    Errors = {
+        CannotCaptureHere = "この場所では捕獲できない。",
         CannotBeCaptured = "その生物には無効だ。",
         NotEnoughPower = "その生物を捕獲するには、より高レベルのモンスターボールが必要だ。",
         NotWeakEnough = "捕獲するためにはもっと弱らせる必要がある。",
+    },
+
+    Throw = {
         YouCapture = function(user, target)
             return ("%s%sをモンスターボールに捕獲した。"):format(_.sore_wa(user), _.name(target))
         end,

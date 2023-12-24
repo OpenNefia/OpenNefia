@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Maps
                 // map.
                 // NOTE: Only allows one NPC-owned item on a tile.
                 var destCoords = new EntityCoordinates(currentMap.MapEntityUid, spatial.WorldPosition);
-                var npcOwnedAtCoords = _lookup.QueryLiveEntitiesAtCoords<PickableComponent>(destCoords).Where(p => p.OwnState == OwnState.NPC);
+                var npcOwnedAtCoords = _lookup.EntityQueryLiveEntitiesAtCoords<PickableComponent>(destCoords).Where(p => p.OwnState == OwnState.NPC);
 
                 if (npcOwnedAtCoords.Count() == 0)
                     spatial.Coordinates = destCoords;

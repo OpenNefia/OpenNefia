@@ -256,7 +256,7 @@ namespace OpenNefia.Content.Quests
                     id = _charaGen.PickRandomCharaId(map, genArgs, minLevel: playerLevel + 1, tags: new[] { Protos.Tag.CharaMan });
                 chara = _charaGen.GenerateChara(MapCoordinates.Global, id, args: genArgs);
 
-                if (!IsAlive(chara) || !_mapPlacements.TryPlaceChara(chara.Value, playerSpatial.MapPosition) || !_parties.RecruitAsAlly(_gameSession.Player, chara.Value))
+                if (!IsAlive(chara) || !_mapPlacements.TryPlaceChara(chara.Value, playerSpatial.MapPosition) || !_parties.TryRecruitAsAlly(_gameSession.Player, chara.Value))
                 {
                     if (IsAlive(chara))
                         EntityManager.DeleteEntity(chara.Value);

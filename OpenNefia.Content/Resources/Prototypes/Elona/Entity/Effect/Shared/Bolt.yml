@@ -1,0 +1,142 @@
+- type: Entity
+  id: Elona.BaseEffectBolt
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+    canTargetGround: true
+    promptIfFriendly: true
+  - type: EffectAreaBolt
+  - type: EffectBaseDamageDice
+    diceX: (power / 50) + 1 + (skillLevel / 20)
+    diceY: (power / 26) + 4
+    elementPower: 180 + (power / 4)
+  - type: EffectDamageControlMagic
+  - type: EffectDamageMessage
+    rootKey: Elona.Magic.Message.Bolt
+
+- type: Elona.Spell
+  id: Elona.IceBolt
+  hspIds:
+    elona122: 419
+  difficulty: 220
+  mpCost: 10
+  maxRange: 6
+  skillID: Elona.SpellIceBolt
+  effectID: Elona.SpellIceBolt
+- type: Elona.Skill
+  id: Elona.SpellIceBolt
+  hspIds:
+    elona122: 419
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellIceBolt
+  hspIds:
+    elona122: 419
+  parent: Elona.BaseEffectBolt
+  components:
+  - type: EffectDamageElemental
+    element: Elona.Cold
+
+- type: Elona.Spell
+  id: Elona.FireBolt
+  hspIds:
+    elona122: 420
+  difficulty: 220
+  mpCost: 10
+  maxRange: 6
+  skillID: Elona.SpellFireBolt
+  effectID: Elona.SpellFireBolt
+- type: Elona.Skill
+  id: Elona.SpellFireBolt
+  hspIds:
+    elona122: 420
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellFireBolt
+  hspIds:
+    elona122: 420
+  parent: Elona.BaseEffectBolt
+  components:
+  - type: EffectDamageElemental
+    element: Elona.Fire
+
+- type: Elona.Spell
+  id: Elona.LightningBolt
+  hspIds:
+    elona122: 421
+  difficulty: 220
+  mpCost: 10
+  maxRange: 6
+  skillID: Elona.SpellLightningBolt
+  effectID: Elona.SpellLightningBolt
+- type: Elona.Skill
+  id: Elona.SpellLightningBolt
+  hspIds:
+    elona122: 421
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellLightningBolt
+  hspIds:
+    elona122: 421
+  parent: Elona.BaseEffectBolt
+  components:
+  - type: EffectDamageElemental
+    element: Elona.Lightning
+
+- type: Elona.Spell
+  id: Elona.DarknessBolt
+  hspIds:
+    elona122: 422
+  difficulty: 350
+  mpCost: 12
+  maxRange: 6
+  skillID: Elona.SpellDarknessBolt
+  effectID: Elona.SpellDarknessBolt
+- type: Elona.Skill
+  id: Elona.SpellDarknessBolt
+  hspIds:
+    elona122: 422
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellDarknessBolt
+  hspIds:
+    elona122: 421
+  parent: Elona.BaseEffectBolt
+  components:
+  - type: EffectBaseDamageDice
+    diceY: (power / 25) + 4
+  - type: EffectDamageElemental
+    element: Elona.Darkness
+
+- type: Elona.Spell
+  id: Elona.MindBolt
+  hspIds:
+    elona122: 423
+  difficulty: 350
+  mpCost: 12
+  maxRange: 6
+  skillID: Elona.SpellMindBolt
+  effectID: Elona.SpellMindBolt
+- type: Elona.Skill
+  id: Elona.SpellMindBolt
+  hspIds:
+    elona122: 423
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellMindBolt
+  hspIds:
+    elona122: 421
+  parent: Elona.BaseEffectBolt
+  components:
+  - type: EffectBaseDamageDice
+    diceY: (power / 25) + 4
+  - type: EffectDamageElemental
+    element: Elona.Mind

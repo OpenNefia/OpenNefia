@@ -297,7 +297,7 @@ namespace OpenNefia.Content.Scene
             _state = SceneState.ShowingDialog;
 
             var args = new DialogArgs();
-            var dialogLayer = UserInterfaceManager.CreateLayer<DialogLayer, DialogArgs, DialogResult>(args);
+            var dialogLayer = UserInterfaceManager.CreateAndInitializeLayer<DialogLayer, DialogArgs, DialogResult>(args);
             foreach (var text in texts)
             {
                 string speakerName;

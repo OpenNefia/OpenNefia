@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Spells
             _mes.Display(Loc.GetString(MessageKey, ("target", target)), entity: target);
 
             var dice = Dice.GetDice(source, target, coords, verb, args);
-            _commonEffects.Heal(target, dice);
+            // _commonEffects.Heal(target, dice);
 
             if (args.CurseState == CurseState.Blessed)
             {

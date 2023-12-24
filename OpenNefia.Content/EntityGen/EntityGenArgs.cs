@@ -73,7 +73,9 @@ namespace OpenNefia.Content.EntityGen
 
         /// <summary>
         /// If true, the <see cref="EntityGeneratedEvent"/> will not be fired when spawning this entity.
+        /// Useful if you want to defer raising the generation events until after some checks are finished.
         /// </summary>
+        // TODO implement!
         [DataField]
         public bool NoFireGeneratedEvent { get; set; } = false;
 
@@ -138,26 +140,5 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         [DataField]
         public OwnState OwnState { get; set; } = OwnState.None;
-    }
-
-    public sealed class MefGenArgs : EntityGenArgs
-    {
-        /// <summary>
-        /// Number of turns this mef will last for.
-        /// </summary>
-        [DataField]
-        public int TurnDuration { get; set; } = 10;
-
-        /// <summary>
-        /// Power of this mef.
-        /// </summary>
-        [DataField]
-        public int Power { get; set; } = 10;
-
-        /// <summary>
-        /// The entity responsible for creating this mef.
-        /// </summary>
-        [DataField]
-        public EntityUid? Origin { get; set; } = null;
     }
 }

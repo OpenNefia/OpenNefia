@@ -1,0 +1,183 @@
+- type: Elona.Spell
+  id: Elona.HealLight
+  hspIds:
+    elona122: 400
+  difficulty: 80
+  mpCost: 6
+  range: 2
+  skillID: Elona.SpellHealLight
+  effectID: Elona.SpellHealLight
+- type: Elona.Skill
+  id: Elona.SpellHealLight
+  ordering:
+    after: Elona.Riding
+  hspIds:
+    elona122: 400
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellHealLight
+  parent: BaseEffect
+  hspIds:
+    elona122: 400
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    diceX: 1 + (skillLevel / 30)
+    diceY: (power / 40) + 5
+    bonus: (power / 30)
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Slightly
+
+- type: Elona.Spell
+  id: Elona.HealCritical
+  hspIds:
+    elona122: 401
+  difficulty: 350
+  mpCost: 15
+  range: 2
+  skillID: Elona.SpellHealCritical
+  effectID: Elona.SpellHealCritical
+- type: Elona.Skill
+  id: Elona.SpellHealCritical
+  hspIds:
+    elona122: 401
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellHealCritical
+  parent: BaseEffect
+  hspIds:
+    elona122: 401
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    diceX: 2 + (skillLevel / 26)
+    diceY: (power / 25) + 5
+    bonus: (power / 15)
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Normal
+
+- type: Elona.Spell
+  id: Elona.CureOfEris
+  hspIds:
+    elona122: 402
+  difficulty: 800
+  mpCost: 35
+  range: 2
+  skillID: Elona.SpellCureOfEris
+  effectID: Elona.SpellCureOfEris
+- type: Elona.Skill
+  id: Elona.SpellCureOfEris
+  hspIds:
+    elona122: 402
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellCureOfEris
+  parent: BaseEffect
+  hspIds:
+    elona122: 402
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    diceX: 3 + (skillLevel / 15)
+    diceY: (power / 12) + 5
+    bonus: (power / 6)
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Greatly
+
+- type: Elona.Spell
+  id: Elona.CureOfJure
+  hspIds:
+    elona122: 403
+  difficulty: 1300
+  mpCost: 80
+  range: 2
+  skillID: Elona.SpellCureOfJure
+  effectID: Elona.SpellCureOfJure
+- type: Elona.Skill
+  id: Elona.SpellCureOfJure
+  hspIds:
+    elona122: 403
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellCureOfJure
+  parent: BaseEffect
+  hspIds:
+    elona122: 403
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    diceX: 5 + (skillLevel / 10)
+    diceY: (power / 7) + 5
+    bonus: (power / 2)
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Completely
+
+- type: Elona.Spell
+  id: Elona.HealingRain
+  hspIds:
+    elona122: 404
+  difficulty: 500
+  mpCost: 38
+  range: 2
+  skillID: Elona.SpellHealingRain
+  effectID: Elona.SpellHealingRain
+- type: Elona.Skill
+  id: Elona.SpellHealingRain
+  hspIds:
+    elona122: 404
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellHealingRain
+  parent: BaseEffect
+  hspIds:
+    elona122: 404
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaAnimation
+    showAnimation: false
+  - type: EffectAreaBall
+    includeOriginPos: true
+  - type: EffectBaseDamageDice
+    diceX: (skillLevel / 20) + 3
+    diceY: (power / 15) + 5
+    bonus: (power / 10)
+    # >>>>>>>> shade2/proc.hsp:1744 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
+  - type: EffectDamageRelations
+    validRelations: Neutral~Ally
+    # <<<<<<<< shade2/proc.hsp:1744 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Normal
+
+- type: Elona.Spell
+  id: Elona.HealingTouch
+  hspIds:
+    elona122: 405
+  difficulty: 400
+  mpCost: 20
+  range: 2
+  skillID: Elona.SpellHealingTouch
+  effectID: Elona.SpellHealingTouch
+- type: Elona.Skill
+  id: Elona.SpellHealingTouch
+  hspIds:
+    elona122: 405
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellHealingTouch
+  parent: BaseEffect
+  hspIds:
+    elona122: 405
+  components:
+  - type: EffectTargetNearby
+  - type: EffectBaseDamageDice
+    diceX: (skillLevel / 22) + 2
+    diceY: (power / 18) + 5
+    bonus: (power / 10)
+  - type: EffectDamageHealing
+    messageKey: Elona.Effect.Heal.Normal

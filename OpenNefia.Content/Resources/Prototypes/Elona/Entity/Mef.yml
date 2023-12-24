@@ -4,44 +4,66 @@
   hspIds:
     elona122: 1
   components:
-  - type: Web
+  - type: Chip
+    id: Elona.MefWeb
+  - type: MefWeb
 
 - type: Entity
-  id: Elona.MefMist
+  id: Elona.MefMistOfDarkness
   parent: BaseMef
   hspIds:
     elona122: 2
+  components:
+  - type: Chip
+    id: Elona.MefMist
+  - type: MefMistOfDarkness
 
 - type: Entity
-  id: Elona.MefAcid
+  id: Elona.MefAcidGround
   parent: BaseMef
   hspIds:
     elona122: 3
+  components:
+  - type: Chip
+    id: Elona.MefAcid
+  - type: MefAcidGround
 
 - type: Entity
-  id: Elona.MefEther
+  id: Elona.MefEtherGround
   parent: BaseMef
   hspIds:
     elona122: 4
+  components:
+  - type: Chip
+    id: Elona.MefEther
+  - type: MefEtherGround
 
 - type: Entity
   id: Elona.MefFire
   parent: BaseMef
   hspIds:
     elona122: 5
+  components:
+  - type: Chip
+    id: Elona.MefFire
+  - type: MefFire
 
 - type: Entity
-  id: Elona.MefPotion
+  id: Elona.MefPotionPuddle
   parent: BaseMef
   hspIds:
     elona122: 6
   components:
   - type: Chip
     id: Elona.MefPotion
-  - type: PotionPuddle
+  - type: MefPotionPuddle
 
 - type: Entity
-  id: Elona.MefNuke
+  id: Elona.MefNuclearBomb
   parent: BaseMef
   hspIds:
     elona122: 7
+  components:
+  - type: Chip
+    id: Elona.ItemMine
+  - type: MefNuclearBomb

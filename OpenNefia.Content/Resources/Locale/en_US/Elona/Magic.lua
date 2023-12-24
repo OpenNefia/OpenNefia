@@ -1,3 +1,4 @@
+-- TODO merge elsewhere
 Elona.Magic = {
     FailToCast = {
         CreaturesAreSummoned = "Several creatures are summoned from a vortex of magic.",
@@ -20,6 +21,14 @@ Elona.Magic = {
     },
 
     Message = {
+        Generic = {
+            Ally = function(entity)
+                return ("It hits %s."):format(_.name(entity))
+            end,
+            Other = function(entity)
+                return ("It hits %s and"):format(_.name(entity))
+            end,
+        },
         Arrow = {
             Ally = function(entity)
                 return ("The arrow hits %s."):format(_.name(entity))
@@ -30,7 +39,7 @@ Elona.Magic = {
         },
         Ball = {
             Ally = function(entity)
-                return ("The Ball hits %s."):format(_.name(entity))
+                return ("The ball hits %s."):format(_.name(entity))
             end,
             Other = function(entity)
                 return ("The ball hits %s and"):format(_.name(entity))
@@ -51,13 +60,22 @@ Elona.Magic = {
             Other = function(entity)
                 return ("The breath hits %s and"):format(_.name(entity))
             end,
+
             Bellows = function(entity, breathName)
                 return ("%s bellow%s %s from %s mouth."):format(_.name(entity), _.s(entity), breathName, _.his(entity))
             end,
-            Named = function(entity)
-                return ("%s breath"):format(entity)
+            Named = function(breathName)
+                return ("%s breath"):format(breathName)
             end,
             NoElement = "breath",
+        },
+        Summon = "Several monsters come out from a portal.",
+        Mef = {
+            AcidGround = "Acid puddles are generated.",
+            EtherGround = "Ether mist spreads.",
+            Fire = "Walls of fire come out from the ground.",
+            MistOfDarkness = "The air is wrapped in a dense fog.",
+            Web = "The ground is covered with thick webbing.",
         },
     },
 }

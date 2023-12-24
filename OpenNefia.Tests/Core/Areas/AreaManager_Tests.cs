@@ -215,5 +215,37 @@ namespace OpenNefia.Tests.Core.Areas
             Assert.That(area.ContainedMaps.ContainsKey(floorId), Is.False);
             Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out _, out _), Is.False);
         }
+
+        [Test]
+        public void TestEnumerateAreas()
+        {
+            var areaMan = IoCManager.Resolve<IAreaManager>();
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+
+            var area1 = areaMan.CreateArea(null);
+            var area2 = areaMan.CreateArea(null, parent: area1.Id);
+            var area3 = areaMan.CreateArea(null, parent: area1.Id);
+            var area4 = areaMan.CreateArea(null, parent: area3.Id);
+            var area5 = areaMan.CreateArea(null, parent: area4.Id);
+            var area6 = areaMan.CreateArea(null);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(areaMan.EnumerateRootAreas(recursive: false), Is.EquivalentTo(new IArea[] { area1, area6 }), "EnumerateRootAreas 1");
+                Assert.That(areaMan.EnumerateRootAreas(recursive: true), Is.EquivalentTo(new IArea[] { area1, area2, area3, area4, area5, area6 }), "EnumerateRootAreas 2");
+
+                Assert.That(areaMan.EnumerateChildAreas(area1, recursive: false), Is.EquivalentTo(new IArea[] { area2, area3, }), "EnumerateChildAreas 1");
+                Assert.That(areaMan.EnumerateChildAreas(area1, recursive: true), Is.EquivalentTo(new IArea[] { area2, area3, area4, area5 }), "EnumerateChildAreas 2");
+                Assert.That(areaMan.EnumerateChildAreas(area4, recursive: false), Is.EquivalentTo(new IArea[] { area5 }), "EnumerateChildAreas 3");
+                Assert.That(areaMan.EnumerateChildAreas(area5, recursive: false), Is.EquivalentTo(new IArea[] { }), "EnumerateChildAreas 4");
+
+                Assert.That(areaMan.EnumerateParentAreas(area1), Is.EquivalentTo(new IArea[] { }), "EnumerateParentAreas 1");
+                Assert.That(areaMan.EnumerateParentAreas(area2), Is.EquivalentTo(new IArea[] { area1 }), "EnumerateParentAreas 2");
+                Assert.That(areaMan.EnumerateParentAreas(area3), Is.EquivalentTo(new IArea[] { area1 }), "EnumerateParentAreas 3");
+                Assert.That(areaMan.EnumerateParentAreas(area4), Is.EquivalentTo(new IArea[] { area3, area1 }), "EnumerateParentAreas 4");
+                Assert.That(areaMan.EnumerateParentAreas(area5), Is.EquivalentTo(new IArea[] { area4, area3, area1 }), "EnumerateParentAreas 5");
+            });
+        }
     }
 }

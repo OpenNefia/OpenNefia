@@ -8,6 +8,7 @@ using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.EngineVariables;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -72,6 +73,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
         [Dependency] private readonly ICSharpReplExecutor _csharpReplExecutor = default!;
         [Dependency] private readonly ITaskRunner _taskRunner = default!;
+        [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -177,6 +179,8 @@ namespace OpenNefia.Core.GameController
 
             _xamlHotReload.Initialize();
             _debugServer.Startup();
+
+            _formulaEngine.Initialize();
 
             _prototypeManager.RegisterEvents();
 

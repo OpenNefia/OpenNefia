@@ -131,6 +131,13 @@ namespace OpenNefia.Core.Utility
             return -1;
         }
 
+        /// <summary>
+        /// Searches for the index in the enumerable that matches the predicate.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="match"></param>
+        /// <returns>The index, or -1 if no match was found.</returns>
         public static int FindIndex<T>(this IEnumerable<T> enumerable, Predicate<T> match)
         {
             var i = 0;

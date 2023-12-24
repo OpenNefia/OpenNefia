@@ -1,10 +1,12 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -26,9 +28,24 @@ namespace OpenNefia.Content.Locale.Funcs
         {
             if (obj is string s)
                 return s;
-            
-            if (obj is not EntityUid entity)
+
+            EntityUid entity;
+            if (obj is IMap map)
+            {
+                entity = map.MapEntityUid;
+            }
+            else if (obj is IArea area)
+            {
+                entity = area.AreaEntityUid;
+            }
+            else if (obj is EntityUid ent)
+            {
+                entity = ent;
+            }
+            else
+            {
                 return Loc.GetString("Elona.GameObjects.Common.Something");
+            }
 
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
 
@@ -42,7 +59,6 @@ namespace OpenNefia.Content.Locale.Funcs
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
-            // TODO implement quantity!
             return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity, noArticle: false, amount: amount);
         }
 

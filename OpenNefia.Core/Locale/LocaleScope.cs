@@ -40,9 +40,19 @@ namespace OpenNefia.Core.Locale
             KeyPrefix = keyPrefix;
         }
 
-        public bool HasString(LocaleKey key)
+        public bool KeyExists(LocaleKey key)
         {
-            return _localizationManager.HasString(KeyPrefix.With(key));
+            return _localizationManager.KeyExists(KeyPrefix.With(key));
+        }
+
+        public bool PrototypeKeyExists<T>(PrototypeId<T> protoID, LocaleKey key) where T : class, IPrototype
+        {
+            return false;
+        }
+
+        public bool PrototypeKeyExists<T>(T proto, LocaleKey key) where T : class, IPrototype
+        {
+            return false;
         }
 
         public string GetString(LocaleKey key, params LocaleArg[] args)
@@ -63,16 +73,16 @@ namespace OpenNefia.Core.Locale
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T : class, IPrototype
         {
-            return _localizationManager.GetPrototypeString(protoId, KeyPrefix.With(key), args);
+            return string.Empty;
         }
 
         public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
         {
-            return _localizationManager.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
+            return string.Empty;
         }
 
         public bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
-            where T: class, IPrototype
+            where T : class, IPrototype
         {
             return _localizationManager.TryGetPrototypeString(protoId, key, out str, args);
         }
@@ -80,6 +90,19 @@ namespace OpenNefia.Core.Locale
         public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
         {
             return _localizationManager.TryGetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, out str, args);
+        }
+
+        public bool TryGetPrototypeList<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+            where T: class, IPrototype
+        {
+            list = null;
+            return false;
+        }
+
+        public bool TryGetPrototypeListRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out IReadOnlyList<string>? list, params LocaleArg[] args)
+        {
+            list = null;
+            return false;
         }
 
         public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)

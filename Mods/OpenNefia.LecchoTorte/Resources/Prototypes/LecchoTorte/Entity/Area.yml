@@ -6,17 +6,20 @@
     maxItemsOnGround: 100
     homeRankPoints: 1200
   - type: AreaEntrance
-    globalId: LecchoTorte.QuickstartArea
+    globalArea:
+      id: LecchoTorte.QuickstartArea
+      parent: LecchoTorte.3Towns
 
 - type: Entity
   id: LecchoTorte.Area3Towns
-  parent: BaseAreaTown
+  parent: BaseAreaGlobal
   components:
   - type: AreaStaticFloors
     floors:
       Default: LecchoTorte.3Towns
   - type: AreaEntrance
-    globalId: LecchoTorte.3Towns
+    globalArea:
+      id: LecchoTorte.3Towns
 
 - type: Entity
   id: LecchoTorte.AreaTownA
@@ -26,7 +29,9 @@
     floors:
       Default: LecchoTorte.TownA
   - type: AreaEntrance
-    globalId: LecchoTorte.TownA
+    globalArea:
+      id: LecchoTorte.TownA
+      parent: LecchoTorte.3Towns
 
 - type: Entity
   id: LecchoTorte.AreaTownB
@@ -36,7 +41,9 @@
     floors:
       Default: LecchoTorte.TownB
   - type: AreaEntrance
-    globalId: LecchoTorte.TownB
+    globalArea:
+      id: LecchoTorte.TownB
+      parent: LecchoTorte.3Towns
   - type: AreaRandomGenTables
     tables:
       quest:
@@ -51,7 +58,9 @@
     floors:
       Default: LecchoTorte.TownC
   - type: AreaEntrance
-    globalId: LecchoTorte.TownC
+    globalArea:
+      id: LecchoTorte.TownC
+      parent: LecchoTorte.3Towns
   - type: AreaRandomGenTables
     tables:
       quest:

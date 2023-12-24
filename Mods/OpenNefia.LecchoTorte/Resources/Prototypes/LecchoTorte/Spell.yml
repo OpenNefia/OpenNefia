@@ -4,6 +4,7 @@
     elona122: 400
   difficulty: 80
   mpCost: 6
+  maxRange: 6
   skillID: LecchoTorte.SpellBoltOfWallCreation
   effectID: LecchoTorte.SpellBoltOfWallCreation
 
@@ -14,7 +15,7 @@
 
 - type: Entity
   id: LecchoTorte.SpellBoltOfWallCreation
-  parent: Elona.BaseSpellEffect
+  parent: BaseEffect
   components:
   - type: EffectTargetPosition
     alwaysShowLine: true

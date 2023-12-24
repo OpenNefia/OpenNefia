@@ -1,4 +1,5 @@
 Elona.Nefia = {
+    BossMayDisappear = "このままダンジョンを出ると、この階のクエストは達成できない…",
     NoDungeonMaster = function(mapEntity)
         return ("辺りからは何の緊張感も感じられない。%sの主はもういないようだ。"):format(
             _.name(mapEntity)

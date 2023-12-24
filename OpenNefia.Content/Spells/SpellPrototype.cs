@@ -53,6 +53,7 @@ namespace OpenNefia.Content.Spells
         /// <summary>
         /// Maximum range of the spell in tiles.
         /// </summary>
+        // TODO move into EffectComponent?
         [DataField]
         public int MaxRange { get; set; } = 1;
 

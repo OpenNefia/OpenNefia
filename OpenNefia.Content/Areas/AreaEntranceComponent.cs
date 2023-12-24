@@ -13,6 +13,16 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.Areas
 {
+    [DataDefinition]
+    public sealed class GlobalAreaSpec
+    {
+        [DataField(required: true)]
+        public GlobalAreaId ID { get; }
+
+        [DataField]
+        public GlobalAreaId? Parent { get; } = null;
+    }
+
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Area)]
     public class AreaEntranceComponent : Component, IComponentLocalizable
@@ -21,8 +31,8 @@ namespace OpenNefia.Content.Areas
         /// If non-null, create a global area with this ID when 
         /// starting a new save.
         /// </summary>
-        [DataField("globalId")]
-        public GlobalAreaId? InitialGlobalId { get; }
+        [DataField("globalArea")]
+        public GlobalAreaSpec? GlobalAreaSpec { get; }
 
         /// <summary>
         /// Starting floor of this area.

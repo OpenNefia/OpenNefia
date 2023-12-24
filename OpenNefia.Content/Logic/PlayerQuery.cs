@@ -110,7 +110,7 @@ namespace OpenNefia.Content.Logic
         public T? PickOrNone<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null)
             where T: class
         {
-            var items = choices.Select(c => new PromptChoice<T>(c, $"{c}"));
+            var items = choices.Select(c => new PromptChoice<T>(c));
             return PickOrNone(items, opts);
         }
 
@@ -133,7 +133,7 @@ namespace OpenNefia.Content.Logic
         public T? PickOrNoneS<T>(IEnumerable<T> choices, Prompt<T>.Args? opts = null)
             where T : struct
         {
-            var items = choices.Select(c => new PromptChoice<T>(c, $"{c}"));
+            var items = choices.Select(c => new PromptChoice<T>(c));
             return PickOrNoneS(items, opts);
         }
 

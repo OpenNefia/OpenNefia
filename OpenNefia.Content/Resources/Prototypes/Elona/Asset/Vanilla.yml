@@ -811,6 +811,11 @@
     filepath: /Graphic/Elona/anime12.bmp
   countX: 10
   countY: 2
+  regionSpecifier: !type:StaticRegions
+    regions:
+      beamBottom: "0, 0, 96, 55"
+      beamMiddle: "96, 0, 96, 55"
+      beamTop: "288, 0, 96, 40"
 
 - type: Asset
   id: Elona.AnimSpotMine

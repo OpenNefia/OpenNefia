@@ -1,0 +1,51 @@
+- type: Entity
+  id: Elona.BaseEffectGainAlly
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: (casterLevel / 2) + 5
+  - type: EffectDamageCastInstead
+    ifSource: NotPlayer
+    effectID: null
+  - type: EffectGainAlly
+
+- type: Entity
+  id: Elona.EffectGainAlly
+  parent: Elona.BaseEffectGainAlly
+  hspIds:
+    elona122: 1122
+
+- type: Entity
+  id: Elona.EffectGainYoungerSister
+  parent: Elona.BaseEffectGainAlly
+  hspIds:
+    elona122: 1123
+  components:
+  - type: EffectGainAlly
+    messageKey: Elona.Effect.GainAlly.YoungerSister
+    charaFilter:
+      id: Elona.CharaYoungerSister
+
+- type: Entity
+  id: Elona.EffectGainYoungLady
+  parent: Elona.BaseEffectGainAlly
+  hspIds:
+    elona122: 1124
+  components:
+  - type: EffectGainAlly
+    messageKey: Elona.Effect.GainAlly.YoungLady
+    charaFilter:
+      id: Elona.CharaYoungLady
+
+- type: Entity
+  id: Elona.EffectGainCatSister
+  parent: Elona.BaseEffectGainAlly
+  hspIds:
+    elona122: 1125
+  components:
+  - type: EffectGainAlly
+    messageKey: Elona.Effect.GainAlly.CatSister
+    charaFilter:
+      id: Elona.CharaYoungerCatSister

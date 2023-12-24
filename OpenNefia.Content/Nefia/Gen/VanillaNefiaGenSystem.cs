@@ -19,6 +19,7 @@ using Love;
 using System.ComponentModel;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Targetable;
+using OpenNefia.Content.Mefs;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -44,6 +45,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ITargetableSystem _targetable = default!;
+        [Dependency] private readonly IMefSystem _mefs = default!;
 
         /// <summary>
         /// Maximum number of times the layout should be generated before giving up.

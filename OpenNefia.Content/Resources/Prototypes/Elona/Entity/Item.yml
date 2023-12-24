@@ -17,6 +17,7 @@
   - type: Value
     value: 1
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 1
   - type: LightSource
@@ -498,8 +499,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectIdentify {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellIdentify
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfOracle
@@ -529,8 +530,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectOracle {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellOracle
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfTeleportation
@@ -561,8 +562,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectTeleport {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellTeleport
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfIncognito
@@ -592,8 +593,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectBuffIncognito {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffIncognito
       power: 300
 - type: Entity
   id: Elona.ItemRodOfIdentify
@@ -763,6 +764,7 @@
   - type: Value
     value: 100
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 80
 - type: Entity
@@ -832,8 +834,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectDirtyWater {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectDirtyWater
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfBlindness
@@ -864,8 +866,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBlind {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectBlind
       power: 200
 - type: Entity
   id: Elona.ItemPotionOfConfusion
@@ -896,8 +898,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectConfuse {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectConfuse
       power: 150
 - type: Entity
   id: Elona.ItemPotionOfParalysis
@@ -928,8 +930,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectParalyze {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectParalyze
       power: 200
 - type: Entity
   id: Elona.ItemSleepingDrug
@@ -960,8 +962,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectSleep {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSleep
       power: 200
 - type: Entity
   id: Elona.ItemBottleOfCrimAle
@@ -988,8 +990,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectAle {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectAle
       power: 300
 - type: Entity
   id: Elona.ItemSpellbookOfIceBolt
@@ -1586,6 +1588,7 @@
   - type: Value
     value: 1
   - type: Item
+    wishAmount: sourceLevel * sourceLevel * 50 + 20000
   - type: GoldPiece
   - type: Identify
     identifyState: Full
@@ -1615,6 +1618,7 @@
   - type: Value
     value: 1
   - type: Item
+    wishAmount: 8 + randInt(5)
   - type: Weight
     weight: 1
   - type: PlatinumCoin
@@ -2160,8 +2164,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectHealLight {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHealLight
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfCureMajorWound
@@ -2192,8 +2196,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectHealLight {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHealLight
       power: 300
 - type: Entity
   id: Elona.ItemPotionOfCureCriticalWound
@@ -2224,8 +2228,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectHealCritical {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHealCritical
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfHealing
@@ -2256,8 +2260,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectHealCritical {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHealCritical
       power: 300
 - type: Entity
   id: Elona.ItemPotionOfHealer
@@ -2288,8 +2292,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectHealCritical {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHealCritical
       power: 400
 - type: Entity
   id: Elona.ItemRagnarok
@@ -2371,8 +2375,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectCureOfEris {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellCureOfEris
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfHealerEris
@@ -2403,8 +2407,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectCureOfEris {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellCureOfEris
       power: 300
 - type: Entity
   id: Elona.ItemPotionOfHealerJure
@@ -2435,8 +2439,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectCureOfJure {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellCureOfJure
       power: 100
 - type: Entity
   id: Elona.ItemRoundChair
@@ -5837,8 +5841,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectAle {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectAle
       power: 500
 - type: Entity
   id: Elona.ItemEtherDagger
@@ -6004,8 +6008,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectUncurse {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellUncurse
       power: 100
 - type: Entity
   id: Elona.ItemStone
@@ -6903,8 +6907,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectReturn {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellReturn
       power: 100
 - type: Entity
   id: Elona.ItemFigurineOfWarrior
@@ -7074,8 +7078,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectMagicMap {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellMagicMap
       power: 500
 - type: Entity
   id: Elona.ItemScrollOfGainAttribute
@@ -7099,6 +7103,7 @@
   - type: Value
     value: 240000
   - type: Item
+    wishAmount: '1'
   - type: RandomItem
     knownNameRef: Elona.Scroll
   - type: RandomColor
@@ -7106,8 +7111,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectGainSkill {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainSkill
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfWonder
@@ -7137,8 +7142,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectGainKnowledge {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainKnowledge
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfMinorTeleportation
@@ -7169,8 +7174,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectTeleport {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellTeleport
       power: 100
 - type: Entity
   id: Elona.ItemSpellbookOfMagicMapping
@@ -7421,8 +7426,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectAle {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectAle
       power: 200
 - type: Entity
   id: Elona.ItemHorn
@@ -7676,8 +7681,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectPoison {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectPoison
       power: 200
 - type: Entity
   id: Elona.ItemSpellbookOfNetherEye
@@ -8323,8 +8328,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectRestoreBody {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellRestoreBody
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfRestoreSpirit
@@ -8355,8 +8360,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectRestoreSpirit {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellRestoreSpirit
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfPotential
@@ -8387,8 +8392,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectGainPotential {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainPotential
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfCurse
@@ -8419,8 +8424,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectCurse {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectCurse
       power: 100
 - type: Entity
   id: Elona.ItemSpellbookOfWishing
@@ -8444,6 +8449,7 @@
   - type: Value
     value: 40000
   - type: Item
+    canWishFor: false
   - type: RandomItem
     knownNameRef: Elona.Spellbook
   - type: RandomColor
@@ -10414,6 +10420,7 @@
   - type: Value
     value: 380
   - type: Item
+    canWishFor: false
   - type: Weight
     weight: 1200
   - type: Temporal
@@ -10446,8 +10453,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectIdentify {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellIdentify
       power: 2000
 - type: Entity
   id: Elona.ItemScrollOfVanishCurse
@@ -10477,8 +10484,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectUncurse {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellUncurse
       power: 2500
 - type: Entity
   id: Elona.ItemPotionOfDefender
@@ -10508,8 +10515,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffHolyShield {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffHolyShield
       power: 200
 - type: Entity
   id: Elona.ItemSpellbookOfHolyShield
@@ -10631,8 +10638,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffMistOfSilence {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffMistOfSilence
       power: 400
 - type: Entity
   id: Elona.ItemSpellbookOfRegeneration
@@ -10694,8 +10701,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffRegeneration {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffRegeneration
       power: 300
 - type: Entity
   id: Elona.ItemSpellbookOfResistance
@@ -10757,8 +10764,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffElementalShield {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffElementalShield
       power: 250
 - type: Entity
   id: Elona.ItemSpellbookOfSpeed
@@ -10852,8 +10859,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffSpeed {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffSpeed
       power: 250
 - type: Entity
   id: Elona.ItemPotionOfSlow
@@ -10884,8 +10891,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffSlow {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffSlow
       power: 400
 - type: Entity
   id: Elona.ItemRodOfSpeed
@@ -10974,8 +10981,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffHero {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffHero
       power: 250
 - type: Entity
   id: Elona.ItemSpellbookOfWeakness
@@ -11070,8 +11077,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectBuffMistOfFrailness {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffMistOfFrailness
       power: 250
 - type: Entity
   id: Elona.ItemSpellbookOfHolyVeil
@@ -11133,8 +11140,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectBuffHolyVeil {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffHolyVeil
       power: 250
 - type: Entity
   id: Elona.ItemRodOfHolyLight
@@ -11255,8 +11262,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectHolyLight {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellHolyLight
       power: 300
 - type: Entity
   id: Elona.ItemScrollOfHolyRain
@@ -11286,8 +11293,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectVanquishHex {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellVanquishHex
       power: 300
 - type: Entity
   id: Elona.ItemScrollOfMana
@@ -11317,8 +11324,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectHarvestMana {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.ActionHarvestMana
       power: 250
 - type: Entity
   id: Elona.ItemRodOfMana
@@ -11373,8 +11380,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectSulfuric {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSulfuric
       power: 100
 - type: Entity
   id: Elona.ItemGemCutter
@@ -11452,8 +11459,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectCreateMaterial {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectCreateMaterial
       power: 250
 - type: Entity
   id: Elona.ItemSpellbookOfNightmare
@@ -11547,8 +11554,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectBuffDivineWisdom {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffDivineWisdom
       power: 250
 - type: Entity
   id: Elona.ItemCargoRagDoll
@@ -11874,8 +11881,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectSenseObject {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellSenseObject
       power: 500
 - type: Entity
   id: Elona.ItemRodOfUncurse
@@ -12458,8 +12465,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectWeakenResistance {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectWeakenResistance
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfGrowth
@@ -12492,8 +12499,8 @@
   - type: MedalValue
     medalValue: 5
   - type: Scroll
-    effect: !type:EffectGainSkillPotential {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainSkillPotential
       power: 500
 - type: Entity
   id: Elona.ItemScrollOfFaith
@@ -12526,8 +12533,8 @@
   - type: MedalValue
     medalValue: 8
   - type: Scroll
-    effect: !type:EffectGainFaith {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainFaith
       power: 300
 - type: Entity
   id: Elona.ItemPotionOfMutation
@@ -12558,8 +12565,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectMutation {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellMutation
       power: 100
 - type: Entity
   id: Elona.ItemPotionOfCureMutation
@@ -12589,8 +12596,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectCureMutation {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectCureMutation
       power: 200
 - type: Entity
   id: Elona.ItemSpellbookOfMutation
@@ -14117,8 +14124,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectGainAlly {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainAlly
       power: 100
 - type: Entity
   id: Elona.ItemRodOfDomination
@@ -14754,8 +14761,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectChangeMaterial {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectChangeMaterial
       power: 10
 - type: Entity
   id: Elona.ItemScrollOfChangeMaterial
@@ -14785,8 +14792,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectChangeMaterial {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectChangeMaterial
       power: 180
 - type: Entity
   id: Elona.ItemScrollOfSuperiorMaterial
@@ -14810,6 +14817,7 @@
   - type: Value
     value: 20000
   - type: Item
+    wishAmount: '2'
   - type: RandomItem
     knownNameRef: Elona.Scroll
   - type: RandomColor
@@ -14819,8 +14827,8 @@
   - type: MedalValue
     medalValue: 7
   - type: Scroll
-    effect: !type:EffectChangeMaterial {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectChangeMaterial
       power: 350
 - type: Entity
   id: Elona.ItemFigurine
@@ -14894,8 +14902,8 @@
   - type: MedalValue
     medalValue: 12
   - type: Scroll
-    effect: !type:EffectGainYoungerSister {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainYoungerSister
       power: 100
 - type: Entity
   id: Elona.ItemScrollOfEnchantWeapon
@@ -14925,8 +14933,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectEnchantWeapon {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEnchantWeapon
       power: 200
 - type: Entity
   id: Elona.ItemScrollOfGreaterEnchantWeapon
@@ -14956,8 +14964,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectEnchantWeapon {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEnchantWeapon
       power: 400
 - type: Entity
   id: Elona.ItemScrollOfEnchantArmor
@@ -14987,8 +14995,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectEnchantArmor {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEnchantArmor
       power: 200
 - type: Entity
   id: Elona.ItemScrollOfGreaterEnchantArmor
@@ -15018,8 +15026,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectEnchantArmor {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEnchantArmor
       power: 400
 - type: Entity
   id: Elona.ItemHeirTrunk
@@ -15240,8 +15248,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectRecharge {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectRecharge
       power: 300
 - type: Entity
   id: Elona.ItemBottleOfWater
@@ -15269,8 +15277,8 @@
   - type: MedalValue
     medalValue: 3
   - type: Potion
-    effect: !type:EffectWater {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectWater
       power: 100
   extendedData:
   - type: Shopkeeper.ExtShopExclusion
@@ -15357,8 +15365,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectPoison {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectPoison
       power: 150
 - type: Entity
   id: Elona.ItemWing
@@ -16393,6 +16401,7 @@
   - type: Value
     value: 100000
   - type: Item
+    wishAmount: 2 + randInt(2)
   - type: RandomItem
     knownNameRef: Elona.Potion
   - type: RandomColor
@@ -16402,8 +16411,8 @@
   - type: MedalValue
     medalValue: 10
   - type: Potion
-    effect: !type:EffectCureCorruption {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectCureCorruption
       power: 200
 - type: Entity
   id: Elona.ItemMastersDeliveryChest
@@ -16578,8 +16587,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectSulfuric {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSulfuric
       power: 250
 - type: Entity
   id: Elona.ItemFireproofBlanket
@@ -16787,8 +16796,8 @@
     weight: 300
   - type: EntityProtoSource
   - type: Potion
-    effect: !type:EffectMilk {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectMilk
       power: 100
 - type: Entity
   id: Elona.ItemShit
@@ -16869,8 +16878,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectMolotov {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectMolotov
       power: 100
 - type: Entity
   id: Elona.ItemKittyBank
@@ -17135,8 +17144,8 @@
   - type: LightSource
     id: Elona.Item
   - type: Potion
-    effect: !type:EffectWater {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectWater
       power: 100
 - type: Entity
   id: Elona.ItemTreeOfNaked
@@ -17958,8 +17967,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectLovePotion {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectLovePotion
       power: 100
 - type: Entity
   id: Elona.ItemTreasureMap
@@ -17984,12 +17993,13 @@
   - type: Value
     value: 10000
   - type: Item
+    wishAmount: '1'
   - type: Weight
     weight: 20
   - type: TreasureMap
   - type: Scroll
-    effect: !type:EffectTreasureMap {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectTreasureMap
       power: 100
     amountConsumedOnRead: 0
 - type: Entity
@@ -18055,8 +18065,8 @@
   - type: MedalValue
     medalValue: 85
   - type: Scroll
-    effect: !type:EffectGainCatSister {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainCatSister
       power: 100
 - type: Entity
   id: Elona.ItemGirlsDiary
@@ -18090,8 +18100,8 @@
   - type: MedalValue
     medalValue: 25
   - type: Scroll
-    effect: !type:EffectGainYoungLady {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectGainYoungLady
       power: 100
 - type: Entity
   id: Elona.ItemShrineGate
@@ -18150,8 +18160,8 @@
   - type: MedalValue
     medalValue: 30
   - type: Potion
-    effect: !type:EffectTrollBlood {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectTrollBlood
       power: 500
 - type: Entity
   id: Elona.ItemSagesHelm
@@ -18331,8 +18341,8 @@
   - type: Weight
     weight: 5
   - type: Scroll
-    effect: !type:EffectFlight {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectFlight
       power: 150
 - type: Entity
   id: Elona.ItemPanty
@@ -18511,8 +18521,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectEscape {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEscape
       power: 100
 - type: Entity
   id: Elona.ItemHappyApple
@@ -19202,6 +19212,7 @@
     isPrecious: true
   - type: Weight
     weight: 2500
+  - type: MonsterHeart
   - type: LightSource
     id: Elona.Item
 - type: Entity
@@ -19423,6 +19434,7 @@
     isPrecious: true
   - type: Weight
     weight: 120000
+  - type: NuclearBomb
 - type: Entity
   id: Elona.ItemSecretTreasure
   parent: BaseItem
@@ -20377,8 +20389,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectSalt {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSalt
       power: 100
 - type: Entity
   id: Elona.ItemLittleBall
@@ -20533,8 +20545,8 @@
   - type: Weight
     weight: 100
   - type: Potion
-    effect: !type:EffectDirtyWater {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectDirtyWater
       power: 100
 - type: Entity
   id: Elona.ItemBeggarsPendant
@@ -20601,6 +20613,7 @@
   - type: Value
     value: 4500
   - type: Item
+    wishAmount: '1'
   - type: RandomItem
     knownNameRef: Elona.Potion
   - type: RandomColor
@@ -20608,8 +20621,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectDescent {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectDescent
       power: 100
 - type: Entity
   id: Elona.ItemStradivarius
@@ -20675,8 +20688,8 @@
   - type: Weight
     weight: 380
   - type: Scroll
-    effect: !type:EffectResurrection {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellResurrection
       power: 2500
 - type: Entity
   id: Elona.ItemScrollOfContingency
@@ -20707,8 +20720,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectBuffContingency {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.SpellBuffContingency
       power: 1500
 - type: Entity
   id: Elona.ItemSpellbookOfContingency
@@ -20770,8 +20783,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectEvolution {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectEvolution
       power: 100
 - type: Entity
   id: Elona.ItemDeedOfDungeon
@@ -21714,8 +21727,8 @@
   - type: Weight
     weight: 120
   - type: Potion
-    effect: !type:EffectSulfuric {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSulfuric
       power: 250
 - type: Entity
   id: Elona.ItemScrollOfName
@@ -21746,8 +21759,8 @@
   - type: Weight
     weight: 20
   - type: Scroll
-    effect: !type:EffectName {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectName
       power: 100
 - type: Entity
   id: Elona.ItemFortuneCookie
@@ -22691,8 +22704,8 @@
   - type: Weight
     weight: 50
   - type: Potion
-    effect: !type:EffectSoda {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectSoda
       power: 100
 - type: Entity
   id: Elona.ItemBlueCapsuleDrug
@@ -22722,8 +22735,8 @@
   - type: Weight
     weight: 100
   - type: Potion
-    effect: !type:EffectCupsule {}
-    effectArgs:
+    effects: !type:EffectSpec
+      id: Elona.EffectCupsule
       power: 100
 - type: Entity
   id: Elona.ItemTomato

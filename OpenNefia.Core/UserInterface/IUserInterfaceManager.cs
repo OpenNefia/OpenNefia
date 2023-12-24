@@ -50,18 +50,18 @@ namespace OpenNefia.Core.UserInterface
         void FrameUpdate(FrameEventArgs frame);
         bool IsInActiveLayerList(UiLayer layer);
 
-        TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
+        TLayer CreateAndInitializeLayer<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class;
 
-        TLayer CreateLayer<TLayer, TResult>()
+        TLayer CreateAndInitializeLayer<TLayer, TResult>()
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class;
 
-        TLayer CreateLayer<TLayer, TArgs>(TArgs args) 
+        TLayer CreateAndInitializeLayer<TLayer, TArgs>(TArgs args) 
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new();
 
-        TLayer CreateLayer<TLayer>()
+        TLayer CreateAndInitializeLayer<TLayer>()
             where TLayer : IUiLayer, new();
 
         void InitializeLayer<TLayer, TArgs, TResult>(TLayer layer, TArgs args)

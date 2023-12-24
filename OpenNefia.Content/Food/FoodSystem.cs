@@ -186,7 +186,7 @@ namespace OpenNefia.Content.Food
 
             if (_gameSession.IsPlayer(eater))
             {
-                _identify.Identify(food, IdentifyState.Name);
+                _identify.IdentifyItem(food, IdentifyState.Name);
                 _mes.Display(_hunger.GetNutritionMessage(hungerComp.Nutrition), UiColors.MesGreen);
             }
             else
@@ -430,7 +430,7 @@ namespace OpenNefia.Content.Food
 
             if (food.IsRotten)
             {
-                _mes.Display("Elona.Food.Message.Rotten");
+                _mes.Display(Loc.GetString("Elona.Food.Message.Rotten"));
                 return;
             }
 

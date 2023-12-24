@@ -30,6 +30,8 @@ namespace OpenNefia.Core.Locale
             _lua?.Dispose();
             _lua = CreateLuaEnv();
             _stringStore.Clear();
+            _listStore.Clear();
+            _functionStore.Clear();
         }
 
         private Lua CreateLuaEnv()

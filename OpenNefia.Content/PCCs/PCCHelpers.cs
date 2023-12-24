@@ -93,7 +93,7 @@ namespace OpenNefia.Content.PCCs
                 .ToDictionary(pair => pair.Key, pair => defaultParts[pair.Value]);
 
             var pccDrawable = new PCCDrawable(parts);
-            pccDrawable.RebakeImage(resourceCache);
+            pccDrawable.Initialize(resourceCache);
             return pccDrawable;
         }
     }

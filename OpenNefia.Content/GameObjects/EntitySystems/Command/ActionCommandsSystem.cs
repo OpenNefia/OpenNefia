@@ -252,7 +252,7 @@ namespace OpenNefia.Content.GameObjects
             else
             {
                 _audio.Play(Protos.Sound.Ok1);
-                var chara = _lookup.QueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
+                var chara = _lookup.EntityQueryLiveEntitiesAtCoords<CharaComponent>(result.Coords).FirstOrDefault();
                 if (chara != null && !session.IsPlayer(chara.Owner))
                 {
                     _vai.SetTarget(session.Player, chara.Owner, 0, vai);
@@ -280,7 +280,11 @@ namespace OpenNefia.Content.GameObjects
             }
             else
             {
-                var args = new TargetPrompt.Args(session.Player);
+                var currentTarget = CompOrNull<VanillaAIComponent>(session.Player)?.CurrentTarget;
+                var args = new TargetPrompt.Args(session.Player)
+                {
+                    CurrentTarget = currentTarget
+                };
                 var result = _uiManager.Query<TargetPrompt, TargetPrompt.Args, TargetPrompt.Result>(args);
                 if (result.HasValue && IsAlive(result.Value.Target))
                 {

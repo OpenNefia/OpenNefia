@@ -25,6 +25,8 @@ using OpenNefia.Content.Resists;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Factions;
+using Love;
+using OpenNefia.Content.Rendering;
 
 namespace OpenNefia.Content.Enchantments
 {

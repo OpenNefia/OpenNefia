@@ -4,8 +4,8 @@ Elona.DamageType = {
             return ("%s %s wounded."):format(_.name(entity), _.is(entity))
         end,
         Death = {
-            Active = function(entity, attacker)
-                return ("kill%s %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("kill%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s killed."):format(_.name(entity), _.is(entity))
@@ -17,8 +17,8 @@ Elona.DamageType = {
             return ("was killed by %s"):format(_.basename(attacker))
         end,
         Killed = {
-            Active = function(entity, attacker)
-                return ("kill%s %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("kill%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s slain."):format(_.name(entity), _.is(entity))
@@ -26,23 +26,26 @@ Elona.DamageType = {
         },
         Minced = {
             Active = function(entity, attacker)
-                return ("mince%s %s."):format(_.s(attacker), _.him(entity))
+                return ("mince%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s minced."):format(_.name(entity), _.is(entity))
             end,
         },
         TransformedIntoMeat = {
-            Active = function(entity, attacker)
-                return ("transform%s %s into several pieces of meat."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("transform%s %s into several pieces of meat."):format(
+                    direct and _.s(attacker) or "s",
+                    _.him(entity)
+                )
             end,
             Passive = function(entity)
                 return ("%s %s transformed into several pieces of meat."):format(_.name(entity), _.is(entity))
             end,
         },
         Destroyed = {
-            Active = function(entity, attacker)
-                return ("destroy%s %s."):format(_.s(attacker), _.him(entity))
+            Active = function(entity, attacker, direct)
+                return ("destroy%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
             end,
             Passive = function(entity)
                 return ("%s %s killed."):format(_.name(entity), _.is(entity))

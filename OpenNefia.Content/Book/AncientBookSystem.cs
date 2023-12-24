@@ -13,6 +13,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using System.Text;
 using OpenNefia.Content.Items;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Book
 {
@@ -50,23 +51,24 @@ namespace OpenNefia.Content.Book
 
         private void LocalizeExtra_AncientBook(EntityUid uid, AncientBookComponent component, ref LocalizeItemNameExtraEvent args)
         {
-            string? s = "";
             var identify = CompOrNull<IdentifyComponent>(uid)?.IdentifyState ?? IdentifyState.None;
             if (identify >= IdentifyState.Full)
             {
                 var title = Loc.GetString($"Elona.Read.AncientBook.ItemName.Titles.{component.DecodeDifficulty}");
-                s = Loc.GetString($"Elona.Read.AncientBook.ItemName.Title",
+                var s = Loc.GetString($"Elona.Read.AncientBook.ItemName.Title",
                     ("name", args.OutFullName.ToString()),
                     ("title", title));
-                args.OutFullName.Clear().Append(s);
+                args.OutFullName.ReplaceWith(s);
             }
-            if (component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Decoded", out s, ("name", args.OutFullName.ToString())))
+            if (component.IsDecoded)
             {
-                args.OutFullName.Clear().Append(s);
+                var s = Loc.GetString("Elona.Read.AncientBook.ItemName.Decoded", ("name", args.OutFullName.ToString()));
+                args.OutFullName.ReplaceWith(s);
             }
-            else if (!component.IsDecoded && Loc.TryGetString("Elona.Read.AncientBook.ItemName.Undecoded", out s, ("name", args.OutFullName.ToString())))
+            else if (!component.IsDecoded)
             {
-                args.OutFullName.Clear().Append(s);
+                var s = Loc.GetString("Elona.Read.AncientBook.ItemName.Undecoded", ("name", args.OutFullName.ToString()));
+                args.OutFullName.ReplaceWith(s);
             }
         }
 

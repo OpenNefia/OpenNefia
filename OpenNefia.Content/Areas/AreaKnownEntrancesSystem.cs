@@ -5,6 +5,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 
@@ -27,6 +28,12 @@ namespace OpenNefia.Content.Areas
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(IArea area);
         IEnumerable<AreaEntranceMetadata> EnumerateKnownEntrancesTo(GlobalAreaId globalAreaID);
 
+        /// <summary>
+        /// Given a child area, tries to find an entrance leading to it.
+        /// </summary>
+        /// <param name="childArea">Area contained in a world map parent area</param>
+        /// <param name="result">Found entrance</param>
+        bool TryGetEntranceTo(IArea childArea, [NotNullWhen(true)] out AreaEntranceMetadata? result);
         bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result);
         bool TryDistanceTiled(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out int result);
     }
@@ -117,6 +124,12 @@ namespace OpenNefia.Content.Areas
             {
                 UpdateKnownEntrance(spatial, entrance);
             }
+        }
+
+        /// <inheritdoc />
+        public bool TryGetEntranceTo(IArea innerArea, [NotNullWhen(true)] out AreaEntranceMetadata? result)
+        {
+            return EnumerateKnownEntrancesTo(innerArea).TryFirstOrDefault(out result);
         }
 
         public bool TryGetClosestEntranceInMap(MapCoordinates parentMapCoords, MapId destMapID, [NotNullWhen(true)] out AreaEntranceMetadata? result)

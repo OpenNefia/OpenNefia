@@ -1,6 +1,6 @@
 - type: Entity
   id: Elona.AreaNorthTyris
-  parent: BaseArea
+  parent: BaseAreaGlobal
   hspIds:
     elona122: 4
   components:
@@ -8,4 +8,5 @@
     floors:
       Default: Elona.NorthTyris
   - type: AreaEntrance
-    globalId: Elona.AreaNorthTyris
+    globalArea:
+      id: Elona.AreaNorthTyris
