@@ -15,28 +15,6 @@ namespace OpenNefia.Content.Areas
     {
         void InitializeGlobalAreas(IEnumerable<GlobalAreaId> globalAreaIds);
         IArea GetOrCreateGlobalArea(GlobalAreaId globalAreaId);
-
-        /// <summary>
-        /// Traverses the global area tree using breadth first search.
-        /// Top-level areas are enumerated first, followed by children.
-        /// </summary>
-        /// <param name="globalAreaId">Root global area to traverse from. It is included in the resulting enumeration.</param>
-        /// <returns>Enumerable of root/child global area IDs</returns>
-        IEnumerable<GlobalAreaId> EnumerateGlobalAreaTree(GlobalAreaId globalAreaId);
-
-        /// <summary>
-        /// Enumerates the child and all parents of the global area graph.
-        /// </summary>
-        /// <param name="child">Node to start the enumeration at.</param>
-        /// <returns>Enumerable of each successive parent. The passed child is included in the resulting enumeration.</returns>
-        IEnumerable<GlobalAreaId> EnumerateGlobalAreaParents(GlobalAreaId child);
-
-        /// <summary>
-        /// Returns the root parent of a global area.
-        /// </summary>
-        /// <param name="child">Node to start the query at.</param>
-        /// <returns>The root global area ID. Can be the same as the child if it is a root itself.</returns>
-        GlobalAreaId? GetRootGlobalArea(GlobalAreaId child);
     }
 
     public sealed class GlobalAreaSystem : EntitySystem, IGlobalAreaSystem
@@ -195,60 +173,6 @@ namespace OpenNefia.Content.Areas
             area = _areaManager.CreateArea(entry.AreaPrototypeId, globalAreaId, parent: parentID);
 
             return area;
-        }
-
-        public IEnumerable<GlobalAreaId> EnumerateGlobalAreaTree(GlobalAreaId rootAreaId)
-        {
-            if (!_globalAreas.Nodes.ContainsKey(rootAreaId))
-            {
-                Logger.WarningS("sys.globalAreas", $"Unknown global area ID {rootAreaId} passed to {nameof(EnumerateGlobalAreaTree)}");
-                yield break;
-            }
-
-            var nodes = new Queue<GlobalAreaId>();
-            nodes.Enqueue(rootAreaId);
-
-            do
-            {
-                var node = nodes.Dequeue();
-                yield return node;
-
-                if (!_globalAreas.Children.TryGetValue(node, out var children))
-                    continue;
-
-                foreach (var child in children)
-                    nodes.Enqueue(child);
-            } while (nodes.Count > 0);
-        }
-
-        public IEnumerable<GlobalAreaId> EnumerateGlobalAreaParents(GlobalAreaId childAreaId)
-        {
-            if (!_globalAreas.Nodes.TryGetValue(childAreaId, out var node))
-            {
-                Logger.WarningS("sys.globalAreas", $"Unknown global area ID {childAreaId} passed to {nameof(EnumerateGlobalAreaParents)}");
-                yield break;
-            }
-
-            while (node.ParentId != null)
-            {
-                node = _globalAreas.Nodes[node.ParentId.Value];
-                yield return node.GlobalAreaId;
-            }
-        }
-
-        public GlobalAreaId? GetRootGlobalArea(GlobalAreaId childAreaId)
-        {
-            if (!_globalAreas.Nodes.TryGetValue(childAreaId, out var node))
-            {
-                Logger.WarningS("sys.globalAreas", $"Unknown global area ID {childAreaId} passed to {nameof(GetRootGlobalArea)}");
-                return null;
-            }
-
-            var nodes = EnumerateGlobalAreaParents(childAreaId).ToList();
-
-            if (nodes.Count == 0)
-                return childAreaId;
-            return nodes.Last();
         }
 
         private IEnumerable<GlobalAreaEntry> EnumerateGlobalAreaPrototypes()

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using OpenNefia.Core.Areas;
+using OpenNefia.Core.Formulae;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -143,11 +144,15 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             sys.Data.Foo = 42;
             sys.Data.Bar = new List<string> { "hoge" };
+            sys.Data.Hoge = new TestSaveDataProperty() { Foo = 1 };
+            sys.Data.Piyo = new Formula("2 + 2");
 
             saveSerMan.ResetGameState();
 
             Assert.That(sys.Data.Foo, Is.EqualTo(-1));
             Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "baz", "quux" }));
+            Assert.That(sys.Data.Hoge, Is.Null);
+            Assert.That(sys.Data.Piyo, Is.Null);
         }
     }
 
@@ -159,6 +164,13 @@ namespace OpenNefia.Tests.Core.SaveGames
     }
 
     [DataDefinition]
+    public class TestSaveDataProperty
+    {
+        [DataField]
+        public int Foo { get; set; } = 42;
+    }
+
+    [DataDefinition]
     public class TestSaveData
     {
         [DataField(required: true)]
@@ -166,5 +178,13 @@ namespace OpenNefia.Tests.Core.SaveGames
 
         [DataField(required: true)]
         public List<string> Bar = new() { "baz", "quux" };
+
+        // test reference nullable property
+        [DataField]
+        public TestSaveDataProperty? Hoge { get; set; } = null;
+
+        // test struct nullable property
+        [DataField]
+        public Formula? Piyo { get; set; } = null;
     }
 }

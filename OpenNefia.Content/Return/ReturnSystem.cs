@@ -85,6 +85,7 @@ namespace OpenNefia.Content.Return
         [Dependency] private readonly IGlobalTimersSystem _globalTimers = default!;
         [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;
+        [Dependency] private readonly IAreaKnownEntrancesSystem _areaKnownEntrances = default!;
 
         [RegisterSaveData("Elona.ReturnSystem.ReturnState")]
         public ReturnState? ReturnState { get; private set; } = null;
@@ -115,7 +116,7 @@ namespace OpenNefia.Content.Return
             reason = null;
             if (!TryMap(returner, out var map))
                 return false;
-            
+
             var ev = new BeforePlayerCastsReturnMagicEvent(map);
             RaiseEvent(returner, ev);
 
@@ -148,7 +149,7 @@ namespace OpenNefia.Content.Return
         private bool CanReturnTo(IArea area)
         {
             return TryComp<AreaReturnDestinationComponent>(area.AreaEntityUid, out var retDest)
-                && retDest.CanBeReturnDestination 
+                && retDest.CanBeReturnDestination
                 && retDest.HasEverBeenVisited;
         }
 
@@ -159,7 +160,7 @@ namespace OpenNefia.Content.Return
         private ReturnLocation? AreaToReturnLocation(IArea area)
         {
             var comp = Comp<AreaReturnDestinationComponent>(area.AreaEntityUid);
-            
+
             if (comp.ReturnFloor != null)
             {
                 if (area.ContainedMaps.TryGetValue(comp.ReturnFloor.Value, out var returnFloor) && returnFloor.MapId != null)
@@ -231,7 +232,7 @@ namespace OpenNefia.Content.Return
             {
                 IsCancellable = true,
                 QueryText = Loc.GetString("Elona.Return.Prompt"),
-            };  
+            };
             var result = _playerQueries.PickOrNone(candidates, opts);
             if (result == null)
             {
@@ -273,9 +274,22 @@ namespace OpenNefia.Content.Return
             // <<<<<<<< elona122/shade2/main.hsp:757 				} ...
         }
 
-        public bool TryGetEscapeLocation(IMap innerMap, [NotNullWhen(true)] out MapCoordinates? outerAreaEntranceCoords)
+        public bool TryGetEscapeLocation(IMap innerMap, [NotNullWhen(true)] out MapCoordinates? coords)
         {
+            if (!TryArea(innerMap, out var area))
+            {
+                coords = null;
+                return false;
+            }
 
+            if (!_areaKnownEntrances.TryGetEntranceTo(area, out var entrance))
+            {
+                coords = null;
+                return false;
+            }
+
+            coords = entrance.MapCoordinates;
+            return true;
         }
     }
 }

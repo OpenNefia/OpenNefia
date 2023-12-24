@@ -26,10 +26,11 @@ namespace OpenNefia.Core.Areas
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaId);
         bool TryGetParentArea(AreaId areaId, [NotNullWhen(true)] out IArea? parentArea);
+        bool TryGetParentArea(IArea area, [NotNullWhen(true)] out IArea? parentArea);
         IEnumerable<IArea> EnumerateParentAreas(IArea area);
         IEnumerable<IArea> EnumerateParentAreas(AreaId areaID);
-        IEnumerable<IArea> EnumerateChildAreas(IArea area);
-        IEnumerable<IArea> EnumerateChildAreas(AreaId areaID);
+        IEnumerable<IArea> EnumerateChildAreas(IArea area, bool recursive = false);
+        IEnumerable<IArea> EnumerateChildAreas(AreaId areaID, bool recursive = false);
         IArea GetRootArea(IArea area);
         IArea GetRootArea(AreaId areaID);
 
@@ -383,6 +384,9 @@ namespace OpenNefia.Core.Areas
             return _areas[areasId];
         }
 
+        public bool TryGetParentArea(IArea area, [NotNullWhen(true)] out IArea? parentArea)
+            => TryGetParentArea(area.Id, out parentArea);
+
         public bool TryGetParentArea(AreaId areaId, [NotNullWhen(true)] out IArea? parentArea)
         {
             if (!TryGetArea(areaId, out var area))
@@ -415,7 +419,7 @@ namespace OpenNefia.Core.Areas
         }
 
         public IEnumerable<IArea> EnumerateChildAreas(IArea area, bool recursive = false)
-            => EnumerateChildAreas(area.Id);
+            => EnumerateChildAreas(area.Id, recursive);
 
         public IEnumerable<IArea> EnumerateChildAreas(AreaId areaID, bool recursive = false)
         {
