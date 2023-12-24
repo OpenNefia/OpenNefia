@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Tests.Areas
 ";
 
 
-            Assert.Throws<InvalidDataException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
             {
                 var sim = ContentFullGameSimulation
                     .NewSimulation()
@@ -173,7 +173,7 @@ namespace OpenNefia.Content.Tests.Areas
 
                 var globalAreas = sim.GetEntitySystem<IGlobalAreaSystem>();
 
-                globalAreas.InitializeGlobalAreas(new[] { TestArea1ID });
+                globalAreas.InitializeGlobalAreas(new[] { TestArea1ID, TestArea2ID });
             });
         }
 

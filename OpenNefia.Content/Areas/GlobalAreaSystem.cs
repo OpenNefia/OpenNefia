@@ -74,32 +74,38 @@ namespace OpenNefia.Content.Areas
                 }
             }
 
-            try
-            {
-                // Topological sort will fail if the graph has cycles, which is not what we
-                // want in this case.
-                var nodes = TopologicalSort.FromBeforeAfter(_globalAreas.Nodes.Values,
-                         p => p.GlobalAreaId,
-                         p => p,
-                         p => Array.Empty<GlobalAreaId>(),
-                         p =>
-                         {
-                             if (p.ParentId != null)
-                                 return new[] { p.ParentId.Value };
-                             return Array.Empty<GlobalAreaId>();
-                         },
-                         allowMissing: true);
-                TopologicalSort.Sort(nodes);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Global area graph contained cycles. Ensure there is at least one top-level area defined in the area prototypes.", ex);
-            }
+            TopologicalSortGlobalAreas(_globalAreas.Nodes.Keys);
         }
 
         private void InitializeGlobalAreas(BeforeNewGameStartedEventArgs ev)
         {
             InitializeGlobalAreas(ev.Scenario.InitGlobalAreas);
+        }
+
+        private IList<GlobalAreaEntry> TopologicalSortGlobalAreas(IEnumerable<GlobalAreaId> globalAreaIds)
+        {
+            try
+            {
+                // Topological sort will fail if the graph has cycles, which is not what we
+                // want in this case.
+                var nodes = TopologicalSort.FromBeforeAfter(globalAreaIds,
+                         k => k,
+                         k => _globalAreas.Nodes[k],
+                         k => Array.Empty<GlobalAreaId>(),
+                         k =>
+                         {
+                             var p = _globalAreas.Nodes[k];
+                             if (p.ParentId != null)
+                                 return new[] { p.ParentId.Value };
+                             return Array.Empty<GlobalAreaId>();
+                         },
+                         allowMissing: true);
+                return TopologicalSort.Sort(nodes).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Global area graph contained cycles. Ensure there is at least one top-level area defined in the area prototypes.", ex);
+            }
         }
 
         /// <summary>
@@ -111,22 +117,26 @@ namespace OpenNefia.Content.Areas
         /// </remarks>
         public void InitializeGlobalAreas(IEnumerable<GlobalAreaId> globalAreaIds)
         {
-            var list = globalAreaIds.ToList();
+            var sorted = TopologicalSortGlobalAreas(_globalAreas.Nodes.Keys).ToList();
+            var set = globalAreaIds.ToHashSet();
 
-            if (list.Count > 0)
+            if (set.Count > 0)
             {
                 Logger.DebugS("sys.globalAreas", "Initializing these global areas:");
-                foreach (var globalAreaId in list)
+                foreach (var globalAreaId in set)
                 {
                     Logger.DebugS("sys.globalAreas", $"  - {globalAreaId}");
                 }
             }
 
-            foreach (var globalAreaId in list)
+            foreach (var globalAreaEntry in sorted)
             {
-                if (!_areaManager.TryGetGlobalArea(globalAreaId, out var area))
+                if (!set.Contains(globalAreaEntry.GlobalAreaId))
+                    continue;
+
+                if (!_areaManager.TryGetGlobalArea(globalAreaEntry.GlobalAreaId, out var area))
                 {
-                    area = GetOrCreateGlobalArea(globalAreaId);
+                    area = GetOrCreateGlobalArea(globalAreaEntry.GlobalAreaId);
                 }
                 if (area.ContainedMaps.Count == 0)
                 {
