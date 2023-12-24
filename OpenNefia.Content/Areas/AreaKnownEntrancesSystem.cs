@@ -5,6 +5,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 

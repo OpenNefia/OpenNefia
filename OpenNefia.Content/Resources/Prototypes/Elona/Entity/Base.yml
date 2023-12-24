@@ -130,6 +130,14 @@
     canBeReturnDestination: true
 
 - type: Entity
+  id: BaseAreaGlobal
+  hspEntityType: area
+  abstract: true
+  parent: BaseArea
+  components:
+  - type: AreaTypeGlobal
+
+- type: Entity
   id: BaseActivity
   hspEntityType: activity
   abstract: true

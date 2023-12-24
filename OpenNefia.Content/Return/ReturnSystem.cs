@@ -29,6 +29,13 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.DisplayName;
 using System.Xml.Linq;
+using OpenNefia.Content.Parties;
+using OpenNefia.Content.Cargo;
+using OpenNefia.Content.Effects;
+using OpenNefia.Content.Quests;
+using OpenNefia.Content.RandomAreas;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.Return
 {
@@ -89,6 +96,12 @@ namespace OpenNefia.Content.Return
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IAreaKnownEntrancesSystem _areaKnownEntrances = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly ICargoSystem _cargos = default!;
+        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IQuestSystem _quests = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         [RegisterSaveData("Elona.ReturnSystem.ReturnState")]
         public ReturnState? ReturnState { get; private set; } = null;
@@ -99,6 +112,9 @@ namespace OpenNefia.Content.Return
         {
             SubscribeEntity<AfterMapEnterEventArgs>(VisitArea);
             SubscribeBroadcast<MapBeforeTurnBeginEventArgs>(InvokeReturn, priority: EventPriorities.VeryLow);
+            SubscribeComponent<PartyComponent, BeforeReturnMagicExecutedEvent>(PreventIfTempAlliesExist);
+            SubscribeComponent<InventoryComponent, BeforeReturnMagicExecutedEvent>(PreventIfOverburdened);
+            SubscribeComponent<CargoHolderComponent, BeforeReturnMagicExecutedEvent>(PreventIfCargoOverburdened);
         }
 
         private void VisitArea(EntityUid uid, AfterMapEnterEventArgs args)
@@ -214,12 +230,6 @@ namespace OpenNefia.Content.Return
         public bool TryPromptReturnLocation(IMap sourceMap, [NotNullWhen(true)] out MapEntrance? entrance)
         {
             // >>>>>>>> elona122/shade2/command.hsp:4388 	p=0:i=areaHome ...
-            if (!TryArea(sourceMap, out var area))
-            {
-                entrance = null;
-                return false;
-            }
-
             var candidates = new List<ReturnLocation>();
 
             // TODO doesn't check for containment of home in world map (yet)!
@@ -233,16 +243,24 @@ namespace OpenNefia.Content.Return
                 candidates.Add(new(home, name));
             }
 
-            // TODO does not work with field maps (that have no area)
-            var root = _areaManager.GetRootArea(area);
-            
-            var otherCandidates = _areaManager.EnumerateChildAreas(root)
-                .Where(CanReturnTo)
-                .Select(AreaToReturnLocation)
-                .WhereNotNull()
-                .ToList();
+            // The player is intended to be contained inside a "global" area
+            // like North Tyris. Which area is the global area is updated each
+            // time the player changes maps. Check the Return locations inside
+            // child areas of this area.
+            if (_areaEntrances.TryGetCurrentGlobalArea(out var globalArea))
+            {
+                var otherCandidates = _areaManager.EnumerateChildAreas(globalArea)
+                    .Where(CanReturnTo)
+                    .Select(AreaToReturnLocation)
+                    .WhereNotNull()
+                    .ToList();
 
-            candidates.AddRange(otherCandidates);
+                candidates.AddRange(otherCandidates);
+            }
+            else
+            {
+                Logger.WarningS("return", $"No current global area while inside map {sourceMap}.");
+            }
 
             if (candidates.Count == 0)
             {
@@ -290,11 +308,88 @@ namespace OpenNefia.Content.Return
             if (_deferredEvents.IsEventEnqueued())
                 return;
 
+
+            // >>>>>>>> elona122/shade2/main.hsp:741 			if (gReturn<=0)and(evNum=0){ ...
             if (!_globalTimers.TryGetTimer(TimerID, out var timer) || timer.TimeRemaining <= GameTimeSpan.Zero)
             {
+                var entrance = ReturnState.TargetLocation;
+                ReturnState = null;
 
+                var ev2 = new BeforeReturnMagicExecutedEvent(entrance);
+                RaiseEvent(_gameSession.Player, ev2);
+                if (ev2.Cancelled)
+                    return;
+
+                _audio.Play(Protos.Sound.Teleport1, _gameSession.Player);
+                _mes.Display(Loc.GetString("Elona.Return.Result.DimensionalDoorOpens"));
+
+                var mapID = entrance.MapIdSpecifier.GetMapId();
+                if (mapID == _mapManager.ActiveMap?.Id)
+                {
+                    _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                    return;
+                }
+
+                // TODO jail message
+
+                _playerQueries.PromptMore();
+                _mapEntrances.UseMapEntrance(_gameSession.Player, entrance, silent: true);
             }
             // <<<<<<<< elona122/shade2/main.hsp:757 				} ...
+        }
+
+        private void PreventIfTempAlliesExist(EntityUid uid, PartyComponent component, BeforeReturnMagicExecutedEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            // >>>>>>>> elona122/shade2/main.hsp:742 				f=false ...
+            bool IsTempAlly(EntityUid ent)
+            {
+                return (TryComp<TemporaryAllyComponent>(ent, out var tempAlly) && !tempAlly.AllowsReturning) 
+                    || HasComp<EscortedInQuestComponent>(ent);
+            }
+
+            if (_parties.EnumerateMembers(uid, component).Any(IsTempAlly))
+            {
+                _mes.Display(Loc.GetString("Elona.Return.Result.AllyPrevents"));
+                args.Cancel();
+            }
+            // <<<<<<<< elona122/shade2/main.hsp:747 				if f: txt lang("今は帰還できない仲間を連れている。","One of you ...
+        }
+
+        private void PreventIfOverburdened(EntityUid uid, InventoryComponent component, BeforeReturnMagicExecutedEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            // >>>>>>>> elona122/shade2/main.hsp:748 				if (dbg_noWeight=0)&(cBurden(pc)>=burdenMax){ ...
+            if (component.BurdenType >= BurdenType.Max)
+            {
+                _mes.Display(Loc.GetString("Elona.Return.Result.Overburdened"));
+                args.Cancel();
+            }
+
+            // XXX: allies?
+
+            // <<<<<<<< elona122/shade2/main.hsp:750 					} ...
+        }
+
+        /// <summary>
+        /// Ported from Elona+.
+        /// </summary>
+        private void PreventIfCargoOverburdened(EntityUid uid, CargoHolderComponent component, BeforeReturnMagicExecutedEvent args)
+        {
+            if (args.Cancelled)
+                return;
+
+            if (_cargos.IsBurdenedByCargo(uid))
+            {
+                _mes.Display(Loc.GetString("Elona.Return.Result.CargoOverburdened"));
+                args.Cancel();
+            }
+
+            // XXX: allies?
         }
 
         public bool TryGetEscapeLocation(IMap innerMap, [NotNullWhen(true)] out MapCoordinates? coords)
@@ -314,5 +409,20 @@ namespace OpenNefia.Content.Return
             coords = entrance.MapCoordinates;
             return true;
         }
+    }
+
+    /// <summary>
+    /// Raised when the Return spell timer expires after the delay, just before
+    /// the player is transported to another map.
+    /// </summary>
+    [EventUsage(EventTarget.Normal)]
+    public sealed class BeforeReturnMagicExecutedEvent : CancellableEntityEventArgs
+    {
+        public BeforeReturnMagicExecutedEvent(MapEntrance entrance)
+        {
+            Entrance = entrance;
+        }
+
+        public MapEntrance Entrance { get; }
     }
 }

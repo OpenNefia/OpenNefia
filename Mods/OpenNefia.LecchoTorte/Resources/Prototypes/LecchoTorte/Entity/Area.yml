@@ -12,7 +12,7 @@
 
 - type: Entity
   id: LecchoTorte.Area3Towns
-  parent: BaseAreaTown
+  parent: BaseAreaGlobal
   components:
   - type: AreaStaticFloors
     floors:

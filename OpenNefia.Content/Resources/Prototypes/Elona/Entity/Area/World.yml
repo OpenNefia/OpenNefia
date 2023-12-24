@@ -1,6 +1,6 @@
 - type: Entity
   id: Elona.AreaNorthTyris
-  parent: BaseArea
+  parent: BaseAreaGlobal
   hspIds:
     elona122: 4
   components:

@@ -17,5 +17,10 @@ namespace OpenNefia.Content.Effects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class TemporaryAllyComponent : Component
     {
+        /// <summary>
+        /// If <c>true</c>, the player can cast Return with this ally in their party.
+        /// </summary>
+        [DataField]
+        public bool AllowsReturning { get; set; } = false;
     }
 }

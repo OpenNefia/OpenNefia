@@ -38,6 +38,8 @@
 - [ ] all commands
 - [ ] buildings/zones
 - [ ] all unique areas
+  + [ ] jail/cursed return
+  + [ ] shelter
 - [ ] house guests
 - [ ] house upgrading
 - [ ] all chara events/properties
