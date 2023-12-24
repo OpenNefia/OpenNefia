@@ -229,6 +229,8 @@ namespace OpenNefia.Content.Inventory
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
+                var behaviorType = Context.Behavior.GetType();
+                PreviousSelectedItemIndices[behaviorType] = List.SelectedIndex;
                 Cancel();
             }
             else if (args.Function == ContentKeyFunctions.UIIdentify)
@@ -290,6 +292,9 @@ namespace OpenNefia.Content.Inventory
             switch (result)
             {
                 case InventoryResult.Finished:
+                    var behaviorType = Context.Behavior.GetType();
+                    PreviousSelectedItemIndices[behaviorType] = List.SelectedIndex;
+
                     this.Finish(new(result, entry.ItemEntityUid));
                     break;
                 case InventoryResult.Continuing continuing:

@@ -49,6 +49,10 @@
 - [ ] animated tiles
 - [ ] enemies follow player up/down stairs
 - [ ] main quest/sidequests/dialogs
+  + [ ] "main quest" separate from "scenario"
+    * what happens is you may want to create a scenario that starts the player at mid-game in the middle of another main quest
+    * however OpenNefia/LÖVE always tracked which "main quest" was active by scenario ID
+    * so this time two scenarios should be able to track the same "main quest".
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
 - [ ] status effect protoevents -> ECS

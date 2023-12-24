@@ -20,6 +20,9 @@ namespace OpenNefia.Content.Effects
         /// <summary>
         /// If <c>true</c>, the player can cast Return with this ally in their party.
         /// </summary>
+        /// <remarks>
+        /// In Elona+, Belphat the Cosmic Sword would have this flag set to <c>true</c>.
+        /// </remarks>
         [DataField]
         public bool AllowsReturning { get; set; } = false;
     }

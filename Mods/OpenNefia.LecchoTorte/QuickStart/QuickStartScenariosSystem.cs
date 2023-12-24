@@ -196,7 +196,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
             foreach (var childArea in _areas.EnumerateRootAreas(recursive: true))
             {
-                if (TryComp<AreaReturnDestinationComponent>(childArea.AreaEntityUid, out var areaDest))
+                if (TryComp<AreaReturnDestinationComponent>(childArea.AreaEntityUid, out var areaDest)
+                    && areaDest.CanBeReturnDestination)
                 {
                     areaDest.HasEverBeenVisited = true;
                 }

@@ -1037,7 +1037,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             if (_returning.ReturnState != null)
             {
-                _mes.Display(Loc.GetString("Elon.Return.Cancel", ("source", args.Source)));
+                _mes.Display(Loc.GetString("Elona.Return.Cancel", ("source", args.Source)));
                 _returning.CancelReturn();
                 args.Handle(TurnResult.Succeeded);
                 return;
