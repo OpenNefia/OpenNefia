@@ -44,6 +44,7 @@ using OpenNefia.Content.Actions;
 using OpenNefia.Content.Scroll;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Potion;
+using OpenNefia.Content.Return;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -191,6 +192,14 @@ namespace OpenNefia.LecchoTorte.QuickStart
             foreach (var identify in _entityLookup.EntityQueryInMap<IdentifyComponent>(map))
             {
                 identify.IdentifyState = IdentifyState.Full;
+            }
+
+            foreach (var childArea in _areas.EnumerateRootAreas(recursive: true))
+            {
+                if (TryComp<AreaReturnDestinationComponent>(childArea.AreaEntityUid, out var areaDest))
+                {
+                    areaDest.HasEverBeenVisited = true;
+                }
             }
         }
 

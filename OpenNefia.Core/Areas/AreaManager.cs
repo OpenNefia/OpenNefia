@@ -31,6 +31,7 @@ namespace OpenNefia.Core.Areas
         IEnumerable<IArea> EnumerateParentAreas(AreaId areaID);
         IEnumerable<IArea> EnumerateChildAreas(IArea area, bool recursive = false);
         IEnumerable<IArea> EnumerateChildAreas(AreaId areaID, bool recursive = false);
+        IEnumerable<IArea> EnumerateRootAreas(bool recursive = false);
         IArea GetRootArea(IArea area);
         IArea GetRootArea(AreaId areaID);
 
@@ -426,10 +427,36 @@ namespace OpenNefia.Core.Areas
             if (!TryGetArea(areaID, out var area))
                 return Enumerable.Empty<IArea>();
 
+            return EnumerateAreasInternal(new[] { area }, recursive);
+        }
+
+        public IEnumerable<IArea> EnumerateRootAreas(bool recursive = false)
+        {
+            var areas = _areas.Values
+                .Where(a =>
+                {
+                    var spatial = _entityManager.GetComponent<SpatialComponent>(a.AreaEntityUid);
+                    return spatial.MapID == MapId.Global
+                        && spatial.Parent != null
+                        && spatial.Parent.Parent == null;
+                })
+                .ToList();
+
+            if (!recursive)
+                return areas;
+
+            var children = EnumerateAreasInternal(areas, recursive).ToList();
+            areas.AddRange(children);
+            return areas;
+        }
+
+        private IEnumerable<IArea> EnumerateAreasInternal(IEnumerable<IArea> rootAreas, bool recursive)
+        {
             var areas = new List<IArea>();
             var consider = new Queue<SpatialComponent>();
-            consider.Enqueue(_entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid));
-            
+            foreach (var area in rootAreas)
+                consider.Enqueue(_entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid));
+
             while (consider.Count > 0)
             {
                 var spatial = consider.Dequeue();

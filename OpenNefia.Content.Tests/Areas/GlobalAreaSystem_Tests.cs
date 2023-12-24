@@ -74,7 +74,6 @@ namespace OpenNefia.Content.Tests.Areas
         [Test]
         public void TestGlobalAreaInit_Acyclic()
         {
-
             var sim = ContentFullGameSimulation
                 .NewSimulation()
                 .RegisterPrototypes(protos => protos.LoadString(Prototypes))
