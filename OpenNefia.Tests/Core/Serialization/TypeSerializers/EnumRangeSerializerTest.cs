@@ -37,6 +37,16 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
         public void DeserializationTest_Underscore()
         {
             var range = new EnumRange<TestRangeEnum>(TestRangeEnum._Foo, TestRangeEnum._Piyo);
+            var node = new ValueDataNode($"_Foo~_Piyo");
+            var deserializedRange = Serialization.Read<EnumRange<TestRangeEnum>>(node);
+
+            Assert.That(deserializedRange, Is.EqualTo(range));
+        }
+
+        [Test]
+        public void DeserializationTest_Reverse()
+        {
+            var range = new EnumRange<TestRangeEnum>(TestRangeEnum._Piyo, TestRangeEnum._Foo);
             var node = new ValueDataNode($"_Piyo~_Foo");
             var deserializedRange = Serialization.Read<EnumRange<TestRangeEnum>>(node);
 
