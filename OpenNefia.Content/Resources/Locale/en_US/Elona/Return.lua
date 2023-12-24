@@ -1,5 +1,8 @@
 Elona.Return = {
     Prompt = "Where do you want to go?",
+    LevelCounter = function(level)
+        return ("Lv%s"):format(level)
+    end,
     NoLocations = "You don't know any location you can return to.",
     Begin = function(source)
         return ("The air around %s becomes charged."):format(_.name(source))

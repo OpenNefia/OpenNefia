@@ -27,6 +27,8 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Home;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.DisplayName;
+using System.Xml.Linq;
 
 namespace OpenNefia.Content.Return
 {
@@ -86,6 +88,7 @@ namespace OpenNefia.Content.Return
         [Dependency] private readonly IDeferredEventsSystem _deferredEvents = default!;
         [Dependency] private readonly IHomeSystem _homes = default!;
         [Dependency] private readonly IAreaKnownEntrancesSystem _areaKnownEntrances = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         [RegisterSaveData("Elona.ReturnSystem.ReturnState")]
         public ReturnState? ReturnState { get; private set; } = null;
@@ -144,7 +147,10 @@ namespace OpenNefia.Content.Return
             return true;
         }
 
-        public record class ReturnLocation(MapId mapID);
+        public record class ReturnLocation(MapId MapID, string Name) : IPromptFormattable
+        {
+            public string FormatForPrompt() => Name;
+        }
 
         private bool CanReturnTo(IArea area)
         {
@@ -164,7 +170,13 @@ namespace OpenNefia.Content.Return
             if (comp.ReturnFloor != null)
             {
                 if (area.ContainedMaps.TryGetValue(comp.ReturnFloor.Value, out var returnFloor) && returnFloor.MapId != null)
-                    return new ReturnLocation(returnFloor.MapId.Value);
+                {
+                    var name = _displayNames.GetDisplayName(area.AreaEntityUid);
+                    var floorNum = comp.ReturnFloor.Value.FloorNumber;
+                    if (floorNum != AreaFloorId.DefaultFloorNumber)
+                        name += Loc.Space + Loc.GetString("Elona.Return.LevelCounter", ("level", floorNum));
+                    return new ReturnLocation(returnFloor.MapId.Value, name);
+                }
                 Logger.ErrorS("return", $"Area {area} has invalid return preset floor {comp.ReturnFloor.Value}!");
             }
 
@@ -188,7 +200,13 @@ namespace OpenNefia.Content.Return
             }
 
             if (area.ContainedMaps.TryGetValue(floorID, out var floor) && floor.MapId != null)
-                return new ReturnLocation(floor.MapId.Value);
+            {
+                var name = _displayNames.GetDisplayName(area.AreaEntityUid);
+                var floorNum = floorID.FloorNumber;
+                if (floorNum != AreaFloorId.DefaultFloorNumber)
+                    name += Loc.Space + Loc.GetString("Elona.Return.LevelCounter", ("level", floorNum));
+                return new ReturnLocation(floor.MapId.Value, _displayNames.GetDisplayName(area.AreaEntityUid));
+            }
 
             return null;
         }
@@ -209,10 +227,15 @@ namespace OpenNefia.Content.Return
             // the current "global" area.
             foreach (var home in _homes.ActiveHomeIDs)
             {
-                candidates.Add(new(home));
+                var name = "????";
+                if (TryArea(home, out var homeArea))
+                    name = _displayNames.GetDisplayName(homeArea.AreaEntityUid);
+                candidates.Add(new(home, name));
             }
 
+            // TODO does not work with field maps (that have no area)
             var root = _areaManager.GetRootArea(area);
+            
             var otherCandidates = _areaManager.EnumerateChildAreas(root)
                 .Where(CanReturnTo)
                 .Select(AreaToReturnLocation)
@@ -240,7 +263,7 @@ namespace OpenNefia.Content.Return
                 return false;
             }
 
-            entrance = new MapEntrance(new BasicMapIdSpecifier(result.mapID), new MapOrAreaEntityStartLocation());
+            entrance = new MapEntrance(new BasicMapIdSpecifier(result.MapID), new MapOrAreaEntityStartLocation());
             return true;
             // <<<<<<<< elona122/shade2/command.hsp:4414 	gosub *screen_draw ...
         }

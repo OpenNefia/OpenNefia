@@ -165,8 +165,8 @@ namespace OpenNefia.Content.Areas
             AreaId? parentID = null;
             if (entry.ParentId != null)
             {
-                if (!_areaManager.TryGetGlobalArea(entry.ParentId.Value, out var parentArea))
-                    throw new InvalidDataException($"{globalAreaId} has a parent {entry.ParentId} that does not exist");
+                // !!! RECURSION ALERT !!!
+                var parentArea = GetOrCreateGlobalArea(entry.ParentId.Value);
                 parentID = parentArea?.Id;
             }
 
