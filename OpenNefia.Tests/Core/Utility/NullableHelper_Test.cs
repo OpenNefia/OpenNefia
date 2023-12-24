@@ -6,6 +6,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Tests.Core.Utility
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All | ParallelScope.Fixtures)]
     [TestOf(typeof(NullableHelper))]
     public class NullableHelper_Test
     {
@@ -22,21 +23,51 @@ namespace OpenNefia.Tests.Core.Utility
         [Test]
         public void IsNullableTest()
         {
-            var fields = typeof(NullableTestClass).GetAllFields();
-            foreach (var field in fields)
+            Assert.Multiple(() =>
             {
-                Assert.That(NullableHelper.IsMarkedAsNullable(field), Is.True, $"{field}");
-            }
+                var fields = typeof(NullableTestClass).GetAllFields();
+                foreach (var field in fields)
+                {
+                    Assert.That(NullableHelper.IsMarkedAsNullable(field), Is.True, $"{field}");
+
+                    AbstractFieldInfo afi = new SpecificFieldInfo(field);
+                    Assert.That(NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{field}");
+                }
+
+                var properties = typeof(NullableTestClass).GetAllProperties();
+                foreach (var property in properties)
+                {
+                    Assert.That(NullableHelper.IsMarkedAsNullable(property), Is.True, $"{property}");
+
+                    AbstractFieldInfo afi = new SpecificPropertyInfo(property);
+                    Assert.That(NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{property}");
+                }
+            });
         }
 
         [Test]
         public void IsNotNullableTest()
         {
-            var fields = typeof(NotNullableTestClass).GetAllFields();
-            foreach (var field in fields)
+            Assert.Multiple(() =>
             {
-                Assert.That(!NullableHelper.IsMarkedAsNullable(field), Is.True, $"{field}");
-            }
+                var fields = typeof(NotNullableTestClass).GetAllFields();
+                foreach (var field in fields)
+                {
+                    Assert.That(!NullableHelper.IsMarkedAsNullable(field), Is.True, $"{field}");
+
+                    AbstractFieldInfo afi = new SpecificFieldInfo(field);
+                    Assert.That(!NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{field}");
+                }
+
+                var properties = typeof(NotNullableTestClass).GetAllProperties();
+                foreach (var property in properties)
+                {
+                    Assert.That(!NullableHelper.IsMarkedAsNullable(property), Is.True, $"{property}");
+
+                    AbstractFieldInfo afi = new SpecificPropertyInfo(property);
+                    Assert.That(!NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{property}");
+                }
+            });
         }
     }
 
@@ -50,6 +81,13 @@ namespace OpenNefia.Tests.Core.Utility
         public INullableTestInterface? Itest;
         public NullableTestClass? nTc;
         private char? c;
+
+        private int? pi { get; set; }
+        private double? pd { get; set; }
+        public object? po { get; set; } 
+        public INullableTestInterface? pItest { get; set; }
+        public NullableTestClass? pnTc { get; set; }
+        private char? pc { get; set; }
     }
 
     public class NotNullableTestClass
@@ -60,6 +98,13 @@ namespace OpenNefia.Tests.Core.Utility
         private INullableTestInterface Itest = null!;
         private NullableTestClass nTc = null!;
         private char c;
+
+        private int pi { get; set; }
+        private double pd { get; set; }
+        public object po { get; set; } = default!;
+        public INullableTestInterface pItest { get; set; } = default!;
+        public NullableTestClass pnTc { get; set; } = default!;
+        private char pc { get; set; }
     }
 #pragma warning restore 414
 #pragma warning restore 169

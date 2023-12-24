@@ -13,6 +13,7 @@ namespace OpenNefia.Core.Utility
         public readonly PropertyInfo PropertyInfo;
         internal override MemberInfo MemberInfo => PropertyInfo;
 
+        public override Module Module => PropertyInfo.Module;
         public override Type FieldType => PropertyInfo.PropertyType;
         public override Type? DeclaringType => PropertyInfo.DeclaringType;
 

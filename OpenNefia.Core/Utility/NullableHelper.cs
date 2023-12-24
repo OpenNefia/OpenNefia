@@ -37,7 +37,37 @@ namespace OpenNefia.Core.Utility
         /// <returns></returns>
         public static bool IsMarkedAsNullable(FieldInfo field)
         {
-            if (Nullable.GetUnderlyingType(field.FieldType) != null) return true;
+            return IsMarkedAsNullable(field, field.FieldType);
+        }
+
+        /// <summary>
+        /// Checks if the property has a nullable annotation [?]
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public static bool IsMarkedAsNullable(PropertyInfo property)
+        {
+            return IsMarkedAsNullable(property, property.PropertyType);
+        }
+
+        /// <summary>
+        /// Checks if the field has a nullable annotation [?]
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        internal static bool IsMarkedAsNullable(AbstractFieldInfo field)
+        {
+            return IsMarkedAsNullable(field.MemberInfo, field.FieldType);
+        }
+
+        /// <summary>
+        /// Checks if the member has a nullable annotation [?]
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public static bool IsMarkedAsNullable(MemberInfo field, Type fieldType)
+        {
+            if (Nullable.GetUnderlyingType(fieldType) != null) return true;
 
             var flags = GetNullableFlags(field);
             if (flags.Length != 0 && flags[0] != NotAnnotatedNullableFlag) return true;
@@ -65,11 +95,16 @@ namespace OpenNefia.Core.Utility
             return true;
         }
 
-        private static byte[] GetNullableFlags(FieldInfo field)
+        private static byte[] GetNullableFlags(MemberInfo field)
+        {
+            return GetNullableFlags(field.Module, field);
+        }
+
+        private static byte[] GetNullableFlags(Module module, MemberInfo memberInfo)
         {
             lock (_nullableAttributeTypeCache)
             {
-                Assembly assembly = field.Module.Assembly;
+                var assembly = module.Assembly;
                 if (!_nullableAttributeTypeCache.TryGetValue(assembly, out var assemblyNullableEntry))
                 {
                     CacheNullableFieldInfo(assembly);
@@ -78,16 +113,16 @@ namespace OpenNefia.Core.Utility
 
                 if (assemblyNullableEntry == null)
                 {
-                    return new byte[]{0};
+                    return new byte[] { 0 };
                 }
 
-                var nullableAttribute = field.GetCustomAttribute(assemblyNullableEntry.Value.AttributeType);
+                var nullableAttribute = memberInfo.GetCustomAttribute(assemblyNullableEntry.Value.AttributeType);
                 if (nullableAttribute == null)
                 {
-                    return new byte[]{1};
+                    return new byte[] { 1 };
                 }
 
-                return assemblyNullableEntry.Value.NullableFlagsField.GetValue(nullableAttribute) as byte[] ?? new byte[]{1};
+                return assemblyNullableEntry.Value.NullableFlagsField.GetValue(nullableAttribute) as byte[] ?? new byte[] { 1 };
             }
         }
 

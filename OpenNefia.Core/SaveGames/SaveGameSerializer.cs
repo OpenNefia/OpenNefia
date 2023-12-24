@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Core.Tokens;
 
 namespace OpenNefia.Core.SaveGames
 {
@@ -137,6 +138,7 @@ namespace OpenNefia.Core.SaveGames
             public object Parent { get; }
 
             public Type Type => FieldInfo.FieldType;
+            public bool CanBeNull => Type.IsNullable() || NullableHelper.IsMarkedAsNullable(FieldInfo);
 
             public SaveDataRegistration(AbstractFieldInfo propertyInfo, object parent)
             {
@@ -456,6 +458,11 @@ namespace OpenNefia.Core.SaveGames
             LoadGlobalData(node);
         }
 
+        private bool IsNullNode(DataNode node)
+        {
+            return node is ValueDataNode valueDataNode && valueDataNode.Value.Trim().ToLower() is "null" or "";
+        }
+
         private void LoadGlobalData(MappingDataNode node)
         {
             var data = (MappingDataNode)node.Get("data");
@@ -472,9 +479,16 @@ namespace OpenNefia.Core.SaveGames
 
                 Logger.DebugS(SawmillName, $"Loading global data: {key} ({reg.Type})");
 
-                var value = _serializationManager.Read(reg.Type, rawNode, skipHook: true);
-
-                reg.SetValueOnParent(value);
+                // ISerializationManager.Read() doesn't handle null nodes, so we have to do it ourselves.
+                if (reg.CanBeNull && IsNullNode(rawNode))
+                {
+                    reg.SetValueOnParent(null);
+                }
+                else
+                {
+                    var value = _serializationManager.Read(reg.Type, rawNode, skipHook: true);
+                    reg.SetValueOnParent(value);
+                }
             }
         }
 
