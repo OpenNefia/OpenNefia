@@ -25,6 +25,12 @@
   maxRange: 2
   skillID: Elona.SpellIceBall
   effectID: Elona.SpellIceBall
+- type: Elona.Skill
+  id: Elona.SpellIceBall
+  hspIds:
+    elona122: 431
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellIceBall
   parent: Elona.BaseEffectBall
@@ -43,6 +49,12 @@
   maxRange: 2
   skillID: Elona.SpellFireBall
   effectID: Elona.SpellFireBall
+- type: Elona.Skill
+  id: Elona.SpellFireBall
+  hspIds:
+    elona122: 432
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellFireBall
   parent: Elona.BaseEffectBall
@@ -61,6 +73,12 @@
   maxRange: 2
   skillID: Elona.SpellChaosBall
   effectID: Elona.SpellChaosBall
+- type: Elona.Skill
+  id: Elona.SpellChaosBall
+  hspIds:
+    elona122: 433
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellChaosBall
   parent: Elona.BaseEffectBall
@@ -82,6 +100,12 @@
   maxRange: 2
   skillID: Elona.SpellRagingRoar
   effectID: Elona.SpellRagingRoar
+- type: Elona.Skill
+  id: Elona.SpellRagingRoar
+  hspIds:
+    elona122: 434
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellRagingRoar
   parent: Elona.BaseEffectBall
@@ -103,6 +127,12 @@
   maxRange: 2
   skillID: Elona.SpellMagicStorm
   effectID: Elona.SpellMagicStorm
+- type: Elona.Skill
+  id: Elona.SpellMagicStorm
+  hspIds:
+    elona122: 460
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMagicStorm
   parent: Elona.BaseEffectBall
@@ -125,6 +155,12 @@
   staminaCost: 18
   maxRange: 1
   difficulty: 700
+- type: Elona.Skill
+  id: Elona.ActionGrenade
+  hspIds:
+    elona122: 655
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionGrenade
   hspIds:
@@ -148,6 +184,12 @@
   staminaCost: 38
   difficulty: 500
   maxRange: 2
+- type: Elona.Skill
+  id: Elona.ActionRainOfSanity
+  hspIds:
+    elona122: 637
+  skillType: Action
+  relatedSkill: Elona.AttrWill
 - type: Entity
   id: Elona.ActionRainOfSanity
   hspIds:

@@ -26,6 +26,12 @@
   effectID: Elona.ActionFireBreath
   staminaCost: 12
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionFireBreath
+  hspIds:
+    elona122: 602
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionFireBreath
   hspIds:
@@ -43,6 +49,12 @@
   effectID: Elona.ActionColdBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionColdBreath
+  hspIds:
+    elona122: 603
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionColdBreath
   hspIds:
@@ -60,6 +72,12 @@
   effectID: Elona.ActionLightningBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionLightningBreath
+  hspIds:
+    elona122: 604
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionLightningBreath
   hspIds:
@@ -77,6 +95,12 @@
   effectID: Elona.ActionDarknessBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionDarknessBreath
+  hspIds:
+    elona122: 605
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionDarknessBreath
   hspIds:
@@ -94,6 +118,12 @@
   effectID: Elona.ActionChaosBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionChaosBreath
+  hspIds:
+    elona122: 606
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionChaosBreath
   hspIds:
@@ -111,6 +141,12 @@
   effectID: Elona.ActionSoundBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionSoundBreath
+  hspIds:
+    elona122: 607
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionSoundBreath
   hspIds:
@@ -128,6 +164,12 @@
   effectID: Elona.ActionNetherBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionNetherBreath
+  hspIds:
+    elona122: 608
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionNetherBreath
   hspIds:
@@ -145,6 +187,12 @@
   effectID: Elona.ActionNerveBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionNerveBreath
+  hspIds:
+    elona122: 609
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionNerveBreath
   hspIds:
@@ -162,6 +210,12 @@
   effectID: Elona.ActionPoisonBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionPoisonBreath
+  hspIds:
+    elona122: 610
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionPoisonBreath
   hspIds:
@@ -179,6 +233,12 @@
   effectID: Elona.ActionMindBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionMindBreath
+  hspIds:
+    elona122: 611
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionMindBreath
   hspIds:
@@ -196,6 +256,12 @@
   effectID: Elona.ActionPowerBreath
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionPowerBreath
+  hspIds:
+    elona122: 612
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
 - type: Entity
   id: Elona.ActionPowerBreath
   hspIds:

@@ -22,6 +22,12 @@
   mpCost: 15
   skillID: Elona.SpellSummonMonsters
   effectID: Elona.SpellSummonMonsters
+- type: Elona.Skill
+  id: Elona.SpellSummonMonsters
+  hspIds:
+    elona122: 424
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellSummonMonsters
   parent: Elona.BaseEffectSummon
@@ -40,6 +46,12 @@
   mpCost: 15
   skillID: Elona.SpellSummonWild
   effectID: Elona.SpellSummonWild
+- type: Elona.Skill
+  id: Elona.SpellSummonWild
+  hspIds:
+    elona122: 425
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellSummonWild
   parent: Elona.BaseEffectSummon
@@ -61,6 +73,12 @@
   effectID: Elona.ActionSummonCats
   staminaCost: 15
   difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonCats
+  hspIds:
+    elona122: 639
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionSummonCats
   hspIds:
@@ -87,6 +105,12 @@
   effectID: Elona.ActionSummonYeek
   staminaCost: 15
   difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonYeek
+  hspIds:
+    elona122: 640
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionSummonYeek
   hspIds:
@@ -113,6 +137,12 @@
   effectID: Elona.ActionSummonPawn
   staminaCost: 15
   difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonPawn
+  hspIds:
+    elona122: 641
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionSummonPawn
   hspIds:
@@ -139,6 +169,12 @@
   effectID: Elona.ActionSummonFire
   staminaCost: 15
   difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonFire
+  hspIds:
+    elona122: 642
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionSummonFire
   hspIds:
@@ -165,6 +201,12 @@
   effectID: Elona.ActionSummonSister
   staminaCost: 15
   difficulty: 200
+- type: Elona.Skill
+  id: Elona.ActionSummonSister
+  hspIds:
+    elona122: 643
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionSummonSister
   hspIds:

@@ -38,7 +38,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             try
             {
-                engine.Calculate(new Formula(node.Value), _vars);
+                engine.CalculateRaw(new Formula(node.Value), _vars);
                 return new ValidatedValueNode(node);
             }
             catch (Jace.ParseException ex)

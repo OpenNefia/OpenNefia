@@ -23,6 +23,12 @@
   mpCost: 10
   skillID: Elona.SpellWeb
   effectID: Elona.SpellWeb
+- type: Elona.Skill
+  id: Elona.SpellWeb
+  hspIds:
+    elona122: 436
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellWeb
   parent: Elona.BaseEffectWeb
@@ -47,6 +53,12 @@
   mpCost: 12
   skillID: Elona.SpellMistOfDarkness
   effectID: Elona.SpellMistOfDarkness
+- type: Elona.Skill
+  id: Elona.SpellMistOfDarkness
+  hspIds:
+    elona122: 437
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMistOfDarkness
   parent: Elona.BaseEffectWeb
@@ -71,6 +83,12 @@
   mpCost: 18
   skillID: Elona.SpellAcidGround
   effectID: Elona.SpellAcidGround
+- type: Elona.Skill
+  id: Elona.SpellAcidGround
+  hspIds:
+    elona122: 455
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellAcidGround
   parent: Elona.BaseEffectWeb
@@ -96,6 +114,12 @@
   mpCost: 24
   skillID: Elona.SpellFireWall
   effectID: Elona.SpellFireWall
+- type: Elona.Skill
+  id: Elona.SpellFireWall
+  hspIds:
+    elona122: 456
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellFireWall
   parent: Elona.BaseEffectWeb
@@ -123,6 +147,12 @@
   effectID: Elona.ActionEtherGround
   staminaCost: 18
   difficulty: 480
+- type: Elona.Skill
+  id: Elona.ActionEtherGround
+  hspIds:
+    elona122: 634
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
 - type: Entity
   id: Elona.ActionEtherGround
   hspIds:

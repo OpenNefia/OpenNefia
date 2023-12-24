@@ -16,6 +16,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellTeleport
   effectID: Elona.SpellTeleport
+- type: Elona.Skill
+  id: Elona.SpellTeleport
+  hspIds:
+    elona122: 408
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellTeleport
   parent: BaseEffect
@@ -35,6 +41,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellTeleportOther
   effectID: Elona.SpellTeleportOther
+- type: Elona.Skill
+  id: Elona.SpellTeleportOther
+  hspIds:
+    elona122: 409
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellTeleportOther
   parent: BaseEffect
@@ -55,6 +67,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellShortTeleport
   effectID: Elona.SpellShortTeleport
+- type: Elona.Skill
+  id: Elona.SpellShortTeleport
+  hspIds:
+    elona122: 410
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellShortTeleport
   parent: BaseEffect
@@ -73,6 +91,12 @@
   effectID: Elona.ActionShadowStep
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionShadowStep
+  hspIds:
+    elona122: 619
+  skillType: Action
+  relatedSkill: Elona.AttrWill
 - type: Entity
   id: Elona.ActionShadowStep
   hspIds:
@@ -95,6 +119,12 @@
   effectID: Elona.ActionDrawShadow
   staminaCost: 10
   maxRange: 5
+- type: Elona.Skill
+  id: Elona.ActionDrawShadow
+  hspIds:
+    elona122: 620
+  skillType: Action
+  relatedSkill: Elona.AttrWill
 - type: Entity
   id: Elona.ActionDrawShadow
   hspIds:
@@ -115,6 +145,12 @@
   skillID: Elona.ActionDimensionalMove
   effectID: Elona.ActionDimensionalMove
   staminaCost: 15
+- type: Elona.Skill
+  id: Elona.ActionDimensionalMove
+  hspIds:
+    elona122: 627
+  skillType: Action
+  relatedSkill: Elona.AttrWill
 - type: Entity
   id: Elona.ActionDimensionalMove
   hspIds:

@@ -25,6 +25,12 @@
   isRapidCastable: true
   skillID: Elona.SpellMagicDart
   effectID: Elona.SpellMagicDart
+- type: Elona.Skill
+  id: Elona.SpellMagicDart
+  hspIds:
+    elona122: 414
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMagicDart
   parent: Elona.BaseEffectArrow
@@ -48,6 +54,12 @@
   isRapidCastable: true
   skillID: Elona.SpellNetherArrow
   effectID: Elona.SpellNetherArrow
+- type: Elona.Skill
+  id: Elona.SpellNetherArrow
+  hspIds:
+    elona122: 415
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellNetherArrow
   parent: Elona.BaseEffectArrow
@@ -67,6 +79,12 @@
   isRapidCastable: true
   skillID: Elona.SpellNerveArrow
   effectID: Elona.SpellNerveArrow
+- type: Elona.Skill
+  id: Elona.SpellNerveArrow
+  hspIds:
+    elona122: 416
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellNerveArrow
   parent: Elona.BaseEffectArrow
@@ -86,6 +104,12 @@
   isRapidCastable: true
   skillID: Elona.SpellChaosEye
   effectID: Elona.SpellChaosEye
+- type: Elona.Skill
+  id: Elona.SpellChaosEye
+  hspIds:
+    elona122: 417
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellChaosEye
   parent: Elona.BaseEffectArrow
@@ -105,6 +129,12 @@
   isRapidCastable: true
   skillID: Elona.SpellDarkEye
   effectID: Elona.SpellDarkEye
+- type: Elona.Skill
+  id: Elona.SpellDarkEye
+  hspIds:
+    elona122: 418
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellDarkEye
   parent: Elona.BaseEffectArrow
@@ -128,6 +158,12 @@
   isRapidCastable: true
   skillID: Elona.SpellCrystalSpear
   effectID: Elona.SpellCrystalSpear
+- type: Elona.Skill
+  id: Elona.SpellCrystalSpear
+  hspIds:
+    elona122: 459
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellCrystalSpear
   parent: Elona.BaseEffectArrow

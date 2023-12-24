@@ -26,6 +26,12 @@
   maxRange: 6
   skillID: Elona.SpellIceBolt
   effectID: Elona.SpellIceBolt
+- type: Elona.Skill
+  id: Elona.SpellIceBolt
+  hspIds:
+    elona122: 419
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellIceBolt
   hspIds:
@@ -44,6 +50,12 @@
   maxRange: 6
   skillID: Elona.SpellFireBolt
   effectID: Elona.SpellFireBolt
+- type: Elona.Skill
+  id: Elona.SpellFireBolt
+  hspIds:
+    elona122: 420
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellFireBolt
   hspIds:
@@ -62,6 +74,12 @@
   maxRange: 6
   skillID: Elona.SpellLightningBolt
   effectID: Elona.SpellLightningBolt
+- type: Elona.Skill
+  id: Elona.SpellLightningBolt
+  hspIds:
+    elona122: 421
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellLightningBolt
   hspIds:
@@ -80,6 +98,12 @@
   maxRange: 6
   skillID: Elona.SpellDarknessBolt
   effectID: Elona.SpellDarknessBolt
+- type: Elona.Skill
+  id: Elona.SpellDarknessBolt
+  hspIds:
+    elona122: 422
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellDarknessBolt
   hspIds:
@@ -100,6 +124,12 @@
   maxRange: 6
   skillID: Elona.SpellMindBolt
   effectID: Elona.SpellMindBolt
+- type: Elona.Skill
+  id: Elona.SpellMindBolt
+  hspIds:
+    elona122: 423
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMindBolt
   hspIds:

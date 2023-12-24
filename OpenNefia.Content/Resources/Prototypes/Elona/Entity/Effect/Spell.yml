@@ -6,6 +6,12 @@
   mpCost: 15
   skillID: Elona.SpellHolyLight
   effectID: Elona.SpellHolyLight
+- type: Elona.Skill
+  id: Elona.SpellHolyLight
+  hspIds:
+    elona122: 406
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellHolyLight
   parent: BaseEffect
@@ -20,6 +26,12 @@
   mpCost: 35
   skillID: Elona.SpellVanquishHex
   effectID: Elona.SpellVanquishHex
+- type: Elona.Skill
+  id: Elona.SpellVanquishHex
+  hspIds:
+    elona122: 407
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellVanquishHex
   parent: BaseEffect
@@ -34,6 +46,12 @@
   mpCost: 28
   skillID: Elona.SpellIdentify
   effectID: Elona.SpellIdentify
+- type: Elona.Skill
+  id: Elona.SpellIdentify
+  hspIds:
+    elona122: 411
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellIdentify
   parent: BaseEffect
@@ -56,6 +74,12 @@
   mpCost: 35
   skillID: Elona.SpellUncurse
   effectID: Elona.SpellUncurse
+- type: Elona.Skill
+  id: Elona.SpellUncurse
+  hspIds:
+    elona122: 412
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellUncurse
   parent: BaseEffect
@@ -80,6 +104,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellOracle
   effectID: Elona.SpellOracle
+- type: Elona.Skill
+  id: Elona.SpellOracle
+  hspIds:
+    elona122: 413
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellOracle
   parent: BaseEffect
@@ -97,6 +127,12 @@
   mpCost: 28
   skillID: Elona.SpellReturn
   effectID: Elona.SpellReturn
+- type: Elona.Skill
+  id: Elona.SpellReturn
+  hspIds:
+    elona122: 428
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellReturn
   parent: BaseEffect
@@ -117,6 +153,12 @@
   mpCost: 30
   skillID: Elona.SpellMagicMap
   effectID: Elona.SpellMagicMap
+- type: Elona.Skill
+  id: Elona.SpellMagicMap
+  hspIds:
+    elona122: 429
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMagicMap
   parent: BaseEffect
@@ -131,6 +173,12 @@
   mpCost: 22
   skillID: Elona.SpellSenseObject
   effectID: Elona.SpellSenseObject
+- type: Elona.Skill
+  id: Elona.SpellSenseObject
+  hspIds:
+    elona122: 430
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellSenseObject
   parent: BaseEffect
@@ -146,6 +194,12 @@
   maxRange: 6
   skillID: Elona.SpellDominate
   effectID: Elona.SpellDominate
+- type: Elona.Skill
+  id: Elona.SpellDominate
+  hspIds:
+    elona122: 435
+  relatedSkill: Elona.AttrCharisma
+  skillType: Spell
 - type: Entity
   id: Elona.SpellDominate
   parent: BaseEffect
@@ -170,6 +224,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellWallCreation
   effectID: Elona.SpellWallCreation
+- type: Elona.Skill
+  id: Elona.SpellWallCreation
+  hspIds:
+    elona122: 438
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellWallCreation
   parent: BaseEffect
@@ -187,6 +247,12 @@
   mpCost: 18
   skillID: Elona.SpellRestoreBody
   effectID: Elona.SpellRestoreBody
+- type: Elona.Skill
+  id: Elona.SpellRestoreBody
+  hspIds:
+    elona122: 439
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellRestoreBody
   parent: BaseEffect
@@ -211,6 +277,12 @@
   mpCost: 18
   skillID: Elona.SpellRestoreSpirit
   effectID: Elona.SpellRestoreSpirit
+- type: Elona.Skill
+  id: Elona.SpellRestoreSpirit
+  hspIds:
+    elona122: 440
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellRestoreSpirit
   parent: BaseEffect
@@ -235,6 +307,12 @@
   mpCost: 580
   skillID: Elona.SpellWish
   effectID: Elona.SpellWish
+- type: Elona.Skill
+  id: Elona.SpellWish
+  hspIds:
+    elona122: 441
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellWish
   parent: BaseEffect
@@ -252,6 +330,12 @@
   difficulty: 150
   skillID: Elona.SpellBuffHolyShield
   effectID: Elona.SpellBuffHolyShield
+- type: Elona.Skill
+  id: Elona.SpellBuffHolyShield
+  hspIds:
+    elona122: 442
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffHolyShield
   parent: BaseEffect
@@ -266,6 +350,12 @@
   difficulty: 620
   skillID: Elona.SpellBuffMistOfSilence
   effectID: Elona.SpellBuffMistOfSilence
+- type: Elona.Skill
+  id: Elona.SpellBuffMistOfSilence
+  hspIds:
+    elona122: 443
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffMistOfSilence
   parent: BaseEffect
@@ -280,6 +370,12 @@
   difficulty: 400
   skillID: Elona.SpellBuffRegeneration
   effectID: Elona.SpellBuffRegeneration
+- type: Elona.Skill
+  id: Elona.SpellBuffRegeneration
+  hspIds:
+    elona122: 444
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffRegeneration
   parent: BaseEffect
@@ -294,6 +390,12 @@
   difficulty: 350
   skillID: Elona.SpellBuffElementalShield
   effectID: Elona.SpellBuffElementalShield
+- type: Elona.Skill
+  id: Elona.SpellBuffElementalShield
+  hspIds:
+    elona122: 445
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffElementalShield
   parent: BaseEffect
@@ -308,6 +410,12 @@
   difficulty: 1050
   skillID: Elona.SpellBuffSpeed
   effectID: Elona.SpellBuffSpeed
+- type: Elona.Skill
+  id: Elona.SpellBuffSpeed
+  hspIds:
+    elona122: 446
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffSpeed
   parent: BaseEffect
@@ -322,6 +430,12 @@
   difficulty: 450
   skillID: Elona.SpellBuffSlow
   effectID: Elona.SpellBuffSlow
+- type: Elona.Skill
+  id: Elona.SpellBuffSlow
+  hspIds:
+    elona122: 447
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffSlow
   parent: BaseEffect
@@ -336,6 +450,12 @@
   difficulty: 80
   skillID: Elona.SpellBuffHero
   effectID: Elona.SpellBuffHero
+- type: Elona.Skill
+  id: Elona.SpellBuffHero
+  hspIds:
+    elona122: 448
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffHero
   parent: BaseEffect
@@ -350,6 +470,12 @@
   difficulty: 300
   skillID: Elona.SpellBuffMistOfFrailness
   effectID: Elona.SpellBuffMistOfFrailness
+- type: Elona.Skill
+  id: Elona.SpellBuffMistOfFrailness
+  hspIds:
+    elona122: 449
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffMistOfFrailness
   parent: BaseEffect
@@ -364,6 +490,12 @@
   difficulty: 600
   skillID: Elona.SpellBuffElementScar
   effectID: Elona.SpellBuffElementScar
+- type: Elona.Skill
+  id: Elona.SpellBuffElementScar
+  hspIds:
+    elona122: 450
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffElementScar
   parent: BaseEffect
@@ -378,6 +510,12 @@
   difficulty: 900
   skillID: Elona.SpellBuffHolyVeil
   effectID: Elona.SpellBuffHolyVeil
+- type: Elona.Skill
+  id: Elona.SpellBuffHolyVeil
+  hspIds:
+    elona122: 451
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffHolyVeil
   parent: BaseEffect
@@ -392,6 +530,12 @@
   difficulty: 500
   skillID: Elona.SpellBuffNightmare
   effectID: Elona.SpellBuffNightmare
+- type: Elona.Skill
+  id: Elona.SpellBuffNightmare
+  hspIds:
+    elona122: 452
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffNightmare
   parent: BaseEffect
@@ -406,6 +550,12 @@
   difficulty: 350
   skillID: Elona.SpellBuffDivineWisdom
   effectID: Elona.SpellBuffDivineWisdom
+- type: Elona.Skill
+  id: Elona.SpellBuffDivineWisdom
+  hspIds:
+    elona122: 453
+  relatedSkill: Elona.AttrLearning
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffDivineWisdom
   parent: BaseEffect
@@ -420,6 +570,12 @@
   mpCost: 70
   skillID: Elona.SpellMutation
   effectID: Elona.SpellMutation
+- type: Elona.Skill
+  id: Elona.SpellMutation
+  hspIds:
+    elona122: 454
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMutation
   parent: BaseEffect
@@ -441,6 +597,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellDoorCreation
   effectID: Elona.SpellDoorCreation
+- type: Elona.Skill
+  id: Elona.SpellDoorCreation
+  hspIds:
+    elona122: 457
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellDoorCreation
   parent: BaseEffect
@@ -461,6 +623,12 @@
   mpCost: 38
   skillID: Elona.SpellBuffIncognito
   effectID: Elona.SpellBuffIncognito
+- type: Elona.Skill
+  id: Elona.SpellBuffIncognito
+  hspIds:
+    elona122: 458
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffIncognito
   parent: BaseEffect
@@ -476,6 +644,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellResurrection
   effectID: Elona.SpellResurrection
+- type: Elona.Skill
+  id: Elona.SpellResurrection
+  hspIds:
+    elona122: 461
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellResurrection
   parent: BaseEffect
@@ -497,6 +671,12 @@
   difficulty: 1250
   skillID: Elona.SpellBuffContingency
   effectID: Elona.SpellBuffContingency
+- type: Elona.Skill
+  id: Elona.SpellBuffContingency
+  hspIds:
+    elona122: 462
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellBuffContingency
   parent: BaseEffect
@@ -511,6 +691,12 @@
   skillID: Elona.SpellFourDimensionalPocket
   effectID: Elona.SpellFourDimensionalPocket
   mpCost: 60
+- type: Elona.Skill
+  id: Elona.SpellFourDimensionalPocket
+  hspIds:
+    elona122: 463
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
 - type: Entity
   id: Elona.SpellFourDimensionalPocket
   parent: BaseEffect
@@ -525,6 +711,12 @@
   mpCost: 45
   skillID: Elona.SpellWizardsHarvest
   effectID: Elona.SpellWizardsHarvest
+- type: Elona.Skill
+  id: Elona.SpellWizardsHarvest
+  hspIds:
+    elona122: 464
+  relatedSkill: Elona.AttrCharisma
+  skillType: Spell
 - type: Entity
   id: Elona.SpellWizardsHarvest
   parent: BaseEffect
@@ -534,7 +726,7 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     # Number of items spawned
-    finalDamage: clamp(4 + _randInt(power / 50 + 1), 1, 15)
+    finalDamage: clamp(4 + randInt(power / 50 + 1), 1, 15)
   - type: EffectWizardsHarvest
 
 - type: Elona.Spell
@@ -545,6 +737,12 @@
   mpCost: 220
   skillID: Elona.SpellMeteor
   effectID: Elona.SpellMeteor
+- type: Elona.Skill
+  id: Elona.SpellMeteor
+  hspIds:
+    elona122: 465
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellMeteor
   parent: BaseEffect
@@ -561,6 +759,12 @@
   noMPCostScaling: true
   skillID: Elona.SpellGravity
   effectID: Elona.SpellGravity
+- type: Elona.Skill
+  id: Elona.SpellGravity
+  hspIds:
+    elona122: 466
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
 - type: Entity
   id: Elona.SpellGravity
   parent: BaseEffect

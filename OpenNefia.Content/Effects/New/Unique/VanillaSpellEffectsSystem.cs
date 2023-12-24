@@ -68,6 +68,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.Return;
 using OpenNefia.Content.Nefia;
 using OpenNefia.Content.Dungeons;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -1054,7 +1055,10 @@ namespace OpenNefia.Content.Effects.New.Unique
             }
 
             if (!_returning.TryGetEscapeLocation(args.SourceMap, out var coords))
+            {
+                Logger.ErrorS("return", $"Could not find escape location for map {args.SourceMap!}");
                 return;
+            }
 
             // >>>>>>>> elona122/shade2/proc.hsp:2771 		txt lang("周囲の大気がざわめきだした。","The air around you be ...
             var entrance = MapEntrance.FromMapCoordinates(coords.Value);

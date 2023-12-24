@@ -7,6 +7,14 @@
   range: 2
   skillID: Elona.SpellHealLight
   effectID: Elona.SpellHealLight
+- type: Elona.Skill
+  id: Elona.SpellHealLight
+  ordering:
+    after: Elona.Riding
+  hspIds:
+    elona122: 400
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellHealLight
   parent: BaseEffect
@@ -30,6 +38,12 @@
   range: 2
   skillID: Elona.SpellHealCritical
   effectID: Elona.SpellHealCritical
+- type: Elona.Skill
+  id: Elona.SpellHealCritical
+  hspIds:
+    elona122: 401
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellHealCritical
   parent: BaseEffect
@@ -53,6 +67,12 @@
   range: 2
   skillID: Elona.SpellCureOfEris
   effectID: Elona.SpellCureOfEris
+- type: Elona.Skill
+  id: Elona.SpellCureOfEris
+  hspIds:
+    elona122: 402
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellCureOfEris
   parent: BaseEffect
@@ -76,6 +96,12 @@
   range: 2
   skillID: Elona.SpellCureOfJure
   effectID: Elona.SpellCureOfJure
+- type: Elona.Skill
+  id: Elona.SpellCureOfJure
+  hspIds:
+    elona122: 403
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellCureOfJure
   parent: BaseEffect
@@ -99,6 +125,12 @@
   range: 2
   skillID: Elona.SpellHealingRain
   effectID: Elona.SpellHealingRain
+- type: Elona.Skill
+  id: Elona.SpellHealingRain
+  hspIds:
+    elona122: 404
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellHealingRain
   parent: BaseEffect
@@ -130,6 +162,12 @@
   range: 2
   skillID: Elona.SpellHealingTouch
   effectID: Elona.SpellHealingTouch
+- type: Elona.Skill
+  id: Elona.SpellHealingTouch
+  hspIds:
+    elona122: 405
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
 - type: Entity
   id: Elona.SpellHealingTouch
   parent: BaseEffect
