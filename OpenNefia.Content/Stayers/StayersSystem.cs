@@ -1,29 +1,17 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.TitleScreen;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.Maths;
-using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
-using static OpenNefia.Content.Prototypes.Protos;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using OpenNefia.Content.DisplayName;
-using static NetVips.Enums;
 using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Stayers

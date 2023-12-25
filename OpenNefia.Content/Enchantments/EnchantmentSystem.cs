@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Logic;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -7,11 +6,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Log;
@@ -19,8 +14,6 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Content.RandomGen;
-using OpenNefia.Content.Activity;
 using OpenNefia.Content.Food;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Items;
@@ -28,11 +21,9 @@ using OpenNefia.Content.Identify;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Containers;
 using OpenNefia.Content.Combat;
-using NetVips;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Game;
-using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Enchantments

@@ -1,5 +1,4 @@
-﻿using NetVips;
-using OpenNefia.Content.Activity;
+﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
@@ -21,11 +20,6 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.UserInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.RandomEvent
 {

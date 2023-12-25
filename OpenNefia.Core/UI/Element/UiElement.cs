@@ -5,7 +5,6 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Utility;
-using static NetVips.Enums;
 
 namespace OpenNefia.Core.UI.Element
 {

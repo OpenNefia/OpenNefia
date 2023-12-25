@@ -1,20 +1,11 @@
 ﻿using OpenNefia.Core.GameController;
-using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Timing;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static NetVips.Enums;
 
 namespace OpenNefia.Core.Rendering
-{    
+{
     /// <summary>
     /// Displays and updates animatable graphics in screenspace.
     /// </summary>
