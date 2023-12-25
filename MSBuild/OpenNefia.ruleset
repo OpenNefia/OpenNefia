@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="New Rule Set" Description=" " ToolsVersion="17.0">
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <Rule Id="CA1416" Action="Error" />
     <Rule Id="CS8597" Action="Error" />
     <Rule Id="CS8600" Action="Error" />
     <Rule Id="CS8601" Action="Error" />
