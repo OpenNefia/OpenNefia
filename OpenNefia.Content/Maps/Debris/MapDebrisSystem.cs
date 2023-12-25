@@ -3,11 +3,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.Rendering;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Skills;
-using NetVips;
 using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Maps

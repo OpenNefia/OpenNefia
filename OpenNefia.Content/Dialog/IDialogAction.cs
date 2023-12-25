@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NetVips;
 using OpenNefia.Content.Sidequests;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;

@@ -45,7 +45,15 @@ namespace OpenNefia.Core.Audio
 
         public IEnumerable<OutputDevice> GetMidiOutputDevices()
         {
-            return OutputDevice.GetAll();
+            try {
+                // Eager consume enumerable so native library load runs inside this block.
+                return OutputDevice.GetAll().ToList();
+            }
+            catch (Exception ex) {
+                // Native library failed to load.
+                Logger.ErrorS("music", ex, $"Failed to load native MIDI library.");
+                return Enumerable.Empty<OutputDevice>();
+            }
         }
 
         private void OnConfigMidiDeviceChanged(int deviceIndex)

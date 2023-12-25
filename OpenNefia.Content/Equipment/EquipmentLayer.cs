@@ -1,12 +1,9 @@
-﻿using NetVips;
-using OpenNefia.Content.Combat;
+﻿using OpenNefia.Content.Combat;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
-using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
@@ -26,11 +23,6 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Equipment

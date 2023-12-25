@@ -1,8 +1,9 @@
-﻿using NetVips.Extensions;
-using OpenNefia.Core.ResourceManagement;
-using System.Drawing;
-using static NetVips.Enums;
-using VipsImage = NetVips.Image;
+﻿using OpenNefia.Core.ResourceManagement;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -11,16 +12,22 @@ namespace OpenNefia.Core.Rendering
     /// </summary>
     public static class ImageLoader
     {
-        private static VipsImage RemoveKeyColor(VipsImage image, Maths.Color keyColor)
+        private static void RemoveKeyColor(Image<Rgba32> image, Maths.Color keyColor)
         {
-            if (image.Bands == 4)
-            {
-                image = image.Flatten();
-            }
-
-            var compare = new int[] { keyColor.RByte, keyColor.GByte, keyColor.BByte };
-            var alpha = image.Equal(compare).Ifthenelse(0, 255).BandOr();
-            return image.Bandjoin(alpha);
+            image.ProcessPixelRows(accessor => {    
+                for (int y = 0; y < accessor.Height; y++)
+                {
+                    Span<Rgba32> pixelRow = accessor.GetRowSpan(y);
+                    for (int x = 0; x < pixelRow.Length; x++)
+                    {
+                        ref Rgba32 pixel = ref pixelRow[x];
+                        if (pixel.R == keyColor.RByte && pixel.G == keyColor.GByte && pixel.B == keyColor.BByte)
+                        {
+                            pixel = Color.Transparent;
+                        }
+                    }
+                }
+            });
         }
 
         /// <summary>
@@ -34,43 +41,17 @@ namespace OpenNefia.Core.Rendering
             if (loadParams.KeyColor != null && fileData.GetExtension() == "bmp")
             {
                 var bytes = fileData.GetBytes();
-                using var reader = new MemoryStream(bytes);
-                var image = new Bitmap(reader).ToVips();
+                var image = Image.Load<Rgba32>(bytes);
 
-                image = RemoveKeyColor(image, loadParams.KeyColor.Value);
+                RemoveKeyColor(image, loadParams.KeyColor.Value);
 
-                var pixelDataFormat = GetLovePixelDataFormat(image);
+                var newBytes = new byte[image.Width * image.Height * 4];
+                image.CopyPixelDataTo(newBytes);
 
-                var memory = image.WriteToMemory();
-                return Love.Image.NewImageData(image.Width, image.Height, pixelDataFormat, memory);
+                return Love.Image.NewImageData(image.Width, image.Height, Love.ImageDataPixelFormat.RGBA8, newBytes);
             }
 
             return Love.Image.NewImageData(fileData);
-        }
-
-        private static Love.ImageDataPixelFormat GetLovePixelDataFormat(VipsImage image)
-        {
-            switch (image.Interpretation)
-            {
-                case Interpretation.Srgb:
-                case Interpretation.Rgb:
-                    switch (image.Format)
-                    {
-                        case BandFormat.Char:
-                        case BandFormat.Uchar:
-                            return Love.ImageDataPixelFormat.RGBA8;
-                        case BandFormat.Short:
-                        case BandFormat.Ushort:
-                            return Love.ImageDataPixelFormat.RGBA16;
-                        case BandFormat.Float:
-                            return Love.ImageDataPixelFormat.RGBA16F;
-                        case BandFormat.Double:
-                            return Love.ImageDataPixelFormat.RGBA32F;
-                    }
-                    break;
-            }
-
-            throw new InvalidOperationException($"Unknown .BMP image format: Interpretation={image.Interpretation} Format={image.Format}");
         }
     }
 }

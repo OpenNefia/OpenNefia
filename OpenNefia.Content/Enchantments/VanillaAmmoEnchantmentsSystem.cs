@@ -1,32 +1,19 @@
-using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Audio;
-using OpenNefia.Core.Game;
-using OpenNefia.Content.Effects;
-using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Combat;
-using NetVips;
-using NuGet.DependencyResolver;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Visibility;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Resists;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Factions;
-using Love;
-using OpenNefia.Content.Rendering;
 
 namespace OpenNefia.Content.Enchantments
 {

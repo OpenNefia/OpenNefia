@@ -3,8 +3,6 @@ using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Wisp.Controls;
-using OpenNefia.Core.UserInterface;
-using static OpenNefia.Core.UI.Wisp.WispControl;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.IoC;
@@ -20,13 +18,9 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.EntityGen;
-using YamlDotNet.RepresentationModel;
-using System.IO.Abstractions;
 using OpenNefia.Content.Maps;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.UI;
-using static NetVips.Enums;
 
 namespace OpenNefia.Content.DebugView
 {
