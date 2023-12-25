@@ -1,0 +1,230 @@
+﻿#
+# Base buff types
+#
+- type: Entity
+  id: Elona.BaseBuffBlessing
+  abstract: true
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    alignment: Positive
+
+- type: Entity
+  id: Elona.BaseBuffHex
+  abstract: true
+  parent: BaseBuff
+  components:
+  - type: Buff
+    alignment: Negative
+  - type: BuffResistRemoval
+
+- type: Entity
+  id: Elona.BaseBuffFood
+  abstract: true
+  parent: BaseBuff
+  components:
+  - type: Buff
+    alignment: Neutral
+  - type: BuffFood
+
+#
+# Vanilla buffs
+#
+
+- type: Entity
+  id: Elona.HolyShield
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconHolyShield
+
+- type: Entity
+  id: Elona.MistOfSilence
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconMistOfSilence
+
+- type: Entity
+  id: Elona.Regeneration
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconRegeneration
+
+- type: Entity
+  id: Elona.ElementalShield
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconElementalShield
+
+- type: Entity
+  id: Elona.Speed
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconSpeed
+
+- type: Entity
+  id: Elona.Slow
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconSlow
+
+- type: Entity
+  id: Elona.Hero
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconHero
+
+- type: Entity
+  id: Elona.MistOfFrailness
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconMistOfFrailness
+
+- type: Entity
+  id: Elona.ElementScar
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconElementScar
+
+- type: Entity
+  id: Elona.HolyVeil
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconHolyVeil
+
+- type: Entity
+  id: Elona.Nightmare
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconNightmare
+
+- type: Entity
+  id: Elona.DivineWisdom
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconDivineWisdom
+
+- type: Entity
+  id: Elona.Punishment
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconPunishment
+  - type: BuffResistRemoval
+    noRemoveOnHeal: true
+
+- type: Entity
+  id: Elona.LulwysTrick
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconLulwysTrick
+
+- type: Entity
+  id: Elona.Incognito
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconIncognito
+
+- type: Entity
+  id: Elona.DeathWord
+  parent: Elona.BaseBuffHex
+  components:
+  - type: Buff
+    icon: Elona.BuffIconDeathWord
+
+- type: Entity
+  id: Elona.Boost
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconBoost
+
+- type: Entity
+  id: Elona.Contingency
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconContingency
+
+- type: Entity
+  id: Elona.Lucky
+  parent: Elona.BaseBuffBlessing
+  components:
+  - type: Buff
+    icon: Elona.BuffIconLucky
+
+- type: Entity
+  id: Elona.FoodStrength
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodStrength
+
+- type: Entity
+  id: Elona.FoodConstitution
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodConstitution
+
+- type: Entity
+  id: Elona.FoodDexterity
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodDexterity
+
+- type: Entity
+  id: Elona.FoodPerception
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodPerception
+
+- type: Entity
+  id: Elona.FoodLearning
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodLearning
+
+- type: Entity
+  id: Elona.FoodWill
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodWill
+
+- type: Entity
+  id: Elona.FoodMagic
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodMagic
+
+- type: Entity
+  id: Elona.FoodCharisma
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodCharisma
+
+- type: Entity
+  id: Elona.FoodSpeed
+  parent: Elona.BaseBuffFood
+  components:
+  - type: Buff
+    icon: Elona.BuffIconFoodSpeed

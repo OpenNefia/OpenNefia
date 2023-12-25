@@ -24,11 +24,11 @@
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
 - [ ] inventory/spell/skill shortcuts
-- [ ] wishing
+- [x] wishing
 - [ ] magic items
 - [ ] mefs
-  + [ ] potion puddle
-  + [ ] retain original mef creator for magic
+  + [x] potion puddle
+  + [x] retain original mef creator for magic
 - [x] living weapons
 - [ ] cargo
 - [ ] all item events/properties
@@ -52,7 +52,7 @@
   + [ ] "main quest" separate from "scenario"
     * what happens is you may want to create a scenario that starts the player at mid-game in the middle of another main quest
     * however OpenNefia/LÖVE always tracked which "main quest" was active by scenario ID
-    * so this time two scenarios should be able to track the same "main quest".
+    * so this time two scenarios should be able to track the same "main quest"
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
 - [ ] status effect protoevents -> ECS

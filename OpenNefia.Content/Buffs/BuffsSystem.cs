@@ -1,29 +1,40 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Enchantments;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.World;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.Visibility;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.Buffs
 {
     public interface IBuffsSystem : IEntitySystem
     {
         void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
-        void AddBuff(string id, EntityUid target, int power, int turns, EntityUid source, BuffsComponent? buffs = null);
-        bool HasBuff(string id);
+        void AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int turns, EntityUid source, BuffsComponent? buffs = null);
+        bool HasBuff<T>(EntityUid ent, BuffsComponent? buffs = null)
+            where T : class, IComponent;
+        bool RemoveBuff(EntityUid entity, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null);
     }
 
     public sealed class BuffsSystem : EntitySystem, IBuffsSystem
     {
-        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IVisibilitySystem _visibilities = default!;
+        [Dependency] private readonly IRefreshSystem _refreshes = default!;
+
         public override void Initialize()
         {
             SubscribeComponent<BuffsComponent, EntityRefreshEvent>(ApplyBuffs, priority: EventPriorities.High);
@@ -31,12 +42,18 @@ namespace OpenNefia.Content.Buffs
 
         private void ApplyBuffs(EntityUid uid, BuffsComponent component, ref EntityRefreshEvent args)
         {
-            foreach (var buff in component.Buffs)
+            foreach (var ent in component.Container.ContainedEntities.ToList())
             {
-                if (buff.TurnsRemaining > 0)
+                if (!TryComp<BuffComponent>(ent, out var buff))
                 {
-                    var ev = new P_BuffOnEntityRefreshEvent(uid, buff);
-                    _protos.EventBus.RaiseEvent(buff.BuffID, ev);
+                    EntityManager.DeleteEntity(ent);
+                    continue;
+                }
+
+                if (buff.TimeRemaining > GameTimeSpan.Zero)
+                {
+                    var ev = new ApplyBuffOnRefreshEvent(uid);
+                    RaiseEvent(ent, ref ev);
                 }
             }
         }
@@ -46,10 +63,42 @@ namespace OpenNefia.Content.Buffs
             if (!Resolve(entity, ref buffs))
                 return;
 
-            // TODO
+            foreach (var buffEnt in buffs.Container.ContainedEntities.ToList())
+            {
+                RemoveBuff(entity, buffEnt, refresh: false);
+            }
+
+            _refreshes.Refresh(entity);
         }
 
-        public void AddBuff(string id, EntityUid target, int power, int turns, EntityUid source, BuffsComponent? buffs = null)
+        public bool RemoveBuff(EntityUid entity, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null)
+        {
+            if (!Resolve(entity, ref buffs))
+                return false;
+
+            if (!buffs.Container.Contains(buffEnt))
+            {
+                Logger.ErrorS("buff", $"Entity {entity} did not contain buff {buffEnt}!");
+                return false;
+            }
+
+            if (_gameSession.IsPlayer(entity) && _visibilities.PlayerCanSeeEntity(entity))
+            {
+                _mes.Display(Loc.GetString("Elona.Buffs.Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
+            }
+
+            var ev = new BeforeBuffRemovedEvent(entity);
+            RaiseEvent(buffEnt, ref ev);
+
+            EntityManager.DeleteEntity(buffEnt);
+
+            if (refresh)
+                _refreshes.Refresh(entity);
+
+            return true;
+        }
+
+        public void AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int turns, EntityUid source, BuffsComponent? buffs = null)
         {
             if (!Resolve(target, ref buffs))
                 return;
@@ -58,23 +107,37 @@ namespace OpenNefia.Content.Buffs
             _mes.Display($"TODO: Add buff {id}", UiColors.MesYellow);
         }
 
-        // TODO generic on component type
-        public bool HasBuff(string id)
+        public bool HasBuff<T>(EntityUid ent, BuffsComponent? buffs = null)
+            where T : class, IComponent
         {
-            return false;
+            if (!Resolve(ent, ref buffs))
+                return false;
+
+            return buffs.Container.ContainedEntities.Any(b => HasComp<T>(b));
         }
     }
 
-    [PrototypeEvent(typeof(BuffPrototype))]
-    public sealed class P_BuffOnEntityRefreshEvent
+    [ByRefEvent]
+    [EventUsage(EventTarget.Buff)]
+    public struct ApplyBuffOnRefreshEvent
     {
-        public EntityUid Entity { get; set; }
-        public BuffInstance Buff { get; set; }
+        public EntityUid Target { get; }
 
-        public P_BuffOnEntityRefreshEvent(EntityUid entity, BuffInstance buff)
+        public ApplyBuffOnRefreshEvent(EntityUid target)
         {
-            Entity = entity;
-            Buff = buff;
+            Target = target;
+        }
+    }
+
+    [ByRefEvent]
+    [EventUsage(EventTarget.Buff)]
+    public struct BeforeBuffRemovedEvent
+    {
+        public EntityUid Target { get; }
+
+        public BeforeBuffRemovedEvent(EntityUid target)
+        {
+            Target = target;
         }
     }
 }
