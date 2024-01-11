@@ -231,7 +231,7 @@ namespace OpenNefia.Content.Factions
                 if (theirRelation > Relation.Neutral)
                     _karma.ModifyKarma(us, -2);
 
-                // TODO
+                // TODO fire giant
                 if (ProtoIDOrNull(them) == Protos.Chara.Ebon && !_world.State.IsFireGiantReleased)
                 {
                     glares();

@@ -42,7 +42,7 @@ namespace OpenNefia.Content.RandomEvent
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
-        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;

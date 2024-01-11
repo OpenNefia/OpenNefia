@@ -74,7 +74,7 @@ namespace OpenNefia.Content.Food
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly ISanitySystem _sanity = default!;
         [Dependency] private readonly IHungerSystem _hunger = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;

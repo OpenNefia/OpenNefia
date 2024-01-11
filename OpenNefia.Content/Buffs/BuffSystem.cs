@@ -16,19 +16,22 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.Areas;
+using OpenNefia.Content.Karma;
 
 namespace OpenNefia.Content.Buffs
 {
-    public interface IBuffsSystem : IEntitySystem
+    public interface IBuffSystem : IEntitySystem
     {
         void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
         void AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int turns, EntityUid source, BuffsComponent? buffs = null);
         bool HasBuff<T>(EntityUid ent, BuffsComponent? buffs = null)
             where T : class, IComponent;
         bool RemoveBuff(EntityUid entity, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null);
+        IEnumerable<BuffComponent> EnumerateBuffs(EntityUid entity, BuffsComponent? buffs = null);
     }
 
-    public sealed class BuffsSystem : EntitySystem, IBuffsSystem
+    public sealed class BuffSystem : EntitySystem, IBuffSystem
     {
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
@@ -114,6 +117,20 @@ namespace OpenNefia.Content.Buffs
                 return false;
 
             return buffs.Container.ContainedEntities.Any(b => HasComp<T>(b));
+        }
+
+        public IEnumerable<BuffComponent> EnumerateBuffs(EntityUid entity, BuffsComponent? buffs = null)
+        {
+            if (!Resolve(entity, ref buffs))
+                yield break;
+
+            foreach (var ent in buffs.Container.ContainedEntities.ToList())
+            {
+                if (TryComp<BuffComponent>(ent, out var buff))
+                    yield return buff;
+                else
+                    Logger.ErrorS("buff", $"Buff entity {ent} (on: {entity}) did not have a {nameof(BuffComponent)}!");
+            }
         }
     }
 

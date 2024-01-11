@@ -15,5 +15,6 @@ namespace OpenNefia.Content.Loot
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class AlwaysDropOnDeathComponent : Component
     {
+        // TODO always/never enum?
     }
 }
