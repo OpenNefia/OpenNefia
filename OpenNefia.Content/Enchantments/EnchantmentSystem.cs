@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Enchantments
           where T : class, IComponent;
     }
 
-    public sealed class EnchantmentSystem : EntitySystem, IEnchantmentSystem
+    public sealed partial class EnchantmentSystem : EntitySystem, IEnchantmentSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;

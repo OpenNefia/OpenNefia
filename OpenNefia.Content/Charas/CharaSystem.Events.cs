@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
-        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly ISkillAdjustsSystem _skillAdjusts = default!;
         [Dependency] private readonly ISlotSystem _slots = default!;
         [Dependency] private readonly IEquipmentGenSystem _equipmentGen = default!;

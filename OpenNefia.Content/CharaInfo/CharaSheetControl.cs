@@ -60,16 +60,13 @@ namespace OpenNefia.Content.CharaInfo
             private const int TileWidth = 32;
             private const int TileHeight = 32;
 
-            private IAssetInstance HexBlessingIcons;
+            private IAssetInstance? HexBlessingIcon;
             private IAssetInstance TileIcon;
 
-            private BuffPrototype? Buff;
-
-            public HexAndBlessingIcon(BuffPrototype? buff)
+            public HexAndBlessingIcon(IAssetInstance? icon)
             {
                 TileIcon = Assets.Get(Protos.Asset.BuffIconNone);
-                HexBlessingIcons = Assets.Get(Protos.Asset.BuffIcons);
-                Buff = buff;
+                HexBlessingIcon = icon;
             }
 
             public override void GetPreferredSize(out Vector2 size)
@@ -88,10 +85,10 @@ namespace OpenNefia.Content.CharaInfo
                 GraphicsEx.SetColor(255, 255, 255, 120);
                 TileIcon.Draw(UIScale, x, y, centered: true);
 
-                if (Buff != null)
+                if (HexBlessingIcon != null)
                 {
                     GraphicsEx.SetColor(Color.White);
-                    HexBlessingIcons.DrawRegion(UIScale, Buff.RegionId, x, y);
+                    HexBlessingIcon.Draw(UIScale, x, y);
                 }
             }
         }
@@ -106,6 +103,8 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IPlayTimeManager _playTime = default!;
         [Dependency] private readonly IEquipmentSystem _equip = default!;
         [Dependency] private readonly IReligionSystem _religion = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
+        [Dependency] private readonly IAssetManager _assets = default!;
 
         private const int SheetWidth = 700;
         private const int SheetHeight = 400;
@@ -159,7 +158,7 @@ namespace OpenNefia.Content.CharaInfo
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
-{
+        {
             if (evt.Function == ContentKeyFunctions.UIPortrait)
             {
                 var args = new CharaAppearanceLayer.Args(_charaEntity);
@@ -301,7 +300,7 @@ namespace OpenNefia.Content.CharaInfo
             dict[_locScope.GetString("Group.Exp.Guild")] = levelGuildName;
             SetupContainer(ExpContainer, 5, dict);
             dict.Clear();
-            
+
             //
             // Attributes
             //
@@ -361,12 +360,18 @@ namespace OpenNefia.Content.CharaInfo
             BlessingContainer.AddLayout(LayoutType.Spacer, 10);
             BlessingContainer.AddLayout(LayoutType.XOffset, 30);
             var blessCont = new UiGridContainer(GridType.Horizontal, 5, xCentered: false, xSpace: 8);
+            var buffEntities = _buffs.EnumerateBuffs(_charaEntity).Take(15).ToList();
             for (int i = 0; i < 15; i++)
             {
-                if (buffs?.Buffs.Count > i)
-                    blessCont.AddElement(new HexAndBlessingIcon(_protos.Index(buffs.Buffs[i].BuffID)));
+                if (buffEntities.Count > i)
+                {
+                    var asset = _assets.GetAsset(buffEntities[i].Icon);
+                    blessCont.AddElement(new HexAndBlessingIcon(asset));
+                }
                 else
+                {
                     blessCont.AddElement(new HexAndBlessingIcon(null));
+                }
             }
             BlessingContainer.AddElement(blessCont);
 

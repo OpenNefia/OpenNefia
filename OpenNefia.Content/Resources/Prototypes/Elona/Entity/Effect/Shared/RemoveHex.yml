@@ -1,0 +1,54 @@
+- type: Entity
+  id: Elona.BaseEffectRemoveHex
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Positive
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    diceX: 0
+    diceY: 1
+    bonus: (skillLevel * 5) + (power * 2)
+  - type: EffectRemoveHex
+
+- type: Elona.Spell
+  id: Elona.HolyLight
+  hspIds:
+    elona122: 406
+  difficulty: 400
+  mpCost: 15
+  skillID: Elona.SpellHolyLight
+  effectID: Elona.SpellHolyLight
+- type: Elona.Skill
+  id: Elona.SpellHolyLight
+  hspIds:
+    elona122: 406
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellHolyLight
+  parent: BaseEffect
+  hspIds:
+    elona122: 406
+  components:
+
+- type: Elona.Spell
+  id: Elona.VanquishHex
+  hspIds:
+    elona122: 407
+  difficulty: 850
+  mpCost: 35
+  skillID: Elona.SpellVanquishHex
+  effectID: Elona.SpellVanquishHex
+- type: Elona.Skill
+  id: Elona.SpellVanquishHex
+  hspIds:
+    elona122: 407
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellVanquishHex
+  parent: BaseEffect
+  hspIds:
+    elona122: 407

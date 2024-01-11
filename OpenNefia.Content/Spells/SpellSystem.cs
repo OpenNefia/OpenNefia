@@ -126,7 +126,7 @@ namespace OpenNefia.Content.Spells
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly ISpellbookSystem _spellbooks = default!;
-        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly IEnchantmentSystem _enchantments = default!;
