@@ -149,17 +149,17 @@ namespace OpenNefia.Content.CharaInfo
             public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
-                TextDescription.SetPosition(X + 272, Y + 2);
-                TextPower.SetPosition(X + 222 - TextPower.TextWidth, Y + 2);
+                TextDescription.SetPosition(X + 272, Y);
+                TextPower.SetPosition(X + 222 - TextPower.TextWidth, Y);
 
                 switch (DetailAlignment)
                 {
                     case Alignment.Left:
                     default:
-                        TextDetail.SetPosition(X + 224, Y + 2);
+                        TextDetail.SetPosition(X + 224, Y);
                         break;
                     case Alignment.Right:
-                        TextDetail.SetPosition(X + 272 - TextDetail.Width - 10, Y + 2);
+                        TextDetail.SetPosition(X + 272 - TextDetail.Width - 10, Y);
                         break;
                 }
 
@@ -184,12 +184,6 @@ namespace OpenNefia.Content.CharaInfo
 
             public override void Draw()
             {
-                if (IndexInCategory % 2 == 0 && Data is not SkillsListEntry.Header)
-                {
-                    Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + Data.OffsetX, Y, Width - Data.OffsetDX, Height);
-                }
-
                 switch (Data)
                 {
                     case SkillsListEntry.Header:
@@ -197,6 +191,7 @@ namespace OpenNefia.Content.CharaInfo
                         break;
                     default:
                         base.Draw();
+                        base.DrawLineTint(Width - Data.OffsetDX);
                         break;
                 }
 

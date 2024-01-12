@@ -123,9 +123,9 @@ namespace OpenNefia.Content.Equipment
             {
                 XOffset = 30f;
                 base.SetPosition(x, y);
-                Icon?.SetPosition(X - 66, Y - 2);
-                TextEquipSlotName.SetPosition(X - 42, Y + 3);
-                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextPixelWidth, Y + 2);
+                Icon?.SetPosition(X - 66, Y - 5);
+                TextEquipSlotName.SetPosition(X - 42, Y + 1);
+                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextPixelWidth, Y);
             }
 
             public override void SetSize(float width, float height)
@@ -145,11 +145,7 @@ namespace OpenNefia.Content.Equipment
 
             public override void Draw()
             {
-                if (IndexInList % 2 == 0)
-                {
-                    Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
-                }
+                base.DrawLineTint(Width - 30);
 
                 Love.Graphics.SetColor(Color.White);
                 AssetSelectKey.Draw(UIScale, X, Y - 1);

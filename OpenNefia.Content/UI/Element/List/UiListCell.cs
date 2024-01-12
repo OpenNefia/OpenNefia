@@ -81,6 +81,11 @@ namespace OpenNefia.Content.UI.Element.List
         /// </summary>
         public int PixelXOffset => (int)(XOffset * UIScale);
 
+        /// <summary>
+        /// X offset of the text in virtual pixels, counted from the left edge of the cell.
+        /// </summary>
+        public float XOffsetEdge => AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset;
+
         protected FontSpec FontListKeyName = UiFonts.ListKeyName;
         public Color ColorSelectedAdd = UiColors.ListSelectedAdd;
         public Color ColorSelectedSub = UiColors.ListSelectedSub;
@@ -117,7 +122,7 @@ namespace OpenNefia.Content.UI.Element.List
         public override void GetPreferredSize(out Vector2 size)
         {
             UiText.GetPreferredSize(out size);
-            size.X = size.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset;
+            size.X = size.X + XOffsetEdge;
         }
 
         public override void SetSize(float width, float height)
@@ -125,13 +130,13 @@ namespace OpenNefia.Content.UI.Element.List
             UiText.GetPreferredSize(out var textSize);
             UiText.SetSize(textSize.X - (AssetSelectKey.VirtualWidth(UIScale) - 6 + XOffset), textSize.Y);
             KeyNameText.SetPreferredSize();
-            base.SetSize(MathF.Max(width, textSize.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset), height);
+            base.SetSize(MathF.Max(width, textSize.X + XOffsetEdge), height);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset, Y);
+            UiText.SetPosition(X + XOffsetEdge, Y);
 
             var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 5 + UIScale * 3;
             var keyNameY = Y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 8 + UIScale * 3;
@@ -150,6 +155,15 @@ namespace OpenNefia.Content.UI.Element.List
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
             AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 3);
+        }
+
+        public virtual void DrawLineTint(float width)
+        {
+            if (IndexInList % 2 == 0)
+            {
+                Love.Graphics.SetColor(UiColors.ListEntryAccent);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y - 1, width, Height);
+            }
         }
 
         public override void Draw()
