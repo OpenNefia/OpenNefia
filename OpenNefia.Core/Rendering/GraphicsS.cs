@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Rendering
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static float GetHeightV(this Love.Font font, float uiScale)
         {
-            return font.GetHeight() / uiScale;
+            return (int)Math.Round(font.GetHeight() * 0.84) / uiScale;
         }
 
         /// <summary>

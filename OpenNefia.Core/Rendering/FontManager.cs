@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Rendering
 
         private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont, Love.Rasterizer LoveRasterizer);
 
-        private ResourcePath _fallbackFontPath = new("/Font/Core/kochi-gothic-subst.ttf");
+        private ResourcePath _fallbackFontPath = new("/Font/Core/DreamHanSans-W12.ttc");
         private static Dictionary<int, FontCacheEntry> _fontCache = new();
         private static HashSet<FontSpec> _fontSpecs = new();
 
@@ -78,6 +78,7 @@ namespace OpenNefia.Core.Rendering
             var fontCacheEntry = new FontCacheEntry(spec, font, rasterizer);
 
             font.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
+            font.SetLineHeight(0.84f);
             _fontCache[size] = fontCacheEntry;
 
             return fontCacheEntry;
