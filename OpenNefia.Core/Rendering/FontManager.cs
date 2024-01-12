@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont, Love.Rasterizer LoveRasterizer);
 
@@ -32,6 +33,7 @@ namespace OpenNefia.Core.Rendering
             _localization.OnLanguageSwitched += HandleLanguageSwitched;
 
             _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
+            _graphics.OnFontHeightScaleChanged += HandleFontHeightScaleChanged;
         }
 
         /// <summary>
@@ -44,6 +46,11 @@ namespace OpenNefia.Core.Rendering
         }
 
         private void HandleWindowScaleChanged(WindowScaleChangedEventArgs obj)
+        {
+            ClearCache();
+        }
+
+        private void HandleFontHeightScaleChanged(FontHeightScaleChangedEventArgs obj)
         {
             ClearCache();
         }
@@ -78,7 +85,7 @@ namespace OpenNefia.Core.Rendering
             var fontCacheEntry = new FontCacheEntry(spec, font, rasterizer);
 
             font.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
-            font.SetLineHeight(0.84f);
+            font.SetLineHeight(_config.GetCVar(CVars.DisplayFontHeightScale));
             _fontCache[size] = fontCacheEntry;
 
             return fontCacheEntry;

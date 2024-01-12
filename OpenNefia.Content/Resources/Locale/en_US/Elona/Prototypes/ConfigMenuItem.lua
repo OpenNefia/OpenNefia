@@ -80,6 +80,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         },
     },
 
+    ScreenFontHeightScale = {
+        Name = "Font Height Scaling",
+    },
+
     --
     -- Menu: Net
     --

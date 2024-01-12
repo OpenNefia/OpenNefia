@@ -22,7 +22,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         {
             base.RefreshConfigValueDisplay();
 
-            ValueText.Text = CurrentValue.ToString("F1");
+            ValueText.Text = CurrentValue.ToString("F2");
         }
     }
 }

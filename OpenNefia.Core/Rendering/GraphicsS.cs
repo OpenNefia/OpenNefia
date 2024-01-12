@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Wisp;
 using System.Runtime.CompilerServices;
 
@@ -89,7 +91,7 @@ namespace OpenNefia.Core.Rendering
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static float GetHeightV(this Love.Font font, float uiScale)
         {
-            return (int)Math.Round(font.GetHeight() * 0.84) / uiScale;
+            return (int)Math.Round(font.GetHeight() * IoCManager.Resolve<IConfigurationManager>().GetCVar(CVars.DisplayFontHeightScale)) / uiScale;
         }
 
         /// <summary>

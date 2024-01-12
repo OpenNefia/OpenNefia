@@ -65,6 +65,9 @@ namespace OpenNefia.Core
 
         public static readonly CVarDef<bool> DisplayHighDPI =
             CVarDef.Create("display.hidpi", true, CVar.Archive);
+        
+        public static readonly CVarDef<float> DisplayFontHeightScale =
+            CVarDef.Create("display.fontHeightScale", 0.84f, CVar.Archive);
 
         // TODO: make into distrib config
         // that means a separate YAML thing that uses the serialization manager format
