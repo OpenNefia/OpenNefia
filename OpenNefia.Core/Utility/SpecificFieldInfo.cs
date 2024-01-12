@@ -66,6 +66,11 @@ namespace OpenNefia.Core.Utility
             return false;
         }
 
+        public override bool IsMarkedAsNullable()
+        {
+            return NullableHelper.IsMarkedAsNullable(FieldInfo);
+        }
+
         public static implicit operator FieldInfo(SpecificFieldInfo f) => f.FieldInfo;
         public static explicit operator SpecificFieldInfo(FieldInfo f) => new(f);
 
