@@ -1,0 +1,10 @@
+{
+  "FileVersion": 2,
+  "Id": "3aebaae2-2565-4153-a2b7-ed2d7dd092d8",
+  "Items": [
+    {
+      "Id": "bc2c5635-6492-42d6-9740-16f031fd64c6",
+      "Command": "--script C:\\Users\\yuno\\build\\OpenNefia.NET\\Mods\\Themes.Beautify\\Resources\\Patches\\Beautify\\test.csx"
+    }
+  ]
+}

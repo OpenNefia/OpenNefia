@@ -10,7 +10,7 @@ Things are still pretty WIP at this point, but contributions are appreciated.
 
 ## Dependencies
 
-The [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) is required to build the engine.
+The [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) is required to build the engine.
 
 For development on Windows, [Visual Studio 2022](https://visualstudio.microsoft.com/vs) is recommended.
 
