@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/OpenNefia.EntryPoint/bin/Debug/net7.0/OpenNefia.EntryPoint.dll",
+            "program": "${workspaceFolder}/OpenNefia.EntryPoint/bin/Debug/net8.0/OpenNefia.EntryPoint.dll",
             "args": [],
             "console": "integratedTerminal",
             "stopAtEntry": false,
@@ -19,7 +19,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-yaml-validator",
-            "program": "${workspaceFolder}/OpenNefia.YAMLValidator/bin/Debug/net7.0/OpenNefia.YAMLValidator.dll",
+            "program": "${workspaceFolder}/OpenNefia.YAMLValidator/bin/Debug/net8.0/OpenNefia.YAMLValidator.dll",
             "cwd": "${workspaceFolder}/OpenNefia.YAMLValidator",
             "console": "internalConsole",
             "stopAtEntry": false

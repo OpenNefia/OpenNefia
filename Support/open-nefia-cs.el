@@ -199,7 +199,7 @@ removed.  Return the new string.  If STRING is nil, return nil."
 
 (defun open-nefia-cs--executable-path ()
   (concat (file-name-as-directory (open-nefia-cs--project-root))
-          "OpenNefia.EntryPoint/bin/Debug/net7.0/"
+          "OpenNefia.EntryPoint/bin/Debug/net8.0/"
           (open-nefia-cs--executable-name)))
 
 (defun open-nefia-cs-run-headlessly (arg)
