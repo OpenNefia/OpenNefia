@@ -103,7 +103,7 @@ namespace OpenNefia.Content.UI.Element
             switch (style)
             {
                 case FontStyle.Bold:
-                    Love.Graphics.Draw(text, x+1, y);
+                    Love.Graphics.Draw(text, x + 1, y);
                     break;
             }
         }
@@ -174,7 +174,7 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.SetColor(Color.White);
             AssetTipIcons.DrawRegion(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            DrawTextInternal(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale, Font.Style); // y + vfix + 8
+            DrawTextInternal(BakedText, PixelX + 26 * UIScale, PixelY - 1 + 8 * UIScale, Font.Style); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
             GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText!.GetWidthV(UIScale) + 36, Y + 21);
         }

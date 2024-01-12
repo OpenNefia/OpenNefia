@@ -110,11 +110,11 @@ namespace OpenNefia.Content.UI.Element
             if (HasTitle)
             {
                 TextTitle.SetPosition(X + 45 * Width / 200 + 34 - TextTitle.Width / 2 
-                    + Math.Clamp(TextTitle.Width - 120, 0, 200) / 2, Y + 4);
+                    + Math.Clamp(TextTitle.Width - 120, 0, 200) / 2, Y + 3);
                 TopicWindow.SetPosition(X + 34, Y - 4);
             }
 
-            TextKeyHint.SetPosition(X + 58 + KeyHintXOffset, Y + Height - 43 - Height % 8);
+            TextKeyHint.SetPosition(X + 58 + KeyHintXOffset, Y + Height - 42 - Height % 8);
         }
 
         public override void Update(float dt)
@@ -142,7 +142,7 @@ namespace OpenNefia.Content.UI.Element
             if (!ShowDecorations)
                 return;
 
-            AssetTipIcons.DrawRegion(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
+            AssetTipIcons.DrawRegion(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 42 - Height % 8);
 
             if (HasTitle)
             {

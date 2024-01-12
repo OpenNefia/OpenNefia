@@ -55,7 +55,7 @@ namespace OpenNefia.Content.CharaMake
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            TextCaption.SetPosition(X + 18, Y + 4);
+            TextCaption.SetPosition(X + 18, Y + 3);
         }
 
         public override void Update(float dt)

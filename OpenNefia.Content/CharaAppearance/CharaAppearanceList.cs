@@ -235,9 +235,9 @@ namespace OpenNefia.Content.CharaAppearance
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            AssetArrowLeft.SetPosition(X, Y - 2);
+            AssetArrowLeft.SetPosition(X, Y - 3);
             UiText.SetPosition(AssetArrowLeft.Rect.Right + 5, Y + 2);
-            AssetArrowRight.SetPosition(UiText.Rect.Right + 5 + 1, Y - 2);
+            AssetArrowRight.SetPosition(UiText.Rect.Right + 5 + 1, Y - 3);
         }
 
         public void Change(int delta)
