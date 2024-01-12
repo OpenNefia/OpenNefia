@@ -121,6 +121,11 @@ namespace OpenNefia.Core.Utility
             return false;
         }
 
+        public override bool IsMarkedAsNullable()
+        {
+            return NullableHelper.IsMarkedAsNullable(PropertyInfo);
+        }
+
         public static implicit operator PropertyInfo(SpecificPropertyInfo f) => f.PropertyInfo;
         public static explicit operator SpecificPropertyInfo(PropertyInfo f) => new(f);
 

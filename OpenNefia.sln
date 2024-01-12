@@ -31,6 +31,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56ECDAC6-A5E2-4C19-8C4C-B4F33EAC700A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		nuget.config = nuget.config
 		MSBuild\OpenNefia.Analyzers.targets = MSBuild\OpenNefia.Analyzers.targets
 		MSBuild\OpenNefia.DefineConstants.targets = MSBuild\OpenNefia.DefineConstants.targets
 		MSBuild\OpenNefia.Engine.props = MSBuild\OpenNefia.Engine.props
@@ -39,7 +40,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MSBuild\OpenNefia.Properties.targets = MSBuild\OpenNefia.Properties.targets
 		MSBuild\OpenNefia.ruleset = MSBuild\OpenNefia.ruleset
 		MSBuild\XamlIL.targets = MSBuild\XamlIL.targets
-		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Packaging", "OpenNefia.Packaging\OpenNefia.Packaging.csproj", "{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}"
@@ -63,6 +63,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.YAMLValidator", "
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{CC96BD69-D6F5-4840-8038-5D6EC0A8F8ED}"
+	ProjectSection(SolutionItems) = preProject
+		Mods\Themes.Beautify\Themes.Beautify.csproj = Mods\Themes.Beautify\Themes.Beautify.csproj
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "Mods\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{832C413B-CB91-4401-BD5E-A4E187A97024}"
 EndProject

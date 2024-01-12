@@ -25,6 +25,6 @@
     <TargetOS Condition="'$(TargetOS)' == ''">$(ActualOS)</TargetOS>
     <Python>python3</Python>
     <Python Condition="'$(ActualOS)' == 'Windows'">py -3</Python>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 </Project>

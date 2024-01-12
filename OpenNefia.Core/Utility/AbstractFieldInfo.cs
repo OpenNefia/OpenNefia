@@ -24,5 +24,6 @@ namespace OpenNefia.Core.Utility
         public abstract bool HasBackingField();
         public abstract SpecificFieldInfo? GetBackingField();
         public abstract bool TryGetBackingField([NotNullWhen(true)] out SpecificFieldInfo? field);
+        public abstract bool IsMarkedAsNullable();
     }
 }

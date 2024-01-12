@@ -236,14 +236,14 @@ namespace OpenNefia.Core.Prototypes
         ///     Fired when prototype are reloaded. The event args contain the modified prototypes.
         /// </summary>
         /// <remarks>
-        ///     This does NOT fire on initial prototype load.
+        ///     This *also* fires on initial prototype load.
         /// </remarks>
         event Action<PrototypesReloadedEventArgs> PrototypesReloaded;
 
         /// <summary>
         ///     Fired before each prototype node is loaded, to allow transforming it.
         /// </summary>
-        event Action<MappingDataNode> BeforePrototypeLoad;
+        event BeforePrototypeLoadDelegate BeforePrototypeLoad;
     }
 
     [ImplicitDataDefinitionForInheritors]
@@ -283,6 +283,8 @@ namespace OpenNefia.Core.Prototypes
         IEnumerable<Type> EnumeratePrototypeTypes();
         IEnumerable<PrototypeInheritance> EnumerateInheritanceTree(Type type);
     }
+
+    public delegate void BeforePrototypeLoadDelegate(Type prototypeType, string prototypeTypeName, string prototypeID, MappingDataNode yaml);
 
     public sealed record class PrototypeInheritance(Type Type, string ID, string Parent);
 
@@ -1126,29 +1128,30 @@ namespace OpenNefia.Core.Prototypes
 
             foreach (var node in rootNode.Cast<YamlMappingNode>())
             {
-                var datanode = node.ToDataNodeCast<MappingDataNode>();
-                var type = datanode.Get<ValueDataNode>("type").Value;
+                var dataNode = node.ToDataNodeCast<MappingDataNode>();
+                var type = dataNode.Get<ValueDataNode>("type").Value;
 
                 if (!_prototypeTypes.TryGetValue(type, out var prototypeType))
                 {
                     throw new PrototypeLoadException($"Unknown prototype type: '{type}'", filename, node);
                 }
 
-                var dataNode = node.ToDataNodeCast<MappingDataNode>();
-                BeforePrototypeLoad?.Invoke(dataNode);
-
-                if (!datanode.TryGet<ValueDataNode>(IdDataFieldAttribute.Name, out var idNode))
+                if (!dataNode.TryGet<ValueDataNode>(IdDataFieldAttribute.Name, out var idNode))
+                {
                     throw new PrototypeLoadException($"Prototype type {type} is missing an 'id' datafield.");
+                }
 
                 if (!overwrite && _prototypes[prototypeType].ContainsKey(idNode.Value))
                 {
                     throw new PrototypeLoadException($"Duplicate ID: '{idNode.Value}'");
                 }
 
-                _prototypeResults[prototypeType][idNode.Value] = datanode;
+                BeforePrototypeLoad?.Invoke(prototypeType, type, idNode.Value, dataNode);
+
+                _prototypeResults[prototypeType][idNode.Value] = dataNode;
                 if (prototypeType.IsAssignableTo(typeof(IInheritingPrototype)))
                 {
-                    if (datanode.TryGet(ParentDataFieldAttribute.Name, out var parentNode))
+                    if (dataNode.TryGet(ParentDataFieldAttribute.Name, out var parentNode))
                     {
                         var parents = _serializationManager.Read<string[]>(parentNode);
                         _inheritanceTrees[prototypeType].Add(idNode.Value, parents);
@@ -1576,7 +1579,7 @@ namespace OpenNefia.Core.Prototypes
 
         public event Action<YamlStream, string>? LoadedData;
         public event Action<PrototypesReloadedEventArgs>? PrototypesReloaded;
-        public event Action<MappingDataNode>? BeforePrototypeLoad;
+        public event BeforePrototypeLoadDelegate? BeforePrototypeLoad;
 
         /// <summary>
         /// Orders prototypes and prototype IDs by prototype ordering.

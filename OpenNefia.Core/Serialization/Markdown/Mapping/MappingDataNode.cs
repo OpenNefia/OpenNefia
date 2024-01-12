@@ -190,10 +190,41 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             return mapping;
         }
 
-        public MappingDataNode Merge(MappingDataNode otherMapping)
+        public MappingDataNode MergeShallow(MappingDataNode otherMapping)
         {
             var newMapping = Copy();
             newMapping.Insert(otherMapping);
+
+            // TODO Serialization: should prob make this smarter
+            newMapping.Tag = Tag;
+            newMapping.Start = Start;
+            newMapping.End = End;
+
+            return newMapping;
+        }
+
+        public MappingDataNode MergeRecursive(MappingDataNode otherMapping)
+        {
+            var newMapping = Copy();
+
+            void DoMerge(MappingDataNode thisMapping, MappingDataNode otherMapping)
+            {
+                foreach (var (key, val) in thisMapping.Children.ToList())
+                {
+                    if (thisMapping.Has(key)
+                        && val is MappingDataNode mappingVal
+                        && thisMapping[key] is MappingDataNode thisMappingNode)
+                    {
+                        DoMerge(thisMappingNode, mappingVal);
+                    }
+                    else
+                    {
+                        thisMapping[key] = val;
+                    }
+                }
+            }
+
+            DoMerge(newMapping, otherMapping);
 
             // TODO Serialization: should prob make this smarter
             newMapping.Tag = Tag;

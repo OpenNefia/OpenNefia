@@ -18,6 +18,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Patches;
 using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -71,6 +72,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
         [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
+        [Dependency] private readonly IPatchManagerInternal _patchManager = default!;
         [Dependency] private readonly ICSharpReplExecutor _csharpReplExecutor = default!;
         [Dependency] private readonly ITaskRunner _taskRunner = default!;
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
@@ -129,6 +131,7 @@ namespace OpenNefia.Core.GameController
             _serialization.Initialize();
             _uiManager.Initialize();
             _wispManager.Initialize();
+            _patchManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
@@ -348,6 +351,7 @@ namespace OpenNefia.Core.GameController
             _graphics.Shutdown();
             _audio.Shutdown();
             _music.Shutdown();
+            _patchManager.Shutdown();
             _debugServer.Shutdown();
             if (_logHandler != null)
             {

@@ -53,19 +53,19 @@ namespace OpenNefia.Tests.Core.Utility
                 var fields = typeof(NotNullableTestClass).GetAllFields();
                 foreach (var field in fields)
                 {
-                    Assert.That(!NullableHelper.IsMarkedAsNullable(field), Is.True, $"{field}");
+                    Assert.That(NullableHelper.IsMarkedAsNullable(field), Is.False, $"{field}");
 
                     AbstractFieldInfo afi = new SpecificFieldInfo(field);
-                    Assert.That(!NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{field}");
+                    Assert.That(NullableHelper.IsMarkedAsNullable(afi), Is.False, $"{field}");
                 }
 
                 var properties = typeof(NotNullableTestClass).GetAllProperties();
                 foreach (var property in properties)
                 {
-                    Assert.That(!NullableHelper.IsMarkedAsNullable(property), Is.True, $"{property}");
+                    Assert.That(NullableHelper.IsMarkedAsNullable(property), Is.False, $"{property}");
 
                     AbstractFieldInfo afi = new SpecificPropertyInfo(property);
-                    Assert.That(!NullableHelper.IsMarkedAsNullable(afi), Is.True, $"{property}");
+                    Assert.That(NullableHelper.IsMarkedAsNullable(afi), Is.False, $"{property}");
                 }
             });
         }

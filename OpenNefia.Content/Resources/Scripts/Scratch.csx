@@ -2,7 +2,7 @@
 #r "System.Runtime"
 #r "System.Collections"
 #r "NLua, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217"
-#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net7.0/OpenNefia.Core.dll"
+#r "C:/users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net8.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.Content/Resources/Assemblies/OpenNefia.Content.dll"
 
 using NLua;

@@ -46,6 +46,7 @@ namespace OpenNefia.Core.GameObjects
         [DataField]
         public SlotId Id { get; } = default!;
 
+        // TODO replace with component type name ("type: Money") instead of assembly type name
         [DataField("compTypes")]
         internal readonly HashSet<Type> _compTypes = new();
 

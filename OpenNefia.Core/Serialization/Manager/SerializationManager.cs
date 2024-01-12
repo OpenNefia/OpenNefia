@@ -497,7 +497,7 @@ namespace OpenNefia.Core.Serialization.Manager
             }
 
             var newMapping = dataDef.Serialize(value, this, alwaysWrite, context);
-            mapping = mapping.Merge(newMapping);
+            mapping = mapping.MergeShallow(newMapping);
 
             return mapping;
         }
