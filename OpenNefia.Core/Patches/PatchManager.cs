@@ -58,8 +58,11 @@ namespace OpenNefia.Core.Patches
                 foreach (var patch in patches)
                 {
                     Logger.Info($"Loading patch {patch.ID}.");
-                    IoCManager.InjectDependencies(patch.Operation); // TODO serializer auto-injection
-                    patch.Operation.Initialize();
+                    foreach (var op in patch.Operations)
+                    {
+                        IoCManager.InjectDependencies(op); // TODO serializer auto-injection
+                        op.Initialize();
+                    }
                     _loadedPatches.Add(new PatchInstance(patch, enabled: true));
                 }
             }
@@ -69,13 +72,16 @@ namespace OpenNefia.Core.Patches
             // TODO order patches.
         }
 
-        private void HandleBeforePrototypeLoad(Type prototypeType, string prototypeID, MappingDataNode prototypeYaml)
+        private void HandleBeforePrototypeLoad(Type prototypeType, string prototypeTypeName, string prototypeID, MappingDataNode prototypeYaml)
         {
             foreach (var patch in _loadedPatches)
             {
                 if (patch.Patch.Type == PatchType.Prototype && patch.Enabled)
                 {
-                    patch.Patch.Operation.Apply(prototypeType, prototypeID, prototypeYaml);
+                    foreach (var op in patch.Patch.Operations)
+                    {
+                        op.Apply(prototypeType, prototypeTypeName, prototypeID, prototypeYaml);
+                    }
                 }
             }
         }
@@ -106,7 +112,7 @@ namespace OpenNefia.Core.Patches
         public PatchApplyMode Apply { get; }
 
         [DataField(required: true)]
-        public IPatchOperation Operation { get; } = default!;
+        public List<IPatchOperation> Operations { get; } = default!;
     }
 
     public enum PatchType
@@ -127,6 +133,6 @@ namespace OpenNefia.Core.Patches
     public interface IPatchOperation
     {
         void Initialize() { }
-        void Apply(Type prototypeType, string prototypeID, MappingDataNode yaml);
+        void Apply(Type prototypeType, string prototypeTypeName, string prototypeID, MappingDataNode yaml);
     }
 }

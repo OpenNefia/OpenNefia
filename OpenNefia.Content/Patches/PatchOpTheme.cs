@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Patches
@@ -24,7 +25,12 @@ namespace OpenNefia.Content.Patches
         [DataField(required: true)]
         public string ThemeID { get; } = default!;
 
-        public void Apply(Type prototypeType, string prototypeID, MappingDataNode yaml)
+        [DataField]
+        public HashSet<string> Files { get; } = new();
+
+        private Regex ReplaceRegex = new(@"^/(\w+)/(\w+)/");
+
+        public void Apply(Type prototypeType, string prototypeTypeName, string prototypeID, MappingDataNode yaml)
         {
             if (prototypeType == typeof(ChipPrototype)
                 || prototypeType == typeof(TilePrototype)
@@ -33,10 +39,10 @@ namespace OpenNefia.Content.Patches
             {
                 if (yaml.TryGet<MappingDataNode>("image", out var imageNode) && imageNode.TryGet<ValueDataNode>("filepath", out var filepathNode))
                 {
-                    if (filepathNode.Value.StartsWith("/Graphic/Elona/"))
+                    if (filepathNode.Value.StartsWith("/Graphic/"))
                     {
-                        var newPath = filepathNode.Value.Replace("/Graphic/Elona/", $"/Graphic/{ThemeID}/");
-                        if (_resources.ContentFileExists(newPath))
+                        var newPath = ReplaceRegex.Replace(filepathNode.Value, $"/$1/{ThemeID}/");
+                        if (CanUseFile(newPath))
                             filepathNode.Value = newPath;
                     }
                 }
@@ -45,14 +51,19 @@ namespace OpenNefia.Content.Patches
             {
                 if (yaml.TryGet<ValueDataNode>("filepath", out var filepathNode))
                 {
-                    if (filepathNode.Value.StartsWith("/Sound/Elona/"))
+                    if (filepathNode.Value.StartsWith("/Sound/"))
                     {
-                        var newPath = filepathNode.Value.Replace("/Sound/Elona/", $"/Sound/{ThemeID}/");
-                        if (_resources.ContentFileExists(newPath))
+                        var newPath = ReplaceRegex.Replace(filepathNode.Value, $"/$1/{ThemeID}/");
+                        if (CanUseFile(newPath))
                             filepathNode.Value = newPath;
                     }
                 }
             }
+        }
+
+        private bool CanUseFile(string path)
+        {
+            return _resources.ContentFileExists(path) && (Files.Count == 0 || Files.Contains(path));
         }
     }
 }

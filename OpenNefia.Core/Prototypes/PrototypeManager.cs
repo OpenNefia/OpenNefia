@@ -243,7 +243,7 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         ///     Fired before each prototype node is loaded, to allow transforming it.
         /// </summary>
-        event Action<Type, string, MappingDataNode> BeforePrototypeLoad;
+        event BeforePrototypeLoadDelegate BeforePrototypeLoad;
     }
 
     [ImplicitDataDefinitionForInheritors]
@@ -283,6 +283,8 @@ namespace OpenNefia.Core.Prototypes
         IEnumerable<Type> EnumeratePrototypeTypes();
         IEnumerable<PrototypeInheritance> EnumerateInheritanceTree(Type type);
     }
+
+    public delegate void BeforePrototypeLoadDelegate(Type prototypeType, string prototypeTypeName, string prototypeID, MappingDataNode yaml);
 
     public sealed record class PrototypeInheritance(Type Type, string ID, string Parent);
 
@@ -1144,7 +1146,7 @@ namespace OpenNefia.Core.Prototypes
                     throw new PrototypeLoadException($"Duplicate ID: '{idNode.Value}'");
                 }
 
-                BeforePrototypeLoad?.Invoke(prototypeType, idNode.Value, dataNode);
+                BeforePrototypeLoad?.Invoke(prototypeType, type, idNode.Value, dataNode);
 
                 _prototypeResults[prototypeType][idNode.Value] = dataNode;
                 if (prototypeType.IsAssignableTo(typeof(IInheritingPrototype)))
@@ -1577,7 +1579,7 @@ namespace OpenNefia.Core.Prototypes
 
         public event Action<YamlStream, string>? LoadedData;
         public event Action<PrototypesReloadedEventArgs>? PrototypesReloaded;
-        public event Action<Type, string, MappingDataNode>? BeforePrototypeLoad;
+        public event BeforePrototypeLoadDelegate? BeforePrototypeLoad;
 
         /// <summary>
         /// Orders prototypes and prototype IDs by prototype ordering.
