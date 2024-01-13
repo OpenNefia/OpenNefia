@@ -68,11 +68,17 @@ namespace OpenNefia.Content.CharaInfo
                 DescriptionText = new UiText(Data.Description);
                 UiText.Color = data.Color;
                 DescriptionText.Color = data.Color;
+
+                switch (Data)
+                {
+                    case FeatNameAndDesc.FeatHeader:
+                        UiText.Font = UiFonts.ListHeader;
+                        break;
+                }
             }
 
             private float Offset => Data switch
             {
-                FeatNameAndDesc.FeatHeader header => 35f,
                 FeatNameAndDesc.GainedFeat gained => -XOffsetEdge,
                 _ => 0f,
             };

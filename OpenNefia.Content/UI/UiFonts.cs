@@ -14,6 +14,7 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec ListTitleScreenText = new(14, 13);
         public static readonly FontSpec ListTitleScreenSubtext = new(11, 11);
         public static readonly FontSpec ListText = new(14, 12);
+        public static readonly FontSpec ListHeader = new(14, 12, style: FontStyle.Bold);
         public static readonly FontSpec ListKeyName = new(15, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
         public static readonly FontSpec WindowTitle = new(15, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
@@ -29,7 +30,6 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec CharaSheetInfoContent = new(14, 12);
         public static readonly FontSpec KeyHintBar = new(12, 12, color: UiColors.TextKeyHintBar, bgColor: UiColors.TextBlack);
 
-        public static readonly FontSpec SkillsListHeader = new(12, 10, style: FontStyle.Bold);
         public static readonly FontSpec SkillsListBonusPoints = new(12, 10, style: FontStyle.Bold);
 
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
