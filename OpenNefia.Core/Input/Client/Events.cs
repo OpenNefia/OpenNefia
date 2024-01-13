@@ -201,4 +201,17 @@ namespace OpenNefia.Core.Input
             UIScale = uiScale;
         }
     }
+
+    public class FontHeightScaleChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        ///     The new font height scale.
+        /// </summary>
+        public float FontHeightScale { get; }
+
+        public FontHeightScaleChangedEventArgs(float fontHeightScale)
+        {
+            FontHeightScale = fontHeightScale;
+        }
+    }
 }
