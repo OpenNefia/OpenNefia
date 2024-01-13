@@ -127,7 +127,7 @@
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectDamageRetarget
-    criteria:
+    rules:
     - AlwaysMount
   - type: EffectApplyBuff
     buffID: Elona.BuffSpeed
@@ -369,7 +369,7 @@
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectDamageRetarget
-    criteria:
+    rules:
     - AlwaysMount
   - type: EffectApplyBuff
     buffID: Elona.BuffLulwysTrick

@@ -104,17 +104,17 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled || !IsAlive(args.InnerTarget))
                 return;
 
-            foreach (var criteria in component.Criteria)
+            foreach (var criteria in component.Rules)
             {
                 switch (criteria)
                 {
                     default:
                         break;
-                    case RetargetType.AlwaysRider:
+                    case EffectRetargetRule.AlwaysRider:
                         if (_mounts.TryGetRider(args.InnerTarget.Value, out var rider))
                             args.InnerTarget = rider.Owner;
                         break;
-                    case RetargetType.AlwaysMount:
+                    case EffectRetargetRule.AlwaysMount:
                         if (_mounts.TryGetMount(args.InnerTarget.Value, out var mount))
                             args.InnerTarget = mount.Owner;
                         break;

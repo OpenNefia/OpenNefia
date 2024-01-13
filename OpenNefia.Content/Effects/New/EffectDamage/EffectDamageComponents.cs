@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Effects.New
         public PrototypeId<EntityPrototype>? EffectID { get; set; }
     }
 
-    public enum RetargetType
+    public enum EffectRetargetRule
     {
         AlwaysRider,
         AlwaysMount
@@ -95,7 +95,7 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectDamageRetargetComponent : Component
     {
         [DataField]
-        public List<RetargetType> Criteria { get; set; } = new();
+        public List<EffectRetargetRule> Rules { get; set; } = new();
     }
 
     /// <summary>
