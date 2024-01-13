@@ -343,7 +343,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void LuckyDay_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            _buffs.AddBuff(ev.Target, Protos.Buff.Lucky, 777, 1500, ev.Target);
+            _buffs.TryAddBuff(ev.Target, Protos.Buff.Lucky, 777, 1500, ev.Target);
         }
 
         #endregion

@@ -1,24 +1,14 @@
-﻿using OpenNefia.Content.Enchantments;
-using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI;
-using OpenNefia.Content.World;
-using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Locale;
-using OpenNefia.Content.Areas;
-using OpenNefia.Content.Karma;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.EntityGen;
@@ -26,10 +16,8 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Qualities;
-using OpenNefia.Content.RandomEvent;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.TurnOrder;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.CurseStates;
 
@@ -48,7 +36,7 @@ namespace OpenNefia.Content.Buffs
         /// <summary>
         /// Directly adds a buff, ignoring resistance and duplicates.
         /// </summary>
-        void AddBuffRaw(EntityUid target, EntityUid buff, BuffsComponent? buffs = null);
+        bool TryAddBuffRaw(EntityUid target, EntityUid buff, BuffsComponent? buffs = null);
 
         /// <summary>
         /// Attempts to add a buff, first checking if there are any buffs with the same
@@ -60,7 +48,8 @@ namespace OpenNefia.Content.Buffs
         /// <param name="duration"></param>
         /// <param name="source"></param>
         /// <param name="buffs"></param>
-        bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null);
+        bool TryAddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, [NotNullWhen(true)] out BuffComponent? buff, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null);
+        bool TryAddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null);
 
         bool TryGetBuff(EntityUid ent, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out BuffComponent? buff, BuffsComponent? buffs = null);
         bool TryGetBuff<T>(EntityUid ent, [NotNullWhen(true)] out BuffComponent? buff, BuffsComponent? buffs = null) where T : class, IComponent;
@@ -191,7 +180,7 @@ namespace OpenNefia.Content.Buffs
 
             if (_gameSession.IsPlayer(entity) && _visibilities.PlayerCanSeeEntity(entity))
             {
-                _mes.Display(Loc.GetString("Elona.Buff  .Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
+                _mes.Display(Loc.GetString("Elona.Buff.Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
             }
 
             var ev = new BeforeBuffRemovedEvent(entity);
@@ -207,7 +196,7 @@ namespace OpenNefia.Content.Buffs
             // <<<<<<<< elona122/shade2/chara_func.hsp:602 	return ...
         }
 
-        private void ProcResistableBuff(EntityUid uid, BuffResistableComponent component, BeforeBuffAddedEvent args)
+        private void ProcResistableBuff(EntityUid buffEnt, BuffResistableComponent component, BeforeBuffAddedEvent args)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:561 		f=false ...
             if (args.Cancelled)
@@ -215,7 +204,7 @@ namespace OpenNefia.Content.Buffs
 
             var magicResist = _resists.Level(args.Target, Protos.Element.Magic);
             var quality = _qualities.GetQuality(args.Target);
-            var buffPower = Comp<BuffComponent>(uid).Power;
+            var buffPower = Comp<BuffComponent>(buffEnt).Power;
 
             var resisted = false;
 
@@ -246,15 +235,17 @@ namespace OpenNefia.Content.Buffs
                 }
             }
 
-            if (TryComp<BuffResistableQualityComponent>(uid, out var resistQuality))
+            if (TryComp<BuffResistableQualityComponent>(buffEnt, out var resistQuality))
             {
-                if (quality >= resistQuality.ResistQuality)
+                if (quality >= resistQuality.ResistQuality
+                    // Added in Elona+ (allies can still be affected by Death Word)
+                    && _factions.GetRelationToPlayer(args.Target) < Relation.Ally)
                 {
                     resisted = true;
                 }
             }
 
-            if (TryGetBuff<BuffHolyVeilComponent>(uid, out var theirBuff))
+            if (TryGetBuff<BuffHolyVeilComponent>(args.Target, out var theirBuff))
             {
                 if (theirBuff.Power + 50 > buffPower * 5 / 2
                     || _rand.Next(theirBuff.Power + 50) > _rand.Next(buffPower + 1))
@@ -273,22 +264,27 @@ namespace OpenNefia.Content.Buffs
             // <<<<<<<< elona122/shade2/chara_func.hsp:573 			} ...
         }
 
-        public bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
+        public bool TryAddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, [NotNullWhen(true)] out BuffComponent? buffComp, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:549 #deffunc addBuff int tc,int buff,int power,int dur ...
             if (!Resolve(target, ref buffs) || duration <= 0)
+            {
+                buffComp = null;
                 return false;
+            }
 
             if (HasBuff(target, id, buffs))
             {
                 _mes.Display(Loc.GetString("Elona.Buff.Apply.NoEffect"));
+                buffComp = null;
                 return false;
             }
 
             var buff = _entityGen.SpawnEntity(id, MapCoordinates.Global);
-            if (!IsAlive(buff) || !TryComp<BuffComponent>(buff.Value, out var buffComp))
+            if (!IsAlive(buff) || !TryComp<BuffComponent>(buff.Value, out buffComp))
             {
                 _mes.Display(Loc.GetString("Elona.Buff.Apply.NoEffect"));
+                buffComp = null;
                 return false;
             }
 
@@ -298,6 +294,9 @@ namespace OpenNefia.Content.Buffs
             if (ev.OutTurns == null)
             {
                 _mes.Display(Loc.GetString("Elona.Buff.Apply.NoEffect"));
+
+                EntityManager.DeleteEntity(buff.Value);
+                buffComp = null;
                 return false;
             }
 
@@ -307,7 +306,7 @@ namespace OpenNefia.Content.Buffs
                     _mes.Display(Loc.GetString("Elona.Buff.Apply.Resists", ("target", target)));
 
                 EntityManager.DeleteEntity(buff.Value);
-
+                buffComp = null;
                 return false;
             }
 
@@ -323,15 +322,23 @@ namespace OpenNefia.Content.Buffs
             buffComp.TurnsRemaining = ev.OutTurns.Value;
             buffComp.Source = source;
 
-            AddBuffRaw(target, buff.Value, buffs);
+            if(!TryAddBuffRaw(target, buff.Value, buffs))
+            {
+                buffComp = null;
+                return false;
+            }
+
             return true;
             // <<<<<<<< elona122/shade2/chara_func.hsp:581 	return ...
         }
 
-        public void AddBuffRaw(EntityUid target, EntityUid buff, BuffsComponent? buffs = null)
+        public bool TryAddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
+            => TryAddBuff(target, id, power, out _, duration, source, curseState, buffs);
+
+        public bool TryAddBuffRaw(EntityUid target, EntityUid buff, BuffsComponent? buffs = null)
         {
             if (!Resolve(target, ref buffs))
-                return;
+                return false;
 
             var protoID = MetaData(buff).EntityPrototype?.GetStrongID();
             if (protoID != null && Loc.TryGetPrototypeString(protoID.Value, "Buff.Apply", out var mes, ("target", target)))
@@ -340,6 +347,8 @@ namespace OpenNefia.Content.Buffs
             buffs.Container.Insert(buff);
 
             _refresh.Refresh(target);
+
+            return true;
         }
 
         public bool TryGetBuff(EntityUid ent, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out BuffComponent? buff, BuffsComponent? buffs = null)

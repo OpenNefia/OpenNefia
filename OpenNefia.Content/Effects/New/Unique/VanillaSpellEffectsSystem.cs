@@ -1127,7 +1127,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
             }
 
-            _buffs.AddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.OutDamage, 5 + args.OutDamage / 30);
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.OutDamage, 5 + args.OutDamage / 30);
 
             _mapDrawables.Enqueue(new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff), args.InnerTarget.Value);
 
@@ -1156,7 +1156,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (drawable != null)
                 _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
 
-            _buffs.AddBuff(args.InnerTarget.Value, component.BuffID, args.OutDamage);
+            _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.OutDamage);
 
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...

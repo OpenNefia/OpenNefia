@@ -373,7 +373,7 @@ namespace OpenNefia.Content.Food
                 _mes.Display(Loc.GetString("Elona.Food.EatStatus.Good", ("eater", eater)), entity: eater);
 
                 if (_rand.OneIn(5))
-                    _buffs.AddBuff(eater, Protos.Buff.Lucky, 100, 500 + _rand.Next(500), eater);
+                    _buffs.TryAddBuff(eater, Protos.Buff.Lucky, 100, 500 + _rand.Next(500), eater);
 
                 _sanity.HealInsanity(eater, 2);
             }

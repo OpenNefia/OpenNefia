@@ -203,6 +203,10 @@
     icon: Elona.BuffIconDeathWord
   - type: BuffPower
     turns: 20
+  # >>>>>>>> elona122/shade2/chara_func.hsp:566 		if cQuality(tc)>=fixGreat : if buff=buffDeath :f ...
+  - type: BuffResistableQuality
+    resistQuality: Great
+  # <<<<<<<< elona122/shade2/chara_func.hsp:566 		if cQuality(tc)>=fixGreat : if buff=buffDeath :f ..
   - type: BuffDeathWord
 
 - type: Entity
