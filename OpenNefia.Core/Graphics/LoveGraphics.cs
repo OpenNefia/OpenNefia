@@ -45,7 +45,6 @@ namespace OpenNefia.Core.Graphics
         public new event Action<MouseButtonEventArgs>? OnMouseReleased;
         public new event Action<MouseWheelEventArgs>? OnMouseWheel;
         public event Action<WindowScaleChangedEventArgs>? OnWindowScaleChanged;
-        public event Action<FontHeightScaleChangedEventArgs>? OnFontHeightScaleChanged;
         public new event Func<QuitEventArgs, bool>? OnQuit;
 
         private Love.Canvas TargetCanvas = default!;
@@ -110,7 +109,6 @@ namespace OpenNefia.Core.Graphics
             _config.OnValueChanged(CVars.DisplayWindowMode, OnConfigWindowModeChanged);
             _config.OnValueChanged(CVars.DisplayDisplayNumber, OnConfigDisplayNumberChanged);
             _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
-            _config.OnValueChanged(CVars.DisplayFontHeightScale, OnConfigDisplayFontHeightScaleChanged);
 
             InitializeGraphicsDefaults();
             LoadGamepadMappings();
@@ -160,11 +158,6 @@ namespace OpenNefia.Core.Graphics
             }
 
             OnWindowScaleChanged?.Invoke(new(newUiScale));
-        }
-
-        private void OnConfigDisplayFontHeightScaleChanged(float newFontHeightScale)
-        {
-            OnFontHeightScaleChanged?.Invoke(new(newFontHeightScale));
         }
 
         public void Shutdown()
