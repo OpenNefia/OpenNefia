@@ -31,7 +31,6 @@
   parent: BaseEffect
   hspIds:
     elona122: 406
-  components:
 
 - type: Elona.Spell
   id: Elona.VanquishHex

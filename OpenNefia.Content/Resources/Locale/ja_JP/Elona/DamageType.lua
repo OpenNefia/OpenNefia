@@ -114,7 +114,7 @@ Elona.DamageType = {
             return ("%sは出血多量で死んだ。"):format(_.name(entity))
         end,
     },
-    Ether = {
+    EtherDisease = {
         DeathCause = "エーテルの病に倒れた。",
         Message = function(entity)
             return ("%sはエーテルに侵食され死んだ。"):format(_.name(entity))

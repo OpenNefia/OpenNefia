@@ -1,0 +1,375 @@
+- type: Elona.Spell
+  id: Elona.BuffHolyShield
+  hspIds:
+    elona122: 442
+  mpCost: 8
+  difficulty: 150
+  skillID: Elona.SpellBuffHolyShield
+  effectID: Elona.SpellBuffHolyShield
+- type: Elona.Skill
+  id: Elona.SpellBuffHolyShield
+  hspIds:
+    elona122: 442
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffHolyShield
+  parent: BaseEffect
+  hspIds:
+    elona122: 442
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffHolyShield
+
+- type: Elona.Spell
+  id: Elona.BuffMistOfSilence
+  hspIds:
+    elona122: 443
+  mpCost: 24
+  difficulty: 620
+  skillID: Elona.SpellBuffMistOfSilence
+  effectID: Elona.SpellBuffMistOfSilence
+- type: Elona.Skill
+  id: Elona.SpellBuffMistOfSilence
+  hspIds:
+    elona122: 443
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffMistOfSilence
+  parent: BaseEffect
+  hspIds:
+    elona122: 443
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffMistOfSilence
+
+- type: Elona.Spell
+  id: Elona.BuffRegeneration
+  hspIds:
+    elona122: 444
+  mpCost: 16
+  difficulty: 400
+  skillID: Elona.SpellBuffRegeneration
+  effectID: Elona.SpellBuffRegeneration
+- type: Elona.Skill
+  id: Elona.SpellBuffRegeneration
+  hspIds:
+    elona122: 444
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffRegeneration
+  parent: BaseEffect
+  hspIds:
+    elona122: 444
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffRegeneration
+
+- type: Elona.Spell
+  id: Elona.BuffElementalShield
+  hspIds:
+    elona122: 445
+  mpCost: 14
+  difficulty: 350
+  skillID: Elona.SpellBuffElementalShield
+  effectID: Elona.SpellBuffElementalShield
+- type: Elona.Skill
+  id: Elona.SpellBuffElementalShield
+  hspIds:
+    elona122: 445
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffElementalShield
+  parent: BaseEffect
+  hspIds:
+    elona122: 445
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffElementalShield
+
+- type: Elona.Spell
+  id: Elona.BuffSpeed
+  hspIds:
+    elona122: 446
+  mpCost: 28
+  difficulty: 1050
+  skillID: Elona.SpellBuffSpeed
+  effectID: Elona.SpellBuffSpeed
+- type: Elona.Skill
+  id: Elona.SpellBuffSpeed
+  hspIds:
+    elona122: 446
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffSpeed
+  parent: BaseEffect
+  hspIds:
+    elona122: 446
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectDamageRetarget
+    criteria:
+    - AlwaysMount
+  - type: EffectApplyBuff
+    buffID: Elona.BuffSpeed
+
+- type: Elona.Spell
+  id: Elona.BuffSlow
+  hspIds:
+    elona122: 447
+  mpCost: 10
+  difficulty: 450
+  skillID: Elona.SpellBuffSlow
+  effectID: Elona.SpellBuffSlow
+- type: Elona.Skill
+  id: Elona.SpellBuffSlow
+  hspIds:
+    elona122: 447
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffSlow
+  parent: BaseEffect
+  hspIds:
+    elona122: 447
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffSpeed
+
+- type: Elona.Spell
+  id: Elona.BuffHero
+  hspIds:
+    elona122: 448
+  mpCost: 12
+  difficulty: 80
+  skillID: Elona.SpellBuffHero
+  effectID: Elona.SpellBuffHero
+- type: Elona.Skill
+  id: Elona.SpellBuffHero
+  hspIds:
+    elona122: 448
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffHero
+  parent: BaseEffect
+  hspIds:
+    elona122: 448
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffHero
+
+- type: Elona.Spell
+  id: Elona.BuffMistOfFrailness
+  hspIds:
+    elona122: 449
+  mpCost: 8
+  difficulty: 300
+  skillID: Elona.SpellBuffMistOfFrailness
+  effectID: Elona.SpellBuffMistOfFrailness
+- type: Elona.Skill
+  id: Elona.SpellBuffMistOfFrailness
+  hspIds:
+    elona122: 449
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffMistOfFrailness
+  parent: BaseEffect
+  hspIds:
+    elona122: 449
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffMistOfFrailness
+
+- type: Elona.Spell
+  id: Elona.BuffElementScar
+  hspIds:
+    elona122: 450
+  mpCost: 15
+  difficulty: 600
+  skillID: Elona.SpellBuffElementScar
+  effectID: Elona.SpellBuffElementScar
+- type: Elona.Skill
+  id: Elona.SpellBuffElementScar
+  hspIds:
+    elona122: 450
+  relatedSkill: Elona.AttrMagic
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffElementScar
+  parent: BaseEffect
+  hspIds:
+    elona122: 450
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffElementScar
+
+- type: Elona.Spell
+  id: Elona.BuffHolyVeil
+  hspIds:
+    elona122: 451
+  mpCost: 20
+  difficulty: 900
+  skillID: Elona.SpellBuffHolyVeil
+  effectID: Elona.SpellBuffHolyVeil
+- type: Elona.Skill
+  id: Elona.SpellBuffHolyVeil
+  hspIds:
+    elona122: 451
+  relatedSkill: Elona.AttrWill
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffHolyVeil
+  parent: BaseEffect
+  hspIds:
+    elona122: 451
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffHolyVeil
+
+- type: Elona.Spell
+  id: Elona.BuffNightmare
+  hspIds:
+    elona122: 452
+  mpCost: 15
+  difficulty: 500
+  skillID: Elona.SpellBuffNightmare
+  effectID: Elona.SpellBuffNightmare
+- type: Elona.Skill
+  id: Elona.SpellBuffNightmare
+  hspIds:
+    elona122: 452
+  relatedSkill: Elona.AttrPerception
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffNightmare
+  parent: BaseEffect
+  hspIds:
+    elona122: 452
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffNightmare
+
+- type: Elona.Spell
+  id: Elona.BuffDivineWisdom
+  hspIds:
+    elona122: 453
+  mpCost: 22
+  difficulty: 350
+  skillID: Elona.SpellBuffDivineWisdom
+  effectID: Elona.SpellBuffDivineWisdom
+- type: Elona.Skill
+  id: Elona.SpellBuffDivineWisdom
+  hspIds:
+    elona122: 453
+  relatedSkill: Elona.AttrLearning
+  skillType: Spell
+- type: Entity
+  id: Elona.SpellBuffDivineWisdom
+  parent: BaseEffect
+  hspIds:
+    elona122: 453
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffDivineWisdom
+
+- type: Elona.Action
+  id: Elona.BuffPunishment
+  hspIds:
+    elona122: 622
+  skillID: Elona.ActionBuffPunishment
+  effectID: Elona.ActionBuffPunishment
+  staminaCost: 15
+  difficulty: 500
+- type: Elona.Skill
+  id: Elona.ActionBuffPunishment
+  hspIds:
+    elona122: 622
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionBuffPunishment
+  parent: BaseEffect
+  hspIds:
+    elona122: 622
+  components:
+  - type: EffectTargetOther
+    promptIfFriendly: true
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectApplyBuff
+    buffID: Elona.BuffPunishment
+
+- type: Elona.Action
+  id: Elona.BuffLulwysTrick
+  hspIds:
+    elona122: 625
+  skillID: Elona.ActionBuffLulwysTrick
+  effectID: Elona.ActionBuffLulwysTrick
+  staminaCost: 20
+  difficulty: 500
+- type: Elona.Skill
+  id: Elona.ActionBuffLulwysTrick
+  hspIds:
+    elona122: 625
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+- type: Entity
+  id: Elona.ActionBuffLulwysTrick
+  hspIds:
+    elona122: 625
+  parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectDamageRetarget
+    criteria:
+    - AlwaysMount
+  - type: EffectApplyBuff
+    buffID: Elona.BuffLulwysTrick

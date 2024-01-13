@@ -36,6 +36,7 @@
   - type: EquipSlots
   - type: VanillaAI
   - type: Buffs
+  - type: GrowthBuffs
   - type: Sanity
   - type: Money
   - type: GuildMember

@@ -17,12 +17,13 @@ using OpenNefia.Core.Game;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.Buffs;
 
 namespace OpenNefia.Content.Skills
 {
     /// <summary>
     /// This holds the leveling algorithms shared by skills and magic, both of which
-    /// implement <see cref="ISkillPrototype"/>.
+    /// implement <see cref="SkillPrototype"/>.
     /// </summary>
     public sealed partial class SkillsSystem
     {
@@ -37,7 +38,7 @@ namespace OpenNefia.Content.Skills
 
         public const float PotentialLevelingDecayRate = 0.9f;
 
-        public void ModifyPotential(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int delta)
+        public void ModifyPotential(EntityUid uid, SkillPrototype skillProto, LevelAndPotential level, int delta)
         {
             if (delta == 0)
                 return;
@@ -67,7 +68,7 @@ namespace OpenNefia.Content.Skills
 
         /// <inheritdoc/>
         /// <hsp>#deffunc skillMod int skill, int chara, int exp</hsp>
-        public void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained,
+        public void GainFixedSkillExp(EntityUid uid, SkillPrototype skillProto, LevelAndPotential level, int expGained,
             SkillsComponent? skills = null)
         {
             if (expGained == 0)
@@ -86,7 +87,7 @@ namespace OpenNefia.Content.Skills
         }
 
         /// <inheritdoc/>
-        public void GainSkillExp(EntityUid uid, ISkillPrototype skillProto,
+        public void GainSkillExp(EntityUid uid, SkillPrototype skillProto,
             LevelAndPotential level,
             int baseExpGained,
             int relatedSkillExpDivisor,
@@ -114,8 +115,7 @@ namespace OpenNefia.Content.Skills
 
             if (baseExpGained > 0)
             {
-                // TODO growth buffs
-                var growthBuff = 0;
+                int growthBuff = GetGrowthBuff(uid, skillProto);
                 actualExpGained = CalcSkillExpGain(baseExpGained, potential, baseLevel, growthBuff);
                 if (actualExpGained == 0)
                 {
@@ -151,6 +151,18 @@ namespace OpenNefia.Content.Skills
             // <<<<<<<< shade2/module.hsp:349 	#defcfunc calcFame int c,int per ..
         }
 
+        private int GetGrowthBuff(EntityUid uid, SkillPrototype skillProto, GrowthBuffsComponent? growthBuffs = null)
+        {
+            if (!Resolve(uid, ref growthBuffs))
+                return 0;
+
+            var growthBuff = 0;
+            if (growthBuffs.GrowthBuffs.TryGetValue(skillProto.GetStrongID(), out var growth))
+                growthBuff = growth;
+
+            return growthBuff;
+        }
+
         private int CalcNewPotentialFromLeveling(int potential, int levelDelta)
         {
             var newPotential = potential;
@@ -179,7 +191,7 @@ namespace OpenNefia.Content.Skills
             Decreased
         }
 
-        private string GetSkillChangeText(EntityUid entity, ISkillPrototype skillProto, SkillChangeType type)
+        private string GetSkillChangeText(EntityUid entity, SkillPrototype skillProto, SkillChangeType type)
         {
             string keySuffix;
 
@@ -194,7 +206,7 @@ namespace OpenNefia.Content.Skills
                     break;
             }
 
-            // skillProto is going to be ISkillPrototype and not the concrete type, so GetStrongID()
+            // skillProto is going to be SkillPrototype and not the concrete type, so GetStrongID()
             // will not work.
             if (Loc.TryGetPrototypeStringRaw(skillProto.GetType(), skillProto.ID, keySuffix, out var text, ("entity", entity)))
                 return text;
@@ -203,7 +215,7 @@ namespace OpenNefia.Content.Skills
             return Loc.GetString($"Elona.Skill.Default.{keySuffix}", ("entity", entity), ("skillName", skillName));
         }
 
-        private int ProcSkillLeveling(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential skill, int newExp)
+        private int ProcSkillLeveling(EntityUid uid, SkillPrototype skillProto, LevelAndPotential skill, int newExp)
         {
             if (newExp >= 1000)
             {
@@ -275,12 +287,12 @@ namespace OpenNefia.Content.Skills
     [ByRefEvent]
     public struct SkillExpGainedEvent
     {
-        public ISkillPrototype Skill { get; }
+        public SkillPrototype Skill { get; }
         public int BaseExpGained { get; }
         public int ActualExpGained { get; }
         public int LevelDelta { get; }
 
-        public SkillExpGainedEvent(ISkillPrototype skillProto, int baseExpGained, int actualExpGained, int levelDelta)
+        public SkillExpGainedEvent(SkillPrototype skillProto, int baseExpGained, int actualExpGained, int levelDelta)
         {
             Skill = skillProto;
             BaseExpGained = baseExpGained;

@@ -50,6 +50,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Return;
 using OpenNefia.Content.Nefia;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Buffs;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -103,6 +104,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IReturnSystem _returning = default!;
         [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAreaNefiaSystem _areaNefias = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
 
         public override void Initialize()
         {
@@ -124,6 +126,8 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectReturnComponent, ApplyEffectDamageEvent>(Apply_Return);
             SubscribeComponent<EffectEscapeComponent, ApplyEffectDamageEvent>(Apply_Escape);
             SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
+
+            SubscribeComponent<EffectApplyBuffComponent, ApplyEffectDamageEvent>(Apply_ApplyBuff);
         }
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
@@ -1079,6 +1083,29 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _returning.CancelReturn();
             }
             // <<<<<<<< elona122/shade2/main.hsp:740 				} ...
+        }
+
+        private void Apply_ApplyBuff(EntityUid uid, EffectApplyBuffComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1664 		if buffType(p)=buffBless:animeLoad 11,tc:else:if ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (!_protos.TryIndex(component.BuffID, out var buffProto) || !buffProto.Components.TryGetComponent<BuffComponent>(out var buffComp))
+            {
+                Logger.ErrorS("effect.spells", $"Could not find buff ID '{component.BuffID}'!");
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            IMapDrawable? drawable = null;
+            if (buffComp.Alignment == BuffAlignment.Positive)
+                drawable = new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff);
+            else if (buffComp.Alignment == BuffAlignment.Negative)
+                drawable = new ParticleMapDrawable(Protos.Asset.CurseEffect, Protos.Sound.Curse1);
+            if (drawable != null)
+                _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
+            // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...
         }
     }
 

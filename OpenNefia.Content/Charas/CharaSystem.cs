@@ -96,7 +96,7 @@ namespace OpenNefia.Content.Charas
 
             _activities.RemoveActivity(entity);
             _effects.RemoveAll(entity);
-            _buffs.RemoveAllBuffs(entity);
+            _buffs.HealAllBuffs(entity);
             _emoicons.SetEmotionIcon(entity, null);
             _skillAdjusts.RemoveAllSkillAdjusts(entity);
 

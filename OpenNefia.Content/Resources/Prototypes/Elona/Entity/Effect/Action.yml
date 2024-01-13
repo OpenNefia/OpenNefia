@@ -155,26 +155,6 @@
   parent: BaseEffect
 
 - type: Elona.Action
-  id: Elona.BuffPunishment
-  hspIds:
-    elona122: 622
-  skillID: Elona.ActionBuffPunishment
-  effectID: Elona.ActionBuffPunishment
-  staminaCost: 15
-  difficulty: 500
-- type: Elona.Skill
-  id: Elona.ActionBuffPunishment
-  hspIds:
-    elona122: 622
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionBuffPunishment
-  hspIds:
-    elona122: 622
-  parent: BaseEffect
-
-- type: Elona.Action
   id: Elona.PrayerOfJure
   hspIds:
     elona122: 623
@@ -210,26 +190,6 @@
   id: Elona.ActionAbsorbMagic
   hspIds:
     elona122: 624
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.BuffLulwysTrick
-  hspIds:
-    elona122: 625
-  skillID: Elona.ActionBuffLulwysTrick
-  effectID: Elona.ActionBuffLulwysTrick
-  staminaCost: 20
-  difficulty: 500
-- type: Elona.Skill
-  id: Elona.ActionBuffLulwysTrick
-  hspIds:
-    elona122: 625
-  skillType: Action
-  relatedSkill: Elona.AttrDexterity
-- type: Entity
-  id: Elona.ActionBuffLulwysTrick
-  hspIds:
-    elona122: 625
   parent: BaseEffect
 
 - type: Elona.Action

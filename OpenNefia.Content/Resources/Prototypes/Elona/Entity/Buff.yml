@@ -4,7 +4,7 @@
 - type: Entity
   id: Elona.BaseBuffBlessing
   abstract: true
-  parent: Elona.BaseBuffBlessing
+  parent: BaseBuff
   components:
   - type: Buff
     alignment: Positive
@@ -16,6 +16,7 @@
   components:
   - type: Buff
     alignment: Negative
+  - type: BuffResistable
   - type: BuffResistRemoval
 
 - type: Entity
@@ -25,6 +26,9 @@
   components:
   - type: Buff
     alignment: Neutral
+  - type: BuffPower
+    turns: 10 + basePower / 10
+    power: basePower
   - type: BuffFood
 
 #
@@ -32,199 +36,289 @@
 #
 
 - type: Entity
-  id: Elona.HolyShield
+  id: Elona.BuffHolyShield
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconHolyShield
+  - type: BuffPower
+    turns: 10 + basePower / 10
+  - type: BuffHolyShield
 
 - type: Entity
-  id: Elona.MistOfSilence
+  id: Elona.BuffMistOfSilence
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconMistOfSilence
+  - type: BuffPower
+    turns: 5 + basePower / 40
+  - type: BuffMistOfSilence
 
 - type: Entity
-  id: Elona.Regeneration
+  id: Elona.BuffRegeneration
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconRegeneration
+  - type: BuffPower
+    turns: 12 + basePower / 20
+  - type: BuffRegeneration
 
 - type: Entity
-  id: Elona.ElementalShield
+  id: Elona.BuffElementalShield
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconElementalShield
+  - type: BuffPower
+    turns: 4 + basePower / 20
+  - type: BuffElementalShield
 
 - type: Entity
-  id: Elona.Speed
+  id: Elona.BuffSpeed
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconSpeed
+  - type: BuffPower
+    turns: 8 + basePower / 30
+    power: 50 + sqrt(basePower / 5)
+  - type: BuffSpeed
 
 - type: Entity
-  id: Elona.Slow
+  id: Elona.BuffSlow
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconSlow
+  - type: BuffPower
+    turns: 8 + basePower / 30
+    power: min(20 + basePower / 20, 50)
+  - type: BuffSlow
 
 - type: Entity
-  id: Elona.Hero
+  id: Elona.BuffHero
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconHero
+  - type: BuffPower
+    turns: 10 + basePower / 4
+    power: 5 + basePower / 30
+  - type: BuffHero
 
 - type: Entity
-  id: Elona.MistOfFrailness
+  id: Elona.BuffMistOfFrailness
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconMistOfFrailness
+  - type: BuffPower
+    turns: 6 + basePower / 10
+  - type: BuffMistOfFrailness
 
 - type: Entity
-  id: Elona.ElementScar
+  id: Elona.BuffElementScar
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconElementScar
+  - type: BuffPower
+    turns: 4 + basePower / 15
+  - type: BuffElementScar
 
 - type: Entity
-  id: Elona.HolyVeil
+  id: Elona.BuffHolyVeil
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconHolyVeil
+  - type: BuffPower
+    turns: 15 + basePower / 5
+    power: 50 + basePower / 3 * 2
+  - type: BuffHolyVeil
 
 - type: Entity
-  id: Elona.Nightmare
+  id: Elona.BuffNightmare
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconNightmare
+  - type: BuffPower
+    turns: 4 + basePower / 15
+  - type: BuffNightmare
 
 - type: Entity
-  id: Elona.DivineWisdom
+  id: Elona.BuffDivineWisdom
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconDivineWisdom
+  - type: BuffPower
+    turns: 10 + basePower / 4
+  - type: BuffDivineWisdom
+    learningMagic: 6 + power / 40
+    literacy: 3 + power / 100
 
 - type: Entity
-  id: Elona.Punishment
+  id: Elona.BuffPunishment
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconPunishment
   - type: BuffResistRemoval
     noRemoveOnHeal: true
+  - type: BuffPower
+    turns: basePower
+    power: 20
+  - type: BuffPunishment
 
 - type: Entity
-  id: Elona.LulwysTrick
+  id: Elona.BuffLulwysTrick
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconLulwysTrick
+  - type: BuffPower
+    turns: 7
+    power: 155 + basePower / 5
+  - type: BuffLulwysTrick
 
 - type: Entity
-  id: Elona.Incognito
+  id: Elona.BuffIncognito
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconIncognito
+  - type: BuffPower
+    turns: 4 + basePower / 40
+  - type: BuffIncognito
 
 - type: Entity
-  id: Elona.DeathWord
+  id: Elona.BuffDeathWord
   parent: Elona.BaseBuffHex
   components:
   - type: Buff
     icon: Elona.BuffIconDeathWord
+  - type: BuffPower
+    turns: 20
+  - type: BuffDeathWord
 
 - type: Entity
-  id: Elona.Boost
+  id: Elona.BuffBoost
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconBoost
+  - type: BuffPower
+    turns: 5
+    power: 120
+  - type: BuffBoost
 
 - type: Entity
-  id: Elona.Contingency
+  id: Elona.BuffContingency
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconContingency
+  - type: BuffPower
+    turns: 66
+    # >>>>>>>> elona122/shade2/init.hsp:2627 	#define global ctype calcContingency(%1) limit(25 ...
+    # Chance that contingency will proc, out of 100.
+    # TODO make into 0.0-1.0
+    power: clamp(25 + basePower / 17, 25, 80)
+    # <<<<<<<< elona122/shade2/init.hsp:2627 	#define global ctype calcContingency(%1) limit(25 ..
+  - type: BuffContingency
 
 - type: Entity
-  id: Elona.Lucky
+  id: Elona.BuffLucky
   parent: Elona.BaseBuffBlessing
   components:
   - type: Buff
     icon: Elona.BuffIconLucky
+  - type: BuffPower
+    turns: 777
+    power: basePower
+  - type: BuffLucky
 
 - type: Entity
-  id: Elona.FoodStrength
+  id: Elona.BuffFoodStrength
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodStrength
+  - type: BuffFood
+    skill: Elona.AttrStrength
 
 - type: Entity
-  id: Elona.FoodConstitution
+  id: Elona.BuffFoodConstitution
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodConstitution
+  - type: BuffFood
+    skill: Elona.AttrConstitution
 
 - type: Entity
-  id: Elona.FoodDexterity
+  id: Elona.BuffFoodDexterity
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodDexterity
+  - type: BuffFood
+    skill: Elona.AttrDexterity
 
 - type: Entity
-  id: Elona.FoodPerception
+  id: Elona.BuffFoodPerception
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodPerception
+  - type: BuffFood
+    skill: Elona.AttrPerception
 
 - type: Entity
-  id: Elona.FoodLearning
+  id: Elona.BuffFoodLearning
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodLearning
+  - type: BuffFood
+    skill: Elona.AttrLearning
 
 - type: Entity
-  id: Elona.FoodWill
+  id: Elona.BuffFoodWill
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodWill
+  - type: BuffFood
+    skill: Elona.AttrWill
 
 - type: Entity
-  id: Elona.FoodMagic
+  id: Elona.BuffFoodMagic
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodMagic
+  - type: BuffFood
+    skill: Elona.AttrMagic
 
 - type: Entity
-  id: Elona.FoodCharisma
+  id: Elona.BuffFoodCharisma
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodCharisma
+  - type: BuffFood
+    skill: Elona.AttrCharisma
 
 - type: Entity
-  id: Elona.FoodSpeed
+  id: Elona.BuffFoodSpeed
   parent: Elona.BaseBuffFood
   components:
   - type: Buff
     icon: Elona.BuffIconFoodSpeed
+  - type: BuffFood
+    skill: Elona.AttrSpeed

@@ -59,11 +59,11 @@ namespace OpenNefia.Content.Skills
 
         #region Leveling (Shared)
 
-        void GainSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
+        void GainSkillExp(EntityUid uid, SkillPrototype skillProto, LevelAndPotential level, int baseExpGained, int relatedSkillExpDivisor, int levelExpDivisor = 0);
 
-        void GainFixedSkillExp(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);
+        void GainFixedSkillExp(EntityUid uid, SkillPrototype skillProto, LevelAndPotential level, int expGained, SkillsComponent? skills = null);
 
-        void ModifyPotential(EntityUid uid, ISkillPrototype skillProto, LevelAndPotential level, int delta);
+        void ModifyPotential(EntityUid uid, SkillPrototype skillProto, LevelAndPotential level, int delta);
 
         #endregion
 
@@ -78,6 +78,21 @@ namespace OpenNefia.Content.Skills
             SkillsComponent? skills = null);
         void ApplyEntityLevelUpGrowth(EntityUid entity, bool showMessage = false, SkillsComponent? skillComp = null, LevelComponent? levelComp = null);
         void SetLevelAdjustment(EntityUid uid, PrototypeId<SkillPrototype> skillId, int adjustment = 0, SkillsComponent? skills = null);
+
+        #endregion
+
+        #region Buffing
+
+        /// <summary>
+        /// Buffs an entity's skill level.
+        /// Event if the entity does not know the skill, they will still receive the buff.
+        /// This should be called when the entity is being refreshed.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="skillId"></param>
+        /// <param name="delta"></param>
+        /// <param name="skills"></param>
+        void BuffLevel(EntityUid uid, PrototypeId<SkillPrototype> skillId, int delta, SkillsComponent? skills = null);
 
         #endregion
 
@@ -162,6 +177,15 @@ namespace OpenNefia.Content.Skills
                 return false;
 
             return skills.TryGetKnown(protoId, out _);
+        }
+
+        public void BuffLevel(EntityUid uid, PrototypeId<SkillPrototype> skillId, int delta, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            var level = skills.Ensure(skillId);
+            level.Level.Buffed += delta;
         }
 
         private void RefreshHPMPAndStamina(SkillsComponent skills)

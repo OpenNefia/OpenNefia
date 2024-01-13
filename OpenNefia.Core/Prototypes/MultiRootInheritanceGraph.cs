@@ -37,6 +37,10 @@ namespace OpenNefia.Core.Prototypes
             //check for circular inheritance
             foreach (var parent in parents)
             {
+                if (EqualityComparer<T>.Default.Equals(parent, id))
+                    throw new InvalidOperationException(
+                        $"Circular inheritance detected for id \"{id}\" and parent \"{parent}\"");
+
                 var parentsL1 = GetParents(parent);
                 if (parentsL1 == null) continue;
 
@@ -45,7 +49,7 @@ namespace OpenNefia.Core.Prototypes
                 {
                     if (EqualityComparer<T>.Default.Equals(parentL1, id))
                         throw new InvalidOperationException(
-                            $"Circular Inheritance detected for id \"{id}\" and parent \"{parent}\"");
+                            $"Circular inheritance detected for id \"{id}\" and parent \"{parent}\"");
                     var parentsL2 = GetParents(parentL1);
                     if (parentsL2 != null)
                     {

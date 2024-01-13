@@ -374,7 +374,7 @@ namespace OpenNefia.Content.Effects.New
         /// Target of the effect. May be different from the original target
         /// in the case of AoE. May be <c>null</c> if the effect targets the ground.
         /// </summary>
-        public EntityUid? InnerTarget { get; }
+        public EntityUid? InnerTarget { get; set; }
 
         public EntityCoordinates SourceCoords { get; }
 

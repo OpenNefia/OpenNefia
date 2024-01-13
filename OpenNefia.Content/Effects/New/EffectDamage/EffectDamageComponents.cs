@@ -58,6 +58,7 @@ namespace OpenNefia.Content.Effects.New
         PlayerOrAlly,
         NotPlayer,
         Other,
+        Mount
     }
 
     /// <summary>
@@ -78,6 +79,23 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public PrototypeId<EntityPrototype>? EffectID { get; set; }
+    }
+
+    public enum RetargetType
+    {
+        AlwaysRider,
+        AlwaysMount
+    }
+
+    /// <summary>
+    /// Changes the target if it matches the criteria.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageRetargetComponent : Component
+    {
+        [DataField]
+        public List<RetargetType> Criteria { get; set; } = new();
     }
 
     /// <summary>

@@ -461,8 +461,7 @@ namespace OpenNefia.Content.Spells
                 }
             }
 
-            // TODO buffs
-            if (_buffs.HasBuff("Elona.MistOfSilence"))
+            if (_buffs.HasBuff<BuffMistOfSilenceComponent>(args.Caster))
             {
                 _mes.Display(Loc.GetString("Elona.Spells.Cast.Silenced", ("caster", args.Caster)), entity: args.Caster);
                 args.Handle(TurnResult.Failed);

@@ -26,6 +26,8 @@ namespace OpenNefia.Content.Resists
         bool HasResist(EntityUid uid, PrototypeId<ElementPrototype> protoId, ResistsComponent? resists = null);
         bool HasResist(EntityUid uid, ElementPrototype proto, ResistsComponent? resists = null);
 
+        void BuffLevel(EntityUid uid, PrototypeId<ElementPrototype> protoId, int delta, ResistsComponent? resists = null);
+
         /// <summary>
         /// Enumerates all resistable elemental damage types.
         /// </summary>
@@ -182,6 +184,15 @@ namespace OpenNefia.Content.Resists
             }
 
             return resists.Grade(id);
+        }
+
+        public void BuffLevel(EntityUid uid, PrototypeId<ElementPrototype> protoId, int delta, ResistsComponent? resists = null)
+        {
+            if (!Resolve(uid, ref resists))
+                return;
+
+            var level = resists.Ensure(protoId);
+            level.Level.Buffed += delta;
         }
     }
 

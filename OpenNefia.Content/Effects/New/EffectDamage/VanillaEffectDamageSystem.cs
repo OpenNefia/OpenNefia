@@ -29,6 +29,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Mefs;
 using OpenNefia.Content.World;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -52,10 +53,12 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
         [Dependency] private readonly IElementSystem _elements = default!;
         [Dependency] private readonly IMefSystem _mefs = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<EffectBaseDamageDiceComponent, ApplyEffectDamageEvent>(ApplyDamage_Dice, priority: EventPriorities.VeryHigh - 10000);
+            SubscribeComponent<EffectDamageRetargetComponent, ApplyEffectDamageEvent>(ApplyDamage_Retarget, priority: EventPriorities.VeryHigh - 5000);
             SubscribeComponent<EffectDamageCastInsteadComponent, ApplyEffectDamageEvent>(ApplyDamage_CastInstead, priority: EventPriorities.VeryHigh - 4000);
             SubscribeComponent<EffectDamageRelationsComponent, ApplyEffectDamageEvent>(ApplyDamage_Relations, priority: EventPriorities.VeryHigh - 3000);
             SubscribeComponent<EffectDamageSuccessRateComponent, ApplyEffectDamageEvent>(ApplyDamage_SuccessRate, priority: EventPriorities.VeryHigh - 2000);
@@ -96,8 +99,34 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             args.OutDamage = (int)_formulaEngine.Calculate(component.FinalDamage, formulaArgs, baseDamage);
         }
 
+        private void ApplyDamage_Retarget(EntityUid uid, EffectDamageRetargetComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            foreach (var criteria in component.Criteria)
+            {
+                switch (criteria)
+                {
+                    default:
+                        break;
+                    case RetargetType.AlwaysRider:
+                        if (_mounts.TryGetRider(args.InnerTarget.Value, out var rider))
+                            args.InnerTarget = rider.Owner;
+                        break;
+                    case RetargetType.AlwaysMount:
+                        if (_mounts.TryGetMount(args.InnerTarget.Value, out var mount))
+                            args.InnerTarget = mount.Owner;
+                        break;
+                }
+            }
+        }
+
         private void ApplyDamage_CastInstead(EntityUid uid, EffectDamageCastInsteadComponent component, ApplyEffectDamageEvent args)
         {
+            if (args.Handled)
+                return;
+
             bool Matches(EntityUid uid, CastInsteadCriteria criteria)
             {
                 switch (criteria)
