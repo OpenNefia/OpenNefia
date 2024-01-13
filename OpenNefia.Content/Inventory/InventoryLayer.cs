@@ -106,26 +106,16 @@ namespace OpenNefia.Content.Inventory
             public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
-                UiText.SetPosition(X + 30 + XOffset, Y + 1);
-                UiSubtext.SetPosition(X + Width - 44 - UiSubtext.TextWidth + XOffset + 4, Y + 2);
+                UiSubtext.SetPosition(X + Width - 44 - UiSubtext.TextWidth + XOffset + 4, Y);
             }
 
             public override void Draw()
             {
-                if (IndexInList % 2 == 0)
-                {
-                    Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
-                }
-
-                Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.Draw(UIScale, X, Y - 1);
-                KeyNameText.Draw();
+                base.Draw();
+                base.DrawLineTint(Width - 30);
+                UiSubtext.Draw();
 
                 Data.Source.OnDraw(UIScale, X, Y);
-
-                UiText.Draw();
-                UiSubtext.Draw();
 
                 SpriteBatch.Add(Data.ItemEntityUid, X - 40, Y - 12, centering: BatchCentering.AlignBottom, color: Data.ChipColor);
             }
@@ -162,7 +152,7 @@ namespace OpenNefia.Content.Inventory
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
         [Child] private UiWindow Window = new();
-        [Child] private UiPagedList<InventoryEntry> List = new(itemsPerPage: 16);
+        [Child] private UiPagedList<InventoryEntry> List = new(itemsPerPage: 16, textOffset: new Vector2(0, 3f));
 
         [Child] private UiText TextTopicItemName = new UiTextTopic();
         [Child] private UiText TextTopicItemDetail = new UiTextTopic();

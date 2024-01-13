@@ -271,7 +271,7 @@ namespace OpenNefia.Content.Inventory
 
                 if (icon.HasValue)
                 {
-                    AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);
+                    AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 5);
                 }
 
                 if (entry.IsInheritable)
