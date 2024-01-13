@@ -30,6 +30,7 @@ using static OpenNefia.Content.Hud.HudAttributeWidget;
 using ICSharpCode.Decompiler.Semantics;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core;
+using OpenNefia.Core.EngineVariables;
 
 namespace OpenNefia.Content.UI.Hud
 {
@@ -88,6 +89,9 @@ namespace OpenNefia.Content.UI.Hud
         [Child] private UiMessageWindowBacking MessageBoxBacking = default!;
         [Child] private UiMessageWindowBacking BacklogBacking = default!;
         [Child] private UiHudBar HudBar = default!;
+
+        [EngineVariable("Elona.DebugHudWidgetBounds")]
+        public bool DebugHudWidgetBounds { get; set; } = false;
 
         public const int HudZOrder = 20000000;
 
@@ -165,6 +169,7 @@ namespace OpenNefia.Content.UI.Hud
 
             Widgets.Add(new(new HudAutoTurnWidget(), WidgetAnchor.BottomRight, new(-156, -55), flags: WidgetDrawFlags.Never));
             Widgets.Add(new(new HudStatusIndicators(), WidgetAnchor.BottomLeft, new(8, -118)));
+            Widgets.Add(new(new HudBuffIconsWidget(), WidgetAnchor.BottomRight, new(-8, -8 -HudMinimapWidget.MinimapHeight)));
         }
 
         public bool TryGetWidget<T>([NotNullWhen(true)] out T? widget, [NotNullWhen(true)] out WidgetInstance? instance)
@@ -277,6 +282,12 @@ namespace OpenNefia.Content.UI.Hud
 
                 GraphicsEx.SetColor(Color.White);
                 widget.Widget.Draw();
+
+                if (DebugHudWidgetBounds)
+                {
+                    GraphicsEx.SetColor(Color.Red);
+                    GraphicsS.RectangleS(widget.Widget.UIScale, Love.DrawMode.Line, widget.Widget.Rect);
+                }
             }
 
             FpsCounter.Draw();

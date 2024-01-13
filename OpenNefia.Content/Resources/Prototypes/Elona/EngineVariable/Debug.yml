@@ -18,3 +18,10 @@
 - type: EngineVariable
   id: Elona.DebugForceEncounter
   default: null
+
+#
+# Show boundaries of HUD widgets.
+#
+- type: EngineVariable
+  id: Elona.DebugHudWidgetBounds
+  default: false

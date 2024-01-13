@@ -143,7 +143,7 @@ namespace OpenNefia.Content.Skills
                 return false;
             }
 
-            if (level.Level.Base <= 0)
+            if (level.Level.Base <= 0 && level.Level.Buffed <= 0)
             {
                 return false;
             }

@@ -29,10 +29,12 @@ namespace OpenNefia.Content.Resists
             if (Resists.TryGetValue(protoId, out var level))
                 return level;
 
-            return new LevelAndPotential()
+            level = new LevelAndPotential()
             {
                 Level = new(0)
             };
+            Resists[protoId] = level;
+            return level;
         }
 
         public LevelAndPotential Ensure(ElementPrototype proto) => Ensure(proto.GetStrongID());
@@ -46,7 +48,7 @@ namespace OpenNefia.Content.Resists
                 return false;
             }
 
-            if (level.Level.Base <= 0)
+            if (level.Level.Base <= 0 && level.Level.Buffed <= 0)
             {
                 return false;
             }

@@ -40,6 +40,7 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec HUDInfoText = new(13, 11, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec HUDSkillText = new(13, 11);
         public static readonly FontSpec HUDAutoTurnText = new(13, 13, color: UiColors.TextAutoTurn, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec HUDBuffDurationText = new FontSpec(13, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec TargetText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);

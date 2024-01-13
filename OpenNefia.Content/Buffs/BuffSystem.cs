@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Buffs
         /// <param name="duration"></param>
         /// <param name="source"></param>
         /// <param name="buffs"></param>
-        bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int duration, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null);
+        bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null);
 
         bool TryGetBuff(EntityUid ent, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out BuffComponent? buff, BuffsComponent? buffs = null);
         bool TryGetBuff<T>(EntityUid ent, [NotNullWhen(true)] out BuffComponent? buff, BuffsComponent? buffs = null) where T : class, IComponent;
@@ -99,9 +99,11 @@ namespace OpenNefia.Content.Buffs
         {
             var vars = new Dictionary<string, double>();
             vars["basePower"] = args.OutPower;
-            vars["baseTurns"] = args.OutTurns;
 
-            args.OutTurns = (int)_formulas.Calculate(component.Turns, vars, args.OutTurns);
+            // Turn duration passed to AddBuff overrides that calculated by default formula
+            if (args.OutTurns == null)
+                args.OutTurns = (int)_formulas.Calculate(component.Turns, vars, 10);
+
             args.OutPower = (int)_formulas.Calculate(component.Power, vars, args.OutPower);
         }
 
@@ -189,7 +191,7 @@ namespace OpenNefia.Content.Buffs
 
             if (_gameSession.IsPlayer(entity) && _visibilities.PlayerCanSeeEntity(entity))
             {
-                _mes.Display(Loc.GetString("Elona.Buffs.Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
+                _mes.Display(Loc.GetString("Elona.Buff  .Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
             }
 
             var ev = new BeforeBuffRemovedEvent(entity);
@@ -271,7 +273,7 @@ namespace OpenNefia.Content.Buffs
             // <<<<<<<< elona122/shade2/chara_func.hsp:573 			} ...
         }
 
-        public bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int duration, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
+        public bool AddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:549 #deffunc addBuff int tc,int buff,int power,int dur ...
             if (!Resolve(target, ref buffs) || duration <= 0)
@@ -293,6 +295,12 @@ namespace OpenNefia.Content.Buffs
             var ev = new BeforeBuffAddedEvent(target, power, duration, curseState, source);
             RaiseEvent(buff.Value, ev);
 
+            if (ev.OutTurns == null)
+            {
+                _mes.Display(Loc.GetString("Elona.Buff.Apply.NoEffect"));
+                return false;
+            }
+
             if (ev.Cancelled)
             {
                 if (ev.OutShowResistedMessage)
@@ -312,7 +320,7 @@ namespace OpenNefia.Content.Buffs
 
             buffComp.BasePower = power;
             buffComp.Power = ev.OutPower;
-            buffComp.TurnsRemaining = ev.OutTurns;
+            buffComp.TurnsRemaining = ev.OutTurns.Value;
             buffComp.Source = source;
 
             AddBuffRaw(target, buff.Value, buffs);
@@ -462,10 +470,10 @@ namespace OpenNefia.Content.Buffs
         public CurseState CurseState { get; }
 
         public int OutPower { get; set; }
-        public int OutTurns { get; set; }
+        public int? OutTurns { get; set; }
         public bool OutShowResistedMessage { get; set; } = false;
 
-        public BeforeBuffAddedEvent(EntityUid target, int power, int duration, CurseState curseState, EntityUid? source)
+        public BeforeBuffAddedEvent(EntityUid target, int power, int? duration, CurseState curseState, EntityUid? source)
         {
             OutPower = power;
             OutTurns = duration;

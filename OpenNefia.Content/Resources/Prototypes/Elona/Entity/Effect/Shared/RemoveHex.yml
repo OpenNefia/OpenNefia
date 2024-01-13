@@ -31,6 +31,9 @@
   parent: BaseEffect
   hspIds:
     elona122: 406
+  components:
+  - type: EffectRemoveHex
+    maxRemovedHexes: 1
 
 - type: Elona.Spell
   id: Elona.VanquishHex
@@ -48,6 +51,11 @@
   skillType: Spell
 - type: Entity
   id: Elona.SpellVanquishHex
-  parent: BaseEffect
+  parent: Elona.BaseEffectRemoveHex
   hspIds:
     elona122: 407
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 0
+    diceY: 1
+    bonus: (skillLevel * 5) + (power * 3 / 2)

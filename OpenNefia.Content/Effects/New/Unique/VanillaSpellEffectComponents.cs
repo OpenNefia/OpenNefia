@@ -171,6 +171,23 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Removes hexes.
+    /// </summary>
+    /// <remarks>
+    /// Used by Holy Veil and Vanquish Hex.
+    /// </remarks>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectRemoveHexComponent : Component
+    {
+        /// <summary>
+        /// Maximum hexes to remove. If <c>null</c>, remove all hexes.
+        /// </summary>
+        [DataField]
+        public int? MaxRemovedHexes { get; set; }
+    }
+
+    /// <summary>
     /// Adds a buff (blessing/hex) to the target.
     /// </summary>
     [RegisterComponent]

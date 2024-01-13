@@ -32,7 +32,6 @@ using OpenNefia.Content.Enchantments;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.UI;
-using Color = OpenNefia.Core.Maths.Color;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Items.Impl;
@@ -51,6 +50,9 @@ using OpenNefia.Content.Return;
 using OpenNefia.Content.Nefia;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.Buffs;
+using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Content.Spells;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -125,6 +127,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectCurseComponent, ApplyEffectDamageEvent>(Apply_Curse);
             SubscribeComponent<EffectReturnComponent, ApplyEffectDamageEvent>(Apply_Return);
             SubscribeComponent<EffectEscapeComponent, ApplyEffectDamageEvent>(Apply_Escape);
+            SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
             SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
 
             SubscribeComponent<EffectApplyBuffComponent, ApplyEffectDamageEvent>(Apply_ApplyBuff);
@@ -1085,6 +1088,53 @@ namespace OpenNefia.Content.Effects.New.Unique
             // <<<<<<<< elona122/shade2/main.hsp:740 				} ...
         }
 
+        private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2312 	case spRemoveHex ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            // TODO make into its own component
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Common.ItIsCursed"));
+                var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.Curse, args.Args);
+                args.Handle(result);
+                return;
+            }
+
+            var removed = 0;
+
+            foreach (var buff in _buffs.EnumerateBuffs(args.InnerTarget.Value).ToList())
+            {
+                if (TryComp<BuffResistRemovalComponent>(buff.Owner, out var buffResRemove))
+                {
+                    // skip Punishment hex
+                    if (buffResRemove.NoRemoveOnHeal)
+                        continue;
+
+                    if (buff.Alignment != BuffAlignment.Negative)
+                        continue;
+
+                    if (_rand.Next(args.OutDamage * 2 + 1) > _rand.Next(buff.Power + 1))
+                    {
+                        _buffs.RemoveBuff(args.InnerTarget.Value, buff.Owner);
+                        removed++;
+
+                        if (component.MaxRemovedHexes != null && removed >= component.MaxRemovedHexes.Value)
+                            break;
+                    }
+                }
+            }
+
+            _buffs.AddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.OutDamage, 5 + args.OutDamage / 30);
+
+            _mapDrawables.Enqueue(new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff), args.InnerTarget.Value);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2331 	swbreak ...
+        }
+
         private void Apply_ApplyBuff(EntityUid uid, EffectApplyBuffComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1664 		if buffType(p)=buffBless:animeLoad 11,tc:else:if ...
@@ -1105,6 +1155,10 @@ namespace OpenNefia.Content.Effects.New.Unique
                 drawable = new ParticleMapDrawable(Protos.Asset.CurseEffect, Protos.Sound.Curse1);
             if (drawable != null)
                 _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
+
+            _buffs.AddBuff(args.InnerTarget.Value, component.BuffID, args.OutDamage);
+
+            args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...
         }
     }

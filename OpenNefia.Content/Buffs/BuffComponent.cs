@@ -142,7 +142,7 @@ namespace OpenNefia.Content.Buffs
         Neutral,
         
         /// <summary>
-        /// Plays a curse animation on apply.
+        /// Plays a curse animation on apply. Removed by Vanquish Hex.
         /// </summary>
         Negative
     }
