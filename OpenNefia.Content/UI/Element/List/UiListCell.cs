@@ -139,8 +139,7 @@ namespace OpenNefia.Content.UI.Element.List
             UiText.SetPosition(X + XOffsetEdge, Y);
 
             var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 5 + UIScale * 3;
-            var keyNameY = Y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 8 + UIScale * 3;
-            KeyNameText.SetPosition(keyNameX, keyNameY);
+            KeyNameText.SetPosition(keyNameX, Y - 1);
         }
 
         public virtual void DrawHighlight()
