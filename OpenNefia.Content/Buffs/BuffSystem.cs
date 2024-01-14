@@ -196,31 +196,35 @@ namespace OpenNefia.Content.Buffs
             _refresh.Refresh(entity);
         }
 
-        public bool RemoveBuff(EntityUid entity, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null)
+        public bool RemoveBuff(EntityUid target, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:583 #deffunc delBuff int tc,int id ...
-            if (!Resolve(entity, ref buffs))
+            if (!Resolve(target, ref buffs))
                 return false;
 
             if (!buffs.Container.Contains(buffEnt))
             {
-                Logger.ErrorS("buff", $"Entity {entity} did not contain buff {buffEnt}!");
+                Logger.ErrorS("buff", $"Entity {target} did not contain buff {buffEnt}!");
                 return false;
             }
 
-            if (_gameSession.IsPlayer(entity) && _visibilities.PlayerCanSeeEntity(entity))
+            if (_gameSession.IsPlayer(target) && _visibilities.PlayerCanSeeEntity(target))
             {
-                _mes.Display(Loc.GetString("Elona.Buff.Ends", ("entity", entity), ("buff", buffEnt)), color: UiColors.MesPurple);
+                _mes.Display(Loc.GetString("Elona.Buff.Ends", ("entity", target), ("buff", buffEnt)), color: UiColors.MesPurple);
             }
 
-            var ev = new BeforeBuffRemovedEvent(entity);
+            var ev = new BeforeBuffRemovedEvent(target);
             RaiseEvent(buffEnt, ev);
+
+            var buffComp = EnsureComp<BuffComponent>(buffEnt);
+            var ev2 = new BeforeEntityLosesBuffEvent(buffComp);
+            RaiseEvent(target, ev2);
 
             buffs.Container.ForceRemove(buffEnt);
             EntityManager.DeleteEntity(buffEnt);
 
             if (refresh)
-                _refresh.Refresh(entity);
+                _refresh.Refresh(target);
 
             return true;
             // <<<<<<<< elona122/shade2/chara_func.hsp:602 	return ...
@@ -368,7 +372,7 @@ namespace OpenNefia.Content.Buffs
 
         public bool TryAddBuffRaw(EntityUid target, EntityUid buff, BuffsComponent? buffs = null)
         {
-            if (!Resolve(target, ref buffs))
+            if (!Resolve(target, ref buffs) || !TryComp<BuffComponent>(buff, out var buffComp))
                 return false;
 
             var protoID = MetaData(buff).EntityPrototype?.GetStrongID();
@@ -376,6 +380,9 @@ namespace OpenNefia.Content.Buffs
                 _mes.Display(mes, entity: target);
 
             buffs.Container.Insert(buff);
+
+            var ev = new AfterEntityReceivedBuffEvent(buffComp);
+            RaiseEvent(target, ev);
 
             _refresh.Refresh(target);
 
@@ -536,6 +543,28 @@ namespace OpenNefia.Content.Buffs
             Source = source;
             Target = target;
             CurseState = curseState;
+        }
+    }
+
+    [EventUsage(EventTarget.Buff)]
+    public sealed class AfterEntityReceivedBuffEvent : EntityEventArgs
+    {
+        public BuffComponent Buff { get; }
+
+        public AfterEntityReceivedBuffEvent(BuffComponent buff)
+        {
+            Buff = buff;
+        }
+    }
+
+    [EventUsage(EventTarget.Buff)]
+    public sealed class BeforeEntityLosesBuffEvent : EntityEventArgs
+    {
+        public BuffComponent Buff { get; }
+
+        public BeforeEntityLosesBuffEvent(BuffComponent buff)
+        {
+            Buff = buff;
         }
     }
 }

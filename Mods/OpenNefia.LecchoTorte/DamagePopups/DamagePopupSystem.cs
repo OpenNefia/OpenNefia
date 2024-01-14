@@ -1,3 +1,4 @@
+using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Damage;
 using OpenNefia.Content.Skills;
@@ -7,6 +8,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.LecchoTorte.DamagePopups
 {
@@ -21,6 +23,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -28,6 +31,40 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             SubscribeEntity<AfterDamageHPEvent>(DamagePopup_AfterDamageHP);
             SubscribeEntity<AfterHealEvent>(DamagePopup_AfterHeal);
             SubscribeEntity<AfterPhysicalAttackMissEventArgs>(DamagePopup_AfterPhysicalAttackMiss);
+            SubscribeEntity<AfterEntityReceivedBuffEvent>(DamagePopup_AfterReceivedBuff);
+            SubscribeEntity<BeforeEntityLosesBuffEvent>(DamagePopup_BeforeLoseBuff);
+        }
+
+        private void DamagePopup_AfterReceivedBuff(EntityUid uid, AfterEntityReceivedBuffEvent args)
+        {
+            Color color;
+            if (args.Buff.Alignment == BuffAlignment.Negative)
+                color = new Color(200, 0, 0);
+            else
+                color = new Color(0, 200, 200);
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = _displayNames.GetDisplayName(args.Buff.Owner),
+                Color = color,
+                Icon = Assets.Get(args.Buff.Icon)
+            }, uid);
+        }
+
+        private void DamagePopup_BeforeLoseBuff(EntityUid uid, BeforeEntityLosesBuffEvent args)
+        {
+            Color color;
+            if (args.Buff.Alignment == BuffAlignment.Negative)
+                color = new Color(0, 200, 0);
+            else
+                color = new Color(200, 100, 100);
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = "-" + _displayNames.GetDisplayName(args.Buff.Owner),
+                Color = color,
+                Icon = Assets.Get(args.Buff.Icon)
+            }, uid);
         }
 
         private void DamagePopup_ActiveMapChanged(ActiveMapChangedEvent ev)

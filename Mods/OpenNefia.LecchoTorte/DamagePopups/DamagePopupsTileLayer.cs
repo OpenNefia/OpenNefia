@@ -28,6 +28,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
         public Color Color { get; set; } = Color.White;
         public Color ShadowColor { get; set; } = Color.Black;
         public FontSpec Font { get; set; } = DefaultFont;
+        public IAssetInstance? Icon { get; set; }
     }
 
     [RegisterTileLayer(renderAfter: new[] { typeof(ShadowTileLayer) })]
@@ -169,7 +170,17 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
                 popup.UiText.SetPreferredSize();
 
-                pos += new Vector2(X - (popup.UiText.TextWidth / 2) + (_coords.TileSize.X * _coords.TileScale) / 2f, Y - (popup.UiText.Height / 2f) - (popup.Frame) - (yOffset * popup.UiText.Height) + (_coords.TileSize.Y * _coords.TileScale) / 2f);
+                pos += new Vector2(X - (popup.UiText.TextWidth / 2) + (_coords.TileSize.X * _coords.TileScale) / 2f, Y - (popup.UiText.Height / 2f) - popup.Frame - (yOffset * popup.UiText.Height) + (_coords.TileSize.Y * _coords.TileScale) / 2f);
+
+                if (popup.DamagePopup.Icon != null)
+                {
+                    var icon = popup.DamagePopup.Icon;
+                    var iconHeight = icon.PixelWidth;
+                    var textHeight = popup.UiText.PixelHeight;
+                    var ratio = textHeight / iconHeight;
+                    Love.Graphics.SetColor(Color.White.WithAlphaB(popup.DamagePopup.Color.AByte));
+                    popup.DamagePopup.Icon.DrawUnscaled(pos.X - icon.PixelWidth - (icon.PixelWidth * ratio) / 4, pos.Y + (icon.PixelHeight * ratio) / 8, icon.PixelWidth * ratio, icon.PixelHeight * ratio);
+                }
 
                 popup.UiText.SetPosition(pos.X, pos.Y);
                 popup.UiText.Draw();
