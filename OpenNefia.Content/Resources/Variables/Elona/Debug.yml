@@ -2,3 +2,4 @@ Elona:
   DebugForceMapRenewal: All
   DebugRegenQuestsEveryTime: true
   DebugForceEncounter: null
+  DebugHudWidgetBounds: false

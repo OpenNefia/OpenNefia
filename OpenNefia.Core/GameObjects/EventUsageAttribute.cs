@@ -63,6 +63,11 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// This event should be used with effect entities.
         /// </summary>
-        Effect = 0x80
+        Effect = 0x80,
+
+        /// <summary>
+        /// This event should be used with buff entities.
+        /// </summary>
+        Buff = 0x100
     }
 }

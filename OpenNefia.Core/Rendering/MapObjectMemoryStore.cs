@@ -182,6 +182,9 @@ namespace OpenNefia.Core.Rendering
             }
 
             memory.State = MemoryState.Added;
+            memory.AtlasIndex = null;
+            memory.ShadowType = ShadowType.None;
+            memory.Drawables.Clear();
 
             return memory;
         }

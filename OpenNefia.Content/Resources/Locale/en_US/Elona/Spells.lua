@@ -80,6 +80,15 @@ Elona.Spells = {
         },
     },
 
+    Description = {
+        Power = function(power)
+            return ("Power:%s"):format(power)
+        end,
+        TurnCounter = function(turns)
+            return ("%st"):format(turns)
+        end,
+    },
+
     Layer = {
         Window = {
             Title = "Spell",
@@ -92,15 +101,6 @@ Elona.Spells = {
             Lv = "Lv",
             Chance = "Chance",
             Effect = "Effect",
-        },
-
-        Stats = {
-            Power = function(power)
-                return ("Power:%s"):format(power)
-            end,
-            TurnCounter = function(turns)
-                return ("%st"):format(turns)
-            end,
         },
     },
 }

@@ -8,7 +8,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Random;
+using OpenNefia.Content.Buffs;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -168,5 +168,37 @@ namespace OpenNefia.Content.Effects.New.Unique
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectEscapeComponent : Component
     {
+    }
+
+    /// <summary>
+    /// Removes hexes.
+    /// </summary>
+    /// <remarks>
+    /// Used by Holy Veil and Vanquish Hex.
+    /// </remarks>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectRemoveHexComponent : Component
+    {
+        /// <summary>
+        /// Maximum hexes to remove. If <c>null</c>, remove all hexes.
+        /// </summary>
+        [DataField]
+        public int? MaxRemovedHexes { get; set; }
+    }
+
+    /// <summary>
+    /// Adds a buff (blessing/hex) to the target.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectApplyBuffComponent : Component
+    {
+        /// <summary>
+        /// Entity prototype ID of the buff to add.
+        /// Must have a <see cref="BuffComponent"/>.
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype> BuffID { get; set; }
     }
 }

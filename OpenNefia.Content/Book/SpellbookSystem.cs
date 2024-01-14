@@ -22,6 +22,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Book
 {
@@ -66,9 +67,9 @@ namespace OpenNefia.Content.Book
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
-        [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         [RegisterSaveData("Elona.SpellbookSystem.ReservedStates")]
         public SpellbookReserveStates SpellbookReserveStates { get; } = new();
@@ -179,7 +180,7 @@ namespace OpenNefia.Content.Book
             }
 
             _mes.Display(Loc.GetString("Elona.Magic.FailToCast.DimensionDoorOpens", ("chara", reader)));
-            _spells.Cast(Protos.Spell.Teleport, reader);
+            _newEffects.Apply(reader, reader, null, Protos.Effect.SpellTeleport);
             // <<<<<<<< shade2/calculation.hsp:1114 	return false ..
         }
 

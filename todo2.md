@@ -23,12 +23,12 @@
   + [ ] bomb ammo enchantment
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
+  + [ ] magic items
 - [ ] inventory/spell/skill shortcuts
-- [ ] wishing
-- [ ] magic items
-- [ ] mefs
-  + [ ] potion puddle
-  + [ ] retain original mef creator for magic
+- [x] wishing
+- [x] mefs
+  + [x] potion puddle
+  + [x] retain original mef creator for magic
 - [x] living weapons
 - [ ] cargo
 - [ ] all item events/properties
@@ -44,7 +44,6 @@
 - [ ] house upgrading
 - [ ] all chara events/properties
 - [ ] religion
-- [ ] guilds
 - [ ] water tiles
 - [ ] animated tiles
 - [ ] enemies follow player up/down stairs
@@ -52,7 +51,8 @@
   + [ ] "main quest" separate from "scenario"
     * what happens is you may want to create a scenario that starts the player at mid-game in the middle of another main quest
     * however OpenNefia/LÖVE always tracked which "main quest" was active by scenario ID
-    * so this time two scenarios should be able to track the same "main quest".
+    * so this time two scenarios should be able to track the same "main quest"
+  + [ ] guilds
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
 - [ ] status effect protoevents -> ECS

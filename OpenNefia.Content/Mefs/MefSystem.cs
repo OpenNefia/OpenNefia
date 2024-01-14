@@ -162,9 +162,7 @@ namespace OpenNefia.Content.Mefs
         private EntityUid? AfterMefSpawned(EntityUid? mef, PrototypeId<EntityPrototype> protoID, GameTimeSpan? duration, int power, EntityUid? spawnedBy)
         {
             if (!IsAlive(mef))
-            {
                 return null;
-            }
 
             if (!TryComp<MefComponent>(mef.Value, out var mefComp))
             {

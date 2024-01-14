@@ -146,7 +146,7 @@ namespace OpenNefia.Core.UI
             if (!MathHelper.CloseToPercent(entry.BarWidth, barWidth))
             {
                 entry.BarWidth = barWidth * uiScale;
-                entry.BarQuad.SetViewport(size.X * uiScale - barWidth * uiScale, 0, lastWidth, size.Y * uiScale);
+                entry.BarQuad.SetViewport(size.X * uiScale - barWidth * uiScale, 0, lastWidth, entry.Asset.PixelHeight * uiScale);
             }
 
             entry.Asset.Draw(uiScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);

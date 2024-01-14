@@ -60,5 +60,10 @@ namespace OpenNefia.Core.GameObjects
         /// This component should be used with effect entities.
         /// </summary>
         Effect = 0x80,
+
+        /// <summary>
+        /// This component should be used with buff entities.
+        /// </summary>
+        Buff = 0x100,
     }
 }

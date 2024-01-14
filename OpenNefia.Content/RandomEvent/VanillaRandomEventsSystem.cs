@@ -29,6 +29,8 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Spells;
+using OpenNefia.Content.Effects.New;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.RandomEvent
 {
@@ -42,7 +44,7 @@ namespace OpenNefia.Content.RandomEvent
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
-        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IInventorySystem _inv = default!;
@@ -54,12 +56,13 @@ namespace OpenNefia.Content.RandomEvent
         [Dependency] private readonly IFoodSystem _food = default!;
         [Dependency] private readonly ICharaSystem _charas = default!;
         [Dependency] private readonly IDamageSystem _damage = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         #region Elona.WizardsDream
 
         public void WizardsDream_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            //_spells.Cast(Protos.Spell.EffectGainKnowledge, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.GainKnowledge, power: 100);
         }
 
         #endregion
@@ -68,7 +71,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void Development_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            //_spells.Cast(Protos.Spell.EffectGainPotential, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.GainPotential, power: 100);
         }
 
         #endregion
@@ -78,7 +81,7 @@ namespace OpenNefia.Content.RandomEvent
         public void CreepyDream_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
             _audio.Play(Protos.Sound.Curse2);
-            //_spells.Cast(Protos.Spell.EffectWeakenResistance, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.WeakenResistance, power: 100);
         }
 
         #endregion
@@ -96,7 +99,7 @@ namespace OpenNefia.Content.RandomEvent
             {
                 if (_equipSlots.EnumerateEquippedEntities(target).Any())
                 {
-                    //_spells.Cast(Protos.Spell.EffectCurse, target, 200);
+                    _newEffects.Apply(target, target, null, Protos.Effect.Curse, power: 200);
                 }
                 else if (!_deferredEvents.IsEventEnqueued())
                 {
@@ -235,7 +238,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void SmallLuck_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            //_spells.Cast(Protos.Spell.EffectCreateMaterial, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.CreateMaterial, power: 100);
         }
 
         #endregion
@@ -311,7 +314,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void WanderingPriest_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            _spells.Cast(Protos.Spell.BuffHolyVeil, ev.Target, 800);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.SpellBuffHolyVeil, power: 800);
         }
 
         #endregion
@@ -343,7 +346,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void LuckyDay_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            _buffs.AddBuff("Elona.Lucky", ev.Target, 777, 1500, ev.Target);
+            _buffs.TryAddBuff(ev.Target, Protos.Buff.Lucky, 777, 1500, ev.Target);
         }
 
         #endregion
@@ -367,7 +370,7 @@ namespace OpenNefia.Content.RandomEvent
         public void MonsterDream_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
             _audio.Play(Protos.Sound.Curse2);
-            _spells.Cast(Protos.Spell.Mutation, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.SpellMutation, power: 100);
         }
 
         #endregion
@@ -376,7 +379,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void DreamHarvest_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            //_spells.Cast(Protos.Spell.EffectCreateMaterial, ev.Target, 200);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.CreateMaterial, power: 200);
         }
 
         #endregion
@@ -385,7 +388,7 @@ namespace OpenNefia.Content.RandomEvent
 
         public void YourPotential_OnTriggered(RandomEventPrototype proto, P_RandomEventOnTriggeredEvent ev)
         {
-            //_spells.Cast(Protos.Spell.EffectGainPotential, ev.Target, 100);
+            _newEffects.Apply(ev.Target, ev.Target, null, Protos.Effect.GainPotential, power: 100);
         }
 
         #endregion

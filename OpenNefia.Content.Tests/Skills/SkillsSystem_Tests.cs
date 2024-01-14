@@ -7,7 +7,6 @@ using OpenNefia.Core.Maths;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Inventory;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
@@ -42,6 +41,37 @@ namespace OpenNefia.Content.Tests.Skills
         potential: 50
       {Skill.AttrSpeed}: 100
 ";
+
+        /// <summary>
+        /// Test that buffing an unlearned skill will still return a buffed skill level.
+        /// </summary>
+        [Test]
+        public void TestSkillComponent_TryGetKnown_Buffed()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var skillsSys = sim.GetEntitySystem<ISkillsSystem>();
+
+            var ent = entMan.SpawnEntity(TestSkillsEntityID, map.AtPos(Vector2i.One));
+            var skills = entMan.GetComponent<SkillsComponent>(ent);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(skills.TryGetKnown(Skill.Detection, out _), Is.False);
+                skillsSys.BuffLevel(ent, Skill.Detection, 40);
+                Assert.That(skills.TryGetKnown(Skill.Detection, out var detection), Is.True);
+                Assert.That(detection!.Level.Base, Is.EqualTo(0));
+                Assert.That(detection.Level.Buffed, Is.EqualTo(40));
+                skills.Refresh();
+                Assert.That(skills.TryGetKnown(Skill.Detection, out _), Is.False);
+            });
+        }
 
         [Test]
         public void TestGainSkillExp()

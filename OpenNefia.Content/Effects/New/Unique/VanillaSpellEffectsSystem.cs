@@ -32,7 +32,6 @@ using OpenNefia.Content.Enchantments;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.UI;
-using Color = OpenNefia.Core.Maths.Color;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Items.Impl;
@@ -50,6 +49,10 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Return;
 using OpenNefia.Content.Nefia;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Buffs;
+using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Content.Spells;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -103,6 +106,8 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IReturnSystem _returning = default!;
         [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAreaNefiaSystem _areaNefias = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         public override void Initialize()
         {
@@ -114,6 +119,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectOracleComponent, ApplyEffectDamageEvent>(Apply_Oracle);
             SubscribeComponent<EffectWallCreationComponent, ApplyEffectDamageEvent>(Apply_WallCreation);
             SubscribeComponent<EffectDoorCreationComponent, ApplyEffectDamageEvent>(Apply_DoorCreation);
+            SubscribeComponent<EffectResurrectionComponent, GetEffectDescriptionEvent>(GetSpellDesc_Resurrection);
             SubscribeComponent<EffectResurrectionComponent, ApplyEffectDamageEvent>(Apply_Resurrection);
             SubscribeComponent<EffectWizardsHarvestComponent, ApplyEffectDamageEvent>(Apply_WizardsHarvest);
             SubscribeComponent<EffectRestoreComponent, ApplyEffectDamageEvent>(Apply_Restore);
@@ -123,7 +129,12 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectCurseComponent, ApplyEffectDamageEvent>(Apply_Curse);
             SubscribeComponent<EffectReturnComponent, ApplyEffectDamageEvent>(Apply_Return);
             SubscribeComponent<EffectEscapeComponent, ApplyEffectDamageEvent>(Apply_Escape);
+            SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
             SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
+
+            SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
+            SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
+            SubscribeComponent<EffectApplyBuffComponent, ApplyEffectDamageEvent>(Apply_ApplyBuff);
         }
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
@@ -570,6 +581,24 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:3273 			if tAttb(map(x,y,0))&cantPass:map(x,y,0)=tile_t ...
+        }
+
+        private void GetSpellDesc_Resurrection(EntityUid effectUid, EffectResurrectionComponent component, GetEffectDescriptionEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (!TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice)
+                || !_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out var vars))
+                return;
+
+            var chance = (int)_formulaEngine.Calculate(effectDice.FinalDamage, vars);
+
+            // >>>>>>>> elona122/shade2/command.hsp:2225 				s+=""+limit(bonus,1,100)+"%" ...
+            args.OutDescription += Loc.Space + int.Clamp(chance, 0, 100) + "%";
+            // <<<<<<<< elona122/shade2/command.hsp:2225 				s+=""+limit(bonus,1,100)+"%" ...
+
+            args.Handled = true;
         }
 
         private void Apply_Resurrection(EntityUid uid, EffectResurrectionComponent component, ApplyEffectDamageEvent args)
@@ -1079,6 +1108,109 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _returning.CancelReturn();
             }
             // <<<<<<<< elona122/shade2/main.hsp:740 				} ...
+        }
+
+        private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2312 	case spRemoveHex ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            // TODO make into its own component
+            if (_curseStates.IsCursed(args.CommonArgs.CurseState))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Common.ItIsCursed"));
+                var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.Curse, args.Args);
+                args.Handle(result);
+                return;
+            }
+
+            var removed = 0;
+
+            foreach (var buff in _buffs.EnumerateBuffs(args.InnerTarget.Value).ToList())
+            {
+                if (TryComp<BuffResistRemovalComponent>(buff.Owner, out var buffResRemove))
+                {
+                    // skip Punishment hex
+                    if (buffResRemove.NoRemoveOnHeal)
+                        continue;
+
+                    if (buff.Alignment != BuffAlignment.Negative)
+                        continue;
+
+                    if (_rand.Next(args.OutDamage * 2 + 1) > _rand.Next(buff.Power + 1))
+                    {
+                        _buffs.RemoveBuff(args.InnerTarget.Value, buff.Owner);
+                        removed++;
+
+                        if (component.MaxRemovedHexes != null && removed >= component.MaxRemovedHexes.Value)
+                            break;
+                    }
+                }
+            }
+
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.OutDamage, 5 + args.OutDamage / 30);
+
+            _mapDrawables.Enqueue(new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff), args.InnerTarget.Value);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2331 	swbreak ...
+        }
+
+        private void GetBuffDesc_DivineWisdom(GetBuffDescriptionEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (!args.BuffPrototype.Components.TryGetComponent<BuffDivineWisdomComponent>(out var buffDivineWisdom))
+                return;
+
+            var formulaArgs = _buffs.GetBuffFormulaArgs(args.Power);
+            formulaArgs["power"] = args.Power;
+            var learningMagic = (int)_formulaEngine.Calculate(buffDivineWisdom.LearningMagic, formulaArgs);
+            var literacy = (int)_formulaEngine.Calculate(buffDivineWisdom.Literacy, formulaArgs);
+
+            args.OutDescription = Loc.GetPrototypeString(args.BuffPrototype, "Buff.Description", ("learningMagic", learningMagic), ("literacy", literacy));
+            args.Handled = true;
+        }
+
+        private void GetBuffDesc_Punishment(GetBuffDescriptionEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (!args.BuffPrototype.Components.TryGetComponent<BuffPunishmentComponent>(out var buffPunishment))
+                return;
+
+            args.OutDescription = Loc.GetPrototypeString(args.BuffPrototype, "Buff.Description", ("speedLoss", args.Power), ("pvLossPercent", (int)double.Ceiling((1.0 - buffPunishment.PVModifier) * 100)));
+            args.Handled = true;
+        }
+
+        private void Apply_ApplyBuff(EntityUid uid, EffectApplyBuffComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1664 		if buffType(p)=buffBless:animeLoad 11,tc:else:if ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (!_protos.TryIndex(component.BuffID, out var buffProto) || !buffProto.Components.TryGetComponent<BuffComponent>(out var buffComp))
+            {
+                Logger.ErrorS("effect.spells", $"Could not find buff ID '{component.BuffID}'!");
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            IMapDrawable? drawable = null;
+            if (buffComp.Alignment == BuffAlignment.Positive)
+                drawable = new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff);
+            else if (buffComp.Alignment == BuffAlignment.Negative)
+                drawable = new ParticleMapDrawable(Protos.Asset.CurseEffect, Protos.Sound.Curse1);
+            if (drawable != null)
+                _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
+
+            _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.OutDamage);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...
         }
     }
 

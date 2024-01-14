@@ -134,7 +134,7 @@ namespace OpenNefia.Content.UI.Element
 
                 if (elem is IUiPaged elemPaged)
                 {
-                    for (int childPage = 0; childPage < elemPaged.PageCount + 1; childPage++)
+                    for (int childPage = 0; childPage < elemPaged.PageCount; childPage++)
                     {
                         _parentPagesToChildPages.Add(PageCount, new PageMapping(elem, childPage));
                         PageCount++;
@@ -147,7 +147,7 @@ namespace OpenNefia.Content.UI.Element
                 }
             }
 
-            SetPage(Math.Clamp(CurrentPage, 0, PageCount - 1), playSound: false);
+            SetPage(CurrentPage, playSound: false);
         }
 
         public bool SetPage(int page, bool playSound)

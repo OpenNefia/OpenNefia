@@ -31,6 +31,7 @@ using OpenNefia.Content.GameController;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Items;
 using OpenNefia.Core.Maps;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Religion
 {
@@ -87,6 +88,7 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISleepSystem _sleep = default!;
         [Dependency] private readonly IEffectSystem _effects = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
         
         public override void Initialize()
         {
@@ -331,7 +333,7 @@ namespace OpenNefia.Content.Religion
                 _mes.Display(Loc.GetString("Elona.Religion.Enranged", ("godName", godName)), UiColors.MesPurple);
                 GodSays(religion.GodID.Value, "Elona.GodStopBelievingIn");
 
-                _spells.Cast(Protos.Spell.BuffPunishment, power: 10000, target: target);
+                _newEffects.Apply(target, target, null, Protos.Effect.ActionBuffPunishment, power: 10000);
                 _audio.Play(Protos.Sound.Punish1, target);
                 _gameController.WaitSecs(0.5f);
             }
@@ -405,8 +407,8 @@ namespace OpenNefia.Content.Religion
             var anim = new MiracleMapDrawable(positions, Protos.Sound.Heal1, Protos.Sound.Pray2);
             _drawables.Enqueue(anim, spatial.MapPosition);
 
-            // _spells.Cast(Protos.Spell.EffectElixir, power: 100, target: target);
-            _spells.Cast(Protos.Spell.BuffHolyVeil, power: 200, target: target);
+            _newEffects.Apply(target, target, null, Protos.Effect.Elixir, power: 100);
+            _newEffects.Apply(target, target, null, Protos.Effect.SpellBuffHolyVeil, power: 200);
 
             religion.PrayerCharge = 0;
             religion.Piety = Math.Max(religion.Piety * 85 / 100, 0);
@@ -621,15 +623,15 @@ namespace OpenNefia.Content.Religion
 
         public void Punish(EntityUid chara)
         {
-            //_spells.Cast(Protos.Spell.ActionCurse, power: 500, target: chara);
+            _newEffects.Apply(chara, chara, null, Protos.Effect.ActionCurse, power: 500);
             if (_rand.OneIn(2))
             {
-                _spells.Cast(Protos.Spell.BuffPunishment, power: 250, target: chara);
+                _newEffects.Apply(chara, chara, null, Protos.Effect.ActionBuffPunishment, power: 250);
                 _audio.Play(Protos.Sound.Punish1, chara);
             }
             if (_rand.OneIn(2))
             {
-                //_spells.Cast(Protos.Spell.EffectPunishDecrementStats, power: 100, target: chara);
+                _newEffects.Apply(chara, chara, null, Protos.Effect.PunishDecrementStats, power: 100);
             }
         }
     }

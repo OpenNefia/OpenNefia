@@ -459,7 +459,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             if (args.Handled)
                 return;
 
-            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args);
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
             var attempts = (int)_formulaEngine.Calculate(component.TileCount, vars, 10);
             var spread = (int)_formulaEngine.Calculate(component.Spread, vars, 3);
 

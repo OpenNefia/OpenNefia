@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -7,29 +8,14 @@ namespace OpenNefia.Core.Utility
 {
     public static class NullableHelper
     {
-        //
-        // Since .NET 8, System.Runtime.CompilerServices.NullableAttribute is included in the BCL.
-        // Before this, Roslyn emitted a copy of the attribute into every assembly compiled.
-        // In the latter case we need to find the type for every assembly that has it.
-        // Yeah most of this code can probably be removed now but just for safety I'm keeping it as a fallback path.
-        //
-
-        private const int NotAnnotatedNullableFlag = 1;
-
         private static NullabilityInfoContext _nullabilityContext;
-        private static Dictionary<MemberInfo, NullabilityInfo> _cachedInfo;
+        private static ConcurrentDictionary<MemberInfo, NullabilityInfo> _cachedInfo;
 
         static NullableHelper()
         {
             _nullabilityContext = new NullabilityInfoContext();
-            _cachedInfo = new Dictionary<MemberInfo, NullabilityInfo>();
+            _cachedInfo = new ConcurrentDictionary<MemberInfo, NullabilityInfo>();
         }
-
-        private static readonly Dictionary<Assembly, (Type AttributeType, FieldInfo NullableFlagsField)?>
-            _nullableAttributeTypeCache = new();
-
-        private static readonly Dictionary<Assembly, (Type AttributeType, FieldInfo FlagsField)?>
-            _nullableContextAttributeTypeCache = new();
 
         public static Type EnsureNullableType(this Type type)
         {
@@ -50,8 +36,11 @@ namespace OpenNefia.Core.Utility
         {
             if (_cachedInfo.TryGetValue(field, out var info))
                 return info;
-            info = _nullabilityContext.Create(field);
-            _cachedInfo.Add(field, info);
+            lock (_nullabilityContext)
+            {
+                info = _nullabilityContext.Create(field);
+                _cachedInfo[field] = info;
+            }
             return info;
         }
 
@@ -59,8 +48,11 @@ namespace OpenNefia.Core.Utility
         {
             if (_cachedInfo.TryGetValue(property, out var info))
                 return info;
-            info = _nullabilityContext.Create(property);
-            _cachedInfo.Add(property, info);
+            lock (_nullabilityContext)
+            {
+                info = _nullabilityContext.Create(property);
+                _cachedInfo[property] = info;
+            }
             return info;
         }
 

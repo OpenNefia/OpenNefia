@@ -91,6 +91,23 @@ namespace OpenNefia.Tests.Core.Prototypes
         }
 
         [Test]
+        public void TestLoadCircular()
+        {
+            var document = $@"
+- type: Entity
+  id: circular
+  parent: circular
+  abstract: true
+";
+
+            Assert.Throws<PrototypeLoadException>(() =>
+            {
+                manager.LoadString(document);
+                manager.ResolveResults();
+            });
+        }
+
+        [Test]
         public void TestCircleException()
         {
             string GenerateCircleTestPrototype(string id, string parent)

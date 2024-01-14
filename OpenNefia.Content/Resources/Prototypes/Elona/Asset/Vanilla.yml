@@ -120,6 +120,180 @@
   countX: 29
 
 - type: Asset
+  id: Elona.BuffIconBlank
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "0, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconHolyShield
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "32, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconMistOfSilence
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "64, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconRegeneration
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "96, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconElementalShield
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "128, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconSpeed
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "160, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconSlow
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "192, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconHero
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "224, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconMistOfFrailness
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "256, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconElementScar
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "288, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconHolyVeil
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "320, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconNightmare
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "352, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconDivineWisdom
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "384, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconPunishment
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "416, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconLulwysTrick
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "448, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconIncognito
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "480, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconDeathWord
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "512, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconBoost
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "544, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconContingency
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "576, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconLucky
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "608, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodStrength
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "640, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodConstitution
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "672, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodDexterity
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "704, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodPerception
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "736, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodLearning
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "768, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodWill
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "800, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodMagic
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "832, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodCharisma
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "864, 1120, 32, 32"
+
+- type: Asset
+  id: Elona.BuffIconFoodSpeed
+  image:
+    filepath: /Graphic/Elona/character.bmp
+    region: "896, 1120, 32, 32"
+
+- type: Asset
   id: Elona.Book
   image:
     filepath: /Graphic/Elona/book.bmp

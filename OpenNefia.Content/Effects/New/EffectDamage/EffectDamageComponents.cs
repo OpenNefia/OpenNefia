@@ -26,10 +26,10 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectBaseDamageDiceComponent : Component
     {
         [DataField]
-        public Formula DiceX { get; } = new("1");
+        public Formula DiceX { get; } = new("0");
 
         [DataField]
-        public Formula DiceY { get; } = new("1");
+        public Formula DiceY { get; } = new("0");
 
         [DataField]
         public Formula Bonus { get; } = new("0");
@@ -51,6 +51,20 @@ namespace OpenNefia.Content.Effects.New
     {
     }
 
+    /// <summary>
+    /// Reduces the effect's power if it was cast via rapid magic.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageCastByRapidMagicComponent : Component
+    {
+        [DataField]
+        public int TotalAttackCount { get; set; }
+
+        [DataField]
+        public int CurrentAttackCount { get; set; }
+    }
+
     public enum CastInsteadCriteria
     {
         Any,
@@ -58,6 +72,7 @@ namespace OpenNefia.Content.Effects.New
         PlayerOrAlly,
         NotPlayer,
         Other,
+        Mount
     }
 
     /// <summary>
@@ -78,6 +93,23 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public PrototypeId<EntityPrototype>? EffectID { get; set; }
+    }
+
+    public enum EffectRetargetRule
+    {
+        AlwaysRider,
+        AlwaysMount
+    }
+
+    /// <summary>
+    /// Changes the target if it matches the criteria.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageRetargetComponent : Component
+    {
+        [DataField]
+        public List<EffectRetargetRule> Rules { get; set; } = new();
     }
 
     /// <summary>

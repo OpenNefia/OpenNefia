@@ -787,6 +787,11 @@ namespace OpenNefia.Core.UI.Element
                 Owner._orderedChildren.CopyTo(array, arrayIndex);
             }
 
+            public UiElement this[int index]
+            {
+                get => Owner._orderedChildren[index];
+            }
+
             public bool Remove(UiElement item)
             {
                 if (item?.Parent != Owner)

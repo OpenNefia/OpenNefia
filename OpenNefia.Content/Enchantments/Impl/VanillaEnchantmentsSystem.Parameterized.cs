@@ -24,6 +24,8 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.GameObjects;
+using Microsoft.FileFormats;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -370,10 +372,10 @@ namespace OpenNefia.Content.Enchantments
                 return;
 
             var encSpellProto = _protos.Index(component.EnchantmentSpellID);
+            var spellProto = _protos.Index(encSpellProto.SpellID);
 
-            // TODO magic
             var spellPower = args.TotalPower + _skills.Level(args.Attacker, args.PhysicalAttackArgs.AttackSkill) * 10;
-            _spells.Cast(encSpellProto.SpellID, args.Target, spellPower, args.Attacker);
+            _newEffects.Apply(args.Attacker, args.Target, null, spellProto.EffectID, power: spellPower);
         }
 
         #endregion

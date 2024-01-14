@@ -36,6 +36,7 @@
   - type: EquipSlots
   - type: VanillaAI
   - type: Buffs
+  - type: GrowthBuffs
   - type: Sanity
   - type: Money
   - type: GuildMember
@@ -182,3 +183,10 @@
   - type: MetaData
     isMapSavable: false
   - type: Effect
+
+- type: Entity
+  id: BaseBuff
+  abstract: true
+  hspEntityType: buff
+  components:
+  - type: Buff

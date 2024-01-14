@@ -27,6 +27,7 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Levels;
 using System.Runtime.InteropServices;
 using OpenNefia.Content.Visibility;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -36,6 +37,7 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         private void Initialize_Unique()
         {
@@ -142,7 +144,7 @@ namespace OpenNefia.Content.Enchantments
 
             if (_rand.Next(25) < Math.Clamp(Math.Abs(args.AdjustedPower) / 50, 1, 25))
             {
-                _spells.Cast(Protos.Spell.Teleport, args.Equipper, args.AdjustedPower);
+                _newEffects.Apply(args.Equipper, args.Equipper, null, Protos.Effect.SpellTeleport, power: args.AdjustedPower);
             }
         }
 

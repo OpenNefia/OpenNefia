@@ -1,8 +1,5 @@
 ﻿using OpenNefia.Core.ResourceManagement;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace OpenNefia.Core.Rendering
