@@ -1,5 +1,5 @@
 Core:
-  DebugUILayers: true
+  DebugUILayers: false
 
 Elona:
   DebugForceMapRenewal: All
