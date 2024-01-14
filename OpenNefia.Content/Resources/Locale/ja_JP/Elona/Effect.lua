@@ -176,4 +176,18 @@ Elona.Effect = {
 
         Dialog = _.quote "ありがとう！",
     },
+
+    Sense = {
+        Cursed = function(source, target)
+            return ("あれ…？%sは軽い記憶障害を受けた。"):format(source)
+        end,
+
+        MagicMap = function(source, target)
+            return ("%sは周囲の地形を察知した。"):format(name(_1))
+        end,
+
+        SenseObject = function(source, target)
+            return ("%sは周囲の物質を感知した。"):format(_.name(source))
+        end,
+    },
 }

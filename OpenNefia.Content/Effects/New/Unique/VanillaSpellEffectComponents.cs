@@ -171,6 +171,24 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Reveals tiles in the map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectMagicMapComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Reveals objects in the map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectSenseObjectComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Removes hexes.
     /// </summary>
     /// <remarks>

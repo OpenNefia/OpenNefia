@@ -129,8 +129,10 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectCurseComponent, ApplyEffectDamageEvent>(Apply_Curse);
             SubscribeComponent<EffectReturnComponent, ApplyEffectDamageEvent>(Apply_Return);
             SubscribeComponent<EffectEscapeComponent, ApplyEffectDamageEvent>(Apply_Escape);
-            SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
             SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
+            SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
+            SubscribeComponent<EffectMagicMapComponent, ApplyEffectTileDamageEvent>(Apply_MagicMap);
+            SubscribeComponent<EffectSenseObjectComponent, ApplyEffectTileDamageEvent>(Apply_SenseObject);
 
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
@@ -1108,6 +1110,53 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _returning.CancelReturn();
             }
             // <<<<<<<< elona122/shade2/main.hsp:740 				} ...
+        }
+
+        private void Apply_MagicMap(EntityUid uid, EffectMagicMapComponent component, ApplyEffectTileDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var pos = args.CoordsMap.Position;
+            if (!_mapTilesets.TryGetTile(Protos.Tile.MapgenTunnel, args.Map, out var defaultTile))
+                defaultTile = Protos.Tile.DarkDirt1;
+
+            if (_curseStates.IsCursed(args.Args.CommonArgs.CurseState))
+            {
+                // >>>>>>>> elona122/shade2/proc.hsp:2698 		if efId=spMagicMap	:map(x,y,2)=tile_default ...
+                args.Map.SetTileMemory(pos, defaultTile.Value);
+                // <<<<<<<< elona122/shade2/proc.hsp:2698 		if efId=spMagicMap	:map(x,y,2)=tile_default ...
+            }
+            else
+            {
+                // >>>>>>>> elona122/shade2/proc.hsp:2702 		if efId=spMagicMap:map(x,y,2)=map(x,y,0) ...
+                var tile = args.Map.GetTileID(pos)!.Value;
+                args.Map.SetTileMemory(pos, tile);
+                // <<<<<<<< elona122/shade2/proc.hsp:2702 		if efId=spMagicMap:map(x,y,2)=map(x,y,0) ...
+            }
+
+            args.OutEffectWasObvious = true;
+        }
+
+        private void Apply_SenseObject(EntityUid uid, EffectSenseObjectComponent component, ApplyEffectTileDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            if (_curseStates.IsCursed(args.Args.CommonArgs.CurseState))
+            {
+                // >>>>>>>> elona122/shade2/proc.hsp:2699 		if efId=spObjectMap	:map(x,y,5)=0 ...
+                args.Map.MapObjectMemory.ForgetObjects(args.CoordsMap.Position);
+                // <<<<<<<< elona122/shade2/proc.hsp:2699 		if efId=spObjectMap	:map(x,y,5)=0 ...
+            }
+            else
+            {
+                // >>>>>>>> elona122/shade2/proc.hsp:2703 		if efId=spObjectMap:if (map(x,y,6)!0)or(map(x,y, ...
+                args.Map.MapObjectMemory.RevealObjects(args.Map, args.CoordsMap.Position, EntityManager);
+                // <<<<<<<< elona122/shade2/proc.hsp:2703 		if efId=spObjectMap:if (map(x,y,6)!0)or(map(x,y, ...
+            }
+            args.Map.DirtyTilesThisTurn.Add(args.CoordsMap.Position);
+            args.OutEffectWasObvious = true;
         }
 
         private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)

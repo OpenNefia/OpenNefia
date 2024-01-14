@@ -439,6 +439,8 @@ namespace OpenNefia.Content.Effects.New
 
         public EffectArgSet Args { get; }
 
+        public bool OutEffectWasObvious { get; set; } = false;
+
         public ApplyEffectTileDamageEvent(EntityUid source, EntityCoordinates coords, EffectArgSet args)
         {
             Source = source;

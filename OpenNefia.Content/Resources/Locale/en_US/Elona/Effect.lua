@@ -188,4 +188,18 @@ Elona.Effect = {
 
         Dialog = _.quote "Thanks!",
     },
+
+    Sense = {
+        Cursed = function(source, target)
+            return ("...Huh? %s suffer%s a minor memory defect."):format(_.capitalize(_.name(source)), _.s(source))
+        end,
+
+        MagicMap = function(source, target)
+            return ("%s sense%s nearby locations."):format(_.name(source), _.s(source))
+        end,
+
+        SenseObject = function(source, target)
+            return ("%s sense%s nearby objects."):format(_.name(source), _.s(source))
+        end,
+    },
 }

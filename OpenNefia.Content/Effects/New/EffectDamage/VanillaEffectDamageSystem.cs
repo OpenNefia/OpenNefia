@@ -339,6 +339,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         {
             if (component.Element != null)
                 _elements.DamageTile(args.CoordsMap, component.Element.Value, args.Source);
+            args.OutEffectWasObvious = true;
         }
 
         private void ApplyDamage_Healing(EntityUid uid, EffectDamageHealingComponent healingComp, ApplyEffectDamageEvent args)
@@ -477,6 +478,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         private void ApplyTileDamage_Elemental(EntityUid uid, EffectTileDamageElementalComponent component, ApplyEffectTileDamageEvent args)
         {
             _elements.DamageTile(args.CoordsMap, component.Element, args.Source);
+            args.OutEffectWasObvious = true;
         }
     }
 

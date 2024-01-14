@@ -124,6 +124,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 429
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: Other
+    effectID: null
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Sense.MagicMap
+    messageKeyCursed: Elona.Effect.Sense.Cursed
+  - type: EffectAreaSense
+    passes: 1
+    revealPower: randInt(power + 1)
+  - type: EffectMagicMap
 
 - type: Elona.Spell
   id: Elona.SenseObject
@@ -144,6 +156,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 430
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: Other
+    effectID: null
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Sense.SenseObject
+    messageKeyCursed: Elona.Effect.Sense.Cursed
+  - type: EffectAreaSense
+    passes: 2
+    revealPower: randInt(power + 1)
+  - type: EffectSenseObject
 
 - type: Elona.Spell
   id: Elona.Dominate

@@ -14,7 +14,7 @@
 - [ ] magic/effects
   + [x] buffs
   + [ ] timestop
-  + [ ] death word expiration
+  + [x] death word expiration
   + [ ] spell stock check
   + [ ] rods
   + [ ] add all effect alignments
