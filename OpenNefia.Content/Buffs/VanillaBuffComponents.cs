@@ -109,6 +109,18 @@ namespace OpenNefia.Content.Buffs
     {
     }
 
+    /// <summary>
+    /// Keeps track of entities this entity has applied Death Word to.
+    /// If the entity is killed, all targets will have the death word revoked.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Normal)]
+    public sealed class DeathWordTargetsComponent : Component
+    {
+        [DataField]
+        public HashSet<EntityUid> Targets { get; set; } = new();
+    }
+
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Buff)]
     public sealed class BuffBoostComponent : Component

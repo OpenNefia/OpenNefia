@@ -21,5 +21,8 @@ Elona.Buff = {
                 return ("%s%s aging process speeds up."):format(_.possessive(target))
             end,
         },
+        DeathWord = {
+            Breaks = "The death word breaks.",
+        },
     },
 }

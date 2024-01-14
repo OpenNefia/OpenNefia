@@ -21,5 +21,8 @@ Elona.Buff = {
                 return ("%sの老化は遅くなった。"):format(_.name(target))
             end,
         },
+        DeathWord = {
+            Breaks = "死の宣告は無効になった。",
+        },
     },
 }
