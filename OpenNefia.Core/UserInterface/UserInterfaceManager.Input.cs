@@ -135,8 +135,20 @@ namespace OpenNefia.Core.UserInterface
 
         public void MouseMove(MouseMoveEventArgs mouseMoveEventArgs)
         {
+            UpdateMouseHoveredControl(mouseMoveEventArgs.Position, mouseMoveEventArgs.Relative, alwaysRaiseEvent: true);
+        }
+
+        /// <inheritdoc/>
+        public void RefreshMouseHoveredControl()
+        {
+            UpdateMouseHoveredControl(_inputManager.MouseScreenPosition, Vector2.Zero, alwaysRaiseEvent: false);
+        }
+
+        private void UpdateMouseHoveredControl(ScreenCoordinates position, Vector2 relative, bool alwaysRaiseEvent)
+        {
             // Update which control is considered hovered.
-            var newHovered = MouseGetControl(mouseMoveEventArgs.Position);
+            var hoveredChanged = false;
+            var newHovered = MouseGetControl(position);
             if (newHovered != CurrentlyHovered && newHovered != null)
             {
                 Logger.DebugS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
@@ -145,19 +157,24 @@ namespace OpenNefia.Core.UserInterface
                 CurrentlyHovered?.MouseEntered();
 
                 OnHoveredElementChanged?.Invoke();
+                
+                hoveredChanged = true;
             }
 
-            var target = ControlFocused ?? newHovered;
-            if (target != null)
+            if (hoveredChanged || alwaysRaiseEvent)
             {
-                var pos = mouseMoveEventArgs.Position.Position;
-                var guiArgs = new GUIMouseMoveEventArgs(mouseMoveEventArgs.Relative / target.UIScale,
-                    target,
-                    pos / target.UIScale, mouseMoveEventArgs.Position,
-                    pos / target.UIScale - target.GlobalPosition,
-                    pos - target.GlobalPixelPosition);
+                var target = ControlFocused ?? newHovered;
+                if (target != null)
+                {
+                    var pos = position.Position;
+                    var guiArgs = new GUIMouseMoveEventArgs(relative / target.UIScale,
+                        target,
+                        pos / target.UIScale, position,
+                        pos / target.UIScale - target.GlobalPosition,
+                        pos - target.GlobalPixelPosition);
 
-                _doMouseGuiInput(target, guiArgs, (c, ev) => c.MouseMove(ev));
+                    _doMouseGuiInput(target, guiArgs, (c, ev) => c.MouseMove(ev));
+                }
             }
         }
 

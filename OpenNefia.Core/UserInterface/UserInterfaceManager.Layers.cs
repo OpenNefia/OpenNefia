@@ -104,7 +104,7 @@ namespace OpenNefia.Core.UserInterface
         {
             layer.LayerUIScale = _graphics.WindowScale;
             layer.LayerTileScale = _config.GetCVar(CVars.DisplayTileScale);
-            ResizeAndLayoutLayer(layer);
+            AddChildrenResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
 
@@ -147,7 +147,7 @@ namespace OpenNefia.Core.UserInterface
         {
             foreach (var layer in this.Layers)
             {
-                ResizeAndLayoutLayer(layer);
+                AddChildrenResizeAndLayoutLayer(layer);
             }
         }
 
@@ -155,7 +155,7 @@ namespace OpenNefia.Core.UserInterface
         {
             foreach (var layer in this.Layers)
             {
-                ResizeAndLayoutLayer(layer);
+                AddChildrenResizeAndLayoutLayer(layer);
             }
 
             if (args.UpdatedTypes != null)
@@ -171,9 +171,14 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        private static void ResizeAndLayoutLayer(UiLayer layer)
+        private static void AddChildrenResizeAndLayoutLayer(UiLayer layer)
         {
             UiHelpers.AddChildrenFromAttributesRecursive(layer);
+            ResizeAndLayoutLayer(layer);
+        }
+
+        private static void ResizeAndLayoutLayer(UiLayer layer)
+        {
             layer.GetPreferredBounds(out var bounds);
             layer.SetSize(bounds.Width, bounds.Height);
             layer.SetPosition(bounds.Left, bounds.Top);
@@ -189,9 +194,7 @@ namespace OpenNefia.Core.UserInterface
 
                 NotifyUIScaleChanged(layer, ev);
 
-                layer.GetPreferredBounds(out var bounds);
-                layer.SetSize(bounds.Width, bounds.Height);
-                layer.SetPosition(bounds.Left, bounds.Top);
+                ResizeAndLayoutLayer(layer);
             }
         }
 
@@ -213,9 +216,7 @@ namespace OpenNefia.Core.UserInterface
 
                 NotifyTileScaleChanged(layer, scale);
 
-                layer.GetPreferredBounds(out var bounds);
-                layer.SetSize(bounds.Width, bounds.Height);
-                layer.SetPosition(bounds.Left, bounds.Top);
+                ResizeAndLayoutLayer(layer);
             }
         }
 

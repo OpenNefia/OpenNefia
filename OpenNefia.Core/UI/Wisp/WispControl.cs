@@ -255,7 +255,11 @@ namespace OpenNefia.Core.UI.Wisp
         private void _propagateVisibilityChanged(bool newVisible)
         {
             OnVisibilityChanged?.Invoke(this);
-            if (!VisibleInTree)
+            if (VisibleInTree)
+            {
+                UserInterfaceManagerInternal.ControlShown(this);
+            }
+            else
             {
                 UserInterfaceManagerInternal.ControlHidden(this);
             }
