@@ -18,6 +18,7 @@ using OpenNefia.Content.Buffs;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly IAssetManager _assets = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
 
         public class HexAndBlessingIcon : UiElement
         {
@@ -116,6 +118,24 @@ namespace OpenNefia.Content.CharaInfo
             return Loc.GetString("Elona.CharaSheet.Group.BlessingHex.HintBody",
                 ("buffName", buffName), ("buffDesc", buffDesc), ("turns", buff.TurnsRemaining));
             // <<<<<<<< elona122/shade2/command.hsp:2614 			} ...
+        }
+
+        public void SelectNext()
+        {
+            if (_buffList.Count == 0)
+                return;
+
+            Sounds.Play(Protos.Sound.Cursor1);
+            _selected = MathHelper.Wrap(_selected + 1, 0, _buffList.Count - 1);
+        }
+
+        public void SelectPrevious()
+        {
+            if (_buffList.Count == 0)
+                return;
+
+            Sounds.Play(Protos.Sound.Cursor1);
+            _selected = MathHelper.Wrap(_selected - 1, 0, _buffList.Count - 1);
         }
 
         public override void GetPreferredSize(out Vector2 size)

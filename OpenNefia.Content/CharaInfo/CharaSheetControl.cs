@@ -33,6 +33,7 @@ using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.Buffs;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -134,6 +135,16 @@ namespace OpenNefia.Content.CharaInfo
                 UserInterfaceManager.Query<CharaAppearanceLayer, CharaAppearanceLayer.Args>(args);
                 RefreshFromEntity();
                 Sounds.Play(Sound.Chara);
+            }
+            else if (evt.Function == EngineKeyFunctions.UIUp)
+            {
+                BuffIcons.SelectPrevious();
+                TextBuffHintBody.Text = BuffIcons.GetSelectedBuffDescription();
+            }
+            else if (evt.Function == EngineKeyFunctions.UIDown)
+            {
+                BuffIcons.SelectNext();
+                TextBuffHintBody.Text = BuffIcons.GetSelectedBuffDescription();
             }
         }
 
