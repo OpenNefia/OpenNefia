@@ -88,7 +88,7 @@ namespace OpenNefia.Content.CharaInfo
                 if (HexBlessingIcon != null)
                 {
                     GraphicsEx.SetColor(Color.White);
-                    HexBlessingIcon.Draw(UIScale, x, y);
+                    HexBlessingIcon.Draw(UIScale, x, y, centered: true);
                 }
             }
         }

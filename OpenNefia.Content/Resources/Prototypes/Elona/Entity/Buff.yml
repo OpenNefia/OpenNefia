@@ -173,6 +173,7 @@
     turns: basePower
     power: 20
   - type: BuffPunishment
+    pvModifier: 0.8
 
 - type: Entity
   id: Elona.BuffLulwysTrick

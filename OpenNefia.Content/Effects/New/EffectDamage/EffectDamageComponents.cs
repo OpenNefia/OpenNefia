@@ -26,10 +26,10 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectBaseDamageDiceComponent : Component
     {
         [DataField]
-        public Formula DiceX { get; } = new("1");
+        public Formula DiceX { get; } = new("0");
 
         [DataField]
-        public Formula DiceY { get; } = new("1");
+        public Formula DiceY { get; } = new("0");
 
         [DataField]
         public Formula Bonus { get; } = new("0");
@@ -49,6 +49,20 @@ namespace OpenNefia.Content.Effects.New
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectDamageControlMagicComponent : Component
     {
+    }
+
+    /// <summary>
+    /// Reduces the effect's power if it was cast via rapid magic.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageCastByRapidMagicComponent : Component
+    {
+        [DataField]
+        public int TotalAttackCount { get; set; }
+
+        [DataField]
+        public int CurrentAttackCount { get; set; }
     }
 
     public enum CastInsteadCriteria

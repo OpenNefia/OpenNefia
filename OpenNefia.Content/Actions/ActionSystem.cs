@@ -112,7 +112,7 @@ namespace OpenNefia.Content.Actions
                 return TurnResult.Failed;
             }
 
-            var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, effectArgs);
+            var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args: effectArgs);
 
             if (IsAlive(effect))
                 EntityManager.DeleteEntity(effect.Value);
@@ -144,12 +144,19 @@ namespace OpenNefia.Content.Actions
             // <<<<<<<< elona122/shade2/calculation.hsp:867 		} ...
         }
 
-        public string LocalizeActionDescription(ActionPrototype proto, EntityUid casterEntity, EntityUid effect)
+        public string LocalizeActionDescription(ActionPrototype proto, EntityUid caster, EntityUid effect)
         {
             var description = string.Empty;
             if (Loc.TryGetPrototypeString(proto.SkillID, "Description", out var desc))
                 description = desc;
-            return description;
+
+            var power = CalcActionPower(proto, caster);
+            var skillLevel = _skills.Level(caster, proto.SkillID);
+
+            var ev = new GetEffectDescriptionEvent(caster, power, skillLevel, description);
+            RaiseEvent(effect, ev);
+
+            return ev.OutDescription;
         }
     }
 

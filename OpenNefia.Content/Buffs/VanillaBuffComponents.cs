@@ -3,11 +3,6 @@ using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Buffs
 {
@@ -92,6 +87,8 @@ namespace OpenNefia.Content.Buffs
     [ComponentUsage(ComponentTarget.Buff)]
     public sealed class BuffPunishmentComponent : Component
     {
+        [DataField]
+        public double PVModifier { get; set; } = 0.8;
     }
 
     [RegisterComponent]

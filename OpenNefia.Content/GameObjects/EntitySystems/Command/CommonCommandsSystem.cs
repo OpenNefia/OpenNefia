@@ -216,7 +216,7 @@ namespace OpenNefia.Content.GameObjects
             switch (value)
             {
                 case SpellGroupSublayerResult.CastSpell castSpell:
-                    return _spells.NewCast(player, castSpell.Spell.GetStrongID());
+                    return _spells.Cast(player, castSpell.Spell.GetStrongID());
                 case SpellGroupSublayerResult.InvokeAction invokeAction:
                     return _actions.InvokeAction(player, invokeAction.Action.GetStrongID());
                 default:

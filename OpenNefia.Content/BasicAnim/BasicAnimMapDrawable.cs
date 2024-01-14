@@ -32,7 +32,7 @@ namespace OpenNefia.Content.BaseAnim
             if (BasicAnim.FrameCount != null)
                 maxFrames = BasicAnim.FrameCount.Value;
 
-            Counter = new FrameCounter(animeWait + BasicAnim.FrameDelayMillis / 1000, maxFrames);
+            Counter = new FrameCounter(animeWait / 4 + BasicAnim.FrameDelayMillis / 1000, maxFrames);
             AssetDrawable = _assets.GetAsset(BasicAnim.Asset);
         }
 

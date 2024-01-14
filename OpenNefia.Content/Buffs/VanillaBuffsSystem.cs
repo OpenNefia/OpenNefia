@@ -201,10 +201,10 @@ namespace OpenNefia.Content.Buffs
         private void ApplyBuff_BuffDivineWisdom(EntityUid uid, BuffDivineWisdomComponent comp, ref ApplyBuffOnRefreshEvent args)
         {
             // >>>>>>>> elona122/shade2/init.hsp:2759 		sLER(tc)+=p : sMAG(tc)+=p:sLiteracy(tc)+=p(1) ...
-            var vars = new Dictionary<string, double>();
-            vars["power"] = args.Buff.Power;
-            var learningMagic = (int)_formulas.Calculate(comp.LearningMagic, vars);
-            var literacy = (int)_formulas.Calculate(comp.Literacy, vars);
+            var formulaArgs = _buffs.GetBuffFormulaArgs(args.Buff.BasePower);
+            formulaArgs["power"] = args.Buff.Power;
+            var learningMagic = (int)_formulas.Calculate(comp.LearningMagic, formulaArgs);
+            var literacy = (int)_formulas.Calculate(comp.Literacy, formulaArgs);
 
             _skills.BuffLevel(args.Target, Protos.Skill.AttrLearning, learningMagic);
             _skills.BuffLevel(args.Target, Protos.Skill.AttrMagic, learningMagic);
@@ -218,7 +218,7 @@ namespace OpenNefia.Content.Buffs
             _skills.BuffLevel(args.Target, Protos.Skill.AttrSpeed, -args.Buff.Power);
             if (TryComp<EquipStatsComponent>(args.Target, out var equipStats))
             {
-                equipStats.PV.Buffed = int.Max(equipStats.PV.Buffed - (equipStats.PV.Buffed / 5), 1);
+                equipStats.PV.Buffed = int.Max((int)(equipStats.PV.Buffed * comp.PVModifier), 1);
             }
             // <<<<<<<< elona122/shade2/init.hsp:2767 		if cPV(TC)>1:cPV(tc)-=cPV(tc)/5 ...
         }

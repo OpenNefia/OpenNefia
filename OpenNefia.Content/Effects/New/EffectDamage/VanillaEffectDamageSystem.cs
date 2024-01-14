@@ -30,6 +30,9 @@ using OpenNefia.Content.Resists;
 using OpenNefia.Content.Mefs;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Mount;
+using OpenNefia.Content.Feats;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -54,6 +57,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IElementSystem _elements = default!;
         [Dependency] private readonly IMefSystem _mefs = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly IFeatsSystem _feats = default!;
 
         public override void Initialize()
         {
@@ -79,24 +83,34 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectTileDamageElementalComponent, ApplyEffectTileDamageEvent>(ApplyTileDamage_Elemental, priority: EventPriorities.High);
         }
 
-        private void ApplyDamage_Dice(EntityUid uid, EffectBaseDamageDiceComponent component, ApplyEffectDamageEvent args)
+        private void ApplyDamage_Dice(EntityUid effectEnt, EffectBaseDamageDiceComponent effDice, ApplyEffectDamageEvent args)
         {
             if (args.Handled)
                 return;
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
+            {
+                // Should never happen.
+                Logger.ErrorS("effect.damage", $"No dice found for effect {effectEnt}");
+                return;
+            }
 
-            var diceX = int.Max((int)_formulaEngine.Calculate(component.DiceX, formulaArgs, 1f), 1);
-            var diceY = int.Max((int)_formulaEngine.Calculate(component.DiceY, formulaArgs, 1f), 1);
-            var bonus = (int)_formulaEngine.Calculate(component.Bonus, formulaArgs, 0f);
-            args.OutElementalPower = (int)_formulaEngine.Calculate(component.ElementPower, formulaArgs, 0f);
-
-            var dice = new Dice(diceX, diceY, bonus);
             var baseDamage = dice.Roll(_rand);
+
+            args.OutElementalPower = (int)_formulaEngine.Calculate(effDice.ElementPower, formulaArgs, 0f);
+
+            // >>>>>>>> elona122/shade2/proc.hsp:1689 	if rapidMagic : efP=efP/2+1:dice1=dice1/2+1:dice2 ...
+            // TODO move
+            if (TryComp<EffectDamageCastByRapidMagicComponent>(effectEnt, out var rapidMagic) && rapidMagic.TotalAttackCount > 1)
+            {
+                args.CommonArgs.Power = args.CommonArgs.Power / 2 + 1;
+                formulaArgs["power"] = args.CommonArgs.Power;
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:1689 	if rapidMagic : efP=efP/2+1:dice1=dice1/2+1:dice2 ...
 
             formulaArgs["baseDamage"] = baseDamage;
 
-            args.OutDamage = (int)_formulaEngine.Calculate(component.FinalDamage, formulaArgs, baseDamage);
+            args.OutDamage = (int)_formulaEngine.Calculate(effDice.FinalDamage, formulaArgs, baseDamage);
         }
 
         private void ApplyDamage_Retarget(EntityUid uid, EffectDamageRetargetComponent component, ApplyEffectDamageEvent args)
@@ -194,7 +208,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (component.MessageKey != null)
                 _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
             var rate = (float)_formulaEngine.Calculate(component.SuccessRate, formulaArgs, 1.0);
 
             if (!_rand.Prob(rate))
@@ -374,7 +388,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                     return;
             }
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
             formulaArgs["finalDamage"] = args.OutDamage;
 
             var summonCount = (int)(double.Round(_formulaEngine.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));
@@ -438,7 +452,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled)
                 return;
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
 
             int? turns = null;
             if (component.Turns != null)

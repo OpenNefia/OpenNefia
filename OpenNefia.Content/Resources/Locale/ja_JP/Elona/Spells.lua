@@ -75,6 +75,15 @@ Elona.Spells = {
         },
     },
 
+    Description = {
+        Power = function(power)
+            return ("ﾊﾟﾜｰ%s"):format(power)
+        end,
+        TurnCounter = function(turns)
+            return ("%sﾀｰﾝ"):format(turns)
+        end,
+    },
+
     Layer = {
         Window = {
             Title = "魔法の詠唱",
@@ -87,15 +96,6 @@ Elona.Spells = {
             Lv = "Lv",
             Chance = "成功",
             Effect = "効果",
-        },
-
-        Stats = {
-            Power = function(power)
-                return ("ﾊﾟﾜｰ%s"):format(power)
-            end,
-            TurnCounter = function(turns)
-                return ("%sﾀｰﾝ"):format(turns)
-            end,
         },
     },
 }

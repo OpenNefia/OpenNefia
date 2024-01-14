@@ -14,6 +14,7 @@ using OpenNefia.Content.Resists;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Effects.New;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.Enchantments
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly INewEffectSystem _newEffects = default!;
 
         #region Elona.Rapid
 
@@ -106,9 +108,8 @@ namespace OpenNefia.Content.Enchantments
             if (anim != null)
                 _mapDrawables.Enqueue(anim, ev.Attacker);
 
-            // TODO magic
             var power = _skills.Level(ev.Attacker, ev.AttackSkill) * 8 + 10;
-            _spells.Cast(Protos.Spell.MagicStorm, ev.Target, power, ev.Attacker);
+            _newEffects.Apply(ev.Attacker, ev.Target, null, Protos.Effect.SpellMagicStorm, power: power);
         }
 
         #endregion

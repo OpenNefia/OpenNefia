@@ -336,26 +336,6 @@
   - type: EffectDoorCreation
 
 - type: Elona.Spell
-  id: Elona.BuffIncognito
-  hspIds:
-    elona122: 458
-  difficulty: 250
-  mpCost: 38
-  skillID: Elona.SpellBuffIncognito
-  effectID: Elona.SpellBuffIncognito
-- type: Elona.Skill
-  id: Elona.SpellBuffIncognito
-  hspIds:
-    elona122: 458
-  relatedSkill: Elona.AttrPerception
-  skillType: Spell
-- type: Entity
-  id: Elona.SpellBuffIncognito
-  parent: BaseEffect
-  hspIds:
-    elona122: 458
-
-- type: Elona.Spell
   id: Elona.Resurrection
   hspIds:
     elona122: 461
@@ -379,29 +359,8 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     # Success rate out of 100%
-    # TODO make into double
     finalDamage: clamp((skillLevel * 5 * power) / 20 + 40, 40, 100)
   - type: EffectResurrection
-
-- type: Elona.Spell
-  id: Elona.BuffContingency
-  hspIds:
-    elona122: 462
-  mpCost: 25
-  difficulty: 1250
-  skillID: Elona.SpellBuffContingency
-  effectID: Elona.SpellBuffContingency
-- type: Elona.Skill
-  id: Elona.SpellBuffContingency
-  hspIds:
-    elona122: 462
-  relatedSkill: Elona.AttrWill
-  skillType: Spell
-- type: Entity
-  id: Elona.SpellBuffContingency
-  parent: BaseEffect
-  hspIds:
-    elona122: 462
 
 - type: Elona.Spell
   id: Elona.FourDimensionalPocket

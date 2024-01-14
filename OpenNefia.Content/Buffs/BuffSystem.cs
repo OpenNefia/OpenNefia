@@ -61,7 +61,12 @@ namespace OpenNefia.Content.Buffs
         IEnumerable<BuffComponent> EnumerateBuffs(EntityUid entity, BuffsComponent? buffs = null);
 
         string GetBuffDescription(EntityUid buff, BuffComponent? buffComp = null);
+
+        IDictionary<string, double> GetBuffFormulaArgs(int power);
+        BuffAdjustedPowerAndTurns CalcBuffPowerAndTurns(PrototypeId<EntityPrototype> buffID, int power, int? turns = null);
     }
+    
+    public sealed record class BuffAdjustedPowerAndTurns(int Power, int Turns);
 
     public sealed class BuffSystem : EntitySystem, IBuffSystem
     {
@@ -75,6 +80,7 @@ namespace OpenNefia.Content.Buffs
         [Dependency] private readonly IQualitySystem _qualities = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IFormulaEngine _formulas = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -84,16 +90,33 @@ namespace OpenNefia.Content.Buffs
             SubscribeComponent<BuffResistableComponent, BeforeBuffAddedEvent>(ProcResistableBuff, priority: EventPriorities.High);
         }
 
-        private void AdjustBuffDuration(EntityUid uid, BuffPowerComponent component, BeforeBuffAddedEvent args)
+        public BuffAdjustedPowerAndTurns CalcBuffPowerAndTurns(PrototypeId<EntityPrototype> buffID, int power, int? turns = null)
         {
-            var vars = new Dictionary<string, double>();
-            vars["basePower"] = args.OutPower;
+            var buffProto = _protos.Index(buffID);
+            if (!buffProto.Components.TryGetComponent<BuffPowerComponent>(out var buffPower))
+                return new(power, turns ?? 10);
+
+            return CalcBuffPowerAndTurns(buffPower, power, turns);
+        }
+
+        private BuffAdjustedPowerAndTurns CalcBuffPowerAndTurns(BuffPowerComponent buffPower, int power, int? turns = null)
+        {
+            var vars = GetBuffFormulaArgs(power);
 
             // Turn duration passed to AddBuff overrides that calculated by default formula
-            if (args.OutTurns == null)
-                args.OutTurns = (int)_formulas.Calculate(component.Turns, vars, 10);
+            if (turns == null)
+                turns = (int)_formulas.Calculate(buffPower.Turns, vars, 10);
 
-            args.OutPower = (int)_formulas.Calculate(component.Power, vars, args.OutPower);
+            power = (int)_formulas.Calculate(buffPower.Power, vars, power);
+
+            return new(power, turns.Value);
+        }
+
+        private void AdjustBuffDuration(EntityUid uid, BuffPowerComponent buffPower, BeforeBuffAddedEvent args)
+        {
+            var adjusted = CalcBuffPowerAndTurns(buffPower, args.BasePower);
+            args.OutTurns = adjusted.Turns;
+            args.Buff.Power = adjusted.Power;
         }
 
         private void ApplyBuffs(EntityUid uid, BuffsComponent component, ref EntityRefreshEvent args)
@@ -204,7 +227,7 @@ namespace OpenNefia.Content.Buffs
 
             var magicResist = _resists.Level(args.Target, Protos.Element.Magic);
             var quality = _qualities.GetQuality(args.Target);
-            var buffPower = Comp<BuffComponent>(buffEnt).Power;
+            var buffPower = args.Buff.Power;
 
             var resisted = false;
 
@@ -288,7 +311,10 @@ namespace OpenNefia.Content.Buffs
                 return false;
             }
 
-            var ev = new BeforeBuffAddedEvent(target, power, duration, curseState, source);
+            buffComp.BasePower = power;
+            buffComp.Power = power;
+
+            var ev = new BeforeBuffAddedEvent(buffComp, target, power, duration, curseState, source);
             RaiseEvent(buff.Value, ev);
 
             if (ev.OutTurns == null)
@@ -317,8 +343,6 @@ namespace OpenNefia.Content.Buffs
             }
             // <<<<<<<< elona122/shade2/chara_func.hsp:574 		if cc@=pc:hostileAction pc,tc ...
 
-            buffComp.BasePower = power;
-            buffComp.Power = ev.OutPower;
             buffComp.TurnsRemaining = ev.OutTurns.Value;
             buffComp.Source = source;
 
@@ -427,6 +451,13 @@ namespace OpenNefia.Content.Buffs
 
             return Loc.GetPrototypeString(protoID.Value, "Buff.Description", args.ToArray());
         }
+
+        public IDictionary<string, double> GetBuffFormulaArgs(int power)
+        {
+            var vars = new Dictionary<string, double>();
+            vars["basePower"] = power;
+            return vars;
+        }
     }
 
     [ByRefEvent]
@@ -474,17 +505,19 @@ namespace OpenNefia.Content.Buffs
     [EventUsage(EventTarget.Buff)]
     public sealed class BeforeBuffAddedEvent : CancellableEntityEventArgs
     {
+        public BuffComponent Buff { get; }
         public EntityUid Target { get; }
         public EntityUid? Source { get; }
         public CurseState CurseState { get; }
+        public int BasePower { get; }
 
-        public int OutPower { get; set; }
         public int? OutTurns { get; set; }
-        public bool OutShowResistedMessage { get; set; } = false;
+        public bool OutShowResistedMessage { get; set; } = true;
 
-        public BeforeBuffAddedEvent(EntityUid target, int power, int? duration, CurseState curseState, EntityUid? source)
+        public BeforeBuffAddedEvent(BuffComponent buff, EntityUid target, int power, int? duration, CurseState curseState, EntityUid? source)
         {
-            OutPower = power;
+            Buff = buff;
+            BasePower = power;
             OutTurns = duration;
             Source = source;
             Target = target;
