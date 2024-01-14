@@ -25,6 +25,7 @@ namespace OpenNefia.Content.Tests.Buffs
   id: {TestEntity}
   components:
   - type: Spatial
+  - type: Buffs
   - type: Skills
     maxHP: 100
 ";
@@ -55,7 +56,7 @@ namespace OpenNefia.Content.Tests.Buffs
                 damage.DamageHP(ent, 1000);
                 Assert.That(entMan.IsAlive(ent), Is.True);
 
-                buffs.HealAllBuffs(ent);
+                buffs.RemoveAllBuffs(ent);
                 damage.DamageHP(ent, 1000);
                 Assert.That(entMan.IsAlive(ent), Is.False);
             });

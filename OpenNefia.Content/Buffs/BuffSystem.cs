@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Buffs
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="buffs"></param>
-        void HealAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
+        void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null);
 
         /// <summary>
         /// Directly adds a buff, ignoring resistance and duplicates.
@@ -121,7 +121,7 @@ namespace OpenNefia.Content.Buffs
 
         private void AdjustBuffDuration(EntityUid uid, BuffPowerComponent buffPower, BeforeBuffAddedEvent args)
         {
-            var adjusted = CalcBuffPowerAndTurns(buffPower, args.BasePower);
+            var adjusted = CalcBuffPowerAndTurns(buffPower, args.BasePower, args.OutTurns);
             args.OutTurns = adjusted.Turns;
             args.Buff.Power = adjusted.Power;
         }
@@ -176,7 +176,7 @@ namespace OpenNefia.Content.Buffs
             // <<<<<<<< shade2/main.hsp:782 		} ..
         }
 
-        public void HealAllBuffs(EntityUid entity, BuffsComponent? buffs = null)
+        public void RemoveAllBuffs(EntityUid entity, BuffsComponent? buffs = null)
         {
             if (!Resolve(entity, ref buffs))
                 return;

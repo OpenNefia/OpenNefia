@@ -195,7 +195,7 @@ namespace OpenNefia.Content.Tests.Buffs
                 Assert.That(buffs.TryAddBuff(ent, Protos.Buff.ElementScar, 100, 100), Is.True, "Add hex");
                 Assert.That(buffs.TryAddBuff(ent, Protos.Buff.Punishment, 100, 100), Is.True, "Add Punishment hex");
 
-                buffs.HealAllBuffs(ent);
+                buffs.RemoveAllBuffs(ent);
 
                 Assert.That(buffs.HasBuff(ent, Protos.Buff.ElementalShield), Is.False, "Has blessing");
                 Assert.That(buffs.HasBuff(ent, Protos.Buff.ElementScar), Is.False, "Has hex");
@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Tests.Buffs
                 Assert.That(buffs.TryAddBuff(ent, Protos.Buff.DeathWord, 100, out var buff1), Is.True, "Add hex (fixed turns)");
                 Assert.That(buff1!.TurnsRemaining, Is.EqualTo(20));
 
-                buffs.HealAllBuffs(ent);
+                buffs.RemoveAllBuffs(ent);
 
                 Assert.That(buffs.TryAddBuff(ent, Protos.Buff.DeathWord, 100, out var buff2, 123), Is.True, "Add hex (fixed turns, overridden)");
                 Assert.That(buff2!.TurnsRemaining, Is.EqualTo(123));
