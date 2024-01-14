@@ -58,17 +58,14 @@ namespace OpenNefia.Content.UI.Element.List
         public event UiListEventHandler<T>? OnSelected;
         public event UiListEventHandler<T>? OnActivated;
 
-        public UiList(IEnumerable<UiListCell<T>>? cells = null, int itemOffsetX = 0)
+        public UiList(int itemOffsetX = 0)
         {
-            if (cells == null)
-                cells = new List<UiListCell<T>>();
-
             ItemHeight = DEFAULT_ITEM_HEIGHT;
             ItemOffsetX = 0;
             HighlightSelected = true;
             SelectOnActivate = true;
 
-            AllCells = cells.ToList();
+            AllCells = new List<UiListCell<T>>();
 
             _needsUpdate = true;
 
@@ -106,11 +103,6 @@ namespace OpenNefia.Content.UI.Element.List
                 SetSize(Width, Height);
                 SetPosition(X, Y);
             }
-        }
-
-        public UiList(IEnumerable<T> items, int itemOffsetX = 0)
-            : this(MakeDefaultList(items), itemOffsetX)
-        {
         }
 
         protected virtual void HandleKeyBindDown(GUIBoundKeyEventArgs args)
@@ -265,13 +257,16 @@ namespace OpenNefia.Content.UI.Element.List
         public virtual void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true)
         {
             var index = SelectedIndex;
-            if (dispose)
+            foreach (var cell in AllCells)
             {
-                foreach (var cell in AllCells)
+                if (dispose)
                     cell.Dispose();
+                if (cell.Parent == this)
+                    RemoveChild(cell);
             }
             AllCells.Clear();
             AllCells.AddRange(items);
+
             if (DisplayedCells.Count > 0)
                 Select(Math.Clamp(index, 0, DisplayedCells.Count - 1));
             UpdateAllCells();
@@ -297,7 +292,7 @@ namespace OpenNefia.Content.UI.Element.List
                 var cell = DisplayedCells[index];
                 cell.XOffset = ItemOffsetX;
                 cell.SetPosition(X, iy);
-                
+
                 iy += cell.Height;
             }
         }

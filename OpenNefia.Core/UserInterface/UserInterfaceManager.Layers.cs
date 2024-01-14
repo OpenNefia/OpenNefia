@@ -67,11 +67,12 @@ namespace OpenNefia.Core.UserInterface
             while (queue.Count > 0)
             {
                 var element = queue.Dequeue();
-                foreach (var child in element.Children)
-                    queue.Enqueue(child);
 
                 if (!element.Visible)
                     continue;
+
+                foreach (var child in element.Children)
+                    queue.Enqueue(child);
 
                 var lineWidth = 1;
                 var color = Color.Red;

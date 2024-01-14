@@ -79,6 +79,12 @@ namespace OpenNefia.Content.UI.Element.List
             _pageModel.SetPage(oldPage);
 
             base.UpdateDisplayedCells(setSize);
+
+            // Ensure the hidden cells cannot be focused by clicking.
+            foreach (var cell in AllCells)
+                cell.Visible = false;
+            foreach (var cell in DisplayedCells)
+                cell.Visible = true;
         }
 
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
