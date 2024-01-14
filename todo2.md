@@ -12,8 +12,9 @@
 - [x] intro/first pet event
 - [x] riding
 - [ ] magic/effects
-  + [ ] buffs
+  + [x] buffs
   + [ ] timestop
+  + [ ] death word expiration
   + [ ] spell stock check
   + [ ] rods
   + [ ] add all effect alignments
@@ -25,6 +26,13 @@
   + [ ] effect damage that chains multiple effects
   + [ ] magic items
 - [ ] inventory/spell/skill shortcuts
+- [ ] AI/calm actions
+- [ ] main quest/sidequests/dialogs
+  + [ ] "main quest" separate from "scenario"
+    * what happens is you may want to create a scenario that starts the player at mid-game in the middle of another main quest
+    * however OpenNefia/LÖVE always tracked which "main quest" was active by scenario ID
+    * so this time two scenarios should be able to track the same "main quest"
+  + [ ] guilds
 - [x] wishing
 - [x] mefs
   + [x] potion puddle
@@ -34,7 +42,6 @@
 - [ ] all item events/properties
   + [ ] corpses
   + [ ] card/figure/sandbag drawables
-- [ ] AI/calm actions
 - [ ] all commands
 - [ ] buildings/zones
 - [ ] all unique areas
@@ -47,12 +54,6 @@
 - [ ] water tiles
 - [ ] animated tiles
 - [ ] enemies follow player up/down stairs
-- [ ] main quest/sidequests/dialogs
-  + [ ] "main quest" separate from "scenario"
-    * what happens is you may want to create a scenario that starts the player at mid-game in the middle of another main quest
-    * however OpenNefia/LÖVE always tracked which "main quest" was active by scenario ID
-    * so this time two scenarios should be able to track the same "main quest"
-  + [ ] guilds
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
 - [ ] status effect protoevents -> ECS
