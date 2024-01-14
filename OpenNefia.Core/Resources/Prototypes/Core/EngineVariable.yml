@@ -1,0 +1,6 @@
+#
+# Show the bounds of UI layers and other info.
+#
+- type: EngineVariable
+  id: Core.DebugUILayers
+  default: false

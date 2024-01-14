@@ -51,16 +51,21 @@ namespace OpenNefia.Core.UserInterface
 
             var (control, rel) = hit.Value;
 
-            if (control.CanControlFocus)
+            // I don't think it makes sense to ever focus a hidden control,
+            // but my assumption could be challenged later...
+            if (control.Visible)
             {
-                Logger.DebugS("ui.input", $"FOCUS: {control}");
-                ControlFocused = control;
-            }
+                if (control.CanControlFocus)
+                {
+                    Logger.DebugS("ui.input", $"FOCUS: {control}");
+                    ControlFocused = control;
+                }
 
-            if (control.CanKeyboardFocus && control.KeyboardFocusOnClick)
-            {
-                Logger.DebugS("ui.input", $"KEYBOARD FOCUS: {control}");
-                control.GrabKeyboardFocus();
+                if (control.CanKeyboardFocus && control.KeyboardFocusOnClick)
+                {
+                    Logger.DebugS("ui.input", $"KEYBOARD FOCUS: {control}");
+                    control.GrabKeyboardFocus();
+                }
             }
 
             hitData = (control, (Vector2i)rel);

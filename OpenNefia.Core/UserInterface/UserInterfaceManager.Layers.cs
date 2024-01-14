@@ -1,9 +1,11 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.EngineVariables;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.HotReload;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -17,6 +19,9 @@ namespace OpenNefia.Core.UserInterface
 
         internal List<UiLayer> Layers { get; private set; } = new();
         private List<UiLayer> _layersByZOrder = new List<UiLayer>();
+
+        [EngineVariable("Core.DebugUILayers")]
+        public bool DebugUILayers { get; set; } = false;
 
         public UiLayer? CurrentLayer
         {
@@ -46,7 +51,51 @@ namespace OpenNefia.Core.UserInterface
         {
             for (int i = 0; i < _layersByZOrder.Count; i++)
             {
-                _layersByZOrder[i].Draw();
+                var layer = _layersByZOrder[i];
+                layer.Draw();
+
+                if (DebugUILayers)
+                    DrawDebug(layer);
+            }
+        }
+
+        private void DrawDebug(UiLayer layer)
+        {
+            var queue = new Queue<UiElement>();
+            queue.Enqueue(layer);
+
+            while (queue.Count > 0)
+            {
+                var element = queue.Dequeue();
+                foreach (var child in element.Children)
+                    queue.Enqueue(child);
+
+                if (!element.Visible)
+                    continue;
+
+                var lineWidth = 1;
+                var color = Color.Red;
+                if (ControlFocused == element)
+                {
+                    lineWidth = 3;
+                    color = Color.Cyan;
+                }
+                else if (KeyboardFocused == element)
+                {
+                    lineWidth = 3;
+                    color = Color.Orange;
+                }
+                if (CurrentlyHovered == element)
+                {
+                    lineWidth = 3;
+                    color = Color.Yellow;
+                }
+                if (element is UiLayer && CurrentLayer == element)
+                    color = Color.Purple;
+
+                Love.Graphics.SetLineWidth(lineWidth);
+                Love.Graphics.SetColor(color);
+                Love.Graphics.Rectangle(Love.DrawMode.Line, element.PixelRect);
             }
         }
 
