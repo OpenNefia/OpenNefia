@@ -6,6 +6,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Tests.Core.Utility
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All | ParallelScope.Fixtures)]
     [TestOf(typeof(NullableHelper))]
     public class NullableHelper_Test
     {

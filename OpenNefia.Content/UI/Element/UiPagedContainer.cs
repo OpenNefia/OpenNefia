@@ -155,6 +155,9 @@ namespace OpenNefia.Content.UI.Element
             if (!_parentPagesToChildPages.TryGetValue(page, out var mapping))
                 return false;
 
+            if (CurrentElement != null)
+                CurrentElement.Visible = false;
+
             CurrentPage = page;
             CurrentElement = mapping.Element;
             CurrentElement.Visible = true;

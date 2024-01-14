@@ -32,9 +32,18 @@ namespace OpenNefia.Core.UserInterface
 
         void TextEntered(TextEventArgs textEvent);
 
+        /// <summary>
+        /// Refreshes the mouse hovered control in case UI elements under the mouse are recreated.
+        /// </summary>
+        void RefreshMouseHoveredControl();
+
         void ControlHidden(UiElement control);
 
         void ControlRemovedFromTree(UiElement control);
+
+        void ControlShown(UiElement control);
+
+        void ControlAddedToTree(UiElement control);
 
         void RemoveModal(UiElement modal);
 

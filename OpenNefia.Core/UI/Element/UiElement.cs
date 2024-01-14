@@ -748,6 +748,7 @@ namespace OpenNefia.Core.UI.Element
         private void _enteredTree()
         {
             EnteredTree();
+            UserInterfaceManagerInternal.ControlAddedToTree(this);
         }
 
         public class OrderedChildCollection : ICollection<UiElement>, IReadOnlyCollection<UiElement>

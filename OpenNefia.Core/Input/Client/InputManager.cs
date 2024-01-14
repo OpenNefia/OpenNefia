@@ -322,6 +322,12 @@ namespace OpenNefia.Core.Input
                     break;
                 }
             }
+
+            // Update mouse hovered element in case it moved around under the cursor.
+            if (args.Key.IsMouseKey())
+            {
+                _uiMgr.RefreshMouseHoveredControl();
+            }
         }
 
         private bool RaiseRawKeyInput(KeyEventArgs args, IRawInputControl rawInput, RawKeyAction action)

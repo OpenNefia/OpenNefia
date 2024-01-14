@@ -1,3 +1,6 @@
+Core:
+  DebugUILayers: false
+
 Elona:
   DebugForceMapRenewal: All
   DebugRegenQuestsEveryTime: true

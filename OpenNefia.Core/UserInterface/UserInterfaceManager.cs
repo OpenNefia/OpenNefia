@@ -120,7 +120,7 @@ namespace OpenNefia.Core.UserInterface
 
         public void ControlHidden(UiElement control)
         {
-            // Does the same thing but it could later be changed so..
+            // Does the same thing but it could later be changed so...
             ControlRemovedFromTree(control);
         }
 
@@ -135,6 +135,16 @@ namespace OpenNefia.Core.UserInterface
 
             if (control != ControlFocused) return;
             ControlFocused = null;
+        }
+
+        public void ControlShown(UiElement control)
+        {
+            // Does the same thing but it could later be changed so...
+            ControlAddedToTree(control);
+        }
+
+        public void ControlAddedToTree(UiElement control)
+        {
         }
 
         public void PushModal(UiElement modal)
