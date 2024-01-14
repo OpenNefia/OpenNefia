@@ -26,6 +26,10 @@ git clone --recursive https://github.com/OpenNefia/OpenNefia.git
 
 3. Run the `OpenNefia.EntryPoint` project.
 
+## Contributing
+
+If you'd like to contribute, please base your changes on the `develop` branch. The `master` branch is reserved for the code of the latest tagged release.
+
 ## Credits
 
 Parts of OpenNefia were directly ported from the original HSP source code of Elona, originally released by Noa in 2006.
