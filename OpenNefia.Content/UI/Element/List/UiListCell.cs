@@ -84,7 +84,7 @@ namespace OpenNefia.Content.UI.Element.List
         /// <summary>
         /// X offset of the text in virtual pixels, counted from the left edge of the cell.
         /// </summary>
-        public float XOffsetEdge => AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset;
+        public float XOffsetEdge => AssetSelectKey.PixelWidth + 2 + 4 + XOffset;
 
         protected FontSpec FontListKeyName = UiFonts.ListKeyName;
         public Color ColorSelectedAdd = UiColors.ListSelectedAdd;
@@ -128,7 +128,7 @@ namespace OpenNefia.Content.UI.Element.List
         public override void SetSize(float width, float height)
         {
             UiText.GetPreferredSize(out var textSize);
-            UiText.SetSize(textSize.X - (AssetSelectKey.VirtualWidth(UIScale) - 6 + XOffset), textSize.Y);
+            UiText.SetSize(textSize.X - (AssetSelectKey.PixelWidth - 6 + XOffset), textSize.Y);
             KeyNameText.SetPreferredSize();
             base.SetSize(MathF.Max(width, textSize.X + XOffsetEdge), height);
         }
@@ -138,13 +138,13 @@ namespace OpenNefia.Content.UI.Element.List
             base.SetPosition(x, y);
             UiText.SetPosition(X + XOffsetEdge, Y);
 
-            var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 5 + UIScale * 3;
+            var keyNameX = X + (AssetSelectKey.PixelWidth - KeyNameText.Width) / 2 - 2;
             KeyNameText.SetPosition(keyNameX, Y - 1);
         }
 
         public virtual void DrawHighlight()
         {
-            var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.VirtualWidth(UIScale) + 8 + XOffset, 10, 480);
+            var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.PixelWidth + 8 + XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(ColorSelectedSub);
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 1, virtualWidth, 19);
