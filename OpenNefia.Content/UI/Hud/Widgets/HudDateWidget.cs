@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Hud
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            DateText.SetPosition(X + 40, Y + 9);
+            DateText.SetPosition(X + 40, Y + 6);
         }
 
         public override void RefreshWidget()

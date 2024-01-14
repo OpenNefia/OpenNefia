@@ -33,7 +33,6 @@ namespace OpenNefia.Core.Rendering
             _localization.OnLanguageSwitched += HandleLanguageSwitched;
 
             _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
-            _graphics.OnFontHeightScaleChanged += HandleFontHeightScaleChanged;
         }
 
         /// <summary>
@@ -46,11 +45,6 @@ namespace OpenNefia.Core.Rendering
         }
 
         private void HandleWindowScaleChanged(WindowScaleChangedEventArgs obj)
-        {
-            ClearCache();
-        }
-
-        private void HandleFontHeightScaleChanged(FontHeightScaleChangedEventArgs obj)
         {
             ClearCache();
         }

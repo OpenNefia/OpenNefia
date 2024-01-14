@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Hud
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(X + 20, Y + 2);
+            UiText.SetPosition(X + 20, Y);
         }
 
         public override void Draw()

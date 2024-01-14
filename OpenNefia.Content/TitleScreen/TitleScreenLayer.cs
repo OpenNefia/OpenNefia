@@ -56,12 +56,12 @@ namespace OpenNefia.Content.TitleScreen
                 base.SetPosition(x, y);
                 if (TextSubtext.Text != string.Empty)
                 {
-                    TextSubtext.SetPosition(X + 40, Y - 4);
-                    UiText.SetPosition(X + 40 + XOffset + 4, Y + 8);
+                    TextSubtext.SetPosition(X + 40, Y - 5);
+                    UiText.SetPosition(X + 40 + XOffset + 4, Y + 7);
                 }
                 else
                 {
-                    UiText.SetPosition(X + 40 + XOffset + 4, Y + 1);
+                    UiText.SetPosition(X + 40 + XOffset + 4, Y);
                 }
             }
 

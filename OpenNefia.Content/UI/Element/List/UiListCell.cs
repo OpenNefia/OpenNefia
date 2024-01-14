@@ -81,6 +81,11 @@ namespace OpenNefia.Content.UI.Element.List
         /// </summary>
         public int PixelXOffset => (int)(XOffset * UIScale);
 
+        /// <summary>
+        /// X offset of the text in virtual pixels, counted from the left edge of the cell.
+        /// </summary>
+        public float XOffsetEdge => AssetSelectKey.PixelWidth + 2 + 4 + XOffset;
+
         protected FontSpec FontListKeyName = UiFonts.ListKeyName;
         public Color ColorSelectedAdd = UiColors.ListSelectedAdd;
         public Color ColorSelectedSub = UiColors.ListSelectedSub;
@@ -117,39 +122,47 @@ namespace OpenNefia.Content.UI.Element.List
         public override void GetPreferredSize(out Vector2 size)
         {
             UiText.GetPreferredSize(out size);
-            size.X = size.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset;
+            size.X = size.X + XOffsetEdge;
         }
 
         public override void SetSize(float width, float height)
         {
             UiText.GetPreferredSize(out var textSize);
-            UiText.SetSize(textSize.X - (AssetSelectKey.VirtualWidth(UIScale) - 6 + XOffset), textSize.Y);
+            UiText.SetSize(textSize.X - (AssetSelectKey.PixelWidth - 6 + XOffset), textSize.Y);
             KeyNameText.SetPreferredSize();
-            base.SetSize(MathF.Max(width, textSize.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset), height);
+            base.SetSize(MathF.Max(width, textSize.X + XOffsetEdge), height);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset, Y);
+            UiText.SetPosition(X + XOffsetEdge, Y);
 
-            var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 5 + UIScale * 3;
-            var keyNameY = Y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 7 + UIScale * 3;
-            KeyNameText.SetPosition(keyNameX, keyNameY);
+            var keyNameX = X + (AssetSelectKey.PixelWidth - KeyNameText.Width) / 2 - 2;
+            KeyNameText.SetPosition(keyNameX, Y - 1);
         }
 
         public virtual void DrawHighlight()
         {
-            var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.VirtualWidth(UIScale) + 8 + XOffset, 10, 480);
+            var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.PixelWidth + 8 + XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(ColorSelectedSub);
-            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 2, virtualWidth, 19);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 1, virtualWidth, 19);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorSelectedAdd);
-            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 1, virtualWidth - 2, 17);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y, virtualWidth - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 2);
+            AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 3);
+        }
+
+        public virtual void DrawLineTint(float width)
+        {
+            if (IndexInList % 2 == 0)
+            {
+                Love.Graphics.SetColor(UiColors.ListEntryAccent);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y - 1, width, Height);
+            }
         }
 
         public override void Draw()

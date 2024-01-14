@@ -68,35 +68,26 @@ namespace OpenNefia.Content.CharaInfo
                 DescriptionText = new UiText(Data.Description);
                 UiText.Color = data.Color;
                 DescriptionText.Color = data.Color;
+
+                switch (Data)
+                {
+                    case FeatNameAndDesc.FeatHeader:
+                        UiText.Font = UiFonts.ListHeader;
+                        break;
+                }
             }
 
             private float Offset => Data switch
             {
-                FeatNameAndDesc.FeatHeader header => 35f,
-                FeatNameAndDesc.GainedFeat gained => -8f,
+                FeatNameAndDesc.GainedFeat gained => -XOffsetEdge,
                 _ => 0f,
             };
 
             public override void SetPosition(float x, float y)
             {
-                base.SetPosition(x + Offset, y);
-                UiText.SetPosition(UiText.X, UiText.Y + 4);
+                base.SetPosition(x, y);
+                UiText.SetPosition(UiText.X + Offset, UiText.Y);
                 DescriptionText.SetPosition(UiText.X + 200, UiText.Y);
-            }
-
-            //overriden because position needs to be slightly altered
-            public override void DrawHighlight()
-            {
-                var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.VirtualWidth(UIScale) + 8 + XOffset, 10, 480);
-                Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                GraphicsEx.SetColor(ColorSelectedSub);
-                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 4, virtualWidth, 19);
-                Love.Graphics.SetBlendMode(Love.BlendMode.Add);
-                GraphicsEx.SetColor(ColorSelectedAdd);
-                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 3, virtualWidth - 2, 17);
-                Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-                GraphicsEx.SetColor(Love.Color.White);
-                AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y - 0);
             }
 
             /// <summary>
@@ -110,16 +101,12 @@ namespace OpenNefia.Content.CharaInfo
 
             public override void Draw()
             {
-                if (IndexInList % 2 == 0 && Data is not FeatNameAndDesc.FeatHeader)
-                {
-                    Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, 650 - Offset, 18);
-                }
                 switch (Data)
                 {
                     case FeatNameAndDesc.GainedFeat feat:
                         GraphicsEx.SetColor(Color.White);
-                        FeatIcons.DrawRegion(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
+                        FeatIcons.DrawRegion(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
+                        base.DrawLineTint(650);
                         UiText.Draw();
                         break;
                     case FeatNameAndDesc.FeatHeader:
@@ -129,6 +116,7 @@ namespace OpenNefia.Content.CharaInfo
                         GraphicsEx.SetColor(Color.White);
                         FeatIcons.DrawRegion(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
                         base.Draw();
+                        base.DrawLineTint(650);
                         DescriptionText.Draw();
                         break;
                 }

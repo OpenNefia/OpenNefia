@@ -114,7 +114,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            ValueText.SetPosition(X + 194, Y + 1);
+            ValueText.SetPosition(X + 194, Y);
             AssetArrowLeft.SetPosition(X + 164, Y - 5);
             AssetArrowRight.SetPosition(X + 302, Y - 5);
         }
