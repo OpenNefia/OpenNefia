@@ -208,7 +208,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (component.MessageKey != null)
                 _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
             var rate = (float)_formulaEngine.Calculate(component.SuccessRate, formulaArgs, 1.0);
 
             if (!_rand.Prob(rate))
@@ -331,6 +331,8 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (component.Element != null)
                 damageType = new ElementalDamageType(component.Element.Value, args.OutElementalPower);
             _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
+
+            args.Handle(TurnResult.Succeeded);
         }
 
         private void ApplyTileDamage_Elemental(EntityUid uid, EffectDamageElementalComponent component, ApplyEffectTileDamageEvent args)
@@ -388,7 +390,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                     return;
             }
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
             formulaArgs["finalDamage"] = args.OutDamage;
 
             var summonCount = (int)(double.Round(_formulaEngine.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));
@@ -452,7 +454,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled)
                 return;
 
-            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+            var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
 
             int? turns = null;
             if (component.Turns != null)

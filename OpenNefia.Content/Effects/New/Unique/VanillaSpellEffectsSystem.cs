@@ -132,8 +132,8 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
             SubscribeEntity<AfterPlayerCastsReturnMagicEvent>(ReturnMagicCommon, priority: EventPriorities.VeryLow);
 
-            SubscribeComponent<EffectApplyBuffComponent, GetEffectDescriptionEvent>(GetSpellDesc_DivineWisdom);
-            SubscribeComponent<EffectApplyBuffComponent, GetEffectDescriptionEvent>(GetSpellDesc_Punishment);
+            SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
+            SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
             SubscribeComponent<EffectApplyBuffComponent, ApplyEffectDamageEvent>(Apply_ApplyBuff);
         }
 
@@ -588,11 +588,14 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (args.Handled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out _))
+            if (!TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice)
+                || !_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out var vars))
                 return;
 
+            var chance = (int)_formulaEngine.Calculate(effectDice.FinalDamage, vars);
+
             // >>>>>>>> elona122/shade2/command.hsp:2225 				s+=""+limit(bonus,1,100)+"%" ...
-            args.OutDescription += Loc.Space + int.Clamp(dice.Bonus, 0, 100) + "%";
+            args.OutDescription += Loc.Space + int.Clamp(chance, 0, 100) + "%";
             // <<<<<<<< elona122/shade2/command.hsp:2225 				s+=""+limit(bonus,1,100)+"%" ...
 
             args.Handled = true;
@@ -1154,40 +1157,32 @@ namespace OpenNefia.Content.Effects.New.Unique
             // <<<<<<<< elona122/shade2/proc.hsp:2331 	swbreak ...
         }
 
-        private void GetSpellDesc_DivineWisdom(EntityUid effectUid, EffectApplyBuffComponent component, GetEffectDescriptionEvent args)
+        private void GetBuffDesc_DivineWisdom(GetBuffDescriptionEvent args)
         {
             if (args.Handled)
                 return;
 
-            var adjusted = _buffs.CalcBuffPowerAndTurns(component.BuffID, args.Power);
-            var proto = _protos.Index(component.BuffID);
-            if (!proto.Components.TryGetComponent<BuffDivineWisdomComponent>(out var buffDivineWisdom))
+            if (!args.BuffPrototype.Components.TryGetComponent<BuffDivineWisdomComponent>(out var buffDivineWisdom))
                 return;
 
             var formulaArgs = _buffs.GetBuffFormulaArgs(args.Power);
-            formulaArgs["power"] = adjusted.Power;
+            formulaArgs["power"] = args.Power;
             var learningMagic = (int)_formulaEngine.Calculate(buffDivineWisdom.LearningMagic, formulaArgs);
             var literacy = (int)_formulaEngine.Calculate(buffDivineWisdom.Literacy, formulaArgs);
 
-            args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns)) 
-                + Loc.Space
-                + Loc.GetPrototypeString(component.BuffID, "Buff.Description", ("learningMagic", learningMagic), ("literacy", literacy));
+            args.OutDescription = Loc.GetPrototypeString(args.BuffPrototype, "Buff.Description", ("learningMagic", learningMagic), ("literacy", literacy));
             args.Handled = true;
         }
 
-        private void GetSpellDesc_Punishment(EntityUid effectUid, EffectApplyBuffComponent component, GetEffectDescriptionEvent args)
+        private void GetBuffDesc_Punishment(GetBuffDescriptionEvent args)
         {
             if (args.Handled)
                 return;
 
-            var adjusted = _buffs.CalcBuffPowerAndTurns(component.BuffID, args.Power);
-            var proto = _protos.Index(component.BuffID);
-            if (!proto.Components.TryGetComponent<BuffPunishmentComponent>(out var buffPunishment))
+            if (!args.BuffPrototype.Components.TryGetComponent<BuffPunishmentComponent>(out var buffPunishment))
                 return;
 
-            args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns))
-                + Loc.Space
-                + Loc.GetPrototypeString(component.BuffID, "Buff.Description", ("speedLoss", adjusted.Power), ("pvLossPercent", (int)double.Ceiling((1.0 - buffPunishment.PVModifier) * 100)));
+            args.OutDescription = Loc.GetPrototypeString(args.BuffPrototype, "Buff.Description", ("speedLoss", args.Power), ("pvLossPercent", (int)double.Ceiling((1.0 - buffPunishment.PVModifier) * 100)));
             args.Handled = true;
         }
 

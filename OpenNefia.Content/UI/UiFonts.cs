@@ -28,6 +28,9 @@ namespace OpenNefia.Content.UI
 
         public static readonly FontSpec CharaSheetInfo = new(13, 11, style: FontStyle.Bold);
         public static readonly FontSpec CharaSheetInfoContent = new(14, 12);
+        public static readonly FontSpec CharaSheetBuffHintBody = new(13, 12);
+        public static readonly FontSpec CharaSheetBuffHintTopic = new(11, 11, style: FontStyle.Bold); // 11 + sizefix * 2
+
         public static readonly FontSpec KeyHintBar = new(12, 12, color: UiColors.TextKeyHintBar, bgColor: UiColors.TextBlack);
 
         public static readonly FontSpec SkillsListBonusPoints = new(12, 10, style: FontStyle.Bold);

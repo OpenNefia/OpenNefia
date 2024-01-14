@@ -60,12 +60,12 @@ namespace OpenNefia.Content.Buffs
         bool RemoveBuff(EntityUid entity, EntityUid buffEnt, bool refresh = true, BuffsComponent? buffs = null);
         IEnumerable<BuffComponent> EnumerateBuffs(EntityUid entity, BuffsComponent? buffs = null);
 
-        string GetBuffDescription(EntityUid buff, BuffComponent? buffComp = null);
+        string LocalizeBuffDescription(EntityUid buff, BuffComponent? buffComp = null);
 
-        IDictionary<string, double> GetBuffFormulaArgs(int power);
+        IDictionary<string, double> GetBuffFormulaArgs(int basePower);
         BuffAdjustedPowerAndTurns CalcBuffPowerAndTurns(PrototypeId<EntityPrototype> buffID, int power, int? turns = null);
     }
-    
+
     public sealed record class BuffAdjustedPowerAndTurns(int Power, int Turns);
 
     public sealed class BuffSystem : EntitySystem, IBuffSystem
@@ -97,6 +97,13 @@ namespace OpenNefia.Content.Buffs
                 return new(power, turns ?? 10);
 
             return CalcBuffPowerAndTurns(buffPower, power, turns);
+        }
+
+        public IDictionary<string, double> GetBuffFormulaArgs(int basePower)
+        {
+            var args = new Dictionary<string, double>();
+            args["basePower"] = basePower;
+            return args;
         }
 
         private BuffAdjustedPowerAndTurns CalcBuffPowerAndTurns(BuffPowerComponent buffPower, int power, int? turns = null)
@@ -346,7 +353,7 @@ namespace OpenNefia.Content.Buffs
             buffComp.TurnsRemaining = ev.OutTurns.Value;
             buffComp.Source = source;
 
-            if(!TryAddBuffRaw(target, buff.Value, buffs))
+            if (!TryAddBuffRaw(target, buff.Value, buffs))
             {
                 buffComp = null;
                 return false;
@@ -438,25 +445,32 @@ namespace OpenNefia.Content.Buffs
             }
         }
 
-        public string GetBuffDescription(EntityUid buff, BuffComponent? buffComp = null)
+        public string LocalizeBuffDescription(EntityUid buff, BuffComponent? buffComp = null)
         {
-            var protoID = MetaData(buff).EntityPrototype?.GetStrongID();
-            if (protoID == null)
-                return "???";
+            var proto = MetaData(buff).EntityPrototype;
+            if (proto == null || !Resolve(buff, ref buffComp))
+                return "<no description>";
 
-            var args = new List<LocaleArg>()
-            {
-                ("buff", buff)
-            };
-
-            return Loc.GetPrototypeString(protoID.Value, "Buff.Description", args.ToArray());
+            var ev = new GetBuffDescriptionEvent(proto, buffComp.BasePower, buffComp.Power);
+            RaiseEvent(ev);
+            return ev.OutDescription;
         }
+    }
 
-        public IDictionary<string, double> GetBuffFormulaArgs(int power)
+    [EventUsage(EventTarget.Broadcast)]
+    public sealed class GetBuffDescriptionEvent : HandledEntityEventArgs
+    {
+        public EntityPrototype BuffPrototype { get; }
+        public int BasePower { get; }
+        public int Power { get; }
+
+        public string OutDescription { get; set; } = string.Empty;
+
+        public GetBuffDescriptionEvent(EntityPrototype buffID, int basePower, int power)
         {
-            var vars = new Dictionary<string, double>();
-            vars["basePower"] = power;
-            return vars;
+            BuffPrototype = buffID;
+            BasePower = basePower;
+            Power = power;
         }
     }
 

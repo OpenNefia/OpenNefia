@@ -28,6 +28,7 @@ namespace OpenNefia.Content.Spells
             SubscribeComponent<EffectApplyBuffComponent, GetEffectDescriptionEvent>(GetSpellDesc_Buff, priority: EventPriorities.VeryLow - 10000);
             SubscribeEntity<GetEffectDescriptionEvent>(GetSpellDesc_Default, priority: EventPriorities.VeryLow);
             SubscribeEntity<BeforeSpellEffectInvokedEvent>(BeforeSpellEffect_ProcVanillaCastingEvents);
+            SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Default, priority: EventPriorities.VeryLow);
         }
 
         private void GetSpellDesc_Buff(EntityUid effectUid, EffectApplyBuffComponent component, GetEffectDescriptionEvent args)
@@ -38,11 +39,22 @@ namespace OpenNefia.Content.Spells
 
             var adjusted = _buffs.CalcBuffPowerAndTurns(component.BuffID, args.Power);
 
-            args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns)) 
-                + Loc.Space
-                + Loc.GetPrototypeString(component.BuffID, "Buff.Description", ("power", adjusted.Power));
+            var buffProto = _protos.Index(component.BuffID);
+            var ev = new GetBuffDescriptionEvent(buffProto, args.Power, adjusted.Power);
+            RaiseEvent(ev);
+            args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns))
+                + Loc.Space + ev.OutDescription;
             args.Handled = true;
             // <<<<<<<< elona122/shade2/command.hsp:2215 	} ...
+        }
+
+        private void GetBuffDesc_Default(GetBuffDescriptionEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            args.OutDescription = Loc.GetPrototypeString(args.BuffPrototype, "Buff.Description", ("power", args.Power));
+            args.Handled = true;
         }
 
         private void GetSpellDesc_Default(EntityUid effectUid, GetEffectDescriptionEvent args)

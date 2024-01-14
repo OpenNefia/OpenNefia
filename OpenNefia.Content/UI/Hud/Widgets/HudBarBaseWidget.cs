@@ -24,6 +24,7 @@ namespace OpenNefia.Content.Hud
         protected abstract float BarRatio { get; set; }
         protected virtual Vector2 BarSize { get; } = new(83, 7);
         protected virtual Vector2 BarOffset { get; } = new(17, 5);
+        protected virtual Color Color { get; } = Color.White;
 
         private UiHelpers.UiBarDrawableState BarState = default!;
         private IAssetInstance BarBGAsset;
@@ -56,6 +57,7 @@ namespace OpenNefia.Content.Hud
 
             base.Draw();
             BarBGAsset.Draw(UIScale, X, Y);
+            Love.Graphics.SetColor(Color);
             UiHelpers.DrawPercentageBar(UIScale, BarState, Position + BarOffset, BarState.HPRatio * BarSize.X);
             UiText.Draw();
         }
@@ -150,6 +152,32 @@ namespace OpenNefia.Content.Hud
             }
             RefreshBarState();
             // <<<<<<<< elona122/shade2/screen.hsp:158 		} ...
+        }
+    }
+
+    public sealed class HudStaminaBarWidget : HudBarBaseWidget
+    {
+        [Dependency] private readonly IEntityManager _entMan = default!;
+
+        protected override string BarText { get; set; } = string.Empty;
+        protected override IAssetInstance BarAsset { get; set; }
+        protected override float BarRatio { get; set; }
+        protected override Color Color => Color.Lime;
+
+        public HudStaminaBarWidget()
+        {
+            BarAsset = Assets.Get(Protos.Asset.HudMpBar);
+        }
+
+        public override void RefreshWidget()
+        {
+            base.RefreshWidget();
+            if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
+            {
+                BarText = $"{skills.Stamina}({skills.MaxStamina})";
+                BarRatio = (float)skills.Stamina / skills.MaxStamina;
+            }
+            RefreshBarState();
         }
     }
 }

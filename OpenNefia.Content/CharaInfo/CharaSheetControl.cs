@@ -55,44 +55,6 @@ namespace OpenNefia.Content.CharaInfo
             }
         }
 
-        public class HexAndBlessingIcon : UiElement
-        {
-            private const int TileWidth = 32;
-            private const int TileHeight = 32;
-
-            private IAssetInstance? HexBlessingIcon;
-            private IAssetInstance TileIcon;
-
-            public HexAndBlessingIcon(IAssetInstance? icon)
-            {
-                TileIcon = Assets.Get(Protos.Asset.BuffIconNone);
-                HexBlessingIcon = icon;
-            }
-
-            public override void GetPreferredSize(out Vector2 size)
-            {
-                size.X = TileWidth;
-                size.Y = TileHeight;
-            }
-
-            public override void Draw()
-            {
-                base.Draw();
-
-                var x = X + TileWidth / 2;
-                var y = Y + TileHeight / 2;
-
-                GraphicsEx.SetColor(255, 255, 255, 120);
-                TileIcon.Draw(UIScale, x, y, centered: true);
-
-                if (HexBlessingIcon != null)
-                {
-                    GraphicsEx.SetColor(Color.White);
-                    HexBlessingIcon.Draw(UIScale, x, y, centered: true);
-                }
-            }
-        }
-
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
@@ -116,6 +78,7 @@ namespace OpenNefia.Content.CharaInfo
         private IAssetInstance AssetIeSheet;
 
         [Child] private CharaSheetFaceFrame FaceFrame;
+        private BuffIconsControl BuffIcons;
         [Child] private UiContainer NameContainer;
         [Child] private UiContainer ClassContainer;
         [Child] private UiContainer ExpContainer;
@@ -125,6 +88,9 @@ namespace OpenNefia.Content.CharaInfo
         [Child] private UiContainer TraceContainer;
         [Child] private UiContainer ExtraContainer;
         [Child] private UiContainer RollsContainer;
+
+        [Child] private UiText TextBuffHintTopic = new UiText(UiFonts.CharaSheetBuffHintTopic);
+        [Child] private UiText TextBuffHintBody = new UiText(UiFonts.CharaSheetBuffHintBody);
 
         private UiContainer PlayTimeContainer = default!;
         private UiText TextPlayTime = default!;
@@ -139,8 +105,11 @@ namespace OpenNefia.Content.CharaInfo
 
             _locScope = Loc.MakeScope("Elona.CharaSheet");
 
+            TextBuffHintTopic.Text = _locScope.GetString("Group.BlessingHex.HintTopic");
+
             AssetIeSheet = Assets.Get(Asset.IeSheet);
             FaceFrame = new CharaSheetFaceFrame();
+            BuffIcons = new BuffIconsControl();
 
             NameContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ClassContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
@@ -185,6 +154,9 @@ namespace OpenNefia.Content.CharaInfo
         public void RefreshFromEntity()
         {
             FaceFrame.RefreshFromEntity(_charaEntity);
+            BuffIcons.RefreshFromEntity(_charaEntity);
+
+            TextBuffHintBody.Text = BuffIcons.GetSelectedBuffDescription();
 
             NameContainer.Clear();
             ClassContainer.Clear();
@@ -359,21 +331,7 @@ namespace OpenNefia.Content.CharaInfo
             BlessingContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Blessing")));
             BlessingContainer.AddLayout(LayoutType.Spacer, 10);
             BlessingContainer.AddLayout(LayoutType.XOffset, 30);
-            var blessCont = new UiGridContainer(GridType.Horizontal, 5, xCentered: false, xSpace: 8);
-            var buffEntities = _buffs.EnumerateBuffs(_charaEntity).Take(15).ToList();
-            for (int i = 0; i < 15; i++)
-            {
-                if (buffEntities.Count > i)
-                {
-                    var asset = _assets.GetAsset(buffEntities[i].Icon);
-                    blessCont.AddElement(new HexAndBlessingIcon(asset));
-                }
-                else
-                {
-                    blessCont.AddElement(new HexAndBlessingIcon(null));
-                }
-            }
-            BlessingContainer.AddElement(blessCont);
+            BlessingContainer.AddElement(BuffIcons);
 
             //
             // Trace
@@ -458,6 +416,8 @@ namespace OpenNefia.Content.CharaInfo
         {
             base.SetSize(width, height);
             FaceFrame.SetPreferredSize();
+            TextBuffHintTopic.SetPreferredSize();
+            TextBuffHintBody.SetPreferredSize();
         }
 
         public override void SetPosition(float x, float y)
@@ -483,12 +443,16 @@ namespace OpenNefia.Content.CharaInfo
             ExtraContainer.Relayout();
             RollsContainer.SetPosition(BlessingContainer.X, y + 260);
             RollsContainer.Relayout();
+            TextBuffHintTopic.SetPosition(x + 70, y + 369 + 8);
+            TextBuffHintBody.SetPosition(x + 108, y + 366 + 8);
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
             FaceFrame.Update(dt);
+            TextBuffHintTopic.Update(dt);
+            TextBuffHintBody.Update(dt);
             NameContainer.Update(dt);
             ClassContainer.Update(dt);
             ExpContainer.Update(dt);
@@ -519,6 +483,8 @@ namespace OpenNefia.Content.CharaInfo
             TraceContainer.Draw();
             ExtraContainer.Draw();
             RollsContainer.Draw();
+            TextBuffHintTopic.Draw();
+            TextBuffHintBody.Draw();
         }
     }
 }

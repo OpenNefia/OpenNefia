@@ -26,20 +26,20 @@ Elona.Damage = {
         },
     },
     Levels = {
-        Scratch = function(entity, attacker)
-            return ("make%s a scratch."):format(_.s(attacker))
+        Scratch = function(entity, attacker, direct)
+            return ("make%s a scratch."):format(direct and _.s(attacker) or "s")
         end,
-        Slightly = function(entity, attacker)
-            return ("slightly wound%s %s."):format(_.s(attacker), _.him(entity))
+        Slightly = function(entity, attacker, direct)
+            return ("slightly wound%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
         end,
-        Moderately = function(entity, attacker)
-            return ("moderately wound%s %s."):format(_.s(attacker), _.him(entity))
+        Moderately = function(entity, attacker, direct)
+            return ("moderately wound%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
         end,
-        Severely = function(entity, attacker)
-            return ("severely wound%s %s."):format(_.s(attacker), _.him(entity))
+        Severely = function(entity, attacker, direct)
+            return ("severely wound%s %s."):format(direct and _.s(attacker) or "s", _.him(entity))
         end,
-        Critically = function(entity, attacker)
-            return ("critically wound%s %s!"):format(_.s(attacker), _.him(entity))
+        Critically = function(entity, attacker, direct)
+            return ("critically wound%s %s!"):format(direct and _.s(attacker) or "s", _.him(entity))
         end,
     },
     Reactions = {

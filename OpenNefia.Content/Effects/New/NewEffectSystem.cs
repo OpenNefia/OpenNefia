@@ -18,16 +18,10 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Skills;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.CurseStates;
-using System.ComponentModel;
-using CSharpRepl.Services.Roslyn.Formatting;
 using OpenNefia.Content.Levels;
-using OpenNefia.Core.Serialization.Manager.Attributes;
-using Microsoft.FileFormats;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.Combat;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Feats;
-using OpenNefia.Content.Spells;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -79,6 +73,8 @@ namespace OpenNefia.Content.Effects.New
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args);
 
         /// <summary>
         /// Gets the dice of an effect. Useful for displaying it in the UI.
@@ -130,6 +126,12 @@ namespace OpenNefia.Content.Effects.New
 
             return result;
         }
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args)
+            => GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args)
+            => GetEffectDamageFormulaArgs(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {

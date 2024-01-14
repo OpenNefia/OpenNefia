@@ -38,6 +38,14 @@ Elona.CharaSheet = {
             RequiredExp = "Next Lv",
         },
 
+        BlessingHex = {
+            HintTopic = "Hint:",
+            HintBody = function(buffName, buffDesc, turns)
+                return ("%s: (%s) %s"):format(buffName, turns, buffDesc)
+            end,
+            NotAffected = "This character isn't currently blessed or hexed.",
+        },
+
         Personal = {
             Name = "Name",
             Alias = "Aka",

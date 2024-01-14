@@ -270,7 +270,8 @@ namespace OpenNefia.Content.CharaInfo
 
         public bool DefaultShouldDisplaySkill(SkillPrototype proto, EntityUid charaEntity)
         {
-            return proto.SkillType == SkillType.Skill && _skills.HasSkill(charaEntity, proto);
+            return (proto.SkillType == SkillType.Skill || proto.SkillType == SkillType.WeaponProficiency) 
+                && _skills.HasSkill(charaEntity, proto);
         }
 
         public bool DefaultShouldDisplayResist(ElementPrototype elementProto, EntityUid charaEntity)

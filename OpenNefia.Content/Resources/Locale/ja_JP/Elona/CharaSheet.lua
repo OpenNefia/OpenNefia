@@ -38,6 +38,14 @@ Elona.CharaSheet = {
             RequiredExp = "必要値",
         },
 
+        BlessingHex = {
+            HintTopic = "説明:",
+            HintBody = function(buffName, buffDesc, turns)
+                return ("%s: (%s)ﾀｰﾝの間、%s"):format(buffName, turns, buffDesc)
+            end,
+            NotAffected = "今は持続効果を受けていない",
+        },
+
         Personal = {
             Name = "名前",
             Alias = "異名",
