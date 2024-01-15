@@ -246,7 +246,7 @@ namespace OpenNefia.Content.CharaInfo
                     dict[_locScope.GetString("Group.Personal.Alias")] = alias.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
                 dict[_locScope.GetString("Group.Personal.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
-                SetupContainer(NameContainer, 4, dict);
+                SetupContainer(NameContainer, 10, dict);
                 dict.Clear();
 
                 dict[string.Empty] = string.Empty;
@@ -257,7 +257,7 @@ namespace OpenNefia.Content.CharaInfo
                     dict[_locScope.GetString("Group.Personal.Height")] = $"{weight.Height} {_locScope.GetString("Group.Personal.Cm")}";
                     dict[_locScope.GetString("Group.Personal.Weight")] = $"{weight.Weight.Buffed} {_locScope.GetString("Group.Personal.Kg")}";
                 }
-                SetupContainer(ClassContainer, 4, dict);
+                SetupContainer(ClassContainer, 10, dict);
                 dict.Clear();
             }
 
@@ -281,7 +281,7 @@ namespace OpenNefia.Content.CharaInfo
             }
             dict[_locScope.GetString("Group.Exp.God")] = levelGodName;
             dict[_locScope.GetString("Group.Exp.Guild")] = levelGuildName;
-            SetupContainer(ExpContainer, 5, dict);
+            SetupContainer(ExpContainer, 10, dict);
             dict.Clear();
 
             //
@@ -291,8 +291,8 @@ namespace OpenNefia.Content.CharaInfo
             AttributeContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Attribute")));
             if (skills != null)
             {
-                AttributeContainer.AddLayout(LayoutType.Spacer, 9);
-                AttributeContainer.AddLayout(LayoutType.XOffset, 10);
+                AttributeContainer.AddLayout(LayoutType.Spacer, 12);
+                AttributeContainer.AddLayout(LayoutType.XOffset, 1);
                 foreach (var attrProto in _skillsSys.EnumerateBaseAttributes())
                 {
                     var cont = new UiHorizontalContainer();
@@ -310,9 +310,9 @@ namespace OpenNefia.Content.CharaInfo
                         + CharaSheetHelpers.GetPotentialDescription(attrLvl.Potential);
 
                     cont.AddElement(new AttributeIcon(attrId));
-                    cont.AddLayout(LayoutType.Spacer, 14);
-                    cont.AddLayout(LayoutType.YOffset, -6);
-                    cont.AddElement(MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 5, content));
+                    cont.AddLayout(LayoutType.Spacer, 5);
+                    cont.AddLayout(LayoutType.YOffset, -9);
+                    cont.AddElement(MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 35, content));
 
                     AttributeContainer.AddElement(cont);
                 }
@@ -331,7 +331,7 @@ namespace OpenNefia.Content.CharaInfo
                 dict[string.Empty] = string.Empty;
                 dict[_locScope.GetString("Group.Attribute.Fame")] = attributeFame.ToString();
                 dict[_locScope.GetString("Group.Attribute.Karma")] = attributeKarma.ToString();
-                SetupContainer(SpecialStatContainer, 6, dict);
+                SetupContainer(SpecialStatContainer, 10, dict);
                 dict.Clear();
             }
 
@@ -351,15 +351,15 @@ namespace OpenNefia.Content.CharaInfo
             var traceDays = _world.State.GameDate.Day - _world.State.InitialDate.Day;
 
             TraceContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Trace")));
-            TraceContainer.AddLayout(LayoutType.Spacer, 6);
+            TraceContainer.AddLayout(LayoutType.Spacer, 5);
             TraceContainer.AddLayout(LayoutType.XOffset, 3);
             dict[_locScope.GetString("Group.Trace.Turns")] = $"{_locScope.GetString("Group.Trace.TurnsCounter", ("turns", _world.State.PlayTurns))}";
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
             dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
             dict[_locScope.GetString("Group.Trace.Time")] = string.Empty;
-            SetupContainer(TraceContainer, 4, dict);
+            SetupContainer(TraceContainer, 10, dict);
             PlayTimeContainer = (UiContainer)TraceContainer.Entries[6].Element!;
-            TextPlayTime = (UiText)PlayTimeContainer.Entries[2].Element!;
+            TextPlayTime = (UiText)PlayTimeContainer.Entries[3].Element!;
             dict.Clear();
 
             //
@@ -367,7 +367,7 @@ namespace OpenNefia.Content.CharaInfo
             //
 
             ExtraContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Extra")));
-            ExtraContainer.AddLayout(LayoutType.Spacer, 6);
+            ExtraContainer.AddLayout(LayoutType.Spacer, 5);
             ExtraContainer.AddLayout(LayoutType.XOffset, 3);
 
             if (cargoHold != null)
@@ -379,7 +379,7 @@ namespace OpenNefia.Content.CharaInfo
             var eqWeight = _equip.GetTotalEquipmentWeight(_charaEntity);
             dict[_locScope.GetString("Group.Extra.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
             dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_world.State.DeepestLevel}{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
-            SetupContainer(ExtraContainer, 6, dict);
+            SetupContainer(ExtraContainer, 10, dict);
             dict.Clear();
 
             //
@@ -401,7 +401,7 @@ namespace OpenNefia.Content.CharaInfo
 
         private void SetupContainer(UiContainer cont, int xOffset, IDictionary<string, string> content)
         {
-            var maxLen = content.Select(x => x.Key).Max(x => x.Length);
+            var maxLen = (int)Math.Round(content.Select(x => x.Key).Max(x => UiFonts.CharaSheetInfo.LoveFont.GetWidthV(UIScale, x)));
             foreach (var item in content)
             {
                 cont.AddElement(MakeInfoContainer(item.Key, maxLen + xOffset, item.Value));
@@ -411,8 +411,9 @@ namespace OpenNefia.Content.CharaInfo
         private UiContainer MakeInfoContainer(string name, int xOffset, string content)
         {
             var cont = new UiHorizontalContainer();
-            cont.AddElement(new UiText(UiFonts.CharaSheetInfo, name.WidePadRight(xOffset)));
+            cont.AddElement(new UiText(UiFonts.CharaSheetInfo, name));
             cont.AddLayout(LayoutType.YOffset, -1);
+            cont.AddLayout(LayoutType.XMin, xOffset);
             cont.AddElement(new UiText(UiFonts.CharaSheetInfoContent, content));
             return cont;
         }
@@ -436,11 +437,11 @@ namespace OpenNefia.Content.CharaInfo
             base.SetPosition(x, y);
             FaceFrame.SetPosition(x + 558, y + 23);
 
-            NameContainer.SetPosition(x + 30, y + 47);
+            NameContainer.SetPosition(x + 30, y + 42);
             NameContainer.Relayout();
-            ClassContainer.SetPosition(x + 215, NameContainer.Y);
+            ClassContainer.SetPosition(x + 240, NameContainer.Y);
             ClassContainer.Relayout();
-            ExpContainer.SetPosition(x + 355, NameContainer.Y);
+            ExpContainer.SetPosition(x + 370, NameContainer.Y);
             ExpContainer.Relayout();
             AttributeContainer.SetPosition(x + 27, y + 125);
             AttributeContainer.Relayout();
