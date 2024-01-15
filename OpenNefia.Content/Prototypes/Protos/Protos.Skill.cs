@@ -154,6 +154,71 @@ namespace OpenNefia.Content.Prototypes
 
             #endregion
 
+            #region Actions
+
+            public static readonly SkillPrototypeId ActionDrainBlood           = new($"Elona.{nameof(ActionDrainBlood)}");
+            public static readonly SkillPrototypeId ActionFireBreath           = new($"Elona.{nameof(ActionFireBreath)}");
+            public static readonly SkillPrototypeId ActionColdBreath           = new($"Elona.{nameof(ActionColdBreath)}");
+            public static readonly SkillPrototypeId ActionLightningBreath      = new($"Elona.{nameof(ActionLightningBreath)}");
+            public static readonly SkillPrototypeId ActionDarknessBreath       = new($"Elona.{nameof(ActionDarknessBreath)}");
+            public static readonly SkillPrototypeId ActionChaosBreath          = new($"Elona.{nameof(ActionChaosBreath)}");
+            public static readonly SkillPrototypeId ActionSoundBreath          = new($"Elona.{nameof(ActionSoundBreath)}");
+            public static readonly SkillPrototypeId ActionNetherBreath         = new($"Elona.{nameof(ActionNetherBreath)}");
+            public static readonly SkillPrototypeId ActionNerveBreath          = new($"Elona.{nameof(ActionNerveBreath)}");
+            public static readonly SkillPrototypeId ActionPoisonBreath         = new($"Elona.{nameof(ActionPoisonBreath)}");
+            public static readonly SkillPrototypeId ActionMindBreath           = new($"Elona.{nameof(ActionMindBreath)}");
+            public static readonly SkillPrototypeId ActionPowerBreath          = new($"Elona.{nameof(ActionPowerBreath)}");
+            public static readonly SkillPrototypeId ActionTouchOfWeakness      = new($"Elona.{nameof(ActionTouchOfWeakness)}");
+            public static readonly SkillPrototypeId ActionTouchOfHunger        = new($"Elona.{nameof(ActionTouchOfHunger)}");
+            public static readonly SkillPrototypeId ActionTouchOfPoison        = new($"Elona.{nameof(ActionTouchOfPoison)}");
+            public static readonly SkillPrototypeId ActionTouchOfNerve         = new($"Elona.{nameof(ActionTouchOfNerve)}");
+            public static readonly SkillPrototypeId ActionTouchOfFear          = new($"Elona.{nameof(ActionTouchOfFear)}");
+            public static readonly SkillPrototypeId ActionTouchOfSleep         = new($"Elona.{nameof(ActionTouchOfSleep)}");
+            public static readonly SkillPrototypeId ActionShadowStep           = new($"Elona.{nameof(ActionShadowStep)}");
+            public static readonly SkillPrototypeId ActionDrawShadow           = new($"Elona.{nameof(ActionDrawShadow)}");
+            public static readonly SkillPrototypeId ActionHarvestMana          = new($"Elona.{nameof(ActionHarvestMana)}");
+            public static readonly SkillPrototypeId ActionBuffPunishment       = new($"Elona.{nameof(ActionBuffPunishment)}");
+            public static readonly SkillPrototypeId ActionPrayerOfJure         = new($"Elona.{nameof(ActionPrayerOfJure)}");
+            public static readonly SkillPrototypeId ActionAbsorbMagic          = new($"Elona.{nameof(ActionAbsorbMagic)}");
+            public static readonly SkillPrototypeId ActionBuffLulwysTrick      = new($"Elona.{nameof(ActionBuffLulwysTrick)}");
+            public static readonly SkillPrototypeId ActionMirror               = new($"Elona.{nameof(ActionMirror)}");
+            public static readonly SkillPrototypeId ActionDimensionalMove      = new($"Elona.{nameof(ActionDimensionalMove)}");
+            public static readonly SkillPrototypeId ActionChange               = new($"Elona.{nameof(ActionChange)}");
+            public static readonly SkillPrototypeId ActionDrawCharge           = new($"Elona.{nameof(ActionDrawCharge)}");
+            public static readonly SkillPrototypeId ActionFillCharge           = new($"Elona.{nameof(ActionFillCharge)}");
+            public static readonly SkillPrototypeId ActionSwarm                = new($"Elona.{nameof(ActionSwarm)}");
+            public static readonly SkillPrototypeId ActionEyeOfMutation        = new($"Elona.{nameof(ActionEyeOfMutation)}");
+            public static readonly SkillPrototypeId ActionEyeOfEther           = new($"Elona.{nameof(ActionEyeOfEther)}");
+            public static readonly SkillPrototypeId ActionEtherGround          = new($"Elona.{nameof(ActionEtherGround)}");
+            public static readonly SkillPrototypeId ActionSuspiciousHand       = new($"Elona.{nameof(ActionSuspiciousHand)}");
+            public static readonly SkillPrototypeId ActionEyeOfInsanity        = new($"Elona.{nameof(ActionEyeOfInsanity)}");
+            public static readonly SkillPrototypeId ActionRainOfSanity         = new($"Elona.{nameof(ActionRainOfSanity)}");
+            public static readonly SkillPrototypeId ActionEyeOfDimness         = new($"Elona.{nameof(ActionEyeOfDimness)}");
+            public static readonly SkillPrototypeId ActionSummonCats           = new($"Elona.{nameof(ActionSummonCats)}");
+            public static readonly SkillPrototypeId ActionSummonYeek           = new($"Elona.{nameof(ActionSummonYeek)}");
+            public static readonly SkillPrototypeId ActionSummonPawn           = new($"Elona.{nameof(ActionSummonPawn)}");
+            public static readonly SkillPrototypeId ActionSummonFire           = new($"Elona.{nameof(ActionSummonFire)}");
+            public static readonly SkillPrototypeId ActionSummonSister         = new($"Elona.{nameof(ActionSummonSister)}");
+            public static readonly SkillPrototypeId ActionSuicideAttack        = new($"Elona.{nameof(ActionSuicideAttack)}");
+            public static readonly SkillPrototypeId ActionCurse                = new($"Elona.{nameof(ActionCurse)}");
+            public static readonly SkillPrototypeId ActionBuffDeathWord        = new($"Elona.{nameof(ActionBuffDeathWord)}");
+            public static readonly SkillPrototypeId ActionBuffBoost            = new($"Elona.{nameof(ActionBuffBoost)}");
+            public static readonly SkillPrototypeId ActionInsult               = new($"Elona.{nameof(ActionInsult)}");
+            public static readonly SkillPrototypeId ActionDistantAttack4       = new($"Elona.{nameof(ActionDistantAttack4)}");
+            public static readonly SkillPrototypeId ActionDistantAttack7       = new($"Elona.{nameof(ActionDistantAttack7)}");
+            public static readonly SkillPrototypeId ActionScavenge             = new($"Elona.{nameof(ActionScavenge)}");
+            public static readonly SkillPrototypeId ActionEyeOfMana            = new($"Elona.{nameof(ActionEyeOfMana)}");
+            public static readonly SkillPrototypeId ActionVanish               = new($"Elona.{nameof(ActionVanish)}");
+            public static readonly SkillPrototypeId ActionPregnant             = new($"Elona.{nameof(ActionPregnant)}");
+            public static readonly SkillPrototypeId ActionGrenade              = new($"Elona.{nameof(ActionGrenade)}");
+            public static readonly SkillPrototypeId ActionCheer                = new($"Elona.{nameof(ActionCheer)}");
+            public static readonly SkillPrototypeId ActionMewmewmew            = new($"Elona.{nameof(ActionMewmewmew)}");
+            public static readonly SkillPrototypeId ActionDecapitation         = new($"Elona.{nameof(ActionDecapitation)}");
+            public static readonly SkillPrototypeId ActionDropMine             = new($"Elona.{nameof(ActionDropMine)}");
+            public static readonly SkillPrototypeId ActionManisDisassembly     = new($"Elona.{nameof(ActionManisDisassembly)}");
+
+            #endregion
+
             #pragma warning restore format
         }
     }

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem
     {
         /// <inheritdoc/>
-        public IEnumerable<SkillPrototype> EnumerateAllAttributes()
+        public IEnumerable<SkillPrototype> EnumerateAttributes()
         {
             return _protos.EnumeratePrototypes<SkillPrototype>()
                 .Where(skillProto => skillProto.SkillType == SkillType.Attribute);
@@ -27,11 +28,21 @@ namespace OpenNefia.Content.Skills
             Skill.AttrLuck
         };
 
+        private bool IsBaseAttribute(SkillPrototype skillProto)
+        {
+            if (skillProto.SkillType != SkillType.Attribute) 
+                return false;
+
+            if (_protos.TryGetExtendedData<SkillPrototype, ExtSkillFlags>(skillProto, out var flags) && !flags.IsBaseAttribute)
+                return false;
+
+            return true;
+        }
+
         /// <inheritdoc/>
         public IEnumerable<SkillPrototype> EnumerateBaseAttributes()
         {
-            return EnumerateAllAttributes()
-                .Where(skill => !_nonBaseAttributes.Contains(skill.GetStrongID()));
+            return EnumerateAttributes().Where(IsBaseAttribute);
         }
 
         /// <inheritdoc/>
@@ -55,6 +66,11 @@ namespace OpenNefia.Content.Skills
                 .Where(skillProto => skillProto.SkillType == SkillType.WeaponProficiency);
         }
 
+        public SkillPrototype PickRandomAttribute()
+        {
+            return _rand.Pick(EnumerateAttributes().ToList());
+        }
+
         public SkillPrototype PickRandomBaseAttribute()
         {
             return _rand.Pick(EnumerateBaseAttributes().ToList());
@@ -69,5 +85,27 @@ namespace OpenNefia.Content.Skills
         {
             return _rand.Pick(EnumerateRegularSkillsAndWeaponProficiencies().ToList());
         }
+    }
+
+    public sealed class ExtSkillFlags : IPrototypeExtendedData<SkillPrototype>
+    {
+        /// <summary>
+        /// If <c>true</c>, this skill can be improved through wishing.
+        /// </summary>
+        /// <remarks>
+        /// <c>false</c> for: Life, Mana
+        /// </remarks>
+        [DataField]
+        public bool CanWishFor { get; set; } = true;
+
+        /// <summary>
+        /// If <c>false</c>, this attribute will not be included in the list of base attributes.
+        /// Only applies to skills of type <see cref="SkillType.Attribute"/>.
+        /// </summary>
+        /// <remarks>
+        /// <c>false</c> for: Speed, Luck
+        /// </remarks>
+        [DataField]
+        public bool IsBaseAttribute { get; set; } = true;
     }
 }

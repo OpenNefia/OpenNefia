@@ -238,7 +238,7 @@ namespace OpenNefia.Content.Skills
                 skillsComp!.Ensure(skillId).Level.Base += _rand.Next(3);
             }
 
-            foreach (var attr in EnumerateAllAttributes())
+            foreach (var attr in EnumerateAttributes())
             {
                 Grow(attr.GetStrongID());
             }

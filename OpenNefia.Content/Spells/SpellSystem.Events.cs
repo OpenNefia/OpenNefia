@@ -92,32 +92,30 @@ namespace OpenNefia.Content.Spells
                     return;
                 }
             }
+
+            var spells = Comp<SpellsComponent>(args.Caster);
+            LocaleKey castingStyle;
+            if (spells.CastingStyle != null)
+            {
+                var key = new LocaleKey($"Elona.Spells.CastingStyle").With(spells.CastingStyle.Value);
+                if (Loc.KeyExists(key))
+                    castingStyle = key;
+                else
+                    castingStyle = "Elona.Spells.CastingStyle.Default";
+            }
             else
             {
-                var spells = Comp<SpellsComponent>(args.Caster);
-                LocaleKey castingStyle;
-                if (spells.CastingStyle != null)
-                {
-                    var key = new LocaleKey($"Elona.Spells.CastingStyle").With(spells.CastingStyle.Value);
-                    if (Loc.KeyExists(key))
-                        castingStyle = key;
-                    else
-                        castingStyle = "Elona.Spells.CastingStyle.Default";
-                }
-                else
-                {
-                    castingStyle = "Elona.Spells.CastingStyle.Default";
-                }
+                castingStyle = "Elona.Spells.CastingStyle.Default";
+            }
 
-                if (_gameSession.IsPlayer(args.Caster))
-                {
-                    var skillName = Loc.GetPrototypeString(args.Spell.SkillID, "Name");
-                    _mes.Display(Loc.GetString(castingStyle.With("WithSkillName"), ("caster", args.Caster), ("target", args.Target), ("skillName", skillName)), entity: args.Caster);
-                }
-                else
-                {
-                    _mes.Display(Loc.GetString(castingStyle.With("Generic"), ("caster", args.Caster), ("target", args.Target)), entity: args.Caster);
-                }
+            if (_gameSession.IsPlayer(args.Caster))
+            {
+                var skillName = Loc.GetPrototypeString(args.Spell.SkillID, "Name");
+                _mes.Display(Loc.GetString(castingStyle.With("WithSkillName"), ("caster", args.Caster), ("target", args.Target), ("skillName", skillName)), entity: args.Caster);
+            }
+            else
+            {
+                _mes.Display(Loc.GetString(castingStyle.With("Generic"), ("caster", args.Caster), ("target", args.Target)), entity: args.Caster);
             }
 
             if (_buffs.HasBuff<BuffMistOfSilenceComponent>(args.Caster))

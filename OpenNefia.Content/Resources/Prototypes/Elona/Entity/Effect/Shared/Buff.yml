@@ -47,7 +47,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -157,7 +156,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -212,7 +210,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -241,7 +238,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -296,7 +292,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -403,7 +398,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff
@@ -461,7 +455,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     finalDamage: power
   - type: EffectApplyBuff

@@ -15,6 +15,7 @@
   + [x] buffs
   + [ ] timestop
   + [x] death word expiration
+  + [ ] elemental damage effects
   + [ ] spell stock check
   + [ ] rods
   + [ ] add all effect alignments
@@ -25,6 +26,7 @@
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
   + [ ] magic items
+  + [ ] BeforeEffectApplyDamage : CancellableEntityEventArgs
 - [ ] inventory/spell/skill shortcuts
 - [ ] AI/calm actions
 - [ ] main quest/sidequests/dialogs

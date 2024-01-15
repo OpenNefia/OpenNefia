@@ -15,49 +15,49 @@ Elona.Magic = {
     },
 
     ControlMagic = {
-        PassesThrough = function(target)
+        PassesThrough = function(source, target)
             return ("The spell passes through %s."):format(_.name(target))
         end,
     },
 
     Message = {
         Generic = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("It hits %s."):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("It hits %s and"):format(_.name(entity))
             end,
         },
         Arrow = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("The arrow hits %s."):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("The arrow hits %s and"):format(_.name(entity))
             end,
         },
         Ball = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("The ball hits %s."):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("The ball hits %s and"):format(_.name(entity))
             end,
         },
         Bolt = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("The bolt hits %s."):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("The bolt hits %s and"):format(_.name(entity))
             end,
         },
         Breath = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("The breath hits %s."):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("The breath hits %s and"):format(_.name(entity))
             end,
 
@@ -68,6 +68,30 @@ Elona.Magic = {
                 return ("%s breath"):format(breathName)
             end,
             NoElement = "breath",
+        },
+        Touch = {
+            Ally = function(source, entity, elementStyle, meleeStyle)
+                local style = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".Style")
+                return ("%s touch%s %s with %s %s %s."):format(
+                    _.name(source),
+                    _.s(source, true),
+                    _.name(entity),
+                    _.his(source),
+                    elementStyle,
+                    style
+                )
+            end,
+            Other = function(source, entity, elementStyle, meleeStyle)
+                local style = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".Style")
+                return ("%s touch%s %s with %s %s %s and"):format(
+                    _.name(source),
+                    _.s(source, true),
+                    _.name(entity),
+                    _.his(source),
+                    elementStyle,
+                    style
+                )
+            end,
         },
         Summon = "Several monsters come out from a portal.",
         Mef = {

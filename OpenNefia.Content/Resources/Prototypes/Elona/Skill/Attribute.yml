@@ -1,22 +1,28 @@
 - type: Elona.Skill
   id: Elona.AttrLife
-  skillType: AttributeSpecial
+  skillType: Attribute
   # >>>>>>>> elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ...
   events:
   - type: Skills.P_SkillCalcFinalInitialLevelAndPotentialEvent
     system: Skills.VanillaSkillsSystem
     method: ForceInitialLevelAnd100Potential
   # <<<<<<<< elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ..
+  extendedData:
+  - type: Skills.ExtSkillFlags
+    canWishFor: false
 
 - type: Elona.Skill
   id: Elona.AttrMana
-  skillType: AttributeSpecial
+  skillType: Attribute
   # >>>>>>>> elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ...
   events:
   - type: Skills.P_SkillCalcFinalInitialLevelAndPotentialEvent
     system: Skills.VanillaSkillsSystem
     method: ForceInitialLevelAnd100Potential
   # <<<<<<<< elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ..
+  extendedData:
+  - type: Skills.ExtSkillFlags
+    canWishFor: false
 
 - type: Elona.Skill
   id: Elona.AttrStrength
@@ -62,6 +68,9 @@
     system: Skills.VanillaSkillsSystem
     method: AttrSpeed_CalcInitialLevel
   # <<<<<<<< shade2/calculation.hsp:954 	if sId=rsSPD : p(1)=a*(100+cLevel(c)*2)/100 : els ..
+  extendedData:
+  - type: Skills.ExtSkillFlags
+    isBaseAttribute: false
 
 - type: Elona.Skill
   id: Elona.AttrLuck
@@ -75,3 +84,6 @@
     system: Skills.VanillaSkillsSystem
     method: ForceInitialLevelAnd100Potential
   # <<<<<<<< elona122/shade2/calculation.hsp:953 	if (sId=rsHP)or(sID=rsLUC)or(sId=rsMP)  : p(1)=a  ..
+  extendedData:
+  - type: Skills.ExtSkillFlags
+    isBaseAttribute: false

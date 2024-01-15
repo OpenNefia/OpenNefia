@@ -24,7 +24,7 @@ Elona.Combat = {
     },
 
     RangedAttack = {
-        Ranged = "*vopal*",
+        Vorpal = "*vopal*",
         Errors = {
             Elona = {
                 NoRangedWeapon = "You need to equip ammos or arrows.",

@@ -132,7 +132,7 @@ namespace OpenNefia.Content.Skills
 
             // TODO map experience divisor
 
-            var applyLevelDivisor = skillProto.SkillType != SkillType.Attribute && skillProto.SkillType != SkillType.AttributeSpecial;
+            var applyLevelDivisor = skillProto.SkillType != SkillType.Attribute;
             if (actualExpGained > 0 && applyLevelDivisor && levelExpDivisor <= 1000)
             {
                 if (EntityManager.TryGetComponent(uid, out LevelComponent levelComp))
@@ -206,12 +206,10 @@ namespace OpenNefia.Content.Skills
                     break;
             }
 
-            // skillProto is going to be SkillPrototype and not the concrete type, so GetStrongID()
-            // will not work.
-            if (Loc.TryGetPrototypeStringRaw(skillProto.GetType(), skillProto.ID, keySuffix, out var text, ("entity", entity)))
+            if (Loc.TryGetPrototypeString(skillProto, keySuffix, out var text, ("entity", entity)))
                 return text;
 
-            var skillName = Loc.GetPrototypeStringRaw(skillProto.GetType(), skillProto.ID, "Name");
+            var skillName = Loc.GetPrototypeString(skillProto, "Name");
             return Loc.GetString($"Elona.Skill.Default.{keySuffix}", ("entity", entity), ("skillName", skillName));
         }
 

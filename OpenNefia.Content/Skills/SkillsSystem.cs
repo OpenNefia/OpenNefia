@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Skills
         /// <summary>
         /// Enumerates attributes, including luck and speed.
         /// </summary>
-        IEnumerable<SkillPrototype> EnumerateAllAttributes();
+        IEnumerable<SkillPrototype> EnumerateAttributes();
 
         /// <summary>
         /// Enumerates attributes, excluding luck and speed.
@@ -51,6 +51,7 @@ namespace OpenNefia.Content.Skills
 
         IEnumerable<SkillPrototype> EnumerateWeaponProficiencies();
 
+        SkillPrototype PickRandomAttribute();
         SkillPrototype PickRandomBaseAttribute();
         SkillPrototype PickRandomRegularSkill();
         SkillPrototype PickRandomRegularSkillOrWeaponProficiency();

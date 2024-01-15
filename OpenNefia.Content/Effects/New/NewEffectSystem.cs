@@ -22,6 +22,9 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Combat;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Feats;
+using OpenNefia.Content.Damage;
+using OpenNefia.Core;
+using OpenNefia.Content.Factions;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -96,6 +99,8 @@ namespace OpenNefia.Content.Effects.New
         /// <returns></returns>
         Dice GetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
             int diceX, int diceY, int bonus);
+
+        bool TryGetEffectDamageMessage(EntityUid source, EntityUid innerTarget, LocaleKey rootKey, [NotNullWhen(true)] out string? message, DamageHPMessageTense? tense = null);
     }
 
     public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
@@ -111,6 +116,9 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly ITargetingSystem _targeting = default!;
 
         public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, IDictionary<string, IFormulaVariable>? extraVariables = null)
         {
@@ -252,6 +260,24 @@ namespace OpenNefia.Content.Effects.New
             }
         }
 
+        public bool TryGetEffectDamageMessage(EntityUid source, EntityUid innerTarget, LocaleKey rootKey, [NotNullWhen(true)] out string? message, DamageHPMessageTense? tense = null)
+        {
+            tense ??= _damages.GetDamageMessageTense(innerTarget);
+            var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
+            if (Loc.TryGetString(rootKey.With(endKey), out message, ("source", source), ("entity", innerTarget)))
+            {
+                return true;
+            }
+
+            if (Loc.TryGetString(rootKey, out message, ("source", source), ("entity", innerTarget)))
+            {
+                return true;
+            }
+
+            message = null;
+            return false;
+        }
+
         public bool TryGetEffectTarget(EntityUid source, EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target)
         {
             if (!IsAlive(effect))
@@ -260,8 +286,10 @@ namespace OpenNefia.Content.Effects.New
                 return false;
             }
 
+            // TODO ai
             var ev = new GetEffectPlayerTargetEvent(source, args);
             RaiseEvent(effect, ev);
+
             if (!ev.Handled || (ev.OutTarget == null && ev.OutCoords == null))
             {
                 target = null;
@@ -269,6 +297,16 @@ namespace OpenNefia.Content.Effects.New
             }
 
             target = new(ev.OutTarget, ev.OutCoords);
+
+            var promptIfFriendly = CompOrNull<EffectComponent>(effect)?.Alignment == EffectAlignment.Negative;
+            if (IsAlive(target.Target) && promptIfFriendly
+                && _factions.GetRelationTowards(source, target.Target.Value) >= Relation.Neutral
+                && !_targeting.PromptReallyAttack(source, target.Target.Value))
+            {
+                target = null;
+                return false;
+            }
+
             return true;
         }
 

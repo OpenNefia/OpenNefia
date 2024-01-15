@@ -360,7 +360,7 @@ namespace OpenNefia.Content.CharaMake
             {
                 var skill = _prototypeManager.Index(skillId);
 
-                if (skill.SkillType == SkillType.Attribute || skill.SkillType == SkillType.AttributeSpecial)
+                if (skill.SkillType == SkillType.Attribute)
                     continue;
 
                 switch (skill.SkillType)

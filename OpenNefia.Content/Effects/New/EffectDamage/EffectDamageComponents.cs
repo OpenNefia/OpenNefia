@@ -1,7 +1,9 @@
-﻿using OpenNefia.Content.Factions;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
@@ -165,7 +167,8 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
-    /// Controls how the damage message is displayed.
+    /// Controls how the damage message is displayed when combined with
+    /// <see cref="IDamageSystem.DamageHP"/>.
     /// Generally speaking, if you use an EffectDamage component that
     /// damages HP, you should also include this one so that the
     /// damage message is formatted correctly.
@@ -191,6 +194,13 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public PrototypeId<ElementPrototype>? Element { get; set; } = null;
+
+        // TODO remove?
+        // may need to be replaced with a BeforeApplyEffectDamage event to potentially cancel
+        // effects. then all effect damage components can be combined easily.
+        // then ApplyEffectDamageEvent will be made non-cancellable.
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -205,6 +215,10 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -219,6 +233,10 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealSanity.RainOfSanity";
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -237,6 +255,10 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public Formula? Turns { get; set; }
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -252,5 +274,48 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public PrototypeId<ElementPrototype> Element { get; set; }
+    }
+
+    [DataDefinition]
+    public sealed class EffectStatusEffect
+    {
+        [DataField(required: true)]
+        public PrototypeId<StatusEffectPrototype> ID { get; set; }
+
+        [DataField]
+        public Formula Turns { get; set; } = new("power");
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageStatusEffectsComponent : Component
+    {
+        [DataField]
+        public List<EffectStatusEffect> StatusEffects { get; } = new();
+
+        // TODO remove? replace with event cancellation system?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
+    }
+
+    /// <summary>
+    /// Inflicts hand damage with the given damage type.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageTouchComponent : Component
+    {
+        [DataField(required: true)]
+        public PrototypeId<ElementPrototype> ElementID { get; set; }
+
+        [DataField]
+        public bool ApplyDamage { get; set; } = true;
+
+        // TODO remove? replace with event cancellation system?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
+
+        [DataField]
+        public LocaleKey? MessageKey { get; set; } = new("Elona.Magic.Message.Touch");
     }
 }

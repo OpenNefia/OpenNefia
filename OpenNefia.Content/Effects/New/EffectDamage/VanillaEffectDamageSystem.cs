@@ -12,8 +12,6 @@ using OpenNefia.Content.Effects.New.EffectAreas;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Factions;
-using OpenNefia.Core;
-using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Rendering;
@@ -29,6 +27,8 @@ using OpenNefia.Content.World;
 using OpenNefia.Content.Mount;
 using OpenNefia.Content.Feats;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Combat;
+using System.ComponentModel;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -40,7 +40,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IDamageSystem _damages = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
+        [Dependency] private readonly IFormulaEngine _formulas = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly ICommonEffectsSystem _commonEffects = default!;
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
@@ -63,6 +63,10 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageRelationsComponent, ApplyEffectDamageEvent>(ApplyDamage_Relations, priority: EventPriorities.VeryHigh - 3000);
             SubscribeComponent<EffectDamageSuccessRateComponent, ApplyEffectDamageEvent>(ApplyDamage_SuccessRate, priority: EventPriorities.VeryHigh - 2000);
             SubscribeComponent<EffectDamageControlMagicComponent, ApplyEffectDamageEvent>(ApplyDamage_ControlMagic, priority: EventPriorities.VeryHigh - 1000);
+
+            SubscribeComponent<EffectDamageMessageComponent, ApplyEffectDamageEvent>(ApplyDamage_DamageMessage, priority: EventPriorities.High - 1000);
+            SubscribeComponent<EffectDamageTouchComponent, ApplyEffectDamageEvent>(Apply_Touch, priority: EventPriorities.High - 10000);
+            SubscribeComponent<EffectDamageStatusEffectsComponent, ApplyEffectDamageEvent>(Apply_StatusEffects, priority: EventPriorities.High - 5000);
 
             SubscribeComponent<EffectDamageElementalComponent, GetEffectAnimationParamsEvent>(GetAnimParams_Elemental);
             SubscribeComponent<EffectDamageElementalComponent, ApplyEffectDamageEvent>(ApplyDamage_Elemental);
@@ -93,7 +97,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             var baseDamage = dice.Roll(_rand);
 
-            args.OutElementalPower = (int)_formulaEngine.Calculate(effDice.ElementPower, formulaArgs, 0f);
+            args.OutElementalPower = (int)_formulas.Calculate(effDice.ElementPower, formulaArgs, 0f);
 
             // >>>>>>>> elona122/shade2/proc.hsp:1689 	if rapidMagic : efP=efP/2+1:dice1=dice1/2+1:dice2 ...
             // TODO move
@@ -106,7 +110,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             formulaArgs["baseDamage"] = baseDamage;
 
-            args.OutDamage = (int)_formulaEngine.Calculate(effDice.FinalDamage, formulaArgs, baseDamage);
+            args.OutDamage = (int)_formulas.Calculate(effDice.FinalDamage, formulaArgs, baseDamage);
         }
 
         private void ApplyDamage_Retarget(EntityUid uid, EffectDamageRetargetComponent component, ApplyEffectDamageEvent args)
@@ -205,7 +209,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
 
             var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
-            var rate = (float)_formulaEngine.Calculate(component.SuccessRate, formulaArgs, 1.0);
+            var rate = (float)_formulas.Calculate(component.SuccessRate, formulaArgs, 1.0);
 
             if (!_rand.Prob(rate))
             {
@@ -253,7 +257,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             switch (result.Status)
             {
                 case ControlMagicStatus.Success:
-                    _mes.Display(Loc.GetString("Elona.Magic.ControlMagic.PassesThrough", ("target", args.InnerTarget)), entity: args.InnerTarget);
+                    _mes.Display(Loc.GetString("Elona.Magic.ControlMagic.PassesThrough", ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
                     args.Handle(TurnResult.Succeeded);
                     break;
                 case ControlMagicStatus.Partial:
@@ -262,6 +266,87 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 case ControlMagicStatus.Failure:
                 default:
                     break;
+            }
+        }
+
+        private void Apply_Touch(EntityUid uid, EffectDamageTouchComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1832 	if cCastStyle(cc)!0{ ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
+            var noAttackText = false;
+
+            var rootKey = component.MessageKey;
+            if (rootKey != null)
+            {
+                noAttackText = true;
+                var elementStyle = Loc.GetPrototypeString(component.ElementID, "Ego");
+                var meleeStyle = CompOrNull<UnarmedDamageTextComponent>(args.Source)?.DamageTextType ?? "Elona.Default";
+
+                var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
+
+                var localeArgs = new LocaleArg[]
+                {
+                    ("source", args.Source),
+                    ("target", args.InnerTarget.Value),
+                    ("elementStyle", elementStyle),
+                    ("meleeStyle", (string)meleeStyle)
+                };
+
+                if (Loc.TryGetString(rootKey.Value.With(endKey), out var message, localeArgs))
+                {
+                    _mes.Display(message, entity: args.InnerTarget.Value);
+                }
+                else if (Loc.TryGetString(rootKey.Value, out message, localeArgs))
+                {
+                    _mes.Display(message, entity: args.InnerTarget.Value);
+                }
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:1841 		} ...
+
+            // >>>>>>>> elona122/shade2/proc.hsp:1849 	dmgHP tc,role(dice1,dice2,bonus),cc,ele,eleP ...
+            if (component.ApplyDamage)
+            {
+                var extraArgs = new DamageHPExtraArgs()
+                {
+                    MessageTense = tense,
+                    NoAttackText = noAttackText,
+                    AttackerIsMessageSubject = noAttackText
+                };
+                var damageType = new ElementalDamageType(component.ElementID, args.OutElementalPower);
+                _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
+            }
+            // <<<<<<<< elona122/shade2/proc.hsp:1849 	dmgHP tc,role(dice1,dice2,bonus),cc,ele,eleP ...
+
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+                return;
+            }
+
+            // XXX: Event is not handled yet so that later handlers can run.
+        }
+
+        private void Apply_StatusEffects(EntityUid uid, EffectDamageStatusEffectsComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+            vars["elementalPower"] = args.OutElementalPower;
+
+            foreach (var statusEffect in component.StatusEffects)
+            {
+                var turns = (int)_formulas.Calculate(statusEffect.Turns, vars, 10);
+                _statusEffects.Apply(args.InnerTarget.Value, statusEffect.ID, turns);
+            }
+
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+                return;
             }
         }
 
@@ -274,34 +359,15 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             }
         }
 
-        private bool TryGetEffectDamageMessage(EntityUid innerTarget, LocaleKey rootKey, [NotNullWhen(true)] out string? message, DamageHPMessageTense? tense = null)
+        private void ApplyDamage_DamageMessage(EntityUid uid, EffectDamageMessageComponent component, ApplyEffectDamageEvent args)
         {
-            tense ??= _damages.GetDamageMessageTense(innerTarget);
-            var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
-            if (Loc.TryGetString(rootKey.With(endKey), out message, ("entity", innerTarget)))
-            {
-                return true;
-            }
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
 
-            if (Loc.TryGetString(rootKey, out message, ("entity", innerTarget)))
+            var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
+            if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, component.RootKey, out var message, tense))
             {
-                return true;
-            }
-
-            message = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Shows a message like "The bolt hits the putit and" or "The bolt hits the putit.".
-        /// The rest of the message is displayed in <see cref="IDamageSystem.DamageHP"/>.
-        /// </summary>
-        private void DisplayEffectDamageMessage(EntityUid uid, EntityUid innerTarget, DamageHPMessageTense? tense = null)
-        {
-            if (TryComp<EffectDamageMessageComponent>(uid, out var damageMessage)
-                && TryGetEffectDamageMessage(innerTarget, damageMessage.RootKey, out var message, tense))
-            {
-                _mes.Display(message, entity: innerTarget);
+                _mes.Display(message, entity: args.InnerTarget.Value);
             }
         }
 
@@ -311,7 +377,6 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 return;
 
             var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
-            DisplayEffectDamageMessage(uid, args.InnerTarget.Value, tense);
 
             var extraArgs = new DamageHPExtraArgs()
             {
@@ -328,7 +393,10 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 damageType = new ElementalDamageType(component.Element.Value, args.OutElementalPower);
             _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType, extraArgs);
 
-            args.Handle(TurnResult.Succeeded);
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }
         }
 
         private void ApplyTileDamage_Elemental(EntityUid uid, EffectDamageElementalComponent component, ApplyEffectTileDamageEvent args)
@@ -344,7 +412,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:1817 	if efId=spHealLight 	:if sync(tc):txt lang(name(t ...
-            if (TryGetEffectDamageMessage(args.InnerTarget.Value, healingComp.MessageKey, out var message))
+            if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, healingComp.MessageKey, out var message))
                 _mes.Display(message, entity: args.InnerTarget.Value);
 
             _commonEffects.Heal(args.InnerTarget.Value, args.OutDamage);
@@ -356,7 +424,10 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             var anim = new HealMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1);
             _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
 
-            args.Handle(TurnResult.Succeeded);
+            if (healingComp.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }
             // <<<<<<<< elona122/shade2/proc.hsp:1826 	call *anime,(animeId=aniHeal) ...
         }
 
@@ -368,10 +439,15 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             // >>>>>>>> shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
             var anim = new HealMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1, rotDelta: 5);
             _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
-            if (TryGetEffectDamageMessage(args.InnerTarget.Value, healComp.MessageKey, out var message))
+            if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, healComp.MessageKey, out var message))
                 _mes.Display(message, entity: args.InnerTarget.Value);
             _sanities.HealInsanity(args.InnerTarget.Value, args.Args.Power / 10);
             _statusEffects.Heal(args.InnerTarget.Value, Protos.StatusEffect.Insanity, 9999);
+
+            if (healComp.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }
             // <<<<<<<< shade2/proc.hsp:1768 			} ..
         }
 
@@ -390,7 +466,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
             formulaArgs["finalDamage"] = args.OutDamage;
 
-            var summonCount = (int)(double.Round(_formulaEngine.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));
+            var summonCount = (int)(double.Round(_formulas.Calculate(component.SummonCount, formulaArgs) / args.AffectedTileCount));
             var obvious = false;
 
             for (var attempts = 0; attempts < 100; attempts++)
@@ -455,19 +531,22 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             int? turns = null;
             if (component.Turns != null)
-                turns = (int)_formulaEngine.Calculate(component.Turns.Value, formulaArgs, 10f);
+                turns = (int)_formulas.Calculate(component.Turns.Value, formulaArgs, 10f);
 
             var power = args.OutDamage;
 
-            var mef = _mefs.SpawnMef(component.MefID, args.TargetCoordsMap, 
-                duration: turns != null ? GameTimeSpan.FromMinutes(turns.Value) : null, 
+            var mef = _mefs.SpawnMef(component.MefID, args.TargetCoordsMap,
+                duration: turns != null ? GameTimeSpan.FromMinutes(turns.Value) : null,
                 power: power,
                 spawnedBy: args.Source);
 
             if (!IsAlive(mef))
                 return;
 
-            args.Handle(TurnResult.Succeeded);
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }
             // <<<<<<<< elona122/shade2/proc.hsp:2977 	if efId=spMist		:addMef x,y,mefMist,30,8+rnd(15+e ...
         }
 

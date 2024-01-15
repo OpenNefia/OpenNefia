@@ -198,4 +198,29 @@ Elona.Effect = {
     Meteor = {
         Falls = "隕石が落ちてきた！",
     },
+
+    DrainBlood = {
+        Ally = function(source, target)
+            return ("%s%sに血を吸われた。"):format(_.sore_wa(source), _.name(target))
+        end,
+        Other = function(source, target)
+            return ("%s%sの血を吸い"):format(_.sore_wa(source), _.name(target))
+        end,
+    },
+
+    TouchOfWeakness = {
+        Apply = function(source, target)
+            return ("%sは弱くなった。"):format(_.name(target))
+        end,
+    },
+
+    TouchOfHunger = {
+        Apply = function(source, target)
+            return ("%sはお腹が減った。"):format(_.name(target))
+        end,
+    },
+
+    ManisDisassembly = {
+        Dialog = _.quote "余分な機能は削除してしまえ",
+    },
 }

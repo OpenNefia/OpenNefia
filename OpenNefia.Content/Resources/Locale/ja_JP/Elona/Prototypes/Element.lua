@@ -256,6 +256,9 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
     },
+    Ether = {
+        Ego = "エーテルの",
+    },
     Acid = {
         Wounded = function(_1)
             return ("%sは酸に焼かれた。"):format(_.name(_1))
@@ -267,19 +270,19 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
     },
-    Ether = {
-        Ego = "エーテルの",
+    Rotten = {
+        Ego = "腐った",
+    },
+    Hunger = {
+        Ego = "飢えた",
     },
     Fear = {
         Ego = "恐ろしい",
     },
-    Rotten = {
-        Ego = "腐った",
-    },
-    Silky = {
+    Soft = {
         Ego = "柔らかい",
     },
-    Starving = {
-        Ego = "飢えた",
+    Vorpal = {
+        Ego = "ヴォーパル",
     },
 }

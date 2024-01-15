@@ -210,4 +210,29 @@ Elona.Effect = {
     Meteor = {
         Falls = "Innumerable meteorites fall all over the area!",
     },
+
+    DrainBlood = {
+        Ally = function(source, target)
+            return ("%s suck%s %s blood."):format(_.name(source), _.s(source), _.possessive(target))
+        end,
+        Other = function(source, target)
+            return ("%s suck%s %s blood and"):format(_.name(source), _.s(source), _.possessive(target))
+        end,
+    },
+
+    TouchOfWeakness = {
+        Apply = function(source, target)
+            return ("%s %s weakened."):format(_.name(target), _.is(target))
+        end,
+    },
+
+    TouchOfHunger = {
+        Apply = function(source, target)
+            return ("Suddenly, %s feel%s hungry."):format(_.name(target), _.s(target))
+        end,
+    },
+
+    ManisDisassembly = {
+        Dialog = _.quote "Delete.",
+    },
 }

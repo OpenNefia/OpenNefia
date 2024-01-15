@@ -7,7 +7,6 @@
     alignment: Negative
   - type: EffectTargetOther
     canTargetGround: true
-    promptIfFriendly: true
   - type: EffectAreaBolt
   - type: EffectBaseDamageDice
     diceX: (power / 50) + 1 + (skillLevel / 20)
