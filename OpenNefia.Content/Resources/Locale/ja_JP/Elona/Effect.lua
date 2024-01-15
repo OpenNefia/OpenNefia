@@ -194,4 +194,8 @@ Elona.Effect = {
     FourDimensionalPocket = {
         Summon = "あなたは四次元のポケットを召喚した。",
     },
+
+    Meteor = {
+        Falls = "隕石が落ちてきた！",
+    },
 }

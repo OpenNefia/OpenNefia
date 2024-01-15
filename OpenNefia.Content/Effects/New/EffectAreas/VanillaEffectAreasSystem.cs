@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Logic;
-using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -9,25 +8,15 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Targetable;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Audio;
-using OpenNefia.Content.Audio;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Formulae;
-using OpenNefia.Content.Effects.New;
-using Microsoft.CodeAnalysis.Elfie.Diagnostics;
-using System.Threading.Tasks.Sources;
-using Love;
 using Color = OpenNefia.Core.Maths.Color;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Core.Game;
@@ -67,6 +56,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             SubscribeComponent<EffectAreaBreathComponent, ApplyEffectAreaEvent>(ApplyArea_Breath);
             SubscribeComponent<EffectAreaWebComponent, ApplyEffectAreaEvent>(ApplyArea_Web);
             SubscribeComponent<EffectAreaSenseComponent, ApplyEffectAreaEvent>(ApplyArea_Sense);
+            SubscribeComponent<EffectAreaWholeMapComponent, ApplyEffectAreaEvent>(ApplyArea_WholeMap);
         }
 
         /// <summary>
@@ -170,16 +160,16 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             return true;
         }
 
-        private bool ApplyEffectTileDamage(EntityUid effect, EntityUid source, MapCoordinates coords, EffectArgSet args)
+        private bool ApplyEffectTileDamage(EntityUid effect, EntityUid source, MapCoordinates coords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
             if (!coords.TryToEntity(_mapManager, out var entityCoords))
                 return false;
-            return ApplyEffectTileDamage(effect, source, entityCoords, args);
+            return ApplyEffectTileDamage(effect, source, entityCoords, args, affectedTiles, affectedTileIndex);
         }
 
-        private bool ApplyEffectTileDamage(EntityUid effect, EntityUid source, EntityCoordinates coords, EffectArgSet args)
+        private bool ApplyEffectTileDamage(EntityUid effect, EntityUid source, EntityCoordinates coords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
-            var ev = new ApplyEffectTileDamageEvent(source, coords, args);
+            var ev = new ApplyEffectTileDamageEvent(source, coords, args, affectedTiles, affectedTileIndex);
             RaiseEvent(effect, ev);
             return ev.OutEffectWasObvious;
         }
@@ -289,7 +279,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
                 if ((component.IgnoreFOV || isInFOV) && i < range)
                 {
-                    if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args))
+                    if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, offsets.Count, i))
                         obvious = true;
 
                     _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
@@ -351,7 +341,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             {
                 var curPosMap = positions[i];
 
-                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args))
+                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
                      obvious = true;
 
                 if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
@@ -469,7 +459,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 var curPosMap = positions[i];
                 if (component.IncludeOriginPos || curPosMap != args.SourceCoordsMap)
                 {
-                    if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args))
+                    if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
                         obvious = true;
 
                     if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
@@ -540,7 +530,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             foreach (var curPosMap in positions)
             {
-                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args))
+                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
                     obvious = true;
 
                 if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
@@ -621,7 +611,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             foreach (var curPosMap in positions)
             {
-                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args))
+                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
                     obvious = true;
 
                 if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
@@ -636,6 +626,51 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
             _mapDrawables.Enqueue(anim, args.Source);
+
+            if (obvious)
+                didSomething = true;
+
+            if (!didSomething)
+            {
+                _mes.Display(Loc.GetString("Elona.Common.NothingHappens"));
+                args.CommonArgs.OutEffectWasObvious = false;
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            args.CommonArgs.OutEffectWasObvious = obvious;
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void ApplyArea_WholeMap(EntityUid uid, EffectAreaWholeMapComponent component, ApplyEffectAreaEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var obvious = false;
+            var didSomething = false;
+            var i = 0;
+
+            var tileCount = args.TargetMap.Width * args.TargetMap.Height;
+
+            foreach (var tile in args.TargetMap.AllTiles)
+            {
+                var curPosMap = tile.MapPosition;
+
+                if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, tileCount, i))
+                    obvious = true;
+
+                if (curPosMap.TryToEntity(_mapManager, out var curPosEntity))
+                {
+                    _targetable.TryGetTargetableEntity(curPosMap, out var innerTarget);
+                    var result = ApplyEffectDamage(uid, args.Source, innerTarget?.Owner, args.SourceCoords, innerTarget?.Coordinates ?? curPosEntity, args.Args, tileCount, i);
+
+                    obvious = obvious || result.EffectWasObvious;
+                    didSomething = didSomething || result.EventWasHandled;
+                }
+
+                i++;
+            }
 
             if (obvious)
                 didSomething = true;

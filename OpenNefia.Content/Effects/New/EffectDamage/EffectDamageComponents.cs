@@ -5,6 +5,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -26,19 +27,41 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectBaseDamageDiceComponent : Component
     {
         [DataField]
-        public Formula DiceX { get; } = new("0");
+        public Formula DiceX { get; set; } = new("0");
 
         [DataField]
-        public Formula DiceY { get; } = new("0");
+        public Formula DiceY { get; set; } = new("0");
 
         [DataField]
-        public Formula Bonus { get; } = new("0");
+        public Formula Bonus { get; set; } = new("0");
 
         [DataField]
-        public Formula ElementPower { get; } = new("0");
+        public Formula ElementPower { get; set; } = new("0");
 
         [DataField]
-        public Formula FinalDamage { get; } = new("baseDamage");
+        public Formula FinalDamage { get; set; } = new("baseDamage");
+
+        [DataField]
+        public Dictionary<string, IFormulaVariable> ExtraVariables { get; } = new();
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface IFormulaVariable
+    {
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target);
+    }
+
+    public sealed class SkillLevelFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+
+        [DataField(required: true)]
+        public PrototypeId<SkillPrototype> SkillID { get; set; }
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            return _skills.Level(source, SkillID);
+        }
     }
 
     /// <summary>

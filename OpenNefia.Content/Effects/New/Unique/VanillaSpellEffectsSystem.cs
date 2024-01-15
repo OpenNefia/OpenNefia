@@ -55,6 +55,9 @@ using OpenNefia.Content.Spells;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.GlobalEntities;
 using OpenNefia.Content.Items;
+using OpenNefia.Content.Mefs;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -107,6 +110,8 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IAreaNefiaSystem _areaNefias = default!;
         [Dependency] private readonly IBuffSystem _buffs = default!;
         [Dependency] private readonly IGlobalEntitySystem _globalEntities = default!;
+        [Dependency] private readonly IMefSystem _mefs = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
 
         public override void Initialize()
         {
@@ -133,6 +138,8 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectMagicMapComponent, ApplyEffectTileDamageEvent>(Apply_MagicMap);
             SubscribeComponent<EffectSenseObjectComponent, ApplyEffectTileDamageEvent>(Apply_SenseObject);
             SubscribeComponent<EffectFourDimensionalPocketComponent, ApplyEffectDamageEvent>(Apply_FourDimensionalPocket);
+            SubscribeComponent<EffectMeteorComponent, ApplyEffectDamageEvent>(Apply_Meteor);
+            SubscribeComponent<EffectMeteorComponent, ApplyEffectTileDamageEvent>(ApplyTile_Meteor);
 
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
@@ -1200,6 +1207,50 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:3484 	swbreak ...
+        }
+
+        private void Apply_Meteor(EntityUid uid, EffectMeteorComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (args.Source == args.InnerTarget.Value)
+                return;
+
+            var damageType = new ElementalDamageType(Protos.Element.Fire, args.OutElementalPower);
+            _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType);
+
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private static readonly PrototypeId<TilePrototype>[] MeteorTiles = new PrototypeId<TilePrototype>[2]
+        {
+            Protos.Tile.CrackedDirt1,
+            Protos.Tile.CrackedDirt2,
+        };
+
+        private void ApplyTile_Meteor(EntityUid uid, EffectMeteorComponent component, ApplyEffectTileDamageEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            // TODO move somewhere into effect area/position handlers
+            if (args.AffectedTileIndex == 0)
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Meteor.Falls"));
+                var anim = new MeteorMapDrawable();
+                _mapDrawables.Enqueue(anim, args.Source);
+            }
+
+            if (_rand.OneIn(3))
+            {
+                var tile = _rand.Pick(MeteorTiles);
+                args.Map.SetTile(args.CoordsMap, tile);
+            }
+            if (_rand.OneIn(40))
+            {
+                _mefs.SpawnMef(Protos.Mef.Fire, args.Coords, GameTimeSpan.FromMinutes(_rand.Next(4) + 3), 50);
+            }
         }
 
         private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)

@@ -236,6 +236,15 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Wide-reaching meteor attack.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectMeteorComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Adds a buff (blessing/hex) to the target.
     /// </summary>
     [RegisterComponent]

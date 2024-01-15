@@ -190,6 +190,8 @@
   hspIds:
     elona122: 435
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     # Compared against target's level for success
@@ -471,6 +473,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 465
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelf
+  - type: EffectAreaWholeMap
+  - type: EffectBaseDamageDice
+    extraVariables:
+      magicLevel: !type:SkillLevelFormulaVariable
+        skillID: Elona.AttrMagic
+    finalDamage: magicLevel * power / 10
+    elementPower: 1000
+  - type: EffectMeteor
 
 - type: Elona.Spell
   id: Elona.Gravity
@@ -494,5 +508,7 @@
   hspIds:
     elona122: 466
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetSelfOrNearby
   - type: EffectGravity

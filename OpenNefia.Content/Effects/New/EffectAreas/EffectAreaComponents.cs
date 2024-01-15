@@ -98,6 +98,15 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
+    /// Affects the entire map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaWholeMapComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Shows a message and plays a sound when the area effect is cast.
     /// </summary>
     [RegisterComponent]

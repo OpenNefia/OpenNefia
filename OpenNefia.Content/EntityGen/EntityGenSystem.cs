@@ -118,7 +118,7 @@ namespace OpenNefia.Content.EntityGen
 
             if (EntityManager.HasComponent<StackComponent>(ent))
                 _stacks.SetCount(ent, Math.Max(count ?? 1, 1));
-            else if (count != null)
+            else if (count != null && count != 1)
                 Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
 
             var mapCoords = coordinates.ToMap(EntityManager);
