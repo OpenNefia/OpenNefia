@@ -140,9 +140,8 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
 
             // >>>>>>>> elona122/shade2/proc.hsp:1615 		if cc=pc{ ...
             var range = args.Args.TileRange;
-            var promptIfFriendly = CompOrNull<EffectComponent>(effect)?.Alignment == EffectAlignment.Negative;
 
-            if (!TryPickTarget(args.Source, promptIfFriendly, range, out var targetEnt))
+            if (!TryPickTarget(args.Source, range, out var targetEnt))
             {
                 effectCommon.OutEffectWasObvious = false;
                 args.Handle(null, null);
@@ -210,7 +209,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             // <<<<<<<< elona122/shade2/proc.hsp:1597 				} ...
         }
 
-        private bool TryPickTarget(EntityUid source, bool promptIfFriendly, int maxRangeTiled, [NotNullWhen(true)] out EntityUid? targetEnt)
+        private bool TryPickTarget(EntityUid source, int maxRangeTiled, [NotNullWhen(true)] out EntityUid? targetEnt)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1615 		if cc=pc{ ...
             if (!_targeting.TrySearchForTarget(source, out targetEnt))

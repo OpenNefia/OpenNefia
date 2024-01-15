@@ -9,6 +9,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.LecchoTorte.DamagePopups
 {
@@ -24,6 +25,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -77,9 +79,16 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             if (!_vis.IsInWindowFov(uid))
                 return;
 
+            var color = Color.White;
+            if (args.DamageType is ElementalDamageType elemDamage && _protos.TryIndex(elemDamage.ElementID, out var elemProto))
+            {
+                color = elemProto.Color;
+            }
+
             AddDamagePopup(new DamagePopup()
             {
-                Text = args.FinalDamage.ToString()
+                Text = args.FinalDamage.ToString(),
+                Color = color
             }, uid);
         }
 

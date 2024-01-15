@@ -298,13 +298,18 @@ namespace OpenNefia.Content.Effects.New
 
             target = new(ev.OutTarget, ev.OutCoords);
 
-            var promptIfFriendly = CompOrNull<EffectComponent>(effect)?.Alignment == EffectAlignment.Negative;
-            if (IsAlive(target.Target) && promptIfFriendly
-                && _factions.GetRelationTowards(source, target.Target.Value) >= Relation.Neutral
-                && !_targeting.PromptReallyAttack(source, target.Target.Value))
+            if (_factions.IsPlayer(source))
             {
-                target = null;
-                return false;
+                var promptIfFriendly = CompOrNull<EffectComponent>(effect)?.Alignment == EffectAlignment.Negative;
+                if (IsAlive(target.Target)
+                    && source != target.Target
+                    && promptIfFriendly
+                    && _factions.GetRelationTowards(source, target.Target.Value) >= Relation.Neutral
+                    && !_targeting.PromptReallyAttack(source, target.Target.Value))
+                {
+                    target = null;
+                    return false;
+                }
             }
 
             return true;
