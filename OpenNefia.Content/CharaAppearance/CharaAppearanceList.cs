@@ -13,6 +13,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
 using OpenNefia.Content.Portraits;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.CharaAppearance
 {
@@ -39,6 +40,7 @@ namespace OpenNefia.Content.CharaAppearance
 
         public sealed class ChangePage : CharaAppearanceUICellData
         {
+            public override bool DrawArrows => false;
             public CharaAppearancePage Page { get; set; }
 
             public ChangePage(CharaAppearancePage page)
@@ -199,45 +201,37 @@ namespace OpenNefia.Content.CharaAppearance
     {
         [Child] private AssetDrawable AssetArrowLeft;
         [Child] private AssetDrawable AssetArrowRight;
-
-        private string _baseText;
+        [Child] private UiText TextValue;
 
         public CharaAppearanceUIListCell(CharaAppearanceUICellData data, string text)
             : base(data, new UiText(text))
         {
-            _baseText = text;
-
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
+            TextValue = new UiText(UiFonts.ListText);
 
             RebuildText();
         }
 
         public void RebuildText()
         {
-            var valueText = Data.Text;
-            var baseText = _baseText;
-
-            if (valueText != string.Empty)
-                baseText = baseText.WidePadRight(8, ' ').WideSubstring(0, 8);
-
-            UiText.Text = $"{baseText} {valueText}";
+            TextValue.Text = Data.Text;
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             AssetArrowLeft.SetPreferredSize();
-            UiText.SetSize(110, UiText.Height);
+            TextValue.SetPreferredSize();
             AssetArrowRight.SetPreferredSize();
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            AssetArrowLeft.SetPosition(X, Y - 3);
-            UiText.SetPosition(AssetArrowLeft.Rect.Right + 5, Y + 2);
-            AssetArrowRight.SetPosition(UiText.Rect.Right + 5 + 1, Y - 3);
+            AssetArrowLeft.SetPosition(X + 115, Y - 5);
+            TextValue.SetPosition(AssetArrowLeft.Rect.Right + 5, Y);
+            AssetArrowRight.SetPosition(X + 173, Y - 5);
         }
 
         public void Change(int delta)
@@ -250,12 +244,14 @@ namespace OpenNefia.Content.CharaAppearance
         {
             UiText.Update(dt);
             AssetArrowLeft.Update(dt);
+            TextValue.Update(dt);
             AssetArrowRight.Update(dt);
         }
 
         public override void Draw()
         {
-            UiText.Draw();
+            base.Draw();
+            TextValue.Draw();
 
             if (Data.DrawArrows)
             {
