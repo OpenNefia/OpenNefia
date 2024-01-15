@@ -87,6 +87,7 @@ namespace OpenNefia.Content.UI
             GraphicsS.LineS(elem.UIScale, elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
 
+        // TODO: can this be a shared locale function?
         public static string DisplayWeight(int weight)
         {
             var integer = Math.Abs(weight / 1000);

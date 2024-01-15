@@ -43,6 +43,9 @@ namespace OpenNefia.Content.Enchantments
 
         private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
         {
+            if (args.Cancelled)
+                return;
+
             if (args.Container.Contains(args.EntityUid))
             {
                 args.Cancel();

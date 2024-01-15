@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -12,7 +11,6 @@ using OpenNefia.Content.Damage;
 using OpenNefia.Content.Effects.New.EffectAreas;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Formulae;
-using OpenNefia.Content.Combat;
 using OpenNefia.Content.Factions;
 using OpenNefia.Core;
 using System.Diagnostics.CodeAnalysis;
@@ -21,7 +19,6 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Sanity;
-using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Qualities;
@@ -31,7 +28,6 @@ using OpenNefia.Content.Mefs;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Mount;
 using OpenNefia.Content.Feats;
-using OpenNefia.Core.Utility;
 using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage

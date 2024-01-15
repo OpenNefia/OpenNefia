@@ -189,6 +189,36 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Opens a global inventory.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectFourDimensionalPocketComponent : Component
+    {
+        /// <summary>
+        /// Global entity managed by <see cref="Content.GlobalEntities.IGlobalEntitySystem"/>.
+        /// The items will be stored inside a container there.
+        /// </summary>
+        [DataField]
+        public string GlobalEntityID { get; set; } = "Elona.FourDimensionalPocket";
+
+        /// <summary>
+        /// Prototype ID of the global container.
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype>? ContainerEntity { get; set; } = new("Elona.ContainerFourDimensionalPocket");
+
+        [DataField]
+        public Formula? MaxTotalWeight { get; set; }
+
+        [DataField]
+        public Formula? MaxItemWeight { get; set; }
+
+        [DataField]
+        public Formula? MaxItemCount { get; set; }
+    }
+
+    /// <summary>
     /// Removes hexes.
     /// </summary>
     /// <remarks>

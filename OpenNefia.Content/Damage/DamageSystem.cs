@@ -176,7 +176,7 @@ namespace OpenNefia.Content.Damage
                 return;
 
             var finalAmount = Math.Clamp(amount, 0, Math.Max(skills.MaxStamina - skills.Stamina, 0));
-            skills.Stamina += amount;
+            skills.Stamina += finalAmount;
 
             var ev = new AfterHealEvent(uid, HealType.Stamina, amount, finalAmount, showMessage);
             RaiseEvent(uid, ref ev);

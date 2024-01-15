@@ -34,7 +34,6 @@ namespace OpenNefia.Content.Inventory
 
         public virtual bool EnableShortcuts => false;
         public virtual bool QueryAmount => false;
-        public virtual bool ShowTotalWeight => true;
         public virtual bool ShowMoney => false;
         public virtual bool ShowTargetEquip => false;
         public virtual int DefaultAmount => 1;
@@ -88,6 +87,32 @@ namespace OpenNefia.Content.Inventory
             }
 
             return "-";
+        }
+
+        public virtual string GetTotalWeightDetails(InventoryContext context)
+        {
+            var invSys = EntitySystem.Get<IInventorySystem>();
+            var cargoSys = EntitySystem.Get<ICargoSystem>();
+
+            var totalWeight = invSys.GetTotalInventoryWeight(context.User);
+            var totalWeightStr = UiUtils.DisplayWeight(totalWeight);
+
+            var maxWeight = invSys.GetMaxInventoryWeight(context.User);
+            var maxWeightStr = maxWeight != null ? UiUtils.DisplayWeight(maxWeight.Value) : "-";
+
+            var cargoWeight = cargoSys.GetTotalCargoWeight(context.User);
+            var cargoWeightStr = UiUtils.DisplayWeight(cargoWeight);
+
+            var maxCargoWeight = cargoSys.GetMaxCargoWeight(context.User);
+            var maxCargoWeightStr = maxCargoWeight != null ? UiUtils.DisplayWeight(maxCargoWeight.Value) : "-";
+
+            var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight",
+                ("totalWeight", totalWeightStr),
+                ("maxWeight", maxWeightStr),
+                ("cargoWeight", cargoWeightStr),
+                ("maxCargoWeight", maxCargoWeightStr));
+
+            return $"{context.AllInventoryEntries.Count} items  ({weightText})";
         }
 
         public virtual void OnQuery(InventoryContext context)

@@ -51,8 +51,6 @@ namespace OpenNefia.Content.Inventory
         /// </remarks>
         bool TryFindItemWithIDInInventory(EntityUid entity, PrototypeId<EntityPrototype> id, [NotNullWhen(true)] out EntityUid? item, InventoryComponent? inv = null);
 
-        int GetItemWeight(EntityUid item, WeightComponent? weight = null);
-
         int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxInventoryWeight(EntityUid ent, InventoryComponent? inv = null);
         bool TryGetInventoryContainer(EntityUid ent, [NotNullWhen(true)] out IContainer? inv, InventoryComponent? invComp = null);
@@ -79,6 +77,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IWeightSystem _weights = default!;
 
         public override void Initialize()
         {
@@ -157,6 +156,9 @@ namespace OpenNefia.Content.Inventory
 
         private void HandleAboutToInsert(EntityUid uid, InventoryComponent component, ContainerIsInsertingAttemptEvent args)
         {
+            if (args.Cancelled)
+                return;
+
             if (IsInventoryFull(uid, component))
             {
                 args.Cancel();
@@ -221,16 +223,6 @@ namespace OpenNefia.Content.Inventory
             return EnumerateInventory(entity, inv).Concat(_equipSlots.EnumerateEquippedEntities(entity, equipSlots));
         }
 
-        public int GetItemWeight(EntityUid item, WeightComponent? weight = null)
-        {
-            if (!Resolve(item, ref weight))
-                return 0;
-
-            // TODO sum container item weights here too.
-
-            return weight.Weight.Buffed * _stacks.GetCount(item);
-        }
-
         public int GetTotalInventoryWeight(EntityUid ent, InventoryComponent? inv = null)
         {
             if (!Resolve(ent, ref inv))
@@ -238,7 +230,7 @@ namespace OpenNefia.Content.Inventory
 
             var baseWeight = EnumerateInventory(ent, inv)
                 .Concat(_equipSlots.EnumerateEquippedEntities(ent))
-                .Select(item => GetItemWeight(item))
+                .Select(item => _weights.GetTotalWeight(item))
                 .Sum();
 
             var modifiedWeight = (int)(baseWeight * (1f - _feats.Level(ent, Protos.Feat.EtherGravity) * 0.1f

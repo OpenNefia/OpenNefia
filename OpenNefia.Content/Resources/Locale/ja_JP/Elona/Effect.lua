@@ -190,4 +190,8 @@ Elona.Effect = {
             return ("%sは周囲の物質を感知した。"):format(_.name(source))
         end,
     },
+
+    FourDimensionalPocket = {
+        Summon = "あなたは四次元のポケットを召喚した。",
+    },
 }

@@ -34,11 +34,6 @@ namespace OpenNefia.Content.Inventory
         LocaleKey? QueryAmountPrompt { get; }
 
         /// <summary>
-        /// Whether to show the user's total weight in the inventory screen.
-        /// </summary>
-        bool ShowTotalWeight { get; }
-
-        /// <summary>
         /// Whether to show the total amount of gold in the inventory screen.
         /// </summary>
         bool ShowMoney { get; }
@@ -98,6 +93,8 @@ namespace OpenNefia.Content.Inventory
         string GetItemName(InventoryContext context, EntityUid item);
 
         string GetItemDetails(InventoryContext context, EntityUid item);
+
+        string GetTotalWeightDetails(InventoryContext context);
 
         bool IsAccepted(InventoryContext context, EntityUid item);
 

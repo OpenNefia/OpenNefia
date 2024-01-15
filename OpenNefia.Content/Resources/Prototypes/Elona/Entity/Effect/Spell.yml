@@ -386,6 +386,14 @@
     finalDamage: clamp((skillLevel * 5 * power) / 20 + 40, 40, 100)
   - type: EffectResurrection
 
+# Four Dimensional Pocket container entity
+# Prohibits cargo from being inserted
+- type: Entity
+  id: Elona.ContainerFourDimensionalPocket
+  components:
+  - type: ItemContainer
+  - type: ItemContainerNoCargo
+
 - type: Elona.Spell
   id: Elona.FourDimensionalPocket
   hspIds:
@@ -405,6 +413,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 463
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: NotPlayer
+    effectID: null
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectFourDimensionalPocket
+    globalEntityID: Elona.FourDimensionalPocket
+    containerEntity: Elona.ContainerFourDimensionalPocket
+    maxItemWeight: power * 100
+    maxItemCount: clamp(power / 10 + 10, 10, 300)
 
 - type: Elona.Spell
   id: Elona.WizardsHarvest

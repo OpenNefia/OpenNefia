@@ -172,7 +172,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncSuckExperience_ApplyAfterPassTurn(EntityUid uid, EncSuckExperienceComponent component, ref ApplyEnchantmentAfterPassTurnEvent args)
         {
-            if (_rand.OneIn(4) && TryComp<LevelComponent>(args.Equipper, out var level))
+            if (_rand.OneIn(20) && TryComp<LevelComponent>(args.Equipper, out var level))
             {
                 _mes.Display(Loc.GetString("Elona.Enchantment.Item.SuckExperience.ExperienceReduced", ("entity", args.Equipper)), color: UiColors.MesPurple, entity: args.Equipper);
                 var lostExp = level.ExperienceToNext / (100 - Math.Clamp(Math.Abs(args.TotalPower) / 2, 0, 50)) + _rand.Next(100);

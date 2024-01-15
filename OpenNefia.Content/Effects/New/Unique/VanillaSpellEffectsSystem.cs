@@ -53,6 +53,8 @@ using OpenNefia.Content.Buffs;
 using Color = OpenNefia.Core.Maths.Color;
 using OpenNefia.Content.Spells;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.GlobalEntities;
+using OpenNefia.Content.Items;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -101,13 +103,10 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly ISpatialSystem _spatials = default!;
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
-        [Dependency] private readonly IEquipmentSystem _equipment = default!;
-        [Dependency] private readonly IPlayerQuery _playerQueries = default!;
         [Dependency] private readonly IReturnSystem _returning = default!;
-        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAreaNefiaSystem _areaNefias = default!;
         [Dependency] private readonly IBuffSystem _buffs = default!;
-        [Dependency] private readonly ISpellSystem _spells = default!;
+        [Dependency] private readonly IGlobalEntitySystem _globalEntities = default!;
 
         public override void Initialize()
         {
@@ -133,6 +132,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectRemoveHexComponent, ApplyEffectDamageEvent>(Apply_RemoveHex);
             SubscribeComponent<EffectMagicMapComponent, ApplyEffectTileDamageEvent>(Apply_MagicMap);
             SubscribeComponent<EffectSenseObjectComponent, ApplyEffectTileDamageEvent>(Apply_SenseObject);
+            SubscribeComponent<EffectFourDimensionalPocketComponent, ApplyEffectDamageEvent>(Apply_FourDimensionalPocket);
 
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
@@ -1157,6 +1157,49 @@ namespace OpenNefia.Content.Effects.New.Unique
             }
             args.Map.DirtyTilesThisTurn.Add(args.CoordsMap.Position);
             args.OutEffectWasObvious = true;
+        }
+
+        private void Apply_FourDimensionalPocket(EntityUid uid, EffectFourDimensionalPocketComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3460 	case spPocket ...
+            if (args.Handled || args.AffectedTileIndex > 0)
+                return;
+
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+
+            var container = _globalEntities.EnsureGlobalEntity(component.GlobalEntityID, component.ContainerEntity);
+
+            var trunk = EnsureComp<ItemContainerComponent>(container);
+
+            if (component.MaxTotalWeight != null)
+                trunk.MaxTotalWeight = (int)_formulaEngine.Calculate(component.MaxTotalWeight.Value, vars);
+            else
+                trunk.MaxTotalWeight = null;
+
+            if (component.MaxItemWeight != null)
+                trunk.MaxItemWeight = (int)_formulaEngine.Calculate(component.MaxItemWeight.Value, vars);
+            else
+                trunk.MaxItemWeight = null;
+
+            if (component.MaxItemCount != null)
+                trunk.MaxItemCount = (int)_formulaEngine.Calculate(component.MaxItemCount.Value, vars);
+            else
+                trunk.MaxItemCount = null;
+
+            _audio.Play(Protos.Sound.Teleport1, args.Source);
+            _mes.Display(Loc.GetString("Elona.Effect.FourDimensionalPocket.Summon", ("source", args.Source)));
+
+            var behaviors = new List<IInventoryBehavior>()
+            {
+                new TakeFromPocketInventoryBehavior(trunk.Container),
+                new PutIntoPocketInventoryBehavior(trunk.Container),
+            };
+
+            var context = new InventoryGroupArgs(args.Source, behaviors);
+            _uiManager.Query<InventoryUiGroup, InventoryGroupArgs, InventoryLayer.Result>(context);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3484 	swbreak ...
         }
 
         private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)

@@ -72,9 +72,10 @@ namespace OpenNefia.Content.Effects.New
 
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args);
+
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args);
 
         /// <summary>
         /// Gets the dice of an effect. Useful for displaying it in the UI.
@@ -111,7 +112,7 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel)
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel)
         {
             var result = new Dictionary<string, double>();
 
@@ -127,11 +128,11 @@ namespace OpenNefia.Content.Effects.New
             return result;
         }
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args)
-            => GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args)
+            => GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args)
-            => GetEffectDamageFormulaArgs(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args)
+            => GetEffectDamageFormulaArgs(effectUid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {

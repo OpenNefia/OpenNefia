@@ -202,4 +202,8 @@ Elona.Effect = {
             return ("%s sense%s nearby objects."):format(_.name(source), _.s(source))
         end,
     },
+
+    FourDimensionalPocket = {
+        Summon = "You summon 4 dimensional pocket.",
+    },
 }

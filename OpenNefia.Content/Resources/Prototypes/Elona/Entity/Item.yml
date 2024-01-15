@@ -10427,7 +10427,9 @@
   - type: Weight
     weight: 1200
   - type: Temporal
+  - type: ItemContainer
   - type: Trunk
+    karmaPenalty: 10
 - type: Entity
   id: Elona.ItemScrollOfGreaterIdentify
   parent: BaseItem
