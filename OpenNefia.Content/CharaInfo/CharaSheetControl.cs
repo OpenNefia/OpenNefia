@@ -73,8 +73,7 @@ namespace OpenNefia.Content.CharaInfo
         private const int SheetHeight = 400;
         private const int ContainerSpacing = 4;
         private const int AttributeIconContainerSpacing = 7;
-        private const int AttributeSpacing = 5;
-        private const int AttributePotentialSpacing = 8;
+        private const int TopicToEntryXOffset = 3;
 
         private IAssetInstance AssetIeSheet;
 
@@ -295,7 +294,7 @@ namespace OpenNefia.Content.CharaInfo
             if (skills != null)
             {
                 AttributeContainer.AddLayout(LayoutType.Spacer, 2);
-                AttributeContainer.AddLayout(LayoutType.XOffset, 3);
+                AttributeContainer.AddLayout(LayoutType.XOffset, TopicToEntryXOffset);
                 foreach (var attrProto in _skillsSys.EnumerateBaseAttributes())
                 {
                     var attrId = attrProto.GetStrongID();
@@ -353,7 +352,7 @@ namespace OpenNefia.Content.CharaInfo
 
             TraceContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Trace")));
             TraceContainer.AddLayout(LayoutType.Spacer, 2);
-            TraceContainer.AddLayout(LayoutType.XOffset, 3);
+            TraceContainer.AddLayout(LayoutType.XOffset, TopicToEntryXOffset);
             dict[_locScope.GetString("Group.Trace.Turns")] = $"{_locScope.GetString("Group.Trace.TurnsCounter", ("turns", _world.State.PlayTurns))}";
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
             dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
@@ -369,7 +368,7 @@ namespace OpenNefia.Content.CharaInfo
 
             ExtraContainer.AddElement(new UiTextTopic(_locScope.GetString("Topic.Extra")));
             ExtraContainer.AddLayout(LayoutType.Spacer, 2);
-            ExtraContainer.AddLayout(LayoutType.XOffset, 3);
+            ExtraContainer.AddLayout(LayoutType.XOffset, TopicToEntryXOffset);
 
             if (cargoHold != null)
             {
@@ -445,7 +444,7 @@ namespace OpenNefia.Content.CharaInfo
             ClassContainer.Relayout();
             ExpContainer.SetPosition(x + 370, NameContainer.Y);
             ExpContainer.Relayout();
-            AttributeContainer.SetPosition(NameContainer.X - 3, y + 125);
+            AttributeContainer.SetPosition(NameContainer.X - TopicToEntryXOffset, y + 125);
             AttributeContainer.Relayout();
             AttributeIconContainer.SetPosition(X + 20, Y + 160);
             AttributeIconContainer.Relayout();
@@ -455,12 +454,12 @@ namespace OpenNefia.Content.CharaInfo
             BlessingContainer.Relayout();
             TraceContainer.SetPosition(AttributeContainer.X, y + 285);
             TraceContainer.Relayout();
-            ExtraContainer.SetPosition(ClassContainer.X - 3, TraceContainer.Y);
+            ExtraContainer.SetPosition(ClassContainer.X - TopicToEntryXOffset, TraceContainer.Y);
             ExtraContainer.Relayout();
             RollsContainer.SetPosition(BlessingContainer.X, y + 260);
             RollsContainer.Relayout();
-            TextBuffHintTopic.SetPosition(x + 70, y + 369 + 8);
-            TextBuffHintBody.SetPosition(x + 108, y + 366 + 8);
+            TextBuffHintTopic.SetPosition(x + 30, y + 379);
+            TextBuffHintBody.SetPosition(x + 65, y + 379);
         }
 
         public override void Update(float dt)
