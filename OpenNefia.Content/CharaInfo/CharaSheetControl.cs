@@ -308,9 +308,9 @@ namespace OpenNefia.Content.CharaInfo
 
                     var content = MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 35, currentAmt);
                     content.AddLayout(LayoutType.YOffset, -1);
-                    content.AddLayout(LayoutType.XMin, 75);
+                    content.AddLayout(LayoutType.XMin, 70);
                     content.AddElement(new UiText(UiFonts.CharaSheetInfoContent, orgAmt));
-                    content.AddLayout(LayoutType.XMin, 125);
+                    content.AddLayout(LayoutType.XMin, 115);
                     content.AddElement(new UiText(UiFonts.CharaSheetInfoContent, potential));
 
                     AttributeContainer.AddElement(content);
@@ -440,9 +440,9 @@ namespace OpenNefia.Content.CharaInfo
 
             NameContainer.SetPosition(x + 30, y + 42);
             NameContainer.Relayout();
-            ClassContainer.SetPosition(x + 240, NameContainer.Y);
+            ClassContainer.SetPosition(x + 230, NameContainer.Y);
             ClassContainer.Relayout();
-            ExpContainer.SetPosition(x + 370, NameContainer.Y);
+            ExpContainer.SetPosition(x + 360, NameContainer.Y);
             ExpContainer.Relayout();
             AttributeContainer.SetPosition(NameContainer.X - TopicToEntryXOffset, y + 125);
             AttributeContainer.Relayout();
