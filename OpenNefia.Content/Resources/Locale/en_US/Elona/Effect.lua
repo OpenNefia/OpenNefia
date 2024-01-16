@@ -13,22 +13,31 @@ Elona.Effect = {
     },
 
     Heal = {
-        Slightly = function(target)
+        Slightly = function(source, target)
             return ("%s %s slightly healed."):format(_.name(target), _.is(target))
         end,
-        Normal = function(target)
+        Normal = function(source, target)
             return ("%s %s healed."):format(_.name(target), _.is(target))
         end,
-        Greatly = function(target)
+        Greatly = function(source, target)
             return ("%s %s greatly healed."):format(_.name(target), _.is(target))
         end,
-        Completely = function(target)
+        Completely = function(source, target)
             return ("%s %s completely healed."):format(_.name(target), _.is(target))
         end,
     },
 
+    HealMP = {
+        Normal = function(source, target)
+            return ("%s mana is restored."):format(_.possessive(target))
+        end,
+        AbsorbMagic = function(source, target)
+            return ("%s absorb%s mana from the air."):format(_.name(target), _.s(target))
+        end,
+    },
+
     HealSanity = {
-        RainOfSanity = function(target)
+        RainOfSanity = function(source, target)
             return ("%s %s completely sane again."):format(_.name(target), _.is(target))
         end,
     },

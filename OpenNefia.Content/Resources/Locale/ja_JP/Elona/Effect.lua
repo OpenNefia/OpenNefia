@@ -14,23 +14,32 @@ Elona.Effect = {
 
     Heal = {
         Apply = {
-            Slightly = function(target)
+            Slightly = function(source, target)
                 return ("%sの傷はふさがった。"):format(_.name(target))
             end,
-            Normal = function(target)
+            Normal = function(source, target)
                 return ("%sは回復した。"):format(_.name(target))
             end,
-            Greatly = function(target)
+            Greatly = function(source, target)
                 return ("%sの身体に生命力がみなぎった。"):format(_.name(target))
             end,
-            Completely = function(target)
+            Completely = function(source, target)
                 return ("%sは完全に回復した。"):format(_.name(target))
             end,
         },
     },
 
+    HealMP = {
+        Normal = function(source, target)
+            return ("%sのマナが回復した。"):format(_.name(target))
+        end,
+        AbsorbMagic = function(source, target)
+            return ("%sは周囲からマナを吸い取った。"):format(_.name(target))
+        end,
+    },
+
     HealSanity = {
-        RainOfSanity = function(target)
+        RainOfSanity = function(source, target)
             return ("%sの狂気は消え去った。"):format(_.name(target))
         end,
     },

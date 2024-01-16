@@ -73,6 +73,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectDamageElementalComponent, ApplyEffectTileDamageEvent>(ApplyTileDamage_Elemental);
 
             SubscribeComponent<EffectDamageHealingComponent, ApplyEffectDamageEvent>(ApplyDamage_Healing);
+            SubscribeComponent<EffectDamageHealMPComponent, ApplyEffectDamageEvent>(ApplyDamage_HealMP);
             SubscribeComponent<EffectDamageHealSanityComponent, ApplyEffectDamageEvent>(ApplyDamage_HealSanity);
 
             SubscribeComponent<EffectSummonComponent, ApplyEffectDamageEvent>(ApplyDamage_Summon);
@@ -429,6 +430,27 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 args.Handle(TurnResult.Succeeded);
             }
             // <<<<<<<< elona122/shade2/proc.hsp:1826 	call *anime,(animeId=aniHeal) ...
+        }
+
+        private void ApplyDamage_HealMP(EntityUid uid, EffectDamageHealMPComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || args.InnerTarget == null)
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2790 	case actRestoreMP ...
+            if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, component.MessageKey, out var message))
+                _mes.Display(message, entity: args.InnerTarget.Value);
+
+            _damages.HealMP(args.InnerTarget.Value, args.OutDamage);
+
+            var anim = new HealMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1);
+            _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
+
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }           
+            // <<<<<<<< elona122/shade2/proc.hsp:2796 	swbreak ...
         }
 
         private void ApplyDamage_HealSanity(EntityUid uid, EffectDamageHealSanityComponent healComp, ApplyEffectDamageEvent args)

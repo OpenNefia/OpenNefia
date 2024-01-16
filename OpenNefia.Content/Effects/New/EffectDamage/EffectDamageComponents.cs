@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Damage;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Religion;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
@@ -63,6 +64,19 @@ namespace OpenNefia.Content.Effects.New
         public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
         {
             return _skills.Level(source, SkillID);
+        }
+    }
+
+    /// <summary>
+    /// Used by Prayer of Jure.
+    /// </summary>
+    public sealed class PietyFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            return _entityManager.GetComponentOrNull<ReligionComponent>(source)?.Piety ?? 0;
         }
     }
 
@@ -215,6 +229,54 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageMPComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.DamageMP.Normal";
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageMObjComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField("mObjID")]
+        public PrototypeId<EntityPrototype> MObjID { get; set; }
+
+        // TODO remove?
+        [DataField]
+        public bool HandleEvent { get; set; } = true;
+    }
+
+    /// <summary>
+    /// Causes healing "damage" to targets.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageHealMPComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealMP.Normal";
 
         // TODO remove?
         [DataField]

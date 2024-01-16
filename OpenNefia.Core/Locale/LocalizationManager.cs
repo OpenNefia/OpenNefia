@@ -220,7 +220,6 @@ namespace OpenNefia.Core.Locale
 
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-
             if (_stringStore.TryGetValue(key, out str))
             {
                 return true;

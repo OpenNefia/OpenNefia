@@ -26,6 +26,7 @@
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
   + [ ] magic items
+  + [ ] effect AI targeting
   + [ ] BeforeEffectApplyDamage : CancellableEntityEventArgs
 - [ ] inventory/spell/skill shortcuts
 - [ ] AI/calm actions
