@@ -24,6 +24,7 @@ local IItemFromChara = require "mod.elona.api.aspect.IItemFromChara"
 local IItemPotion = require "mod.elona.api.aspect.IItemPotion"
 local IItemCargo = require "mod.elona.api.aspect.IItemCargo"
 local IItemCookingTool = require "mod.elona.api.aspect.IItemCookingTool"
+local IItemRod = require "mod.elona.api.aspect.IItemRod"
 
 local rootDir = "C:/users/yuno/build/OpenNefia.NET"
 
@@ -271,7 +272,7 @@ local allTags = {}
 
 local function comp(t, name)
     if t.components == nil then
-        t.componentes = {}
+        t.components = {}
     end
 
     for _, c in ipairs(t.components) do
@@ -284,6 +285,45 @@ local function comp(t, name)
     c.type = name
     t.components[#t.components + 1] = c
     return c
+end
+
+local function compOrNil(t, name)
+    if t.components == nil then
+        return nil
+    end
+
+    for _, c in ipairs(t.components) do
+        if c.type == name then
+            return c
+        end
+    end
+    return nil
+end
+
+local function hasComp(t, name)
+    return fun.iter(t.components or {}):any(function(c)
+        return c.type == name
+    end)
+end
+
+local function hasTag(t, tag)
+    local tags = compOrNil(t, "Tag")
+    if tags == nil then
+        return false
+    end
+    return fun.iter(tags.tags):any(function(t)
+        return t == tag
+    end)
+end
+
+local function hasEquipSlot(t, name)
+    local equip = compOrNil(t, "Equipment")
+    if equip == nil then
+        return false
+    end
+    return fun.iter(equip.equipSlots):any(function(es)
+        return es == name
+    end)
 end
 
 local function extData(t, name)
@@ -1266,9 +1306,24 @@ handlers["base.item"] = function(from, to)
         end, "spellID")
 
         c = comp(to, "Charged")
-        field(spellbook, c, "charges")
+        field(spellbook, c, "charges", nil, "initialCharges")
         field(spellbook, c, "max_charges")
         field(spellbook, c, "can_be_recharged")
+    end
+
+    local rod = from._ext and from._ext[IItemRod]
+    if rod then
+        c = comp(to, "Rod")
+
+        c.effects = typedYamlNode("EffectSpec", {
+            id = dotted(rod.effect_id),
+            power = rod.effect_power,
+        })
+
+        c = comp(to, "Charged")
+        c.initialCharges = ("%s + randInt(%s) + randInt(%s)"):format(rod.max_charges, rod.max_charges, rod.max_charges)
+        field(rod, c, "max_charges")
+        field(rod, c, "can_be_recharged")
     end
 
     local ancientBook = from._ext and from._ext[IItemAncientBook]
@@ -1276,7 +1331,7 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "AncientBook")
 
         c = comp(to, "Charged")
-        field(ancientBook, c, "charges")
+        field(ancientBook, c, "charges", nil, "initialCharges")
         field(ancientBook, c, "max_charges")
         c.displayChargeCount = false
     end
@@ -1936,6 +1991,193 @@ sorts["base.map_tile"] = function(a, b)
     return sort(a, b)
 end
 
+local fileStructure = {
+    ["base.item"] = {
+        {
+            name = "Entity/Item/Equipment/Ammo.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Ammo")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Arm.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Arm")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Body.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Body")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Back.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Back")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Waist.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Waist")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Head.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Head")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Leg.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Leg")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Melee.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Hand") and hasComp(to, "Weapon")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Shield.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Hand") and not hasComp(to, "Weapon")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Neck.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Neck")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Ranged.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Ranged")
+            end,
+        },
+        {
+            name = "Entity/Item/Equipment/Ring.yml",
+            test = function(to)
+                return hasEquipSlot(to, "Elona.Ring")
+            end,
+        },
+        {
+            name = "Entity/Item/Rod.yml",
+            test = function(to)
+                return hasComp(to, "Rod")
+            end,
+        },
+        {
+            name = "Entity/Item/Potion.yml",
+            test = function(to)
+                return hasComp(to, "Potion") or hasTag(to, "Elona.ItemCatDrink")
+            end,
+        },
+        {
+            name = "Entity/Item/Spellbook.yml",
+            test = function(to)
+                return hasComp(to, "Spellbook") or hasTag(to, "Elona.ItemCatSpellbook")
+            end,
+        },
+        {
+            name = "Entity/Item/Well.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatFurnitureWell")
+            end,
+        },
+        {
+            name = "Entity/Item/Cargo.yml",
+            test = function(to)
+                return hasComp(to, "Cargo")
+            end,
+        },
+        {
+            name = "Entity/Item/Scroll.yml",
+            test = function(to)
+                return hasComp(to, "Scroll") or hasTag(to, "Elona.ItemCatScroll")
+            end,
+        },
+        {
+            name = "Entity/Item/Currency.yml",
+            test = function(to)
+                return hasComp(to, "GoldPiece") or hasComp(to, "PlatinumCoin")
+            end,
+        },
+        {
+            name = "Entity/Item/Furniture.yml",
+            test = function(to)
+                return hasComp(to, "Furniture")
+            end,
+        },
+        {
+            name = "Entity/Item/Light.yml",
+            test = function(to)
+                return hasComp(to, "LightSource")
+            end,
+        },
+        {
+            name = "Entity/Item/Ore.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatOre")
+            end,
+        },
+        {
+            name = "Entity/Item/Fish.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatOfferingFish")
+                    or hasTag(to, "Elona.TagItemFish")
+                    or to.id == "Elona.ItemFishJunk"
+            end,
+        },
+        {
+            name = "Entity/Item/Container.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatContainer")
+            end,
+        },
+        {
+            name = "Entity/Item/Tree.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatTree")
+            end,
+        },
+        {
+            name = "Entity/Item/Remains.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatRemains")
+            end,
+        },
+        {
+            name = "Entity/Item/Food.yml",
+            test = function(to)
+                return hasComp(to, "Food")
+            end,
+        },
+        {
+            name = "Entity/Item/Tool.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatMiscItem")
+            end,
+        },
+        {
+            name = "Entity/Item/Book.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatBook")
+            end,
+        },
+        {
+            name = "Entity/Item/Junk.yml",
+            test = function(to)
+                return hasTag(to, "Elona.ItemCatJunk")
+            end,
+        },
+    },
+}
+
 local hspParents = {
     ["base.chara"] = "BaseChara",
     ["base.item"] = "BaseItem",
@@ -2206,22 +2448,74 @@ end
 
 local function make_yaml(datas, tags)
     local raw = lyaml.dump({ datas }, { tag_directives = tags })
-    return ([[#
+    local yml = ([[#
 # !!!!! Autogenerated by convert_lua_protos.lua. Don't edit manually. !!!!!
 #
 %s]]):format(raw)
+    local lines = string.split(yml, "\n")
+    local i = 1
+    local first = true
+    while i <= #lines do
+        local line = lines[i]
+        if line:match "^- type:" then
+            if not first then
+                table.insert(lines, i, "")
+            end
+            first = false
+            i = i + 1
+        end
+        i = i + 1
+    end
+    return table.concat(lines, "\n")
+end
+
+local function make_yamls(datas, ty, filename, tags)
+    local files = fileStructure[ty] or {}
+    local result = {}
+
+    local function add(name, data)
+        result[name] = result[name] or {}
+        local t = result[name]
+        t[#t + 1] = data
+    end
+
+    for _, data in ipairs(datas) do
+        local found = false
+        for _, st in ipairs(files) do
+            if st.test(data) then
+                found = true
+                add(st.name, data)
+                break
+            end
+        end
+
+        if not found then
+            add(filename, data)
+        end
+    end
+
+    local final = {}
+    for fn, datas in pairs(result) do
+        final[#final + 1] = {
+            filename = fn,
+            yml = make_yaml(datas, nil),
+        }
+    end
+    return final
 end
 
 local function write(ty, filename, namespace)
     tags = {}
     local datas = make_datas(ty)
-    local yml = make_yaml(datas)
 
-    if type(filename) == "function" then
-        filename(datas, yml)
-        return
-    else
-        local file = io.open(("%s/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(rootDir, filename), "w")
+    local ymls = make_yamls(datas, ty, filename)
+
+    for _, pair in ipairs(ymls) do
+        local yml = pair.yml
+        local filename = pair.filename
+        local full_path = ("%s/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(rootDir, filename)
+        fs.create_directory(fs.parent(full_path))
+        local file = io.open(full_path, "w")
         file:write(yml)
         file:close()
     end
