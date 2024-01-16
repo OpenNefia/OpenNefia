@@ -110,5 +110,22 @@ namespace OpenNefia.Content.Locale.Funcs
 
             return s;
         }
+
+        [LocaleFunction("theTarget")]
+        public static string BuiltIn_theTarget(object? source, object? target)
+        {
+            if (target is not EntityUid targetEnt)
+            {
+                if (source == target)
+                    return "自分";
+                else
+                    return "何か";
+            }
+
+            if (source is not EntityUid sourceEnt || sourceEnt != targetEnt)
+                return SharedBuiltins.BuiltIn_name(target, true);
+
+            return "自分";
+        }
     }
 }

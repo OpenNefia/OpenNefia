@@ -103,7 +103,7 @@ namespace OpenNefia.Content.Skills
         /// Only applies to skills of type <see cref="SkillType.Attribute"/>.
         /// </summary>
         /// <remarks>
-        /// <c>false</c> for: Speed, Luck
+        /// <c>false</c> for: Life, Mana, Speed, Luck
         /// </remarks>
         [DataField]
         public bool IsBaseAttribute { get; set; } = true;

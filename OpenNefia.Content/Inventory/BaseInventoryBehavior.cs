@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
-        public abstract string WindowTitle { get; }
+        public virtual string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Target.WindowTitle");
 
         public virtual bool EnableShortcuts => false;
         public virtual bool QueryAmount => false;
@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Inventory
 
         public virtual string GetQueryText(InventoryContext context)
         {
-            return string.Empty;
+            return Loc.GetString("Elona.Inventory.Behavior.Target.QueryText");
         }
 
         public virtual string GetItemName(InventoryContext context, EntityUid item)

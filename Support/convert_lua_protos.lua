@@ -1305,10 +1305,14 @@ handlers["base.item"] = function(from, to)
             return dotted(i):gsub("Elona.Spell", "Elona.")
         end, "spellID")
 
-        c = comp(to, "Charged")
-        field(spellbook, c, "charges", nil, "initialCharges")
+        c = comp(to, "Chargeable")
+        -- field(spellbook, c, "charges", nil, "initialCharges")
+        -- c.initialCharges = "maxCharges"
         field(spellbook, c, "max_charges")
-        field(spellbook, c, "can_be_recharged")
+
+        if from._id == "elona.spellbook_of_wishing" or from._id == "elona.spellbook_of_harvest" then
+            c.canBeRecharged = false
+        end
     end
 
     local rod = from._ext and from._ext[IItemRod]
@@ -1316,24 +1320,28 @@ handlers["base.item"] = function(from, to)
         c = comp(to, "Rod")
 
         c.effects = typedYamlNode("EffectSpec", {
-            id = dotted(rod.effect_id),
+            id = dotted(rod.effect_id):gsub("Elona.", "Elona.Spell"),
             power = rod.effect_power,
         })
 
-        c = comp(to, "Charged")
-        c.initialCharges = ("%s + randInt(%s) + randInt(%s)"):format(rod.max_charges, rod.max_charges, rod.max_charges)
+        c = comp(to, "Chargeable")
+        -- c.initialCharges = ("%s + randInt(%s) - randInt(%s)"):format(rod.max_charges, rod.max_charges, rod.max_charges)
+        c.initialCharges = "maxCharges + randInt(maxCharges) - randInt(maxCharges)"
         field(rod, c, "max_charges")
-        field(rod, c, "can_be_recharged")
+        if from._id == "elona.rod_of_wishing" or from._id == "elona.rod_of_domination" then
+            c.canBeRecharged = false
+        end
     end
 
     local ancientBook = from._ext and from._ext[IItemAncientBook]
     if ancientBook then
         c = comp(to, "AncientBook")
 
-        c = comp(to, "Charged")
+        c = comp(to, "Chargeable")
         field(ancientBook, c, "charges", nil, "initialCharges")
-        field(ancientBook, c, "max_charges")
+        -- field(ancientBook, c, "max_charges")
         c.displayChargeCount = false
+        c.canBeRecharged = false
     end
 
     local fromChara = from._ext and from._ext[IItemFromChara]

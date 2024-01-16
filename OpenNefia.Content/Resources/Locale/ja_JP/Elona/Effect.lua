@@ -232,4 +232,19 @@ Elona.Effect = {
     ManisDisassembly = {
         Dialog = _.quote "余分な機能は削除してしまえ",
     },
+
+    Mirror = {
+        Examine = function(source, target)
+            return ("%sは%sの状態を調べた。"):format(_.name(source), _.theTarget(source, target))
+        end,
+    },
+
+    Change = {
+        Changes = function(source, target)
+            return ("%sは変化した。"):format(_.name(target))
+        end,
+        CannotBeChanged = function(source, target)
+            return ("%sは変化できない。"):format(_.name(target))
+        end,
+    },
 }

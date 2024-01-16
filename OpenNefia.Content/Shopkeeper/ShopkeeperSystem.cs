@@ -28,6 +28,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.Chargeable;
 
 namespace OpenNefia.Content.Shopkeeper
 {
@@ -454,7 +455,7 @@ namespace OpenNefia.Content.Shopkeeper
                 }
             }
 
-            if (TryComp<ChargedComponent>(item, out var charged))
+            if (TryComp<ChargeableComponent>(item, out var charged))
             {
                 if (charged.Charges == 0)
                 {

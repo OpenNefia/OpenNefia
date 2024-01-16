@@ -31,10 +31,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Identify
+      id: Elona.SpellIdentify
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -66,10 +66,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.TeleportOther
+      id: Elona.SpellTeleportOther
       power: 100
-  - type: Charged
-    initialCharges: 12 + randInt(12) + randInt(12)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 12
 
 - type: Entity
@@ -101,10 +101,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.HealLight
+      id: Elona.SpellHealLight
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -136,10 +136,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.MagicDart
+      id: Elona.SpellMagicDart
       power: 100
-  - type: Charged
-    initialCharges: 10 + randInt(10) + randInt(10)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 10
 
 - type: Entity
@@ -171,10 +171,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.SummonMonsters
+      id: Elona.SpellSummonMonsters
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -206,10 +206,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.IceBolt
+      id: Elona.SpellIceBolt
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -241,10 +241,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.FireBolt
+      id: Elona.SpellFireBolt
       power: 100
-  - type: Charged
-    initialCharges: 10 + randInt(10) + randInt(10)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 10
 
 - type: Entity
@@ -276,10 +276,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.CureOfEris
+      id: Elona.SpellCureOfEris
       power: 100
-  - type: Charged
-    initialCharges: 4 + randInt(4) + randInt(4)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 4
 
 - type: Entity
@@ -311,10 +311,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.LightningBolt
+      id: Elona.SpellLightningBolt
       power: 100
-  - type: Charged
-    initialCharges: 10 + randInt(10) + randInt(10)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 10
 
 - type: Entity
@@ -346,10 +346,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.BuffSlow
+      id: Elona.SpellBuffSlow
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -381,10 +381,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.MagicMap
+      id: Elona.SpellMagicMap
       power: 100
-  - type: Charged
-    initialCharges: 9 + randInt(9) + randInt(9)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 9
 
 - type: Entity
@@ -416,10 +416,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.HealCritical
+      id: Elona.SpellHealCritical
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -452,10 +452,12 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Wish
+      id: Elona.SpellWish
       power: 100
-  - type: Charged
-    initialCharges: nil + randInt(nil) + randInt(nil)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
+    maxCharges: 1
+    canBeRecharged: false
 
 - type: Entity
   id: Elona.ItemRodOfSilence
@@ -486,10 +488,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.BuffMistOfSilence
+      id: Elona.SpellBuffMistOfSilence
       power: 100
-  - type: Charged
-    initialCharges: 7 + randInt(7) + randInt(7)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 7
 
 - type: Entity
@@ -521,10 +523,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.BuffSpeed
+      id: Elona.SpellBuffSpeed
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -556,10 +558,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.VanquishHex
+      id: Elona.SpellVanquishHex
       power: 100
-  - type: Charged
-    initialCharges: 6 + randInt(6) + randInt(6)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 6
 
 - type: Entity
@@ -591,10 +593,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.HarvestMana
+      id: Elona.SpellHarvestMana
       power: 100
-  - type: Charged
-    initialCharges: 4 + randInt(4) + randInt(4)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 4
 
 - type: Entity
@@ -626,10 +628,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Uncurse
+      id: Elona.SpellUncurse
       power: 100
-  - type: Charged
-    initialCharges: 3 + randInt(3) + randInt(3)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 3
 
 - type: Entity
@@ -664,11 +666,12 @@
     medalValue: 20
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Dominate
+      id: Elona.SpellDominate
       power: 100
-  - type: Charged
-    initialCharges: 2 + randInt(2) + randInt(2)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 2
+    canBeRecharged: false
 
 - type: Entity
   id: Elona.ItemRodOfWeb
@@ -699,10 +702,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Web
+      id: Elona.SpellWeb
       power: 100
-  - type: Charged
-    initialCharges: 8 + randInt(8) + randInt(8)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 8
 
 - type: Entity
@@ -734,10 +737,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.Change
+      id: Elona.SpellChange
       power: 100
-  - type: Charged
-    initialCharges: 4 + randInt(4) + randInt(4)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 4
 
 - type: Entity
@@ -769,10 +772,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.EffectAlchemy
+      id: Elona.SpellEffectAlchemy
       power: 100
-  - type: Charged
-    initialCharges: 3 + randInt(3) + randInt(3)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 3
 
 - type: Entity
@@ -804,10 +807,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.WallCreation
+      id: Elona.SpellWallCreation
       power: 100
-  - type: Charged
-    initialCharges: 7 + randInt(7) + randInt(7)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 7
 
 - type: Entity
@@ -839,10 +842,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.HealingTouch
+      id: Elona.SpellHealingTouch
       power: 100
-  - type: Charged
-    initialCharges: 3 + randInt(3) + randInt(3)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 3
 
 - type: Entity
@@ -874,10 +877,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.AcidGround
+      id: Elona.SpellAcidGround
       power: 100
-  - type: Charged
-    initialCharges: 4 + randInt(4) + randInt(4)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 4
 
 - type: Entity
@@ -909,10 +912,10 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.FireWall
+      id: Elona.SpellFireWall
       power: 100
-  - type: Charged
-    initialCharges: 4 + randInt(4) + randInt(4)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 4
 
 - type: Entity
@@ -944,9 +947,9 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.DoorCreation
+      id: Elona.SpellDoorCreation
       power: 100
-  - type: Charged
-    initialCharges: 6 + randInt(6) + randInt(6)
+  - type: Chargeable
+    initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
     maxCharges: 6
 ...

@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Locale.Funcs;
+﻿using OpenNefia.Content.Locale.Funcs;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -27,6 +26,7 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Chargeable;
 
 namespace OpenNefia.Content.Items
 {
@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Items
     {
         [Dependency] private readonly IEquipmentSystem _equipment = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
-        [Dependency] private readonly IChargedSystem _chargeds = default!;
+        [Dependency] private readonly IChargeableSystem _chargeds = default!;
         [Dependency] private readonly IIdentifySystem _identifies = default!;
         [Dependency] private readonly ICurseStateSystem _curseStates = default!;
         [Dependency] private readonly ITagSystem _tags = default!;

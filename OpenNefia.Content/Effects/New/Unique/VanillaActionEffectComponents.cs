@@ -1,8 +1,10 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.Formulae;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,8 +63,13 @@ namespace OpenNefia.Content.Effects.New.Unique
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectFillChargeComponent : Component
+    public sealed class EffectRechargeComponent : Component
     {
+        [DataField]
+        public int RechargePowerCost { get; set; } = 0;
+
+        [DataField]
+        public Formula AddedCharges { get; set; } = new("1 + randInt(maxCharges / 2 + 1)");
     }
 
     [RegisterComponent]

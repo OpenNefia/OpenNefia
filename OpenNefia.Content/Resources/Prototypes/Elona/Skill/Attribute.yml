@@ -10,6 +10,7 @@
   extendedData:
   - type: Skills.ExtSkillFlags
     canWishFor: false
+    isBaseAttribute: false
 
 - type: Elona.Skill
   id: Elona.AttrMana
@@ -23,6 +24,7 @@
   extendedData:
   - type: Skills.ExtSkillFlags
     canWishFor: false
+    isBaseAttribute: false
 
 - type: Elona.Skill
   id: Elona.AttrStrength

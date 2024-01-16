@@ -59,6 +59,7 @@
 - [ ] enemies follow player up/down stairs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
+- [ ] change creature
 - [ ] status effect protoevents -> ECS
   + [ ] gravity/floating buff
   + [ ] fear prevents melee attacking
@@ -76,6 +77,8 @@
 - [ ] correct prototype ordering (spells, etc.)
 - [ ] custom talk
 - [ ] theming
+- [ ] MapPosition -> MapCoordinates?
+- [ ] mirror spact
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] loc manager doesn't re-watch if language is switched

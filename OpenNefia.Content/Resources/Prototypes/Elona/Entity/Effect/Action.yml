@@ -98,6 +98,9 @@
   components:
   - type: Effect
     alignment: Negative
+  - type: EffectBaseDamageDice
+    # Minimum creature level for success
+    finalPower: power / 10 + 10
   - type: EffectTargetOther
   - type: EffectChange
 
@@ -143,7 +146,14 @@
   parent: BaseEffect
   components:
   - type: EffectTargetSelf
-  - type: EffectFillCharge
+  - type: EffectBaseDamageDice
+    # If 0, recharge fails
+    finalDamage: randInt(power / 25 + 1)
+  - type: EffectRecharge
+    rechargePowerCost: 10
+    # >>>>>>>> elona122/shade2/proc.hsp:3131 			p=1+rnd(iChargeLevel/2+1) : if p+iCharge(ci)>iC ...
+    addedCharges: 1 + randInt(maxCharges / 2 + 1)
+    # <<<<<<<< elona122/shade2/proc.hsp:3131 			p=1+rnd(iChargeLevel/2+1) : if p+iCharge(ci)>iC ..
 
 - type: Elona.Action
   id: Elona.Swarm

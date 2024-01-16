@@ -244,4 +244,19 @@ Elona.Effect = {
     ManisDisassembly = {
         Dialog = _.quote "Delete.",
     },
+
+    Mirror = {
+        Examine = function(source, target)
+            return ("%s examine%s %s."):format(_.name(source), _.s(source), _.theTarget(source, target))
+        end,
+    },
+
+    Change = {
+        Changes = function(source, target)
+            return ("%s change%s."):format(_.name(target), _.s(target))
+        end,
+        CannotBeChanged = function(source, target)
+            return ("%s cannot be changed."):format(_.name(target))
+        end,
+    },
 }

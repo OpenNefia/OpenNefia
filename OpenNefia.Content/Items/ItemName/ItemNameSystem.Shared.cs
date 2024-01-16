@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Combat;
+﻿using OpenNefia.Content.Chargeable;
+using OpenNefia.Content.Combat;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Fishing;
 using OpenNefia.Content.Food;
@@ -108,9 +109,9 @@ namespace OpenNefia.Content.Items
                 knownInfo.Append($"{sign}{bonus.Bonus}");
             }
 
-            if (TryComp<ChargedComponent>(uid, out var charged) && charged.DisplayChargeCount)
+            if (TryComp<ChargeableComponent>(uid, out var charged) && charged.DisplayChargeCount)
             {
-                knownInfo.Append(Loc.Space + Loc.GetString("Elona.Charged.ItemName.Charges", ("charges", charged.Charges)));
+                knownInfo.Append(Loc.Space + Loc.GetString("Elona.Chargeable.ItemName.Charges", ("charges", charged.Charges)));
             }
 
             var (diceX, diceY) = GetDice(uid);

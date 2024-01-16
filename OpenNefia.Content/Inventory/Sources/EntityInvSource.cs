@@ -10,13 +10,13 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class EntityInventorySource : IInventorySource
+    public class InventoryInvSource : IInventorySource
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
         public EntityUid Entity { get; }
 
-        public EntityInventorySource(EntityUid entity)
+        public InventoryInvSource(EntityUid entity)
         {
             Entity = entity;
         }
