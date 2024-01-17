@@ -1,10 +1,12 @@
-﻿using OpenNefia.Content.Damage;
+﻿using OpenNefia.Content.Currency;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Religion;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.UI;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
@@ -77,6 +79,60 @@ namespace OpenNefia.Content.Effects.New
         public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
         {
             return _entityManager.GetComponentOrNull<ReligionComponent>(source)?.Piety ?? 0;
+        }
+    }
+
+    public enum CurrencyType
+    {
+        Gold,
+        Platinum
+    }
+
+    public enum VariableSubject
+    {
+        Source,
+        Target
+    }
+
+    /// <summary>
+    /// Used by Suspicious Hand.
+    /// </summary>
+    public sealed class CurrencyFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        [DataField]
+        public VariableSubject Subject { get; set; }
+
+        [DataField]
+        public CurrencyType Type { get; set; }
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            MoneyComponent? comp;
+
+            switch (Subject)
+            {
+                case VariableSubject.Source:
+                default:
+                    comp = _entityManager.GetComponentOrNull<MoneyComponent>(source);
+                    break;
+                case VariableSubject.Target:
+                    if (!_entityManager.IsAlive(target))
+                        return 0;
+                    comp = _entityManager.GetComponentOrNull<MoneyComponent>(target.Value);
+                    break;
+            }
+
+            if (comp == null)
+                return 0;
+
+            return Type switch
+            {
+                CurrencyType.Gold => comp.Gold,
+                CurrencyType.Platinum => comp.Platinum,
+                _ => 0
+            };
         }
     }
 
@@ -197,6 +253,9 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey RootKey { get; set; } = "Elona.Magic.Message.Generic";
+
+        [DataField]
+        public Color Color { get; set; } = UiColors.MesWhite;
     }
 
     /// <summary>
@@ -345,7 +404,7 @@ namespace OpenNefia.Content.Effects.New
         public PrototypeId<StatusEffectPrototype> ID { get; set; }
 
         [DataField]
-        public Formula Turns { get; set; } = new("power");
+        public Formula Power { get; set; } = new("power");
     }
 
     [RegisterComponent]

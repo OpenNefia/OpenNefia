@@ -58,6 +58,7 @@ using OpenNefia.Content.Items;
 using OpenNefia.Content.Mefs;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Damage;
+using OpenNefia.Content.Mount;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -111,6 +112,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IGlobalEntitySystem _globalEntities = default!;
         [Dependency] private readonly IMefSystem _mefs = default!;
         [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IMountSystem _mounts = default!;
 
         public override void Initialize()
         {
@@ -597,7 +599,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
 
             if (!TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice)
-                || !_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out var vars))
+                || !_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, args.MaxRange, out var dice, out var vars))
                 return;
 
             var chance = (int)_formulaEngine.Calculate(effectDice.FinalDamage, vars);
@@ -878,6 +880,12 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
             }
 
+            if (_mounts.IsBeingMounted(subject))
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
             var spatial = EntityManager.GetComponent<SpatialComponent>(subject);
 
             EntitySystem.InjectDependencies(component.Position);
@@ -920,7 +928,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             {
                 var e = chara.Owner;
                 var isImmune = TryComp<CommonProtectionsComponent>(e, out var prot) && prot.IsImmuneToMines.Buffed;
-                var inRange = _spatials.TryMapDistanceTiled(args.Source, e, out var dist) && dist <= args.CommonArgs.TileRange * 2;
+                var inRange = _spatials.TryMapDistanceTiled(args.Source, e, out var dist) && dist <= args.CommonArgs.MaxRange * 2;
                 return !isImmune && inRange;
             }
 

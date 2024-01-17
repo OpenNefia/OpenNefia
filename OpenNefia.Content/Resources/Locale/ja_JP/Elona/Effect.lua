@@ -247,4 +247,100 @@ Elona.Effect = {
             return ("%sは変化できない。"):format(_.name(target))
         end,
     },
+
+    Swarm = {
+        Apply = "スウォーム！",
+    },
+
+    SuspiciousHand = {
+        GuardsWallet = function(source, target)
+            return ("%sは自分の財布を守った。"):format(_.name(target))
+        end,
+        Steals = function(source, target, goldStolen)
+            return ("%sは%sから%s枚の金貨を奪った。"):format(_.name(source), _.name(target), goldStolen)
+        end,
+        Escapes = "泥棒は笑って逃げた。",
+    },
+
+    EyeOfInsanity = {
+        Message = {
+            function(source, target)
+                return ("%sは%sの腹の亀裂から蛆虫が沸き出るのを見た。"):format(
+                    _.name(target),
+                    _.name(source)
+                )
+            end,
+            function(source, target)
+                return ("%sは%sが屍を貪る姿を目撃した。"):format(_.name(target), _.name(source))
+            end,
+            function(source, target)
+                return ("%sは%sの恐ろしい瞳に震えた。"):format(_.name(target), _.name(source))
+            end,
+            function(source, target)
+                return ("%sは%sの触手に絡まる臓物に吐き気を感じた。"):format(
+                    _.name(target),
+                    _.name(source)
+                )
+            end,
+        },
+    },
+
+    SuicideAttack = {
+        Explodes = function(source, target)
+            return ("%sは爆発した。"):format(_.name(source))
+        end,
+        ChainExplodes = function(source, target)
+            return ("%sは誘爆した。"):format(_.name(source))
+        end,
+        ExplosionHits = {
+            Ally = function(source, target)
+                return ("爆風が%sに命中した。"):format(_.name(target))
+            end,
+            Other = function(source, target)
+                return ("爆風は%sに命中し"):format(_.name(target))
+            end,
+        },
+    },
+
+    Insult = {
+        Apply = function(source, target)
+            return ("%s insult%s %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+        Insults = {
+            Male = {
+                _.quote "すっこんでろ雑魚め",
+                _.quote "オマエ程度が戦うだと？",
+                _.quote "すぐに殺してやるよ",
+                _.quote "消えろザコめ",
+                _.quote "このかたつむり野郎",
+                _.quote "すぐにミンチにしてやるよ",
+            },
+            Female = {
+                _.quote "グシャグシャにしてやるわ",
+                _.quote "地べたを這いずりなさい",
+                _.quote "ウージッムシ♪ウージッムシ♪",
+                _.quote "目障りよ",
+                _.quote "もがけ。苦しめ！",
+                _.quote "その下品な眼をくりぬくの",
+                _.quote "このカタツムリが",
+                _.quote "どうしたの？もう終わりなの？",
+                _.quote "潔く、くたばりなさい",
+                _.quote "生まれてきたことを後悔するのね",
+                _.quote "このブタめ",
+                _.quote "すぐにミンチにしてあげる",
+            },
+        },
+    },
+
+    Scavenge = {
+        Apply = function(source, target)
+            return ("%sは%sのバックパックを漁った。"):format(_.name(target), _.name(source))
+        end,
+        Spiked = function(source, target, item)
+            return ("%sは%sの異臭に気付き手をひっこめた。"):format(_.name(target), _.name(item))
+        end,
+        Eats = function(source, target, item)
+            return ("%sは%sを食べた！"):format(_.name(target), _.name(item))
+        end,
+    },
 }

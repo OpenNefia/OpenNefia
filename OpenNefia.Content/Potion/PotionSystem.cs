@@ -75,7 +75,7 @@ namespace OpenNefia.Content.Potion
                     EffectSource = EffectSources.PotionDrunk,
                     CurseState = _curseStates.GetCurseState(potion),
                     Power = spec.Power,
-                    TileRange = spec.MaxRange,
+                    MaxRange = spec.MaxRange,
                     SkillLevel = spec.SkillLevel,
                     SourceItem = potion
                 };
@@ -130,7 +130,7 @@ namespace OpenNefia.Content.Potion
                     EffectSource = EffectSources.PotionThrown,
                     CurseState = curseState,
                     Power = spec.Power,
-                    TileRange = spec.MaxRange,
+                    MaxRange = spec.MaxRange,
                     SkillLevel = spec.SkillLevel,
                     SourceItem = potionComp.Owner
                 };
@@ -188,7 +188,7 @@ namespace OpenNefia.Content.Potion
                     EffectSource = EffectSources.PotionThrown,
                     CurseState = curseState,
                     Power = spec.Power,
-                    TileRange = spec.MaxRange,
+                    MaxRange = spec.MaxRange,
                     SkillLevel = spec.SkillLevel,
                     SourceItem = potionComp.Owner
                 };

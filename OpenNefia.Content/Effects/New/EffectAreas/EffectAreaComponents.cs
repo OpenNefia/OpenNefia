@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Audio;
+using OpenNefia.Content.UI;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
@@ -41,6 +42,9 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public bool IncludeOriginPos { get; set; } = false;
+
+        [DataField]
+        public Formula Radius { get; set; } = new("maxRange");
     }
 
     /// <summary>
@@ -118,6 +122,9 @@ namespace OpenNefia.Content.Effects.New
 
         [DataField]
         public LocaleKey? MessageKeyCursed { get; set; }
+
+        [DataField]
+        public Color Color { get; set; } = UiColors.MesWhite;
 
         [DataField]
         public SoundSpecifier? Sound { get; set; }

@@ -74,7 +74,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectSwarmComponent : Component
+    public sealed class EffectMeleeAttackComponent : Component
     {
     }
 
@@ -82,6 +82,8 @@ namespace OpenNefia.Content.Effects.New.Unique
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectEyeOfEtherComponent : Component
     {
+        [DataField]
+        public Formula AddedCorruption { get; set; } = new("100");
     }
 
     [RegisterComponent]
@@ -90,9 +92,12 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
+    /// <summary>
+    /// Used by Eye of Insanity.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectEyeOfInsanityComponent : Component
+    public sealed class EffectDamageSanityComponent : Component
     {
     }
 
@@ -106,6 +111,11 @@ namespace OpenNefia.Content.Effects.New.Unique
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectSuicideAttackComponent : Component
     {
+        /// <summary>
+        /// Targets that were hit in the bomb attack and should also explode.
+        /// This occurs in ApplyEffectArea after the main area handlers.
+        /// </summary>
+        public HashSet<EntityUid> ChainBombTargets { get; set; } = new();
     }
 
     [RegisterComponent]

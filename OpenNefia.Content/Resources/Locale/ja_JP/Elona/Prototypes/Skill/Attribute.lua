@@ -99,7 +99,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrLife = {
         Name = "生命力",
-        ShortName = "生命力",
         OnDecrease = function(entity)
             return ("%sは生命力の衰えを感じた。"):format(_.name(entity))
         end,
@@ -109,7 +108,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrMana = {
         Name = "マナ",
-        ShortName = "マナ",
         OnDecrease = function(entity)
             return ("%sはマナの衰えを感じた。"):format(_.name(entity))
         end,

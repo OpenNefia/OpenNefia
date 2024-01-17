@@ -80,8 +80,8 @@ namespace OpenNefia.Content.Effects
         }
         public int TileRange
         {
-            get => CommonArgs.TileRange;
-            set => CommonArgs.TileRange = value;
+            get => CommonArgs.MaxRange;
+            set => CommonArgs.MaxRange = value;
         }
         public CurseState CurseState
         {
@@ -134,7 +134,7 @@ namespace OpenNefia.Content.Effects
         /// How many tiles this spell can reach. Used by ball magic.
         /// </summary>
         [DataField]
-        public int TileRange { get; set; } = 1;
+        public int MaxRange { get; set; } = 1;
 
         /// <summary>
         /// If <see cref="SourceItem"/> is non-null, the item's curse state will be automatically

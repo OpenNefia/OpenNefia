@@ -175,8 +175,16 @@
     elona122: 631
   parent: BaseEffect
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetSelf
-  - type: EffectSwarm
+  - type: EffectAreaBall
+  - type: EffectDamageRelations
+    validRelations: Enemy~Neutral
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.Swarm.Apply
+    color: #afafff
+  - type: EffectMeleeAttack
 
 - type: Elona.Action
   id: Elona.EyeOfMutation
@@ -237,6 +245,7 @@
     alignment: Negative
   - type: EffectTargetOther
   - type: EffectEyeOfEther
+    addedCorruption: 100
 
 - type: Elona.Action
   id: Elona.SuspiciousHand
@@ -260,6 +269,15 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetDirection
+  - type: EffectBaseDamageDice
+    extraVariables:
+      gold: !type:CurrencyFormulaVariable
+        type: Gold
+    finalDamage: randInt(gold / 10 + 1)
+  - type: EffectDamageTeleport
+    subject: Source
+    position: !type:WholeMapTeleportPosition {}
+    messageKey: Elona.Effect.SuspiciousHand.Escapes
   - type: EffectSuspiciousHand
 
 - type: Elona.Action
@@ -285,7 +303,10 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-  - type: EffectEyeOfInsanity
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.EyeOfInsanity.Message
+    color: #b99bd7
+  - type: EffectDamageSanity
 
 - type: Elona.Action
   id: Elona.EyeOfDimness
@@ -310,32 +331,12 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-  - type: EffectEyeOfDimness
-
-- type: Elona.Action
-  id: Elona.SuicideAttack
-  hspIds:
-    elona122: 644
-  skillID: Elona.ActionSuicideAttack
-  effectID: Elona.ActionSuicideAttack
-  staminaCost: 20
-  difficulty: 450
-- type: Elona.Skill
-  id: Elona.ActionSuicideAttack
-  hspIds:
-    elona122: 644
-  skillType: Action
-  relatedSkill: Elona.AttrConstitution
-- type: Entity
-  id: Elona.ActionSuicideAttack
-  hspIds:
-    elona122: 644
-  parent: BaseEffect
-  components:
-  - type: Effect
-    alignment: Negative
-  - type: EffectTargetDirection
-  - type: EffectSuicideAttack
+  - type: EffectDamageStatusEffects
+    # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
+    statusEffects:
+    - id: Elona.Dim
+      power: 200
+    # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
 - type: Elona.Action
   id: Elona.Curse
@@ -391,7 +392,13 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-  - type: EffectInsult
+  - type: EffectInsult # Just outputs some special dialog
+  - type: EffectDamageStatusEffects
+    statusEffects:
+    # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
+    - id: Elona.Dim
+      power: 200
+    # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
 - type: Elona.Action
   id: Elona.DistantAttack4

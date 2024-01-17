@@ -59,6 +59,8 @@ namespace OpenNefia.Content.Combat
         bool IsSuitableForWieldingTwoHanded(EntityUid weapon);
         bool IsSuitableForDualWielding(EntityUid weapon, bool mainHand);
         bool IsSuitableForWieldingWhileRiding(EntityUid weapon);
+        IMapDrawable GetMeleeAttackAnimation(EntityUid target, PrototypeId<SkillPrototype> attackSkill, int damagePercent, bool isCritical);
+        IList<EntityUid> GetMeleeWeapons(EntityUid ent);
     }
 
     public sealed partial class CombatSystem : EntitySystem, ICombatSystem
@@ -687,7 +689,7 @@ namespace OpenNefia.Content.Combat
                 if (playAnimation)
                 {
                     var damagePercent = rawDamage.TotalDamage * 100 / (Comp<SkillsComponent>(target).MaxHP);
-                    var anim = GetAttackAnimation(target, attackSkill, damagePercent, isCritical);
+                    var anim = GetMeleeAttackAnimation(target, attackSkill, damagePercent, isCritical);
                     _mapDrawables.Enqueue(anim, Spatial(target).MapPosition);
                 }
 
@@ -843,7 +845,7 @@ namespace OpenNefia.Content.Combat
             // <<<<<<<< shade2/action.hsp:1372 		} ...
         }
 
-        private IMapDrawable GetAttackAnimation(EntityUid target, PrototypeId<SkillPrototype> attackSkill, int damagePercent, bool isCritical)
+        public IMapDrawable GetMeleeAttackAnimation(EntityUid target, PrototypeId<SkillPrototype> attackSkill, int damagePercent, bool isCritical)
         {
             PrototypeId<AssetPrototype>? attackAnimAsset = null;
             if (_protos.TryGetExtendedData<SkillPrototype, ExtAttackAnim>(attackSkill, out var ext))

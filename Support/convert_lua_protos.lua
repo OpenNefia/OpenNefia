@@ -478,6 +478,10 @@ handlers["base.chara"] = function(from, to)
         }, { tag = "type:ElementalDamageType", type = "mapping" })
     end
 
+    if from.is_explodable then
+        c = comp(to, "Explosive")
+    end
+
     if from.is_immune_to_elemental_damage then
         c = comp(to, "Resists")
         c.isImmuneToElementalDamage = true

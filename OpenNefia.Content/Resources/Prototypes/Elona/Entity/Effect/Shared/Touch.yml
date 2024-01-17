@@ -190,7 +190,7 @@
   - type: EffectDamageStatusEffects
     statusEffects:
     - id: Elona.Fear
-      turns: elementalPower
+      power: elementalPower
 
 - type: Elona.Action
   id: Elona.TouchOfSleep
@@ -222,7 +222,7 @@
   - type: EffectDamageStatusEffects
     statusEffects:
     - id: Elona.Sleep
-      turns: elementalPower
+      power: elementalPower
 
 - type: Elona.Action
   id: Elona.ManisDisassembly

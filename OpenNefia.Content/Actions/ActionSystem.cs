@@ -94,7 +94,7 @@ namespace OpenNefia.Content.Actions
                 EffectSource = EffectSources.Action,
                 CurseState = CurseStates.CurseState.Normal,
                 Power = power,
-                TileRange = action.MaxRange
+                MaxRange = action.MaxRange
             };
             var effectArgs = EffectArgSet.Make(effectCommon);
 
@@ -152,8 +152,9 @@ namespace OpenNefia.Content.Actions
 
             var power = CalcActionPower(proto, caster);
             var skillLevel = _skills.Level(caster, proto.SkillID);
+            var maxRange = proto.MaxRange;
 
-            var ev = new GetEffectDescriptionEvent(caster, power, skillLevel, description);
+            var ev = new GetEffectDescriptionEvent(caster, power, skillLevel, maxRange, description);
             RaiseEvent(effect, ev);
 
             return ev.OutDescription;

@@ -135,11 +135,21 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
         {
             if (_curseStates.IsCursed(args.Args.CurseState) && component.MessageKeyCursed != null)
             {
-                _mes.Display(Loc.GetString(component.MessageKeyCursed.Value, ("source", args.Source), ("target", args.Target), ("sourceItem", args.CommonArgs.SourceItem), ("targetItem", args.CommonArgs.TargetItem)));
+                _mes.Display(Loc.GetString(component.MessageKeyCursed.Value, 
+                    ("source", args.Source), 
+                    ("target", args.Target),
+                    ("sourceItem", args.CommonArgs.SourceItem),
+                    ("targetItem", args.CommonArgs.TargetItem)), 
+                    color: component.Color);
             }
             else
             {
-                _mes.Display(Loc.GetString(component.MessageKey, ("source", args.Source), ("target", args.Target), ("sourceItem", args.CommonArgs.SourceItem), ("targetItem", args.CommonArgs.TargetItem)));
+                _mes.Display(Loc.GetString(component.MessageKey, 
+                    ("source", args.Source), 
+                    ("target", args.Target),
+                    ("sourceItem", args.CommonArgs.SourceItem),
+                    ("targetItem", args.CommonArgs.TargetItem)),
+                    color: component.Color);
             }
             var soundId = component.Sound?.GetSound();
             if (soundId != null)
@@ -254,7 +264,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return;
             }
 
-            var range = args.CommonArgs.TileRange;
+            var range = args.CommonArgs.MaxRange;
 
             if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
             {
@@ -312,8 +322,10 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:1697 	case skBolt ...
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+            var radius = (int)_formulaEngine.Calculate(component.Radius, vars, args.CommonArgs.MaxRange);
             var map = args.SourceMap;
-            var positions = PosHelpers.EnumerateBallPositions(args.SourceCoordsMap.Position, args.Args.TileRange, map.Bounds, component.IncludeOriginPos)
+            var positions = PosHelpers.EnumerateBallPositions(args.SourceCoordsMap.Position, radius, map.Bounds, component.IncludeOriginPos)
                 .Where(p => map.HasLineOfSight(args.SourceCoordsMap.Position, p))
                 .Select(p => map.AtPos(p))
                 .ToList();
@@ -323,8 +335,6 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 args.Handle(TurnResult.Succeeded);
                 return;
             }
-
-            var range = args.CommonArgs.TileRange;
 
             if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
             {

@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Effects.New
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
 
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, IDictionary<string, IFormulaVariable>? extraVariables = null);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, int maxRange, IDictionary<string, IFormulaVariable>? extraVariables = null);
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args);
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args);
 
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         /// <returns></returns>
         bool TryGetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
-            int power, int skillLevel, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null);
+            int power, int skillLevel, int maxRange, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null);
 
         /// <summary>
         /// Gets the dice of an effect given its base X, Y and bonus.
@@ -120,12 +120,13 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly ITargetingSystem _targeting = default!;
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, IDictionary<string, IFormulaVariable>? extraVariables = null)
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, int maxRange, IDictionary<string, IFormulaVariable>? extraVariables = null)
         {
             var result = new Dictionary<string, double>();
 
             result["power"] = power;
             result["skillLevel"] = skillLevel;
+            result["maxRange"] = maxRange;
             result["casterLevel"] = _levels.GetLevel(source);
             result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
             if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
@@ -150,7 +151,7 @@ namespace OpenNefia.Content.Effects.New
             IDictionary<string, IFormulaVariable>? extraVariables = null;
             if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
                 extraVariables = effectDice.ExtraVariables;
-            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, extraVariables);
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
         }
 
         public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args)
@@ -158,7 +159,7 @@ namespace OpenNefia.Content.Effects.New
             IDictionary<string, IFormulaVariable>? extraVariables = null;
             if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
                 extraVariables = effectDice.ExtraVariables;
-            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, extraVariables);
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
         }
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
@@ -317,7 +318,7 @@ namespace OpenNefia.Content.Effects.New
 
         /// <inheritdoc/>
         public bool TryGetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
-            int power, int skillLevel, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null)
+            int power, int skillLevel, int maxRange, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null)
         {
             if (!Resolve(effectUid, ref effectDice, logMissing: false))
             {
@@ -329,7 +330,7 @@ namespace OpenNefia.Content.Effects.New
             sourceCoords ??= Spatial(source).Coordinates;
             targetCoords ??= IsAlive(target) ? Spatial(target.Value).Coordinates : sourceCoords.Value;
 
-            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel, effectDice.ExtraVariables);
+            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel, TODO, maxRange, effectDice.ExtraVariables);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(effectDice.DiceX, formulaArgs, 0f), 0);
             var diceY = int.Max((int)_formulaEngine.Calculate(effectDice.DiceY, formulaArgs, 0f), 0);
@@ -610,14 +611,16 @@ namespace OpenNefia.Content.Effects.New
         public EntityUid Caster { get; }
         public int Power { get; }
         public int SkillLevel { get; }
+        public int MaxRange { get; }
 
         public string OutDescription { get; set; } = string.Empty;
 
-        public GetEffectDescriptionEvent(EntityUid caster, int power, int skillLevel, string description)
+        public GetEffectDescriptionEvent(EntityUid caster, int power, int skillLevel, int maxRange, string description)
         {
             Caster = caster;
             Power = power;
             SkillLevel = skillLevel;
+            MaxRange = maxRange;
             OutDescription = description;
         }
     }

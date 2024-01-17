@@ -8019,6 +8019,7 @@
       Elona.ActionSuicideAttack: 1
   - type: Faction
     relation: Enemy
+  - type: Explosive
   - type: LootType
     lootType: Elona.Humanoid
 
@@ -8267,6 +8268,7 @@
     canTalk: true
   - type: Tone
     id: Elona.KamikazeSamurai
+  - type: Explosive
   - type: LootType
     lootType: Elona.Humanoid
 
@@ -8297,6 +8299,7 @@
   - type: VanillaAI
     targetDistance: 2
     moveChance: 0.1
+  - type: Explosive
   - type: LootType
     lootType: Elona.Animal
 
@@ -11063,6 +11066,7 @@
     canTalk: true
   - type: Tone
     id: Elona.HardGay
+  - type: Explosive
   - type: LootType
     lootType: Elona.Humanoid
 

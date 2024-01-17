@@ -259,4 +259,104 @@ Elona.Effect = {
             return ("%s cannot be changed."):format(_.name(target))
         end,
     },
+
+    Swarm = {
+        Apply = "Swarm",
+    },
+
+    SuspiciousHand = {
+        GuardsWallet = function(source, target)
+            return ("%s guard%s %s wallet from a thief."):format(_.name(target), _.target(s), _.his(target))
+        end,
+        Steals = function(source, target, goldStolen)
+            return ("%s steal%s %s gold pieces from %s."):format(
+                _.name(source),
+                _.s(source),
+                goldStolen,
+                _.name(target)
+            )
+        end,
+        Escapes = "A thief escapes laughing.",
+    },
+
+    EyeOfInsanity = {
+        Message = {
+            function(source, target)
+                return ("%s see%s maggots breed in the rent stomach of %s."):format(
+                    _.name(target),
+                    _.s(target),
+                    _.name(source)
+                )
+            end,
+            function(source, target)
+                return ("%s see%s %s chow on dead bodies."):format(_.name(target), _.s(target), _.name(source))
+            end,
+            function(source, target)
+                return ("%s shudder%s at %s terrifying eyes."):format(_.name(target), _.s(target), _.possessive(source))
+            end,
+            function(source, target)
+                return ("%s feel%s sick at entrails caught in %s tentacles."):format(
+                    _.name(target),
+                    _.s(target),
+                    _.possessive(source)
+                )
+            end,
+        },
+    },
+
+    SuicideAttack = {
+        Explodes = function(source, target)
+            return ("%s explode%s."):format(_.name(source), _.s(source))
+        end,
+        ChainExplodes = function(source, target)
+            return ("%s explode%s."):format(_.name(source), _.s(source))
+        end,
+        ExplosionHits = {
+            Ally = function(source, target)
+                return ("The explosion hits %s."):format(_.name(target))
+            end,
+            Other = function(source, target)
+                return ("The explosion hits %s and"):format(_.name(target))
+            end,
+        },
+    },
+
+    Insult = {
+        Apply = function(source, target)
+            return ("%s insult%s %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+        Insults = {
+            Male = {
+                _.quote "You suck!",
+                _.quote "You will die alone.",
+                _.quote "Bow down before me.",
+                _.quote "Go jump off a bridge.",
+                _.quote "Bang your head against the wall!",
+                _.quote "Why do you sniff under your dog's tail?",
+            },
+            Female = {
+                _.quote "The world is against you because you are a unsavory decomposing virus.",
+                _.quote "You are no better than a immoral guzzling bureaucrat.",
+                _.quote "You are so lowly.",
+                _.quote "Get off me.",
+            },
+        },
+    },
+
+    Scavenge = {
+        Apply = function(source, target)
+            return ("%s loot%s %s backpack."):format(_.name(target), _.s(target), _.possessive(source))
+        end,
+        Spiked = function(source, target, item)
+            return ("%s notice%s an unusual odor from %s and step%s back."):format(
+                _.name(target),
+                _.s(target),
+                _.name(item),
+                _.s(target)
+            )
+        end,
+        Eats = function(source, target, item)
+            return ("%s eat%s %s!"):format(_.name(target), _.s(target), _.name(item))
+        end,
+    },
 }

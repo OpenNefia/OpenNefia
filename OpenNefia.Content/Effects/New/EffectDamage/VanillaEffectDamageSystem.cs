@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
+            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, TODO, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
             {
                 // Should never happen.
                 Logger.ErrorS("effect.damage", $"No dice found for effect {effectEnt}");
@@ -340,7 +340,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             foreach (var statusEffect in component.StatusEffects)
             {
-                var turns = (int)_formulas.Calculate(statusEffect.Turns, vars, 10);
+                var turns = (int)_formulas.Calculate(statusEffect.Power, vars, 10);
                 _statusEffects.Apply(args.InnerTarget.Value, statusEffect.ID, turns);
             }
 
@@ -368,7 +368,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
             if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, component.RootKey, out var message, tense))
             {
-                _mes.Display(message, entity: args.InnerTarget.Value);
+                _mes.Display(message, color: component.Color, entity: args.InnerTarget.Value);
             }
         }
 

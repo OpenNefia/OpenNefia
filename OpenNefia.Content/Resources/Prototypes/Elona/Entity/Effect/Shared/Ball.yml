@@ -212,3 +212,36 @@
     validRelations: Neutral~Ally
   # <<<<<<<< shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
   - type: EffectDamageHealSanity
+
+- type: Elona.Action
+  id: Elona.SuicideAttack
+  hspIds:
+    elona122: 644
+  skillID: Elona.ActionSuicideAttack
+  effectID: Elona.ActionSuicideAttack
+  staminaCost: 20
+  difficulty: 450
+- type: Elona.Skill
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+- type: Entity
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectAreaSuicideAttack
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.SuicideAttack.Explodes
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.SuicideAttack.ExplosionHits
+  - type: EffectDamageElemental
+    element: null
+    handleEvent: false # TODO remove
+  - type: EffectSuicideAttack

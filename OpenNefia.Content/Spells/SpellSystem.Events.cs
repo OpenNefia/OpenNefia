@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Spells
             if (args.Handled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out _))
+            if (!_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, args.MaxRange, out var dice, out _))
                 return;
 
             if (dice.X > 0)

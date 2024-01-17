@@ -1,21 +1,11 @@
-﻿using OpenNefia.Content.Damage;
-using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Spells;
-using OpenNefia.Core;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Game;
-using OpenNefia.Content.Effects.New;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Enchantments;
@@ -24,7 +14,6 @@ using OpenNefia.Content.Qualities;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hunger;
-using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Roles;
 using OpenNefia.Content.Charas;
@@ -32,7 +21,6 @@ using OpenNefia.Content.Parties;
 using OpenNefia.Content.BaseAnim;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Levels;
-using OpenNefia.Content.Mount;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Maps;
@@ -41,9 +29,18 @@ using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Chargeable;
-using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.Book;
-using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.Visibility;
+using OpenNefia.Content.EtherDisease;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Currency;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Content.Items;
+using OpenNefia.Content.Food;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.InUse;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -62,17 +59,24 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
-        [Dependency] private readonly IMountSystem _mounts = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
         [Dependency] private readonly IMapPlacement _mapPlacements = default!;
         [Dependency] private readonly IEquipmentGenSystem _equipmentGen = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IChargeableSystem _chargeables = default!;
-        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
         [Dependency] private readonly IFormulaEngine _formulas = default!;
+        [Dependency] private readonly IVisibilitySystem _visibilities = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
+        [Dependency] private readonly IEtherDiseaseSystem _etherDiseases = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly ISanitySystem _sanities = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IInventorySystem _inv = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
+        [Dependency] private readonly IInUseSystem _inUses = default!;
 
         public override void Initialize()
         {
@@ -83,6 +87,15 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectChangeComponent, ApplyEffectDamageEvent>(Apply_Change);
             SubscribeComponent<EffectDrawChargeComponent, ApplyEffectDamageEvent>(Apply_DrawCharge);
             SubscribeComponent<EffectRechargeComponent, ApplyEffectDamageEvent>(Apply_Recharge);
+            SubscribeComponent<EffectMeleeAttackComponent, ApplyEffectDamageEvent>(Apply_MeleeAttack);
+            SubscribeComponent<EffectEyeOfEtherComponent, ApplyEffectDamageEvent>(Apply_EyeOfEther);
+            SubscribeComponent<EffectSuspiciousHandComponent, ApplyEffectDamageEvent>(Apply_SuspiciousHand, priority: EventPriorities.High - 1000); // placed before EffectDamageTeleport
+            SubscribeComponent<EffectDamageSanityComponent, ApplyEffectDamageEvent>(Apply_DamageSanity);
+            SubscribeComponent<EffectSuicideAttackComponent, ApplyEffectDamageEvent>(Apply_SuicideAttack);
+            SubscribeComponent<EffectSuicideAttackComponent, ApplyEffectAreaEvent>(ApplyArea_SuicideAttack, priority: EventPriorities.VeryLow + 10000);
+            SubscribeComponent<EffectInsultComponent, ApplyEffectDamageEvent>(Apply_Insult, priority: EventPriorities.High - 1000); // just applies EffectDamageStatusEffects afterwards
+            SubscribeComponent<EffectDistantAttackComponent, ApplyEffectDamageEvent>(Apply_DistantAttack);
+            SubscribeComponent<EffectScavengeComponent, ApplyEffectDamageEvent>(Apply_Scavenge);
         }
 
         private void Apply_TouchOfWeakness(EntityUid uid, EffectTouchOfWeaknessComponent component, ApplyEffectDamageEvent args)
@@ -347,6 +360,233 @@ namespace OpenNefia.Content.Effects.New.Unique
                 args.Handle(TurnResult.Failed);
             }
             // <<<<<<<< elona122/shade2/proc.hsp:3143 	swbreak ...
+        }
+
+        private void Apply_MeleeAttack(EntityUid uid, EffectMeleeAttackComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3293 	call *anime,(animeId=aniAttack) ...
+            if (args.Handled || !IsAlive(args.InnerTarget)
+                || !_visibilities.HasLineOfSight(args.Source, args.InnerTarget.Value))
+            {
+                return;
+            }
+
+            var attackSkill = Protos.Skill.MartialArts;
+            var meleeWeapons = _combat.GetMeleeWeapons(args.Source);
+            if (meleeWeapons.Count > 0)
+                attackSkill = Comp<WeaponComponent>(meleeWeapons[0]).WeaponSkill;
+
+            var damagePercent = 0;
+            if (TryComp<SkillsComponent>(args.InnerTarget.Value, out var skills))
+                damagePercent = args.OutDamage / skills.MaxHP;
+
+            var anim = _combat.GetMeleeAttackAnimation(args.InnerTarget.Value, attackSkill, damagePercent, isCritical: false);
+            _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
+
+            _combat.MeleeAttack(args.Source, args.InnerTarget.Value);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3294 	call *act_melee ...
+        }
+
+        private void Apply_EyeOfEther(EntityUid uid, EffectEyeOfEtherComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3376 	if tc!pc:swbreak ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (!_gameSession.IsPlayer(args.InnerTarget.Value) || !HasComp<EtherDiseaseComponent>(args.InnerTarget.Value))
+                return;
+
+            var etherDisease = EnsureComp<EtherDiseaseComponent>(args.InnerTarget.Value);
+            _mes.Display(Loc.GetString("Elona.Effect.EyeOfEther.Apply", ("source", args.Source), ("target", args.InnerTarget.Value)), color: UiColors.MesPurple);
+
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+            var corruption = (int)_formulas.Calculate(component.AddedCorruption, vars, 100);
+
+            _etherDiseases.ModifyCorruption(args.InnerTarget.Value, corruption);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3378 	modCorrupt 100 ...
+        }
+
+        private void Apply_SuspiciousHand(EntityUid uid, EffectSuspiciousHandComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1929 	if efId=actSteal{  ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            // TODO this needs to cancel the subsequent EffectDamageTeleport handler
+            // if it fails. However there is not yet a BeforeApplyEffectDamageEvent.
+            // Move this code into its handler when that is created.
+            if (args.Source == args.InnerTarget.Value)
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented"));
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            var goldStolen = args.OutDamage;
+
+            if (_rand.Next(_skills.Level(args.InnerTarget.Value, Protos.Skill.AttrPerception)) > _rand.Next(_skills.Level(args.Source, Protos.Skill.AttrPerception) * 4)
+                || (TryComp<CommonProtectionsComponent>(args.InnerTarget.Value, out var prot) && prot.IsProtectedFromTheft.Buffed))
+            {
+                goldStolen = 0;
+            }
+
+            if (goldStolen > 0 && TryComp<MoneyComponent>(args.InnerTarget.Value, out var money))
+            {
+                _audio.Play(Protos.Sound.Paygold1, args.InnerTarget.Value);
+                money.Gold = int.Max(money.Gold - goldStolen, 0);
+                _mes.Display(Loc.GetString("Elona.Effect.SuspiciousHand.Steals", ("source", args.Source), ("target", args.InnerTarget.Value)));
+                if (TryComp<MoneyComponent>(args.Source, out var thiefMoney))
+                    thiefMoney.Gold += goldStolen;
+            }
+
+            // TODO Don't handle yet (fix later), EffectDamageTeleport will be handled
+
+            // <<<<<<<< elona122/shade2/proc.hsp:1945 		} ...
+        }
+
+        private void Apply_DamageSanity(EntityUid uid, EffectDamageSanityComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2027 	case actGazeInsane ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            _sanities.DamageSanity(args.InnerTarget.Value, args.OutDamage);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2032 	swbreak ...
+        }
+
+        private void Apply_SuicideAttack(EntityUid uid, EffectSuicideAttackComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (TryComp<ExplosiveComponent>(args.InnerTarget.Value, out var explosive)
+                && explosive.IsExplosive.Buffed)
+                component.ChainBombTargets.Add(args.InnerTarget.Value);
+
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void ApplyArea_SuicideAttack(EntityUid effect, EffectSuicideAttackComponent component, ApplyEffectAreaEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1796 	if efId=actSuicide{ ...
+            // XXX: no Handled checking here
+            // maybe "has turn result set" should not be overloaded to also mean "skip remaining handlers"
+
+            var targets = component.ChainBombTargets.ToList();
+            component.ChainBombTargets.Clear();
+
+            if (IsAlive(args.Source))
+            {
+                if (TryComp<SkillsComponent>(args.Source, out var skills))
+                    _damages.DamageHP(args.Source, int.Max(99999, skills.MaxHP));
+                else
+                    EntityManager.DeleteEntity(args.Source);
+            }
+
+            foreach (var target in targets)
+            {
+                if (!IsAlive(target))
+                    continue;
+
+                // Explode again.
+                _newEffects.Apply(target, target, null, effect, args: args.Args);
+            }
+            
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:1806 		} ...
+        }
+
+        private void Apply_Insult(EntityUid uid, EffectInsultComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3383 	if efId=actInsult{ ...
+            if (args.Handled || !IsAlive(args.InnerTarget) || _visibilities.IsInWindowFov(args.InnerTarget.Value))
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Insult.Apply", ("source", args.Source), ("target", args.InnerTarget.Value)));
+
+            var localeArgs = new LocaleArg[]
+            {
+                ("source", args.Source),
+                ("target", args.InnerTarget.Value)
+            };
+
+            var gender = CompOrNull<CharaComponent>(args.Source)?.Gender ?? Gender.Male;
+            if (!Loc.TryGetString($"Elona.Effect.Insult.Insults.{gender}", out var insult, localeArgs))
+                insult = Loc.GetString("Elona.Effect.Insult.Insults.Male", localeArgs);
+
+            _mes.Display(insult, color: UiColors.MesSkyBlue, entity: args.Source);
+
+            // TODO fallthrough
+            // <<<<<<<< elona122/shade2/proc.hsp:3397 		} ...
+        }
+
+        private void Apply_DistantAttack(EntityUid uid, EffectDistantAttackComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:1693 	case skAttack ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            var anim = new RangedAttackMapDrawable(args.SourceCoordsMap,
+                Spatial(args.InnerTarget.Value).MapPosition, 
+                Protos.Chip.ItemProjectileSpore,
+                sound: Protos.Sound.Bow1);
+            _mapDrawables.Enqueue(anim, args.SourceCoordsMap);
+
+            _combat.MeleeAttack(args.Source, args.InnerTarget.Value);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:1696 	swbreak ...
+        }
+
+        private void Apply_Scavenge(EntityUid uid, EffectScavengeComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Scavenge.Apply", ("source", args.Source), ("target", args.InnerTarget.Value)));
+
+            bool CanScavenge(EntityUid item)
+            {
+                if (!IsAlive(item))
+                    return false;
+
+                if (TryComp<ItemComponent>(item, out var itemComp) && itemComp.IsPrecious)
+                    return false;
+
+                return HasComp<FoodComponent>(item);
+            }
+
+            var candidates = _inv.EnumerateInventory(args.InnerTarget.Value).Where(CanScavenge).ToList();
+            _rand.Shuffle(candidates);
+
+            candidates.Sort((a, b) =>
+            {
+                var isFishA = Comp<FoodComponent>(a).FoodType == Protos.FoodType.Fish ? 1 : 0;
+                var isFishB = Comp<FoodComponent>(b).FoodType == Protos.FoodType.Fish ? 1 : 0;
+
+                return isFishB - isFishA;
+            });
+
+            if (!candidates.TryFirstOrNull(out var item))
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            if (HasComp<LovePotionSpikedComponent>(item.Value))
+            {
+                _mes.Display(Loc.GetString("Elona.Effect.Scavenge.Spiked", ("source", args.Source), ("target", args.InnerTarget.Value), ("item", item.Value)));
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            _inUses.RemoveUserOfItem
         }
     }
 }

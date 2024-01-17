@@ -28,6 +28,7 @@
   + [ ] magic items
   + [ ] effect AI targeting
   + [ ] BeforeEffectApplyDamage : CancellableEntityEventArgs
+    - [ ] suspicious hand cancellation
 - [ ] inventory/spell/skill shortcuts
 - [ ] AI/calm actions
 - [ ] main quest/sidequests/dialogs
