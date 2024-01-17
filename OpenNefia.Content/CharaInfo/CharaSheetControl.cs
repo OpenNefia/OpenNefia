@@ -440,26 +440,26 @@ namespace OpenNefia.Content.CharaInfo
 
             NameContainer.SetPosition(x + 30, y + 42);
             NameContainer.Relayout();
-            ClassContainer.SetPosition(x + 230, NameContainer.Y);
+            ClassContainer.SetPosition(x + 225, NameContainer.Y);
             ClassContainer.Relayout();
             ExpContainer.SetPosition(x + 360, NameContainer.Y);
             ExpContainer.Relayout();
-            AttributeContainer.SetPosition(NameContainer.X - TopicToEntryXOffset, y + 125);
+            AttributeContainer.SetPosition(NameContainer.X - TopicToEntryXOffset, y + 122);
             AttributeContainer.Relayout();
-            AttributeIconContainer.SetPosition(X + 20, Y + 160);
+            AttributeIconContainer.SetPosition(X + 20, Y + 157);
             AttributeIconContainer.Relayout();
-            SpecialStatContainer.SetPosition(ClassContainer.X, y + 151);
+            SpecialStatContainer.SetPosition(ClassContainer.X, y + 148);
             SpecialStatContainer.Relayout();
             BlessingContainer.SetPosition(X + 400, AttributeContainer.Y);
             BlessingContainer.Relayout();
-            TraceContainer.SetPosition(AttributeContainer.X, y + 285);
+            TraceContainer.SetPosition(AttributeContainer.X, y + 279);
             TraceContainer.Relayout();
             ExtraContainer.SetPosition(ClassContainer.X - TopicToEntryXOffset, TraceContainer.Y);
             ExtraContainer.Relayout();
             RollsContainer.SetPosition(BlessingContainer.X, y + 260);
             RollsContainer.Relayout();
-            TextBuffHintTopic.SetPosition(x + 30, y + 379);
-            TextBuffHintBody.SetPosition(x + 65, y + 379);
+            TextBuffHintTopic.SetPosition(NameContainer.X, y + 375);
+            TextBuffHintBody.SetPosition(TextBuffHintTopic.X + 35, TextBuffHintTopic.Y);
         }
 
         public override void Update(float dt)
