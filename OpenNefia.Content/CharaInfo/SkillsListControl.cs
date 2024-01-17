@@ -362,7 +362,7 @@ namespace OpenNefia.Content.CharaInfo
                 return new SkillsListEntry.Resist(name, desc, power, detail, elementProto);
             }
 
-            foreach (var skillProto in _protos.EnumeratePrototypes<SkillPrototype>().Where(p => ShouldDisplaySkill(p, _charaEntity)))
+            foreach (var skillProto in _skills.EnumerateRegularSkills().Where(p => ShouldDisplaySkill(p, _charaEntity)))
             {
                 var entry = MakeSkillEntry(skillProto);
                 skillEntries.Add(entry);
