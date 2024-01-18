@@ -26,10 +26,10 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec CharaMakeRerollAttrAmount = new(14, 12, style: FontStyle.Bold);
         public static readonly FontSpec CharaMakeRerollLocked = new(11, 9, color: UiColors.CharaMakeAttrLevelGreat, style: FontStyle.Bold);
 
-        public static readonly FontSpec CharaSheetInfo = new(13, 11, style: FontStyle.Bold);
-        public static readonly FontSpec CharaSheetInfoContent = new(14, 12);
-        public static readonly FontSpec CharaSheetBuffHintBody = new(13, 12);
-        public static readonly FontSpec CharaSheetBuffHintTopic = new(11, 11, style: FontStyle.Bold); // 11 + sizefix * 2
+        public static readonly FontSpec CharaSheetInfo = new(13, 13, style: FontStyle.Bold);
+        public static readonly FontSpec CharaSheetInfoContent = new(14, 14);
+        public static readonly FontSpec CharaSheetBuffHintTopic = new(12, 12, style: FontStyle.Bold); // 11 + sizefix * 2
+        public static readonly FontSpec CharaSheetBuffHintBody = new(12, 12);
 
         public static readonly FontSpec KeyHintBar = new(12, 12, color: UiColors.TextKeyHintBar, bgColor: UiColors.TextBlack);
 

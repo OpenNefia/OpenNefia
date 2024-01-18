@@ -266,7 +266,7 @@ namespace OpenNefia.Content.CharaAppearance
             TextTopicCategory.SetPosition(Window.X + 34, Window.Y + 36);
             AppearanceList.SetPosition(Window.X + 30, Window.Y + 65);
             AssetAppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
-            PreviewPanel.SetPosition(Window.X + 230, Window.Y + 70);
+            PreviewPanel.SetPosition(Window.X + 240, Window.Y + 65);
         }
 
         public override void Draw()
