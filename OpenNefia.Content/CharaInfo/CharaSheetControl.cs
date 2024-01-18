@@ -294,7 +294,7 @@ namespace OpenNefia.Content.CharaInfo
             if (skills != null)
             {
                 AttributeContainer.AddLayout(LayoutType.Spacer, 2);
-                AttributeContainer.AddLayout(LayoutType.XOffset, TopicToEntryXOffset);
+                AttributeContainer.AddLayout(LayoutType.XOffset, TopicToEntryXOffset + 18);
                 foreach (var attrProto in _skillsSys.EnumerateBaseAttributes())
                 {
                     var attrId = attrProto.GetStrongID();
@@ -308,9 +308,9 @@ namespace OpenNefia.Content.CharaInfo
 
                     var content = MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 35, currentAmt);
                     content.AddLayout(LayoutType.YOffset, -1);
-                    content.AddLayout(LayoutType.XMin, 70);
+                    content.AddLayout(LayoutType.XMin, 67);
                     content.AddElement(new UiText(UiFonts.CharaSheetInfoContent, orgAmt));
-                    content.AddLayout(LayoutType.XMin, 115);
+                    content.AddLayout(LayoutType.XMin, 110);
                     content.AddElement(new UiText(UiFonts.CharaSheetInfoContent, potential));
 
                     AttributeContainer.AddElement(content);
@@ -440,13 +440,13 @@ namespace OpenNefia.Content.CharaInfo
 
             NameContainer.SetPosition(x + 30, y + 42);
             NameContainer.Relayout();
-            ClassContainer.SetPosition(x + 225, NameContainer.Y);
+            ClassContainer.SetPosition(x + 230, NameContainer.Y);
             ClassContainer.Relayout();
             ExpContainer.SetPosition(x + 360, NameContainer.Y);
             ExpContainer.Relayout();
             AttributeContainer.SetPosition(NameContainer.X - TopicToEntryXOffset, y + 122);
             AttributeContainer.Relayout();
-            AttributeIconContainer.SetPosition(X + 20, Y + 157);
+            AttributeIconContainer.SetPosition(X + 38, Y + 157);
             AttributeIconContainer.Relayout();
             SpecialStatContainer.SetPosition(ClassContainer.X, y + 148);
             SpecialStatContainer.Relayout();
