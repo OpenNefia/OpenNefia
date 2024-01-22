@@ -77,6 +77,7 @@ namespace OpenNefia.Content.Effects.New
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
 
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, int maxRange, IDictionary<string, IFormulaVariable>? extraVariables = null);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, BeforeApplyEffectDamageEvent args);
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args);
         IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args);
 
@@ -144,6 +145,14 @@ namespace OpenNefia.Content.Effects.New
             }
 
             return result;
+        }
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, BeforeApplyEffectDamageEvent args)
+        {
+            IDictionary<string, IFormulaVariable>? extraVariables = null;
+            if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
+                extraVariables = effectDice.ExtraVariables;
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
         }
 
         public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args)

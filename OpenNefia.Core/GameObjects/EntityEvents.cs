@@ -26,7 +26,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Turn result of this event.
         /// </summary>
-        public TurnResult TurnResult { get; protected set; }
+        public TurnResult TurnResult { get; set; }
 
         public virtual void Handle(TurnResult turnResult)
         {

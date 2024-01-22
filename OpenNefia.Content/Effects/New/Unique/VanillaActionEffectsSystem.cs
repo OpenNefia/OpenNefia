@@ -518,7 +518,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void Apply_Insult(EntityUid uid, EffectInsultComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:3383 	if efId=actInsult{ ...
-            if (!IsAlive(args.InnerTarget) || _visibilities.IsInWindowFov(args.InnerTarget.Value))
+            if (!IsAlive(args.InnerTarget) || !_visibilities.IsInWindowFov(args.InnerTarget.Value))
                 return;
 
             _mes.Display(Loc.GetString("Elona.Effect.Insult.Apply", ("source", args.Source), ("target", args.InnerTarget.Value)));

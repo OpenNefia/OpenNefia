@@ -123,13 +123,13 @@ namespace OpenNefia.Content.Tests.Effects
 
             private void ApplyTestEffect(EntityUid uid, EffectTestComponent component, ApplyEffectDamageEvent args)
             {
-                if (args.Handled || !IsAlive(args.InnerTarget))
+                if (!IsAlive(args.InnerTarget))
                     return;
 
                 var comp = EnsureComp<TestEffectResultComponent>(args.InnerTarget.Value);
                 comp.HitCount++;
 
-                args.Handle(TurnResult.Succeeded);
+                args.Success();
             }
         }
     }
