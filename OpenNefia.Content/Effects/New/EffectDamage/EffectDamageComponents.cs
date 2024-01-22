@@ -267,13 +267,6 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public PrototypeId<ElementPrototype>? Element { get; set; } = null;
-
-        // TODO remove?
-        // may need to be replaced with a BeforeApplyEffectDamage event to potentially cancel
-        // effects. then all effect damage components can be combined easily.
-        // then ApplyEffectDamageEvent will be made non-cancellable.
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -288,10 +281,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     [RegisterComponent]
@@ -303,10 +292,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.DamageMP.Normal";
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     [RegisterComponent]
@@ -318,10 +303,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField("mObjID")]
         public PrototypeId<EntityPrototype> MObjID { get; set; }
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -336,10 +317,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealMP.Normal";
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -354,10 +331,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealSanity.RainOfSanity";
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -376,10 +349,6 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public Formula? Turns { get; set; }
-
-        // TODO remove?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -413,10 +382,6 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public List<EffectStatusEffect> StatusEffects { get; } = new();
-
-        // TODO remove? replace with event cancellation system?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
     }
 
     /// <summary>
@@ -431,10 +396,6 @@ namespace OpenNefia.Content.Effects.New
 
         [DataField]
         public bool ApplyDamage { get; set; } = true;
-
-        // TODO remove? replace with event cancellation system?
-        [DataField]
-        public bool HandleEvent { get; set; } = true;
 
         [DataField]
         public LocaleKey? MessageKey { get; set; } = new("Elona.Magic.Message.Touch");

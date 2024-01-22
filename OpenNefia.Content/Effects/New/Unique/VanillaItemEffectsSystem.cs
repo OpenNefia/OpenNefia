@@ -36,9 +36,6 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void ApplyDamage_GainAlly(EntityUid uid, EffectGainAllyComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:2892 	if (cc!pc)&(cc<maxFollower):txtNothingHappen:swbr ...
-            if (args.Handled)
-                return;
-
             var filter = component.CharaFilter;
 
             // TODO CharaFilter.Clone()
@@ -47,7 +44,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             else
                 filter.Tags = null;
 
-            filter.MinLevel = args.OutDamage;
+            filter.MinLevel = args.Damage;
             filter.Quality = Quality.Good;
             filter.CommonArgs.NoLevelScaling = true;
             filter.CommonArgs.NoRandomModify = true;
@@ -62,8 +59,8 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("ally", chara.Value)));
 
             _parties.TryRecruitAsAlly(args.Source, chara.Value);
-            
-            args.Handle(TurnResult.Succeeded);
+
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2910 	rc=nc:gosub *add_ally ...
         }
     }

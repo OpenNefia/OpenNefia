@@ -706,9 +706,14 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             }
             targetCoords ??= sourceCoords;
 
-            var ev = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex);
-            RaiseEvent(uid, ev);
-            return new(ev.TurnResult, ev.OutEffectWasObvious, ev.Handled);
+            var ev1 = new BeforeApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex);
+            RaiseEvent(uid, ev1);
+            if (ev1.Cancelled)
+                return new(TurnResult.Failed, false, ev1.OutDidSomething);
+
+            var ev2 = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex, ev1.OutDamage, ev1.OutElementalPower);
+            RaiseEvent(uid, ev2);
+            return new(ev2.TurnResult, ev2.OutEffectWasObvious, ev2.OutDidSomething);
         }
     }
 

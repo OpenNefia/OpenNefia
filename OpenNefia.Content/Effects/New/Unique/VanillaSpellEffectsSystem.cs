@@ -149,17 +149,17 @@ namespace OpenNefia.Content.Effects.New.Unique
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (!IsAlive(args.InnerTarget))
                 return;
 
-            var mutationTimes = args.OutDamage;
+            var mutationTimes = args.Damage;
             var target = args.InnerTarget.Value;
 
             // >>>>>>>> elona122/shade2/proc.hsp:2365 	if encFind(tc,encResMutation)!falseM :if rnd(5):  ...
             if (_encs.HasEnchantmentEquipped<EncResistMutationComponent>(target) && !_rand.OneIn(5))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Mutation.Resists", ("source", args.Source), ("target", target)), entity: target);
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
@@ -211,12 +211,10 @@ namespace OpenNefia.Content.Effects.New.Unique
 
 
             if (!didSomething)
-            {
                 return;
-            }
 
             _refreshes.Refresh(target);
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2395 	swbreak ...
         }
 
@@ -227,11 +225,11 @@ namespace OpenNefia.Content.Effects.New.Unique
 
         private void Apply_CureMutation(EntityUid uid, EffectCureMutationComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:2398 	if tc!pc:txtNothingHappen:swbreak ...
-            var times = args.OutDamage;
+            var times = args.Damage;
             if (args.CommonArgs.CurseState == CurseState.Normal)
                 times += 1;
             else if (args.CommonArgs.CurseState == CurseState.Blessed)
@@ -277,20 +275,18 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
 
                 if (!didSomething)
-                {
                     return;
-                }
-
-                _refreshes.Refresh(target);
-                args.Handle(TurnResult.Succeeded);
             }
+
+            _refreshes.Refresh(target);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2423  ...
         }
 
         private void Apply_Dominate(EntityUid uid, EffectDominateComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:2915 	case spCharm ...
-            if (args.Handled || args.InnerTarget is not EntityUid target)
+            if (args.InnerTarget is not EntityUid target || !IsAlive(target))
                 return;
 
             if (_parties.IsInSameParty(args.Source, target)
@@ -303,21 +299,21 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (!_commonEffects.CanCaptureMonstersIn(args.TargetMap))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Domination.DoesNotWorkHere", ("source", args.Source)), entity: args.Source);
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
             if (!_commonEffects.CanCaptureMonster(target))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Domination.CannotBeCharmed", ("source", args.Source), ("target", target)), entity: args.Source);
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
             // XXX: Can this be its own component?
             var hasMonsterHeart = _inv.EntityQueryInInventory<MonsterHeartComponent>(args.Source).Any();
 
-            var power = args.OutDamage;
+            var power = args.Damage;
             if (hasMonsterHeart)
                 power = (int)(power * 1.5);
 
@@ -332,15 +328,12 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _mes.Display(Loc.GetString("Elona.Effect.Common.Resists", ("source", args.Source), ("target", target)), entity: args.Source);
             }
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2931 	swbreak ...
         }
 
         private void Apply_Identify(EntityUid uid, EffectIdentifyComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             // >>>>>>>> elona122/shade2/proc.hsp:2427 	if cc!pc:txtNothingHappen:obvious=false:swbreak ...
             if (args.AffectedTileIndex > 0)
                 return;
@@ -357,7 +350,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     if (!invResult.HasValue || !IsAlive(invResult.Value.SelectedItem))
                     {
                         // XXX: Maybe the player can cancel here to not expend the item?
-                        args.Handle(TurnResult.Failed);
+                        args.Failure();
                         return;
                     }
                     targetItem = invResult.Value.SelectedItem.Value;
@@ -371,7 +364,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             // >>>>>>>> elona122/shade2/command.hsp:3845 			screenupdate=-1:gosub *screen_draw ...
             TurnResult turnResult;
-            var identifyResult = _identifies.TryToIdentify(targetItem.Value, args.OutDamage);
+            var identifyResult = _identifies.TryToIdentify(targetItem.Value, args.Damage);
             if (identifyResult.ChangedState)
             {
                 if (identifyResult.NewState == IdentifyState.Full)
@@ -391,13 +384,13 @@ namespace OpenNefia.Content.Effects.New.Unique
             }
 
             _stacks.TryStackAtSamePos(targetItem.Value);
-            args.Handle(turnResult);
+            args.Success();
             // <<<<<<<< elona122/shade2/command.hsp:3849 			invSubRoutine=false:return true ...
         }
 
         private void Apply_Uncurse(EntityUid uid, EffectUncurseComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:2459 	case spUncurse ...
@@ -413,7 +406,9 @@ namespace OpenNefia.Content.Effects.New.Unique
                 case CurseState.Doomed:
                     _mes.Display(Loc.GetString("Elona.Effect.Common.ItIsCursed"));
                     var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.Curse, args.Args);
-                    args.Handle(result);
+                    args.Failure();
+                    if (result == TurnResult.Succeeded)
+                        args.Success();
                     return;
             }
 
@@ -449,7 +444,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     minPowerNeeded = minPowerNeeded / 2 + 1;
                 }
 
-                if (minPowerNeeded > 0 && args.OutDamage >= minPowerNeeded)
+                if (minPowerNeeded > 0 && args.Damage >= minPowerNeeded)
                 {
                     totalUncursed++;
                     curseState.CurseState = CurseState.Normal;
@@ -486,23 +481,21 @@ namespace OpenNefia.Content.Effects.New.Unique
             var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
             _mapDrawables.Enqueue(anim, args.InnerTarget.Value);
             _refreshes.Refresh(args.InnerTarget.Value);
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2497 	call *charaRefresh,(r1=tc)  ...
         }
 
         private void Apply_Oracle(EntityUid uid, EffectOracleComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:2501 	if tc>=maxFollower:txtNothingHappen:swbreak ...
-            if (args.Handled)
-                return;
-
             if (!_parties.IsInPlayerParty(args.Source))
                 return;
 
             if (_curseStates.IsCursed(args.CommonArgs.CurseState))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Oracle.Cursed"));
-                args.Handle(TurnResult.Failed);
+                args.Failure();
+                return;
             }
 
             if (_oracle.ArtifactLocations.Count == 0)
@@ -517,15 +510,12 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
             }
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2516  ...
         }
 
         private void Apply_WallCreation(EntityUid uid, EffectWallCreationComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             var map = args.SourceMap;
 
             if (!_mapTilesets.TryGetTile(Protos.Tile.MapgenWall, map, out var tileID)
@@ -544,14 +534,11 @@ namespace OpenNefia.Content.Effects.New.Unique
             map.MemorizeTile(args.TargetCoordsMap);
             // <<<<<<<< elona122/shade2/proc.hsp:3265 			map(x,y,2)=p ...
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private void Apply_DoorCreation(EntityUid uid, EffectDoorCreationComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             var map = args.SourceMap;
 
             if (!map.IsInBounds(args.TargetCoordsMap))
@@ -578,7 +565,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (tile.Kind == TileKind.HardWall || tile.Kind2 == TileKind.HardWall)
             {
                 _mes.Display(Loc.GetString("Elona.Effect.DoorCreation.WallsResist"), combineDuplicates: true);
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
@@ -587,9 +574,9 @@ namespace OpenNefia.Content.Effects.New.Unique
             // TODO determine door theme.
             var door = _entityGen.SpawnEntity(Protos.MObj.DoorWooden, args.TargetCoordsMap);
             if (IsAlive(door))
-                EnsureComp<DoorComponent>(door.Value).UnlockDifficulty = int.Max(args.OutDamage, 0);
+                EnsureComp<DoorComponent>(door.Value).UnlockDifficulty = int.Max(args.Damage, 0);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:3273 			if tAttb(map(x,y,0))&cantPass:map(x,y,0)=tile_t ...
         }
 
@@ -613,7 +600,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
         private void Apply_Resurrection(EntityUid uid, EffectResurrectionComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.AffectedTileIndex > 0)
+            if (args.AffectedTileIndex > 0) // TODO AffectedEntityIndex
                 return;
 
             if (HasComp<MapTypeWorldMapComponent>(args.SourceMap.MapEntityUid))
@@ -635,7 +622,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     _charaGen.GenerateChara(args.Source, filter);
                 }
 
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 args.OutEffectWasObvious = false;
                 return;
             }
@@ -680,10 +667,11 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (target == null || !IsCharaDead(target.Value))
                 return;
 
-            if (args.OutDamage < _rand.Next(100))
+            if (args.Damage < _rand.Next(100))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Resurrection.Fail", ("source", args.Source), ("target", target.Value)));
-                args.Handle(TurnResult.Failed);
+                args.Failure();
+                return;
             }
 
             _charas.Revive(target.Value);
@@ -709,26 +697,23 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
             }
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private void Apply_WizardsHarvest(EntityUid uid, EffectWizardsHarvestComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             // >>>>>>>> elona122/shade2/proc.hsp:3445 	case spHarvest ...
             var anim = new BasicAnimMapDrawable(Protos.BasicAnim.AnimSparkle);
             _mapDrawables.Enqueue(anim, args.TargetCoordsMap);
 
-            var itemCount = int.Clamp(4 + _rand.Next(args.OutDamage / 50 + 1), 1, 15);
+            var itemCount = int.Clamp(4 + _rand.Next(args.Damage / 50 + 1), 1, 15);
 
             for (var i = 0; i < itemCount; i++)
             {
                 _audio.Play(Protos.Sound.Pray1, args.TargetCoordsMap);
 
                 var itemID = Protos.Item.GoldPiece;
-                var amount = 400 + _rand.Next(args.OutDamage);
+                var amount = 400 + _rand.Next(args.Damage);
 
                 if (_rand.OneIn(30))
                 {
@@ -750,7 +735,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 {
                     Amount = amount,
                     Quality = _randomGen.CalcObjectQuality(Qualities.Quality.Good),
-                    MinLevel = _randomGen.CalcObjectLevel(args.OutDamage / 10),
+                    MinLevel = _randomGen.CalcObjectLevel(args.Damage / 10),
                     Id = itemID,
                     Args = EntityGenArgSet.Make(new EntityGenCommonArgs()
                     {
@@ -767,13 +752,13 @@ namespace OpenNefia.Content.Effects.New.Unique
                 _field.RefreshScreen(); // TODO remove?
             }
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:3457 	loop ...
         }
 
         private void Apply_Restore(EntityUid uid, EffectRestoreComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (args.InnerTarget == null)
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:2728 	if efId=spRestoreBody{ ...
@@ -819,25 +804,18 @@ namespace OpenNefia.Content.Effects.New.Unique
             }
 
             _refreshes.Refresh(args.InnerTarget.Value);
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2741 	} ...
         }
 
         private void Apply_Wish(EntityUid uid, EffectWishComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             _wishes.PromptForWish(_gameSession.Player);
-
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private void Apply_Teleport(EntityUid uid, EffectDamageTeleportComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             var ent = component.Subject == TeleportSubject.Source ? args.Source : args.InnerTarget;
 
             EntityCoordinates coords;
@@ -867,22 +845,22 @@ namespace OpenNefia.Content.Effects.New.Unique
                 if (_encs.HasEnchantmentEquipped<EncPreventTeleportComponent>(subject))
                 {
                     _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented"));
-                    args.Handle(TurnResult.Failed);
+                    args.Failure();
                     return;
                 }
 
                 if (EntityManager.TryGetComponent<MapCommonComponent>(map.MapEntityUid, out var mapCommon)
                     && mapCommon.PreventsTeleport)
                 {
-                    _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented"));
-                    args.Handle(TurnResult.Failed);
+                    _mes.Display(Loc.GetString("Elona.Effect.Teleport.Prevented")); 
+                    args.Failure();
                     return;
                 }
             }
 
             if (_mounts.IsBeingMounted(subject))
             {
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
@@ -911,7 +889,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                         _mes.Display(Loc.GetString(component.MessageKey, ("chara", ent), ("source", args.Source), ("target", args.InnerTarget)));
                     }
 
-                    args.Handle(TurnResult.Succeeded);
+                    args.Success();
                     return;
                 }
             }
@@ -921,9 +899,6 @@ namespace OpenNefia.Content.Effects.New.Unique
 
         private void Apply_Gravity(EntityUid uid, EffectGravityComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled)
-                return;
-
             bool CanBeAffected(CharaComponent chara)
             {
                 var e = chara.Owner;
@@ -943,18 +918,18 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (!didSomething)
                 return;
 
-            args.Handle(TurnResult.Failed);
+            args.Success();
         }
 
         private void Apply_Curse(EntityUid uid, EffectCurseComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:2832 	case actCurse ...
-            if (args.Handled || !IsAlive(args.InnerTarget))
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             var target = args.InnerTarget.Value;
 
-            var chance = args.OutDamage;
+            var chance = args.Damage;
             if (_curseStates.IsCursed(args.CommonArgs.CurseState))
                 chance *= 100;
 
@@ -969,7 +944,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (_feats.HasFeat(target, Protos.Feat.ResCurse) && _rand.OneIn(3))
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Curse.NoEffect", ("source", args.Source), ("target", target)), entity: target);
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
@@ -1012,21 +987,21 @@ namespace OpenNefia.Content.Effects.New.Unique
             _mapDrawables.Enqueue(anim, target);
             _stacks.TryStackAtSamePos(item);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2888 	swbreak ...
         }
 
 
         private void Apply_Return(EntityUid uid, EffectReturnComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || !_gameSession.IsPlayer(args.Source))
+            if (!_gameSession.IsPlayer(args.Source))
                 return;
 
             if (_returning.ReturnState != null)
             {
                 _mes.Display(Loc.GetString("Elona.Return.Cancel", ("source", args.Source)));
                 _returning.CancelReturn();
-                args.Handle(TurnResult.Succeeded);
+                args.Success();
                 return;
             }
 
@@ -1035,18 +1010,18 @@ namespace OpenNefia.Content.Effects.New.Unique
                 if (message != null)
                     _mes.Display(message);
 
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
             if (!_returning.TryPromptReturnLocation(args.SourceMap, out var entrance))
             {
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
             // >>>>>>>> elona122/shade2/command.hsp:4416 		txt lang("周囲の大気がざわめきだした。","The air around you be ...
-            var turnsUntilCast = args.OutDamage;
+            var turnsUntilCast = args.Damage;
             _returning.StartReturn(entrance, turnsUntilCast);
             _mes.Display(Loc.GetString("Elona.Return.Begin", ("source", args.Source)));
             // <<<<<<<< elona122/shade2/command.hsp:4419 		gReturn=15+rnd(15) ...
@@ -1054,19 +1029,19 @@ namespace OpenNefia.Content.Effects.New.Unique
             var ev = new AfterPlayerCastsReturnMagicEvent(args.SourceMap, args.Args);
             RaiseEvent(args.Source, ev);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private void Apply_Escape(EntityUid uid, EffectEscapeComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || !_gameSession.IsPlayer(args.Source))
+            if (!_gameSession.IsPlayer(args.Source))
                 return;
 
             if (_returning.ReturnState != null)
             {
                 _mes.Display(Loc.GetString("Elona.Return.Cancel", ("source", args.Source)));
                 _returning.CancelReturn();
-                args.Handle(TurnResult.Succeeded);
+                args.Success();
                 return;
             }
 
@@ -1075,7 +1050,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 if (message != null)
                 {
                     _mes.Display(message);
-                    args.Handle(TurnResult.Failed);
+                    args.Failure();
                 }
                 return;
             }
@@ -1088,7 +1063,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             // >>>>>>>> elona122/shade2/proc.hsp:2771 		txt lang("周囲の大気がざわめきだした。","The air around you be ...
             var entrance = MapEntrance.FromMapCoordinates(coords.Value);
-            var turnsUntilCast = args.OutDamage;
+            var turnsUntilCast = args.Damage;
             _returning.StartReturn(entrance, turnsUntilCast);
             _mes.Display(Loc.GetString("Elona.Return.Begin", ("source", args.Source)));
             // <<<<<<<< elona122/shade2/proc.hsp:2775 		gReturn=5+rnd(10) ...
@@ -1096,7 +1071,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             var ev = new AfterPlayerCastsReturnMagicEvent(args.SourceMap, args.Args);
             RaiseEvent(args.Source, ev);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private void ReturnMagicCommon(EntityUid caster, AfterPlayerCastsReturnMagicEvent args)
@@ -1176,7 +1151,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void Apply_FourDimensionalPocket(EntityUid uid, EffectFourDimensionalPocketComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:3460 	case spPocket ...
-            if (args.Handled || args.AffectedTileIndex > 0)
+            if (args.AffectedTileIndex > 0)
                 return;
 
             var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
@@ -1212,22 +1187,22 @@ namespace OpenNefia.Content.Effects.New.Unique
             var context = new InventoryGroupArgs(args.Source, behaviors);
             _uiManager.Query<InventoryUiGroup, InventoryGroupArgs, InventoryLayer.Result>(context);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:3484 	swbreak ...
         }
 
         private void Apply_Meteor(EntityUid uid, EffectMeteorComponent component, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || !IsAlive(args.InnerTarget))
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             if (args.Source == args.InnerTarget.Value)
                 return;
 
-            var damageType = new ElementalDamageType(Protos.Element.Fire, args.OutElementalPower);
-            _damages.DamageHP(args.InnerTarget.Value, args.OutDamage, args.Source, damageType);
+            var damageType = new ElementalDamageType(Protos.Element.Fire, args.ElementalPower);
+            _damages.DamageHP(args.InnerTarget.Value, args.Damage, args.Source, damageType);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
         }
 
         private static readonly PrototypeId<TilePrototype>[] MeteorTiles = new PrototypeId<TilePrototype>[2]
@@ -1263,7 +1238,7 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void Apply_RemoveHex(EntityUid uid, EffectRemoveHexComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:2312 	case spRemoveHex ...
-            if (args.Handled || !IsAlive(args.InnerTarget))
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             // TODO make into its own component
@@ -1271,7 +1246,9 @@ namespace OpenNefia.Content.Effects.New.Unique
             {
                 _mes.Display(Loc.GetString("Elona.Effect.Common.ItIsCursed"));
                 var result = _newEffects.Apply(args.Source, args.InnerTarget, null, Protos.Effect.Curse, args.Args);
-                args.Handle(result);
+                args.Failure();
+                if (result == TurnResult.Succeeded)
+                    args.Success();
                 return;
             }
 
@@ -1288,7 +1265,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                     if (buff.Alignment != BuffAlignment.Negative)
                         continue;
 
-                    if (_rand.Next(args.OutDamage * 2 + 1) > _rand.Next(buff.Power + 1))
+                    if (_rand.Next(args.Damage * 2 + 1) > _rand.Next(buff.Power + 1))
                     {
                         _buffs.RemoveBuff(args.InnerTarget.Value, buff.Owner);
                         removed++;
@@ -1299,11 +1276,11 @@ namespace OpenNefia.Content.Effects.New.Unique
                 }
             }
 
-            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.OutDamage, 5 + args.OutDamage / 30);
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.HolyVeil, args.Damage, 5 + args.Damage / 30);
 
             _mapDrawables.Enqueue(new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff), args.InnerTarget.Value);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:2331 	swbreak ...
         }
 
@@ -1339,13 +1316,13 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void Apply_ApplyBuff(EntityUid uid, EffectApplyBuffComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1664 		if buffType(p)=buffBless:animeLoad 11,tc:else:if ...
-            if (args.Handled || !IsAlive(args.InnerTarget))
+            if (!IsAlive(args.InnerTarget))
                 return;
 
             if (!_protos.TryIndex(component.BuffID, out var buffProto) || !buffProto.Components.TryGetComponent<BuffComponent>(out var buffComp))
             {
                 Logger.ErrorS("effect.spells", $"Could not find buff ID '{component.BuffID}'!");
-                args.Handle(TurnResult.Failed);
+                args.Failure();
                 return;
             }
 
@@ -1357,9 +1334,9 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (drawable != null)
                 _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
 
-            _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.OutDamage);
+            _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.Damage);
 
-            args.Handle(TurnResult.Succeeded);
+            args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...
         }
     }

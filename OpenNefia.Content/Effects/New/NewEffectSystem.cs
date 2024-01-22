@@ -521,17 +521,8 @@ namespace OpenNefia.Content.Effects.New
         }
     }
 
-    /// <summary>
-    /// Applies the effect to a single target. 
-    /// Raised once for each entity affected by an AoE.
-    /// 
-    /// If this effect is not handled by any handler,
-    /// then a "Nothing happens..." message is printed,
-    /// and the effect result is marked as non-obvious (item will
-    /// not be identified automatically)
-    /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class ApplyEffectDamageEvent : TurnResultEntityEventArgs, IApplyEffectEvent
+    public sealed class BeforeApplyEffectDamageEvent : CancellableEntityEventArgs, IApplyEffectEvent
     {
         /// <summary>
         /// Person who casted the event.
@@ -581,12 +572,12 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         public int OutElementalPower { get; set; } = 0;
 
-        /// <summary>
-        /// Set to false if the effect failed so that the associated item is not identified.
-        /// </summary>
-        public bool OutEffectWasObvious { get; set; } = true;
+        private bool _didSomething = false;
+        public bool OutDidSomething { get => _didSomething || TurnResult == Core.GameObjects.TurnResult.Succeeded; set => _didSomething = value; }
 
-        public ApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
+        public TurnResult? TurnResult { get; set; }
+
+        public BeforeApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
             Source = source;
             InnerTarget = target;
@@ -595,6 +586,102 @@ namespace OpenNefia.Content.Effects.New
             Args = args;
             AffectedTileCount = affectedTiles;
             AffectedTileIndex = affectedTileIndex;
+        }
+    }
+
+    /// <summary>
+    /// Applies the effect to a single target. 
+    /// Raised once for each entity affected by an AoE.
+    /// 
+    /// If this effect is not handled by any handler,
+    /// then a "Nothing happens..." message is printed,
+    /// and the effect result is marked as non-obvious (item will
+    /// not be identified automatically)
+    /// </summary>
+    [EventUsage(EventTarget.Effect)]
+    public sealed class ApplyEffectDamageEvent : EntityEventArgs, IApplyEffectEvent
+    {
+        /// <summary>
+        /// Person who casted the event.
+        /// </summary>
+        public EntityUid Source { get; }
+
+        /// <summary>
+        /// Target of the effect. May be different from the original target
+        /// in the case of AoE. May be <c>null</c> if the effect targets the ground.
+        /// </summary>
+        public EntityUid? InnerTarget { get; set; }
+
+        public EntityCoordinates SourceCoords { get; }
+
+        /// <summary>
+        /// Coordinates of the target entity or targeted position, 
+        /// These are guaranteed to be available even if there is no <see cref="InnerTarget"/>.
+        /// </summary>
+        public EntityCoordinates TargetCoords { get; }
+
+        public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+        public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
+
+        public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
+
+        /// <summary>
+        /// Number of affected tiles if this event was invoked with an AoE.
+        /// </summary>
+        public int AffectedTileCount { get; }
+
+        /// <summary>
+        /// Index of the tile being affected, starting from 0.
+        /// </summary>
+        public int AffectedTileIndex { get; } = 0;
+
+        /// <summary>
+        /// A damage property for calculating damage somewhere in the effect chain.
+        /// </summary>
+        public int Damage { get; } = 0;
+
+        /// <summary>
+        /// A damage property for calculating elemental power somewhere in the effect chain.
+        /// </summary>
+        public int ElementalPower { get;} = 0;
+
+        /// <summary>
+        /// Set to false if the effect failed so that the associated item is not identified.
+        /// </summary>
+        public bool OutEffectWasObvious { get; set; } = true;
+
+        private bool _didSomething = false;
+        public bool OutDidSomething { get => _didSomething || TurnResult == TurnResult.Succeeded; private set => _didSomething = value; }
+
+        public TurnResult TurnResult { get; private set; } = TurnResult.Failed;
+
+        public ApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex, int damage, int elementalPower)
+        {
+            Source = source;
+            InnerTarget = target;
+            SourceCoords = sourceCoords;
+            TargetCoords = targetCoords;
+            Args = args;
+            AffectedTileCount = affectedTiles;
+            AffectedTileIndex = affectedTileIndex;
+            Damage = damage;
+            ElementalPower = elementalPower;
+        }
+
+        public void Failure()
+        {
+            OutDidSomething = true;
+            TurnResult = TurnResult.Combine(TurnResult.Failed);
+        }
+
+        public void Success()
+        {
+            OutDidSomething = true;
+            TurnResult = TurnResult.Succeeded;
         }
     }
 
