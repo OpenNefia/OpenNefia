@@ -267,7 +267,7 @@ Elona.Effect = {
     },
 
     Swarm = {
-        Apply = "Swarm",
+        Apply = "Swarm!",
     },
 
     SuspiciousHand = {

@@ -414,7 +414,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_Healing(EntityUid uid, EffectDamageHealingComponent healingComp, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (args.Handled || !IsAlive(args.InnerTarget) || !HasComp<SkillsComponent>(args.InnerTarget.Value))
                 return;
 
             // >>>>>>>> elona122/shade2/proc.hsp:1817 	if efId=spHealLight 	:if sync(tc):txt lang(name(t ...
@@ -460,7 +460,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_HealSanity(EntityUid uid, EffectDamageHealSanityComponent healComp, ApplyEffectDamageEvent args)
         {
-            if (args.Handled || args.InnerTarget == null)
+            if (args.Handled || !IsAlive(args.InnerTarget) || !HasComp<SanityComponent>(args.InnerTarget.Value))
                 return;
 
             // >>>>>>>> shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
