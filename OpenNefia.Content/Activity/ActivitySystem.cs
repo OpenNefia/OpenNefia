@@ -22,9 +22,8 @@ namespace OpenNefia.Content.Activity
 {
     public interface IActivitySystem : IEntitySystem
     {
-        void InterruptUsing(EntityUid itemBeingUsed);
         void RemoveActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
-        void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
+        void InterruptActivity(EntityUid actor, ActivityHolderComponent? activityHolder = null);
         bool TryGetActivity(EntityUid entity, [NotNullWhen(true)] out ActivityComponent? activityEnt, ActivityHolderComponent? activityHolder = null);
         bool HasAnyActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null);
         bool HasActivity(EntityUid entity, PrototypeId<EntityPrototype> id, ActivityHolderComponent? activityHolder = null);
@@ -164,11 +163,6 @@ namespace OpenNefia.Content.Activity
             }
         }
 
-        public void InterruptUsing(EntityUid item)
-        {
-            // TODO
-        }
-
         public void RemoveActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
         {
             if (!Resolve(entity, ref activityHolder))
@@ -208,9 +202,9 @@ namespace OpenNefia.Content.Activity
             return TryComp(activityEnt, out activityComp);
         }
 
-        public void InterruptActivity(EntityUid entity, ActivityHolderComponent? activityHolder = null)
+        public void InterruptActivity(EntityUid actor, ActivityHolderComponent? activityHolder = null)
         {
-            if (!TryGetActivity(entity, out var activity))
+            if (!TryGetActivity(actor, out var activity))
                 return;
 
             activity.WasInterrupted = true;

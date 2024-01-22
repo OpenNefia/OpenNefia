@@ -11364,7 +11364,7 @@
     class: Elona.Predator
   - type: Skills
     skills:
-      Elona.ActionPregnant: 1
+      Elona.ActionImpregnate: 1
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage

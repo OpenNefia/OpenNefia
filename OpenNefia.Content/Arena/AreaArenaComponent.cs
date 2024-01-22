@@ -19,4 +19,11 @@ namespace OpenNefia.Content.Arena
         [DataField]
         public int Seed { get; set; } = 0;
     }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Area)]
+    public sealed class AreaPetArenaComponent : Component
+    {
+        // TODO
+    }
 }

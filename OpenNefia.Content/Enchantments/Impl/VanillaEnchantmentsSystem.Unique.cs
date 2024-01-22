@@ -28,6 +28,7 @@ using OpenNefia.Content.Levels;
 using System.Runtime.InteropServices;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Effects.New;
+using OpenNefia.Content.Pregnancy;
 
 namespace OpenNefia.Content.Enchantments
 {
@@ -279,7 +280,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EncResistPregnancy_ApplyOnRefresh(EntityUid uid, EncResistPregnancyComponent component, ref ApplyEnchantmentOnRefreshEvent args)
         {
-            EnsureComp<CommonProtectionsComponent>(args.Equipper).IsProtectedFromPregnancy.Buffed = true;
+            EnsureComp<PregnancyComponent>(args.Equipper).IsProtectedFromPregnancy.Buffed = true;
         }
 
 

@@ -236,7 +236,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetDirection
-  - type: EffectAreaSuicideAttack
   - type: EffectAreaMessage
     messageKey: Elona.Effect.SuicideAttack.Explodes
   - type: EffectDamageMessage

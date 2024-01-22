@@ -456,7 +456,6 @@
       power: 100
   - type: Chargeable
     initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
-    maxCharges: 1
     canBeRecharged: false
 
 - type: Entity
@@ -593,7 +592,7 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.SpellHarvestMana
+      id: Elona.ActionHarvestMana
       power: 100
   - type: Chargeable
     initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
@@ -737,7 +736,7 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.SpellChange
+      id: Elona.ActionChange
       power: 100
   - type: Chargeable
     initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)
@@ -772,7 +771,7 @@
     weight: 800
   - type: Rod
     effects: !type:EffectSpec
-      id: Elona.SpellEffectAlchemy
+      id: Elona.EffectAlchemy
       power: 100
   - type: Chargeable
     initialCharges: maxCharges + randInt(maxCharges) - randInt(maxCharges)

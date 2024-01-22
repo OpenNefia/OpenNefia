@@ -93,7 +93,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EquipSlots_ProcEnchantmentPassTurns(EntityUid equipper, EquipSlotsComponent component, EntityPassTurnEventArgs args)
         {
-            if (args.Handled || !TryComp<TurnOrderComponent>(equipper, out var turnOrder))
+            if (args.Handled)
                 return;
 
             foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))

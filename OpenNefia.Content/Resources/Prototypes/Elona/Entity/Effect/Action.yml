@@ -183,7 +183,7 @@
     validRelations: Enemy~Neutral
   - type: EffectDamageMessage
     rootKey: Elona.Effect.Swarm.Apply
-    color: #afafff
+    color: '#afafff'
   - type: EffectMeleeAttack
 
 - type: Elona.Action
@@ -305,7 +305,7 @@
   - type: EffectTargetOther
   - type: EffectAreaMessage
     messageKey: Elona.Effect.EyeOfInsanity.Message
-    color: #b99bd7
+    color: '#b99bd7'
   - type: EffectDamageSanity
 
 - type: Elona.Action
@@ -334,7 +334,7 @@
   - type: EffectDamageStatusEffects
     # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
     statusEffects:
-    - id: Elona.Dim
+    - id: Elona.Dimming
       power: 200
     # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
@@ -396,7 +396,7 @@
   - type: EffectDamageStatusEffects
     statusEffects:
     # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
-    - id: Elona.Dim
+    - id: Elona.Dimming
       power: 200
     # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
@@ -514,21 +514,21 @@
   - type: EffectVanish
 
 - type: Elona.Action
-  id: Elona.Pregnant
+  id: Elona.Impregnate
   hspIds:
     elona122: 654
-  skillID: Elona.ActionPregnant
-  effectID: Elona.ActionPregnant
+  skillID: Elona.ActionImpregnate
+  effectID: Elona.ActionImpregnate
   staminaCost: 15
   maxRange: 1
 - type: Elona.Skill
-  id: Elona.ActionPregnant
+  id: Elona.ActionImpregnate
   hspIds:
     elona122: 654
   skillType: Action
   relatedSkill: Elona.AttrPerception
 - type: Entity
-  id: Elona.ActionPregnant
+  id: Elona.ActionImpregnate
   hspIds:
     elona122: 654
   parent: BaseEffect
@@ -536,7 +536,7 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-  - type: EffectPregnant
+  - type: EffectImpregnate
 
 - type: Elona.Action
   id: Elona.Cheer
@@ -562,7 +562,16 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetSelfOrNearby
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Cheer.Cheers
   - type: EffectAreaBall
+  # >>>>>>>> elona122/shade2/proc.hsp:3352 	if cc<maxFollower:if cnt>=maxFollower:continue:el ...
+  - type: EffectDamageRelations
+    validRelations: Ally~Ally
+  # <<<<<<<< elona122/shade2/proc.hsp:3352 	if cc<maxFollower:if cnt>=maxFollower:continue:el ..
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.Cheer.IsExcited
+    color: '#afafff'
   - type: EffectCheer
 
 - type: Elona.Action
@@ -588,7 +597,7 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetSelfOrNearby
-  - type: EffectAreaWholeMap
+  # - type: EffectAreaWholeMap
   - type: EffectMewMewMew
 
 - type: Elona.Action

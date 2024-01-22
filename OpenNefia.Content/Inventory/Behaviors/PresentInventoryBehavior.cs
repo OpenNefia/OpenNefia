@@ -126,8 +126,8 @@ namespace OpenNefia.Content.Inventory
                 return new InventoryResult.Continuing();
 
             _audio.Play(Protos.Sound.Equip1);
-            _inUses.RemoveUserOfItem(TradeItem);
-            _inUses.RemoveUserOfItem(offerItem);
+            _inUses.InterruptUserOfItem(TradeItem);
+            _inUses.InterruptUserOfItem(offerItem);
             if (EntityManager.HasComponent<AlwaysDropOnDeathComponent>(offerItem))
                 EntityManager.RemoveComponent<AlwaysDropOnDeathComponent>(offerItem);
 

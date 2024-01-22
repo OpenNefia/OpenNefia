@@ -32,6 +32,7 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Content.Items;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Effects.New;
+using OpenNefia.Content.InUse;
 
 namespace OpenNefia.Content.Religion
 {
@@ -89,6 +90,7 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly ISleepSystem _sleep = default!;
         [Dependency] private readonly IEffectSystem _effects = default!;
         [Dependency] private readonly INewEffectSystem _newEffects = default!;
+        [Dependency] private readonly IInUseSystem _inUses = default!;
         
         public override void Initialize()
         {
@@ -541,7 +543,7 @@ namespace OpenNefia.Content.Religion
             var godProto = _protos.Index(godId);
             var godName = Loc.GetPrototypeString(godId, "Name");
 
-            _activities.InterruptUsing(offeringItem);
+            _inUses.InterruptUserOfItem(offeringItem);
             if (!_stacks.TrySplit(offeringItem, 1, out var item))
                 return false;
 

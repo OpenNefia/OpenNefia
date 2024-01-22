@@ -44,6 +44,12 @@ Elona.Effect = {
         end,
     },
 
+    MObj = {
+        Drops = function(source, target, mobj)
+            return ("%sは%sを投下した。"):format(_.name(source), _.name(mobj))
+        end,
+    },
+
     Identify = {
         Fully = function(item)
             return ("それは%sだと完全に判明した。"):format(_.name(item))
@@ -342,5 +348,36 @@ Elona.Effect = {
         Eats = function(source, target, item)
             return ("%sは%sを食べた！"):format(_.name(target), _.name(item))
         end,
+    },
+
+    Vanish = {
+        Vanishes = function(source, target)
+            return ("%sは消え去った。"):format(_.name(target))
+        end,
+    },
+
+    Cheer = {
+        Cheers = function(source, target)
+            return ("%sは仲間を鼓舞した。"):format(_.name(source))
+        end,
+        IsExcited = function(source, target)
+            return ("%sは興奮した！"):format(_.name(source))
+        end,
+    },
+
+    MewMewMew = {
+        Message = "うみみゃぁ！",
+    },
+
+    Decapitation = {
+        Sound = " *ブシュッ* ",
+        Apply = {
+            Ally = function(source, target)
+                return ("%sは%sの首をちょんぎった。"):format(_.name(source), _.name(target))
+            end,
+            Other = function(source, target)
+                return ("%sは%sの首をちょんぎり"):format(_.name(source), _.name(target))
+            end,
+        },
     },
 }

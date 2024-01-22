@@ -41,6 +41,11 @@ using OpenNefia.Content.Food;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.InUse;
+using OpenNefia.Content.Nefia;
+using OpenNefia.Content.Arena;
+using OpenNefia.Content.Pregnancy;
+using OpenNefia.Content.Buffs;
+using SixLabors.ImageSharp.Drawing.Processing;
 
 namespace OpenNefia.Content.Effects.New.Unique
 {
@@ -77,6 +82,10 @@ namespace OpenNefia.Content.Effects.New.Unique
         [Dependency] private readonly IInventorySystem _inv = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IInUseSystem _inUses = default!;
+        [Dependency] private readonly IFoodSystem _foods = default!;
+        [Dependency] private readonly IPregnancySystem _pregnancy = default!;
+        [Dependency] private readonly IBuffSystem _buffs = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {
@@ -96,6 +105,11 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectInsultComponent, ApplyEffectDamageEvent>(Apply_Insult, priority: EventPriorities.High - 1000); // just applies EffectDamageStatusEffects afterwards
             SubscribeComponent<EffectDistantAttackComponent, ApplyEffectDamageEvent>(Apply_DistantAttack);
             SubscribeComponent<EffectScavengeComponent, ApplyEffectDamageEvent>(Apply_Scavenge);
+            SubscribeComponent<EffectVanishComponent, ApplyEffectDamageEvent>(Apply_Vanish);
+            SubscribeComponent<EffectImpregnateComponent, ApplyEffectDamageEvent>(Apply_Impregnate);
+            SubscribeComponent<EffectCheerComponent, ApplyEffectDamageEvent>(Apply_Cheer);
+            SubscribeComponent<EffectMewMewMewComponent, ApplyEffectDamageEvent>(Apply_MewMewMew);
+            SubscribeComponent<EffectDecapitationComponent, ApplyEffectDamageEvent>(Apply_Decapitation);
         }
 
         private void Apply_TouchOfWeakness(EntityUid uid, EffectTouchOfWeaknessComponent component, ApplyEffectDamageEvent args)
@@ -497,7 +511,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 // Explode again.
                 _newEffects.Apply(target, target, null, effect, args: args.Args);
             }
-            
+
             args.Handle(TurnResult.Succeeded);
             // <<<<<<<< elona122/shade2/proc.hsp:1806 		} ...
         }
@@ -533,7 +547,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
 
             var anim = new RangedAttackMapDrawable(args.SourceCoordsMap,
-                Spatial(args.InnerTarget.Value).MapPosition, 
+                Spatial(args.InnerTarget.Value).MapPosition,
                 Protos.Chip.ItemProjectileSpore,
                 sound: Protos.Sound.Bow1);
             _mapDrawables.Enqueue(anim, args.SourceCoordsMap);
@@ -586,7 +600,156 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
             }
 
-            _inUses.RemoveUserOfItem
+            _inUses.InterruptUserOfItem(item.Value);
+
+            _mes.Display(Loc.GetString("Elona.Effect.Scavenge.Eats", ("source", args.Source), ("target", args.InnerTarget.Value), ("item", item.Value)), entity: args.InnerTarget.Value);
+
+            if (TryComp<SkillsComponent>(args.Source, out var skills))
+            {
+                _damages.HealHP(args.Source, skills.MaxHP / 3);
+            }
+
+            _foods.EatFood(args.Source, item.Value);
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private bool CanVanish(EntityUid value)
+        {
+            if (TryArea(value, out var area))
+            {
+                // Elona+ added conditions
+                if (HasComp<AreaArenaComponent>(area.AreaEntityUid)
+                    || HasComp<AreaPetArenaComponent>(area.AreaEntityUid))
+                    // TODO show house
+                    return false;
+            }
+
+            if (!IsAlive(value)
+                || _parties.IsInPlayerParty(value)
+                || _qualities.GetQuality(value) >= Quality.Great
+                // Elona+ added conditions
+                || HasComp<NefiaBossComponent>(value)
+                || HasComp<LivestockComponent>(value))
+                return false;
+
+            return true;
+        }
+
+        private void Apply_Vanish(EntityUid uid, EffectVanishComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2681 	case actVanish ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            if (!CanVanish(args.InnerTarget.Value))
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Vanish.Vanishes", ("source", args.Source), ("target", args.InnerTarget.Value)), entity: args.InnerTarget.Value);
+
+            EntityManager.DeleteEntity(args.InnerTarget.Value);
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2686 	swbreak ...
+        }
+
+        private void Apply_Impregnate(EntityUid uid, EffectImpregnateComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/item.hsp:449 *pregnant ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.Impregnate.Apply", ("source", args.Source), ("target", args.InnerTarget.Value)), entity: args.InnerTarget.Value);
+
+            // Elona+ sets the birthed character prototype to that of the parent.
+            var protoID = ProtoIDOrNull(args.Source) ?? Protos.Chara.Alien;
+
+            _pregnancy.Impregnate(args.InnerTarget.Value, protoID);
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/item.hsp:463 	return ...
+        }
+
+        private void Apply_Cheer(EntityUid uid, EffectCheerComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3347 	case actLeaderShip ...
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Speed, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 15, 15, args.Source);
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Hero, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 100, 60, args.Source);
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Speed, 1500, 30, args.Source);
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3361 	swbreak ...
+        }
+
+        private void Apply_MewMewMew(EntityUid uid, EffectMewMewMewComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3317 	case actEhekatl ...
+            if (args.Handled)
+                return;
+
+            _mes.Display(Loc.GetString("Elona.Effect.MewMewMew.Message", ("source", args.Source)), color: UiColors.MesBlue);
+
+            var charas = _lookup.EntityQueryInMap<SkillsComponent>(args.SourceMap)
+                .Where(s => s.Owner != args.Source)
+                .ToList();
+
+            var positions = charas.Select(s => Spatial(s.Owner).MapPosition);
+
+            // TODO move animation to ApplyEffectPositionsEvent
+            var anim = new MiracleMapDrawable(positions);
+            _mapDrawables.Enqueue(anim, args.Source);
+
+            foreach (var chara in charas)
+            {
+                _damages.DamageHP(chara.Owner, 9999999, args.Source);
+            }
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:3326 	swbreak ...
+        }
+
+        private void Apply_Decapitation(EntityUid uid, EffectDecapitationComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:2720 	case actFinish ...
+            if (args.Handled || !IsAlive(args.InnerTarget) 
+                || !TryComp<SkillsComponent>(args.InnerTarget.Value, out var targetSkills))
+                return;
+
+            if (targetSkills.HP > targetSkills.MaxHP / 8)
+            {
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+
+            var tense = _damages.GetDamageMessageTense(args.InnerTarget.Value);
+            if (_visibilities.IsInWindowFov(args.InnerTarget.Value))
+            {
+                _audio.Play(Protos.Sound.Atksword, args.InnerTarget.Value);
+                _mes.Display(Loc.GetString("Elona.Decapitation.Sound"), color: UiColors.MesRed);
+                if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, "Elona.Effect.Decapitation.Apply", out var mes, tense))
+                {
+                    _mes.Display(mes);
+                }
+            }
+
+            var extraArgs = new DamageHPExtraArgs()
+            {
+                MessageTense = tense,
+                NoAttackText = tense == DamageHPMessageTense.Active,
+                AttackerIsMessageSubject = tense == DamageHPMessageTense.Active
+            };
+            var damageType = new ElementalDamageType(Protos.Element.Vorpal, args.OutElementalPower);
+            _damages.DamageHP(args.InnerTarget.Value, targetSkills.MaxHP, args.Source, damageType, extraArgs, targetSkills);
+
+            args.Handle(TurnResult.Succeeded);
+            // <<<<<<<< elona122/shade2/proc.hsp:2724 	swbreak ...
+        }
+
+        private void Apply_MObj(EntityUid uid, EffectDamageMObjComponent component, ApplyEffectDamageEvent args)
+        {
+            if (args.Handled || !IsAlive(args.InnerTarget))
+                return;
+
+
         }
     }
 }

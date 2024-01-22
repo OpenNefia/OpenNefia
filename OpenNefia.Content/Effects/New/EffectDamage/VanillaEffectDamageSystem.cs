@@ -29,6 +29,8 @@ using OpenNefia.Content.Feats;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.Combat;
 using System.ComponentModel;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.Effects.New.EffectDamage
 {
@@ -54,6 +56,8 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
         [Dependency] private readonly IMefSystem _mefs = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
 
         public override void Initialize()
         {
@@ -80,6 +84,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             SubscribeComponent<EffectSummonCharaComponent, EffectSummonEvent>(Summon_Chara);
 
             SubscribeComponent<EffectDamageMefComponent, ApplyEffectDamageEvent>(ApplyDamage_Mef);
+            SubscribeComponent<EffectDamageMObjComponent, ApplyEffectDamageEvent>(ApplyDamage_MObj);
 
             SubscribeComponent<EffectTileDamageElementalComponent, ApplyEffectTileDamageEvent>(ApplyTileDamage_Elemental, priority: EventPriorities.High);
         }
@@ -89,7 +94,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Handled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, TODO, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
+            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, args.CommonArgs.MaxRange, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
             {
                 // Should never happen.
                 Logger.ErrorS("effect.damage", $"No dice found for effect {effectEnt}");
@@ -570,6 +575,33 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 args.Handle(TurnResult.Succeeded);
             }
             // <<<<<<<< elona122/shade2/proc.hsp:2977 	if efId=spMist		:addMef x,y,mefMist,30,8+rnd(15+e ...
+        }
+
+        private void ApplyDamage_MObj(EntityUid uid, EffectDamageMObjComponent component, ApplyEffectDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/proc.hsp:3298 	case actDropMine ...
+            if (args.Handled)
+                return;
+
+            if (HasComp<MapTypeWorldMapComponent>(args.SourceMap.MapEntityUid)
+                || _lookup.EntityQueryLiveEntitiesAtCoords<MObjComponent>(args.SourceCoordsMap).Any())
+                return;
+
+            var mobj = _entityGen.SpawnEntity(component.MObjID, args.SourceCoordsMap);
+            if (!IsAlive(mobj))
+                return;
+
+            // TODO IMObjSystem
+            if (TryComp<MObjComponent>(mobj.Value, out var mobjComp))
+                mobjComp.Source = args.Source;
+
+            _mes.Display(Loc.GetString("Elona.Effect.MObj.Drops", ("source", args.Source), ("target", args.InnerTarget), ("mobj", mobj.Value)));
+            // <<<<<<<< elona122/shade2/proc.hsp:3303 	swbreak ...
+
+            if (component.HandleEvent)
+            {
+                args.Handle(TurnResult.Succeeded);
+            }
         }
 
         private void ApplyTileDamage_Elemental(EntityUid uid, EffectTileDamageElementalComponent component, ApplyEffectTileDamageEvent args)

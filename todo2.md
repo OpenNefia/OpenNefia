@@ -20,8 +20,9 @@
   + [ ] rods
   + [ ] add all effect alignments
   + [ ] add all effect max ranges
-  + [ ] remove/refactor old effect system
-  + [ ] move spell/action skills into effect prototype files
+  + [x] remove/refactor old effect system
+  + [x] move spell/action skills into effect prototype files
+  + [ ] "it invokes" enchantments
   + [ ] bomb ammo enchantment
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
@@ -126,6 +127,13 @@
   + it allows for picking and choosing how you want the game to act, hence "building your own Elona".
   + sets of feature flags compatible with a set of mods can be saved into one file and loaded in a profile
 - [ ] "garbage collectable" components (all flags inside the component are false, etc.)
+  + examples: `CommonProtectionsComponent`, `PregancyComponent`
+  + the existence of these components do not indicate "capability" to do something, instead flags on the component indicate this
+    * example: existence of `TurnOrderComponent` means entity can take turns. usually it should not be added to entities as part of a buff, only on first creation
+    * on the contrary, `PregnancyComponent` does not indicate "this entity can be pregnant"; that is determined by the `IsProtectedFromPregnancy` flag, so it is safe to always `EnsureComp` it
+  + so if all the flags on the component are equal to their defaults after refreshing, the component is "garbage collectable" and can be removed, saving some memory
+  + therefore there could be a flag added to `IComponentRefreshable` that enables this behavior
+  + either that, or determine a better convention for "capability" components versus "flag-only/GCable" components
 - [ ] remaining TODOs
 
 ## debug

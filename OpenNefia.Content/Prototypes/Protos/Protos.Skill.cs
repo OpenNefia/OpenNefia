@@ -209,7 +209,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly SkillPrototypeId ActionScavenge             = new($"Elona.{nameof(ActionScavenge)}");
             public static readonly SkillPrototypeId ActionEyeOfMana            = new($"Elona.{nameof(ActionEyeOfMana)}");
             public static readonly SkillPrototypeId ActionVanish               = new($"Elona.{nameof(ActionVanish)}");
-            public static readonly SkillPrototypeId ActionPregnant             = new($"Elona.{nameof(ActionPregnant)}");
+            public static readonly SkillPrototypeId ActionImpregnate           = new($"Elona.{nameof(ActionImpregnate)}");
             public static readonly SkillPrototypeId ActionGrenade              = new($"Elona.{nameof(ActionGrenade)}");
             public static readonly SkillPrototypeId ActionCheer                = new($"Elona.{nameof(ActionCheer)}");
             public static readonly SkillPrototypeId ActionMewmewmew            = new($"Elona.{nameof(ActionMewmewmew)}");

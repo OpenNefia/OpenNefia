@@ -104,7 +104,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "ブレス",
         Name = "強力なブレス",
     },
-    ActionPregnant = {
+    ActionImpregnate = {
         Description = "対象妊娠",
         Name = "妊娠",
     },

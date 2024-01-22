@@ -7,7 +7,10 @@ Elona.Pregnancy = {
             return ("%s kid"):format(basename)
         end,
     },
-    ButPukesOut = function(entity)
+    Apply = function(source, target)
+        return ("%s put%s something into %s body!"):format(_.name(source), _.s(source), _.possessive(target))
+    end,
+    Protected = function(entity)
         return ("But %s puke%s it out quickly."):format(_.he(entity), _.s(entity))
     end,
     Impregnated = function(entity)

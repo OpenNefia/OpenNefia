@@ -5,11 +5,11 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Pregnant
+namespace OpenNefia.Content.Pregnancy
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class BirthedAlienComponent : Component
+    public sealed class BirthedFromPregnancyComponent : Component
     {
         /// <summary>
         /// Entity that gave birth to this alien.

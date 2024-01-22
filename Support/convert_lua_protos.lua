@@ -245,10 +245,10 @@ local function newEffect(effect_id, power)
     else
         d = data["elona_sys.magic"]:ensure(effect_id)
         entPrefix = ""
-        if d.type == "skill" or d.type == "action" then
+        if d.type == "skill" or d.type == "action" or d.type == "spell" then
             local mod_id, data_id = d._id:match "([^.]+)%.([^.]+)"
-            print(mod_id .. ".spell_" .. data_id)
             d = data["base.skill"][mod_id .. ".spell_" .. data_id]
+                or data["base.skill"][mod_id .. ".action_" .. data_id]
             if d then
                 entPrefix = capitalize(d.type)
                 print("GET", effect_id, entPrefix)
@@ -1323,10 +1323,7 @@ handlers["base.item"] = function(from, to)
     if rod then
         c = comp(to, "Rod")
 
-        c.effects = typedYamlNode("EffectSpec", {
-            id = dotted(rod.effect_id):gsub("Elona.", "Elona.Spell"),
-            power = rod.effect_power,
-        })
+        c.effects = newEffect(rod.effect_id, rod.effect_power)
 
         c = comp(to, "Chargeable")
         -- c.initialCharges = ("%s + randInt(%s) - randInt(%s)"):format(rod.max_charges, rod.max_charges, rod.max_charges)

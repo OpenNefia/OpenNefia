@@ -133,7 +133,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly EffectPrototypeId ActionScavenge             = new($"Elona.{nameof(ActionScavenge)}");
             public static readonly EffectPrototypeId ActionEyeOfMana            = new($"Elona.{nameof(ActionEyeOfMana)}");
             public static readonly EffectPrototypeId ActionVanish               = new($"Elona.{nameof(ActionVanish)}");
-            public static readonly EffectPrototypeId ActionPregnant             = new($"Elona.{nameof(ActionPregnant)}");
+            public static readonly EffectPrototypeId ActionImpregnate           = new($"Elona.{nameof(ActionImpregnate)}");
             public static readonly EffectPrototypeId ActionGrenade              = new($"Elona.{nameof(ActionGrenade)}");
             public static readonly EffectPrototypeId ActionCheer                = new($"Elona.{nameof(ActionCheer)}");
             public static readonly EffectPrototypeId ActionMewmewmew            = new($"Elona.{nameof(ActionMewmewmew)}");

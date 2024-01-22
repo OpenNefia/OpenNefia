@@ -42,6 +42,12 @@ Elona.Effect = {
         end,
     },
 
+    MObj = {
+        Drops = function(source, target, mobj)
+            return ("%s drop%s %s on the ground."):format(_.name(source), _.name(mobj))
+        end,
+    },
+
     Identify = {
         Fully = function(item)
             return ("The item is fully identified as %s."):format(_.name(item))
@@ -358,5 +364,36 @@ Elona.Effect = {
         Eats = function(source, target, item)
             return ("%s eat%s %s!"):format(_.name(target), _.s(target), _.name(item))
         end,
+    },
+
+    Vanish = {
+        Vanishes = function(source, target)
+            return ("%s vanish%s"):format(_.name(target), _.s(target, true))
+        end,
+    },
+
+    Cheer = {
+        Cheers = function(source, target)
+            return ("%s cheer %s."):format(_.name(source), _.s(source))
+        end,
+        IsExcited = function(source, target)
+            return ("%s %s excited!"):format(_.name(source), _.is(source))
+        end,
+    },
+
+    MewMewMew = {
+        Message = "Mewmewmew!",
+    },
+
+    Decapitation = {
+        Sound = "*Gash*",
+        Apply = {
+            Ally = function(source, target)
+                return ("%s cut%s off %s head."):format(_.name(source), _.s(source), _.possessive(target))
+            end,
+            Other = function(source, target)
+                return ("%s cut%s off %s head and"):format(_.name(source), _.s(source), _.possessive(target))
+            end,
+        },
     },
 }

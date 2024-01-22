@@ -15,5 +15,7 @@ namespace OpenNefia.Content.GameObjects
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MObjComponent : Component
     {
+        [DataField]
+        public EntityUid? Source { get; set; }
     }
 }

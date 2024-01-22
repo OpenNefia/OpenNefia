@@ -144,7 +144,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectPregnantComponent : Component
+    public sealed class EffectImpregnateComponent : Component
     {
     }
 

@@ -266,14 +266,10 @@ namespace OpenNefia.Content.Effects.New
             tense ??= _damages.GetDamageMessageTense(innerTarget);
             var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
             if (Loc.TryGetString(rootKey.With(endKey), out message, ("source", source), ("entity", innerTarget)))
-            {
                 return true;
-            }
 
             if (Loc.TryGetString(rootKey, out message, ("source", source), ("entity", innerTarget)))
-            {
                 return true;
-            }
 
             message = null;
             return false;
@@ -330,7 +326,7 @@ namespace OpenNefia.Content.Effects.New
             sourceCoords ??= Spatial(source).Coordinates;
             targetCoords ??= IsAlive(target) ? Spatial(target.Value).Coordinates : sourceCoords.Value;
 
-            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel, TODO, maxRange, effectDice.ExtraVariables);
+            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel, maxRange, effectDice.ExtraVariables);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(effectDice.DiceX, formulaArgs, 0f), 0);
             var diceY = int.Max((int)_formulaEngine.Calculate(effectDice.DiceY, formulaArgs, 0f), 0);

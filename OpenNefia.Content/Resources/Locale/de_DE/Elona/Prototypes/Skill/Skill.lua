@@ -627,9 +627,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Heal HP self",
         Name = "Prayer of Jure",
     },
-    ActionPregnant = {
-        Description = "Pregnant target",
-        Name = "Pregnant",
+    ActionImpregnate = {
+        Description = "Impregnate target",
+        Name = "Impregnate",
     },
     SpellBuffPunishment = {
         Name = "Punishment",
