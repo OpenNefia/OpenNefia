@@ -1326,14 +1326,6 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
             }
 
-            IMapDrawable? drawable = null;
-            if (buffComp.Alignment == BuffAlignment.Positive)
-                drawable = new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff);
-            else if (buffComp.Alignment == BuffAlignment.Negative)
-                drawable = new ParticleMapDrawable(Protos.Asset.CurseEffect, Protos.Sound.Curse1);
-            if (drawable != null)
-                _mapDrawables.Enqueue(drawable, args.InnerTarget.Value);
-
             _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.Damage);
 
             args.Success();

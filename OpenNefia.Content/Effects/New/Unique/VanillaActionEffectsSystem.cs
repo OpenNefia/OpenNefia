@@ -98,7 +98,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectRechargeComponent, ApplyEffectDamageEvent>(Apply_Recharge);
             SubscribeComponent<EffectMeleeAttackComponent, ApplyEffectDamageEvent>(Apply_MeleeAttack);
             SubscribeComponent<EffectEyeOfEtherComponent, ApplyEffectDamageEvent>(Apply_EyeOfEther);
-            SubscribeComponent<EffectSuspiciousHandComponent, ApplyEffectDamageEvent>(Apply_SuspiciousHand, priority: EventPriorities.High - 1000); // placed before EffectDamageTeleport
+            SubscribeComponent<EffectSuspiciousHandComponent, ApplyEffectDamageEvent>(Apply_SuspiciousHand, priority: EventPriorities.High - 10000); // placed before EffectDamageTeleport
             SubscribeComponent<EffectDamageSanityComponent, ApplyEffectDamageEvent>(Apply_DamageSanity);
             SubscribeComponent<EffectSuicideAttackComponent, ApplyEffectDamageEvent>(Apply_SuicideAttack);
             SubscribeComponent<EffectSuicideAttackComponent, ApplyEffectAreaEvent>(ApplyArea_SuicideAttack, priority: EventPriorities.VeryLow + 10000);
@@ -450,9 +450,10 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             if (goldStolen > 0 && TryComp<MoneyComponent>(args.InnerTarget.Value, out var money))
             {
+                goldStolen = int.Min(money.Gold, goldStolen);
                 _audio.Play(Protos.Sound.Paygold1, args.InnerTarget.Value);
-                money.Gold = int.Max(money.Gold - goldStolen, 0);
-                _mes.Display(Loc.GetString("Elona.Effect.SuspiciousHand.Steals", ("source", args.Source), ("target", args.InnerTarget.Value)));
+                money.Gold = money.Gold - goldStolen;
+                _mes.Display(Loc.GetString("Elona.Effect.SuspiciousHand.Steals", ("source", args.Source), ("target", args.InnerTarget.Value), ("goldStolen", goldStolen)));
                 if (TryComp<MoneyComponent>(args.Source, out var thiefMoney))
                     thiefMoney.Gold += goldStolen;
             }
@@ -672,7 +673,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Speed, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 15, 15, args.Source);
             _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Hero, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 100, 60, args.Source);
-            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Speed, 1500, 30, args.Source);
+            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Contingency, 1500, 30, args.Source);
 
             args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:3361 	swbreak ...
@@ -690,7 +691,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             var positions = charas.Select(s => Spatial(s.Owner).MapPosition);
 
             // TODO move animation to ApplyEffectPositionsEvent
-            var anim = new MiracleMapDrawable(positions);
+            var anim = new MiracleMapDrawable(positions, Protos.Sound.Heal1);
             _mapDrawables.Enqueue(anim, args.Source);
 
             foreach (var chara in charas)

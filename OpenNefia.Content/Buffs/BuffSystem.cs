@@ -20,6 +20,9 @@ using OpenNefia.Core.Random;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.CurseStates;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Content.BaseAnim;
+using OpenNefia.Content.Rendering;
 
 namespace OpenNefia.Content.Buffs
 {
@@ -81,6 +84,7 @@ namespace OpenNefia.Content.Buffs
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IFormulaEngine _formulas = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
 
         public override void Initialize()
         {
@@ -357,6 +361,8 @@ namespace OpenNefia.Content.Buffs
             buffComp.TurnsRemaining = ev.OutTurns.Value;
             buffComp.Source = source;
 
+            EnqueueApplyBuffAnimation(target, buffComp);
+
             if (!TryAddBuffRaw(target, buff.Value, buffs))
             {
                 buffComp = null;
@@ -365,6 +371,19 @@ namespace OpenNefia.Content.Buffs
 
             return true;
             // <<<<<<<< elona122/shade2/chara_func.hsp:581 	return ...
+        }
+
+        private void EnqueueApplyBuffAnimation(EntityUid target, BuffComponent buff)
+        {
+            IMapDrawable? drawable = null;
+
+            if (buff.Alignment == BuffAlignment.Positive)
+                drawable = new BasicAnimMapDrawable(Protos.BasicAnim.AnimBuff);
+            else if (buff.Alignment == BuffAlignment.Negative)
+                drawable = new ParticleMapDrawable(Protos.Asset.CurseEffect, Protos.Sound.Curse1);
+
+            if (drawable != null)
+                _mapDrawables.Enqueue(drawable, target);
         }
 
         public bool TryAddBuff(EntityUid target, PrototypeId<EntityPrototype> id, int power, int? duration = null, EntityUid? source = null, CurseState curseState = CurseState.Normal, BuffsComponent? buffs = null)
