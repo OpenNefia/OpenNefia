@@ -31,26 +31,11 @@ namespace OpenNefia.LecchoTorte.DamagePopups
         {
             SubscribeBroadcast<ActiveMapChangedEvent>(DamagePopup_ActiveMapChanged);
             SubscribeEntity<AfterDamageHPEvent>(DamagePopup_AfterDamageHP);
+            SubscribeEntity<AfterDamageMPEvent>(DamagePopup_AfterDamageMP);
             SubscribeEntity<AfterHealEvent>(DamagePopup_AfterHeal);
             SubscribeEntity<AfterPhysicalAttackMissEventArgs>(DamagePopup_AfterPhysicalAttackMiss);
             SubscribeEntity<AfterEntityReceivedBuffEvent>(DamagePopup_AfterReceivedBuff);
             SubscribeEntity<BeforeEntityLosesBuffEvent>(DamagePopup_BeforeLoseBuff);
-        }
-
-        private void DamagePopup_AfterReceivedBuff(EntityUid uid, AfterEntityReceivedBuffEvent args)
-        {
-            Color color;
-            if (args.Buff.Alignment == BuffAlignment.Negative)
-                color = new Color(200, 0, 0);
-            else
-                color = new Color(0, 200, 200);
-
-            AddDamagePopup(new DamagePopup()
-            {
-                Text = _displayNames.GetDisplayName(args.Buff.Owner),
-                Color = color,
-                Icon = Assets.Get(args.Buff.Icon)
-            }, uid);
         }
 
         private void DamagePopup_BeforeLoseBuff(EntityUid uid, BeforeEntityLosesBuffEvent args)
@@ -89,6 +74,18 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             {
                 Text = args.FinalDamage.ToString(),
                 Color = color
+            }, uid);
+        }
+
+        private void DamagePopup_AfterDamageMP(EntityUid uid, ref AfterDamageMPEvent args)
+        {
+            if (!args.ShowMessage || !_vis.IsInWindowFov(uid))
+                return;
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = args.Amount.ToString(),
+                Color = Color.Purple
             }, uid);
         }
 
@@ -132,6 +129,22 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                     Text = "miss"
                 }, uid);
             }
+        }
+
+        private void DamagePopup_AfterReceivedBuff(EntityUid uid, AfterEntityReceivedBuffEvent args)
+        {
+            Color color;
+            if (args.Buff.Alignment == BuffAlignment.Negative)
+                color = new Color(200, 0, 0);
+            else
+                color = new Color(0, 200, 200);
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = _displayNames.GetDisplayName(args.Buff.Owner),
+                Color = color,
+                Icon = Assets.Get(args.Buff.Icon)
+            }, uid);
         }
 
         public void AddDamagePopup(DamagePopup popup, MapCoordinates coords)

@@ -720,7 +720,7 @@ namespace OpenNefia.Content.Effects.New.Unique
             if (_visibilities.IsInWindowFov(args.InnerTarget.Value))
             {
                 _audio.Play(Protos.Sound.Atksword, args.InnerTarget.Value);
-                _mes.Display(Loc.GetString("Elona.Decapitation.Sound"), color: UiColors.MesRed);
+                _mes.Display(Loc.GetString("Elona.Effect.Decapitation.Sound"), color: UiColors.MesRed);
                 if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, "Elona.Effect.Decapitation.Apply", out var mes, tense))
                 {
                     _mes.Display(mes);

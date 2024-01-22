@@ -92,15 +92,6 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    /// <summary>
-    /// Used by Eye of Insanity.
-    /// </summary>
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectDamageSanityComponent : Component
-    {
-    }
-
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectEyeOfDimnessComponent : Component

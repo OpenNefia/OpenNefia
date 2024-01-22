@@ -320,6 +320,15 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
+    /// Used by Eye of Insanity.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageSanityComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Causes sanity healing "damage" to targets.
     /// </summary>
     [RegisterComponent]

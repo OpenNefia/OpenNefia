@@ -73,6 +73,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             SubscribeComponent<EffectDamageHealingComponent, ApplyEffectDamageEvent>(ApplyDamage_Healing);
             SubscribeComponent<EffectDamageHealMPComponent, ApplyEffectDamageEvent>(ApplyDamage_HealMP);
+            SubscribeComponent<EffectDamageMPComponent, ApplyEffectDamageEvent>(ApplyDamage_DamageMP);
             SubscribeComponent<EffectDamageHealSanityComponent, ApplyEffectDamageEvent>(ApplyDamage_HealSanity);
 
             SubscribeComponent<EffectSummonComponent, ApplyEffectDamageEvent>(ApplyDamage_Summon);
@@ -248,6 +249,21 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             // <<<<<<<< elona122/shade2/proc.hsp:2796 	swbreak ...
         }
 
+        private void ApplyDamage_DamageMP(EntityUid uid, EffectDamageMPComponent component, ApplyEffectDamageEvent args)
+        {
+            if (!IsAlive(args.InnerTarget) || !HasComp<SkillsComponent>(args.InnerTarget.Value))
+                return;
+
+            // >>>>>>>> elona122/shade2/proc.hsp:2790 	case actRestoreMP ...
+            if (_newEffects.TryGetEffectDamageMessage(args.Source, args.InnerTarget.Value, component.MessageKey, out var message))
+                _mes.Display(message, entity: args.InnerTarget.Value);
+
+            _damages.DamageMP(args.InnerTarget.Value, args.Damage);
+
+            args.Success();
+            // <<<<<<<< elona122/shade2/proc.hsp:2796 	swbreak ...
+        }
+
         private void ApplyDamage_HealSanity(EntityUid uid, EffectDamageHealSanityComponent healComp, ApplyEffectDamageEvent args)
         {
             if (!IsAlive(args.InnerTarget) || !HasComp<SanityComponent>(args.InnerTarget.Value))
@@ -371,9 +387,8 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 mobjComp.Source = args.Source;
 
             _mes.Display(Loc.GetString("Elona.Effect.MObj.Drops", ("source", args.Source), ("target", args.InnerTarget), ("mobj", mobj.Value)));
-            // <<<<<<<< elona122/shade2/proc.hsp:3303 	swbreak ...
-
             args.Success();
+            // <<<<<<<< elona122/shade2/proc.hsp:3303 	swbreak ...
         }
 
         private void ApplyTileDamage_Elemental(EntityUid uid, EffectTileDamageElementalComponent component, ApplyEffectTileDamageEvent args)

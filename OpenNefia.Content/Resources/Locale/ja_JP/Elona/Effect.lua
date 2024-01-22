@@ -291,6 +291,12 @@ Elona.Effect = {
         },
     },
 
+    EyeOfMana = {
+        Apply = function(source, target)
+            return ("%sは%sを睨み付けた。"):format(_.name(source), _.name(target))
+        end,
+    },
+
     SuicideAttack = {
         Explodes = function(source, target)
             return ("%sは爆発した。"):format(_.name(source))
@@ -340,13 +346,13 @@ Elona.Effect = {
 
     Scavenge = {
         Apply = function(source, target)
-            return ("%sは%sのバックパックを漁った。"):format(_.name(target), _.name(source))
+            return ("%sは%sのバックパックを漁った。"):format(_.name(source), _.name(target))
         end,
         Spiked = function(source, target, item)
-            return ("%sは%sの異臭に気付き手をひっこめた。"):format(_.name(target), _.name(item))
+            return ("%sは%sの異臭に気付き手をひっこめた。"):format(_.name(source), _.name(item))
         end,
         Eats = function(source, target, item)
-            return ("%sは%sを食べた！"):format(_.name(target), _.name(item))
+            return ("%sは%sを食べた！"):format(_.name(source), _.name(item))
         end,
     },
 
@@ -361,7 +367,7 @@ Elona.Effect = {
             return ("%sは仲間を鼓舞した。"):format(_.name(source))
         end,
         IsExcited = function(source, target)
-            return ("%sは興奮した！"):format(_.name(source))
+            return ("%sは興奮した！"):format(_.name(target))
         end,
     },
 

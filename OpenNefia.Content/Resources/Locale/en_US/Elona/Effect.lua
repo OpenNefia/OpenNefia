@@ -44,7 +44,7 @@ Elona.Effect = {
 
     MObj = {
         Drops = function(source, target, mobj)
-            return ("%s drop%s %s on the ground."):format(_.name(source), _.name(mobj))
+            return ("%s drop%s %s on the ground."):format(_.name(source), _.s(source), _.name(mobj))
         end,
     },
 
@@ -310,6 +310,12 @@ Elona.Effect = {
         },
     },
 
+    EyeOfMana = {
+        Apply = function(source, target)
+            return ("%s gaze%s at %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+    },
+
     SuicideAttack = {
         Explodes = function(source, target)
             return ("%s explode%s."):format(_.name(source), _.s(source))
@@ -351,18 +357,18 @@ Elona.Effect = {
 
     Scavenge = {
         Apply = function(source, target)
-            return ("%s loot%s %s backpack."):format(_.name(target), _.s(target), _.possessive(source))
+            return ("%s loot%s %s backpack."):format(_.name(source), _.s(source), _.possessive(target))
         end,
         Spiked = function(source, target, item)
             return ("%s notice%s an unusual odor from %s and step%s back."):format(
-                _.name(target),
-                _.s(target),
+                _.name(source),
+                _.s(source),
                 _.name(item),
-                _.s(target)
+                _.s(source)
             )
         end,
         Eats = function(source, target, item)
-            return ("%s eat%s %s!"):format(_.name(target), _.s(target), _.name(item))
+            return ("%s eat%s %s!"):format(_.name(source), _.s(source), _.name(item))
         end,
     },
 
@@ -374,10 +380,10 @@ Elona.Effect = {
 
     Cheer = {
         Cheers = function(source, target)
-            return ("%s cheer %s."):format(_.name(source), _.s(source))
+            return ("%s cheer%s."):format(_.name(source), _.s(source))
         end,
         IsExcited = function(source, target)
-            return ("%s %s excited!"):format(_.name(source), _.is(source))
+            return ("%s %s excited!"):format(_.name(target), _.is(target))
         end,
     },
 

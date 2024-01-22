@@ -81,6 +81,8 @@
 - [ ] theming
 - [ ] MapPosition -> MapCoordinates?
 - [ ] mirror spact
+- [ ] rename things
+  + EffectDamageHealing -> EffectDamageHealHP
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] loc manager doesn't re-watch if language is switched

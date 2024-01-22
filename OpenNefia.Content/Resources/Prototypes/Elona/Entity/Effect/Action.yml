@@ -489,6 +489,7 @@
   - type: EffectBaseDamageDice
     finalDamage: randInt(20) + 1
   - type: EffectDamageMP
+    messageKey: Elona.Effect.EyeOfMana.Apply
 
 - type: Elona.Action
   id: Elona.Vanish
@@ -652,7 +653,5 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetSelfOrNearby
-  - type: EffectAreaMessage
-    messageKey: A
   - type: EffectDamageMObj
     mObjID: Elona.MObjMine

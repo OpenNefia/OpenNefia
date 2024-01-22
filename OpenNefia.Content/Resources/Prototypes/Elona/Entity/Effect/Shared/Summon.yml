@@ -221,4 +221,4 @@
     canBeSameTypeAsCaster: true
     choices:
     - charaFilter:
-      id: Elona.CharaYoungerSister
+        id: Elona.CharaYoungerSister
