@@ -482,6 +482,7 @@
     extraVariables:
       magicLevel: !type:SkillLevelFormulaVariable
         skillID: Elona.AttrMagic
+        subject: Source
     finalDamage: magicLevel * power / 10
     elementPower: 1000
   - type: EffectMeteor

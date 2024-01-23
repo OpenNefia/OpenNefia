@@ -7,6 +7,7 @@
     alignment: Negative
   - type: EffectTargetSelf
   - type: EffectAreaBall
+    showAnimation: true # TODO remove
   - type: EffectBaseDamageDice
     diceX: (power / 100) + 1 + (skillLevel / 20)
     diceY: (power / 15) + 2
@@ -238,9 +239,14 @@
   - type: EffectTargetDirection
   - type: EffectAreaMessage
     messageKey: Elona.Effect.SuicideAttack.Explodes
+  - type: EffectAreaBall
+    showAnimation: true # TODO remove
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 25
+    diceY: 15 + skillLevel / 5
+    finalDamage: baseDamage * 100 / (75 + distance * 25)
   - type: EffectDamageMessage
     rootKey: Elona.Effect.SuicideAttack.ExplosionHits
   - type: EffectDamageElemental
     element: null
-    handleEvent: false # TODO remove
   - type: EffectSuicideAttack

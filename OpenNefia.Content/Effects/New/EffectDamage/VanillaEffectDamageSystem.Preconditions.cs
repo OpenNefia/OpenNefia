@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
             if (args.Cancelled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Source, args.InnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, args.CommonArgs.MaxRange, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
+            if (!_newEffects.TryGetEffectDice(args.Source, args.OutInnerTarget, effectEnt, args.CommonArgs.Power, args.CommonArgs.SkillLevel, args.CommonArgs.MaxRange, out var dice, out var formulaArgs, args.SourceCoords, args.TargetCoords, effDice))
             {
                 // Should never happen.
                 Logger.ErrorS("effect.damage", $"No dice found for effect {effectEnt}");
@@ -50,7 +50,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_Retarget(EntityUid uid, EffectDamageRetargetComponent component, BeforeApplyEffectDamageEvent args)
         {
-            if (args.Cancelled || !IsAlive(args.InnerTarget))
+            if (args.Cancelled || !IsAlive(args.OutInnerTarget))
                 return;
 
             foreach (var criteria in component.Rules)
@@ -60,12 +60,12 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                     default:
                         break;
                     case EffectRetargetRule.AlwaysRider:
-                        if (_mounts.TryGetRider(args.InnerTarget.Value, out var rider))
-                            args.InnerTarget = rider.Owner;
+                        if (_mounts.TryGetRider(args.OutInnerTarget.Value, out var rider))
+                            args.OutInnerTarget = rider.Owner;
                         break;
                     case EffectRetargetRule.AlwaysMount:
-                        if (_mounts.TryGetMount(args.InnerTarget.Value, out var mount))
-                            args.InnerTarget = mount.Owner;
+                        if (_mounts.TryGetMount(args.OutInnerTarget.Value, out var mount))
+                            args.OutInnerTarget = mount.Owner;
                         break;
                 }
             }
@@ -94,11 +94,11 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 return false;
             }
 
-            if (Matches(args.Source, component.IfSource) && (!IsAlive(args.InnerTarget) || Matches(args.InnerTarget.Value, component.IfTarget)))
+            if (Matches(args.Source, component.IfSource) && (!IsAlive(args.OutInnerTarget) || Matches(args.OutInnerTarget.Value, component.IfTarget)))
             {
                 if (component.EffectID != null)
                 {
-                    var result = _newEffects.Apply(args.Source, args.InnerTarget, args.TargetCoords, component.EffectID.Value, args.Args);
+                    var result = _newEffects.Apply(args.Source, args.OutInnerTarget, args.TargetCoords, component.EffectID.Value, args.Args);
                     args.Cancel();
                     args.TurnResult = result;
                 }
@@ -122,13 +122,13 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
             // Null check instead of liveness
             // (entity might be dead and player could revive them)
-            if (args.InnerTarget == null)
+            if (args.OutInnerTarget == null)
             {
                 args.Cancel();
                 return;
             }
 
-            var relation = _factions.GetRelationTowards(args.Source, args.InnerTarget.Value);
+            var relation = _factions.GetRelationTowards(args.Source, args.OutInnerTarget.Value);
             if (!component.ValidRelations.Includes(relation))
             {
                 args.Cancel();
@@ -142,7 +142,7 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
                 return;
 
             if (component.MessageKey != null)
-                _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
+                _mes.Display(Loc.GetString(component.MessageKey.Value, ("source", args.Source), ("target", args.OutInnerTarget)), entity: args.OutInnerTarget);
 
             var formulaArgs = _newEffects.GetEffectDamageFormulaArgs(uid, args);
             var rate = (float)_formulas.Calculate(component.SuccessRate, formulaArgs, 1.0);
@@ -184,16 +184,16 @@ namespace OpenNefia.Content.Effects.New.EffectDamage
 
         private void ApplyDamage_ControlMagic(EntityUid uid, EffectDamageControlMagicComponent component, BeforeApplyEffectDamageEvent args)
         {
-            if (args.Cancelled || !IsAlive(args.InnerTarget))
+            if (args.Cancelled || !IsAlive(args.OutInnerTarget))
                 return;
 
-            var result = ProcControlMagic(args.Source, args.InnerTarget.Value, args.OutDamage);
+            var result = ProcControlMagic(args.Source, args.OutInnerTarget.Value, args.OutDamage);
             args.OutDamage = result.NewDamage;
 
             switch (result.Status)
             {
                 case ControlMagicStatus.Success:
-                    _mes.Display(Loc.GetString("Elona.Magic.ControlMagic.PassesThrough", ("source", args.Source), ("target", args.InnerTarget)), entity: args.InnerTarget);
+                    _mes.Display(Loc.GetString("Elona.Magic.ControlMagic.PassesThrough", ("source", args.Source), ("target", args.OutInnerTarget)), entity: args.OutInnerTarget);
                     args.TurnResult = TurnResult.Failed;
                     args.Cancel();
                     break;

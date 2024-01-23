@@ -56,16 +56,37 @@ namespace OpenNefia.Content.Effects.New
         public double Calculate(EntityUid effect, EntityUid source, EntityUid? target);
     }
 
+    /// <summary>
+    /// Used by Cheer.
+    /// </summary>
     public sealed class SkillLevelFormulaVariable : IFormulaVariable
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
 
-        [DataField(required: true)]
-        public PrototypeId<SkillPrototype> SkillID { get; set; }
+        [DataField]
+        public PrototypeId<SkillPrototype> SkillID { get; set; } = Protos.Skill.AttrStrength;
+
+        [DataField]
+        public EffectSubject Subject { get; set; } = EffectSubject.Source;
 
         public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
         {
-            return _skills.Level(source, SkillID);
+            int level;
+            switch (Subject)
+            {
+                case EffectSubject.Source:
+                default:
+                    level = _skills.Level(source, SkillID);
+                    break;
+                case EffectSubject.Target:
+                    if (_entityManager.IsAlive(target))
+                        level = _skills.Level(target.Value, SkillID);
+                    else
+                        level = 0;
+                    break;
+            }
+            return level;
         }
     }
 

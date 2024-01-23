@@ -45,6 +45,10 @@ namespace OpenNefia.Content.Effects.New
 
         [DataField]
         public Formula Radius { get; set; } = new("maxRange");
+
+        // TODO remove this and replace with ApplyEffectPositions handler
+        [DataField]
+        public bool ShowAnimation { get; set; } = false;
     }
 
     /// <summary>

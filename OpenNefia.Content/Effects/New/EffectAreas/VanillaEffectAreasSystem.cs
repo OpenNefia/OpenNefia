@@ -336,7 +336,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
                 return;
             }
 
-            if (TryGetEffectColorAndSound(uid, args.Args, out var animParams))
+            if (component.ShowAnimation && TryGetEffectColorAndSound(uid, args.Args, out var animParams))
             {
                 var anim = new BallMapDrawable(positions, animParams.Color, animParams.Sound);
                 _mapDrawables.Enqueue(anim, args.Source);
@@ -710,6 +710,8 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             RaiseEvent(uid, ev1);
             if (ev1.Cancelled)
                 return new(TurnResult.Failed, false, ev1.OutDidSomething);
+
+            innerTarget = ev1.OutInnerTarget;
 
             var ev2 = new ApplyEffectDamageEvent(source, innerTarget, sourceCoords, targetCoords.Value, args, affectedTiles, affectedTileIndex, ev1.OutDamage, ev1.OutElementalPower);
             RaiseEvent(uid, ev2);

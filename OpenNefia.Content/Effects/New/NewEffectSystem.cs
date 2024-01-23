@@ -152,7 +152,7 @@ namespace OpenNefia.Content.Effects.New
             IDictionary<string, IFormulaVariable>? extraVariables = null;
             if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
                 extraVariables = effectDice.ExtraVariables;
-            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.OutInnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
         }
 
         public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args)
@@ -542,13 +542,13 @@ namespace OpenNefia.Content.Effects.New
         /// Target of the effect. May be different from the original target
         /// in the case of AoE. May be <c>null</c> if the effect targets the ground.
         /// </summary>
-        public EntityUid? InnerTarget { get; set; }
+        public EntityUid? OutInnerTarget { get; set; }
 
         public EntityCoordinates SourceCoords { get; }
 
         /// <summary>
         /// Coordinates of the target entity or targeted position, 
-        /// These are guaranteed to be available even if there is no <see cref="InnerTarget"/>.
+        /// These are guaranteed to be available even if there is no <see cref="OutInnerTarget"/>.
         /// </summary>
         public EntityCoordinates TargetCoords { get; }
 
@@ -589,7 +589,7 @@ namespace OpenNefia.Content.Effects.New
         public BeforeApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
         {
             Source = source;
-            InnerTarget = target;
+            OutInnerTarget = target;
             SourceCoords = sourceCoords;
             TargetCoords = targetCoords;
             Args = args;

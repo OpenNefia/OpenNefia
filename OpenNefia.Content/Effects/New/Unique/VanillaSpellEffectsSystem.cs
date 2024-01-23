@@ -144,7 +144,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_DivineWisdom);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Punishment);
-            SubscribeComponent<EffectApplyBuffComponent, ApplyEffectDamageEvent>(Apply_ApplyBuff);
+            SubscribeComponent<EffectApplyBuffsComponent, ApplyEffectDamageEvent>(Apply_ApplyBuffs);
         }
 
         private void Apply_Mutation(EntityUid uid, EffectMutationComponent component, ApplyEffectDamageEvent args)
@@ -816,7 +816,7 @@ namespace OpenNefia.Content.Effects.New.Unique
 
         private void Apply_Teleport(EntityUid uid, EffectDamageTeleportComponent component, ApplyEffectDamageEvent args)
         {
-            var ent = component.Subject == TeleportSubject.Source ? args.Source : args.InnerTarget;
+            var ent = component.Subject == EffectSubject.Source ? args.Source : args.InnerTarget;
 
             EntityCoordinates coords;
             switch (component.Origin)
@@ -1155,6 +1155,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
 
             var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+            vars["damage"] = args.Damage;
 
             var container = _globalEntities.EnsureGlobalEntity(component.GlobalEntityID, component.ContainerEntity);
 
@@ -1313,22 +1314,37 @@ namespace OpenNefia.Content.Effects.New.Unique
             args.Handled = true;
         }
 
-        private void Apply_ApplyBuff(EntityUid uid, EffectApplyBuffComponent component, ApplyEffectDamageEvent args)
+        private void Apply_ApplyBuffs(EntityUid uid, EffectApplyBuffsComponent component, ApplyEffectDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1664 		if buffType(p)=buffBless:animeLoad 11,tc:else:if ...
             if (!IsAlive(args.InnerTarget))
                 return;
 
-            if (!_protos.TryIndex(component.BuffID, out var buffProto) || !buffProto.Components.TryGetComponent<BuffComponent>(out var buffComp))
+            var appliedAny = false;
+
+            var vars = _newEffects.GetEffectDamageFormulaArgs(uid, args);
+            vars["damage"] = args.Damage;
+
+            foreach (var entry in component.Buffs)
             {
-                Logger.ErrorS("effect.spells", $"Could not find buff ID '{component.BuffID}'!");
-                args.Failure();
-                return;
+                if (!_protos.TryIndex(entry.ID, out var buffProto) || !buffProto.Components.TryGetComponent<BuffComponent>(out var buffComp))
+                {
+                    Logger.ErrorS("effect.spells", $"Could not find buff ID '{entry.ID}'!");
+                    args.Failure();
+                    continue;
+                }
+
+                var power = (int)_formulaEngine.Calculate(entry.Power, vars, args.Damage);
+                int? turns = null;
+                if (entry.Turns != null)
+                    turns = (int)_formulaEngine.Calculate(entry.Turns.Value, vars, 10);
+
+                _buffs.TryAddBuff(args.InnerTarget.Value, entry.ID, power, turns, args.Source);
+                appliedAny = true;
             }
 
-            _buffs.TryAddBuff(args.InnerTarget.Value, component.BuffID, args.Damage);
-
-            args.Success();
+            if (appliedAny)
+                args.Success();
             // <<<<<<<< elona122/shade2/proc.hsp:1668 		calcBuff -1,p,efP : addBuff tc,p,efP,dur ...
         }
     }

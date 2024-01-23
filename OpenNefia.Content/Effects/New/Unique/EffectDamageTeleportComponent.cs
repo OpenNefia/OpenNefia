@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Effects
     public sealed class EffectDamageTeleportComponent : Component
     {
         [DataField]
-        public TeleportSubject Subject { get; set; } = TeleportSubject.Source;
+        public EffectSubject Subject { get; set; } = EffectSubject.Source;
 
         [DataField]
         public TeleportOrigin Origin { get; set; } = TeleportOrigin.Source;
@@ -41,7 +41,7 @@ namespace OpenNefia.Content.Effects
         public int MaxAttempts { get; set; } = 200;
     }
 
-    public enum TeleportSubject
+    public enum EffectSubject
     {
         Source,
         Target

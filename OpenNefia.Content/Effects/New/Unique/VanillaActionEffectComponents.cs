@@ -141,12 +141,6 @@ namespace OpenNefia.Content.Effects.New.Unique
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectCheerComponent : Component
-    {
-    }
-
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Effect)]
     public sealed class EffectMewMewMewComponent : Component
     {
     }

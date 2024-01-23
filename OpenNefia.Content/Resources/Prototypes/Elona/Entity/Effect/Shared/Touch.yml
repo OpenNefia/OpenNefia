@@ -75,7 +75,6 @@
     elementPower: 200
   - type: EffectDamageTouch
     elementID: Elona.Rotten
-    handleEvent: false
   - type: EffectTouchOfWeakness
 
 - type: Elona.Action
@@ -103,7 +102,6 @@
     bonus: 0
   - type: EffectDamageTouch
     elementID: Elona.Hunger
-    handleEvent: false
   - type: EffectTouchOfHunger
 
 - type: Elona.Action
@@ -186,7 +184,6 @@
     elementPower: 100 + skillLevel * 2
   - type: EffectDamageTouch
     elementID: Elona.Fear
-    handleEvent: false
   - type: EffectDamageStatusEffects
     statusEffects:
     - id: Elona.Fear
@@ -218,7 +215,6 @@
     elementPower: 100 + skillLevel * 3
   - type: EffectDamageTouch
     elementID: Elona.Soft
-    handleEvent: false
   - type: EffectDamageStatusEffects
     statusEffects:
     - id: Elona.Sleep

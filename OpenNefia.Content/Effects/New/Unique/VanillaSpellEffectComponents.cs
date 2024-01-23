@@ -244,18 +244,37 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    /// <summary>
-    /// Adds a buff (blessing/hex) to the target.
-    /// </summary>
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectApplyBuffComponent : Component
+    [DataDefinition]
+    public sealed class ApplyBuffEntry
     {
         /// <summary>
         /// Entity prototype ID of the buff to add.
         /// Must have a <see cref="BuffComponent"/>.
         /// </summary>
         [DataField]
-        public PrototypeId<EntityPrototype> BuffID { get; set; }
+        public PrototypeId<EntityPrototype> ID { get; set; }
+
+        /// <summary>
+        /// Calculates the power of the buff.
+        /// </summary>
+        [DataField]
+        public Formula Power { get; set; } = new("damage");
+
+        /// <summary>
+        /// If non-null, overrides the buff's default turns.
+        /// </summary>
+        [DataField]
+        public Formula? Turns { get; set; }
+    }
+
+    /// <summary>
+    /// Adds a buff (blessing/hex) to the target.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectApplyBuffsComponent : Component
+    {
+        [DataField]
+        public List<ApplyBuffEntry> Buffs { get; } = new();
     }
 }

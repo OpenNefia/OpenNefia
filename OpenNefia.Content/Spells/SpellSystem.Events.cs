@@ -25,21 +25,26 @@ namespace OpenNefia.Content.Spells
 
         public override void Initialize()
         {
-            SubscribeComponent<EffectApplyBuffComponent, GetEffectDescriptionEvent>(GetSpellDesc_Buff, priority: EventPriorities.VeryLow - 10000);
+            SubscribeComponent<EffectApplyBuffsComponent, GetEffectDescriptionEvent>(GetSpellDesc_Buff, priority: EventPriorities.VeryLow - 10000);
             SubscribeEntity<GetEffectDescriptionEvent>(GetSpellDesc_Default, priority: EventPriorities.VeryLow);
             SubscribeEntity<BeforeSpellEffectInvokedEvent>(BeforeSpellEffect_ProcVanillaCastingEvents);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Default, priority: EventPriorities.VeryLow);
         }
 
-        private void GetSpellDesc_Buff(EntityUid effectUid, EffectApplyBuffComponent component, GetEffectDescriptionEvent args)
+        private void GetSpellDesc_Buff(EntityUid effectUid, EffectApplyBuffsComponent component, GetEffectDescriptionEvent args)
         {
             // >>>>>>>> elona122/shade2/command.hsp:2209 	s=""	 ...
             if (args.Handled)
                 return;
 
-            var adjusted = _buffs.CalcBuffPowerAndTurns(component.BuffID, args.Power);
+            if (component.Buffs.Count != 1)
+                return;
 
-            var buffProto = _protos.Index(component.BuffID);
+            var buffID = component.Buffs[0].ID;
+
+            var adjusted = _buffs.CalcBuffPowerAndTurns(buffID, args.Power);
+
+            var buffProto = _protos.Index(buffID);
             var ev = new GetBuffDescriptionEvent(buffProto, args.Power, adjusted.Power);
             RaiseEvent(ev);
             args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns))

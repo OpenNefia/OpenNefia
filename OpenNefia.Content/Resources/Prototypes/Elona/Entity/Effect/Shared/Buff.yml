@@ -21,8 +21,9 @@
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffHolyShield
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffHolyShield
 
 - type: Elona.Spell
   id: Elona.BuffMistOfSilence
@@ -49,8 +50,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffMistOfSilence
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffMistOfSilence
 
 - type: Elona.Spell
   id: Elona.BuffRegeneration
@@ -75,8 +77,9 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffRegeneration
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffRegeneration
 
 - type: Elona.Spell
   id: Elona.BuffElementalShield
@@ -101,8 +104,9 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffElementalShield
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffElementalShield
 
 - type: Elona.Spell
   id: Elona.BuffSpeed
@@ -130,8 +134,9 @@
   - type: EffectDamageRetarget
     rules:
     - AlwaysMount
-  - type: EffectApplyBuff
-    buffID: Elona.BuffSpeed
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffSpeed
 
 - type: Elona.Spell
   id: Elona.BuffSlow
@@ -158,8 +163,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffSlow
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffSlow
 
 - type: Elona.Spell
   id: Elona.BuffHero
@@ -184,8 +190,9 @@
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffHero
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffHero
 
 - type: Elona.Spell
   id: Elona.BuffMistOfFrailness
@@ -212,8 +219,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffMistOfFrailness
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffMistOfFrailness
 
 - type: Elona.Spell
   id: Elona.BuffElementScar
@@ -240,8 +248,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffElementScar
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffElementScar
 
 - type: Elona.Spell
   id: Elona.BuffHolyVeil
@@ -266,8 +275,9 @@
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffHolyVeil
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffHolyVeil
 
 - type: Elona.Spell
   id: Elona.BuffNightmare
@@ -294,8 +304,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffNightmare
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffNightmare
 
 - type: Elona.Spell
   id: Elona.BuffDivineWisdom
@@ -320,8 +331,9 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffDivineWisdom
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffDivineWisdom
 
 - type: Elona.Spell
   id: Elona.BuffIncognito
@@ -346,8 +358,9 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffIncognito
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffIncognito
 
 - type: Elona.Spell
   id: Elona.BuffContingency
@@ -372,8 +385,9 @@
   - type: EffectTargetSelfOrNearby
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffContingency
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffContingency
 
 - type: Elona.Action
   id: Elona.BuffPunishment
@@ -400,8 +414,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffPunishment
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffPunishment
 
 - type: Elona.Action
   id: Elona.BuffLulwysTrick
@@ -429,8 +444,9 @@
   - type: EffectDamageRetarget
     rules:
     - AlwaysMount
-  - type: EffectApplyBuff
-    buffID: Elona.BuffLulwysTrick
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffLulwysTrick
 
 - type: Elona.Action
   id: Elona.BuffDeathWord
@@ -457,8 +473,9 @@
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffDeathWord
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffDeathWord
 
 - type: Elona.Action
   id: Elona.BuffBoost
@@ -483,5 +500,6 @@
   - type: EffectTargetSelf
   - type: EffectBaseDamageDice
     finalDamage: power
-  - type: EffectApplyBuff
-    buffID: Elona.BuffBoost
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffBoost

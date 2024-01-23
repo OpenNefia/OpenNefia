@@ -107,7 +107,6 @@ namespace OpenNefia.Content.Effects.New.Unique
             SubscribeComponent<EffectScavengeComponent, ApplyEffectDamageEvent>(Apply_Scavenge);
             SubscribeComponent<EffectVanishComponent, ApplyEffectDamageEvent>(Apply_Vanish);
             SubscribeComponent<EffectImpregnateComponent, ApplyEffectDamageEvent>(Apply_Impregnate);
-            SubscribeComponent<EffectCheerComponent, ApplyEffectDamageEvent>(Apply_Cheer);
             SubscribeComponent<EffectMewMewMewComponent, ApplyEffectDamageEvent>(Apply_MewMewMew);
             SubscribeComponent<EffectDecapitationComponent, ApplyEffectDamageEvent>(Apply_Decapitation);
         }
@@ -489,16 +488,13 @@ namespace OpenNefia.Content.Effects.New.Unique
         private void ApplyArea_SuicideAttack(EntityUid effect, EffectSuicideAttackComponent component, ApplyEffectAreaEvent args)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1796 	if efId=actSuicide{ ...
-            // XXX: no Handled checking here
-            // maybe "has turn result set" should not be overloaded to also mean "skip remaining handlers"
-
             var targets = component.ChainBombTargets.ToList();
             component.ChainBombTargets.Clear();
 
             if (IsAlive(args.Source))
             {
                 if (TryComp<SkillsComponent>(args.Source, out var skills))
-                    _damages.DamageHP(args.Source, int.Max(99999, skills.MaxHP));
+                    _damages.DamageHP(args.Source, int.Max(99999, skills.MaxHP + 1));
                 else
                     EntityManager.DeleteEntity(args.Source);
             }
@@ -663,20 +659,6 @@ namespace OpenNefia.Content.Effects.New.Unique
             _pregnancy.Impregnate(args.InnerTarget.Value, protoID);
             args.Success();
             // <<<<<<<< elona122/shade2/item.hsp:463 	return ...
-        }
-
-        private void Apply_Cheer(EntityUid uid, EffectCheerComponent component, ApplyEffectDamageEvent args)
-        {
-            // >>>>>>>> elona122/shade2/proc.hsp:3347 	case actLeaderShip ...
-            if (!IsAlive(args.InnerTarget))
-                return;
-
-            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Speed, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 15, 15, args.Source);
-            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Hero, _skills.Level(args.Source, Protos.Skill.AttrCharisma) * 5 + 100, 60, args.Source);
-            _buffs.TryAddBuff(args.InnerTarget.Value, Protos.Buff.Contingency, 1500, 30, args.Source);
-
-            args.Success();
-            // <<<<<<<< elona122/shade2/proc.hsp:3361 	swbreak ...
         }
 
         private void Apply_MewMewMew(EntityUid uid, EffectMewMewMewComponent component, ApplyEffectDamageEvent args)

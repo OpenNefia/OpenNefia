@@ -17,9 +17,10 @@
   + [x] death word expiration
   + [ ] elemental damage effects
   + [ ] spell stock check
-  + [ ] rods
+  + [x] rods
   + [ ] add all effect alignments
   + [ ] add all effect max ranges
+  + [ ] rename EffectDamage components that are preconditions to EffectCondControlMagic, etc.
   + [x] remove/refactor old effect system
   + [x] move spell/action skills into effect prototype files
   + [ ] "it invokes" enchantments

@@ -566,6 +566,11 @@
   - type: EffectAreaMessage
     messageKey: Elona.Effect.Cheer.Cheers
   - type: EffectAreaBall
+  - type: EffectBaseDamageDice
+    extraVariables:
+      sourceCHR: !type:SkillLevelFormulaVariable
+        skillID: Elona.AttrCharisma
+        subject: Source
   # >>>>>>>> elona122/shade2/proc.hsp:3352 	if cc<maxFollower:if cnt>=maxFollower:continue:el ...
   - type: EffectDamageRelations
     validRelations: Ally~Ally
@@ -573,7 +578,17 @@
   - type: EffectDamageMessage
     rootKey: Elona.Effect.Cheer.IsExcited
     color: '#afafff'
-  - type: EffectCheer
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffSpeed
+      power: sourceCHR * 5 + 50
+      turns: 15
+    - id: Elona.BuffHero
+      power: sourceCHR * 5 + 100
+      turns: 60
+    - id: Elona.BuffContingency
+      power: 1500
+      turns: 30
 
 - type: Elona.Action
   id: Elona.Mewmewmew
