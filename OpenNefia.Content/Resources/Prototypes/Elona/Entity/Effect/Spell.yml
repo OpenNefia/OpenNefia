@@ -124,6 +124,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 429
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: Other
+    effectID: null
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Sense.MagicMap
+    messageKeyCursed: Elona.Effect.Sense.Cursed
+  - type: EffectAreaSense
+    passes: 1
+    revealPower: randInt(power + 1)
+  - type: EffectMagicMap
 
 - type: Elona.Spell
   id: Elona.SenseObject
@@ -144,6 +156,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 430
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: Other
+    effectID: null
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Sense.SenseObject
+    messageKeyCursed: Elona.Effect.Sense.Cursed
+  - type: EffectAreaSense
+    passes: 2
+    revealPower: randInt(power + 1)
+  - type: EffectSenseObject
 
 - type: Elona.Spell
   id: Elona.Dominate
@@ -166,6 +190,8 @@
   hspIds:
     elona122: 435
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetOther
   - type: EffectBaseDamageDice
     # Compared against target's level for success
@@ -362,6 +388,14 @@
     finalDamage: clamp((skillLevel * 5 * power) / 20 + 40, 40, 100)
   - type: EffectResurrection
 
+# Four Dimensional Pocket container entity
+# Prohibits cargo from being inserted
+- type: Entity
+  id: Elona.ContainerFourDimensionalPocket
+  components:
+  - type: ItemContainer
+  - type: ItemContainerNoCargo
+
 - type: Elona.Spell
   id: Elona.FourDimensionalPocket
   hspIds:
@@ -381,6 +415,18 @@
   parent: BaseEffect
   hspIds:
     elona122: 463
+  components:
+  - type: EffectTargetSelf
+  - type: EffectAreaCastInstead
+    ifSource: NotPlayer
+    effectID: null
+  - type: EffectBaseDamageDice
+    finalDamage: power
+  - type: EffectFourDimensionalPocket
+    globalEntityID: Elona.FourDimensionalPocket
+    containerEntity: Elona.ContainerFourDimensionalPocket
+    maxItemWeight: power * 100
+    maxItemCount: clamp(power / 10 + 10, 10, 300)
 
 - type: Elona.Spell
   id: Elona.WizardsHarvest
@@ -427,6 +473,19 @@
   parent: BaseEffect
   hspIds:
     elona122: 465
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelf
+  - type: EffectAreaWholeMap
+  - type: EffectBaseDamageDice
+    extraVariables:
+      magicLevel: !type:SkillLevelFormulaVariable
+        skillID: Elona.AttrMagic
+        subject: Source
+    finalDamage: magicLevel * power / 10
+    elementPower: 1000
+  - type: EffectMeteor
 
 - type: Elona.Spell
   id: Elona.Gravity
@@ -450,5 +509,7 @@
   hspIds:
     elona122: 466
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetSelfOrNearby
   - type: EffectGravity

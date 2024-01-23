@@ -28,7 +28,9 @@ LecchoTorte:
       Elona.Casting: 100
 
       Elona.SpellIceBolt: 2000
+      Elona.SpellMagicStorm: 2000
       Elona.SpellLightningBolt: 500
+      Elona.SpellHealingRain: 2000
       Elona.SpellFireBolt: 10
       Elona.SpellWallCreation: 10
 

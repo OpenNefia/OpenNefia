@@ -396,31 +396,7 @@ namespace OpenNefia.Content.Inventory
 
             List.SelectedIndex = index;
 
-            var totalWeight = _invSys.GetTotalInventoryWeight(Context.User);
-            var totalWeightStr = UiUtils.DisplayWeight(totalWeight);
-
-            var maxWeight = _invSys.GetMaxInventoryWeight(Context.User);
-            var maxWeightStr = maxWeight != null ? UiUtils.DisplayWeight(maxWeight.Value) : "-";
-
-            var cargoWeight = _cargoSys.GetTotalCargoWeight(Context.User);
-            var cargoWeightStr = UiUtils.DisplayWeight(cargoWeight);
-
-            var maxCargoWeight = _cargoSys.GetMaxCargoWeight(Context.User);
-            var maxCargoWeightStr = maxCargoWeight != null ? UiUtils.DisplayWeight(maxCargoWeight.Value) : "-";
-
-            if (Context.Behavior.ShowTotalWeight)
-            {
-                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight",
-                    ("totalWeight", totalWeightStr),
-                    ("maxWeight", maxWeightStr),
-                    ("cargoWeight", cargoWeightStr),
-                    ("maxCargoWeight", maxCargoWeightStr));
-                TextNoteTotalWeight.Text = $"{List.Count} items  ({weightText})";
-            }
-            else
-            {
-                TextNoteTotalWeight.Text = string.Empty;
-            }
+            TextNoteTotalWeight.Text = Context.Behavior.GetTotalWeightDetails(Context);
 
             if (Context.Behavior.ShowMoney && _entityManager.TryGetComponent<MoneyComponent>(Context.Target, out var money))
             {

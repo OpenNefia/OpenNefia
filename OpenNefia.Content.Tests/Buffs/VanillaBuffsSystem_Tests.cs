@@ -61,5 +61,38 @@ namespace OpenNefia.Content.Tests.Buffs
                 Assert.That(entMan.IsAlive(ent), Is.False);
             });
         }
+
+        [Test]
+        public void Test_DeathWord_MasterKilled()
+        {
+            var sim = ContentFullGameSimulation
+                .NewSimulation()
+                .RegisterPrototypes(protos => protos.LoadString(Prototypes))
+                .InitializeInstance();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var buffs = sim.GetEntitySystem<IBuffSystem>();
+            var damage = sim.GetEntitySystem<IDamageSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var source = entMan.SpawnEntity(TestEntity, map.AtPos(4, 4));
+            var target = entMan.SpawnEntity(TestEntity, map.AtPos(4, 5));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(buffs.TryAddBuff(target, Protos.Buff.DeathWord, 100, 100, source: source), Is.True, "Add Death Word");
+                Assert.That(entMan.TryGetComponent<DeathWordTargetsComponent>(source, out var targets), Is.True);
+                Assert.That(targets.Targets, Is.EquivalentTo(new EntityUid[] { target }));
+
+                damage.Kill(source);
+
+                Assert.That(buffs.HasBuff<BuffDeathWordComponent>(target), Is.False);
+                Assert.That(targets.Targets, Is.EquivalentTo(new EntityUid[] {}));
+            });
+        }
     }
 }

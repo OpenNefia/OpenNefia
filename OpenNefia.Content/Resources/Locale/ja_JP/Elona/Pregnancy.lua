@@ -7,7 +7,10 @@ Elona.Pregnancy = {
             return ("%sの子供"):format(basename)
         end,
     },
-    ButPukesOut = "しかしすぐに吐き出した。",
+    Apply = function(source, target)
+        return ("%sは%sの口の中に何かを送り込んだ！"):format(_.name(source), _.name(target))
+    end,
+    Protected = "しかしすぐに吐き出した。",
     Impregnated = function(entity)
         return ("%sは寄生された。"):format(_.name(entity))
     end,

@@ -12,9 +12,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Activity;
 
 namespace OpenNefia.Content.InUse
 {
+    /// <summary>
+    /// Keeps track of items being used by entities.
+    /// This is usually used in conjunction with <see cref="IActivitySystem"/> in case there
+    /// is an item required by the activity.
+    /// </summary>
     public interface IInUseSystem : IEntitySystem
     {
         bool IsUsingAnything(EntityUid user, ItemUserComponent? itemUser = null);
@@ -23,11 +29,18 @@ namespace OpenNefia.Content.InUse
         void RemoveItemInUse(EntityUid item);
         void ClearItemsInUseForUser(EntityUid user, ItemUserComponent? initemUserUse = null);
         bool TryGetUser(EntityUid item, [NotNullWhen(true)] out EntityUid? user, InUseComponent? inUse = null);
-        void RemoveUserOfItem(EntityUid item);
+        
+        /// <summary>
+        /// Interrupts the activity this item is associated with.
+        /// </summary>
+        /// <param name="item"></param>
+        void InterruptUserOfItem(EntityUid item);
     }
 
     public sealed class InUseSystem : EntitySystem, IInUseSystem
     {
+        [Dependency] private readonly IActivitySystem _activities = default!;
+
         public bool IsUsingAnything(EntityUid user, ItemUserComponent? itemUser = null)
         {
             if (!Resolve(user, ref itemUser))
@@ -94,10 +107,13 @@ namespace OpenNefia.Content.InUse
             return IsAlive(inUse.User);
         }
 
-        public void RemoveUserOfItem(EntityUid item)
+        public void InterruptUserOfItem(EntityUid item)
         {
-            if (TryGetUser(item, out var user))
-                RemoveItemInUse(item);
+            if (!TryGetUser(item, out var user))
+                return;
+            
+            _activities.InterruptActivity(user.Value);
+            RemoveItemInUse(item);
         }
     }
 }

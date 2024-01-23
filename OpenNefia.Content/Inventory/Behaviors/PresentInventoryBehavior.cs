@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Inventory
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new EntityInventorySource(context.User);
+            yield return new InventoryInvSource(context.User);
         }
 
         public override string GetQueryText(InventoryContext context)
@@ -126,8 +126,8 @@ namespace OpenNefia.Content.Inventory
                 return new InventoryResult.Continuing();
 
             _audio.Play(Protos.Sound.Equip1);
-            _inUses.RemoveUserOfItem(TradeItem);
-            _inUses.RemoveUserOfItem(offerItem);
+            _inUses.InterruptUserOfItem(TradeItem);
+            _inUses.InterruptUserOfItem(offerItem);
             if (EntityManager.HasComponent<AlwaysDropOnDeathComponent>(offerItem))
                 EntityManager.RemoveComponent<AlwaysDropOnDeathComponent>(offerItem);
 

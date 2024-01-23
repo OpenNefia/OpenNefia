@@ -91,9 +91,6 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectTargetOtherComponent : Component
     {
         [DataField]
-        public bool PromptIfFriendly { get; set; } = false;
-
-        [DataField]
         public bool CanTargetGround { get; set; } = false;
     }
 

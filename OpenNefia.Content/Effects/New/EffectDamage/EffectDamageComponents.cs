@@ -1,10 +1,16 @@
-﻿using OpenNefia.Content.Factions;
+﻿using OpenNefia.Content.Currency;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Religion;
 using OpenNefia.Content.Resists;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.UI;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -26,19 +32,129 @@ namespace OpenNefia.Content.Effects.New
     public sealed class EffectBaseDamageDiceComponent : Component
     {
         [DataField]
-        public Formula DiceX { get; } = new("0");
+        public Formula DiceX { get; set; } = new("0");
 
         [DataField]
-        public Formula DiceY { get; } = new("0");
+        public Formula DiceY { get; set; } = new("0");
 
         [DataField]
-        public Formula Bonus { get; } = new("0");
+        public Formula Bonus { get; set; } = new("0");
 
         [DataField]
-        public Formula ElementPower { get; } = new("0");
+        public Formula ElementPower { get; set; } = new("0");
 
         [DataField]
-        public Formula FinalDamage { get; } = new("baseDamage");
+        public Formula FinalDamage { get; set; } = new("baseDamage");
+
+        [DataField]
+        public Dictionary<string, IFormulaVariable> ExtraVariables { get; } = new();
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface IFormulaVariable
+    {
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target);
+    }
+
+    /// <summary>
+    /// Used by Cheer.
+    /// </summary>
+    public sealed class SkillLevelFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
+
+        [DataField]
+        public PrototypeId<SkillPrototype> SkillID { get; set; } = Protos.Skill.AttrStrength;
+
+        [DataField]
+        public EffectSubject Subject { get; set; } = EffectSubject.Source;
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            int level;
+            switch (Subject)
+            {
+                case EffectSubject.Source:
+                default:
+                    level = _skills.Level(source, SkillID);
+                    break;
+                case EffectSubject.Target:
+                    if (_entityManager.IsAlive(target))
+                        level = _skills.Level(target.Value, SkillID);
+                    else
+                        level = 0;
+                    break;
+            }
+            return level;
+        }
+    }
+
+    /// <summary>
+    /// Used by Prayer of Jure.
+    /// </summary>
+    public sealed class PietyFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            return _entityManager.GetComponentOrNull<ReligionComponent>(source)?.Piety ?? 0;
+        }
+    }
+
+    public enum CurrencyType
+    {
+        Gold,
+        Platinum
+    }
+
+    public enum VariableSubject
+    {
+        Source,
+        Target
+    }
+
+    /// <summary>
+    /// Used by Suspicious Hand.
+    /// </summary>
+    public sealed class CurrencyFormulaVariable : IFormulaVariable
+    {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        [DataField]
+        public VariableSubject Subject { get; set; }
+
+        [DataField]
+        public CurrencyType Type { get; set; }
+
+        public double Calculate(EntityUid effect, EntityUid source, EntityUid? target)
+        {
+            MoneyComponent? comp;
+
+            switch (Subject)
+            {
+                case VariableSubject.Source:
+                default:
+                    comp = _entityManager.GetComponentOrNull<MoneyComponent>(source);
+                    break;
+                case VariableSubject.Target:
+                    if (!_entityManager.IsAlive(target))
+                        return 0;
+                    comp = _entityManager.GetComponentOrNull<MoneyComponent>(target.Value);
+                    break;
+            }
+
+            if (comp == null)
+                return 0;
+
+            return Type switch
+            {
+                CurrencyType.Gold => comp.Gold,
+                CurrencyType.Platinum => comp.Platinum,
+                _ => 0
+            };
+        }
     }
 
     /// <summary>
@@ -142,7 +258,8 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
-    /// Controls how the damage message is displayed.
+    /// Controls how the damage message is displayed when combined with
+    /// <see cref="IDamageSystem.DamageHP"/>.
     /// Generally speaking, if you use an EffectDamage component that
     /// damages HP, you should also include this one so that the
     /// damage message is formatted correctly.
@@ -157,6 +274,9 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey RootKey { get; set; } = "Elona.Magic.Message.Generic";
+
+        [DataField]
+        public Color Color { get; set; } = UiColors.MesWhite;
     }
 
     /// <summary>
@@ -182,6 +302,51 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public LocaleKey MessageKey { get; set; } = "Elona.Effect.Heal.Normal";
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageMPComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.DamageMP.Normal";
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageMObjComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField("mObjID")]
+        public PrototypeId<EntityPrototype> MObjID { get; set; }
+    }
+
+    /// <summary>
+    /// Causes healing "damage" to targets.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageHealMPComponent : Component
+    {
+        /// <summary>
+        /// Root key to use.
+        /// </summary>
+        [DataField]
+        public LocaleKey MessageKey { get; set; } = "Elona.Effect.HealMP.Normal";
+    }
+
+    /// <summary>
+    /// Used by Eye of Insanity.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageSanityComponent : Component
+    {
     }
 
     /// <summary>
@@ -229,5 +394,40 @@ namespace OpenNefia.Content.Effects.New
     {
         [DataField]
         public PrototypeId<ElementPrototype> Element { get; set; }
+    }
+
+    [DataDefinition]
+    public sealed class EffectStatusEffect
+    {
+        [DataField(required: true)]
+        public PrototypeId<StatusEffectPrototype> ID { get; set; }
+
+        [DataField]
+        public Formula Power { get; set; } = new("power");
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageStatusEffectsComponent : Component
+    {
+        [DataField]
+        public List<EffectStatusEffect> StatusEffects { get; } = new();
+    }
+
+    /// <summary>
+    /// Inflicts hand damage with the given damage type.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectDamageTouchComponent : Component
+    {
+        [DataField(required: true)]
+        public PrototypeId<ElementPrototype> ElementID { get; set; }
+
+        [DataField]
+        public bool ApplyDamage { get; set; } = true;
+
+        [DataField]
+        public LocaleKey? MessageKey { get; set; } = new("Elona.Magic.Message.Touch");
     }
 }

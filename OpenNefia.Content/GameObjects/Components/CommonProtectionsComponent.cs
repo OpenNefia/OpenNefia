@@ -29,9 +29,6 @@ namespace OpenNefia.Content.GameObjects
         public Stat<bool> IsProtectedFromMutation { get; set; } = new(false);
 
         [DataField]
-        public Stat<bool> IsProtectedFromPregnancy { get; set; } = new(false);
-
-        [DataField]
         public Stat<bool> IsProtectedFromEtherwind { get; set; } = new(false);
 
         [DataField]
@@ -59,7 +56,6 @@ namespace OpenNefia.Content.GameObjects
             IsProtectedFromTheft.Reset();
             IsProtectedFromCurse.Reset();
             IsProtectedFromMutation.Reset();
-            IsProtectedFromPregnancy.Reset();
             IsProtectedFromEtherwind.Reset();
             IsProtectedFromBadWeather.Reset();
             IsImmuneToMines.Reset();

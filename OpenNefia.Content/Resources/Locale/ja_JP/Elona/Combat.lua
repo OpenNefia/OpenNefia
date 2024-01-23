@@ -23,7 +23,7 @@ Elona.Combat = {
         end,
     },
     RangedAttack = {
-        Ranged = " *ズバシュッ* ",
+        Vorpal = " *ズバシュッ* ",
         Errors = {
             Elona = {
                 NoRangedWeapon = "射撃用の道具を装備していない。",

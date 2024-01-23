@@ -25,21 +25,26 @@ namespace OpenNefia.Content.Spells
 
         public override void Initialize()
         {
-            SubscribeComponent<EffectApplyBuffComponent, GetEffectDescriptionEvent>(GetSpellDesc_Buff, priority: EventPriorities.VeryLow - 10000);
+            SubscribeComponent<EffectApplyBuffsComponent, GetEffectDescriptionEvent>(GetSpellDesc_Buff, priority: EventPriorities.VeryLow - 10000);
             SubscribeEntity<GetEffectDescriptionEvent>(GetSpellDesc_Default, priority: EventPriorities.VeryLow);
             SubscribeEntity<BeforeSpellEffectInvokedEvent>(BeforeSpellEffect_ProcVanillaCastingEvents);
             SubscribeBroadcast<GetBuffDescriptionEvent>(GetBuffDesc_Default, priority: EventPriorities.VeryLow);
         }
 
-        private void GetSpellDesc_Buff(EntityUid effectUid, EffectApplyBuffComponent component, GetEffectDescriptionEvent args)
+        private void GetSpellDesc_Buff(EntityUid effectUid, EffectApplyBuffsComponent component, GetEffectDescriptionEvent args)
         {
             // >>>>>>>> elona122/shade2/command.hsp:2209 	s=""	 ...
             if (args.Handled)
                 return;
 
-            var adjusted = _buffs.CalcBuffPowerAndTurns(component.BuffID, args.Power);
+            if (component.Buffs.Count != 1)
+                return;
 
-            var buffProto = _protos.Index(component.BuffID);
+            var buffID = component.Buffs[0].ID;
+
+            var adjusted = _buffs.CalcBuffPowerAndTurns(buffID, args.Power);
+
+            var buffProto = _protos.Index(buffID);
             var ev = new GetBuffDescriptionEvent(buffProto, args.Power, adjusted.Power);
             RaiseEvent(ev);
             args.OutDescription = Loc.GetString("Elona.Spells.Description.TurnCounter", ("turns", adjusted.Turns))
@@ -63,7 +68,7 @@ namespace OpenNefia.Content.Spells
             if (args.Handled)
                 return;
 
-            if (!_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, out var dice, out _))
+            if (!_newEffects.TryGetEffectDice(args.Caster, null, effectUid, args.Power, args.SkillLevel, args.MaxRange, out var dice, out _))
                 return;
 
             if (dice.X > 0)
@@ -92,32 +97,30 @@ namespace OpenNefia.Content.Spells
                     return;
                 }
             }
+
+            var spells = Comp<SpellsComponent>(args.Caster);
+            LocaleKey castingStyle;
+            if (spells.CastingStyle != null)
+            {
+                var key = new LocaleKey($"Elona.Spells.CastingStyle").With(spells.CastingStyle.Value);
+                if (Loc.KeyExists(key))
+                    castingStyle = key;
+                else
+                    castingStyle = "Elona.Spells.CastingStyle.Default";
+            }
             else
             {
-                var spells = Comp<SpellsComponent>(args.Caster);
-                LocaleKey castingStyle;
-                if (spells.CastingStyle != null)
-                {
-                    var key = new LocaleKey($"Elona.Spells.CastingStyle").With(spells.CastingStyle.Value);
-                    if (Loc.KeyExists(key))
-                        castingStyle = key;
-                    else
-                        castingStyle = "Elona.Spells.CastingStyle.Default";
-                }
-                else
-                {
-                    castingStyle = "Elona.Spells.CastingStyle.Default";
-                }
+                castingStyle = "Elona.Spells.CastingStyle.Default";
+            }
 
-                if (_gameSession.IsPlayer(args.Caster))
-                {
-                    var skillName = Loc.GetPrototypeString(args.Spell.SkillID, "Name");
-                    _mes.Display(Loc.GetString(castingStyle.With("WithSkillName"), ("caster", args.Caster), ("target", args.Target), ("skillName", skillName)), entity: args.Caster);
-                }
-                else
-                {
-                    _mes.Display(Loc.GetString(castingStyle.With("Generic"), ("caster", args.Caster), ("target", args.Target)), entity: args.Caster);
-                }
+            if (_gameSession.IsPlayer(args.Caster))
+            {
+                var skillName = Loc.GetPrototypeString(args.Spell.SkillID, "Name");
+                _mes.Display(Loc.GetString(castingStyle.With("WithSkillName"), ("caster", args.Caster), ("target", args.Target), ("skillName", skillName)), entity: args.Caster);
+            }
+            else
+            {
+                _mes.Display(Loc.GetString(castingStyle.With("Generic"), ("caster", args.Caster), ("target", args.Target)), entity: args.Caster);
             }
 
             if (_buffs.HasBuff<BuffMistOfSilenceComponent>(args.Caster))

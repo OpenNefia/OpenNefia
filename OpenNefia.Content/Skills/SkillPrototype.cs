@@ -19,11 +19,6 @@ namespace OpenNefia.Content.Skills
         Attribute,
 
         /// <summary>
-        /// Special attributes (Life and Mana).
-        /// </summary>
-        AttributeSpecial,
-
-        /// <summary>
         /// Regular skills.
         /// </summary>
         Skill,

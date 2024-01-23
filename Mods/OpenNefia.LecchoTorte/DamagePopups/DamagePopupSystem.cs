@@ -9,6 +9,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.LecchoTorte.DamagePopups
 {
@@ -24,31 +25,17 @@ namespace OpenNefia.LecchoTorte.DamagePopups
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
             SubscribeBroadcast<ActiveMapChangedEvent>(DamagePopup_ActiveMapChanged);
             SubscribeEntity<AfterDamageHPEvent>(DamagePopup_AfterDamageHP);
+            SubscribeEntity<AfterDamageMPEvent>(DamagePopup_AfterDamageMP);
             SubscribeEntity<AfterHealEvent>(DamagePopup_AfterHeal);
             SubscribeEntity<AfterPhysicalAttackMissEventArgs>(DamagePopup_AfterPhysicalAttackMiss);
             SubscribeEntity<AfterEntityReceivedBuffEvent>(DamagePopup_AfterReceivedBuff);
             SubscribeEntity<BeforeEntityLosesBuffEvent>(DamagePopup_BeforeLoseBuff);
-        }
-
-        private void DamagePopup_AfterReceivedBuff(EntityUid uid, AfterEntityReceivedBuffEvent args)
-        {
-            Color color;
-            if (args.Buff.Alignment == BuffAlignment.Negative)
-                color = new Color(200, 0, 0);
-            else
-                color = new Color(0, 200, 200);
-
-            AddDamagePopup(new DamagePopup()
-            {
-                Text = _displayNames.GetDisplayName(args.Buff.Owner),
-                Color = color,
-                Icon = Assets.Get(args.Buff.Icon)
-            }, uid);
         }
 
         private void DamagePopup_BeforeLoseBuff(EntityUid uid, BeforeEntityLosesBuffEvent args)
@@ -77,9 +64,28 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             if (!_vis.IsInWindowFov(uid))
                 return;
 
+            var color = Color.White;
+            if (args.DamageType is ElementalDamageType elemDamage && _protos.TryIndex(elemDamage.ElementID, out var elemProto))
+            {
+                color = elemProto.Color;
+            }
+
             AddDamagePopup(new DamagePopup()
             {
-                Text = args.FinalDamage.ToString()
+                Text = args.FinalDamage.ToString(),
+                Color = color
+            }, uid);
+        }
+
+        private void DamagePopup_AfterDamageMP(EntityUid uid, ref AfterDamageMPEvent args)
+        {
+            if (!args.ShowMessage || !_vis.IsInWindowFov(uid))
+                return;
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = args.Amount.ToString(),
+                Color = Color.Purple
             }, uid);
         }
 
@@ -123,6 +129,22 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                     Text = "miss"
                 }, uid);
             }
+        }
+
+        private void DamagePopup_AfterReceivedBuff(EntityUid uid, AfterEntityReceivedBuffEvent args)
+        {
+            Color color;
+            if (args.Buff.Alignment == BuffAlignment.Negative)
+                color = new Color(200, 0, 0);
+            else
+                color = new Color(0, 200, 200);
+
+            AddDamagePopup(new DamagePopup()
+            {
+                Text = _displayNames.GetDisplayName(args.Buff.Owner),
+                Color = color,
+                Icon = Assets.Get(args.Buff.Icon)
+            }, uid);
         }
 
         public void AddDamagePopup(DamagePopup popup, MapCoordinates coords)

@@ -45,6 +45,8 @@ using OpenNefia.Content.Scroll;
 using OpenNefia.Content.CurseStates;
 using OpenNefia.Content.Potion;
 using OpenNefia.Content.Return;
+using OpenNefia.Content.Book;
+using OpenNefia.Content.Rod;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -214,7 +216,8 @@ namespace OpenNefia.LecchoTorte.QuickStart
                         _itemGen.GenerateItem(map.AtPos((2, 2)), proto.GetStrongID(), amount: 99);
 
                     if (proto.Components.HasComponent<ScrollComponent>()
-                      || proto.Components.HasComponent<PotionComponent>())
+                      || proto.Components.HasComponent<PotionComponent>()
+                      || proto.Components.HasComponent<RodComponent>())
                     {
                         foreach (var curseState in EnumHelpers.EnumerateValues<CurseState>())
                         {
@@ -225,6 +228,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
                             }
                         }
                     }
+
+                    if (proto.Components.HasComponent<SpellbookComponent>())
+                        _itemGen.GenerateItem(map.AtPos((2, 5)), proto.GetStrongID(), amount: 99);
                 }
 
                 foreach (var proto in _protos.EnumeratePrototypes<EntityPrototype>().Where(p => p.Components.HasComponent<ChestComponent>()))

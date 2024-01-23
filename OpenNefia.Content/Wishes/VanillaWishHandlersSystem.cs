@@ -388,8 +388,8 @@ namespace OpenNefia.Content.Wishes
 
         private bool CanWishForSkill(SkillPrototype skill)
         {
-            // TODO replace with flag
-            return skill.SkillType != SkillType.AttributeSpecial;
+            return !_protos.TryGetExtendedData<SkillPrototype, ExtSkillFlags>(skill, out var flags)
+                || flags.CanWishFor;
         }
 
         public void Skill_OnWish(WishHandlerPrototype proto, ref P_WishHandlerOnWishEvent ev)

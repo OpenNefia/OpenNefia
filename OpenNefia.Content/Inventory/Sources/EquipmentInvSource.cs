@@ -7,14 +7,14 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class EntityEquipmentSource : IInventorySource
+    public class EquipmentInvSource : IInventorySource
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public EntityUid Entity { get; }
 
-        public EntityEquipmentSource(EntityUid entity)
+        public EquipmentInvSource(EntityUid entity)
         {
             Entity = entity;
         }

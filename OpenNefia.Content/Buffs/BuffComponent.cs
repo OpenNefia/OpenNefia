@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Buffs
         /// <summary>
         /// Icon of the buff in the HUD.
         /// </summary>
-        [DataField(required: true)]
+        [DataField]
         public PrototypeId<AssetPrototype> Icon { get; set; }
 
         /// <summary>

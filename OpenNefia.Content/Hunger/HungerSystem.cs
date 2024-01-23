@@ -43,6 +43,7 @@ namespace OpenNefia.Content.Hunger
         bool VomitIfAnorexic(EntityUid entity, HungerComponent? hunger = null);
         void Vomit(EntityUid entity, HungerComponent? hunger = null);
         void CureAnorexia(EntityUid entity, HungerComponent? hunger = null);
+        void MakeHungry(EntityUid chara, HungerComponent? hunger = null);
     }
 
     public sealed class HungerSystem : EntitySystem, IHungerSystem

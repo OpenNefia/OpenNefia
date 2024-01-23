@@ -291,7 +291,7 @@ namespace OpenNefia.Content.Encounters
             if (IsAlive(item))
             {
                 EnsureComp<PickableComponent>(item.Value).OwnState = OwnState.Shop;
-                if (TryComp<TrunkComponent>(item.Value, out var trunk) && TryComp<RoleShopkeeperComponent>(uid, out var shopkeeper))
+                if (TryComp<ItemContainerComponent>(item.Value, out var trunk) && TryComp<RoleShopkeeperComponent>(uid, out var shopkeeper))
                 {
                     foreach (var shopItem in shopkeeper.ShopContainer.ContainedEntities.ToList())
                         trunk.Container.Insert(shopItem);

@@ -12,33 +12,21 @@ namespace OpenNefia.Content.Inventory
 {
     public class InventoryGroupArgs : UiGroupArgs<InventoryLayer, InventoryContext>
     {
-        private readonly List<IInventoryBehavior> Behaviours = new List<IInventoryBehavior>
+        public InventoryGroupArgs(EntityUid entity, IList<IInventoryBehavior> behaviors, int selectedIndex = 0)
         {
-            new ExamineInventoryBehavior(),
-            new DropInventoryBehavior(),
-            new EatInventoryBehavior(),
-            new ReadInventoryBehavior(),
-            new DrinkInventoryBehavior(),
-            // TODO: zap behaviour
-            new UseInventoryBehavior(),
-            new OpenInventoryBehavior(),
-            // TODO: mix behaviour
-            new ThrowInventoryBehavior(),
-        };
+            if (behaviors.Count == 0)
+                throw new InvalidOperationException($"No inventory behaviors were provided to {nameof(InventoryGroupArgs)}!");
 
-        public InventoryGroupArgs(EntityUid entity, IInventoryBehavior selected)
-        {
+            selectedIndex = int.Clamp(selectedIndex, 0, behaviors.Count - 1);
+
             InventoryContext context = default!;
-            foreach (var behaviour in Behaviours)
+            for (var i = 0; i < behaviors.Count; i++)
             {
-                if (behaviour.GetType() == selected.GetType())
+                var behavior = behaviors[i];
+                context = new InventoryContext(entity, behavior);
+                if (i == selectedIndex)
                 {
-                    context = new InventoryContext(entity, selected);
                     SelectedArgs = context;
-                }
-                else
-                {
-                    context = new InventoryContext(entity, behaviour);
                 }
                 Layers[context] = new InventoryLayer();
             }

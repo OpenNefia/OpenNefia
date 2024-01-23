@@ -7,6 +7,7 @@
     alignment: Negative
   - type: EffectTargetSelf
   - type: EffectAreaBall
+    showAnimation: true # TODO remove
   - type: EffectBaseDamageDice
     diceX: (power / 100) + 1 + (skillLevel / 20)
     diceY: (power / 15) + 2
@@ -212,3 +213,40 @@
     validRelations: Neutral~Ally
   # <<<<<<<< shade2/proc.hsp:1758 		if (cc=pc)or(cRelation(cc)>=cNeutral){ ...
   - type: EffectDamageHealSanity
+
+- type: Elona.Action
+  id: Elona.SuicideAttack
+  hspIds:
+    elona122: 644
+  skillID: Elona.ActionSuicideAttack
+  effectID: Elona.ActionSuicideAttack
+  staminaCost: 20
+  difficulty: 450
+- type: Elona.Skill
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  skillType: Action
+  relatedSkill: Elona.AttrConstitution
+- type: Entity
+  id: Elona.ActionSuicideAttack
+  hspIds:
+    elona122: 644
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.SuicideAttack.Explodes
+  - type: EffectAreaBall
+    showAnimation: true # TODO remove
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 25
+    diceY: 15 + skillLevel / 5
+    finalDamage: baseDamage * 100 / (75 + distance * 25)
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.SuicideAttack.ExplosionHits
+  - type: EffectDamageElemental
+    element: null
+  - type: EffectSuicideAttack

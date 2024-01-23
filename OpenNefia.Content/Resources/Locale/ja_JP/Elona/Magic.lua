@@ -15,49 +15,49 @@ Elona.Magic = {
     },
 
     ControlMagic = {
-        PassesThrough = function(target)
+        PassesThrough = function(source, target)
             return ("%sは巻き込みを免れた。"):format(_.name(target))
         end,
     },
 
     Message = {
         Generic = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("%sに命中した。"):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("%sに命中し"):format(_.name(entity))
             end,
         },
         Arrow = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("矢が%sに命中した。"):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("矢は%sに命中し"):format(_.name(entity))
             end,
         },
         Ball = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("ボールが%sに命中した。"):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("ボールは%sに命中し"):format(_.name(entity))
             end,
         },
         Bolt = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("ボルトが%sに命中した。"):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("ボルトは%sに命中し"):format(_.name(entity))
             end,
         },
         Breath = {
-            Ally = function(entity)
+            Ally = function(source, entity)
                 return ("ブレスは%sに命中した。"):format(_.name(entity))
             end,
-            Other = function(entity)
+            Other = function(source, entity)
                 return ("ブレスは%sに命中し"):format(_.name(entity))
             end,
 
@@ -68,6 +68,18 @@ Elona.Magic = {
                 return ("%sの"):format(breathName)
             end,
             NoElement = "",
+        },
+        Touch = {
+            Ally = function(source, entity, elementStyle, meleeStyle)
+                local style = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".Style")
+                local verb = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".VerbPassive")
+                return ("%sは%sに%s%sで%s"):format(_.name(source), _.name(entity), elementStyle, style, verb)
+            end,
+            Other = function(source, entity, elementStyle, meleeStyle)
+                local style = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".Style")
+                local verb = _.loc("Elona.Damage.UnarmedText." .. meleeStyle .. ".VerbActive")
+                return ("%s%sを%s%sで%s"):format(_.name(source), _.name(entity), elementStyle, style, verb)
+            end,
         },
         Summon = "魔法でモンスターが召喚された。",
         Mef = {

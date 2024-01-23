@@ -1,0 +1,245 @@
+- type: Entity
+  id: Elona.BaseEffectTouch
+  abstract: true
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 3 + 1
+    bonus: skillLevel / 4
+    elementPower: 100
+  - type: EffectDamageTouch
+    elementID: Elona.Fire
+
+- type: Elona.Action
+  id: Elona.DrainBlood
+  hspIds:
+    elona122: 601
+  skillID: Elona.ActionDrainBlood
+  effectID: Elona.ActionDrainBlood
+  staminaCost: 7
+  maxRange: 1
+- type: Elona.Skill
+  id: Elona.ActionDrainBlood
+  ordering:
+    after: Elona.SpellGravity
+  hspIds:
+    elona122: 601
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+- type: Entity
+  id: Elona.ActionDrainBlood
+  hspIds:
+    elona122: 601
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 15
+    diceY: 6 + 1
+    bonus: skillLevel / 4
+    elementPower: 200
+  - type: EffectDamageTouch
+    elementID: Elona.Nether
+    messageKey: Elona.Effect.DrainBlood
+
+- type: Elona.Action
+  id: Elona.TouchOfWeakness
+  hspIds:
+    elona122: 613
+  skillID: Elona.ActionTouchOfWeakness
+  effectID: Elona.ActionTouchOfWeakness
+  staminaCost: 10
+  maxRange: 1
+- type: Elona.Skill
+  id: Elona.ActionTouchOfWeakness
+  hspIds:
+    elona122: 613
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionTouchOfWeakness
+  hspIds:
+    elona122: 613
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 3 + 1
+    bonus: skillLevel / 4
+    elementPower: 200
+  - type: EffectDamageTouch
+    elementID: Elona.Rotten
+  - type: EffectTouchOfWeakness
+
+- type: Elona.Action
+  id: Elona.TouchOfHunger
+  hspIds:
+    elona122: 614
+  skillID: Elona.ActionTouchOfHunger
+  effectID: Elona.ActionTouchOfHunger
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionTouchOfHunger
+  hspIds:
+    elona122: 614
+  skillType: Action
+  relatedSkill: Elona.AttrMagic
+- type: Entity
+  id: Elona.ActionTouchOfHunger
+  hspIds:
+    elona122: 614
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 3 + 1
+    bonus: 0
+  - type: EffectDamageTouch
+    elementID: Elona.Hunger
+  - type: EffectTouchOfHunger
+
+- type: Elona.Action
+  id: Elona.TouchOfPoison
+  hspIds:
+    elona122: 615
+  skillID: Elona.ActionTouchOfPoison
+  effectID: Elona.ActionTouchOfPoison
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionTouchOfPoison
+  hspIds:
+    elona122: 615
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+- type: Entity
+  id: Elona.ActionTouchOfPoison
+  hspIds:
+    elona122: 615
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 4 + 1
+    bonus: 0
+    elementPower: skillLevel * 4 + 20
+  - type: EffectDamageTouch
+    elementID: Elona.Poison
+
+- type: Elona.Action
+  id: Elona.TouchOfNerve
+  hspIds:
+    elona122: 616
+  skillID: Elona.ActionTouchOfNerve
+  effectID: Elona.ActionTouchOfNerve
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionTouchOfNerve
+  hspIds:
+    elona122: 616
+  skillType: Action
+  relatedSkill: Elona.AttrDexterity
+- type: Entity
+  id: Elona.ActionTouchOfNerve
+  hspIds:
+    elona122: 616
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 4 + 1
+    bonus: 0
+    elementPower: skillLevel * 4 + 20
+  - type: EffectDamageTouch
+    elementID: Elona.Nerve
+
+- type: Elona.Action
+  id: Elona.TouchOfFear
+  hspIds:
+    elona122: 617
+  skillID: Elona.ActionTouchOfFear
+  effectID: Elona.ActionTouchOfFear
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionTouchOfFear
+  hspIds:
+    elona122: 617
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionTouchOfFear
+  hspIds:
+    elona122: 617
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 3 + 1
+    bonus: 0
+    elementPower: 100 + skillLevel * 2
+  - type: EffectDamageTouch
+    elementID: Elona.Fear
+  - type: EffectDamageStatusEffects
+    statusEffects:
+    - id: Elona.Fear
+      power: elementalPower
+
+- type: Elona.Action
+  id: Elona.TouchOfSleep
+  hspIds:
+    elona122: 618
+  skillID: Elona.ActionTouchOfSleep
+  effectID: Elona.ActionTouchOfSleep
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionTouchOfSleep
+  hspIds:
+    elona122: 618
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionTouchOfSleep
+  hspIds:
+    elona122: 618
+  parent: Elona.BaseEffectTouch
+  components:
+  - type: EffectBaseDamageDice
+    diceX: 1 + skillLevel / 10
+    diceY: 3 + 1
+    bonus: 0
+    elementPower: 100 + skillLevel * 3
+  - type: EffectDamageTouch
+    elementID: Elona.Soft
+  - type: EffectDamageStatusEffects
+    statusEffects:
+    - id: Elona.Sleep
+      power: elementalPower
+
+- type: Elona.Action
+  id: Elona.ManisDisassembly
+  hspIds:
+    elona122: 660
+  skillID: Elona.ActionManisDisassembly
+  effectID: Elona.ActionManisDisassembly
+  staminaCost: 10
+- type: Elona.Skill
+  id: Elona.ActionManisDisassembly
+  hspIds:
+    elona122: 660
+  skillType: Action
+  relatedSkill: Elona.AttrWill
+- type: Entity
+  id: Elona.ActionManisDisassembly
+  hspIds:
+    elona122: 660
+  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectManisDisassembly

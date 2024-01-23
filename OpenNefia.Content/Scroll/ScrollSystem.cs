@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Scroll
                     EffectSource = EffectSources.Scroll,
                     CurseState = _curseStates.GetCurseState(scroll),
                     Power = spec.Power,
-                    TileRange = spec.MaxRange,
+                    MaxRange = spec.MaxRange,
                     SkillLevel = spec.SkillLevel,
                     SourceItem = scroll
                 };

@@ -2,6 +2,8 @@
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace OpenNefia.Content.Skills
 {
     public interface ISkillAdjustsSystem : IEntitySystem
     {
+        int GetSkillAdjust(EntityUid entity, PrototypeId<SkillPrototype> skillID, SkillAdjustsComponent? skillAdj = null);
+        void SetSkillAdjust(EntityUid entity, PrototypeId<SkillPrototype> skillID, int value, SkillAdjustsComponent? skillAdj = null);
         void RemoveAllSkillAdjusts(EntityUid entity, SkillAdjustsComponent? skillAdj = null);
     }
 
@@ -44,6 +48,22 @@ namespace OpenNefia.Content.Skills
                         skill.Level.Buffed = 1;
                 }
             }
+        }
+
+        public int GetSkillAdjust(EntityUid entity, PrototypeId<SkillPrototype> skillID, SkillAdjustsComponent? skillAdj = null)
+        {
+            if (!Resolve(entity, ref skillAdj))
+                return 0;
+
+            return skillAdj.SkillAdjusts.GetValueOr(skillID, 0);
+        }
+
+        public void SetSkillAdjust(EntityUid entity, PrototypeId<SkillPrototype> skillID, int value, SkillAdjustsComponent? skillAdj = null)
+        {
+            if (!Resolve(entity, ref skillAdj))
+                return;
+
+            skillAdj.SkillAdjusts[skillID] = value;
         }
 
         public void RemoveAllSkillAdjusts(EntityUid entity, SkillAdjustsComponent? skillAdj = null)

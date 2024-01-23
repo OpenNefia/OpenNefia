@@ -21,8 +21,8 @@ namespace OpenNefia.Content.Inventory
         {
             if (context.User == context.Target)
                 yield return new GroundInvSource(context.Target);
-            yield return new EntityEquipmentSource(context.Target);
-            yield return new EntityInventorySource(context.Target);
+            yield return new EquipmentInvSource(context.Target);
+            yield return new InventoryInvSource(context.Target);
         }
 
         public override string GetQueryText(InventoryContext context)

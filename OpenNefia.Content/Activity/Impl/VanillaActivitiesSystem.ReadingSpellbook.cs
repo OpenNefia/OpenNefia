@@ -7,7 +7,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Skills;
@@ -16,13 +15,14 @@ using OpenNefia.Content.Memory;
 using OpenNefia.Content.Identify;
 using OpenNefia.Content.Book;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.Chargeable;
 
 namespace OpenNefia.Content.Activity
 {
     public sealed partial class VanillaActivitiesSystem
     {
         [Dependency] private readonly ISpellbookSystem _spellbooks = default!;
-        [Dependency] private readonly IChargedSystem _charges = default!;
+        [Dependency] private readonly IChargeableSystem _charges = default!;
         [Dependency] private readonly IIdentifySystem _identify = default!;
 
         private void Initialize_ReadingSpellbook()

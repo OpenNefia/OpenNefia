@@ -22,6 +22,9 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Combat;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Content.Feats;
+using OpenNefia.Content.Damage;
+using OpenNefia.Core;
+using OpenNefia.Content.Factions;
 
 namespace OpenNefia.Content.Effects.New
 {
@@ -72,9 +75,11 @@ namespace OpenNefia.Content.Effects.New
 
         bool TryGetEffectTarget(EntityUid source, EntityUid value, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target);
         int CalcEffectAdjustedPower(EffectAlignment alignment, int power, CurseState curseState);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args);
-        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args);
+
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, int maxRange, IDictionary<string, IFormulaVariable>? extraVariables = null);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, BeforeApplyEffectDamageEvent args);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args);
+        IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args);
 
         /// <summary>
         /// Gets the dice of an effect. Useful for displaying it in the UI.
@@ -85,7 +90,7 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         /// <returns></returns>
         bool TryGetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
-            int power, int skillLevel, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null);
+            int power, int skillLevel, int maxRange, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null);
 
         /// <summary>
         /// Gets the dice of an effect given its base X, Y and bonus.
@@ -95,6 +100,8 @@ namespace OpenNefia.Content.Effects.New
         /// <returns></returns>
         Dice GetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
             int diceX, int diceY, int bonus);
+
+        bool TryGetEffectDamageMessage(EntityUid source, EntityUid innerTarget, LocaleKey rootKey, [NotNullWhen(true)] out string? message, DamageHPMessageTense? tense = null);
     }
 
     public sealed record class EffectTarget(EntityUid? Target, EntityCoordinates? Coords);
@@ -110,13 +117,17 @@ namespace OpenNefia.Content.Effects.New
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IFormulaEngine _formulaEngine = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly IDamageSystem _damages = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly ITargetingSystem _targeting = default!;
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel)
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, int power, int skillLevel, int maxRange, IDictionary<string, IFormulaVariable>? extraVariables = null)
         {
             var result = new Dictionary<string, double>();
 
             result["power"] = power;
             result["skillLevel"] = skillLevel;
+            result["maxRange"] = maxRange;
             result["casterLevel"] = _levels.GetLevel(source);
             result["targetLevel"] = target != null ? _levels.GetLevel(target.Value) : 0;
             if (sourceCoords.TryDistanceFractional(EntityManager, targetCoords, out var dist))
@@ -124,14 +135,41 @@ namespace OpenNefia.Content.Effects.New
                 result["distance"] = dist;
             }
 
+            if (extraVariables != null)
+            {
+                foreach (var (key, value) in extraVariables)
+                {
+                    EntitySystem.InjectDependencies(value);
+                    result[key] = value.Calculate(effectUid, source, target);
+                }
+            }
+
             return result;
         }
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectDamageEvent args)
-            => GetEffectDamageFormulaArgs(uid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, BeforeApplyEffectDamageEvent args)
+        {
+            IDictionary<string, IFormulaVariable>? extraVariables = null;
+            if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
+                extraVariables = effectDice.ExtraVariables;
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.OutInnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
+        }
 
-        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid uid, ApplyEffectAreaEvent args)
-            => GetEffectDamageFormulaArgs(uid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel);
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectDamageEvent args)
+        {
+            IDictionary<string, IFormulaVariable>? extraVariables = null;
+            if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
+                extraVariables = effectDice.ExtraVariables;
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.InnerTarget, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
+        }
+
+        public IDictionary<string, double> GetEffectDamageFormulaArgs(EntityUid effectUid, ApplyEffectAreaEvent args)
+        {
+            IDictionary<string, IFormulaVariable>? extraVariables = null;
+            if (TryComp<EffectBaseDamageDiceComponent>(effectUid, out var effectDice))
+                extraVariables = effectDice.ExtraVariables;
+            return GetEffectDamageFormulaArgs(effectUid, args.Source, args.Target, args.SourceCoords, args.TargetCoords, args.Args.Power, args.Args.SkillLevel, args.CommonArgs.MaxRange, extraVariables);
+        }
 
         public bool TrySpawnEffect(PrototypeId<EntityPrototype> effectID, [NotNullWhen(true)] out EntityUid? effect, bool retainEffectEntity = false)
         {
@@ -232,6 +270,20 @@ namespace OpenNefia.Content.Effects.New
             }
         }
 
+        public bool TryGetEffectDamageMessage(EntityUid source, EntityUid innerTarget, LocaleKey rootKey, [NotNullWhen(true)] out string? message, DamageHPMessageTense? tense = null)
+        {
+            tense ??= _damages.GetDamageMessageTense(innerTarget);
+            var endKey = tense == DamageHPMessageTense.Active ? "Other" : "Ally";
+            if (Loc.TryGetString(rootKey.With(endKey), out message, ("source", source), ("entity", innerTarget)))
+                return true;
+
+            if (Loc.TryGetString(rootKey, out message, ("source", source), ("entity", innerTarget)))
+                return true;
+
+            message = null;
+            return false;
+        }
+
         public bool TryGetEffectTarget(EntityUid source, EntityUid effect, EffectArgSet args, [NotNullWhen(true)] out EffectTarget? target)
         {
             if (!IsAlive(effect))
@@ -240,8 +292,10 @@ namespace OpenNefia.Content.Effects.New
                 return false;
             }
 
+            // TODO ai
             var ev = new GetEffectPlayerTargetEvent(source, args);
             RaiseEvent(effect, ev);
+
             if (!ev.Handled || (ev.OutTarget == null && ev.OutCoords == null))
             {
                 target = null;
@@ -249,12 +303,27 @@ namespace OpenNefia.Content.Effects.New
             }
 
             target = new(ev.OutTarget, ev.OutCoords);
+
+            if (_factions.IsPlayer(source))
+            {
+                var promptIfFriendly = CompOrNull<EffectComponent>(effect)?.Alignment == EffectAlignment.Negative;
+                if (IsAlive(target.Target)
+                    && source != target.Target
+                    && promptIfFriendly
+                    && _factions.GetRelationTowards(source, target.Target.Value) >= Relation.Neutral
+                    && !_targeting.PromptReallyAttack(source, target.Target.Value))
+                {
+                    target = null;
+                    return false;
+                }
+            }
+
             return true;
         }
 
         /// <inheritdoc/>
         public bool TryGetEffectDice(EntityUid source, EntityUid? target, EntityUid effectUid,
-            int power, int skillLevel, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null)
+            int power, int skillLevel, int maxRange, [NotNullWhen(true)] out Dice? dice, [NotNullWhen(true)] out IDictionary<string, double>? formulaArgs, EntityCoordinates? sourceCoords = null, EntityCoordinates? targetCoords = null, EffectBaseDamageDiceComponent? effectDice = null)
         {
             if (!Resolve(effectUid, ref effectDice, logMissing: false))
             {
@@ -266,7 +335,7 @@ namespace OpenNefia.Content.Effects.New
             sourceCoords ??= Spatial(source).Coordinates;
             targetCoords ??= IsAlive(target) ? Spatial(target.Value).Coordinates : sourceCoords.Value;
 
-            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel);
+            formulaArgs = GetEffectDamageFormulaArgs(effectUid, source, target, sourceCoords.Value, targetCoords.Value, power, skillLevel, maxRange, effectDice.ExtraVariables);
 
             var diceX = int.Max((int)_formulaEngine.Calculate(effectDice.DiceX, formulaArgs, 0f), 0);
             var diceY = int.Max((int)_formulaEngine.Calculate(effectDice.DiceY, formulaArgs, 0f), 0);
@@ -439,11 +508,93 @@ namespace OpenNefia.Content.Effects.New
 
         public EffectArgSet Args { get; }
 
-        public ApplyEffectTileDamageEvent(EntityUid source, EntityCoordinates coords, EffectArgSet args)
+        /// <summary>
+        /// Number of affected tiles if this event was invoked with an AoE.
+        /// </summary>
+        public int AffectedTileCount { get; }
+
+        /// <summary>
+        /// Index of the tile being affected, starting from 0.
+        /// </summary>
+        public int AffectedTileIndex { get; } = 0;
+
+        public bool OutEffectWasObvious { get; set; } = true;
+
+        public ApplyEffectTileDamageEvent(EntityUid source, EntityCoordinates coords, EffectArgSet args, int tileCount, int tileIndex)
         {
             Source = source;
             Coords = coords;
             Args = args;
+            AffectedTileCount = tileCount;
+            AffectedTileIndex = tileIndex;
+        }
+    }
+
+    [EventUsage(EventTarget.Effect)]
+    public sealed class BeforeApplyEffectDamageEvent : CancellableEntityEventArgs, IApplyEffectEvent
+    {
+        /// <summary>
+        /// Person who casted the event.
+        /// </summary>
+        public EntityUid Source { get; }
+
+        /// <summary>
+        /// Target of the effect. May be different from the original target
+        /// in the case of AoE. May be <c>null</c> if the effect targets the ground.
+        /// </summary>
+        public EntityUid? OutInnerTarget { get; set; }
+
+        public EntityCoordinates SourceCoords { get; }
+
+        /// <summary>
+        /// Coordinates of the target entity or targeted position, 
+        /// These are guaranteed to be available even if there is no <see cref="OutInnerTarget"/>.
+        /// </summary>
+        public EntityCoordinates TargetCoords { get; }
+
+        public MapCoordinates SourceCoordsMap => SourceCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+        public MapCoordinates TargetCoordsMap => TargetCoords.ToMap(IoCManager.Resolve<IEntityManager>());
+
+        public IMap SourceMap => IoCManager.Resolve<IMapManager>().GetMap(SourceCoordsMap.MapId);
+        public IMap TargetMap => IoCManager.Resolve<IMapManager>().GetMap(TargetCoordsMap.MapId);
+
+        public EffectArgSet Args { get; }
+        public EffectCommonArgs CommonArgs => Args.Ensure<EffectCommonArgs>();
+
+        /// <summary>
+        /// Number of affected tiles if this event was invoked with an AoE.
+        /// </summary>
+        public int AffectedTileCount { get; }
+
+        /// <summary>
+        /// Index of the tile being affected, starting from 0.
+        /// </summary>
+        public int AffectedTileIndex { get; } = 0;
+
+        /// <summary>
+        /// A damage property for calculating damage somewhere in the effect chain.
+        /// </summary>
+        public int OutDamage { get; set; } = 0;
+
+        /// <summary>
+        /// A damage property for calculating elemental power somewhere in the effect chain.
+        /// </summary>
+        public int OutElementalPower { get; set; } = 0;
+
+        private bool _didSomething = false;
+        public bool OutDidSomething { get => _didSomething || TurnResult == Core.GameObjects.TurnResult.Succeeded; set => _didSomething = value; }
+
+        public TurnResult? TurnResult { get; set; }
+
+        public BeforeApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
+        {
+            Source = source;
+            OutInnerTarget = target;
+            SourceCoords = sourceCoords;
+            TargetCoords = targetCoords;
+            Args = args;
+            AffectedTileCount = affectedTiles;
+            AffectedTileIndex = affectedTileIndex;
         }
     }
 
@@ -457,7 +608,7 @@ namespace OpenNefia.Content.Effects.New
     /// not be identified automatically)
     /// </summary>
     [EventUsage(EventTarget.Effect)]
-    public sealed class ApplyEffectDamageEvent : TurnResultEntityEventArgs, IApplyEffectEvent
+    public sealed class ApplyEffectDamageEvent : EntityEventArgs, IApplyEffectEvent
     {
         /// <summary>
         /// Person who casted the event.
@@ -500,19 +651,24 @@ namespace OpenNefia.Content.Effects.New
         /// <summary>
         /// A damage property for calculating damage somewhere in the effect chain.
         /// </summary>
-        public int OutDamage { get; set; } = 0;
+        public int Damage { get; } = 0;
 
         /// <summary>
         /// A damage property for calculating elemental power somewhere in the effect chain.
         /// </summary>
-        public int OutElementalPower { get; set; } = 0;
+        public int ElementalPower { get;} = 0;
 
         /// <summary>
         /// Set to false if the effect failed so that the associated item is not identified.
         /// </summary>
         public bool OutEffectWasObvious { get; set; } = true;
 
-        public ApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex)
+        private bool _didSomething = false;
+        public bool OutDidSomething { get => _didSomething || TurnResult == TurnResult.Succeeded; private set => _didSomething = value; }
+
+        public TurnResult TurnResult { get; private set; } = TurnResult.Failed;
+
+        public ApplyEffectDamageEvent(EntityUid source, EntityUid? target, EntityCoordinates sourceCoords, EntityCoordinates targetCoords, EffectArgSet args, int affectedTiles, int affectedTileIndex, int damage, int elementalPower)
         {
             Source = source;
             InnerTarget = target;
@@ -521,6 +677,20 @@ namespace OpenNefia.Content.Effects.New
             Args = args;
             AffectedTileCount = affectedTiles;
             AffectedTileIndex = affectedTileIndex;
+            Damage = damage;
+            ElementalPower = elementalPower;
+        }
+
+        public void Failure()
+        {
+            OutDidSomething = true;
+            TurnResult = TurnResult.Combine(TurnResult.Failed);
+        }
+
+        public void Success()
+        {
+            OutDidSomething = true;
+            TurnResult = TurnResult.Succeeded;
         }
     }
 
@@ -533,14 +703,16 @@ namespace OpenNefia.Content.Effects.New
         public EntityUid Caster { get; }
         public int Power { get; }
         public int SkillLevel { get; }
+        public int MaxRange { get; }
 
         public string OutDescription { get; set; } = string.Empty;
 
-        public GetEffectDescriptionEvent(EntityUid caster, int power, int skillLevel, string description)
+        public GetEffectDescriptionEvent(EntityUid caster, int power, int skillLevel, int maxRange, string description)
         {
             Caster = caster;
             Power = power;
             SkillLevel = skillLevel;
+            MaxRange = maxRange;
             OutDescription = description;
         }
     }

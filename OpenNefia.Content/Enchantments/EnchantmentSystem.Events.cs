@@ -43,6 +43,9 @@ namespace OpenNefia.Content.Enchantments
 
         private void Enchantments_GettingInserted(EntityUid uid, EnchantmentsComponent component, ContainerIsInsertingAttemptEvent args)
         {
+            if (args.Cancelled)
+                return;
+
             if (args.Container.Contains(args.EntityUid))
             {
                 args.Cancel();
@@ -90,7 +93,7 @@ namespace OpenNefia.Content.Enchantments
 
         private void EquipSlots_ProcEnchantmentPassTurns(EntityUid equipper, EquipSlotsComponent component, EntityPassTurnEventArgs args)
         {
-            if (args.Handled || !TryComp<TurnOrderComponent>(equipper, out var turnOrder))
+            if (args.Handled)
                 return;
 
             foreach (var item in _equipSlots.EnumerateEquippedEntities(equipper))

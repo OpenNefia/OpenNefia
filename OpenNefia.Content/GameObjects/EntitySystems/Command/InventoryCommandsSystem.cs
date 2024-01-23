@@ -40,21 +40,21 @@ namespace OpenNefia.Content.GameObjects
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.PickUp, _cmd.MakeCommandHandler(HandlePickUp))
                 .Bind(ContentKeyFunctions.Examine,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ExamineInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new ExamineInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drop,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new DropInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new DropInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drink,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new DrinkInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new DrinkInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Throw,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ThrowInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new ThrowInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Eat,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new EatInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new EatInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Use,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new UseInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new UseInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Read,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new ReadInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new ReadInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Open,
-                    new InventoryInputCmdHandler(_uiMgr, _cmd,  new OpenInventoryBehavior()))
+                    new InventoryInputCmdHandler(_uiMgr, _cmd, new OpenInventoryBehavior()))
                 .Register<InventoryCommandsSystem>();
         }
 
@@ -101,7 +101,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 var context = new InventoryContext(player, new PickUpInventoryBehavior());
                 var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
-                
+
                 if (result.HasValue && result.Value.Data is InventoryResult.Finished finished)
                 {
                     return finished.TurnResult;
@@ -116,6 +116,21 @@ namespace OpenNefia.Content.GameObjects
             private readonly IUserInterfaceManager _uiMgr;
             private readonly ICommonCommandsSystem _cmd;
             private readonly IInventoryBehavior _behavior;
+
+            private static readonly List<IInventoryBehavior> DefaultBehaviors = new List<IInventoryBehavior>
+            {
+                new ExamineInventoryBehavior(),
+                new DropInventoryBehavior(),
+                new EatInventoryBehavior(),
+                new ReadInventoryBehavior(),
+                new DrinkInventoryBehavior(),
+                // TODO: zap behaviour
+                new UseInventoryBehavior(),
+                new OpenInventoryBehavior(),
+                // TODO: mix behaviour
+                new ThrowInventoryBehavior(),
+            };
+
 
             public InventoryInputCmdHandler(IUserInterfaceManager uiMgr, ICommonCommandsSystem cmd,
                 IInventoryBehavior behavior)
@@ -132,12 +147,20 @@ namespace OpenNefia.Content.GameObjects
                     return null;
                 }
 
+                var behaviors = DefaultBehaviors;
+                var index = behaviors.FindIndex(b => b.GetType() == _behavior.GetType());
+                if (index == -1)
+                {
+                    behaviors = new List<IInventoryBehavior>() { _behavior };
+                    index = 0;
+                }
+
                 if (_behavior.BlockInWorldMap && _cmd.BlockIfInWorldMap(session!.Player))
                     return TurnResult.Aborted;
 
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
-                    var context = new InventoryGroupArgs(session.Player, _behavior);
+                    var context = new InventoryGroupArgs(session.Player, behaviors, index);
                     var result = _uiMgr.Query<InventoryUiGroup, InventoryGroupArgs, InventoryLayer.Result>(context);
 
                     if (result.HasValue)

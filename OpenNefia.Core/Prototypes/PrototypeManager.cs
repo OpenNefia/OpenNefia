@@ -1683,7 +1683,7 @@ namespace OpenNefia.Core.Prototypes
     [Serializable]
     public class UnknownPrototypeException : Exception
     {
-        public override string Message => "Unknown prototype: " + Prototype;
+        public override string Message => $"Unknown prototype of type {Type?.Name}: {Prototype}";
         public readonly string? Prototype;
         public readonly Type? Type;
 

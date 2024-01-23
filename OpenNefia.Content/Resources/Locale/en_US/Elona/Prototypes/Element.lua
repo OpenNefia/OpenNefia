@@ -287,6 +287,9 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
     },
+    Ether = {
+        Ego = "ether",
+    },
     Acid = {
         Wounded = function(entity)
             return ("%s %s burnt by acid."):format(_.name(entity), _.is(entity))
@@ -300,19 +303,19 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
             end,
         },
     },
-    Ether = {
-        Ego = "ether",
+    Rotten = {
+        Ego = "rotten",
+    },
+    Hunger = {
+        Ego = "starving",
     },
     Fear = {
         Ego = "fearful",
     },
-    Rotten = {
-        Ego = "rotten",
-    },
-    Silky = {
+    Soft = {
         Ego = "silky",
     },
-    Starving = {
-        Ego = "starving",
+    Vorpal = {
+        Ego = "vorpal",
     },
 }

@@ -6,7 +6,6 @@
   - type: Effect
     alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectAreaArrow
   - type: EffectBaseDamageDice
     diceX: (power / 70) + 1 + (skillLevel / 18)

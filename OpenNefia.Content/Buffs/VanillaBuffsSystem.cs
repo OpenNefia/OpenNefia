@@ -66,7 +66,10 @@ namespace OpenNefia.Content.Buffs
             SubscribeComponent<BuffIncognitoComponent, ApplyBuffOnRefreshEvent>(ApplyBuff_BuffIncognito);
             SubscribeComponent<BuffIncognitoComponent, BeforeBuffAddedEvent>(AddBuff_BuffIncognito);
             SubscribeComponent<BuffIncognitoComponent, BeforeBuffRemovedEvent>(RemoveBuff_BuffIncognito);
+            SubscribeComponent<BuffDeathWordComponent, BeforeBuffAddedEvent>(AddBuff_BuffDeathWord);
             SubscribeComponent<BuffDeathWordComponent, OnBuffExpiredEvent>(ExpireBuff_BuffDeathWord);
+            SubscribeComponent<DeathWordTargetsComponent, EntityKilledEvent>(Killed_DeathWordTargets);
+            SubscribeComponent<DeathWordTargetsComponent, BeforeEntityDeletedEvent>(Deleted_DeathWordTargets);
             SubscribeComponent<BuffBoostComponent, ApplyBuffOnRefreshEvent>(ApplyBuff_BuffBoost);
             SubscribeComponent<BuffLuckyComponent, ApplyBuffOnRefreshEvent>(ApplyBuff_BuffLucky);
             SubscribeComponent<BuffFoodComponent, ApplyBuffOnRefreshEvent>(ApplyBuff_BuffFood);
@@ -254,6 +257,15 @@ namespace OpenNefia.Content.Buffs
             // <<<<<<<< elona122/shade2/init.hsp:2781 		cBitMod cIncognito,tc,true ...
         }
 
+        private void AddBuff_BuffDeathWord(EntityUid uid, BuffDeathWordComponent component, BeforeBuffAddedEvent args)
+        {
+            if (args.Cancelled || !IsAlive(args.Source))
+                return;
+
+            var deathWordTargets = EnsureComp<DeathWordTargetsComponent>(args.Source.Value);
+            deathWordTargets.Targets.Add(args.Target);
+        }
+
         private void ExpireBuff_BuffDeathWord(EntityUid uid, BuffDeathWordComponent comp, OnBuffExpiredEvent args)
         {
             // >>>>>>>> elona122/shade2/main.hsp:804 			if cBuff(cnt,cc)=buffDeath:dmgHp cc,9999,dmgFro ...
@@ -261,6 +273,43 @@ namespace OpenNefia.Content.Buffs
                 return;
             _damages.DamageHP(uid, Math.Max(9999, skills.MaxHP), damageType: new GenericDamageType("Elona.DamageType.UnseenHand"));
             // <<<<<<<< elona122/shade2/main.hsp:804 			if cBuff(cnt,cc)=buffDeath:dmgHp cc,9999,dmgFro ...
+        }
+
+        private void Killed_DeathWordTargets(EntityUid uid, DeathWordTargetsComponent component, ref EntityKilledEvent args)
+        {
+            RemoveDeathWordFromTargets(uid, component.Targets);
+        }
+
+        private void Deleted_DeathWordTargets(EntityUid uid, DeathWordTargetsComponent component, ref BeforeEntityDeletedEvent args)
+        {
+            RemoveDeathWordFromTargets(uid, component.Targets);
+        }
+
+        private void RemoveDeathWordFromTargets(EntityUid source, HashSet<EntityUid> targets)
+        {
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1749 		if cBit(cDeathMaster,tc)=true{ ...
+            var removed = 0;
+
+            foreach (var target in targets.ToList())
+            {
+                if (!IsAlive(target))
+                    continue;
+
+                foreach (var buff in _buffs.EnumerateBuffs(target).ToList())
+                {
+                    if (HasComp<BuffDeathWordComponent>(buff.Owner) && buff.Source == source)
+                    {
+                        _buffs.RemoveBuff(target, buff.Owner);
+                        removed++;
+                    }
+                }
+            }
+            if (removed > 0)
+            {
+                _mes.Display(Loc.GetString("Elona.Buff.Types.DeathWord.Breaks"));
+            }
+            targets.Clear();
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1759 			} ...
         }
 
         private void ApplyBuff_BuffBoost(EntityUid uid, BuffBoostComponent comp, ref ApplyBuffOnRefreshEvent args)

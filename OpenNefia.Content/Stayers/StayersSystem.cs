@@ -13,6 +13,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Mount;
+using OpenNefia.Content.GlobalEntities;
 
 namespace OpenNefia.Content.Stayers
 {
@@ -54,15 +55,12 @@ namespace OpenNefia.Content.Stayers
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMountSystem _mounts = default!;
+        [Dependency] private readonly IGlobalEntitySystem _globalEntities = default!;
 
-        [RegisterSaveData("Elona.StayerSystem.StayersEntity")]
-        private EntityUid _stayersEntity { get; set; } = EntityUid.Invalid;
-        private Container _stayersContainer => EnsureComp<StayersComponent>(_stayersEntity).Container;
+        public const string StayersEntityGlobalID = "Elona.StayersContainer";
 
         public override void Initialize()
         {
-            SubscribeBroadcast<GameInitiallyLoadedEventArgs>(EnsureStayersContainer);
-
             SubscribeBroadcast<BeforeMapLeaveEventArgs>(TransferFromMapToStayers);
             SubscribeBroadcast<AfterMapEnterEventArgs>(TransferFromStayersToMap);
 
@@ -110,25 +108,16 @@ namespace OpenNefia.Content.Stayers
             return true;
         }
 
-        private void EnsureStayersContainer(GameInitiallyLoadedEventArgs ev)
+        private StayersComponent EnsureStayersContainer()
         {
-            EnsureStayersContainer();
-        }
-
-        private void EnsureStayersContainer()
-        {
-            if (!IsAlive(_stayersEntity))
-            {
-                Logger.WarningS("stayers", "Creating stayers container entity");
-                _stayersEntity = EntityManager.SpawnEntity(null, MapCoordinates.Global);
-                DebugTools.Assert(IsAlive(_stayersEntity), "Could not initialize stayers container!");
-                EnsureComp<StayersComponent>(_stayersEntity);
-            }
+            var ent = _globalEntities.EnsureGlobalEntity(StayersEntityGlobalID, null);
+            return EnsureComp<StayersComponent>(ent);
         }
 
         public IEnumerable<StayingComponent> EnumerateAllStayers(string tag)
         {
-            return _lookup.EntityQueryDirectlyIn<StayingComponent>(_stayersEntity)
+            var container = EnsureStayersContainer();
+            return _lookup.EntityQueryDirectlyIn<StayingComponent>(container.Owner)
                 .Where(staying => staying.StayingLocation != null && staying.StayingLocation.Tag == tag);
         }
 
@@ -179,7 +168,7 @@ namespace OpenNefia.Content.Stayers
         {
             EnsureStayersContainer();
 
-            var container = _stayersContainer;
+            var container = EnsureStayersContainer().Container;
 
             foreach (var staying in _lookup.EntityQueryInMap<StayingComponent>(ev.OldMap).Where(staying => staying.StayingLocation != null && !staying.StayingLocation.Criteria.CanAppear(staying.Owner, ev.NewMap)).ToList())
             {
@@ -199,7 +188,9 @@ namespace OpenNefia.Content.Stayers
         {
             EnsureStayersContainer();
 
-            foreach (var (staying, spatial) in _lookup.EntityQueryDirectlyIn<StayingComponent, SpatialComponent>(_stayersEntity).Where(pair => pair.Item1.StayingLocation != null && pair.Item1.StayingLocation.Criteria.CanAppear(pair.Item1.Owner, ev.NewMap)).ToList())
+            var container = EnsureStayersContainer();
+
+            foreach (var (staying, spatial) in _lookup.EntityQueryDirectlyIn<StayingComponent, SpatialComponent>(container.Owner).Where(pair => pair.Item1.StayingLocation != null && pair.Item1.StayingLocation.Criteria.CanAppear(pair.Item1.Owner, ev.NewMap)).ToList())
             {
                 IMapStartLocation startLoc;
                 if (staying.StayingLocation!.Location != null)

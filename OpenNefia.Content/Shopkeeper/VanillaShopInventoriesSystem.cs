@@ -17,6 +17,7 @@ using OpenNefia.Content.Guild;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.CurseStates;
+using OpenNefia.Content.Chargeable;
 
 namespace OpenNefia.Content.Shopkeeper
 {
@@ -169,7 +170,7 @@ namespace OpenNefia.Content.Shopkeeper
             _stacks.SetCount(ev.Item, 1);
             EnsureComp<CurseStateComponent>(ev.Item).CurseState = CurseState.Normal;
             if (ProtoIDOrNull(ev.Item) == Protos.Item.RodOfDomination)
-                EnsureComp<ChargedComponent>(ev.Item).Charges = 4;
+                EnsureComp<ChargeableComponent>(ev.Item).Charges = 4;
         }
 
         #endregion

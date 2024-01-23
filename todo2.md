@@ -14,17 +14,23 @@
 - [ ] magic/effects
   + [x] buffs
   + [ ] timestop
-  + [ ] death word expiration
+  + [x] death word expiration
+  + [ ] elemental damage effects
   + [ ] spell stock check
-  + [ ] rods
+  + [x] rods
   + [ ] add all effect alignments
   + [ ] add all effect max ranges
-  + [ ] remove/refactor old effect system
-  + [ ] move spell/action skills into effect prototype files
+  + [ ] rename EffectDamage components that are preconditions to EffectCondControlMagic, etc.
+  + [x] remove/refactor old effect system
+  + [x] move spell/action skills into effect prototype files
+  + [ ] "it invokes" enchantments
   + [ ] bomb ammo enchantment
   + [ ] curse state teleportation/effects
   + [ ] effect damage that chains multiple effects
   + [ ] magic items
+  + [ ] effect AI targeting
+  + [ ] BeforeEffectApplyDamage : CancellableEntityEventArgs
+    - [ ] suspicious hand cancellation
 - [ ] inventory/spell/skill shortcuts
 - [ ] AI/calm actions
 - [ ] main quest/sidequests/dialogs
@@ -56,6 +62,7 @@
 - [ ] enemies follow player up/down stairs
 - [ ] all villager roles/dialog options
 - [ ] all interact options/inventory contexts
+- [ ] change creature
 - [ ] status effect protoevents -> ECS
   + [ ] gravity/floating buff
   + [ ] fear prevents melee attacking
@@ -73,6 +80,10 @@
 - [ ] correct prototype ordering (spells, etc.)
 - [ ] custom talk
 - [ ] theming
+- [ ] MapPosition -> MapCoordinates?
+- [ ] mirror spact
+- [ ] rename things
+  + EffectDamageHealing -> EffectDamageHealHP
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] loc manager doesn't re-watch if language is switched
@@ -119,6 +130,13 @@
   + it allows for picking and choosing how you want the game to act, hence "building your own Elona".
   + sets of feature flags compatible with a set of mods can be saved into one file and loaded in a profile
 - [ ] "garbage collectable" components (all flags inside the component are false, etc.)
+  + examples: `CommonProtectionsComponent`, `PregancyComponent`
+  + the existence of these components do not indicate "capability" to do something, instead flags on the component indicate this
+    * example: existence of `TurnOrderComponent` means entity can take turns. usually it should not be added to entities as part of a buff, only on first creation
+    * on the contrary, `PregnancyComponent` does not indicate "this entity can be pregnant"; that is determined by the `IsProtectedFromPregnancy` flag, so it is safe to always `EnsureComp` it
+  + so if all the flags on the component are equal to their defaults after refreshing, the component is "garbage collectable" and can be removed, saving some memory
+  + therefore there could be a flag added to `IComponentRefreshable` that enables this behavior
+  + either that, or determine a better convention for "capability" components versus "flag-only/GCable" components
 - [ ] remaining TODOs
 
 ## debug

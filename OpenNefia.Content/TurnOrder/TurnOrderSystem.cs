@@ -410,13 +410,13 @@ namespace OpenNefia.Content.TurnOrder
 
             _activeEntity = nextInOrder;
 
-            var ev = new EntityTurnStartingEventArgs(isFirstTurn);
+            var ev = new EntityTurnStartingEventArgs(nextInOrder, isFirstTurn);
             if (Raise(nextInOrder.Owner, ev))
             {
                 return ev.TurnResult.ToTurnOrderState();
             }
 
-            var ev2 = new EntityPassTurnEventArgs();
+            var ev2 = new EntityPassTurnEventArgs(nextInOrder);
             if (Raise(nextInOrder.Owner, ev2))
                 return ev2.TurnResult.ToTurnOrderState();
 
@@ -473,7 +473,7 @@ namespace OpenNefia.Content.TurnOrder
                 return TurnOrderState.PassTurns;
             }
 
-            var ev = new EntityTurnEndingEventArgs();
+            var ev = new EntityTurnEndingEventArgs(_activeEntity);
             RaiseEvent(_activeEntity.Owner, ev);
 
             return TurnOrderState.PassTurns;
@@ -617,22 +617,36 @@ namespace OpenNefia.Content.TurnOrder
     [EventUsage(EventTarget.Normal)]
     public sealed class EntityTurnStartingEventArgs : TurnResultEntityEventArgs
     {
-        public EntityTurnStartingEventArgs(bool isFirstTurn)
+        public TurnOrderComponent TurnOrder { get; }
+        public bool IsFirstTurn { get; }
+
+        public EntityTurnStartingEventArgs(TurnOrderComponent turnOrder, bool isFirstTurn)
         {
+            TurnOrder = turnOrder;
             IsFirstTurn = isFirstTurn;
         }
-
-        public bool IsFirstTurn { get; }
     }
 
     [EventUsage(EventTarget.Normal)]
     public sealed class EntityPassTurnEventArgs : TurnResultEntityEventArgs
     {
+        public TurnOrderComponent TurnOrder { get; }
+
+        public EntityPassTurnEventArgs(TurnOrderComponent turnOrder)
+        {
+            TurnOrder = turnOrder;
+        }
     }
 
     [EventUsage(EventTarget.Normal)]
     public sealed class EntityTurnEndingEventArgs : TurnResultEntityEventArgs
     {
+        public TurnOrderComponent TurnOrder { get; }
+
+        public EntityTurnEndingEventArgs(TurnOrderComponent turnOrder)
+        {
+            TurnOrder = turnOrder;
+        }
     }
 
     [EventUsage(EventTarget.Normal | EventTarget.Map)]

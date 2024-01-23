@@ -3,43 +3,43 @@ Elona.Damage.UnarmedText = {
         Default = {
             VerbActive = "punch",
             VerbPassive = "punch",
-            Weapon = "hand",
+            Style = "hand",
         },
 
         Claw = {
             VerbActive = "claw",
             VerbPassive = "claw",
-            Weapon = "claw",
+            Style = "claw",
         },
 
         Bite = {
             VerbActive = "bite",
             VerbPassive = "bite",
-            Weapon = "fang",
+            Style = "fang",
         },
 
         Gaze = {
             VerbActive = "gaze",
             VerbPassive = "gaze",
-            Weapon = "eye",
+            Style = "eye",
         },
 
         Sting = {
             VerbActive = "sting",
             VerbPassive = "sting",
-            Weapon = "needle",
+            Style = "needle",
         },
 
         Touch = {
             VerbActive = "touch",
             VerbPassive = "touch",
-            Weapon = "hand",
+            Style = "hand",
         },
 
         Spore = {
             VerbActive = "attack",
             VerbPassive = "attack",
-            Weapon = "spore",
+            Style = "spore",
         },
     },
 }

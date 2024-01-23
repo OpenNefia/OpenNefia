@@ -1,8 +1,10 @@
 ﻿using OpenNefia.Content.Audio;
+using OpenNefia.Content.UI;
 using OpenNefia.Core;
 using OpenNefia.Core.Formulae;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Effects.New
@@ -40,6 +42,13 @@ namespace OpenNefia.Content.Effects.New
         /// </summary>
         [DataField]
         public bool IncludeOriginPos { get; set; } = false;
+
+        [DataField]
+        public Formula Radius { get; set; } = new("maxRange");
+
+        // TODO remove this and replace with ApplyEffectPositions handler
+        [DataField]
+        public bool ShowAnimation { get; set; } = false;
     }
 
     /// <summary>
@@ -77,6 +86,35 @@ namespace OpenNefia.Content.Effects.New
     }
 
     /// <summary>
+    /// Affects a random spray of tiles around the origin.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaSenseComponent : Component
+    {
+        [DataField]
+        public Formula Passes { get; set; } = new("1");
+
+        /// <summary>
+        /// Tiles within this radius will always be revealed. 
+        /// </summary>
+        [DataField]
+        public Formula CloseRadiusTiles { get; set; } = new("7");
+
+        [DataField]
+        public Formula RevealPower { get; set; } = new("1");
+    }
+
+    /// <summary>
+    /// Affects the entire map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaWholeMapComponent : Component
+    {
+    }
+
+    /// <summary>
     /// Shows a message and plays a sound when the area effect is cast.
     /// </summary>
     [RegisterComponent]
@@ -87,7 +125,30 @@ namespace OpenNefia.Content.Effects.New
         public LocaleKey MessageKey { get; set; } = "";
 
         [DataField]
+        public LocaleKey? MessageKeyCursed { get; set; }
+
+        [DataField]
+        public Color Color { get; set; } = UiColors.MesWhite;
+
+        [DataField]
         public SoundSpecifier? Sound { get; set; }
+    }
+
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectAreaCastInsteadComponent : Component
+    {
+        [DataField]
+        public CastInsteadCriteria IfSource { get; set; } = CastInsteadCriteria.Any;
+
+        [DataField]
+        public CastInsteadCriteria IfTarget { get; set; } = CastInsteadCriteria.Any;
+
+        /// <summary>
+        /// If null, then "nothing happens..."
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype>? EffectID { get; set; }
     }
 
     [RegisterComponent]

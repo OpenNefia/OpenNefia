@@ -171,6 +171,54 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
+    /// Reveals tiles in the map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectMagicMapComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Reveals objects in the map.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectSenseObjectComponent : Component
+    {
+    }
+
+    /// <summary>
+    /// Opens a global inventory.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectFourDimensionalPocketComponent : Component
+    {
+        /// <summary>
+        /// Global entity managed by <see cref="Content.GlobalEntities.IGlobalEntitySystem"/>.
+        /// The items will be stored inside a container there.
+        /// </summary>
+        [DataField]
+        public string GlobalEntityID { get; set; } = "Elona.FourDimensionalPocket";
+
+        /// <summary>
+        /// Prototype ID of the global container.
+        /// </summary>
+        [DataField]
+        public PrototypeId<EntityPrototype>? ContainerEntity { get; set; } = new("Elona.ContainerFourDimensionalPocket");
+
+        [DataField]
+        public Formula? MaxTotalWeight { get; set; }
+
+        [DataField]
+        public Formula? MaxItemWeight { get; set; }
+
+        [DataField]
+        public Formula? MaxItemCount { get; set; }
+    }
+
+    /// <summary>
     /// Removes hexes.
     /// </summary>
     /// <remarks>
@@ -188,17 +236,45 @@ namespace OpenNefia.Content.Effects.New.Unique
     }
 
     /// <summary>
-    /// Adds a buff (blessing/hex) to the target.
+    /// Wide-reaching meteor attack.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Effect)]
-    public sealed class EffectApplyBuffComponent : Component
+    public sealed class EffectMeteorComponent : Component
+    {
+    }
+
+    [DataDefinition]
+    public sealed class ApplyBuffEntry
     {
         /// <summary>
         /// Entity prototype ID of the buff to add.
         /// Must have a <see cref="BuffComponent"/>.
         /// </summary>
         [DataField]
-        public PrototypeId<EntityPrototype> BuffID { get; set; }
+        public PrototypeId<EntityPrototype> ID { get; set; }
+
+        /// <summary>
+        /// Calculates the power of the buff.
+        /// </summary>
+        [DataField]
+        public Formula Power { get; set; } = new("damage");
+
+        /// <summary>
+        /// If non-null, overrides the buff's default turns.
+        /// </summary>
+        [DataField]
+        public Formula? Turns { get; set; }
+    }
+
+    /// <summary>
+    /// Adds a buff (blessing/hex) to the target.
+    /// </summary>
+    [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Effect)]
+    public sealed class EffectApplyBuffsComponent : Component
+    {
+        [DataField]
+        public List<ApplyBuffEntry> Buffs { get; } = new();
     }
 }

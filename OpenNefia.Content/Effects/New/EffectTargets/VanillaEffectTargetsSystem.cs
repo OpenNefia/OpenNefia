@@ -141,7 +141,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             // >>>>>>>> elona122/shade2/proc.hsp:1615 		if cc=pc{ ...
             var range = args.Args.TileRange;
 
-            if (!TryPickTarget(args.Source, component.PromptIfFriendly, range, out var targetEnt))
+            if (!TryPickTarget(args.Source, range, out var targetEnt))
             {
                 effectCommon.OutEffectWasObvious = false;
                 args.Handle(null, null);
@@ -152,7 +152,7 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             // <<<<<<<< elona122/shade2/proc.hsp:1629 		return true ...
         }
 
-        private void GetTarget_Direction(EntityUid uid, EffectTargetDirectionComponent component, GetEffectPlayerTargetEvent args)
+        private void GetTarget_Direction(EntityUid effect, EffectTargetDirectionComponent component, GetEffectPlayerTargetEvent args)
         {
             if (args.Handled)
                 return;
@@ -209,18 +209,10 @@ namespace OpenNefia.Content.Effects.New.EffectTargets
             // <<<<<<<< elona122/shade2/proc.hsp:1597 				} ...
         }
 
-        private bool TryPickTarget(EntityUid source, bool promptIfFriendly, int maxRangeTiled, [NotNullWhen(true)] out EntityUid? targetEnt)
+        private bool TryPickTarget(EntityUid source, int maxRangeTiled, [NotNullWhen(true)] out EntityUid? targetEnt)
         {
             // >>>>>>>> elona122/shade2/proc.hsp:1615 		if cc=pc{ ...
             if (!_targeting.TrySearchForTarget(source, out targetEnt))
-            {
-                targetEnt = null;
-                return false;
-            }
-
-            if (promptIfFriendly
-                && _factions.GetRelationTowards(source, targetEnt.Value) >= Relation.Neutral
-                && !_targeting.PromptReallyAttack(source, targetEnt.Value))
             {
                 targetEnt = null;
                 return false;

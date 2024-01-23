@@ -13,23 +13,38 @@ Elona.Effect = {
     },
 
     Heal = {
-        Slightly = function(target)
+        Slightly = function(source, target)
             return ("%s %s slightly healed."):format(_.name(target), _.is(target))
         end,
-        Normal = function(target)
+        Normal = function(source, target)
             return ("%s %s healed."):format(_.name(target), _.is(target))
         end,
-        Greatly = function(target)
+        Greatly = function(source, target)
             return ("%s %s greatly healed."):format(_.name(target), _.is(target))
         end,
-        Completely = function(target)
+        Completely = function(source, target)
             return ("%s %s completely healed."):format(_.name(target), _.is(target))
         end,
     },
 
+    HealMP = {
+        Normal = function(source, target)
+            return ("%s mana is restored."):format(_.possessive(target))
+        end,
+        AbsorbMagic = function(source, target)
+            return ("%s absorb%s mana from the air."):format(_.name(target), _.s(target))
+        end,
+    },
+
     HealSanity = {
-        RainOfSanity = function(target)
+        RainOfSanity = function(source, target)
             return ("%s %s completely sane again."):format(_.name(target), _.is(target))
+        end,
+    },
+
+    MObj = {
+        Drops = function(source, target, mobj)
+            return ("%s drop%s %s on the ground."):format(_.name(source), _.s(source), _.name(mobj))
         end,
     },
 
@@ -187,5 +202,204 @@ Elona.Effect = {
         end,
 
         Dialog = _.quote "Thanks!",
+    },
+
+    Sense = {
+        Cursed = function(source, target)
+            return ("...Huh? %s suffer%s a minor memory defect."):format(_.capitalize(_.name(source)), _.s(source))
+        end,
+
+        MagicMap = function(source, target)
+            return ("%s sense%s nearby locations."):format(_.name(source), _.s(source))
+        end,
+
+        SenseObject = function(source, target)
+            return ("%s sense%s nearby objects."):format(_.name(source), _.s(source))
+        end,
+    },
+
+    FourDimensionalPocket = {
+        Summon = "You summon 4 dimensional pocket.",
+    },
+
+    Meteor = {
+        Falls = "Innumerable meteorites fall all over the area!",
+    },
+
+    DrainBlood = {
+        Ally = function(source, target)
+            return ("%s suck%s %s blood."):format(_.name(source), _.s(source), _.possessive(target))
+        end,
+        Other = function(source, target)
+            return ("%s suck%s %s blood and"):format(_.name(source), _.s(source), _.possessive(target))
+        end,
+    },
+
+    TouchOfWeakness = {
+        Apply = function(source, target)
+            return ("%s %s weakened."):format(_.name(target), _.is(target))
+        end,
+    },
+
+    TouchOfHunger = {
+        Apply = function(source, target)
+            return ("Suddenly, %s feel%s hungry."):format(_.name(target), _.s(target))
+        end,
+    },
+
+    ManisDisassembly = {
+        Dialog = _.quote "Delete.",
+    },
+
+    Mirror = {
+        Examine = function(source, target)
+            return ("%s examine%s %s."):format(_.name(source), _.s(source), _.theTarget(source, target))
+        end,
+    },
+
+    Change = {
+        Changes = function(source, target)
+            return ("%s change%s."):format(_.name(target), _.s(target))
+        end,
+        CannotBeChanged = function(source, target)
+            return ("%s cannot be changed."):format(_.name(target))
+        end,
+    },
+
+    Swarm = {
+        Apply = "Swarm!",
+    },
+
+    SuspiciousHand = {
+        GuardsWallet = function(source, target)
+            return ("%s guard%s %s wallet from a thief."):format(_.name(target), _.target(s), _.his(target))
+        end,
+        Steals = function(source, target, goldStolen)
+            return ("%s steal%s %s gold pieces from %s."):format(
+                _.name(source),
+                _.s(source),
+                goldStolen,
+                _.name(target)
+            )
+        end,
+        Escapes = "A thief escapes laughing.",
+    },
+
+    EyeOfInsanity = {
+        Message = {
+            function(source, target)
+                return ("%s see%s maggots breed in the rent stomach of %s."):format(
+                    _.name(target),
+                    _.s(target),
+                    _.name(source)
+                )
+            end,
+            function(source, target)
+                return ("%s see%s %s chow on dead bodies."):format(_.name(target), _.s(target), _.name(source))
+            end,
+            function(source, target)
+                return ("%s shudder%s at %s terrifying eyes."):format(_.name(target), _.s(target), _.possessive(source))
+            end,
+            function(source, target)
+                return ("%s feel%s sick at entrails caught in %s tentacles."):format(
+                    _.name(target),
+                    _.s(target),
+                    _.possessive(source)
+                )
+            end,
+        },
+    },
+
+    EyeOfMana = {
+        Apply = function(source, target)
+            return ("%s gaze%s at %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+    },
+
+    SuicideAttack = {
+        Explodes = function(source, target)
+            return ("%s explode%s."):format(_.name(source), _.s(source))
+        end,
+        ChainExplodes = function(source, target)
+            return ("%s explode%s."):format(_.name(source), _.s(source))
+        end,
+        ExplosionHits = {
+            Ally = function(source, target)
+                return ("The explosion hits %s."):format(_.name(target))
+            end,
+            Other = function(source, target)
+                return ("The explosion hits %s and"):format(_.name(target))
+            end,
+        },
+    },
+
+    Insult = {
+        Apply = function(source, target)
+            return ("%s insult%s %s."):format(_.name(source), _.s(source), _.name(target))
+        end,
+        Insults = {
+            Male = {
+                _.quote "You suck!",
+                _.quote "You will die alone.",
+                _.quote "Bow down before me.",
+                _.quote "Go jump off a bridge.",
+                _.quote "Bang your head against the wall!",
+                _.quote "Why do you sniff under your dog's tail?",
+            },
+            Female = {
+                _.quote "The world is against you because you are a unsavory decomposing virus.",
+                _.quote "You are no better than a immoral guzzling bureaucrat.",
+                _.quote "You are so lowly.",
+                _.quote "Get off me.",
+            },
+        },
+    },
+
+    Scavenge = {
+        Apply = function(source, target)
+            return ("%s loot%s %s backpack."):format(_.name(source), _.s(source), _.possessive(target))
+        end,
+        Spiked = function(source, target, item)
+            return ("%s notice%s an unusual odor from %s and step%s back."):format(
+                _.name(source),
+                _.s(source),
+                _.name(item),
+                _.s(source)
+            )
+        end,
+        Eats = function(source, target, item)
+            return ("%s eat%s %s!"):format(_.name(source), _.s(source), _.name(item))
+        end,
+    },
+
+    Vanish = {
+        Vanishes = function(source, target)
+            return ("%s vanish%s"):format(_.name(target), _.s(target, true))
+        end,
+    },
+
+    Cheer = {
+        Cheers = function(source, target)
+            return ("%s cheer%s."):format(_.name(source), _.s(source))
+        end,
+        IsExcited = function(source, target)
+            return ("%s %s excited!"):format(_.name(target), _.is(target))
+        end,
+    },
+
+    MewMewMew = {
+        Message = "Mewmewmew!",
+    },
+
+    Decapitation = {
+        Sound = "*Gash*",
+        Apply = {
+            Ally = function(source, target)
+                return ("%s cut%s off %s head."):format(_.name(source), _.s(source), _.possessive(target))
+            end,
+            Other = function(source, target)
+                return ("%s cut%s off %s head and"):format(_.name(source), _.s(source), _.possessive(target))
+            end,
+        },
     },
 }

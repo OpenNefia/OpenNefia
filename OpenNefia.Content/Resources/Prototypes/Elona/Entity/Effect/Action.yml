@@ -1,147 +1,12 @@
 - type: Elona.Action
-  id: Elona.DrainBlood
-  hspIds:
-    elona122: 601
-  skillID: Elona.ActionDrainBlood
-  effectID: Elona.ActionDrainBlood
-  staminaCost: 7
-- type: Elona.Skill
-  id: Elona.ActionDrainBlood
-  ordering:
-    after: Elona.SpellGravity
-  hspIds:
-    elona122: 601
-  skillType: Action
-  relatedSkill: Elona.AttrDexterity
-- type: Entity
-  id: Elona.ActionDrainBlood
-  hspIds:
-    elona122: 601
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfWeakness
-  hspIds:
-    elona122: 613
-  skillID: Elona.ActionTouchOfWeakness
-  effectID: Elona.ActionTouchOfWeakness
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfWeakness
-  hspIds:
-    elona122: 613
-  skillType: Action
-  relatedSkill: Elona.AttrMagic
-- type: Entity
-  id: Elona.ActionTouchOfWeakness
-  hspIds:
-    elona122: 613
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfHunger
-  hspIds:
-    elona122: 614
-  skillID: Elona.ActionTouchOfHunger
-  effectID: Elona.ActionTouchOfHunger
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfHunger
-  hspIds:
-    elona122: 614
-  skillType: Action
-  relatedSkill: Elona.AttrMagic
-- type: Entity
-  id: Elona.ActionTouchOfHunger
-  hspIds:
-    elona122: 614
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfPoison
-  hspIds:
-    elona122: 615
-  skillID: Elona.ActionTouchOfPoison
-  effectID: Elona.ActionTouchOfPoison
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfPoison
-  hspIds:
-    elona122: 615
-  skillType: Action
-  relatedSkill: Elona.AttrDexterity
-- type: Entity
-  id: Elona.ActionTouchOfPoison
-  hspIds:
-    elona122: 615
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfNerve
-  hspIds:
-    elona122: 616
-  skillID: Elona.ActionTouchOfNerve
-  effectID: Elona.ActionTouchOfNerve
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfNerve
-  hspIds:
-    elona122: 616
-  skillType: Action
-  relatedSkill: Elona.AttrDexterity
-- type: Entity
-  id: Elona.ActionTouchOfNerve
-  hspIds:
-    elona122: 616
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfFear
-  hspIds:
-    elona122: 617
-  skillID: Elona.ActionTouchOfFear
-  effectID: Elona.ActionTouchOfFear
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfFear
-  hspIds:
-    elona122: 617
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionTouchOfFear
-  hspIds:
-    elona122: 617
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.TouchOfSleep
-  hspIds:
-    elona122: 618
-  skillID: Elona.ActionTouchOfSleep
-  effectID: Elona.ActionTouchOfSleep
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionTouchOfSleep
-  hspIds:
-    elona122: 618
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionTouchOfSleep
-  hspIds:
-    elona122: 618
-  parent: BaseEffect
-
-- type: Elona.Action
   id: Elona.HarvestMana
   hspIds:
     elona122: 621
-#  difficulty: 700
   skillID: Elona.ActionHarvestMana
   effectID: Elona.ActionHarvestMana
   staminaCost: 10
   difficulty: 700
+  maxRange: 0
 - type: Elona.Skill
   id: Elona.ActionHarvestMana
   hspIds:
@@ -153,25 +18,11 @@
   hspIds:
     elona122: 621
   parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.PrayerOfJure
-  hspIds:
-    elona122: 623
-  skillID: Elona.ActionPrayerOfJure
-  effectID: Elona.ActionPrayerOfJure
-  staminaCost: 30
-- type: Elona.Skill
-  id: Elona.ActionPrayerOfJure
-  hspIds:
-    elona122: 623
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionPrayerOfJure
-  hspIds:
-    elona122: 623
-  parent: BaseEffect
+  components:
+  - type: EffectTargetSelfOrNearby
+  - type: EffectBaseDamageDice
+    finalDamage: power / 2 + randInt(power / 2 + 1)
+  - type: EffectDamageHealMP
 
 - type: Elona.Action
   id: Elona.AbsorbMagic
@@ -191,12 +42,21 @@
   hspIds:
     elona122: 624
   parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    extraVariables:
+      piety: !type:PietyFormulaVariable {}
+    diceX: 1 + skillLevel / 20
+    diceY: piety / 140 + 1 + 1
+    bonus: 0
+  - type: EffectDamageHealMP
+    messageKey: Elona.Effect.HealMP.AbsorbMagic
 
 - type: Elona.Action
   id: Elona.Mirror
   hspIds:
     elona122: 626
-#  difficulty: 500
   skillID: Elona.ActionMirror
   effectID: Elona.ActionMirror
   staminaCost: 30
@@ -212,6 +72,9 @@
   hspIds:
     elona122: 626
   parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectMirror
 
 - type: Elona.Action
   id: Elona.Change
@@ -220,6 +83,7 @@
   skillID: Elona.ActionChange
   effectID: Elona.ActionChange
   staminaCost: 10
+  maxRange: 6
 - type: Elona.Skill
   id: Elona.ActionChange
   hspIds:
@@ -231,6 +95,14 @@
   hspIds:
     elona122: 628
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectBaseDamageDice
+    # Minimum creature level for success
+    finalPower: power / 10 + 10
+  - type: EffectTargetOther
+  - type: EffectChange
 
 - type: Elona.Action
   id: Elona.DrawCharge
@@ -250,6 +122,9 @@
   hspIds:
     elona122: 629
   parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectDrawCharge
 
 - type: Elona.Action
   id: Elona.FillCharge
@@ -269,12 +144,21 @@
   hspIds:
     elona122: 630
   parent: BaseEffect
+  components:
+  - type: EffectTargetSelf
+  - type: EffectBaseDamageDice
+    # If 0, recharge fails
+    finalDamage: randInt(power / 25 + 1)
+  - type: EffectRecharge
+    rechargePowerCost: 10
+    # >>>>>>>> elona122/shade2/proc.hsp:3131 			p=1+rnd(iChargeLevel/2+1) : if p+iCharge(ci)>iC ...
+    addedCharges: 1 + randInt(maxCharges / 2 + 1)
+    # <<<<<<<< elona122/shade2/proc.hsp:3131 			p=1+rnd(iChargeLevel/2+1) : if p+iCharge(ci)>iC ..
 
 - type: Elona.Action
   id: Elona.Swarm
   hspIds:
     elona122: 631
-#  difficulty: 220
   skillID: Elona.ActionSwarm
   effectID: Elona.ActionSwarm
   staminaCost: 5
@@ -290,6 +174,17 @@
   hspIds:
     elona122: 631
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelf
+  - type: EffectAreaBall
+  - type: EffectDamageRelations
+    validRelations: Enemy~Neutral
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.Swarm.Apply
+    color: '#afafff'
+  - type: EffectMeleeAttack
 
 - type: Elona.Action
   id: Elona.EyeOfMutation
@@ -298,6 +193,7 @@
   skillID: Elona.ActionEyeOfMutation
   effectID: Elona.ActionEyeOfMutation
   staminaCost: 10
+  maxRange: 2
 - type: Elona.Skill
   id: Elona.ActionEyeOfMutation
   hspIds:
@@ -310,8 +206,9 @@
     elona122: 632
   parent: BaseEffect
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectBaseDamageDice
     # Number of mutations
     finalDamage: 1
@@ -331,6 +228,7 @@
   skillID: Elona.ActionEyeOfEther
   effectID: Elona.ActionEyeOfEther
   staminaCost: 10
+  maxRange: 2
 - type: Elona.Skill
   id: Elona.ActionEyeOfEther
   hspIds:
@@ -342,6 +240,12 @@
   hspIds:
     elona122: 633
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectEyeOfEther
+    addedCorruption: 100
 
 - type: Elona.Action
   id: Elona.SuspiciousHand
@@ -361,6 +265,20 @@
   hspIds:
     elona122: 635
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectBaseDamageDice
+    extraVariables:
+      gold: !type:CurrencyFormulaVariable
+        type: Gold
+    finalDamage: randInt(gold / 10 + 1)
+  - type: EffectDamageTeleport
+    subject: Source
+    position: !type:WholeMapTeleportPosition {}
+    messageKey: Elona.Effect.SuspiciousHand.Escapes
+  - type: EffectSuspiciousHand
 
 - type: Elona.Action
   id: Elona.EyeOfInsanity
@@ -369,6 +287,7 @@
   skillID: Elona.ActionEyeOfInsanity
   effectID: Elona.ActionEyeOfInsanity
   staminaCost: 10
+  maxRange: 2
 - type: Elona.Skill
   id: Elona.ActionEyeOfInsanity
   hspIds:
@@ -380,6 +299,14 @@
   hspIds:
     elona122: 636
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.EyeOfInsanity.Message
+    color: '#b99bd7'
+  - type: EffectDamageSanity
 
 - type: Elona.Action
   id: Elona.EyeOfDimness
@@ -388,6 +315,7 @@
   skillID: Elona.ActionEyeOfDimness
   effectID: Elona.ActionEyeOfDimness
   staminaCost: 10
+  maxRange: 2
 - type: Elona.Skill
   id: Elona.ActionEyeOfDimness
   hspIds:
@@ -399,33 +327,21 @@
   hspIds:
     elona122: 638
   parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.SuicideAttack
-  hspIds:
-    elona122: 644
-#  difficulty: 450
-  skillID: Elona.ActionSuicideAttack
-  effectID: Elona.ActionSuicideAttack
-  staminaCost: 20
-  difficulty: 450
-- type: Elona.Skill
-  id: Elona.ActionSuicideAttack
-  hspIds:
-    elona122: 644
-  skillType: Action
-  relatedSkill: Elona.AttrConstitution
-- type: Entity
-  id: Elona.ActionSuicideAttack
-  hspIds:
-    elona122: 644
-  parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectDamageStatusEffects
+    # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
+    statusEffects:
+    - id: Elona.Dimming
+      power: 200
+    # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
 - type: Elona.Action
   id: Elona.Curse
   hspIds:
     elona122: 645
-#  difficulty: 100
   skillID: Elona.ActionCurse
   effectID: Elona.ActionCurse
   staminaCost: 10
@@ -443,8 +359,9 @@
     elona122: 645
   parent: BaseEffect
   components:
+  - type: Effect
+    alignment: Negative
   - type: EffectTargetOther
-    promptIfFriendly: true
   - type: EffectAreaMessage
     messageKey: Elona.Effect.Curse.Action
   - type: EffectBaseDamageDice
@@ -453,52 +370,13 @@
   - type: EffectCurse
 
 - type: Elona.Action
-  id: Elona.BuffDeathWord
-  hspIds:
-    elona122: 646
-  skillID: Elona.ActionBuffDeathWord
-  effectID: Elona.ActionBuffDeathWord
-  staminaCost: 15
-  difficulty: 500
-- type: Elona.Skill
-  id: Elona.ActionBuffDeathWord
-  hspIds:
-    elona122: 646
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionBuffDeathWord
-  hspIds:
-    elona122: 646
-  parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.BuffBoost
-  hspIds:
-    elona122: 647
-  skillID: Elona.ActionBuffBoost
-  effectID: Elona.ActionBuffBoost
-  staminaCost: 50
-  difficulty: 500
-- type: Elona.Skill
-  id: Elona.ActionBuffBoost
-  hspIds:
-    elona122: 647
-  skillType: Action
-  relatedSkill: Elona.AttrWill
-- type: Entity
-  id: Elona.ActionBuffBoost
-  hspIds:
-    elona122: 647
-  parent: BaseEffect
-
-- type: Elona.Action
   id: Elona.Insult
   hspIds:
     elona122: 648
   skillID: Elona.ActionInsult
   effectID: Elona.ActionInsult
   staminaCost: 10
+  maxRange: 4
 - type: Elona.Skill
   id: Elona.ActionInsult
   hspIds:
@@ -510,33 +388,40 @@
   hspIds:
     elona122: 648
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectInsult # Just outputs some special dialog
+  - type: EffectDamageStatusEffects
+    statusEffects:
+    # >>>>>>>> elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ...
+    - id: Elona.Dimming
+      power: 200
+    # <<<<<<<< elona122/shade2/proc.hsp:3399 	dmgCon tc,conDim,200 ..
 
 - type: Elona.Action
   id: Elona.DistantAttack4
   hspIds:
     elona122: 649
   skillID: Elona.ActionDistantAttack4
-  effectID: Elona.ActionDistantAttack4
+  effectID: Elona.ActionDistantAttack
   staminaCost: 10
+  maxRange: 4
 - type: Elona.Skill
   id: Elona.ActionDistantAttack4
   hspIds:
     elona122: 649
   skillType: Action
   relatedSkill: Elona.AttrStrength
-- type: Entity
-  id: Elona.ActionDistantAttack4
-  hspIds:
-    elona122: 649
-  parent: BaseEffect
-
 - type: Elona.Action
   id: Elona.DistantAttack7
   hspIds:
     elona122: 650
   skillID: Elona.ActionDistantAttack7
-  effectID: Elona.ActionDistantAttack7
+  effectID: Elona.ActionDistantAttack
   staminaCost: 10
+  maxRange: 7
 - type: Elona.Skill
   id: Elona.ActionDistantAttack7
   hspIds:
@@ -544,10 +429,15 @@
   skillType: Action
   relatedSkill: Elona.AttrStrength
 - type: Entity
-  id: Elona.ActionDistantAttack7
+  id: Elona.ActionDistantAttack
   hspIds:
-    elona122: 650
+    elona122: 649
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectDistantAttack
 
 - type: Elona.Action
   id: Elona.Scavenge
@@ -567,6 +457,11 @@
   hspIds:
     elona122: 651
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetDirection
+  - type: EffectScavenge
 
 - type: Elona.Action
   id: Elona.EyeOfMana
@@ -575,6 +470,7 @@
   skillID: Elona.ActionEyeOfMana
   effectID: Elona.ActionEyeOfMana
   staminaCost: 10
+  maxRange: 2
 - type: Elona.Skill
   id: Elona.ActionEyeOfMana
   hspIds:
@@ -586,6 +482,14 @@
   hspIds:
     elona122: 652
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectBaseDamageDice
+    finalDamage: randInt(20) + 1
+  - type: EffectDamageMP
+    messageKey: Elona.Effect.EyeOfMana.Apply
 
 - type: Elona.Action
   id: Elona.Vanish
@@ -605,34 +509,44 @@
   hspIds:
     elona122: 653
   parent: BaseEffect
+  components:
+  - type: Effect
+  - type: EffectTargetSelf
+  - type: EffectVanish
 
 - type: Elona.Action
-  id: Elona.Pregnant
+  id: Elona.Impregnate
   hspIds:
     elona122: 654
-  skillID: Elona.ActionPregnant
-  effectID: Elona.ActionPregnant
+  skillID: Elona.ActionImpregnate
+  effectID: Elona.ActionImpregnate
   staminaCost: 15
+  maxRange: 1
 - type: Elona.Skill
-  id: Elona.ActionPregnant
+  id: Elona.ActionImpregnate
   hspIds:
     elona122: 654
   skillType: Action
   relatedSkill: Elona.AttrPerception
 - type: Entity
-  id: Elona.ActionPregnant
+  id: Elona.ActionImpregnate
   hspIds:
     elona122: 654
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectImpregnate
 
 - type: Elona.Action
   id: Elona.Cheer
   hspIds:
     elona122: 656
-#  difficulty: 500
   skillID: Elona.ActionCheer
   effectID: Elona.ActionCheer
   staminaCost: 28
+  maxRange: 6
   difficulty: 500
 - type: Elona.Skill
   id: Elona.ActionCheer
@@ -645,12 +559,41 @@
   hspIds:
     elona122: 656
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelfOrNearby
+  - type: EffectAreaMessage
+    messageKey: Elona.Effect.Cheer.Cheers
+  - type: EffectAreaBall
+  - type: EffectBaseDamageDice
+    extraVariables:
+      sourceCHR: !type:SkillLevelFormulaVariable
+        skillID: Elona.AttrCharisma
+        subject: Source
+  # >>>>>>>> elona122/shade2/proc.hsp:3352 	if cc<maxFollower:if cnt>=maxFollower:continue:el ...
+  - type: EffectDamageRelations
+    validRelations: Ally~Ally
+  # <<<<<<<< elona122/shade2/proc.hsp:3352 	if cc<maxFollower:if cnt>=maxFollower:continue:el ..
+  - type: EffectDamageMessage
+    rootKey: Elona.Effect.Cheer.IsExcited
+    color: '#afafff'
+  - type: EffectApplyBuffs
+    buffs:
+    - id: Elona.BuffSpeed
+      power: sourceCHR * 5 + 50
+      turns: 15
+    - id: Elona.BuffHero
+      power: sourceCHR * 5 + 100
+      turns: 60
+    - id: Elona.BuffContingency
+      power: 1500
+      turns: 30
 
 - type: Elona.Action
   id: Elona.Mewmewmew
   hspIds:
     elona122: 657
-#  difficulty: 500
   skillID: Elona.ActionMewmewmew
   effectID: Elona.ActionMewmewmew
   staminaCost: 1
@@ -666,6 +609,12 @@
   hspIds:
     elona122: 657
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelfOrNearby
+  # - type: EffectAreaWholeMap
+  - type: EffectMewMewMew
 
 - type: Elona.Action
   id: Elona.Decapitation
@@ -674,6 +623,7 @@
   skillID: Elona.ActionDecapitation
   effectID: Elona.ActionDecapitation
   staminaCost: 10
+  maxRange: 1
 - type: Elona.Skill
   id: Elona.ActionDecapitation
   hspIds:
@@ -685,6 +635,11 @@
   hspIds:
     elona122: 658
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetOther
+  - type: EffectDecapitation
 
 - type: Elona.Action
   id: Elona.DropMine
@@ -704,22 +659,14 @@
   hspIds:
     elona122: 659
   parent: BaseEffect
-
-- type: Elona.Action
-  id: Elona.ManisDisassembly
-  hspIds:
-    elona122: 660
-  skillID: Elona.ActionManisDisassembly
-  effectID: Elona.ActionManisDisassembly
-  staminaCost: 10
-- type: Elona.Skill
-  id: Elona.ActionManisDisassembly
-  hspIds:
-    elona122: 660
-  skillType: Action
-  relatedSkill: Elona.AttrWill
 - type: Entity
-  id: Elona.ActionManisDisassembly
+  id: Elona.ActionDropMine
   hspIds:
-    elona122: 660
+    elona122: 659
   parent: BaseEffect
+  components:
+  - type: Effect
+    alignment: Negative
+  - type: EffectTargetSelfOrNearby
+  - type: EffectDamageMObj
+    mObjID: Elona.MObjMine

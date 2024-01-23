@@ -214,7 +214,7 @@ namespace OpenNefia.Core.GameObjects
             if (uid == null)
                 return 0;
 
-            if (!Resolve(uid.Value, ref stack))
+            if (!Resolve(uid.Value, ref stack, logMissing: false))
                 return 1;
 
             return stack.Count;

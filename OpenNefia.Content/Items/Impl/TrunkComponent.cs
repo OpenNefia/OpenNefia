@@ -1,45 +1,24 @@
-﻿using OpenNefia.Content.Inventory;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Containers;
+﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Items
+namespace OpenNefia.Content.Items.Impl
 {
     /// <summary>
-    /// A trunk is defined as an item that can hold other items.
+    /// When combined with an <see cref="ItemContainerComponent"/>, allows
+    /// the player to open and take out items from the container.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class TrunkComponent : Component, ISerializationHooks
+    public sealed class TrunkComponent : Component
     {
-        public static readonly ContainerId ContainerIdInventory = new("Elona.Trunk");
-
-        public Container Container { get; private set; } = default!;
-
-        protected override void Initialize()
-        {
-            base.Initialize();
-
-            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdInventory);
-        }
-
-        bool ISerializationHooks.AfterCompare(object? other)
-        {
-            if (other is not InventoryComponent otherInv)
-                return false;
-
-            // Don't stack if either inventory is not empty.
-            if (Container.ContainedEntities.Count > 0 || otherInv.Container.ContainedEntities.Count > 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        /// <summary>
+        /// Karma penalty for opening this trunk.
+        /// </summary>
+        [DataField]
+        public int KarmaPenalty { get; set; }
     }
 }

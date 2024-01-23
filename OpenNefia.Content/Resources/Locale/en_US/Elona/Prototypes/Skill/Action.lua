@@ -124,9 +124,9 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Description = "Breath",
         Name = "Power Breath",
     },
-    ActionPregnant = {
-        Description = "Pregnant target",
-        Name = "Pregnant",
+    ActionImpregnate = {
+        Description = "Impregnate target",
+        Name = "Impregnate",
     },
     ActionRainOfSanity = {
         Description = "Cure insane area",
