@@ -71,6 +71,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly IWeatherSystem _weathers = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly ISpellSystem _spells = default!;
 
         [EngineVariable("LecchoTorte.QuickstartPlayer")]
         private QuickstartChara _quickstartPlayer { get; } = new();
@@ -180,7 +181,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             EnsureComp<FameComponent>(player).Fame.Base = 50000;
 
             foreach (var spell in _protos.EnumeratePrototypes<SpellPrototype>())
-                _skills.GainSkill(player, spell.SkillID, new LevelAndPotential() { Level = new(50) });
+                _spells.GainSpell(player, spell.GetStrongID(), 2000, new LevelAndPotential() { Level = new(50) });
             foreach (var action in _protos.EnumeratePrototypes<ActionPrototype>())
                 _skills.GainSkill(player, action.SkillID);
 

@@ -182,6 +182,11 @@ namespace OpenNefia.Content.Spells
 
         private IEnumerable<SpellsListCell> MakeListCells(IList<SpellPrototype> spells)
         {
+            bool CanShowSpell(SpellPrototype spell)
+            {
+                return _spells.SpellStock(_casterEntity, spell) > 0;
+            }
+
             SpellsListCell ToListCell(SpellPrototype proto)
             {
                 var skillProto = _protos.Index(proto.SkillID);
@@ -206,7 +211,7 @@ namespace OpenNefia.Content.Spells
                 return new SpellsListCell(data);
             }
 
-            return spells.Select(ToListCell);
+            return spells.Where(CanShowSpell).Select(ToListCell);
         }
 
         public override void GrabFocus()

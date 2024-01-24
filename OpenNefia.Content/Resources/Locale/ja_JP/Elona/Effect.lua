@@ -214,6 +214,12 @@ Elona.Effect = {
         Falls = "隕石が落ちてきた！",
     },
 
+    Gravity = {
+        Apply = function(source, target)
+            return ("%sは重力を感じた。"):format(_.name(target))
+        end,
+    },
+
     DrainBlood = {
         Ally = function(source, target)
             return ("%s%sに血を吸われた。"):format(_.sore_wa(source), _.name(target))

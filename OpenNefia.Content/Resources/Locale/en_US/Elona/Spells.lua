@@ -2,6 +2,9 @@ Elona.Spells = {
     Prompt = {
         WhichDirection = "Which direction do you want to cast the spell?",
         OvercastWarning = "You are going to over-cast the spell. Are you sure?",
+        CannotUseAnymore = function(caster)
+            return ("%s can't use that spell anymore."):format(_.name(caster))
+        end,
     },
 
     Cast = {
