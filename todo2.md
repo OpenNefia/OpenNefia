@@ -15,8 +15,8 @@
   + [x] buffs
   + [ ] timestop
   + [x] death word expiration
-  + [ ] elemental damage effects
-  + [ ] spell stock check
+  + [ ] elemental tile damage effects
+  + [x] spell stock check
   + [x] rods
   + [ ] add all effect alignments
   + [ ] add all effect max ranges
@@ -31,6 +31,8 @@
   + [ ] effect AI targeting
   + [ ] BeforeEffectApplyDamage : CancellableEntityEventArgs
     - [ ] suspicious hand cancellation
+  + [ ] rename things
+    - EffectDamageHealing -> EffectDamageHealHP
 - [ ] inventory/spell/skill shortcuts
 - [ ] AI/calm actions
 - [ ] main quest/sidequests/dialogs
@@ -82,8 +84,12 @@
 - [ ] theming
 - [ ] MapPosition -> MapCoordinates?
 - [ ] mirror spact
-- [ ] rename things
-  + EffectDamageHealing -> EffectDamageHealHP
+- [ ] better effect combining
+  + A flexibility upgrade from the vanilla spell system
+  + `EffectBaseDamageDice` can specify multiple dice, and each dice has a component type attached to it
+  + When the `ApplyEffectDamageEvent` is handled, the dice for the handling component can be retrieved
+  + Allows the power of different incompatible effect damages to be separated without the need to spawn more effects
+  + For other cases, something like a `EffectDamageComposite` component could be defined, which spawns each effect in sequence with different power/range/etc.
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
 - [ ] loc manager doesn't re-watch if language is switched

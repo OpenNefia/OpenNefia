@@ -164,6 +164,13 @@ namespace OpenNefia.Core.GameObjects
             return mapMan.GetMap(coords.MapId);
         }
 
+        protected IMap GetMap(EntityCoordinates coords, IMapManager? mapMan = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+            var mapCoords = coords.ToMap(EntityManager);
+            return mapMan.GetMap(mapCoords.MapId);
+        }
+
         protected IMap GetMap(EntityUid uid, IMapManager? mapMan = null)
         {
             IoCManager.Resolve(ref mapMan);
