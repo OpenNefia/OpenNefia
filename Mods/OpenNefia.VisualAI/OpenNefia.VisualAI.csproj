@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserInterface\" />
     <Folder Include="Resources\Locale\en_US\" />
     <Folder Include="Resources\Locale\ja_JP\" />
     <Folder Include="Resources\Maps\" />

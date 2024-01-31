@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.VisualAI.Block;
@@ -13,6 +15,12 @@ namespace OpenNefia.VisualAI.Engine
         public string ID { get; set; } = default!;
 
         public VisualAIBlockType Type { get; private set; }
+
+        [DataField]
+        public Color Color { get; } = Color.White;
+
+        [DataField]
+        public PrototypeId<AssetPrototype>? Icon { get; }
 
         [DataField]
         public IVisualAICondition? Condition { get; }

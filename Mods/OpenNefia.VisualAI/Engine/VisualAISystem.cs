@@ -1,9 +1,6 @@
-﻿using Microsoft.Web.XmlTransform;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.TurnOrder;
-using OpenNefia.Content.VanillaAI;
-using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -16,11 +13,15 @@ using OpenNefia.Core.Utility;
 using OpenNefia.VisualAI.Block;
 using System.Diagnostics.CodeAnalysis;
 using Protos_VisualAI = OpenNefia.VisualAI.Prototypes.Protos;
+using OpenNefia.Content.Parties;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.VisualAI.UserInterface;
 
 namespace OpenNefia.VisualAI.Engine
 {
     public interface IVisualAISystem : IEntitySystem
     {
+        void OpenEditor(EntityUid? target = null);
         TurnResult Run(EntityUid entity, VisualAIComponent? vai = null);
     }
 
@@ -32,11 +33,15 @@ namespace OpenNefia.VisualAI.Engine
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public override void Initialize()
         {
-            SubscribeEntity<NPCTurnStartedEvent>(NPCTurnStarted_RunVisualAI);
             _protos.PrototypesReloaded += ResolveBlockDependencies;
+
+            SubscribeEntity<NPCTurnStartedEvent>(NPCTurnStarted_RunVisualAI);
+            SubscribeEntity<GetInteractActionsEvent>(GetInteractActions_VisualAI);
         }
 
         private void ResolveBlockDependencies(PrototypesReloadedEventArgs args)
@@ -59,6 +64,35 @@ namespace OpenNefia.VisualAI.Engine
             {
                 args.Handle(Run(uid));
             }
+        }
+
+        private void GetInteractActions_VisualAI(EntityUid uid, GetInteractActionsEvent args)
+        {
+            if (_parties.IsUnderlingOfPlayer(uid))
+                args.OutInteractActions.Add(new(Loc.GetString("VisualAI.InteractMenu.OptionName"), OpenEditor));
+        }
+
+        private TurnResult OpenEditor(EntityUid source, EntityUid target)
+        {
+            OpenEditor(target);
+            return TurnResult.Aborted;
+        }
+
+        public void OpenEditor(EntityUid? target = null)
+        {
+            VisualAIComponent? comp = null;
+            VisualAIPlan plan;
+            if (IsAlive(target))
+            {
+                comp = EnsureComp<VisualAIComponent>(target.Value);
+                plan = comp.Plan;
+            }
+            else
+            {
+                plan = new VisualAIPlan();
+            }
+            var args = new VisualAIEditor.Args(plan, comp);
+            _uiManager.Query<VisualAIEditor, VisualAIEditor.Args>(args);
         }
 
         private bool TryChooseTarget(VisualAIState state, VisualAIBlock block, [NotNullWhen(true)] out IVisualAITargetValue? target)
@@ -181,7 +215,7 @@ namespace OpenNefia.VisualAI.Engine
         private void RunBlockAction(VisualAIState state, VisualAIBlock block)
         {
             DebugTools.AssertNotNull(block.Proto.Action);
-            
+
             if (!TryChooseTarget(state, block, out var target))
             {
                 Logger.DebugS("visualAI", $"Run block action : No target found");

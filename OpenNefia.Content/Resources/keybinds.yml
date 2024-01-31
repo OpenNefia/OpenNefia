@@ -667,3 +667,28 @@ binds:
 - function: Elona.QuickStart
   type: State
   key: F3
+
+#
+# TODO move these later!
+#
+- function: VisualAI.Insert
+  type: State
+  key: Return
+  mod1: Control
+- function: VisualAI.InsertDown
+  type: State
+  key: Return
+  mod1: Alt
+- function: VisualAI.Delete
+  type: State
+  key: Backspace
+- function: VisualAI.DeleteAndMergeDown
+  type: State
+  key: Backspace
+  mod1: Control
+- function: VisualAI.DeleteToRight
+  type: State
+  key: Delete
+- function: VisualAI.SwapBranches
+  type: State
+  key: S

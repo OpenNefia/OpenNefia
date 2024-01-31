@@ -1,8 +1,10 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.VisualAI.UserInterface;
 
 namespace OpenNefia.VisualAI
 {
@@ -18,6 +20,8 @@ namespace OpenNefia.VisualAI
 
         public override void Init()
         {
+            var inputMan = IoCManager.Resolve<IInputManager>();
+            VisualAIKeyFunctions.SetupContexts(inputMan.Contexts);
         }
 
         public override void PostInit()

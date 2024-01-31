@@ -113,6 +113,7 @@ namespace OpenNefia.VisualAI.Engine
             return size;
         }
 
+        public IEnumerable<VisualAITile> EnumerateTiles() => EnumerateTiles(Vector2i.Zero);
         public IEnumerable<VisualAITile> EnumerateTiles(Vector2i pos)
         {
             for (var i = 0; i < Blocks.Count; i++)

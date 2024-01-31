@@ -11,7 +11,15 @@ namespace OpenNefia.VisualAI.Engine
         [DataField]
         public PrototypeId<VisualAIBlockPrototype> ProtoID { get; set; }
 
-        public VisualAIBlockPrototype Proto => IoCManager.Resolve<IPrototypeManager>().Index(ProtoID);
+        private VisualAIBlockPrototype? _proto;
+        public VisualAIBlockPrototype Proto
+        {
+            get
+            {
+                _proto ??= IoCManager.Resolve<IPrototypeManager>().Index(ProtoID);
+                return _proto;
+            }
+        }
 
         // TODO
         [DataField]

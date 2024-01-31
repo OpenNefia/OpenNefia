@@ -92,6 +92,7 @@
   + For other cases, something like a `EffectDamageComposite` component could be defined, which spawns each effect in sequence with different power/range/etc.
 - [ ] port all OpenNefia/LÖVE unit tests
 - [ ] check rest of OpenNefia/LÖVE event handlers
+- [ ] default keybinds per mod (`keybinds.yml`)
 - [ ] loc manager doesn't re-watch if language is switched
 - [ ] non-compiled mods
 - [ ] Qy@

@@ -58,6 +58,15 @@ namespace OpenNefia.Core.Rendering
         }
 
         /// <summary>
+        /// Scale-aware version of <see cref="Love.Graphics.Line(float[])"/>.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static void LineS(float uiScale, Vector2 start, Vector2 end)
+        {
+            Love.Graphics.Line(start.X * uiScale, start.Y * uiScale, end.X * uiScale, end.Y * uiScale);
+        }
+
+        /// <summary>
         /// Scale-aware version of <see cref="Love.Graphics.Translate(float, float)"/>.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
@@ -72,6 +81,14 @@ namespace OpenNefia.Core.Rendering
         public static void PrintS(float uiScale, string text, float vx, float vy)
         {
             Love.Graphics.Print(text, vx * uiScale, vy * uiScale);
+        }
+
+        /// <summary>
+        /// Scale-aware version of <see cref="Love.Graphics.Print(string, float, float, float, float, float, float, float, float, float)"/>. 
+        /// </summary>
+        public static void SetScissorS(float uiScale, float x, float y, float w, float h)
+        {
+            Love.Graphics.SetScissor((int)(x * uiScale), (int)(y * uiScale), (int)(w * uiScale), (int)(h * uiScale));
         }
 
         #region Extension Methods
