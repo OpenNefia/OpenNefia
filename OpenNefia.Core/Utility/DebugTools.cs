@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace OpenNefia.Core.Utility
 {
@@ -54,7 +56,7 @@ namespace OpenNefia.Core.Utility
         [Conditional("DEBUG")]
         [AssertionMethod]
         public static void AssertNotNull([AssertionCondition(AssertionConditionType.IS_NOT_NULL)]
-            object? arg)
+           [NotNull] object? arg)
         {
             if (arg == null)
             {
@@ -70,7 +72,7 @@ namespace OpenNefia.Core.Utility
         [Conditional("DEBUG")]
         [AssertionMethod]
         public static void AssertNull([AssertionCondition(AssertionConditionType.IS_NULL)]
-            object? arg)
+           [NotNull] object? arg)
         {
             if (arg != null)
             {

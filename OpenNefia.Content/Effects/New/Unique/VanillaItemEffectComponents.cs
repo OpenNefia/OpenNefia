@@ -102,10 +102,10 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    [RegisterComponent]
-    public sealed class EffectCurseComponent : Component
-    {
-    }
+    //[RegisterComponent]
+    //public sealed class EffectCurseComponent : Component
+    //{
+    //}
 
     [RegisterComponent]
     public sealed class EffectDeedComponent : Component
@@ -137,10 +137,10 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    [RegisterComponent]
-    public sealed class EffectCureMutationComponent : Component
-    {
-    }
+    //[RegisterComponent]
+    //public sealed class EffectCureMutationComponent : Component
+    //{
+    //}
 
     [RegisterComponent]
     public sealed class EffectEnchantWeaponComponent : Component
@@ -157,10 +157,10 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    [RegisterComponent]
-    public sealed class EffectRechargeComponent : Component
-    {
-    }
+    //[RegisterComponent]
+    //public sealed class EffectRechargeComponent : Component
+    //{
+    //}
 
     [RegisterComponent]
     public sealed class EffectDirtyWaterComponent : Component
@@ -202,10 +202,10 @@ namespace OpenNefia.Content.Effects.New.Unique
     {
     }
 
-    [RegisterComponent]
-    public sealed class EffectEscapeComponent : Component
-    {
-    }
+    //[RegisterComponent]
+    //public sealed class EffectEscapeComponent : Component
+    //{
+    //}
 
     [RegisterComponent]
     public sealed class EffectSaltComponent : Component

@@ -16,6 +16,12 @@ namespace OpenNefia.Core.Utility
         LessThanOrEqual = 5
     }
 
+    public enum ComparatorType
+    {
+        Smallest,
+        Largest
+    }
+
     public static class ComparisonUtils
     {
         public static bool EvaluateComparison<T>(T a, T b, ComparisonType comparison)
@@ -30,6 +36,17 @@ namespace OpenNefia.Core.Utility
                 ComparisonType.LessThan => a.CompareTo(b) < 0,
                 ComparisonType.LessThanOrEqual => a.CompareTo(b) <= 0,
                 _ => false
+            };
+        }
+
+        public static int EvaluateComparator<T>(T a, T b, ComparatorType comparator)
+            where T : IComparable<T>, IEquatable<T>
+        {
+            return comparator switch
+            {
+                ComparatorType.Smallest => a.CompareTo(b),
+                ComparatorType.Largest => b.CompareTo(a),
+                _ => 0
             };
         }
     }

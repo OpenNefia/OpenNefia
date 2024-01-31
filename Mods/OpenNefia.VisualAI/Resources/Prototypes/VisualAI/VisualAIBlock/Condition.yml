@@ -1,0 +1,37 @@
+- type: VisualAI.Block
+  id: VisualAI.ConditionTargetInSight
+  condition: !type:IsInFovCondition {}
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionTargetTileDist
+  condition: !type:DistanceCondition
+    threshold: 3
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionSpellInRange
+  condition: !type:SpellInRangeCondition {}
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionActionInRange
+  condition: !type:ActionInRangeCondition {}
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionRandomChance
+  condition: !type:RandomChanceCondition
+    probability: 0.5
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionCanDoMeleeAttack
+  canConfigure: false
+  condition: !type:DistanceCondition
+    threshold: 0
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionCanDoRangedAttack
+  condition: !type:CanDoRangedAttackCondition {}
+
+- type: VisualAI.Block
+  id: VisualAI.ConditionHpMpSpThreshold
+  condition: !type:EnergyCondition
+    type: HP
+    threshold: 0.1

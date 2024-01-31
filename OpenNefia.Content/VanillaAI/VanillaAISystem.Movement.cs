@@ -36,12 +36,12 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IMapDrawablesManager _mapDrawables = default!;
         [Dependency] private readonly ITargetableSystem _targetable = default!;
 
-        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai,
-            int maxDistance = 2,
-            SpatialComponent? spatial = null)
+        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, int maxDistance = 2, VanillaAIComponent? ai = null)
         {
-            if (!Resolve(entity, ref spatial))
+            if (!Resolve(entity, ref ai))
                 return false;
+
+            var spatial = Spatial(entity);
 
             if (anchor.MapId != spatial.MapID)
                 return false;
@@ -77,10 +77,10 @@ namespace OpenNefia.Content.VanillaAI
             if (!Resolve(entity, ref spatial, ref aiAnchor, logMissing: false))
                 return false;
 
-            return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);
+            return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor));
         }
 
-        private void Wander(EntityUid entity, VanillaAIComponent ai,
+        private void DoCalmAction(EntityUid entity, VanillaAIComponent ai,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(entity, ref spatial))
@@ -91,7 +91,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (ai.CalmAction == VanillaAICalmAction.Roam)
             {
-                DoWander(entity, map, ai, spatial);
+                Wander(entity);
             }
             else if (ai.CalmAction == VanillaAICalmAction.Dull)
             {
@@ -101,13 +101,16 @@ namespace OpenNefia.Content.VanillaAI
                 }
                 else
                 {
-                    DoWander(entity, map, ai, spatial);
+                    Wander(entity);
                 }
             }
         }
 
-        private void DoWander(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
+        public void Wander(EntityUid entity)
         {
+            var spatial = Spatial(entity);
+            var map = GetMap(entity);
+
             foreach (var tile in _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition))
             {
                 if (tile != TileRef.Empty && map.CanAccess(tile.MapPosition))
@@ -134,24 +137,25 @@ namespace OpenNefia.Content.VanillaAI
         /// Tries to move towards the current target.
         /// </summary>
         /// <returns>True if the entity moved towards its target.</returns>
-        public bool MoveTowardsTarget(EntityUid entity, VanillaAIComponent ai, SpatialComponent? spatial = null, bool retreat = false)
+        public bool MoveTowardsTarget(EntityUid entity, EntityUid? target = null, bool retreat = false, VanillaAIComponent? ai = null)
         {
-            if (!EntityManager.IsAlive(ai.CurrentTarget))
+            if (!Resolve(entity, ref ai))
                 return false;
 
-            if (ai.CurrentTarget == entity)
+            var spatial = Spatial(entity);
+
+            target ??= ai.CurrentTarget;
+
+            if (!EntityManager.IsAlive(target))
+                return false;
+
+            if (target == entity)
             {
                 SetTarget(entity, GetDefaultTarget(entity), 0, ai);
                 return true;
             }
 
-            var target = ai.CurrentTarget!.Value;
-
-            if (!Resolve(entity, ref spatial))
-                return false;
-
-            if (!EntityManager.TryGetComponent(target, out SpatialComponent targetSpatial))
-                return false;
+            var targetSpatial = Spatial(target.Value);
 
             if (spatial.MapID != targetSpatial.MapID)
                 return false;
@@ -198,7 +202,7 @@ namespace OpenNefia.Content.VanillaAI
                     QualityComponent? onCellQuality = null;
                     VanillaAIComponent? onCellAi = null;
 
-                    if (Resolve(target, ref targetLevel) && Resolve(onCell, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
+                    if (Resolve(target.Value, ref targetLevel) && Resolve(onCell, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
                         if (onCellQuality.Quality.Buffed > Quality.Good
                             && onCellLevel.Level > targetLevel.Level

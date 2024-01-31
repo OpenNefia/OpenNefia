@@ -1,0 +1,925 @@
+- type: Asset
+  id: VisualAI.IconFightJoy11
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_11.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy12
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_12.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy10
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_10.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy08
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_08.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy09
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_09.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy07
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_07.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy13
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_13.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy15
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_15.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy18
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_18.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy14
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_14.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy17
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_17.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy16
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_16.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy19
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_19.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy06
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_06.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy04
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_04.png
+
+- type: Asset
+  id: VisualAI.IconFastForward
+  image:
+    filepath: /Graphic/VisualAI/Icon/fastForward.png
+
+- type: Asset
+  id: VisualAI.IconFightFist
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightFist.png
+
+- type: Asset
+  id: VisualAI.IconExport
+  image:
+    filepath: /Graphic/VisualAI/Icon/export.png
+
+- type: Asset
+  id: VisualAI.IconExitLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/exitLeft.png
+
+- type: Asset
+  id: VisualAI.IconExitRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/exitRight.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy05
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_05.png
+
+- type: Asset
+  id: VisualAI.IconFightFistCircle
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightFist_circle.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy00
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_00.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy03
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_03.png
+
+- type: Asset
+  id: VisualAI.IconFightJ
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJ.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy02
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_02.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy01
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_01.png
+
+- type: Asset
+  id: VisualAI.IconExclamation
+  image:
+    filepath: /Graphic/VisualAI/Icon/exclamation.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy20
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_20.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy22
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_22.png
+
+- type: Asset
+  id: VisualAI.IconGamepad4
+  image:
+    filepath: /Graphic/VisualAI/Icon/gamepad4.png
+
+- type: Asset
+  id: VisualAI.IconGear
+  image:
+    filepath: /Graphic/VisualAI/Icon/gear.png
+
+- type: Asset
+  id: VisualAI.IconGamepad3
+  image:
+    filepath: /Graphic/VisualAI/Icon/gamepad3.png
+
+- type: Asset
+  id: VisualAI.IconGamepad1
+  image:
+    filepath: /Graphic/VisualAI/Icon/gamepad1.png
+
+- type: Asset
+  id: VisualAI.IconGamepad2
+  image:
+    filepath: /Graphic/VisualAI/Icon/gamepad2.png
+
+- type: Asset
+  id: VisualAI.IconGamepad
+  image:
+    filepath: /Graphic/VisualAI/Icon/gamepad.png
+
+- type: Asset
+  id: VisualAI.IconHome
+  image:
+    filepath: /Graphic/VisualAI/Icon/home.png
+
+- type: Asset
+  id: VisualAI.IconInformation
+  image:
+    filepath: /Graphic/VisualAI/Icon/information.png
+
+- type: Asset
+  id: VisualAI.IconJoystickLSide
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickL_side.png
+
+- type: Asset
+  id: VisualAI.IconImport
+  image:
+    filepath: /Graphic/VisualAI/Icon/import.png
+
+- type: Asset
+  id: VisualAI.IconJoystickLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickLeft.png
+
+- type: Asset
+  id: VisualAI.IconJoystick
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystick.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy21
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_21.png
+
+- type: Asset
+  id: VisualAI.IconForward
+  image:
+    filepath: /Graphic/VisualAI/Icon/forward.png
+
+- type: Asset
+  id: VisualAI.IconFistPlus
+  image:
+    filepath: /Graphic/VisualAI/Icon/fistPlus.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy26
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_26.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy27
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_27.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy25
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_25.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy23
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_23.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy24
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_24.png
+
+- type: Asset
+  id: VisualAI.IconFlag
+  image:
+    filepath: /Graphic/VisualAI/Icon/flag.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy28
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_28.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy30
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_30.png
+
+- type: Asset
+  id: VisualAI.IconFilm
+  image:
+    filepath: /Graphic/VisualAI/Icon/film.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy29
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_29.png
+
+- type: Asset
+  id: VisualAI.IconFigurine
+  image:
+    filepath: /Graphic/VisualAI/Icon/figurine.png
+
+- type: Asset
+  id: VisualAI.IconFightJoy31
+  image:
+    filepath: /Graphic/VisualAI/Icon/fightJoy_31.png
+
+- type: Asset
+  id: VisualAI.IconJoystickLTop
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickL_top.png
+
+- type: Asset
+  id: VisualAI.IconDpadUp
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD_up.png
+
+- type: Asset
+  id: VisualAI.IconDpadLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD_left.png
+
+- type: Asset
+  id: VisualAI.IconButtonA
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonA.png
+
+- type: Asset
+  id: VisualAI.IconButtonB
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonB.png
+
+- type: Asset
+  id: VisualAI.IconButton3
+  image:
+    filepath: /Graphic/VisualAI/Icon/button3.png
+
+- type: Asset
+  id: VisualAI.IconButton1
+  image:
+    filepath: /Graphic/VisualAI/Icon/button1.png
+
+- type: Asset
+  id: VisualAI.IconButton2
+  image:
+    filepath: /Graphic/VisualAI/Icon/button2.png
+
+- type: Asset
+  id: VisualAI.IconBasket
+  image:
+    filepath: /Graphic/VisualAI/Icon/basket.png
+
+- type: Asset
+  id: VisualAI.IconButtonL
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonL.png
+
+- type: Asset
+  id: VisualAI.IconButtonL2
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonL2.png
+
+- type: Asset
+  id: VisualAI.IconButtonR2
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonR2.png
+
+- type: Asset
+  id: VisualAI.IconButtonL1
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonL1.png
+
+- type: Asset
+  id: VisualAI.IconButtonR1
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonR1.png
+
+- type: Asset
+  id: VisualAI.IconButtonR
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonR.png
+
+- type: Asset
+  id: VisualAI.IconButtonSelect
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonSelect.png
+
+- type: Asset
+  id: VisualAI.IconBarsVertical
+  image:
+    filepath: /Graphic/VisualAI/Icon/barsVertical.png
+
+- type: Asset
+  id: VisualAI.IconBackward
+  image:
+    filepath: /Graphic/VisualAI/Icon/backward.png
+
+- type: Asset
+  id: VisualAI.IconBarsHorizontal
+  image:
+    filepath: /Graphic/VisualAI/Icon/barsHorizontal.png
+
+- type: Asset
+  id: VisualAI.IconArrowDown
+  image:
+    filepath: /Graphic/VisualAI/Icon/arrowDown.png
+
+- type: Asset
+  id: VisualAI.IconArrowRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/arrowRight.png
+
+- type: Asset
+  id: VisualAI.IconAudioOn
+  image:
+    filepath: /Graphic/VisualAI/Icon/audioOn.png
+
+- type: Asset
+  id: VisualAI.IconArrowLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/arrowLeft.png
+
+- type: Asset
+  id: VisualAI.IconAudioOff
+  image:
+    filepath: /Graphic/VisualAI/Icon/audioOff.png
+
+- type: Asset
+  id: VisualAI.IconArrowUp
+  image:
+    filepath: /Graphic/VisualAI/Icon/arrowUp.png
+
+- type: Asset
+  id: VisualAI.IconDpadRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD_right.png
+
+- type: Asset
+  id: VisualAI.IconButtonStart
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonStart.png
+
+- type: Asset
+  id: VisualAI.IconButtonY
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonY.png
+
+- type: Asset
+  id: VisualAI.IconDoor
+  image:
+    filepath: /Graphic/VisualAI/Icon/door.png
+
+- type: Asset
+  id: VisualAI.IconDown
+  image:
+    filepath: /Graphic/VisualAI/Icon/down.png
+
+- type: Asset
+  id: VisualAI.IconDiamond
+  image:
+    filepath: /Graphic/VisualAI/Icon/diamond.png
+
+- type: Asset
+  id: VisualAI.IconDeviceTiltLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/deviceTilt_left.png
+
+- type: Asset
+  id: VisualAI.IconDeviceTiltRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/deviceTilt_right.png
+
+- type: Asset
+  id: VisualAI.IconDeviceTilt
+  image:
+    filepath: /Graphic/VisualAI/Icon/deviceTilt.png
+
+- type: Asset
+  id: VisualAI.IconDownLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/downLeft.png
+
+- type: Asset
+  id: VisualAI.IconDownRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/downRight.png
+
+- type: Asset
+  id: VisualAI.IconDpadDown
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD_down.png
+
+- type: Asset
+  id: VisualAI.IconDownload
+  image:
+    filepath: /Graphic/VisualAI/Icon/download.png
+
+- type: Asset
+  id: VisualAI.IconDpadAll
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD_all.png
+
+- type: Asset
+  id: VisualAI.IconDpad
+  image:
+    filepath: /Graphic/VisualAI/Icon/DPAD.png
+
+- type: Asset
+  id: VisualAI.IconButtonX
+  image:
+    filepath: /Graphic/VisualAI/Icon/buttonX.png
+
+- type: Asset
+  id: VisualAI.IconCursor
+  image:
+    filepath: /Graphic/VisualAI/Icon/cursor.png
+
+- type: Asset
+  id: VisualAI.IconCpu
+  image:
+    filepath: /Graphic/VisualAI/Icon/cpu.png
+
+- type: Asset
+  id: VisualAI.IconCheckmark
+  image:
+    filepath: /Graphic/VisualAI/Icon/checkmark.png
+
+- type: Asset
+  id: VisualAI.IconCloud
+  image:
+    filepath: /Graphic/VisualAI/Icon/cloud.png
+
+- type: Asset
+  id: VisualAI.IconCart
+  image:
+    filepath: /Graphic/VisualAI/Icon/cart.png
+
+- type: Asset
+  id: VisualAI.IconCar
+  image:
+    filepath: /Graphic/VisualAI/Icon/car.png
+
+- type: Asset
+  id: VisualAI.IconCross
+  image:
+    filepath: /Graphic/VisualAI/Icon/cross.png
+
+- type: Asset
+  id: VisualAI.IconCloudUpload
+  image:
+    filepath: /Graphic/VisualAI/Icon/cloudUpload.png
+
+- type: Asset
+  id: VisualAI.IconContrast
+  image:
+    filepath: /Graphic/VisualAI/Icon/contrast.png
+
+- type: Asset
+  id: VisualAI.IconControllerTiltRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/controllerTilt_right.png
+
+- type: Asset
+  id: VisualAI.IconCoin
+  image:
+    filepath: /Graphic/VisualAI/Icon/coin.png
+
+- type: Asset
+  id: VisualAI.IconControllerTiltLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/controllerTilt_left.png
+
+- type: Asset
+  id: VisualAI.IconControllerTilt
+  image:
+    filepath: /Graphic/VisualAI/Icon/controllerTilt.png
+
+- type: Asset
+  id: VisualAI.IconJoystickRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickRight.png
+
+- type: Asset
+  id: VisualAI.IconJoystickRTop
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickR_top.png
+
+- type: Asset
+  id: VisualAI.IconWarning
+  image:
+    filepath: /Graphic/VisualAI/Icon/warning.png
+
+- type: Asset
+  id: VisualAI.IconWrench
+  image:
+    filepath: /Graphic/VisualAI/Icon/wrench.png
+
+- type: Asset
+  id: VisualAI.IconVideo
+  image:
+    filepath: /Graphic/VisualAI/Icon/video.png
+
+- type: Asset
+  id: VisualAI.IconUpRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/upRight.png
+
+- type: Asset
+  id: VisualAI.IconUserRobot
+  image:
+    filepath: /Graphic/VisualAI/Icon/userRobot.png
+
+- type: Asset
+  id: VisualAI.IconZoom
+  image:
+    filepath: /Graphic/VisualAI/Icon/zoom.png
+
+- type: Asset
+  id: VisualAI.IconZoomIn
+  image:
+    filepath: /Graphic/VisualAI/Icon/zoomIn.png
+
+- type: Asset
+  id: VisualAI.IconZoomOut
+  image:
+    filepath: /Graphic/VisualAI/Icon/zoomOut.png
+
+- type: Asset
+  id: VisualAI.IconUpload
+  image:
+    filepath: /Graphic/VisualAI/Icon/upload.png
+
+- type: Asset
+  id: VisualAI.IconJoystickRSide
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickR_side.png
+
+- type: Asset
+  id: VisualAI.IconUpLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/upLeft.png
+
+- type: Asset
+  id: VisualAI.IconUnlocked
+  image:
+    filepath: /Graphic/VisualAI/Icon/unlocked.png
+
+- type: Asset
+  id: VisualAI.IconMouseMiddle
+  image:
+    filepath: /Graphic/VisualAI/Icon/mouseMiddle.png
+
+- type: Asset
+  id: VisualAI.IconMouseRight
+  image:
+    filepath: /Graphic/VisualAI/Icon/mouseRight.png
+
+- type: Asset
+  id: VisualAI.IconMouseLeft
+  image:
+    filepath: /Graphic/VisualAI/Icon/mouseLeft.png
+
+- type: Asset
+  id: VisualAI.IconMinus
+  image:
+    filepath: /Graphic/VisualAI/Icon/minus.png
+
+- type: Asset
+  id: VisualAI.IconMouse
+  image:
+    filepath: /Graphic/VisualAI/Icon/mouse.png
+
+- type: Asset
+  id: VisualAI.IconMenuList
+  image:
+    filepath: /Graphic/VisualAI/Icon/menuList.png
+
+- type: Asset
+  id: VisualAI.IconMultiplayer
+  image:
+    filepath: /Graphic/VisualAI/Icon/multiplayer.png
+
+- type: Asset
+  id: VisualAI.IconMusicOn
+  image:
+    filepath: /Graphic/VisualAI/Icon/musicOn.png
+
+- type: Asset
+  id: VisualAI.IconPause
+  image:
+    filepath: /Graphic/VisualAI/Icon/pause.png
+
+- type: Asset
+  id: VisualAI.IconMusicOff
+  image:
+    filepath: /Graphic/VisualAI/Icon/musicOff.png
+
+- type: Asset
+  id: VisualAI.IconOpen
+  image:
+    filepath: /Graphic/VisualAI/Icon/open.png
+
+- type: Asset
+  id: VisualAI.IconNext
+  image:
+    filepath: /Graphic/VisualAI/Icon/next.png
+
+- type: Asset
+  id: VisualAI.IconPhone
+  image:
+    filepath: /Graphic/VisualAI/Icon/phone.png
+
+- type: Asset
+  id: VisualAI.IconMenuGrid
+  image:
+    filepath: /Graphic/VisualAI/Icon/menuGrid.png
+
+- type: Asset
+  id: VisualAI.IconMedal1
+  image:
+    filepath: /Graphic/VisualAI/Icon/medal1.png
+
+- type: Asset
+  id: VisualAI.IconKeyLarge3D
+  image:
+    filepath: /Graphic/VisualAI/Icon/keyLarge_3d.png
+
+- type: Asset
+  id: VisualAI.IconKeySmall
+  image:
+    filepath: /Graphic/VisualAI/Icon/keySmall.png
+
+- type: Asset
+  id: VisualAI.IconKeyLarge
+  image:
+    filepath: /Graphic/VisualAI/Icon/keyLarge.png
+
+- type: Asset
+  id: VisualAI.IconJoystickUp
+  image:
+    filepath: /Graphic/VisualAI/Icon/joystickUp.png
+
+- type: Asset
+  id: VisualAI.IconKey
+  image:
+    filepath: /Graphic/VisualAI/Icon/key.png
+
+- type: Asset
+  id: VisualAI.IconMedal2
+  image:
+    filepath: /Graphic/VisualAI/Icon/medal2.png
+
+- type: Asset
+  id: VisualAI.IconKeySmall3D
+  image:
+    filepath: /Graphic/VisualAI/Icon/keySmall_3d.png
+
+- type: Asset
+  id: VisualAI.IconLeaderboardsComplex
+  image:
+    filepath: /Graphic/VisualAI/Icon/leaderboardsComplex.png
+
+- type: Asset
+  id: VisualAI.IconMassiveMultiplayer
+  image:
+    filepath: /Graphic/VisualAI/Icon/massiveMultiplayer.png
+
+- type: Asset
+  id: VisualAI.IconLarger
+  image:
+    filepath: /Graphic/VisualAI/Icon/larger.png
+
+- type: Asset
+  id: VisualAI.IconLocked
+  image:
+    filepath: /Graphic/VisualAI/Icon/locked.png
+
+- type: Asset
+  id: VisualAI.IconLeaderboardsSimple
+  image:
+    filepath: /Graphic/VisualAI/Icon/leaderboardsSimple.png
+
+- type: Asset
+  id: VisualAI.IconUp
+  image:
+    filepath: /Graphic/VisualAI/Icon/up.png
+
+- type: Asset
+  id: VisualAI.IconPlus
+  image:
+    filepath: /Graphic/VisualAI/Icon/plus.png
+
+- type: Asset
+  id: VisualAI.IconPower
+  image:
+    filepath: /Graphic/VisualAI/Icon/power.png
+
+- type: Asset
+  id: VisualAI.IconTarget
+  image:
+    filepath: /Graphic/VisualAI/Icon/target.png
+
+- type: Asset
+  id: VisualAI.IconToolBrush
+  image:
+    filepath: /Graphic/VisualAI/Icon/toolBrush.png
+
+- type: Asset
+  id: VisualAI.IconTablet
+  image:
+    filepath: /Graphic/VisualAI/Icon/tablet.png
+
+- type: Asset
+  id: VisualAI.IconStar
+  image:
+    filepath: /Graphic/VisualAI/Icon/star.png
+
+- type: Asset
+  id: VisualAI.IconStop
+  image:
+    filepath: /Graphic/VisualAI/Icon/stop.png
+
+- type: Asset
+  id: VisualAI.IconSmaller
+  image:
+    filepath: /Graphic/VisualAI/Icon/smaller.png
+
+- type: Asset
+  id: VisualAI.IconToolEraser
+  image:
+    filepath: /Graphic/VisualAI/Icon/toolEraser.png
+
+- type: Asset
+  id: VisualAI.IconToolPencil
+  image:
+    filepath: /Graphic/VisualAI/Icon/toolPencil.png
+
+- type: Asset
+  id: VisualAI.IconTrophy
+  image:
+    filepath: /Graphic/VisualAI/Icon/trophy.png
+
+- type: Asset
+  id: VisualAI.IconToolFill
+  image:
+    filepath: /Graphic/VisualAI/Icon/toolFill.png
+
+- type: Asset
+  id: VisualAI.IconTrashcanOpen
+  image:
+    filepath: /Graphic/VisualAI/Icon/trashcanOpen.png
+
+- type: Asset
+  id: VisualAI.IconTrashcan
+  image:
+    filepath: /Graphic/VisualAI/Icon/trashcan.png
+
+- type: Asset
+  id: VisualAI.IconPointer
+  image:
+    filepath: /Graphic/VisualAI/Icon/pointer.png
+
+- type: Asset
+  id: VisualAI.IconSingleplayer
+  image:
+    filepath: /Graphic/VisualAI/Icon/singleplayer.png
+
+- type: Asset
+  id: VisualAI.IconSignal2
+  image:
+    filepath: /Graphic/VisualAI/Icon/signal2.png
+
+- type: Asset
+  id: VisualAI.IconReturn
+  image:
+    filepath: /Graphic/VisualAI/Icon/return.png
+
+- type: Asset
+  id: VisualAI.IconRewind
+  image:
+    filepath: /Graphic/VisualAI/Icon/rewind.png
+
+- type: Asset
+  id: VisualAI.IconQuestion
+  image:
+    filepath: /Graphic/VisualAI/Icon/question.png
+
+- type: Asset
+  id: VisualAI.IconPrevious
+  image:
+    filepath: /Graphic/VisualAI/Icon/previous.png
+
+- type: Asset
+  id: VisualAI.IconSignal3
+  image:
+    filepath: /Graphic/VisualAI/Icon/signal3.png
+
+- type: Asset
+  id: VisualAI.IconSave
+  image:
+    filepath: /Graphic/VisualAI/Icon/save.png
+
+- type: Asset
+  id: VisualAI.IconScrollVertical
+  image:
+    filepath: /Graphic/VisualAI/Icon/scrollVertical.png
+
+- type: Asset
+  id: VisualAI.IconSignal1
+  image:
+    filepath: /Graphic/VisualAI/Icon/signal1.png
+
+- type: Asset
+  id: VisualAI.IconScrollHorizontal
+  image:
+    filepath: /Graphic/VisualAI/Icon/scrollHorizontal.png
+
+- type: Asset
+  id: VisualAI.IconShare2
+  image:
+    filepath: /Graphic/VisualAI/Icon/share2.png
+
+- type: Asset
+  id: VisualAI.IconShare1
+  image:
+    filepath: /Graphic/VisualAI/Icon/share1.png
+
+# - type: Asset
+#   id: VisualAI.ColorBlockAction
+#   color: '#8CB4D2'
+
+# - type: Asset
+#   id: VisualAI.ColorTileEmpty
+#   color: '#00285080'
+
+# - type: Asset
+#   id: VisualAI.ColorBlockTarget
+#   color: '#EAC88C'
+
+# - type: Asset
+#   id: VisualAI.IconZoomDefault
+#   image:
+#     filepath: /Graphic/VisualAI/Icon/zoomDefault.png
+
+# - type: Asset
+#   id: VisualAI.ColorBlockCondition
+#   color: '#807676'

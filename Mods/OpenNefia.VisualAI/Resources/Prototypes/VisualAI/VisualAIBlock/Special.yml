@@ -1,0 +1,4 @@
+- type: VisualAI.Block
+  id: VisualAI.SpecialClearTarget
+  color: '#B43232'
+  icon: VisualAI.IconCross

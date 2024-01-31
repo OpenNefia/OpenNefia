@@ -27,7 +27,8 @@ namespace OpenNefia.Content.Actions
 {
     public interface IActionSystem : IEntitySystem
     {
-        TurnResult InvokeAction(EntityUid caster, PrototypeId<ActionPrototype> action);
+        bool HasAction(EntityUid caster, PrototypeId<ActionPrototype> action);
+        TurnResult Invoke(EntityUid caster, PrototypeId<ActionPrototype> action, EntityUid? target = null);
         string LocalizeActionDescription(ActionPrototype proto, EntityUid casterEntity, EntityUid effect);
     }
 
@@ -76,12 +77,21 @@ namespace OpenNefia.Content.Actions
             // <<<<<<<< elona122/shade2/proc.hsp:1552 		} ...
         }
 
-        public TurnResult InvokeAction(EntityUid caster, PrototypeId<ActionPrototype> actionID)
+        public bool HasAction(EntityUid caster, PrototypeId<ActionPrototype> action)
+        {
+            var proto = _protos.Index(action);
+            return _skills.HasSkill(caster, proto.SkillID);
+        }
+
+        public TurnResult Invoke(EntityUid caster, PrototypeId<ActionPrototype> actionID, EntityUid? target = null)
         {
             // >>>>>>>> shade2/proc.hsp:1539 *action ...
             // TODO death word
             if (!_protos.TryIndex(actionID, out var action)
                 || !_protos.TryIndex(action.SkillID, out var skill))
+                return TurnResult.Aborted;
+
+            if (!HasAction(caster, actionID))
                 return TurnResult.Aborted;
 
             if (!_newEffects.TrySpawnEffect(action.EffectID, out var effect))
@@ -98,10 +108,21 @@ namespace OpenNefia.Content.Actions
             };
             var effectArgs = EffectArgSet.Make(effectCommon);
 
-            if (!_newEffects.TryGetEffectTarget(caster, effect.Value, effectArgs, out var targetPair))
-                return TurnResult.Aborted;
+            EntityCoordinates? targetCoords;
 
-            var ev = new BeforeActionEffectInvokedEvent(caster, targetPair.Target, targetPair.Coords);
+            if (IsAlive(target))
+            {
+                targetCoords = Spatial(target.Value).Coordinates;
+            }
+            else
+            {
+                if (!_newEffects.TryGetEffectTarget(caster, effect.Value, effectArgs, out var targetPair))
+                    return TurnResult.Aborted;
+                target = targetPair.Target;
+                targetCoords = targetPair.Coords;
+            }
+
+            var ev = new BeforeActionEffectInvokedEvent(caster, target, targetCoords);
             RaiseEvent(effect.Value, ev);
             if (ev.Handled)
                 return ev.TurnResult;
@@ -112,7 +133,7 @@ namespace OpenNefia.Content.Actions
                 return TurnResult.Failed;
             }
 
-            var result = _newEffects.Apply(caster, targetPair.Target, targetPair.Coords, effect.Value, args: effectArgs);
+            var result = _newEffects.Apply(caster, target, targetCoords, effect.Value, args: effectArgs);
 
             if (IsAlive(effect))
                 EntityManager.DeleteEntity(effect.Value);

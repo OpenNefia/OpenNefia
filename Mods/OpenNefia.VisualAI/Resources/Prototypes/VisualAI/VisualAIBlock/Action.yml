@@ -1,0 +1,55 @@
+- type: VisualAI.Block
+  id: VisualAI.ActionMoveCloseAsPossible
+  canConfigure: false
+  action: !type:MoveWithinDistanceAction
+    threshold: 0
+
+- type: VisualAI.Block
+  id: VisualAI.ActionMoveWithinDistance
+  action: !type:MoveWithinDistanceAction
+    threshold: 3
+
+- type: VisualAI.Block
+  id: VisualAI.ActionRetreatFromTarget
+  action: !type:RetreatFurthestAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionRetreatUntilDistance
+  action: !type:RetreatUntilDistanceAction
+    threshold: 3
+
+- type: VisualAI.Block
+  id: VisualAI.ActionRangedAttack
+  color: '#B43232'
+  icon: VisualAI.IconFightFist
+  action: !type:RangedAttackAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionWander
+  color: '#B48C64'
+  icon: VisualAI.IconFlag
+  action: !type:WanderAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionMeleeAttack
+  color: '#B43232'
+  icon: VisualAI.IconFightFist
+  action: !type:MeleeAttackAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionCastSpell
+  color: '#B43232'
+  icon: VisualAI.IconFightFist
+  action: !type:CastSpellAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionPickUp
+  color: '#32B464'
+  action: !type:PickUpAction {}
+
+- type: VisualAI.Block
+  id: VisualAI.ActionDoNothing
+  color: '#B48C64'
+  icon: VisualAI.IconStop
+  action: !type:DoNothingAction {}
+...

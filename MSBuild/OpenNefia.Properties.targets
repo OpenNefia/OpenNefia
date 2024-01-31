@@ -26,5 +26,7 @@
     <Python>python3</Python>
     <Python Condition="'$(ActualOS)' == 'Windows'">py -3</Python>
     <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>
