@@ -1,7 +1,11 @@
 ﻿using OpenNefia.Core.Maths;
+using OpenNefia.VisualAI.Engine;
 
-namespace OpenNefia.VisualAI.Engine
+namespace OpenNefia.VisualAI.UserInterface
 {
+    /// <summary>
+    /// UI representation of a tile in the Visual AI grid.
+    /// </summary>
     public abstract record VisualAITile(VisualAIPlan Plan, Vector2i Position)
     {
         public sealed record Empty(VisualAIPlan Plan, Vector2i Position) : VisualAITile(Plan, Position);

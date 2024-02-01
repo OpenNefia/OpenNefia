@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.VisualAI.Block
 {
+    [ImplicitDataDefinitionForInheritors]
     public interface IVisualAITargetOrdering
     {
         int Compare(VisualAIState state, IVisualAITargetValue targetA, IVisualAITargetValue targetB);

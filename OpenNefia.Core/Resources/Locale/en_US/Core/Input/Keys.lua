@@ -18,6 +18,7 @@ OpenNefia.Input.Keys = {
     Tab = "Tab",
     Clear = "Clear",
     Return = "Return",
+    Enter = "Return",
     Delete = "Delete",
 
     NumpadEnter = "NumpadEnter",

@@ -12,10 +12,10 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using OpenNefia.VisualAI.Block;
 using System.Diagnostics.CodeAnalysis;
-using Protos_VisualAI = OpenNefia.VisualAI.Prototypes.Protos;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.VisualAI.UserInterface;
+using Protos_VisualAI = OpenNefia.VisualAI.Prototypes.Protos;
 
 namespace OpenNefia.VisualAI.Engine
 {
@@ -69,7 +69,7 @@ namespace OpenNefia.VisualAI.Engine
         private void GetInteractActions_VisualAI(EntityUid uid, GetInteractActionsEvent args)
         {
             if (_parties.IsUnderlingOfPlayer(uid))
-                args.OutInteractActions.Add(new(Loc.GetString("VisualAI.InteractMenu.OptionName"), OpenEditor));
+                args.OutInteractActions.Add(new(Loc.GetString("VisualAI.Interact.Actions.EditVisualAI"), OpenEditor));
         }
 
         private TurnResult OpenEditor(EntityUid source, EntityUid target)
@@ -95,6 +95,11 @@ namespace OpenNefia.VisualAI.Engine
             _uiManager.Query<VisualAIEditor, VisualAIEditor.Args>(args);
         }
 
+        /// <summary>
+        /// Target source to use if none was specified by the time a condition/action block is encountered.
+        /// </summary>
+        private IVisualAITargetSource _defaultTargetSource = new AllEntitiesTargetSource();
+
         private bool TryChooseTarget(VisualAIState state, VisualAIBlock block, [NotNullWhen(true)] out IVisualAITargetValue? target)
         {
             if (state.TriedToChooseTarget)
@@ -113,7 +118,9 @@ namespace OpenNefia.VisualAI.Engine
                 return true;
             }
 
-            var candidates = state.TargetSource.GetTargets(state)
+            var targetSource = state.TargetSource ?? _defaultTargetSource;
+
+            var candidates = targetSource.GetTargets(state)
                 .Where(Filter)
                 .ToList();
 
@@ -144,7 +151,7 @@ namespace OpenNefia.VisualAI.Engine
                 {
                     case VisualAIBlockType.Condition:
                         var success = RunBlockCondition(state, block);
-                        Logger.DebugS("visualAI", $"Branch : {success} ({block.ProtoID})");
+                        Logger.DebugS("visualAI", $"Condition branch : {success} ({block.ProtoID})");
                         if (success)
                             return currentPlan.SubplanTrueBranch;
                         else
@@ -177,6 +184,7 @@ namespace OpenNefia.VisualAI.Engine
                 return false;
             }
 
+            Logger.DebugS("visualAI", $"Run block condition : {block.Proto.Condition}");
             return block.Proto.Condition.IsAccepted(state, target);
         }
 
@@ -192,13 +200,23 @@ namespace OpenNefia.VisualAI.Engine
 
             state.TargetFilters.Add(block.Proto.Target.Filter);
 
-            if (block.Proto.Target.Filter != null)
+            if (block.Proto.Target.Ordering != null)
+            {
+                Logger.DebugS("visualAI", $"Set target ordering : {block.Proto.Target.Ordering}");
                 state.TargetOrder = block.Proto.Target.Ordering;
+            }
 
             if (block.Proto.Target.Source != null)
             {
                 if (state.TargetSource != null)
                 {
+                    Logger.DebugS("visualAI", $"Target source exists already : {block.Proto.Target.Source} & {state.TargetSource}");
+
+                    // Normally, the first target block that sets a target source determines
+                    // the target type for that plan, until a "clear target" block is encountered.
+                    // If nothing sets the target then default to all entities.
+                    // *However*, if a target source is set (non-null) then other target blocks should not have
+                    // incompatible target source types.
                     if (block.Proto.Target.Source.GetType() != state.TargetSource.GetType())
                     {
                         // Differing target source found. This is an error, just ensure nothing gets filtered.
@@ -207,6 +225,7 @@ namespace OpenNefia.VisualAI.Engine
                 }
                 else
                 {
+                    Logger.DebugS("visualAI", $"Set target source : {block.Proto.Target.Source}");
                     state.TargetSource = block.Proto.Target.Source;
                 }
             }
@@ -222,11 +241,15 @@ namespace OpenNefia.VisualAI.Engine
                 return;
             }
 
+
+            Logger.DebugS("visualAI", $"Run block action : {block.Proto.Action}");
             block.Proto.Action.Apply(state, block, target);
         }
 
         private void RunBlockSpecial(VisualAIState state, VisualAIBlock block)
         {
+            Logger.DebugS("visualAI", $"Run block special : {block.ProtoID}");
+
             if (block.ProtoID == Protos_VisualAI.VisualAIBlock.SpecialClearTarget)
             {
                 state.ClearTarget();
@@ -242,7 +265,7 @@ namespace OpenNefia.VisualAI.Engine
             if (!Resolve(entity, ref vai) || !TryMap(entity, out var map))
                 return TurnResult.Failed;
 
-            Logger.DebugS("visualAI", $"Running Visual AI for {entity}");
+            Logger.DebugS("visualAI", $"+++++  Running Visual AI for {entity}  +++++");
 
             VisualAIPlan? plan = vai.Plan;
 
@@ -282,15 +305,13 @@ namespace OpenNefia.VisualAI.Engine
             AIEntity = aiEntity;
             Map = map;
 
-            EntitySystem.InjectDependencies(TargetSource);
-
             foreach (var filter in TargetFilters)
                 EntitySystem.InjectDependencies(filter);
         }
 
         public EntityUid AIEntity { get; }
         public IMap Map { get; }
-        public IVisualAITargetSource TargetSource { get; set; } = new AllEntitiesTargetSource();
+        public IVisualAITargetSource? TargetSource { get; set; }
         public List<IVisualAICondition> TargetFilters { get; } = new() { new IsInFovCondition() };
         public IVisualAITargetOrdering? TargetOrder { get; set; }
         public IVisualAITargetValue? ChosenTarget { get; set; }
@@ -298,9 +319,6 @@ namespace OpenNefia.VisualAI.Engine
 
         public void ClearTarget()
         {
-            TargetSource = new AllEntitiesTargetSource();
-            EntitySystem.InjectDependencies(TargetSource);
-
             TargetFilters.Clear();
             TargetFilters.Add(new IsInFovCondition());
             foreach (var filter in TargetFilters)
@@ -314,9 +332,9 @@ namespace OpenNefia.VisualAI.Engine
 
     public enum VisualAIBlockType
     {
-        Action,
-        Condition,
         Target,
-        Special,
+        Condition,
+        Action,
+        Special
     }
 }

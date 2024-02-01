@@ -6,6 +6,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -56,6 +57,17 @@ namespace OpenNefia.Core.UserInterface
 
                 if (DebugUILayers)
                     DrawDebug(layer);
+            }
+
+            if (DebugUILayers)
+            {
+                var uiScale = _config.GetCVar(CVars.DisplayUIScale);
+                Love.Graphics.SetColor(Color.Black.WithAlphaB(192));
+                GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, 0, 0, 400, 60);
+                Love.Graphics.SetColor(Color.White);
+                GraphicsS.PrintS(uiScale, $"{nameof(CurrentlyHovered)}: {CurrentlyHovered?.GetType()}", 4, 4);
+                GraphicsS.PrintS(uiScale, $"{nameof(ControlFocused)}: {ControlFocused?.GetType()}", 4, 24);
+                GraphicsS.PrintS(uiScale, $"{nameof(KeyboardFocused)}: {KeyboardFocused?.GetType()}", 4, 44);
             }
         }
 

@@ -71,8 +71,7 @@ namespace OpenNefia.VisualAI.Block
             var dist = double.Floor((spatialTarget.LocalPosition - spatialSource.LocalPosition).Length);
             var fov = EntityManager.GetComponentOrNull<VisibilityComponent>(state.AIEntity)?.FieldOfViewRadius.Buffed ?? 14;
 
-            return EntityManager.IsAlive(candidate.Entity)
-                && _vis.HasLineOfSight(state.AIEntity, candidate.Entity.Value)
+            return _vis.HasLineOfSight(state.AIEntity, candidate.Entity.Value)
                 && dist <= fov / 2;
         }
     }
@@ -300,43 +299,43 @@ namespace OpenNefia.VisualAI.Block
 
             return dist <= spellProto.MaxRange;
         }
+    }
 
-        public sealed class ActionInRangeCondition : BaseCondition
+    public sealed class ActionInRangeCondition : BaseCondition
+    {
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+
+        [DataField]
+        [VisualAIVariable] // TODO known actions only
+        public PrototypeId<ActionPrototype> ActionID { get; set; }
+
+        public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {
-            [Dependency] private readonly IPrototypeManager _protos = default!;
+            if (!EntityManager.IsAlive(candidate.Entity))
+                return false;
 
-            [DataField]
-            [VisualAIVariable] // TODO known actions only
-            public PrototypeId<ActionPrototype> ActionID { get; set; }
+            var spatialSource = EntityManager.GetComponent<SpatialComponent>(state.AIEntity);
+            var spatialTarget = EntityManager.GetComponent<SpatialComponent>(candidate.Entity.Value);
+            var dist = double.Floor((spatialTarget.LocalPosition - spatialSource.LocalPosition).Length);
 
-            public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
-            {
-                if (!EntityManager.IsAlive(candidate.Entity))
-                    return false;
+            if (!_protos.TryIndex(ActionID, out var actionProto))
+                return false;
 
-                var spatialSource = EntityManager.GetComponent<SpatialComponent>(state.AIEntity);
-                var spatialTarget = EntityManager.GetComponent<SpatialComponent>(candidate.Entity.Value);
-                var dist = double.Floor((spatialTarget.LocalPosition - spatialSource.LocalPosition).Length);
-
-                if (!_protos.TryIndex(ActionID, out var actionProto))
-                    return false;
-
-                return dist <= actionProto.MaxRange;
-            }
+            return dist <= actionProto.MaxRange;
         }
+    }
 
-        public sealed class RandomChanceCondition : BaseCondition
+    public sealed class RandomChanceCondition : BaseCondition
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+
+        [DataField]
+        [VisualAIVariable(minValue: 0.0f, maxValue: 1.0f, incrementAmount: 0.1f)]
+        public float Probability { get; set; } = 0.5f;
+
+        public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {
-            [Dependency] private readonly IRandom _rand = default!;
-
-            [DataField]
-            [VisualAIVariable(minValue: 0.0f, maxValue: 1.0f, incrementAmount: 0.1f)]
-            public float Probability { get; set; } = 0.5f;
-
-            public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
-            {
-                return _rand.Prob(Probability);
-            }
+            return _rand.Prob(Probability);
         }
     }
 }

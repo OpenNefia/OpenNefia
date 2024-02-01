@@ -19,6 +19,13 @@ namespace OpenNefia.Content.UI.Element
             UiText.Text = WordWrap(OriginalText, PixelWidth);
         }
 
+        public UiWrappedText(UiText textElem)
+        {
+            UiText = textElem;
+            OriginalText = textElem.Text;
+            UiText.Text = WordWrap(OriginalText, PixelWidth);
+        }
+
         public string OriginalText { get; private set; }
 
         public string WrappedText

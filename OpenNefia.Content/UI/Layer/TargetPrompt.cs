@@ -27,7 +27,6 @@ using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    // TODO: Needs to support tilemap-level scaling (#134)
     public sealed class TargetPromptList : UiPagedList<TargetPromptList.Item>
     {
         [Dependency] private readonly IFieldLayer _field = default!;

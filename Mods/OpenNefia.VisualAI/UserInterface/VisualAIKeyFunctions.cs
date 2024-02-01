@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
+    [KeyFunctions]
     public static class VisualAIKeyFunctions
     {
-        public static readonly BoundKeyFunction Insert = nameof(Insert);
-        public static readonly BoundKeyFunction InsertDown = nameof(InsertDown);
-        public static readonly BoundKeyFunction Delete = nameof(Delete);
-        public static readonly BoundKeyFunction DeleteAndMergeDown = nameof(DeleteAndMergeDown);
-        public static readonly BoundKeyFunction DeleteToRight = nameof(DeleteToRight);
-        public static readonly BoundKeyFunction SwapBranches = nameof(SwapBranches);
+        public static readonly BoundKeyFunction Insert = $"VisualAI.{nameof(Insert)}";
+        public static readonly BoundKeyFunction InsertDown = $"VisualAI.{nameof(InsertDown)}";
+        public static readonly BoundKeyFunction Delete = $"VisualAI.{nameof(Delete)}";
+        public static readonly BoundKeyFunction DeleteAndMergeDown = $"VisualAI.{nameof(DeleteAndMergeDown)}";
+        public static readonly BoundKeyFunction DeleteToRight = $"VisualAI.{nameof(DeleteToRight)}";
+        public static readonly BoundKeyFunction SwapBranches = $"VisualAI.{nameof(SwapBranches)}";
 
         internal static void SetupContexts(IInputContextContainer contexts)
         {

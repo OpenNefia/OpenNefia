@@ -1,22 +1,17 @@
-﻿using OpenNefia.Content.Equipment;
-using OpenNefia.Core.Input;
+﻿using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.VisualAI.Engine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
-using static OpenNefia.VisualAI.Engine.VisualAITile;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
@@ -25,9 +20,16 @@ namespace OpenNefia.VisualAI.UserInterface
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
-        public VisualAIPlan Plan { get; set; } = new();
+        public VisualAIPlan RootPlan { get; set; } = new();
 
+        private sealed record IconAndTile(VisualAIBlockIcon Icon, VisualAITile.Block Tile);
+
+        // Only one Empty or Block tile can occupy a space
+        // However, there can also be a line tile on the same space
         private VisualAITile?[,] Tiles = new VisualAITile?[1, 1];
+        private List<VisualAITile.Line> LineTiles = new();
+
+        private List<IconAndTile> BlockIcons = new();
 
         private Vector2i _cursor { get; set; } = Vector2i.Zero;
         private Vector2i Cursor
@@ -40,6 +42,8 @@ namespace OpenNefia.VisualAI.UserInterface
             }
         }
 
+        public bool Enabled { get; set; } = true;
+
         public delegate void GridUpdatedDelegate();
         public event GridUpdatedDelegate? OnRefreshed;
 
@@ -48,16 +52,22 @@ namespace OpenNefia.VisualAI.UserInterface
 
         private Vector2 Offset = Vector2.Zero;
         private Vector2 CanvasSize = Vector2.Zero;
-        private float TileSize => 48;
-        private float TilePadding => 8;
 
         private VisualAIBlockType _lastCategory = VisualAIBlockType.Target;
+
+        private const float TileSize = VisualAIBlockIcon.DefaultSize;
+        private const float TilePadding = VisualAIBlockIcon.DefaultPadding;
 
         private VisualAITile? SelectedTile => (Cursor.X >= 0 && Cursor.Y >= 0 && Cursor.X < GridWidth && Cursor.Y < GridHeight)
             ? Tiles[Cursor.X, Cursor.Y] : null;
 
         public VisualAIEditorGrid()
         {
+            // TODO
+            EntitySystem.InjectDependencies(this);
+
+            CanControlFocus = true;
+            EventFilter = UIEventFilterMode.Pass;
             OnKeyBindDown += HandleKeyBindDown;
         }
 
@@ -65,24 +75,27 @@ namespace OpenNefia.VisualAI.UserInterface
         {
             var hints = base.MakeKeyHints();
 
+            if (!Enabled)
+                return hints;
+
             var tile = SelectedTile;
 
             if (tile is VisualAITile.Empty)
             {
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.Append", EngineKeyFunctions.UISelect));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.Append"), EngineKeyFunctions.UISelect));
             }
             else if (tile is VisualAITile.Block block)
             {
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.Replace", EngineKeyFunctions.UISelect));
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.Insert", VisualAIKeyFunctions.Insert));
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.InsertDown", VisualAIKeyFunctions.InsertDown));
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.Delete", VisualAIKeyFunctions.Delete));
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.DeleteAndMergeDown", VisualAIKeyFunctions.DeleteAndMergeDown));
-                hints.Add(new("VisualAI.UI.Editor.KeyHints.DeleteToRight", VisualAIKeyFunctions.DeleteToRight));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.Replace"), EngineKeyFunctions.UISelect));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.Insert"), VisualAIKeyFunctions.Insert));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.InsertDown"), VisualAIKeyFunctions.InsertDown));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.Delete"), VisualAIKeyFunctions.Delete));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.DeleteAndMergeDown"), VisualAIKeyFunctions.DeleteAndMergeDown));
+                hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.DeleteToRight"), VisualAIKeyFunctions.DeleteToRight));
 
                 if (block.BlockValue.Proto.Type == VisualAIBlockType.Condition)
                 {
-                    hints.Add(new("VisualAI.UI.Editor.KeyHints.SwapBranches", VisualAIKeyFunctions.SwapBranches));
+                    hints.Add(new(new LocaleKey("VisualAI.UI.Editor.KeyHints.SwapBranches"), VisualAIKeyFunctions.SwapBranches));
                 }
             }
 
@@ -91,6 +104,11 @@ namespace OpenNefia.VisualAI.UserInterface
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             if (args.Function.TryToDirection(out var dir))
             {
                 Cursor += dir.ToIntVec();
@@ -139,6 +157,8 @@ namespace OpenNefia.VisualAI.UserInterface
             if (tile == null)
                 return;
 
+            bool moveCursor = false;
+
             _audio.Play(Protos.Sound.Ok1);
 
             if (tile is VisualAITile.Empty)
@@ -152,16 +172,20 @@ namespace OpenNefia.VisualAI.UserInterface
                 if (!result.HasValue)
                     return;
 
+                _lastCategory = result.Value.LastCategory;
                 var newBlock = result.Value.Block;
 
-                if (!Plan.AddBlock(newBlock, out var error))
+                if (newBlock == null)
+                    return;
+
+                if (!tile.Plan.AddBlock(newBlock, out var error))
                 {
                     _mes.Display(error);
                     return;
                 }
 
                 if (!newBlock.Proto.IsTerminal)
-                    Cursor += (1, 0);
+                moveCursor = true;
             }
             else if (tile is VisualAITile.Block blockTile)
             {
@@ -175,19 +199,27 @@ namespace OpenNefia.VisualAI.UserInterface
                 if (!result.HasValue)
                     return;
 
+                _lastCategory = result.Value.LastCategory;
                 var newBlock = result.Value.Block;
 
-                if (!Plan.ReplaceBlock(blockTile.BlockValue, newBlock, out var error))
+                if (newBlock == null)
+                    return;
+
+                if (!tile.Plan.ReplaceBlock(blockTile.BlockValue, newBlock, out var error))
                 {
                     _mes.Display(error);
                     return;
                 }
 
                 if (!newBlock.Proto.IsTerminal)
-                    Cursor += (1, 0);
+                    moveCursor = true;
             }
 
-            Refresh();
+            RebuildCanvas();
+
+            // Can only move cursor here since the grid bounds are now updated accordingly.
+            if (moveCursor)
+                Cursor += (1, 0);
         }
 
         private void InsertBlock(VisualAIPlan.BranchTarget splitType)
@@ -207,12 +239,16 @@ namespace OpenNefia.VisualAI.UserInterface
             if (!result.HasValue)
                 return;
 
+            _lastCategory = result.Value.LastCategory;
             var newBlock = result.Value.Block;
 
-            if (!Plan.InsertBlockBefore(blockTile.BlockValue, newBlock, out var error, splitType))
+            if (newBlock == null)
+                return;
+
+            if (!tile.Plan.InsertBlockBefore(blockTile.BlockValue, newBlock, out var error, splitType))
                 _mes.Display(error);
 
-            Refresh();
+            RebuildCanvas();
         }
 
         private void DeleteBlock(VisualAIPlan.BranchTarget splitType)
@@ -223,8 +259,8 @@ namespace OpenNefia.VisualAI.UserInterface
 
             _audio.Play(Protos.Sound.Ok1);
 
-            Plan.RemoveBlock(blockTile.BlockValue, splitType);
-            Refresh();
+            tile.Plan.RemoveBlock(blockTile.BlockValue, splitType);
+            RebuildCanvas();
         }
 
         private void DeleteToRight()
@@ -235,8 +271,8 @@ namespace OpenNefia.VisualAI.UserInterface
 
             _audio.Play(Protos.Sound.Ok1);
 
-            Plan.RemoveBlockAndRest(blockTile.BlockValue);
-            Refresh();
+            tile.Plan.RemoveBlockAndRest(blockTile.BlockValue);
+            RebuildCanvas();
         }
 
         private void SwapBranches()
@@ -247,22 +283,53 @@ namespace OpenNefia.VisualAI.UserInterface
 
             _audio.Play(Protos.Sound.Ok1);
 
-            Plan.SwapBranches(blockTile.BlockValue);
-            Refresh();
+            tile.Plan.SwapBranches(blockTile.BlockValue);
+            RebuildCanvas();
         }
 
-        private void ResizeCanvasFromPlan()
+        private void RefreshCanvasFromPlan()
         {
-            var tiles = Plan.EnumerateTiles().ToList();
-            var gridWidth = tiles.MaxBy(t => t.Position.X)?.Position.X ?? 1;
-            var gridHeight = tiles.MaxBy(t => t.Position.Y)?.Position.Y ?? 1;
+            var tiles = RootPlan.EnumerateTiles().ToList();
+            var gridWidth = (tiles.MaxBy(t => t.Position.X)?.Position.X ?? 0) + 1;
+            var gridHeight = (tiles.MaxBy(t => t.Position.Y)?.Position.Y ?? 0) + 1;
 
             Tiles = new VisualAITile?[gridWidth, gridHeight];
 
+            foreach (var blockIcon in BlockIcons)
+            {
+                RemoveChild(blockIcon.Icon);
+            }
+
+            BlockIcons.Clear();
+            LineTiles.Clear();
+
+            var pos = Position + Offset;
+
             foreach (var tile in tiles)
             {
-                DebugTools.AssertNull(Tiles[tile.Position.X, tile.Position.Y]);
-                Tiles[tile.Position.X, tile.Position.Y] = tile;
+                if (tile is VisualAITile.Block blockTile)
+                {
+                    DebugTools.AssertNull(Tiles[tile.Position.X, tile.Position.Y]);
+                    Tiles[tile.Position.X, tile.Position.Y] = tile;
+
+                    var tilePos = pos + tile.Position * TileSize;
+                    var isSelected = _selected.Contains(tile.Position);
+                    var blockProto = blockTile.BlockValue.Proto;
+                    var icon = new VisualAIBlockIcon(blockProto.Icon, blockProto.Color, isSelected, padding: TilePadding);
+                    icon.SetSize(TileSize, TileSize);
+                    icon.SetPosition(tilePos.X, tilePos.Y);
+                    AddChild(icon);
+                    BlockIcons.Add(new(icon, blockTile));
+                }
+                else if (tile is VisualAITile.Empty)
+                {
+                    DebugTools.AssertNull(Tiles[tile.Position.X, tile.Position.Y]);
+                    Tiles[tile.Position.X, tile.Position.Y] = tile;
+                }
+                else if (tile is VisualAITile.Line line)
+                {
+                    LineTiles.Add(line);
+                }
             }
         }
 
@@ -286,7 +353,7 @@ namespace OpenNefia.VisualAI.UserInterface
         }
 
         private HashSet<Vector2i> _selected = new();
-        private List<VisualAITile> _trailTiles = new();
+        private List<VisualAITile.Block> _trailTiles = new();
         private int _trailIndex = 0;
         public VisualAIEditorTrail.Data TrailData => new(_trailTiles, _trailIndex);
 
@@ -316,7 +383,7 @@ namespace OpenNefia.VisualAI.UserInterface
             if (selected == null)
                 return;
 
-            var seenPlans = new HashSet<VisualAIPlan>();
+            var seenPlans = new HashSet<VisualAIPlan>() { selected.Plan };
 
             var backwards = selected.Plan.Parent;
             while (backwards != null)
@@ -338,9 +405,9 @@ namespace OpenNefia.VisualAI.UserInterface
                 {
                     _selected.Add(tile.Position);
 
-                    if (tile is VisualAITile.Block)
+                    if (tile is VisualAITile.Block blockTile)
                     {
-                        _trailTiles.Add(tile);
+                        _trailTiles.Add(blockTile);
                         if (tile == selected)
                             _trailIndex = _trailTiles.Count - 1;
                     }
@@ -348,30 +415,42 @@ namespace OpenNefia.VisualAI.UserInterface
             }
         }
 
+
         public void Refresh()
         {
-            ResizeCanvasFromPlan();
             RecalcOffsets();
             RecalcActiveTrail();
             OnRefreshed?.Invoke();
         }
 
-        public static void DrawTile(float uiScale, PrototypeId<AssetPrototype>? icon, Color color, bool isSelected, Vector2 pos, float tileSize, float padding, int borderSize = 1)
+        public void RebuildCanvas()
         {
-            var size = tileSize - padding * 2;
+            RefreshCanvasFromPlan();
+            Refresh();
+        }
 
-            Love.Graphics.SetColor(Color.White);
-            GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, pos.X + padding - borderSize * 2, pos.Y + padding - borderSize * 2, size + borderSize * 4, size + borderSize * 4);
-            Love.Graphics.SetColor(Color.Black);
-            GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, pos.X + padding - borderSize, pos.Y + padding - borderSize, size + borderSize * 2, size + borderSize * 2);
-            Love.Graphics.SetColor(color);
-            GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, pos.X + padding, pos.Y + padding, size, size);
+        public override void SetPosition(float x, float y)
+        {
+            base.SetPosition(x, y);
 
-            if (icon != null)
+            var pos = Position + Offset;
+
+            foreach (var (icon, blockTile) in BlockIcons)
             {
-                Love.Graphics.SetColor(isSelected ? Color.White : Color.Gray);
-                var instance = Assets.Get(icon.Value);
-                instance.Draw(uiScale, pos.X + padding - borderSize * 4 + 1, pos.Y + padding - borderSize * 4 + 1, size + borderSize * 4, size + borderSize * 4);
+                var tilePos = pos + (blockTile.Position) * TileSize;
+                var isSelected = _selected.Contains(blockTile.Position);
+
+                icon.SetSize(TileSize, TileSize);
+                icon.SetPosition(tilePos.X, tilePos.Y);
+                icon.IsSelected = isSelected;
+            }
+        }
+
+        public override void Update(float dt)
+        {
+            foreach (var (icon, tile) in BlockIcons)
+            {
+                icon.Update(dt);
             }
         }
 
@@ -384,30 +463,30 @@ namespace OpenNefia.VisualAI.UserInterface
 
             // Grid backing
             Love.Graphics.SetColor(Color.Black.WithAlphaB(20));
-            foreach (var tile in AllTiles)
+            for (var x = 0; x < GridWidth; x++)
             {
-                var tilePos = pos + (tile.Position) * TileSize;
-                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, tilePos.X + TilePadding, tilePos.Y + TilePadding, tileSize, tileSize);
+                for (var y = 0; y < GridHeight; y++)
+                {
+                    var tilePos = pos + new Vector2i(x, y) * TileSize;
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, tilePos.X + TilePadding, tilePos.Y + TilePadding, tileSize, tileSize);
+                }
             }
 
             // Lines
             Love.Graphics.SetLineWidth(4 * UIScale);
-            foreach (var tile in AllTiles)
+            foreach (var line in LineTiles)
             {
-                if (tile is VisualAITile.Line line)
+                var isSelected = _selected.Contains(line.Position);
+                Color color = line.Type switch
                 {
-                    var isSelected = _selected.Contains(line.Position);
-                    Color color = line.Type switch
-                    {
-                        VisualAITile.LineType.Right => isSelected ? new(100, 100, 200) : new(50, 50, 100),
-                        _ => isSelected ? new(200, 100, 100) : new(100, 50, 50)
-                    };
+                    VisualAITile.LineType.Right => isSelected ? new(100, 100, 200) : new(50, 50, 100),
+                    _ => isSelected ? new(200, 100, 100) : new(100, 50, 50)
+                };
 
-                    Love.Graphics.SetColor(color);
-                    var startPos = pos + line.Position * (TileSize * 1.5f);
-                    var endPos = pos + line.EndPosition * (TileSize * 1.5f);
-                    GraphicsS.LineS(UIScale, startPos, endPos);
-                }
+                Love.Graphics.SetColor(color);
+                var startPos = pos + line.Position * TileSize + TileSize / 2;
+                var endPos = pos + line.EndPosition * TileSize + TileSize / 2;
+                GraphicsS.LineS(UIScale, startPos, endPos);
             }
 
             // Tiles
@@ -415,7 +494,6 @@ namespace OpenNefia.VisualAI.UserInterface
             foreach (var tile in AllTiles)
             {
                 var tilePos = pos + (tile.Position) * TileSize;
-                var isSelected = _selected.Contains(tile.Position);
 
                 if (tile is VisualAITile.Empty)
                 {
@@ -424,24 +502,21 @@ namespace OpenNefia.VisualAI.UserInterface
                     Love.Graphics.SetColor(new Color(200, 40, 40));
                     GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, tilePos.X + TilePadding, tilePos.Y + TilePadding, tileSize, tileSize);
                 }
-                else if (tile is VisualAITile.Block block)
-                {
-                    Color tileColor = block.BlockValue.Proto.Color;
-                    if (!isSelected)
-                        tileColor = tileColor.Lighten(0.5f);
-                    Love.Graphics.SetColor(tileColor);
-                    DrawTile(UIScale, block.BlockValue.Proto.Icon, tileColor, isSelected, pos, tileSize, TilePadding);
-                }
+            }
+
+            foreach (var (icon, tile) in BlockIcons)
+            {
+                icon.Draw();
             }
 
             // Cursor
             var cursorPos = pos + Cursor * TileSize;
             Love.Graphics.SetColor(new Color(230, 230, 255, 128));
-            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, pos, (TileSize, TileSize));
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, cursorPos, (TileSize, TileSize));
             Love.Graphics.SetLineWidth(2 * UIScale);
             Love.Graphics.SetColor(new Color(64, 64, 64, 128));
-            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, pos, (TileSize, TileSize));
-            
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, cursorPos, (TileSize, TileSize));
+
             Love.Graphics.SetLineWidth(1);
             Love.Graphics.SetScissor();
         }

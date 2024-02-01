@@ -28,7 +28,7 @@ namespace OpenNefia.VisualAI.Engine
         [DataField]
         public EntityUid? Entity { get; set; }
 
-        public MapCoordinates Coordinates => IoCManager.Resolve<EntityManager>()
+        public MapCoordinates Coordinates => IoCManager.Resolve<IEntityManager>()
             .GetComponent<SpatialComponent>(Entity!.Value).MapPosition;
 
         public bool IsValid(EntityUid aiEntity)

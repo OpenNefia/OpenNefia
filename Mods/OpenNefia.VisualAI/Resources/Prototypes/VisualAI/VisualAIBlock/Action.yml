@@ -3,53 +3,70 @@
   canConfigure: false
   action: !type:MoveWithinDistanceAction
     threshold: 0
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionMoveWithinDistance
   action: !type:MoveWithinDistanceAction
     threshold: 3
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionRetreatFromTarget
   action: !type:RetreatFurthestAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionRetreatUntilDistance
   action: !type:RetreatUntilDistanceAction
     threshold: 3
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionRangedAttack
   color: '#B43232'
   icon: VisualAI.IconFightFist
   action: !type:RangedAttackAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionWander
   color: '#B48C64'
   icon: VisualAI.IconFlag
   action: !type:WanderAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionMeleeAttack
   color: '#B43232'
   icon: VisualAI.IconFightFist
   action: !type:MeleeAttackAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionCastSpell
   color: '#B43232'
   icon: VisualAI.IconFightFist
   action: !type:CastSpellAction {}
+  isTerminal: true
+
+- type: VisualAI.Block
+  id: VisualAI.ActionInvokeAction
+  color: '#B43232'
+  icon: VisualAI.IconFightFist
+  action: !type:InvokeActionAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionPickUp
   color: '#32B464'
   action: !type:PickUpAction {}
+  isTerminal: true
 
 - type: VisualAI.Block
   id: VisualAI.ActionDoNothing
   color: '#B48C64'
   icon: VisualAI.IconStop
   action: !type:DoNothingAction {}
+  isTerminal: true
 ...

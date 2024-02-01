@@ -2,6 +2,7 @@
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
+using OpenNefia.VisualAI.UserInterface;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.VisualAI.Engine

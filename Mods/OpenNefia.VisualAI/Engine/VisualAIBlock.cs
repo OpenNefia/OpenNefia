@@ -8,6 +8,13 @@ namespace OpenNefia.VisualAI.Engine
     [DataDefinition]
     public sealed class VisualAIBlock
     {
+        public VisualAIBlock() { }
+
+        public VisualAIBlock(PrototypeId<VisualAIBlockPrototype> protoID)
+        {
+            ProtoID = protoID;
+        }
+
         [DataField]
         public PrototypeId<VisualAIBlockPrototype> ProtoID { get; set; }
 
@@ -20,17 +27,5 @@ namespace OpenNefia.VisualAI.Engine
                 return _proto;
             }
         }
-
-        // TODO
-        [DataField]
-        public IVisualAICondition? Condition { get; }
-
-        // TODO
-        [DataField]
-        public IVisualAIAction? Action { get; }
-
-        // TODO
-        [DataField]
-        public VisualAITarget? Target { get; }
     }
 }
