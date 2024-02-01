@@ -296,7 +296,7 @@ namespace OpenNefia.Content.VanillaAI
             var dirVec = dir.ToIntVec();
 
             MovementResult result;
-            if (dirVec.X >= dirVec.Y)
+            if (int.Abs(dirVec.X) >= int.Abs(dirVec.Y))
             {
                 result = DirCheckEastWest(entity, map, ai, spatial);
                 if (result.Coords != null)
@@ -344,7 +344,7 @@ namespace OpenNefia.Content.VanillaAI
             }
             else if (desired.X < spatial.WorldPosition.X)
             {
-                if (desired.Y < spatial.WorldPosition.Y)
+                if (desired.Y >= spatial.WorldPosition.Y)
                 {
                     reverse = true;
                 }
@@ -370,7 +370,7 @@ namespace OpenNefia.Content.VanillaAI
             }
             else if (desired.Y < spatial.WorldPosition.Y)
             {
-                if (desired.X < spatial.WorldPosition.X)
+                if (desired.X >= spatial.WorldPosition.X)
                 {
                     reverse = true;
                 }
