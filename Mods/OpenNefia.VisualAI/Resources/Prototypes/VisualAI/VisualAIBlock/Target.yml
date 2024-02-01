@@ -68,14 +68,23 @@
     filter: !type:SpecificLocationCondition {}
 
 - type: VisualAI.Block
-  id: VisualAI.TargetOrderHpMpSp
+  id: VisualAI.TargetHpMpSpThreshold
   color: '#8C648C'
   icon: VisualAI.IconDpad
   target:
-    ordering: !type:EnergyTargetOrdering {}
+    filter: !type:EnergyCondition {}
 
 - type: VisualAI.Block
-  id: VisualAI.TargetOrderFurthest
+  id: VisualAI.TargetOrderingNearest
+  color: '#8C648C'
+  icon: VisualAI.IconReturn
+  canConfigure: false
+  target:
+    ordering: !type:DistanceTargetOrdering
+      comparator: Smallest
+
+- type: VisualAI.Block
+  id: VisualAI.TargetOrderingFurthest
   color: '#8C648C'
   icon: VisualAI.IconReturn
   canConfigure: false
@@ -84,17 +93,8 @@
       comparator: Largest
 
 - type: VisualAI.Block
-  id: VisualAI.TargetHpMpSpThreshold
+  id: VisualAI.TargetOrderingHpMpSp
   color: '#8C648C'
   icon: VisualAI.IconDpad
   target:
-    filter: !type:EnergyCondition {}
-
-- type: VisualAI.Block
-  id: VisualAI.TargetOrderNearest
-  color: '#8C648C'
-  icon: VisualAI.IconReturn
-  canConfigure: false
-  target:
-    ordering: !type:DistanceTargetOrdering
-      comparator: Smallest
+    ordering: !type:EnergyTargetOrdering {}

@@ -24,7 +24,8 @@
   id: VisualAI.ConditionCanDoMeleeAttack
   canConfigure: false
   condition: !type:DistanceCondition
-    threshold: 0
+    comparison: LessThanOrEqual
+    threshold: 1
 
 - type: VisualAI.Block
   id: VisualAI.ConditionCanDoRangedAttack

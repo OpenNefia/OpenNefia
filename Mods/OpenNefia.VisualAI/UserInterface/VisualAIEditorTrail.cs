@@ -44,7 +44,7 @@ namespace OpenNefia.VisualAI.UserInterface
             {
                 var blockTile = _data.Blocks[i];
                 var blockProto = blockTile.BlockValue.Proto;
-                var text = Loc.GetPrototypeString(blockTile.BlockValue.ProtoID, "Name");
+                var text = VisualAIHelpers.FormatBlockDescription(blockTile.BlockValue);
                 var indexText = (i + 1).ToString();
                 var card = new VisualAIBlockCard(text, blockProto.Color, blockProto.Icon, indexText);
                 UiHelpers.AddChildrenRecursive(this, card);
@@ -72,8 +72,8 @@ namespace OpenNefia.VisualAI.UserInterface
             for (var i = 0; i < _trailCards.Count; i++)
             {
                 var card = _trailCards[i];
-                card.SetPosition(pos.X, pos.Y);
                 card.SetSize(Width - 30, ItemHeight);
+                card.SetPosition(pos.X, pos.Y);
                 card.IsSelected = i == _data.SelectedIndex;
 
                 pos += (0, card.Height);
@@ -108,12 +108,12 @@ namespace OpenNefia.VisualAI.UserInterface
             Love.Graphics.SetColor(Color.White);
             WindowBacking.Draw();
 
-            //GraphicsS.SetScissorS(UIScale, X + 10, Y + 10 + 8, Width, Height - 54);
+            GraphicsS.SetScissorS(UIScale, X + 10, Y + 10 + 8, Width, Height - 54);
             foreach (var card in _trailCards)
             {
                 card.Draw();
             }
-            //Love.Graphics.SetScissor();
+            Love.Graphics.SetScissor();
         }
     }
 }

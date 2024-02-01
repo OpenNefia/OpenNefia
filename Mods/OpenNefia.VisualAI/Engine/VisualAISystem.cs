@@ -108,6 +108,9 @@ namespace OpenNefia.VisualAI.Engine
                 return target != null;
             }
 
+            // TODO remove
+            EntitySystem.InjectDependencies(_defaultTargetSource);
+
             bool Filter(IVisualAITargetValue target)
             {
                 foreach (var pred in state.TargetFilters)

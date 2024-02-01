@@ -15,6 +15,7 @@ using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
 using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.VisualAI.Block
 {
@@ -173,7 +174,6 @@ namespace OpenNefia.VisualAI.Block
 
     public sealed class MeleeAttackAction : BaseAction
     {
-        [Dependency] private readonly IVanillaAISystem _vai = default!;
         [Dependency] private readonly ICombatSystem _combat = default!;
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
@@ -183,7 +183,7 @@ namespace OpenNefia.VisualAI.Block
 
             var spatial = EntityManager.GetComponent<SpatialComponent>(state.AIEntity);
 
-            if (!spatial.MapPosition.TryDistanceFractional(target.Coordinates, out var dist)
+            if (!spatial.MapPosition.TryDistanceTiled(target.Coordinates, out var dist)
                 || dist > 1)
             {
                 return false;
@@ -195,7 +195,6 @@ namespace OpenNefia.VisualAI.Block
 
     public sealed class RangedAttackAction : BaseAction
     {
-        [Dependency] private readonly IVanillaAISystem _vai = default!;
         [Dependency] private readonly ICombatSystem _combat = default!;
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
@@ -208,7 +207,7 @@ namespace OpenNefia.VisualAI.Block
 
             var spatial = EntityManager.GetComponent<SpatialComponent>(state.AIEntity);
 
-            if (!spatial.MapPosition.TryDistanceFractional(target.Coordinates, out var dist)
+            if (!spatial.MapPosition.TryDistanceTiled(target.Coordinates, out var dist)
                 || dist >= VanillaAISystem.AIRangedAttackThreshold)
             {
                 return false;
@@ -221,12 +220,11 @@ namespace OpenNefia.VisualAI.Block
     public sealed class CastSpellAction : BaseAction
     {
         [Dependency] private readonly IVanillaAISystem _vai = default!;
-        [Dependency] private readonly ICombatSystem _combat = default!;
         [Dependency] private readonly ISpellSystem _spells = default!;
 
         [DataField]
         [VisualAIVariable]
-        public PrototypeId<SpellPrototype> SpellID { get; set; }
+        public PrototypeId<SpellPrototype> SpellID { get; set; } = Protos.Spell.MagicDart;
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
         {
@@ -249,7 +247,7 @@ namespace OpenNefia.VisualAI.Block
 
         [DataField]
         [VisualAIVariable]
-        public PrototypeId<ActionPrototype> ActionID { get; set; }
+        public PrototypeId<ActionPrototype> ActionID { get; set; } = Protos.Action.Curse;
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
         {
@@ -268,10 +266,6 @@ namespace OpenNefia.VisualAI.Block
     {
         [Dependency] private readonly IPickableSystem _pickables = default!;
 
-        [DataField]
-        [VisualAIVariable]
-        public PrototypeId<ActionPrototype> ActionID { get; set; }
-
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
         {
             if (!EntityManager.IsAlive(target.Entity))
@@ -288,10 +282,6 @@ namespace OpenNefia.VisualAI.Block
     public sealed class DropAction : BaseAction
     {
         [Dependency] private readonly IPickableSystem _pickables = default!;
-
-        [DataField]
-        [VisualAIVariable]
-        public PrototypeId<ActionPrototype> ActionID { get; set; }
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
         {

@@ -12,6 +12,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
+using NuGet.ProjectModel;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
@@ -69,6 +70,7 @@ namespace OpenNefia.VisualAI.UserInterface
             CanControlFocus = true;
             EventFilter = UIEventFilterMode.Pass;
             OnKeyBindDown += HandleKeyBindDown;
+            OnMouseMoved += HandleMouseMove;
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -109,9 +111,26 @@ namespace OpenNefia.VisualAI.UserInterface
                 return;
             }
 
-            if (args.Function.TryToDirection(out var dir))
+            if (args.Function == EngineKeyFunctions.UIClick)
+            {
+                var tile = SelectedTile;
+                if (tile != null)
+                {
+                    if (tile is VisualAITile.Empty)
+                    {
+                        AppendBlock();
+                    }
+                    else if (tile is VisualAITile.Block)
+                    {
+                        InsertBlock(VisualAIPlan.BranchTarget.TrueBranch);
+                    }
+                }
+                args.Handle();
+            }
+            else if (args.Function.TryToDirection(out var dir))
             {
                 Cursor += dir.ToIntVec();
+                _audio.Play(Protos.Sound.Cursor1);
                 args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UISelect)
@@ -151,6 +170,20 @@ namespace OpenNefia.VisualAI.UserInterface
             }
         }
 
+        private void HandleMouseMove(GUIMouseMoveEventArgs args)
+        {
+            var tilePos = (Vector2i)((args.RelativePosition + Offset) / TileSize);
+
+            if (tilePos.X >= 0 && tilePos.Y >= 0 && tilePos.X < GridWidth && tilePos.Y <= GridHeight - 1)
+            {
+                if (Cursor != tilePos)
+                {
+                    _audio.Play(Protos.Sound.Cursor1);
+                    Cursor = tilePos;
+                }
+            }
+        }
+
         private void AppendBlock()
         {
             var tile = SelectedTile;
@@ -185,7 +218,7 @@ namespace OpenNefia.VisualAI.UserInterface
                 }
 
                 if (!newBlock.Proto.IsTerminal)
-                moveCursor = true;
+                    moveCursor = true;
             }
             else if (tile is VisualAITile.Block blockTile)
             {
@@ -335,6 +368,12 @@ namespace OpenNefia.VisualAI.UserInterface
 
         private void RecalcOffsets()
         {
+            if (Width == 0 || Height == 0)
+            {
+                Offset = Vector2.Zero;
+                return;
+            }
+
             var offsetX = 0f;
             var selectedX = Cursor.X * TileSize;
             if (selectedX + TileSize > Width)
@@ -377,7 +416,7 @@ namespace OpenNefia.VisualAI.UserInterface
         {
             _selected.Clear();
             _trailTiles.Clear();
-            _trailIndex = 0;
+            _trailIndex = -1;
 
             var selected = SelectedTile;
             if (selected == null)
@@ -412,6 +451,11 @@ namespace OpenNefia.VisualAI.UserInterface
                             _trailIndex = _trailTiles.Count - 1;
                     }
                 }
+            }
+
+            foreach (var (icon, tile) in BlockIcons)
+            {
+                icon.IsSelected = _selected.Contains(tile.Position);
             }
         }
 

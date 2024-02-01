@@ -101,7 +101,7 @@ namespace OpenNefia.VisualAI.Block
         [Dependency] private readonly IFactionSystem _factions = default!;
 
         [DataField]
-        public ComparisonType Comparison { get; set; } = ComparisonType.Equal;
+        public ComparisonType Comparison { get; set; } = ComparisonType.LessThanOrEqual;
 
         [DataField]
         public Relation Relation { get; set; } = Relation.Neutral;
@@ -156,8 +156,6 @@ namespace OpenNefia.VisualAI.Block
 
     public sealed class EnergyCondition : BaseCondition
     {
-        [Dependency] private readonly IFactionSystem _factions = default!;
-
         [DataField]
         [VisualAIVariable]
         public EnergyType Type { get; set; }
@@ -168,7 +166,7 @@ namespace OpenNefia.VisualAI.Block
 
         [DataField]
         [VisualAIVariable]
-        public ComparisonType Comparison { get; set; } = ComparisonType.Equal;
+        public ComparisonType Comparison { get; set; } = ComparisonType.LessThanOrEqual;
 
         private static float GetEnergyRatio(SkillsComponent skills, EnergyType type)
         {
@@ -234,11 +232,11 @@ namespace OpenNefia.VisualAI.Block
     {
         [DataField]
         [VisualAIVariable]
-        public Vector2i Coordinates { get; set; }
+        public Vector2i Position { get; set; }
 
         public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {
-            return candidate.Coordinates.Position == Coordinates;
+            return candidate.Coordinates.Position == Position;
         }
     }
 
@@ -246,7 +244,7 @@ namespace OpenNefia.VisualAI.Block
     {
         [DataField]
         [VisualAIVariable]
-        public ComparisonType Comparison { get; set; } = ComparisonType.Equal;
+        public ComparisonType Comparison { get; set; } = ComparisonType.LessThanOrEqual;
 
         [DataField]
         [VisualAIVariable(minValue: 0)]
@@ -282,8 +280,8 @@ namespace OpenNefia.VisualAI.Block
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
         [DataField]
-        [VisualAIVariable] // TODO known spells only
-        public PrototypeId<SpellPrototype> SpellID { get; set; }
+        [VisualAIVariable]
+        public PrototypeId<SpellPrototype> SpellID { get; set; } = Protos.Spell.MagicDart;
 
         public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {
@@ -307,7 +305,7 @@ namespace OpenNefia.VisualAI.Block
 
         [DataField]
         [VisualAIVariable] // TODO known actions only
-        public PrototypeId<ActionPrototype> ActionID { get; set; }
+        public PrototypeId<ActionPrototype> ActionID { get; set; } = Protos.Action.Curse;
 
         public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {

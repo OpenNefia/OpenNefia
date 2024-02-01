@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Locale.Funcs
 {
-    [RegisterLocaleFunctions("de_DE")]
+    [RegisterLocaleFunctions(language: "de_DE")]
     public static class GermanBuiltins
     {
         public class EntityDisplayData

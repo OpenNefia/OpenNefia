@@ -33,6 +33,7 @@ namespace OpenNefia.Core.UI.Element
 
         public event Action<GUIBoundKeyEventArgs>? OnKeyBindDown;
         public event Action<GUIBoundKeyEventArgs>? OnKeyBindUp;
+        public event Action<GUIMouseMoveEventArgs>? OnMouseMoved;
 
         protected internal virtual void KeyBindDown(GUIBoundKeyEventArgs args)
         {
@@ -46,6 +47,7 @@ namespace OpenNefia.Core.UI.Element
 
         protected internal virtual void MouseMove(GUIMouseMoveEventArgs args)
         {
+            OnMouseMoved?.Invoke(args);
         }
 
         protected internal virtual void KeyHeld(GUIKeyEventArgs args)

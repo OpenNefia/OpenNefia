@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Locale.Funcs
 {
-    [RegisterLocaleFunctions("en_US")]
+    [RegisterLocaleFunctions(language: "en_US")]
     public static class EnglishBuiltins
     {
         /// <summary>

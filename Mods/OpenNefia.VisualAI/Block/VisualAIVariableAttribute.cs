@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.VisualAI.Block
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    internal class VisualAIVariableAttribute : Attribute
+    public sealed class VisualAIVariableAttribute : Attribute
     {
         public VisualAIVariableAttribute() : this(null, null, 1)
         {
@@ -26,7 +26,7 @@ namespace OpenNefia.VisualAI.Block
     }
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    internal class VisualAIChoicesVariableAttribute : Attribute
+    public sealed class VisualAIChoicesVariableAttribute : Attribute
     {
         public VisualAIChoicesVariableAttribute(object[] choices)
         {

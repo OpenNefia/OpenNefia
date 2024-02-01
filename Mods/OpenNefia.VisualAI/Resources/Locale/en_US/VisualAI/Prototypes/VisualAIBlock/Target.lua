@@ -1,3 +1,5 @@
+local VisualAI = _.VisualAI
+
 OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
     TargetPlayer = {
         Name = "Player",
@@ -27,7 +29,9 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
         Name = "Target of player",
     },
     TargetSpecificLocation = {
-        Name = function(x, y)
+        Name = function(vars)
+            local x = vars.targetFilter.position.X
+            local y = vars.targetFilter.position.Y
             return ("Position at (%d, %d)"):format(x, y)
         end,
     },
@@ -35,8 +39,11 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
         Name = "Target position of player",
     },
     TargetHpMpSpThreshold = {
-        Name = function(kind, comparator, threshold)
-            return ("Target with %s %s %s%%"):format(kind, comparator, threshold)
+        Name = function(vars)
+            local kind = VisualAI.formatEnum(vars.targetFilter.type) -- HP
+            local comparison = VisualAI.formatEnum(vars.targetFilter.comparison) -- ==
+            local threshold = math.floor(vars.targetFilter.threshold * 100) -- 50
+            return ("Target with %s %s %s%%"):format(kind, comparison, threshold)
         end,
     },
 
@@ -44,19 +51,17 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
     -- Target Order
     --
 
-    TargetOrderNearest = {
+    TargetOrderingNearest = {
         Name = "Thing nearest to me",
     },
-    TargetOrderFurthest = {
+    TargetOrderingFurthest = {
         Name = "Thing furthest from me",
     },
-    TargetOrderHpMpSp = {
-        Name = function(comparator, kind)
+    TargetOrderingHpMpSp = {
+        Name = function(vars)
+            local comparator = VisualAI.formatEnum(vars.targetOrdering.comparator) -- least
+            local kind = VisualAI.formatEnum(vars.targetOrdering.type) -- HP
             return ("Target with the %s %s remaining"):format(comparator, kind)
         end,
-        comparator = {
-            [">"] = "most",
-            ["<"] = "least",
-        },
     },
 }

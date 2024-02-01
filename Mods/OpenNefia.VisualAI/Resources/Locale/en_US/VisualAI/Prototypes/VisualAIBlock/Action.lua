@@ -1,9 +1,12 @@
+local VisualAI = _.VisualAI
+
 OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
     ActionMoveCloseAsPossible = {
         Name = "Move as close to target as possible",
     },
     ActionMoveWithinDistance = {
-        Name = function(threshold)
+        Name = function(vars)
+            local threshold = vars.action.threshold
             return ("Move to within %d tile%s of target"):format(threshold, _.plural(threshold))
         end,
     },
@@ -11,7 +14,8 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
         Name = "Move away from target as far as possible",
     },
     ActionRetreatUntilDistance = {
-        Name = function(threshold)
+        Name = function(vars)
+            local threshold = vars.action.threshold
             return ("Move back until %d tile%s away from target"):format(threshold, _.plural(threshold))
         end,
     },
@@ -22,13 +26,15 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
         Name = "Ranged attack",
     },
     ActionCastSpell = {
-        Name = function(skill_name)
-            return ("Cast spell '%s'"):format(skill_name)
+        Name = function(vars)
+            local skillName = VisualAI.formatSpell(vars.action.spellID) -- Magic Missile
+            return ("Cast spell '%s'"):format(skillName)
         end,
     },
     ActionInvokeAction = {
-        Name = function(skill_name)
-            return ("Invoke action '%s'"):format(skill_name)
+        Name = function(vars)
+            local skillName = VisualAI.formatAction(vars.action.actionID) -- Swarm
+            return ("Invoke action '%s'"):format(skillName)
         end,
     },
     ActionChangeAmmo = {

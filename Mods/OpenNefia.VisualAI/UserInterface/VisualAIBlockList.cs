@@ -23,6 +23,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Dialog;
 using static OpenNefia.Content.Prototypes.Protos;
+using NuGet.ProjectModel;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
@@ -134,7 +135,7 @@ namespace OpenNefia.VisualAI.UserInterface
 
             Item ToListItem(VisualAIBlockPrototype proto)
             {
-                var text = Loc.GetPrototypeString(proto, "Name");
+                var text = VisualAIHelpers.FormatBlockDescription(proto);
                 return new Item(proto.GetStrongID(), text, proto.Color, proto.Icon);
             }
 

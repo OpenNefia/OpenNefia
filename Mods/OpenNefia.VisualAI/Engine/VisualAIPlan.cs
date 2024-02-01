@@ -355,10 +355,10 @@ namespace OpenNefia.VisualAI.Engine
                     case BranchTarget.TrueBranch:
                     default:
                         SubplanTrueBranch = right;
-                        SubplanFalseBranch = null;
+                        SubplanFalseBranch = new VisualAIPlan();
                         break;
                     case BranchTarget.FalseBranch:
-                        SubplanTrueBranch = null;
+                        SubplanTrueBranch = new VisualAIPlan();
                         SubplanFalseBranch = right;
                         break;
                 }
