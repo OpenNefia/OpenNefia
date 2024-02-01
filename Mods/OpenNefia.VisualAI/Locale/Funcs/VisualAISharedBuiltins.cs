@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Actions;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Areas;
@@ -49,6 +50,20 @@ namespace OpenNefia.VisualAI.Locale
                 return "<???>";
 
             return Loc.GetString($"VisualAI.Types.{val.GetType().Name}.{val}");
+        }
+
+        [LocaleFunction("formatTag")]
+        public static string BuiltIn_FormatTag(object? obj)
+        {
+            var protos = IoCManager.Resolve<IPrototypeManager>();
+            var id = $"{obj}";
+            if (!protos.TryIndex(typeof(TagPrototype), id, out var proto))
+                return $"<unknown prototype {obj}>";
+
+            if (Loc.TryGetPrototypeString(((TagPrototype)proto), "Name", out var name))
+                return name;
+
+            return id;
         }
     }
 }

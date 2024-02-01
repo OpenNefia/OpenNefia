@@ -17,6 +17,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Spells;
 using OpenNefia.Content.Actions;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.VisualAI.Block
 {
@@ -334,6 +336,28 @@ namespace OpenNefia.VisualAI.Block
         public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
         {
             return _rand.Prob(Probability);
+        }
+    }
+
+    public sealed class TagCondition : BaseCondition
+    {
+        [Dependency] private readonly ITagSystem _tags = default!;
+
+        [DataField]
+        [VisualAIVariable]
+        public PrototypeId<TagPrototype> Tag { get; set; } = Protos.Tag.ItemCatGold;
+
+        [DataField]
+        [VisualAIVariable]
+        public bool Accept { get; set; } = true;
+
+        public override bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate)
+        {
+            if (!EntityManager.IsAlive(candidate.Entity))
+                return false;
+
+            var hasTag = _tags.HasTag(candidate.Entity.Value, Tag);
+            return Accept ? hasTag : !hasTag;
         }
     }
 }

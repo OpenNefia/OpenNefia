@@ -46,6 +46,12 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
             return ("Target with %s %s %s%%"):format(kind, comparison, threshold)
         end,
     },
+    TargetTag = {
+        Name = function(vars)
+            local tag = VisualAI.formatTag(vars.targetFilter.tag)
+            return ("Target with tag '%s'"):format(tag)
+        end,
+    },
 
     --
     -- Target Order

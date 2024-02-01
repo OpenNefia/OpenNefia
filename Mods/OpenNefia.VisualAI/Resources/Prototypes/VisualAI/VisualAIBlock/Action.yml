@@ -58,6 +58,12 @@
   isTerminal: true
 
 - type: VisualAI.Block
+  id: VisualAI.ActionDrop
+  color: '#32B464'
+  action: !type:DropAction {}
+  isTerminal: true
+
+- type: VisualAI.Block
   id: VisualAI.ActionWander
   color: '#B48C64'
   icon: VisualAI.IconFlag

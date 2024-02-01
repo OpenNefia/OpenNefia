@@ -322,6 +322,7 @@ namespace OpenNefia.VisualAI.Engine
 
         public void ClearTarget()
         {
+            TargetSource = null;
             TargetFilters.Clear();
             TargetFilters.Add(new IsInFovCondition());
             foreach (var filter in TargetFilters)

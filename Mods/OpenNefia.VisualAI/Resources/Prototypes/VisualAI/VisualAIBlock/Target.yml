@@ -75,6 +75,17 @@
     filter: !type:EnergyCondition {}
 
 - type: VisualAI.Block
+  id: VisualAI.TargetTag
+  color: '#32B464'
+  icon: VisualAI.IconDiamond
+  target:
+    filter: !type:TagCondition {}
+
+#
+# Target Orderings
+#
+
+- type: VisualAI.Block
   id: VisualAI.TargetOrderingNearest
   color: '#8C648C'
   icon: VisualAI.IconReturn
@@ -98,3 +109,4 @@
   icon: VisualAI.IconDpad
   target:
     ordering: !type:EnergyTargetOrdering {}
+

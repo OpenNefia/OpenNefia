@@ -43,6 +43,9 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
     ActionPickUp = {
         Name = "Pick up",
     },
+    ActionDrop = {
+        Name = "Drop",
+    },
     ActionEquip = {
         Name = "Equip",
     },
