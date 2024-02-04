@@ -74,6 +74,9 @@ namespace OpenNefia.Content.Items
                 case var jp when jp == LanguagePrototypeOf.Japanese:
                     args.OutItemName += ItemNameJP(uid, args.AmountOverride, component);
                     break;
+                case var cn when cn == LanguagePrototypeOf.Chinese:
+                    args.OutItemName += ItemNameCN(uid, args.AmountOverride, component);
+                    break;
                 case var de when de == LanguagePrototypeOf.German:
                     args.OutItemName += ItemNameDE(uid, args.AmountOverride, component);
                     break;

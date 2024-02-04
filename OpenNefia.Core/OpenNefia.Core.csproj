@@ -29,8 +29,8 @@
 		<PackageReference Include="NuGet.Commands" Version="6.8.0" />
 		<PackageReference Include="NuGet.Credentials" Version="6.8.0" />
 		<PackageReference Include="NuGet.Configuration" Version="6.8.0" />
-		<PackageReference Include="NuGet.DependencyResolver.Core" Version="6.8.0"/>
-		<PackageReference Include="NuGet.Frameworks" Version="6.8.0"/>
+		<PackageReference Include="NuGet.DependencyResolver.Core" Version="6.8.0" />
+		<PackageReference Include="NuGet.Frameworks" Version="6.8.0" />
 		<PackageReference Include="NuGet.LibraryModel" Version="6.8.0" />
 		<PackageReference Include="NuGet.Packaging.Core" Version="6.8.0" />
 		<PackageReference Include="NuGet.Packaging" Version="6.8.0" />

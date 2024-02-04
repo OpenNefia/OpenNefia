@@ -3,4 +3,6 @@
 - type: Language
   id: ja_JP
 - type: Language
+  id: zh_CN
+- type: Language
   id: de_DE
