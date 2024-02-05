@@ -50,7 +50,7 @@ namespace OpenNefia.Core.Audio
         {
             _graphics.OnWindowFocusChanged += OnWindowFocusChanged;
             _config.OnValueChanged(CVars.AudioSound, OnEnableSoundChanged, true);
-            _config.OnValueChanged(CVars.AudioSoundVolume, OnSoundVolumeChanged);
+            _config.OnValueChanged(CVars.AudioSoundVolume, OnSoundVolumeChanged, true);
             _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
         }
 

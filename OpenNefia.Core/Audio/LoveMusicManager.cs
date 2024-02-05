@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Audio
         {
             _config.OnValueChanged(CVars.AudioMidiDevice, OnConfigMidiDeviceChanged, true);
             _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
-            _config.OnValueChanged(CVars.AudioDeviceVolume, OnConfigDeviceVolumeChanged);
+            _config.OnValueChanged(CVars.AudioDeviceVolume, OnConfigDeviceVolumeChanged, true);
         }
 
         public void Shutdown()
