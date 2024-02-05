@@ -33,7 +33,9 @@
   id: Elona.MenuScreen
   node: !type:ConfigSubmenuMenuNode
     items:
+      - Elona.ScreenVolume
       - Elona.ScreenSound
+      - Elona.ScreenSoundVolume 
       - Elona.ScreenMusic
       - Elona.ScreenMidiDevice
       - Elona.ScreenPositionalAudio
@@ -47,9 +49,25 @@
       - Elona.ScreenFontHeightScale
 
 - type: Elona.ConfigMenuItem
+  id: Elona.ScreenVolume
+  node: !type:ConfigFloatMenuNode
+    cvar: audio.volume
+    min: 0
+    max: 1
+    step: 0.01
+
+- type: Elona.ConfigMenuItem
   id: Elona.ScreenSound
   node: !type:ConfigBoolMenuNode
     cvar: audio.sound
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenSoundVolume
+  node: !type:ConfigFloatMenuNode
+    cvar: audio.soundvolume
+    min: 0
+    max: 1
+    step: 0.01
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenMusic

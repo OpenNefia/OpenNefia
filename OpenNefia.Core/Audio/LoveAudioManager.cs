@@ -29,6 +29,7 @@ namespace OpenNefia.Core.Audio
 
         private bool _enableSound;
         private bool _usePositionalSound;
+        private float _volume;
         private Dictionary<string, PlayingSource> _loopingSources = new();
 
         private class PlayingSource
@@ -49,6 +50,7 @@ namespace OpenNefia.Core.Audio
         {
             _graphics.OnWindowFocusChanged += OnWindowFocusChanged;
             _config.OnValueChanged(CVars.AudioSound, OnEnableSoundChanged, true);
+            _config.OnValueChanged(CVars.AudioSoundVolume, OnSoundVolumeChanged);
             _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
         }
 
@@ -63,16 +65,21 @@ namespace OpenNefia.Core.Audio
             _enableSound = enableSound;
             SetSourceVolumes(_enableSound);
         }
+        private void OnSoundVolumeChanged(float volume)
+        {
+            _volume = volume;
+            SetSourceVolumes(_enableSound);
+        }
 
         private void SetSourceVolumes(bool enable)
         {
             foreach (var source in _playingSources)
             {
-                source.Source.SetVolume(enable ? source.Volume : 0f);
+                source.Source.SetVolume(enable ? source.Volume : _volume);
             }
             foreach (var source in _loopingSources.Values)
             {
-                source.Source.SetVolume(enable ? source.Volume : 0f);
+                source.Source.SetVolume(enable ? source.Volume : _volume);
             }
         }
 
@@ -120,7 +127,7 @@ namespace OpenNefia.Core.Audio
                 source.SetAttenuationDistances(0, 0);
             }
 
-            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f) * _volume;
             source.SetVolume(_enableSound ? volume : 0f);
 
             Love.Audio.Play(source);
@@ -175,7 +182,7 @@ namespace OpenNefia.Core.Audio
                 }
             }
 
-            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f) * _volume;
             source.SetVolume(Math.Clamp(_enableSound ? volume : 0f, 0f, 1f));
 
             Love.Audio.Play(source);
@@ -198,7 +205,7 @@ namespace OpenNefia.Core.Audio
 
             source.SetLooping(true);
 
-            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
+            var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f) * _volume;
             source.SetVolume(_enableSound ? volume : 0f);
 
             Love.Audio.Play(source);

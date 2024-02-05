@@ -31,6 +31,16 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         YesNo = "是/否",
     },
 
+    ScreenSoundVolume = {
+        Name = "音效音量大小",
+        Description = "音效音量大小调节",
+    },
+
+    ScreenVolume = {
+        Name = "总音量大小",
+        Description = "总音量大小",
+    },
+
     ScreenMidiDevice = {
         Name = "MIDI 设备",
     },

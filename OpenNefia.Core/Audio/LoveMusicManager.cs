@@ -29,11 +29,13 @@ namespace OpenNefia.Core.Audio
         public bool IsPlaying => _midiPlayback != null || _streamPlayback != null;
 
         private bool _enableMusic;
+        private float _volume;
 
         public void Initialize()
         {
             _config.OnValueChanged(CVars.AudioMidiDevice, OnConfigMidiDeviceChanged, true);
             _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
+            _config.OnValueChanged(CVars.AudioDeviceVolume, OnConfigDeviceVolumeChanged);
         }
 
         public void Shutdown()
@@ -79,6 +81,11 @@ namespace OpenNefia.Core.Audio
             _enableMusic = b;
             Restart();
         }
+        private void OnConfigDeviceVolumeChanged(float volume)
+        {
+            _volume = volume;
+            Restart();
+        }
 
         private Love.Source GetLoveStreamSource(ResourcePath path)
         {
@@ -112,6 +119,7 @@ namespace OpenNefia.Core.Audio
 
                         _midiPlayback = midiFile.GetPlayback(_midiDevice);
                         _midiPlayback.Loop = loop;
+                        VolumeHelper.SetVolume(_volume*100);
                         _midiPlayback.Start();
                     }
                 }
