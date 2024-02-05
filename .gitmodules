@@ -4,7 +4,7 @@
 	branch = opennefia-net
 [submodule "Thirdparty/love"]
 	path = Thirdparty/love
-	url = https://github.com/Ruin0x11/love
+	url = https://github.com/Ruin0x11/love.git
 	branch = opennefia-net
 [submodule "Thirdparty/CSharpRepl"]
 	path = Thirdparty/CSharpRepl
