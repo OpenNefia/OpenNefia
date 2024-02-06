@@ -65,7 +65,7 @@ namespace OpenNefia.Core
 
         public static readonly CVarDef<bool> DisplayHighDPI =
             CVarDef.Create("display.hidpi", true, CVar.Archive);
-        
+
         public static readonly CVarDef<float> DisplayFontHeightScale =
             CVarDef.Create("display.fontHeightScale", 0.84f, CVar.Archive);
 
@@ -90,11 +90,17 @@ namespace OpenNefia.Core
         public static readonly CVarDef<bool> AudioMusic =
             CVarDef.Create("audio.music", true, CVar.Archive);
 
+        public static readonly CVarDef<float> AudioDeviceVolume =
+            CVarDef.Create("audio.volume", 1.0f, CVar.Archive);
+
         public static readonly CVarDef<int> AudioMidiDevice =
             CVarDef.Create("audio.mididevice", 0, CVar.Archive);
 
         public static readonly CVarDef<bool> AudioSound =
             CVarDef.Create("audio.sound", true, CVar.Archive);
+
+        public static readonly CVarDef<float> AudioSoundVolume =
+            CVarDef.Create("audio.soundvolume", 1.0f, CVar.Archive);
 
         public static readonly CVarDef<bool> AudioPositionalAudio =
             CVarDef.Create("audio.positionalaudio", true, CVar.Archive);

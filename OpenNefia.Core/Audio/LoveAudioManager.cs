@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Graphics;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
 namespace OpenNefia.Core.Audio
 {
@@ -29,6 +30,7 @@ namespace OpenNefia.Core.Audio
 
         private bool _enableSound;
         private bool _usePositionalSound;
+        private float _volume;
         private Dictionary<string, PlayingSource> _loopingSources = new();
 
         private class PlayingSource
@@ -49,6 +51,7 @@ namespace OpenNefia.Core.Audio
         {
             _graphics.OnWindowFocusChanged += OnWindowFocusChanged;
             _config.OnValueChanged(CVars.AudioSound, OnEnableSoundChanged, true);
+            _config.OnValueChanged(CVars.AudioSoundVolume, OnSoundVolumeChanged, true);
             _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
         }
 
@@ -63,16 +66,21 @@ namespace OpenNefia.Core.Audio
             _enableSound = enableSound;
             SetSourceVolumes(_enableSound);
         }
+        private void OnSoundVolumeChanged(float volume)
+        {
+            _volume = volume;
+            SetSourceVolumes(_enableSound);
+        }
 
         private void SetSourceVolumes(bool enable)
         {
             foreach (var source in _playingSources)
             {
-                source.Source.SetVolume(enable ? source.Volume : 0f);
+                source.Source.SetVolume(enable ? source.Volume * _volume : 0f);
             }
             foreach (var source in _loopingSources.Values)
             {
-                source.Source.SetVolume(enable ? source.Volume : 0f);
+                source.Source.SetVolume(enable ? source.Volume * _volume : 0f);
             }
         }
 
@@ -177,7 +185,7 @@ namespace OpenNefia.Core.Audio
 
             var volume = Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f);
             source.SetVolume(Math.Clamp(_enableSound ? volume : 0f, 0f, 1f));
-
+        
             Love.Audio.Play(source);
 
             _playingSources.Add(new PlayingSource(source, volume));
