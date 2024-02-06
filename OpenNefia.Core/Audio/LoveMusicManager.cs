@@ -29,11 +29,13 @@ namespace OpenNefia.Core.Audio
         public bool IsPlaying => _midiPlayback != null || _streamPlayback != null;
 
         private bool _enableMusic;
+        private float _volume;
 
         public void Initialize()
         {
             _config.OnValueChanged(CVars.AudioMidiDevice, OnConfigMidiDeviceChanged, true);
             _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
+            _config.OnValueChanged(CVars.AudioDeviceVolume, OnConfigDeviceVolumeChanged, true);
         }
 
         public void Shutdown()
@@ -45,11 +47,13 @@ namespace OpenNefia.Core.Audio
 
         public IEnumerable<OutputDevice> GetMidiOutputDevices()
         {
-            try {
+            try
+            {
                 // Eager consume enumerable so native library load runs inside this block.
                 return OutputDevice.GetAll().ToList();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 // Native library failed to load.
                 Logger.ErrorS("music", ex, $"Failed to load native MIDI library.");
                 return Enumerable.Empty<OutputDevice>();
@@ -79,6 +83,11 @@ namespace OpenNefia.Core.Audio
             _enableMusic = b;
             Restart();
         }
+        private void OnConfigDeviceVolumeChanged(float volume)
+        {
+            _volume = volume;
+            Restart();
+        }
 
         private Love.Source GetLoveStreamSource(ResourcePath path)
         {
@@ -96,6 +105,7 @@ namespace OpenNefia.Core.Audio
                 StopInternal();
 
             _lastPlayedMusic = musicId;
+            VolumeHelper.SetVolume(_volume * 100);
 
             if (!_enableMusic)
                 return;

@@ -31,6 +31,16 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         YesNo = "config.common.yes_no.ari_nashi",
     },
 
+    ScreenSoundVolume = {
+        Name = "Sound volume",
+        Description = "Sound volume",
+    },
+
+    ScreenVolume = {
+        Name = "Total volume",
+        Description = "Adjust MIDI volume by system volume mixer",
+    },
+
     ScreenMidiDevice = {
         Name = "MIDIのデバイス",
     },

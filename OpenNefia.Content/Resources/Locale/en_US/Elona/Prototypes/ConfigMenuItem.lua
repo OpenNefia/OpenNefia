@@ -31,6 +31,16 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         YesNo = "config.common.yes_no.on_off",
     },
 
+    ScreenSoundVolume = {
+        Name = "Sound volume",
+        Description = "Sound volume",
+    },
+
+    ScreenVolume = {
+        Name = "Total volume",
+        Description = "Adjust MIDI volume by system volume mixer",
+    },
+
     ScreenMidiDevice = {
         Description = "Device to use for MIDI playback.\nOnly applies when using the generic MIDI driver.",
         Name = "MIDI Device",
