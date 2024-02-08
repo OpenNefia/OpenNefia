@@ -538,6 +538,8 @@ namespace OpenNefia.Core.GameObjects
                 return false;
             }
 
+            DebugTools.Assert(IsAlive(split), "Split entity was not live");
+
             return true;
         }
 

@@ -20,8 +20,10 @@ namespace OpenNefia.Core.Locale
         internal Dictionary<string, List<object>> _listStore = new();
         internal Dictionary<string, LuaFunction> _functionStore = new();
 
-        private Dictionary<string, MethodInfo> _sharedBuiltInFunctions = new();
-        private Dictionary<PrototypeId<LanguagePrototype>, Dictionary<string, MethodInfo>> _builtInFunctions = new();
+        private record LocaleFuncEntry(MethodInfo Func, string? Module);
+
+        private Dictionary<string, LocaleFuncEntry> _sharedBuiltInFunctions = new();
+        private Dictionary<PrototypeId<LanguagePrototype>, Dictionary<string, LocaleFuncEntry>> _builtInFunctions = new();
 
         private LuaTable _FinalizedKeys => (LuaTable)_lua["_FinalizedKeys"];
 
@@ -100,13 +102,14 @@ namespace OpenNefia.Core.Locale
                 {
                     if (func.TryGetCustomAttribute(out LocaleFunctionAttribute? funcAttr))
                     {
+                        var entry = new LocaleFuncEntry(func, regAttr.Module);
                         if (regAttr.Language != null)
                         {
-                            _builtInFunctions.GetOrInsertNew(regAttr.Language.Value).Add(funcAttr.Name, func);
+                            _builtInFunctions.GetOrInsertNew(regAttr.Language.Value).Add(funcAttr.Name, entry);
                         }
                         else
                         {
-                            _sharedBuiltInFunctions.Add(funcAttr.Name, func);
+                            _sharedBuiltInFunctions.Add(funcAttr.Name, entry);
                         }
                     }
                 }
@@ -138,20 +141,35 @@ namespace OpenNefia.Core.Locale
             return Delegate.CreateDelegate(getType(types.ToArray()), target!, methodInfo.Name);
         }
 
+        private LuaTable GetModuleTable(LuaTable rootTable, string? module)
+        {
+            var table = rootTable;
+            if (module != null)
+            {
+                if (!table.TryGetTable(module, out table))
+                {
+                    table = (LuaTable)_lua.DoString($"_.{module} = {{}}; return _.{module}")[0];
+                }
+            }
+            return table;
+        }
+
         private void LoadBuiltinFunctions()
         {
-            var table = (LuaTable)_lua["_"];
+            var rootTable = (LuaTable)_lua["_"];
 
-            foreach (var (funcName, func) in _sharedBuiltInFunctions)
+            foreach (var (funcName, entry) in _sharedBuiltInFunctions)
             {
-                table[funcName] = CreateDelegate(func, null);
+                var table = GetModuleTable(rootTable, entry.Module);
+                table[funcName] = CreateDelegate(entry.Func, null);
             }
 
             if (_builtInFunctions.TryGetValue(_currentLanguage, out var funcs))
             {
-                foreach (var (funcName, func) in funcs)
+                foreach (var (funcName, entry) in funcs)
                 {
-                    table[funcName] = CreateDelegate(func, null);
+                    var table = GetModuleTable(rootTable, entry.Module);
+                    table[funcName] = CreateDelegate(entry.Func, null);
                 }
             }
         }

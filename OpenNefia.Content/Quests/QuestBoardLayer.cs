@@ -93,7 +93,7 @@ namespace OpenNefia.Content.Quests
                 TextStarsRow1.Color = Data.DifficultyColor;
                 TextStarsRow2.Color = Data.DifficultyColor;
 
-                TextDescription.WrappedText = Data.QuestDescription;
+                TextDescription.OriginalText = Data.QuestDescription;
             }
 
             public override void SetPosition(float x, float y)

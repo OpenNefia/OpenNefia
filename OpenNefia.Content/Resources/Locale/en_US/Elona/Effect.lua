@@ -226,6 +226,12 @@ Elona.Effect = {
         Falls = "Innumerable meteorites fall all over the area!",
     },
 
+    Gravity = {
+        Apply = function(source, target)
+            return ("%s feel%s gravity."):format(_.name(target), _.s(target))
+        end,
+    },
+
     DrainBlood = {
         Ally = function(source, target)
             return ("%s suck%s %s blood."):format(_.name(source), _.s(source), _.possessive(target))

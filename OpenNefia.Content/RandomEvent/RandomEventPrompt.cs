@@ -115,7 +115,7 @@ namespace OpenNefia.Content.UI.Layer
             List.CreateAndSetCells(args.Choices);
             IsCancellable = args.IsCancellable || List.Count <= 1;
             TextTitle.Text = Loc.GetString("Elona.RandomEvent.Title", ("title", args.Title));
-            TextBody.WrappedText = args.Text;
+            TextBody.OriginalText = args.Text;
             AssetImage = new AssetDrawable(args.Image);
             DefaultChoiceIndex = args.DefaultChoiceIndex;
             if (DefaultChoiceIndex == -1 && List.Count <= 1)

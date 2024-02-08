@@ -313,7 +313,8 @@ namespace OpenNefia.Content.Spells
             // >>>>>>>> elona122/shade2/proc.hsp:1282 *cast_proc ..
             if (!_protos.TryIndex(spellID, out var spell)
                 || !TryComp<SkillsComponent>(caster, out var skills)
-                || !Resolve(caster, ref spells))
+                || !Resolve(caster, ref spells)
+                || !TryGetKnown(caster, spellID, out _, out var state, spells))
                 return TurnResult.Aborted;
 
             if (!_newEffects.TrySpawnEffect(spell.EffectID, out var effect))
@@ -322,12 +323,21 @@ namespace OpenNefia.Content.Spells
             var isPlayer = _gameSession.IsPlayer(caster);
             if (isPlayer)
             {
+                if (state.SpellStock <= 0)
+                {
+                    _mes.Display(Loc.GetString("Elona.Spells.Prompt.CannotUseAnymore", ("caster", caster)));
+                    return TurnResult.Aborted;
+                }
+
                 var estMPCost = CalcBaseSpellMPCost(spell, caster, effect.Value);
                 if (estMPCost > skills.MP && _configuration.GetCVar(CCVars.GameWarnOnSpellOvercast))
                 {
                     if (!_playerQuery.YesOrNo(Loc.GetString("Elona.Spells.Prompt.OvercastWarning")))
                         return TurnResult.Aborted;
                 }
+
+                var spellStockCost = CalcRandomizedSpellStockCost(spell, caster, effect.Value);
+                state.SpellStock = int.Max(state.SpellStock - spellStockCost, 0);
             }
 
             var power = CalcCastSpellPower(spell, caster);

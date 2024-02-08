@@ -24,11 +24,12 @@ namespace OpenNefia.Content.UI.Element.List
         protected IList<UiListCell<T>> AllCells { get; }
         public virtual IReadOnlyList<UiListCell<T>> DisplayedCells => (IReadOnlyList<UiListCell<T>>)AllCells;
 
-        public float ItemHeight { get; }
+        public float ItemHeight { get; protected set; }
         public float ItemOffsetX { get; }
 
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }
+        public bool AutoCalculateHeight { get; set; } = true;
 
         private int _SelectedIndex;
         private bool _needsUpdate;
@@ -324,7 +325,13 @@ namespace OpenNefia.Content.UI.Element.List
                 totalHeight += cell.Height;
             }
 
-            base.SetSize(width, Math.Max(height, totalHeight));
+            float newHeight;
+            if (AutoCalculateHeight)
+                newHeight = float.Max(height, totalHeight);
+            else
+                newHeight = height;
+
+            base.SetSize(width, Math.Max(height, newHeight));
         }
 
         protected void UpdateAllCells()

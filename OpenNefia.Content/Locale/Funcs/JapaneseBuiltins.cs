@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Locale.Funcs
 {
-    [RegisterLocaleFunctions("ja_JP")]
+    [RegisterLocaleFunctions(language: "ja_JP")]
     public static partial class JapaneseBuiltins
     {
         [LocaleFunction("sore_wa")]

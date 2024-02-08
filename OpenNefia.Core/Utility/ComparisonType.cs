@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Utility
 {
-    public enum ComparisonType : byte
+    public enum ComparisonType
     {
         Equal = 0,
         NotEqual = 1,
@@ -14,6 +14,12 @@ namespace OpenNefia.Core.Utility
         GreaterThanOrEqual = 3,
         LessThan = 4,
         LessThanOrEqual = 5
+    }
+
+    public enum ComparatorType
+    {
+        Smallest,
+        Largest
     }
 
     public static class ComparisonUtils
@@ -30,6 +36,17 @@ namespace OpenNefia.Core.Utility
                 ComparisonType.LessThan => a.CompareTo(b) < 0,
                 ComparisonType.LessThanOrEqual => a.CompareTo(b) <= 0,
                 _ => false
+            };
+        }
+
+        public static int EvaluateComparator<T>(T a, T b, ComparatorType comparator)
+            where T : IComparable<T>, IEquatable<T>
+        {
+            return comparator switch
+            {
+                ComparatorType.Smallest => a.CompareTo(b),
+                ComparatorType.Largest => b.CompareTo(a),
+                _ => 0
             };
         }
     }

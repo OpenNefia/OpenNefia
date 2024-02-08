@@ -25,9 +25,12 @@ namespace OpenNefia.Content.VanillaAI
 {
     public interface IVanillaAISystem : IEntitySystem
     {
-        public EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null);
-        public void SetTarget(EntityUid entity, EntityUid? target, int aggro = 0, VanillaAIComponent? ai = null);
-        public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null);
+        EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null);
+        void SetTarget(EntityUid entity, EntityUid? target, int aggro = 0, VanillaAIComponent? ai = null);
+        void ResetAI(EntityUid entity, VanillaAIComponent? ai = null);
+        bool MoveTowardsTarget(EntityUid entity, EntityUid? target = null, bool retreat = false, VanillaAIComponent? ai = null);
+        void Wander(EntityUid entity);
+        bool StayNearPosition(EntityUid entity, MapCoordinates anchor, int maxDistance = 2, VanillaAIComponent? ai = null);
     }
 
     /// <summary>
@@ -372,7 +375,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (EntityManager.HasComponent<StatusFearComponent>(entity))
             {
-                MoveTowardsTarget(entity, ai, spatial, retreat: true);
+                MoveTowardsTarget(entity, retreat: true);
                 return;
             }
 
@@ -391,7 +394,7 @@ namespace OpenNefia.Content.VanillaAI
                     && dist != ai.TargetDistance
                     && _rand.Prob(ai.MoveChance))
                 {
-                    MoveTowardsTarget(entity, ai, spatial);
+                    MoveTowardsTarget(entity);
                     return;
                 }
             }
@@ -409,7 +412,7 @@ namespace OpenNefia.Content.VanillaAI
             if (EntityManager.IsAlive(player))
             {
                 ai.CurrentTarget = player;
-                return MoveTowardsTarget(entity, ai);
+                return MoveTowardsTarget(entity);
             }
             return false;
         }
@@ -425,7 +428,7 @@ namespace OpenNefia.Content.VanillaAI
             if (DoAICalmAction(entity, ai))
                 return true;
 
-            Wander(entity, ai);
+            DoCalmAction(entity, ai);
             return true;
         }
 
@@ -452,7 +455,7 @@ namespace OpenNefia.Content.VanillaAI
                 out var dist)
                 && (dist > 2 || _rand.OneIn(3)))
             {
-                return MoveTowardsTarget(entity, ai);
+                return MoveTowardsTarget(entity);
             }
 
             return DoIdleAction(entity, ai);

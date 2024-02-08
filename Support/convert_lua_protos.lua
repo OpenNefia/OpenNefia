@@ -1710,6 +1710,15 @@ end
 
 handlers["elona_sys.magic"] = function(from, to) end
 
+handlers["base.asset"] = function(from, to)
+    if not from._id:match "visual_ai" then
+        return
+    end
+    field(from, to, "type", nil, "assetType")
+    field(from, to, "image")
+    field(from, to, "color", rgbToHex)
+end
+
 handlers["base.effect"] = function(from, to)
     if from.color then
         to.color = rgbToHex(from.color)
@@ -1987,6 +1996,13 @@ end
 
 handlers["elona_sys.buff"] = function(from, to) end
 
+handlers["visual_ai.block"] = function(from, to)
+    field(from, to, "type", nil, "blockType")
+    field(from, to, "color", rgbToHex)
+    field(from, to, "icon", dotted)
+    field(from, to, "target_source")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -2182,6 +2198,32 @@ local fileStructure = {
             name = "Entity/Item/Junk.yml",
             test = function(to)
                 return hasTag(to, "Elona.ItemCatJunk")
+            end,
+        },
+    },
+    ["visual_ai.block"] = {
+        {
+            name = "VisualAIBlock/Action.yml",
+            test = function(to)
+                return to.blockType == "action"
+            end,
+        },
+        {
+            name = "VisualAIBlock/Condition.yml",
+            test = function(to)
+                return to.blockType == "condition"
+            end,
+        },
+        {
+            name = "VisualAIBlock/Target.yml",
+            test = function(to)
+                return to.blockType == "target"
+            end,
+        },
+        {
+            name = "VisualAIBlock/Special.yml",
+            test = function(to)
+                return to.blockType == "special"
             end,
         },
     },
@@ -2788,6 +2830,8 @@ end
 -- print_dists()
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
+-- write("base.asset", "assets2.yml")
+-- write("visual_ai.block", "VisualAIBlock.yml")
 -- write("elona_sys.buff", "Entity/Buff.yml")
 -- convert_scenes()
 -- write("elona.wish_handler", "WishHandler.yml", "OpenNefia.Content.Wishes.WishHandlerPrototype")

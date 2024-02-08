@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\MSBuild\OpenNefia.Mod.props" />
+
+  <PropertyGroup>
+    <ModID>OpenNefia.VisualAI</ModID>
+    <ModVersion>0.1.0.0</ModVersion>
+    <CodeAnalysisRuleSet>..\..\MSBuild\OpenNefia.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ModDependency Include="OpenNefia.Content"></ModDependency>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenNefia.Content\OpenNefia.Content.csproj" />
+    <ProjectReference Include="..\..\OpenNefia.Core\OpenNefia.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Locale\en_US\" />
+    <Folder Include="Resources\Locale\ja_JP\" />
+    <Folder Include="Resources\Maps\" />
+    <Folder Include="Resources\Prototypes\" />
+    <Folder Include="Resources\Variables\" />
+  </ItemGroup>
+</Project>

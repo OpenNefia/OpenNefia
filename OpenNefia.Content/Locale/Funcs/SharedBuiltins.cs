@@ -7,12 +7,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Locale.Funcs
 {
@@ -70,7 +66,7 @@ namespace OpenNefia.Content.Locale.Funcs
 
             if (obj is not EntityUid entity)
                 return Loc.GetString("Elona.GameObjects.Common.Something");
-            
+
             return EntitySystem.Get<IDisplayNameSystem>().GetBaseName(entity);
         }
 
@@ -126,7 +122,25 @@ namespace OpenNefia.Content.Locale.Funcs
             }
             return Loc.GetString(obj?.ToString() ?? "", args);
         }
-            
+
+        [LocaleFunction("locp")]
+        public static string BuiltIn_Locp(object? obj, object id, params object[] rest)
+        {
+            LocaleArg[] args = new LocaleArg[rest.Length];
+            for (var i = 0; i < rest.Length; i++)
+            {
+                args[i] = ($"arg{i}", rest[i]);
+            }
+
+            if (id.GetType() == typeof(PrototypeId<>))
+            {
+                var type = id.GetType().GetGenericArguments()[0];
+                return Loc.GetPrototypeStringRaw(type, (string)id, obj?.ToString() ?? "", args);
+            }
+
+            return $"<unknown prototype {id}>";
+        }
+
         [LocaleFunction("gender")]
         public static string BuiltIn_Gender(object? obj)
         {

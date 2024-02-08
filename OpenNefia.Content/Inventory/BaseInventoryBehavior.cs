@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] protected readonly IEntityManager EntityManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
-        public abstract HspIds<InvElonaId>? HspIds { get; }
+        public virtual HspIds<InvElonaId>? HspIds { get; } = null;
         public virtual string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Target.WindowTitle");
 
         public virtual bool EnableShortcuts => false;

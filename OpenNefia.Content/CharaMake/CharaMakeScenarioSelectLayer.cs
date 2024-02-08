@@ -91,9 +91,9 @@ namespace OpenNefia.Content.CharaMake
 
         private void HandleSelect(ScenarioData data)
         {
-            DetailText.WrappedText = string.Empty;
+            DetailText.OriginalText = string.Empty;
             if (Loc.TryGetPrototypeString(data.ScenarioID, "Description", out var desc))
-                DetailText.WrappedText = desc;
+                DetailText.OriginalText = desc;
             DetailContainer.Relayout();
         }
 

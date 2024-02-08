@@ -2,6 +2,9 @@ Elona.Spells = {
     Prompt = {
         WhichDirection = "どの方向に唱える？",
         OvercastWarning = "マナが足りないが、それでも詠唱を試みる？",
+        CannotUseAnymore = function(caster)
+            return ("%sその魔法はもう使えない。"):format(_.sore_wa(caster))
+        end,
     },
 
     Cast = {

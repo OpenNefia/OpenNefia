@@ -297,6 +297,7 @@ namespace OpenNefia.Content.Materials
 
         public MaterialPrototypeId PickRandomMaterialIDRaw(int matQualityIndex, Quality baseQuality, MaterialPrototypeId? baseMaterial = null, EntityUid? item = null)
         {
+            // >>>>>>>> elona122/shade2/item_data.hsp:1143 *choose_material ...
             MaterialPrototypeId material;
             if (baseMaterial == null)
             {
@@ -358,18 +359,22 @@ namespace OpenNefia.Content.Materials
 
             if (_rand.OneIn(25))
                 material = Material.Fresh;
+            // <<<<<<<< elona122/shade2/item_data.hsp:1170 	return ...
 
+            // >>>>>>>> elona122/shade2/item_data.hsp:1195 	if refType=fltFurniture{ ...
             if (IsAlive(item) && HasComp<FurnitureComponent>(item.Value) && _protos.TryIndex(material, out var materialProto))
             {
                 if (!materialProto.GenerateOnFurniture)
                     material = Material.Wood;
             }
+            // <<<<<<<< elona122/shade2/item_data.hsp:1197 		} ...
 
             return material;
         }
 
         public void ChangeItemMaterial(EntityUid item, MaterialPrototypeId materialID, MaterialComponent? materialComp = null)
         {
+            // >>>>>>>> elona122/shade2/item_data.hsp:1174 *remake_material ...
             if (!Resolve(item, ref materialComp))
                 return;
 
@@ -379,8 +384,12 @@ namespace OpenNefia.Content.Materials
 
             materialComp.RandomSeed = _rand.Next();
             materialComp.MaterialID = materialID;
+            // <<<<<<<< elona122/shade2/item_data.hsp:1184 	iValue(ci)=originalValue ...
+
+            // >>>>>>>> elona122/shade2/item_data.hsp:1187 	gosub *apply_material 
             ApplyMaterialEnchantments(item, materialComp);
             _refresh.Refresh(item);
+            // <<<<<<<< elona122/shade2/item_data.hsp:1191 	return ...
         }
 
         private void ApplyMaterialEnchantments(EntityUid item, MaterialComponent? material = null, EnchantmentsComponent? encs = null)

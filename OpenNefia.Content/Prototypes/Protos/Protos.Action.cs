@@ -1,4 +1,4 @@
-using ActionPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Spells.SpellPrototype>;
+using ActionPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Actions.ActionPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {
