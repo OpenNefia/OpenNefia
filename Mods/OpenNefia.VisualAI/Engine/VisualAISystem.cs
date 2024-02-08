@@ -27,11 +27,6 @@ namespace OpenNefia.VisualAI.Engine
 
     public sealed class VisualAISystem : EntitySystem, IVisualAISystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
@@ -84,7 +79,10 @@ namespace OpenNefia.VisualAI.Engine
             VisualAIPlan plan;
             if (IsAlive(target))
             {
+                var hasComp = HasComp<VisualAIComponent>(target.Value);
                 comp = EnsureComp<VisualAIComponent>(target.Value);
+                if (!hasComp)
+                    comp.Plan = VisualAIPlanTemplates.Default();
                 plan = comp.Plan;
             }
             else
@@ -148,7 +146,7 @@ namespace OpenNefia.VisualAI.Engine
         {
             foreach (var block in currentPlan.Blocks)
             {
-                Logger.DebugS("visualAI", $"Running block : {block}");
+                Logger.DebugS("visualAI", $"Running block : {block.ProtoID}");
 
                 switch (block.Proto.Type)
                 {
@@ -179,7 +177,7 @@ namespace OpenNefia.VisualAI.Engine
 
         private bool RunBlockCondition(VisualAIState state, VisualAIBlock block)
         {
-            DebugTools.AssertNotNull(block.Proto.Condition);
+            DebugTools.AssertNotNull(block.Condition);
 
             if (!TryChooseTarget(state, block, out var target))
             {
@@ -187,13 +185,13 @@ namespace OpenNefia.VisualAI.Engine
                 return false;
             }
 
-            Logger.DebugS("visualAI", $"Run block condition : {block.Proto.Condition}");
-            return block.Proto.Condition.IsAccepted(state, target);
+            Logger.DebugS("visualAI", $"Run block condition : {block.Condition}");
+            return block.Condition.IsAccepted(state, target);
         }
 
         private void RunBlockTarget(VisualAIState state, VisualAIBlock block)
         {
-            DebugTools.AssertNotNull(block.Proto.Target);
+            DebugTools.AssertNotNull(block.Target);
 
             if (state.ChosenTarget != null)
             {
@@ -201,26 +199,26 @@ namespace OpenNefia.VisualAI.Engine
                 return;
             }
 
-            state.TargetFilters.Add(block.Proto.Target.Filter);
+            state.TargetFilters.Add(block.Target.Filter);
 
-            if (block.Proto.Target.Ordering != null)
+            if (block.Target.Ordering != null)
             {
-                Logger.DebugS("visualAI", $"Set target ordering : {block.Proto.Target.Ordering}");
-                state.TargetOrder = block.Proto.Target.Ordering;
+                Logger.DebugS("visualAI", $"Set target ordering : {block.Target.Ordering}");
+                state.TargetOrder = block.Target.Ordering;
             }
 
-            if (block.Proto.Target.Source != null)
+            if (block.Target.Source != null)
             {
                 if (state.TargetSource != null)
                 {
-                    Logger.DebugS("visualAI", $"Target source exists already : {block.Proto.Target.Source} & {state.TargetSource}");
+                    Logger.DebugS("visualAI", $"Target source exists already : {block.Target.Source} & {state.TargetSource}");
 
                     // Normally, the first target block that sets a target source determines
                     // the target type for that plan, until a "clear target" block is encountered.
                     // If nothing sets the target then default to all entities.
                     // *However*, if a target source is set (non-null) then other target blocks should not have
                     // incompatible target source types.
-                    if (block.Proto.Target.Source.GetType() != state.TargetSource.GetType())
+                    if (block.Target.Source.GetType() != state.TargetSource.GetType())
                     {
                         // Differing target source found. This is an error, just ensure nothing gets filtered.
                         state.TargetFilters.Add(new AcceptNoneCondition());
@@ -228,15 +226,15 @@ namespace OpenNefia.VisualAI.Engine
                 }
                 else
                 {
-                    Logger.DebugS("visualAI", $"Set target source : {block.Proto.Target.Source}");
-                    state.TargetSource = block.Proto.Target.Source;
+                    Logger.DebugS("visualAI", $"Set target source : {block.Target.Source}");
+                    state.TargetSource = block.Target.Source;
                 }
             }
         }
 
         private void RunBlockAction(VisualAIState state, VisualAIBlock block)
         {
-            DebugTools.AssertNotNull(block.Proto.Action);
+            DebugTools.AssertNotNull(block.Action);
 
             if (!TryChooseTarget(state, block, out var target))
             {
@@ -245,8 +243,8 @@ namespace OpenNefia.VisualAI.Engine
             }
 
 
-            Logger.DebugS("visualAI", $"Run block action : {block.Proto.Action}");
-            block.Proto.Action.Apply(state, block, target);
+            Logger.DebugS("visualAI", $"Run block action : {block.Action}");
+            block.Action.Apply(state, block, target);
         }
 
         private void RunBlockSpecial(VisualAIState state, VisualAIBlock block)

@@ -49,7 +49,8 @@ OpenNefia.Prototypes.VisualAI.Block.VisualAI = {
     TargetTag = {
         Name = function(vars)
             local tag = VisualAI.formatTag(vars.targetFilter.tag)
-            return ("Target with tag '%s'"):format(tag)
+            local accept = vars.targetFilter.accept
+            return ("Target %s tag '%s'"):format(accept and "with" or "without", tag)
         end,
     },
 

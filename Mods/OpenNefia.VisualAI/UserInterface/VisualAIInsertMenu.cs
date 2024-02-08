@@ -18,12 +18,15 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core.Serialization.Manager;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
     public sealed class VisualAIInsertMenu : UiLayerWithResult<VisualAIInsertMenu.Args, VisualAIInsertMenu.Result>
     {
         [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly ISerializationManager _serialization = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public class Args
         {
@@ -56,6 +59,9 @@ namespace OpenNefia.VisualAI.UserInterface
 
         public VisualAIInsertMenu()
         {
+            // TODO
+            IoCManager.InjectDependencies(this);
+
             OnKeyBindDown += HandleKeyBindDown;
             List.OnActivated += HandleActivated;
             List.OnCategoryChanged += HandleCategoryChanged;
@@ -84,11 +90,24 @@ namespace OpenNefia.VisualAI.UserInterface
         {
             _audio.Play(Protos.Sound.Ok1);
 
-            var block = new VisualAIBlock(e.SelectedCell.Data.BlockID);
+            var proto = _protos.Index(e.SelectedCell.Data.BlockID);
+            var block = VisualAIHelpers.CreateBlockFromPrototype(proto, _serialization);
 
-            // TODO variable config
+            var variables = block.Variables;
+            if (variables.Variables.Count == 0 || !block.Proto.CanConfigure)
+            {
+                Finish(new Result(block));
+                return;
+            }
 
-            Finish(new Result(block));
+            // Allow the user to configure any variables exposed by the block.
+            var args = new VisualAIConfigureBlockMenu.Args(block);
+            var result = UserInterfaceManager.Query<VisualAIConfigureBlockMenu, VisualAIConfigureBlockMenu.Args, VisualAIConfigureBlockMenu.Result>(args);
+
+            if (!result.HasValue)
+                return;
+
+            Finish(new Result(result.Value.Block));
         }
 
         public override void GrabFocus()

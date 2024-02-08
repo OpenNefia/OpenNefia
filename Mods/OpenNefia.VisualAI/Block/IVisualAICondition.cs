@@ -37,8 +37,7 @@ namespace OpenNefia.VisualAI.Block
 
     public abstract class BaseCondition : IVisualAICondition
     {
-        [Dependency] protected readonly IEntityManager _entityManager = default!;
-        public IEntityManager EntityManager => _entityManager;
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
 
         public abstract bool IsAccepted(VisualAIState state, IVisualAITargetValue candidate);
     }

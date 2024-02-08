@@ -28,8 +28,7 @@ namespace OpenNefia.VisualAI.Block
 
     public abstract class BaseAction : IVisualAIAction
     {
-        [Dependency] protected readonly IEntityManager _entityManager = default!;
-        public IEntityManager EntityManager => _entityManager;
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
 
         public abstract bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target);
     }
@@ -262,9 +261,11 @@ namespace OpenNefia.VisualAI.Block
         }
     }
 
-    public sealed class PickUpAction : BaseAction
+    public abstract class BaseVerbAction : BaseAction
     {
-        [Dependency] private readonly IPickableSystem _pickables = default!;
+        [Dependency] private readonly IVerbSystem _verbs = default!;
+
+        protected abstract string VerbType { get; }
 
         public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
         {
@@ -275,24 +276,21 @@ namespace OpenNefia.VisualAI.Block
             if (spatialSource.MapPosition != target.Coordinates)
                 return false;
 
-            return _pickables.PickUp(state.AIEntity, target.Entity.Value) == TurnResult.Succeeded;
+            var result = TurnResult.Failed;
+            if (_verbs.TryGetVerb(state.AIEntity, target.Entity.Value, VerbType, out var verb))
+                result = verb.Act();
+
+            return result == TurnResult.Succeeded;
         }
     }
 
-    public sealed class DropAction : BaseAction
+    public sealed class PickUpAction : BaseVerbAction
     {
-        [Dependency] private readonly IPickableSystem _pickables = default!;
+        protected override string VerbType => PickableSystem.VerbTypePickUp;
+    }
 
-        public override bool Apply(VisualAIState state, VisualAIBlock block, IVisualAITargetValue target)
-        {
-            if (!EntityManager.IsAlive(target.Entity))
-                return false;
-
-            var spatialSource = EntityManager.GetComponent<SpatialComponent>(state.AIEntity);
-            if (spatialSource.MapPosition != target.Coordinates)
-                return false;
-
-            return _pickables.Drop(state.AIEntity, target.Entity.Value) == TurnResult.Succeeded;
-        }
+    public sealed class DropAction : BaseVerbAction
+    {
+        protected override string VerbType => PickableSystem.VerbTypeDrop;
     }
 }

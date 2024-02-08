@@ -9,20 +9,17 @@ namespace OpenNefia.VisualAI.Block
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class VisualAIVariableAttribute : Attribute
     {
-        public VisualAIVariableAttribute() : this(null, null, 1)
+        public VisualAIVariableAttribute(float minValue = float.NaN, float maxValue = float.NaN, float incrementAmount = 1f)
         {
+            // Working around not being able to pass nullable arguments to attribute constructors
+            MinValue = float.IsNaN(minValue) ? null : minValue;
+            MaxValue = float.IsNaN(maxValue) ? null : maxValue;
+            StepAmount = incrementAmount;
         }
 
-        public VisualAIVariableAttribute(object? minValue = null, object? maxValue = null, float incrementAmount = 1f)
-        {
-            MinValue = minValue;
-            MaxValue = maxValue;
-            IncrementAmount = incrementAmount;
-        }
-
-        public object? MinValue { get; }
-        public object? MaxValue { get; }
-        public float IncrementAmount { get; }
+        public float? MinValue { get; }
+        public float? MaxValue { get; }
+        public float StepAmount { get; } = 1f;
     }
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]

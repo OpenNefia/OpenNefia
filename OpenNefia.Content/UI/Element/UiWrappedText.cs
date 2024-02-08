@@ -15,38 +15,43 @@ namespace OpenNefia.Content.UI.Element
         public UiWrappedText(FontSpec font, string text = "")
         {
             UiText = new UiText(font, text);
-            OriginalText = text;
-            UiText.Text = WordWrap(OriginalText, PixelWidth);
+            _originalText = text;
+            WrappedText = WordWrap(OriginalText, PixelWidth);
         }
 
         public UiWrappedText(UiText textElem)
         {
             UiText = textElem;
-            OriginalText = textElem.Text;
-            UiText.Text = WordWrap(OriginalText, PixelWidth);
+            _originalText = textElem.Text;
+            WrappedText = WordWrap(OriginalText, PixelWidth);
         }
 
-        public string OriginalText { get; private set; }
+        private string _originalText;
+        public string OriginalText
+        {
+            get => _originalText;
+            set
+            {
+                _originalText = value;
+                WrappedText = WordWrap(OriginalText, PixelWidth);
+            }
+        }
 
         public string WrappedText
         {
             get => UiText.Text;
-            set
-            {
-                OriginalText = value;
-                UiText.Text = WordWrap(OriginalText, PixelWidth);
-            }
+            private set => UiText.Text = value;
         }
 
         public void WrapAt(int pixelWidth)
         {
-            UiText.Text = WordWrap(OriginalText, pixelWidth);
+            WrappedText = WordWrap(OriginalText, pixelWidth);
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            UiText.Text = WordWrap(OriginalText, PixelWidth);
+            WrappedText = WordWrap(OriginalText, PixelWidth);
         }
 
         public override void SetPosition(float x, float y)

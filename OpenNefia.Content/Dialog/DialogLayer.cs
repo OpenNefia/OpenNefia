@@ -172,7 +172,7 @@ namespace OpenNefia.Content.Dialog
             _target = data.Target;
             _canCancel = data.CanCancel;
 
-            TextBody.WrappedText = data.Text;
+            TextBody.OriginalText = data.Text;
             TextSpeakerName.Text = data.SpeakerName;
 
             if (_entityManager.IsAlive(_target))

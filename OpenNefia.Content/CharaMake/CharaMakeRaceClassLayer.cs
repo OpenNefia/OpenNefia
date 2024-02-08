@@ -316,7 +316,7 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.Relayout();
 
             data.TryGetString(out var desc, "Description");
-            DetailText.WrappedText = desc;
+            DetailText.OriginalText = desc;
         }
 
         private void SetAttributes(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)

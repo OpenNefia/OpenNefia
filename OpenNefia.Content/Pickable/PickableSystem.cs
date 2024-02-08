@@ -52,6 +52,9 @@ namespace OpenNefia.Content.Pickable
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IInUseSystem _inUses = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IVerbSystem _verbs = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         // TODO: SoundSpecifier instead
         public static readonly PrototypeId<SoundPrototype>[] GetSounds = new[]

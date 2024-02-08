@@ -13,6 +13,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
 using NuGet.ProjectModel;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.VisualAI.UserInterface
 {
@@ -214,6 +215,7 @@ namespace OpenNefia.VisualAI.UserInterface
                 if (!tile.Plan.AddBlock(newBlock, out var error))
                 {
                     _mes.Display(error);
+                    RebuildCanvas();
                     return;
                 }
 
@@ -241,6 +243,7 @@ namespace OpenNefia.VisualAI.UserInterface
                 if (!tile.Plan.ReplaceBlock(blockTile.BlockValue, newBlock, out var error))
                 {
                     _mes.Display(error);
+                    RebuildCanvas();
                     return;
                 }
 
@@ -322,7 +325,17 @@ namespace OpenNefia.VisualAI.UserInterface
 
         private void RefreshCanvasFromPlan()
         {
-            var tiles = RootPlan.EnumerateTiles().ToList();
+            List<VisualAITile> tiles;
+            try
+            {
+             tiles = RootPlan.EnumerateTiles().ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("visualAI.editor", ex, $"Failed to load plan, resetting to default.");
+                RootPlan.Clear();
+                tiles = new List<VisualAITile>();
+            }
             var gridWidth = (tiles.MaxBy(t => t.Position.X)?.Position.X ?? 0) + 1;
             var gridHeight = (tiles.MaxBy(t => t.Position.Y)?.Position.Y ?? 0) + 1;
 

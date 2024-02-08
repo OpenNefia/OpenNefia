@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Content.UI.Element;
+﻿using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.GameObjects;
@@ -24,6 +23,9 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Dialog;
 using static OpenNefia.Content.Prototypes.Protos;
 using NuGet.ProjectModel;
+using OpenNefia.Content.ConfigMenu.UICell;
+using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.VisualAI.UserInterface
 {

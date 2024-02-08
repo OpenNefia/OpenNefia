@@ -16,7 +16,7 @@ namespace OpenNefia.VisualAI.Engine
     /// - Condition: Evaluates a condition and runs one of two subplans.
     /// </summary>
     [Prototype("VisualAI.Block")]
-    public sealed class VisualAIBlockPrototype : IPrototype, ISerializationHooks
+    public sealed class VisualAIBlockPrototype : IPrototype, ISerializationHooks, IVisualAIVariableTargets
     {
         [IdDataField]
         public string ID { get; set; } = default!;
@@ -39,6 +39,16 @@ namespace OpenNefia.VisualAI.Engine
         [DataField]
         public PrototypeId<AssetPrototype>? Icon { get; private set; }
 
+        private VisualAIVariableSet? _variables;
+        public VisualAIVariableSet Variables
+        {
+            get
+            {
+                _variables ??= VisualAIHelpers.GetBlockVariables(this);
+                return _variables;
+            }
+        }
+
         /// <summary>
         /// Define this to declare this block as a Target block.
         /// </summary>
@@ -46,16 +56,16 @@ namespace OpenNefia.VisualAI.Engine
         public VisualAITarget? Target { get; }
 
         /// <summary>
-        /// Define this to declare this block as an Action block.
-        /// </summary>
-        [DataField]
-        public IVisualAIAction? Action { get; }
-
-        /// <summary>
         /// Define this to declare this block as a Condition block.
         /// </summary>
         [DataField]
         public IVisualAICondition? Condition { get; }
+
+        /// <summary>
+        /// Define this to declare this block as an Action block.
+        /// </summary>
+        [DataField]
+        public IVisualAIAction? Action { get; }
 
         /// <summary>
         /// For internal use only.

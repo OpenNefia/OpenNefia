@@ -26,4 +26,14 @@ VisualAI.UI = {
             SwapBranches = "Swap Branches",
         },
     },
+
+    ConfigureBlock = {
+        Window = {
+            Title = "Configure Block",
+        },
+
+        Topic = {
+            Options = "Options",
+        },
+    },
 }

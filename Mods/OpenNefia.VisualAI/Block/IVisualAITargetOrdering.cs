@@ -17,8 +17,7 @@ namespace OpenNefia.VisualAI.Block
 
     public abstract class BaseTargetOrdering : IVisualAITargetOrdering
     {
-        [Dependency] protected readonly IEntityManager _entityManager = default!;
-        public IEntityManager EntityManager => _entityManager;
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
 
         public abstract int Compare(VisualAIState state, IVisualAITargetValue targetA, IVisualAITargetValue targetB);
     }

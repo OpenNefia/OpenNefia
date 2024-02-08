@@ -10,17 +10,30 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Serialization.Manager;
 
 namespace OpenNefia.VisualAI.Engine
 {
+    public sealed record class VisualAIVariableSet(Dictionary<string, Dictionary<string, VisualAIVariable>> Variables);
+
     public static class VisualAIHelpers
     {
-        public static Dictionary<string, Dictionary<string, VisualAIVariable>> GetBlockVariables(VisualAIBlock block)
+        public static VisualAIBlock CreateBlockFromPrototype(VisualAIBlockPrototype proto, ISerializationManager? ser)
         {
-            return GetBlockVariables(block.Proto);
+            IoCManager.Resolve(ref ser);
+
+            var target = ser.Copy(proto.Target);
+            var condition = ser.Copy(proto.Condition);
+            var action = ser.Copy(proto.Action);
+
+            var block = new VisualAIBlock(proto.GetStrongID(), target, condition, action);
+            block.InjectDependencies();
+
+            return block;
         }
 
-        public static Dictionary<string, Dictionary<string, VisualAIVariable>> GetBlockVariables(VisualAIBlockPrototype proto)
+        public static VisualAIVariableSet GetBlockVariables(IVisualAIVariableTargets block)
         {
             var vars = new Dictionary<string, Dictionary<string, VisualAIVariable>>();
 
@@ -29,16 +42,20 @@ namespace OpenNefia.VisualAI.Engine
                 if (target == null)
                     return;
 
-                vars!.Add(group, GetBlockVariablesFromObject(target));
+                var variables = GetBlockVariablesFromObject(target);
+                if (variables.Count == 0)
+                    return;
+
+                vars!.Add(group, variables);
             }
 
-            AddVariables("targetFilter", proto.Target?.Filter);
-            AddVariables("targetSource", proto.Target?.Source);
-            AddVariables("targetOrdering", proto.Target?.Ordering);
-            AddVariables("condition", proto.Condition);
-            AddVariables("action", proto.Action);
+            AddVariables("targetFilter", block.Target?.Filter);
+            AddVariables("targetSource", block.Target?.Source);
+            AddVariables("targetOrdering", block.Target?.Ordering);
+            AddVariables("condition", block.Condition);
+            AddVariables("action", block.Action);
 
-            return vars;
+            return new(vars);
         }
 
         private static Dictionary<string, VisualAIVariable> GetBlockVariablesFromObject(object obj)
@@ -58,11 +75,11 @@ namespace OpenNefia.VisualAI.Engine
             return vars;
         }
 
-        private static Dictionary<string, Dictionary<string, object?>> ConvertBlockVariablesForLocalization(Dictionary<string, Dictionary<string, VisualAIVariable>> vars)
+        private static Dictionary<string, Dictionary<string, object?>> ConvertBlockVariablesForLocalization(VisualAIVariableSet vars)
         {
             var newVars = new Dictionary<string, Dictionary<string, object?>>();
 
-            foreach (var (key, values) in vars)
+            foreach (var (key, values) in vars.Variables)
             {
                 var newValues = new Dictionary<string, object?>();
                 foreach (var (key2, variable) in values)
@@ -76,22 +93,33 @@ namespace OpenNefia.VisualAI.Engine
             return newVars;
         }
 
-        public static string FormatBlockDescription(VisualAIBlock block)
+        public static string FormatBlockDescription(VisualAIBlock block, VisualAIVariableSet? variables = null)
         {
-            var variables = GetBlockVariables(block);
+            variables ??= block.Variables;
             var converted = ConvertBlockVariablesForLocalization(variables);
             return Loc.GetPrototypeString(block.ProtoID, "Name", ("variables", converted));
         }
 
-        public static string FormatBlockDescription(VisualAIBlockPrototype blockProto)
+        public static string FormatBlockDescription(VisualAIBlockPrototype blockProto, VisualAIVariableSet? variables = null)
         {
-            var variables = GetBlockVariables(blockProto);
+            variables ??= blockProto.Variables;
             var converted = ConvertBlockVariablesForLocalization(variables);
             return Loc.GetPrototypeString(blockProto, "Name", ("variables", converted));
         }
     }
 
-    public sealed class VisualAIVariable
+    /// <summary>
+    /// A variable that can be configured in the UI.
+    /// Similar to <see cref="BaseConfigMenuUICell"/> but more general in implementation.
+    /// </summary>
+    public interface IDynamicVariable
+    {
+        public object Parent { get; }
+        public Type Type { get; }
+        public object? Value { get; set; }
+    }
+
+    public sealed class VisualAIVariable : IDynamicVariable
     {
         public VisualAIVariable(object parent, PropertyInfo property, VisualAIVariableAttribute attribute)
         {
@@ -102,7 +130,12 @@ namespace OpenNefia.VisualAI.Engine
 
         public object Parent { get; }
         public PropertyInfo Property { get; }
+        public Type Type => Property.PropertyType;
         public VisualAIVariableAttribute Attribute { get; }
-        public object? Value => Property.GetValue(Parent);
+        public object? Value
+        {
+            get => Property.GetValue(Parent);
+            set => Property.SetValue(Parent, value);
+        }
     }
 }

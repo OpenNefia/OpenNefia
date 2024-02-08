@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Utility
 {
-    public enum ComparisonType : byte
+    public enum ComparisonType
     {
         Equal = 0,
         NotEqual = 1,

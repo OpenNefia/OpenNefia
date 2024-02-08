@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -196,6 +198,22 @@ namespace OpenNefia.VisualAI.Engine
             return errors.Count == 0;
         }
 
+        public VisualAIBlock? AddBlock(PrototypeId<VisualAIBlockPrototype> blockID) => AddBlock(blockID, out _);
+        public VisualAIBlock? AddBlock(PrototypeId<VisualAIBlockPrototype> blockID, [NotNullWhen(false)] out string? error)
+        {
+            var proto = IoCManager.Resolve<IPrototypeManager>().Index(blockID);
+            return AddBlock(proto, out error);
+        }
+
+        public VisualAIBlock? AddBlock(VisualAIBlockPrototype blockProto) => AddBlock(blockProto, out _);
+        public VisualAIBlock? AddBlock(VisualAIBlockPrototype blockProto, [NotNullWhen(false)] out string? error)
+        {
+            var block = VisualAIHelpers.CreateBlockFromPrototype(blockProto, null);
+            if (!AddBlock(block, out error))
+                return null;
+            return block;
+        }
+
         public bool AddBlock(VisualAIBlock block, [NotNullWhen(false)] out string? error)
         {
             if (!CanAddBlock(out error, block))
@@ -228,11 +246,6 @@ namespace OpenNefia.VisualAI.Engine
                 return false;
             }
 
-            void SnipRest()
-            {
-                _blocks.RemoveRange(idx, _blocks.Count - idx);
-            }
-
             var current = CurrentBlock;
             if (block == current
                 && current.Proto.Type == VisualAIBlockType.Condition
@@ -250,7 +263,7 @@ namespace OpenNefia.VisualAI.Engine
                 }
                 else
                 {
-                    SnipRest();
+                    DeleteAllToRight(idx);
                     return AddBlock(newBlock, out error);
                 }
             }
@@ -262,7 +275,7 @@ namespace OpenNefia.VisualAI.Engine
             {
                 if (newBlock.Proto.IsTerminal)
                 {
-                    SnipRest();
+                    DeleteAllToRight(idx);
                     return AddBlock(newBlock, out error);
                 }
                 else
@@ -330,6 +343,15 @@ namespace OpenNefia.VisualAI.Engine
             return right;
         }
 
+        private void DeleteAllToRight(int idx)
+        {
+            for (var i = _blocks.Count - idx; i >= idx - 1; i--)
+            {
+                if (idx >= 0 && idx < _blocks.Count)
+                    RemoveBlock(_blocks[idx], BranchTarget.TrueBranch);
+            }
+        }
+
         public bool InsertBlockBefore(VisualAIBlock targetBlock, VisualAIBlock newBlock, [NotNullWhen(false)] out string? error, BranchTarget splitType = BranchTarget.TrueBranch)
         {
             var idx = _blocks.IndexOf(targetBlock);
@@ -337,11 +359,6 @@ namespace OpenNefia.VisualAI.Engine
             {
                 error = $"No block {targetBlock} exists in this plan.";
                 return false;
-            }
-
-            void SnipRest()
-            {
-                _blocks.RemoveRange(idx, _blocks.Count - idx);
             }
 
             if (newBlock.Proto.Type == VisualAIBlockType.Condition)
@@ -367,7 +384,7 @@ namespace OpenNefia.VisualAI.Engine
             {
                 if (newBlock.Proto.IsTerminal)
                 {
-                    SnipRest();
+                    DeleteAllToRight(idx);
                     return AddBlock(newBlock, out error);
                 }
                 else
@@ -404,10 +421,10 @@ namespace OpenNefia.VisualAI.Engine
                         toMerge = SubplanFalseBranch;
                         break;
                 }
-            }
 
-            SubplanTrueBranch = null;
-            SubplanFalseBranch = null;
+                SubplanTrueBranch = null;
+                SubplanFalseBranch = null;
+            }
 
             _blocks.RemoveAt(idx);
 
@@ -441,6 +458,13 @@ namespace OpenNefia.VisualAI.Engine
             var temp = SubplanTrueBranch;
             SubplanTrueBranch = SubplanFalseBranch;
             SubplanFalseBranch = temp;
+        }
+
+        public void Clear()
+        {
+            _blocks.Clear();
+            SubplanTrueBranch = null;
+            SubplanFalseBranch = null;
         }
     }
 }

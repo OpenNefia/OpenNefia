@@ -9,6 +9,11 @@ namespace OpenNefia.VisualAI.UserInterface
     public sealed class VisualAIBlockIcon : UiElement
     {
         private IAssetInstance? _assetIcon;
+        public PrototypeId<AssetPrototype>? Icon
+        {
+            get => _assetIcon?.Asset.GetStrongID();
+            set => _assetIcon = value != null ? Assets.Get(value.Value) : null;
+        }
 
         public float BorderSize { get; set; } = 1;
         public float Padding { get; set; } = DefaultPadding;
@@ -20,9 +25,9 @@ namespace OpenNefia.VisualAI.UserInterface
 
         public Vector2 SizeWithoutPadding => Size - Padding * 2;
 
-        public VisualAIBlockIcon(PrototypeId<AssetPrototype>? icon, Color color, bool isSelected = true, float padding = DefaultPadding, float borderSize = 1)
+        public VisualAIBlockIcon(PrototypeId<AssetPrototype>? icon = null, Color? color = null, bool isSelected = true, float padding = DefaultPadding, float borderSize = 1)
         {
-            Color = color;
+            Color = color ?? Color.White;
             _assetIcon = icon != null ? Assets.Get(icon.Value) : null;
             IsSelected = isSelected;
             Padding = padding;
