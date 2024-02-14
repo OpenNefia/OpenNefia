@@ -109,6 +109,11 @@ namespace OpenNefia.Core.Utility
             return Enum.ToObject(enumType, raw);
         }
 
+        public static T Clamp<T>(T val) where T : Enum
+        {
+            return Clamp<T>(val, MinValue<T>(), MaxValue<T>());
+        }
+
         public static T Clamp<T>(T val, T min, T max) where T : Enum
         {
             return (T)Enum.ToObject(typeof(T), int.Clamp(Convert.ToInt32(val), Convert.ToInt32(min), Convert.ToInt32(max)));

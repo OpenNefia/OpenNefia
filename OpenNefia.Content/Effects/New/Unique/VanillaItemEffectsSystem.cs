@@ -170,7 +170,11 @@ namespace OpenNefia.Content.Effects.New.Unique
 
                 var oldItemName = _displayNames.GetDisplayName(targetItem, amount: 1);
 
-                var newMaterial = _materials.PickRandomMaterialIDRaw(damage / 10, EnumHelpers.Clamp<Quality>((Quality)damage / 100), material, targetItem);
+                var quality = EnumHelpers.Clamp<Quality>((Quality)(damage / 100));
+
+                var newMaterial = _materials.PickRandomMaterialIDRaw(damage / 10, quality, material, targetItem);
+
+                return true; // TODO
             }
         }
 

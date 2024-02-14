@@ -313,7 +313,7 @@ namespace OpenNefia.Content.Effects.New.Unique
                 return;
 
             var context = new InventoryContext(args.InnerTarget.Value,
-                new MatchComponentsInventoryBehavior(new Type[] { typeof(ChargeableComponent) }, InventoryIcon.Zap));
+                new MatchComponentsInventoryBehavior(new Type[] { typeof(ChargeableComponent) }, icon: InventoryIcon.Zap));
             var result = _uiManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
 
             if (!result.HasValue || !IsAlive(result.Value.SelectedItem))

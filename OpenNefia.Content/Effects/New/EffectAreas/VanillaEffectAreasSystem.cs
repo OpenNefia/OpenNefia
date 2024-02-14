@@ -278,6 +278,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var obvious = false;
             var didSomething = false;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             for (var i = 0; i < BoltMaxTiles; i++)
             {
                 var offset = offsets[i % offsets.Count];
@@ -347,6 +348,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var obvious = false;
             var didSomething = false;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             for (var i = 0; i < positions.Count; i++)
             {
                 var curPosMap = positions[i];
@@ -464,6 +466,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var obvious = false;
             var didSomething = false;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             for (var i = 0; i < positions.Count; i++)
             {
                 var curPosMap = positions[i];
@@ -538,6 +541,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var didSomething = false;
             var i = 0;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             foreach (var curPosMap in positions)
             {
                 if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
@@ -619,6 +623,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
             var didSomething = false;
             var i = 0;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             foreach (var curPosMap in positions)
             {
                 if (ApplyEffectTileDamage(uid, args.Source, curPosMap, args.Args, positions.Count, i))
@@ -663,6 +668,7 @@ namespace OpenNefia.Content.Effects.New.EffectAreas
 
             var tileCount = args.TargetMap.Width * args.TargetMap.Height;
 
+            // TODO move to shared routine, apply animation inside ApplyEffectAreaEvent
             foreach (var tile in args.TargetMap.AllTiles)
             {
                 var curPosMap = tile.MapPosition;
