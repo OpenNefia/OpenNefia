@@ -785,6 +785,7 @@ namespace OpenNefia.Content.Repl
         public float Padding { get; set; } = 5f;
         public float BorderPadding { get; set; } = 4f;
         public int MaxDisplayedEntries { get; set; } = 10;
+        public int MaxTotalEntries { get; set; } = 100;
         public bool IsOpen { get; set; }
         public bool IsVisible { get => IsOpen && FilteredView.Count > 0; }
 
@@ -921,6 +922,10 @@ namespace OpenNefia.Content.Repl
                 if (entry.Completion.Item.DisplayText == previouslySelectedItem?.Completion.Item.DisplayText)
                 {
                     selectedIndex = filtered.Count - 1;
+                }
+                if (filtered.Count > MaxTotalEntries)
+                {
+                    break;
                 }
             }
             if (selectedIndex == -1 || previouslySelectedItem == null || !Matches(previouslySelectedItem!.Completion, input))
