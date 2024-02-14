@@ -1,7 +1,8 @@
 {
   "profiles": {
     "OpenNefia.EntryPoint": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "nativeDebugging": false
     }
   }
 }

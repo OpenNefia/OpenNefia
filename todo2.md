@@ -143,6 +143,9 @@
   + so if all the flags on the component are equal to their defaults after refreshing, the component is "garbage collectable" and can be removed, saving some memory
   + therefore there could be a flag added to `IComponentRefreshable` that enables this behavior
   + either that, or determine a better convention for "capability" components versus "flag-only/GCable" components
+- [ ] tags as saved entity queries
+  + instead of specifying both `WeaponComponent` and a `Elona.ItemCatEquipMelee` tag, `Elona.ItemCatEquipMelee` can be redefined as something like an `EntityQueryPrototype` that returns all entities with a `WeaponComponent`
+  + reduces duplication/errors in prototypes while preserving the flexibility of the `IEntityGen` interfaces
 - [ ] remaining TODOs
 
 ## debug

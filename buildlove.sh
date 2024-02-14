@@ -3,8 +3,8 @@
 set -e
 
 pushd Thirdparty/love/
-cmake -H. -Bbuild
-cmake --build build -- -j4
+cmake -S. -Bbuild
+cmake --build build --parallel 8
 popd
 
 mkdir -p Thirdparty/Love2dCS/native_lib/usr/lib/
