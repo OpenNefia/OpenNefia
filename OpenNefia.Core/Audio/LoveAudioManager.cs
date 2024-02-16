@@ -83,7 +83,6 @@ namespace OpenNefia.Core.Audio
                 var source = _playingSources[i];
                 if (!source.Source.IsPlaying())
                 {
-                    source.Source.Dispose();
                     _playingSources.RemoveAt(i);
                     i--;
                 }
@@ -95,7 +94,6 @@ namespace OpenNefia.Core.Audio
             foreach (var source in _playingSources)
             {
                 Love.Audio.Stop(source.Source);
-                source.Source.Dispose();
             }
             _playingSources.Clear();
 
@@ -212,7 +210,6 @@ namespace OpenNefia.Core.Audio
                 return;
 
             Love.Audio.Stop(source.Source);
-            source.Source.Dispose();
             _loopingSources.Remove(tag);
         }
 

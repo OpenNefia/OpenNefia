@@ -146,7 +146,6 @@ namespace OpenNefia.Core.Audio
             if (_streamPlayback != null)
             {
                 Love.Audio.Stop(_streamPlayback);
-                _streamPlayback.Dispose();
             }
 
             _midiPlayback = null;

@@ -136,11 +136,5 @@ namespace OpenNefia.Content.UI.Element.Containers
             }
             _entries.Clear();
         }
-
-        public override void Dispose()
-        {
-            Clear();
-            base.Dispose();
-        }
     }
 }

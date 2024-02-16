@@ -607,7 +607,6 @@ namespace OpenNefia.Content.Repl
 
             foreach (var text in TextScrollback)
             {
-                text.Dispose();
                 RemoveChild(text);
             }
             TextScrollback = new UiText[MaxLines];
@@ -764,18 +763,6 @@ namespace OpenNefia.Content.Repl
 
             _completionsPane.Draw();
         }
-
-        public override void Dispose()
-        {
-            TextCaret.Dispose();
-            TextEditingLine.Dispose();
-            TextScrollbackCounter.Dispose();
-            foreach (var text in TextScrollback)
-            {
-                text.Dispose();
-            }
-            _completionsPane.Dispose();
-        }
     }
 
     public delegate IReadOnlyCollection<CompletionItemWithDescription> CompletionCallback(string input, int caret);
@@ -829,8 +816,6 @@ namespace OpenNefia.Content.Repl
 
         private void Clear()
         {
-            foreach (var item in Entries)
-                item.Text.Dispose();
             Entries.Clear();
             FilteredView = new SlidingArrayWindow<CompletionPaneEntry>();
             _lastInput = string.Empty;

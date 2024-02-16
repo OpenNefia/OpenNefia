@@ -130,11 +130,5 @@ namespace OpenNefia.Core.ViewVariables
             BottomContainer.Visible = !BottomContainer.Visible;
             args.Handle();
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _bottomLabel.Dispose();
-        }
     }
 }

@@ -81,22 +81,19 @@ namespace OpenNefia.Content.UI.Element
                         sideParts.Add(new AssetBatchPart(TopBarName, y * mboxPixelWidth, 0));
                     }
 
-                    SideBatch?.Dispose();
-                    SideBatch = AssetMessageWindow.MakeBatch(sideParts);
+                    SideBatch = AssetMessageWindow.MakeSpriteBatch(sideParts);
 
                     var corner = new List<AssetBatchPart>
                     {
                         new AssetBatchPart(CornerName, 0, 0)
                     };
 
-                    CornerBatch?.Dispose();
-                    CornerBatch = AssetMessageWindow.MakeBatch(corner);
+                    CornerBatch = AssetMessageWindow.MakeSpriteBatch(corner);
 
                     break;
             }
 
-            Batch?.Dispose();
-            Batch = AssetMessageWindow.MakeBatch(parts);
+            Batch = AssetMessageWindow.MakeSpriteBatch(parts);
         }
 
         public override void Draw()

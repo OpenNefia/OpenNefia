@@ -119,11 +119,5 @@ namespace OpenNefia.Content.CharaAppearance
             base.Update(dt);
             AppearanceControl.Update(dt);
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            AppearanceControl.Dispose();
-        }
     }
 }

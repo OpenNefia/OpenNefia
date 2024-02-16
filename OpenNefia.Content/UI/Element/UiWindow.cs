@@ -168,14 +168,5 @@ namespace OpenNefia.Content.UI.Element
 
             TextKeyHint.Draw();
         }
-
-        public override void Dispose()
-        {
-            TextTitle?.Dispose();
-            TextKeyHint.Dispose();
-            Window.Dispose();
-            WindowShadow.Dispose();
-            TopicWindow.Dispose();
-        }
     }
 }

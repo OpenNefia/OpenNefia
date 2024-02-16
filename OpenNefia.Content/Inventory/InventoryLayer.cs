@@ -131,12 +131,6 @@ namespace OpenNefia.Content.Inventory
             {
                 UiText.Color = InventoryHelpers.GetItemTextColor(Data.ItemEntityUid, entityManager);
             }
-
-            public override void Dispose()
-            {
-                base.Dispose();
-                UiSubtext.Dispose();
-            }
         }
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -535,28 +529,6 @@ namespace OpenNefia.Content.Inventory
                 AssetGoldCoin.Draw();
                 TextGoldCount.Draw();
             }
-        }
-
-        public override void Dispose()
-        {
-            Window.Dispose();
-
-            AssetDecoInvA.Dispose();
-            AssetDecoInvB.Dispose();
-            AssetDecoInvC.Dispose();
-            AssetDecoInvD.Dispose();
-
-            CurrentIcon?.Dispose();
-
-            TextTopicItemName.Dispose();
-            TextTopicItemDetail.Dispose();
-            TextNoteTotalWeight.Dispose();
-
-            List.Dispose();
-            _itemSpriteBatch.Dispose();
-
-            AssetGoldCoin.Dispose();
-            TextGoldCount.Dispose();
         }
     }
 }

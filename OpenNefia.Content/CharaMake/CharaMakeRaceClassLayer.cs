@@ -473,10 +473,5 @@ namespace OpenNefia.Content.CharaMake
             DetailText.Update(dt);
             DetailContainer.Update(dt);
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
     }
 }

@@ -56,7 +56,6 @@ namespace OpenNefia.Core.ViewVariables.Editors
         private void OnListButtonPressed(BaseButton.ButtonEventArgs obj)
         {
             _addWindow?.Dispose();
-
             WindowList();
         }
 

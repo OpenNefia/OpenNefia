@@ -120,10 +120,5 @@ namespace OpenNefia.Content.Rendering
                 _chipBatch.Draw(_coords.TileScale, this.ScreenOffset.X, this.ScreenOffset.Y);
             }
         }
-
-        public override void Dispose()
-        {
-            _chipBatch.Dispose();
-        }
     }
 }

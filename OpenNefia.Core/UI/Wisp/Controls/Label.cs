@@ -163,10 +163,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         private void RebakeText()
         {
-            foreach (var text in _splitText)
-            {
-                text.Dispose();
-            }
             _splitText.Clear();
 
             if (_text != null)

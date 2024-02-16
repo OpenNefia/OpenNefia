@@ -23,7 +23,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public IUiListCell<T>? SelectedCell { get; }
 
-        void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true);
+        void SetCells(IEnumerable<UiListCell<T>> items);
         void CreateAndSetCells(IEnumerable<T> items);
     }
 }

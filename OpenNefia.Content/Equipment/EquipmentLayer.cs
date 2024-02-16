@@ -160,15 +160,6 @@ namespace OpenNefia.Content.Equipment
                 if (Data.ItemEntityUid != null)
                     SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12, Y - 14, color: Data.ItemChipColor);
             }
-
-            public override void Dispose()
-            {
-                base.Dispose();
-
-                Icon?.Dispose();
-                TextEquipSlotName.Dispose();
-                TextSubtext.Dispose();
-            }
         }
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -518,20 +509,6 @@ namespace OpenNefia.Content.Equipment
             _spriteBatch.Clear();
             List.Draw();
             _spriteBatch.Draw();
-        }
-
-        public override void Dispose()
-        {
-            Window.Dispose();
-
-            TextTopicCategoryName.Dispose();
-            TextTopicWeight.Dispose();
-            AssetDecoWearA.Dispose();
-            AssetDecoWearA.Dispose();
-            TextNoteEquipStats.Dispose();
-
-            _spriteBatch.Dispose();
-            List.Dispose();
         }
     }
 

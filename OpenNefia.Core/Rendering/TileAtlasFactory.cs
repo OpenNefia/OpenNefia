@@ -228,18 +228,5 @@ namespace OpenNefia.Core.Rendering
             var yaml = _serialization.WriteValue(tileAtlas);
             _resourceCache.UserData.WriteAllYaml(serializedFilepath, yaml.ToYamlNode());
         }
-
-        public void Dispose()
-        {
-            _workCanvas.Dispose();
-
-            foreach (var (sourceImage, batch) in _pendingQuads)
-            {
-                batch.Dispose();
-                sourceImage.Dispose();
-            }
-
-            _pendingQuads.Clear();
-        }
     }
 }

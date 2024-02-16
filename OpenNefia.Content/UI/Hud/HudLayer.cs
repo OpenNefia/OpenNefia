@@ -296,8 +296,6 @@ namespace OpenNefia.Content.UI.Hud
 
         public override void Dispose()
         {
-            HudMessageWindow.Dispose();
-            FpsCounter.Dispose();
             _field.OnScreenRefresh -= RefreshWidgets;
         }
 

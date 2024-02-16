@@ -439,11 +439,5 @@ namespace OpenNefia.Content.ChooseNPC
             _list.Draw();
             _batch.Draw();
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _batch.Dispose();
-        }
     }
 }

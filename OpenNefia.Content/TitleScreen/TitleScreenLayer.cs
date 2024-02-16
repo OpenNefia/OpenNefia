@@ -92,12 +92,6 @@ namespace OpenNefia.Content.TitleScreen
                 UiText.Update(dt);
                 TextSubtext.Update(dt);
             }
-
-            public override void Dispose()
-            {
-                base.Dispose();
-                TextSubtext.Dispose();
-            }
         }
 
         private FontSpec FontTitleText = UiFonts.TitleScreenText;
@@ -255,17 +249,6 @@ namespace OpenNefia.Content.TitleScreen
                                    Window.Y + Window.Height / 2 - bgPicHeight / 2,
                                    bgPicWidth,
                                    bgPicHeight);
-        }
-
-        public override void Dispose()
-        {
-            foreach (var text in TextInfo)
-            {
-                text.Dispose();
-            }
-            TextQuickStart.Dispose();
-            Window.Dispose();
-            List.Dispose();
         }
     }
 }

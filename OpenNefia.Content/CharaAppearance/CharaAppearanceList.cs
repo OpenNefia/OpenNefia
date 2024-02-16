@@ -292,7 +292,7 @@ namespace OpenNefia.Content.CharaAppearance
         public void ChangePage(CharaAppearancePage page)
         {
             var index = SelectedIndex;
-            SetCells(_pages[page], dispose: false);
+            SetCells(_pages[page]);
         }
 
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)

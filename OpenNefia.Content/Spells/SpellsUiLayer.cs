@@ -104,10 +104,5 @@ namespace OpenNefia.Content.Spells
         {
             _inner.Draw();
         }
-
-        public override void Dispose()
-        {
-            _inner.Dispose();
-        }
     }
 }

@@ -48,7 +48,6 @@ namespace OpenNefia.Content.CharaInfo
             else
                 _portraitProto = null;
 
-            _pccDrawable?.Dispose();
             if (_entityManager.TryGetComponent<PCCComponent>(_entity, out var pcc) 
                 && pcc.UsePCC)
             {

@@ -178,11 +178,5 @@ namespace OpenNefia.Content.UI.Element.List
             KeyNameText.Update(dt);
             UiText.Update(dt);
         }
-
-        public override void Dispose()
-        {
-            KeyNameText.Dispose();
-            UiText.Dispose();
-        }
     }
 }

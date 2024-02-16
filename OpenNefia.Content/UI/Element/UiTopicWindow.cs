@@ -107,7 +107,7 @@ namespace OpenNefia.Content.UI.Element
             parts.Add(new AssetBatchPart("bottom_right", PixelWidth - 16, PixelHeight - 16));
 
             AssetTopicWindow = GetTopicWindowAsset(FrameStyle);
-            return AssetTopicWindow.MakeBatch(parts);
+            return AssetTopicWindow.MakeSpriteBatch(parts);
         }
 
         public override void SetSize(float width, float height)
@@ -175,11 +175,6 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 2, Y + 2, Width - 4, Height - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
-        }
-
-        public override void Dispose()
-        {
-            TopicWindowBatch.Dispose();
         }
     }
 }

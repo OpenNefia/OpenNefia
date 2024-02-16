@@ -313,16 +313,5 @@ namespace OpenNefia.Content.Dialog
             TextBody.Draw();
             List.Draw();
         }
-
-        public override void Dispose()
-        {
-            TopicImpress.Dispose();
-            TopicAttract.Dispose();
-            TextSpeakerName.Dispose();
-            TextImpression.Dispose();
-            TextImpression2.Dispose();
-            TextBody.Dispose();
-            List.Dispose();
-        }
     }
 }

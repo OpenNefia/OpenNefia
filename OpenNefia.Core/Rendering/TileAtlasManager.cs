@@ -106,11 +106,6 @@ namespace OpenNefia.Core.Rendering
 
         private void Clear()
         {
-            foreach (var atlas in _atlases.Values)
-            {
-                atlas.Dispose();
-            }
-
             _atlases.Clear();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Maths;
 using Spectre.Console;
+using static OpenNefia.Core.Rendering.AssetInstance;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -7,7 +8,7 @@ namespace OpenNefia.Core.Rendering
     /// Represents one copy of a loaded asset's graphics data, which
     /// can be reused with multiple <see cref="AssetDrawable"/>s.
     /// </summary>
-    public interface IAssetInstance : IDisposable
+    public interface IAssetInstance
     {
         int PixelWidth { get; }
         int PixelHeight { get; }
@@ -23,8 +24,9 @@ namespace OpenNefia.Core.Rendering
         uint CountX { get; }
         uint CountY { get; }
 
-        Love.SpriteBatch MakeBatch(List<AssetInstance.AssetBatchPart> parts, int maxSprites = 2048);
-        Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
+        Love.SpriteBatch MakeSpriteBatch(int maxSprites = 2048, Love.SpriteBatchUsage usage = Love.SpriteBatchUsage.Static);
+        Love.SpriteBatch MakeSpriteBatch(List<AssetBatchPart> parts, int maxSprites = 2048, Love.SpriteBatchUsage usage = Love.SpriteBatchUsage.Static);
+        void UpdateSpriteBatch(Love.SpriteBatch batch, List<AssetBatchPart> parts);
 
         void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void DrawUnscaled(UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
@@ -171,9 +173,8 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public Love.SpriteBatch MakeBatch(List<AssetBatchPart> parts, int maxSprites = 2048)
+        public void UpdateSpriteBatch(Love.SpriteBatch batch, List<AssetBatchPart> parts)
         {
-            var batch = Love.Graphics.NewSpriteBatch(Image, maxSprites, Love.SpriteBatchUsage.Static);
             batch.Clear();
 
             foreach (var part in parts)
@@ -182,13 +183,18 @@ namespace OpenNefia.Core.Rendering
             }
 
             batch.Flush();
-
-            return batch;
         }
 
         public Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage)
         {
             return Love.Graphics.NewSpriteBatch(Image, count, usage);
+        }
+
+        public Love.SpriteBatch MakeSpriteBatch(List<AssetBatchPart> parts, int count, Love.SpriteBatchUsage usage)
+        {
+            var batch = MakeSpriteBatch(count, usage);
+            UpdateSpriteBatch(batch, parts);
+            return batch;
         }
 
         public void DrawUnscaled(UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
@@ -258,17 +264,6 @@ namespace OpenNefia.Core.Rendering
         public void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             Draw(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation, originOffset);
-        }
-
-        public void Dispose()
-        {
-            foreach (var quad in Quads.Values)
-            {
-                quad.Dispose();
-            }
-            Quads.Clear();
-            _tempRegionQuad.Dispose();
-            _parentQuad.Dispose();
         }
     }
 }

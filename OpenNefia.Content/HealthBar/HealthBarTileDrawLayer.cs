@@ -54,9 +54,6 @@ namespace OpenNefia.Content.VanillaAI
             if (Map == null)
                 return;
 
-            foreach (var entry in _entries)
-                entry.Dispose();
-
             _entries.Clear();
 
             foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(Map.Id))

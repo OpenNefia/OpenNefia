@@ -248,11 +248,5 @@ namespace OpenNefia.Content.UI.Layer
             GraphicsEx.SetColor(255, 255, 255, (int)CaretAlpha);
             AssetInputCaret.Draw(UIScale, X + Text.Width + 34, Y + 5);
         }
-
-        public override void Dispose()
-        {
-            Text.Dispose();
-            TopicWindow.Dispose();
-        }
     }
 }

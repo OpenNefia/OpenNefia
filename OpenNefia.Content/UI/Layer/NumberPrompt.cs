@@ -217,11 +217,5 @@ namespace OpenNefia.Content.UI.Layer
 
             Text.Draw();
         }
-
-        public override void Dispose()
-        {
-            TopicWindow.Dispose();
-            Text.Dispose();
-        }
     }
 }

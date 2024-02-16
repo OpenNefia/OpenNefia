@@ -71,10 +71,6 @@ namespace OpenNefia.Content.Rendering
                     screenPos.Y + ScreenOffset.Y);
             }
         }
-
-        public override void Dispose()
-        {
-        }
     }
     // <<<<<<<< shade2/screen.hsp:551 	swbreak ..
 }

@@ -31,10 +31,5 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawImageS(UIScale, InnerTexture, X, Y, Width, Height);
         }
-
-        public override void Dispose()
-        {
-            InnerTexture.Dispose();
-        }
     }
 }

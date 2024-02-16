@@ -179,11 +179,5 @@ namespace OpenNefia.Content.UI.Layer
             Window.Draw();
             List.Draw();
         }
-
-        public override void Dispose()
-        {
-            Window.Dispose();
-            List.Dispose();
-        }
     }
 }

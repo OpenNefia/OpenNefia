@@ -74,10 +74,5 @@ namespace OpenNefia.Content.Journal
         {
             _inner.Draw();
         }
-
-        public override void Dispose()
-        {
-            _inner.Dispose();
-        }
     }
 }

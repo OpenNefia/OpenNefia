@@ -594,7 +594,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 set
                 {
                     _text = value;
-                    BakedText?.Dispose();
                     BakedText = null;
                 }
             }

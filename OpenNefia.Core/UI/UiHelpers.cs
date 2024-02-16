@@ -64,7 +64,7 @@ namespace OpenNefia.Core.UI
             AddChildrenFromAttributesRecursive(child);
         }
 
-        public class UiBarDrawableState : IDisposable
+        public class UiBarDrawableState
         {
             public UiBarDrawableState(IAssetInstance assetInstance, float hpRatio, Vector2 screenPos)
             {
@@ -86,11 +86,6 @@ namespace OpenNefia.Core.UI
             public Love.Quad BarQuad { get; }
 
             public float BarWidth { get; set; }
-
-            public void Dispose()
-            {
-                BarQuad.Dispose();
-            }
         }
 
         private static char[] splitChars = new char[] { ' ', '　' };

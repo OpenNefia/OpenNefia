@@ -72,7 +72,7 @@ namespace OpenNefia.Content.UI.Element
             }
 
             AssetWindow = Assets.GetSized(ProtoId, PixelSize);
-            Batch = AssetWindow.MakeBatch(parts);
+            Batch = AssetWindow.MakeSpriteBatch(parts);
         }
 
         public override void Update(float dt)
@@ -82,11 +82,6 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             GraphicsEx.DrawSpriteBatchS(UIScale, Batch!, X, Y, Width, Height);
-        }
-
-        public override void Dispose()
-        {
-            Batch?.Dispose();
         }
     }
 }

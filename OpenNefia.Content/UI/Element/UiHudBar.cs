@@ -24,8 +24,7 @@ namespace OpenNefia.Content.UI.Element
                 parts.Add(new AssetBatchPart("bar",(x * HudBarWidth), 0));
             }
 
-            Batch?.Dispose();
-            Batch = HudBarAsset.MakeBatch(parts);
+            Batch = HudBarAsset.MakeSpriteBatch(parts, usage: Love.SpriteBatchUsage.Dynamic);
         }
 
         public override void Draw()

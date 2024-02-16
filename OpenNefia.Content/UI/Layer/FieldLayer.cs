@@ -171,10 +171,6 @@ namespace OpenNefia.Content.UI.Layer
             var player = _gameSession.Player!;
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
         }
-
-        public override void Dispose()
-        {
-        }
     }
 
     /// <summary>

@@ -126,12 +126,5 @@ namespace OpenNefia.Content.UI.Element
 
             TextKeyHint.Draw();
         }
-
-        public override void Dispose()
-        {
-            TextKeyHint.Dispose();
-            Scroll.Dispose();
-            ScrollShadow.Dispose();
-        }
     }
 }

@@ -23,7 +23,6 @@ namespace OpenNefia.Core.ResourceManagement
 
         public override void Reload(IResourceCache cache, ResourcePath path, CancellationToken ct = default)
         {
-            _fileData.Dispose();
             _fileData = LoadFileData(cache, path);
         }
 

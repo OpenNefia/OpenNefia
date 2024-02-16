@@ -73,8 +73,7 @@ namespace OpenNefia.Content.EmotionIcon
                 }
             }
 
-            _batch?.Dispose();
-            _batch = _assetEmotionIcons.MakeBatch(parts);
+            _batch = _assetEmotionIcons.MakeSpriteBatch(parts);
         }
 
         public override void Update(float dt)

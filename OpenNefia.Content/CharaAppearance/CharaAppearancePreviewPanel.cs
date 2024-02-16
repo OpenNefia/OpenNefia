@@ -97,13 +97,5 @@ namespace OpenNefia.Content.CharaAppearance
                 _chipBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-
-            _chipBatch.Dispose();
-            _portraitBatch.Dispose();
-        }
     }
 }

@@ -335,9 +335,12 @@ namespace OpenNefia.Core.Graphics
 
         public void SetCursor(CursorShape cursorShape)
         {
+            // BUG (Love2dCS): crashes
+            /*
             var loveCursorType = (Love.SystemCursor)cursorShape;
             var cursor = Love.Mouse.GetSystemCursor(loveCursorType);
             Love.Mouse.SetCursor(cursor);
+            */
         }
 
         string IClipboardManager.GetText()

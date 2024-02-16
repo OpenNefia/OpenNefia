@@ -82,9 +82,5 @@ namespace OpenNefia.Content.Rendering
                     frame2 * p.Rotation);
             }
         }
-
-        public override void Dispose()
-        {
-        }
     }
 }

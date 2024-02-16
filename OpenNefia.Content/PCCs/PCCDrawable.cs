@@ -68,7 +68,6 @@ namespace OpenNefia.Content.PCCs
                 var x = i / 4;
                 var y = i % 4;
 
-                _quads[i]?.Dispose();
                 _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight,
                     PartWidth, PartHeight,
                     SheetWidth, SheetHeight);
@@ -77,8 +76,6 @@ namespace OpenNefia.Content.PCCs
 
         public void RebakeImage(IResourceCache cache)
         {
-            BakedImage?.Dispose();
-
             var canvas = Love.Graphics.NewCanvas(SheetWidth, SheetHeight);
             canvas.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
 
@@ -86,8 +83,6 @@ namespace OpenNefia.Content.PCCs
 
             BakedImage = Love.Graphics.NewImage(canvas.NewImageData());
             BakedImage.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
-
-            canvas.Dispose();
 
             void DoRebake()
             {
@@ -145,15 +140,6 @@ namespace OpenNefia.Content.PCCs
 
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scale, y + offsetY * scale, width * scale, height * scale, centered: centered);
-        }
-
-        public void Dispose()
-        {
-            BakedImage?.Dispose();
-            foreach (var quad in _quads)
-            {
-                quad?.Dispose();
-            }
         }
     }
 }

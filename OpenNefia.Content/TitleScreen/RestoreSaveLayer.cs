@@ -307,15 +307,5 @@ namespace OpenNefia.Content.TitleScreen
                 ScreenshotBox.Draw();
             }
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            foreach (var image in _imageCache.Values)
-            {
-                image.Dispose();
-            }
-            _imageCache.Clear();
-        }
     }
 }

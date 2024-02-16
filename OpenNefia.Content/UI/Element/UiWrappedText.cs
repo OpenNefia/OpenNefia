@@ -58,11 +58,6 @@ namespace OpenNefia.Content.UI.Element
             UiText.Draw();
         }
 
-        public override void Dispose()
-        {
-            UiText.Dispose();
-        }
-
         // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
         private string WordWrap(string str, int pixelWidth)
         {

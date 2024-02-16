@@ -83,10 +83,6 @@ namespace OpenNefia.Content.Rendering
                 screenPos2.X - _coords.TileSize.X / 2 + ScreenOffset.X,
                 screenPos2.Y - _coords.TileSize.Y / 2 + ScreenOffset.Y);
         }
-
-        public override void Dispose()
-        {
-        }
     }
     // <<<<<<<< shade2/screen.hsp:621 	swbreak ...
 }

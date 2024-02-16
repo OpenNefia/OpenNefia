@@ -92,13 +92,6 @@ namespace OpenNefia.Content.Home
                 _itemNameText.Draw();
                 _batch.Add(_item, X + 37, Y + 138, centering: BatchCentering.Centered);
             }
-
-            public override void Dispose()
-            {
-                base.Dispose();
-                _rankText.Dispose();
-                _itemNameText.Dispose();
-            }
         }
 
         public override int? DefaultZOrder => HudLayer.HudZOrder + 10000;
@@ -171,7 +164,6 @@ namespace OpenNefia.Content.Home
             foreach (var cell in _itemCells)
             {
                 RemoveChild(cell);
-                cell.Dispose();
             }
             _itemCells = args.MostValuable.Take(10)
                 .Select((i, place) => new RankItemCell(i.Item.Owner, 
@@ -299,12 +291,6 @@ namespace OpenNefia.Content.Home
                 cell.Draw();
             }
             _batch.Draw();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _batch.Dispose();
         }
     }
 }

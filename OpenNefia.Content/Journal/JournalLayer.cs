@@ -141,9 +141,5 @@ namespace OpenNefia.Content.Journal
                 }
             }
         }
-
-        public override void Dispose()
-        {
-        }
     }
 }

@@ -64,7 +64,6 @@ namespace OpenNefia.Content.UI.Element
 
         private void ReallocateText()
         {
-            BakedText?.Dispose();
             BakedText = Love.Graphics.NewText(Font.LoveFont, _text);
         }
 
@@ -106,12 +105,6 @@ namespace OpenNefia.Content.UI.Element
                     Love.Graphics.Draw(text, x + 1, y);
                     break;
             }
-        }
-
-        public override void Dispose()
-        {
-            BakedText?.Dispose();
-            BakedText = null;
         }
     }
 

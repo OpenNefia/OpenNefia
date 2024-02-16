@@ -143,10 +143,5 @@ namespace OpenNefia.Content.UI.Element
             base.Draw();
             Child?.Draw();
         }
-
-        public override void Dispose()
-        {
-            Child?.Dispose();
-        }
     }
 }

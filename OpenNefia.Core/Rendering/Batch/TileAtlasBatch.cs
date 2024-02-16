@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
         AlignBottom
     }
 
-    public class TileAtlasBatch : IDisposable
+    public class TileAtlasBatch
     {
         private ICoords _coords;
 
@@ -115,11 +115,6 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(color ?? Color.White);
             GraphicsEx.DrawSpriteBatchS(uiScale, _batch, x, y, width, height);
-        }
-
-        public void Dispose()
-        {
-            _batch.Dispose();
         }
     }
 }

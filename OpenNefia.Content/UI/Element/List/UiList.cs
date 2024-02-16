@@ -254,13 +254,11 @@ namespace OpenNefia.Content.UI.Element.List
             HandleActivate(new UiListEventArgs<T>(cell, indexOverall));
         }
 
-        public virtual void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true)
+        public virtual void SetCells(IEnumerable<UiListCell<T>> items)
         {
             var index = SelectedIndex;
             foreach (var cell in AllCells)
             {
-                if (dispose)
-                    cell.Dispose();
                 if (cell.Parent == this)
                     RemoveChild(cell);
             }
@@ -358,14 +356,6 @@ namespace OpenNefia.Content.UI.Element.List
                 {
                     cell.DrawHighlight();
                 }
-            }
-        }
-
-        public override void Dispose()
-        {
-            foreach (var cell in AllCells)
-            {
-                cell.Dispose();
             }
         }
 

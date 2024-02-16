@@ -44,9 +44,6 @@ namespace OpenNefia.Core.Rendering
 
             var image = Love.Graphics.NewImage(canvas.NewImageData());
 
-            quad.Dispose();
-            canvas.Dispose();
-
             return image;
         }
 

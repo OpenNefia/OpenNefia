@@ -144,12 +144,6 @@ namespace OpenNefia.Content.CharaMake
             public void OnFeatSelected(FeatWindow.FeatNameAndDesc.Feat feat)
                 => Layer.AddFeat(feat);
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            FeatWindow.Dispose();
-        }
     }
 }
 

@@ -255,10 +255,5 @@ namespace OpenNefia.Core.Rendering
             }
             _mapDrawables.Draw(); // TODO make into its own tile layer
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
     }
 }

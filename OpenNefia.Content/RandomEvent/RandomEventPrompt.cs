@@ -217,15 +217,5 @@ namespace OpenNefia.Content.UI.Layer
             TextBody.Draw();
             List.Draw();
         }
-
-        public override void Dispose()
-        {
-            Window.Dispose();
-            WindowShadow.Dispose();
-            TextTitle.Dispose();
-            TextBody.Dispose();
-            AssetImage.Dispose();
-            List.Dispose();
-        }
     }
 }

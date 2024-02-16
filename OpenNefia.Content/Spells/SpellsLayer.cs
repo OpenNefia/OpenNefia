@@ -318,9 +318,5 @@ namespace OpenNefia.Content.Spells
             _topicEffect.Draw();
             _list.Draw();
         }
-
-        public override void Dispose()
-        {
-        }
     }
 }

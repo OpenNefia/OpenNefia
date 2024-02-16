@@ -27,7 +27,7 @@ namespace OpenNefia.Core.Rendering
     /// in the map's list of memorized objects.
     /// </summary>
     [ImplicitDataDefinitionForInheritors]
-    public interface IEntityDrawable : IDisposable
+    public interface IEntityDrawable
     {
         void Initialize(IResourceCache cache);
         void Update(float dt);

@@ -128,11 +128,5 @@ namespace OpenNefia.Core.UI.Layer
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, x - barWidth / 2, y + barHeight + 4, barWidth, barHeight);
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, x - barWidth / 2, y + barHeight + 4, (int)(barWidth * _currentOperation.Progress), barHeight);
         }
-
-        public override void Dispose()
-        {
-            LoadingText.Dispose();
-            StatusText.Dispose();
-        }
     }
 }

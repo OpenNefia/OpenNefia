@@ -126,10 +126,5 @@ namespace OpenNefia.Content.UI.Layer
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, X + 30, Y + Height / 2 - 10, Width - 60, 20);
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 30, Y + Height / 2 - 10, (int)((Width - 60) * ProgressPercent), 20);
         }
-
-        public override void Dispose()
-        {
-            Window.Dispose();
-        }
     }
 }

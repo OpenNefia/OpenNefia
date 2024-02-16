@@ -165,10 +165,6 @@ namespace OpenNefia.Content.Rendering
                 }
             }
         }
-
-        public override void Dispose()
-        {
-        }
     }
     // <<<<<<<< shade2/screen.hsp:621 	swbreak ...
 }
