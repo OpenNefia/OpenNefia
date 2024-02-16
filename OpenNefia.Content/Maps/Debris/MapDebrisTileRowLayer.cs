@@ -35,6 +35,12 @@ namespace OpenNefia.Content.Maps.Debris
             base.SetMap(map);
             _bloodBatches = new Love.SpriteBatch[map.Height];
             _fragmentBatches = new Love.SpriteBatch[map.Height];
+
+            for (var y = 0; y < map.Height; y++)
+            {
+                _bloodBatches[y] = _bloodAsset.MakeSpriteBatch(usage: Love.SpriteBatchUsage.Dynamic);
+                _fragmentBatches[y] = _fragmentAsset.MakeSpriteBatch(usage: Love.SpriteBatchUsage.Dynamic);
+            }
         }
 
         public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
@@ -78,20 +84,6 @@ namespace OpenNefia.Content.Maps.Debris
             if (Map == null || !EntityManager.TryGetComponent<MapDebrisComponent>(Map.MapEntityUid, out var mapDebris))
                 return;
 
-            foreach (var batch in _bloodBatches)
-            {
-                if (batch != null)
-                    batch.Dispose();
-            }
-            foreach (var batch in _fragmentBatches)
-            {
-                if (batch != null)
-                    batch.Dispose();
-            }
-
-            _bloodBatches = new Love.SpriteBatch[Map.Height];
-            _fragmentBatches = new Love.SpriteBatch[Map.Height];
-
             var bloodParts = new List<AssetBatchPart>();
             var fragmentParts = new List<AssetBatchPart>();
 
@@ -115,8 +107,8 @@ namespace OpenNefia.Content.Maps.Debris
                     }
                 }
 
-                _bloodBatches[y] = _bloodAsset.MakeBatch(bloodParts);
-                _fragmentBatches[y] = _fragmentAsset.MakeBatch(fragmentParts);
+                _bloodAsset.UpdateSpriteBatch(_bloodBatches[y], bloodParts);
+                _fragmentAsset.UpdateSpriteBatch(_fragmentBatches[y], fragmentParts);
             }
         }
 
