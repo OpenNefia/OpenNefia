@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Hud;
+﻿using Microsoft.Extensions.ObjectPool;
+using OpenNefia.Content.Hud;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Core.Configuration;
@@ -92,6 +93,10 @@ namespace OpenNefia.Content.UI.Hud
         {
             public bool ChangeOpacity { get; set; }
 
+            public MessageText() : base(UiFonts.MessageText, string.Empty)
+            {
+            }
+
             public MessageText(string text, bool changeOpacity = true) : base(UiFonts.MessageText, text)
             {
                 ChangeOpacity = changeOpacity;
@@ -149,12 +154,38 @@ namespace OpenNefia.Content.UI.Hud
             return cont;
         }
 
+        private ObjectPool<MessageText> _messagePool = new DefaultObjectPool<MessageText>(new DefaultPooledObjectPolicy<MessageText>());
+
         private void RelayoutText()
         {
             var lines = new List<MessageContainer>();
             var currentLine = GetMessageLine(false);
             Color currentColor = Color.White;
             var totalWidth = 0f;
+
+            foreach (var container in MessageBoxContainer.Children.Cast<MessageContainer>())
+            {
+                foreach (var entry in container.Entries)
+                {
+                    if (entry.Element is MessageText messageText)
+                    {
+                        _messagePool.Return(messageText);
+                    }
+                }
+            }
+            foreach (var container in BacklogContainer.Children.Cast<MessageContainer>())
+            {
+                foreach (var entry in container.Entries)
+                {
+                    if (entry.Element is MessageText messageText)
+                    {
+                        _messagePool.Return(messageText);
+                    }
+                }
+            }
+
+            MessageBoxContainer.Clear();
+            BacklogContainer.Clear();
 
             foreach (var message in Messages.Reverse())
             {
@@ -181,7 +212,10 @@ namespace OpenNefia.Content.UI.Hud
                                 var wordWidth = UiFonts.MessageText.LoveFont.GetWidthV(UIScale, word);
                                 if (totalWidth + wordWidth > Width)
                                 {
-                                    currentLine.AddElement(new MessageText(sb.ToString().TrimStart()) { Color = currentColor });
+                                    var text = _messagePool.Get();
+                                    text.Text = sb.ToString().TrimStart();
+                                    text.Color = currentColor;
+                                    currentLine.AddElement(text);
                                     lines.Add(currentLine);
                                     currentLine = GetMessageLine(false);
                                     totalWidth = 0;
@@ -190,7 +224,10 @@ namespace OpenNefia.Content.UI.Hud
                                 sb.Append(word);
                                 totalWidth += wordWidth;
                             }
-                            currentLine.AddElement(new MessageText($"{sb.ToString().TrimStart()}{Loc.Space}") { Color = currentColor });
+                            var text2 = _messagePool.Get();
+                            text2.Text = $"{sb.ToString().TrimStart()}{Loc.Space}";
+                            text2.Color = currentColor;
+                            currentLine.AddElement(text2);
                             break;
 
                         case IconMessageTag icon:
@@ -201,8 +238,6 @@ namespace OpenNefia.Content.UI.Hud
             }
 
             lines.Add(currentLine);
-            MessageBoxContainer.Clear();
-            BacklogContainer.Clear();
 
             var emptyLine = new MessageContainer();
             emptyLine.AddElement(new UiText(UiFonts.MessageText));

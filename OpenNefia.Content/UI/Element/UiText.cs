@@ -45,6 +45,7 @@ namespace OpenNefia.Content.UI.Element
         public Color Color { get; set; }
         public Color BgColor { get; set; }
 
+        public UiText() : this(new FontSpec(), string.Empty) { }
         public UiText(string text = "") : this(new FontSpec(), text) { }
 
         public UiText(FontSpec font, string text = "")
@@ -110,6 +111,7 @@ namespace OpenNefia.Content.UI.Element
 
     public class UiTextOutlined : UiText
     {
+        public UiTextOutlined() : base(string.Empty) { }
         public UiTextOutlined(string text = "") : base(text) { }
         public UiTextOutlined(FontSpec font, string text = "") : base(font, text) { }
 
@@ -127,6 +129,7 @@ namespace OpenNefia.Content.UI.Element
 
     public class UiTextShadowed : UiText
     {
+        public UiTextShadowed() : base(string.Empty) { }
         public UiTextShadowed(string text = "") : base(text) { }
         public UiTextShadowed(FontSpec font, string text = "") : base(font, text) { }
 

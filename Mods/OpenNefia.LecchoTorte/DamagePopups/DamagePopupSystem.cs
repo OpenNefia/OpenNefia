@@ -111,7 +111,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
 
         private void DamagePopup_AfterPhysicalAttackMiss(EntityUid uid, AfterPhysicalAttackMissEventArgs args)
         {
-            if (!_vis.IsInWindowFov(uid))
+            if (!_vis.IsInWindowFov(args.Target))
                 return;
 
             if (args.HitResult == HitResult.Evade)
@@ -119,7 +119,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                 AddDamagePopup(new DamagePopup()
                 {
                     Text = "evade!!"
-                }, uid);
+                }, args.Target);
             }
             else
             {
@@ -127,7 +127,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                 AddDamagePopup(new DamagePopup()
                 {
                     Text = "miss"
-                }, uid);
+                }, args.Target);
             }
         }
 

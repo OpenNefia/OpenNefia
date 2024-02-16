@@ -16,6 +16,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Utility;
+using Microsoft.Extensions.ObjectPool;
 
 namespace OpenNefia.LecchoTorte.DamagePopups
 {
@@ -44,6 +45,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
         private const int MaxDamagePopups = 20;
         private Queue<DamagePopupInstance> _popups = new();
         private Dictionary<EntityUid, Queue<DamagePopupInstance>> _popupsPerEntity = new();
+        private ObjectPool<UiTextShadowed> _textPool = new DefaultObjectPool<UiTextShadowed>(new DefaultPooledObjectPolicy<UiTextShadowed>());
 
         private sealed class DamagePopupInstance
         {
@@ -51,7 +53,7 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             public Vector2 ScreenPosition { get; set; }
             public EntityUid? Entity { get; set; }
             public float Frame { get; set; }
-            public UiText UiText { get; set; } = new();
+            public UiTextShadowed UiText { get; set; } = new();
             public int YOffset { get; set; }
         }
 
@@ -68,12 +70,16 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             if (_popups.Count > MaxDamagePopups)
                 _popups.Dequeue();
 
+            var text = _textPool.Get();
+            text.Font = popup.Font;
+            text.Text = popup.Text;
+
             _popups.Enqueue(new DamagePopupInstance()
             {
                 DamagePopup = popup,
                 ScreenPosition = (_coords.TileToScreen(coords.Position) - (0, _coords.TileSize.Y / 2)) * _coords.TileScale,
                 Frame = 0f,
-                UiText = new UiTextShadowed(popup.Font, popup.Text)
+                UiText = text
             });
         }
 
@@ -86,19 +92,26 @@ namespace OpenNefia.LecchoTorte.DamagePopups
                 return;
 
             if (_popups.Count > MaxDamagePopups)
-                _popups.Dequeue();
+            {
+                var toRemove = _popups.Dequeue();
+                _textPool.Return(toRemove.UiText);
+            }
 
             foreach (var popupInst in _popups)
             {
                 popupInst.ScreenPosition = (popupInst.ScreenPosition.X, popupInst.ScreenPosition.Y - popupInst.DamagePopup.Font.Size * _coords.TileScale);
             }
 
+            var text = _textPool.Get();
+            text.Font = popup.Font;
+            text.Text = popup.Text;
+
             var popupInstance = new DamagePopupInstance()
             {
                 DamagePopup = popup,
                 ScreenPosition = (_coords.TileToScreen(coords.Position) - (0, _coords.TileSize.Y / 2)) * _coords.TileScale,
                 Frame = 0f,
-                UiText = new UiTextShadowed(popup.Font, popup.Text),
+                UiText = text,
                 Entity = uid
             };
             _popups.Enqueue(popupInstance);
@@ -127,10 +140,10 @@ namespace OpenNefia.LecchoTorte.DamagePopups
             while (_popups.TryPeek(out var popup) && popup.Frame > MaxFrame)
             {
                 var instance = _popups.Dequeue();
+                _textPool.Return(instance.UiText);
                 if (instance.Entity != null)
                 {
                     var perEntity = _popupsPerEntity[instance.Entity.Value];
-                    perEntity.Dequeue();
                     foreach (var other in perEntity)
                     {
                         other.YOffset--;
