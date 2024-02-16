@@ -49,5 +49,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             _tileBatch.Add(UIScale, Tile.Image.AtlasIndex, 0, 0, _coords.TileSize.X, _coords.TileSize.Y, Color.White);
             _tileBatch.Draw(UIScale, GlobalX, GlobalY);
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _tileBatch.Dispose();
+        }
     }
 }

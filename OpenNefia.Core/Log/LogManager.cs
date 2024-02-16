@@ -80,6 +80,8 @@ namespace OpenNefia.Core.Log
             {
                 p.Dispose();
             }
+            rootSawmill.Dispose();
+            _sawmillsLock.Dispose();
         }
     }
 }

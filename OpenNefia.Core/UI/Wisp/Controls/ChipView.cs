@@ -54,5 +54,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, chipSize.X, chipSize.Y, Color);
             _chipBatch.Draw(UIScale, GlobalX, GlobalY);
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _chipBatch?.Dispose();
+        }
     }
 }

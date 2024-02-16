@@ -69,6 +69,13 @@ namespace OpenNefia.Core.ResourceManagement
             return null;
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _image.Dispose();
+            _imageData.Dispose();
+        }
+
         // TODO: Due to a bug in Roslyn, NotNullIfNotNullAttribute doesn't work.
         // So this can't work with both nullables and non-nullables at the same time.
         // I decided to only have it work with non-nullables as such.

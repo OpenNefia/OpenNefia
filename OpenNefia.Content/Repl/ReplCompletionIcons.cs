@@ -42,7 +42,7 @@ namespace OpenNefia.Content.Repl
         #pragma warning restore format
     }
 
-    internal class ReplCompletionIcons : IDisposable
+    internal class ReplCompletionIcons
     {
         private static IAssetManager _assets => IoCManager.Resolve<IAssetManager>();
 
@@ -100,12 +100,6 @@ namespace OpenNefia.Content.Repl
             }
 
             return _assets.GetAsset(ReplIconsProtos.ReplCompletionIcon_Misc);
-        }
-
-        public void Dispose()
-        {
-            foreach (var drawable in Drawables.Values)
-                drawable.Dispose();
         }
     }
 }

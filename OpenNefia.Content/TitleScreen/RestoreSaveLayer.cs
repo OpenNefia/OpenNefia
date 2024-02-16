@@ -310,13 +310,7 @@ namespace OpenNefia.Content.TitleScreen
 
         public override void Dispose()
         {
-            Window.Dispose();
-            Caption.Dispose();
-            TextTopicSaveName.Dispose();
-            TextTopicSaveDate.Dispose();
-            List.Dispose();
-            TextNoSaves.Dispose();
-            AssetNoScreenshot.Dispose();
+            base.Dispose();
             foreach (var image in _imageCache.Values)
             {
                 image.Dispose();

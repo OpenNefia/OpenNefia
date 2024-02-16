@@ -7,10 +7,14 @@ param(
     [switch] $Clean = $false
 )
 
+Write-Host -ForegroundColor green "Building LÖVE2D for $Configuration..."
+
 $ErrorActionPreference="Stop"
 
+$OutputPath = "$PSScriptRoot/Thirdparty/megasource/build/love/$Configuration"
+
 Push-Location $PSScriptRoot/Thirdparty/megasource/
-if ($Clean) {
+if ($Clean -or !(Test-Path $OutputPath)) {
     Remove-Item -Recurse -Force ./build
 }
 if (!(Test-Path ./build)) {

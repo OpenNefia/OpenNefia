@@ -152,7 +152,10 @@ namespace OpenNefia.Content.Scene
         {
             var data = _graphics.CaptureCanvasImageData();
             if (data != null)
+            {
+                _crossFadeImage?.Dispose();
                 _crossFadeImage = Love.Graphics.NewImage(data);
+            }
         }
 
         public override void Initialize(Args args)
@@ -531,6 +534,12 @@ namespace OpenNefia.Content.Scene
                 && _state != SceneState.Ending
                 && _state != SceneState.Done)
                 _morePrompt.Draw();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _crossFadeImage?.Dispose();
         }
     }
 }

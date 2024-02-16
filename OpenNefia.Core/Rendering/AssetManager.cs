@@ -56,14 +56,7 @@ namespace OpenNefia.Core.Rendering
 
             var imageSpec = asset.Image;
 
-            if (imageSpec.Region == null)
-            {
-                image = _resourceCache.GetResource<LoveImageResource>(imageSpec.Filepath);
-            }
-            else
-            {
-                image = LoadImageSource(imageSpec);
-            }
+            image = _resourceCache.GetResource<LoveImageResource>(imageSpec.Filepath);
 
             if (imageSpec.Filter != null)
             {

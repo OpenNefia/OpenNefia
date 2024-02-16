@@ -48,7 +48,6 @@ namespace OpenNefia.Content.CharaMake
 
             base.SetSize(width, height);
 
-            AssetCaption?.Dispose();
             AssetCaption = Assets.GetSized(Asset.Caption, PixelSize);
         }
 

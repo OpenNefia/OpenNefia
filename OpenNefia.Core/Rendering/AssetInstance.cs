@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Maths;
+using Spectre.Console;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -27,9 +28,7 @@ namespace OpenNefia.Core.Rendering
 
         void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void DrawUnscaled(UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void DrawRegionUnscaled(UIBox2 quad, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(Love.Quad quad, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void DrawRegionUnscaled(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
         void Draw(float uiScale, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
@@ -90,9 +89,9 @@ namespace OpenNefia.Core.Rendering
         public uint CountX { get; }
         public uint CountY { get; }
 
-        public int PixelWidth { get => Image.GetWidth(); }
-        public int PixelHeight { get => Image.GetHeight(); }
-        public Vector2i PixelSize => new(PixelWidth, PixelHeight);
+        public int PixelWidth => PixelSize.X;
+        public int PixelHeight => PixelSize.Y;
+        public Vector2i PixelSize => _parentRegion.Size;
 
         public Vector2 VirtualSize(float uiScale) => (Vector2)PixelSize / uiScale;
         public Vector2 VirtualSize(float uiScale, string regionID)
@@ -103,7 +102,9 @@ namespace OpenNefia.Core.Rendering
         public float VirtualWidth(float uiScale) => PixelWidth / uiScale;
         public float VirtualHeight(float uiScale) => PixelWidth / uiScale;
 
-        private Love.Quad _assetRegionQuad;
+        private Love.Quad _tempRegionQuad;
+        private UIBox2i _parentRegion;
+        private Love.Quad _parentQuad;
 
         public AssetInstance(AssetPrototype asset, Love.Image image, AssetRegions regions)
         {
@@ -113,7 +114,14 @@ namespace OpenNefia.Core.Rendering
             CountX = Asset.CountX;
             CountY = Asset.CountY;
             _regions = regions;
-            _assetRegionQuad = Love.Graphics.NewQuad(0, 0, 1, 1, Image.GetWidth(), Image.GetHeight());
+            _tempRegionQuad = Love.Graphics.NewQuad(0, 0, 1, 1, Image.GetWidth(), Image.GetHeight());
+
+            if (asset.Image.Region != null)
+                _parentRegion = asset.Image.Region.Value;
+            else
+                _parentRegion = UIBox2i.FromDimensions(0, 0, Image.GetWidth(), Image.GetHeight());
+
+            _parentQuad = Love.Graphics.NewQuad(_parentRegion.Left, _parentRegion.Top, _parentRegion.Width, _parentRegion.Height, Image.GetWidth(), Image.GetHeight());
 
             AddImplicitRegions();
             SetupQuads();
@@ -124,8 +132,8 @@ namespace OpenNefia.Core.Rendering
             var countX = (int)CountX;
             var countY = (int)CountY;
 
-            var imageWidth = Image.GetWidth();
-            var imageHeight = Image.GetHeight();
+            var imageWidth = _parentRegion.Width;
+            var imageHeight = _parentRegion.Height;
 
             if (countX > 1 || countY > 1)
             {
@@ -157,7 +165,9 @@ namespace OpenNefia.Core.Rendering
             {
                 var regionId = pair.Key;
                 var region = pair.Value;
-                Quads[regionId] = Love.Graphics.NewQuad(region.Left, region.Top, region.Width, region.Height, imageWidth, imageHeight);
+                var pos = _parentRegion.TopLeft + region.TopLeft;
+                var size = new Vector2i(int.Clamp(region.Width, 1, int.Max(1, _parentRegion.Width)), int.Clamp(region.Height, 1, int.Max(1, _parentRegion.Height)));
+                Quads[regionId] = Love.Graphics.NewQuad(pos.X, pos.Y, size.X, size.Y, imageWidth, imageHeight);
             }
         }
 
@@ -188,21 +198,23 @@ namespace OpenNefia.Core.Rendering
 
         public void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
-            GraphicsEx.DrawImage(Image, x, y, width, height, centered, rotation, originOffset);
+            GraphicsEx.DrawImage(_parentQuad, Image, x, y, width, height, centered, rotation, originOffset);
         }
 
         public void DrawRegionUnscaled(UIBox2 quad, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
-            _assetRegionQuad.SetViewport(quad);
-            DrawRegionUnscaled(_assetRegionQuad, box, centered, rotation, originOffset);
+            var pos = _parentRegion.TopLeft + quad.TopLeft;
+            var size = new Vector2(float.Min(quad.Width, _parentRegion.Width - pos.X), float.Min(quad.Height, _parentRegion.Height - pos.Y));
+            _tempRegionQuad.SetViewport(UIBox2.FromDimensions(pos, size));
+            DrawRegionUnscaled(_tempRegionQuad, box, centered, rotation, originOffset);
         }
 
-        public void DrawRegionUnscaled(Love.Quad quad, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
+        internal void DrawRegionUnscaled(Love.Quad quad, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             GraphicsEx.DrawImage(quad, Image, box.Left, box.Top, box.Width, box.Height, centered, rotation, originOffset);
         }
 
-        public void DrawRegionUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
+        internal void DrawRegionUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             GraphicsEx.DrawImage(quad, Image, x, y, width, height, centered, rotation, originOffset);
         }
@@ -255,7 +267,8 @@ namespace OpenNefia.Core.Rendering
                 quad.Dispose();
             }
             Quads.Clear();
-            _assetRegionQuad.Dispose();
+            _tempRegionQuad.Dispose();
+            _parentQuad.Dispose();
         }
     }
 }

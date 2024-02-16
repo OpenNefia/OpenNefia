@@ -28,6 +28,8 @@ namespace OpenNefia
         {
             InitIoC(DisplayMode.Love);
 
+            Love.Boot.UseDebugLibs = true;
+
             var options = new GameControllerOptions();
 
             var gc = IoCManager.Resolve<IGameController>();

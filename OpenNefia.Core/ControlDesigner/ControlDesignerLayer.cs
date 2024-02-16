@@ -431,10 +431,5 @@ namespace OpenNefia.Core.ControlDesigner
                 _errorLabel.Text = "Error: " + ex.Message;
             }
         }
-
-        public void Dispose()
-        {
-            _watcher?.Dispose();
-        }
     }
 }
